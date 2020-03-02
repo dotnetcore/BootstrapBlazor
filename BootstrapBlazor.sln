@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor", "src\BootstrapBlazor\BootstrapBlazor.csproj", "{D0AE3016-4878-4807-A04C-C33CBEC7B092}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0AE3016-4878-4807-A04C-C33CBEC7B092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0AE3016-4878-4807-A04C-C33CBEC7B092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0AE3016-4878-4807-A04C-C33CBEC7B092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0AE3016-4878-4807-A04C-C33CBEC7B092}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0AE3016-4878-4807-A04C-C33CBEC7B092} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+	EndGlobalSection
+EndGlobal

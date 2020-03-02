@@ -1,0 +1,13 @@
+﻿<Project>
+
+  <Import Project="..\Directory.Build.props" />
+
+  <PropertyGroup>
+    <PackageProjectUrl>https://gitee.com/LongbowEnterprise/BootstrapBlazor</PackageProjectUrl>
+    <RepositoryUrl>https://gitee.com/LongbowEnterprise/BootstrapBlazor.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Nullable>enable</Nullable>
+    <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
