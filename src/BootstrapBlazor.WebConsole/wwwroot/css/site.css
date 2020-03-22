@@ -119,6 +119,11 @@ section {
                 color: #333;
             }
 
+            .sidebar .nav-link.active {
+                color: #007bff;
+            }
+
+
 .top-item {
     font-size: 1rem;
 }
