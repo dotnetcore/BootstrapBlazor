@@ -1,0 +1,18 @@
+﻿<div class="table-attr d-none d-md-block">
+    <h3>@Title</h3>
+
+    <table>
+        <thead>
+            <tr>@HeaderTemplate</tr>
+        </thead>
+        <tbody>@RowTemplate</tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Attributes";
+
+    [Parameter] public RenderFragment? HeaderTemplate { get; set; }
+
+    [Parameter] public RenderFragment? RowTemplate { get; set; }
+}

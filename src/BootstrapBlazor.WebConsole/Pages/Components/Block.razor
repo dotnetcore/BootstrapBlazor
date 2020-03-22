@@ -1,0 +1,30 @@
+﻿<h3>@Title</h3>
+
+<p>@Introduction</p>
+
+<h4>示例</h4>
+
+<div class="card">
+    <div class="card-body">
+        @CardBodyTemplate
+    </div>
+    <div class="card-footer">
+        <div class="card-footer-code collapse">
+@CodeTemplate
+        </div>
+        <a class="card-footer-control" href="#">
+            <i class="fa fa-caret-down"></i>
+            <span>显示代码</span>
+        </a>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "未设置";
+
+    [Parameter] public string Introduction { get; set; } = "未设置";
+
+    [Parameter] public RenderFragment? CardBodyTemplate { get; set; }
+
+    [Parameter] public RenderFragment? CodeTemplate { get; set; }
+}

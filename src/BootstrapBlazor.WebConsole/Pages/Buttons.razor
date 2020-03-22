@@ -1,0 +1,140 @@
+﻿@page "/buttons"
+
+<Block Title="Button 按钮" Introduction="常用的操作按钮。">
+  <CardBodyTemplate>
+      <div class="form-inline">
+        <div class="row">
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Primary">主要按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Secondary">次要按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Success">成功按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Danger">危险按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Warning">警告按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Info">信息按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Dark">黑暗按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Light">高亮按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Link">链接按钮</Button></div>
+        </div>
+      </div>
+  </CardBodyTemplate>
+  <CodeTemplate>
+    <pre>
+&lt;Button Color="Color.Primary"&gt;主要按钮&lt;/Button&gt;
+&lt;Button Color="Color.Secondary"&gt;次要按钮&lt;/Button&gt;
+&lt;Button Color="Color.Success"&gt;成功按钮&lt;/Button&gt;
+&lt;Button Color="Color.Danger"&gt;危险按钮&lt;/Button&gt;
+&lt;Button Color="Color.Warning"&gt;警告按钮&lt;/Button&gt;
+&lt;Button Color="Color.Info"&gt;信息按钮&lt;/Button&gt;
+&lt;Button Color="Color.Dark"&gt;暗按钮&lt;/Button&gt;
+&lt;Button Color="Color.Light"&gt;亮按钮&lt;/Button&gt;
+&lt;Button Color="Color.Link"&gt;链接按钮&lt;/Button&gt;
+    </pre>
+  </CodeTemplate>
+</Block>
+
+<Block Title="Outline 按钮" Introduction="常用的操作按钮。">
+  <CardBodyTemplate>
+      <div class="form-inline">
+        <div class="row">
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Primary">主要按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Secondary">次要按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Success">成功按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Danger">危险按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Warning">警告按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Info">信息按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Dark">黑暗按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Light">高亮按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Link">链接按钮</Button></div>
+        </div>
+      </div>
+  </CardBodyTemplate>
+  <CodeTemplate>
+    <pre>
+&lt;Button IsOutline="true" Color="Color.Primary"&gt;主要按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Secondary"&gt;次要按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Success"&gt;成功按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Danger"&gt;危险按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Warning"&gt;警告按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Info"&gt;信息按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Dark"&gt;暗按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Light"&gt;亮按钮&lt;/Button&gt;
+&lt;Button IsOutline="true" Color="Color.Link"&gt;链接按钮&lt;/Button&gt;
+    </pre>
+  </CodeTemplate>
+</Block>
+
+<Block Title="不同尺寸" Introduction="Button 组件提供除了默认值以外的多种尺寸，可以在不同场景下选择合适的按钮尺寸。">
+  <CardBodyTemplate>
+      <div class="form-inline">
+        <div class="row">
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.ExtraSmall" Color="Color.Primary">超小按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.Small" Color="Color.Secondary">小按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.None" Color="Color.Info">按钮</Button></div>       
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.Medium" Color="Color.Success">中等按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.Large" Color="Color.Danger">大按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.ExtraLarge" Color="Color.Warning">超大按钮</Button></div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12"><Button IsBlock="true" Color="Color.Primary">Block 按钮</Button></div>
+        </div>
+      </div>
+  </CardBodyTemplate>
+  <CodeTemplate>
+    <pre>
+&lt;Button Size="Size.ExtraSmall" Color="Color.Primary"&gt;超小按钮&lt;/Button&gt;
+&lt;Button Size="Size.Small" Color="Color.Secondary"&gt;小按钮&lt;/Button&gt;
+&lt;Button Size="Size.None" Color="Color.Success"&gt;按钮&lt;/Button&gt;
+&lt;Button Size="Size.Medium" Color="Color.Danger"&gt;中等按钮&lt;/Button&gt;
+&lt;Button Size="Size.Large" Color="Color.Warning"&gt;大按钮&lt;/Button&gt;
+&lt;Button Size="Size.ExtraLarge" Color="Color.Info"&gt;超大按钮&lt;/Button&gt;
+&lt;Button IsBlock="true" Color="Color.Primary"&gt;Block 按钮&lt;/Button&gt;
+    </pre>
+  </CodeTemplate>
+</Block>
+
+<Block Title="禁用状态" Introduction="按钮不可用状态。">
+  <CardBodyTemplate>
+      <div class="form-inline">
+        <div class="row">
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true"  Color="Color.Primary">主要按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Secondary">次要按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Success">成功按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Danger">危险按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Warning">警告按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Info">信息按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Dark">黑暗按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Light">高亮按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Link">链接按钮</Button></div>
+        </div>
+      </div>
+  </CardBodyTemplate>
+  <CodeTemplate>
+    <pre>
+&lt;Button IsDisabled="true" Color="Color.Primary"&gt;主要按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Secondary"&gt;次要按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Success"&gt;成功按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Danger"&gt;危险按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Warning"&gt;警告按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Info"&gt;信息按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Dark"&gt;暗按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Light"&gt;亮按钮&lt;/Button&gt;
+&lt;Button IsDisabled="true" Color="Color.Link"&gt;链接按钮&lt;/Button&gt;
+    </pre>
+  </CodeTemplate>
+</Block>
+
+<Attributes>
+  <HeaderTemplate>
+    <th>参数</th><th>说明</th><th>类型</th><th>可选值</th><th>默认值</th>
+  </HeaderTemplate>
+  <RowTemplate>
+    <tr><td>ButtonType</td><td>类型</td><td>ButtonType</td><td>Button / Submit / Link / Reset / Input</td><td>Button</td></tr>
+    <tr><td>Color</td><td>颜色</td><td>Color</td><td>None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link</td><td>Primary</td></tr>
+    <tr><td>Class</td><td>样式</td><td>string</td><td> — </td><td> — </td></tr>
+    <tr><td>ChildContent</td><td>内容</td><td>RenderFragment</td><td> — </td><td> — </td></tr>
+    <tr><td>IsBlock</td><td>填充</td><td>boolean</td><td> — </td><td>false</td></tr>
+    <tr><td>IsDisabled</td><td>是否禁用</td><td>boolean</td><td> — </td><td>false</td></tr>
+    <tr><td>IsOutline</td><td>是否边框</td><td>boolean</td><td> — </td><td>false</td></tr>
+    <tr><td>Size</td><td>尺寸</td><td>Size</td><td>None / ExtraSmall / Small / Medium / Large / ExtraLarge</td><td>None</td></tr>
+    <tr><td>Value</td><td>值</td><td>string</td><td> — </td><td> — </td></tr>
+  </RowTemplate>
+</Attributes>

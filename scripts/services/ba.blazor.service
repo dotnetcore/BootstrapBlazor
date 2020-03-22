@@ -1,0 +1,15 @@
+[Unit]
+Description=Bootstrap Admin Blazor Application
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/ba/blazor
+Environment=ASPNETCORE_ENVIRONMENT=Production
+ExecStart=/usr/bin/dotnet BootstrapBlazor.WebConsole.dll --urls http://localhost:50853
+ExecStop=/bin/kill -2 $MAINPID
+KillMode=process
+Restart=on-failure
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target

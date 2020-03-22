@@ -1,0 +1,40 @@
+﻿<div class="top-row pl-4 navbar navbar-dark d-flex d-md-none">
+    <a class="navbar-brand" href="">Bootstrap Blazor</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="sidebar-content @NavMenuCssClass" @onclick="ToggleNavMenu">
+    <div class="top-item">
+        <NavLink class="top-link" href="introduction" Match="NavLinkMatch.All">快速入门</NavLink>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <NavLink class="nav-link" href="introduction" Match="NavLinkMatch.All">简介</NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="download" Match="NavLinkMatch.All">下载</NavLink>
+            </li>
+        </ul>
+    </div>
+
+    <div class="top-item">
+        <NavLink class="top-link" href="buttons" Match="NavLinkMatch.All">组件</NavLink>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <NavLink class="nav-link" href="buttons" Match="NavLinkMatch.All">按钮 (Button)</NavLink>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : "";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
