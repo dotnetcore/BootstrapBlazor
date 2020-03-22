@@ -259,6 +259,23 @@ section {
         margin-top: 2rem;
     }
 
+    .content .code-label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .content code {
+        line-height: 1.8;
+        font-size: 0.75rem;
+        padding: 18px 24px;
+        background-color: #fafafa;
+        border: 1px solid #eaeefb;
+        margin-bottom: 25px;
+        border-radius: 4px;
+        -webkit-font-smoothing: auto;
+        display: block;
+    }
+
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
 }
