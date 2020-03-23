@@ -1,4 +1,18 @@
-﻿.btn-xs, .btn-group-xs > .btn {
+﻿button:focus {
+    outline: none;
+}
+
+.alert .close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}
+
+    .alert .close .fa-times {
+        font-size: 0.875rem;
+    }
+
+.btn-xs, .btn-group-xs > .btn {
     border-radius: 0.2rem;
     padding: 0.0625rem 0.3125rem;
     font-size: 0.75rem;    
