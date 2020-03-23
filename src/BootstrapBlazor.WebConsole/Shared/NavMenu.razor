@@ -31,9 +31,6 @@
                 <NavLink class="nav-link" href="buttons" Match="NavLinkMatch.All"><span>按钮</span><span>Buttons</span></NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" href="buttongroup" Match="NavLinkMatch.All"><span>按钮组</span><span>Button Group</span></NavLink>
-            </li>
-            <li class="nav-item">
                 <NavLink class="nav-link" href="radio" Match="NavLinkMatch.All"><span>单选框</span><span>Radio</span></NavLink>
             </li>
             <li class="nav-item">
@@ -95,13 +92,13 @@
 
     private void ToggleNavMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+    collapseNavMenu = !collapseNavMenu;
     }
 
     [Inject] public IJSRuntime? JSRuntime { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
-        JSRuntime?.InvokeVoidAsync("$.addNiceScroll", ".sidebar-content");
+       JSRuntime?.InvokeVoidAsync("$.addNiceScroll", ".sidebar-content");
     }
 }
