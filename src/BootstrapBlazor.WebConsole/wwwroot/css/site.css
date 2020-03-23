@@ -103,6 +103,7 @@ section {
 
     .sidebar .nav-item {
         font-size: 0.875rem;
+        padding-left: 6px;
     }
 
         .sidebar .nav-item a {
@@ -123,6 +124,9 @@ section {
                 color: #007bff;
             }
 
+            .sidebar .nav-link span:first-child {
+                width: 70px;
+            }
 
 .top-item {
     font-size: 1rem;
