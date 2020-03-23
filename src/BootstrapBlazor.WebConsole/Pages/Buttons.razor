@@ -4,7 +4,7 @@
   <CardBodyTemplate>
       <div class="form-inline">
         <div class="row">
-          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Primary">主要按钮</Button></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Primary" @onclick="OnClick">主要按钮</Button></div>
           <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Secondary">次要按钮</Button></div>
           <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Success">成功按钮</Button></div>
           <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Danger">危险按钮</Button></div>
@@ -138,3 +138,10 @@
     <tr><td>Value</td><td>值</td><td>string</td><td> — </td><td> — </td></tr>
   </RowTemplate>
 </Attributes>
+
+@code {
+  public void OnClick()
+      {
+          Console.WriteLine("Button Clicked");
+      }
+}

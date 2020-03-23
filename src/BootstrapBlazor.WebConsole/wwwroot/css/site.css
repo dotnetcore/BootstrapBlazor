@@ -21,10 +21,10 @@ header {
     font-size: 1rem;
 }
 
-header.navbar {
-    padding: 5px 16px;
-    font-size: 1rem;
-}
+    header.navbar {
+        padding: 5px 16px;
+        font-size: 1rem;
+    }
 
     header .nav-link img {
         height: 24px;
@@ -38,13 +38,13 @@ header.navbar {
     margin-right: 0;
 }
 
-.header-img img {
-    width: 40px;
-    height: auto;
-    border-radius: 6px;
-    border: solid 1px rgba(255, 255, 255, 0.5);
-    margin-right: 1rem;
-}
+    .header-img img {
+        width: 40px;
+        height: auto;
+        border-radius: 6px;
+        border: solid 1px rgba(255, 255, 255, 0.5);
+        margin-right: 1rem;
+    }
 
 .btn-bd-download {
     font-weight: 600;
@@ -115,42 +115,42 @@ section {
             font-weight: 400;
         }
 
-            .sidebar a.active, .sidebar a:hover {
-                background-color: rgba(255,255,255,0.25);
-                color: #333;
-            }
+    .sidebar a.active, .sidebar a:hover {
+        background-color: rgba(255,255,255,0.25);
+        color: #333;
+    }
 
-            .sidebar .nav-link.active {
-                color: #007bff;
-            }
+    .sidebar .nav-link.active {
+        color: #007bff;
+    }
 
-            .sidebar .nav-link span:first-child {
-                width: 70px;
-            }
+    .sidebar .nav-link span:first-child {
+        width: 70px;
+    }
 
-.top-item {
-    font-size: 1rem;
-}
+    .sidebar .top-item {
+        font-size: 1rem;
+    }
 
-.top-item:first-child {
-    padding-top: 0.5rem;
-}
+        .sidebar .top-item:first-child {
+            padding-top: 0.5rem;
+        }
 
-.top-item:last-child {
-    padding-bottom: 1rem;
-}
+        .sidebar .top-item:last-child {
+            padding-bottom: 1rem;
+        }
 
-.top-item .nav {
-    margin-top: 0.25rem;
-}
+        .sidebar .top-item .nav {
+            margin-top: 0.25rem;
+        }
 
-.top-link {
-    display: block;
-    padding: .25rem 1.5rem;
-    font-weight: 700;
-    margin-top: 0.5rem;
-    color: rgba(0,0,0,.65);
-}
+    .sidebar .top-link {
+        display: block;
+        padding: .25rem 1.5rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+        color: rgba(0,0,0,.65);
+    }
 
 .content {
     color: #495057;
@@ -161,9 +161,9 @@ section {
         color: #1f2f3d;
     }
 
-    .content h3:not(:first-child) {
-        margin-top: 2rem;
-    }
+        .content h3:not(:first-child) {
+            margin-top: 2rem;
+        }
 
     .content h4 {
         margin-top: 1.5rem;
@@ -174,31 +174,31 @@ section {
         transition: all .3s linear;
     }
 
-    .content .card .row, .content .card .form-row {
-        width: 100%;
-    }
+        .content .card .row, .content .card .form-row {
+            width: 100%;
+        }
 
-    .content .card:hover {
-        box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
-    }
+        .content .card:hover {
+            box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
+        }
 
     .content .card-footer {
         background-color: transparent;
     }
 
-    .content .card-footer .card-footer-control {
-        text-align: center;
-        color: #d3dce6;
-        display: block;
-    }
+        .content .card-footer .card-footer-control {
+            text-align: center;
+            color: #d3dce6;
+            display: block;
+        }
 
-    .content .card-footer .card-footer-control .fa {
-        transition: .3s linear;
-    }
+            .content .card-footer .card-footer-control .fa {
+                transition: .3s linear;
+            }
 
-    .content .card-footer .card-footer-control.show .fa {
-        transform: rotate(180deg);
-    }
+            .content .card-footer .card-footer-control.show .fa {
+                transform: rotate(180deg);
+            }
 
     .content .card:hover .card-footer .card-footer-control .fa {
         margin-left: -1.5rem;
@@ -237,45 +237,6 @@ section {
         margin-bottom: -1rem;
     }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        background-color: #fff;
-        font-size: 14px;
-        margin-bottom: 45px;
-        line-height: 1.5em;
-    }
-
-    th {
-        text-align: left;
-        white-space: nowrap;
-        color: #495057;
-        font-weight: 400;
-        border-bottom: 1px solid #dcdfe6;
-        padding: 15px;
-        max-width: 250px;
-    }
-
-    td {
-        color: #606266;
-    }
-
-    td,
-    td {
-        border-bottom: 1px solid #dcdfe6;
-        padding: 15px;
-        max-width: 250px;
-    }
-
-    td:first-child,
-    th:first-child {
-        padding-left: 10px;
-    }
-
-    .table-attr {
-        margin-top: 2rem;
-    }
-
     .content .code-label {
         font-weight: 500;
         color: #333;
@@ -305,22 +266,61 @@ section {
         padding: 0;
     }
 
-        .content .git a {
-            border: solid 1px #ddd;
-            display: block;
-            padding: 6px 10px;
-            border-radius: 6px;
-        }
+    .content .git a {
+        border: solid 1px #ddd;
+        display: block;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
 
-        .content .git .git-fork img {
-            height: 56px;
-        }
+    .content .git .git-fork img {
+        height: 56px;
+    }
 
-        .content .git .git-fork span {
-            font-size: 1.8rem;
-            color: #1c3949;
-            margin-left: 38px;
-        }
+    .content .git .git-fork span {
+        font-size: 1.8rem;
+        color: #1c3949;
+        margin-left: 38px;
+    }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff;
+    font-size: 14px;
+    margin-bottom: 45px;
+    line-height: 1.5em;
+}
+
+th {
+    text-align: left;
+    white-space: nowrap;
+    color: #495057;
+    font-weight: 400;
+    border-bottom: 1px solid #dcdfe6;
+    padding: 15px;
+    max-width: 250px;
+}
+
+td {
+    color: #606266;
+}
+
+td,
+td {
+    border-bottom: 1px solid #dcdfe6;
+    padding: 15px;
+    max-width: 250px;
+}
+
+    td:first-child,
+    th:first-child {
+        padding-left: 10px;
+    }
+
+.table-attr {
+    margin-top: 2rem;
+}
 
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
@@ -377,7 +377,7 @@ section {
     }
 }
 
-@media (min-width: 768px) {   
+@media (min-width: 768px) {
     .sidebar .sidebar-content {
         overflow: hidden;
         position: absolute;
