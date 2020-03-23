@@ -6,7 +6,7 @@
 </div>
 
 <div class="sidebar-content @NavMenuCssClass" @onclick="ToggleNavMenu">
-    <div class="top-item">
+    <div class="top-item" @onclick:stopPropagation>
         <NavLink class="top-link" href="install" Match="NavLinkMatch.All">快速上手</NavLink>
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -18,7 +18,7 @@
         </ul>
     </div>
 
-    <div class="top-item">
+    <div class="top-item" @onclick:stopPropagation>
         <NavLink class="top-link" href="buttons" Match="NavLinkMatch.All">组件</NavLink>
         <ul class="nav flex-column">
             <li class="nav-item">
