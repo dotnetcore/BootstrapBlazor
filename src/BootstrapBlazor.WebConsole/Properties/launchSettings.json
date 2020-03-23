@@ -20,7 +20,7 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}"
     },
-    "Bootstrap.Admin": {
+    "BootstrapBlazor": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

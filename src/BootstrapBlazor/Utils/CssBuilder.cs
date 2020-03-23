@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Utils
 {
     /// <summary>
     /// Css 生成操作类
     /// </summary>
-    public struct CssBuilder
+    internal class CssBuilder
     {
-        private string stringBuffer;
+        private List<string> stringBuffer;
 
         /// <summary>
         /// Creates a CssBuilder used to define conditional CSS classes used in a component.
         /// Call Build() to return the completed CSS Classes as a string.
         /// </summary>
         /// <param name="value"></param>
-        public static CssBuilder Default(string value) => new CssBuilder(value);
-
-        /// <summary>
-        /// Creates an Empty CssBuilder used to define conditional CSS classes used in a component.
-        /// Call Build() to return the completed CSS Classes as a string.
-        /// </summary>
-        public static CssBuilder Empty() => new CssBuilder();
+        public static CssBuilder Default(string? value = null) => new CssBuilder(value);
 
         /// <summary>
         /// Creates a CssBuilder used to define conditional CSS classes used in a component.
         /// Call Build() to return the completed CSS Classes as a string.
         /// </summary>
         /// <param name="value"></param>
-        public CssBuilder(string value) => stringBuffer = value;
+        protected CssBuilder(string? value = null)
+        {
+            stringBuffer = new List<string>();
+            if (!string.IsNullOrEmpty(value)) stringBuffer.Add(value);
+        }
 
         /// <summary>
         /// Adds a raw string to the builder that will be concatenated with the next class or value added to the builder.
@@ -37,7 +36,7 @@ namespace BootstrapBlazor.Utils
         /// <returns>CssBuilder</returns>
         public CssBuilder AddValue(string value)
         {
-            stringBuffer += value;
+            stringBuffer.Add(value);
             return this;
         }
 
@@ -46,7 +45,7 @@ namespace BootstrapBlazor.Utils
         /// </summary>
         /// <param name="value">CSS Class to add</param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClass(string value) => AddValue(" " + value);
+        public CssBuilder AddClass(string value) => AddValue(value);
 
         /// <summary>
         /// Adds a conditional CSS Class to the builder with space separator.
@@ -102,19 +101,21 @@ namespace BootstrapBlazor.Utils
         /// </summary>
         /// <param name="additionalAttributes">Additional Attribute splat parameters</param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClassFromAttributes(IReadOnlyDictionary<string, object> additionalAttributes) =>
-            additionalAttributes == null ? this :
-            additionalAttributes.TryGetValue("class", out var c) ? AddClass(((string)c ?? "").ToString()) : this;
+        public CssBuilder AddClassFromAttributes(IReadOnlyDictionary<string, object> additionalAttributes)
+        {
+            if (additionalAttributes.TryGetValue("class", out var c))
+            {
+                var classList = c.ToString() ?? "";
+                AddClass(classList);
+            }
+            return this;
+        }
 
         /// <summary>
         /// Finalize the completed CSS Classes as a string.
         /// </summary>
         /// <returns>string</returns>
-        public string Build()
-        {
-            // String buffer finalization code
-            return stringBuffer != null ? stringBuffer.Trim() : string.Empty;
-        }
+        public string Build() => stringBuffer.Any() ? string.Join(" ", stringBuffer) : "";
 
         /// <summary>
         /// ToString should only and always call Build to finalize the rendered string.

@@ -21,7 +21,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮样式集合
         /// </summary>
         /// <returns></returns>
-        protected string ClassName => new CssBuilder("btn")
+        protected string ClassName => CssBuilder.Default("btn")
           .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
           .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
           .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
