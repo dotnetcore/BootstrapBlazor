@@ -1,4 +1,4 @@
-html, body {
+﻿html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0;
 }
@@ -263,7 +263,7 @@ section {
     .content .git .git-fork {
         display: flex;
         align-items: center;
-        padding: 0;
+        padding: 0 10px;
     }
 
     .content .git a {
