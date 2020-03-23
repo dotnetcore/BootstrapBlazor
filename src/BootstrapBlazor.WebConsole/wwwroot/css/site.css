@@ -284,13 +284,21 @@ section {
     .content .git img {
         height: 44px;
         width: auto;
+        display: block;
     }
 
     .content .git .git-fork {
         display: flex;
         align-items: center;
-        margin-top: -8px;
+        padding: 0;
     }
+
+        .content .git a {
+            border: solid 1px #ddd;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
 
         .content .git .git-fork img {
             height: 56px;
