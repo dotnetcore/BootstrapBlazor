@@ -97,4 +97,11 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+    [Inject] public IJSRuntime? JSRuntime { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        JSRuntime?.InvokeVoidAsync("$.addNiceScroll", ".sidebar-content");
+    }
 }

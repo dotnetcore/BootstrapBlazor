@@ -1,4 +1,47 @@
 ﻿(function ($) {
+    $.fn.extend({
+        autoScrollSidebar: function (options) {
+            var option = $.extend({ target: null, offsetTop: 0 }, options);
+            var $navItem = option.target;
+            if ($navItem === null || $navItem.length === 0) return this;
+
+            // sidebar scroll animate
+            var middle = this.outerHeight() / 2;
+            var top = $navItem.offset().top + option.offsetTop - this.offset().top;
+            var $scrollInstance = this[0]["__overlayScrollbars__"];
+            if (top > middle) {
+                if ($scrollInstance) $scrollInstance.scroll({ x: 0, y: top - middle }, 500, "swing");
+                else this.animate({ scrollTop: top - middle });
+            }
+            return this;
+        },
+        addNiceScroll: function () {
+            if ($(window).width() > 768) {
+                this.overlayScrollbars({
+                    className: 'os-theme-dark',
+                    scrollbars: {
+                        autoHide: 'leave',
+                        autoHideDelay: 100
+                    },
+                    overflowBehavior: {
+                        x: "hidden",
+                        y: "scroll"
+                    }
+                });
+            }
+            else {
+                this.css('overflow', 'auto');
+            }
+            return this;
+        }
+    });
+
+    $.extend({
+        addNiceScroll: function (element) {
+            $(element).addNiceScroll();
+        }
+    });
+
     $(function () {
         $(document)
             .on('click', '.card-footer-control', function (e) {

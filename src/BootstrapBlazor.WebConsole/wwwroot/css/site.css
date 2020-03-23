@@ -132,6 +132,14 @@ section {
     font-size: 1rem;
 }
 
+.top-item:first-child {
+    padding-top: 0.5rem;
+}
+
+.top-item:last-child {
+    padding-bottom: 1rem;
+}
+
 .top-item .nav {
     margin-top: 0.25rem;
 }
@@ -371,6 +379,7 @@ section {
 
 @media (min-width: 768px) {   
     .sidebar .sidebar-content {
+        overflow: hidden;
         position: absolute;
         top: 0;
         bottom: 0;
@@ -401,7 +410,7 @@ section {
         width: 250px;
         height: calc(100vh - 52px);
         position: sticky;
-        z-index: 1070;
+        z-index: 1000;
         top: 52px;
     }
 
