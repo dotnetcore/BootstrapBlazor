@@ -23,3 +23,7 @@
     font-size: 1.35rem;
     border-radius: 0.4rem;
 }
+
+.btn .badge {
+    margin-left: 4px;
+}

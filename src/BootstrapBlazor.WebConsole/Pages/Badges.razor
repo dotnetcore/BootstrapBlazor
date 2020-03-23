@@ -1,0 +1,86 @@
+﻿@page "/badge"
+
+<Block Title="Badge 徽章组件" Introduction="提供各种颜色的徽章小挂件组件">
+  <CardBodyTemplate>
+      <div class="form-inline">
+        <div class="row">
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Primary">primary</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Secondary">secondary</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Success">success</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Danger">danger</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Warning">warning</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Info">info</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Dark">dark</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge Color="Color.Light">light</Badge></div>
+        </div>
+      </div>
+  </CardBodyTemplate>
+  <CodeTemplate>
+    <pre>
+&lt;Badge Color="Color.Primary"&gt;primary&lt;/Badge&gt;
+&lt;Badge Color="Color.Secondary"&gt;secondary&lt;/Badge&gt;
+&lt;Badge Color="Color.Success"&gt;success&lt;/Badge&gt;
+&lt;Badge Color="Color.Danger"&gt;danger&lt;/Badge&gt;
+&lt;Badge Color="Color.Warning"&gt;warning&lt;/Badge&gt;
+&lt;Badge Color="Color.Info"&gt;info&lt;/Badge&gt;
+&lt;Badge Color="Color.Dark"&gt;dark&lt;/Badge&gt;
+&lt;Badge Color="Color.Light"&gt;light&lt;/Badge&gt;
+    </pre>
+  </CodeTemplate>
+</Block>
+
+<Block Title="胶囊徽章" Introduction="圆角更大的徽章挂件">
+  <CardBodyTemplate>
+      <div class="form-inline">
+        <div class="row">
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Primary">primary</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Secondary">secondary</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Success">success</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Danger">danger</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Warning">warning</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Info">info</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Dark">dark</Badge></div>
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Badge IsPill="true" Color="Color.Light">light</Badge></div>
+        </div>
+      </div>
+  </CardBodyTemplate>
+  <CodeTemplate>
+    <pre>
+&lt;Badge IsPill="true" Color="Color.Primary"&gt;primary&lt;/Badge&gt;
+&lt;Badge IsPill="true" Color="Color.Secondary"&gt;secondary&lt;/Badge&gt;
+&lt;Badge IsPill="true" Color="Color.Success"&gt;success&lt;/Badge&gt;
+&lt;Badge IsPill="true" Color="Color.Danger"&gt;danger&lt;/Badge&gt;
+&lt;Badge IsPill="true" Color="Color.Warning"&gt;warning&lt;/Badge&gt;
+&lt;Badge IsPill="true" Color="Color.Info"&gt;info&lt;/Badge&gt;
+&lt;Badge IsPill="true" Color="Color.Dark"&gt;dark&lt;/Badge&gt;
+&lt;Badge IsPill="true" Color="Color.Light"&gt;light&lt;/Badge&gt;
+    </pre>
+  </CodeTemplate>
+</Block>
+
+<Block Title="按钮内徽章" Introduction="按钮内部徽章">
+  <CardBodyTemplate>
+      <div class="form-inline">
+        <div class="row">
+          <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Primary">主要按钮<Badge Color="Color.Danger">1</Badge></Button></div>
+        </div>
+      </div>
+  </CardBodyTemplate>
+  <CodeTemplate>
+    <pre>
+&lt;Button Color="Color.Primary"&gt;主要按钮&lt;Badge Color="Color.Danger"&gt;1&lt;/Badge>&lt;/Button&gt;
+    </pre>
+  </CodeTemplate>
+</Block>
+
+<Attributes>
+  <HeaderTemplate>
+    <th>参数</th><th>说明</th><th>类型</th><th>可选值</th><th>默认值</th>
+  </HeaderTemplate>
+  <RowTemplate>
+    <tr><td>Color</td><td>颜色</td><td>Color</td><td>Primary / Secondary / Success / Danger / Warning / Info / Light / Dark</td><td>Primary</td></tr>
+    <tr><td>Class</td><td>样式</td><td>string</td><td> — </td><td> — </td></tr>
+    <tr><td>ChildContent</td><td>内容</td><td>RenderFragment</td><td> — </td><td> — </td></tr>
+    <tr><td>IsPill</td><td>是否胶囊</td><td>boolean</td><td> — </td><td>false</td></tr>
+  </RowTemplate>
+</Attributes>

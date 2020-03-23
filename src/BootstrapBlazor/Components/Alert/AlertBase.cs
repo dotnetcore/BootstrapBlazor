@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
         /// <summary>
-        /// 获得 按钮样式集合
+        /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
         protected string ClassName => CssBuilder.Default("alert")
@@ -28,12 +28,12 @@ namespace BootstrapBlazor.Components
         .Build();
 
         /// <summary>
-        /// 获得/设置 按钮颜色
+        /// 获得/设置 颜色
         /// </summary>
         [Parameter] public Color Color { get; set; } = Color.Primary;
 
         /// <summary>
-        ///
+        /// 获得/设置 自定义样式
         /// </summary>
         [Parameter] public string Class { get; set; } = "";
 
