@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor", "src\BootstrapBlazor\BootstrapBlazor.csproj", "{D0AE3016-4878-4807-A04C-C33CBEC7B092}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor", "src\BootstrapBlazor\BootstrapBlazor.csproj", "{D0AE3016-4878-4807-A04C-C33CBEC7B092}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.WebConsole", "src\BootstrapBlazor.WebConsole\BootstrapBlazor.WebConsole.csproj", "{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WebConsole", "src\BootstrapBlazor.WebConsole\BootstrapBlazor.WebConsole.csproj", "{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,8 +26,14 @@ Global
 		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D0AE3016-4878-4807-A04C-C33CBEC7B092} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
 	EndGlobalSection
 EndGlobal

@@ -24,7 +24,6 @@
         <link href="~/lib/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet" />
         <link href="~/lib/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet" />
     </environment>
-    <link href="~/lib/longbow-select/longbow-select.css" rel="stylesheet" />
     <link href="~/lib/longbow-checkbox/longbow-checkbox.css" rel="stylesheet" />
     <link href="~/_content/BootstrapBlazor/css/bootstrap.blazor.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
@@ -46,11 +45,13 @@
     </div>
 
     <environment include="Development">
-        <script src="lib/jquery/jquery.js"></script>
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
         <script src="~/lib/overlayscrollbars/jquery.overlayScrollbars.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="~/lib/jquery/jquery.min.js"></script>
+        <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="~/lib/overlayscrollbars/jquery.overlayScrollbars.min.js"></script>
     </environment>
 

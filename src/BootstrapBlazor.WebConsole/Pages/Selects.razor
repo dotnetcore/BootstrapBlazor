@@ -1,0 +1,70 @@
+﻿@page "/selects"
+
+<Block Title="Selects 下拉选择框" Introduction="提供各种颜色的下拉选择框">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Primary" Items="@Items" SelectedItemChanged="@ItemChanged" data-val="Test"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Success" Items="@Items" SelectedItemChanged="@ItemChanged"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Danger" Items="@Items" SelectedItemChanged="@ItemChanged"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Warning" Items="@Items" SelectedItemChanged="@ItemChanged"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Info" Items="@Items" SelectedItemChanged="@ItemChanged"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Secondary" Items="@Items" SelectedItemChanged="@ItemChanged"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Dark" Items="@Items" SelectedItemChanged="@ItemChanged"></Select>
+                </div>
+            </div>
+        </div>
+        <Logger @ref="Trace" class="mt-3" />
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Select Items="@@Items" TItem="string" Color="Color.Primary"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" TItem="string" Color="Color.Success"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" TItem="string" Color="Color.Danger"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" TItem="string" Color="Color.Warning"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" TItem="string" Color="Color.Info"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" TItem="string" Color="Color.Secondary"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" TItem="string" Color="Color.Dark"&gt;&lt;/Select&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Table>
+    <HeaderTemplate>
+        <th>参数</th><th>说明</th><th>类型</th><th>可选值</th><th>默认值</th>
+    </HeaderTemplate>
+    <RowTemplate>
+        <tr><td>Color</td><td>颜色</td><td>Color</td><td>Primary / Secondary / Success / Danger / Warning / Info / Dark</td><td>Primary</td></tr>
+        <tr><td>Class</td><td>样式</td><td>string</td><td> — </td><td> — </td></tr>
+        <tr><td>IsDisabled</td><td>是否禁用</td><td>boolean</td><td> — </td><td>false</td></tr>
+        <tr><td>Items</td><td>数据集合</td><td>IEnumerable&lt;SelectedItem&gt;</td><td> — </td><td> — </td></tr>
+        <tr><td>ShowDismiss</td><td>关闭按钮</td><td>boolean</td><td> — </td><td>false</td></tr>
+    </RowTemplate>
+</Table>
+
+@code {
+    protected Logger? Trace { get; set; }
+
+    protected IEnumerable<SelectedItem> Items = new SelectedItem[] {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true }
+    };
+
+    protected void ItemChanged(SelectedItem item)
+    {
+        Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+    }
+}

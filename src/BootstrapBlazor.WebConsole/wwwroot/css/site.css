@@ -370,6 +370,20 @@ td {
         opacity: 0.8;
     }
 
+.card-log {
+    overflow: hidden auto;
+    max-height: 100px;
+    border: solid 1px #ddd;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    background-color: #174482;
+    color: #fff;
+}
+
+    .card-log .log-item:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

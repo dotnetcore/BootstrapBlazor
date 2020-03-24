@@ -7,26 +7,26 @@ namespace BootstrapBlazor.Utils
     /// <summary>
     /// Css 生成操作类
     /// </summary>
-    internal class CssBuilder
+    public class CssBuilder
     {
-        private List<string> stringBuffer;
+        private readonly List<string> stringBuffer;
 
         /// <summary>
         /// Creates a CssBuilder used to define conditional CSS classes used in a component.
         /// Call Build() to return the completed CSS Classes as a string.
         /// </summary>
         /// <param name="value"></param>
-        public static CssBuilder Default(string? value = null) => new CssBuilder(value);
+        public static CssBuilder Default(string value = "") => new CssBuilder(value);
 
         /// <summary>
         /// Creates a CssBuilder used to define conditional CSS classes used in a component.
         /// Call Build() to return the completed CSS Classes as a string.
         /// </summary>
         /// <param name="value"></param>
-        protected CssBuilder(string? value = null)
+        protected CssBuilder(string value)
         {
             stringBuffer = new List<string>();
-            if (!string.IsNullOrEmpty(value)) stringBuffer.Add(value);
+            AddClass(value);
         }
 
         /// <summary>
@@ -34,18 +34,11 @@ namespace BootstrapBlazor.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddValue(string value)
+        public CssBuilder AddClass(string value)
         {
-            stringBuffer.Add(value);
+            if (!string.IsNullOrEmpty(value)) stringBuffer.Add(value);
             return this;
         }
-
-        /// <summary>
-        /// Adds a CSS Class to the builder with space separator.
-        /// </summary>
-        /// <param name="value">CSS Class to add</param>
-        /// <returns>CssBuilder</returns>
-        public CssBuilder AddClass(string value) => AddValue(value);
 
         /// <summary>
         /// Adds a conditional CSS Class to the builder with space separator.
@@ -101,9 +94,9 @@ namespace BootstrapBlazor.Utils
         /// </summary>
         /// <param name="additionalAttributes">Additional Attribute splat parameters</param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClassFromAttributes(IReadOnlyDictionary<string, object> additionalAttributes)
+        public CssBuilder AddClassFromAttributes(IDictionary<string, object>? additionalAttributes)
         {
-            if (additionalAttributes.TryGetValue("class", out var c))
+            if (additionalAttributes != null && additionalAttributes.TryGetValue("class", out var c))
             {
                 var classList = c.ToString() ?? "";
                 AddClass(classList);

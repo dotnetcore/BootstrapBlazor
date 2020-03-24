@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "BootstrapBlazor": {
+    "BootstrapBlazor.WebConsole": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

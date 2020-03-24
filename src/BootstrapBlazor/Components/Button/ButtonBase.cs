@@ -1,22 +1,14 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Button 按钮组件
     /// </summary>
-    public abstract class ButtonBase : ComponentBase
+    public abstract class ButtonBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得/设置 用户自定义属性
-        /// </summary>
-        /// <returns></returns>
-        [Parameter(CaptureUnmatchedValues = true)]
-        public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
         /// <summary>
         /// 获得 按钮样式集合
         /// </summary>

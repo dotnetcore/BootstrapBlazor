@@ -1,7 +1,6 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -9,15 +8,8 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Alert 警告框组件
     /// </summary>
-    public abstract class AlertBase : ComponentBase
+    public abstract class AlertBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得/设置 用户自定义属性
-        /// </summary>
-        /// <returns></returns>
-        [Parameter(CaptureUnmatchedValues = true)]
-        public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
         /// <summary>
         /// 获得 样式集合
         /// </summary>
@@ -28,14 +20,14 @@ namespace BootstrapBlazor.Components
         .Build();
 
         /// <summary>
+        /// 获得/设置 自定义样式
+        /// </summary>
+        protected string Class { get; set; } = "";
+
+        /// <summary>
         /// 获得/设置 颜色
         /// </summary>
         [Parameter] public Color Color { get; set; } = Color.Primary;
-
-        /// <summary>
-        /// 获得/设置 自定义样式
-        /// </summary>
-        [Parameter] public string Class { get; set; } = "";
 
         /// <summary>
         /// 是否显示关闭按钮
@@ -54,20 +46,17 @@ namespace BootstrapBlazor.Components
         public EventCallback<MouseEventArgs> OnClick { get; set; }
 
         /// <summary>
-        ///
+        /// OnInitializedAsync 方法
         /// </summary>
-        /// <param name="parameters"></param>
         /// <returns></returns>
-        public override Task SetParametersAsync(ParameterView parameters)
+        protected override Task OnInitializedAsync()
         {
-            base.SetParametersAsync(parameters);
-            if (!OnClick.HasDelegate)
+            var callback = OnClick;
+            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {
-                OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, () =>
-                {
-                    Class = "collapse";
-                });
-            }
+                Class = "collapse";
+                if (callback.HasDelegate) callback.InvokeAsync(e);
+            });
             return Task.CompletedTask;
         }
     }

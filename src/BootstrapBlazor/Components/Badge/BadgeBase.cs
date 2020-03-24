@@ -1,28 +1,20 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Badge 徽章组件
     /// </summary>
-    public abstract class BadgeBase : ComponentBase
+    public abstract class BadgeBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得/设置 用户自定义属性
-        /// </summary>
-        /// <returns></returns>
-        [Parameter(CaptureUnmatchedValues = true)]
-        public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
         /// <summary>
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
         protected string ClassName => CssBuilder.Default("badge")
           .AddClass($"badge-{Color.ToDescriptionString()}", Color != Color.None)
-          .AddClass($"badge-pill", IsPill)
+          .AddClass("badge-pill", IsPill)
           .AddClass(Class)
         .Build();
 
