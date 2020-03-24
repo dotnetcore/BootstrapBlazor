@@ -7,13 +7,13 @@
 
 <div class="sidebar-content @NavMenuCssClass" @onclick="ToggleNavMenu">
     <div class="top-item" @onclick:stopPropagation>
-        <NavLink class="top-link" href="install" Match="NavLinkMatch.All">快速上手</NavLink>
+        <NavLink class="top-link" href="introduction" Match="NavLinkMatch.All">快速上手</NavLink>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <NavLink class="nav-link" href="install" Match="NavLinkMatch.All">安装</NavLink>
+                <NavLink class="nav-link" href="introduction" Match="NavLinkMatch.All">简介</NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" href="introduction" Match="NavLinkMatch.All">简介</NavLink>
+                <NavLink class="nav-link" href="install" Match="NavLinkMatch.All">安装</NavLink>
             </li>
         </ul>
     </div>
@@ -92,13 +92,13 @@
 
     private void ToggleNavMenu()
     {
-    collapseNavMenu = !collapseNavMenu;
+        collapseNavMenu = !collapseNavMenu;
     }
 
     [Inject] public IJSRuntime? JSRuntime { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
-       JSRuntime?.InvokeVoidAsync("$.addNiceScroll", ".sidebar-content");
+        JSRuntime?.InvokeVoidAsync("$.addNiceScroll", ".sidebar-content");
     }
 }

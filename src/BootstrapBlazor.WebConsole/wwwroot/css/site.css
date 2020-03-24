@@ -1,4 +1,4 @@
-﻿html, body {
+html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0;
 }
@@ -240,12 +240,13 @@ section {
     .content .code-label {
         font-weight: 500;
         color: #333;
+        margin-bottom: 2px;
     }
 
     .content code {
         line-height: 1.8;
         font-size: 0.75rem;
-        padding: 18px 24px;
+        padding: 6px 12px;
         background-color: #fafafa;
         border: 1px solid #eaeefb;
         margin-bottom: 25px;
@@ -253,6 +254,15 @@ section {
         -webkit-font-smoothing: auto;
         display: block;
     }
+
+        .content code.highlight {
+            border: none;
+            display: inline-block;
+            line-height: 1.5;
+            padding: 0px 8px;
+            background-color: #e9ecef;
+            margin: 0;
+        }
 
     .content .git img {
         height: 44px;
@@ -426,5 +436,9 @@ td {
     .sidebar .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
+    }
+
+    .content code {
+        padding: 18px 24px;
     }
 }

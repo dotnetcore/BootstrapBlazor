@@ -1,19 +1,28 @@
-﻿@page "/introduction"
+﻿@page "/"
+@page "/introduction"
 
 <h3>简介</h3>
 
 <p>BootstrapBlazor 是一套 Bootstrap 风格的 Blazor UI 组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。</p>
 
+<p>由于 Bootstrap UI 框架对 jQuery 的依赖，所以我们的 BootstrapBlazor 对 jQuery 也是依赖的</p>
+
+<p>依赖关系为：BootstrapBlazor > Bootstrap > jQuery</p>
+
 <h3>快速上手</h3>
+
+<p><a href="https://v4.bootcss.com/docs/getting-started/introduction/" target="_blank">Bootstrap 快速入门</a></p>
 
 <h4>CSS 文件</h4>
 
+<p>将 Bootstrap 的 CSS 文件以 <code class="highlight">&lt;link&gt;</code> 标签的形式添加到 <code class="highlight">&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前就行了。</p>
 <code>
     &lt;link rel="stylesheet" href="~/_content/BootstrapBlazor/css/bootstrap.blazor.css"&gt;
 </code>
 
 <h4>JS 文件</h4>
 
+<p>Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code class="highlight">&lt;script&gt;</code> 标签放到页面尾部且在 <code class="highlight">&lt;/body&gt;</code> 标签之前即可起作用。他们之间的顺序是： jQuery 必须排在第一位，然后是我们的 JavaScript 插件。</p>
 <code>
     &lt;script src="~/_content/BootstrapBlazor/css/bootstrap.blazor.js"&gt;&lt;/script&gt;
 </code>
