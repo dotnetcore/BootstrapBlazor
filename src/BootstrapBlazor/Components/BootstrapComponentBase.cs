@@ -1,7 +1,6 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -19,7 +18,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件 id 属性
         /// </summary>
         [Parameter]
-        public string? Id { get; set; }
+        public virtual string? Id { get; set; }
 
         /// <summary>
         /// 获得/设置 用户自定义属性

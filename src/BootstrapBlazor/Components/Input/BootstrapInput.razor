@@ -1,0 +1,8 @@
+@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits BootstrapInputBase<TItem>
+
+<input id="@Id" class="@ClassName" data-original-title="@ErrorMessage" value="@BindConverter.FormatValue(CurrentValue)" @oninput="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" @attributes="AdditionalAttributes" />
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
