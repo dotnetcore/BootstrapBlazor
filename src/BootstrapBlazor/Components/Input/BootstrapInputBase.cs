@@ -18,12 +18,13 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// OnInitialized
+        /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
+            // TODO: 此处应该检查 html5 type 类型检查
             if (AdditionalAttributes != null)
             {
                 if (!AdditionalAttributes.TryGetValue("type", out var _))

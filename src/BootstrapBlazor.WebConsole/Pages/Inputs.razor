@@ -78,6 +78,8 @@
     </CodeTemplate>
 </Block>
 
+<AttributeTable Items="@GetAttributes()" />
+
 @code {
     protected string InputValue => "数据值";
 
@@ -88,5 +90,20 @@
     public class FooModel
     {
         public string Name { get; set; } = "张三";
+    }
+
+    protected IEnumerable<AttributeItem> GetAttributes()
+    {
+        return new AttributeItem[]
+        {
+            new AttributeItem()
+            {
+                Name = "type",
+                Description = "控件类型",
+                Type = "string",
+                ValueList = "text / number / email / url",
+                DefaultValue = "text"
+            }
+        };
     }
 }
