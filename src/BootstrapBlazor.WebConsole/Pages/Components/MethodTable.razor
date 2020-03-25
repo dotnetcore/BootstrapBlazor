@@ -1,0 +1,22 @@
+﻿<div class="table-attr d-none d-md-block">
+    <h3>方法 Methods</h3>
+
+    <Table TItem="BootstrapBlazor.WebConsole.Common.MethodItem" Items="Items">
+        <HeaderTemplate>
+            <TableHeader TItem="string" @bind-Field="@context.Name" />
+            <TableHeader TItem="string" @bind-Field="@context.Description" />
+            <TableHeader TItem="string" @bind-Field="@context.Parameters" />
+            <TableHeader TItem="string" @bind-Field="@context.ReturnValue" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <td>@context.Name</td>
+            <td>@context.Description</td>
+            <td>@context.Parameters</td>
+            <td>@context.ReturnValue</td>
+        </RowTemplate>
+    </Table>
+</div>
+
+@code {
+    [Parameter] public IEnumerable<MethodItem>? Items { get; set; }
+}
