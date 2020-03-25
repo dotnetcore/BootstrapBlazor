@@ -3,7 +3,7 @@
 namespace BootstrapBlazor.WebConsole.Common
 {
     /// <summary>
-    /// 说明类
+    /// 属性说明类
     /// </summary>
     public class AttributeItem
     {
