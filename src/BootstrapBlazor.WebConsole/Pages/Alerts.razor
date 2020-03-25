@@ -1,17 +1,17 @@
 ﻿@page "/alerts"
 
 <Block Title="Alerts 警告框" Introduction="提供各种颜色的警告信息框">
-  <CardBodyTemplate>
-    <Alert Color="Color.Primary">主要的警告框</Alert>
-    <Alert Color="Color.Secondary">次要的警告框</Alert>
-    <Alert Color="Color.Success">成功的警告框</Alert>
-    <Alert Color="Color.Danger">危险的警告框</Alert>
-    <Alert Color="Color.Warning">警告的警告框</Alert>
-    <Alert Color="Color.Info">信息的警告框</Alert>
-    <Alert Color="Color.Dark">黑暗的警告框</Alert>
-  </CardBodyTemplate>
-  <CodeTemplate>
-    <pre>
+    <CardBodyTemplate>
+        <Alert Color="Color.Primary">主要的警告框</Alert>
+        <Alert Color="Color.Secondary">次要的警告框</Alert>
+        <Alert Color="Color.Success">成功的警告框</Alert>
+        <Alert Color="Color.Danger">危险的警告框</Alert>
+        <Alert Color="Color.Warning">警告的警告框</Alert>
+        <Alert Color="Color.Info">信息的警告框</Alert>
+        <Alert Color="Color.Dark">黑暗的警告框</Alert>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
 &lt;Alert Color="Color.Primary"&gt;主要的警告框&lt;/Alert&gt;
 &lt;Alert Color="Color.Secondary"&gt;次要的警告框&lt;/Alert&gt;
 &lt;Alert Color="Color.Success"&gt;成功的警告框&lt;/Alert&gt;
@@ -20,21 +20,22 @@
 &lt;Alert Color="Color.Info"&gt;信息的警告框&lt;/Alert&gt;
 &lt;Alert Color="Color.Dark"&gt;暗的警告框&lt;/Alert&gt;
     </pre>
-  </CodeTemplate>
+    </CodeTemplate>
 </Block>
 
 <Block Title="带关闭按钮" Introduction="提供关闭按钮的警告框">
-  <CardBodyTemplate>
-    <Alert ShowDismiss="true" Color="Color.Primary">主要的警告框</Alert>
-    <Alert ShowDismiss="true" Color="Color.Secondary">次要的警告框</Alert>
-    <Alert ShowDismiss="true" Color="Color.Success">成功的警告框</Alert>
-    <Alert ShowDismiss="true" Color="Color.Danger">危险的警告框</Alert>
-    <Alert ShowDismiss="true" Color="Color.Warning">警告的警告框</Alert>
-    <Alert ShowDismiss="true" Color="Color.Info">信息的警告框</Alert>
-    <Alert ShowDismiss="true" Color="Color.Dark">黑暗的警告框</Alert>
-  </CardBodyTemplate>
-  <CodeTemplate>
-    <pre>
+    <CardBodyTemplate>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Primary">主要的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Secondary">次要的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Success">成功的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Danger">危险的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Warning">警告的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Info">信息的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Dark">黑暗的警告框</Alert>
+        <Logger @ref="Trace" class="mt-3" />
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
 &lt;Alert ShowDismiss="true" Color="Color.Primary"&gt;主要的警告框&lt;/Alert&gt;
 &lt;Alert ShowDismiss="true" Color="Color.Secondary"&gt;次要的警告框&lt;/Alert&gt;
 &lt;Alert ShowDismiss="true" Color="Color.Success"&gt;成功的警告框&lt;/Alert&gt;
@@ -43,17 +44,26 @@
 &lt;Alert ShowDismiss="true" Color="Color.Info"&gt;信息的警告框&lt;/Alert&gt;
 &lt;Alert ShowDismiss="true" Color="Color.Dark"&gt;暗的警告框&lt;/Alert&gt;
     </pre>
-  </CodeTemplate>
+    </CodeTemplate>
 </Block>
 
 <Table>
-  <HeaderTemplate>
-    <th>参数</th><th>说明</th><th>类型</th><th>可选值</th><th>默认值</th>
-  </HeaderTemplate>
-  <RowTemplate>
-    <tr><td>Color</td><td>颜色</td><td>Color</td><td>Primary / Secondary / Success / Danger / Warning / Info / Dark</td><td>Primary</td></tr>
-    <tr><td>Class</td><td>样式</td><td>string</td><td> — </td><td> — </td></tr>
-    <tr><td>ChildContent</td><td>内容</td><td>RenderFragment</td><td> — </td><td> — </td></tr>
-    <tr><td>ShowDismiss</td><td>关闭按钮</td><td>boolean</td><td> — </td><td>false</td></tr>
-  </RowTemplate>
+    <HeaderTemplate>
+        <th>参数</th><th>说明</th><th>类型</th><th>可选值</th><th>默认值</th>
+    </HeaderTemplate>
+    <RowTemplate>
+        <tr><td>Color</td><td>颜色</td><td>Color</td><td>Primary / Secondary / Success / Danger / Warning / Info / Dark</td><td>Primary</td></tr>
+        <tr><td>Class</td><td>样式</td><td>string</td><td> — </td><td> — </td></tr>
+        <tr><td>ChildContent</td><td>内容</td><td>RenderFragment</td><td> — </td><td> — </td></tr>
+        <tr><td>ShowDismiss</td><td>关闭按钮</td><td>boolean</td><td> — </td><td>false</td></tr>
+    </RowTemplate>
 </Table>
+
+@code {
+    protected Logger? Trace { get; set; }
+
+    protected void DismissClick(MouseEventArgs e)
+    {
+        Trace?.Log($"Alert Dismissed");
+    }
+} 

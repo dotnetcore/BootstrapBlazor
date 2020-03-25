@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
         /// 关闭警告框回调方法
         /// </summary>
         [Parameter]
-        public EventCallback<MouseEventArgs> OnClick { get; set; }
+        public EventCallback<MouseEventArgs> OnDismiss { get; set; }
 
         /// <summary>
         /// OnInitializedAsync 方法
@@ -51,12 +51,15 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override Task OnInitializedAsync()
         {
-            var callback = OnClick;
-            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+            if (ShowDismiss)
             {
-                Class = "collapse";
-                if (callback.HasDelegate) callback.InvokeAsync(e);
-            });
+                var callback = OnDismiss;
+                OnDismiss = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                {
+                    Class = "collapse";
+                    if (callback.HasDelegate) callback.InvokeAsync(e);
+                });
+            }
             return Task.CompletedTask;
         }
     }
