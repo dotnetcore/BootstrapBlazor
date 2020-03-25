@@ -28,10 +28,24 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 下拉选项改变时调用此方法
         /// </summary>
         /// <param name="item"></param>
-        protected void ItemChanged(SelectedItem item)
+        protected void OnItemChanged(SelectedItem item)
         {
             Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
         }
+
+        /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnSelectedItemChanged",
+                Description="下拉框选项改变时触发此事件",
+                Type ="EventCallback<SelectedItem>"
+            }
+        };
 
         /// <summary>
         /// 获得属性方法

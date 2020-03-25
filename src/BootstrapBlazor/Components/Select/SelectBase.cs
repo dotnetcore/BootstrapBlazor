@@ -89,7 +89,7 @@ namespace BootstrapBlazor.Components
         /// SelectedItemChanged 方法
         /// </summary>
         [Parameter]
-        public EventCallback<SelectedItem> SelectedItemChanged { get; set; }
+        public EventCallback<SelectedItem> OnSelectedItemChanged { get; set; }
 
         /// <summary>
         /// 下拉框选项点击时调用此方法
@@ -100,7 +100,7 @@ namespace BootstrapBlazor.Components
             SelectedItem.Active = true;
 
             // 触发 SelectedItemChanged 事件
-            if (SelectedItemChanged.HasDelegate) SelectedItemChanged.InvokeAsync(item);
+            if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);
         }
 
         /// <summary>
