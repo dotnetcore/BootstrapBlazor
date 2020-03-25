@@ -42,6 +42,47 @@
     </CodeTemplate>
 </Block>
 
+<Block Title="禁用下拉框" Introduction="选择器不可用状态">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Success" Items="@Items" IsDisabled="true"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Danger" Items="@Items" IsDisabled="true"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Warning" Items="@Items" IsDisabled="true"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Info" Items="@Items" IsDisabled="true"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Secondary" Items="@Items" IsDisabled="true"></Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select TItem="string" Color="Color.Dark" Items="@Items" IsDisabled="true"></Select>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Primary"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Success"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Danger"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Warning"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Info"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Secondary"&gt;&lt;/Select&gt;
+&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Dark"&gt;&lt;/Select&gt;
+        </pre>
+    </CodeTemplate>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

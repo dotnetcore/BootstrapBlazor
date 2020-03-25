@@ -22,14 +22,14 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         protected string InputClassName => CssBuilder.Default("form-control form-select-input")
-            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
+            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .Build();
 
         /// <summary>
         /// 获得 样式集合
         /// </summary>
         protected string ArrowClassName => CssBuilder.Default("form-select-append")
-            .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+            .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .Build();
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 当前选择项实例
         /// </summary>
-        protected SelectedItem? SelectedItem { get; set; }
+        public SelectedItem? SelectedItem { get; set; }
 
         /// <summary>
         /// 获得 按钮 disabled 属性
@@ -111,8 +111,8 @@ namespace BootstrapBlazor.Components
         protected string ActiveItem(SelectedItem item)
         {
             return CssBuilder.Default("dropdown-item")
-            .AddClass("active", () => item.Value == SelectedItem?.Value)
-            .Build();
+                .AddClass("active", () => item.Value == SelectedItem?.Value)
+                .Build();
         }
     }
 }
