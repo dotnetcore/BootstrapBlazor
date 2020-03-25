@@ -16,14 +16,14 @@ namespace BootstrapBlazor.Utils
         /// Call Build() to return the completed CSS Classes as a string.
         /// </summary>
         /// <param name="value"></param>
-        public static CssBuilder Default(string value = "") => new CssBuilder(value);
+        public static CssBuilder Default(string? value = null) => new CssBuilder(value);
 
         /// <summary>
         /// Creates a CssBuilder used to define conditional CSS classes used in a component.
         /// Call Build() to return the completed CSS Classes as a string.
         /// </summary>
         /// <param name="value"></param>
-        protected CssBuilder(string value)
+        protected CssBuilder(string? value)
         {
             stringBuffer = new List<string>();
             AddClass(value);
@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClass(string value)
+        public CssBuilder AddClass(string? value)
         {
             if (!string.IsNullOrEmpty(value)) stringBuffer.Add(value);
             return this;
@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Utils
         /// <param name="value">CSS Class to conditionally add.</param>
         /// <param name="when">Condition in which the CSS Class is added.</param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClass(string value, bool when = true) => when ? AddClass(value) : this;
+        public CssBuilder AddClass(string? value, bool when = true) => when ? AddClass(value) : this;
 
         /// <summary>
         /// Adds a conditional CSS Class to the builder with space separator.
@@ -54,7 +54,7 @@ namespace BootstrapBlazor.Utils
         /// <param name="value">CSS Class to conditionally add.</param>
         /// <param name="when">Condition in which the CSS Class is added.</param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClass(string value, Func<bool> when) => AddClass(value, when());
+        public CssBuilder AddClass(string? value, Func<bool> when) => AddClass(value, when());
 
         /// <summary>
         /// Adds a conditional CSS Class to the builder with space separator.
@@ -62,7 +62,7 @@ namespace BootstrapBlazor.Utils
         /// <param name="value">Function that returns a CSS Class to conditionally add.</param>
         /// <param name="when">Condition in which the CSS Class is added.</param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClass(Func<string> value, bool when = true) => when ? AddClass(value()) : this;
+        public CssBuilder AddClass(Func<string?> value, bool when = true) => when ? AddClass(value()) : this;
 
         /// <summary>
         /// Adds a conditional CSS Class to the builder with space separator.
@@ -70,7 +70,7 @@ namespace BootstrapBlazor.Utils
         /// <param name="value">Function that returns a CSS Class to conditionally add.</param>
         /// <param name="when">Condition in which the CSS Class is added.</param>
         /// <returns>CssBuilder</returns>
-        public CssBuilder AddClass(Func<string> value, Func<bool> when) => AddClass(value, when());
+        public CssBuilder AddClass(Func<string?> value, Func<bool> when) => AddClass(value, when());
 
         /// <summary>
         /// Adds a conditional nested CssBuilder to the builder with space separator.
@@ -108,12 +108,6 @@ namespace BootstrapBlazor.Utils
         /// Finalize the completed CSS Classes as a string.
         /// </summary>
         /// <returns>string</returns>
-        public string Build() => stringBuffer.Any() ? string.Join(" ", stringBuffer) : "";
-
-        /// <summary>
-        /// ToString should only and always call Build to finalize the rendered string.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString() => Build();
+        public string? Build() => stringBuffer.Any() ? string.Join(" ", stringBuffer) : null;
     }
 }

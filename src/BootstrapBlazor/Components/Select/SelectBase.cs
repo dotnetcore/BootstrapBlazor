@@ -13,22 +13,22 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected string ClassName => CssBuilder.Default("form-select dropdown")
+        protected override string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
-            .AddClass(Class)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected string InputClassName => CssBuilder.Default("form-control form-select-input")
+        protected string? InputClassName => CssBuilder.Default("form-control form-select-input")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .Build();
 
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected string ArrowClassName => CssBuilder.Default("form-select-append")
+        protected string? ArrowClassName => CssBuilder.Default("form-select-append")
             .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .Build();
 
@@ -56,17 +56,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 按钮 disabled 属性
         /// </summary>
-        protected string? Disabled => IsDisabled ? "disabled" : null;
-
-        /// <summary>
-        /// 获得 当前组件 Id
-        /// </summary>
-        [Parameter] public string? Id { get; set; }
-
-        /// <summary>
-        /// 获得/设置 自定义样式
-        /// </summary>
-        [Parameter] public string Class { get; set; } = "";
+        protected string? Disabled => IsDisabled ? "true" : null;
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -108,7 +98,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string ActiveItem(SelectedItem item)
+        protected string? ActiveItem(SelectedItem item)
         {
             return CssBuilder.Default("dropdown-item")
                 .AddClass("active", () => item.Value == SelectedItem?.Value)
