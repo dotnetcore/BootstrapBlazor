@@ -4,18 +4,18 @@ using System.ComponentModel;
 namespace Microsoft.AspNetCore.Components.Forms
 {
     /// <summary>
-    ///
+    /// FieldIdentifier 扩展操作类
     /// </summary>
     public static class FieldIdentifierExtensions
     {
         /// <summary>
-        ///
+        /// 获取显示名称方法
         /// </summary>
         /// <param name="fieldIdentifier"></param>
         /// <returns></returns>
         public static string GetDisplayName(this FieldIdentifier fieldIdentifier)
         {
-            var cacheKey = (Type: fieldIdentifier.Model.GetType(), FieldName: fieldIdentifier.FieldName);
+            var cacheKey = (Type: fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
             if (!DisplayNamesExtensions.TryGetValue(cacheKey, out var dn))
             {
                 if (BootstrapBlazor.Components.EditContextDataAnnotationsExtensions.TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))

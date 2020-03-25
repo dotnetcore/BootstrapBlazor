@@ -42,29 +42,4 @@
     </CodeTemplate>
 </Block>
 
-<Table>
-    <HeaderTemplate>
-        <th>参数</th><th>说明</th><th>类型</th><th>可选值</th><th>默认值</th>
-    </HeaderTemplate>
-    <RowTemplate>
-        <tr><td>Color</td><td>颜色</td><td>Color</td><td>Primary / Secondary / Success / Danger / Warning / Info / Dark</td><td>Primary</td></tr>
-        <tr><td>Class</td><td>样式</td><td>string</td><td> — </td><td> — </td></tr>
-        <tr><td>IsDisabled</td><td>是否禁用</td><td>boolean</td><td> — </td><td>false</td></tr>
-        <tr><td>Items</td><td>数据集合</td><td>IEnumerable&lt;SelectedItem&gt;</td><td> — </td><td> — </td></tr>
-        <tr><td>ShowDismiss</td><td>关闭按钮</td><td>boolean</td><td> — </td><td>false</td></tr>
-    </RowTemplate>
-</Table>
-
-@code {
-    protected Logger? Trace { get; set; }
-
-    protected IEnumerable<SelectedItem> Items = new SelectedItem[] {
-        new SelectedItem ("Beijing", "北京"),
-        new SelectedItem ("Shanghai", "上海") { Active = true }
-    };
-
-    protected void ItemChanged(SelectedItem item)
-    {
-        Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
-    }
-}
+<AttributeTable Items="@GetAttributes()" />
