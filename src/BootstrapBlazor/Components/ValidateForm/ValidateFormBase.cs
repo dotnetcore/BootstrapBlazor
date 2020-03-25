@@ -10,20 +10,8 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// ValidateFormBase 支持客户端验证组件基类
     /// </summary>
-    public abstract class ValidateFormBase : ComponentBase
+    public abstract class ValidateFormBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得/设置 Id 用于内部 Label-For
-        /// </summary>
-        [Parameter]
-        public string Id { get; set; } = "";
-
-        /// <summary>
-        /// Gets or sets a collection of additional attributes that will be applied to the created <c>form</c> element.
-        /// </summary>
-        [Parameter(CaptureUnmatchedValues = true)]
-        public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
-
         /// <summary>
         /// Specifies the top-level model object for the form. An edit context will
         /// be constructed for this model. If using this parameter, do not also supply
@@ -82,7 +70,7 @@ namespace BootstrapBlazor.Components
             {
                 if (key.Key.EditForm == this && key.Key.ModelType == context.ObjectType)
                 {
-                    if (EditContextDataAnnotationsExtensions.TryGetValidatableProperty(new FieldIdentifier(model, key.Key.FieldName), out var propertyInfo))
+                    if (BootstrapBlazorEditContextDataAnnotationsExtensions.TryGetValidatableProperty(new FieldIdentifier(model, key.Key.FieldName), out var propertyInfo))
                     {
                         // 设置其关联属性字段
                         var propertyValue = propertyInfo.GetValue(model);

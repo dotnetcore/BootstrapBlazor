@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 验证组件基类
     /// </summary>
-    public abstract class ValidatorComponentBase : ComponentBase
+    public abstract class ValidatorComponentBase : ComponentBase, IValidator
     {
         /// <summary>
         /// 获得/设置 错误描述信息
@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 IRules 实例
         /// </summary>
         [CascadingParameter]
-        public IRules? RuleComponent { get; set; }
+        public IValidateRules? RuleComponent { get; set; }
 
         /// <summary>
         /// 初始化方法
@@ -29,12 +29,13 @@ namespace BootstrapBlazor.Components
         {
             if (RuleComponent == null)
             {
-                throw new InvalidOperationException($"{nameof(ValidatorComponentBase)} requires a cascading " +
-                    $"parameter of type {nameof(IRules)}. For example, you can use {nameof(ValidatorComponentBase)} " +
-                    $"inside an LgbInputText.");
+                throw new InvalidOperationException($"{nameof(IValidator)} requires a cascading " +
+                    $"parameter of type {nameof(IValidateRules)}. For example, you can use {nameof(RequiredValidator)} " +
+                    $"inside an ValidateInputBase<TItem>.");
             }
 
             RuleComponent.Rules.Add(this);
+            RuleComponent.OnRuleAdded(this);
         }
 
         /// <summary>
