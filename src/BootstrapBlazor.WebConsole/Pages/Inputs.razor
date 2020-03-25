@@ -1,6 +1,6 @@
 ﻿@page "/inputs"
 
-<Block Title="Inputs 文本输入框" Introduction="提供基本的文本录入组件">
+<Block Title="Input 文本输入框" Introduction="提供基本的文本录入组件">
     <CardBodyTemplate>
         <div class="form-inline">
             <div class="row">
@@ -52,7 +52,7 @@
     </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-&lt;BootstrapInput TItem="string" placeholder="请输入 ..." Value="@@BindValue"&gt;&lt;/BootstrapInput&gt;
+&lt;BootstrapInput TItem="string" placeholder="请输入 ..." @@bind-Value="@@BindValue"&gt;&lt;/BootstrapInput&gt;
         </pre>
     </CodeTemplate>
 </Block>
@@ -73,8 +73,14 @@
     </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-&lt;BootstrapInput TItem="string" placeholder="请输入 ..." Value="@@BindValue"&gt;&lt;/BootstrapInput&gt;
+&lt;ValidateForm class="form-inline" Model="@Model"&gt;
+    &lt;BootstrapInput TItem="string" maxlength="5" placeholder="请输入 ..." @@bind-Value="@@BindValue"&gt;
+        &lt;RequiredValidator /&gt;
+        &lt;StringLengthValidator Length="5" /&gt;
+    &lt;/BootstrapInput&gt;
+&lt;/ValidateForm&gt;
         </pre>
+        <p>控件放置于 <code class="highlight">ValidateForm</code> 组件内，通过设置 <code>Model</code> 属性获得 <code>Select</code> 组件绑定的字段值如 <code>@@bind-Value="@@Model.Name"</code></p>
     </CodeTemplate>
 </Block>
 
@@ -103,6 +109,13 @@
                 Type = "string",
                 ValueList = "text / number / email / url",
                 DefaultValue = "text"
+            },
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "验证控件",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }
