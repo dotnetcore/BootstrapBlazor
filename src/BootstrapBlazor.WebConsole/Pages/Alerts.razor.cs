@@ -25,6 +25,20 @@ namespace BootstrapBlazor.WebConsole.Pages
         }
 
         /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnDismiss",
+                Description="点击关闭按钮时触发此事件",
+                Type ="EventCallback<MouseEventArgs>"
+            }
+        };
+
+        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>

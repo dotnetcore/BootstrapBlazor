@@ -3,9 +3,9 @@
 namespace BootstrapBlazor.WebConsole.Common
 {
     /// <summary>
-    /// 属性说明类
+    /// 事件说明类
     /// </summary>
-    public class AttributeItem
+    public class EventItem
     {
         /// <summary>
         /// 获得/设置 参数
@@ -24,17 +24,5 @@ namespace BootstrapBlazor.WebConsole.Common
         /// </summary>
         [DisplayName("类型")]
         public string Type { get; set; } = "";
-
-        /// <summary>
-        /// 获得/设置 可选值
-        /// </summary>
-        [DisplayName("可选值")]
-        public string ValueList { get; set; } = "";
-
-        /// <summary>
-        /// 获得/设置 默认值
-        /// </summary>
-        [DisplayName("默认值")]
-        public string DefaultValue { get; set; } = "";
     }
 }

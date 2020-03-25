@@ -1,24 +1,20 @@
 ﻿<div class="table-attr d-none d-md-block">
-    <h3>属性 Attributes</h3>
+    <h3>事件 Events</h3>
 
-    <Table TItem="BootstrapBlazor.WebConsole.Common.AttributeItem" Items="Items">
+    <Table TItem="BootstrapBlazor.WebConsole.Common.EventItem" Items="Items">
         <HeaderTemplate>
             <TableHeader TItem="string" @bind-Field="@context.Name" />
             <TableHeader TItem="string" @bind-Field="@context.Description" />
             <TableHeader TItem="string" @bind-Field="@context.Type" />
-            <TableHeader TItem="string" @bind-Field="@context.ValueList" />
-            <TableHeader TItem="string" @bind-Field="@context.DefaultValue" />
         </HeaderTemplate>
         <RowTemplate>
             <td>@context.Name</td>
             <td>@context.Description</td>
             <td>@context.Type</td>
-            <td>@context.ValueList</td>
-            <td>@context.DefaultValue</td>
         </RowTemplate>
     </Table>
 </div>
 
 @code {
-    [Parameter] public IEnumerable<AttributeItem>? Items { get; set; }
+    [Parameter] public IEnumerable<EventItem>? Items { get; set; }
 }
