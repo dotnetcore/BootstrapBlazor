@@ -30,6 +30,28 @@ namespace BootstrapBlazor.Utils
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static string ToDescriptionString(this Direction val)
+        {
+            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
+            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static string ToDescriptionString(this MenuType val)
+        {
+            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
+            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+        }
+
         /*
         public static string ToDescriptionString(this InputType val)
         {

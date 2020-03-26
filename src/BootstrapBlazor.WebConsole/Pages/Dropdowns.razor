@@ -1,3 +1,178 @@
 ﻿@page "/dropdowns"
 
-<h1 class="text-danger">Error. -- Argo zhang</h1>
+<Block Title="Dropdown 下拉菜单" Introduction="使用 TagName='a' 开启带有 button 标签的下拉表">
+    <CardBodyTemplate>
+        <Dropdown Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary">Dropdown button</Dropdown>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary""&gt;Dropdown button&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="带有a标签的下拉菜单" Introduction="使用 TagName='a' 开启带有 a 标签的下拉表单">
+    <CardBodyTemplate>
+        <Dropdown Id="dropdown" TagName="a" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary">Dropdown Link</Dropdown>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary""&gt;Dropdown button&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="带有颜色的下拉框" Introduction='提供各种颜色的警告信息框 引用 Color="Color.Primary" 等颜色及样式类来定义下拉菜单的外在表现'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Primary">Primary</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary">Secondary</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Info">Info</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Warning">Warning</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Danger">Danger</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary""&gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary""&gt;Secondary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Info""&gt;Secondary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Warning""&gt;Warning&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Danger""&gt;Danger&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="分裂式按钮下拉菜单" Introduction='可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 ShowSplit="true"(使用分裂式组件时需要加上MenuType="MenuType.Btngroup") 插入此符号为下拉选项作适当的间隔（距）处理。'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" ShowSplit="true" Color="Color.Primary">Primary</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" ShowSplit="true" Color="Color.Secondary">Secondary</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" ShowSplit="true" Color="Color.Info">Info</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" ShowSplit="true" Color="Color.Warning">Warning</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" ShowSplit="true" Color="Color.Danger">Danger</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true"&gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true"&gt;Secondary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Info" ShowSplit="true"&gt;Secondary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Warning" ShowSplit="true"&gt;Warning&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Danger" ShowSplit="true"&gt;Danger&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="尺寸大小定义" Introduction="下拉菜单有各种大小规格可以选用Size属性，包括预设及分裂式按钮下拉菜单。">
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" Size="Size.Large">Dropdown button</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" Size="Size.Large" ShowSplit="true">Dropdown button</Dropdown></div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" Size="Size.Small">Dropdown button</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" Size="Size.Small" ShowSplit="true">Dropdown button</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true"&gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true"&gt;Secondary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Info" ShowSplit="true"&gt;Secondary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Warning" ShowSplit="true"&gt;Warning&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Danger" ShowSplit="true"&gt;Danger&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="变形-向上展开" Introduction='增加 Direction="Direction.Dropup" 样式，使下拉菜单向上展开。'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" Direction="Direction.Dropup">Dropdown button</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" ShowSplit="true" Direction="Direction.Dropup">Dropdown button</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true" Direction="Direction.Dropup"&gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true" Direction="Direction.Dropup"&gt;Secondary&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="Dropright 左指向下拉菜单" Introduction='通过将 Direction="Direction.Dropright" 添加到父元素来触发元素左侧的下拉菜单。'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" Direction="Direction.Dropleft">Dropdown button</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" ShowSplit="true" Direction="Direction.Dropleft">Dropdown button</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true" Direction="Direction.Dropright"&gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true" Direction="Direction.Dropright"&gt;Secondary&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="Droprleft 左指向下拉菜单" Introduction='通过将 Direction="Direction.Dropright" 添加到父元素来触发元素左侧的下拉菜单。'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" Direction="Direction.Dropleft">Dropdown button</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" ShowSplit="true" Direction="Direction.Dropleft">Dropdown button</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true" Direction="Direction.Dropright"&gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true" Direction="Direction.Dropright"&gt;Secondary&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+<div class="dropdown-menu-lg-left"></div>
+<Block Title="菜单项" Introduction='旧版Boostrap(v3)下拉菜单中的子菜单项必须是链接，但v4不再是这种情况，现在你可选择使用<button>下拉列表中的元素，而不是仅仅 <a>标签。使用MenuItem="button"来开启'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" MenuItem="button">Dropdown button</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" ShowSplit="true" MenuItem="button">Dropdown button</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true"  &gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true" &gt;Secondary&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="菜单项" Introduction='旧版Boostrap(v3)下拉菜单中的子菜单项必须是链接，但v4不再是这种情况，现在你可选择使用<button>下拉列表中的元素，而不是仅仅 <a>标签。使用MenuItem="button"来开启'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" MenuItem="button">Dropdown button</Dropdown></div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" MenuType="MenuType.Btngroup" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" ShowSplit="true" MenuItem="button">Dropdown button</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true"  &gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true" &gt;Secondary&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="菜单对齐" Introduction='默认情况下，一个下拉菜单自动从顶部和左侧的父级100％定位。添加.dropdown-menu-right 到.dropdown-menu右侧轻松对齐下拉菜单。'>
+    <CardBodyTemplate>
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TagName="button" Items="items" Value="items[0]" ValueChanged="@ShowMessage" Color="Color.Secondary" MenuItem="button" Responsive="dropdown-menu-right">Dropdown button</Dropdown></div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Primary" ShowSplit="true"  &gt;Primary&lt;/Dropdown&gt;
+&lt;Dropdown Color="Color.Primary Id="dropdown" TagName="button" Items="items" Value="items[0]" ValueChanged="@@ShowMessage" Color="Color.Secondary" ShowSplit="true" &gt;Secondary&lt;/Dropdown&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
