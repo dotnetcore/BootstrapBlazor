@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits SwitchBase
+
+<DynamicElement TagName="div" class="@ClassName" @attributes="@AdditionalAttributes">
+    @ChildContent
+    <input type="checkbox" class="custom-control-input" checked="@Value" disabled="@IsDisabled" onclick="@SwitchClick" id="@Id">
+    <label class="custom-control-label" for="@Id">@if (Value){@OnText}else{@OffText}</label>
+</DynamicElement>
+
+
+
