@@ -192,6 +192,9 @@ a {
     position: relative;
     overflow: hidden;
 }
+    .toggle.disabled .toggle-group label, .toggle.disabled .toggle-group span {
+        cursor: not-allowed;
+    }
 
     .toggle.btn {
         min-width: 70px;
