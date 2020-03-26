@@ -1,6 +1,5 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 
 namespace BootstrapBlazor.Components
@@ -22,21 +21,15 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Style 集合
         /// </summary>
-        protected string? StyleName => CssBuilder.Default()
+        protected virtual string? StyleName => CssBuilder.Default()
             .AddClass($"width: {Width}px;", Width > 0)
             .Build();
 
         /// <summary>
-        /// 获得/设置 组件高度
+        /// 获得/设置 组件宽度
         /// </summary>
         [Parameter]
-        public int Width { get; set; } = 120;
-
-        /// <summary>
-        /// 获得/设置 组件 On 时显示文本
-        /// </summary>
-        [Parameter]
-        public string OnText { get; set; } = "展开";
+        public virtual int Width { get; set; } = 120;
 
         /// <summary>
         /// 获得/设置 是否禁用
@@ -44,16 +37,22 @@ namespace BootstrapBlazor.Components
         [Parameter] public bool IsDisabled { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件 On 时显示文本
+        /// </summary>
+        [Parameter]
+        public virtual string? OnText { get; set; } = "展开";
+
+        /// <summary>
         /// 获得/设置 组件 Off 时显示文本
         /// </summary>
         [Parameter]
-        public string OffText { get; set; } = "收缩";
+        public virtual string? OffText { get; set; } = "收缩";
 
         /// <summary>
         /// 获得/设置 组件是否处于 On 状态 默认为 Off 状态
         /// </summary>
         [Parameter]
-        public bool Value { get; set; } = false;
+        public bool Value { get; set; }
 
         /// <summary>
         /// Gets or sets a callback that updates the bound value.
@@ -69,7 +68,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击控件时触发此方法
         /// </summary>
-        protected void OnClick()
+        protected virtual void OnClick()
         {
             if (!IsDisabled)
             {

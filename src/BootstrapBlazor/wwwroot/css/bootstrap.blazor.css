@@ -327,112 +327,66 @@ a {
 }
 /*end toggle*/
 
-/*start Switch*/
-.on-primary .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #007bff;
-    background-color: #007bff;
+/*switch*/
+.switch {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    font-size: 0.875rem;
+    line-height: 20px;
+    height: 20px;
+    vertical-align: middle;
 }
 
-.off-primary .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #007bff;
-    background-color: #007bff;
-}
+    .switch .switch-input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        margin: 0;
+    }
 
-.on-secondary .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #6c757d;
-    background-color: #6c757d;
-}
+    .switch .switch-core {
+        margin: 0;
+        display: inline-block;
+        position: relative;
+        border: 1px solid #dcdfe6;
+        outline: none;
+        border-radius: 10px;
+        box-sizing: border-box;
+        background: #dcdfe6;
+        cursor: pointer;
+        transition: border-color .3s,background-color .3s;
+        vertical-align: middle;
+    }
 
-.off-secondary .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #6c757d;
-    background-color: #6c757d;
-}
+        .switch .switch-core:after {
+            content: "";
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            border-radius: 100%;
+            transition: all .3s;
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+        }
 
-.on-success .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #28a745;
-    background-color: #28a745;
-}
+    .switch.is-checked .switch-core:after {
+        left: 100%;
+        margin-left: -17px;
+    }
 
-.off-success .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #28a745;
-    background-color: #28a745;
-}
+    .switch .switch-label {
+        margin-left: 10px;
+        cursor: pointer;
+    }
 
-.on-danger .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #dc3545;
-    background-color: #dc3545;
-}
+    .switch.is-disabled {
+        opacity: 0.6;
+    }
 
-.off-danger .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #dc3545;
-    background-color: #dc3545;
-}
-
-.on-warning .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #ffc107;
-    background-color: #ffc107;
-}
-
-.off-warning .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #ffc107;
-    background-color: #ffc107;
-}
-
-.on-info .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #17a2b8;
-    background-color: #17a2b8;
-}
-
-.off-info .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #17a2b8;
-    background-color: #17a2b8;
-}
-
-.on-dark .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #343a40;
-    background-color: #343a40;
-}
-
-.off-dark .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #343a40;
-    background-color: #343a40;
-}
-
-.on-light .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #f8f9fa;
-    background-color: #f8f9fa;
-}
-
-.off-light .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #f8f9fa;
-    background-color: #f8f9fa;
-}
-
-.on-link .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #007bff;
-    background-color: #007bff;
-}
-
-.off-link .custom-control-input:not(:checked) ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #007bff;
-    background-color: #007bff;
-}
+    .switch.is-disabled, .switch.switch.is-disabled .switch-core, .switch.switch.is-disabled .switch-label {
+        cursor: not-allowed;
+    }
 /*end switch*/

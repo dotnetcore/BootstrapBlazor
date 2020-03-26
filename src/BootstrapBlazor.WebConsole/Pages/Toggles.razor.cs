@@ -5,17 +5,22 @@ using System.Collections.Generic;
 namespace BootstrapBlazor.WebConsole.Pages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class Toggles
     {
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        protected bool BindValue { get; set; }
+
+        /// <summary>
+        ///
         /// </summary>
         protected Logger? Trace { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="val"></param>
         protected void OnValueChanged(bool val) => Trace?.Log($"Toggle CurrentValue: {val}");
