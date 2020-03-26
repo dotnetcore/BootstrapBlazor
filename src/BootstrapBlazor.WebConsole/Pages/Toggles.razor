@@ -59,6 +59,31 @@
     </CodeTemplate>
 </Block>
 
+<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <label class="control-label">双向绑定</label>
+                    <Toggle @bind-Value="@BindValue"></Toggle>
+                </div>
+                <div class="form-group col-12">
+                    <div>绑定数值: @BindValue</div>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Toggle @@bind-Value="@@BindValue"&gt;&lt;/Toggle&gt;
+        </pre>
+    </CodeTemplate>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
+
+@code {
+    protected bool BindValue { get; set; }
+}

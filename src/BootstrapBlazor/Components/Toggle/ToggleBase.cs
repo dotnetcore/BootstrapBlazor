@@ -56,6 +56,11 @@ namespace BootstrapBlazor.Components
         public bool Value { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets a callback that updates the bound value.
+        /// </summary>
+        [Parameter] public EventCallback<bool> ValueChanged { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件颜色 默认为 Success 颜色
         /// </summary>
         [Parameter]
@@ -69,6 +74,7 @@ namespace BootstrapBlazor.Components
             if (!IsDisabled)
             {
                 Value = !Value;
+                if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
                 OnValueChanged?.Invoke(Value);
             }
         }
