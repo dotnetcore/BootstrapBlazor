@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BootstrapBlazor.Utils;
+﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
 {
@@ -16,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮颜色/大小集合
         /// </summary>
         /// <returns></returns>
-        protected string ClassColor => CssBuilder.Default("btn")
+        protected string? ClassColor => CssBuilder.Default("btn")
           .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
           .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
           .Build();
@@ -25,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮颜色/大小集合
         /// </summary>
         /// <returns></returns>
-        protected string ClassResponsive => CssBuilder.Default("dropdown-menu")
+        protected string? ClassResponsive => CssBuilder.Default("dropdown-menu")
             .AddClass(Responsive)
             .Build();
 
@@ -33,7 +30,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮弹出方向集合
         /// </summary>
         /// <returns></returns>
-        protected string ClassDirection => CssBuilder.Default()
+        protected string? ClassDirection => CssBuilder.Default()
           .AddClass($"{MenuType.ToDescriptionString()}", MenuType != 0)
           .AddClass($"{Direction.ToDescriptionString()}", Direction != Direction.None)
           .Build();
@@ -42,7 +39,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮样式集合
         /// </summary>
         /// <returns></returns>
-        protected string ClassName => CssBuilder.Default("btn")
+        protected override string? ClassName => CssBuilder.Default("btn")
           .AddClass("dropdown-toggle")
           .AddClass("dropdown-toggle-split", ShowSplit)
           .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
@@ -50,11 +47,6 @@ namespace BootstrapBlazor.Components
           .AddClass(Class)
           .Build();
 
-        /// <summary>
-        /// 组件Id
-        /// </summary>
-        [Parameter]
-        public string Id { get; set; } = "";
         /// <summary>
         /// 默认渲染元素 
         /// </summary>
@@ -119,13 +111,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem> Items { get; set; } = new SelectedItem[0];
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 选中项实例
         /// </summary>
         [Parameter]
-        public SelectedItem Value { get; set; } = new SelectedItem();
+        public SelectedItem? Value { get; set; }
 
         /// <summary>
         /// 获得/设置 选中项改变回调方法
@@ -147,11 +139,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string ActiveItem(SelectedItem item)
-        {
-            return CssBuilder.Default("dropdown-item")
-                .AddClass("active", () => item.Value == Value?.Value)
-                .Build();
-        }
+        protected string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
+            .AddClass("active", () => item.Value == Value?.Value)
+            .Build();
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BootstrapBlazor.Components;
+﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.WebConsole.Common;
+using System;
+using System.Collections.Generic;
 
 namespace BootstrapBlazor.WebConsole.Pages
 {
@@ -12,11 +10,11 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// </summary>
     public partial class Dropdowns
     {
-        List<SelectedItem> items = new List<SelectedItem>
+        readonly List<SelectedItem> items = new List<SelectedItem>
         {
-        new SelectedItem{ Text="Action",Value="0"},
-        new SelectedItem{ Text="Another action",Value="1"},
-        new SelectedItem{ Text="Something else here",Value="2"},
+            new SelectedItem{ Text="Action",Value="0"},
+            new SelectedItem{ Text="Another action",Value="1"},
+            new SelectedItem{ Text="Something else here",Value="2"},
         };
 
         private void ShowMessage(SelectedItem e)
@@ -66,46 +64,42 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-             new AttributeItem() {
+            new AttributeItem() {
                 Name = "ShowSplit",
                 Description = "分裂式按钮下拉菜单(使用分裂式组件时需要加上MenuType='MenuType.Btngroup')",
                 Type = "bool",
                 ValueList = "true / false ",
                 DefaultValue = " false "
             },
-             new AttributeItem() {
+            new AttributeItem() {
                 Name = "Size",
                 Description = "尺寸大小定义",
                 Type = "Size",
                 ValueList = "true / false ",
                 DefaultValue = " false "
             },
-             new AttributeItem() {
+            new AttributeItem() {
                 Name = "Direction",
                 Description = "下拉框弹出方向",
                 Type = "Direction",
                 ValueList = "Dropup / Dropright /  Dropleft",
                 DefaultValue = " None "
             },
-              new AttributeItem() {
+            new AttributeItem() {
                 Name = "MenuItem",
                 Description = "菜单项渲染标签",
                 Type = "string",
                 ValueList = "button / a ",
                 DefaultValue = " a "
             },
-               new AttributeItem() {
+            new AttributeItem() {
                 Name = "Responsive",
                 Description = "菜单对齐",
                 Type = "string",
-                ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{ lg | md | sm }-{ right | left}",
+                ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{lg | md | sm }-{right | left}",
                 DefaultValue = " - "
             },
-
-
         };
     }
-
-
 }
 

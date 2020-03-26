@@ -4,12 +4,12 @@
 @if (ShowSplit)
 {
     <div class="@ClassDirection">
-        <button type="button" class="@ClassColor">@Value.Text</button>
+        <button type="button" class="@ClassColor">@Value?.Text</button>
         <DynamicElement TagName="@TagName" class="@ClassName" id="@Id" data-toggle="dropdown" @attributes="@AdditionalAttributes" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only"></span>
         </DynamicElement>
         <DynamicElement TagName="div" class="@ClassResponsive">
-            @foreach (var item in Items)
+            @foreach (var item in Items ?? new SelectedItem[0])
             {
 
                 <DynamicElement TagName="@MenuItem" class="@ActiveItem(item)" @onclick="e => OnClick(item)">@item.Text</DynamicElement>
@@ -22,10 +22,10 @@ else
 {
     <div class="@ClassDirection">
         <DynamicElement TagName="@TagName" class="@ClassName" data-toggle="dropdown" @attributes="@AdditionalAttributes" aria-haspopup="true" aria-expanded="false">
-            @Value.Text
+            @Value?.Text
         </DynamicElement>
         <DynamicElement TagName="div" class="@ClassResponsive">
-            @foreach (var item in Items)
+            @foreach (var item in Items ?? new SelectedItem[0])
             {
                 <DynamicElement TagName="@MenuItem" class="@ActiveItem(item)" @onclick="e => OnClick(item)">@item.Text</DynamicElement>
             }
