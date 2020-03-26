@@ -243,6 +243,10 @@ section {
         margin-bottom: 2px;
     }
 
+    .content p {
+        line-height: 2;
+    }
+
     .content code {
         line-height: 1.8;
         font-size: 0.75rem;
@@ -255,10 +259,8 @@ section {
         display: block;
     }
 
-        .content code.highlight {
-            border: none;
+        .content code.highlight, .content p code {
             display: inline-block;
-            line-height: 1.5;
             padding: 0px 8px;
             background-color: #e9ecef;
             margin: 0;
@@ -334,14 +336,6 @@ td {
 
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
-}
-
-.valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
-}
-
-.invalid {
-    outline: 1px solid red;
 }
 
 .validation-message {

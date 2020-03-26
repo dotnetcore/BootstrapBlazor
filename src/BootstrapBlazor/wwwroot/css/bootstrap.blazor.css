@@ -161,3 +161,168 @@ a {
         transition: all .3s;
         transform: rotate(180deg);
     }
+
+.form-control:focus {
+    border-color: #66afe9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+.form-inline .form-group .control-label {
+    margin-right: 10px;
+    width: 90px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    justify-content: flex-start;
+}
+
+.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus, .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69,.6);
+}
+
+.was-validated .form-control:valid:focus, .form-control.is-valid:focus, .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
+    border-color: #28a745;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69,.6);
+}
+
+/*toggle*/
+.toggle {
+    position: relative;
+    overflow: hidden;
+}
+
+    .toggle.btn {
+        min-width: 70px;
+        min-height: 35px;
+    }
+
+    .toggle.off .toggle-group {
+        left: -100%;
+    }
+
+    .toggle .btn-default, .toggle.btn-default {
+        background-color: #e0e0e0;
+        border-color: #ccc;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075);
+    }
+
+        .toggle .btn-default:hover {
+            color: #333;
+            background-color: #d4d4d4;
+        }
+
+    .toggle .toggle-group {
+        position: absolute;
+        width: 200%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        -webkit-transition: left 0.35s;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        transition: left 0.35s;
+    }
+
+        .toggle .toggle-group label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle .toggle-group label, .toggle .toggle-group span {
+            cursor: pointer;
+        }
+
+    .toggle .btn-handle {
+        position: relative;
+        margin: 0 auto;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        height: 100%;
+        width: 0px;
+        border-width: 0 1px;
+        background-image: linear-gradient(to bottom, #fff 0%, #e0e0e0 100%);
+        border-color: #ccc;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075);
+    }
+
+    .toggle .toggle-on {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 50%;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+    }
+
+        .toggle .toggle-on.btn {
+            padding-right: 24px;
+        }
+
+        .toggle .toggle-on.btn-lg {
+            padding-right: 31px;
+        }
+
+    .toggle.off .toggle-off {
+        color: #333;
+    }
+
+    .toggle .toggle-off {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        right: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        background-color: #e0e0e0;
+    }
+
+        .toggle .toggle-off.btn {
+            padding-left: 24px;
+        }
+
+        .toggle .toggle-off.btn-lg {
+            padding-left: 31px;
+        }
+
+    .toggle.btn-lg {
+        min-width: 79px;
+        min-height: 45px;
+    }
+
+.toggle-handle.btn-lg {
+    width: 40px;
+}
+
+.toggle.btn-sm {
+    min-width: 50px;
+    min-height: 30px;
+}
+
+.toggle-on.btn-sm {
+    padding-right: 20px;
+}
+
+.toggle-off.btn-sm {
+    padding-left: 20px;
+}
+
+.toggle.btn-xs {
+    min-width: 35px;
+    min-height: 22px;
+}
+
+.toggle-on.btn-xs {
+    padding-right: 12px;
+}
+
+.toggle-off.btn-xs {
+    padding-left: 12px;
+}
+/*end toggle*/

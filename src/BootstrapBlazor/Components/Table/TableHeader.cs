@@ -39,25 +39,18 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             Headers?.AddHeader(this);
+            _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
         }
 
         private FieldIdentifier? _fieldIdentifier;
         /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>
-        public string GetDisplayName()
-        {
-            if (_fieldIdentifier == null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
-            return _fieldIdentifier?.GetDisplayName() ?? "";
-        }
+        public string GetDisplayName() => _fieldIdentifier?.GetDisplayName() ?? "";
 
         /// <summary>
         /// 获取绑定字段信息方法
         /// </summary>
-        public string GetFieldName()
-        {
-            if (_fieldIdentifier == null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
-            return _fieldIdentifier?.FieldName ?? "";
-        }
+        public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
     }
 }

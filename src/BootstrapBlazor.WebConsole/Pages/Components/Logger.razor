@@ -12,17 +12,12 @@
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
-    protected string ClassName => CssBuilder.Default("card-log")
-        .AddClass(() =>
-        {
-            var ret = "";
-            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("class", out var cls)) ret = Convert.ToString(cls) ?? "";
-            return ret;
-        })
+    protected string? ClassName => CssBuilder.Default("card-log")
+        .AddClassFromAttributes(AdditionalAttributes)
         .AddClass(Class)
         .Build();
 
-    protected string Class { get; set; } = "d-none";
+    protected string Class { get; set; } = "collapse";
 
     /// <summary>
     /// 获得/设置 用户自定义属性

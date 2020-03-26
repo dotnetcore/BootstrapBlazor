@@ -18,7 +18,7 @@ namespace Microsoft.AspNetCore.Components.Forms
             var cacheKey = (Type: fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
             if (!DisplayNamesExtensions.TryGetValue(cacheKey, out var dn))
             {
-                if (BootstrapBlazor.Components.EditContextDataAnnotationsExtensions.TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
+                if (BootstrapBlazor.Components.BootstrapBlazorEditContextDataAnnotationsExtensions.TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
                 {
                     var displayNameAttribute = propertyInfo.GetCustomAttributes(typeof(DisplayNameAttribute), true);
                     if (displayNameAttribute.Length > 0)

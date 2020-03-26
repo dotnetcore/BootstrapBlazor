@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 内置验证组件基类
     /// </summary>
-    public abstract class ValidateInputBase<TItem> : InputBase<TItem>, IValidateComponent, IRules
+    public abstract class ValidateInputBase<TItem> : ValidateBase<TItem>, IValidateComponent, IValidateRules
     {
         /// <summary>
         /// 获得 IJSRuntime 实例
@@ -21,7 +21,7 @@ namespace BootstrapBlazor.Components
         protected IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
-        /// 获得 LgbEditFormBase 实例
+        /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
         public ValidateFormBase? EditForm { get; set; }
@@ -29,9 +29,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 当前组件 Id
         /// </summary>
-        public string Id
+        [Parameter]
+        public override string? Id
         {
-            get { return $"{EditForm?.Id}_{FieldIdentifier.FieldName}"; }
+            get { return (EditForm != null && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.FieldName}" : null; }
+            set { }
         }
 
         /// <summary>
@@ -41,26 +43,9 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 获得 PlaceHolder 属性
-        /// </summary>
-        protected string? PlaceHolder
-        {
-            get
-            {
-                if (AdditionalAttributes != null &&
-                    AdditionalAttributes.TryGetValue("placeholder", out var ph) &&
-                    !string.IsNullOrEmpty(Convert.ToString(ph)))
-                {
-                    return ph.ToString();
-                }
-                return null;
-            }
-        }
-
-        /// <summary>
         /// 获得/设置 错误描述信息
         /// </summary>
-        protected string ErrorMessage { get; set; } = "";
+        protected string? ErrorMessage { get; set; }
 
         /// <summary>
         /// 获得/设置 数据合规样式
@@ -68,17 +53,31 @@ namespace BootstrapBlazor.Components
         protected string ValidCss { get; set; } = "";
 
         /// <summary>
-        /// 获得/设置 显示名称 默认为 -
+        /// 获得/设置 显示名称
         /// </summary>
-        protected string DisplayName { get; set; } = "-";
+        protected string? DisplayName { get; set; }
+
+        /// <summary>
+        /// 验证组件添加时调用此方法
+        /// </summary>
+        /// <param name="validator"></param>
+        public virtual void OnRuleAdded(IValidator validator)
+        {
+
+        }
 
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
-            EditForm?.AddValidator((EditForm, FieldIdentifier.Model.GetType(), FieldIdentifier.FieldName), this);
-            DisplayName = FieldIdentifier.GetDisplayName();
+            base.OnInitialized();
+
+            if (EditForm != null && FieldIdentifier != null)
+            {
+                EditForm.AddValidator((EditForm, FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
+                DisplayName = FieldIdentifier.Value.GetDisplayName();
+            }
         }
 
         /// <summary>
@@ -87,6 +86,8 @@ namespace BootstrapBlazor.Components
         /// <param name="firstRender"></param>
         protected override void OnAfterRender(bool firstRender)
         {
+            base.OnAfterRender(firstRender);
+
             if (!string.IsNullOrEmpty(_tooltipMethod) && !string.IsNullOrEmpty(Id))
             {
                 JSRuntime.Tooltip(Id, _tooltipMethod);
@@ -97,7 +98,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 数据验证方法集合
         /// </summary>
-        public ICollection<ValidatorComponentBase> Rules { get; } = new HashSet<ValidatorComponentBase>();
+        public ICollection<IValidator> Rules { get; } = new HashSet<IValidator>();
 
         private string _tooltipMethod = "";
         /// <summary>
@@ -118,9 +119,9 @@ namespace BootstrapBlazor.Components
         /// <param name="validProperty">是否对本属性进行数据验证</param>
         public void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
         {
-            if (Rules.Any())
+            if (Rules.Any() && FieldIdentifier != null)
             {
-                var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.FieldName));
+                var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName));
                 if (messages.Any())
                 {
                     ErrorMessage = messages.First().ErrorMessage;
@@ -133,7 +134,7 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-                    ErrorMessage = "";
+                    ErrorMessage = null;
                     ValidCss = "is-valid";
                     _tooltipMethod = "dispose";
                 }
@@ -169,8 +170,16 @@ namespace BootstrapBlazor.Components
 #nullable disable
                     result = default;
 #nullable restore
-                    validationErrorMessage = $"The {FieldIdentifier.FieldName} field is not valid.";
-                    return false;
+                    if (FieldIdentifier != null)
+                    {
+                        validationErrorMessage = $"The {FieldIdentifier.Value.FieldName} field is not valid.";
+                        return false;
+                    }
+                    else
+                    {
+                        validationErrorMessage = null;
+                        return true;
+                    }
                 }
             }
             else if (typeof(TItem).IsValueType)

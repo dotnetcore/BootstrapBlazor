@@ -14,15 +14,16 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
-        protected string ClassName => CssBuilder.Default("alert")
-          .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
-          .AddClass(Class)
-        .Build();
+        protected override string? ClassName => CssBuilder.Default("alert")
+            .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
+            .AddClass(Class)
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
 
         /// <summary>
         /// 获得/设置 自定义样式
         /// </summary>
-        protected string Class { get; set; } = "";
+        protected string? Class { get; set; }
 
         /// <summary>
         /// 获得/设置 颜色
