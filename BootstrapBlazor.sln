@@ -11,6 +11,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7C1D79F1-8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WebConsole", "src\BootstrapBlazor.WebConsole\BootstrapBlazor.WebConsole.csproj", "{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A627F6CC-94FC-4E48-B3CC-F0EA16700527}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{EA765165-0542-41C8-93F2-85787FEDEDFF}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\linux\publish.sh = scripts\linux\publish.sh
+		scripts\linux\watch-run.sh = scripts\linux\watch-run.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A5226E2-8EBD-4DEA-A1F5-2DF374655FA9}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\windows\publish.cmd = scripts\windows\publish.cmd
+		scripts\windows\watch-run.cmd = scripts\windows\watch-run.cmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +46,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D0AE3016-4878-4807-A04C-C33CBEC7B092} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{EA765165-0542-41C8-93F2-85787FEDEDFF} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
+		{4A5226E2-8EBD-4DEA-A1F5-2DF374655FA9} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
