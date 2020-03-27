@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
@@ -131,8 +132,14 @@ namespace BootstrapBlazor.Components
         protected void OnClick(SelectedItem item)
         {
             Value = item;
-            if (!ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+            OnValueChanged?.Invoke(Value);
         }
+
+        /// <summary>
+        /// 获得/设置 控件值变化时触发此事件
+        /// </summary>
+        [Parameter]
+        public Action<SelectedItem>? OnValueChanged { get; set; }
 
         /// <summary>
         /// 设置当前项是否 Active 方法

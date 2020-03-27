@@ -58,7 +58,7 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "Value",
+                Name = "@bind-Value",
                 Description = "当前选中的值",
                 Type = " — ",
                 ValueList = " — ",
@@ -97,6 +97,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Description = "菜单对齐",
                 Type = "string",
                 ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{lg | md | sm }-{right | left}",
+                DefaultValue = " - "
+            },
+            new AttributeItem() {
+                Name = "OnValueChanged",
+                Description = "下拉框值发生改变时触发",
+                Type = " - ",
+                ValueList = " - ",
                 DefaultValue = " - "
             },
         };
