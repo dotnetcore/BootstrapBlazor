@@ -192,6 +192,7 @@ a {
     position: relative;
     overflow: hidden;
 }
+
     .toggle.disabled .toggle-group label, .toggle.disabled .toggle-group span {
         cursor: not-allowed;
     }
@@ -492,3 +493,9 @@ a {
     }
 }
 /*end checkbox*/
+
+/*progress*/
+.form-inline .progress {
+    width: 100%;
+}
+/*end progress*/

@@ -1,6 +1,5 @@
 ﻿using BootstrapBlazor.WebConsole.Common;
 using BootstrapBlazor.WebConsole.Pages.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.WebConsole.Pages
@@ -14,10 +13,6 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 
         /// </summary>
         protected Logger? Trace { get; set; }
-
-       
-
-       
 
         /// <summary>
         /// 获得属性方法
@@ -40,35 +35,34 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-              new AttributeItem() {
+            new AttributeItem() {
                 Name = "Height",
                 Description = "进度条高度",
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "15"
             },
-           new AttributeItem() {
+            new AttributeItem() {
                 Name = "IsShowValue",
                 Description = "是否显示值",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-           new AttributeItem() {
+            new AttributeItem() {
                 Name = "IsStriped",
                 Description = "是否显示条纹",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-           new AttributeItem() {
+            new AttributeItem() {
                 Name = "IsAnimated",
                 Description = "是否动态显示",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
-            },
-
+            }
         };
     }
 }

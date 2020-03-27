@@ -184,9 +184,29 @@ namespace BootstrapBlazor.Components
             }
             else if (typeof(TItem).IsValueType)
             {
-                result = (TItem)Convert.ChangeType(value, typeof(TItem));
-                validationErrorMessage = null;
-                return true;
+                if(string.IsNullOrEmpty(value))
+                {
+                    validationErrorMessage = null;
+#nullable disable
+                    result = default;
+#nullable restore
+                    return true;
+                }
+
+                try
+                {
+                    result = (TItem)Convert.ChangeType(value, typeof(TItem));
+                    validationErrorMessage = null;
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    validationErrorMessage = ex.Message;
+#nullable disable
+                    result = default;
+#nullable restore
+                    return false;
+                }
             }
 
             throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(TItem)}'.");

@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
+using System;
 
 namespace BootstrapBlazor.Components
 {
@@ -23,25 +24,20 @@ namespace BootstrapBlazor.Components
         /// 获得 Style 集合
         /// </summary>
         protected string? StyleName => CssBuilder.Default()
-            .AddClass($"width:{SetValue}%;")
+            .AddClass($"width: {Value}%;")
             .Build();
 
         /// <summary>
-        /// 获得 HeightStyle 集合
+        /// 获得 ProgressStyle 集合
         /// </summary>
-        protected string? StyleHeightName => CssBuilder.Default()
-            .AddClass($"height:{Height}px;")
+        protected string? ProgressStyle => CssBuilder.Default()
+            .AddClass($"height: {Height}px;", Height.HasValue)
             .Build();
-
-        /// <summary>
-        /// 设置值进度条的值
-        /// </summary>
-        public int? setValue = 0;
 
         /// <summary>
         /// 获得/设置 控件高度默认 20px
         /// </summary>
-        [Parameter] public int Height { get; set; } = 15;
+        [Parameter] public int? Height { get; set; }
 
         /// <summary>
         /// 获得/设置 颜色
@@ -58,37 +54,39 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示为条纹
         /// </summary>
         /// <value></value>
-        [Parameter] public bool IsStriped { get; set; } = false;
+        [Parameter] public bool IsStriped { get; set; }
 
         /// <summary>
         /// 获得/设置 是否动画
         /// </summary>
         /// <value></value>
-        [Parameter] public bool IsAnimated { get; set; } = false;
+        [Parameter] public bool IsAnimated { get; set; }
 
+        private int _value;
         /// <summary>
         /// 获得/设置 组件进度值
         /// </summary>
         [Parameter]
-        public int? SetValue
+        public int Value
         {
-            get
-            {
-                return setValue;
-            }
             set
             {
-                if (value <= 0)
-                {
-                    setValue = 0;
-                }
-                else if (value >= 100)
-                {
-                    setValue = 100;
-                }
-                setValue = value;
+                _value = value;
+            }
+            get
+            {
+                return Math.Min(100, Math.Max(0, _value));
             }
         }
 
+        /// <summary>
+        /// 获得 当前值
+        /// </summary>
+        protected string ValueString => Value.ToString();
+
+        /// <summary>
+        /// 获得 当前值百分比标签文字
+        /// </summary>
+        protected string? ValueLabelString => IsShowValue ? $"{Value}%" : null;
     }
 }

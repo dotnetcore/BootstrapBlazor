@@ -1,82 +1,172 @@
 ﻿@page "/progresss"
 
 <Block Title="进度条组件" Introduction="常用的进度条">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <Progress Value="0"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress Value="25"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress Value="50"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress Value="75"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress Value="100"></Progress>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-&ltProgress"&gt;&lt;/Progress&gt;
-&lt;Progress SetValue="50"&gt;&lt;/Progress&gt;
-&lt;Progress SetValue="1000"&gt;&lt;/Progress&gt;
-&lt;Button Color="Color.Danger"&gt;&lt;/Progress&gt;
+&lt;Progress Value="25"&gt;&lt;/Progress&gt;
        </pre>
     </CodeTemplate>
 </Block>
 
-<Progress></Progress>
-<br />
-<Progress SetValue="50"></Progress>
-<br />
-<Progress SetValue="100"></Progress>
-<br />
-<Progress SetValue="1000"></Progress>
-<br />
-
-<Block Title="IsShowValue显示值" Introduction="进度条值显示">
+<Block Title="IsShowValue 显示值" Introduction="进度条值显示">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <Progress Value="25" IsShowValue="true"></Progress>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-&lt;Progress SetValue="50" IsShowValue="true"&gt;&lt;/Progress&gt;
+&lt;Progress Value="25" IsShowValue="true"&gt;&lt;/Progress&gt;
         </pre>
     </CodeTemplate>
 </Block>
-<Progress SetValue="75" IsShowValue="true"></Progress>
-<br />
 
 <Block Title="设置进度条高度" Introduction="进度条高度设置">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <Progress SetValue="25" IsShowValue="true" Height="32"></Progress>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-&lt;Progress SetValue="50" IsShowValue="true" Height="50"&gt;&lt;/Progress&gt;
-    </pre>
+&lt;Progress Value="25" IsShowValue="true" Height="32"&gt;&lt;/Progress&gt;
+        </pre>
     </CodeTemplate>
 </Block>
-<Progress SetValue="75" IsShowValue="true" Height="50"></Progress>
-<br />
 
 <Block Title="带颜色进度条" Introduction="设置进度条颜色">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <Progress Value="25" Color="Color.Success" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress Value="50" Color="Color.Info" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress Value="75" Color="Color.Warning" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress Value="100" Color="Color.Danger" IsShowValue="true"></Progress>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-&lt;Progress SetValue="25" Color="Color.Success" IsShowValue="true"&lt;&lt;/Progress&lt;
-&lt;Progress SetValue="50" Color="Color.Info" IsShowValue="true"&lt;&lt;/Progress&lt;
-&lt;Progress SetValue="75" Color="Color.Warning" IsShowValue="true"&lt;&lt;/Progress&lt;
-&lt;Progress SetValue="100" Color="Color.Danger" IsShowValue="true"&lt;&lt;/Progress&lt;
+&lt;Progress Value="25" Color="Color.Success" IsShowValue="true"&lt;&lt;/Progress&lt;
+&lt;Progress Value="50" Color="Color.Info" IsShowValue="true"&lt;&lt;/Progress&lt;
+&lt;Progress Value="75" Color="Color.Warning" IsShowValue="true"&lt;&lt;/Progress&lt;
+&lt;Progress Value="100" Color="Color.Danger" IsShowValue="true"&lt;&lt;/Progress&lt;
        </pre>
     </CodeTemplate>
 </Block>
-<Progress SetValue="25" Color="Color.Success" IsShowValue="true"></Progress>
-<br />
-<Progress SetValue="50" Color="Color.Info" IsShowValue="true"></Progress>
-<br />
-<Progress SetValue="75" Color="Color.Warning" IsShowValue="true"></Progress>
-<br />
-<Progress SetValue="100" Color="Color.Danger" IsShowValue="true"></Progress>
-<br />
 
-<Block Title="IsStriped是否显示条纹" Introduction="进度条的条纹设置">
+<Block Title="IsStriped 是否显示条纹" Introduction="进度条的条纹设置">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <Progress IsStriped="true" Value="25" Color="Color.Success" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress IsStriped="true" Value="50" Color="Color.Info" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress IsStriped="true" Value="75" Color="Color.Warning" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress IsStriped="true" Value="100" Color="Color.Danger" IsShowValue="true"></Progress>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-            &lt;Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsShowValue="true"&lt;&lt;/Progress&lt;
+            &lt;Progress Value="75" Color="Color.Success" IsStriped="true" IsShowValue="true"&lt;&lt;/Progress&lt;
         </pre>
     </CodeTemplate>
 </Block>
-<Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsShowValue="true"></Progress>
-<br />
 
-<Block Title="IsAnimated是否动态显示" Introduction="进度条的动态显示">
+<Block Title="IsAnimated 是否动态显示" Introduction="进度条的动态显示">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <Progress IsAnimated="true" IsStriped="true" Value="25" Color="Color.Success" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress IsAnimated="true" IsStriped="true" Value="50" Color="Color.Info" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress IsAnimated="true" IsStriped="true" Value="75" Color="Color.Warning" IsShowValue="true"></Progress>
+                </div>
+                <div class="form-group col-12">
+                    <Progress IsAnimated="true" IsStriped="true" Value="100" Color="Color.Danger" IsShowValue="true"></Progress>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-            &lt;Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsAnimated="true" IsShowValue="true"&lt;&lt;/Progress&lt;
+            &lt;Progress Value="75" Color="Color.Danger" IsStriped="true" IsAnimated="true" IsShowValue="true"&lt;&lt;/Progress&lt;
         </pre>
     </CodeTemplate>
 </Block>
-<br />
-<Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsAnimated="true" IsShowValue="true"></Progress>
+
+<Block Title="双向绑定数据" Introduction="绑定数据">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <BootstrapInput TItem="int" @bind-Value="@Value" />
+                </div>
+                <div class="form-group col-12">
+                    <Progress IsAnimated="true" IsStriped="true" @bind-Value="@Value" Color="Color.Danger" IsShowValue="true"></Progress>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+            &lt;Progress Value="75" Color="Color.Danger" IsStriped="true" IsAnimated="true" IsShowValue="true"&lt;&lt;/Progress&lt;
+        </pre>
+    </CodeTemplate>
+</Block>
 
 <AttributeTable Items="@GetAttributes()" />
+
+@code {
+
+    protected int Value { get; set; } = 75;
+}
