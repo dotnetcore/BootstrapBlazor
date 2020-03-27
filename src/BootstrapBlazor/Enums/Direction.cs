@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace BootstrapBlazor
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 下拉框枚举类
@@ -14,7 +10,8 @@ namespace BootstrapBlazor
         /// <summary>
         /// 
         /// </summary>
-        None,
+        [Description("dropdown")]
+        Dropdown,
 
         /// <summary>
         /// Dropup

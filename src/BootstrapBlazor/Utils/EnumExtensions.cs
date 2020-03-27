@@ -46,7 +46,18 @@ namespace BootstrapBlazor.Utils
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static string ToDescriptionString(this MenuType val)
+        public static string ToDescriptionString(this DropdownType val)
+        {
+            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
+            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static string ToDescriptionString(this Alignment val)
         {
             var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;

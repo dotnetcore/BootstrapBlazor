@@ -499,3 +499,13 @@ a {
     width: 100%;
 }
 /*end progress*/
+
+/*dropdown*/
+.dropdown .dropdown-toggle:after, .dropup .dropdown-toggle:after, .dropright .dropdown-toggle:after, .btn-group .dropdown-toggle:not(:empty):after {
+    margin-left: 6px;
+}
+
+.dropleft .dropdown-toggle:before {
+    margin-right: 6px;
+}
+/*end dropdown*/

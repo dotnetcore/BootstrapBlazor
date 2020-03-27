@@ -1,5 +1,7 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.WebConsole.Common;
+using BootstrapBlazor.WebConsole.Pages.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 
@@ -12,14 +14,19 @@ namespace BootstrapBlazor.WebConsole.Pages
     {
         readonly List<SelectedItem> items = new List<SelectedItem>
         {
-            new SelectedItem{ Text="Action",Value="0"},
-            new SelectedItem{ Text="Another action",Value="1"},
-            new SelectedItem{ Text="Something else here",Value="2"},
+            new SelectedItem{ Text="北京",Value="0"},
+            new SelectedItem{ Text="上海",Value="1"},
+            new SelectedItem{ Text="广州",Value="2"},
         };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Logger? Trace { get; set; }
 
         private void ShowMessage(SelectedItem e)
         {
-            Console.WriteLine(e.Value);
+            Trace?.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
         }
 
         /// <summary>

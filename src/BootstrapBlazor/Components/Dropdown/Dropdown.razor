@@ -1,34 +1,16 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits DropdownBase
 
-@if (ShowSplit)
-{
-    <div class="@ClassDirection">
-        <button type="button" class="@ClassColor">@Value?.Text</button>
-        <DynamicElement TagName="@TagName" class="@ClassName" id="@Id" data-toggle="dropdown" @attributes="@AdditionalAttributes" aria-haspopup="true" aria-expanded="false">
-            <span class="sr-only"></span>
-        </DynamicElement>
-        <DynamicElement TagName="div" class="@ClassResponsive">
-            @foreach (var item in Items ?? new SelectedItem[0])
-            {
-
-                <DynamicElement TagName="@MenuItem" class="@ActiveItem(item)" @onclick="e => OnClick(item)">@item.Text</DynamicElement>
-
-            }
-        </DynamicElement>
+<div id="@Id" class="@DirectionClassName" @attributes="@AdditionalAttributes">
+    <button type="button" class="@ButtonClassName" data-toggle="@DropdownToggle" aria-haspopup="true" aria-expanded="false">@Value?.Text</button>
+    @if (ShowSplit)
+    {
+        <button type="button" class="@ClassName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+    }
+    <div class="@MenuAlignmentClass" aria-labelledby="dropdownMenuButton">
+        @foreach (var item in Items ?? new SelectedItem[0])
+        {
+            <a class="@ActiveItem(item)" href="#" @onclick:preventDefault @onclick:stopPropagation @onclick="e => OnClick(item)">@item.Text</a>
+        }
     </div>
-}
-else
-{
-    <div class="@ClassDirection">
-        <DynamicElement TagName="@TagName" class="@ClassName" data-toggle="dropdown" @attributes="@AdditionalAttributes" aria-haspopup="true" aria-expanded="false">
-            @Value?.Text
-        </DynamicElement>
-        <DynamicElement TagName="div" class="@ClassResponsive">
-            @foreach (var item in Items ?? new SelectedItem[0])
-            {
-                <DynamicElement TagName="@MenuItem" class="@ActiveItem(item)" @onclick="e => OnClick(item)">@item.Text</DynamicElement>
-            }
-        </DynamicElement>
-    </div>
-}
+</div>
