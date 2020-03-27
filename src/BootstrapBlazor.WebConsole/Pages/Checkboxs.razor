@@ -1,0 +1,86 @@
+﻿@page "/checkboxs"
+
+<Block Title="Checkbox 复选框" Introduction="提供基本的选择框组件">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-4">
+                    <label class="control-label">混合</label>
+                    <Checkbox TItem="string" State="CheckboxState.Mixed" OnStateChanged="@OnStateChanged"></Checkbox>
+                </div>
+                <div class="form-group col-4">
+                    <label class="control-label">选中</label>
+                    <Checkbox TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged"></Checkbox>
+                </div>
+                <div class="form-group col-4">
+                    <label class="control-label">未选</label>
+                    <Checkbox TItem="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged"></Checkbox>
+                </div>
+            </div>
+        </div>
+        <Logger @ref="Trace" class="mt-3" />
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Checkbox TItem="string" State="CheckboxState.Mixed"&gt;&lt;/Checkbox&gt;
+&lt;Checkbox TItem="string" State="CheckboxState.Checked"&gt;&lt;/Checkbox&gt;
+&lt;Checkbox TItem="string" State="CheckboxState.UnChecked"&gt;&lt;/Checkbox&gt;
+        </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <label class="control-label">单向绑定</label>
+                    <Checkbox TItem="string" @bind-Value="@BindValue"></Checkbox>
+                </div>
+                <div class="form-group col-12">
+                    <div>绑定数值: @BindValue</div>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Checkbox TItem="string" @@bind-Value="@@BindValue"&gt;&lt;/Checkbox&gt;
+        </pre>
+    </CodeTemplate>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+@code {
+    protected Logger? Trace { get; set; }
+
+    protected void OnStateChanged(CheckboxState state, string value)
+    {
+        Trace?.Log($"Checkbox state changed State: {state}");
+    }
+
+    protected string BindValue { get; set; } = "绑定值";
+
+    protected IEnumerable<AttributeItem> GetAttributes()
+    {
+        return new AttributeItem[]
+        {
+            new AttributeItem()
+            {
+                Name = "State",
+                Description = "控件类型",
+                Type = "CheckboxState",
+                ValueList = "Mixed / Checked / UnChecked",
+                DefaultValue = "text"
+            },
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "验证控件",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
+        };
+    }
+}

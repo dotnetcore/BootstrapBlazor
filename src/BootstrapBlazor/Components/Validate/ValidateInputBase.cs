@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 显示名称
         /// </summary>
-        protected string? DisplayName { get; set; }
+        protected string? DisplayText { get; set; }
 
         /// <summary>
         /// 验证组件添加时调用此方法
@@ -76,7 +76,7 @@ namespace BootstrapBlazor.Components
             if (EditForm != null && FieldIdentifier != null)
             {
                 EditForm.AddValidator((EditForm, FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
-                DisplayName = FieldIdentifier.Value.GetDisplayName();
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
         }
 
