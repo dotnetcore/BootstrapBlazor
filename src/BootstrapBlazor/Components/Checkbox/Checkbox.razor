@@ -1,0 +1,10 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits CheckboxBase<TItem>
+
+<label id="@Id" role="checkbox" aria-checked="@State.ToCss()" class="@ClassName" @onclick="@OnToggleClick" @attributes="AdditionalAttributes">
+    <span class="checkbox-input">
+        <span class="checkbox-inner"></span>
+    </span>
+    <span class="checkbox-label">@DisplayText</span>
+</label>
