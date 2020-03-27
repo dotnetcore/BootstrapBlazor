@@ -1,0 +1,24 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CollapseBase
+
+<div>
+    @if (IsLink)
+    {
+        <DynamicElement TagName="a" class="@ClassName" disabled="@Disabled" value="@Value" data-toggle="collapse" href="@LinkId" role="collapse" aria-expanded="@IsExpanded" aria-controls="@Id" @attributes="@AdditionalAttributes">
+            @ChildContent
+        </DynamicElement>
+    }
+    else
+    {
+        <DynamicElement TagName="button" class="@ClassName" disabled="@Disabled" value="@Value" data-toggle="collapse" data-target="@LinkId" role="collapse"  aria-expanded="@IsExpanded" aria-controls="@Id" @attributes="@AdditionalAttributes">
+            @ChildContent
+        </DynamicElement>
+    }
+    <div class="collapse" id="@Id">
+        <div class="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,7 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ProgressBase
+
+<div class="progress" style="@StyleHeightName">
+    <div class="@ClassName" role="progressbar" style="@StyleName" aria-valuenow="@SetValue" aria-valuemin="0"  aria-valuemax="100">@if(IsShowValue){@SetValue}</div>
+</div>
+

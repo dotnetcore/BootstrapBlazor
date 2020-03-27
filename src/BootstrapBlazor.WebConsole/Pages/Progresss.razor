@@ -1,0 +1,82 @@
+﻿@page "/progresss"
+
+<Block Title="进度条组件" Introduction="常用的进度条">
+    <CodeTemplate>
+        <pre>
+&ltProgress"&gt;&lt;/Progress&gt;
+&lt;Progress SetValue="50"&gt;&lt;/Progress&gt;
+&lt;Progress SetValue="1000"&gt;&lt;/Progress&gt;
+&lt;Button Color="Color.Danger"&gt;&lt;/Progress&gt;
+       </pre>
+    </CodeTemplate>
+</Block>
+
+<Progress></Progress>
+<br />
+<Progress SetValue="50"></Progress>
+<br />
+<Progress SetValue="100"></Progress>
+<br />
+<Progress SetValue="1000"></Progress>
+<br />
+
+<Block Title="IsShowValue显示值" Introduction="进度条值显示">
+    <CodeTemplate>
+        <pre>
+&lt;Progress SetValue="50" IsShowValue="true"&gt;&lt;/Progress&gt;
+        </pre>
+    </CodeTemplate>
+</Block>
+<Progress SetValue="75" IsShowValue="true"></Progress>
+<br />
+
+<Block Title="设置进度条高度" Introduction="进度条高度设置">
+    <CodeTemplate>
+        <pre>
+&lt;Progress SetValue="50" IsShowValue="true" Height="50"&gt;&lt;/Progress&gt;
+    </pre>
+    </CodeTemplate>
+</Block>
+<Progress SetValue="75" IsShowValue="true" Height="50"></Progress>
+<br />
+
+<Block Title="带颜色进度条" Introduction="设置进度条颜色">
+    <CodeTemplate>
+        <pre>
+&lt;Progress SetValue="25" Color="Color.Success" IsShowValue="true"&lt;&lt;/Progress&lt;
+&lt;Progress SetValue="50" Color="Color.Info" IsShowValue="true"&lt;&lt;/Progress&lt;
+&lt;Progress SetValue="75" Color="Color.Warning" IsShowValue="true"&lt;&lt;/Progress&lt;
+&lt;Progress SetValue="100" Color="Color.Danger" IsShowValue="true"&lt;&lt;/Progress&lt;
+       </pre>
+    </CodeTemplate>
+</Block>
+<Progress SetValue="25" Color="Color.Success" IsShowValue="true"></Progress>
+<br />
+<Progress SetValue="50" Color="Color.Info" IsShowValue="true"></Progress>
+<br />
+<Progress SetValue="75" Color="Color.Warning" IsShowValue="true"></Progress>
+<br />
+<Progress SetValue="100" Color="Color.Danger" IsShowValue="true"></Progress>
+<br />
+
+<Block Title="IsStriped是否显示条纹" Introduction="进度条的条纹设置">
+    <CodeTemplate>
+        <pre>
+            &lt;Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsShowValue="true"&lt;&lt;/Progress&lt;
+        </pre>
+    </CodeTemplate>
+</Block>
+<Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsShowValue="true"></Progress>
+<br />
+
+<Block Title="IsAnimated是否动态显示" Introduction="进度条的动态显示">
+    <CodeTemplate>
+        <pre>
+            &lt;Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsAnimated="true" IsShowValue="true"&lt;&lt;/Progress&lt;
+        </pre>
+    </CodeTemplate>
+</Block>
+<br />
+<Progress SetValue="75" Color="Color.Danger" IsStriped="true" IsAnimated="true" IsShowValue="true"></Progress>
+
+<AttributeTable Items="@GetAttributes()" />

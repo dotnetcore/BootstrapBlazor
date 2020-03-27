@@ -1,0 +1,40 @@
+﻿@page "/collapses"
+
+<Block Title="Button 按钮" Introduction="常用的操作按钮。">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            @*<div class="row">
+                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Collapse Color="Color.Primary">显示内容</Collapse></div>
+                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Collapse IsLink="true" IsExpanded="true" Color="Color.Primary">特别内容</Collapse></div>
+            </div>*@
+            <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Link with href
+                </a>
+                @*<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Button with data-target
+                </button>*@
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+            </div>
+        </div>
+        @*<Logger @ref="Trace" class="mt-3" />*@
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Button Color="Color.Primary"&gt;主要按钮&lt;/Button&gt;
+&lt;Button Color="Color.Secondary"&gt;次要按钮&lt;/Button&gt;
+&lt;Button Color="Color.Success"&gt;成功按钮&lt;/Button&gt;
+&lt;Button Color="Color.Danger"&gt;危险按钮&lt;/Button&gt;
+
+    </pre>
+    </CodeTemplate>
+</Block>
+
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />
