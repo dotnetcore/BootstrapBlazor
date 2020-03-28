@@ -396,7 +396,7 @@ a {
 /*end switch*/
 
 /*checkbox*/
-.form-checkbox {
+.form-checkbox, .form-radio {
     font-weight: 500;
     cursor: pointer;
     display: inline-block;
@@ -408,15 +408,33 @@ a {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 
+    .form-checkbox .radio-input {
+        white-space: nowrap;
+        cursor: pointer;
+        outline: none;
+        display: inline-block;
+        line-height: 1;
+        position: relative;
+        vertical-align: middle;
+    }
+
+        .form-checkbox .radio-input .radio-inner {
+            border: 1px solid #dcdfe6;
+            border-radius: 100%;
+            width: 14px;
+            height: 14px;
+            background-color: #fff;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
     .form-checkbox .checkbox-input {
         display: inline-block;
         line-height: 1;
         vertical-align: middle;
     }
-
-        .form-checkbox .checkbox-input input {
-            display: none;
-        }
 
         .form-checkbox .checkbox-input .checkbox-inner {
             display: inline-block;
@@ -445,11 +463,25 @@ a {
                 transform-origin: center;
             }
 
+    .form-checkbox .radio-input .radio-inner:after {
+        width: 4px;
+        height: 4px;
+        border-radius: 100%;
+        background-color: #fff;
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%) scale(0);
+        transition: transform .15s ease-in;
+    }
+
     .form-checkbox .checkbox-label {
         margin-left: 10px;
     }
 
-    .form-checkbox.is-checked .checkbox-input .checkbox-inner, .form-checkbox.is-indeterminate .checkbox-input .checkbox-inner {
+    .form-checkbox.is-checked .checkbox-input .checkbox-inner, .form-checkbox.is-indeterminate .checkbox-input .checkbox-inner,
+    .form-checkbox.is-checked .radio-input .radio-inner {
         background-color: #409eff;
         border-color: #409eff;
     }
@@ -458,11 +490,16 @@ a {
             transform: rotate(45deg) scaleY(1);
         }
 
-    .form-checkbox.is-disabled {
+        .form-checkbox.is-checked .radio-input .radio-inner:after {
+            transform: translate(-50%,-50%) scale(1);
+        }
+
+    .form-checkbox.is-disabled, .form-checkbox.is-disabled .radio-inner {
         cursor: not-allowed;
     }
 
-        .form-checkbox.is-disabled .checkbox-input .checkbox-inner {
+        .form-checkbox.is-disabled .checkbox-input .checkbox-inner,
+        .form-checkbox.is-disabled .radio-input .radio-inner {
             background-color: #edf2fc;
             border-color: #dcdfe6;
         }
