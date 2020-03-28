@@ -5,32 +5,38 @@ using System;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// Switch 开关组件
+    ///折叠组件
     /// </summary>
     public abstract class CollapseBase : BootstrapComponentBase
     {
+        /// <summary>
         /// 获得 按钮样式集合
         /// </summary>
-        /// <returns></returns>
-        protected string? ClassName => CssBuilder.Default("btn")
-            .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None )
+        protected  string? ClassName => CssBuilder.Default("btn")
+            .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-            .AddClass("disabled",  IsDisabled)
+            .AddClass("collapsed", IsExpanded == false)
+            .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-
+        /// <summary>
+        /// 获得 折叠展示样式集合
+        /// </summary>
+        protected string? CollapseClass => CssBuilder.Default("collapse")
+            .AddClass("show", IsExpanded)
+            .AddClass(Class)
+            .Build();
 
         /// <summary>
-        /// 是否a标签链接
+        /// 获得/设置 自定义样式
         /// </summary>
-        [Parameter] public bool IsLink { get; set; } = false;
+        protected string? Class { get; set; }
 
         /// <summary>
         /// 是否展开折叠面板
         /// </summary>
         [Parameter] public bool IsExpanded { get; set; } = false;
-
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -38,12 +44,17 @@ namespace BootstrapBlazor.Components
         [Parameter] public Color Color { get; set; } = Color.Primary;
 
         /// <summary>
-        ///
+        ///获得/设置 按钮大小
         /// </summary>
         [Parameter] public Size Size { get; set; } = Size.None;
 
         /// <summary>
-        /// 获得 开关 disabled 属性
+        /// 获得 展开 Expanded 属性
+        /// </summary>
+        protected string? Expanded => IsExpanded ? "true" : "false";
+
+        /// <summary>
+        /// 获得 是否禁止 disabled 属性
         /// </summary>
         protected string? Disabled => IsDisabled ? "true" : null;
 
@@ -60,21 +71,15 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 设置值
         /// </summary>
-        [Parameter] public string? Value { get; set; }
+        [Parameter] public string? Title { get; set; } = "折叠";
 
         /// <summary>
-        /// 获得/设置 组件 id 属性
+        /// 点击选择框方法
         /// </summary>
-        [Parameter]
-        public override string? Id { get; set; } = Guid.NewGuid().ToString();
-
-        /// <summary>
-        /// 链接Id
-        /// </summary>
-        protected string? LinkId => "#" + Id;
-
-
-
-
+        protected void OnClick()
+        {
+            IsExpanded = !IsExpanded;
+            Class = IsExpanded ? "show" : "";
+        }
     }
 }

@@ -25,33 +25,13 @@ namespace BootstrapBlazor.WebConsole.Pages
         }
 
         /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
-            new EventItem()
-            {
-                Name = "OnClick",
-                Description="点击按钮时触发此事件",
-                Type ="EventCallback<MouseEventArgs>"
-            }
-        };
-
-        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
         protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "ButtonType",
-                Description = "类型",
-                Type = "ButtonType",
-                ValueList = "Button / Submit / Link / Reset / Input",
-                DefaultValue = "Primary"
-            },
+          
             new AttributeItem() {
                 Name = "Color",
                 Description = "颜色",
@@ -73,12 +53,12 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
-                Name = "IsBlock",
-                Description = "填充按钮",
-                Type = "boolean",
+             new AttributeItem() {
+                Name = "CollapseContent",
+                Description = "折叠内容",
+                Type = "RenderFragment",
                 ValueList = " — ",
-                DefaultValue = "false"
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsDisabled",
@@ -87,9 +67,9 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
-                Name = "IsOutlin",
-                Description = "是否边框",
+             new AttributeItem() {
+                Name = "IsExpanded",
+                Description = "是否展开",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
@@ -101,6 +81,7 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
                 DefaultValue = "None"
             }
+
         };
     }
 }
