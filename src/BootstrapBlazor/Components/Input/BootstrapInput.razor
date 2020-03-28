@@ -2,7 +2,11 @@
 @typeparam TItem
 @inherits BootstrapInputBase<TItem>
 
-<input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" data-original-title="@ErrorMessage" value="@BindConverter.FormatValue(CurrentValue)" @oninput="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)"/>
+@if (ValueExpression != null && DisplayText != null)
+{
+    <label class="control-label" for="@Id">@DisplayText</label>
+}
+<input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" data-original-title="@ErrorMessage" value="@CurrentValueAsString" @oninput="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>

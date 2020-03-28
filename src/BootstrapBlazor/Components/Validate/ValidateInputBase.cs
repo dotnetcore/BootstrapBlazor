@@ -15,6 +15,16 @@ namespace BootstrapBlazor.Components
     public abstract class ValidateInputBase<TItem> : ValidateBase<TItem>, IValidateComponent, IValidateRules
     {
         /// <summary>
+        /// 获得/设置 错误描述信息
+        /// </summary>
+        protected string? ErrorMessage { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据合规样式
+        /// </summary>
+        protected string ValidCss { get; set; } = "";
+
+        /// <summary>
         /// 获得 IJSRuntime 实例
         /// </summary>
         [Inject]
@@ -44,19 +54,9 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 获得/设置 错误描述信息
-        /// </summary>
-        protected string? ErrorMessage { get; set; }
-
-        /// <summary>
-        /// 获得/设置 数据合规样式
-        /// </summary>
-        protected string ValidCss { get; set; } = "";
-
-        /// <summary>
         /// 获得/设置 显示名称
         /// </summary>
-        protected string? DisplayText { get; set; }
+        [Parameter] public string? DisplayText { get; set; }
 
         /// <summary>
         /// 验证组件添加时调用此方法
