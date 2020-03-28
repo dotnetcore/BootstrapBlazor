@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 class 样式集合
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("form-checkbox")
+        protected virtual string? ClassName => CssBuilder.Default("form-checkbox")
             .AddClass("is-checked", State == CheckboxState.Checked)
             .AddClass("is-indeterminate", State == CheckboxState.Mixed)
             .AddClass("is-disabled", IsDisabled)
@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击选择框方法
         /// </summary>
-        protected void OnToggleClick()
+        protected virtual void OnToggleClick()
         {
             if (!IsDisabled)
             {

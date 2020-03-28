@@ -378,6 +378,10 @@ td {
         margin-bottom: 0.5rem;
     }
 
+.form-checkbox:not(:first-child) {
+    margin-left: 1.5rem;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
