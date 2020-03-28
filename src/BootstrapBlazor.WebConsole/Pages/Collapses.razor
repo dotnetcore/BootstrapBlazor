@@ -4,51 +4,48 @@
     <CardBodyTemplate>
         <div class="form-inline">
             <div class="form-group col-12">
-                <Collapse Id="collage1" Title="折叠" >nim pariatur cliche reprehenderit </Collapse>
+                <Collapse Title="折叠">学习让我快乐</Collapse>
             </div>
             <div class="form-group col-12">
-                <Collapse Id="collage2" Color="Color.Danger"  Title="折叠1">Anim pariatur accusamus terry richardson ad </Collapse>
+                <Collapse Color="Color.Danger" Title="折叠">学习让我进步</Collapse>
             </div>
         </div>
     </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-            &lt;Collapse Id="collage1" Title="折叠"&lt;nim pariatur cliche reprehenderit&lt;/Collapse&lt;
-            &lt;Collapse Id="collage2" Color="Color.Danger" Title="折叠1"&lt;Anim pariatur accusamus terry richardson ad &lt;/Collapse&lt;
-    </pre>
-    </CodeTemplate>
-</Block>
-
-
-
-<Block Title="IsExpanded是否展开折叠" Introduction="是否把折叠面板展开">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="form-group col-12">
-                <Collapse Id="collage5"   IsExpanded="true" Title="展开折叠">Anim pariatur cliche reprehenderit </Collapse>
-            </div>
-           
-        </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-            &lt;Collapse Id="collage5" IsExpanded="true" Title="展开折叠"&lt;Anim pariatur cliche reprehenderit &lt;/Collapse&lt;    
+&lt;Collapse Title="折叠"&lt;学习让我快乐&lt;/Collapse&lt;
+&lt;Collapse Color="Color.Danger" Title="折叠1"&lt;学习让我进步&lt;/Collapse&lt;
         </pre>
     </CodeTemplate>
 </Block>
 
-<Block Title="IsDisabled禁止按钮" Introduction="禁止按钮">
+<Block Title="IsExpanded 是否展开折叠" Introduction="是否把折叠面板展开">
     <CardBodyTemplate>
         <div class="form-inline">
             <div class="form-group col-12">
-                <Collapse Id="collage6" IsDisabled="true" IsExpanded="true" Title="禁止按钮">;Anim pariatur cliche reprehenderit</Collapse>;
+                <Collapse IsExpanded="true" Title="展开折叠">学习让我快乐</Collapse>
             </div>
         </div>
     </CardBodyTemplate>
     <CodeTemplate>
         <pre>
-         &lt;Collapse Id="collage6" IsDisabled="true" IsExpanded="true" Title="禁止按钮" &lt;;Anim pariatur cliche reprehenderit &lt;/Collapse &lt;;
-    </pre>
+&lt;Collapse Id="collage5" IsExpanded="true" Title="展开折叠"&gt;学习让我进步&lt;/Collapse&lt;    
+        </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="IsDisabled 禁止按钮" Introduction="禁止按钮">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="form-group col-12">
+                <Collapse IsDisabled="true" IsExpanded="true" Title="禁止按钮">学习让我快乐</Collapse>
+            </div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Collapse IsDisabled="true" IsExpanded="true" Title="禁止按钮"&gt;学习让我快乐&lt;/Collapse&gt;
+        </pre>
     </CodeTemplate>
 </Block>
 

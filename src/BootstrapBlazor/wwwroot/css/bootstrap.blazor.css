@@ -16,6 +16,10 @@ a {
         font-size: 0.875rem;
     }
 
+.btn:disabled {
+    cursor: not-allowed;
+}
+
 .btn-xs, .btn-group-xs > .btn {
     border-radius: 0.2rem;
     padding: 0.0625rem 0.3125rem;
@@ -546,3 +550,8 @@ a {
     margin-right: 6px;
 }
 /*end dropdown*/
+
+/*collapse*/
+.collapse-group .collapse {
+    margin-top: 1rem;
+}

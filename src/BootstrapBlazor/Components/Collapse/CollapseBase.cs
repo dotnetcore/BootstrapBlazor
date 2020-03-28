@@ -1,6 +1,5 @@
 ﻿using BootstrapBlazor.Utils;
 using Microsoft.AspNetCore.Components;
-using System;
 
 namespace BootstrapBlazor.Components
 {
@@ -12,10 +11,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 按钮样式集合
         /// </summary>
-        protected  string? ClassName => CssBuilder.Default("btn")
+        protected string? ClassName => CssBuilder.Default("btn")
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-            .AddClass("collapsed", IsExpanded == false)
+            .AddClass("collapsed", !IsExpanded)
             .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
@@ -25,18 +24,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string? CollapseClass => CssBuilder.Default("collapse")
             .AddClass("show", IsExpanded)
-            .AddClass(Class)
             .Build();
-
-        /// <summary>
-        /// 获得/设置 自定义样式
-        /// </summary>
-        protected string? Class { get; set; }
 
         /// <summary>
         /// 是否展开折叠面板
         /// </summary>
-        [Parameter] public bool IsExpanded { get; set; } = false;
+        [Parameter] public bool IsExpanded { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -79,7 +72,6 @@ namespace BootstrapBlazor.Components
         protected void OnClick()
         {
             IsExpanded = !IsExpanded;
-            Class = IsExpanded ? "show" : "";
         }
     }
 }
