@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="form-group col-4">
                     <label class="control-label">混合</label>
-                    <Checkbox TItem="string" State="CheckboxState.Mixed" OnStateChanged="@OnStateChanged" Id="Test" data-val="1"></Checkbox>
+                    <Checkbox TItem="string" State="CheckboxState.Mixed" OnStateChanged="@OnStateChanged"></Checkbox>
                 </div>
                 <div class="form-group col-4">
                     <label class="control-label">选中</label>
-                    <Checkbox TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged" id="Test" class="test"></Checkbox>
+                    <Checkbox TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged"></Checkbox>
                 </div>
                 <div class="form-group col-4">
                     <label class="control-label">未选</label>
@@ -29,19 +29,65 @@
     </CodeTemplate>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步">
+
+<Block Title="禁用复选框" Introduction="复选框不可用状态">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-4">
+                    <label class="control-label">混合</label>
+                    <Checkbox TItem="string" State="CheckboxState.Mixed" IsDisabled="true"></Checkbox>
+                </div>
+                <div class="form-group col-4">
+                    <label class="control-label">选中</label>
+                    <Checkbox TItem="string" State="CheckboxState.Checked" IsDisabled="true"></Checkbox>
+                </div>
+                <div class="form-group col-4">
+                    <label class="control-label">未选</label>
+                    <Checkbox TItem="string" State="CheckboxState.UnChecked" IsDisabled="true"></Checkbox>
+                </div>
+            </div>
+        </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Checkbox TItem="string" IsDisabled="true" State="CheckboxState.Mixed"&gt;&lt;/Checkbox&gt;
+&lt;Checkbox TItem="string" IsDisabled="true" State="CheckboxState.Checked"&gt;&lt;/Checkbox&gt;
+&lt;Checkbox TItem="string" IsDisabled="true" State="CheckboxState.UnChecked"&gt;&lt;/Checkbox&gt;
+        </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="Label 文字" Introduction="复选框显示文字">
     <CardBodyTemplate>
         <div class="form-inline">
             <div class="row">
                 <div class="form-group col-12">
-                    <label class="control-label">单向绑定</label>
-                    <Checkbox TItem="string" @bind-Value="@BindValue"></Checkbox>
-                </div>
-                <div class="form-group col-12">
-                    <div>绑定数值: @BindValue</div>
+                    <Checkbox TItem="string" DisplayText="显示文字"></Checkbox>
                 </div>
             </div>
         </div>
+    </CardBodyTemplate>
+    <CodeTemplate>
+        <pre>
+&lt;Checkbox TItem="string" DisplayText="显示文字"&gt;&lt;/Checkbox&gt;
+        </pre>
+    </CodeTemplate>
+</Block>
+
+<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步，绑定数据类型为 boolean 类型时自动翻转值">
+    <CardBodyTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12">
+                    <Checkbox TItem="bool" DisplayText="双向绑定" @bind-Value="@BindValue" OnStateChanged="@OnItemChanged"></Checkbox>
+                </div>
+                <div class="form-group col-12">
+                    <BootstrapInput TItem="bool" @bind-Value="@BindValue" disabled></BootstrapInput>
+                </div>
+            </div>
+        </div>
+        <Logger @ref="BinderLog" class="mt-3" />
     </CardBodyTemplate>
     <CodeTemplate>
         <pre>
@@ -51,29 +97,3 @@
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
-
-@code {
-    protected Logger? Trace { get; set; }
-
-    protected void OnStateChanged(CheckboxState state, string value)
-    {
-        Trace?.Log($"Checkbox state changed State: {state}");
-    }
-
-    protected string BindValue { get; set; } = "绑定值";
-
-    protected IEnumerable<AttributeItem> GetAttributes()
-    {
-        return new AttributeItem[]
-        {
-            new AttributeItem()
-            {
-                Name = "State",
-                Description = "控件类型",
-                Type = "CheckboxState",
-                ValueList = "Mixed / Checked / UnChecked",
-                DefaultValue = "text"
-            }
-        };
-    }
-}

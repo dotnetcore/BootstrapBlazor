@@ -61,7 +61,13 @@ namespace BootstrapBlazor.Components
             if (!IsDisabled)
             {
                 State = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
-                if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+
+                if (typeof(TItem) == typeof(bool))
+                {
+                    var v = (bool?)Convert.ChangeType(Value, TypeCode.Boolean) ?? State != CheckboxState.Checked;
+                    Value = (TItem)(object)(!v);
+                    if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+                }
                 OnStateChanged?.Invoke(State, Value);
             }
         }
