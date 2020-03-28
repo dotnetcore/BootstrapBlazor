@@ -12,12 +12,34 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 class 样式集合
         /// </summary>
-        protected override string? ClassName => CssBuilder.Default("form-checkbox")
+        protected string? ClassName => CssBuilder.Default("form-checkbox")
             .AddClass("is-checked", State == CheckboxState.Checked)
             .AddClass("is-indeterminate", State == CheckboxState.Mixed)
+            .AddClass("is-disabled", IsDisabled)
             .AddClass(CssClass).AddClass(ValidCss)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+
+        /// <summary>
+        /// 获得 复选框状态字符串
+        /// </summary>
+        protected string StateString => State switch
+        {
+            CheckboxState.UnChecked => "false",
+            CheckboxState.Checked => "true",
+            _ => "mixed"
+        };
+
+        /// <summary>
+        /// 获得 按钮 disabled 属性
+        /// </summary>
+        protected string? Disabled => IsDisabled ? "true" : null;
+
+        /// <summary>
+        /// 获得/设置 是否禁用
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 获得/设置 选择框状态
@@ -36,8 +58,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnToggleClick()
         {
-            State = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
-            OnStateChanged?.Invoke(State, Value);
+            if (!IsDisabled)
+            {
+                State = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
+                if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+                OnStateChanged?.Invoke(State, Value);
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits DropdownBase
 
-<div id="@Id" class="@DirectionClassName" @attributes="@AdditionalAttributes">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
     <button type="button" class="@ButtonClassName" data-toggle="@DropdownToggle" aria-haspopup="true" aria-expanded="false">@Value?.Text</button>
     @if (ShowSplit)
     {

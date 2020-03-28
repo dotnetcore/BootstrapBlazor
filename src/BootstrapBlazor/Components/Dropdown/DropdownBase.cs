@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         protected string? DirectionClassName => CssBuilder.Default()
             .AddClass($"btn-group", DropdownType == DropdownType.ButtonGroup)
             .AddClass($"{Direction.ToDescriptionString()}", DropdownType == DropdownType.DropdownMenu)
-            .AddClass(Class)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮样式集合
         /// </summary>
         /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("btn dropdown-toggle")
+        protected string? ClassName => CssBuilder.Default("btn dropdown-toggle")
           .AddClass("dropdown-toggle-split")
           .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
           .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
@@ -79,12 +79,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Direction Direction { get; set; }
-
-        /// <summary>
-        /// Css样式
-        /// </summary>
-        [Parameter]
-        public string Class { get; set; } = "";
 
         /// <summary>
         /// 组件尺寸

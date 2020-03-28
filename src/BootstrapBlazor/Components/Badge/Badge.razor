@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BadgeBase
 
-<DynamicElement TagName="span" class="@ClassName" @attributes="@AdditionalAttributes">
+<span @attributes="@AdditionalAttributes" id="@Id" class="@ClassName">
     @ChildContent
-</DynamicElement>
+</span>

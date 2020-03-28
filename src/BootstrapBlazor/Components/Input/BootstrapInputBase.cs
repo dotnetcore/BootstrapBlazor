@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 class 样式集合
         /// </summary>
-        protected override string? ClassName => CssBuilder.Default("form-control")
+        protected string? ClassName => CssBuilder.Default("form-control")
             .AddClass(CssClass).AddClass(ValidCss)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();

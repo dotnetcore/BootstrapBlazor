@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits CheckboxBase<TItem>
 
-<label id="@Id" role="checkbox" aria-checked="@State.ToCss()" class="@ClassName" @onclick="@OnToggleClick" @attributes="AdditionalAttributes">
+<label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassName" @onclick="@OnToggleClick">
     <span class="checkbox-input">
         <span class="checkbox-inner"></span>
     </span>

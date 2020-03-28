@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected override string? ClassName => CssBuilder.Default("toggle btn")
+        protected virtual string? ClassName => CssBuilder.Default("toggle btn")
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass("btn-default off", !Value)
             .AddClass("disabled", IsDisabled)

@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("alert")
+        protected string? ClassName => CssBuilder.Default("alert")
             .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass(Class)
             .AddClassFromAttributes(AdditionalAttributes)

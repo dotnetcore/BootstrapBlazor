@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮样式集合
         /// </summary>
         /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("btn")
+        protected string? ClassName => CssBuilder.Default("btn")
             .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
@@ -40,12 +40,23 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 按钮类型
         /// </summary>
-        protected string type => ButtonType switch
+        protected string Type => ButtonType switch
         {
             ButtonType.Submit => "submit",
             ButtonType.Reset => "reset",
             _ => "button"
         };
+
+
+        /// <summary>
+        /// 获得 按钮 Value 值
+        /// </summary>
+        protected string? ValueString => (ButtonType == ButtonType.Input || ButtonType == ButtonType.Reset) ? Value : null;
+
+        /// <summary>
+        /// 获得/设置 按钮显示文字
+        /// </summary>
+        [Parameter] public string? Value { get; set; }
 
         /// <summary>
         /// OnClick 事件
@@ -93,11 +104,6 @@ namespace BootstrapBlazor.Components
         ///
         /// </summary>
         [Parameter] public bool IsBlock { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        [Parameter] public string? Value { get; set; }
 
         /// <summary>
         ///

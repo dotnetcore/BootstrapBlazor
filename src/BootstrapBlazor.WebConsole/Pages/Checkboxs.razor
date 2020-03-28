@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="form-group col-4">
                     <label class="control-label">混合</label>
-                    <Checkbox TItem="string" State="CheckboxState.Mixed" OnStateChanged="@OnStateChanged"></Checkbox>
+                    <Checkbox TItem="string" State="CheckboxState.Mixed" OnStateChanged="@OnStateChanged" Id="Test" data-val="1"></Checkbox>
                 </div>
                 <div class="form-group col-4">
                     <label class="control-label">选中</label>
-                    <Checkbox TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged"></Checkbox>
+                    <Checkbox TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged" id="Test" class="test"></Checkbox>
                 </div>
                 <div class="form-group col-4">
                     <label class="control-label">未选</label>
@@ -73,13 +73,6 @@
                 Type = "CheckboxState",
                 ValueList = "Mixed / Checked / UnChecked",
                 DefaultValue = "text"
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = "验证控件",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
             }
         };
     }

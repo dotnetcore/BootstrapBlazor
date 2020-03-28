@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮样式集合
         /// </summary>
         /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("btn")
+        protected string? ClassName => CssBuilder.Default("btn")
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None )
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass("disabled",  IsDisabled)

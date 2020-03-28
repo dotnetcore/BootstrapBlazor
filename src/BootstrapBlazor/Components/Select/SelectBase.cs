@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected override string? ClassName => CssBuilder.Default("form-select dropdown")
+        protected string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
@@ -31,6 +31,18 @@ namespace BootstrapBlazor.Components
         protected string? ArrowClassName => CssBuilder.Default("form-select-append")
             .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .Build();
+
+        /// <summary>
+        /// 设置当前项是否 Active 方法
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? ActiveItem(SelectedItem item)
+        {
+            return CssBuilder.Default("dropdown-item")
+                .AddClass("active", () => item.Value == SelectedItem?.Value)
+                .Build();
+        }
 
         /// <summary>
         /// 获得 PlaceHolder 属性
@@ -91,18 +103,6 @@ namespace BootstrapBlazor.Components
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);
-        }
-
-        /// <summary>
-        /// 设置当前项是否 Active 方法
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected string? ActiveItem(SelectedItem item)
-        {
-            return CssBuilder.Default("dropdown-item")
-                .AddClass("active", () => item.Value == SelectedItem?.Value)
-                .Build();
         }
     }
 }

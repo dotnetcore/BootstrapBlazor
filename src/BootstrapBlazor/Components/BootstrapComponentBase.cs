@@ -1,5 +1,4 @@
-﻿using BootstrapBlazor.Utils;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
@@ -9,11 +8,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class BootstrapComponentBase : ComponentBase
     {
-        /// <summary>
-        /// 获得 class 样式表集合
-        /// </summary>
-        protected virtual string? ClassName => CssBuilder.Default().AddClassFromAttributes(AdditionalAttributes).Build();
-
         /// <summary>
         /// 获得/设置 组件 id 属性
         /// </summary>

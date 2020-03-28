@@ -26,14 +26,15 @@ namespace BootstrapBlazor.Components
         [CascadingParameter]
         public ValidateFormBase? EditForm { get; set; }
 
+        private string? _id;
         /// <summary>
         /// 获得 当前组件 Id
         /// </summary>
         [Parameter]
         public override string? Id
         {
-            get { return (EditForm != null && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.FieldName}" : null; }
-            set { }
+            get { return (EditForm != null && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.FieldName}" : _id; }
+            set { _id = value; }
         }
 
         /// <summary>
@@ -184,7 +185,7 @@ namespace BootstrapBlazor.Components
             }
             else if (typeof(TItem).IsValueType)
             {
-                if(string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     validationErrorMessage = null;
 #nullable disable
@@ -199,7 +200,7 @@ namespace BootstrapBlazor.Components
                     validationErrorMessage = null;
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     validationErrorMessage = ex.Message;
 #nullable disable

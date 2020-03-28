@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("progress-bar")
+        protected string? ClassName => CssBuilder.Default("progress-bar")
             .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass("progress-bar-striped", IsStriped)
             .AddClass("progress-bar-animated", IsAnimated)

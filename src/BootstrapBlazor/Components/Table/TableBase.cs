@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BootstrapBlazor.Utils;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +11,11 @@ namespace BootstrapBlazor.Components
     /// <typeparam name="TItem"></typeparam>
     public abstract class TableBase<TItem> : BootstrapComponentBase where TItem : class, new()
     {
+        /// <summary>
+        /// 获得 class 样式表集合
+        /// </summary>
+        protected string? ClassName => CssBuilder.Default().AddClassFromAttributes(AdditionalAttributes).Build();
+
         /// <summary>
         /// 获得/设置 TableHeader 实例
         /// </summary>
