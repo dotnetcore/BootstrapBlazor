@@ -14,22 +14,15 @@ namespace BootstrapBlazor.Components
         protected string? ClassName => CssBuilder.Default("btn")
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-            .AddClass("collapsed", !IsExpanded)
+            .AddClass("collapsed", IsCollapsed)
             .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
-        /// 获得 折叠展示样式集合
-        /// </summary>
-        protected string? CollapseClass => CssBuilder.Default("collapse")
-            .AddClass("show", IsExpanded)
-            .Build();
-
-        /// <summary>
         /// 是否展开折叠面板
         /// </summary>
-        [Parameter] public bool IsExpanded { get; set; }
+        [Parameter] public bool IsCollapsed { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -42,14 +35,19 @@ namespace BootstrapBlazor.Components
         [Parameter] public Size Size { get; set; } = Size.None;
 
         /// <summary>
-        /// 获得 展开 Expanded 属性
+        /// 获得 展开 Collapsed 属性
         /// </summary>
-        protected string? Expanded => IsExpanded ? "true" : "false";
+        protected string? Collapsed => !IsCollapsed ? "true" : "false";
 
         /// <summary>
         /// 获得 是否禁止 disabled 属性
         /// </summary>
         protected string? Disabled => IsDisabled ? "true" : null;
+
+        /// <summary>
+        /// 获得 折叠内容组件客户端高度
+        /// </summary>
+        protected CollapseBody? CollapseContent { get; set; }
 
         /// <summary>
         /// 获得/设置 是否禁用
@@ -71,7 +69,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClick()
         {
-            IsExpanded = !IsExpanded;
+            IsCollapsed = !IsCollapsed;
+
+            CollapseContent?.DoAnimationsAsync(IsCollapsed);
         }
     }
 }

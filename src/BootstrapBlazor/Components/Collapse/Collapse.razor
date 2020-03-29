@@ -2,12 +2,10 @@
 @inherits CollapseBase
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="collapse-group" data-toggle="collapse">
-    <button class="@ClassName" type="button" disabled="@Disabled" @onclick="@OnClick" aria-expanded="@Expanded">
+    <button class="@ClassName" type="button" disabled="@Disabled" @onclick="@OnClick" aria-expanded="@Collapsed">
         @Title
     </button>
-    <div class="@CollapseClass">
-        <div class="card card-body">
-            @ChildContent
-        </div>
-    </div>
+    <CollapseBody IsCollapsed="@IsCollapsed" @ref="@CollapseContent">
+        @ChildContent
+    </CollapseBody>
 </div>

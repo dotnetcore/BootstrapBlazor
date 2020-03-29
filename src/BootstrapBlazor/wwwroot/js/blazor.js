@@ -54,6 +54,15 @@
             });
             return source;
         },
+        getUID: function (prefix) {
+            if (!prefix) prefix = 'b';
+            do prefix += ~~(Math.random() * 1000000);
+            while (document.getElementById(prefix));
+            return prefix;
+        },
+        collapse: function (id, collapsed) {
+            $("#" + id).collapse(collapsed ? 'hide' : 'show');
+        },
         activeMenu: function (id) {
             var $curMenu = $('.sidebar .active').first();
 
@@ -73,6 +82,9 @@
                 else activeTabId = "";
             }
             return activeTabId;
+        },
+        log: function (msg) {
+            console.log(msg);
         },
         resetTab: function (tabId) {
             // 通过计算 Tab 宽度控制滚动条显示完整 Tab
