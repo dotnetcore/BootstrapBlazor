@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -23,12 +23,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据合规样式
         /// </summary>
         protected string ValidCss { get; set; } = "";
-
-        /// <summary>
-        /// 获得 IJSRuntime 实例
-        /// </summary>
-        [Inject]
-        protected IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
@@ -82,12 +76,12 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// OnAfterRender 方法
+        /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             if (!string.IsNullOrEmpty(_tooltipMethod) && !string.IsNullOrEmpty(Id))
             {

@@ -1,8 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.WebConsole.Common;
 using BootstrapBlazor.WebConsole.Pages.Components;
-using Microsoft.AspNetCore.Components.Web;
-using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.WebConsole.Pages

@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 支持客户端验证的文本框基类
     /// </summary>
-    public abstract class ValidateBase<TValue> : BootstrapComponentBase, IDisposable
+    public abstract class ValidateBase<TValue> : TooltipComponentBase, IDisposable
     {
         private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
         private bool _previousParsingAttemptFailed;

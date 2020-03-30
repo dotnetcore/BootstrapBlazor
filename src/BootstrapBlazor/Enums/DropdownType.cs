@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace BootstrapBlazor.Components
+﻿namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 下拉框类型
