@@ -89,68 +89,64 @@ section {
             text-overflow: ellipsis;
         }
 
-.sidebar {
-    border-right: solid 1px #ddd;
+.sidebar .top-row {
+    background-color: rgb(60, 40, 97);
 }
 
-    .sidebar .top-row {
-        background-color: rgb(60, 40, 97);
-    }
+.sidebar .navbar-brand {
+    font-size: 1.1rem;
+}
 
-    .sidebar .navbar-brand {
-        font-size: 1.1rem;
-    }
+.sidebar .nav-item {
+    font-size: 0.875rem;
+    padding-left: 6px;
+}
 
-    .sidebar .nav-item {
-        font-size: 0.875rem;
-        padding-left: 6px;
-    }
-
-        .sidebar .nav-item a {
-            color: #444;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            padding: .25rem 1.5rem;
-            font-weight: 400;
-        }
-
-    .sidebar a.active, .sidebar a:hover {
-        background-color: rgba(255,255,255,0.25);
-        color: #333;
-    }
-
-    .sidebar .nav-link.active {
-        color: #007bff;
-    }
-
-    .sidebar .nav-link span:first-child {
-        width: 70px;
-    }
-
-    .sidebar .top-item {
-        font-size: 1rem;
-    }
-
-        .sidebar .top-item:first-child {
-            padding-top: 0.5rem;
-        }
-
-        .sidebar .top-item:last-child {
-            padding-bottom: 1rem;
-        }
-
-        .sidebar .top-item .nav {
-            margin-top: 0.25rem;
-        }
-
-    .sidebar .top-link {
-        display: block;
+    .sidebar .nav-item a {
+        color: #444;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
         padding: .25rem 1.5rem;
-        font-weight: 700;
-        margin-top: 0.5rem;
-        color: rgba(0,0,0,.65);
+        font-weight: 400;
     }
+
+.sidebar a.active, .sidebar a:hover {
+    background-color: rgba(255,255,255,0.25);
+    color: #333;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+
+.sidebar .nav-link span:first-child {
+    width: 70px;
+}
+
+.sidebar .top-item {
+    font-size: 1rem;
+}
+
+    .sidebar .top-item:first-child {
+        padding-top: 0.5rem;
+    }
+
+    .sidebar .top-item:last-child {
+        padding-bottom: 1rem;
+    }
+
+    .sidebar .top-item .nav {
+        margin-top: 0.25rem;
+    }
+
+.sidebar .top-link {
+    display: block;
+    padding: .25rem 1.5rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    color: rgba(0,0,0,.65);
+}
 
 .content {
     color: #495057;
@@ -422,14 +418,18 @@ td {
 }
 
 @media (min-width: 768px) {
-    .sidebar .sidebar-content {
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+    .sidebar {
+        border-right: solid 1px #ddd;
     }
+
+        .sidebar .sidebar-content {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
 
     .header-img span {
         display: none;
