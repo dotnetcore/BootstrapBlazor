@@ -42,6 +42,21 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="state"></param>
+        /// <param name="value"></param>
+        protected void OnItemChangedString(CheckboxState state, string value)
+        {
+            BinderLog?.Log($"CheckboxState: {state} - Bind Value: {value}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected string? BindString { get; set; } = "我爱 Blazor";
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected bool BindValue { get; set; }
 
         /// <summary>
