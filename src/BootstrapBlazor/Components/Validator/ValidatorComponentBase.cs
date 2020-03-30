@@ -17,25 +17,25 @@ namespace BootstrapBlazor.Components
         public string ErrorMessage { get; set; } = "";
 
         /// <summary>
-        /// 获得/设置 IRules 实例
+        /// 获得/设置 IValidateRules 实例
         /// </summary>
         [CascadingParameter]
-        public IValidateRules? RuleComponent { get; set; }
+        public IValidateRules? Validators { get; set; }
 
         /// <summary>
         /// 初始化方法
         /// </summary>
         protected override void OnInitialized()
         {
-            if (RuleComponent == null)
+            if (Validators == null)
             {
                 throw new InvalidOperationException($"{nameof(IValidator)} requires a cascading " +
                     $"parameter of type {nameof(IValidateRules)}. For example, you can use {nameof(RequiredValidator)} " +
                     $"inside an ValidateInputBase<TItem>.");
             }
 
-            RuleComponent.Rules.Add(this);
-            RuleComponent.OnRuleAdded(this);
+            Validators.Rules.Add(this);
+            Validators.OnRuleAdded(this);
         }
 
         /// <summary>

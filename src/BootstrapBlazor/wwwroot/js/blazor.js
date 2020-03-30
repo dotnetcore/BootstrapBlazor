@@ -168,8 +168,11 @@
             }, 4400);
         },
         tooltip: function (id, method) {
-            var $ele = $(id);
-            if (method === 'enable') {
+            var $ele = $('#' + id);
+            if (method === undefined) {
+                $ele.tooltip();
+            }
+            else if (method === 'enable') {
                 $ele.tooltip();
                 $ele.parents('form').find('.invalid:first').focus();
             }

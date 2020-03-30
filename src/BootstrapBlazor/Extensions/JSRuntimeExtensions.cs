@@ -1,7 +1,7 @@
-﻿using BootstrapBlazor.Components;
+﻿using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace Microsoft.JSInterop
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// JSRuntime 扩展操作类
@@ -22,6 +22,21 @@ namespace Microsoft.JSInterop
         /// <param name="id"></param>
         /// <param name="collapsed"></param>
         public static void Collapse(this IJSRuntime? jsRuntime, string id, bool collapsed) => jsRuntime?.InvokeVoidAsync("$.collapse", id, collapsed);
+
+        /// <summary>
+        /// 初始化 Tooltip 组件
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        public static void Tooltip(this IJSRuntime? jsRuntime, string id) => jsRuntime.InvokeVoidAsync("$.tooltip", id);
+
+        /// <summary>
+        /// 弹出 Tooltip 组件
+        /// </summary>
+        /// <param name="jSRuntime"></param>
+        /// <param name="id"></param>
+        /// <param name="method"></param>
+        public static void Tooltip(this IJSRuntime? jSRuntime, string id, string method) => jSRuntime.InvokeVoidAsync("$.tooltip", id, method);
 
         /// <summary>
         /// 根据指定菜单 ID 激活侧边栏菜单项
@@ -77,14 +92,6 @@ namespace Microsoft.JSInterop
         /// <param name="message"></param>
         /// <param name="cate"></param>
         public static void ShowToast(this IJSRuntime? jSRuntime, string title, string message, ToastCategory cate) => jSRuntime.InvokeVoidAsync("$.showToast", title, message, cate.ToString());
-
-        /// <summary>
-        /// 弹出 Tooltip 组件
-        /// </summary>
-        /// <param name="jSRuntime"></param>
-        /// <param name="id"></param>
-        /// <param name="method"></param>
-        public static void Tooltip(this IJSRuntime? jSRuntime, string id, string method) => jSRuntime.InvokeVoidAsync("$.tooltip", $"#{id}", method);
 
         /// <summary>
         /// 显示或者隐藏 网站 Blazor 挂件图标
