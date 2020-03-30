@@ -362,7 +362,6 @@ td {
 
 .card-log {
     overflow: hidden auto;
-    max-height: 100px;
     border: solid 1px #ddd;
     border-radius: 4px;
     padding: 0.5rem 1rem;
