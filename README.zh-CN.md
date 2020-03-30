@@ -62,4 +62,4 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。    
 
-![WeChat](https://images.gitee.com/uploads/images/2020/0323/223954_3533f4ca_554725.png "扫码捐助")
+![WeChat](https://gitee.com/LongbowEnterprise/Pictures/raw/master/WeChat/BarCode@2x.png "扫码捐助")
