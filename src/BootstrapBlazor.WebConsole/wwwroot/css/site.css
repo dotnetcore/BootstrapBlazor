@@ -171,7 +171,7 @@ section {
     }
 
         .content .card .row, .content .card .form-row {
-            width: 100%;
+            flex: 1 1 auto;
         }
 
         .content .card:hover {
@@ -372,10 +372,6 @@ td {
     .card-log .log-item:not(:last-child) {
         margin-bottom: 0.5rem;
     }
-
-.form-checkbox:not(:first-child) {
-    margin-left: 1.5rem;
-}
 
 #blazor-error-ui {
     background: lightyellow;
