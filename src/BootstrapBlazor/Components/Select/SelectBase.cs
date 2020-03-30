@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -103,6 +104,17 @@ namespace BootstrapBlazor.Components
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);
+        }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            // 设置数据集合后 SelectedItem 设置默认值
+            if (SelectedItem == null && Items != null) SelectedItem = Items.ToList().FindAll(x => x.Active == true).Any()?Items.ToList().FindAll(x => x.Active == true).First(): null;
         }
     }
 }

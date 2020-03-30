@@ -144,7 +144,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 设置数据集合后 Value 设置默认值
-            if (ValueExpression == null && Value == null && Items != null) Value = Items.First();
+            if (ValueExpression == null && Value == null && Items != null) Value = Items.ToList().FindAll(x => x.Active == true).Any() ? Items.ToList().FindAll(x => x.Active == true).First() : Items.First();
         }
     }
 }

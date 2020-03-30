@@ -9,6 +9,21 @@ namespace Microsoft.JSInterop
     internal static class JSRuntimeExtensions
     {
         /// <summary>
+        /// 执行客户端脚本得到一个唯一的客户端 id
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <returns></returns>
+        public static ValueTask<string> GetClientIdAsync(this IJSRuntime? jsRuntime) => jsRuntime?.InvokeAsync<string>("$.getUID") ?? new ValueTask<string>("");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        /// <param name="collapsed"></param>
+        public static void Collapse(this IJSRuntime? jsRuntime, string id, bool collapsed) => jsRuntime?.InvokeVoidAsync("$.collapse", id, collapsed);
+
+        /// <summary>
         /// 根据指定菜单 ID 激活侧边栏菜单项
         /// </summary>
         /// <param name="jsRuntime"></param>
