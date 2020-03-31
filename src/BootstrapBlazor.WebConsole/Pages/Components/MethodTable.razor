@@ -3,10 +3,10 @@
 
     <Table TItem="BootstrapBlazor.WebConsole.Common.MethodItem" Items="Items">
         <HeaderTemplate>
-            <TableHeader TItem="string" @bind-Field="@context.Name" />
-            <TableHeader TItem="string" @bind-Field="@context.Description" />
-            <TableHeader TItem="string" @bind-Field="@context.Parameters" />
-            <TableHeader TItem="string" @bind-Field="@context.ReturnValue" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Description" />
+            <TableColumn TItem="string" @bind-Field="@context.Parameters" />
+            <TableColumn TItem="string" @bind-Field="@context.ReturnValue" />
         </HeaderTemplate>
         <RowTemplate>
             <td>@context.Name</td>

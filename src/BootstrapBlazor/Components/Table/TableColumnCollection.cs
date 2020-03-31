@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table Header 组件
     /// </summary>
-    public class TableHeaderCollection : ComponentBase
+    public class TableColumnCollection : ComponentBase
     {
         /// <summary>
         /// Specifies the content to be rendered inside this
@@ -18,12 +18,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 添加表头组件到集合方法
         /// </summary>
-        public void AddHeader(ITableHeader header) => Headers.Add(header);
+        public void Add(ITableColumn header) => Columns.Add(header);
 
         /// <summary>
         /// 获得 表头集合
         /// </summary>
-        public ICollection<ITableHeader> Headers { get; } = new HashSet<ITableHeader>();
+        public ICollection<ITableColumn> Columns { get; } = new HashSet<ITableColumn>();
 
         /// <summary>
         /// BuildRenderTree 方法
@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             var index = 0;
-            builder.OpenComponent<CascadingValue<TableHeaderCollection>>(index++);
+            builder.OpenComponent<CascadingValue<TableColumnCollection>>(index++);
             builder.AddAttribute(index++, "Value", this);
             builder.AddAttribute(index++, "IsFixed", true);
             builder.AddAttribute(index++, "ChildContent", ChildContent);

@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// Table Header 表头组件
+    /// Table Column 表头列组件
     /// </summary>
-    public class TableHeaderContent : ComponentBase
+    public class TableColumnContent : ComponentBase
     {
         /// <summary>
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]
-        protected TableHeaderCollection? Header { get; set; }
+        protected TableColumnCollection? Columns { get; set; }
 
         /// <summary>
         /// 获得/设置 升序图标
@@ -42,10 +42,10 @@ namespace BootstrapBlazor.Components
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             // 渲染正常按钮
-            if (Header != null)
+            if (Columns != null)
             {
                 var index = 0;
-                foreach (var header in Header.Headers)
+                foreach (var header in Columns.Columns)
                 {
                     var fieldName = header.GetFieldName();
                     var displayName = header.GetDisplayName();
