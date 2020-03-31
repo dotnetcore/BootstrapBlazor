@@ -46,6 +46,7 @@ namespace BootstrapBlazor.Components
                 {
                     builder.AddAttribute(index++, "onclick", v);
                 }
+                if (!string.IsNullOrEmpty(Id)) AdditionalAttributes["id"] = Id;
                 builder.AddMultipleAttributes(index++, AdditionalAttributes);
             }
             if (ChildContent != null) builder.AddContent(index++, ChildContent);
