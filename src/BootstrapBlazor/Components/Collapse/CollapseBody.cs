@@ -78,13 +78,10 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            // 客户端组件生成后通过 invoke 生成客户端组件 id
-            if (firstRender)
-            {
-                await base.OnAfterRenderAsync(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
-                Id = await JSRuntime.GetClientIdAsync();
-            }
+            // 客户端组件生成后通过 invoke 生成客户端组件 id
+            if (firstRender) Id = await JSRuntime.GetClientIdAsync();
         }
 
         /// <summary>
@@ -96,8 +93,7 @@ namespace BootstrapBlazor.Components
             // 生成 Id
             await InvokeAsync(StateHasChanged).ConfigureAwait(false);
 
-            // 调用客户端动画效果
-            if (!string.IsNullOrEmpty(Id)) JSRuntime.Collapse(Id, collapsed);
+            if (!string.IsNullOrEmpty(Id)) JSRuntime.InvokeRun(Id, "collapse", collapsed ? "hide" : "show");
         });
     }
 }
