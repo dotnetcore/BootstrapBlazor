@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 
@@ -7,7 +8,7 @@ namespace BootstrapBlazor.WebConsole.Pages.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class Code
+    public class Code : ComponentBase
     {
         /// <summary>
         /// 
@@ -33,6 +34,16 @@ namespace BootstrapBlazor.WebConsole.Pages.Components
                 }
             }
             return content;
+        }
+
+        /// <summary>
+        /// BuildRenderTree 方法
+        /// </summary>
+        /// <param name="builder"></param>
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            var index = 0;
+            builder.AddContent(index++, Content());
         }
     }
 }
