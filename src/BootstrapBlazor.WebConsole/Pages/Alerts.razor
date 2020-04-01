@@ -1,50 +1,24 @@
 ﻿@page "/alerts"
 
-<Block Title="Alert 警告框" Introduction="提供各种颜色的警告信息框">
-    <CardBodyTemplate>
-        <Alert Color="Color.Primary">主要的警告框</Alert>
-        <Alert Color="Color.Secondary">次要的警告框</Alert>
-        <Alert Color="Color.Success">成功的警告框</Alert>
-        <Alert Color="Color.Danger">危险的警告框</Alert>
-        <Alert Color="Color.Warning">警告的警告框</Alert>
-        <Alert Color="Color.Info">信息的警告框</Alert>
-        <Alert Color="Color.Dark">黑暗的警告框</Alert>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Alert Color="Color.Primary"&gt;主要的警告框&lt;/Alert&gt;
-&lt;Alert Color="Color.Secondary"&gt;次要的警告框&lt;/Alert&gt;
-&lt;Alert Color="Color.Success"&gt;成功的警告框&lt;/Alert&gt;
-&lt;Alert Color="Color.Danger"&gt;危险的警告框&lt;/Alert&gt;
-&lt;Alert Color="Color.Warning"&gt;警告的警告框&lt;/Alert&gt;
-&lt;Alert Color="Color.Info"&gt;信息的警告框&lt;/Alert&gt;
-&lt;Alert Color="Color.Dark"&gt;暗的警告框&lt;/Alert&gt;
-    </pre>
-    </CodeTemplate>
+<Block Title="Alert 警告框" Introduction="提供各种颜色的警告信息框" CodeFile="alert.1.txt">
+    <Alert Color="Color.Primary">主要的警告框</Alert>
+    <Alert Color="Color.Secondary">次要的警告框</Alert>
+    <Alert Color="Color.Success">成功的警告框</Alert>
+    <Alert Color="Color.Danger">危险的警告框</Alert>
+    <Alert Color="Color.Warning">警告的警告框</Alert>
+    <Alert Color="Color.Info">信息的警告框</Alert>
+    <Alert Color="Color.Dark">黑暗的警告框</Alert>
 </Block>
 
-<Block Title="带关闭按钮" Introduction="提供关闭按钮的警告框">
-    <CardBodyTemplate>
-        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Primary">主要的警告框</Alert>
-        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Secondary">次要的警告框</Alert>
-        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Success">成功的警告框</Alert>
-        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Danger">危险的警告框</Alert>
-        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Warning">警告的警告框</Alert>
-        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Info">信息的警告框</Alert>
-        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Dark">黑暗的警告框</Alert>
-        <Logger @ref="Trace" class="mt-3" />
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Alert ShowDismiss="true" Color="Color.Primary"&gt;主要的警告框&lt;/Alert&gt;
-&lt;Alert ShowDismiss="true" Color="Color.Secondary"&gt;次要的警告框&lt;/Alert&gt;
-&lt;Alert ShowDismiss="true" Color="Color.Success"&gt;成功的警告框&lt;/Alert&gt;
-&lt;Alert ShowDismiss="true" Color="Color.Danger"&gt;危险的警告框&lt;/Alert&gt;
-&lt;Alert ShowDismiss="true" Color="Color.Warning"&gt;警告的警告框&lt;/Alert&gt;
-&lt;Alert ShowDismiss="true" Color="Color.Info"&gt;信息的警告框&lt;/Alert&gt;
-&lt;Alert ShowDismiss="true" Color="Color.Dark"&gt;暗的警告框&lt;/Alert&gt;
-    </pre>
-    </CodeTemplate>
+<Block Title="带关闭按钮" Introduction="提供关闭按钮的警告框" CodeFile="alert.2.txt">
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Primary">主要的警告框</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Secondary">次要的警告框</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Success">成功的警告框</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Danger">危险的警告框</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Warning">警告的警告框</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Info">信息的警告框</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Dark">黑暗的警告框</Alert>
+    <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -1,86 +1,56 @@
 ﻿@page "/radios"
 
 <Block Title="Radio 单选框" Introduction="提供基本的选择框组件">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-4">
-                    <label class="control-label">选中</label>
-                    <Radio TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged"></Radio>
-                </div>
-                <div class="form-group col-4">
-                    <label class="control-label">未选</label>
-                    <Radio TItem="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged"></Radio>
-                </div>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-4">
+                <label class="control-label">选中</label>
+                <Radio TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged"></Radio>
+            </div>
+            <div class="form-group col-4">
+                <label class="control-label">未选</label>
+                <Radio TItem="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged"></Radio>
             </div>
         </div>
-        <Logger @ref="Trace" class="mt-3" />
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Radio TItem="string" State="CheckboxState.Checked"&gt;&lt;/Radio&gt;
-&lt;Radio TItem="string" State="CheckboxState.UnChecked"&gt;&lt;/Radio&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 
 <Block Title="禁用单选框" Introduction="单选框不可用状态">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-4">
-                    <label class="control-label">选中</label>
-                    <Radio TItem="string" State="CheckboxState.Checked" IsDisabled="true"></Radio>
-                </div>
-                <div class="form-group col-4">
-                    <label class="control-label">未选</label>
-                    <Radio TItem="string" State="CheckboxState.UnChecked" IsDisabled="true"></Radio>
-                </div>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-4">
+                <label class="control-label">选中</label>
+                <Radio TItem="string" State="CheckboxState.Checked" IsDisabled="true"></Radio>
+            </div>
+            <div class="form-group col-4">
+                <label class="control-label">未选</label>
+                <Radio TItem="string" State="CheckboxState.UnChecked" IsDisabled="true"></Radio>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Radio TItem="string" IsDisabled="true" State="CheckboxState.Checked"&gt;&lt;/Radio&gt;
-&lt;Radio TItem="string" IsDisabled="true" State="CheckboxState.UnChecked"&gt;&lt;/Radio&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
 <Block Title="Label 文字" Introduction="单选框显示文字">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-12">
-                    <Radio TItem="string" DisplayText="显示文字"></Radio>
-                </div>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Radio TItem="string" DisplayText="显示文字"></Radio>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Radio TItem="string" DisplayText="显示文字"&gt;&lt;/Radio&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
 <Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步，绑定数据类型为 SelectedItem 类型数组">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-12">
-                    <Radio Items="@Items" OnStateChanged="@OnItemChanged"></Radio>
-                </div>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Radio Items="@Items" OnStateChanged="@OnItemChanged"></Radio>
             </div>
         </div>
-        <Logger @ref="BinderLog" class="mt-3" />
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Radio Items="@@Items"&gt;&lt;/Radio&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
+    <Logger @ref="BinderLog" class="mt-3" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

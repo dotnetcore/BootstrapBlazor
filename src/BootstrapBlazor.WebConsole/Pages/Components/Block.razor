@@ -6,11 +6,11 @@
 
 <div class="card">
     <div class="card-body">
-        @CardBodyTemplate
+        @ChildContent
     </div>
     <div class="card-footer">
         <div class="card-footer-code collapse">
-@CodeTemplate
+            <pre><Code CodeFile="@CodeFile" /></pre>
         </div>
         <a class="card-footer-control" href="#">
             <i class="fa fa-caret-down"></i>
@@ -24,7 +24,7 @@
 
     [Parameter] public string Introduction { get; set; } = "未设置";
 
-    [Parameter] public RenderFragment? CardBodyTemplate { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [Parameter] public RenderFragment? CodeTemplate { get; set; }
+    [Parameter] public string? CodeFile { get; set; }
 }

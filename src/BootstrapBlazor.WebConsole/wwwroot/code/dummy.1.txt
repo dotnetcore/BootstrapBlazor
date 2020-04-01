@@ -1,0 +1,1 @@
+﻿<Badge Color="Color.Primary">primary</Badge>

@@ -1,85 +1,58 @@
 ﻿@page "/tooltips"
 
 <Block Title="Tooltip 提示工具条" Introduction="提供鼠标悬停或者获得焦点后显示提示框">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <BootstrapInput TItem="string" Value="@TopString">
-                        <Tooltip Placement="Placement.Top" Title="Tootip" />
-                    </BootstrapInput>
-                </div>
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <BootstrapInput TItem="string" Value="@LeftString">
-                        <Tooltip Placement="Placement.Left" Title="Tootip" />
-                    </BootstrapInput>
-                </div>
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <BootstrapInput TItem="string" Value="@BottomString">
-                        <Tooltip Placement="Placement.Bottom" Title="Tootip" />
-                    </BootstrapInput>
-                </div>
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <BootstrapInput TItem="string" Value="@RightString">
-                        <Tooltip Placement="Placement.Right" Title="Tootip" />
-                    </BootstrapInput>
-                </div>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@TopString">
+                    <Tooltip Placement="Placement.Top" Title="Tootip" />
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@LeftString">
+                    <Tooltip Placement="Placement.Left" Title="Tootip" />
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@BottomString">
+                    <Tooltip Placement="Placement.Bottom" Title="Tootip" />
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@RightString">
+                    <Tooltip Placement="Placement.Right" Title="Tootip" />
+                </BootstrapInput>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;BootstrapInput TItem="string" Value="@RightString"&gt;     
-    &lt;Tooltip Placement="Placement.Right" Title="Tootip" /&gt;
-&lt;/BootstrapInput&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
 <Block Title="Button 组件提示框" Introduction="提供鼠标悬停或者获得焦点后显示提示框">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <Button>
-                        @TopString
-                        <Tooltip Placement="Placement.Top" Title="Tootip" />
-                    </Button>
-                </div>
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <Button>
-                        @LeftString<Tooltip Placement="Placement.Left" Title="Tootip" />
-                    </Button>
-                </div>
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <Button>
-                        @BottomString<Tooltip Placement="Placement.Bottom" Title="Tootip" />
-                    </Button>
-                </div>
-                <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                    <Button>
-                        @RightString<Tooltip Placement="Placement.Right" Title="Tootip" />
-                    </Button>
-                </div>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @TopString
+                    <Tooltip Placement="Placement.Top" Title="Tootip" />
+                </Button>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @LeftString<Tooltip Placement="Placement.Left" Title="Tootip" />
+                </Button>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @BottomString<Tooltip Placement="Placement.Bottom" Title="Tootip" />
+                </Button>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @RightString<Tooltip Placement="Placement.Right" Title="Tootip" />
+                </Button>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Button&gt;     
-    &lt;Tooltip Placement="Placement.Top" Title="Tootip" /&gt;
-&lt;/Button&gt;
-&lt;Button&gt;     
-    &lt;Tooltip Placement="Placement.Right" Title="Tootip" /&gt;
-&lt;/Button&gt;
-&lt;Button&gt;     
-    &lt;Tooltip Placement="Placement.Bottom" Title="Tootip" /&gt;
-&lt;/Button&gt;
-&lt;Button&gt;     
-    &lt;Tooltip Placement="Placement.Left" Title="Tootip" /&gt;
-&lt;/Button&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
