@@ -46,6 +46,10 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 ## 演示地址  
 [![website](https://img.shields.io/badge/linux-http://blazor.sdgxgz.com-success.svg?logo=buzzfeed&logoColor=green)](http://blazor.sdgxgz.com)
 
+## 项目截图
+
+![后台首页](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
+
 ## 开源协议
 [![Gitee license](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/LICENSE)
 
