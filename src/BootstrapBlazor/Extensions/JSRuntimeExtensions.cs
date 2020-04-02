@@ -16,10 +16,13 @@ namespace BootstrapBlazor.Components
         /// <param name="id"></param>
         /// <param name="func"></param>
         /// <param name="args"></param>
-        public static void InvokeRun(this IJSRuntime? jsRuntime, string id, string func, params string[] args)
+        public static void InvokeRun(this IJSRuntime? jsRuntime, string? id, string func, params string[] args)
         {
-            var para = args != null ? string.Join(",", args.Select(p => $"\"{p}\"")) : "";
-            jsRuntime?.InvokeVoidAsync("$.run", $"$('#{id}').{func}({para})");
+            if (!string.IsNullOrEmpty(id))
+            {
+                var para = args != null ? string.Join(",", args.Select(p => $"\"{p}\"")) : "";
+                jsRuntime?.InvokeVoidAsync("$.run", $"$('#{id}').{func}({para})");
+            }
         }
 
         /// <summary>

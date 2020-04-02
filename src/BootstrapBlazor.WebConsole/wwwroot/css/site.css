@@ -437,7 +437,7 @@ td {
     .navbar {
         position: sticky;
         top: 0;
-        z-index: 1071;
+        z-index: 1035;
     }
 
     section {

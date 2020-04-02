@@ -1,5 +1,4 @@
-﻿using BootstrapBlazor.Utils;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace BootstrapBlazor.Components
 {
@@ -71,7 +70,7 @@ namespace BootstrapBlazor.Components
         {
             IsCollapsed = !IsCollapsed;
 
-            CollapseContent?.DoAnimationsAsync(IsCollapsed);
+            CollapseContent?.DoAnimations(IsCollapsed);
         }
     }
 }
