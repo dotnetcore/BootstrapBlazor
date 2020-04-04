@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components
@@ -37,25 +38,9 @@ namespace BootstrapBlazor.Components
         protected string? Tab => IsDisabled ? "-1" : null;
 
         /// <summary>
-        /// 获得 按钮类型
+        /// 获得 EditContext 实例
         /// </summary>
-        protected string Type => ButtonType switch
-        {
-            ButtonType.Submit => "submit",
-            ButtonType.Reset => "reset",
-            _ => "button"
-        };
-
-
-        /// <summary>
-        /// 获得 按钮 Value 值
-        /// </summary>
-        protected string? ValueString => (ButtonType == ButtonType.Input || ButtonType == ButtonType.Reset) ? Value : null;
-
-        /// <summary>
-        /// 获得/设置 按钮显示文字
-        /// </summary>
-        [Parameter] public string? Value { get; set; }
+        [CascadingParameter] protected EditContext? EditContext { get; set; }
 
         /// <summary>
         /// OnClick 事件
@@ -68,7 +53,6 @@ namespace BootstrapBlazor.Components
         [Parameter] public Color Color { get; set; } = Color.Primary;
 
         private ButtonType _buttonType = ButtonType.Button;
-
         /// <summary>
         ///
         /// </summary>
@@ -90,28 +74,48 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        ///
+        /// 获得/设置 Outline 样式
         /// </summary>
         [Parameter] public bool IsOutline { get; set; }
 
         /// <summary>
-        ///
+        /// 获得/设置 Size 大小
         /// </summary>
         [Parameter] public Size Size { get; set; } = Size.None;
 
         /// <summary>
-        ///
+        /// 获得/设置 Block 模式
         /// </summary>
         [Parameter] public bool IsBlock { get; set; }
 
         /// <summary>
-        ///
+        /// 获得/设置 是否禁用
         /// </summary>
         [Parameter] public bool IsDisabled { get; set; }
 
         /// <summary>
-        ///
+        /// 获得/设置 是否触发客户端验证 默认为 true 触发
+        /// </summary>
+        [Parameter] public bool IsTriggerValidate { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 RenderFragment 实例
         /// </summary>
         [Parameter] public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            var onClick = OnClick;
+            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+            {
+                var valid = IsTriggerValidate && (EditContext?.Validate() ?? true);
+                if (valid) onClick.InvokeAsync(e);
+            });
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ButtonBase
 
-<DynamicElement @attributes="@AdditionalAttributes" TagName="@Tag" @onclick="@OnClick" Id="@Id" type="@Type" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab" value="@Value">
+<button @attributes="@AdditionalAttributes" @onclick="@OnClick" Id="@Id" type="button" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
-</DynamicElement>
+</button>
