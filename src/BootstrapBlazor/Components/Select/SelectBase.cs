@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("form-select dropdown")
+        protected virtual string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
@@ -37,12 +37,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? ActiveItem(SelectedItem item)
-        {
-            return CssBuilder.Default("dropdown-item")
-                .AddClass("active", () => item.Value == SelectedItem?.Value)
-                .Build();
-        }
+        protected virtual string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
+            .AddClass("active", () => item.Value == SelectedItem?.Value)
+            .Build();
 
         /// <summary>
         /// 获得 PlaceHolder 属性

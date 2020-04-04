@@ -105,7 +105,7 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " - "
             },
             new AttributeItem() {
-                Name = "OnValueChanged",
+                Name = "OnSelectedItemChanged",
                 Description = "下拉框值发生改变时触发",
                 Type = " - ",
                 ValueList = " - ",
@@ -114,4 +114,3 @@ namespace BootstrapBlazor.WebConsole.Pages
         };
     }
 }
-

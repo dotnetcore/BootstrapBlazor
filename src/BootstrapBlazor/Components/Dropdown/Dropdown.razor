@@ -1,8 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits DropdownBase
+@typeparam TItem
+@inherits DropdownBase<TItem>
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
-    <button type="button" class="@ButtonClassName" data-toggle="@DropdownToggle" aria-haspopup="true" aria-expanded="false">@Value?.Text</button>
+    <button type="button" class="@ButtonClassName" data-toggle="@DropdownToggle" aria-haspopup="true" aria-expanded="false">@SelectedItem?.Text</button>
     @if (ShowSplit)
     {
         <button type="button" class="@ClassName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -10,7 +11,7 @@
     <div class="@MenuAlignmentClass" aria-labelledby="dropdownMenuButton">
         @foreach (var item in Items ?? new SelectedItem[0])
         {
-            <a class="@ActiveItem(item)" href="#" @onclick:preventDefault @onclick:stopPropagation @onclick="e => OnClick(item)">@item.Text</a>
+            <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
         }
     </div>
 </div>
