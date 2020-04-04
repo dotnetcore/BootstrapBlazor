@@ -6,6 +6,5 @@
     <EditForm Model="@Model" @attributes="@AdditionalAttributes" OnSubmit="OnSubmit" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
         <BootstrapBlazorDataAnnotationsValidator />
         @ChildContent
-        <button type="submit" class="d-none">submit</button>
     </EditForm>
 </CascadingValue>
