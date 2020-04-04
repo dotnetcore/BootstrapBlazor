@@ -1,0 +1,9 @@
+﻿<Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Primary" OnValueChanged="@OnValueChanged"></Toggle>
+<Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Secondary" OnValueChanged="@OnValueChanged"></Toggle>
+<Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Success" OnValueChanged="@OnValueChanged"></Toggle>
+<Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Danger" OnValueChanged="@OnValueChanged"></Toggle>
+<Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Warning" OnValueChanged="@OnValueChanged"></Toggle>
+<Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Info" OnValueChanged="@OnValueChanged"></Toggle>
+<Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Dark" OnValueChanged="@OnValueChanged"></Toggle>
+<Toggle Value="false" OnText="开启" OffText="关闭" Color="Color.Success" OnValueChanged="@OnValueChanged"></Toggle>
+    

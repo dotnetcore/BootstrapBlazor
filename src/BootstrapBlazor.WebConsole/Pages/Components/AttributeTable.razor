@@ -3,11 +3,11 @@
 
     <Table TItem="BootstrapBlazor.WebConsole.Common.AttributeItem" Items="Items">
         <HeaderTemplate>
-            <TableHeader TItem="string" @bind-Field="@context.Name" />
-            <TableHeader TItem="string" @bind-Field="@context.Description" />
-            <TableHeader TItem="string" @bind-Field="@context.Type" />
-            <TableHeader TItem="string" @bind-Field="@context.ValueList" />
-            <TableHeader TItem="string" @bind-Field="@context.DefaultValue" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Description" />
+            <TableColumn TItem="string" @bind-Field="@context.Type" />
+            <TableColumn TItem="string" @bind-Field="@context.ValueList" />
+            <TableColumn TItem="string" @bind-Field="@context.DefaultValue" />
         </HeaderTemplate>
         <RowTemplate>
             <td>@context.Name</td>

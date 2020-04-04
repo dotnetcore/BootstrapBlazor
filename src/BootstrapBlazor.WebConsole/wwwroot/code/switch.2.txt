@@ -1,0 +1,6 @@
+﻿<Switch OnColor="Color.Primary" Size="Size.ExtraLarge" OnText="开启" OffText="关闭">primary</Switch>
+<Switch OnColor="Color.Secondary" Size="Size.ExtraSmall" OnText="开启" OffText="关闭">Secondary</Switch>
+<Switch OnColor="Color.Success" Size="Size.Large" OnText="开启" OffText="关闭">Success</Switch>
+<Switch OnColor="Color.Danger" Size="Size.Medium" OnText="开启" OffText="关闭">Danger</Switch>
+<Switch OnColor="Color.Warning" Size="Size.None" OnText="开启" OffText="关闭">Warning</Switch>
+<Switch OnColor="Color.Info" Size="Size.Small" OnText="开启" OffText="关闭">Info</Switch>

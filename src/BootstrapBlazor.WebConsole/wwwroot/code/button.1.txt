@@ -1,0 +1,9 @@
+﻿<Button @onclick="@ButtonClick" Color="Color.Primary">主要按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Secondary">次要按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Success">成功按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Danger">危险按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Warning">警告按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Info">信息按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Dark">黑暗按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Light">高亮按钮</Button>
+<Button @onclick="@ButtonClick" Color="Color.Link">链接按钮</Button>

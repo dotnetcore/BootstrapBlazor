@@ -1,0 +1,9 @@
+﻿<Button IsDisabled="true" Color="Color.Primary">主要按钮</Button>
+<Button IsDisabled="true" Color="Color.Secondary">次要按钮</Button>
+<Button IsDisabled="true" Color="Color.Success">成功按钮</Button>
+<Button IsDisabled="true" Color="Color.Danger">危险按钮</Button>
+<Button IsDisabled="true" Color="Color.Warning">警告按钮</Button>
+<Button IsDisabled="true" Color="Color.Info">信息按钮</Button>
+<Button IsDisabled="true" Color="Color.Dark">黑暗按钮</Button>
+<Button IsDisabled="true" Color="Color.Light">高亮按钮</Button>
+<Button IsDisabled="true" Color="Color.Link">链接按钮</Button>

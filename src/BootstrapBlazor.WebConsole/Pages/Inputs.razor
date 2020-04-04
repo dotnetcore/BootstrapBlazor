@@ -1,88 +1,54 @@
 ﻿@page "/inputs"
 
-<Block Title="Input 文本输入框" Introduction="提供基本的文本录入组件">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-12">
-                    <label class="control-label">基本用法</label>
-                    <BootstrapInput TItem="string" placeholder="请输入 ..."></BootstrapInput>
-                </div>
+<Block Title="Input 文本输入框" Introduction="提供基本的文本录入组件" CodeFile="input.1.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <label class="control-label">基本用法</label>
+                <BootstrapInput TItem="string" placeholder="请输入 ..."></BootstrapInput>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;BootstrapInput TItem="string" placeholder="请输入 ..."&gt;&lt;/BootstrapInput&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
-<Block Title="单向绑定数据" Introduction="显示组件内变量值">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-12">
-                    <label class="control-label">单向绑定</label>
-                    <BootstrapInput TItem="string" placeholder="请输入 ..." Value="@InputValue"></BootstrapInput>
-                </div>
+<Block Title="单向绑定数据" Introduction="显示组件内变量值" CodeFile="input.2.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <label class="control-label">单向绑定</label>
+                <BootstrapInput TItem="string" placeholder="请输入 ..." Value="@InputValue"></BootstrapInput>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;BootstrapInput TItem="string" placeholder="请输入 ..." Value="@@InputValue"&gt;&lt;/BootstrapInput&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-12">
-                    <label class="control-label">单向绑定</label>
-                    <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue">
-                    </BootstrapInput>
-                </div>
-                <div class="form-group col-12">
-                    <div>绑定数值: @BindValue</div>
-                </div>
+<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步" CodeFile="input.3.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <label class="control-label">单向绑定</label>
+                <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue">
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-12">
+                <div>绑定数值: @BindValue</div>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;BootstrapInput TItem="string" placeholder="请输入 ..." @@bind-Value="@@BindValue"&gt;&lt;/BootstrapInput&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
-<Block Title="客户端验证" Introduction="根据自定义验证规则进行数据有效性检查并自动提示">
-    <CardBodyTemplate>
-        <ValidateForm class="form-inline" Model="@Model">
-            <div class="row">
-                <div class="form-group col-12">
-                    <label class="control-label">数据验证</label>
-                    <BootstrapInput TItem="string" maxlength="5" placeholder="请输入 ..." @bind-Value="@Model.Name">
-                        <RequiredValidator />
-                        <StringLengthValidator Length="5" />
-                    </BootstrapInput>
-                </div>
+<Block Title="客户端验证" Introduction="根据自定义验证规则进行数据有效性检查并自动提示" CodeFile="input.4.txt">
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12">
+                <label class="control-label">数据验证</label>
+                <BootstrapInput TItem="string" maxlength="5" placeholder="请输入 ..." @bind-Value="@Model.Name">
+                    <RequiredValidator />
+                    <StringLengthValidator Length="5" />
+                </BootstrapInput>
             </div>
-        </ValidateForm>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;ValidateForm class="form-inline" Model="@Model"&gt;
-    &lt;BootstrapInput TItem="string" maxlength="5" placeholder="请输入 ..." @@bind-Value="@@BindValue"&gt;
-        &lt;RequiredValidator /&gt;
-        &lt;StringLengthValidator Length="5" /&gt;
-    &lt;/BootstrapInput&gt;
-&lt;/ValidateForm&gt;
-        </pre>
-        <p>控件放置于 <code class="highlight">ValidateForm</code> 组件内，通过设置 <code>Model</code> 属性获得 <code>Select</code> 组件绑定的字段值如 <code>@@bind-Value="@@Model.Name"</code></p>
-    </CodeTemplate>
+        </div>
+    </ValidateForm>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
@@ -118,6 +84,6 @@
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-        };
+            };
     }
 }

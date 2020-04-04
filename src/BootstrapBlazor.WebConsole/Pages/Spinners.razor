@@ -1,140 +1,61 @@
 ﻿@page "/spinners"
 
-<Block Title="Spinner 旋转图标" Introduction="默认旋转图标">
-    <CardBodyTemplate>
+<Block Title="Spinner 旋转图标" Introduction="默认旋转图标" CodeFile="spinner.1.txt">
+    <Spinner></Spinner>
+</Block>
+
+<Block Title="Spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标" CodeFile="spinner.2.txt">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Primary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Secondary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Success"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Danger"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Warning"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Info"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Light"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Dark"></Spinner></div>
+    </div>
+</Block>
+
+<Block Title="Growing spinner 旋转图标" Introduction="生长式旋转图标" CodeFile="spinner.3.txt">
+    <Spinner SpinnerType="SpinnerType.Grow"></Spinner>
+</Block>
+
+<Block Title="Growing spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标" CodeFile="spinner.4.txt">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Success"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Danger"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Warning"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Info"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Light"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Dark"></Spinner></div>
+    </div>
+</Block>
+
+<Block Title="spinner 旋转图标大小" Introduction="图标样式大小" CodeFile="spinner.5.txt">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small" SpinnerType="SpinnerType.Grow"></Spinner></div>
+    </div>
+</Block>
+
+<Block Title="spinner Flex" Introduction="自定义布局" CodeFile="spinner.6.txt">
+    <div class="d-flex justify-content-center">
         <Spinner></Spinner>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Spinner&gt;&lt;/Spinner&gt;
-    </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
-<Block Title="Spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标">
-    <CardBodyTemplate>
-        <div class="row">
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Primary"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Secondary"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Success"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Danger"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Warning"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Info"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Light"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Dark"></Spinner></div>
-        </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Spinner Color="Color.Primary"&gt;&lt;/Spinner&gt;
-&lt;Spinner Color="Color.Secondary"&gt;&lt;/Spinner&gt;
-&lt;Spinner Color="Color.Success"&gt;&lt;/Spinner&gt;
-&lt;Spinner Color="Color.Danger"&gt;&lt;/Spinner&gt;
-&lt;Spinner Color="Color.Warning"&gt;&lt;/Spinner&gt;
-&lt;Spinner Color="Color.Info"&gt;&lt;/Spinner&gt;
-&lt;Spinner Color="Color.Light"&gt;&lt;/Spinner&gt;
-&lt;Spinner Color="Color.Dark"&gt;&lt;/Spinner&gt;
-    </pre>
-    </CodeTemplate>
+<Block Title="spinner Flex" Introduction="带有文字的自定义布局" CodeFile="spinner.7.txt">
+    <div class="d-flex align-items-center">
+        <strong>Loading...</strong>
+        <Spinner Class="ml-auto"></Spinner>
+    </div>
 </Block>
 
-<Block Title="Growing spinner 旋转图标" Introduction="生长式旋转图标">
-    <CardBodyTemplate>
-        <Spinner SpinnerType="SpinnerType.Grow"></Spinner>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Spinner SpinnerType="SpinnerType.Grow"&gt;&lt;/Spinner&gt;
-    </pre>
-    </CodeTemplate>
-</Block>
-
-<Block Title="Growing spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标">
-    <CardBodyTemplate>
-        <div class="row">
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Success"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Danger"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Warning"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Info"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Light"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Dark"></Spinner></div>
-        </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"&gt;&lt;/Spinner&gt;
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"&gt;&lt;/Spinner&gt;
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Success"&gt;&lt;/Spinner&gt;
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Danger"&gt;&lt;/Spinner&gt;
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Warning"&gt;&lt;/Spinner&gt;
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Info"&gt;&lt;/Spinner&gt;
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Light"&gt;&lt;/Spinner&gt;
-&lt;Spinner SpinnerType="SpinnerType.Grow" Color="Color.Dark"&gt;&lt;/Spinner&gt;
-    </pre>
-    </CodeTemplate>
-</Block>
-
-<Block Title="spinner 旋转图标大小" Introduction="图标样式大小">
-    <CardBodyTemplate>
-        <div class="row">
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small"></Spinner></div>
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small" SpinnerType="SpinnerType.Grow"></Spinner></div>
-        </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Spinner Size="Size.Small"&gt;&lt;/Spinner&gt;
-&lt;Spinner Size="Size.Small" SpinnerType="SpinnerType.Grow"&gt;&lt;/Spinner&gt;
-    </pre>
-    </CodeTemplate>
-</Block>
-
-<Block Title="spinner Flex" Introduction="自定义布局">
-    <CardBodyTemplate>
-        <div class="d-flex justify-content-center">
-            <Spinner></Spinner>
-        </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;div class="d-flex justify-content-center"&gt;
-     &lt;Spinner&gt;&lt;/Spinner&gt;
-&lt;/div&gt;
-</pre>
-    </CodeTemplate>
-</Block>
-
-<Block Title="spinner Flex" Introduction="带有文字的自定义布局">
-    <CardBodyTemplate>
-        <div class="d-flex align-items-center">
-            <strong>Loading...</strong>
-            <Spinner Class="ml-auto"></Spinner>
-        </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;div class="d-flex justify-content-center"&gt;
-     &lt;strong&gt;Loading...&lt;/strong&gt;   
-     &lt;Spinner Class="ml-auto"&gt;&lt;/Spinner&gt;
-&lt;/div&gt;
-    </pre>
-    </CodeTemplate>
-</Block>
-
-<Block Title="spinner Floats" Introduction="使用 Float 布局">
-    <CardBodyTemplate>
-            <Spinner Class="float-right"></Spinner>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;div class="d-flex justify-content-center"&gt;
-     &lt;strong&gt;Loading...&lt;/strong&gt;   
-     &lt;Spinner Class="ml-auto"&gt;&lt;/Spinner&gt;
-&lt;/div&gt;
-    </pre>
-    </CodeTemplate>
+<Block Title="spinner Floats" Introduction="使用 Float 布局" CodeFile="spinner.8.txt">
+    <Spinner Class="float-right"></Spinner>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

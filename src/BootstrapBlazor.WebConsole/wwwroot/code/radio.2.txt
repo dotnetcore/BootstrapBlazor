@@ -1,0 +1,4 @@
+﻿<label class="control-label">选中</label>
+<Radio TItem="string" State="CheckboxState.Checked" IsDisabled="true"></Radio>
+<label class="control-label">未选</label>
+<Radio TItem="string" State="CheckboxState.UnChecked" IsDisabled="true"></Radio>

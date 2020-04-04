@@ -1,7 +1,5 @@
-﻿using BootstrapBlazor.Utils;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -14,16 +12,10 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
-        protected string? ClassName => CssBuilder.Default("alert")
+        protected string? ClassName => CssBuilder.Default("alert fade show")
             .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
-            .AddClass(Class)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
-
-        /// <summary>
-        /// 获得/设置 自定义样式
-        /// </summary>
-        protected string? Class { get; set; }
 
         /// <summary>
         /// 获得/设置 颜色
@@ -45,23 +37,5 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public EventCallback<MouseEventArgs> OnDismiss { get; set; }
-
-        /// <summary>
-        /// OnInitializedAsync 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override Task OnInitializedAsync()
-        {
-            if (ShowDismiss)
-            {
-                var callback = OnDismiss;
-                OnDismiss = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
-                {
-                    Class = "collapse";
-                    if (callback.HasDelegate) callback.InvokeAsync(e);
-                });
-            }
-            return Task.CompletedTask;
-        }
     }
 }

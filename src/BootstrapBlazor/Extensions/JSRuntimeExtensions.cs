@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -9,6 +10,22 @@ namespace BootstrapBlazor.Components
     internal static class JSRuntimeExtensions
     {
         /// <summary>
+        /// 浏览器执行脚本方法
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        /// <param name="func"></param>
+        /// <param name="args"></param>
+        public static void InvokeRun(this IJSRuntime? jsRuntime, string? id, string func, params string[] args)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var para = args != null ? string.Join(",", args.Select(p => $"\"{p}\"")) : "";
+                jsRuntime?.InvokeVoidAsync("$.run", $"$('#{id}').{func}({para})");
+            }
+        }
+
+        /// <summary>
         /// 执行客户端脚本得到一个唯一的客户端 id
         /// </summary>
         /// <param name="jsRuntime"></param>
@@ -16,27 +33,12 @@ namespace BootstrapBlazor.Components
         public static ValueTask<string> GetClientIdAsync(this IJSRuntime? jsRuntime) => jsRuntime?.InvokeAsync<string>("$.getUID") ?? new ValueTask<string>("");
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jsRuntime"></param>
-        /// <param name="id"></param>
-        /// <param name="collapsed"></param>
-        public static void Collapse(this IJSRuntime? jsRuntime, string id, bool collapsed) => jsRuntime?.InvokeVoidAsync("$.collapse", id, collapsed);
-
-        /// <summary>
-        /// 初始化 Tooltip 组件
-        /// </summary>
-        /// <param name="jsRuntime"></param>
-        /// <param name="id"></param>
-        public static void Tooltip(this IJSRuntime? jsRuntime, string id) => jsRuntime.InvokeVoidAsync("$.tooltip", id);
-
-        /// <summary>
         /// 弹出 Tooltip 组件
         /// </summary>
         /// <param name="jSRuntime"></param>
         /// <param name="id"></param>
         /// <param name="method"></param>
-        public static void Tooltip(this IJSRuntime? jSRuntime, string id, string method) => jSRuntime.InvokeVoidAsync("$.tooltip", id, method);
+        public static void Tooltip(this IJSRuntime? jSRuntime, string id, string? method = null) => jSRuntime.InvokeVoidAsync("$.tooltip", id, method);
 
         /// <summary>
         /// 根据指定菜单 ID 激活侧边栏菜单项

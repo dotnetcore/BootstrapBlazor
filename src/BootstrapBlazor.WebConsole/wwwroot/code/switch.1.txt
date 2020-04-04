@@ -1,0 +1,6 @@
+﻿<Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Secondary" OnText="开启" OffText="关闭">Secondary</Switch>
+<Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Success" OnText="开启" OffText="关闭">Success</Switch>
+<Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Danger" OnText="开启" OffText="关闭">Danger</Switch>
+<Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Warning" OnText="开启" OffText="关闭">Warning</Switch>
+<Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Info" OnText="开启" OffText="关闭">Info</Switch>
+<Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Dark" OnText="开启" OffText="关闭">Dark</Switch>

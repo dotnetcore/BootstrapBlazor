@@ -195,14 +195,14 @@ a {
     max-width: 768px;
 }
 
-    .is-invalid .tooltip-inner {
-        background-color: #dc3545;
-    }
+.is-invalid .tooltip-inner {
+    background-color: #dc3545;
+}
 
-    .is-invalid .arrow:before {
-        border-top-color: #dc3545;
-        border-bottom-color: #dc3545;
-    }
+.is-invalid .arrow:before {
+    border-top-color: #dc3545;
+    border-bottom-color: #dc3545;
+}
 
 /*toggle*/
 .toggle {
@@ -413,7 +413,7 @@ a {
 /*end switch*/
 
 /*checkbox*/
-.form-checkbox, .form-radio {
+.form-checkbox {
     font-weight: 500;
     cursor: pointer;
     display: inline-block;
@@ -540,6 +540,10 @@ a {
         right: 0;
         top: 5px;
     }
+
+.form-radio-group .form-checkbox:not(:first-child) {
+    margin-left: 1rem;
+}
 
 @media (min-width: 576px) {
     .form-inline .form-checkbox {

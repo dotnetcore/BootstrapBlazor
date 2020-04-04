@@ -1,86 +1,60 @@
 ﻿@page "/selects"
 
-<Block Title="Select 下拉选择框" Introduction="提供各种颜色的下拉选择框">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Primary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Success" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Danger" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Warning" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Info" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Secondary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Dark" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
-                </div>
+<Block Title="Select 下拉选择框" Introduction="提供各种颜色的下拉选择框" CodeFile="select.1.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Primary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Success" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Danger" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Warning" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Info" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Secondary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Dark" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
             </div>
         </div>
-        <Logger @ref="Trace" class="mt-3" />
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Select Items="@@Items" TItem="string" Color="Color.Primary"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" TItem="string" Color="Color.Success"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" TItem="string" Color="Color.Danger"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" TItem="string" Color="Color.Warning"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" TItem="string" Color="Color.Info"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" TItem="string" Color="Color.Secondary"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" TItem="string" Color="Color.Dark"&gt;&lt;/Select&gt;
-    </pre>
-    </CodeTemplate>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="禁用下拉框" Introduction="选择器不可用状态">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="row">
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Success" Items="@Items" IsDisabled="true"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Danger" Items="@Items" IsDisabled="true"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Warning" Items="@Items" IsDisabled="true"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Info" Items="@Items" IsDisabled="true"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Secondary" Items="@Items" IsDisabled="true"></Select>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                    <Select TItem="string" Color="Color.Dark" Items="@Items" IsDisabled="true"></Select>
-                </div>
+<Block Title="禁用下拉框" Introduction="选择器不可用状态" CodeFile="select.2.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Success" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Danger" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Warning" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Info" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Secondary" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Color="Color.Dark" Items="@Items" IsDisabled="true"></Select>
             </div>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Primary"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Success"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Danger"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Warning"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Info"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Secondary"&gt;&lt;/Select&gt;
-&lt;Select Items="@@Items" IsDisabled="true" TItem="string" Color="Color.Dark"&gt;&lt;/Select&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

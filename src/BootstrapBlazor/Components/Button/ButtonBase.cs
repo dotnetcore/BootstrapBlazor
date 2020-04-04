@@ -1,5 +1,4 @@
-﻿using BootstrapBlazor.Utils;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components
@@ -7,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Button 按钮组件
     /// </summary>
-    public abstract class ButtonBase : BootstrapComponentBase
+    public abstract class ButtonBase : TooltipComponentBase
     {
         /// <summary>
         /// 获得 按钮样式集合

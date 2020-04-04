@@ -1,0 +1,8 @@
+﻿<Select TItem="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Select>
+<Select TItem="string" Color="Color.Success" Items="@Items" IsDisabled="true"></Select>
+<Select TItem="string" Color="Color.Danger" Items="@Items" IsDisabled="true"></Select>
+<Select TItem="string" Color="Color.Warning" Items="@Items" IsDisabled="true"></Select>
+<Select TItem="string" Color="Color.Info" Items="@Items" IsDisabled="true"></Select>
+<Select TItem="string" Color="Color.Secondary" Items="@Items" IsDisabled="true"></Select>
+<Select TItem="string" Color="Color.Dark" Items="@Items" IsDisabled="true"></Select>
+            

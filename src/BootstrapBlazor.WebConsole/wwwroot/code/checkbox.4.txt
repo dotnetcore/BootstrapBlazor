@@ -1,0 +1,2 @@
+﻿<Checkbox TItem="bool" DisplayText="双向绑定" @bind-Value="@BindValue" OnStateChanged="@OnItemChanged"></Checkbox>
+<BootstrapInput TItem="bool" @bind-Value="@BindValue" disabled></BootstrapInput>

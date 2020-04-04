@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// ITableHeader 接口
     /// </summary>
-    public interface ITableHeader
+    public interface ITableColumn
     {
         /// <summary>
         /// 获得/设置 用户自定义属性

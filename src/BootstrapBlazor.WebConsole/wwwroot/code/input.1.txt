@@ -1,0 +1,2 @@
+﻿<label class="control-label">基本用法</label>
+<BootstrapInput TItem="string" placeholder="请输入 ..."></BootstrapInput>

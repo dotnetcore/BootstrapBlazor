@@ -1,0 +1,2 @@
+﻿<BootstrapInput TItem="int" @bind-Value="@Value" />
+<Progress IsAnimated="true" IsStriped="true" @bind-Value="@Value" Color="Color.Danger" IsShowValue="true"></Progress>

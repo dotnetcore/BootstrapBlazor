@@ -1,0 +1,6 @@
+﻿<label class="control-label">混合</label>
+<Checkbox TItem="string" State="CheckboxState.Mixed" OnStateChanged="@OnStateChanged"></Checkbox>
+<label class="control-label">选中</label>
+<Checkbox TItem="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged"></Checkbox>
+<label class="control-label">未选</label>
+<Checkbox TItem="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged"></Checkbox>

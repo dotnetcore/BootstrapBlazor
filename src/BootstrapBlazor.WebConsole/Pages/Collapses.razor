@@ -1,52 +1,30 @@
 ﻿@page "/collapses"
 
-<Block Title="折叠" Introduction="常用的折叠。">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="form-group col-12">
-                <Collapse Title="折叠">学习让我快乐</Collapse>
-            </div>
-            <div class="form-group col-12">
-                <Collapse Color="Color.Danger" Title="折叠">学习让我进步</Collapse>
-            </div>
+<Block Title="折叠" Introduction="常用的折叠。" CodeFile="collapse.1.txt">
+    <div class="form-inline">
+        <div class="form-group col-12">
+            <Collapse Title="折叠">学习让我快乐</Collapse>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Collapse Title="折叠"&lt;学习让我快乐&lt;/Collapse&lt;
-&lt;Collapse Color="Color.Danger" Title="折叠1"&lt;学习让我进步&lt;/Collapse&lt;
-        </pre>
-    </CodeTemplate>
+        <div class="form-group col-12">
+            <Collapse Color="Color.Danger" Title="折叠">学习让我进步</Collapse>
+        </div>
+    </div>
 </Block>
 
-<Block Title="IsCollapsed 是否折叠" Introduction="是否把折叠面板展开">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="form-group col-12">
-                <Collapse IsCollapsed="false" Title="展开折叠">学习让我快乐</Collapse>
-            </div>
+<Block Title="IsCollapsed 是否折叠" Introduction="是否把折叠面板展开" CodeFile="collapse.2.txt">
+    <div class="form-inline">
+        <div class="form-group col-12">
+            <Collapse IsCollapsed="false" Title="展开折叠">学习让我快乐</Collapse>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Collapse IsCollapsed="false" Title="展开折叠"&gt;学习让我进步&lt;/Collapse&lt;    
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
-<Block Title="IsDisabled 禁止按钮" Introduction="禁止按钮">
-    <CardBodyTemplate>
-        <div class="form-inline">
-            <div class="form-group col-12">
-                <Collapse IsDisabled="true" IsCollapsed="false" Title="禁止按钮">学习让我快乐</Collapse>
-            </div>
+<Block Title="IsDisabled 禁止按钮" Introduction="禁止按钮" CodeFile="collapse.3.txt">
+    <div class="form-inline">
+        <div class="form-group col-12">
+            <Collapse IsDisabled="true" IsCollapsed="false" Title="禁止按钮">学习让我快乐</Collapse>
         </div>
-    </CardBodyTemplate>
-    <CodeTemplate>
-        <pre>
-&lt;Collapse IsDisabled="true" Title="禁止按钮"&gt;学习让我快乐&lt;/Collapse&gt;
-        </pre>
-    </CodeTemplate>
+    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

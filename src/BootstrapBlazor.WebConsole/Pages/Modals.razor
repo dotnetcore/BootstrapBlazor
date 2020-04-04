@@ -1,0 +1,153 @@
+﻿@page "/modals"
+
+<Block Title="Modal 弹框组件" Introduction="提供基本的弹框组件" CodeFile="modal.1.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">弹窗标题</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>弹窗正文</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-12">
+                <Button @onclick="e => Modal?.ToggleAsync()">弹窗</Button>
+                <Modal @ref="Modal" Title="默认弹窗">
+                    <ModalBody>
+                        <div>我是弹窗内正文</div>
+                    </ModalBody>
+                </Modal>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="IsBackdrop 背景关闭模式" Introduction="点击弹窗以外区域默认关闭弹窗效果" CodeFile="modal.2.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Button @onclick="e => BackdropModal?.ToggleAsync()">弹窗</Button>
+                <Modal @ref="BackdropModal" IsBackdrop="true" Title="点击背景可关闭弹窗">
+                    <ModalBody>
+                        <div>我是弹窗内正文</div>
+                    </ModalBody>
+                </Modal>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Size 弹框大小" Introduction="提供基本的弹框组件" CodeFile="modal.3.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-4 col-lg-auto">
+                <Button @onclick="e => SmailModal?.ToggleAsync()">小弹窗</Button>
+                <Modal @ref="SmailModal" Size="Size.Small" Title="小弹窗">
+                    <ModalBody>
+                        <div>我是弹窗内正文</div>
+                    </ModalBody>
+                </Modal>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-lg-auto">
+                <Button @onclick="e => LargeModal?.ToggleAsync()">大弹窗</Button>
+                <Modal @ref="LargeModal" Size="Size.Large" Title="大弹窗">
+                    <ModalBody>
+                        <div>我是弹窗内正文</div>
+                    </ModalBody>
+                </Modal>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-lg-auto">
+                <Button @onclick="e => ExtraLargeModal?.ToggleAsync()">超大弹窗</Button>
+                <Modal @ref="ExtraLargeModal" Size="Size.ExtraLarge" Title="超大弹窗">
+                    <ModalBody>
+                        <div>我是弹窗内正文</div>
+                    </ModalBody>
+                </Modal>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="IsCentered 垂直居中" Introduction="提供基本的弹框组件" CodeFile="modal.4.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-4 col-lg-auto">
+                <Button @onclick="e => CenterModal?.ToggleAsync()">垂直居中的弹窗</Button>
+                <Modal @ref="CenterModal" IsCentered="true" Title="垂直居中的弹窗">
+                    <ModalBody>
+                        <div>我是弹窗内正文</div>
+                    </ModalBody>
+                </Modal>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="IsScrolling 超长内容" Introduction="提供基本的弹框组件" CodeFile="modal.5.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-4 col-lg-auto">
+                <Button @onclick="e => LongContentModal?.ToggleAsync()">内容超长的弹窗</Button>
+                <Modal @ref="LongContentModal" IsCentered="true" Title="内容超长的弹窗">
+                    <ModalBody>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                    </ModalBody>
+                </Modal>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-lg-auto">
+                <Button @onclick="e => ScrollModal?.ToggleAsync()">内置滚动条弹窗</Button>
+                <Modal @ref="ScrollModal" IsCentered="true" IsScrolling="true" Title="内置滚动条弹窗" >
+                    <ModalBody>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                    </ModalBody>
+                </Modal>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

@@ -1,0 +1,6 @@
+﻿<Button @onclick="e => Modal?.ToggleAsync()">弹窗</Button>
+<Modal @ref="Modal" Title="默认弹窗">
+    <ModalBody>
+        <div>我是弹窗内正文</div>
+    </ModalBody>
+</Modal>

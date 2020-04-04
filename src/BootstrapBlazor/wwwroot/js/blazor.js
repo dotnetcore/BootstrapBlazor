@@ -60,8 +60,9 @@
             while (document.getElementById(prefix));
             return prefix;
         },
-        collapse: function (id, collapsed) {
-            $("#" + id).collapse(collapsed ? 'hide' : 'show');
+        run: function (code) {
+            eval(code);
+            console.log(code);
         },
         activeMenu: function (id) {
             var $curMenu = $('.sidebar .active').first();

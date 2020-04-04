@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 表头组件
     /// </summary>
-    public class TableHeader<TItem> : BootstrapComponentBase, ITableHeader
+    public class TableColumn<TItem> : BootstrapComponentBase, ITableColumn
     {
 #nullable disable
         /// <summary>
@@ -31,14 +31,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]
-        protected TableHeaderCollection? Headers { get; set; }
+        protected TableColumnCollection? Columns { get; set; }
 
         /// <summary>
         /// 组件初始化方法
         /// </summary>
         protected override void OnInitialized()
         {
-            Headers?.AddHeader(this);
+            Columns?.Columns.Add(this);
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
         }
 

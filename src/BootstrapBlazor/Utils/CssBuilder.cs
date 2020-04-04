@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BootstrapBlazor.Utils
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Css 生成操作类
