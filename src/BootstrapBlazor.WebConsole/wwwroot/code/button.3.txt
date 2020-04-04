@@ -1,0 +1,7 @@
+﻿<Button Size="Size.ExtraSmall" Color="Color.Primary">超小按钮</Button>
+<Button Size="Size.Small" Color="Color.Secondary">小按钮</Button>
+<Button Size="Size.None" Color="Color.Info">按钮</Button>
+<Button Size="Size.Medium" Color="Color.Success">中等按钮</Button>
+<Button Size="Size.Large" Color="Color.Danger">大按钮</Button>
+<Button Size="Size.ExtraLarge" Color="Color.Warning">超大按钮</Button>
+<Button IsBlock="true" Color="Color.Primary">Block 按钮</Button>

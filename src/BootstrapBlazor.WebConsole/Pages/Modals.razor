@@ -1,6 +1,6 @@
 ﻿@page "/modals"
 
-<Block Title="Modal 弹框组件" Introduction="提供基本的弹框组件">
+<Block Title="Modal 弹框组件" Introduction="提供基本的弹框组件" CodeFile="modal.1.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
@@ -32,7 +32,7 @@
     </div>
 </Block>
 
-<Block Title="IsBackdrop 背景关闭模式" Introduction="点击弹窗以外区域默认关闭弹窗效果">
+<Block Title="IsBackdrop 背景关闭模式" Introduction="点击弹窗以外区域默认关闭弹窗效果" CodeFile="modal.2.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
@@ -47,7 +47,7 @@
     </div>
 </Block>
 
-<Block Title="Size 弹框大小" Introduction="提供基本的弹框组件">
+<Block Title="Size 弹框大小" Introduction="提供基本的弹框组件" CodeFile="modal.3.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
@@ -78,7 +78,7 @@
     </div>
 </Block>
 
-<Block Title="IsCentered 垂直居中" Introduction="提供基本的弹框组件">
+<Block Title="IsCentered 垂直居中" Introduction="提供基本的弹框组件" CodeFile="modal.4.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
@@ -93,7 +93,7 @@
     </div>
 </Block>
 
-<Block Title="IsScrolling 超长内容" Introduction="提供基本的弹框组件">
+<Block Title="IsScrolling 超长内容" Introduction="提供基本的弹框组件" CodeFile="modal.5.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
@@ -123,7 +123,7 @@
             </div>
             <div class="form-group col-12 col-sm-4 col-lg-auto">
                 <Button @onclick="e => ScrollModal?.ToggleAsync()">内置滚动条弹窗</Button>
-                <Modal @ref="ScrollModal" IsCentered="true" IsScrolling="true" Title="内置滚动条弹窗">
+                <Modal @ref="ScrollModal" IsCentered="true" IsScrolling="true" Title="内置滚动条弹窗" >
                     <ModalBody>
                         <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
                         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>

@@ -1,0 +1,2 @@
+﻿<label class="control-label">单向绑定</label>
+<BootstrapInput TItem="string" placeholder="请输入 ..." Value="@InputValue"></BootstrapInput>

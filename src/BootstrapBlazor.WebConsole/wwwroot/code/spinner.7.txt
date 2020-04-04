@@ -1,0 +1,4 @@
+﻿<div class="d-flex align-items-center">
+    <strong>Loading...</strong>
+    <Spinner Class="ml-auto"></Spinner>
+</div>

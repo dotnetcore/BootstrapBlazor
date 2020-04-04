@@ -1,0 +1,8 @@
+﻿<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"></Spinner>
+<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"></Spinner>
+<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Success"></Spinner>
+<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Danger"></Spinner>
+<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Warning"></Spinner>
+<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Info"></Spinner>
+<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Light"></Spinner>
+<Spinner SpinnerType="SpinnerType.Grow" Color="Color.Dark"></Spinner>

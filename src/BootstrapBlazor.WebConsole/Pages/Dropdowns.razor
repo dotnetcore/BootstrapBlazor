@@ -1,11 +1,11 @@
 ﻿@page "/dropdowns"
 
-<Block Title="Dropdown 下拉菜单" Introduction="使用 TagName='a' 开启带有 button 标签的下拉表">
+<Block Title="Dropdown 下拉菜单" Introduction="使用 TagName='a' 开启带有 button 标签的下拉表" CodeFile="dropdown.1.txt">
     <Dropdown Items="items" OnValueChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="带有颜色的下拉框" Introduction='提供各种颜色的警告信息框 引用 Color="Color.Primary" 等颜色及样式类来定义下拉菜单的外在表现'>
+<Block Title="带有颜色的下拉框" Introduction='提供各种颜色的警告信息框 引用 Color="Color.Primary" 等颜色及样式类来定义下拉菜单的外在表现' CodeFile="dropdown.2.txt">
     <div class="row">
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown Items="items" Color="Color.Primary"></Dropdown></div>
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown Items="items" Color="Color.Secondary"></Dropdown></div>
@@ -15,7 +15,7 @@
     </div>
 </Block>
 
-<Block Title="分裂式按钮下拉菜单" Introduction='可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 ShowSplit="true"(使用分裂式组件时需要加上DropdownType="DropdownType.ButtonGroup") 插入此符号为下拉选项作适当的间隔（距）处理。'>
+<Block Title="分裂式按钮下拉菜单" Introduction='可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 ShowSplit="true"(使用分裂式组件时需要加上DropdownType="DropdownType.ButtonGroup") 插入此符号为下拉选项作适当的间隔（距）处理。' CodeFile="dropdown.3.txt">
     <div class="row">
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown DropdownType="DropdownType.ButtonGroup" Items="items" ShowSplit="true" Color="Color.Primary"></Dropdown></div>
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown DropdownType="DropdownType.ButtonGroup" Items="items" ShowSplit="true" Color="Color.Secondary"></Dropdown></div>
@@ -25,7 +25,7 @@
     </div>
 </Block>
 
-<Block Title="尺寸大小定义" Introduction="下拉菜单有各种大小规格可以选用Size属性，包括预设及分裂式按钮下拉菜单。">
+<Block Title="尺寸大小定义" Introduction="下拉菜单有各种大小规格可以选用Size属性，包括预设及分裂式按钮下拉菜单。" CodeFile="dropdown.4.txt">
     <div class="row">
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown Items="items" Size="Size.ExtraSmall"></Dropdown></div>
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown Items="items" Size="Size.Small"></Dropdown></div>
@@ -35,7 +35,7 @@
     </div>
 </Block>
 
-<Block Title="展开方向" Introduction='增加 Direction="Direction.Dropup" 样式，使下拉菜单向上展开。'>
+<Block Title="展开方向" Introduction='增加 Direction="Direction.Dropup" 样式，使下拉菜单向上展开。' CodeFile="dropdown.5.txt">
     <div class="row">
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown Items="items" Direction="Direction.Dropleft"></Dropdown></div>
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown Items="items" Direction="Direction.Dropup"></Dropdown></div>
@@ -43,7 +43,7 @@
     </div>
 </Block>
 
-<Block Title="菜单对齐" Introduction='默认情况下，一个下拉菜单自动从顶部和左侧的父级100％定位。添加.dropdown-menu-right 到.dropdown-menu右侧轻松对齐下拉菜单。'>
+<Block Title="菜单对齐" Introduction='默认情况下，一个下拉菜单自动从顶部和左侧的父级100％定位。添加.dropdown-menu-right 到.dropdown-menu右侧轻松对齐下拉菜单。' CodeFile="dropdown.6.txt">
     <div class="row">
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown Items="items" Color="Color.Secondary" MenuAlignment="Alignment.Right"></Dropdown></div>
     </div>

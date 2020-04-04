@@ -1,0 +1,3 @@
+﻿<Dropdown Items="items" Direction="Direction.Dropleft"></Dropdown>
+<Dropdown Items="items" Direction="Direction.Dropup"></Dropdown>
+<Dropdown Items="items" Direction="Direction.Dropright"></Dropdown>

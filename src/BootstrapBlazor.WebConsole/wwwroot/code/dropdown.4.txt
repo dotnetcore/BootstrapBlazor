@@ -1,0 +1,5 @@
+﻿<Dropdown Items="items" Size="Size.ExtraSmall"></Dropdown>
+<Dropdown Items="items" Size="Size.Small"></Dropdown>
+<Dropdown Items="items" Size="Size.Medium"></Dropdown>
+<Dropdown Items="items" Size="Size.Large"></Dropdown>
+<Dropdown Items="items" Size="Size.ExtraLarge"></Dropdown>

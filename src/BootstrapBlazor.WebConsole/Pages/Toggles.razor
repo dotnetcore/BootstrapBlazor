@@ -1,6 +1,6 @@
 ﻿@page "/toggles"
 
-<Block Title="Toggle 开关" Introduction="提供最普通的开关应用">
+<Block Title="Toggle 开关" Introduction="提供最普通的开关应用" CodeFile="toggle.1.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Primary" OnValueChanged="@OnValueChanged"></Toggle></div>
@@ -16,7 +16,7 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="禁用状态" Introduction="开关不可用状态。">
+<Block Title="禁用状态" Introduction="开关不可用状态。" CodeFile="toggle.2.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Primary" OnValueChanged="@OnValueChanged"></Toggle></div>
@@ -31,7 +31,7 @@
     </div>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步">
+<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步" CodeFile="toggle.3.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">

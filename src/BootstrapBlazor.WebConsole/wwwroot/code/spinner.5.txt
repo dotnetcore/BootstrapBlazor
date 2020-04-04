@@ -1,0 +1,2 @@
+﻿<Spinner Size="Size.Small"></Spinner>
+<Spinner Size="Size.Small" SpinnerType="SpinnerType.Grow"></Spinner>

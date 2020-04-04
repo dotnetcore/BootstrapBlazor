@@ -1,0 +1,2 @@
+﻿<Collapse Title="折叠">学习让我快乐</Collapse>
+<Collapse Color="Color.Danger" Title="折叠">学习让我进步</Collapse>

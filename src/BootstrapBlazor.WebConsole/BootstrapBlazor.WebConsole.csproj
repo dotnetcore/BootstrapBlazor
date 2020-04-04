@@ -9,4 +9,8 @@
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\code\" />
+  </ItemGroup>
+
 </Project>
