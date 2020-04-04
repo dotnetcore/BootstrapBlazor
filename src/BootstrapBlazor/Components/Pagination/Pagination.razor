@@ -1,0 +1,24 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits PaginationBase
+
+    <ul class="pagination">
+        <li class="page-item">
+            <Button class="page-link" aria-label="上一页" @onclick="@PrevClick">  <span aria-hidden="true">&laquo;</span></Button>
+        </li>
+        @foreach (string str in GetShowPagination(CurrentPage, Total))
+        {
+            var num = str;
+            var pagestr = "第" + str + "页";
+            if (str == CurrentPage.ToString())
+            {
+                <li class="page-item active"><Button class="page-link" aria-label="@pagestr" @onclick="e => OnClick(num)"> @num </Button></li>
+            }
+            else
+            {
+                <li class="page-item"><Button class="page-link" aria-label="@pagestr" @onclick="e => OnClick(num)"> @num </Button></li>
+            }
+        }
+        <li class="page-item">
+            <Button class="page-link" aria-label="下一页" @onclick="@NextClick"><span aria-hidden="true">&raquo;</span></Button>
+        </li>
+    </ul>

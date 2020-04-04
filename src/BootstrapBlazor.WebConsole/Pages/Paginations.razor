@@ -1,0 +1,30 @@
+﻿@page "/paginations"
+
+<Block Title="分页组件" Introduction="常用设置分页方式" CodeFile="pagination.1.txt">
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12">
+                        <Pagination Total="10"></Pagination>
+                    </div>
+                    <div class="form-group col-12">
+                        <Pagination Total="10" CurrentPage="5"></Pagination>
+                    </div>
+                    <div class="form-group col-12">
+                        <Pagination Total="10" CurrentPage="8"></Pagination>
+                    </div>
+                    <div class="form-group col-12">
+                        <Pagination Total="4" CurrentPage="8"></Pagination>
+                    </div>
+                    <div class="form-group col-12">
+                        <Pagination Total="5"></Pagination>
+                    </div>
+                </div>
+            </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+@code {
+
+  
+}
