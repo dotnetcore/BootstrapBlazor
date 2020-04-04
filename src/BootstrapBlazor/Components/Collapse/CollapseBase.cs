@@ -49,6 +49,11 @@ namespace BootstrapBlazor.Components
         protected CollapseBody? CollapseContent { get; set; }
 
         /// <summary>
+        /// 获得 显示文字
+        /// </summary>
+        protected string? Title => IsCollapsed ? ExpandedText : CollapsedText;
+
+        /// <summary>
         /// 获得/设置 是否禁用
         /// </summary>
         [Parameter] public bool IsDisabled { get; set; }
@@ -59,9 +64,14 @@ namespace BootstrapBlazor.Components
         [Parameter] public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 设置值
+        /// 获得/设置 折叠后显示的文字
         /// </summary>
-        [Parameter] public string? Title { get; set; } = "折叠";
+        [Parameter] public string? CollapsedText { get; set; } = "展开";
+
+        /// <summary>
+        /// 获得/设置 展开后显示的文字
+        /// </summary>
+        [Parameter] public string? ExpandedText { get; set; } = "折叠";
 
         /// <summary>
         /// 点击选择框方法

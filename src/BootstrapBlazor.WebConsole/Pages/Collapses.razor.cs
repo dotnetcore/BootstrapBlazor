@@ -80,8 +80,21 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "Size",
                 ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
                 DefaultValue = "None"
+            },
+            new AttributeItem() {
+                Name = "CollapsedText",
+                Description = "折叠后显示的文字",
+                Type = "string",
+                ValueList = "",
+                DefaultValue = "展开"
+            },
+            new AttributeItem() {
+                Name = "ExpandedText",
+                Description = "展开后显示的文字",
+                Type = "string",
+                ValueList = "",
+                DefaultValue = "折叠"
             }
-
         };
     }
 }

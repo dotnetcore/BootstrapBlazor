@@ -3,10 +3,10 @@
 <Block Title="折叠" Introduction="常用的折叠。" CodeFile="collapse.1.txt">
     <div class="form-inline">
         <div class="form-group col-12">
-            <Collapse Title="折叠">学习让我快乐</Collapse>
+            <Collapse>学习让我快乐</Collapse>
         </div>
         <div class="form-group col-12">
-            <Collapse Color="Color.Danger" Title="折叠">学习让我进步</Collapse>
+            <Collapse Color="Color.Danger">学习让我进步</Collapse>
         </div>
     </div>
 </Block>
@@ -14,7 +14,7 @@
 <Block Title="IsCollapsed 是否折叠" Introduction="是否把折叠面板展开" CodeFile="collapse.2.txt">
     <div class="form-inline">
         <div class="form-group col-12">
-            <Collapse IsCollapsed="false" Title="展开折叠">学习让我快乐</Collapse>
+            <Collapse IsCollapsed="false">学习让我快乐</Collapse>
         </div>
     </div>
 </Block>
@@ -22,7 +22,15 @@
 <Block Title="IsDisabled 禁止按钮" Introduction="禁止按钮" CodeFile="collapse.3.txt">
     <div class="form-inline">
         <div class="form-group col-12">
-            <Collapse IsDisabled="true" IsCollapsed="false" Title="禁止按钮">学习让我快乐</Collapse>
+            <Collapse IsDisabled="true" IsCollapsed="false">学习让我快乐</Collapse>
+        </div>
+    </div>
+</Block>
+
+<Block Title="CollapsedText|ExpandText 显示文字" Introduction="设置折叠展开后的显示文字" CodeFile="collapse.4.txt">
+    <div class="form-inline">
+        <div class="form-group col-12">
+            <Collapse ExpandedText="点击我折叠" CollapsedText="点击我展开">学习让我快乐</Collapse>
         </div>
     </div>
 </Block>
