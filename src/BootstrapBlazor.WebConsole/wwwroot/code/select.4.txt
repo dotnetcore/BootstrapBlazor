@@ -1,0 +1,33 @@
+﻿<div class="form-group col-12 col-sm-6">
+    <Select TItem="string" Color="Color.Primary" Items="@Items" 
+        OnSelectedItemChanged="@OnCascadeBindSelectClick">
+    </Select>
+</div>
+<div class="form-group col-12 col-sm-6">
+    <Select TItem="string" @ref="SubSelect" Color="Color.Success">
+    </Select>
+</div>
+
+@code {
+    /// <summary>
+    /// 级联绑定菜单
+    /// </summary>
+    /// <param name="item"></param>
+    protected void OnCascadeBindSelectClick(SelectedItem item)
+    {
+        var items = item.Value switch
+        {
+            "Beijing" => new SelectedItem[] { 
+                new SelectedItem("Value1", "朝阳区"), 
+                new SelectedItem("Value2", "海淀区") { Active = true } 
+            },
+            "Shanghai" => new SelectedItem[] { 
+                new SelectedItem("Value3", "浦东新区") { Active = true }, 
+                new SelectedItem("Value4", "静安区") 
+            },
+            _ => new SelectedItem[0]
+        };
+
+        if (SubSelect != null) SubSelect.SetItems(items);
+    }
+}

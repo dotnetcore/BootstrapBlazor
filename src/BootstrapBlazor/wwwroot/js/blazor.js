@@ -175,9 +175,21 @@
             }
             else if (method === 'enable') {
                 $ele.tooltip();
-                $ele.parents('form').find('.invalid:first').focus();
+                var $ctl = $ele.parents('form').find('.invalid:first');
+                if ($ctl.prop("nodeName") === 'input') {
+                    $ctl.focus();
+                }
             }
-            else $ele.tooltip(method);
+            else {
+                $ele.tooltip(method);
+                if (method === 'show') {
+                    // auto hide
+                    var handler = window.setTimeout(function () {
+                        window.clearTimeout(handler);
+                        $ele.tooltip('hide');
+                    }, 3000);
+                }
+            }
         },
         submitForm: function (btn) {
             $(btn).parent().prev().find('form :submit').click();

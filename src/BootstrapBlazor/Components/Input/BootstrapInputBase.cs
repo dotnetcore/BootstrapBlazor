@@ -10,7 +10,6 @@
         /// </summary>
         protected string? ClassName => CssBuilder.Default("form-control")
             .AddClass(CssClass).AddClass(ValidCss)
-            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

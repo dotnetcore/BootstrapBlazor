@@ -8,14 +8,14 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Select 组件基类
     /// </summary>
-    public abstract class SelectBase<TItem> : BootstrapComponentBase
+    public abstract class SelectBase<TItem> : ValidateInputBase<TItem>
     {
         /// <summary>
         /// 获得 样式集合
         /// </summary>
         protected string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
-            .AddClassFromAttributes(AdditionalAttributes)
+            .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
         /// <summary>
@@ -94,12 +94,24 @@ namespace BootstrapBlazor.Components
         public EventCallback<SelectedItem> OnSelectedItemChanged { get; set; }
 
         /// <summary>
+        /// 失去焦点时触发此方法
+        /// </summary>
+        protected virtual void OnBlur()
+        {
+            if (FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+        }
+
+        /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
         protected void OnItemClick(SelectedItem item)
         {
             SelectedItem = item;
             SelectedItem.Active = true;
+
+            // ValueChanged
+            CurrentValueAsString = SelectedItem.Value;
+            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);
@@ -113,7 +125,21 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 设置数据集合后 SelectedItem 设置默认值
-            if (SelectedItem == null && Items != null) SelectedItem = Items.ToList().FindAll(x => x.Active == true).Any()?Items.ToList().FindAll(x => x.Active == true).First(): null;
+
+            if (Items != null)
+            {
+                SelectedItem = ValueExpression != null ? Items.FirstOrDefault(i => i.Value == CurrentValueAsString) : Items.FirstOrDefault(i => i.Active);
+            }
+        }
+
+        /// <summary>
+        /// 更改组件数据源方法
+        /// </summary>
+        /// <param name="items"></param>
+        public void SetItems(IEnumerable<SelectedItem> items)
+        {
+            Items = items;
+            SelectedItem = Items.FirstOrDefault(i => i.Active);
         }
     }
 }

@@ -2,14 +2,21 @@
 @typeparam TItem
 @inherits SelectBase<TItem>
 
-<div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
-    <input type="text" id="@Id" readonly disabled="@Disabled" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" value="@SelectedItem?.Text" />
+@if (ValueExpression != null && DisplayText != null)
+{
+    <label class="control-label" for="@Id">@DisplayText</label>
+}
+<div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName" data-original-title="@ErrorMessage">
+    <input type="text" readonly disabled="@Disabled" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" value="@SelectedItem?.Text" @onblur="@OnBlur" />
     <span class="@ArrowClassName"><i class="fa fa-angle-up"></i></span>
     <div class="dropdown-menu-arrow"></div>
     <div class="dropdown-menu">
         @foreach (var item in Items ?? new SelectedItem[0])
         {
-            <a class="@ActiveItem(item)" data-val="@item.Value" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => OnItemClick(item))">@item.Text</a>
+            <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
         }
     </div>
 </div>
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>

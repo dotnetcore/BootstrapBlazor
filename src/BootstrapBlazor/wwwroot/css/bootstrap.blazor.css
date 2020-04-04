@@ -93,6 +93,28 @@ a {
     color: #c0c4cc;
 }
 
+.form-select.is-valid .form-select-input, .form-select.is-invalid .form-select-input {
+    background-image: none;
+}
+
+    .form-select.is-invalid .form-select-input, .form-select.is-invalid .form-select-input:hover {
+        border-color: #dc3545 !important;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69,.6);
+    }
+
+        .form-select.is-invalid .form-select-input + .form-select-append {
+            color: #dc3545 !important;
+        }
+
+    .form-select.is-valid .form-select-input, .form-select.is-valid .form-select-input:hover {
+        border-color: #28a745 !important;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69,.6);
+    }
+
+        .form-select.is-valid .form-select-input + .form-select-append {
+            color: #28a745 !important;
+        }
+
 .form-select-input {
     color: #606266;
     outline: none;
@@ -127,26 +149,6 @@ a {
     .form-select-input.border-danger:hover {
         box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69, 0.5);
     }
-
-    .form-select-input.is-valid, .form-select-input.is-invalid {
-        background-image: none;
-    }
-
-        .form-select-input.is-invalid:hover {
-            border-color: #dc3545;
-        }
-
-        .form-select-input.is-invalid + .form-select-append {
-            color: #dc3545;
-        }
-
-        .form-select-input.is-valid:hover {
-            border-color: #28a745;
-        }
-
-        .form-select-input.is-valid + .form-select-append {
-            color: #28a745;
-        }
 
 .form-select-append {
     position: absolute;

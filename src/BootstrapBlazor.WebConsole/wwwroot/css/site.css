@@ -3,7 +3,7 @@ html, body {
     margin: 0;
 }
 
-body {
+body, .form-control {
     font-size: 0.875rem;
 }
 

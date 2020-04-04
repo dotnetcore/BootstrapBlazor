@@ -11,9 +11,24 @@ namespace BootstrapBlazor.WebConsole.Pages
     public partial class Selects
     {
         /// <summary>
+        /// 
+        /// </summary>
+        private Foo Model { get; set; } = new Foo() { Name = "Beijing" };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Foo BindModel { get; set; } = new Foo() { Name = "" };
+
+        /// <summary>
         /// 获得/设置 Logger 实例
         /// </summary>
         protected Logger? Trace { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Select<string>? SubSelect { get; set; }
 
         /// <summary>
         /// 获得 默认数据集合
@@ -31,6 +46,22 @@ namespace BootstrapBlazor.WebConsole.Pages
         protected void OnItemChanged(SelectedItem item)
         {
             Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+        }
+
+        /// <summary>
+        /// 级联绑定菜单
+        /// </summary>
+        /// <param name="item"></param>
+        protected void OnCascadeBindSelectClick(SelectedItem item)
+        {
+            var items = item.Value switch
+            {
+                "Beijing" => new SelectedItem[] { new SelectedItem("Value1", "朝阳区"), new SelectedItem("Value2", "海淀区") { Active = true } },
+                "Shanghai" => new SelectedItem[] { new SelectedItem("Value3", "浦东新区") { Active = true }, new SelectedItem("Value4", "静安区") },
+                _ => new SelectedItem[0]
+            };
+
+            if (SubSelect != null) SubSelect.SetItems(items);
         }
 
         /// <summary>
@@ -81,13 +112,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "Color",
                 ValueList = "IEnumerable<SelectedItem>",
                 DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ShowDismiss",
-                Description = "关闭按钮",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
             }
         };
     }
