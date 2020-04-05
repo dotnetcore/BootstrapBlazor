@@ -30,19 +30,39 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && Tooltip != null)
+            if (firstRender)
             {
+                // 生成 Id
+                var invoke = false;
+                if (string.IsNullOrEmpty(Id))
+                {
+                    Id = await JSRuntime.GetClientIdAsync();
+                    invoke = true;
+                }
+
                 // 初始化 Tooltip 组件
                 // 调用客户端 Tooltip 方法
-                if (string.IsNullOrEmpty(Id)) Id = await JSRuntime.GetClientIdAsync();
-
-                if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-                AdditionalAttributes["title"] = Tooltip.Title;
-                AdditionalAttributes["data-placement"] = Tooltip.Placement.ToDescriptionString();
-                await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-
-                JSRuntime.Tooltip(Id);
+                if (Tooltip != null)
+                {
+                    if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+                    AdditionalAttributes["title"] = Tooltip.Title;
+                    AdditionalAttributes["data-placement"] = Tooltip.Placement.ToDescriptionString();
+                    invoke = true;
+                }
+                if (invoke) await InvokeAsync(StateHasChanged).ConfigureAwait(false);
             }
+
+            InvokeTooltip(firstRender);
+        }
+
+        /// <summary>
+        /// 调用 Tooltip 脚本方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <remarks>OnAfterRenderAsync 方法内部调用此方法</remarks>
+        protected virtual void InvokeTooltip(bool firstRender)
+        {
+            if (firstRender) JSRuntime.Tooltip(Id);
         }
     }
 }

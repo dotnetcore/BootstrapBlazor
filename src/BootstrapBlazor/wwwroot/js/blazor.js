@@ -170,7 +170,7 @@
         },
         tooltip: function (id, method) {
             var $ele = $('#' + id);
-            if (method === undefined) {
+            if (method === undefined || method === null) {
                 $ele.tooltip();
             }
             else if (method === 'enable') {
@@ -182,13 +182,6 @@
             }
             else {
                 $ele.tooltip(method);
-                if (method === 'show') {
-                    // auto hide
-                    var handler = window.setTimeout(function () {
-                        window.clearTimeout(handler);
-                        $ele.tooltip('hide');
-                    }, 3000);
-                }
             }
         },
         submitForm: function (btn) {

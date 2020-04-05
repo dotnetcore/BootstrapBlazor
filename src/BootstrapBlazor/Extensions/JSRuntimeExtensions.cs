@@ -38,7 +38,10 @@ namespace BootstrapBlazor.Components
         /// <param name="jSRuntime"></param>
         /// <param name="id"></param>
         /// <param name="method"></param>
-        public static void Tooltip(this IJSRuntime? jSRuntime, string id, string? method = null) => jSRuntime.InvokeVoidAsync("$.tooltip", id, method);
+        public static void Tooltip(this IJSRuntime? jSRuntime, string? id, string? method = null)
+        {
+            if (!string.IsNullOrEmpty(id)) jSRuntime.InvokeVoidAsync("$.tooltip", id, method);
+        }
 
         /// <summary>
         /// 根据指定菜单 ID 激活侧边栏菜单项
