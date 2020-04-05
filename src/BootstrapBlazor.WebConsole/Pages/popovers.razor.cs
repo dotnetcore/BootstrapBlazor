@@ -47,6 +47,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "Popover"
+            },
+            new AttributeItem() {
+                Name = "IsHtml",
+                Description = "内容中是否包含 Html 代码",
+                Type = "boolean",
+                ValueList = "",
+                DefaultValue = "false"
             }
         };
     }
