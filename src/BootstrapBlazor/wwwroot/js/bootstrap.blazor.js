@@ -184,6 +184,15 @@
                 $ele.tooltip(method);
             }
         },
+        popover: function (id, method) {
+            var $ele = $('#' + id);
+            if (method === undefined || method === null) {
+                $ele.popover();
+            }
+            else {
+                $ele.popover(method);
+            }
+        },
         submitForm: function (btn) {
             $(btn).parent().prev().find('form :submit').click();
         },

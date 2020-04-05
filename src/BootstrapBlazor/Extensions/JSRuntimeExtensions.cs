@@ -38,9 +38,10 @@ namespace BootstrapBlazor.Components
         /// <param name="jSRuntime"></param>
         /// <param name="id"></param>
         /// <param name="method"></param>
-        public static void Tooltip(this IJSRuntime? jSRuntime, string? id, string? method = null)
+        /// <param name="popoverType"></param>
+        public static void Tooltip(this IJSRuntime? jSRuntime, string? id, string? method = null, PopoverType popoverType = PopoverType.Tooltip)
         {
-            if (!string.IsNullOrEmpty(id)) jSRuntime.InvokeVoidAsync("$.tooltip", id, method);
+            if (!string.IsNullOrEmpty(id)) jSRuntime.InvokeVoidAsync(popoverType == PopoverType.Tooltip ? "$.tooltip" : "$.popover", id, method);
         }
 
         /// <summary>

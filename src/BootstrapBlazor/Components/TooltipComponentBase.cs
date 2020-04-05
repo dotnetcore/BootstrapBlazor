@@ -47,6 +47,11 @@ namespace BootstrapBlazor.Components
                     if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
                     AdditionalAttributes["title"] = Tooltip.Title;
                     AdditionalAttributes["data-placement"] = Tooltip.Placement.ToDescriptionString();
+                    if (Tooltip.IsHtml) AdditionalAttributes["data-html"] = "true";
+                    if (Tooltip.PopoverType == PopoverType.Popover)
+                    {
+                        AdditionalAttributes["data-content"] = Tooltip.Content;
+                    }
                     invoke = true;
                 }
                 if (invoke) await InvokeAsync(StateHasChanged).ConfigureAwait(false);
@@ -62,7 +67,7 @@ namespace BootstrapBlazor.Components
         /// <remarks>OnAfterRenderAsync 方法内部调用此方法</remarks>
         protected virtual void InvokeTooltip(bool firstRender)
         {
-            if (firstRender) JSRuntime.Tooltip(Id);
+            if (firstRender) JSRuntime.Tooltip(Id, popoverType: Tooltip?.PopoverType ?? PopoverType.Tooltip);
         }
     }
 }
