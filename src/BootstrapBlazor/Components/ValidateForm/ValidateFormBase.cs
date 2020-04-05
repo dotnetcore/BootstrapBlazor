@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// ValidateFormBase 支持客户端验证组件基类
     /// </summary>
-    public abstract class ValidateFormBase : BootstrapComponentBase
+    public abstract class ValidateFormBase : IdComponentBase
     {
         /// <summary>
         /// Specifies the top-level model object for the form. An edit context will
