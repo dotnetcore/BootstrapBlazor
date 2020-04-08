@@ -1,4 +1,17 @@
 ﻿(function ($) {
+    window.Toasts = [];
+    Array.prototype.indexOf = function (val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == val) return i;
+        }
+        return -1;
+    };
+    Array.prototype.remove = function (val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
     $.fn.extend({
         autoScrollSidebar: function (options) {
             var option = $.extend({ target: null, offsetTop: 0 }, options);
@@ -62,9 +75,11 @@
         },
         run: function (code) {
             eval(code);
-            console.log(code);
         },
-        showToast: function (id) {
+        showToast: function (id, toast) {
+            // 记录 Id
+            Toasts.push(id);
+
             // 动画弹出
             var $toast = $('#' + id);
 
@@ -82,7 +97,7 @@
                     var closeHandler = window.setTimeout(function () {
                         window.clearTimeout(closeHandler);
                         $toast.find('.close').trigger('click');
-                    }, delay)
+                    }, delay);
                 }
                 $toast.addClass('show');
             }, 50);
@@ -93,6 +108,13 @@
                 var hideHandler = window.setTimeout(function () {
                     window.clearTimeout(hideHandler);
                     $toast.removeClass('d-block');
+
+                    // remove Id
+                    Toasts.remove($toast.attr('id'));
+                    if (Toasts.length === 0) {
+                        // call server method remove dom
+                        toast.invokeMethodAsync("Clear");
+                    }
                 }, 500);
             });
         },

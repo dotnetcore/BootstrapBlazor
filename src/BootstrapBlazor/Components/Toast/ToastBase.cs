@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 
@@ -59,6 +60,16 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(index++, nameof(ToastBox.Delay), option.Delay);
                 builder.CloseComponent();
             }));
+            InvokeAsync(StateHasChanged).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 清除 ToastBox 方法
+        /// </summary>
+        [JSInvokable]
+        public void Clear()
+        {
+            Toasts.Clear();
             InvokeAsync(StateHasChanged).ConfigureAwait(false);
         }
 

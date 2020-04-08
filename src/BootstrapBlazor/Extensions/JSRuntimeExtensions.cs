@@ -49,6 +49,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="jsRuntime"></param>
         /// <param name="id"></param>
-        public static void ShowToast(this IJSRuntime? jsRuntime, string? id) => jsRuntime?.InvokeVoidAsync("$.showToast", id);
+        /// <param name="ref"></param>
+        public static void ShowToast(this IJSRuntime? jsRuntime, string id, object @ref) => jsRuntime?.InvokeVoidAsync("$.showToast", id, @ref);
     }
 }

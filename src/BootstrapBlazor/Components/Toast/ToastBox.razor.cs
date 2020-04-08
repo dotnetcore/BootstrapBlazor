@@ -70,6 +70,12 @@ namespace BootstrapBlazor.Components
         [Parameter] public int Delay { get; set; } = 4000;
 
         /// <summary>
+        /// 获得/设置 Toast 实例
+        /// </summary>
+        /// <value></value>
+        [CascadingParameter] public Toast? Toast { get; set; }
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <returns></returns>
@@ -78,7 +84,14 @@ namespace BootstrapBlazor.Components
             await base.OnAfterRenderAsync(firstRender);
 
             // 执行客户端动画
-            if (firstRender) JSRuntime.ShowToast(Id);
+            if (firstRender && JSRuntime != null)
+            {
+                var interop = new JSInterop<Toast>(JSRuntime);
+                if (Toast != null && !string.IsNullOrEmpty(Id)) interop.Invoke(Toast, (_jsRuntime, _objRef) =>
+                {
+                    _jsRuntime.ShowToast(Id, _objRef);
+                });
+            }
         }
     }
 }

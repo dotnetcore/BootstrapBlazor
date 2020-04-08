@@ -2,8 +2,10 @@
 @inherits ToastBase
 
 <div style="@StyleName">
-    @foreach (var toast in Toasts.Values)
-    {
-        @toast
-    }
+    <CascadingValue Value="this" IsFixed="true">
+        @foreach (var toast in Toasts.Values)
+        {
+            @toast
+        }
+    </CascadingValue>
 </div>
