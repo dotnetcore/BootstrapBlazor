@@ -15,11 +15,14 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         [Inject] public ToastService? ToastService { get; set; }
 
+        private Toast? Toast { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         protected void OnSuccessClick()
         {
+            Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
             {
                 Category = ToastCategory.Success,
@@ -33,6 +36,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         protected void OnErrorClick()
         {
+            Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
             {
                 Category = ToastCategory.Error,
@@ -46,6 +50,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         protected void OnInfoClick()
         {
+            Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
             {
                 Category = ToastCategory.Information,
@@ -59,10 +64,26 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         protected void OnNotAutoHideClick()
         {
+            Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
             {
                 Category = ToastCategory.Information,
                 IsAutoHide = false,
+                Title = "消息通知",
+                Content = "我不会自动关闭哦，请点击右上角关闭按钮"
+            });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="placement"></param>
+        protected void OnPlacementClick(Placement placement)
+        {
+            Toast?.SetPlacement(placement);
+            ToastService?.Show(new ToastOption()
+            {
+                Category = ToastCategory.Information,
                 Title = "消息通知",
                 Content = "我不会自动关闭哦，请点击右上角关闭按钮"
             });

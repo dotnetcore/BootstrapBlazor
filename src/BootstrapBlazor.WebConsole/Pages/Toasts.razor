@@ -35,6 +35,19 @@
     </div>
 </Block>
 
+<Block Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置" CodeFile="toast.3.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6">
+                <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
+            </div>
+            <div class="form-group col-6">
+                <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
-<Toast></Toast>
+<Toast @ref="Toast"></Toast>

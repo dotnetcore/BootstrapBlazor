@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// 获得 Toast 组件样式设置
         /// </summary>
         protected string? StyleName => CssBuilder.Default("position: fixed;")
-            .AddClass("top: 1rem; right: 1rem;", Placement == Placement.TopEnd)
+            .AddClass("top: 1rem; right: 1rem;", Placement != Placement.BottomEnd)
             .AddClass("bottom: 1rem; right: 1rem;", Placement == Placement.BottomEnd)
             .Build();
 
@@ -60,6 +60,16 @@ namespace BootstrapBlazor.Components
                 builder.CloseComponent();
             }));
             InvokeAsync(StateHasChanged).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 设置 Toast 容器位置方法
+        /// </summary>
+        /// <param name="placement"></param>
+        public void SetPlacement(Placement placement)
+        {
+            Placement = placement;
+            StateHasChanged();
         }
 
         /// <summary>
