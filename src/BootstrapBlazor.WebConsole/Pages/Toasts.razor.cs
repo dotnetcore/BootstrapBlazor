@@ -85,7 +85,7 @@ namespace BootstrapBlazor.WebConsole.Pages
             {
                 Category = ToastCategory.Information,
                 Title = "消息通知",
-                Content = "我不会自动关闭哦，请点击右上角关闭按钮"
+                Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
             });
         }
 
