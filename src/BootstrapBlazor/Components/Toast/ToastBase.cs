@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(index++, nameof(ToastBox.Title), option.Title);
                 builder.AddAttribute(index++, nameof(ToastBox.Content), option.Content);
                 builder.AddAttribute(index++, nameof(ToastBox.IsAutoHide), option.IsAutoHide);
-                builder.AddAttribute(index++, nameof(ToastBox.Interval), option.Interval);
+                builder.AddAttribute(index++, nameof(ToastBox.Delay), option.Delay);
                 builder.CloseComponent();
             }));
             InvokeAsync(StateHasChanged).ConfigureAwait(false);

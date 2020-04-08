@@ -28,6 +28,6 @@
         /// <summary>
         /// 获得/设置 自动隐藏时间间隔
         /// </summary>
-        public int Interval { get; set; } = 4000;
+        public int Delay { get; set; } = 4000;
     }
 }

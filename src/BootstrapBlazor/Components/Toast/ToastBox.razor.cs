@@ -42,7 +42,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出框自动关闭时长
         /// </summary>
-        protected string? IntervalString => IsAutoHide ? Convert.ToString(Interval + 200) : null;
+        protected string? DelayString => IsAutoHide ? Convert.ToString(Delay + 200) : null;
 
         /// <summary>
         /// 获得/设置 弹出框类型
@@ -67,7 +67,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 自动隐藏时间间隔
         /// </summary>
-        [Parameter] public int Interval { get; set; } = 4000;
+        [Parameter] public int Delay { get; set; } = 4000;
 
         /// <summary>
         /// OnAfterRenderAsync 方法
