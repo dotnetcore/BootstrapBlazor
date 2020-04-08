@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         [Description("right-end")]
-        EightEnd,
+        RightEnd,
 
         /// <summary>
         /// 

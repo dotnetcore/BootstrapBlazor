@@ -255,7 +255,7 @@ section {
         display: block;
     }
 
-        .content code.highlight, .content p code {
+        .content code.highlight, .content p code, .content li code {
             display: inline-block;
             padding: 0px 8px;
             background-color: #e9ecef;
@@ -289,6 +289,10 @@ section {
         font-size: 1.8rem;
         color: #1c3949;
         margin-left: 38px;
+    }
+
+    .content ul li:not(:last-child) {
+        padding-bottom: 0.5rem;
     }
 
 table {

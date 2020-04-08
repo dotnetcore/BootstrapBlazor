@@ -43,6 +43,12 @@ namespace BootstrapBlazor.Components
         [CascadingParameter] protected EditContext? EditContext { get; set; }
 
         /// <summary>
+        /// 获得 ValidateFormBase 实例
+        /// </summary>
+        [CascadingParameter]
+        public ValidateFormBase? EditForm { get; set; }
+
+        /// <summary>
         /// OnClick 事件
         /// </summary>
         [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -115,6 +121,16 @@ namespace BootstrapBlazor.Components
             {
                 var valid = IsTriggerValidate && (EditContext?.Validate() ?? true);
                 if (valid) onClick.InvokeAsync(e);
+
+                // 触发 ValidateForm 事件
+                if (EditForm != null && EditContext != null)
+                {
+                    if (EditForm.OnInvalidSubmit.HasDelegate && !valid) EditForm.OnInvalidSubmit.InvokeAsync(EditContext);
+                    if (EditForm.OnValidSubmit.HasDelegate && valid) EditForm.OnValidSubmit.InvokeAsync(EditContext);
+
+                    // OnSubmit
+                    if (EditForm.OnSubmit.HasDelegate) EditForm.OnSubmit.InvokeAsync(EditContext);
+                }
             });
         }
     }

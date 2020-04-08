@@ -4,6 +4,9 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
+                <Select TItem="string" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
                 <Select TItem="string" Color="Color.Primary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
             </div>
             <div class="form-group col-12 col-sm-6">
@@ -92,7 +95,7 @@
                 </Select>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <Button type="submit">提交</Button>
+                <Button>提交</Button>
             </div>
         </div>
     </ValidateForm>

@@ -1,0 +1,43 @@
+﻿@page "/popovers"
+
+<Block Title="Popover 弹出窗组件" Introduction="点击文本输入框弹出 Popover 弹出框，二次点击时关闭弹出框" CodeFile="popover.1.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@RightString">
+                    <Popover Placement="Placement.Right" Title="@Title" Content="@Content" IsHtml="true" />
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@BottomString">
+                    <Popover Placement="Placement.Bottom" Title="@Title" Content="@Content" IsHtml="true" />
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@TopString">
+                    <Popover Placement="Placement.Top" Title="@Title" Content="@Content" IsHtml="true" />
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <BootstrapInput TItem="string" Value="@LeftString">
+                    <Popover Placement="Placement.Left" Title="@Title" Content="@Content" IsHtml="true" />
+                </BootstrapInput>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Popover 按钮激活弹出框" Introduction="点击按钮后弹出 Popover 弹出框" CodeFile="popover.2.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    <span>Click 激活/关闭</span>
+                    <Popover Placement="Placement.Top" Title="@Title" Content="@Content" IsHtml="true" />
+                </Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

@@ -1,0 +1,16 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits IdComponentBase
+
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="@AutoHide" data-delay="@DelayString">
+    <div class="toast-header">
+        <div class="toast-bar mr-2">
+            <i class="@IconString"></i>
+        </div>
+        <strong class="mr-auto">@Title</strong>
+        <button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+            <i class="fa fa-close" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="toast-body">@((MarkupString)Content)</div>
+    <div class="@ProgressClass"></div>
+</div>

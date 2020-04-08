@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -22,7 +21,17 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 数据合规样式
         /// </summary>
-        protected string ValidCss { get; set; } = "";
+        protected string? ValidCss => IsValid.HasValue ? (IsValid.Value ? "is-valid" : "is-invalid") : null;
+
+        /// <summary>
+        /// 获得/设置 Tooltip 命令
+        /// </summary>
+        protected string TooltipMethod { get; set; } = "";
+
+        /// <summary>
+        /// 获得/设置 组件是否合规 默认为 null 未检查
+        /// </summary>
+        protected bool? IsValid { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
@@ -76,17 +85,17 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// OnAfterRenderAsync 方法
+        /// 调用 Tooltip 脚本方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override void InvokeTooltip(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
+            base.InvokeTooltip(firstRender);
 
-            if (!string.IsNullOrEmpty(_tooltipMethod) && !string.IsNullOrEmpty(Id))
+            if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
             {
-                JSRuntime.Tooltip(Id, _tooltipMethod);
-                _tooltipMethod = "";
+                JSRuntime.Tooltip(Id, TooltipMethod);
+                TooltipMethod = "";
             }
         }
 
@@ -95,7 +104,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public ICollection<IValidator> Rules { get; } = new HashSet<IValidator>();
 
-        private string _tooltipMethod = "";
         /// <summary>
         /// 属性验证方法
         /// </summary>
@@ -120,20 +128,31 @@ namespace BootstrapBlazor.Components
                 if (messages.Any())
                 {
                     ErrorMessage = messages.First().ErrorMessage;
-                    ValidCss = "is-invalid";
+                    IsValid = false;
 
                     // 控件自身数据验证时显示 tooltip
                     // EditForm 数据验证时调用 tooltip('enable') 保证 tooltip 组件生成
                     // 调用 tooltip('hide') 后导致鼠标悬停时 tooltip 无法正常显示
-                    _tooltipMethod = validProperty ? "show" : "enable";
+                    TooltipMethod = validProperty ? "show" : "enable";
                 }
                 else
                 {
                     ErrorMessage = null;
-                    ValidCss = "is-valid";
-                    _tooltipMethod = "dispose";
+                    IsValid = true;
+                    TooltipMethod = "dispose";
                 }
+
+                OnValidate(IsValid ?? true);
             }
+        }
+
+        /// <summary>
+        /// 客户端检查完成时调用此方法
+        /// </summary>
+        /// <param name="valid">检查结果</param>
+        protected virtual void OnValidate(bool valid)
+        {
+
         }
 
         /// <summary>
@@ -205,6 +224,20 @@ namespace BootstrapBlazor.Components
             }
 
             throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(TItem)}'.");
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                JSRuntime.Tooltip(Id, "dispose");
+            }
         }
     }
 }

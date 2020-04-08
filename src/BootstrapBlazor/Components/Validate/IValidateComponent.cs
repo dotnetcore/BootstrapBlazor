@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
         /// 显示或者隐藏提示信息方法
         /// </summary>
         /// <param name="results"></param>
-        /// <param name="validProperty"></param>
+        /// <param name="validProperty">是否为模型验证 true 为属性验证 false 为整个模型验证</param>
         void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty);
     }
 }

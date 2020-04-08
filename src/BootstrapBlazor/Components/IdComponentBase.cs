@@ -30,9 +30,16 @@ namespace BootstrapBlazor.Components
                 {
                     // 生成 Id
                     Id = await JSRuntime.GetClientIdAsync();
+                    await AfterGenerateIdAsync();
                     await InvokeAsync(StateHasChanged).ConfigureAwait(false);
                 }
             }
         }
+
+        /// <summary>
+        /// 客户端 Id 生成后调用此方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Task AfterGenerateIdAsync() => Task.CompletedTask;
     }
 }

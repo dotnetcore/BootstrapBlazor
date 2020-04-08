@@ -1,4 +1,17 @@
 ﻿(function ($) {
+    window.Toasts = [];
+    Array.prototype.indexOf = function (val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == val) return i;
+        }
+        return -1;
+    };
+    Array.prototype.remove = function (val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
     $.fn.extend({
         autoScrollSidebar: function (options) {
             var option = $.extend({ target: null, offsetTop: 0 }, options);
@@ -62,7 +75,48 @@
         },
         run: function (code) {
             eval(code);
-            console.log(code);
+        },
+        showToast: function (id, toast, method) {
+            // 记录 Id
+            Toasts.push(id);
+
+            // 动画弹出
+            var $toast = $('#' + id);
+
+            // check autohide
+            var autoHide = $toast.attr('data-autohide') !== 'false';
+            var delay = parseInt($toast.attr('data-delay'));
+
+            $toast.addClass('d-block');
+            var showHandler = window.setTimeout(function () {
+                window.clearTimeout(showHandler);
+                if (autoHide) {
+                    $toast.find('.toast-progress').css({ 'width': '100%' });
+
+                    // auto close
+                    var closeHandler = window.setTimeout(function () {
+                        window.clearTimeout(closeHandler);
+                        $toast.find('.close').trigger('click');
+                    }, delay);
+                }
+                $toast.addClass('show');
+            }, 50);
+
+            // handler close
+            $toast.on('click', '.close', function (e) {
+                $toast.removeClass('show');
+                var hideHandler = window.setTimeout(function () {
+                    window.clearTimeout(hideHandler);
+                    $toast.removeClass('d-block');
+
+                    // remove Id
+                    Toasts.remove($toast.attr('id'));
+                    if (Toasts.length === 0) {
+                        // call server method prepare remove dom
+                        toast.invokeMethodAsync(method);
+                    }
+                }, 500);
+            });
         },
         activeMenu: function (id) {
             var $curMenu = $('.sidebar .active').first();
@@ -124,53 +178,9 @@
         toggleModal: function (modalId) {
             $(modalId).modal('toggle');
         },
-        showToast: function (title, message, cate) {
-            var cateToCss = function (c) {
-                var ret = "";
-                switch (c) {
-                    case "Success":
-                        ret = "fa fa-check-circle text-success";
-                        break;
-                    case "Information":
-                        ret = "fa fa-exclamation-triangle text-info";
-                        break;
-                    case "Error":
-                    default:
-                        ret = "fa fa-times-circle text-danger";
-                        break;
-                }
-                return ret;
-            }
-            var toastTemplate = '<div class="toast fade toast-bottom-right" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="4200">';
-            toastTemplate += '<div class="toast-header">';
-            toastTemplate += '<div class="toast-bar"><i class="' + cateToCss(cate) + '"></i></div>';
-            toastTemplate += '<strong class="mr-auto">' + title + '</strong>';
-            toastTemplate += '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">';
-            toastTemplate += '<span aria-hidden="true">&times;</span>';
-            toastTemplate += '</button>';
-            toastTemplate += '</div><div class="toast-body">';
-            toastTemplate += message;
-            toastTemplate += '</div>';
-            toastTemplate += '<div class="toast-progress"></div>';
-            toastTemplate += '</div>';
-
-            // 利用 js 生成一个临时 toast 弹窗后自我销毁
-            var $toast = $(toastTemplate).appendTo('body');
-            var handler = window.setTimeout(function () {
-                window.clearTimeout(handler);
-                $toast.toast('show');
-            }, 200);
-
-            var handlerDismiss = window.setTimeout(function () {
-                window.clearTimeout(handlerDismiss);
-                //$toast.remove();
-
-                // 回调重新排列方法
-            }, 4400);
-        },
         tooltip: function (id, method) {
             var $ele = $('#' + id);
-            if (method === undefined) {
+            if (method === undefined || method === null) {
                 $ele.tooltip();
             }
             else if (method === 'enable') {
@@ -182,13 +192,15 @@
             }
             else {
                 $ele.tooltip(method);
-                if (method === 'show') {
-                    // auto hide
-                    var handler = window.setTimeout(function () {
-                        window.clearTimeout(handler);
-                        $ele.tooltip('hide');
-                    }, 3000);
-                }
+            }
+        },
+        popover: function (id, method) {
+            var $ele = $('#' + id);
+            if (method === undefined || method === null) {
+                $ele.popover();
+            }
+            else {
+                $ele.popover(method);
             }
         },
         submitForm: function (btn) {

@@ -54,5 +54,12 @@
                 var text = $this.hasClass('show') ? "隐藏代码" : "显示代码";
                 $this.find('span').text(text);
             });
+
+        // toast animation
+        var toast_progress_handler = window.setInterval(function () {
+            window.clearInterval(toast_progress_handler);
+            var $toast = $('.row .toast').toast('show');
+            $toast.find('.toast-progress').css({ "width": "100%" });
+        }, 2000);
     });
 })(jQuery);

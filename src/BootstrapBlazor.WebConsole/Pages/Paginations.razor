@@ -22,9 +22,30 @@
             </div>
 </Block>
 
+<Block Title="分页组件" Introduction="设置分页的大小" CodeFile="pagination.2.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Pagination Total="10" CurrentPage="5" Size="Size.Large"></Pagination>
+            </div>
+            <div class="form-group col-12">
+                <Pagination Total="10" CurrentPage="5" Size="Size.None"></Pagination>
+            </div>
+            <div class="form-group col-12">
+                <Pagination Total="10" CurrentPage="5" Size="Size.Small"></Pagination>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="分页组件" Introduction="通过List设置禁止分页" CodeFile="pagination.3.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Pagination Total="10" CurrentPage="5" Size="Size.Large" DisableList="@disableList"></Pagination>
+            </div>          
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
-
-@code {
-
-  
-}

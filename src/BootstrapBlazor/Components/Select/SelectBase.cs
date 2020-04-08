@@ -15,7 +15,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected virtual string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
-            .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
         /// <summary>
@@ -23,6 +22,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string? InputClassName => CssBuilder.Default("form-control form-select-input")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
+            .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
         /// <summary>
@@ -66,6 +66,11 @@ namespace BootstrapBlazor.Components
         /// 获得 按钮 disabled 属性
         /// </summary>
         protected string? Disabled => IsDisabled ? "true" : null;
+
+        /// <summary>
+        /// 获得/设置 Select 内部 Input 组件 Id
+        /// </summary>
+        protected string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -130,6 +135,26 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 客户端检查完成时调用此方法
+        /// </summary>
+        /// <param name="valid"></param>
+        protected override void OnValidate(bool valid)
+        {
+            base.OnValidate(valid);
+            Color = valid ? Color.Success : Color.Danger;
+        }
+
+        /// <summary>
+        /// 调用 Tooltip 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void InvokeTooltip(bool firstRender)
+        {
+            if (firstRender) JSRuntime.Tooltip(InputId);
+            else JSRuntime.Tooltip(InputId, "show");
+        }
+
+        /// <summary>
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
@@ -137,6 +162,20 @@ namespace BootstrapBlazor.Components
         {
             Items = items;
             SelectedItem = Items.FirstOrDefault(i => i.Active);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                JSRuntime.Tooltip(InputId, "dispose");
+            }
         }
     }
 }

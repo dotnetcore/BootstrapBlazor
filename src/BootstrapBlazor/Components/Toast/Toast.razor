@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ToastBase
+
+<div style="@StyleName">
+    <CascadingValue Value="this" IsFixed="true">
+        @foreach (var toast in Toasts.Values)
+        {
+            @toast
+        }
+    </CascadingValue>
+</div>
