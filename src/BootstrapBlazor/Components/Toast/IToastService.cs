@@ -14,25 +14,15 @@ namespace BootstrapBlazor.Components
         void Show(ToastOption option);
 
         /// <summary>
-        /// 
+        /// 订阅服务
         /// </summary>
         /// <param name="callback"></param>
         void Subscribe(Action<ToastOption> callback);
 
         /// <summary>
-        /// 
+        /// 退订服务
         /// </summary>
         /// <param name="callback"></param>
         void UnSubscribe(Action<ToastOption> callback);
-
-        ///// <summary>
-        ///// 增加弹窗时回调方法
-        ///// </summary>
-        //Action<NotifyCollectionChangedEventArgs>? OnAdd { get; set; }
-
-        ///// <summary>
-        ///// 移除弹窗时回调方法
-        ///// </summary>
-        //Action<NotifyCollectionChangedEventArgs>? OnRemove { get; set; }
     }
 }
