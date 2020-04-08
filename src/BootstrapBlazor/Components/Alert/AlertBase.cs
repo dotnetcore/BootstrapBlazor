@@ -28,6 +28,11 @@ namespace BootstrapBlazor.Components
         [Parameter] public bool ShowDismiss { get; set; }
 
         /// <summary>
+        /// 显示图标
+        /// </summary>
+        [Parameter] public string? Icon { get; set; }
+
+        /// <summary>
         /// 子组件
         /// </summary>
         [Parameter] public RenderFragment? ChildContent { get; set; }

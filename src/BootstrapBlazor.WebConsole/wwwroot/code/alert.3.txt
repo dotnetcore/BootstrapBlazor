@@ -1,0 +1,4 @@
+<Alert Icon="fa fa-check-circle" Color="Color.Success">成功提示的文案</Alert>
+<Alert Icon="fa fa-warning" Color="Color.Warning">警告提示的文案</Alert>
+<Alert Icon="fa fa-question-circle" Color="Color.Info">消息提示的文案</Alert>
+<Alert Icon="fa fa-times-circle" Color="Color.Danger">错误提示的文案</Alert>

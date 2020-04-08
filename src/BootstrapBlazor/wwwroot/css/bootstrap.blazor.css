@@ -6,6 +6,10 @@ a {
     cursor: pointer;
 }
 
+.alert i {
+    margin-right: 1rem;
+}
+
 .alert .close {
     position: absolute;
     top: 6px;
