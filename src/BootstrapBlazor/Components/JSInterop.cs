@@ -1,5 +1,5 @@
-using System;
 using Microsoft.JSInterop;
+using System;
 
 namespace BootstrapBlazor.Components
 {
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// Dispose 方法
         /// </summary>
         public void Dispose()
         {

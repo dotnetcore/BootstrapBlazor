@@ -76,7 +76,7 @@
         run: function (code) {
             eval(code);
         },
-        showToast: function (id, toast) {
+        showToast: function (id, toast, method) {
             // 记录 Id
             Toasts.push(id);
 
@@ -112,8 +112,8 @@
                     // remove Id
                     Toasts.remove($toast.attr('id'));
                     if (Toasts.length === 0) {
-                        // call server method remove dom
-                        toast.invokeMethodAsync("Clear");
+                        // call server method prepare remove dom
+                        toast.invokeMethodAsync(method);
                     }
                 }, 500);
             });
