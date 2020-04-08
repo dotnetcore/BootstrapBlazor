@@ -7,13 +7,13 @@ a {
 }
 
 .alert i {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 }
 
 .alert .close {
     position: absolute;
-    top: 6px;
-    right: 10px;
+    top: 10px;
+    right: 0;
 }
 
     .alert .close .fa-times {
