@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Toast 组件样式设置
         /// </summary>
-        protected string? StyleName => CssBuilder.Default("position: fixed;")
+        protected string? StyleName => CssBuilder.Default("position: fixed; z-index: 1040;")
             .AddClass("top: 1rem; right: 1rem;", Placement != Placement.BottomEnd)
             .AddClass("bottom: 1rem; right: 1rem;", Placement == Placement.BottomEnd)
             .Build();
