@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 支持客户端验证的文本框基类
     /// </summary>
-    public abstract class ValidateBase<TValue> : TooltipComponentBase, IDisposable
+    public abstract class ValidateBase<TValue> : TooltipComponentBase
     {
         private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
         private bool _previousParsingAttemptFailed;
@@ -200,21 +200,17 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
+            base.Dispose(true);
 
-        }
-
-        void IDisposable.Dispose()
-        {
-            if (EditContext != null)
+            if (disposing && EditContext != null)
             {
                 EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
             }
-            Dispose(disposing: true);
         }
     }
 }

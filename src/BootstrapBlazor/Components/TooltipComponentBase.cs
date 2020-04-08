@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 提供 Tooltip 功能的组件
     /// </summary>
-    public abstract class TooltipComponentBase : BootstrapComponentBase, ITooltipHost
+    public abstract class TooltipComponentBase : BootstrapComponentBase, ITooltipHost, IDisposable
     {
         /// <summary>
         /// 获得/设置 ITooltip 实例
@@ -68,6 +69,27 @@ namespace BootstrapBlazor.Components
         protected virtual void InvokeTooltip(bool firstRender)
         {
             if (firstRender) JSRuntime.Tooltip(Id, popoverType: Tooltip?.PopoverType ?? PopoverType.Tooltip);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                JSRuntime.Tooltip(Id, "dispose", popoverType: Tooltip?.PopoverType ?? PopoverType.Tooltip);
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
