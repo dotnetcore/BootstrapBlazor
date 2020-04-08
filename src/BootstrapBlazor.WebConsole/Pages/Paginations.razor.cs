@@ -15,6 +15,10 @@ namespace BootstrapBlazor.WebConsole.Pages
         protected Logger? Trace { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        List<string> disableList = new List<string>() { "1", "5", "Next" };
+        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>

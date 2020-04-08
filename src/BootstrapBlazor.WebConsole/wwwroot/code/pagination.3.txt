@@ -1,0 +1,1 @@
+﻿<Pagination Total="10" CurrentPage="5" Size="Size.Large" DisableList="@disableList"></Pagination>
