@@ -35,6 +35,7 @@ namespace BootstrapBlazor.WebConsole
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddBootstrapBlazor();
         }
 
         /// <summary>

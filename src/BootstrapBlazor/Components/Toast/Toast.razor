@@ -1,0 +1,9 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ToastBase
+
+<div style="@StyleName">
+    @foreach (var toast in Toasts.Values)
+    {
+        @toast
+    }
+</div>
