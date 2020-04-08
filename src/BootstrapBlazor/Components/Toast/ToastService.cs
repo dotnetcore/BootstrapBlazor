@@ -10,20 +10,14 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class ToastService
     {
-        /// <summary>
-        /// Toast 弹窗集合
-        /// </summary>
-        ObservableCollection<ToastOption> ToastPool { get; set; }
-
         List<Action<ToastOption>> Subscribes { get; set; }
 
         /// <summary>
-        /// 
+        /// 默认构造函数
         /// </summary>
         public ToastService()
         {
             Subscribes = new List<Action<ToastOption>>();
-            ToastPool = new ObservableCollection<ToastOption>();
         }
 
         /// <summary>
@@ -33,7 +27,6 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public void Show(ToastOption option)
         {
-            ToastPool.Add(option);
             Subscribes.AsParallel().ForAll(callback => callback.Invoke(option));
         }
 
