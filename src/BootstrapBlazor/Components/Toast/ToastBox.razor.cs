@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出框类型
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("toast")
+        protected string? ClassName => CssBuilder.Default("toast fade")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
