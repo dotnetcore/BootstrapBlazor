@@ -1,7 +1,9 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.WebConsole.Common;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.WebConsole.Pages
 {
@@ -15,7 +17,25 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         [Inject] public ToastService? ToastService { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Inject] public IJSRuntime? JSRuntime { get; set; }
+
         private Toast? Toast { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender && JSRuntime != null)
+            {
+                await JSRuntime.InvokeVoidAsync("$._showToast");
+            }
+        }
 
         /// <summary>
         /// 

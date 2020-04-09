@@ -86,11 +86,14 @@ namespace BootstrapBlazor.Components
             // 执行客户端动画
             if (firstRender && JSRuntime != null)
             {
-                var interop = new JSInterop<Toast>(JSRuntime);
-                if (Toast != null && !string.IsNullOrEmpty(Id)) interop.Invoke(Toast, (_jsRuntime, _objRef) =>
+                if (Toast != null && !string.IsNullOrEmpty(Id))
                 {
-                    _jsRuntime.ShowToast(Id, _objRef, nameof(ToastBase.Clear));
-                });
+                    var interop = new JSInterop<Toast>(JSRuntime);
+                    interop.Invoke(Toast, (_jsRuntime, _objRef) =>
+                    {
+                        _jsRuntime.ShowToast(Id, _objRef, nameof(ToastBase.Clear));
+                    });
+                }
             }
         }
     }
