@@ -118,12 +118,30 @@
                 }, 500);
             });
         },
-        activeMenu: function (id) {
-            var $curMenu = $('.sidebar .active').first();
+        carousel(id) {
+            var $ele = $('#' + id).carousel();
 
-            // set website title
-            $('head title').text($curMenu.text());
-            this.resetTab(id);
+            // focus event
+            var leaveHandler = null;
+            $ele.hover(function () {
+                if (leaveHandler != null) window.clearTimeout(leaveHandler);
+
+                var $this = $(this);
+                var $bar = $this.find('[data-slide]');
+                $bar.removeClass('d-none');
+                var hoverHandler = window.setTimeout(function () {
+                    window.clearTimeout(hoverHandler);
+                    $this.addClass('hover');
+                }, 10);
+            }, function () {
+                var $this = $(this);
+                var $bar = $this.find('[data-slide]');
+                $this.removeClass('hover');
+                leaveHandler = window.setTimeout(function () {
+                    window.clearTimeout(leaveHandler);
+                    $bar.addClass('d-none');
+                }, 300);
+            });
         },
         removeTab: function (tabId) {
             // 通过当前 Tab 返回如果移除后新的 TabId
@@ -170,14 +188,6 @@
             var $curTab = $navBar.find('.active').first();
             return $curTab.next().attr('url');
         },
-        initDocument: function () {
-            $('body').removeClass('trans-mute');
-            $('[data-toggle="tooltip"]').tooltip();
-            $('.sidebar').addNiceScroll().autoScrollSidebar();
-        },
-        toggleModal: function (modalId) {
-            $(modalId).modal('toggle');
-        },
         tooltip: function (id, method) {
             var $ele = $('#' + id);
             if (method === undefined || method === null) {
@@ -201,97 +211,6 @@
             }
             else {
                 $ele.popover(method);
-            }
-        },
-        submitForm: function (btn) {
-            $(btn).parent().prev().find('form :submit').click();
-        },
-        toggleBlazor: function (show) {
-            var $blazor = $('header .nav .dropdown-mvc').parent();
-            if (show) $blazor.removeClass('d-none');
-            else $blazor.addClass('d-none');
-        },
-        setWebSettings: function (showSidebar, showCardTitle, fixedTableHeader) {
-            var $tabContent = $('section .tab-content');
-            if (showCardTitle) $tabContent.removeClass('no-card-header');
-            else $tabContent.addClass('no-card-header');
-        },
-        resetTableWidth: function (source, target) {
-            // 设置表格宽度
-            target.width(source.width());
-
-            // 设置各列宽度
-            var $heads = target.find('th');
-            source.find('th').each(function (index, element) {
-                var header = $heads.get(index);
-                $(header).width($(element).width());
-            });
-        },
-        resetTableHeight: function (source) {
-            var table = source;
-            var height = source.parents('.bootstrap-table').position().top;
-            height = $(window).height() - height - 184 - 51 - 45 - 37;
-            table.height(height);
-        },
-        initTable: function (id, firstRender) {
-            var $table = $('#' + id);
-            var $fixedBody = $table.parents('.fixed-table-body');
-
-            // 固定表头设置
-            if ($fixedBody.length === 1) {
-                if (firstRender) {
-                    // calc height
-                    $.resetTableHeight($fixedBody);
-
-                    // modify scroll
-                    $table.parent().overlayScrollbars({
-                        className: 'os-theme-dark',
-                        scrollbars: {
-                            autoHide: 'leave',
-                            autoHideDelay: 100
-                        }
-                    });
-                }
-
-                var $tableContainer = $table.parents('.table-wrapper');
-                var $tableHeader = $tableContainer.find('.fixed-table-header table');
-                $.resetTableWidth($table, $tableHeader);
-
-                if (firstRender) {
-                    $tableContainer.removeClass('table-fixed').find('.fixed-table-body').removeClass('invisible');
-
-                    $(window).on('resize', function () {
-                        $.resetTableWidth($table, $tableHeader);
-                        $.resetTableHeight($fixedBody);
-                    });
-                }
-            }
-
-            // set search toolbar
-            if (firstRender) {
-                var $search = $table.parents('.bootstrap-table').find('.fixed-table-toolbar').find('.search');
-                if ($search.length === 1) {
-                    $searchInput = $search.find('.search-input').tooltip({
-                        sanitize: false,
-                        title: '<div class="search-input-tooltip">输入任意字符串全局搜索 </br> <kbd>Enter</kbd> 搜索 <kbd>ESC</kbd> 清除搜索</div>',
-                        html: true
-                    });
-
-                    // 支持键盘回车搜索
-                    $searchInput.on('keyup', function (event) {
-                        if (event.keyCode === 13 || event.keyCode === 27) {
-                            // ENTER
-                            var $buttons = $(this).next();
-                            var $search = $buttons.find(':first');
-                            if ($search.length === 1) {
-                                if (event.keyCode === 13) {
-                                    $search.trigger('click');
-                                }
-                                else $search.next().trigger('click');
-                            }
-                        }
-                    });
-                }
             }
         }
     });

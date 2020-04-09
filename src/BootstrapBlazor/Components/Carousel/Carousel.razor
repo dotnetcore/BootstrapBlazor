@@ -1,0 +1,27 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CarouselBase
+
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" data-ride="carousel">
+    <ol class="carousel-indicators">
+        @for(var index = 0; index < Images.Count(); index++)
+        {
+            <li data-slide-to="@index" class="@CheckActive(index)" data-target="@TargetId"></li>
+        }
+    </ol>
+    <div class="carousel-inner" style="@StyleName">
+        @for(var index = 0; index < Images.Count(); index++)
+        {
+            <div class="@CheckActive(index, "carousel-item")">
+                <img src="@Images.ElementAt(index)" class="d-block">
+            </div>
+        }
+    </div>
+    <a class="carousel-control-prev d-none" data-slide="prev" @onclick:preventDefault href="@TargetId">
+        <i class="fa fa-angle-left"></i>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next d-none" data-slide="next" @onclick:preventDefault href="@TargetId">
+        <i class="fa fa-angle-right"></i>
+        <span class="sr-only">Next</span>
+    </a>
+</div>

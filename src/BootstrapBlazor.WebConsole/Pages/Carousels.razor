@@ -1,0 +1,21 @@
+@page "/carousels"
+
+<Block Title="Carousel 走马灯" Introduction="在有限空间内，循环播放同一类型的图片、文字等内容" CodeFile="carousel.1.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Carousel Images="@Images" Width="280"></Carousel>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="淡入淡出" Introduction="图片切换时采用淡入淡出效果" CodeFile="carousel.2.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Carousel Images="@Images" Width="280" IsFade="true"></Carousel>
+            </div>
+        </div>
+    </div>
+</Block>

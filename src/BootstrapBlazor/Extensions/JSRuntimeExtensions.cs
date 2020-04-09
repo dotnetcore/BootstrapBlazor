@@ -52,5 +52,12 @@ namespace BootstrapBlazor.Components
         /// <param name="ref"></param>
         /// <param name="method"></param>
         public static void ShowToast(this IJSRuntime? jsRuntime, string id, object @ref, string method) => jsRuntime?.InvokeVoidAsync("$.showToast", id, @ref, method);
+
+        /// <summary>
+        /// 初始化 Carousel 组件
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        public static void Carousel(this IJSRuntime? jsRuntime, string id) => jsRuntime?.InvokeVoidAsync("$.carousel", id);
     }
 }
