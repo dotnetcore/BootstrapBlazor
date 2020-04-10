@@ -143,6 +143,75 @@
                 }, 300);
             });
         },
+        slider: function (id, slider, method) {
+            var $slider = $('#' + id);
+            var isMouseDown = false;
+            var originX = 0;
+            var curVal = 0;
+            var newVal = 0;
+            var slider_width = $slider.innerWidth();
+            var isDisabled = $slider.find('.disabled').length > 0;
+
+            if (!isDisabled) {
+                //var $button = $slider.find('.slider-button-wrapper').tooltip({ trigger: 'focus hover' });
+                //var $tooltip = null;
+
+                var handleDragStart = function (e) {
+                    // 开始拖动
+                    isMouseDown = true;
+
+                    originX = e.clientX || e.touches[0].clientX;
+                    curVal = parseInt($slider.attr('aria-valuetext'));
+                    $slider.find('.slider-button-wrapper, .slider-button').addClass('dragging');
+                    //$tooltip = $('#' + $button.attr('aria-describedby'));
+                };
+
+                var handleDragMove = function (e) {
+                    if (!isMouseDown) return false;
+
+                    var eventX = e.clientX || e.changedTouches[0].clientX;
+                    if (eventX === originX) return false;
+
+                    newVal = Math.ceil((eventX - originX) * 100 / slider_width) + curVal;
+
+                    // tooltip
+                    //var tooltipLeft = eventX - originX + 8;
+                    //if (val >= 0 && val <= 100)
+                    //    $tooltip.css({ 'left': tooltipLeft.toString() + 'px' });
+
+                    if (newVal <= 0) newVal = 0;
+                    if (newVal >= 100) newVal = 100;
+
+                    $slider.find('.slider-bar').css({ "width": newVal.toString() + "%" });
+                    $slider.find('.slider-button-wrapper').css({ "left": newVal.toString() + "%" });
+                    $slider.attr('aria-valuetext', newVal.toString());
+
+                    slider.invokeMethodAsync(method, newVal);
+                };
+
+                var handleDragEnd = function (e) {
+                    if (!isMouseDown) return false;
+                    isMouseDown = false;
+
+                    // 结束拖动
+                    $slider.find('.slider-button-wrapper, .slider-button').removeClass('dragging');
+
+                    slider.invokeMethodAsync(method, newVal);
+                };
+
+                $slider.on('mousedown', '.slider-button-wrapper', handleDragStart);
+                $slider.on('touchstart', '.slider-button-wrapper', handleDragStart);
+
+                document.addEventListener('mousemove', handleDragMove);
+                document.addEventListener('touchmove', handleDragMove);
+                document.addEventListener('mouseup', handleDragEnd);
+                document.addEventListener('touchend', handleDragEnd);
+
+                document.addEventListener('mousedown', function () { return false; });
+                document.addEventListener('touchstart', function () { return false; });
+                document.addEventListener('swipe', function () { return false; });
+            }
+        },
         removeTab: function (tabId) {
             // 通过当前 Tab 返回如果移除后新的 TabId
             var activeTabId = $('#navBar').find('.active').first().attr('id');

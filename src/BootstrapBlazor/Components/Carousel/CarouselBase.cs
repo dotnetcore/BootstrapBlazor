@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Components
         [Parameter] public bool IsFade { get; set; }
 
         /// <summary>
-        /// 
+        /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>

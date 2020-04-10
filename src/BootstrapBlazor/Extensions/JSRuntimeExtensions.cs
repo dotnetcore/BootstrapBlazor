@@ -59,5 +59,14 @@ namespace BootstrapBlazor.Components
         /// <param name="jsRuntime"></param>
         /// <param name="id"></param>
         public static void Carousel(this IJSRuntime? jsRuntime, string id) => jsRuntime?.InvokeVoidAsync("$.carousel", id);
+
+        /// <summary>
+        /// 初始化 Slider 组件
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        /// <param name="ref"></param>
+        /// <param name="method"></param>
+        public static void Slider(this IJSRuntime? jsRuntime, string id, object @ref, string method) => jsRuntime?.InvokeVoidAsync("$.slider", id, @ref, method);
     }
 }
