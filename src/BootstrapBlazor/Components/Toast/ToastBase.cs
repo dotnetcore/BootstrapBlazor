@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Toast 弹出窗组件
     /// </summary>
-    public abstract class ToastBase : BootstrapComponentBase, IDisposable
+    public abstract class ToastBase : BootstrapComponentBase
     {
         /// <summary>
         /// 获得 Toast 组件样式设置
@@ -87,15 +87,10 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             // 移除 Toast 弹窗服务事件
             if (ToastService != null) ToastService.UnSubscribe(Show);
-        }
-
-        void IDisposable.Dispose()
-        {
-            Dispose(disposing: true);
         }
     }
 }

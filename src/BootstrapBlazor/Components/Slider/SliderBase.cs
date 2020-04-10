@@ -56,6 +56,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter] public bool IsDisabled { get; set; }
 
+        private JSInterop<SliderBase>? _interop;
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -67,8 +68,8 @@ namespace BootstrapBlazor.Components
 
             if (firstRender && !string.IsNullOrEmpty(Id) && JSRuntime != null)
             {
-                var interop = new JSInterop<SliderBase>(JSRuntime);
-                interop.Invoke(this, (_jsRuntime, _objRef) =>
+                _interop = new JSInterop<SliderBase>(JSRuntime);
+                _interop.Invoke(this, (_jsRuntime, _objRef) =>
                 {
                     _jsRuntime.Slider(Id, _objRef, nameof(SliderBase.SetValue));
                 });
@@ -84,6 +85,17 @@ namespace BootstrapBlazor.Components
         {
             Value = val;
             if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(val);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing) _interop?.Dispose();
         }
     }
 }
