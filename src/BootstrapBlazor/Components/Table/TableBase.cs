@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -95,6 +96,21 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter] public bool IsBordered { get; set; }
 
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            // 如果未设置 Items 数据源 自动执行查询方法
+            if (Items == null)
+            {
+                QueryData();
+                if (Items == null) Items = new TItem[0];
+            }
+        }
+
         #region Checkbox
         /// <summary>
         /// 获得/设置 显示选择列
@@ -112,7 +128,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <value></value>
         [Parameter] public string CheckboxDisplayText { get; set; } = "选择";
-        #endregion
 
         /// <summary>
         /// 点击 Header 选择复选框时触发此方法
@@ -161,6 +176,100 @@ namespace BootstrapBlazor.Components
             if (ItemCheckboxs == null) ItemCheckboxs = new List<CheckboxBase<TItem>>();
 
             ItemCheckboxs.Add((CheckboxBase<TItem>)component);
+        }
+        #endregion
+
+        #region Pagination
+        /// <summary>
+        /// 获得/设置 是否分页
+        /// </summary>
+        [Parameter] public bool IsPagination { get; set; }
+
+        /// <summary>
+        /// 获得/设置 每页数据数量
+        /// </summary>
+        [Parameter]
+        public int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
+
+        /// <summary>
+        /// 获得/设置 每页显示数据数量的外部数据源
+        /// </summary>
+        [Parameter] public IEnumerable<int>? PageItemsSource { get; set; }
+
+        /// <summary>
+        /// 点击翻页回调方法
+        /// </summary>
+        [Parameter]
+        public Func<QueryPageOptions, QueryData<TItem>>? OnQuery { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据总条目
+        /// </summary>
+        protected int TotalCount { get; set; }
+
+        /// <summary>
+        /// 获得/设置 当前页码
+        /// </summary>
+        protected int PageIndex { get; set; } = 1;
+
+        /// <summary>
+        /// 点击页码调用此方法
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageItems"></param>
+        protected void OnPageClick(int pageIndex, int pageItems)
+        {
+            if (pageIndex != PageIndex)
+            {
+                PageIndex = pageIndex;
+                PageItems = pageItems;
+                Query();
+            }
+        }
+
+        /// <summary>
+        /// 每页记录条数变化是调用此方法
+        /// </summary>
+        protected void OnPageItemsChanged(int pageItems)
+        {
+            if (OnQuery != null)
+            {
+                PageIndex = 1;
+                PageItems = pageItems;
+                Query();
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 查询按钮调用此方法
+        /// </summary>
+        public void Query()
+        {
+            QueryData();
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// 调用 OnQuery 回调方法获得数据源
+        /// </summary>
+        protected void QueryData()
+        {
+            if (OnQuery != null)
+            {
+                //SelectedItems.Clear();
+                var queryData = OnQuery(new QueryPageOptions()
+                {
+                    PageIndex = PageIndex,
+                    PageItems = PageItems,
+                    //SearchText = SearchText,
+                    //SortOrder = SortOrder,
+                    //SortName = SortName
+                });
+                Items = queryData.Items;
+                PageIndex = queryData.PageIndex;
+                TotalCount = queryData.TotalCount;
+            }
         }
     }
 }
