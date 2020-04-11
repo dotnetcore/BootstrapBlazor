@@ -864,4 +864,8 @@ a {
 .table-striped tbody tr:hover td {
     background-color: #f5f7fa;
 }
+
+.table-pagination {
+    margin-top: 0.5rem;
+}
 /*end table*/
