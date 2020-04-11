@@ -47,6 +47,8 @@ a {
     overflow-x: hidden;
     padding: 0.25rem 0;
     width: 100%;
+    font-size: inherit;
+    cursor: pointer;
 }
 
 .form-select .dropdown-menu-arrow {
@@ -744,23 +746,70 @@ a {
     }
 /*end slider*/
 
+/*pagination*/
+.nav-pages {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.pagination {
+    margin: 0.5rem 0;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+}
+
+.page-link:focus {
+    box-shadow: none;
+}
+
+.pagination-items {
+    display: inline-block;
+}
+
+    .pagination-items .form-select {
+        width: 100px;
+        margin: 0 10px;
+    }
+
+        .pagination-items .form-select .dropdown-menu {
+            min-width: unset;
+        }
+
+        .pagination-items .form-select .form-control {
+            width: 100%;
+        }
+
+.page-item {
+    min-width: 36px;
+}
+
+    .page-item:hover .page-link-prev .fa-ellipsis-h:before {
+        content: "\f100";
+    }
+
+    .page-item:hover .page-link-next .fa-ellipsis-h:before {
+        content: "\f101";
+    }
+/*end pagination*/
+
 /*table*/
 .table-wrapper.table-bordered {
     border-radius: 4px;
 }
 
-    .table-bordered th, .table-bordered td {
-        border: 1px solid #dee2e6;
-        border-left: 0;
-    }
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+    border-left: 0;
+}
 
     .table-bordered th:last-child, .table-bordered td:last-child {
         border-right: 0;
     }
 
-    .table-bordered tr:last-child td {
-        border-bottom: 0;
-    }
+.table-bordered tr:last-child td {
+    border-bottom: 0;
+}
 
 .table-th-checkbox {
     width: 36px;
@@ -801,17 +850,17 @@ a {
         text-align: left;
     }
 
-    .table-cell {
-        padding: 0 10px;
-        display: flex;
-        align-items: center;
-    }
+.table-cell {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
 
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #fafafa;
-    }
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fafafa;
+}
 
-    .table-striped tbody tr:hover td {
-        background-color: #f5f7fa;
-    }
+.table-striped tbody tr:hover td {
+    background-color: #f5f7fa;
+}
 /*end table*/

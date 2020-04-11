@@ -9,21 +9,26 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// </summary>
     public partial class Paginations
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        List<string> disableList = new List<string>() { "1", "5", "Next" };
+        private void OnPageClick(int pageIndex, int pageItems)
+        {
+            Trace?.Log($"PageIndex: {pageIndex} PageItems: {pageItems}");
+        }
+
+        private void OnPageItemsChanged(int pageItems)
+        {
+            Trace?.Log($"PageItems: {pageItems}");
+        }
+
+        private IEnumerable<int> PageItems => new int[] { 3, 10, 20, 40 };
+
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
         protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-        {  
+        {
             new AttributeItem() {
                 Name = "Total",
                 Description = "分页总页数",

@@ -1,5 +1,1 @@
-﻿<Pagination Total="10"></Pagination>
-<Pagination Total="10" CurrentPage="5"></Pagination>
-<Pagination Total="10" CurrentPage="8"></Pagination>
-<Pagination Total="4" CurrentPage="8"></Pagination>
-<Pagination Total="5"></Pagination>
+﻿<Pagination PageItems="3" PageItemsSource="@PageItems" TotalCount="30" />

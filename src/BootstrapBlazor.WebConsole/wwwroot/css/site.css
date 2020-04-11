@@ -291,7 +291,7 @@ section {
         margin-left: 38px;
     }
 
-    .content ul li:not(:last-child) {
+    .content .sidebar-content ul li:not(:last-child) {
         padding-bottom: 0.5rem;
     }
 
