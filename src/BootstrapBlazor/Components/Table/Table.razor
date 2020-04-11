@@ -2,22 +2,47 @@
 @typeparam TItem
 @inherits TableBase<TItem>
 
-<table @attributes="@AdditionalAttributes" id="@Id" class="@ClassName">
-    <thead>
-        <TableColumnCollection>
-            <TableColumnContent />
-            @HeaderTemplate?.Invoke(HeaderModel)
-        </TableColumnCollection>
-    </thead>
-    <tbody>
-        @if (Items != null)
-        {
-            for (int index = 0; index < Items.Count(); index++)
-            {
+<div class="table-container">
+    <div class="@WrapperClassName">
+        <table class="@ClassName">
+            <thead>
                 <tr>
-                    @RowTemplate?.Invoke(Items.ElementAt(index))
+                    @if(ShowCheckbox)
+                    {
+                        <th class="@CheckboxColumnClass">
+                            <div class="table-cell">
+                                <Checkbox TItem="bool" DisplayText="@CheckboxDisplayTextString" OnStateChanged="@OnHeaderCheck" OnInitializedCallback="@OnCheckboxInit"></Checkbox>
+                            </div>
+                        </th>
+                    }
+                    <TableColumnCollection>
+                        <TableColumnContent />
+                        @HeaderTemplate?.Invoke(HeaderModel)
+                    </TableColumnCollection>
                 </tr>
+            </thead>
+            <tbody>
+                @for (int index = 0; index < Items.Count(); index++)
+                {
+                    <tr>
+                        @if(ShowCheckbox) 
+                        {
+                            <td>
+                                <div class="table-cell">
+                                    <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" OnStateChanged="@OnCheck" OnInitializedCallback="@OnItemCheckboxInit"></Checkbox>
+                                </div>
+                            </td>
+                        }
+                        @RowTemplate?.Invoke(Items.ElementAt(index))
+                    </tr>
+                }
+            </tbody>
+            @if (ShowFooter)
+            {
+                <tfoot>
+                    <tr>@TableFooter</tr>
+                </tfoot>
             }
-        }
-    </tbody>
-</table>
+        </table>
+    </div>
+</div>

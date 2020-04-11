@@ -1,0 +1,14 @@
+<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)">
+    <HeaderTemplate>
+        <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+        <TableColumn TItem="string" @bind-Field="@context.Name" />
+        <TableColumn TItem="bool" @bind-Field="@context.Complete" />
+    </HeaderTemplate>
+    <RowTemplate>
+        <TableCell>@context.DateTime</TableCell>
+        <TableCell>@context.Name</TableCell>
+        <TableCell>
+            <Checkbox @bind-Value="@context.Complete" IsDisabled="true"></Checkbox>
+        </TableCell>
+    </RowTemplate>
+</Table>

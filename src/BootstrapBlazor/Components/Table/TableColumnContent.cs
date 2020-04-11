@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
 
 namespace BootstrapBlazor.Components
 {
@@ -50,6 +50,9 @@ namespace BootstrapBlazor.Components
                     var fieldName = header.GetFieldName();
                     var displayName = header.GetDisplayName();
                     builder.OpenElement(index++, "th");
+
+                    // 移除 bind-Field
+                    header.AdditionalAttributes?.Remove("FieldChanged");
                     builder.AddMultipleAttributes(index++, header.AdditionalAttributes);
 
                     // 如果允许排序
@@ -68,7 +71,9 @@ namespace BootstrapBlazor.Components
                         }));
                         builder.AddAttribute(index++, "class", "sortable");
                     }
-                    builder.OpenElement(index++, "span");
+                    builder.OpenElement(index++, "div");
+                    builder.AddAttribute(index++, "class", "table-cell");
+
                     builder.AddContent(index++, displayName);
                     builder.CloseElement();
                     if (header.Sort)

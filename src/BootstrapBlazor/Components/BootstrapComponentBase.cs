@@ -23,6 +23,24 @@ namespace BootstrapBlazor.Components
         public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
         /// <summary>
+        /// 组件初始化回调方法 用户扩展
+        /// </summary>
+        /// <value></value>
+        [Parameter]
+        public Action<BootstrapComponentBase>? OnInitializedCallback { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            // 调用订阅信息
+            OnInitializedCallback?.Invoke(this);
+        }
+
+        /// <summary>
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>

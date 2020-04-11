@@ -1,7 +1,7 @@
 ﻿<div class="table-attr d-none d-md-block">
     <h3>事件 Events</h3>
 
-    <Table TItem="BootstrapBlazor.WebConsole.Common.EventItem" Items="Items">
+    <Table TItem="BootstrapBlazor.WebConsole.Common.EventItem" Items="Items" class="table-demo">
         <HeaderTemplate>
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Description" />

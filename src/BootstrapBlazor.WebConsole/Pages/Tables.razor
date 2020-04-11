@@ -1,0 +1,95 @@
+﻿@page "/tables"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="基础表格" Introduction="基础的表格展示用法。" CodeFile="table.1.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
+<Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可" CodeFile="table.2.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)" IsStriped="true">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
+<Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果" CodeFile="table.3.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)" IsBordered="true">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
+<Block Title="带选择列表格" Introduction="通过设置 <code>ShowCheckbox=true</code> 增加表格第一列为选择列" CodeFile="table.4.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)" ShowCheckbox="true">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
+<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为选择" CodeFile="table.5.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)" ShowCheckbox="true" ShowCheckboxText="true">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
+<Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定" CodeFile="table.6.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="bool" @bind-Field="@context.Complete" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell><Checkbox @bind-Value="@context.Complete" IsDisabled="true"></Checkbox></TableCell>
+        </RowTemplate>
+    </Table>
+</Block>

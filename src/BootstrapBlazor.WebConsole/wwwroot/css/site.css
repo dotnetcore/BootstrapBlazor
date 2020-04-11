@@ -295,7 +295,7 @@ section {
         padding-bottom: 0.5rem;
     }
 
-table {
+.table-demo {
     border-collapse: collapse;
     width: 100%;
     background-color: #fff;
@@ -304,31 +304,30 @@ table {
     line-height: 1.5em;
 }
 
-th {
-    text-align: left;
-    white-space: nowrap;
-    color: #495057;
-    font-weight: 400;
-    border-bottom: 1px solid #dcdfe6;
-    padding: 15px;
-    max-width: 250px;
-}
-
-td {
-    color: #606266;
-}
-
-td,
-td {
-    border-bottom: 1px solid #dcdfe6;
-    padding: 15px;
-    max-width: 250px;
-}
-
-    td:first-child,
-    th:first-child {
-        padding-left: 10px;
+    .table-demo th {
+        text-align: left;
+        white-space: nowrap;
+        color: #495057;
+        font-weight: 400;
+        border-bottom: 1px solid #dcdfe6;
+        padding: 15px;
+        max-width: 250px;
     }
+
+    .table-demo td {
+        color: #606266;
+    }
+
+    .table-demo td {
+        border-bottom: 1px solid #dcdfe6;
+        padding: 15px;
+        max-width: 250px;
+    }
+
+        .table-demo td:first-child,
+        .table-demo th:first-child {
+            padding-left: 10px;
+        }
 
 .table-attr {
     margin-top: 2rem;
