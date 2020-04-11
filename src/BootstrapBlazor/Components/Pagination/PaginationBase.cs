@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Components
         /// 获得 PageItems 下拉框显示文字
         /// </summary>
         /// <value></value>
-        protected string? PageItemsString => $"{PageItems}条/页";
+        protected string? PageItemsString => $"{PageItems} 条/页";
 
         /// <summary>
         /// 获得/设置 开始页码
@@ -128,7 +128,7 @@ namespace BootstrapBlazor.Components
             var ret = new List<SelectedItem>();
             for (int i = 0; i < pages.Count(); i++)
             {
-                var item = new SelectedItem(pages.ElementAt(i).ToString(), $"{pages.ElementAt(i)}条/页");
+                var item = new SelectedItem(pages.ElementAt(i).ToString(), $"{pages.ElementAt(i)} 条/页");
                 ret.Add(item);
                 if (pages.ElementAt(i) >= TotalCount) break;
             }

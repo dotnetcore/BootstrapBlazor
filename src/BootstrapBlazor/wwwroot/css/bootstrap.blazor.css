@@ -774,6 +774,7 @@ a {
 
         .pagination-items .form-select .dropdown-menu {
             min-width: unset;
+            text-align: right;
         }
 
         .pagination-items .form-select .form-control {
