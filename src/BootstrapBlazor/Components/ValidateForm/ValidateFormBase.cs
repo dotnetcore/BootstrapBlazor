@@ -13,6 +13,11 @@ namespace BootstrapBlazor.Components
     public abstract class ValidateFormBase : IdComponentBase
     {
         /// <summary>
+        /// 获得/设置 BootstrapBlazorDataAnnotationsValidator 组件实例
+        /// </summary>
+        protected BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
+
+        /// <summary>
         /// Specifies the top-level model object for the form. An edit context will
         /// be constructed for this model. If using this parameter, do not also supply
         /// a value for <see cref="EditContext"/>.
@@ -100,5 +105,10 @@ namespace BootstrapBlazor.Components
                 validator.ToggleMessage(results, true);
             }
         }
+
+        /// <summary>
+        /// 表单验证方法
+        /// </summary>
+        public void Validate() => Validator?.Validate();
     }
 }
