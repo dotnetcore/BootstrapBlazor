@@ -29,22 +29,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 Checkbox 样式表集合
-        /// </summary>
-        /// <returns></returns>
-        protected string? CheckboxColumnClass => CssBuilder.Default("table-th-checkbox")
-            .AddClass("show-text", ShowCheckboxText)
-            .Build();
-
-        /// <summary>
-        /// 获得 选择列显示文字
-        /// </summary>
-        protected string? CheckboxDisplayTextString => ShowCheckboxText ? CheckboxDisplayText : null;
-
-        private List<CheckboxBase<TItem>>? ItemCheckboxs;
-        private CheckboxBase<bool>? HeaderCheckbox;
-
-        /// <summary>
         /// 获得/设置 被选中数据集合
         /// </summary>
         /// <value></value>
@@ -113,6 +97,22 @@ namespace BootstrapBlazor.Components
         }
 
         #region Checkbox
+        /// <summary>
+        /// 获得 选择列显示文字
+        /// </summary>
+        protected string? CheckboxDisplayTextString => ShowCheckboxText ? CheckboxDisplayText : null;
+
+        /// <summary>
+        /// 获得 Checkbox 样式表集合
+        /// </summary>
+        /// <returns></returns>
+        protected string? CheckboxColumnClass => CssBuilder.Default("table-th-checkbox")
+            .AddClass("show-text", ShowCheckboxText)
+            .Build();
+
+        private List<CheckboxBase<TItem>>? ItemCheckboxs;
+        private CheckboxBase<bool>? HeaderCheckbox;
+
         /// <summary>
         /// 获得/设置 显示选择列
         /// </summary>

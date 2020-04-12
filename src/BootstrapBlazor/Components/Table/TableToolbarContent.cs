@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
                     builder.OpenElement(index++, "button");
                     builder.AddAttribute(index++, "type", "button");
                     builder.AddMultipleAttributes(index++, button.AdditionalAttributes);
-                    builder.AddAttribute(index++, "onclick", button.OnClick);
+                    builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(button, button.OnClick));
 
                     // icon
                     builder.OpenElement(index++, "i");
@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Components
                     builder.OpenElement(index++, "div");
                     builder.AddAttribute(index++, "class", "dropdown-item");
                     builder.AddAttribute(index++, "title", button.Title);
-                    builder.AddAttribute(index++, "onclick", button.OnClick);
+                    builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(button, button.OnClick));
 
                     // icon
                     builder.OpenElement(index++, "i");
