@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
                 // 渲染 Toolbar 按钮
                 var index = 0;
                 builder.OpenElement(index++, "div");
-                builder.AddAttribute(index++, "class", "toolbar btn-group");
+                builder.AddAttribute(index++, "class", "btn-toolbar btn-group d-none d-sm-inline-block");
                 foreach (var button in Toolbar.Buttons)
                 {
                     builder.OpenElement(index++, "button");
@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components
 
                 // 渲染移动版按钮
                 builder.OpenElement(index++, "div");
-                builder.AddAttribute(index++, "class", "gear btn-group");
+                builder.AddAttribute(index++, "class", "btn-gear btn-group d-sm-none");
 
                 builder.OpenElement(index++, "button");
                 builder.AddAttribute(index++, "class", "btn btn-secondary dropdown-toggle");
@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Components
                     builder.OpenElement(index++, "div");
                     builder.AddAttribute(index++, "class", "dropdown-item");
                     builder.AddAttribute(index++, "title", button.Title);
-                    builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(button, button.OnClick));
+                    builder.AddAttribute(index++, "onclick", button.OnClick);
 
                     // icon
                     builder.OpenElement(index++, "i");

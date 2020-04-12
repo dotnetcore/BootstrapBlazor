@@ -45,6 +45,6 @@ namespace BootstrapBlazor.Components
         /// 点击按钮回调方法
         /// </summary>
         [Parameter]
-        public Action OnClick { get; set; } = () => { };
+        public Action? OnClick { get; set; }
     }
 }

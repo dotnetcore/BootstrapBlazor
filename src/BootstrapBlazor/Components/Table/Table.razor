@@ -3,6 +3,52 @@
 @inherits TableBase<TItem>
 
 <div class="table-container">
+    @if (ShowToolbar)
+    {
+        <div class="table-toolbar">
+            <div class="float-left table-toolbar-button">
+                <TableToolbar>
+                    @if (ShowDefaultButtons)
+                    {
+                        <TableToolbarButton class="btn btn-success" Icon="fa fa-plus" Title="新增" OnClick="@Add" />
+                        <TableToolbarButton class="btn btn-danger" Icon="fa fa-remove" Title="删除" OnClick="@Delete" />
+                        <TableToolbarButton class="btn btn-primary" Icon="fa fa-pencil" Title="编辑" OnClick="@Edit" />
+                    }
+                    @TableToolbarTemplate
+                </TableToolbar>
+            </div>
+            <div class="float-right columns columns-right">
+                @if (ShowRefresh)
+                {
+                    <button class="btn btn-secondary" type="button" title="刷新" @onclick="@Query">
+                        <i class="fa fa-refresh"></i><span>刷新</span>
+                    </button>
+                }
+            </div>
+            @if (ShowSearch)
+            {
+                <div class="float-right search btn-group">
+                    <div class="input-group">
+                        <input class="form-control search-input" type="text" placeholder="搜索" @bind="@SearchText" />
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
+                                <i class="fa fa-search"></i><span>搜索</span>
+                            </button>
+                            <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
+                                <i class="fa fa-trash"></i> <span>清空过滤</span>
+                            </button>
+                            @if (ShowAdvancedSearch)
+                            {
+                                <button class="btn btn-secondary" type="button" title="高级搜索" @onclick="@AdvancedSearchClick">
+                                    <i class="fa fa-search-plus"></i><span>高级搜索</span>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
     <div class="@WrapperClassName">
         <table class="@ClassName">
             <thead>

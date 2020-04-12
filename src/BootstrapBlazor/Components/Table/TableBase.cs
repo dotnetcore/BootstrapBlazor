@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -239,6 +240,218 @@ namespace BootstrapBlazor.Components
                 Query();
             }
         }
+        #endregion
+
+        #region Toolbar
+        /// <summary>
+        /// 获得/设置 是否显示工具栏 默认 false 不显示
+        /// </summary>
+        [Parameter] public bool ShowToolbar { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示按钮列 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowDefaultButtons { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示扩展按钮 默认为 true
+        /// </summary>
+        [Parameter]
+        public bool ShowExtendButtons { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示刷新按钮 默认为 true
+        /// </summary>
+        [Parameter]
+        public bool ShowRefresh { get; set; }
+
+        /// <summary>
+        /// 获得/设置 按钮列 Header 文本 默认为 操作
+        /// </summary>
+        [Parameter]
+        public string ButtonTemplateHeaderText { get; set; } = "操作";
+
+        /// <summary>
+        /// 获得/设置 表格 Toolbar 按钮模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? TableToolbarTemplate { get; set; }
+
+        /// <summary>
+        /// 新建按钮回调方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem>? OnAdd { get; set; }
+
+        /// <summary>
+        /// 编辑按钮回调方法
+        /// </summary>
+        [Parameter]
+        public Action<TItem>? OnEdit { get; set; }
+
+        /// <summary>
+        /// 保存按钮回调方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, bool>? OnSave { get; set; }
+
+        /// <summary>
+        /// 删除按钮回调方法
+        /// </summary>
+        [Parameter]
+        public Func<IEnumerable<TItem>, bool>? OnDelete { get; set; }
+
+        /// <summary>
+        /// 表头排序时回调方法
+        /// </summary>
+        [Parameter]
+        public Action<string, SortOrder> OnSort { get; set; } = new Action<string, SortOrder>((name, order) => { });
+
+        /// <summary>
+        /// 新建按钮方法
+        /// </summary>
+        public void Add()
+        {
+            if (OnAdd != null) EditModel = OnAdd.Invoke();
+            _selectedItems.Clear();
+            //EditModal?.Toggle();
+        }
+
+        /// <summary>
+        /// 编辑按钮方法
+        /// </summary>
+        public void Edit()
+        {
+            if (_selectedItems.Count == 1)
+            {
+                //EditModel = _selectedItems[0].Clone();
+                //EditModal?.Toggle();
+            }
+            else
+            {
+                //ShowMessage("编辑数据", "请选择一个要编辑的数据", ToastCategory.Information);
+            }
+        }
+
+        /// <summary>
+        /// 保存数据
+        /// </summary>
+        /// <param name="context"></param>
+        protected void Save(EditContext context)
+        {
+            var valid = OnSave?.Invoke((TItem)context.Model) ?? false;
+            if (valid)
+            {
+                //EditModal?.Toggle();
+                Query();
+            }
+            //ShowMessage("保存数据", "保存数据" + (valid ? "成功" : "失败"), valid ? ToastCategory.Success : ToastCategory.Error);
+        }
+
+        /// <summary>
+        /// 删除按钮方法
+        /// </summary>
+        public void Delete()
+        {
+            if (_selectedItems.Count > 0)
+            {
+                //ConfirmModal?.Toggle();
+            }
+            else
+            {
+                //ShowMessage("删除数据", "请选择要删除的数据", ToastCategory.Information);
+            }
+        }
+        #endregion
+
+        #region Search
+        /// <summary>
+        /// 获得/设置 SearchTemplate 实例
+        /// </summary>
+        [Parameter]
+        public RenderFragment<TItem>? SearchTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 SearchModel 实例
+        /// </summary>
+        [Parameter]
+        public TItem? SearchModel { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示搜索框 默认为 false 不显示搜索框
+        /// </summary>
+        [Parameter]
+        public bool ShowSearch { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示高级搜索按钮 默认显示
+        /// </summary>
+        [Parameter]
+        public bool ShowAdvancedSearch { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 搜索关键字
+        /// </summary>
+        [Parameter]
+        public string SearchText { get; set; } = "";
+
+        /// <summary>
+        /// 获得/设置 搜索关键字改变事件
+        /// </summary>
+        [Parameter]
+        public EventCallback<string> SearchTextChanged { get; set; }
+
+        /// <summary>
+        /// 重置搜索按钮回调方法
+        /// </summary>
+        [Parameter]
+        public Action? OnResetSearch { get; set; }
+
+        /// <summary>
+        /// 重置查询方法
+        /// </summary>
+        protected void ResetSearchClick()
+        {
+            OnResetSearch?.Invoke();
+            SearchClick();
+        }
+
+        /// <summary>
+        /// 查询方法
+        /// </summary>
+        protected void SearchClick()
+        {
+            // 查询控件按钮触发此事件
+            PageIndex = 1;
+            Query();
+        }
+
+        /// <summary>
+        /// 高级查询按钮点击时调用此方法
+        /// </summary>
+        protected void AdvancedSearchClick()
+        {
+            // 弹出高级查询弹窗
+            //SearchModal?.Toggle();
+        }
+
+        /// <summary>
+        /// 重置搜索按钮调用此方法
+        /// </summary>
+        protected void ClearSearchClick()
+        {
+            SearchText = "";
+            Query();
+        }
+        #endregion
+
+        #region Edit
+        /// <summary>
+        /// 获得/设置 EditModel 实例
+        /// </summary>
+        [Parameter]
+        public TItem? EditModel { get; set; }
         #endregion
 
         /// <summary>
