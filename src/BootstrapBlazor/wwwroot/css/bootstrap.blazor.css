@@ -1,6 +1,6 @@
 ﻿body, .form-control, .dropdown-menu,
 .btn:not(.btn-xs):not(.btn-sm):not(.btn-md):not(.btn-lg):not(.btn-xl),
-.alert .close .fa-times,
+.alert .close .fa-times, .toast .close,
 .input-group-text {
     font-size: 0.875rem;
 }
