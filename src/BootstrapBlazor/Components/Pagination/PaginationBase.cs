@@ -40,12 +40,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 开始页码
         /// </summary>
-        protected int StartPageIndex { get; set; }
+        protected int StartPageIndex => Math.Max(1, Math.Min(PageCount - 4, Math.Max(1, PageIndex - 2)));
 
         /// <summary>
         /// 获得/设置 结束页码
         /// </summary>
-        protected int EndPageIndex { get; set; }
+        protected int EndPageIndex => Math.Min(PageCount, Math.Max(5, PageIndex + 2));
 
         /// <summary>
         /// 获得/设置 数据总数
@@ -91,16 +91,6 @@ namespace BootstrapBlazor.Components
         public Action<int>? OnPageItemsChanged { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            ResetPageItems();
-        }
-
-        /// <summary>
         /// 上一页方法
         /// </summary>
         protected void MovePrev(int index)
@@ -135,13 +125,6 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private void ResetPageItems()
-        {
-            // 计算 分页开始页码与结束页码
-            StartPageIndex = Math.Max(1, Math.Min(PageCount - 4, Math.Max(1, PageIndex - 2)));
-            EndPageIndex = Math.Min(PageCount, Math.Max(5, PageIndex + 2));
-        }
-
         /// <summary>
         /// 点击页码时回调方法
         /// </summary>
@@ -149,8 +132,6 @@ namespace BootstrapBlazor.Components
         protected void OnPageItemClick(int pageIndex)
         {
             PageIndex = pageIndex;
-
-            ResetPageItems();
             OnPageClick?.Invoke(pageIndex, PageItems);
         }
 
@@ -163,8 +144,6 @@ namespace BootstrapBlazor.Components
             {
                 PageItems = pageItems;
                 PageIndex = 1;
-                ResetPageItems();
-
                 OnPageItemsChanged?.Invoke(PageItems);
             }
         }
