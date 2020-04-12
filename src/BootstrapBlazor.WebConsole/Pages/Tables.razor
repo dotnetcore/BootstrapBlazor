@@ -108,3 +108,18 @@
         </RowTemplate>
     </Table>
 </Block>
+
+<Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件" CodeFile="table.8.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(4)" IsBordered="true" ShowCheckbox="true" ShowToolbar="true">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
