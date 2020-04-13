@@ -88,14 +88,15 @@
             var delay = parseInt($toast.attr('data-delay'));
 
             $toast.addClass('d-block');
+            var autoHideHandler = null;
             var showHandler = window.setTimeout(function () {
                 window.clearTimeout(showHandler);
                 if (autoHide) {
                     $toast.find('.toast-progress').css({ 'width': '100%' });
 
                     // auto close
-                    var closeHandler = window.setTimeout(function () {
-                        window.clearTimeout(closeHandler);
+                    autoHideHandler = window.setTimeout(function () {
+                        window.clearTimeout(autoHideHandler);
                         $toast.find('.close').trigger('click');
                     }, delay);
                 }
@@ -104,6 +105,9 @@
 
             // handler close
             $toast.on('click', '.close', function (e) {
+                if (autoHideHandler != null) {
+                    window.clearTimeout(autoHideHandler);
+                }
                 $toast.removeClass('show');
                 var hideHandler = window.setTimeout(function () {
                     window.clearTimeout(hideHandler);
