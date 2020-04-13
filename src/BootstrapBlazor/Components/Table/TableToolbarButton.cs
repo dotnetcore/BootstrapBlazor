@@ -34,6 +34,11 @@ namespace BootstrapBlazor.Components
         public string Title { get; set; } = "未设置";
 
         /// <summary>
+        /// 获得/设置 子组件
+        /// </summary>
+        [Parameter] public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
         /// 组件初始化方法
         /// </summary>
         protected override void OnInitialized()

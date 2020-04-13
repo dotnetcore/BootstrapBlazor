@@ -40,13 +40,16 @@ namespace BootstrapBlazor.Components
                     // class="fa fa-plus" aria-hidden="true"
                     builder.AddAttribute(index++, "class", button.Icon);
                     builder.AddAttribute(index++, "aria-hidden", "true");
-                    builder.CloseElement();
+                    builder.CloseElement(); // end i
 
                     // span
                     builder.OpenElement(index++, "span");
                     builder.AddContent(index++, button.Title);
-                    builder.CloseElement();
-                    builder.CloseElement();
+                    builder.CloseElement(); // end span
+
+                    // child content
+                    builder.AddContent(index++, button.ChildContent);
+                    builder.CloseElement(); // end button
                 }
                 builder.CloseElement();
 
