@@ -32,23 +32,32 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得/设置 图标样式
+        /// 获得 图标样式
         /// </summary>
         protected string? IconClass => CssBuilder.Default("fa")
             .AddClass(Icon)
             .Build();
 
         /// <summary>
-        /// 获得/设置 组件样式信息
+        /// 获得 组件样式信息
         /// </summary>
         protected string? StyleName => CssBuilder.Default()
-            .AddClass($"left: -{MarginX:f2}px", MarginX.HasValue)
+            .AddClass($"left: {Offset?.MarginX}px;", Offset != null)
+            .AddClass($"top: {Offset?.MarginY}px;", Offset != null)
             .Build();
 
         /// <summary>
-        /// 获得/设置 X 轴偏移量
+        /// 获得 确认框位置信息
         /// </summary>
-        protected float? MarginX { get; set; }
+        protected string? PlacementString => CssBuilder.Default()
+            .AddClass("bottom", Placement == Placement.Bottom)
+            .AddClass("top", Placement != Placement.Bottom)
+            .Build();
+
+        /// <summary>
+        /// 获得/设置 确认框偏移位置信息
+        /// </summary>
+        protected Offset? Offset { get; set; }
 
         /// <summary>
         /// 获得/设置 确认弹框实例
@@ -69,6 +78,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示文字
         /// </summary>
         [Parameter] public string Content { get; set; } = "Popover Confirm";
+
+        /// <summary>
+        /// 获得/设置 确认框弹出位置 默认为 top 上方
+        /// </summary>
+        [Parameter] public Placement Placement { get; set; } = Placement.Top;
 
         /// <summary>
         /// 获得/设置 关闭按钮显示文字
@@ -114,7 +128,7 @@ namespace BootstrapBlazor.Components
             // 计算位移量
             if (JSRuntime != null)
             {
-                MarginX = await JSRuntime.Confirm(ConfirmPopover);
+                Offset = await JSRuntime.Confirm(ConfirmPopover);
                 IsShow = true;
                 await InvokeAsync(StateHasChanged);
             }

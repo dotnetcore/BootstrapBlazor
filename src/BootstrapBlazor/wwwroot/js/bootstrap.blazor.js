@@ -288,11 +288,23 @@
 
             // 获得 button 大小
             var width = $button.outerWidth();
+            var height = $button.outerHeight();
+
+            // check top or bottom
+            var placement = $ele.attr('placement');
 
             // 设置自己位置
-            var margin = ($ele.outerWidth() - width) / 2;
-            console.log(margin);
-            return margin;
+            var marginX = 0;
+            var marginY = 0;
+            if (placement === 'top') {
+                marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
+                marginY = 0 - $ele.outerHeight();
+            }
+            else if (placement === 'bottom') {
+                marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
+                marginY = height;
+            }
+            return { MarginX: marginX, MarginY: marginY };
         }
     });
 

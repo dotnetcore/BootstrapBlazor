@@ -913,6 +913,7 @@ a {
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     word-break: break-all;
     z-index: 10;
+    outline: none;
 }
 
 .popover-confirm-body {
@@ -931,5 +932,62 @@ a {
 
         .popover-confirm-buttons .btn:last-child {
             margin-left: 0.5rem;
+        }
+
+.popover-confirm-arrow {
+    border-width: 6px;
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,.03));
+}
+
+    .popover-confirm-arrow:after {
+        content: " ";
+        border-width: 6px;
+    }
+
+    .popover-confirm-arrow, .popover-confirm-arrow:after {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+    }
+
+.popover-confirm[placement^=bottom] {
+    margin-top: 8px;
+}
+
+    .popover-confirm[placement^=bottom] .popover-confirm-arrow {
+        top: -6px;
+        left: 50%;
+        margin-right: 3px;
+        border-top-width: 0;
+        border-bottom-color: #ebeef5;
+    }
+
+        .popover-confirm[placement^=bottom] .popover-confirm-arrow:after {
+            top: 1px;
+            margin-left: -6px;
+            border-top-width: 0;
+            border-bottom-color: #fff;
+        }
+
+.popover-confirm[placement^=top] {
+    margin-top: -8px;
+}
+
+    .popover-confirm[placement^=top] .popover-confirm-arrow {
+        bottom: -6px;
+        left: 50%;
+        margin-right: 3px;
+        border-top-color: #ebeef5;
+        border-bottom-width: 0;
+    }
+
+        .popover-confirm[placement^=top] .popover-confirm-arrow:after {
+            bottom: 1px;
+            margin-left: -6px;
+            border-top-color: #fff;
+            border-bottom-width: 0;
         }
 /*end confirm*/
