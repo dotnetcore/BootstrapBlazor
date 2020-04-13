@@ -281,6 +281,18 @@
             else {
                 $ele.popover(method);
             }
+        },
+        confirm: function (id) {
+            var $ele = $(id);
+            var $button = $ele.parent();
+
+            // 获得 button 大小
+            var width = $button.outerWidth();
+
+            // 设置自己位置
+            var margin = ($ele.outerWidth() - width) / 2;
+            console.log(margin);
+            return margin;
         }
     });
 

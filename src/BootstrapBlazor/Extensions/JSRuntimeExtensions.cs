@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -68,5 +69,12 @@ namespace BootstrapBlazor.Components
         /// <param name="ref"></param>
         /// <param name="method"></param>
         public static void Slider(this IJSRuntime? jsRuntime, string id, object @ref, string method) => jsRuntime?.InvokeVoidAsync("$.slider", id, @ref, method);
+
+        /// <summary>
+        /// 初始化 ConfirmPopover 组件
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="element"></param>
+        public static async ValueTask<float> Confirm(this IJSRuntime jsRuntime, ElementReference element) => await jsRuntime.InvokeAsync<float>("$.confirm", element);
     }
 }

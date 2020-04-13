@@ -1,0 +1,24 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits PopoverConfirmBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassName" role="tooltip" id="@Id" aria-hidden="false" tabindex="0" @ref="ConfirmPopover" style="@StyleName">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h3 class="popover-confirm-header">@Title</h3>
+    }
+    <div class="popover-confirm-content">
+        <p class="popover-confirm-body">
+            <i class="@IconClass"></i>
+            @Content
+        </p>
+        <div class="popover-confirm-buttons">
+            <a href="#" class="@CloseButtonClass" @onclick:preventDefault @onclick:stopPropagation @onclick="@OnCloseClick">
+                <span>@CloseButtonText</span>
+            </a>
+            <a href="#" class="@ConfirmButtonClass" @onclick:preventDefault @onclick:stopPropagation @onclick="@OnConfirmClick">
+                <span>@ConfirmButtonText</span>
+            </a>
+        </div>
+    </div>
+    <div class="popover-confirm-arrow"></div>
+</div>
