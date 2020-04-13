@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -115,6 +116,11 @@ namespace BootstrapBlazor.Components
         [Parameter] public bool IsShow { get; set; }
 
         /// <summary>
+        /// 点击确认按钮回调方法
+        /// </summary>
+        [Parameter] public Action? OnConfirm { get; set; }
+
+        /// <summary>
         /// 显示弹窗方法
         /// </summary>
         /// <param name="title"></param>
@@ -148,6 +154,7 @@ namespace BootstrapBlazor.Components
         protected void OnConfirmClick()
         {
             IsShow = false;
+            OnConfirm?.Invoke();
         }
     }
 }
