@@ -801,7 +801,13 @@ a {
         text-align: center;
     }
 
-@media (min-width: 568px) {
+@media (min-width: 375px) {
+    .page-link {
+        padding: 0.5rem 0.6rem;
+    }
+}
+
+@media (min-width: 456px) {
     .page-link {
         padding: 0.5rem 0.75rem;
     }
