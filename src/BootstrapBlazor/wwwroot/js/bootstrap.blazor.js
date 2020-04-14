@@ -127,6 +127,9 @@
 
             // handler close
             $toast.on('click', '.close', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
                 if (autoHideHandler != null) {
                     window.clearTimeout(autoHideHandler);
                 }
