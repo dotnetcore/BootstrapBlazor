@@ -46,7 +46,29 @@
                 this.css('overflow', 'auto');
             }
             return this;
-        }
+        },
+        fadeShow: function (delay) {
+            var $ele = this;
+            if ($ele.length > 0) {
+                if (delay === undefined) delay = 50;
+                $ele.addClass("d-block");
+                var handler = window.setTimeout(function () {
+                    if (handler != null) window.clearTimeout(handler);
+                    $ele.addClass("show");
+                }, delay);
+            }
+        },
+        fadeHide: function (delay) {
+            var $ele = this;
+            if ($ele.length > 0) {
+                if (delay === undefined) delay = 150;
+                $ele.removeClass("show");
+                var handler = window.setTimeout(function () {
+                    if (handler != null) window.clearTimeout(handler);
+                    $ele.removeClass("d-block");
+                }, delay);
+            }
+        },
     });
 
     $.extend({
@@ -289,48 +311,69 @@
                 $ele.popover(method);
             }
         },
+        calcPosition: function ($ele, $button) {
+            // 获得组件大小
+            var elWidth = $ele.outerWidth();
+            var elHeight = $ele.outerHeight();
+
+            // 获得 button 大小
+            var width = $button.outerWidth();
+            var height = $button.outerHeight();
+
+            // check top or bottom
+            var placement = 'top';
+
+            // 设置自己位置
+            var left = 0;
+            var top = 0;
+
+            // 根据自身位置自动判断出现位置
+            var x = $button.offset().top;
+            var margin = x - $(window).scrollTop() - elHeight - height;
+
+            if (margin < 0) placement = 'bottom';
+            $ele.removeClass('top bottom').addClass(placement);
+
+            if (placement === 'top') {
+                left = 0 - Math.ceil((elWidth - width) / 2);
+                top = 0 - elHeight;
+            }
+            else if (placement === 'bottom') {
+                left = 0 - Math.ceil((elWidth - width) / 2);
+                top = height;
+            }
+
+            return { left, top };
+        },
         confirm: function (el, method) {
             var $ele = $(el);
-
-            var inited = $ele.hasClass('is-init');
-            if (!inited) {
-                var $button = $ele.parent();
-
-                // 获得 button 大小
-                var width = $button.outerWidth();
-                var height = $button.outerHeight();
-
-                // check top or bottom
-                var placement = $ele.attr('placement');
-
-                // 设置自己位置
-                var marginX = 0;
-                var marginY = 0;
-                if (placement === 'top') {
-                    marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
-                    marginY = 0 - $ele.outerHeight();
-                }
-                else if (placement === 'bottom') {
-                    marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
-                    marginY = height;
-                }
-                $ele.css({ "left": marginX.toString() + "px", "top": marginY.toString() + "px" });
-                $ele.addClass('is-init');
+            if (method === "close") {
+                $ele.attr('aria-hidden', false);
+                $ele.fadeHide();
             }
-            // 开启动画效果
-            if (method === "show") {
-                $ele.addClass("d-block");
-                var handler = window.setTimeout(function () {
-                    if (handler != null) window.clearTimeout(handler);
-                    $ele.addClass("show");
-                }, 50);
-            }
-            else if (method === "close") {
-                $ele.removeClass("show");
-                var handler = window.setTimeout(function () {
-                    if (handler != null) window.clearTimeout(handler);
-                    $ele.removeClass("d-block");
-                }, 150);
+            else if (method === 'show') {
+                if ($ele.hasClass('show')) return;
+
+                var inited = $ele.hasClass('is-init');
+                if (!inited) {
+                    $(document).on('click', function (e) {
+                        var $this = $(e.target);
+                        var self = $this.attr('data-toggle') === "popover" || $this.parents('[data-toggle="popover"]').length > 0;
+                        if (self) {
+                            console.log($this);
+                            return;
+                        }
+                        $ele.fadeHide();
+                    });
+                    $ele.addClass('is-init');
+                }
+
+                var offset = $.calcPosition($ele, $ele.parent());
+                $ele.css({ "left": offset.left.toString() + "px", "top": offset.top.toString() + "px" });
+                $ele.attr('aria-hidden', true);
+
+                // 开启动画效果
+                $ele.fadeShow();
             }
         }
     });

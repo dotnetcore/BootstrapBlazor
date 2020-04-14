@@ -38,14 +38,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 确认框位置信息
-        /// </summary>
-        protected string? PlacementString => CssBuilder.Default()
-            .AddClass("bottom", Placement == Placement.Bottom)
-            .AddClass("top", Placement != Placement.Bottom)
-            .Build();
-
-        /// <summary>
         /// 获得/设置 确认弹框实例
         /// </summary>
         protected ElementReference ConfirmPopover { get; set; }
@@ -69,11 +61,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示文字
         /// </summary>
         [Parameter] public string Content { get; set; } = "Popover Confirm";
-
-        /// <summary>
-        /// 获得/设置 确认框弹出位置 默认为 top 上方
-        /// </summary>
-        [Parameter] public Placement Placement { get; set; } = Placement.Top;
 
         /// <summary>
         /// 获得/设置 关闭按钮显示文字

@@ -11,7 +11,7 @@
                     @if (ShowDefaultButtons)
                     {
                         <TableToolbarButton class="btn btn-success" Icon="fa fa-plus" Title="新增" OnClick="@Add" />
-                        <TableToolbarButton class="btn btn-danger" Icon="fa fa-remove" Title="删除" OnClick="@ConfirmDelete">
+                        <TableToolbarButton class="btn btn-danger" Icon="fa fa-remove" Title="删除" OnClick="@ConfirmDelete" data-toggle="popover">
                             <PopoverConfirm @ref="@DeleteConfirm" OnConfirm="@Delete"></PopoverConfirm>
                         </TableToolbarButton>
                         <TableToolbarButton class="btn btn-primary" Icon="fa fa-pencil" Title="编辑" OnClick="@Edit" />
