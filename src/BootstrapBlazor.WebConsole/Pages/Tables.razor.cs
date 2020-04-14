@@ -32,7 +32,7 @@ namespace BootstrapBlazor.WebConsole.Pages
             var random = new Random();
             return new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
             {
-                Id = i.ToString(),
+                Id = i,
                 Name = $"张三 {i:d4}",
                 DateTime = DateTime.Now.AddDays(i - 1),
                 Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
@@ -84,12 +84,21 @@ namespace BootstrapBlazor.WebConsole.Pages
             return new BindItem() { DateTime = DateTime.Now };
         }
 
+        private static object _objectLock = new object();
+
         private bool OnSave(BindItem item)
         {
             // 增加数据演示代码
             if (Items != null)
             {
-                if (string.IsNullOrEmpty(item.Id)) Items.Add(item);
+                if (item.Id == 0)
+                {
+                    lock (_objectLock)
+                    {
+                        item.Id = Items.Max(i => i.Id) + 1;
+                        Items.Add(item);
+                    }
+                }
                 else
                 {
                     var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
@@ -116,7 +125,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 
         /// </summary>
         [DisplayName("主键")]
-        public string? Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 
