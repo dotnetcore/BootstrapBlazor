@@ -78,6 +78,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="jsRuntime"></param>
         /// <param name="element"></param>
-        public static async ValueTask<Offset> Confirm(this IJSRuntime jsRuntime, ElementReference element) => await jsRuntime.InvokeAsync<Offset>("$.confirm", element);
+        /// <param name="method"></param>
+        public static void Confirm(this IJSRuntime? jsRuntime, ElementReference element, string method) => jsRuntime?.InvokeVoidAsync("$.confirm", element, method);
     }
 }

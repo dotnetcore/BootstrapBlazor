@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -14,7 +13,6 @@ namespace BootstrapBlazor.Components
         /// 获得 组件样式
         /// </summary>
         protected string? ClassName => CssBuilder.Default("popover-confirm fade")
-            .AddClass("show d-block", IsShow)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -40,14 +38,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 组件样式信息
-        /// </summary>
-        protected string? StyleName => CssBuilder.Default()
-            .AddClass($"left: {Offset?.MarginX}px;", Offset != null)
-            .AddClass($"top: {Offset?.MarginY}px;", Offset != null)
-            .Build();
-
-        /// <summary>
         /// 获得 确认框位置信息
         /// </summary>
         protected string? PlacementString => CssBuilder.Default()
@@ -56,14 +46,14 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得/设置 确认框偏移位置信息
-        /// </summary>
-        protected Offset? Offset { get; set; }
-
-        /// <summary>
         /// 获得/设置 确认弹框实例
         /// </summary>
         protected ElementReference ConfirmPopover { get; set; }
+
+        /// <summary>
+        /// 获得/设置 客户端执行命令
+        /// </summary>
+        protected string? MethodString { get; set; }
 
         /// <summary>
         /// 获得/设置 IJSRuntime 实例
@@ -111,33 +101,32 @@ namespace BootstrapBlazor.Components
         [Parameter] public string? Icon { get; set; } = "fa-exclamation-circle text-info";
 
         /// <summary>
-        /// 获得/设置 组件是否显示
-        /// </summary>
-        [Parameter] public bool IsShow { get; set; }
-
-        /// <summary>
         /// 点击确认按钮回调方法
         /// </summary>
         [Parameter] public Action? OnConfirm { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            if (!string.IsNullOrEmpty(MethodString)) JSRuntime.Confirm(ConfirmPopover, MethodString);
+        }
 
         /// <summary>
         /// 显示弹窗方法
         /// </summary>
         /// <param name="title"></param>
         /// <param name="content"></param>
-        public async Task Show(string title = "", string content = "")
+        public void Show(string title = "", string content = "")
         {
             Title = title;
             Content = content;
+            MethodString = "show";
             StateHasChanged();
-
-            // 计算位移量
-            if (JSRuntime != null)
-            {
-                Offset = await JSRuntime.Confirm(ConfirmPopover);
-                IsShow = true;
-                await InvokeAsync(StateHasChanged);
-            }
         }
 
         /// <summary>
@@ -145,7 +134,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnCloseClick()
         {
-            IsShow = false;
+            MethodString = "close";
         }
 
         /// <summary>
@@ -153,7 +142,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnConfirmClick()
         {
-            IsShow = false;
+            MethodString = "close";
             OnConfirm?.Invoke();
         }
     }

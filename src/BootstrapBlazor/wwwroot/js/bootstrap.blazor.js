@@ -289,29 +289,49 @@
                 $ele.popover(method);
             }
         },
-        confirm: function (id) {
-            var $ele = $(id);
-            var $button = $ele.parent();
+        confirm: function (el, method) {
+            var $ele = $(el);
 
-            // 获得 button 大小
-            var width = $button.outerWidth();
-            var height = $button.outerHeight();
+            var inited = $ele.hasClass('is-init');
+            if (!inited) {
+                var $button = $ele.parent();
 
-            // check top or bottom
-            var placement = $ele.attr('placement');
+                // 获得 button 大小
+                var width = $button.outerWidth();
+                var height = $button.outerHeight();
 
-            // 设置自己位置
-            var marginX = 0;
-            var marginY = 0;
-            if (placement === 'top') {
-                marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
-                marginY = 0 - $ele.outerHeight();
+                // check top or bottom
+                var placement = $ele.attr('placement');
+
+                // 设置自己位置
+                var marginX = 0;
+                var marginY = 0;
+                if (placement === 'top') {
+                    marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
+                    marginY = 0 - $ele.outerHeight();
+                }
+                else if (placement === 'bottom') {
+                    marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
+                    marginY = height;
+                }
+                $ele.css({ "left": marginX.toString() + "px", "top": marginY.toString() + "px" });
+                $ele.addClass('is-init');
             }
-            else if (placement === 'bottom') {
-                marginX = 0 - Math.ceil(($ele.outerWidth() - width) / 2);
-                marginY = height;
+            // 开启动画效果
+            if (method === "show") {
+                $ele.addClass("d-block");
+                var handler = window.setTimeout(function () {
+                    if (handler != null) window.clearTimeout(handler);
+                    $ele.addClass("show");
+                }, 50);
             }
-            return { MarginX: marginX, MarginY: marginY };
+            else if (method === "close") {
+                $ele.removeClass("show");
+                var handler = window.setTimeout(function () {
+                    if (handler != null) window.clearTimeout(handler);
+                    $ele.removeClass("d-block");
+                }, 150);
+            }
         }
     });
 
