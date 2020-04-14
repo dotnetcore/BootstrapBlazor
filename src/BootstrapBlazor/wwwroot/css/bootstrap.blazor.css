@@ -872,6 +872,10 @@ a {
         cursor: pointer;
     }
 
+        .table-cell.is-sort .fa-sort {
+            color: #ddd;
+        }
+
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #fafafa;
 }
