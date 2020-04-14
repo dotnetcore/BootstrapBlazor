@@ -79,7 +79,7 @@ namespace BootstrapBlazor.Components
         {
             if (OnAdd != null) EditModel = OnAdd.Invoke() ?? new TItem();
             SelectedItems.Clear();
-            EditModalTitle = "新建数据窗口";
+            EditModalTitleString = AddModalTitle;
             EditModal?.Toggle();
         }
 
@@ -91,6 +91,7 @@ namespace BootstrapBlazor.Components
             if (SelectedItems.Count == 1)
             {
                 EditModel = SelectedItems[0].Clone();
+                EditModalTitleString = EditModalTitle;
                 EditModal?.Toggle();
             }
             else

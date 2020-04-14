@@ -104,7 +104,7 @@
 
     @if (OnSave != null || OnAdd != null)
     {
-        <Modal @ref="EditModal" Title="@EditModalTitle" Size="@Size.ExtraLarge" IsCentered="true">
+        <Modal @ref="EditModal" Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">
             <ModalBody>
                 <ValidateForm @ref="@ValidateForm" Model="@EditModel" OnValidSubmit="@Save">
                     @EditTemplate?.Invoke(EditModel)

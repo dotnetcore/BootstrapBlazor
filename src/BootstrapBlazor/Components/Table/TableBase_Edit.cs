@@ -11,6 +11,11 @@ namespace BootstrapBlazor.Components
         protected PopoverConfirm? DeleteConfirm { get; set; }
 
         /// <summary>
+        /// 获得/设置 编辑弹窗 Title 文字
+        /// </summary>
+        protected string? EditModalTitleString { get; set; }
+
+        /// <summary>
         /// 获得/设置 被选中数据集合
         /// </summary>
         /// <value></value>
@@ -22,14 +27,19 @@ namespace BootstrapBlazor.Components
         protected ValidateForm? ValidateForm { get; set; }
 
         /// <summary>
-        /// 编辑数据弹窗
+        /// 获得/设置 编辑数据弹窗实例
         /// </summary>
         protected Modal? EditModal { get; set; }
 
         /// <summary>
-        /// 编辑数据弹窗 Title
+        /// 获得/设置 编辑数据弹窗 Title
         /// </summary>
-        [Parameter] public string? EditModalTitle { get; set; }
+        [Parameter] public string EditModalTitle { get; set; } = "编辑数据窗口";
+
+        /// <summary>
+        /// 获得/设置 新建数据弹窗 Title
+        /// </summary>
+        [Parameter] public string AddModalTitle { get; set; } = "新建数据窗口";
 
         /// <summary>
         /// 获得/设置 EditTemplate 实例
