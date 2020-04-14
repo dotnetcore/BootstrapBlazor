@@ -23,6 +23,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
+                Name = "Size",
+                Description = "尺寸",
+                Type = "Size",
+                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+                DefaultValue = "None"
+            },
+            new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
                 Type = "string",
@@ -35,7 +42,7 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "SpinnerType",
                 ValueList = " Border / Grow ",
                 DefaultValue = "SpinnerType.Border"
-            }
+            },
         };
     }
 }

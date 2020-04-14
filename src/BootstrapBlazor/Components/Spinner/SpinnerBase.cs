@@ -5,7 +5,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Spinner 组件基类
     /// </summary>
-    public abstract class SpannerBase : BootstrapComponentBase
+    public abstract class SpinnerBase : BootstrapComponentBase
     {
         /// <summary>
         /// 获取Spinner样式
@@ -15,6 +15,7 @@ namespace BootstrapBlazor.Components
             .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass($"spinner-border-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass(Class)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

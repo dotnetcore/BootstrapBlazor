@@ -53,6 +53,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
+                Name = "Icon",
+                Description = "图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+             new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
                 Type = "string",

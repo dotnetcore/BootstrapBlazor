@@ -1,3 +1,4 @@
+﻿using BootstrapBlazor.WebConsole.Common;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.WebConsole.Pages
@@ -12,6 +13,36 @@ namespace BootstrapBlazor.WebConsole.Pages
             "images/Pic0.jpg",
             "images/Pic1.jpg",
             "images/Pic2.jpg"
+        };
+
+        /// <summary>
+        /// 获得属性方法
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        {
+            // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Images",
+                Description = "Images 集合",
+                Type = "IEnumerable<string>",
+                ValueList = "—",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "Width",
+                Description = "设置图片宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "IsFade",
+                Description = "是否淡入淡出",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
         };
     }
 }

@@ -60,6 +60,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
+                Name = "Size",
+                Description = "尺寸",
+                Type = "Size",
+                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+                DefaultValue = "None"
+            },
+            new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
                 Type = "string",
@@ -88,19 +95,19 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "IsOutlin",
+                Name = "IsOutline",
                 Description = "是否边框",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
-                Name = "Size",
-                Description = "尺寸",
-                Type = "Size",
-                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                DefaultValue = "None"
-            }
+             new AttributeItem() {
+                Name = "IsTriggerValidate",
+                Description = "是否触发客户端验证",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "true"
+            },
         };
     }
 }

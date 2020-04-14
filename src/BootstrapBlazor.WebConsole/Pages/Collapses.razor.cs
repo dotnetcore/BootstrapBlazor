@@ -40,6 +40,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
+                Name = "Size",
+                Description = "尺寸",
+                Type = "Size",
+                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+                DefaultValue = "None"
+            },
+            new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
                 Type = "string",
@@ -61,27 +68,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "IsDisabled",
-                Description = "是否禁用",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-             new AttributeItem() {
-                Name = "IsExpanded",
-                Description = "是否展开",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Size",
-                Description = "尺寸",
-                Type = "Size",
-                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                DefaultValue = "None"
-            },
-            new AttributeItem() {
                 Name = "CollapsedText",
                 Description = "折叠后显示的文字",
                 Type = "string",
@@ -94,7 +80,21 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "折叠"
-            }
+            },
+            new AttributeItem() {
+                Name = "IsDisabled",
+                Description = "是否禁用",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+             new AttributeItem() {
+                Name = "IsCollapsed",
+                Description = "是否收缩折叠面板",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "true"
+            },
         };
     }
 }
