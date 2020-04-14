@@ -1,4 +1,5 @@
 ﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.WebConsole.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,64 @@ namespace BootstrapBlazor.WebConsole.Pages
 
             Items = GenerateItems();
         }
+
+        /// <summary>
+        /// 获得属性方法
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        {
+            // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "IsStriped",
+                Description = "斑马纹",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "IsBordered",
+                Description = "边框",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ShowCheckbox",
+                Description = "选择列",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ShowCheckboxText",
+                Description = "显示文字的选择列",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "IsPagination",
+                Description = "显示分页",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ShowToolbar",
+                Description = "显示 Toolbar",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ShowSearch",
+                Description = "显示搜索栏",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            }
+        };
 
         private List<BindItem> GenerateItems()
         {
@@ -157,4 +216,5 @@ namespace BootstrapBlazor.WebConsole.Pages
         [DisplayName("是/否")]
         public bool Complete { get; set; }
     }
+
 }

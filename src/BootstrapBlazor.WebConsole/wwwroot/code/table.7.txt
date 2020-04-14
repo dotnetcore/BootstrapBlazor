@@ -1,0 +1,13 @@
+﻿<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem"
+        IsPagination="true" PageItemsSource="@PageItemsSource" PageItems="2" OnQuery="@OnQuery">
+     <HeaderTemplate>
+         <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+         <TableColumn TItem="string" @bind-Field="@context.Name" />
+         <TableColumn TItem="string" @bind-Field="@context.Address" />
+     </HeaderTemplate>
+     <RowTemplate>
+         <TableCell>@context.DateTime</TableCell>
+         <TableCell>@context.Name</TableCell>
+         <TableCell>@context.Address</TableCell>
+     </RowTemplate>
+</Table>
