@@ -783,17 +783,25 @@ a {
             width: 100%;
         }
 
-.page-item {
-    min-width: 36px;
+.page-item:hover .page-link-prev .fa-ellipsis-h:before {
+    content: "\f100";
 }
 
-    .page-item:hover .page-link-prev .fa-ellipsis-h:before {
-        content: "\f100";
-    }
+.page-item:hover .page-link-next .fa-ellipsis-h:before {
+    content: "\f101";
+}
 
-    .page-item:hover .page-link-next .fa-ellipsis-h:before {
-        content: "\f101";
+.page-link {
+    text-align: center;
+    padding: 0.5rem;
+    min-width: 28px;
+}
+
+@media (min-width: 568px) {
+    .page-link {
+        padding: 0.5rem 0.75rem;
     }
+}
 /*end pagination*/
 
 /*table*/
