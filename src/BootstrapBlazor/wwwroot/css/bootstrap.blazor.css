@@ -792,10 +792,14 @@ a {
 }
 
 .page-link {
-    text-align: center;
-    padding: 0.5rem;
-    min-width: 28px;
+    padding: 0.5rem 0.35rem;
+    line-height: 1;
 }
+
+    .page-link .fa {
+        width: 11px;
+        text-align: center;
+    }
 
 @media (min-width: 568px) {
     .page-link {
