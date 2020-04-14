@@ -79,6 +79,12 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            // 初始化每页显示数量
+            if (IsPagination)
+            {
+                PageItems = PageItemsSource?.FirstOrDefault() ?? QueryPageOptions.DefaultPageItems;
+            }
+
             // 初始化 EditModel
             if (EditModel == null) EditModel = OnAdd?.Invoke() ?? new TItem();
 

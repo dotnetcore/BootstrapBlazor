@@ -12,12 +12,6 @@ namespace BootstrapBlazor.Components
         [Parameter] public bool IsPagination { get; set; }
 
         /// <summary>
-        /// 获得/设置 每页数据数量
-        /// </summary>
-        [Parameter]
-        public int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
-
-        /// <summary>
         /// 获得/设置 每页显示数据数量的外部数据源
         /// </summary>
         [Parameter] public IEnumerable<int>? PageItemsSource { get; set; }
@@ -37,6 +31,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 当前页码
         /// </summary>
         protected int PageIndex { get; set; } = 1;
+
+        /// <summary>
+        /// 获得/设置 每页数据数量
+        /// </summary>
+        protected int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
 
         /// <summary>
         /// 点击页码调用此方法
