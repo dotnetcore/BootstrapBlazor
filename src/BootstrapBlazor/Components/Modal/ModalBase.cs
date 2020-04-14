@@ -75,7 +75,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 弹窗状态切换方法
         /// </summary>
-        public void ToggleAsync()
+        public void Toggle()
         {
             JSRuntime.InvokeRun(Id, "modal", "toggle");
         }

@@ -865,7 +865,12 @@ a {
     padding: 0 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
+
+    .table-cell.is-sort {
+        cursor: pointer;
+    }
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #fafafa;
@@ -903,6 +908,20 @@ a {
         .btn-gear .dropdown-menu .dropdown-item:not(:first-child) {
             border-left: solid 1px #aeb2b7;
         }
+
+.table-column-right {
+    margin-left: 0.3125rem;
+}
+
+.search-input-tooltip {
+    font-size: 0.75rem;
+}
+
+    .search-input-tooltip kbd {
+        display: inline-block;
+        background: #17a2b8;
+        padding: 1px 6px;
+    }
 /*end table*/
 
 /*popover confirm*/

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -46,7 +47,7 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public override string? Id
         {
-            get { return (EditForm != null && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.FieldName}" : _id; }
+            get { return (EditForm != null && !string.IsNullOrEmpty(EditForm.Id) && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.FieldName}" : _id; }
             set { _id = value; }
         }
 
@@ -94,8 +95,14 @@ namespace BootstrapBlazor.Components
 
             if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
             {
-                JSRuntime.Tooltip(Id, TooltipMethod);
-                TooltipMethod = "";
+                InvokeAsync(async () =>
+                {
+                    await Task.Delay(10);
+
+                    // 异步执行
+                    JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
+                    TooltipMethod = "";
+                }).ConfigureAwait(false);
             }
         }
 
@@ -152,7 +159,7 @@ namespace BootstrapBlazor.Components
         /// <param name="valid">检查结果</param>
         protected virtual void OnValidate(bool valid)
         {
-
+            InvokeTooltip(false);
         }
 
         /// <summary>

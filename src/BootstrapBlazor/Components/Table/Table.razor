@@ -3,52 +3,56 @@
 @inherits TableBase<TItem>
 
 <div class="table-container">
-    @if (ShowToolbar)
-    {
-        <div class="table-toolbar">
+    <div class="table-toolbar">
+        @if (ShowToolbar)
+        {
             <div class="float-left table-toolbar-button">
                 <TableToolbar>
                     @if (ShowDefaultButtons)
                     {
                         <TableToolbarButton class="btn btn-success" Icon="fa fa-plus" Title="新增" OnClick="@Add" />
-                        <TableToolbarButton class="btn btn-danger" Icon="fa fa-remove" Title="删除" OnClick="@Delete" />
+                        <TableToolbarButton class="btn btn-danger" Icon="fa fa-remove" Title="删除" OnClick="@ConfirmDelete">
+                            <PopoverConfirm @ref="@DeleteConfirm" OnConfirm="@Delete"></PopoverConfirm>
+                        </TableToolbarButton>
                         <TableToolbarButton class="btn btn-primary" Icon="fa fa-pencil" Title="编辑" OnClick="@Edit" />
                     }
                     @TableToolbarTemplate
                 </TableToolbar>
             </div>
-            <div class="float-right columns columns-right">
+            <div class="float-right table-toolbar-button table-column-right">
                 @if (ShowRefresh)
                 {
                     <button class="btn btn-secondary" type="button" title="刷新" @onclick="@Query">
-                        <i class="fa fa-refresh"></i><span>刷新</span>
+                        <i class="fa fa-refresh"></i><span class="d-none d-sm-inline-block">刷新</span>
                     </button>
                 }
             </div>
-            @if (ShowSearch)
-            {
-                <div class="float-right search btn-group">
-                    <div class="input-group">
-                        <input class="form-control search-input" type="text" placeholder="搜索" @bind="@SearchText" />
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
-                                <i class="fa fa-search"></i><span>搜索</span>
+        }
+        @if (ShowSearch)
+        {
+            <div class="float-right table-toolbar-button btn-group">
+                <div class="input-group">
+                    <BootstrapInput TItem="string" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
+                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                    </BootstrapInput>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
+                            <i class="fa fa-search"></i><span class="d-none d-sm-inline-block">搜索</span>
+                        </button>
+                        <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
+                            <i class="fa fa-trash"></i><span class="d-none d-sm-inline-block">清空过滤</span>
+                        </button>
+                        @if (ShowAdvancedSearch)
+                        {
+                            <button class="@AdvanceSearchClass" type="button" title="高级搜索" @onclick="@AdvancedSearchClick">
+                                <i class="fa fa-search-plus"></i><span class="d-none d-sm-inline-block">高级搜索</span>
                             </button>
-                            <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
-                                <i class="fa fa-trash"></i> <span>清空过滤</span>
-                            </button>
-                            @if (ShowAdvancedSearch)
-                            {
-                                <button class="btn btn-secondary" type="button" title="高级搜索" @onclick="@AdvancedSearchClick">
-                                    <i class="fa fa-search-plus"></i><span>高级搜索</span>
-                                </button>
-                            }
-                        </div>
+                        }
                     </div>
                 </div>
-            }
-        </div>
-    }
+            </div>
+        }
+    </div>
     <div class="@WrapperClassName">
         <table class="@ClassName">
             <thead>
@@ -57,11 +61,11 @@
                     {
                         <th class="@CheckboxColumnClass">
                             <div class="table-cell">
-                                <Checkbox TItem="bool" DisplayText="@CheckboxDisplayTextString" OnStateChanged="@OnHeaderCheck" OnInitializedCallback="@OnCheckboxInit"></Checkbox>
+                                <Checkbox TItem="bool" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" OnInitializedCallback="@OnCheckboxInit"></Checkbox>
                             </div>
                         </th>
                     }
-                    <TableColumnCollection>
+                    <TableColumnCollection OnSort="@OnSort">
                         <TableColumnContent />
                         @HeaderTemplate?.Invoke(HeaderModel)
                     </TableColumnCollection>
@@ -75,7 +79,7 @@
                         {
                             <td>
                                 <div class="table-cell">
-                                    <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" OnStateChanged="@OnCheck" OnInitializedCallback="@OnItemCheckboxInit"></Checkbox>
+                                    <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck" OnInitializedCallback="@OnItemCheckboxInit"></Checkbox>
                                 </div>
                             </td>
                         }
@@ -96,5 +100,43 @@
         <div class="table-pagination">
             <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
         </div>
+    }
+
+    @if (OnSave != null || OnAdd != null)
+    {
+        <Modal @ref="EditModal" Title="@EditModalTitle" Size="@Size.ExtraLarge" IsCentered="true">
+            <ModalBody>
+                <ValidateForm @ref="@ValidateForm" Model="@EditModel" OnValidSubmit="@Save">
+                    @EditTemplate?.Invoke(EditModel)
+                </ValidateForm>
+            </ModalBody>
+            <ModalFooter>
+                <button type="button" class="btn btn-primary" @onclick="e => ValidateForm?.Validate()">
+                    <i class="fa fa-save"></i>
+                    <span>保存</span>
+                </button>
+            </ModalFooter>
+        </Modal>
+    }
+
+    @if (ShowSearch && ShowAdvancedSearch)
+    {
+        <Modal @ref="@SearchModal" Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
+            <ModalBody>
+                <ValidateForm Model="@SearchModel">
+                    @SearchTemplate?.Invoke(SearchModel)
+                </ValidateForm>
+            </ModalBody>
+            <ModalFooter>
+                <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
+                    <i class="fa fa-trash-o"></i>
+                    <span>重置</span>
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
+                    <i class="fa fa-search"></i>
+                    <span>查询</span>
+                </button>
+            </ModalFooter>
+        </Modal>
     }
 </div>

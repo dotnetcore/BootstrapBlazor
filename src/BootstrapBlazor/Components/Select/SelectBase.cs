@@ -177,10 +177,8 @@ namespace BootstrapBlazor.Components
         {
             base.Dispose(disposing);
 
-            if (disposing)
-            {
-                JSRuntime.Tooltip(InputId, "dispose");
-            }
+            if (disposing) JSRuntime.Tooltip(InputId, "dispose");
+
         }
     }
 }

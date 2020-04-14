@@ -19,13 +19,8 @@ namespace BootstrapBlazor.Components
         public int TotalCount { get; set; }
 
         /// <summary>
-        /// 获得/设置 当前页码
+        /// 获得/设置 数据是否被过滤 默认为 false 未被过滤
         /// </summary>
-        public int PageIndex { get; set; } = 1;
-
-        /// <summary>
-        /// 获得/设置 每页显示数据数量
-        /// </summary>
-        public int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
+        public bool IsFiltered { get; set; }
     }
 }

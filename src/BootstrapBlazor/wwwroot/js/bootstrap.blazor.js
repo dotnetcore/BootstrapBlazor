@@ -261,15 +261,17 @@
             var $curTab = $navBar.find('.active').first();
             return $curTab.next().attr('url');
         },
-        tooltip: function (id, method) {
+        tooltip: function (id, method, title, content, html) {
             var $ele = $('#' + id);
-            if (method === undefined || method === null) {
-                $ele.tooltip();
+            if (method === "") {
+                var op = { html: html, sanitize: !html, title: title };
+                $ele.tooltip(op);
             }
             else if (method === 'enable') {
-                $ele.tooltip();
+                var op = { html: html, sanitize: !html, title: title };
+                $ele.tooltip(op);
                 var $ctl = $ele.parents('form').find('.invalid:first');
-                if ($ctl.prop("nodeName") === 'input') {
+                if ($ctl.prop("nodeName") === 'INPUT') {
                     $ctl.focus();
                 }
             }
@@ -277,10 +279,11 @@
                 $ele.tooltip(method);
             }
         },
-        popover: function (id, method) {
+        popover: function (id, method, title, content, html) {
             var $ele = $('#' + id);
-            if (method === undefined || method === null) {
-                $ele.popover();
+            if (method === "") {
+                var op = { html: html, sanitize: false, title: title, content: content };
+                $ele.popover(op);
             }
             else {
                 $ele.popover(method);

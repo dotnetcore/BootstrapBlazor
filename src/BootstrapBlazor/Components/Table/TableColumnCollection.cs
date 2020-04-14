@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
@@ -16,9 +17,9 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 添加表头组件到集合方法
+        /// 获得/设置 排序回调方法
         /// </summary>
-        public void Add(ITableColumn header) => Columns.Add(header);
+        [Parameter] public Action<string, SortOrder>? OnSort { get; set; }
 
         /// <summary>
         /// 获得 表头集合
