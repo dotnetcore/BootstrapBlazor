@@ -112,7 +112,7 @@
 
 <Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件" CodeFile="table.8.txt">
     <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(4)"
-           IsBordered="true" 
+           IsBordered="true"
            ShowCheckbox="true" ShowToolbar="true" ShowDefaultButtons="false">
         <HeaderTemplate>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
@@ -128,10 +128,41 @@
 </Block>
 
 <Block Title="带查询的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.9.txt">
-    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" 
-           IsBordered="true" IsPagination="true"  PageItemsSource="@PageItemsSource"
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem"
+           IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
            OnQuery="@OnQuery">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
+<Block Title="固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头" CodeFile="table.11.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
+<Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.12.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" IsBordered="true"
+           PageItemsSource="@PageItemsSource" IsPagination="true" OnQuery="@OnQuery" Height="200">
         <HeaderTemplate>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
@@ -148,7 +179,7 @@
 <Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件件" CodeFile="table.10.txt">
     <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" 
+           IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            SearchModel="@SearchModel"
@@ -194,37 +225,6 @@
                 </div>
             </div>
         </SearchTemplate>
-    </Table>
-</Block>
-
-<Block Title="固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头" CodeFile="table.11.txt">
-    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
-        <HeaderTemplate>
-            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
-            <TableColumn TItem="string" @bind-Field="@context.Name" />
-            <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
-    </Table>
-</Block>
-
-<Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.11.txt">
-    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" IsBordered="true"
-           PageItemsSource="@PageItemsSource" IsPagination="true" OnQuery="@OnQuery" Height="200">
-        <HeaderTemplate>
-            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
-            <TableColumn TItem="string" @bind-Field="@context.Name" />
-            <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
