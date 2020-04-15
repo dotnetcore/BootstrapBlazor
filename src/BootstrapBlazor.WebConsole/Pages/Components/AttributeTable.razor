@@ -1,7 +1,7 @@
 ﻿<div class="table-attr d-none d-md-block">
     <h3>Attributes 属性</h3>
 
-    <Table TItem="BootstrapBlazor.WebConsole.Common.AttributeItem" Items="Items">
+    <Table TItem="BootstrapBlazor.WebConsole.Common.AttributeItem" Items="Items" class="table-demo">
         <HeaderTemplate>
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Description" />
@@ -10,11 +10,11 @@
             <TableColumn TItem="string" @bind-Field="@context.DefaultValue" />
         </HeaderTemplate>
         <RowTemplate>
-            <td>@context.Name</td>
-            <td>@context.Description</td>
-            <td>@context.Type</td>
-            <td>@context.ValueList</td>
-            <td>@context.DefaultValue</td>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Description</TableCell>
+            <TableCell>@context.Type</TableCell>
+            <TableCell>@context.ValueList</TableCell>
+            <TableCell>@context.DefaultValue</TableCell>
         </RowTemplate>
     </Table>
 </div>

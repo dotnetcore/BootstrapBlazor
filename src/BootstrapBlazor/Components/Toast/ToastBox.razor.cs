@@ -75,6 +75,7 @@ namespace BootstrapBlazor.Components
         /// <value></value>
         [CascadingParameter] public Toast? Toast { get; set; }
 
+        private JSInterop<Toast>? _interop;
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -86,12 +87,25 @@ namespace BootstrapBlazor.Components
             // 执行客户端动画
             if (firstRender && JSRuntime != null)
             {
-                var interop = new JSInterop<Toast>(JSRuntime);
-                if (Toast != null && !string.IsNullOrEmpty(Id)) interop.Invoke(Toast, (_jsRuntime, _objRef) =>
+                if (Toast != null && !string.IsNullOrEmpty(Id))
                 {
-                    _jsRuntime.ShowToast(Id, _objRef, nameof(ToastBase.Clear));
-                });
+                    _interop = new JSInterop<Toast>(JSRuntime);
+                    _interop.Invoke(Toast, (_jsRuntime, _objRef) =>
+                    {
+                        _jsRuntime.ShowToast(Id, _objRef, nameof(ToastBase.Clear));
+                    });
+                }
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing) _interop?.Dispose();
         }
     }
 }

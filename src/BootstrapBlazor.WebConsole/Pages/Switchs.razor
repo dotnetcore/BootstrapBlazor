@@ -3,7 +3,6 @@
 <Block Title="Switch 开关" Introduction="提供最普通的开关应用" CodeFile="switch.1.txt">
     <div class="form-inline">
         <div class="row">
-
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Secondary" OnText="开启" OffText="关闭">Secondary</Switch></div>
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Success" OnText="开启" OffText="关闭">Success</Switch></div>
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Switch OnValueChanged="@OnValueChanged" Value="true" OnColor="Color.Danger" OnText="开启" OffText="关闭">Danger</Switch></div>
@@ -28,7 +27,6 @@
     </div>
 </Block>
 
-
 <Block Title="禁用状态" Introduction="开关不可用状态。" CodeFile="switch.3.txt">
     <div class="form-inline">
         <div class="row">
@@ -46,3 +44,5 @@
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

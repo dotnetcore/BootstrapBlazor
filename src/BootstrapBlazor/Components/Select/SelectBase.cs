@@ -73,6 +73,11 @@ namespace BootstrapBlazor.Components
         protected string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
 
         /// <summary>
+        /// 获得/设置 当前组件值
+        /// </summary>
+        protected string? ValueString => SelectedItem?.Text ?? CurrentValueAsString;
+
+        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter] public Color Color { get; set; } = Color.None;
@@ -172,10 +177,8 @@ namespace BootstrapBlazor.Components
         {
             base.Dispose(disposing);
 
-            if (disposing)
-            {
-                JSRuntime.Tooltip(InputId, "dispose");
-            }
+            if (disposing) JSRuntime.Tooltip(InputId, "dispose");
+
         }
     }
 }

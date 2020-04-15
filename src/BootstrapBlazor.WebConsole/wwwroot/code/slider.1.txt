@@ -1,0 +1,3 @@
+﻿<Slider></Slider>
+<Slider Value="50" Label="自定义初始值"></Slider>
+<Slider Value="42" IsDisabled="true" Label="禁用"></Slider>

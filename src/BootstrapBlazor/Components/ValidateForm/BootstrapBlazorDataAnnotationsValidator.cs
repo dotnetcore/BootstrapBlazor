@@ -38,5 +38,24 @@ namespace BootstrapBlazor.Components
 
             CurrentEditContext.AddEditContextDataAnnotationsValidation(EditForm);
         }
+
+        /// <summary>
+        /// 表单验证方法
+        /// </summary>
+        /// <returns></returns>
+        public void Validate()
+        {
+            if (CurrentEditContext != null)
+            {
+                var valid = CurrentEditContext.Validate();
+
+                if (EditForm != null)
+                {
+                    if (valid && EditForm.OnValidSubmit.HasDelegate) EditForm.OnValidSubmit.InvokeAsync(CurrentEditContext);
+                    else if (valid && EditForm.OnSubmit.HasDelegate) EditForm.OnSubmit.InvokeAsync(CurrentEditContext);
+                    else if (EditForm.OnInvalidSubmit.HasDelegate) EditForm.OnInvalidSubmit.InvokeAsync(CurrentEditContext);
+                }
+            }
+        }
     }
 }

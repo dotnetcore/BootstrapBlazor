@@ -14,6 +14,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 
         /// </summary>
         protected Logger? Trace { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -74,8 +75,36 @@ namespace BootstrapBlazor.WebConsole.Pages
                     Type = "CheckboxState",
                     ValueList = "Mixed / Checked / UnChecked",
                     DefaultValue = "text"
-                }
+                },
+                new AttributeItem(){
+                    Name = "IsDisabled",
+                    Description = "是否禁用",
+                    Type = "boolean",
+                    ValueList = " — ",
+                    DefaultValue = "false"
+                },
+                new AttributeItem(){
+                    Name = "DisplayText",
+                    Description = "显示文字",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = "—"
+                },
             };
         }
+
+        /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnStateChanged",
+                Description="选择框状态改变时回调此方法",
+                Type ="Action<CheckboxState, TItem>"
+            }
+        };
     }
 }

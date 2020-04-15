@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,9 +40,12 @@ namespace BootstrapBlazor.Components
         /// <param name="id"></param>
         /// <param name="method"></param>
         /// <param name="popoverType"></param>
-        public static void Tooltip(this IJSRuntime? jsRuntime, string? id, string? method = null, PopoverType popoverType = PopoverType.Tooltip)
+        /// <param name="title"></param>
+        /// <param name="content"></param>
+        /// <param name="html"></param>
+        public static void Tooltip(this IJSRuntime? jsRuntime, string? id, string method = "", PopoverType popoverType = PopoverType.Tooltip, string? title = "", string? content = "", bool html = false)
         {
-            if (!string.IsNullOrEmpty(id)) jsRuntime.InvokeVoidAsync(popoverType == PopoverType.Tooltip ? "$.tooltip" : "$.popover", id, method);
+            if (!string.IsNullOrEmpty(id)) jsRuntime.InvokeVoidAsync(popoverType == PopoverType.Tooltip ? "$.tooltip" : "$.popover", id, method, title, content, html);
         }
 
         /// <summary>
@@ -52,5 +56,30 @@ namespace BootstrapBlazor.Components
         /// <param name="ref"></param>
         /// <param name="method"></param>
         public static void ShowToast(this IJSRuntime? jsRuntime, string id, object @ref, string method) => jsRuntime?.InvokeVoidAsync("$.showToast", id, @ref, method);
+
+        /// <summary>
+        /// 初始化 Carousel 组件
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        public static void Carousel(this IJSRuntime? jsRuntime, string id) => jsRuntime?.InvokeVoidAsync("$.carousel", id);
+
+        /// <summary>
+        /// 初始化 Slider 组件
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        /// <param name="ref"></param>
+        /// <param name="method"></param>
+        public static void Slider(this IJSRuntime? jsRuntime, string id, object @ref, string method) => jsRuntime?.InvokeVoidAsync("$.slider", id, @ref, method);
+
+        /// <summary>
+        /// 初始化 ConfirmPopover 组件
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="element"></param>
+        /// <param name="func"></param>
+        /// <param name="method"></param>
+        public static void InvokeRun(this IJSRuntime? jsRuntime, ElementReference element, string func, string method) => jsRuntime?.InvokeVoidAsync($"$.{func}", element, method);
     }
 }

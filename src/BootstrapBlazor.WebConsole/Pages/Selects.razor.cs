@@ -109,8 +109,8 @@ namespace BootstrapBlazor.WebConsole.Pages
             new AttributeItem() {
                 Name = "Items",
                 Description = "数据集合",
-                Type = "Color",
-                ValueList = "IEnumerable<SelectedItem>",
+                Type = "IEnumerable<SelectedItem>",
+                ValueList = "—",
                 DefaultValue = " — "
             }
         };

@@ -1,11 +1,50 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits PaginationBase
 
-<ul @attributes="@AdditionalAttributes" class="@ClassName">
-    @foreach (string str in GetShowPagination(CurrentPage, Total))
-    {
-        var num = str;
-        var pagestr = "第" + str + "页";
-        <li class="@GetLiClassName(CurrentPage,num,DisableList.Contains(num)||(CurrentPage==1&&num=="Previous") || (CurrentPage==Total&&num=="Next"))"><a href="javascript:void(0);" class="page-link" aria-label="@pagestr" @onclick="e => OnClick(num)"> @num </a></li>
-    }
-</ul>
+<nav class="nav nav-pages" aria-label="分页组件">
+    <div class="@PaginationBarClass">
+        <div class="d-inline-block">显示第 <span>@((PageIndex - 1) * PageItems + 1)</span> 到第 <span>@(Math.Min(PageIndex * PageItems, TotalCount))</span> 条记录</div>
+        <div class="d-none d-sm-inline-block">，总共 <span>@TotalCount</span> 条记录</div>
+        @if (PageCount > 1)
+        {
+            <span>每页显示</span>
+            <div class="pagination-items d-none d-sm-inline-block">
+                <Select TItem="string" Value="@PageItemsString" Items="@GetPageItems()" OnSelectedItemChanged="@OnPageItemsSelectItemChanged" />
+            </div>
+            <span class="d-sm-none">@PageItems</span>
+            <span>条记录</span>
+        }
+    </div>
+    <ul class="@PaginationClass">
+        <li class="page-item">
+            <a class="page-link" aria-label="上一页" href="#" @onclick:preventDefault @onclick="e => MovePrev(1)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        </li>
+        @if (PageCount > 5)
+        {
+            <li class="page-item">
+                <a class="page-link page-link-prev" aria-label="上一页" href="#" @onclick:preventDefault @onclick="e => MovePrev(5)">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+            </li>
+        }
+        @for (int i = StartPageIndex; i <= EndPageIndex; i++)
+        {
+            <PaginationItem PageIndex="@i" Active="PageIndex == i" OnClick="OnPageItemClick" />
+        }
+        @if (PageCount > 5)
+        {
+            <li class="page-item">
+                <a class="page-link page-link-next" aria-label="下一页" href="#" @onclick:preventDefault @onclick="e => MoveNext(5)">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+            </li>
+        }
+        <li class="page-item">
+            <a class="page-link" aria-label="下一页" href="#" @onclick:preventDefault @onclick="e => MoveNext(1)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+</nav>

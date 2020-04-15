@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,18 +7,12 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 提供 Tooltip 功能的组件
     /// </summary>
-    public abstract class TooltipComponentBase : BootstrapComponentBase, ITooltipHost
+    public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IDisposable
     {
         /// <summary>
         /// 获得/设置 ITooltip 实例
         /// </summary>
         public ITooltip? Tooltip { get; set; }
-
-        /// <summary>
-        /// 获得 IJSRuntime 实例
-        /// </summary>
-        [Inject]
-        protected IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
         /// OnAfterRenderAsync
@@ -32,32 +25,20 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                // 生成 Id
-                var invoke = false;
-                if (string.IsNullOrEmpty(Id))
-                {
-                    Id = await JSRuntime.GetClientIdAsync();
-                    invoke = true;
-                }
-
                 // 初始化 Tooltip 组件
                 // 调用客户端 Tooltip 方法
                 if (Tooltip != null)
                 {
                     if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-                    AdditionalAttributes["title"] = Tooltip.Title;
                     AdditionalAttributes["data-placement"] = Tooltip.Placement.ToDescriptionString();
-                    if (Tooltip.IsHtml) AdditionalAttributes["data-html"] = "true";
-                    if (Tooltip.PopoverType == PopoverType.Popover)
-                    {
-                        AdditionalAttributes["data-content"] = Tooltip.Content;
-                    }
-                    invoke = true;
+                    await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+
+                    // 增加一个延时保证客户端生成 Id
+                    await Task.Delay(150);
                 }
-                if (invoke) await InvokeAsync(StateHasChanged).ConfigureAwait(false);
             }
 
-            InvokeTooltip(firstRender);
+            if (Tooltip != null) InvokeTooltip(firstRender);
         }
 
         /// <summary>
@@ -67,7 +48,32 @@ namespace BootstrapBlazor.Components
         /// <remarks>OnAfterRenderAsync 方法内部调用此方法</remarks>
         protected virtual void InvokeTooltip(bool firstRender)
         {
-            if (firstRender) JSRuntime.Tooltip(Id, popoverType: Tooltip?.PopoverType ?? PopoverType.Tooltip);
+            if (firstRender && Tooltip != null)
+            {
+                JSRuntime.Tooltip(Id, "", Tooltip.PopoverType, RetrieveTitle(), RetrieveContent(), Tooltip.IsHtml);
+            }
+        }
+
+        private string RetrieveTitle()
+        {
+            return Tooltip != null ? Tooltip.Title : "";
+        }
+
+        private string RetrieveContent()
+        {
+            return Tooltip != null ? (Tooltip.PopoverType == PopoverType.Popover ? Tooltip.Content : "") : "";
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && Tooltip != null)
+            {
+                JSRuntime.Tooltip(Id, "dispose", popoverType: Tooltip.PopoverType);
+            }
         }
     }
 }

@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="form-group col-12">
-                <Button @onclick="e => Modal?.ToggleAsync()">弹窗</Button>
+                <Button @onclick="e => Modal?.Toggle()">弹窗</Button>
                 <Modal @ref="Modal" Title="默认弹窗">
                     <ModalBody>
                         <div>我是弹窗内正文</div>
@@ -36,7 +36,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Button @onclick="e => BackdropModal?.ToggleAsync()">弹窗</Button>
+                <Button @onclick="e => BackdropModal?.Toggle()">弹窗</Button>
                 <Modal @ref="BackdropModal" IsBackdrop="true" Title="点击背景可关闭弹窗">
                     <ModalBody>
                         <div>我是弹窗内正文</div>
@@ -51,7 +51,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="e => SmailModal?.ToggleAsync()">小弹窗</Button>
+                <Button @onclick="e => SmailModal?.Toggle()">小弹窗</Button>
                 <Modal @ref="SmailModal" Size="Size.Small" Title="小弹窗">
                     <ModalBody>
                         <div>我是弹窗内正文</div>
@@ -59,7 +59,7 @@
                 </Modal>
             </div>
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="e => LargeModal?.ToggleAsync()">大弹窗</Button>
+                <Button @onclick="e => LargeModal?.Toggle()">大弹窗</Button>
                 <Modal @ref="LargeModal" Size="Size.Large" Title="大弹窗">
                     <ModalBody>
                         <div>我是弹窗内正文</div>
@@ -67,7 +67,7 @@
                 </Modal>
             </div>
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="e => ExtraLargeModal?.ToggleAsync()">超大弹窗</Button>
+                <Button @onclick="e => ExtraLargeModal?.Toggle()">超大弹窗</Button>
                 <Modal @ref="ExtraLargeModal" Size="Size.ExtraLarge" Title="超大弹窗">
                     <ModalBody>
                         <div>我是弹窗内正文</div>
@@ -82,7 +82,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="e => CenterModal?.ToggleAsync()">垂直居中的弹窗</Button>
+                <Button @onclick="e => CenterModal?.Toggle()">垂直居中的弹窗</Button>
                 <Modal @ref="CenterModal" IsCentered="true" Title="垂直居中的弹窗">
                     <ModalBody>
                         <div>我是弹窗内正文</div>
@@ -97,7 +97,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="e => LongContentModal?.ToggleAsync()">内容超长的弹窗</Button>
+                <Button @onclick="e => LongContentModal?.Toggle()">内容超长的弹窗</Button>
                 <Modal @ref="LongContentModal" IsCentered="true" Title="内容超长的弹窗">
                     <ModalBody>
                         <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
@@ -122,7 +122,7 @@
                 </Modal>
             </div>
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="e => ScrollModal?.ToggleAsync()">内置滚动条弹窗</Button>
+                <Button @onclick="e => ScrollModal?.Toggle()">内置滚动条弹窗</Button>
                 <Modal @ref="ScrollModal" IsCentered="true" IsScrolling="true" Title="内置滚动条弹窗" >
                     <ModalBody>
                         <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>

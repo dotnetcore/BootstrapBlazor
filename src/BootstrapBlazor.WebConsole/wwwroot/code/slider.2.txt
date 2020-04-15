@@ -1,0 +1,5 @@
+﻿<Slider @bind-Value="@BindValue" Label="自定义初始值"></Slider>
+<BootstrapInput @bind-Value="@BindValue" readonly></BootstrapInput>
+@code {
+    private int BindValue { get; set; } = 50;
+}

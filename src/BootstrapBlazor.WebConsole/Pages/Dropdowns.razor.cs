@@ -78,10 +78,10 @@ namespace BootstrapBlazor.WebConsole.Pages
             },
             new AttributeItem() {
                 Name = "Size",
-                Description = "尺寸大小定义",
+                Description = "尺寸",
                 Type = "Size",
-                ValueList = "true / false ",
-                DefaultValue = " false "
+                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+                DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "Direction",
@@ -104,13 +104,20 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{lg | md | sm }-{right | left}",
                 DefaultValue = " - "
             },
-            new AttributeItem() {
-                Name = "OnSelectedItemChanged",
-                Description = "下拉框值发生改变时触发",
-                Type = " - ",
-                ValueList = " - ",
-                DefaultValue = " - "
-            },
         };
+
+        /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnSelectedItemChanged",
+                Description="下拉框值发生改变时触发",
+                Type ="EventCallback<SelectedItem>"
+            }
+       };
     }
 }

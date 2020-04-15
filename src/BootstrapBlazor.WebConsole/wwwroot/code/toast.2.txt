@@ -1,0 +1,15 @@
+﻿<Button OnClick="@OnNotAutoHideClick">成功通知</Button>
+
+@code{
+        protected void OnNotAutoHideClick()
+        {
+            Toast?.SetPlacement(Placement.BottomEnd);
+            ToastService?.Show(new ToastOption()
+            {
+                Category = ToastCategory.Information,
+                IsAutoHide = false,
+                Title = "消息通知",
+                Content = "我不会自动关闭哦，请点击右上角关闭按钮"
+            });
+        }
+}

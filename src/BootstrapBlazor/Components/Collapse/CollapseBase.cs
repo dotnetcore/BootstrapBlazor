@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 是否展开折叠面板
+        /// 是否收缩折叠面板
         /// </summary>
         [Parameter] public bool IsCollapsed { get; set; } = true;
 

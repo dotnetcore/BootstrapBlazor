@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -9,132 +11,141 @@ namespace BootstrapBlazor.Components
     public abstract class PaginationBase : BootstrapComponentBase
     {
         /// <summary>
-        /// 获得 分页样式集合
+        /// 获得/设置 页码总数
+        /// </summary>
+        public int PageCount => (int)Math.Ceiling(TotalCount * 1.0 / PageItems);
+
+        /// <summary>
+        /// 获得 Pagination 样式
         /// </summary>
         /// <returns></returns>
-        protected string? ClassName => CssBuilder.Default("pagination")
-            .AddClass($"pagination-{Size.ToDescriptionString()}", Size != Size.None)
-            .AddClassFromAttributes(AdditionalAttributes)
+        protected string? PaginationClass => CssBuilder.Default("pagination")
+            .AddClass("d-none", PageCount == 1)
             .Build();
- 
-        /// <summary>
-        /// 获得/设置 Size 大小
-        /// </summary>
-        [Parameter] public Size Size { get; set; } = Size.None;
 
         /// <summary>
-        /// 获得/设置 当前页数
+        /// PaginationBar 样式
         /// </summary>
-        [Parameter] public int CurrentPage { get; set; } = 1;
+        /// <returns></returns>
+        protected string? PaginationBarClass => CssBuilder.Default("pagination-bar")
+            .AddClass("d-none", !ShowPaginationInfo)
+            .Build();
 
         /// <summary>
-        /// 获得/设置 每页大小
+        /// 获得 PageItems 下拉框显示文字
         /// </summary>
-        [Parameter] public int? PageSize { get; set; }
+        /// <value></value>
+        protected string? PageItemsString => $"{PageItems} 条/页";
 
         /// <summary>
-        /// 获得/设置 分页总页数
+        /// 获得/设置 开始页码
         /// </summary>
-        [Parameter] public int Total { get; set; } = 1;
+        protected int StartPageIndex => Math.Max(1, Math.Min(PageCount - 4, Math.Max(1, PageIndex - 2)));
 
         /// <summary>
-        /// 获得/设置 分页设置要禁止
+        /// 获得/设置 结束页码
         /// </summary>
-        [Parameter] public List<string> DisableList { get; set; } = new List<string>();
+        protected int EndPageIndex => Math.Min(PageCount, Math.Max(5, PageIndex + 2));
 
         /// <summary>
-        /// 设置点击页数
+        /// 获得/设置 数据总数
         /// </summary>
-        protected void OnClick(string SetPage)
+        [Parameter]
+        public int TotalCount { get; set; }
+
+        /// <summary>
+        /// 获得/设置 当前页码
+        /// </summary>
+        [Parameter]
+        public int PageIndex { get; set; } = 1;
+
+        /// <summary>
+        /// 获得/设置 每页显示数据数量
+        /// </summary>
+        [Parameter]
+        public int PageItems { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示分页数据汇总信息 默认为 true 显示
+        /// </summary>
+        /// <value></value>
+        [Parameter] public bool ShowPaginationInfo { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 每页显示数据数量的外部数据源
+        /// </summary>
+        /// <value></value>
+        [Parameter] public IEnumerable<int>? PageItemsSource { get; set; }
+
+        /// <summary>
+        /// 点击页码时回调方法
+        /// </summary>
+        /// <return>第一个参数是当前页码，第二个参数是当前每页设置显示的数据项数量</return>
+        [Parameter]
+        public Action<int, int>? OnPageClick { get; set; }
+
+        /// <summary>
+        /// 点击设置每页显示数据数量时回调方法
+        /// </summary>
+        [Parameter]
+        public Action<int>? OnPageItemsChanged { get; set; }
+
+        /// <summary>
+        /// 上一页方法
+        /// </summary>
+        protected void MovePrev(int index)
         {
-            if (SetPage == "<<")
-            {
-                CurrentPage = CurrentPage - 4 <= 1 ? 1 : CurrentPage - 4;
-            }
-            else if (SetPage == ">>")
-            {
-                CurrentPage = CurrentPage + 4 >= Total ? Total : CurrentPage + 4;
-            }
-            else if (SetPage == "Previous")
-            {
-                CurrentPage = CurrentPage == 1 ? 1 : (CurrentPage - 1);
-            }
-            else if (SetPage == "Next")
-            {
-                CurrentPage = CurrentPage == Total ? Total : (CurrentPage + 1);              
-            }
-            else
-            {
-                CurrentPage = int.Parse(SetPage);
-            }    
+            var pageIndex = PageIndex > 1 ? Math.Max(1, PageIndex - index) : PageCount;
+            OnPageItemClick(pageIndex);
         }
 
         /// <summary>
-        /// 设置显示页数
+        /// 下一页方法
         /// </summary>
-        /// <param name="CurrentPage"></param>
-        /// <param name="Total"></param>
-        /// <returns></returns>
-        protected List<string> GetShowPagination(int CurrentPage, int Total)
+        protected void MoveNext(int index)
         {
-            List<string> list = new List<string>();
-            list.Add("Previous");
-            if (Total <= 7)
-            {
-                for (int i = 1; i <= Total; i++)
-                {
-                    list.Add(i.ToString());
-                }
-            }
-            else
-            {
-                if (CurrentPage - 3 <= 1)
-                {
-                    for (int i = 1; i <= 6; i++)
-                    {
-                        list.Add(i.ToString());
-                    }
-                    list.Add(">>");
-                    list.Add(Total.ToString());
-                }
-                else if (CurrentPage + 3 >= Total)
-                {
-                    list.Add("1");
-                    list.Add("<<");
-                    for (int i = Total - 5; i <= Total; i++)
-                    {
-                        list.Add(i.ToString());
-                    }
-                }
-                else
-                {
-                    list.Add("1");
-                    list.Add("<<");
-                    for (int i = CurrentPage - 2; i <= CurrentPage + 2; i++)
-                    {
-                        list.Add(i.ToString());
-                    }
-                    list.Add(">>");
-                    list.Add(Total.ToString());
-                }
-            }
-            list.Add("Next");
-            return list;
+            var pageIndex = PageIndex < PageCount ? Math.Min(PageCount, PageIndex + index) : 1;
+            OnPageItemClick(pageIndex);
         }
 
         /// <summary>
-        /// 获取 分页li样式集合
+        /// 获得页码设置集合
         /// </summary>
-        /// <param name="CurrentPage"></param>
-        /// <param name="ShowPagination"></param>
-        /// <param name="Disabled"></param>
         /// <returns></returns>
-        protected string? GetLiClassName(int CurrentPage,string ShowPagination ,bool Disabled)
+        protected IEnumerable<SelectedItem> GetPageItems()
         {
-            return CssBuilder.Default("page-item")
-            .AddClass("active", CurrentPage.ToString()== ShowPagination)
-            .AddClass("disabled", Disabled)
-            .Build();
+            var pages = PageItemsSource ?? new List<int>() { 20, 40, 80, 100, 200 };
+            var ret = new List<SelectedItem>();
+            for (int i = 0; i < pages.Count(); i++)
+            {
+                var item = new SelectedItem(pages.ElementAt(i).ToString(), $"{pages.ElementAt(i)} 条/页");
+                ret.Add(item);
+                if (pages.ElementAt(i) >= TotalCount) break;
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 点击页码时回调方法
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        protected void OnPageItemClick(int pageIndex)
+        {
+            PageIndex = pageIndex;
+            OnPageClick?.Invoke(pageIndex, PageItems);
+        }
+
+        /// <summary>
+        /// 每页显示数据项数量选项更改时回调方法
+        /// </summary>
+        protected void OnPageItemsSelectItemChanged(SelectedItem item)
+        {
+            if (int.TryParse(item.Value, out var pageItems))
+            {
+                PageItems = pageItems;
+                PageIndex = 1;
+                OnPageItemsChanged?.Invoke(PageItems);
+            }
         }
     }
 }

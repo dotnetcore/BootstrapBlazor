@@ -33,9 +33,15 @@ namespace BootstrapBlazor.WebConsole.Pages
         {
             new EventItem()
             {
-                Name = "OnValueChanged",
-                Description="组件值变化时触发此事件",
+                Name = "ValueChanged",
+                Description="获取选择改变的值",
                 Type ="EventCallback<bool>"
+            },
+            new EventItem()
+            {
+                Name = "OnValueChanged",
+                Description="控件值变化时触发此事件",
+                Type ="Action<bool>"
             }
         };
 
@@ -66,7 +72,28 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
-            }
+            },
+            new AttributeItem() {
+                Name = "OnText",
+                Description = "组件 On 时显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "展开"
+            },
+            new AttributeItem() {
+                Name = "OffText",
+                Description = "组件 Off 时显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "收缩"
+            },
+            new AttributeItem() {
+                Name = "Value",
+                Description = "获取值",
+                Type = "boolean",
+                ValueList = " ",
+                DefaultValue = "None"
+            },
         };
     }
 }

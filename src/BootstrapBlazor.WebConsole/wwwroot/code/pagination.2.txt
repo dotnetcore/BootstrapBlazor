@@ -1,3 +1,1 @@
-﻿<Pagination Total="10" CurrentPage="5" Size="Size.Large"></Pagination>
-<Pagination Total="10" CurrentPage="5" Size="Size.None"></Pagination>
-<Pagination Total="10" CurrentPage="5" Size="Size.Small"></Pagination>
+﻿<Pagination PageItems="20" TotalCount="1"></Pagination>

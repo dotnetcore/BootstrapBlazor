@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
 
 namespace BootstrapBlazor.Components
 {
@@ -50,27 +50,32 @@ namespace BootstrapBlazor.Components
                     var fieldName = header.GetFieldName();
                     var displayName = header.GetDisplayName();
                     builder.OpenElement(index++, "th");
+
+                    // 移除 bind-Field
+                    header.AdditionalAttributes?.Remove("FieldChanged");
                     builder.AddMultipleAttributes(index++, header.AdditionalAttributes);
 
                     // 如果允许排序
                     if (header.Sort)
                     {
-                        builder.AddAttribute(index++, "onclick", new Action(() =>
+                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, () =>
                         {
                             if (sortName != fieldName) sortOrder = SortOrder.Asc;
                             else sortOrder = sortOrder == SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc;
                             sortName = fieldName;
 
                             // 通知 Table 组件刷新数据
-                            // UNDONE: 完善 Sort 事件
-                            //Header.OnSort?.Invoke(sortName, sortOrder);
-                            StateHasChanged();
+                            Columns.OnSort?.Invoke(sortName, sortOrder);
                         }));
                         builder.AddAttribute(index++, "class", "sortable");
                     }
+                    builder.OpenElement(index++, "div");
+                    builder.AddAttribute(index++, "class", CssBuilder.Default("table-cell").AddClass("is-sort", header.Sort).Build());
+
                     builder.OpenElement(index++, "span");
                     builder.AddContent(index++, displayName);
-                    builder.CloseElement();
+                    builder.CloseElement(); // span
+
                     if (header.Sort)
                     {
                         builder.OpenElement(index++, "i");
@@ -82,9 +87,10 @@ namespace BootstrapBlazor.Components
                             _ => SortDefault
                         };
                         builder.AddAttribute(index++, "class", icon);
-                        builder.CloseElement();
+                        builder.CloseElement(); // end i
                     }
-                    builder.CloseElement();
+                    builder.CloseElement(); // end div
+                    builder.CloseElement(); // end th
                 }
             }
         }
