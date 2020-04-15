@@ -310,7 +310,6 @@ section {
         color: #495057;
         font-weight: 400;
         border-bottom: 1px solid #dcdfe6;
-        padding: 15px;
         max-width: 250px;
     }
 
@@ -320,7 +319,6 @@ section {
 
     .table-demo td {
         border-bottom: 1px solid #dcdfe6;
-        padding: 15px;
         max-width: 250px;
     }
 

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components
@@ -9,7 +9,8 @@ namespace BootstrapBlazor.Components
         /// 获得 wrapper 样式表集合
         /// </summary>
         protected string? WrapperStyleName => CssBuilder.Default()
-            .AddClass($"height: {Height}px; overflow: auto;", Height.HasValue)
+            .AddClass($"height: {Height}px; overflow: auto;", Height.HasValue && !IsPagination)
+            .AddClass($"max-height: {Height}px; overflow: auto;", Height.HasValue && IsPagination)
             .Build();
 
         /// <summary>

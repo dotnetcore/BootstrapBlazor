@@ -208,6 +208,22 @@
     </Table>
 </Block>
 
+<Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.11.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" IsBordered="true"
+           PageItemsSource="@PageItemsSource" IsPagination="true" OnQuery="@OnQuery" Height="200">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
 <Toast></Toast>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>

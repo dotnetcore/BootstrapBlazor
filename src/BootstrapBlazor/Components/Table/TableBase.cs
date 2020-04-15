@@ -84,6 +84,8 @@ namespace BootstrapBlazor.Components
             if (IsPagination)
             {
                 PageItems = PageItemsSource?.FirstOrDefault() ?? QueryPageOptions.DefaultPageItems;
+
+                if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQuery)} instead set {nameof(Items)} property when {nameof(IsPagination)} be set True.");
             }
 
             // 初始化 EditModel
