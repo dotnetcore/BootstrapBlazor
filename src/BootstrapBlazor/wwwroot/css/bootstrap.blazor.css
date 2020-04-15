@@ -968,7 +968,7 @@ a {
     text-align: justify;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     word-break: break-all;
-    z-index: 50;
+    z-index: 1050;
     outline: none;
 }
 
@@ -1010,7 +1010,7 @@ a {
     }
 
 .popover-confirm.bottom {
-    margin-top: 8px;
+    margin-top: 18px;
 }
 
     .popover-confirm.bottom .popover-confirm-arrow {
@@ -1046,4 +1046,35 @@ a {
             border-top-color: #fff;
             border-bottom-width: 0;
         }
+
+.popover-confirm.left .popover-confirm-arrow {
+    top: 50%;
+    right: -6px;
+    margin-bottom: 3px;
+    border-left-color: #ebeef5;
+    border-right-width: 0;
+}
+
+    .popover-confirm.left .popover-confirm-arrow:after {
+        bottom: -6px;
+        right: 1px;
+        border-left-color: #fff;
+        border-right-width: 0;
+    }
+
+.popover-confirm.right .popover-confirm-arrow {
+    top: 50%;
+    left: -6px;
+    margin-bottom: 3px;
+    border-right-color: #ebeef5;
+    border-left-width: 0;
+}
+
+    .popover-confirm.right .popover-confirm-arrow:after {
+        bottom: -6px;
+        left: 1px;
+        border-right-color: #fff;
+        border-left-width: 0;
+    }
+
 /*end confirm*/

@@ -96,7 +96,7 @@
 
 <Block Title="分页表格" Introduction="设置 <code>IsPagination</code> 显示分页组件" CodeFile="table.7.txt">
     <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem"
-           IsPagination="true" PageItemsSource="@PageItemsSource" PageItems="2" OnQuery="@OnQuery">
+           IsPagination="true" PageItemsSource="@PageItemsSource" OnQuery="@OnQuery">
         <HeaderTemplate>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
@@ -112,7 +112,8 @@
 
 <Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件" CodeFile="table.8.txt">
     <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(4)"
-           IsBordered="true" ShowCheckbox="true" ShowToolbar="true">
+           IsBordered="true" 
+           ShowCheckbox="true" ShowToolbar="true" ShowDefaultButtons="false">
         <HeaderTemplate>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
@@ -127,8 +128,10 @@
 </Block>
 
 <Block Title="带查询的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.9.txt">
-    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(2)" IsBordered="true"
-           ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" 
+           IsBordered="true" IsPagination="true"  PageItemsSource="@PageItemsSource"
+           ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
+           OnQuery="@OnQuery">
         <HeaderTemplate>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />

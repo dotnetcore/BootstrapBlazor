@@ -323,6 +323,8 @@
             var width = $button.outerWidth();
             var height = $button.outerHeight();
 
+            var iHeight = $button.height();
+
             // check top or bottom
             var placement = 'top';
 
@@ -331,11 +333,33 @@
             var top = 0;
 
             // 根据自身位置自动判断出现位置
-            var x = $button.offset().top;
-            var margin = x - $(window).scrollTop() - elHeight - height;
+            var y = $button.offset().top;
+            var x = $button.offset().left;
+            var margin = y - $(window).scrollTop() - elHeight - height;
 
-            if (margin < 0) placement = 'bottom';
-            $ele.removeClass('top bottom').addClass(placement);
+            if (margin < 0) {
+                // top 不可用
+                placement = 'bottom';
+            }
+            else {
+                // 判断左右侧是否位置够用
+                var marginRight = $(window).width() - elWidth - x > 0;
+                var marginLeft = x - elWidth > 0;
+                if (!marginLeft && marginRight) {
+                    // 右侧空间满足
+                    placement = "right";
+                }
+                else if (marginLeft && !marginRight) {
+                    // 左侧空间不足
+                    placement = 'left';
+                }
+                else if (!marginLeft && !marginRight) {
+                    // 左右两侧空间都不够
+                    placement = 'bottom';
+                }
+            }
+
+            $ele.removeClass('top bottom left right').addClass(placement);
 
             if (placement === 'top') {
                 left = 0 - Math.ceil((elWidth - width) / 2);
@@ -343,7 +367,16 @@
             }
             else if (placement === 'bottom') {
                 left = 0 - Math.ceil((elWidth - width) / 2);
-                top = height;
+                top = iHeight;
+            }
+            else if (placement === 'left') {
+                left = 0 - elWidth - 8;
+                top = 0 - Math.ceil((elHeight - iHeight) / 2);
+                console.log($button.height());
+            }
+            else if (placement === 'right') {
+                left = width + 8;
+                top = 0 - Math.ceil((elHeight - iHeight) / 2);
             }
 
             return { left, top };
@@ -363,7 +396,6 @@
                         var $this = $(e.target);
                         var self = $this.attr('data-toggle') === "popover" || $this.parents('[data-toggle="popover"]').length > 0;
                         if (self) {
-                            console.log($this);
                             return;
                         }
                         $ele.fadeHide();

@@ -104,7 +104,7 @@
                                         <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" data-toggle="popover" OnClickCallback="@(e=> ClickButton("delete", e))">
                                             <i class='fa fa-remove'></i>
                                             <span>删除</span>
-                                            <PopoverConfirm @ref="@ButtonDeleteConfirm" OnConfirm="@Delete"></PopoverConfirm>
+                                            <PopoverConfirm OnConfirm="@Delete"></PopoverConfirm>
                                         </TableCellButton>
                                         @RowButtonTemplate?.Invoke(Items.ElementAt(index))
                                     </div>

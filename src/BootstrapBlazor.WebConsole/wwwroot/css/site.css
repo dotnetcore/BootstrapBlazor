@@ -450,7 +450,6 @@ section {
         width: 250px;
         height: calc(100vh - 52px);
         position: sticky;
-        z-index: 1000;
         top: 52px;
     }
 
