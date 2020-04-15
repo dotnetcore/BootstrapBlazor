@@ -69,6 +69,14 @@
                         <TableColumnContent />
                         @HeaderTemplate?.Invoke(HeaderModel)
                     </TableColumnCollection>
+                    @if (ShowExtendButtons)
+                    {
+                        <th class="@ButtonColumnClass">
+                            <div class="table-cell is-button-column">
+                                @ColumnButtonTemplateHeaderText
+                            </div>
+                        </th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -84,6 +92,25 @@
                             </td>
                         }
                         @RowTemplate?.Invoke(Items.ElementAt(index))
+                        @if (ShowExtendButtons)
+                        {
+                            <td>
+                                <div class="table-cell">
+                                    <div class="btn-group">
+                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e=> ClickButton("edit", e))">
+                                            <i class='fa fa-edit'></i>
+                                            <span>编辑</span>
+                                        </TableCellButton>
+                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" data-toggle="popover" OnClickCallback="@(e=> ClickButton("delete", e))">
+                                            <i class='fa fa-remove'></i>
+                                            <span>删除</span>
+                                            <PopoverConfirm @ref="@ButtonDeleteConfirm" OnConfirm="@Delete"></PopoverConfirm>
+                                        </TableCellButton>
+                                        @RowButtonTemplate?.Invoke(Items.ElementAt(index))
+                                    </div>
+                                </div>
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>

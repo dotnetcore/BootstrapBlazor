@@ -840,9 +840,12 @@ a {
         width: 80px;
     }
 
+.table-th-button {
+    width: 130px;
+}
+
 .table {
     width: 100%;
-    overflow: hidden;
     table-layout: fixed;
     margin-bottom: 0;
 }
@@ -860,6 +863,7 @@ a {
 
         .table thead th .table-cell {
             border-bottom: solid 2px #dee2e6;
+            justify-content: space-between;
         }
 
     .table tbody td {
@@ -879,7 +883,6 @@ a {
     padding: 12px 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
     .table-cell.is-sort {
@@ -889,6 +892,10 @@ a {
         .table-cell.is-sort .fa-sort {
             color: #ddd;
         }
+
+    .table-cell .btn-group .btn {
+        white-space: nowrap;
+    }
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #fafafa;

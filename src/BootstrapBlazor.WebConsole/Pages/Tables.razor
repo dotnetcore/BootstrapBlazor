@@ -145,7 +145,8 @@
 <Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件件" CodeFile="table.10.txt">
     <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" ShowToolbar="true" ShowSearch="true" ShowCheckbox="true"
+           IsStriped="true" IsBordered="true" 
+           ShowToolbar="true" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            SearchModel="@SearchModel"
            OnQuery="@OnQuery" OnResetSearch="@OnResetSearch"
