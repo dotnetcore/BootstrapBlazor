@@ -78,7 +78,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="jsRuntime"></param>
         /// <param name="element"></param>
+        /// <param name="func"></param>
         /// <param name="method"></param>
-        public static void Confirm(this IJSRuntime? jsRuntime, ElementReference element, string method) => jsRuntime?.InvokeVoidAsync("$.confirm", element, method);
+        public static void InvokeRun(this IJSRuntime? jsRuntime, ElementReference element, string func, string method) => jsRuntime?.InvokeVoidAsync($"$.{func}", element, method);
     }
 }

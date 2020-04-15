@@ -378,6 +378,14 @@
                 // 开启动画效果
                 $ele.fadeShow();
             }
+        },
+        fixTableHeader: function (el) {
+            var $ele = $(el);
+            var $thead = $ele.find('thead');
+            $ele.on('scroll', function () {
+                var top = $ele.scrollTop();
+                $thead.css({ 'transform': 'translateY(' + top + 'px)' });
+            });
         }
     });
 

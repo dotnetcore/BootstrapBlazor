@@ -24,6 +24,7 @@ namespace BootstrapBlazor.Components
         protected string? ClassName => CssBuilder.Default("table")
             .AddClass("table-striped", IsStriped)
             .AddClass("table-hover", IsStriped)
+            .AddClass("table-fixed", Height.HasValue)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

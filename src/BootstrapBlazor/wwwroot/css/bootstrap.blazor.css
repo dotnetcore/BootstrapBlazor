@@ -855,24 +855,28 @@ a {
         font-weight: bold;
         overflow: hidden;
         vertical-align: middle;
+        border-bottom: none;
     }
+
+        .table thead th .table-cell {
+            border-bottom: solid 2px #dee2e6;
+        }
 
     .table tbody td {
         border-bottom: 1px solid #ebeef5
     }
 
     .table td, .table th {
-        padding: 12px 0px;
+        padding: 0px;
         min-width: 0;
         box-sizing: border-box;
         text-overflow: ellipsis;
         vertical-align: middle;
-        position: relative;
         text-align: left;
     }
 
 .table-cell {
-    padding: 0 10px;
+    padding: 12px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -936,6 +940,10 @@ a {
         background: #17a2b8;
         padding: 1px 6px;
     }
+
+.table-fixed thead th .table-cell {
+    background-color: #fff;
+}
 /*end table*/
 
 /*popover confirm*/

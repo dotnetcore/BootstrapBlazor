@@ -100,7 +100,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnAfterRender(firstRender);
 
-            if (!string.IsNullOrEmpty(MethodString)) JSRuntime.Confirm(ConfirmPopover, MethodString);
+            if (!string.IsNullOrEmpty(MethodString)) JSRuntime.InvokeRun(ConfirmPopover, "confirm", MethodString);
         }
 
         /// <summary>

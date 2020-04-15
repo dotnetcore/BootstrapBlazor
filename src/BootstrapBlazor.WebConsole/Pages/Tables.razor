@@ -193,5 +193,21 @@
     </Table>
 </Block>
 
+<Block Title="固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头" CodeFile="table.11.txt">
+    <Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
+        <HeaderTemplate>
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" />
+        </HeaderTemplate>
+        <RowTemplate>
+            <TableCell>@context.DateTime</TableCell>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Address</TableCell>
+        </RowTemplate>
+    </Table>
+</Block>
+
 <Toast></Toast>
+
 <AttributeTable Items="GetAttributes()"></AttributeTable>
