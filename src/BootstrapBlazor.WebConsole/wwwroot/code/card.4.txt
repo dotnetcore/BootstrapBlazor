@@ -1,0 +1,65 @@
+﻿<div class="row flex">
+    <Card Color="Color.Primary" Class="ml-3  mt-2" IsShowHeader="true" IsCenter="true" style="width: 18rem;">
+        <CardHeard>
+            Header
+        </CardHeard>
+        <CardBody>
+            <h5 class="card-title">Primary card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </CardBody>
+    </Card>
+    <Card Color="Color.Secondary" Class="ml-3  mt-2" IsShowHeader="true" IsCenter="true" style="width: 18rem;">
+        <CardHeard>
+            Header
+        </CardHeard>
+        <CardBody>
+            <h5 class="card-title">Success card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </CardBody>
+    </Card>
+    <Card Color="Color.Success" Class="ml-3  mt-2" IsShowHeader="true" IsCenter="true" style="width: 18rem;">
+        <CardHeard>
+            Header
+        </CardHeard>
+        <CardBody>
+            <h5 class="card-title">Secondary card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </CardBody>
+    </Card>
+    <Card Color="Color.Warning" Class="ml-3  mt-2" IsShowHeader="true" IsCenter="true" style="width: 18rem;">
+        <CardHeard>
+            Header
+        </CardHeard>
+        <CardBody>
+            <h5 class="card-title">Warning card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </CardBody>
+    </Card>
+    <Card Color="Color.Danger" Class="ml-3  mt-2" IsShowHeader="true" IsCenter="true" style="width: 18rem;">
+        <CardHeard>
+            Header
+        </CardHeard>
+        <CardBody>
+            <h5 class="card-title">Danger card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </CardBody>
+    </Card>
+    <Card Color="Color.Info" Class="ml-3  mt-2" IsShowHeader="true" IsCenter="true" style="width: 18rem;">
+        <CardHeard>
+            Header
+        </CardHeard>
+        <CardBody>
+            <h5 class="card-title">Info card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </CardBody>
+    </Card>
+    <Card Color="Color.Dark" Class="ml-3  mt-2" IsShowHeader="true" IsCenter="true" style="width: 18rem;">
+        <CardHeard>
+            Header
+        </CardHeard>
+        <CardBody>
+            <h5 class="card-title">Dark card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </CardBody>
+    </Card>
+</div>

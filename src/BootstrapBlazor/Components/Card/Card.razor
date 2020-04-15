@@ -1,0 +1,21 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CardBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassName" id="@Id">
+    @ChildContent
+    @if (IsShowHeader)
+    {
+        <div class="card-header">
+            @CardHeard
+        </div>
+    }
+    <div class="@BodyClassName">
+        @CardBody
+    </div>
+    @if (IsShowFooter)
+    {
+        <div class="@FooterClassName">
+            @CardFooter
+        </div>
+    }
+</div>
