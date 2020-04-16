@@ -1,4 +1,4 @@
-html, body, button {
+html, body, button, .popover {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
     margin: 0;
 }
