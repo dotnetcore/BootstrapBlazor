@@ -107,23 +107,27 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 行尾列按钮点击回调此方法
         /// </summary>
-        /// <param name="method"></param>
         /// <param name="item"></param>
-        protected void ClickButton(string method, TItem item)
+        protected void ClickButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
-            if (method == "edit")
-            {
-                // 更新行选中状态
-                Edit();
-            }
-            else if (method == "delete")
-            {
-                var content = "确定要删除本条数据吗？";
-                //ButtonDeleteConfirm?.Show(content: content);
-            }
+
+            // 更新行选中状态
+            Edit();
             StateHasChanged();
+        }
+
+        /// <summary>
+        /// 行尾列按钮点击回调此方法
+        /// </summary>
+        /// <param name="item"></param>
+        protected bool ClickDeleteButton(TItem item)
+        {
+            SelectedItems.Clear();
+            SelectedItems.Add(item);
+            StateHasChanged();
+            return true;
         }
     }
 }
