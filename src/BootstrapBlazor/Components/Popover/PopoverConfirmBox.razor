@@ -12,12 +12,12 @@
             <span>@Content</span>
         </p>
         <div class="popover-confirm-buttons">
-            <a href="#" data-dismiss="confirm" class="@CloseButtonClass" @onclick:preventDefault @onclick:stopPropagation @onclick="@OnCloseClick">
+            <button data-dismiss="confirm" class="@CloseButtonClass" @onclick="@OnCloseClick">
                 <span>@CloseButtonText</span>
-            </a>
-            <a href="#" class="@ConfirmButtonClass" @onclick:preventDefault @onclick:stopPropagation @onclick="@OnConfirmClick">
+            </button>
+            <button class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
                 <span>@ConfirmButtonText</span>
-            </a>
+            </button>
         </div>
     </div>
     <div class="popover-confirm-arrow"></div>
