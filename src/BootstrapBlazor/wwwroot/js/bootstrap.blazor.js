@@ -329,6 +329,7 @@
 
             // check top or bottom
             var placement = $button.attr('data-placement');
+            if (placement === 'auto') placement = 'top';
 
             // 设置自己位置
             var left = 0;

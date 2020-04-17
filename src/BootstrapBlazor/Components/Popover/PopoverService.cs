@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System;
 
 namespace BootstrapBlazor.Components
@@ -7,15 +6,11 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Popover 服务类
     /// </summary>
-    public class PopoverService
+    internal class PopoverService
     {
-        private JSInterop<PopConfirmButton>? Interop { get; set; }
-
-        private PopoverConfirmBase? PopoverConfirm { get; set; }
-
         private Action? Callback { get; set; }
 
-        internal (PopoverConfirmOption Option, RenderFragment RenderFragment)? ConfirmBox { get; set; }
+        public (PopoverConfirmOption Option, RenderFragment RenderFragment)? ConfirmBox { get; set; }
 
         /// <summary>
         /// 显示确认弹窗方法
@@ -47,7 +42,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// InvokeRun 方法
         /// </summary>
         public void InvokeRun()
         {
@@ -69,8 +64,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 订阅弹窗事件
         /// </summary>
-        /// <param name="confirm"></param>
         /// <param name="callback"></param>
-        internal void Register(PopoverConfirmBase confirm, Action callback) => (PopoverConfirm, Callback) = (confirm, callback);
+        public void Register(Action callback) => Callback = callback;
     }
 }

@@ -89,7 +89,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 PopoverConfirm 服务实例
         /// </summary>
-        [Inject] public PopoverService? PopoverService { get; set; }
+        [Inject] PopoverService? PopoverService { get; set; }
 
         /// <summary>
         /// 点击关闭按钮调用此方法

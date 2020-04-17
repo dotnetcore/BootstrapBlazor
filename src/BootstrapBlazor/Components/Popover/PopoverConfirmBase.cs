@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 PopoverConfirm 服务实例
         /// </summary>
-        [Inject] public PopoverService? PopoverService { get; set; }
+        [Inject] PopoverService? PopoverService { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 注册 Toast 弹窗事件
-            PopoverService?.Register(this, () => StateHasChanged());
+            PopoverService?.Register(() => StateHasChanged());
         }
 
         /// <summary>
