@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits PopConfirmButtonBase
 
-<a @attributes="@AdditionalAttributes" href="#" @onclick:preventDefault @onclick="@OnClick" Id="@Id" type="button" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab">
+<button @attributes="@AdditionalAttributes" @onclick="@OnClick" Id="@Id" type="button" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab">
     <i class="@Icon"></i>
     <span>@DisplayText</span>
-</a>
+</button>
