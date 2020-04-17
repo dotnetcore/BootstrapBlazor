@@ -8,13 +8,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// </summary>
     public partial class Popovers
     {
-        private string TopString => "弹出框在上方";
-
-        private string LeftString => "弹出框在左方";
-
-        private string RightString => "弹出框在右方";
-
-        private string BottomString => "弹出框在下方";
+        private string ValueString => "弹出框";
 
         private string Title => "弹出框标题";
 

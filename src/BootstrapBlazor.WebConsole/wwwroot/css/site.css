@@ -1,6 +1,5 @@
 html, body, button, .popover {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-    margin: 0;
 }
 
 body, .form-control {
@@ -393,6 +392,10 @@ section {
         top: 0.5rem;
     }
 
+.popover-input {
+    width: 80px;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
@@ -410,6 +413,10 @@ section {
 @media (min-width: 576px) {
     .content .form-inline .form-group {
         margin-bottom: 1rem;
+    }
+
+    .popover-input {
+        width: 100px;
     }
 }
 
