@@ -8,22 +8,14 @@
     <div class="d-flex justify-content-center border p-3 rounded">
         <div class="d-flex flex-column w-100" style="height: 240px;">
             <div class="d-flex justify-content-center">
-                <PopConfirmButton Placement="Placement.Bottom" ConfirmButtonColor="Color.Danger" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose">
-                    <span>下面弹框</span>
-                </PopConfirmButton>
+                <PopConfirmButton Placement="Placement.Bottom" ConfirmButtonColor="Color.Danger" DisplayText="下面弹框" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
             <div class="d-flex justify-content-between m-4 align-items-center flex-fill">
-                <PopConfirmButton Placement="Placement.Right" CloseButtonText="取消" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose">
-                    <span>右侧弹窗</span>
-                </PopConfirmButton>
-                <PopConfirmButton Placement="Placement.Left" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose">
-                    <span>左侧弹窗</span>
-                </PopConfirmButton>
+                <PopConfirmButton Placement="Placement.Right" CloseButtonText="取消" DisplayText="右侧弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
+                <PopConfirmButton Placement="Placement.Left" DisplayText="左侧弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
             <div class="d-flex justify-content-center">
-                <PopConfirmButton Placement="Placement.Top" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose">
-                    <span>上面弹窗</span>
-                </PopConfirmButton>
+                <PopConfirmButton Placement="Placement.Top" DisplayText="上面弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
         </div>
     </div>
