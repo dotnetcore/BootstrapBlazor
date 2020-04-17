@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits SwitchBase
 
-<div @attributes="@AdditionalAttributes" id="@Id" role="switch" class="@ClassName" @onclick="@OnClick">
+<div @attributes="@AdditionalAttributes" role="switch" class="@ClassName" @onclick="@OnClick">
     <input type="checkbox" class="switch-input" checked="@Value" disabled="@Disabled" />
     <span class="@CoreClassName" style="@StyleName"></span>
     @if(!string.IsNullOrEmpty(Text))

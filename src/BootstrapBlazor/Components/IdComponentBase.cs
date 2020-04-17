@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components
     public abstract class IdComponentBase : BootstrapComponentBase
     {
         /// <summary>
+        /// 获得/设置 组件 id 属性
+        /// </summary>
+        [Parameter] public virtual string? Id { get; set; }
+
+        /// <summary>
         /// 获得/设置 IJSRuntime 实例
         /// </summary>
         [Inject] protected IJSRuntime? JSRuntime { get; set; }

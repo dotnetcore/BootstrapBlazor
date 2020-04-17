@@ -10,12 +10,6 @@ namespace BootstrapBlazor.Components
     public abstract class BootstrapComponentBase : ComponentBase, IDisposable
     {
         /// <summary>
-        /// 获得/设置 组件 id 属性
-        /// </summary>
-        [Parameter]
-        public virtual string? Id { get; set; }
-
-        /// <summary>
         /// 获得/设置 用户自定义属性
         /// </summary>
         /// <returns></returns>
