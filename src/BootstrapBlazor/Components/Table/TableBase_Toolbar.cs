@@ -138,7 +138,8 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                var content = SelectedItems.Count == 1 ? "确定要删除本条数据吗？" : "确定要删除选中的所有数据吗？";
+                // 更改确认弹窗的显示内容
+                //var content = SelectedItems.Count == 1 ? "确定要删除本条数据吗？" : "确定要删除选中的所有数据吗？";
                 //DeleteConfirm?.Show(content: content);
                 ret = true;
             }

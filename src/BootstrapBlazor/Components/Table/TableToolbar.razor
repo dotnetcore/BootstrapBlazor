@@ -1,6 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 
-<CascadingValue Value="this" IsFixed="true">
-    <TableToolbarContent />
-    @ChildContent
-</CascadingValue>
+<div class="float-left table-toolbar-button">
+    <CascadingValue Value="this" IsFixed="true">
+        <TableToolbarContent />
+        @ChildContent
+    </CascadingValue>
+</div>

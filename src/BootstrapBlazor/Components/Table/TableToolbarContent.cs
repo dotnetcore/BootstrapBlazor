@@ -32,29 +32,37 @@ namespace BootstrapBlazor.Components
                     builder.AddContent(index++, new RenderFragment(builder =>
                     {
                         var i = 0;
-                        if (button is TableToolbarButton)
+                        if (button is TableToolbarButton b)
                         {
-                            builder.OpenComponent<Button>(i++);
-                            builder.AddAttribute(i++, nameof(Button.ChildContent), button.ChildContent);
-                            builder.AddAttribute(i++, nameof(Button.OnClick), button.OnClick);
-                            builder.AddAttribute(i++, nameof(Button.Color), button.Color);
-                            builder.CloseComponent();
+                            builder.OpenElement(i++, "button");
+                            builder.AddAttribute(i++, "type", "button");
+                            builder.AddAttribute(i++, "role", "button");
+                            builder.AddAttribute(i++, "onclick", b.OnClick);
+                            builder.AddAttribute(i++, "class", CssBuilder.Default("btn").AddClass($"btn-{b.Color.ToDescriptionString()}").Build());
+
+                            builder.OpenElement(i++, "i");
+                            builder.AddAttribute(i++, "class", b.ButtonIcon);
+                            builder.CloseElement(); // end i
+
+                            builder.OpenElement(i++, "span");
+                            builder.AddContent(i++, b.ButtonText);
+                            builder.CloseElement(); // end span
+
+                            builder.CloseElement(); // end button
                         }
-                        else if (button is TableToolbarPopconfirmButton)
+                        else if (button is TableToolbarPopconfirmButton popButton)
                         {
-                            var b = button as TableToolbarPopconfirmButton;
-                            if (b != null)
-                            {
-                                builder.OpenComponent<PopConfirmButton>(i++);
-                                builder.AddMultipleAttributes(i++, b.AdditionalAttributes);
-                                builder.AddAttribute(i++, nameof(PopConfirmButton.ConfirmIcon), b.ConfirmIcon);
-                                builder.AddAttribute(i++, nameof(PopConfirmButton.Color), b.Color);
-                                builder.AddAttribute(i++, nameof(PopConfirmButton.Icon), b.Icon);
-                                builder.AddAttribute(i++, nameof(PopConfirmButton.OnBeforeClick), b.OnBeforeClick);
-                                builder.AddAttribute(i++, nameof(PopConfirmButton.OnClose), b.OnClose);
-                                builder.AddAttribute(i++, nameof(PopConfirmButton.OnConfirm), b.OnConfirm);
-                                builder.CloseComponent();
-                            }
+                            builder.OpenComponent<PopConfirmButton>(i++);
+                            builder.AddMultipleAttributes(i++, popButton.AdditionalAttributes);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.ConfirmIcon), popButton.ConfirmIcon);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.Color), popButton.Color);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.ButtonIcon), popButton.ButtonIcon);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.OnBeforeClick), popButton.OnBeforeClick);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.OnClose), popButton.OnClose);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.OnConfirm), popButton.OnConfirm);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.ButtonIcon), popButton.ButtonIcon);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.ButtonText), popButton.ButtonText);
+                            builder.CloseComponent();
                         }
                     }));
                 }
@@ -81,25 +89,30 @@ namespace BootstrapBlazor.Components
 
                 foreach (var button in Toolbar.Buttons)
                 {
-
-                    /*
                     builder.OpenElement(index++, "div");
                     builder.AddAttribute(index++, "class", "dropdown-item");
-                    builder.AddAttribute(index++, "title", button.Title);
-                    builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(button, button.OnClick));
 
                     // icon
                     builder.OpenElement(index++, "i");
 
                     // class="fa fa-plus" aria-hidden="true"
 
+                    if (button is TableToolbarButton b)
+                    {
+                        builder.AddAttribute(index++, "class", b.ButtonIcon);
+                        builder.AddAttribute(index++, "onclick", button.OnClick);
+                    }
+                    else if (button is TableToolbarPopconfirmButton popButton)
+                    {
+                        builder.AddAttribute(index++, "class", popButton.ButtonIcon);
 
-                    builder.AddAttribute(index++, "class", button.Icon);
+                        // 移动端适配删除弹窗
+                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(popButton, popButton.OnConfirm));
+                    }
                     builder.AddAttribute(index++, "aria-hidden", "true");
                     builder.CloseElement(); // end i
 
                     builder.CloseElement(); // end div
-                    */
                 }
                 builder.CloseElement(); // end dropdown-menu
                 builder.CloseElement(); // end div

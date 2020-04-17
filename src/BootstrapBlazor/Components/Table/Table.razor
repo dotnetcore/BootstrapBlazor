@@ -6,34 +6,23 @@
     <div class="table-toolbar">
         @if (ShowToolbar)
         {
-            <div class="float-left table-toolbar-button">
-                <TableToolbar>
-                    @if (ShowDefaultButtons)
-                    {
-                        <TableToolbarButton Color="Color.Success" OnClick="@Add">
-                            <i class="fa fa-plus"></i>
-                            <span>新建</span>
-                        </TableToolbarButton>
-                        <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@Delete">
-                            <i class="fa fa-remove"></i>
-                            <span>删除</span>
-                        </TableToolbarPopconfirmButton>
-                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit">
-                            <i class="fa fa-pencil"></i>
-                            <span>编辑</span>
-                        </TableToolbarButton>
-                    }
-                    @TableToolbarTemplate
-                </TableToolbar>
-            </div>
-            <div class="float-right table-toolbar-button table-column-right">
-                @if (ShowRefresh)
+            <TableToolbar>
+                @if (ShowDefaultButtons)
                 {
+                    <TableToolbarButton Color="Color.Success" OnClick="@Add" ButtonIcon="fa fa-plus" ButtonText="新建" />
+                    <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@Delete" Icon="fa fa-remove" DisplayText="删除" />
+                    <TableToolbarButton Color="Color.Primary" OnClick="@Edit" ButtonIcon="fa fa-pencil" ButtonText="编辑" />
+                }
+                @TableToolbarTemplate
+            </TableToolbar>
+            @if (ShowRefresh)
+            {
+                <div class="float-right table-toolbar-button table-column-right">
                     <button class="btn btn-secondary" type="button" title="刷新" @onclick="@Query">
                         <i class="fa fa-refresh"></i><span class="d-none d-sm-inline-block">刷新</span>
                     </button>
-                }
-            </div>
+                </div>
+            }
         }
         @if (ShowSearch)
         {

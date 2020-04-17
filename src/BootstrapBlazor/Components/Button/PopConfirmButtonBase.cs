@@ -47,13 +47,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示标题
         /// </summary>
         [Parameter] public string? Title { get; set; }
-        /// <summary>
-        /// 获得/设置 显示标题
-        /// </summary>
-        [Parameter] public string DisplayText { get; set; } = "删除";
 
         /// <summary>
-        /// 获得/设置 关闭按钮显示文字
+        /// 获得/设置 显示标题 默认为 删除
+        /// </summary>
+        [Parameter] public string ButtonText { get; set; } = "删除";
+
+        /// <summary>
+        /// 获得/设置 关闭按钮显示文字 默认为 关闭
         /// </summary>
         [Parameter] public string CloseButtonText { get; set; } = "关闭";
 
@@ -63,7 +64,7 @@ namespace BootstrapBlazor.Components
         [Parameter] public Color CloseButtonColor { get; set; } = Color.Secondary;
 
         /// <summary>
-        /// 获得/设置 确认按钮显示文字
+        /// 获得/设置 确认按钮显示文字 默认为 确定
         /// </summary>
         [Parameter] public string ConfirmButtonText { get; set; } = "确定";
 
@@ -73,9 +74,9 @@ namespace BootstrapBlazor.Components
         [Parameter] public Color ConfirmButtonColor { get; set; } = Color.Primary;
 
         /// <summary>
-        /// 获得/设置 确认框图标
+        /// 获得/设置 按钮图标 默认为 fa-remove
         /// </summary>
-        [Parameter] public string? Icon { get; set; } = "fa fa-remove";
+        [Parameter] public string? ButtonIcon { get; set; } = "fa fa-remove";
 
         /// <summary>
         /// 获得/设置 确认框图标
