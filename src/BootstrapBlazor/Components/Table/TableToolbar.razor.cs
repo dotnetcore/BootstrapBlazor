@@ -17,11 +17,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 添加按钮到工具栏方法
         /// </summary>
-        public void AddButtons(TableToolbarButton button) => Buttons.Add(button);
+        public void AddButtons(ButtonBase button) => Buttons.Add(button);
 
         /// <summary>
         /// 获得 Toolbar 按钮集合
         /// </summary>
-        public ICollection<TableToolbarButton> Buttons { get; } = new HashSet<TableToolbarButton>();
+        public ICollection<ButtonBase> Buttons { get; } = new HashSet<ButtonBase>();
     }
 }

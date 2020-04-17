@@ -3,9 +3,9 @@
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 表格 Toolbar 按钮组件
+    /// 
     /// </summary>
-    public class TableToolbarButton : ButtonBase
+    public class TableToolbarPopconfirmButton : PopConfirmButtonBase
     {
         /// <summary>
         /// 获得/设置 Table Toolbar 实例
@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
         protected TableToolbar? Toolbar { get; set; }
 
         /// <summary>
-        /// 组件初始化方法
+        /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {

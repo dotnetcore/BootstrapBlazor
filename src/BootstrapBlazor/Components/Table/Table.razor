@@ -10,10 +10,18 @@
                 <TableToolbar>
                     @if (ShowDefaultButtons)
                     {
-                        <TableToolbarButton class="btn btn-success" Icon="fa fa-plus" Title="新增" OnClick="@Add" />
-                        <TableToolbarButton class="btn btn-danger" Icon="fa fa-remove" Title="删除" OnClick="@ConfirmDelete" data-toggle="popover">
+                        <TableToolbarButton Color="Color.Success" OnClick="@Add">
+                            <i class="fa fa-plus"></i>
+                            <span>新建</span>
                         </TableToolbarButton>
-                        <TableToolbarButton class="btn btn-primary" Icon="fa fa-pencil" Title="编辑" OnClick="@Edit" />
+                        <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@Delete">
+                            <i class="fa fa-remove"></i>
+                            <span>删除</span>
+                        </TableToolbarPopconfirmButton>
+                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit">
+                            <i class="fa fa-pencil"></i>
+                            <span>编辑</span>
+                        </TableToolbarButton>
                     }
                     @TableToolbarTemplate
                 </TableToolbar>

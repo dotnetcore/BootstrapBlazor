@@ -29,27 +29,34 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(index++, "class", "btn-toolbar btn-group d-none d-sm-inline-block");
                 foreach (var button in Toolbar.Buttons)
                 {
-                    builder.OpenElement(index++, "button");
-                    builder.AddAttribute(index++, "type", "button");
-                    builder.AddMultipleAttributes(index++, button.AdditionalAttributes);
-                    builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(button, button.OnClick));
-
-                    // icon
-                    builder.OpenElement(index++, "i");
-
-                    // class="fa fa-plus" aria-hidden="true"
-                    builder.AddAttribute(index++, "class", button.Icon);
-                    builder.AddAttribute(index++, "aria-hidden", "true");
-                    builder.CloseElement(); // end i
-
-                    // span
-                    builder.OpenElement(index++, "span");
-                    builder.AddContent(index++, button.Title);
-                    builder.CloseElement(); // end span
-
-                    // child content
-                    builder.AddContent(index++, button.ChildContent);
-                    builder.CloseElement(); // end button
+                    builder.AddContent(index++, new RenderFragment(builder =>
+                    {
+                        var i = 0;
+                        if (button is TableToolbarButton)
+                        {
+                            builder.OpenComponent<Button>(i++);
+                            builder.AddAttribute(i++, nameof(Button.ChildContent), button.ChildContent);
+                            builder.AddAttribute(i++, nameof(Button.OnClick), button.OnClick);
+                            builder.AddAttribute(i++, nameof(Button.Color), button.Color);
+                            builder.CloseComponent();
+                        }
+                        else if (button is TableToolbarPopconfirmButton)
+                        {
+                            var b = button as TableToolbarPopconfirmButton;
+                            if (b != null)
+                            {
+                                builder.OpenComponent<PopConfirmButton>(i++);
+                                builder.AddMultipleAttributes(i++, b.AdditionalAttributes);
+                                builder.AddAttribute(i++, nameof(PopConfirmButton.ConfirmIcon), b.ConfirmIcon);
+                                builder.AddAttribute(i++, nameof(PopConfirmButton.Color), b.Color);
+                                builder.AddAttribute(i++, nameof(PopConfirmButton.Icon), b.Icon);
+                                builder.AddAttribute(i++, nameof(PopConfirmButton.OnBeforeClick), b.OnBeforeClick);
+                                builder.AddAttribute(i++, nameof(PopConfirmButton.OnClose), b.OnClose);
+                                builder.AddAttribute(i++, nameof(PopConfirmButton.OnConfirm), b.OnConfirm);
+                                builder.CloseComponent();
+                            }
+                        }
+                    }));
                 }
                 builder.CloseElement();
 
@@ -74,6 +81,8 @@ namespace BootstrapBlazor.Components
 
                 foreach (var button in Toolbar.Buttons)
                 {
+
+                    /*
                     builder.OpenElement(index++, "div");
                     builder.AddAttribute(index++, "class", "dropdown-item");
                     builder.AddAttribute(index++, "title", button.Title);
@@ -83,11 +92,14 @@ namespace BootstrapBlazor.Components
                     builder.OpenElement(index++, "i");
 
                     // class="fa fa-plus" aria-hidden="true"
+
+
                     builder.AddAttribute(index++, "class", button.Icon);
                     builder.AddAttribute(index++, "aria-hidden", "true");
                     builder.CloseElement(); // end i
 
                     builder.CloseElement(); // end div
+                    */
                 }
                 builder.CloseElement(); // end dropdown-menu
                 builder.CloseElement(); // end div

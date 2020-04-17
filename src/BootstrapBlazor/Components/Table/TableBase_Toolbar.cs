@@ -125,8 +125,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 确认删除按钮方法
         /// </summary>
-        protected void ConfirmDelete()
+        protected bool ConfirmDelete()
         {
+            var ret = false;
             if (SelectedItems.Count == 0)
             {
                 var option = new ToastOption();
@@ -139,7 +140,9 @@ namespace BootstrapBlazor.Components
             {
                 var content = SelectedItems.Count == 1 ? "确定要删除本条数据吗？" : "确定要删除选中的所有数据吗？";
                 //DeleteConfirm?.Show(content: content);
+                ret = true;
             }
+            return ret;
         }
 
         /// <summary>
