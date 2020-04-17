@@ -9,10 +9,10 @@
             <TableColumn TItem="string" @bind-Field="@context.ReturnValue" />
         </HeaderTemplate>
         <RowTemplate>
-            <td>@context.Name</td>
-            <td>@context.Description</td>
-            <td>@context.Parameters</td>
-            <td>@context.ReturnValue</td>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Description</TableCell>
+            <TableCell>@context.Parameters</TableCell>
+            <TableCell>@context.ReturnValue</TableCell>
         </RowTemplate>
     </Table>
 </div>

@@ -8,9 +8,9 @@
             <TableColumn TItem="string" @bind-Field="@context.Type" />
         </HeaderTemplate>
         <RowTemplate>
-            <td>@context.Name</td>
-            <td>@context.Description</td>
-            <td>@context.Type</td>
+            <TableCell>@context.Name</TableCell>
+            <TableCell>@context.Description</TableCell>
+            <TableCell>@context.Type</TableCell>
         </RowTemplate>
     </Table>
 </div>
