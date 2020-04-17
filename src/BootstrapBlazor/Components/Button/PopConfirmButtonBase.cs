@@ -11,7 +11,10 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class PopConfirmButtonBase : ButtonBase
     {
-        private JSInterop<PopConfirmButtonBase>? Interop { get; set; }
+        /// <summary>
+        /// 获得/设置 JSInterop 实例
+        /// </summary>
+        protected JSInterop<PopConfirmButtonBase>? Interop { get; set; }
 
         /// <summary>
         /// 获得/设置 PopoverConfirm 服务实例
@@ -149,7 +152,7 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && Interop != null) Interop.Dispose();
+            if (disposing) Interop?.Dispose();
 
             base.Dispose(disposing);
         }

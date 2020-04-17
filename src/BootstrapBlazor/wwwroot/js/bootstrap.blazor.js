@@ -396,9 +396,14 @@
                         return;
                     }
 
-                    $ele.fadeHide(function () {
-                        el.invokeMethodAsync(method);
-                    });
+                    var $pop = $('[data-target="' + id + '"]');
+                    if ($pop.length > 0) {
+                        var href = window.location.href;
+                        $pop.fadeHide(function () {
+                            var _href = window.location.href;
+                            if (href === _href) el.invokeMethodAsync(method);
+                        });
+                    }
                 });
 
                 $('.popover-confirm-container').on('click', 'popover-confirm-buttons .btn', function (e) {

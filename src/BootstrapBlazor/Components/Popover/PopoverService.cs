@@ -10,6 +10,9 @@ namespace BootstrapBlazor.Components
     {
         private Action? Callback { get; set; }
 
+        /// <summary>
+        /// 获得/设置 内部确认弹窗引用
+        /// </summary>
         public (PopoverConfirmOption Option, RenderFragment RenderFragment)? ConfirmBox { get; set; }
 
         /// <summary>
