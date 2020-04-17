@@ -121,7 +121,7 @@ namespace BootstrapBlazor.Components
             else if (method == "delete")
             {
                 var content = "确定要删除本条数据吗？";
-                ButtonDeleteConfirm?.Show(content: content);
+                //ButtonDeleteConfirm?.Show(content: content);
             }
             StateHasChanged();
         }

@@ -15,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services)
         {
             services.AddScoped<ToastService>();
+            services.AddScoped<PopoverService>();
             return services;
         }
     }

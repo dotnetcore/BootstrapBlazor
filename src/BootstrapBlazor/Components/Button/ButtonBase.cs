@@ -45,8 +45,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 ValidateFormBase 实例
         /// </summary>
-        [CascadingParameter]
-        public ValidateFormBase? EditForm { get; set; }
+        [CascadingParameter] public ValidateFormBase? EditForm { get; set; }
 
         /// <summary>
         /// OnClick 事件

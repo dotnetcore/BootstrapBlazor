@@ -58,14 +58,16 @@
                 }, delay);
             }
         },
-        fadeHide: function (delay) {
+        fadeHide: function (delay, callback) {
             var $ele = this;
             if ($ele.length > 0) {
                 if (delay === undefined) delay = 150;
+                if ($.isFunction(delay)) callback = delay;
                 $ele.removeClass("show");
                 var handler = window.setTimeout(function () {
                     if (handler != null) window.clearTimeout(handler);
                     $ele.removeClass("d-block");
+                    if ($.isFunction(callback)) callback.call(this);
                 }, delay);
             }
         },
@@ -326,16 +328,16 @@
             var iHeight = $button.height();
 
             // check top or bottom
-            var placement = 'top';
+            var placement = $button.attr('data-placement');
 
             // 设置自己位置
             var left = 0;
             var top = 0;
 
             // 根据自身位置自动判断出现位置
-            var y = $button.offset().top;
             var x = $button.offset().left;
-            var margin = y - $(window).scrollTop() - elHeight - height;
+            var y = $button.offset().top;
+            var margin = y - $(window).scrollTop() - elHeight;
 
             if (margin < 0) {
                 // top 不可用
@@ -343,7 +345,7 @@
             }
             else {
                 // 判断左右侧是否位置够用
-                var marginRight = $(window).width() - elWidth - x > 0;
+                var marginRight = $(window).width() - x - elWidth > 0;
                 var marginLeft = x - elWidth > 0;
                 if (!marginLeft && marginRight) {
                     // 右侧空间满足
@@ -362,54 +364,58 @@
             $ele.removeClass('top bottom left right').addClass(placement);
 
             if (placement === 'top') {
-                left = 0 - Math.ceil((elWidth - width) / 2);
-                top = 0 - elHeight;
+                left = x - Math.ceil((elWidth - width) / 2);
+                top = y - elHeight;
             }
             else if (placement === 'bottom') {
-                left = 0 - Math.ceil((elWidth - width) / 2);
-                top = iHeight;
+                left = x - Math.ceil((elWidth - width) / 2);
+                top = y + height;
             }
             else if (placement === 'left') {
-                left = 0 - elWidth - 8;
-                top = 0 - Math.ceil((elHeight - iHeight) / 2);
-                console.log($button.height());
+                left = x - elWidth - 8;
+                top = y - Math.ceil((elHeight - height) / 2);
             }
             else if (placement === 'right') {
-                left = width + 8;
-                top = 0 - Math.ceil((elHeight - iHeight) / 2);
+                left = x + width + 8;
+                top = y - Math.ceil((elHeight - height) / 2);
             }
 
             return { left, top };
         },
-        confirm: function (el, method) {
-            var $ele = $(el);
-            if (method === "close") {
-                $ele.attr('aria-hidden', false);
-                $ele.fadeHide();
-            }
-            else if (method === 'show') {
-                if ($ele.hasClass('show')) return;
+        confirm: function (id, el, method) {
+            var $ele = $('[data-target="' + id + '"]');
+            var $button = $('#' + id);
 
-                var inited = $ele.hasClass('is-init');
-                if (!inited) {
-                    $(document).on('click', function (e) {
-                        var $this = $(e.target);
-                        var self = $this.attr('data-toggle') === "popover" || $this.parents('[data-toggle="popover"]').length > 0;
-                        if (self) {
-                            return;
-                        }
-                        $ele.fadeHide();
+            var inited = $('.popover-confirm-container').hasClass('is-init');
+            if (!inited) {
+                $(document).on('click', function (e) {
+                    var $this = $(e.target);
+                    var self = $this.attr('data-toggle') === "popover" || $this.parents('[data-toggle="popover"]').length > 0;
+                    if (self) {
+                        return;
+                    }
+
+                    $ele.fadeHide(function () {
+                        el.invokeMethodAsync(method);
                     });
-                    $ele.addClass('is-init');
-                }
+                });
 
-                var offset = $.calcPosition($ele, $ele.parent());
-                $ele.css({ "left": offset.left.toString() + "px", "top": offset.top.toString() + "px" });
-                $ele.attr('aria-hidden', true);
+                $('.popover-confirm-container').on('click', 'popover-confirm-buttons .btn', function (e) {
+                    e.preventDefault();
 
-                // 开启动画效果
-                $ele.fadeShow();
+                    $ele.fadeHide(function () {
+                        el.invokeMethodAsync(method);
+                    });
+                });
+                $('.popover-confirm-container').addClass('is-init');
             }
+
+            var offset = $.calcPosition($ele, $button);
+            $ele.css({ "left": offset.left.toString() + "px", "top": offset.top.toString() + "px" });
+            $ele.attr('aria-hidden', true);
+
+            // 开启动画效果
+            $ele.fadeShow();
         },
         fixTableHeader: function (el) {
             var $ele = $(el);

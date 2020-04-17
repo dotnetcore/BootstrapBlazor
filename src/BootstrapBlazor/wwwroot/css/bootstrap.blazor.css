@@ -976,6 +976,10 @@ a {
     margin: 14px 0;
 }
 
+    .popover-confirm-body .fa + span {
+        margin-left: 0.25rem;
+    }
+
 .popover-confirm-buttons {
     display: flex;
     justify-content: flex-end;
@@ -1010,13 +1014,13 @@ a {
     }
 
 .popover-confirm.bottom {
-    margin-top: 18px;
+    margin-top: 8px;
 }
 
     .popover-confirm.bottom .popover-confirm-arrow {
         top: -6px;
         left: 50%;
-        margin-right: 3px;
+        margin-left: -6px;
         border-top-width: 0;
         border-bottom-color: #ebeef5;
     }
@@ -1035,7 +1039,7 @@ a {
     .popover-confirm.top .popover-confirm-arrow {
         bottom: -6px;
         left: 50%;
-        margin-right: 3px;
+        margin-left: -6px;
         border-top-color: #ebeef5;
         border-bottom-width: 0;
     }
@@ -1050,7 +1054,7 @@ a {
 .popover-confirm.left .popover-confirm-arrow {
     top: 50%;
     right: -6px;
-    margin-bottom: 3px;
+    margin-top: -6px;
     border-left-color: #ebeef5;
     border-right-width: 0;
 }
@@ -1065,7 +1069,7 @@ a {
 .popover-confirm.right .popover-confirm-arrow {
     top: 50%;
     left: -6px;
-    margin-bottom: 3px;
+    margin-top: -6px;
     border-right-color: #ebeef5;
     border-left-width: 0;
 }

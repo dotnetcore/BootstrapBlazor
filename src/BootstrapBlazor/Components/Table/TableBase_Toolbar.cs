@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -139,7 +138,7 @@ namespace BootstrapBlazor.Components
             else
             {
                 var content = SelectedItems.Count == 1 ? "确定要删除本条数据吗？" : "确定要删除选中的所有数据吗？";
-                DeleteConfirm?.Show(content: content);
+                //DeleteConfirm?.Show(content: content);
             }
         }
 

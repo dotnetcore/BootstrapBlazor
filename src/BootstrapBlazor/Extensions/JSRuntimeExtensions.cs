@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -81,5 +82,24 @@ namespace BootstrapBlazor.Components
         /// <param name="func"></param>
         /// <param name="method"></param>
         public static void InvokeRun(this IJSRuntime? jsRuntime, ElementReference element, string func, string method) => jsRuntime?.InvokeVoidAsync($"$.{func}", element, method);
+
+        /// <summary>
+        /// 调用 JSInvoke 方法
+        /// </summary>
+        /// <param name="jsRuntime"></param>
+        /// <param name="id"></param>
+        /// <param name="ref"></param>
+        /// <param name="func"></param>
+        /// <param name="method"></param>
+        /// <param name="args"></param>
+        public static void InvokeRun(this IJSRuntime? jsRuntime, string id, object @ref, string func, string method, params object[] args)
+        {
+            var paras = new List<object>();
+            paras.Add(id);
+            paras.Add(@ref);
+            paras.Add(method);
+            if (args != null) paras.AddRange(args);
+            jsRuntime?.InvokeVoidAsync($"$.{func}", paras.ToArray());
+        }
     }
 }
