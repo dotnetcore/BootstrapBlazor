@@ -77,7 +77,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public void Toggle()
         {
-            if (!string.IsNullOrEmpty(Id)) JSRuntime.Invoke(Id, "modal", method: "toggle");
+            if (!string.IsNullOrEmpty(Id)) JSRuntime.InvokeRun(Id, "modal", "toggle");
         }
     }
 }
