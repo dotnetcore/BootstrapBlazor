@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 
@@ -11,11 +10,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class PopConfirmButtonBase : ButtonBase
     {
-        /// <summary>
-        /// 获得/设置 JSInterop 实例
-        /// </summary>
-        protected JSInterop<PopConfirmButtonBase>? Interop { get; set; }
-
         /// <summary>
         /// 获得/设置 PopoverConfirm 服务实例
         /// </summary>
@@ -91,13 +85,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnInitialized()
         {
-            if (AdditionalAttributes == null)
-            {
-                AdditionalAttributes = new Dictionary<string, object>();
-            }
-            AdditionalAttributes["data-placement"] = Placement.ToDescriptionString();
-            AdditionalAttributes["data-toggle"] = "popover";
-
             // 进行弹窗拦截，点击确认按钮后回调原有 OnClick
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e => Show());
         }
@@ -126,35 +113,10 @@ namespace BootstrapBlazor.Components
                     Callback = new Action(() =>
                     {
                         // 调用 JS 进行弹窗 等待 弹窗点击确认回调
-                        if (JSRuntime != null && !string.IsNullOrEmpty(Id))
-                        {
-                            if (Interop == null) Interop = new JSInterop<PopConfirmButtonBase>(JSRuntime);
-                            Interop.Invoke(this, Id, "confirm", nameof(Hide));
-                        }
+                        JSRuntime.Invoke(Id, "confirm");
                     })
                 });
             }
-        }
-
-        /// <summary>
-        /// 清除 PopConfirm 方法
-        /// </summary>
-        [JSInvokable]
-        public void Hide()
-        {
-            // 通知服务删除元素
-            PopoverService?.Hide();
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) Interop?.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }

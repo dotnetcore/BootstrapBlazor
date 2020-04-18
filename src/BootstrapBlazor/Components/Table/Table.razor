@@ -97,7 +97,7 @@
                                             <i class='fa fa-edit'></i>
                                             <span>编辑</span>
                                         </TableCellButton>
-                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" DisplayText="删除" Color="Color.Danger" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@Delete" />
+                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@Delete" />
                                         @RowButtonTemplate?.Invoke(Items.ElementAt(index))
                                     </div>
                                 </div>

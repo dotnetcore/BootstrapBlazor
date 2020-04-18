@@ -46,31 +46,7 @@
                 this.css('overflow', 'auto');
             }
             return this;
-        },
-        fadeShow: function (delay) {
-            var $ele = this;
-            if ($ele.length > 0) {
-                if (delay === undefined) delay = 50;
-                $ele.addClass("d-block");
-                var handler = window.setTimeout(function () {
-                    if (handler != null) window.clearTimeout(handler);
-                    $ele.addClass("show");
-                }, delay);
-            }
-        },
-        fadeHide: function (delay, callback) {
-            var $ele = this;
-            if ($ele.length > 0) {
-                if (delay === undefined) delay = 150;
-                if ($.isFunction(delay)) callback = delay;
-                $ele.removeClass("show");
-                var handler = window.setTimeout(function () {
-                    if (handler != null) window.clearTimeout(handler);
-                    $ele.removeClass("d-block");
-                    if ($.isFunction(callback)) callback.call(this);
-                }, delay);
-            }
-        },
+        }
     });
 
     $.extend({
@@ -384,49 +360,17 @@
 
             return { left, top };
         },
-        confirm: function (id, el, method) {
+        confirm: function (id) {
             var $ele = $('[data-target="' + id + '"]');
             var $button = $('#' + id);
 
-            var inited = $('.popover-confirm-container').hasClass('is-init');
-            if (!inited) {
-                var invokeMethod = function (redirect) {
-                    if (redirect === undefined) redirect = true;
-                    $(document).off("click", globalHandler);
-                    $('.popover-confirm-container').removeClass('is-init');
-                    if (redirect) el.invokeMethodAsync(method);
-                }
-                var globalHandler = function (e) {
-                    var $this = $(e.target);
-                    var self = $this.attr('data-toggle') === "popover" || $this.parents('[data-toggle="popover"]').length > 0;
-                    if (self) {
-                        return;
-                    }
-
-                    var $pop = $('.popover-confirm-container .popover-confirm');
-                    if ($pop.length > 0) {
-                        var href = window.location.href;
-                        $pop.fadeHide(function () {
-                            var _href = window.location.href;
-                            invokeMethod(_href === href);
-                        });
-                    }
-                };
-
-                $(document).on('click', globalHandler);
-
-                $('.popover-confirm-container').on('click', 'popover-confirm-buttons .btn', function () {
-                    $ele.fadeHide(invokeMethod);
-                });
-                $('.popover-confirm-container').addClass('is-init');
-            }
-
-            var offset = $.calcPosition($ele, $button);
-            $ele.css({ "left": offset.left.toString() + "px", "top": offset.top.toString() + "px" });
-            $ele.attr('aria-hidden', true);
-
-            // 开启动画效果
-            $ele.fadeShow();
+            $button.popover({
+                toggle: 'confirm',
+                html: true,
+                sanitize: false,
+                content: $ele.find('.popover-body').html()
+            });
+            $button.popover('show');
         },
         fixTableHeader: function (el) {
             var $ele = $(el);
@@ -446,5 +390,40 @@
             .on('inserted.bs.tooltip', '.is-invalid', function () {
                 $('#' + $(this).attr('aria-describedby')).addClass('is-invalid');
             });
+
+        // popover confirm
+        $.fn.popover.Constructor.prototype.isWithContent = function () {
+            return this.config.toggle === 'confirm' || Boolean(this.getTitle());
+        }
+
+        $(document).on('click', function (e) {
+            // hide popover
+            $('[data-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
+        });
+
+        $(document).on('click', '.popover-confirm-buttons .btn', function (e) {
+            e.stopPropagation();
+
+            // 确认弹窗按钮事件
+            var $parent = $(this).parents('.popover');
+            if ($parent.length > 0) {
+                var id = $parent.attr('id');
+                var $button = $('[aria-describedby="' + id + '"]');
+
+                if ($button.length > 0) {
+                    // 关闭弹窗
+                    $button.popover('hide');
+
+                    // remove popover
+                    var buttonId = $button.attr('id');
+                    $ele = $('[data-target="' + buttonId + '"]');
+
+                    var $button = this.getAttribute('data-dismiss') === 'confirm'
+                        ? $ele.find('.popover-confirm-buttons .btn:first')
+                        : $ele.find('.popover-confirm-buttons .btn:last');
+                    $button.trigger('click');
+                }
+            }
+        });
     });
 })(jQuery);

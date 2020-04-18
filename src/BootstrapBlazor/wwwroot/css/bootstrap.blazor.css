@@ -954,22 +954,12 @@ a {
 /*end table*/
 
 /*popover confirm*/
-.popover-confirm {
-    transform-origin: center top;
-    display: none;
-    position: absolute;
-    background: #fff;
+.popover {
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     min-width: 240px;
     border-radius: 4px;
     border: 1px solid #ebeef5;
-    padding: 12px;
-    color: #606266;
-    line-height: 1.4;
-    text-align: justify;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-    word-break: break-all;
-    z-index: 1050;
-    outline: none;
+    border: 1px solid #dcdfe6
 }
 
 .popover-confirm-body {
@@ -983,6 +973,7 @@ a {
 .popover-confirm-buttons {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 4px;
 }
 
     .popover-confirm-buttons .btn {
@@ -993,92 +984,4 @@ a {
         .popover-confirm-buttons .btn:last-child {
             margin-left: 0.5rem;
         }
-
-.popover-confirm-arrow {
-    border-width: 6px;
-    filter: drop-shadow(0 2px 12px rgba(0,0,0,.03));
-}
-
-    .popover-confirm-arrow:after {
-        content: " ";
-        border-width: 6px;
-    }
-
-    .popover-confirm-arrow, .popover-confirm-arrow:after {
-        position: absolute;
-        display: block;
-        width: 0;
-        height: 0;
-        border-color: transparent;
-        border-style: solid;
-    }
-
-.popover-confirm.bottom {
-    margin-top: 8px;
-}
-
-    .popover-confirm.bottom .popover-confirm-arrow {
-        top: -6px;
-        left: 50%;
-        margin-left: -6px;
-        border-top-width: 0;
-        border-bottom-color: #ebeef5;
-    }
-
-        .popover-confirm.bottom .popover-confirm-arrow:after {
-            top: 1px;
-            margin-left: -6px;
-            border-top-width: 0;
-            border-bottom-color: #fff;
-        }
-
-.popover-confirm.top {
-    margin-top: -8px;
-}
-
-    .popover-confirm.top .popover-confirm-arrow {
-        bottom: -6px;
-        left: 50%;
-        margin-left: -6px;
-        border-top-color: #ebeef5;
-        border-bottom-width: 0;
-    }
-
-        .popover-confirm.top .popover-confirm-arrow:after {
-            bottom: 1px;
-            margin-left: -6px;
-            border-top-color: #fff;
-            border-bottom-width: 0;
-        }
-
-.popover-confirm.left .popover-confirm-arrow {
-    top: 50%;
-    right: -6px;
-    margin-top: -6px;
-    border-left-color: #ebeef5;
-    border-right-width: 0;
-}
-
-    .popover-confirm.left .popover-confirm-arrow:after {
-        bottom: -6px;
-        right: 1px;
-        border-left-color: #fff;
-        border-right-width: 0;
-    }
-
-.popover-confirm.right .popover-confirm-arrow {
-    top: 50%;
-    left: -6px;
-    margin-top: -6px;
-    border-right-color: #ebeef5;
-    border-left-width: 0;
-}
-
-    .popover-confirm.right .popover-confirm-arrow:after {
-        bottom: -6px;
-        left: 1px;
-        border-right-color: #fff;
-        border-left-width: 0;
-    }
-
 /*end confirm*/

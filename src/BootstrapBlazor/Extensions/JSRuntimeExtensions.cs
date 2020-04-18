@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
     internal static class JSRuntimeExtensions
     {
         /// <summary>
-        /// 浏览器执行脚本方法
+        /// Invoke $.run 方法
         /// </summary>
         /// <param name="jsRuntime"></param>
         /// <param name="id"></param>
