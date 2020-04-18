@@ -20,12 +20,6 @@ namespace BootstrapBlazor.Components
         protected ElementReference TableWrapper { get; set; }
 
         /// <summary>
-        /// 获得/设置 IJSRuntime 实例
-        /// </summary>
-        /// <value></value>
-        [Inject] protected IJSRuntime? JSRuntime { get; set; }
-
-        /// <summary>
         /// 获得/设置 Table 高度
         /// </summary>
         [Parameter] public int? Height { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 
@@ -22,6 +23,11 @@ namespace BootstrapBlazor.Components
         /// <value></value>
         [Parameter]
         public Action<BootstrapComponentBase>? OnInitializedCallback { get; set; }
+
+        /// <summary>
+        /// 获得/设置 IJSRuntime 实例
+        /// </summary>
+        [Inject] protected IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

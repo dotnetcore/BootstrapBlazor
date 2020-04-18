@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Slider 组件
     /// </summary>
-    public class SliderBase : IdComponentBase
+    public class SliderBase : BootstrapComponentBase
     {
+        /// <summary>
+        /// 获得/设置 JSInterop 实例
+        /// </summary>
+        protected JSInterop<SliderBase>? Interop { get; set; }
+
         /// <summary>
         /// 获得 样式集合
         /// </summary>
@@ -37,6 +41,11 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得/设置 当前组件 DOM 实例
+        /// </summary>
+        protected ElementReference Slider { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件当前值
         /// </summary>
         [Parameter] public int Value { get; set; }
@@ -56,23 +65,19 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter] public bool IsDisabled { get; set; }
 
-        private JSInterop<SliderBase>? _interop;
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override void OnAfterRender(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
+            base.OnAfterRender(firstRender);
 
-            if (firstRender && !string.IsNullOrEmpty(Id) && JSRuntime != null)
+            if (firstRender && JSRuntime != null)
             {
-                _interop = new JSInterop<SliderBase>(JSRuntime);
-                _interop.Invoke(this, (_jsRuntime, _objRef) =>
-                {
-                    _jsRuntime.Slider(Id, _objRef, nameof(SliderBase.SetValue));
-                });
+                Interop = new JSInterop<SliderBase>(JSRuntime);
+                Interop.Invoke(this, Slider, "slider", nameof(SliderBase.SetValue));
             }
         }
 
@@ -95,7 +100,7 @@ namespace BootstrapBlazor.Components
         {
             base.Dispose(disposing);
 
-            if (disposing) _interop?.Dispose();
+            if (disposing) Interop?.Dispose();
         }
     }
 }

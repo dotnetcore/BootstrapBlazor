@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 
 namespace BootstrapBlazor.Components
@@ -36,14 +37,14 @@ namespace BootstrapBlazor.Components
         /// Invoke 方法
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="id"></param>
+        /// <param name="el"></param>
         /// <param name="func"></param>
         /// <param name="method"></param>
         /// <param name="args"></param>
-        public void Invoke(TValue value, string id, string func, string method, params object[] args)
+        public void Invoke(TValue value, object el, string func, string method, params object[] args)
         {
             _objRef = DotNetObjectReference.Create(value);
-            _jsRuntime.InvokeRun(id, _objRef, func, method, args);
+            _jsRuntime.InvokeRun(el, func, _objRef, method, args);
         }
 
         /// <summary>

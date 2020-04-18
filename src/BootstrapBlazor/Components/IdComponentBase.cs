@@ -15,11 +15,6 @@ namespace BootstrapBlazor.Components
         [Parameter] public virtual string? Id { get; set; }
 
         /// <summary>
-        /// 获得/设置 IJSRuntime 实例
-        /// </summary>
-        [Inject] protected IJSRuntime? JSRuntime { get; set; }
-
-        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>

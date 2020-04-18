@@ -174,8 +174,8 @@
                 }, 300);
             });
         },
-        slider: function (id, slider, method) {
-            var $slider = $('#' + id);
+        slider: function (el, slider, method) {
+            var $slider = $(el);
             var isMouseDown = false;
             var originX = 0;
             var curVal = 0;
@@ -188,6 +188,7 @@
                 //var $tooltip = null;
 
                 var handleDragStart = function (e) {
+                    e.stopPropagation();
                     // 开始拖动
                     isMouseDown = true;
 

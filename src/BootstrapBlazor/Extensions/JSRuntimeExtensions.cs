@@ -87,15 +87,15 @@ namespace BootstrapBlazor.Components
         /// 调用 JSInvoke 方法
         /// </summary>
         /// <param name="jsRuntime"></param>
-        /// <param name="id"></param>
+        /// <param name="el"></param>
         /// <param name="ref"></param>
         /// <param name="func"></param>
         /// <param name="method"></param>
         /// <param name="args"></param>
-        public static void InvokeRun(this IJSRuntime? jsRuntime, string id, object @ref, string func, string method, params object[] args)
+        public static void InvokeRun(this IJSRuntime? jsRuntime, object el, string func, object @ref, string method, params object[] args)
         {
             var paras = new List<object>();
-            paras.Add(id);
+            paras.Add(el);
             paras.Add(@ref);
             paras.Add(method);
             if (args != null) paras.AddRange(args);
