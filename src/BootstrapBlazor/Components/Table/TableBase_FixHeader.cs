@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components
 {
@@ -33,7 +32,7 @@ namespace BootstrapBlazor.Components
             if (firstRender && Height.HasValue)
             {
                 // 固定表头脚本关联
-                JSRuntime.InvokeRun(TableWrapper, "fixTableHeader", "");
+                JSRuntime.Invoke(TableWrapper, "fixTableHeader");
             }
         }
     }

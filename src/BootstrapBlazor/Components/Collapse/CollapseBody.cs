@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public void DoAnimations(bool collapsed)
         {
-            JSRuntime.InvokeRun(Id, "collapse", collapsed ? "hide" : "show");
+            if (!string.IsNullOrEmpty(Id)) JSRuntime.InvokeRun(Id, "collapse", collapsed ? "hide" : "show");
         }
     }
 }

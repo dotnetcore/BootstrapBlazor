@@ -90,10 +90,7 @@ namespace BootstrapBlazor.Components
                 if (Toast != null && !string.IsNullOrEmpty(Id))
                 {
                     _interop = new JSInterop<Toast>(JSRuntime);
-                    _interop.Invoke(Toast, (_jsRuntime, _objRef) =>
-                    {
-                        _jsRuntime.ShowToast(Id, _objRef, nameof(ToastBase.Clear));
-                    });
+                    _interop.Invoke(Toast, Id, "showToast", nameof(ToastBase.Clear));
                 }
             }
         }
