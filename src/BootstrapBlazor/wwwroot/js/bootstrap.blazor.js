@@ -396,33 +396,43 @@
             return this.config.toggle === 'confirm' || Boolean(this.getTitle());
         }
 
+        var findConfirmButton = function ($el) {
+            var button = null;
+            var $parent = $el.parents('.popover');
+            if ($parent.length > 0) {
+                var id = $parent.attr('id');
+                button = $('[aria-describedby="' + id + '"]');
+            }
+            return button;
+        };
+
         $(document).on('click', function (e) {
             // hide popover
-            $('[data-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
+            var hide = true;
+            var $el = $(e.target);
+            // 判断是否点击 popover 内部
+            var $confirm = findConfirmButton($el);
+            if ($confirm != null) hide = false;
+            if (hide) $('[data-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {
             e.stopPropagation();
 
             // 确认弹窗按钮事件
-            var $parent = $(this).parents('.popover');
-            if ($parent.length > 0) {
-                var id = $parent.attr('id');
-                var $button = $('[aria-describedby="' + id + '"]');
+            var $confirm = findConfirmButton($(this));
+            if ($confirm != null) {
+                // 关闭弹窗
+                $confirm.popover('hide');
 
-                if ($button.length > 0) {
-                    // 关闭弹窗
-                    $button.popover('hide');
+                // remove popover
+                var buttonId = $confirm.attr('id');
+                $ele = $('[data-target="' + buttonId + '"]');
 
-                    // remove popover
-                    var buttonId = $button.attr('id');
-                    $ele = $('[data-target="' + buttonId + '"]');
-
-                    var $button = this.getAttribute('data-dismiss') === 'confirm'
-                        ? $ele.find('.popover-confirm-buttons .btn:first')
-                        : $ele.find('.popover-confirm-buttons .btn:last');
-                    $button.trigger('click');
-                }
+                var $button = this.getAttribute('data-dismiss') === 'confirm'
+                    ? $ele.find('.popover-confirm-buttons .btn:first')
+                    : $ele.find('.popover-confirm-buttons .btn:last');
+                $button.trigger('click');
             }
         });
     });
