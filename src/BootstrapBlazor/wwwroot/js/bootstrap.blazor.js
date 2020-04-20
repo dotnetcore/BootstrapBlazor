@@ -379,6 +379,13 @@
                 var top = $ele.scrollTop();
                 $thead.css({ 'transform': 'translateY(' + top + 'px)' });
             });
+        },
+        datepicker: function (el) {
+            console.log(el);
+        },
+        timepicker: function (el) {
+            //var $el = $(el);
+            //$el.
         }
     });
 

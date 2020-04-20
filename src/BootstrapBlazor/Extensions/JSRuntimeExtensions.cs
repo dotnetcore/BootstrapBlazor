@@ -51,18 +51,16 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 调用 JSInvoke 方法
         /// </summary>
-        /// <param name="jsRuntime"></param>
-        /// <param name="el"></param>
-        /// <param name="ref"></param>
-        /// <param name="func"></param>
-        /// <param name="method"></param>
-        /// <param name="args"></param>
-        public static void Invoke(this IJSRuntime? jsRuntime, object? el = null, string? func = null, object? @ref = null, string? method = null, params object[] args)
+        /// <param name="jsRuntime">IJSRuntime 实例</param>
+        /// <param name="el">Element 实例或者组件 Id</param>
+        /// <param name="ref">DotNetObjectReference 实例</param>
+        /// <param name="func">Javascript 方法</param>
+        /// <param name="args">Javascript 参数</param>
+        public static void Invoke(this IJSRuntime? jsRuntime, object? el = null, string? func = null, object? @ref = null, params object[] args)
         {
             var paras = new List<object>();
             if (el != null) paras.Add(el);
             if (@ref != null) paras.Add(@ref);
-            if (!string.IsNullOrEmpty(method)) paras.Add(method);
             if (args != null) paras.AddRange(args);
             jsRuntime?.InvokeVoidAsync($"$.{func}", paras.ToArray());
         }

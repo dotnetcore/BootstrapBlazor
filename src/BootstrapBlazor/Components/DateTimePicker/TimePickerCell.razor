@@ -1,0 +1,15 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ComponentBase
+
+<div class="time-spinner-wrapper is-arrow">
+    <i class="time-spinner-arrow fa fa-angle-up" @onclick="OnClickUp"></i>
+    <i class="time-spinner-arrow fa fa-angle-down" @onclick="OnClickDown"></i>
+    <div class="time-spinner-list-wrapper">
+        <ul class="time-spinner-list" style="@StyleName">
+            @foreach (var index in Range)
+            {
+                <li class="@GetClassName(index)">@index</li>
+            }
+        </ul>
+    </div>
+</div>

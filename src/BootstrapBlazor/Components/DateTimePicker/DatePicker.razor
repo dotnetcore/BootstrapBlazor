@@ -1,0 +1,88 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits DatePickerBase
+
+<div class="picker-panel date-picker" @ref="DatePickerElement">
+    <div class="picker-panel-body-wrapper">
+        <div class="picker-panel-body">
+            <div class="date-picker-header">
+                <button type="button" aria-label="前一年" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
+                    <i class="fa fa-angle-double-left"></i>
+                </button>
+                <button type="button" aria-label="上个月" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
+                    <i class="fa fa-angle-left"></i>
+                </button>
+                <div class="d-flex align-items-center justify-content-center flex-fill">
+                    <span role="button" class="date-picker-header-label" @onclick="e => SwitchView(DatePickerViewModel.Year)">@YearString</span>
+                    <span role="button" class="@CurrentMonthViewClassName" @onclick="e => SwitchView(DatePickerViewModel.Month)">@($"{CurrentDate.Month} 月")</span>
+                </div>
+                <button type="button" aria-label="下个月" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
+                    <i class="fa fa-angle-right"></i>
+                </button>
+                <button type="button" aria-label="后一年" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
+                    <i class="fa fa-angle-double-right"></i>
+                </button>
+            </div>
+            <div class="picker-panel-content">
+                <table cellspacing="0" cellpadding="0" class="@DateTimeViewClassName">
+                    <tbody>
+                        <tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>
+                        @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
+                        {
+                            <tr class="date-table-row">
+                                @for (var index = 0; index < 7; index++)
+                                {
+                                    <td class="@GetDayClass(week.AddDays(index))">
+                                        <div>
+                                            <DateTimePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="d=> OnDateTimeClick(d)" />
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <table class="@YearViewClassName">
+                    <tbody>
+                        @for (var row = 0; row < 5; row++)
+                        {
+                            <tr>
+                                @for (var index = 0; index < 4; index++)
+                                {
+                                    <td class="@GetYearClassName(index + row * 4)">
+                                        <div>
+                                            <DateTimePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <table class="@MonthViewClassName">
+                    <tbody>
+                        @for (var row = 0; row < 3; row++)
+                        {
+                            <tr>
+                                @for (var index = 0; index < 4; index++)
+                                {
+                                    <td class="@GetMonthClassName(index + row * 4 + 1)">
+                                        <div>
+                                            <DateTimePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.DateTime, d)" />
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="picker-panel-footer" style="display: none;">
+        <button type="button" class="button picker-panel-link-btn button--text button--mini">
+            <span>此刻</span>
+        </button><button type="button" class="button picker-panel-link-btn button--default button--mini is-plain">
+            <span>确定</span>
+        </button>
+    </div>
+</div>
