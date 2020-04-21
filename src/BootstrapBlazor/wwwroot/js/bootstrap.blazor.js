@@ -386,6 +386,14 @@
         timepicker: function (el) {
             //var $el = $(el);
             //$el.
+        },
+        tab: function (el) {
+            var $el = $(el);
+            var $activeTab = $el.find('.tabs-item.is-active');
+            var $bar = $el.find('.tabs-active-bar');
+            var width = $activeTab.width();
+            var left = $activeTab.position().left + parseInt($activeTab.css('paddingLeft'));
+            $bar.css({ 'width': width + 'px', 'transform': 'translateX(' + left + 'px)' });
         }
     });
 
