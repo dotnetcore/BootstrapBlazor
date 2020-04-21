@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{EA765165
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A5226E2-8EBD-4DEA-A1F5-2DF374655FA9}"
 	ProjectSection(SolutionItems) = preProject
+		scripts\windows\pack.cmd = scripts\windows\pack.cmd
 		scripts\windows\publish.cmd = scripts\windows\publish.cmd
+		scripts\windows\push.cmd = scripts\windows\push.cmd
 		scripts\windows\watch-run.cmd = scripts\windows\watch-run.cmd
 	EndProjectSection
 EndProject
