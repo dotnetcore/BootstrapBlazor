@@ -132,5 +132,15 @@ namespace BootstrapBlazor.Components
                 }
             });
         }
+
+        /// <summary>
+        /// 设置按钮是否可用状态
+        /// </summary>
+        /// <param name="disable"></param>
+        public void SetDisable(bool disable)
+        {
+            IsDisabled = disable;
+            StateHasChanged();
+        }
     }
 }

@@ -1,0 +1,9 @@
+﻿@page "/transfers"
+
+<h3>Transfer 穿梭框</h3>
+
+<Block Title="基础用法" Introduction="" CodeFile="transfer.1.txt">
+    <Transfer @bind-Items="@Items" LeftPanelText="候选项列表" RightPanelText="已选项列表" OnItemsChanged="@OnItemsChanged" />
+
+    <Logger @ref="Trace" class="mt-3" />
+</Block>

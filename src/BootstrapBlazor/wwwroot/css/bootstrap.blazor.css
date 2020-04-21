@@ -1448,3 +1448,67 @@ a {
     content: none;
 }
 /*end tabs*/
+
+/*transfer*/
+.transfer {
+    font-size: 14px;
+}
+
+.transfer-panel {
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+    max-height: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+    .transfer-panel .transfer-panel-header {
+        height: 40px;
+        line-height: 40px;
+        background: #f5f7fa;
+        margin: 0;
+        padding-left: 15px;
+        border-bottom: 1px solid #ebeef5;
+        color: #000;
+    }
+
+.transfer-panel-body {
+    height: 246px;
+}
+
+.transfer-panel-list {
+    margin: 0;
+    padding: 6px 0;
+    list-style: none;
+    height: 246px;
+    overflow: auto;
+}
+
+.transfer-panel-item {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 15px;
+    display: block;
+}
+
+.transfer-buttons {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 30px;
+}
+
+    .transfer-buttons .btn:not(:first-child) {
+        margin-left: 10px;
+    }
+
+    .transfer-buttons .is-disabled, .transfer-buttons .is-disabled:active, .transfer-buttons .is-disabled:focus, .transfer-buttons .is-disabled:hover, .transfer-buttons [disabled] {
+        color: #fff;
+        background-color: #a0cfff;
+        border-color: #a0cfff;
+    }
+/*end transfer*/

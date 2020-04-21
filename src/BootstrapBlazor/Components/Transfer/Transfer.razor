@@ -1,0 +1,15 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TransferBase
+
+<div class="transfer">
+    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" OnSelectedItemsChanged="@OnLeftSelectedItemsChanged"></TransferPanel>
+    <div class="transfer-buttons">
+        <Button Color="Color.Primary" IsDisabled="true" @ref="LeftButton" OnClick="e => Transfer(RightPanel, LeftPanel)">
+            <i class="fa fa-angle-left"></i>
+        </Button>
+        <Button Color="Color.Primary" IsDisabled="true" @ref="RightButton" OnClick="e => Transfer(LeftPanel, RightPanel)">
+            <i class="fa fa-angle-right"></i>
+        </Button>
+    </div>
+    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" OnSelectedItemsChanged="@OnRightSelectedItemsChanged"></TransferPanel>
+</div>
