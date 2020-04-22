@@ -49,6 +49,18 @@
     </div>
 </Block>
 
+<Block Title="绑定数据源" Introduction='' CodeFile="dropdown.7.txt">
+    <div class="row">
+        <div class="form-group col-12 col-sm-6">
+            <Dropdown TItem="string" @bind-Items="@BindItems">
+            </Dropdown>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <Button @onclick="@AddItem">添加</Button>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

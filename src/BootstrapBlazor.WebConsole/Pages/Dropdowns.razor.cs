@@ -2,6 +2,7 @@
 using BootstrapBlazor.WebConsole.Common;
 using BootstrapBlazor.WebConsole.Pages.Components;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.WebConsole.Pages
 {
@@ -20,11 +21,30 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
+        protected List<SelectedItem> BindItems { get; set; } = new List<SelectedItem>
+        {
+            new SelectedItem{ Text="北京",Value="0"},
+            new SelectedItem{ Text="上海",Value="1"},
+            new SelectedItem{ Text="广州",Value="2"},
+        };
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected Logger? Trace { get; set; }
 
         private void ShowMessage(SelectedItem e)
         {
             Trace?.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void AddItem()
+        {
+            BindItems.Add(new SelectedItem($"{BindItems.Count}", $"城市 {BindItems.Count}"));
         }
 
         /// <summary>
