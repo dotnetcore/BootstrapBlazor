@@ -2,14 +2,20 @@
 @inherits TransferBase
 
 <div class="transfer">
-    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" OnSelectedItemsChanged="@OnLeftSelectedItemsChanged"></TransferPanel>
+    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" ShowSearch="@ShowSearch"
+                   OnSelectedItemsChanged="@OnSelectedItemsChanged">
+    </TransferPanel>
     <div class="transfer-buttons">
-        <Button Color="Color.Primary" IsDisabled="true" @ref="LeftButton" OnClick="e => Transfer(RightPanel, LeftPanel)">
+        <button class="btn btn-primary" disabled="@GetButtonState(RightItems)" @onclick="e => Transfer(RightItems, LeftItems)">
             <i class="fa fa-angle-left"></i>
-        </Button>
-        <Button Color="Color.Primary" IsDisabled="true" @ref="RightButton" OnClick="e => Transfer(LeftPanel, RightPanel)">
+            <span class="@LeftButtonClassName">@LeftButtonText</span>
+        </button>
+        <button class="btn btn-primary" disabled="@GetButtonState(LeftItems)" @onclick="e => Transfer(LeftItems, RightItems)">
+            <span class="@RightButtonClassName">@RightButtonText</span>
             <i class="fa fa-angle-right"></i>
-        </Button>
+        </button>
     </div>
-    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" OnSelectedItemsChanged="@OnRightSelectedItemsChanged"></TransferPanel>
+    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" ShowSearch="@ShowSearch"
+                   OnSelectedItemsChanged="@OnSelectedItemsChanged">
+    </TransferPanel>
 </div>

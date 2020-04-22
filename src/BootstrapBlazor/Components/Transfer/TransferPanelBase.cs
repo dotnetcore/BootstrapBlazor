@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Linq;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// TransferPanelBase 穿梭框面板组件
     /// </summary>
     public class TransferPanelBase : BootstrapComponentBase
     {
@@ -16,24 +17,21 @@ namespace BootstrapBlazor.Components
         protected Checkbox<SelectedItem>? HeaderCheckbox { get; set; }
 
         /// <summary>
-        /// 获得/设置 选中的所有数据项集合
+        /// 获得/设置 搜索关键字
         /// </summary>
-        public IEnumerable<SelectedItem> SelectedItems => Items.Where(i => i.Active);
+        protected string? SearchText { get; set; }
+
+        /// <summary>
+        /// 获得 搜索图标样式
+        /// </summary>
+        protected string? SearchClass => CssBuilder.Default("input-prefix")
+            .AddClass("is-on", !string.IsNullOrEmpty(SearchText))
+            .Build();
 
         /// <summary>
         /// 获得/设置 数据集合
         /// </summary>
-        [Parameter] public List<SelectedItem> Items { get; set; } = new List<SelectedItem>();
-
-        /// <summary>
-        /// 获得/设置 数据集合改变时回调方法
-        /// </summary>
-        [Parameter] public EventCallback<List<SelectedItem>> ItemsChanged { get; set; }
-
-        /// <summary>
-        /// 获得/设置 选项状态变化时回调方法
-        /// </summary>
-        [Parameter] public Action<IEnumerable<SelectedItem>>? OnSelectedItemsChanged { get; set; }
+        [Parameter] public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 面板显示文字
@@ -41,13 +39,23 @@ namespace BootstrapBlazor.Components
         [Parameter] public string Text { get; set; } = "列表";
 
         /// <summary>
+        /// 获得/设置 是否显示搜索框
+        /// </summary>
+        [Parameter] public bool ShowSearch { get; set; }
+
+        /// <summary>
+        /// 获得/设置 选项状态变化时回调方法
+        /// </summary>
+        [Parameter] public Action? OnSelectedItemsChanged { get; set; }
+
+        /// <summary>
         /// 头部复选框初始化值方法
         /// </summary>
         protected CheckboxState HeaderCheckState()
         {
             var ret = CheckboxState.Mixed;
-            if (Items.Count > 0 && Items.Where(i => i.Active).Count() == Items.Count) ret = CheckboxState.Checked;
-            else if (Items.Where(i => i.Active).Count() == 0) ret = CheckboxState.UnChecked;
+            if (Items != null && Items.Any() && Items.All(i => i.Active)) ret = CheckboxState.Checked;
+            else if (!Items.Any(i => i.Active)) ret = CheckboxState.UnChecked;
             return ret;
         }
 
@@ -56,59 +64,63 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnHeaderCheck(CheckboxState state, SelectedItem item)
         {
-            if (state == CheckboxState.Checked) Items.ForEach(i => i.Active = true);
-            else Items.ForEach(i => i.Active = false);
-            OnSelectedItemsChanged?.Invoke(Items);
-            StateHasChanged();
+            if (Items != null)
+            {
+                if (state == CheckboxState.Checked) Items.ToList().ForEach(i => i.Active = true);
+                else Items.ToList().ForEach(i => i.Active = false);
+                OnSelectedItemsChanged?.Invoke();
+            }
         }
 
         /// <summary>
-        /// 
+        /// RenderItem 方法
         /// </summary>
-        /// <param name="item"></param>
         /// <returns></returns>
-        protected virtual RenderFragment RenderItem(SelectedItem item) => new RenderFragment(builder =>
+        protected virtual RenderFragment RenderItem() => new RenderFragment(builder =>
         {
-            var index = 0;
-            builder.OpenComponent<Checkbox<SelectedItem>>(index++);
-            builder.AddAttribute(index++, "class", "transfer-panel-item");
-            builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.Value), item);
-            builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.DisplayText), item.Text);
-            builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.State), item.Active ? CheckboxState.Checked : CheckboxState.UnChecked);
-            builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.OnStateChanged), new Action<CheckboxState, SelectedItem>((state, i) =>
+            var output = string.IsNullOrEmpty(SearchText) ? Items : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+            foreach (var item in (output ?? new SelectedItem[0]))
             {
-                // trigger when transfer item clicked
-                i.Active = state == CheckboxState.Checked;
+                var index = 0;
+                builder.OpenComponent<Checkbox<SelectedItem>>(index++);
+                builder.AddAttribute(index++, "class", "transfer-panel-item");
+                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.Value), item);
+                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.DisplayText), item.Text);
+                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.State), item.Active ? CheckboxState.Checked : CheckboxState.UnChecked);
+                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.OnStateChanged), new Action<CheckboxState, SelectedItem>((state, i) =>
+                {
+                    // trigger when transfer item clicked
+                    i.Active = state == CheckboxState.Checked;
 
-                // set header
-                HeaderCheckbox?.SetState(HeaderCheckState());
-                OnSelectedItemsChanged?.Invoke(Items);
-            }));
-            builder.CloseComponent();
+                    // set header
+                    OnSelectedItemsChanged?.Invoke();
+                }));
+                builder.CloseComponent();
+            }
         });
 
         /// <summary>
-        /// 数据源增加数据项方法
+        /// 搜索框文本改变时回调此方法
         /// </summary>
-        /// <param name="items"></param>
-        public void Add(IEnumerable<SelectedItem> items)
+        /// <param name="e"></param>
+        protected virtual void OnSearch(ChangeEventArgs e) => SearchText = e.Value.ToString();
+
+        /// <summary>
+        /// 搜索文本框按键回调方法
+        /// </summary>
+        /// <param name="e"></param>
+        protected void OnKeyUp(KeyboardEventArgs e)
         {
-            Items.AddRange(items);
-            StateHasChanged();
+            // Escape
+            if (e.Key == "Escape") ClearSearch();
         }
 
         /// <summary>
-        /// 数据源移除数据项方法
+        /// 清空搜索条件方法
         /// </summary>
-        /// <param name="items"></param>
-        public void Remove(IEnumerable<SelectedItem> items)
+        protected void ClearSearch()
         {
-            items.ToList().ForEach(i =>
-            {
-                i.Active = false;
-                Items.Remove(i);
-            });
-            StateHasChanged();
+            SearchText = "";
         }
     }
 }
