@@ -28,6 +28,24 @@ namespace BootstrapBlazor.WebConsole.Pages
             new SelectedItem{ Text="广州",Value="2"},
         };
 
+        /// <summary>
+        /// 
+        /// </summary>
+        protected List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>
+        {
+            new SelectedItem("1", "北京") { Active = true },
+            new SelectedItem("2", "上海")
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>
+        {
+            new SelectedItem("1", "北京") { Active = true },
+            new SelectedItem("2", "上海"),
+            new SelectedItem("3", "广州")
+        };
 
         /// <summary>
         /// 
@@ -44,7 +62,16 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         private void AddItem()
         {
-            BindItems.Add(new SelectedItem($"{BindItems.Count}", $"城市 {BindItems.Count}"));
+            BindItems.Add(new SelectedItem($"{BindItems.Count()}", $"城市 {BindItems.Count()}"));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void OnRadioItemChanged(CheckboxState state, SelectedItem item)
+        {
+            RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count()}", $"城市 {RadioDropDownItems.Count()}"));
+            StateHasChanged();
         }
 
         /// <summary>

@@ -49,14 +49,27 @@
     </div>
 </Block>
 
-<Block Title="绑定数据源" Introduction='' CodeFile="dropdown.7.txt">
+<Block Title="绑定数据源" Introduction='点击右侧按钮时，下拉框内菜单项会增加' CodeFile="dropdown.7.txt">
     <div class="row">
         <div class="form-group col-12 col-sm-6">
-            <Dropdown TItem="string" @bind-Items="@BindItems">
+            <Dropdown TItem="string" Items="@BindItems">
             </Dropdown>
         </div>
         <div class="form-group col-12 col-sm-6">
             <Button @onclick="@AddItem">添加</Button>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定数据源" Introduction="改变选项时，下拉框内菜单项会增加" CodeFile="dropdown.8.txt">
+    <div class="row">
+        <div class="form-group col-12">
+            <Radio Items="@RadioItems" OnStateChanged="@OnRadioItemChanged">
+            </Radio>
+        </div>
+        <div class="form-group col-12">
+            <Dropdown TItem="string" Items="@RadioDropDownItems">
+            </Dropdown>
         </div>
     </div>
 </Block>
