@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits DatePickerBase
+@inherits DatePickerBodyBase
 
-<div class="picker-panel date-picker" @ref="DatePickerElement">
+<div class="@ClassName" @ref="DatePickerElement">
     <div class="picker-panel-body-wrapper">
         <div class="picker-panel-body">
             <div class="date-picker-header">
@@ -33,7 +33,7 @@
                                 {
                                     <td class="@GetDayClass(week.AddDays(index))">
                                         <div>
-                                            <DateTimePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="d=> OnDateTimeClick(d)" />
+                                            <DatePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="d=> OnDateTimeClick(d)" />
                                         </div>
                                     </td>
                                 }
@@ -50,7 +50,7 @@
                                 {
                                     <td class="@GetYearClassName(index + row * 4)">
                                         <div>
-                                            <DateTimePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
+                                            <DatePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
                                         </div>
                                     </td>
                                 }
@@ -67,7 +67,7 @@
                                 {
                                     <td class="@GetMonthClassName(index + row * 4 + 1)">
                                         <div>
-                                            <DateTimePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.DateTime, d)" />
+                                            <DatePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.DateTime, d)" />
                                         </div>
                                     </td>
                                 }

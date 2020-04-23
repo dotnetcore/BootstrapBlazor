@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// DateTimePickerCell 组件
     /// </summary>
-    partial class DateTimePickerCell
+    partial class DatePickerCell
     {
         /// <summary>
         /// 获得/设置 日期

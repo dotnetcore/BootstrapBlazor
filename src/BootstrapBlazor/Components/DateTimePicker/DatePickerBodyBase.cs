@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 日期选择组件
     /// </summary>
-    public abstract class DatePickerBase : ValidateInputBase<DateTime>
+    public abstract class DatePickerBodyBase : BootstrapComponentBase
     {
         /// <summary>
         /// 获得/设置 DateTimePicker DOM 实例
@@ -35,6 +35,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 当前日历框月份
         /// </summary>
         protected DateTime CurrentDate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件样式
+        /// </summary>
+        protected string? ClassName => CssBuilder.Default("picker-panel date-picker")
+            .AddClass("d-none", !IsShown)
+            .Build();
 
         /// <summary>
         /// 获得/设置 日期样式
@@ -103,6 +110,32 @@ namespace BootstrapBlazor.Components
         [Parameter] public DatePickerViewModel ViewModel { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示本组件默认为 false 不显示
+        /// </summary>
+        [Parameter] public bool IsShown { get; set; }
+
+        private DateTime _value;
+        /// <summary>
+        /// 获得/设置 组件值
+        /// </summary>
+        [Parameter]
+        public DateTime Value
+        {
+            get { return _value; }
+            set
+            {
+                _value = value;
+                CurrentDate = _value;
+            }
+        }
+
+        /// <summary>
+        /// 获得/设置 组件值改变时回调委托供双向绑定使用
+        /// </summary>
+        [Parameter]
+        public EventCallback<DateTime> ValueChanged { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -111,8 +144,6 @@ namespace BootstrapBlazor.Components
 
             // 计算开始与结束时间 每个组件显示 6 周数据
             if (Value == DateTime.MinValue) Value = DateTime.Today;
-
-            CurrentDate = Value;
         }
 
         /// <summary>

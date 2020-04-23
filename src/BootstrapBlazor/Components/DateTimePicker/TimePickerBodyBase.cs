@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// TimePicker 组件基类
     /// </summary>
-    public abstract class TimePickerBase : ValidateInputBase<TimeSpan>
+    public abstract class TimePickerBodyBase : ValidateInputBase<TimeSpan>
     {
         /// <summary>
         /// 获得 组件客户端 DOM 实例

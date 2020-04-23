@@ -1,0 +1,12 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits DateTimePickerBase
+
+<div class="datetime-picker" @ref="Picker" data-placement="@PlacementString">
+    <div class="datetime-picker-bar">
+        <input readonly="readonly" class="@ClassName" @bind="@CurrentValueAsString" placeholder="选择日期" />
+        <span class="datetime-picker-input-icon">
+            <i class="fa fa-calendar"></i>
+        </span>
+    </div>
+    <DatePickerBody @bind-Value="@CurrentValue"></DatePickerBody>
+</div>

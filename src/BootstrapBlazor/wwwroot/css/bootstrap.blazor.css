@@ -5,7 +5,7 @@
     font-size: 0.875rem;
 }
 
-:focus {
+:focus, button:focus {
     outline: none;
 }
 
@@ -996,18 +996,85 @@ a {
 /*end confirm*/
 
 /*datetimepicker*/
+.popover-datetime {
+    border: none;
+    box-shadow: none;
+    max-width: unset;
+}
+
+    .popover-datetime .popover-body {
+        padding: 0;
+    }
+
+    .popover-datetime[x-placement="right"] .popover-body {
+        margin-left: -1px;
+    }
+
+    .popover-datetime[x-placement="left"] .popover-body {
+        margin-right: -1px;
+    }
+
+    .popover-datetime[x-placement="top"] .popover-body {
+        margin-bottom: -1px;
+    }
+
+    .popover-datetime[x-placement="bottom"] .popover-body {
+        margin-top: -1px;
+    }
+
+.bs-popover-top > .arrow::before, .bs-popover-auto[x-placement^="top"] > .arrow::before {
+    border-top-color: #ced4da;
+}
+
+.bs-popover-right > .arrow::before, .bs-popover-auto[x-placement^="right"] > .arrow::before {
+    border-right-color: #ced4da;
+}
+
+.bs-popover-bottom > .arrow::before, .bs-popover-auto[x-placement^="bottom"] > .arrow::before {
+    border-bottom-color: #ced4da;
+}
+
+.bs-popover-left > .arrow::before, .bs-popover-auto[x-placement^="left"] > .arrow::before {
+    border-left-color: #ced4da;
+}
+
+.datetime-picker-bar {
+    position: relative;
+    color: #adb5bd;
+}
+
+.datetime-picker-input[readonly] {
+    cursor: pointer;
+    padding-left: 30px;
+    background-color: #fff;
+}
+
+.datetime-picker-input.is-disabled, .datetime-picker-input:disabled {
+    cursor: not-allowed;
+}
+
+.datetime-picker-input-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 35px;
+    line-height: 35px;
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
 .date-picker {
     width: 322px;
 }
 
 .picker-panel {
     color: #606266;
-    border: 1px solid #e4e7ed;
+    border: 1px solid #ced4da;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     background: #fff;
     border-radius: 4px;
     line-height: 30px;
-    margin: 5px 0;
 }
 
 .picker-panel-body-wrapper:after, .picker-panel-body:after {
@@ -1139,8 +1206,7 @@ a {
 
 /*time picker*/
 .time-panel {
-    margin: 5px 0;
-    border: 1px solid #e4e7ed;
+    border: 1px solid #ced4da;
     background-color: #fff;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     border-radius: 4px;
@@ -1528,7 +1594,6 @@ a {
 .transfer-panel-filter {
     text-align: center;
     margin: 15px;
-    box-sizing: border-box;
     display: block;
     width: auto;
     position: relative;
