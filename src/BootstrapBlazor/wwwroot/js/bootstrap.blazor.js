@@ -380,6 +380,9 @@
                 $thead.css({ 'transform': 'translateY(' + top + 'px)' });
             });
         },
+        timePicker: function (el) {
+            return $(el).find('.time-spinner-item').height();
+        },
         datetimePicker: function (el, method) {
             var $el = $(el);
             var placement = $el.attr('data-placement') || 'auto';
@@ -473,10 +476,14 @@
                 // 处理点击日事件
                 var $day = $el.parents('.date-table');
                 if ($day.length === 1) {
-                    var $parent = $el.parents('.popover-datetime.show');
-                    var pId = $parent.attr('id');
-                    var $input = $('[aria-describedby="' + pId + '"]');
-                    if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
+                    // 点击的是 Day cell
+                    var $popover = $el.parents('.popover-datetime.show');
+                    var $footer = $popover.find('.picker-panel-footer:visible');
+                    if ($footer.length === 0) {
+                        var pId = $popover.attr('id');
+                        var $input = $('[aria-describedby="' + pId + '"]');
+                        if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
+                    }
                 }
             }
         });

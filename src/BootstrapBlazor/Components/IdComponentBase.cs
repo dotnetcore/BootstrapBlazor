@@ -25,10 +25,10 @@ namespace BootstrapBlazor.Components
             // 客户端组件生成后通过 invoke 生成客户端组件 id
             if (firstRender)
             {
-                if (string.IsNullOrEmpty(Id))
+                if (JSRuntime != null && string.IsNullOrEmpty(Id))
                 {
                     // 生成 Id
-                    Id = await JSRuntime.GetClientIdAsync();
+                    Id = await JSRuntime.InvokeAsync<string>(func: "getUID");
                     await InvokeAsync(StateHasChanged).ConfigureAwait(false);
                 }
             }

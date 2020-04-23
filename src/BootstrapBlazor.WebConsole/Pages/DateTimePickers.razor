@@ -5,7 +5,7 @@
 <h4>用于选择或输入日期</h4>
 
 <Block Title="选择日" Introduction="以「日」为基本单位，基础的日期选择控件" CodeFile="datepicker.1.txt">
-    <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" />
+    <DatePickerBody IsShown="true" OnValueChanged="@DateValueChanged" />
 
     <Logger @ref="DateLogger" class="mt-3" />
 </Block>
@@ -50,14 +50,25 @@
 <Block Title="数据双向绑定" Introduction="日期组件时间改变时文本框内的数值也跟着改变" CodeFile="datepicker.4.txt">
     <div class="form-inline">
         <div class="row">
-            <div class="form-group col-sm-4">
-                <DateTimePicker @bind-Value="@BindValue" Placement="Placement.Right"/>
+            <div class="form-group col-sm-6">
+                <DateTimePicker @bind-Value="@BindValue" OnValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
             </div>
-            <div class="form-group col-sm-4">
+            <div class="form-group col-sm-6">
                 <input class="form-control" @bind="@BindValueString" />
+            </div>
+            <div class="form-group col-sm-12">
+                <Logger @ref="DateTimeLogger" class="mt-3" />
             </div>
         </div>
     </div>
+</Block>
 
-    <Logger @ref="DateTimeLogger" class="mt-3" />
+<Block Title="带时间的选择器" Introduction="在同一个选择器里选择日期和时间" CodeFile="datepicker.5.txt">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <DateTimePicker ViewModel="DatePickerViewModel.DateTime" />
+            </div>
+        </div>
+    </div>
 </Block>

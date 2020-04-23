@@ -60,6 +60,11 @@ namespace BootstrapBlazor.Components
         [Parameter] public Action<TimeSpan>? OnValueChanged { get; set; }
 
         /// <summary>
+        /// 获得/设置 时间刻度行高
+        /// </summary>
+        [Parameter] public Func<double>? ItemHeightCallback { get; set; }
+
+        /// <summary>
         /// 上翻页按钮调用此方法
         /// </summary>
         protected void OnClickUp()
@@ -72,6 +77,7 @@ namespace BootstrapBlazor.Components
                 _ => TimeSpan.Zero
             };
             Value = Value.Subtract(ts);
+            if (Value < TimeSpan.Zero) Value = Value.Add(TimeSpan.FromHours(24));
             if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
             OnValueChanged?.Invoke(Value);
         }
@@ -89,16 +95,21 @@ namespace BootstrapBlazor.Components
                 _ => TimeSpan.Zero
             };
             Value = Value.Add(ts);
+            if (Value.Days > 0) Value = Value.Subtract(TimeSpan.FromDays(1));
             if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
             OnValueChanged?.Invoke(Value);
         }
 
-        private double CalcTranslateY() => 0 - ViewModel switch
+        private double CalcTranslateY()
         {
-            TimePickerCellViewModel.Hour => (Value.Hours - 1) * 36.6,
-            TimePickerCellViewModel.Minute => (Value.Minutes - 1) * 36.6,
-            TimePickerCellViewModel.Second => (Value.Seconds - 1) * 36.6,
-            _ => 0
-        };
+            var height = ItemHeightCallback?.Invoke() ?? 36.594d;
+            return 0 - ViewModel switch
+            {
+                TimePickerCellViewModel.Hour => (Value.Hours - 1) * height,
+                TimePickerCellViewModel.Minute => (Value.Minutes - 1) * height,
+                TimePickerCellViewModel.Second => (Value.Seconds - 1) * height,
+                _ => 0
+            };
+        }
     }
 }

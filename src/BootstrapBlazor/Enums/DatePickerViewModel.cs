@@ -8,6 +8,10 @@
         /// <summary>
         /// 年月日模式
         /// </summary>
+        Date,
+        /// <summary>
+        /// 年月日时分秒模式
+        /// </summary>
         DateTime,
         /// <summary>
         /// 年视图
