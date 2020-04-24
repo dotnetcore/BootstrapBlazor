@@ -21,8 +21,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{EA765165
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A5226E2-8EBD-4DEA-A1F5-2DF374655FA9}"
 	ProjectSection(SolutionItems) = preProject
+		scripts\windows\pack.cmd = scripts\windows\pack.cmd
 		scripts\windows\publish.cmd = scripts\windows\publish.cmd
+		scripts\windows\push.cmd = scripts\windows\push.cmd
 		scripts\windows\watch-run.cmd = scripts\windows\watch-run.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyor", "appveyor", "{1E971D51-59DE-4A99-A885-76A1BA6E2388}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\appveyor\appveyor.build.ps1 = scripts\appveyor\appveyor.build.ps1
+		appveyor.yml = appveyor.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F0754254-903C-411B-972C-EC91254B4A67}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
 	EndProjectSection
 EndProject
 Global
@@ -48,6 +61,8 @@ Global
 		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{EA765165-0542-41C8-93F2-85787FEDEDFF} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
 		{4A5226E2-8EBD-4DEA-A1F5-2DF374655FA9} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
+		{1E971D51-59DE-4A99-A885-76A1BA6E2388} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
+		{F0754254-903C-411B-972C-EC91254B4A67} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

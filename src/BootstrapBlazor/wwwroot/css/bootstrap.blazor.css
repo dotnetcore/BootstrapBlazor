@@ -5,7 +5,7 @@
     font-size: 0.875rem;
 }
 
-:focus {
+:focus, button:focus {
     outline: none;
 }
 
@@ -562,6 +562,15 @@ a {
 .dropleft .dropdown-toggle:before {
     margin-right: 6px;
 }
+
+.dropdown-menu {
+    max-height: 186px;
+    overflow: auto;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
 /*end dropdown*/
 
 /*collapse*/
@@ -987,18 +996,147 @@ a {
 /*end confirm*/
 
 /*datetimepicker*/
+.popover-datetime {
+    border: none;
+    box-shadow: none;
+    max-width: unset;
+}
+
+    .popover-datetime .popover-body {
+        padding: 0;
+    }
+
+    .popover-datetime[x-placement="right"] .popover-body {
+        margin-left: -1px;
+    }
+
+    .popover-datetime[x-placement="left"] .popover-body {
+        margin-right: -1px;
+    }
+
+    .popover-datetime[x-placement="top"] .popover-body {
+        margin-bottom: -1px;
+    }
+
+    .popover-datetime[x-placement="bottom"] .popover-body {
+        margin-top: -1px;
+    }
+
+.bs-popover-top > .arrow::before, .bs-popover-auto[x-placement^="top"] > .arrow::before {
+    border-top-color: #ced4da;
+}
+
+.bs-popover-right > .arrow::before, .bs-popover-auto[x-placement^="right"] > .arrow::before {
+    border-right-color: #ced4da;
+}
+
+.bs-popover-bottom > .arrow::before, .bs-popover-auto[x-placement^="bottom"] > .arrow::before {
+    border-bottom-color: #ced4da;
+}
+
+.bs-popover-left > .arrow::before, .bs-popover-auto[x-placement^="left"] > .arrow::before {
+    border-left-color: #ced4da;
+}
+
+.datetime-picker-bar {
+    position: relative;
+    color: #adb5bd;
+}
+
+.datetime-picker-input[readonly] {
+    cursor: pointer;
+    padding-left: 30px;
+    background-color: #fff;
+}
+
+.datetime-picker-input.is-disabled, .datetime-picker-input:disabled {
+    cursor: not-allowed;
+}
+
+.datetime-picker-input-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 35px;
+    line-height: 35px;
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.date-picker-time-header {
+    position: relative;
+    border-bottom: 1px solid #e4e4e4;
+    font-size: 12px;
+    padding: 8px 5px 5px;
+    display: table;
+    width: 100%;
+}
+
+    .date-picker-time-header .date-picker-editor-wrap {
+        position: relative;
+        display: table-cell;
+        padding: 0 5px;
+    }
+
+        .date-picker-time-header .date-picker-editor-wrap .input-inner {
+            height: 2rem;
+            line-height: 2rem;
+            padding: 0 1rem;
+            cursor: pointer;
+        }
+
+            .date-picker-time-header .date-picker-editor-wrap .input-inner[readonly] {
+                background-color: #fff;
+            }
+
+.date-picker-editor-wrap .time-panel {
+    position: absolute;
+    z-index: -1;
+    display: none;
+    width: 145px;
+    margin-top: 0.25rem;
+}
+
+    .date-picker-editor-wrap .time-panel .time-spinner-item {
+        height: 28px;
+        line-height: 28px;
+    }
+
+.date-picker-editor-wrap .time-panel-content:after, .date-picker-editor-wrap .time-panel-content:before {
+    margin-top: -32px;
+    height: 28px;
+}
+
+.date-picker-editor-wrap .time-spinner-arrow.fa-angle-up {
+    top: 3px;
+}
+
+.date-picker-editor-wrap .time-spinner-arrow.fa-angle-down {
+    bottom: 3px;
+}
+
+.date-picker-editor-wrap .time-spinner-list-wrapper {
+    height: 84px;
+    margin: 36px 0;
+}
+
+.is-open .date-picker-editor-wrap .time-panel {
+    z-index: 10;
+    display: block;
+}
+
 .date-picker {
     width: 322px;
 }
 
 .picker-panel {
     color: #606266;
-    border: 1px solid #e4e7ed;
+    border: 1px solid #ced4da;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     background: #fff;
     border-radius: 4px;
     line-height: 30px;
-    margin: 5px 0;
 }
 
 .picker-panel-body-wrapper:after, .picker-panel-body:after {
@@ -1130,8 +1268,7 @@ a {
 
 /*time picker*/
 .time-panel {
-    margin: 5px 0;
-    border: 1px solid #e4e7ed;
+    border: 1px solid #ced4da;
     background-color: #fff;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     border-radius: 4px;
@@ -1283,6 +1420,35 @@ a {
         font-weight: 800;
         color: #409eff;
     }
+
+.picker-panel-footer {
+    border-top: 1px solid #e4e4e4;
+    padding: 4px;
+    text-align: right;
+    background-color: #fff;
+    position: relative;
+}
+
+    .picker-panel-footer .picker-panel-link-btn {
+        padding: 7px 15px;
+        font-size: 0.75rem;
+        border-radius: 3px;
+        line-height: 12px;
+        color: #606266;
+    }
+
+        .picker-panel-footer .picker-panel-link-btn.is-confirm {
+            border: 1px solid #dcdfe6;
+        }
+
+            .picker-panel-footer .picker-panel-link-btn.is-confirm:hover {
+                border-color: #409eff;
+                color: #409eff;
+            }
+
+        .picker-panel-footer .picker-panel-link-btn.is-now {
+            color: #409eff;
+        }
 /*end time picker*/
 
 /*tabs*/
@@ -1502,13 +1668,61 @@ a {
     padding: 0 30px;
 }
 
-    .transfer-buttons .btn:not(:first-child) {
-        margin-left: 10px;
+    .transfer-buttons .btn {
+        white-space: nowrap;
     }
+
+        .transfer-buttons .btn:not(:first-child) {
+            margin-left: 10px;
+        }
 
     .transfer-buttons .is-disabled, .transfer-buttons .is-disabled:active, .transfer-buttons .is-disabled:focus, .transfer-buttons .is-disabled:hover, .transfer-buttons [disabled] {
         color: #fff;
         background-color: #a0cfff;
         border-color: #a0cfff;
     }
+
+.transfer-panel-filter {
+    text-align: center;
+    margin: 15px;
+    display: block;
+    width: auto;
+    position: relative;
+}
+
+    .transfer-panel-filter .input-inner {
+        height: 32px;
+        line-height: 32px;
+        width: 100%;
+        display: inline-block;
+        border-radius: 16px;
+        padding-right: 10px;
+        padding-left: 30px;
+        border: 1px solid #dcdfe6;
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        color: #606266;
+    }
+
+        .transfer-panel-filter .input-inner:focus {
+            outline: none;
+            border-color: #409eff;
+        }
+
+    .transfer-panel-filter .input-prefix {
+        height: 100%;
+        width: 30px;
+        transition: all .3s;
+        position: absolute;
+        left: 4px;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c0c4cc;
+    }
+
+        .transfer-panel-filter .input-prefix:hover i:before, .transfer-panel-filter .input-prefix.is-on i:before {
+            cursor: pointer;
+            content: "\f057";
+        }
 /*end transfer*/

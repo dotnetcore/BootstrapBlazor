@@ -1,9 +1,18 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits DatePickerBase
+@inherits DatePickerBodyBase
 
-<div class="picker-panel date-picker" @ref="DatePickerElement">
+<div @attributes="@AdditionalAttributes" class="@ClassName" @ref="DatePickerElement">
     <div class="picker-panel-body-wrapper">
         <div class="picker-panel-body">
+            <div class="@DateTimeViewClassName">
+                <span class="date-picker-editor-wrap">
+                    <input type="text" autocomplete="off" readonly placeholder="选择日期" class="input-inner form-control" value="@DateValueString">
+                </span>
+                <span class="date-picker-editor-wrap">
+                    <input type="text" autocomplete="off" readonly placeholder="选择时间" class="input-inner form-control" value="@TimeValueString" @onclick="@OnClickTimeInput">
+                    <TimePickerBody @bind-Value="CurrentTime" OnValueChanged="OnTimeValueChanged" OnClose="@OnTimePickerClose" OnConfirm="@OnTimePickerClose" />
+                </span>
+            </div>
             <div class="date-picker-header">
                 <button type="button" aria-label="前一年" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
                     <i class="fa fa-angle-double-left"></i>
@@ -23,7 +32,7 @@
                 </button>
             </div>
             <div class="picker-panel-content">
-                <table cellspacing="0" cellpadding="0" class="@DateTimeViewClassName">
+                <table cellspacing="0" cellpadding="0" class="@DateViewClassName">
                     <tbody>
                         <tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>
                         @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
@@ -33,7 +42,7 @@
                                 {
                                     <td class="@GetDayClass(week.AddDays(index))">
                                         <div>
-                                            <DateTimePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="d=> OnDateTimeClick(d)" />
+                                            <DatePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="d=> OnClickDateTime(d)" />
                                         </div>
                                     </td>
                                 }
@@ -50,7 +59,7 @@
                                 {
                                     <td class="@GetYearClassName(index + row * 4)">
                                         <div>
-                                            <DateTimePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
+                                            <DatePickerCell Value="@GetYear(index + row * 4)" Text="@GetYearText(index + row * 4)" OnClick="d => SwitchView(DatePickerViewModel.Month, d)" />
                                         </div>
                                     </td>
                                 }
@@ -67,7 +76,7 @@
                                 {
                                     <td class="@GetMonthClassName(index + row * 4 + 1)">
                                         <div>
-                                            <DateTimePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.DateTime, d)" />
+                                            <DatePickerCell Value="@GetMonth(index + row * 4 + 1)" Text="@GetMonthText(index + row * 4 + 1)" OnClick="d => SwitchView(DatePickerViewModel.Date, d)" />
                                         </div>
                                     </td>
                                 }
@@ -78,10 +87,10 @@
             </div>
         </div>
     </div>
-    <div class="picker-panel-footer" style="display: none;">
-        <button type="button" class="button picker-panel-link-btn button--text button--mini">
+    <div class="@FooterClassName">
+        <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
             <span>此刻</span>
-        </button><button type="button" class="button picker-panel-link-btn button--default button--mini is-plain">
+        </button><button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
             <span>确定</span>
         </button>
     </div>

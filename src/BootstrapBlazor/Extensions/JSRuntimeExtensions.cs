@@ -27,13 +27,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 执行客户端脚本得到一个唯一的客户端 id
-        /// </summary>
-        /// <param name="jsRuntime"></param>
-        /// <returns></returns>
-        public static ValueTask<string> GetClientIdAsync(this IJSRuntime? jsRuntime) => jsRuntime?.InvokeAsync<string>("$.getUID") ?? new ValueTask<string>("");
-
-        /// <summary>
         /// 弹出 Tooltip 组件
         /// </summary>
         /// <param name="jsRuntime"></param>
@@ -63,6 +56,21 @@ namespace BootstrapBlazor.Components
             if (@ref != null) paras.Add(@ref);
             if (args != null) paras.AddRange(args);
             jsRuntime?.InvokeVoidAsync($"$.{func}", paras.ToArray());
+        }
+
+        /// <summary>
+        /// 调用 JSInvoke 方法
+        /// </summary>
+        /// <param name="jsRuntime">IJSRuntime 实例</param>
+        /// <param name="el">Element 实例或者组件 Id</param>
+        /// <param name="func">Javascript 方法</param>
+        /// <param name="args">Javascript 参数</param>
+        public static async ValueTask<TValue> InvokeAsync<TValue>(this IJSRuntime jsRuntime, object? el = null, string? func = null, params object[] args)
+        {
+            var paras = new List<object>();
+            if (el != null) paras.Add(el);
+            if (args != null) paras.AddRange(args);
+            return await jsRuntime.InvokeAsync<TValue>($"$.{func}", paras.ToArray());
         }
     }
 }

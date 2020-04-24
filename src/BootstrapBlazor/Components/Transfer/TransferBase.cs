@@ -11,6 +11,20 @@ namespace BootstrapBlazor.Components
     public abstract class TransferBase : BootstrapComponentBase
     {
         /// <summary>
+        /// 获得/设置 按钮文本样式
+        /// </summary>
+        protected string? LeftButtonClassName => CssBuilder.Default()
+            .AddClass("d-none", string.IsNullOrEmpty(LeftButtonText))
+            .Build();
+
+        /// <summary>
+        /// 获得/设置 按钮文本样式
+        /// </summary>
+        protected string? RightButtonClassName => CssBuilder.Default("mr-1")
+            .AddClass("d-none", string.IsNullOrEmpty(RightButtonText))
+            .Build();
+
+        /// <summary>
         /// 获得/设置 左侧数据集合
         /// </summary>
         protected List<SelectedItem> LeftItems { get; set; } = new List<SelectedItem>();
@@ -40,34 +54,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Button? RightButton { get; set; }
 
-        private List<SelectedItem> _items = new List<SelectedItem>();
         /// <summary>
         /// 获得/设置 组件绑定数据项集合
         /// </summary>
-        [Parameter]
-        public IEnumerable<SelectedItem> Items
-        {
-            get
-            {
-                _items.Clear();
-                _items.AddRange(LeftItems);
-                _items.AddRange(RightItems.Select(i => { i.Active = true; return i; }));
-                return _items;
-            }
-            set
-            {
-                LeftItems.Clear();
-                RightItems.Clear();
-                _items = value.ToList();
-                LeftItems.AddRange(_items.Where(i => !i.Active));
-                RightItems.AddRange(_items.Where(i => i.Active));
-            }
-        }
-
-        /// <summary>
-        /// 获得/设置 组件绑定数据项集合选项变化时回调方法
-        /// </summary>
-        [Parameter] public EventCallback<IEnumerable<SelectedItem>> ItemsChanged { get; set; }
+        [Parameter] public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 组件绑定数据项集合选项变化时回调方法
@@ -85,39 +75,58 @@ namespace BootstrapBlazor.Components
         [Parameter] public string RightPanelText { get; set; } = "列表 2";
 
         /// <summary>
-        /// 选中数据移动方法
+        /// 获得/设置 左侧按钮显示文本
         /// </summary>
-        protected void Transfer(TransferPanel? source, TransferPanel? target)
-        {
-            if (source != null && source.SelectedItems.Any())
-            {
-                // remove selected items
-                if (target != null)
-                {
-                    target.Add(source.SelectedItems);
-                }
-                source.Remove(source.SelectedItems);
+        [Parameter] public string LeftButtonText { get; set; } = "";
 
-                // callback
-                if (ItemsChanged.HasDelegate) ItemsChanged.InvokeAsync(Items);
-                OnItemsChanged?.Invoke(Items);
+        /// <summary>
+        /// 获得/设置 右侧按钮显示文本
+        /// </summary>
+        [Parameter] public string RightButtonText { get; set; } = "";
+
+        /// <summary>
+        /// 获得/设置 是否显示搜索框
+        /// </summary>
+        [Parameter] public bool ShowSearch { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (Items != null)
+            {
+                LeftItems.AddRange(Items.Where(i => !i.Active));
+                RightItems.AddRange(Items.Where(i => i.Active));
             }
         }
 
         /// <summary>
-        /// 选项状态改变时回调此方法
+        /// 选中数据移动方法
         /// </summary>
-        protected void OnLeftSelectedItemsChanged(IEnumerable<SelectedItem> items)
+        protected void Transfer(List<SelectedItem> source, List<SelectedItem> target)
         {
-            RightButton?.SetDisable(!items.Any(i => i.Active));
+            var items = source.Where(i => i.Active).ToList();
+            source.RemoveAll(i => i.Active);
+            items.ForEach(i => i.Active = false);
+            target.AddRange(items);
+            OnItemsChanged?.Invoke(RightItems);
         }
 
         /// <summary>
         /// 选项状态改变时回调此方法
         /// </summary>
-        protected void OnRightSelectedItemsChanged(IEnumerable<SelectedItem> items)
+        protected void OnSelectedItemsChanged() => StateHasChanged();
+
+        /// <summary>
+        /// 获得按钮是否可用
+        /// </summary>
+        /// <returns></returns>
+        protected string? GetButtonState(IEnumerable<SelectedItem> source)
         {
-            LeftButton?.SetDisable(!items.Any(i => i.Active));
+            return (!source.Any() || !source.Any(i => i.Active)) ? "disabled" : null;
         }
     }
 }

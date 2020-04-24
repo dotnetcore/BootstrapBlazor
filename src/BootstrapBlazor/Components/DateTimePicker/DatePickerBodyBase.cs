@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 日期选择组件
     /// </summary>
-    public abstract class DatePickerBase : ValidateInputBase<DateTime>
+    public abstract class DatePickerBodyBase : BootstrapComponentBase
     {
         /// <summary>
         /// 获得/设置 DateTimePicker DOM 实例
@@ -37,70 +37,167 @@ namespace BootstrapBlazor.Components
         protected DateTime CurrentDate { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected TimeSpan CurrentTime { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示时刻选择框
+        /// </summary>
+        protected bool ShowTimePicker { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件样式
+        /// </summary>
+        protected string? ClassName => CssBuilder.Default("picker-panel date-picker")
+            .AddClass("d-none", !IsShown)
+            .Build();
+
+        /// <summary>
         /// 获得/设置 日期样式
         /// </summary>
         protected string? GetDayClass(DateTime day) => CssBuilder.Default("")
             .AddClass("prev-month", day.Month < CurrentDate.Month)
             .AddClass("next-month", day.Month > CurrentDate.Month)
-            .AddClass("current", day.Ticks == Value.Ticks)
+            .AddClass("current", day.Ticks == CurrentDate.Ticks)
             .AddClass("today", day.Ticks == DateTime.Today.Ticks)
             .Build();
 
         /// <summary>
+        /// 获得 年月日时分秒视图样式
+        /// </summary>
+        protected string? DateTimeViewClassName => CssBuilder.Default("date-picker-time-header")
+            .AddClass("d-none", ViewModel != DatePickerViewModel.DateTime)
+            .AddClass("is-open", ShowTimePicker)
+            .Build();
+        /// <summary>
         /// 获得 上一月按钮样式
         /// </summary>
         protected string? PrevMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-left")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.DateTime)
+            .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 下一月按钮样式
         /// </summary>
         protected string? NextMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-right")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.DateTime)
+            .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
-        protected string? DateTimeViewClassName => CssBuilder.Default("date-table")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.DateTime)
+        protected string? DateViewClassName => CssBuilder.Default("date-table")
+            .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
         protected string? YearViewClassName => CssBuilder.Default("year-table")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.Year)
+            .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Year)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
         protected string? MonthViewClassName => CssBuilder.Default("month-table")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.Month)
+            .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
         protected string? CurrentMonthViewClassName => CssBuilder.Default("date-picker-header-label")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.DateTime)
+            .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Date)
+            .Build();
+
+        /// <summary>
+        /// 获得 日历 Footer 样式
+        /// </summary>
+        protected string? FooterClassName => CssBuilder.Default("picker-panel-footer")
+            .AddClass("d-none", !ShowFooter)
             .Build();
 
         /// <summary>
         /// 获得 年显示文字
         /// </summary>
-        protected string? YearString => ViewModel switch
+        protected string? YearString => CurrentViewModel switch
         {
             DatePickerViewModel.Year => $"{GetYearPeriod()}",
             _ => $"{CurrentDate.Year} 年"
         };
 
         /// <summary>
+        /// 获得 日期数值字符串
+        /// </summary>
+        protected string? DateValueString => CurrentDate.ToString(DateFormat);
+
+        /// <summary>
+        /// 获得 日期数值字符串
+        /// </summary>
+        protected string? TimeValueString => CurrentTime.ToString(TimeFormat);
+
+        /// <summary>
         /// 获得/设置 组件显示模式 默认为显示年月日模式
         /// </summary>
-        [Parameter] public DatePickerViewModel ViewModel { get; set; }
+        protected DatePickerViewModel CurrentViewModel { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件显示模式 默认为显示年月日模式
+        /// </summary>
+        [Parameter] public DatePickerViewModel ViewModel { get; set; } = DatePickerViewModel.Date;
+
+        /// <summary>
+        /// 获得/设置 日期格式字符串 默认为 "yyyy-MM-dd"
+        /// </summary>
+        [Parameter] public string DateFormat { get; set; } = "yyyy-MM-dd";
+
+        /// <summary>
+        /// 获得/设置 日期格式字符串 默认为 "yyyy-MM-dd"
+        /// </summary>
+        [Parameter] public string TimeFormat { get; set; } = "hh\\:mm\\:ss";
+
+        /// <summary>
+        /// 获得/设置 是否显示本组件默认为 false 不显示
+        /// </summary>
+        [Parameter] public bool IsShown { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示本组件 Footer 区域 默认不显示
+        /// </summary>
+        [Parameter] public bool ShowFooter { get; set; }
+
+        /// <summary>
+        /// 获得/设置 确认按钮回调委托
+        /// </summary>
+        [Parameter] public Action? OnClickConfirm { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件值
+        /// </summary>
+        [Parameter]
+        public DateTime Value
+        {
+            get { return CurrentDate.AddTicks(CurrentTime.Ticks); }
+            set
+            {
+                CurrentDate = value.Date;
+                CurrentTime = value - CurrentDate;
+            }
+        }
+
+        /// <summary>
+        /// 获得/设置 组件值改变时回调委托供双向绑定使用
+        /// </summary>
+        [Parameter]
+        public EventCallback<DateTime> ValueChanged { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件值改变时回调委托
+        /// </summary>
+        [Parameter]
+        public Action<DateTime>? OnValueChanged { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -111,8 +208,7 @@ namespace BootstrapBlazor.Components
 
             // 计算开始与结束时间 每个组件显示 6 周数据
             if (Value == DateTime.MinValue) Value = DateTime.Today;
-
-            CurrentDate = Value;
+            CurrentViewModel = ViewModel;
         }
 
         /// <summary>
@@ -131,7 +227,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickPrevYear()
         {
-            CurrentDate = ViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(-20) : CurrentDate.AddYears(-1);
+            ShowTimePicker = false;
+            CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(-20) : CurrentDate.AddYears(-1);
         }
 
         /// <summary>
@@ -139,6 +236,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickPrevMonth()
         {
+            ShowTimePicker = false;
             CurrentDate = CurrentDate.AddMonths(-1);
         }
 
@@ -147,7 +245,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickNextYear()
         {
-            CurrentDate = ViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(20) : CurrentDate.AddYears(1);
+            ShowTimePicker = false;
+            CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(20) : CurrentDate.AddYears(1);
         }
 
         /// <summary>
@@ -155,6 +254,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickNextMonth()
         {
+            ShowTimePicker = false;
             CurrentDate = CurrentDate.AddMonths(1);
         }
 
@@ -162,17 +262,24 @@ namespace BootstrapBlazor.Components
         /// Day 选择时触发此方法
         /// </summary>
         /// <param name="d"></param>
-        protected void OnDateTimeClick(DateTime d)
+        protected void OnClickDateTime(DateTime d)
         {
-            Value = d;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(d);
+            ShowTimePicker = false;
+            CurrentDate = d;
+            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+            OnValueChanged?.Invoke(Value);
+            StateHasChanged();
         }
 
         /// <summary>
         /// 设置组件显示视图方法
         /// </summary>
         /// <param name="view"></param>
-        protected void SwitchView(DatePickerViewModel view) => ViewModel = view;
+        protected void SwitchView(DatePickerViewModel view)
+        {
+            ShowTimePicker = false;
+            CurrentViewModel = view;
+        }
 
         /// <summary>
         /// 设置组件显示视图方法
@@ -181,7 +288,8 @@ namespace BootstrapBlazor.Components
         /// <param name="d"></param>
         protected void SwitchView(DatePickerViewModel view, DateTime d)
         {
-            ViewModel = view;
+            ShowTimePicker = false;
+            CurrentViewModel = view;
             CurrentDate = d;
             StateHasChanged();
         }
@@ -263,5 +371,57 @@ namespace BootstrapBlazor.Components
             12 => "十二月",
             _ => ""
         };
+
+        /// <summary>
+        /// 时刻选择框点击时调用此方法
+        /// </summary>
+        protected void OnClickTimeInput()
+        {
+            ShowTimePicker = true;
+        }
+
+        /// <summary>
+        /// 点击 此刻时调用此方法
+        /// </summary>
+        protected void ClickNowButton()
+        {
+            ShowTimePicker = false;
+            Value = ViewModel switch
+            {
+                DatePickerViewModel.DateTime => DateTime.Now,
+                _ => DateTime.Today
+            };
+            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+            OnValueChanged?.Invoke(Value);
+        }
+
+        /// <summary>
+        /// 时间值 改变时触发此方法
+        /// </summary>
+        /// <param name="ts"></param>
+        protected void OnTimeValueChanged(TimeSpan ts)
+        {
+            CurrentTime = ts;
+            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+            OnValueChanged?.Invoke(Value);
+        }
+
+        /// <summary>
+        /// 点击 确认时调用此方法
+        /// </summary>
+        protected void ClickConfirmButton()
+        {
+            ShowTimePicker = false;
+            OnClickConfirm?.Invoke();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void OnTimePickerClose()
+        {
+            ShowTimePicker = false;
+            StateHasChanged();
+        }
     }
 }

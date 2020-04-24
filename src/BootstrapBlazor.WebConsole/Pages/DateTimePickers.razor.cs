@@ -22,12 +22,44 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Date { get; set; }
+        protected Logger? DateLogger { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Time { get; set; }
+        protected Logger? TimeLogger { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Logger? DateTimeLogger { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected DateTime BindValue { get; set; } = DateTime.Today;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected string BindValueString
+        {
+            get
+            {
+                return BindValue.ToString("yyyy-MM-dd");
+            }
+            set
+            {
+                if (DateTime.TryParse(value, out var d))
+                {
+                    BindValue = d;
+                }
+                else
+                {
+                    BindValue = DateTime.Today;
+                }
+            }
+        }
 
         /// <summary>
         /// 
@@ -35,7 +67,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <param name="d"></param>
         protected void DateValueChanged(DateTime d)
         {
-            Date?.Log($"选择的日期为: {d:yyyy-MM-dd}");
+            DateLogger?.Log($"选择的日期为: {d:yyyy-MM-dd}");
         }
 
         /// <summary>
@@ -44,7 +76,16 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <param name="d"></param>
         protected void TimeValueChanged(TimeSpan d)
         {
-            Time?.Log($"选择的时间为: {d:hh\\:mm\\:ss}");
+            TimeLogger?.Log($"选择的时间为: {d:hh\\:mm\\:ss}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        protected void DateTimeValueChanged(DateTime d)
+        {
+            DateTimeLogger?.Log($"选择的时间为: {d:yyyy-MM-dd}");
         }
 
         /// <summary>

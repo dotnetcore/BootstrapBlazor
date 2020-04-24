@@ -2,30 +2,7 @@
 @inherits ModalBase
 
 <div @attributes="@AdditionalAttributes" class="modal fade" id="@Id" tabindex="-1" role="dialog" aria-labelledby="@Id" aria-hidden="true" data-backdrop="@Backdrop">
-    <div class="@ClassName" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">@Title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @ModalBody
-            </div>
-            @if (ShowFooter)
-            {
-                <div class="modal-footer">
-                    @if (ShowCloseButton)
-                    {
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fa fa-times"></i>
-                            <span>关闭</span>
-                        </button>
-                    }
-                    @ModalFooter
-                </div>
-            }
-        </div>
-    </div>
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
 </div>

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -13,31 +15,9 @@ namespace BootstrapBlazor.Components
         protected string? Backdrop => IsBackdrop ? null : "static";
 
         /// <summary>
-        /// 获得 弹窗组件样式
+        /// 获得 ModalDialog 集合
         /// </summary>
-        protected virtual string? ClassName => CssBuilder.Default("modal-dialog")
-            .AddClass("modal-dialog-centered", IsCentered)
-            .AddClass($"modal-{Size.ToDescriptionString()}", Size != Size.None)
-            .AddClass("modal-dialog-scrollable", IsScrolling)
-            .Build();
-
-        /// <summary>
-        /// 获得/设置 弹窗标题
-        /// </summary>
-        [Parameter]
-        public string Title { get; set; } = "未设置";
-
-        /// <summary>
-        /// 获得/设置 弹窗大小
-        /// </summary>
-        [Parameter]
-        public Size Size { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否垂直居中 默认为 true
-        /// </summary>
-        [Parameter]
-        public bool IsCentered { get; set; }
+        protected List<ModalDialogBase> Dialogs { get; private set; } = new List<ModalDialogBase>();
 
         /// <summary>
         /// 获得/设置 是否后台关闭弹窗
@@ -45,39 +25,38 @@ namespace BootstrapBlazor.Components
         [Parameter] public bool IsBackdrop { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否弹窗正文超长时滚动
-        /// </summary>
-        [Parameter] public bool IsScrolling { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否显示关闭按钮
-        /// </summary>
-        [Parameter] public bool ShowCloseButton { get; set; } = true;
-
-        /// <summary>
-        /// 获得/设置 是否显示 Footer 默认为 true
+        /// 获得/设置 子组件
         /// </summary>
         [Parameter]
-        public bool ShowFooter { get; set; } = true;
-
-        /// <summary>
-        /// 获得/设置 ModalBody 代码块
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ModalBody { get; set; }
-
-        /// <summary>
-        /// 获得/设置 弹窗 Footer 代码块
-        /// </summary>
-        [Parameter]
-        public RenderFragment? ModalFooter { get; set; }
+        public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
         /// 弹窗状态切换方法
         /// </summary>
         public void Toggle()
         {
+            Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
             if (!string.IsNullOrEmpty(Id)) JSRuntime.InvokeRun(Id, "modal", "toggle");
+        }
+
+        /// <summary>
+        /// 添加对话窗方法
+        /// </summary>
+        /// <param name="dialog"></param>
+        public void AddDialogs(ModalDialogBase dialog)
+        {
+            if (!Dialogs.Any()) dialog.IsShown = true;
+            Dialogs.Add(dialog);
+        }
+
+        /// <summary>
+        /// 显示指定对话框方法
+        /// </summary>
+        /// <param name="dialog"></param>
+        public void ShowDialog(ModalDialogBase dialog)
+        {
+            Dialogs.ForEach(d => d.IsShown = d == dialog);
+            StateHasChanged();
         }
     }
 }

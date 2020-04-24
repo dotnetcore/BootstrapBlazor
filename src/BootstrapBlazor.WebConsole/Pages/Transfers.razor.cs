@@ -41,7 +41,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <param name="items"></param>
         protected void OnItemsChanged(IEnumerable<SelectedItem> items)
         {
-            Trace?.Log(string.Join(" ", items.Where(i => i.Active).Select(i => i.Text)));
+            Trace?.Log(string.Join(" ", items.Select(i => i.Text)));
         }
     }
 }

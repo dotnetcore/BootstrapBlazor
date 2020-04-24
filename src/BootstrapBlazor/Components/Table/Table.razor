@@ -123,39 +123,43 @@
 
     @if (OnSave != null || OnAdd != null)
     {
-        <Modal @ref="EditModal" Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">
-            <ModalBody>
-                <ValidateForm @ref="@ValidateForm" Model="@EditModel" OnValidSubmit="@Save">
-                    @EditTemplate?.Invoke(EditModel)
-                </ValidateForm>
-            </ModalBody>
-            <ModalFooter>
-                <button type="button" class="btn btn-primary" @onclick="e => ValidateForm?.Validate()">
-                    <i class="fa fa-save"></i>
-                    <span>保存</span>
-                </button>
-            </ModalFooter>
+        <Modal @ref="EditModal">
+            <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">
+                <BodyTemplate>
+                    <ValidateForm @ref="@ValidateForm" Model="@EditModel" OnValidSubmit="@Save">
+                        @EditTemplate?.Invoke(EditModel)
+                    </ValidateForm>
+                </BodyTemplate>
+                <FooterTemplate>
+                    <button type="button" class="btn btn-primary" @onclick="e => ValidateForm?.Validate()">
+                        <i class="fa fa-save"></i>
+                        <span>保存</span>
+                    </button>
+                </FooterTemplate>
+            </ModalDialog>
         </Modal>
     }
 
     @if (ShowSearch && ShowAdvancedSearch)
     {
-        <Modal @ref="@SearchModal" Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
-            <ModalBody>
-                <ValidateForm Model="@SearchModel">
-                    @SearchTemplate?.Invoke(SearchModel)
-                </ValidateForm>
-            </ModalBody>
-            <ModalFooter>
-                <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
-                    <i class="fa fa-trash-o"></i>
-                    <span>重置</span>
-                </button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
-                    <i class="fa fa-search"></i>
-                    <span>查询</span>
-                </button>
-            </ModalFooter>
+        <Modal @ref="@SearchModal">
+            <ModalDialog Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
+                <BodyTemplate>
+                    <ValidateForm Model="@SearchModel">
+                        @SearchTemplate?.Invoke(SearchModel)
+                    </ValidateForm>
+                </BodyTemplate>
+                <FooterTemplate>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
+                        <i class="fa fa-trash-o"></i>
+                        <span>重置</span>
+                    </button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
+                        <i class="fa fa-search"></i>
+                        <span>查询</span>
+                    </button>
+                </FooterTemplate>
+            </ModalDialog>
         </Modal>
     }
 </div>

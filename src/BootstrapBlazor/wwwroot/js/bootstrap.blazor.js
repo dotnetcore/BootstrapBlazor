@@ -380,12 +380,42 @@
                 $thead.css({ 'transform': 'translateY(' + top + 'px)' });
             });
         },
-        datepicker: function (el) {
-            console.log(el);
+        timePicker: function (el) {
+            return $(el).find('.time-spinner-item').height();
         },
-        timepicker: function (el) {
-            //var $el = $(el);
-            //$el.
+        datetimePicker: function (el, method) {
+            var $el = $(el);
+            var placement = $el.attr('data-placement') || 'auto';
+            var $input = $el.find('.datetime-picker-input');
+            if (!method) {
+                $input.popover({
+                    toggle: 'datetime-picker',
+                    placement: placement,
+                    template: '<div class="popover popover-datetime" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+                })
+                    .on('inserted.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            $pop.find('.popover-body').append($el.find('.date-picker').removeClass('d-none'));
+                        }
+                    })
+                    .on('hide.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            var $picker = $pop.find('.date-picker');
+                            $pop.find('.popover-body').append($picker.clone());
+                            $el.append($picker.addClass('d-none'));
+                        }
+                    });
+                $('.datetime-picker-input-icon').on('click', function (e) {
+                    e.stopImmediatePropagation();
+                    var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
+                    $input.trigger('click');
+                });
+            }
+            else $input.popover(method);
         },
         tab: function (el) {
             var $el = $(el);
@@ -408,7 +438,9 @@
 
         // popover confirm
         $.fn.popover.Constructor.prototype.isWithContent = function () {
-            return this.config.toggle === 'confirm' || Boolean(this.getTitle());
+            var components = ['', 'confirm', 'datetime-picker'];
+            var toggle = this.config.toggle;
+            return components.indexOf(toggle) || Boolean(this.getTitle());
         }
 
         var findConfirmButton = function ($el) {
@@ -429,6 +461,31 @@
             var $confirm = findConfirmButton($el);
             if ($confirm != null) hide = false;
             if (hide) $('[data-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
+
+            // datetime picker
+            if ($el.parents('.popover-datetime.show').length === 0) {
+                $('.popover-datetime.show').each(function (index, ele) {
+                    var pId = this.getAttribute('id');
+                    if (pId) {
+                        var $input = $('[aria-describedby="' + pId + '"]');
+                        if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
+                    }
+                });
+            }
+            else {
+                // 处理点击日事件
+                var $day = $el.parents('.date-table');
+                if ($day.length === 1) {
+                    // 点击的是 Day cell
+                    var $popover = $el.parents('.popover-datetime.show');
+                    var $footer = $popover.find('.picker-panel-footer:visible');
+                    if ($footer.length === 0) {
+                        var pId = $popover.attr('id');
+                        var $input = $('[aria-describedby="' + pId + '"]');
+                        if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
+                    }
+                }
+            }
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {
