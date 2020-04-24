@@ -1,0 +1,36 @@
+﻿version: 3.1.{build}
+branches:
+  only:
+  - master
+  - dev
+image: Visual Studio 2019
+clone_depth: 1
+init:
+- ps: git version
+environment:
+  CI: true
+  Appveyor: true
+  COVERALLS_REPO_TOKEN: 
+    secure: 5L1b6XqSNTOfU1iZrARo5eUOi1HOleVO3VDCW0pr6yaspgkC5jxL+gBDK0OEY8EI
+  COVERALLS_REPO_TOKEN_GITLAB:
+    secure: yPxFQv4kSWtZ7Vvs70bIXDx9IOEEJ9utI3UyZsJGU7rt63gZnHOry0kt9DBMWcwV
+  CODECOV_TOKEN:
+    secure: 6rKKLXCmy3HZBxW5SjoO4Ox7G09FC0NJgGnvukWkYyJ2rx1GCzu4JvmLin69SHRz
+  CODECOV_TOKEN_GITLAB:
+    secure: +22PuAn5seq4bbCVCly8zDFuyEV3m2NjW3QuM0+2gm4c8akwicNFmv2T/ZGd0Jpd
+build_script:
+- pwsh: .\scripts\appveyor\appveyor.build.ps1
+test: off
+artifacts:
+- path: src\BootstrapBlazor\bin\**\*.nupkg
+  name: NuGet
+deploy:
+- provider: NuGet
+  api_key:
+    secure: TRypnguvqxxG4nJOU8dEMuOr6vdoVvWWDa2qgDxHnHxyWshjqXrZJHpGTEl9joJ5
+  username:
+    secure: RiKaoizWFqvYLGs9oUSI8g==
+  skip_symbols: true
+  artifact: NuGet
+  on:
+    branch: /^master$|^dev$/
