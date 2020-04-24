@@ -224,9 +224,21 @@ section {
     .content .card-footer .card-footer-code {
         background-color: #fafafa;
         margin: -12px -20px 12px -20px;
-        padding: 12px 20px;
+        padding: 1rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        position: relative;
     }
+
+        .content .card-footer .card-footer-code .copy-icon {
+            display: inline-block;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 0.75rem;
+            background-color: #dcdfe6;
+            border-radius: 3px;
+            cursor: pointer;
+        }
 
     .content .card-body .form-inline {
         margin-bottom: -1rem;
@@ -246,9 +258,7 @@ section {
         line-height: 1.8;
         font-size: 0.75rem;
         padding: 6px 12px;
-        background-color: #fafafa;
         border: 1px solid #eaeefb;
-        margin-bottom: 25px;
         border-radius: 4px;
         -webkit-font-smoothing: auto;
         display: block;
@@ -475,6 +485,6 @@ section {
     }
 
     .content code {
-        padding: 18px 24px;
+        padding: 1rem;
     }
 }

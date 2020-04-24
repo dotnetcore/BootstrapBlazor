@@ -10,7 +10,8 @@
     </div>
     <div class="card-footer">
         <div class="card-footer-code collapse">
-            <pre><Code CodeFile="@CodeFile" /></pre>
+            <pre><code @ref="CodeElement"><Code CodeFile="@CodeFile" /></code></pre>
+            <span class="copy-icon" data-toggle="tooltip" title="点击复制代码"><i class="fa fa-clone"></i></span>
         </div>
         <a class="card-footer-control" href="#">
             <i class="fa fa-caret-down"></i>
@@ -18,13 +19,3 @@
         </a>
     </div>
 </div>
-
-@code {
-    [Parameter] public string Title { get; set; } = "未设置";
-
-    [Parameter] public string Introduction { get; set; } = "未设置";
-
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    [Parameter] public string? CodeFile { get; set; }
-}
