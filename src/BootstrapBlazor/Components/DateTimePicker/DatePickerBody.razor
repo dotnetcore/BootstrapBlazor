@@ -6,10 +6,10 @@
         <div class="picker-panel-body">
             <div class="@DateTimeViewClassName">
                 <span class="date-picker-editor-wrap">
-                    <input type="text" autocomplete="off" placeholder="选择日期" class="input-inner form-control" value="@DateValueString">
+                    <input type="text" autocomplete="off" readonly placeholder="选择日期" class="input-inner form-control" value="@DateValueString">
                 </span>
                 <span class="date-picker-editor-wrap">
-                    <input type="text" autocomplete="off" placeholder="选择时间" class="input-inner form-control" value="@TimeValueString" @onclick="@OnClickTimeInput">
+                    <input type="text" autocomplete="off" readonly placeholder="选择时间" class="input-inner form-control" value="@TimeValueString" @onclick="@OnClickTimeInput">
                     <TimePickerBody @bind-Value="CurrentTime" OnValueChanged="OnTimeValueChanged" OnClose="@OnTimePickerClose" OnConfirm="@OnTimePickerClose" />
                 </span>
             </div>

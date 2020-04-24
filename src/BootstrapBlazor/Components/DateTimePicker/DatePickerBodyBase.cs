@@ -74,42 +74,42 @@ namespace BootstrapBlazor.Components
         /// 获得 上一月按钮样式
         /// </summary>
         protected string? PrevMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-left")
-            .AddClass("d-none", ViewModel == DatePickerViewModel.Year || ViewModel == DatePickerViewModel.Month)
+            .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 下一月按钮样式
         /// </summary>
         protected string? NextMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-right")
-            .AddClass("d-none", ViewModel == DatePickerViewModel.Year || ViewModel == DatePickerViewModel.Month)
+            .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
         protected string? DateViewClassName => CssBuilder.Default("date-table")
-            .AddClass("d-none", ViewModel == DatePickerViewModel.Year || ViewModel == DatePickerViewModel.Month)
+            .AddClass("d-none", CurrentViewModel == DatePickerViewModel.Year || CurrentViewModel == DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
         protected string? YearViewClassName => CssBuilder.Default("year-table")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.Year)
+            .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Year)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
         protected string? MonthViewClassName => CssBuilder.Default("month-table")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.Month)
+            .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Month)
             .Build();
 
         /// <summary>
         /// 获得 年月日显示表格样式
         /// </summary>
         protected string? CurrentMonthViewClassName => CssBuilder.Default("date-picker-header-label")
-            .AddClass("d-none", ViewModel != DatePickerViewModel.Date)
+            .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Date)
             .Build();
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 年显示文字
         /// </summary>
-        protected string? YearString => ViewModel switch
+        protected string? YearString => CurrentViewModel switch
         {
             DatePickerViewModel.Year => $"{GetYearPeriod()}",
             _ => $"{CurrentDate.Year} 年"
@@ -137,6 +137,11 @@ namespace BootstrapBlazor.Components
         /// 获得 日期数值字符串
         /// </summary>
         protected string? TimeValueString => CurrentTime.ToString(TimeFormat);
+
+        /// <summary>
+        /// 获得/设置 组件显示模式 默认为显示年月日模式
+        /// </summary>
+        protected DatePickerViewModel CurrentViewModel { get; set; }
 
         /// <summary>
         /// 获得/设置 组件显示模式 默认为显示年月日模式
@@ -203,6 +208,7 @@ namespace BootstrapBlazor.Components
 
             // 计算开始与结束时间 每个组件显示 6 周数据
             if (Value == DateTime.MinValue) Value = DateTime.Today;
+            CurrentViewModel = ViewModel;
         }
 
         /// <summary>
@@ -221,7 +227,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickPrevYear()
         {
-            CurrentDate = ViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(-20) : CurrentDate.AddYears(-1);
+            ShowTimePicker = false;
+            CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(-20) : CurrentDate.AddYears(-1);
         }
 
         /// <summary>
@@ -229,6 +236,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickPrevMonth()
         {
+            ShowTimePicker = false;
             CurrentDate = CurrentDate.AddMonths(-1);
         }
 
@@ -237,7 +245,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickNextYear()
         {
-            CurrentDate = ViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(20) : CurrentDate.AddYears(1);
+            ShowTimePicker = false;
+            CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(20) : CurrentDate.AddYears(1);
         }
 
         /// <summary>
@@ -245,6 +254,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnClickNextMonth()
         {
+            ShowTimePicker = false;
             CurrentDate = CurrentDate.AddMonths(1);
         }
 
@@ -254,16 +264,22 @@ namespace BootstrapBlazor.Components
         /// <param name="d"></param>
         protected void OnClickDateTime(DateTime d)
         {
+            ShowTimePicker = false;
             CurrentDate = d;
             if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
             OnValueChanged?.Invoke(Value);
+            StateHasChanged();
         }
 
         /// <summary>
         /// 设置组件显示视图方法
         /// </summary>
         /// <param name="view"></param>
-        protected void SwitchView(DatePickerViewModel view) => ViewModel = view;
+        protected void SwitchView(DatePickerViewModel view)
+        {
+            ShowTimePicker = false;
+            CurrentViewModel = view;
+        }
 
         /// <summary>
         /// 设置组件显示视图方法
@@ -272,7 +288,8 @@ namespace BootstrapBlazor.Components
         /// <param name="d"></param>
         protected void SwitchView(DatePickerViewModel view, DateTime d)
         {
-            ViewModel = view;
+            ShowTimePicker = false;
+            CurrentViewModel = view;
             CurrentDate = d;
             StateHasChanged();
         }
@@ -368,6 +385,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void ClickNowButton()
         {
+            ShowTimePicker = false;
             Value = ViewModel switch
             {
                 DatePickerViewModel.DateTime => DateTime.Now,

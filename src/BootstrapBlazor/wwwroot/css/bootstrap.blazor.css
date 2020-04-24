@@ -1086,6 +1086,10 @@ a {
             cursor: pointer;
         }
 
+            .date-picker-time-header .date-picker-editor-wrap .input-inner[readonly] {
+                background-color: #fff;
+            }
+
 .date-picker-editor-wrap .time-panel {
     position: absolute;
     z-index: -1;
