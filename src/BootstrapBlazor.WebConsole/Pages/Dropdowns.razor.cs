@@ -18,6 +18,9 @@ namespace BootstrapBlazor.WebConsole.Pages
             new SelectedItem{ Text="广州",Value="2"},
         };
 
+        readonly List<SelectedItem> emptyList = new List<SelectedItem>
+        { };
+
         /// <summary>
         /// 
         /// </summary>

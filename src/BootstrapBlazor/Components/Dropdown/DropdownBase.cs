@@ -90,7 +90,7 @@ namespace BootstrapBlazor.Components
             // 设置数据集合后 SelectedItem 设置默认值
             if (Items != null && SelectedItem == null)
             {
-                SelectedItem = Items.First();
+                SelectedItem = Items.FirstOrDefault();
             }
         }
 

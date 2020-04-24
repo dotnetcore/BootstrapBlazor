@@ -5,6 +5,12 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
+<Block Title="Dropdown 空下拉菜单" Introduction="允许空Items存在的下拉菜单" CodeFile="dropdown.1.txt">
+    <Dropdown TItem="string" Items="emptyList" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+
 <Block Title="带有颜色的下拉框" Introduction='提供各种颜色的警告信息框 引用 Color="Color.Primary" 等颜色及样式类来定义下拉菜单的外在表现' CodeFile="dropdown.2.txt">
     <div class="row">
         <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="items" Color="Color.Primary"></Dropdown></div>
