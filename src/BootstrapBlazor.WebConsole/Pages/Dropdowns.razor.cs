@@ -9,79 +9,56 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Dropdowns
+    public sealed partial class Dropdowns
     {
-        readonly List<SelectedItem> items = new List<SelectedItem>
+        private List<SelectedItem> Items => new List<SelectedItem>
         {
             new SelectedItem{ Text="北京",Value="0"},
             new SelectedItem{ Text="上海",Value="1"},
             new SelectedItem{ Text="广州",Value="2"},
         };
 
-        readonly List<SelectedItem> emptyList = new List<SelectedItem>
-        { };
+        private List<SelectedItem> EmptyList => new List<SelectedItem> { };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected List<SelectedItem> BindItems { get; set; } = new List<SelectedItem>
+        private List<SelectedItem> BindItems { get; set; } = new List<SelectedItem>
         {
             new SelectedItem{ Text="北京",Value="0"},
             new SelectedItem{ Text="上海",Value="1"},
             new SelectedItem{ Text="广州",Value="2"},
         };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>
+        private List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>
         {
             new SelectedItem("1", "北京") { Active = true },
             new SelectedItem("2", "上海")
         };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>
+        private List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>
         {
             new SelectedItem("1", "北京") { Active = true },
             new SelectedItem("2", "上海"),
             new SelectedItem("3", "广州")
         };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         private void ShowMessage(SelectedItem e)
         {
             Trace?.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void AddItem()
         {
             BindItems.Add(new SelectedItem($"{BindItems.Count()}", $"城市 {BindItems.Count()}"));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void OnRadioItemChanged(CheckboxState state, SelectedItem item)
         {
             RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count()}", $"城市 {RadioDropDownItems.Count()}"));
             StateHasChanged();
         }
 
-        /// <summary>
-        /// 获得属性方法
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -156,11 +133,7 @@ namespace BootstrapBlazor.WebConsole.Pages
             },
         };
 
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
