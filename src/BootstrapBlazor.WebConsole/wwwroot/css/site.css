@@ -1,4 +1,4 @@
-html, body, button, .popover {
+﻿html, body, button, .popover {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 
@@ -165,8 +165,18 @@ section {
         font-size: 1.2rem;
     }
 
+    .content h5 {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .content .alert:last-child {
+        margin-bottom: 0;
+    }
+
     .content .card {
         transition: all .3s linear;
+        /* width: 320px; */
     }
 
         .content .card .row, .content .card .form-row {
@@ -226,19 +236,7 @@ section {
         margin: -12px -20px 12px -20px;
         padding: 1rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-        position: relative;
     }
-
-        .content .card-footer .card-footer-code .copy-icon {
-            display: inline-block;
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.5rem 0.75rem;
-            background-color: #dcdfe6;
-            border-radius: 3px;
-            cursor: pointer;
-        }
 
     .content .card-body .form-inline {
         margin-bottom: -1rem;
@@ -254,21 +252,13 @@ section {
         line-height: 2;
     }
 
-    .content code {
-        line-height: 1.8;
-        font-size: 0.75rem;
-        padding: 6px 12px;
-        border: 1px solid #eaeefb;
-        border-radius: 4px;
-        -webkit-font-smoothing: auto;
-        display: block;
-    }
-
         .content code.highlight, .content p code, .content li code {
             display: inline-block;
             padding: 0px 8px;
             background-color: #e9ecef;
             margin: 0;
+            border-radius: 4px;
+            line-height: 20px;
         }
 
     .content .git img {
@@ -406,6 +396,36 @@ section {
     width: 80px;
 }
 
+.pre-code {
+    position: relative;
+}
+
+    .pre-code .copy-code {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.5rem 0.75rem;
+        background-color: #dcdfe6;
+        border-bottom-left-radius: 4px;
+        border-top-right-radius: 4px;
+        cursor: pointer;
+    }
+
+    .pre-code code {
+        line-height: 1.8;
+        font-size: 0.75rem;
+        border: 1px solid #eaeefb;
+        border-radius: 4px;
+        padding: 10px 16px;
+        -webkit-font-smoothing: auto;
+        display: block;
+    }
+
+    .pre-code .no-highlight code {
+        color: #e83e8c;
+    }
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
@@ -482,9 +502,5 @@ section {
     .sidebar .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
-    }
-
-    .content code {
-        padding: 1rem;
     }
 }

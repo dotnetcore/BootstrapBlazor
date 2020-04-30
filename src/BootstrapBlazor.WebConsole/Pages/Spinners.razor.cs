@@ -6,15 +6,22 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Spinners
+    public sealed partial class Spinners
     {
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Class",
+                Description = "样式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
             new AttributeItem() {
                 Name = "Color",
                 Description = "颜色",
@@ -28,13 +35,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "Size",
                 ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
                 DefaultValue = "None"
-            },
-            new AttributeItem() {
-                Name = "Class",
-                Description = "样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "SpinnerType",

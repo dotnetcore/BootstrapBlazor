@@ -8,24 +8,24 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Checkboxs
+    public sealed partial class Checkboxs
     {
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? BinderLog { get; set; }
+        private Logger? BinderLog { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="state"></param>
         /// <param name="value"></param>
-        protected void OnStateChanged(CheckboxState state, string value)
+        private void OnStateChanged(CheckboxState state, string value)
         {
             Trace?.Log($"Checkbox state changed State: {state}");
         }
@@ -35,7 +35,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         /// <param name="state"></param>
         /// <param name="value"></param>
-        protected void OnItemChanged(CheckboxState state, bool value)
+        private void OnItemChanged(CheckboxState state, bool value)
         {
             BinderLog?.Log($"CheckboxState: {state} - Bind Value: {value}");
         }
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// </summary>
         /// <param name="state"></param>
         /// <param name="value"></param>
-        protected void OnItemChangedString(CheckboxState state, string value)
+        private void OnItemChangedString(CheckboxState state, string value)
         {
             BinderLog?.Log($"CheckboxState: {state} - Bind Value: {value}");
         }
@@ -53,28 +53,27 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected string? BindString { get; set; } = "我爱 Blazor";
+        private string? BindString { get; set; } = "我爱 Blazor";
 
         /// <summary>
         /// 
         /// </summary>
-        protected bool BindValue { get; set; }
+        private bool BindValue { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes()
+        private IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
-                new AttributeItem()
-                {
-                    Name = "State",
-                    Description = "控件类型",
-                    Type = "CheckboxState",
-                    ValueList = "Mixed / Checked / UnChecked",
-                    DefaultValue = "text"
+                new AttributeItem(){
+                    Name = "DisplayText",
+                    Description = "显示文字",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = "—"
                 },
                 new AttributeItem(){
                     Name = "IsDisabled",
@@ -83,12 +82,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                     ValueList = " — ",
                     DefaultValue = "false"
                 },
-                new AttributeItem(){
-                    Name = "DisplayText",
-                    Description = "显示文字",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = "—"
+                new AttributeItem()
+                {
+                    Name = "State",
+                    Description = "控件类型",
+                    Type = "CheckboxState",
+                    ValueList = "Mixed / Checked / UnChecked",
+                    DefaultValue = "UnChecked"
                 },
             };
         }
@@ -97,13 +97,19 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnStateChanged",
                 Description="选择框状态改变时回调此方法",
                 Type ="Action<CheckboxState, TItem>"
+            },
+            new EventItem()
+            {
+                Name = "StateChanged",
+                Description="State 状态改变回调方法",
+                Type ="EventCallback<CheckboxState>"
             }
         };
     }

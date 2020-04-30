@@ -6,21 +6,21 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Badges
+    public sealed partial class Badges
     {
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
-                Name = "Color",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "Primary"
+                Name = "ChildContent",
+                Description = "内容",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
@@ -30,11 +30,11 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "ChildContent",
-                Description = "内容",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
+                Name = "Color",
+                Description = "颜色",
+                Type = "Color",
+                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+                DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsPill",

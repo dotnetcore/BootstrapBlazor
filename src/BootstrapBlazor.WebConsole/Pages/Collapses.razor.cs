@@ -8,18 +8,18 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Collapses
+    public sealed partial class Collapses
     {
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected void ButtonClick(MouseEventArgs e)
+        private void ButtonClick(MouseEventArgs e)
         {
             Trace?.Log($"Button Clicked");
         }
@@ -28,23 +28,15 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
-          
             new AttributeItem() {
-                Name = "Color",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
-                DefaultValue = "Primary"
-            },
-            new AttributeItem() {
-                Name = "Size",
-                Description = "尺寸",
-                Type = "Size",
-                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                DefaultValue = "None"
+                Name = "ChildContent",
+                Description = "内容",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
@@ -54,25 +46,18 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "ChildContent",
-                Description = "内容",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-             new AttributeItem() {
-                Name = "CollapseContent",
-                Description = "折叠内容",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
                 Name = "CollapsedText",
                 Description = "折叠后显示的文字",
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "展开"
+            },
+            new AttributeItem() {
+                Name = "Color",
+                Description = "颜色",
+                Type = "Color",
+                ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+                DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "ExpandedText",
@@ -94,6 +79,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "Size",
+                Description = "尺寸",
+                Type = "Size",
+                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+                DefaultValue = "None"
             },
         };
     }

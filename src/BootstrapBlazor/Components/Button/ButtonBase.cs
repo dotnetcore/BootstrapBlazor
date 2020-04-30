@@ -18,14 +18,9 @@ namespace BootstrapBlazor.Components
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass("btn-block", IsBlock)
-            .AddClass("disabled", ButtonType == ButtonType.Link && IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
-
-        /// <summary>
-        /// 获得/设置 按钮 disabled 属性
-        /// </summary>
-        protected string? Tag { get; set; } = "button";
 
         /// <summary>
         /// 获得 按钮 disabled 属性
@@ -56,27 +51,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter] public Color Color { get; set; } = Color.Primary;
-
-        private ButtonType _buttonType = ButtonType.Button;
-        /// <summary>
-        ///
-        /// </summary>
-        [Parameter]
-        public ButtonType ButtonType
-        {
-            get => _buttonType;
-            set
-            {
-                _buttonType = value;
-                Tag = _buttonType switch
-                {
-                    ButtonType.Link => "a",
-                    ButtonType.Input => "input",
-                    ButtonType.Reset => "input",
-                    _ => "button"
-                };
-            }
-        }
 
         /// <summary>
         /// 获得/设置 Outline 样式

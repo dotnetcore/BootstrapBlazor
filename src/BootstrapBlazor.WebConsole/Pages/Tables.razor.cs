@@ -10,7 +10,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Tables
+    public sealed partial class Tables
     {
         private List<BindItem>? Items { get; set; }
 
@@ -32,9 +32,37 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Height",
+                Description = "固定表头",
+                Type = "int",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "HeaderTemplate",
+                Description = "TableHeader 实例",
+                Type = "RenderFragment<TItem>",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "IsBordered",
+                Description = "边框",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "IsPagination",
+                Description = "显示分页",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " — "
+            },
             new AttributeItem() {
                 Name = "IsStriped",
                 Description = "斑马纹",
@@ -43,10 +71,31 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "IsBordered",
-                Description = "边框",
-                Type = "boolean",
-                ValueList = "true / false",
+                Name = "Items",
+                Description = "数据集合",
+                Type = "IEnumerable<TItem>",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "PageItems",
+                Description = "IsPagination=true 设置每页显示数据数量",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "PageItemsSource",
+                Description = "IsPagination=true 设置每页显示数据数量的外部数据源",
+                Type = "IEnumerable<int>",
+                ValueList = " — ",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "RowTemplate",
+                Description = "RowTemplate 实例",
+                Type = "RenderFragment<TItem>",
+                ValueList = "—",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -64,8 +113,15 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "IsPagination",
-                Description = "显示分页",
+                Name = "ShowFooter",
+                Description = "是否显示表脚",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = " false "
+            },
+            new AttributeItem() {
+                Name = "ShowSearch",
+                Description = "显示搜索栏",
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = " — "
@@ -78,12 +134,18 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "ShowSearch",
-                Description = "显示搜索栏",
-                Type = "boolean",
-                ValueList = "true / false",
+                Name = "TableFooter",
+                Description = "TableFooter 实例",
+                Type = "RenderFragment<TItem>",
+                ValueList = "—",
                 DefaultValue = " — "
-            }
+            },
+
+
+
+
+
+
         };
 
         private List<BindItem> GenerateItems()

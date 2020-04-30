@@ -7,18 +7,18 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Progresss
+    public sealed partial class Progresss
     {
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -43,6 +43,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "15"
             },
             new AttributeItem() {
+                Name = "IsAnimated",
+                Description = "是否动态显示",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "IsShowValue",
                 Description = "是否显示值",
                 Type = "boolean",
@@ -56,13 +63,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
-                Name = "IsAnimated",
-                Description = "是否动态显示",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            }
         };
     }
 }

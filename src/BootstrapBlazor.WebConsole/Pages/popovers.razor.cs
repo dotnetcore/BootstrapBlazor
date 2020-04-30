@@ -6,7 +6,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Popovers
+    public sealed partial class Popovers
     {
         private string ValueString => "弹出框";
 
@@ -18,9 +18,23 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Cotent",
+                Description = "Popover 弹窗内容",
+                Type = "string",
+                ValueList = "",
+                DefaultValue = "Popover"
+            },
+            new AttributeItem() {
+                Name = "IsHtml",
+                Description = "内容中是否包含 Html 代码",
+                Type = "boolean",
+                ValueList = "",
+                DefaultValue = "false"
+            },
             new AttributeItem() {
                 Name = "Placement",
                 Description = "位置",
@@ -35,20 +49,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = "",
                 DefaultValue = "Popover"
             },
-            new AttributeItem() {
-                Name = "Cotent",
-                Description = "Popover 弹窗内容",
-                Type = "string",
-                ValueList = "",
-                DefaultValue = "Popover"
-            },
-            new AttributeItem() {
-                Name = "IsHtml",
-                Description = "内容中是否包含 Html 代码",
-                Type = "boolean",
-                ValueList = "",
-                DefaultValue = "false"
-            }
         };
     }
 }

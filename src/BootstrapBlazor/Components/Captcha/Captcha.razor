@@ -1,0 +1,25 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CaptchaBase
+
+<div @attributes="@AdditionalAttributes" class="captcha card" style="@StyleString" @ref="Captcha">
+    <div class="card-header">
+        <span>@HeaderText</span>
+        <span class="captcha-refresh" @onclick="@OnClickRefresh">
+            <i class="fa fa-refresh"></i>
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="captcha-body">
+            <div class="captcha-load" style="@FailedStyle" data-load="@LoadText" data-failed="@FailedText">@LoadText</div>
+            <canvas class="captcha-body-bg" width="@Width" height="@Height"></canvas>
+            <canvas class="captcha-body-bar" width="@Width" height="@Height"></canvas>
+        </div>
+        <div class="captcha-footer">
+            <div class="captcha-bar-bg"></div>
+            <div class="captcha-bar">
+                <i class="fa fa-arrow-right"></i>
+            </div>
+            <span class="captcha-bar-text" data-try="@TryText" data-text="@BarText">@BarText</span>
+        </div>
+    </div>
+</div>

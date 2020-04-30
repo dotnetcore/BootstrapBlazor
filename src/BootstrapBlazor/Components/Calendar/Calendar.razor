@@ -1,0 +1,47 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CalendarBase
+
+<div class="calendar">
+    <div class="calendar-header">
+        <div class="calendar-title">@Title</div>
+        <div class="calendar-button-group">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(-1)">
+                    <span>上个月</span>
+                </button>
+                <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(0)">
+                    <span>今天</span>
+                </button>
+                <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(1)">
+                    <span>下个月</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="calendar-body">
+        <table cellspacing="0" cellpadding="0" class="calendar-table">
+            <thead>
+                <tr>
+                    <th>日</th>
+                    <th>一</th>
+                    <th>二</th>
+                    <th>三</th>
+                    <th>四</th>
+                    <th>五</th>
+                    <th>六</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
+                {
+                    <tr class="calendar-table-row">
+                        @for (var index = 0; index < 7; index++)
+                        {
+                            <CalendarCell Value="@week.AddDays(index)" CurrentValue="@Value" OnClick="d=> OnClickDay(d)" />
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

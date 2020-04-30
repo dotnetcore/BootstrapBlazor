@@ -1,0 +1,19 @@
+﻿<TimePickerBody @bind-Value="@SpanValue" />
+<BootstrapInput TItem="TimeSpan" @bind-Value="@SpanValue" style="width: 180px; margin-top: 0.5rem;" />
+
+<TimePickerBody OnValueChanged="@OnValueChange" />
+<BootstrapInput TItem="string" @bind-Value="@SpanValue2" style="width: 180px; margin-top: 0.5rem;" />
+
+@code{
+    protected TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ts"></param>
+    protected void OnValueChange(TimeSpan ts)
+    {
+        SpanValue2 = ts.ToString("hh\\:mm\\:ss");
+        StateHasChanged();
+    }
+}

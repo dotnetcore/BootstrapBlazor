@@ -6,7 +6,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Sliders
+    public sealed partial class Sliders
     {
         private int BindValue { get; set; } = 50;
 
@@ -14,16 +14,9 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Value",
-                Description = "组件当前值",
-                Type = "int",
-                ValueList = "—",
-                DefaultValue = "—"
-            },
             new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
@@ -38,13 +31,20 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = "false"
             },
+            new AttributeItem() {
+                Name = "Value",
+                Description = "组件当前值",
+                Type = "int",
+                ValueList = "—",
+                DefaultValue = "—"
+            },
         };
 
         /// <summary>
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {

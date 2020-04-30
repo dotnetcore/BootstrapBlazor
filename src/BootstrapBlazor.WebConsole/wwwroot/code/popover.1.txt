@@ -1,4 +1,16 @@
-﻿<BootstrapInput TItem="string" Value="@TopString">
+﻿<BootstrapInput TItem="string" Value="@ValueString" class="popover-input" data-trigger="hover focus">
+    <Popover Placement="Placement.Bottom" Title="@Title" Content="@Content" IsHtml="true" />
+</BootstrapInput>
+
+<BootstrapInput TItem="string" Value="@ValueString" class="popover-input" data-trigger="hover focus">
+    <Popover Placement="Placement.Right" Title="@Title" Content="@Content" IsHtml="true" />
+</BootstrapInput>
+
+<BootstrapInput TItem="string" Value="@ValueString" class="popover-input" data-trigger="hover focus">
+    <Popover Placement="Placement.Left" Title="@Title" Content="@Content" IsHtml="true" />
+</BootstrapInput>
+
+<BootstrapInput TItem="string" Value="@ValueString" class="popover-input" data-trigger="hover focus">
     <Popover Placement="Placement.Top" Title="@Title" Content="@Content" IsHtml="true" />
 </BootstrapInput>
 

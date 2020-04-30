@@ -1,0 +1,17 @@
+﻿<PopConfirmButton Placement="Placement.Bottom" 
+                  ConfirmButtonColor="Color.Danger" DisplayText="下面弹框" 
+                  Content="这是一段内容确定删除吗？" 
+                  OnConfirm="@OnConfirm" OnClose="@OnClose" />
+
+<PopConfirmButton Placement="Placement.Right" 
+                  CloseButtonText="取消" DisplayText="右侧弹窗" 
+                  Content="这是一段内容确定删除吗？" 
+                  OnConfirm="@OnConfirm" OnClose="@OnClose" />
+
+<PopConfirmButton Placement="Placement.Left" 
+                  DisplayText="左侧弹窗" Content="这是一段内容确定删除吗？" 
+                  OnConfirm="@OnConfirm" OnClose="@OnClose" />
+
+<PopConfirmButton Placement="Placement.Top" 
+                  DisplayText="上面弹窗" Content="这是一段内容确定删除吗？" 
+                  nConfirm="@OnConfirm" OnClose="@OnClose" />

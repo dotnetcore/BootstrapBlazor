@@ -7,7 +7,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Paginations
+    public sealed partial class Paginations
     {
         private Logger? Trace { get; set; }
 
@@ -27,15 +27,8 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
-            new AttributeItem() {
-                Name = "TotalCount",
-                Description = "数据总数",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "—"
-            },
             new AttributeItem() {
                 Name = "PageIndex",
                 Description = "当前页码",
@@ -51,6 +44,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "—"
             },
             new AttributeItem() {
+                Name = "PageItemsSource",
+                Description = "每页显示数据数量的外部数据源",
+                Type = "IEnumerable<int>",
+                ValueList = " — ",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
                 Name = "ShowPaginationInfo",
                 Description = "是否显示分页数据汇总信息",
                 Type = "boolean",
@@ -58,9 +58,9 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
-                Name = "PageItemsSource",
-                Description = "每页显示数据数量的外部数据源",
-                Type = "IEnumerable<int>",
+                Name = "TotalCount",
+                Description = "数据总数",
+                Type = "int",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
@@ -70,7 +70,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {

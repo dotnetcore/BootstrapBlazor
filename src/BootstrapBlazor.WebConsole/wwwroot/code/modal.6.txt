@@ -1,0 +1,29 @@
+﻿<button class="btn btn-primary" @onclick="e => CascadeModal?.Toggle()">弹窗</button>
+<Modal @ref="CascadeModal">
+    <ModalDialog @ref="Dialog1" Title="内部按钮继续弹窗">
+        <BodyTemplate>
+            <div>我是第一个弹窗，点击下面按钮继续弹出第二个弹窗</div>
+        </BodyTemplate>
+        <FooterTemplate>
+            <Button @onclick="e => Dialog2?.Toggle()">继续弹第二个弹窗</Button>
+        </FooterTemplate>
+    </ModalDialog>
+    <ModalDialog @ref="Dialog2" Title="第二个弹窗">
+        <BodyTemplate>
+            <div>我是第二个弹窗，点击下面按钮继续弹出第三个弹窗</div>
+        </BodyTemplate>
+        <FooterTemplate>
+            <Button @onclick="e => Dialog1?.Toggle()">返回第一个弹窗</Button>
+            <Button Color="Color.Success" @onclick="e => Dialog3?.Toggle()">继续弹第三个弹窗</Button>
+        </FooterTemplate>
+    </ModalDialog>
+    <ModalDialog @ref="Dialog3" Title="第三个弹窗">
+        <BodyTemplate>
+            <div>我是弹窗内正文，点击下面关闭按钮关闭弹窗</div>
+            <p>弹窗背景一直是透明的哦，不会变黑乎乎的哦</p>
+        </BodyTemplate>
+        <FooterTemplate>
+            <Button Color="Color.Info" @onclick="e => Dialog2?.Toggle()">返回第二个弹窗</Button>
+        </FooterTemplate>
+    </ModalDialog>
+</Modal>

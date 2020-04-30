@@ -1,0 +1,6 @@
+﻿<DateTimePicker @bind-Value="@BindValue" OnValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
+<input class="form-control" @bind="@BindValueString" />
+
+@code{
+   protected DateTime BindValue { get; set; } = DateTime.Today;
+}

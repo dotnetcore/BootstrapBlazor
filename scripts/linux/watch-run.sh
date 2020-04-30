@@ -1,3 +1,3 @@
 #! /bin/bash
 
-dotnet watch --project src/Bootstrap.WebConsole run
+dotnet watch --project src/BootstrapBlazor.WebConsole run

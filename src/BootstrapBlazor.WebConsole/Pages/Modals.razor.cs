@@ -7,7 +7,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Modals
+    public sealed partial class Modals
     {
         /// <summary>
         /// 
@@ -73,10 +73,52 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes()
+        private IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
+                new AttributeItem() {
+                    Name = "BodyTemplate",
+                    Description = "模态主体ModalBody 组件",
+                    Type = "RenderFragment",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "ChildContent",
+                    Description = "内容",
+                    Type = "RenderFragment",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "FooterTemplate",
+                    Description = "模态底部ModalFooter 组件",
+                    Type = "RenderFragment",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "IsBackdrop",
+                    Description = "是否后台关闭弹窗",
+                    Type = "boolean",
+                    ValueList = " — ",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "IsCentered",
+                    Description = "是否垂直居中",
+                    Type = "boolean",
+                    ValueList = " — ",
+                    DefaultValue = "true"
+                },
+                new AttributeItem() {
+                    Name = "IsScrolling",
+                    Description = "是否弹窗正文超长时滚动",
+                    Type = "boolean",
+                    ValueList = " — ",
+                    DefaultValue = "false"
+                },
                 new AttributeItem() {
                     Name = "ModalBody",
                     Description = "ModalBody 代码块",
@@ -92,41 +134,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                     DefaultValue = " — "
                 },
                 new AttributeItem() {
-                    Name = "Title",
-                    Description = "弹窗标题",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " 未设置 "
-                },
-                new AttributeItem() {
-                    Name = "Size",
-                    Description = "尺寸",
-                    Type = "Size",
-                    ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                    DefaultValue = "None"
-                },
-                new AttributeItem() {
-                    Name = "IsCentered",
-                    Description = "是否垂直居中",
-                    Type = "boolean",
-                    ValueList = " — ",
-                    DefaultValue = "true"
-                },
-                new AttributeItem() {
-                    Name = "IsBackdrop",
-                    Description = "是否后台关闭弹窗",
-                    Type = "boolean",
-                    ValueList = " — ",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "IsScrolling",
-                    Description = "是否弹窗正文超长时滚动",
-                    Type = "boolean",
-                    ValueList = " — ",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
                     Name = "ShowCloseButton",
                     Description = "是否显示关闭按钮",
                     Type = "boolean",
@@ -139,6 +146,20 @@ namespace BootstrapBlazor.WebConsole.Pages
                     Type = "boolean",
                     ValueList = " — ",
                     DefaultValue = "true"
+                },
+                new AttributeItem() {
+                    Name = "Size",
+                    Description = "尺寸",
+                    Type = "Size",
+                    ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+                    DefaultValue = "None"
+                },
+                new AttributeItem() {
+                    Name = "Title",
+                    Description = "弹窗标题",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = " 未设置 "
                 },
             };
         }

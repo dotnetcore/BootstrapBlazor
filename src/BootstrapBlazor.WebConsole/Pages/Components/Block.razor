@@ -1,8 +1,8 @@
-﻿<h3>@Title</h3>
+﻿<h4>@Title</h4>
 
 <p>@(new MarkupString(Introduction))</p>
 
-<h4>示例</h4>
+<h5>示例</h5>
 
 <div class="card">
     <div class="card-body">
@@ -10,8 +10,7 @@
     </div>
     <div class="card-footer">
         <div class="card-footer-code collapse">
-            <pre><code @ref="CodeElement"><Code CodeFile="@CodeFile" /></code></pre>
-            <span class="copy-icon" data-toggle="tooltip" title="点击复制代码"><i class="fa fa-clone"></i></span>
+            <Pre CodeFile="@CodeFile"></Pre>
         </div>
         <a class="card-footer-control" href="#">
             <i class="fa fa-caret-down"></i>

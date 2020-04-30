@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.WebConsole.Pages.Components
 {
@@ -8,11 +7,6 @@ namespace BootstrapBlazor.WebConsole.Pages.Components
     /// </summary>
     sealed partial class Block
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private ElementReference CodeElement { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -32,21 +26,5 @@ namespace BootstrapBlazor.WebConsole.Pages.Components
         /// 
         /// </summary>
         [Parameter] public string? CodeFile { get; set; }
-
-        /// <summary>
-        /// 获得/设置 IJSRuntime 实例
-        /// </summary>
-        [Inject] private IJSRuntime? JSRuntime { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
-        {
-            base.OnAfterRender(firstRender);
-
-            JSRuntime.InvokeVoidAsync("$.highlight", CodeElement);
-        }
     }
 }

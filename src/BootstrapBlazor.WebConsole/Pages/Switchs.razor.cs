@@ -7,65 +7,37 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     ///
     /// </summary>
-    public partial class Switchs
+    public sealed partial class Switchs
     {
         /// <summary>
         ///
         /// </summary>
-        protected bool BindValue { get; set; }
+        private bool BindValue { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="val"></param>
-        protected void OnValueChanged(bool val) => Trace?.Log($"Switch CurrentValue: {val}");
+        private void OnValueChanged(bool val) => Trace?.Log($"Switch CurrentValue: {val}");
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "OnColor",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "OnColor=Color.Info OffColor=Color.None "
-            },
             new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "IsDisabled",
-                Description = "是否禁用",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Size",
-                Description = "尺寸",
-                Type = "Size",
-                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                DefaultValue = "None"
-            },
-            new AttributeItem() {
-                Name = "Width",
-                Description = "组件宽度",
-                Type = "int",
-                ValueList = "—",
-                DefaultValue = "40"
             },
             new AttributeItem() {
                 Name = "Height",
@@ -75,11 +47,18 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "20"
             },
             new AttributeItem() {
-                Name = "OnText",
-                Description = "组件 On 时显示文本",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
+                Name = "IsDisabled",
+                Description = "是否禁用",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "OffColor",
+                Description = "关颜色设置",
+                Type = "Color",
+                ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
+                DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "OffText",
@@ -96,11 +75,25 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "Color.Success"
             },
             new AttributeItem() {
-                Name = "OffColor",
-                Description = "关颜色设置",
-                Type = "Color",
-                ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
+                Name = "OnText",
+                Description = "组件 On 时显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "Size",
+                Description = "尺寸",
+                Type = "Size",
+                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
                 DefaultValue = "None"
+            },
+            new AttributeItem() {
+                Name = "Width",
+                Description = "组件宽度",
+                Type = "int",
+                ValueList = "—",
+                DefaultValue = "40"
             },
             new AttributeItem() {
                 Name = "Value",
@@ -115,20 +108,20 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
+            new EventItem()
+            {
+                Name = "OnValueChanged",
+                Description="控件值变化时触发此事件",
+                Type ="Action<bool>"
+            },
             new EventItem()
             {
                 Name = "ValueChanged",
                 Description="获取选择改变的值",
                 Type ="EventCallback<bool>"
             },
-            new EventItem()
-            {
-                Name = "OnValueChanged",
-                Description="控件值变化时触发此事件",
-                Type ="Action<bool>"
-            }
         };
     }
 }

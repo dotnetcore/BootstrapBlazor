@@ -8,18 +8,18 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Buttons
+    public sealed partial class Buttons
     {
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected void ButtonClick(MouseEventArgs e)
+        private void ButtonClick(MouseEventArgs e)
         {
             Trace?.Log($"Button Clicked");
         }
@@ -28,7 +28,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -42,16 +42,9 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "ButtonType",
-                Description = "类型",
-                Type = "ButtonType",
-                ValueList = "Button / Submit / Link / Reset / Input",
-                DefaultValue = "Primary"
-            },
             new AttributeItem() {
                 Name = "Color",
                 Description = "颜色",
@@ -70,13 +63,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Name = "Class",
                 Description = "样式",
                 Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = "内容",
-                Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
@@ -108,6 +94,28 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = "true"
             },
+            new AttributeItem() {
+                Name = "Size",
+                Description = "尺寸",
+                Type = "Size",
+                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+                DefaultValue = "None"
+            },
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        {
+            new MethodItem()
+            {
+                Name = "SetDisable",
+                Description = "设置按钮是否可用",
+                Parameters = "disable",
+                ReturnValue = " — "
+            }
         };
     }
 }

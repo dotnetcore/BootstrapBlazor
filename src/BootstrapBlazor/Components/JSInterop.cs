@@ -1,5 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -24,18 +26,6 @@ namespace BootstrapBlazor.Components
         /// Invoke 方法
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public void Invoke(TValue value, Action<IJSRuntime, DotNetObjectReference<TValue>> callback)
-        {
-            _objRef = DotNetObjectReference.Create(value);
-            callback(_jsRuntime, _objRef);
-        }
-
-        /// <summary>
-        /// Invoke 方法
-        /// </summary>
-        /// <param name="value"></param>
         /// <param name="el"></param>
         /// <param name="func"></param>
         /// <param name="method"></param>
@@ -43,7 +33,10 @@ namespace BootstrapBlazor.Components
         public void Invoke(TValue value, object el, string func, string method, params object[] args)
         {
             _objRef = DotNetObjectReference.Create(value);
-            _jsRuntime.Invoke(el, func, _objRef, method, args);
+            var paras = new List<object>();
+            if (!string.IsNullOrEmpty(method)) paras.Add(method);
+            if (args != null) paras.AddRange(args);
+            _jsRuntime.Invoke(el, func, _objRef, paras.ToArray());
         }
 
         /// <summary>

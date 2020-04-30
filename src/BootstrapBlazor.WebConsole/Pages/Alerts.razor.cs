@@ -8,18 +8,18 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Alerts
+    public sealed partial class Alerts
     {
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected void DismissClick(MouseEventArgs e)
+        private void DismissClick(MouseEventArgs e)
         {
             Trace?.Log($"Alert Dismissed");
         }
@@ -28,12 +28,12 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnDismiss",
-                Description="点击关闭按钮时触发此事件",
+                Description="关闭警告框回调方法",
                 Type ="EventCallback<MouseEventArgs>"
             }
         };
@@ -42,9 +42,23 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "内容",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Class",
+                Description = "样式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
             new AttributeItem() {
                 Name = "Color",
                 Description = "颜色",
@@ -56,20 +70,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Name = "Icon",
                 Description = "图标",
                 Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-             new AttributeItem() {
-                Name = "Class",
-                Description = "样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = "内容",
-                Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },

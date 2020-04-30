@@ -73,7 +73,7 @@
                 var text = $this.hasClass('show') ? "隐藏代码" : "显示代码";
                 $this.find('span').text(text);
             })
-            .on('click', '.copy-icon', function (e) {
+            .on('click', '.copy-code', function (e) {
                 e.preventDefault();
 
                 var $el = $(this);

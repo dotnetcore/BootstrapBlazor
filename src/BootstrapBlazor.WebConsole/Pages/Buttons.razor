@@ -1,6 +1,10 @@
 ﻿@page "/buttons"
 
-<Block Title="Button 按钮" Introduction="常用的操作按钮。" CodeFile="button.1.txt">
+<h3>Button 按钮</h3>
+
+<h4>常用的操作按钮。</h4>
+
+<Block Title="基础用法" Introduction="基础的按钮用法。" CodeFile="button.1.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button @onclick="@ButtonClick" Color="Color.Primary">主要按钮</Button></div>
@@ -17,7 +21,7 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="Outline 按钮" Introduction="常用的操作按钮。" CodeFile="button.2.txt">
+<Block Title="Outline 按钮" Introduction='通过设置 <code>IsOutline="true"</code> 设置按钮边框颜色样式。' CodeFile="button.2.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Primary">主要按钮</Button></div>
@@ -33,7 +37,7 @@
     </div>
 </Block>
 
-<Block Title="不同尺寸" Introduction="Button 组件提供除了默认值以外的多种尺寸，可以在不同场景下选择合适的按钮尺寸。" CodeFile="button.3.txt">
+<Block Title="不同尺寸" Introduction='Button 组件提供除了默认值以外的多种尺寸，通过设置 <code>Size</code> 属性可以在不同场景下选择合适的按钮尺寸。' CodeFile="button.3.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.ExtraSmall" Color="Color.Primary">超小按钮</Button></div>
@@ -47,7 +51,7 @@
     </div>
 </Block>
 
-<Block Title="禁用状态" Introduction="按钮不可用状态。" CodeFile="button.4.txt">
+<Block Title="禁用状态" Introduction="按钮不可用状态。通过设置 <code>IsDisabled</code> 属性" CodeFile="button.4.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Primary">主要按钮</Button></div>
@@ -79,3 +83,5 @@
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
+
+<MethodTable Items="@GetMethods()" />

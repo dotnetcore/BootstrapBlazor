@@ -10,7 +10,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Toasts
+    public sealed partial class Toasts
     {
         /// <summary>
         /// 
@@ -40,7 +40,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected void OnSuccessClick()
+        private void OnSuccessClick()
         {
             Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
@@ -54,7 +54,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected void OnErrorClick()
+        private void OnErrorClick()
         {
             Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
@@ -68,7 +68,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected void OnInfoClick()
+        private void OnInfoClick()
         {
             Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
@@ -82,7 +82,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected void OnNotAutoHideClick()
+        private void OnNotAutoHideClick()
         {
             Toast?.SetPlacement(Placement.BottomEnd);
             ToastService?.Show(new ToastOption()
@@ -98,7 +98,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 
         /// </summary>
         /// <param name="placement"></param>
-        protected void OnPlacementClick(Placement placement)
+        private void OnPlacementClick(Placement placement)
         {
             Toast?.SetPlacement(placement);
             ToastService?.Show(new ToastOption()
@@ -113,9 +113,44 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Category",
+                Description = "弹出框类型",
+                Type = "ToastCategory",
+                ValueList = "Success/Information/Error",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Cotent",
+                Description = "Popover 弹窗内容",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "Popover"
+            },
+            new AttributeItem() {
+                Name = "Delay",
+                Description = "自动隐藏时间间隔",
+                Type = "int",
+                ValueList = "—",
+                DefaultValue = "4000"
+            },
+            new AttributeItem() {
+                Name = "IsAutoHide",
+                Description = "是否自动隐藏",
+                Type = "boolean",
+                ValueList = "",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "IsHtml",
+                Description = "内容中是否包含 Html 代码",
+                Type = "boolean",
+                ValueList = "",
+                DefaultValue = "false"
+            },
             new AttributeItem() {
                 Name = "Placement",
                 Description = "位置",
@@ -130,41 +165,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = "—",
                 DefaultValue = "Popover"
             },
-            new AttributeItem() {
-                Name = "Cotent",
-                Description = "Popover 弹窗内容",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = "Popover"
-            },
-            new AttributeItem() {
-                Name = "IsHtml",
-                Description = "内容中是否包含 Html 代码",
-                Type = "boolean",
-                ValueList = "",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsAutoHide",
-                Description = "是否自动隐藏",
-                Type = "boolean",
-                ValueList = "",
-                DefaultValue = "true"
-            },
-            new AttributeItem() {
-                Name = "Category",
-                Description = "弹出框类型",
-                Type = "ToastCategory",
-                ValueList = "Success/Information/Error",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Delay",
-                Description = "自动隐藏时间间隔",
-                Type = "int",
-                ValueList = "—",
-                DefaultValue = "4000"
-            }
         };
     }
 }

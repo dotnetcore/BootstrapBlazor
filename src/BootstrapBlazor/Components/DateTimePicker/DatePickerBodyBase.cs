@@ -154,7 +154,7 @@ namespace BootstrapBlazor.Components
         [Parameter] public string DateFormat { get; set; } = "yyyy-MM-dd";
 
         /// <summary>
-        /// 获得/设置 日期格式字符串 默认为 "yyyy-MM-dd"
+        /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
         /// </summary>
         [Parameter] public string TimeFormat { get; set; } = "hh\\:mm\\:ss";
 

@@ -1,6 +1,10 @@
 ﻿@page "/checkboxs"
 
-<Block Title="Checkbox 复选框" Introduction="提供基本的选择框组件" CodeFile="checkbox.1.txt">
+<h3>Checkbox 多选框</h3>
+
+<h4>一组备选项中进行多选</h4>
+
+<Block Title="基础用法" Introduction="单独使用可以表示两种状态之间的切换，列头或者表头使用时可以表示三种状态之间的切换。组件支持泛型数据绑定，通过 <code>TItem</code> 设置绑定数据类型，通过 <code>State</code> 设置组件状态" CodeFile="checkbox.1.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-4">
@@ -20,7 +24,7 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="禁用复选框" Introduction="复选框不可用状态" CodeFile="checkbox.2.txt">
+<Block Title="禁用复选框" Introduction="复选框不可用状态，通过 <code>IsDisabled</code> 设置组件是否可用" CodeFile="checkbox.2.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-4">
@@ -39,7 +43,7 @@
     </div>
 </Block>
 
-<Block Title="Label 文字" Introduction="复选框显示文字" CodeFile="checkbox.3.txt">
+<Block Title="Label 文字" Introduction="复选框显示文字，通过 <code>DisplayText</code> 设置组件显示文本，点击显示文字时组件状态也会进行翻转" CodeFile="checkbox.3.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
@@ -49,7 +53,7 @@
     </div>
 </Block>
 
-<Block Title="双向绑定 boolean 数据" Introduction="绑定组件内变量，数据自动同步，绑定数据类型为 boolean 类型时自动翻转值" CodeFile="checkbox.4.txt">
+<Block Title="双向绑定 boolean 数据" Introduction="绑定组件内变量，数据自动同步，绑定数据类型为 <code>boolean</code> 类型时自动翻转值" CodeFile="checkbox.4.txt">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">

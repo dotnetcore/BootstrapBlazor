@@ -8,10 +8,12 @@
     <Tab Items="@TabItems" />
 </Block>
 
-<Block Title="选项卡样式" Introduction="选项卡样式的标签页。" CodeFile="tabs.2.txt">
+<Block Title="选项卡样式" Introduction='通过 <code>IsCard="true"</code> 设置选项卡样式的标签页。' CodeFile="tabs.2.txt">
     <Tab Items="@TabItems" IsCard="true" />
 </Block>
 
-<Block Title="卡片化" Introduction="卡片化的标签页。" CodeFile="tabs.3.txt">
+<Block Title="卡片化" Introduction='通过 <code>IsBorderCard="true"</code> 设置卡片化的标签页。' CodeFile="tabs.3.txt">
     <Tab Items="@TabItems" IsBorderCard="true" />
 </Block>
+
+<AttributeTable Items="@GetAttributes()" />

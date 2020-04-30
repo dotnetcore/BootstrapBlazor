@@ -1,0 +1,1 @@
+﻿<Tab Items="@TabItems" IsBorderCard="true" />

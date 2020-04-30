@@ -1,4 +1,5 @@
 ﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.WebConsole.Common;
 using BootstrapBlazor.WebConsole.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -9,17 +10,17 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    partial class Transfers : ComponentBase
+    public sealed partial class Transfers : ComponentBase
     {
         /// <summary>
         /// 
         /// </summary>
-        protected IEnumerable<SelectedItem>? Items { get; set; }
+        private IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 
@@ -39,9 +40,74 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 
         /// </summary>
         /// <param name="items"></param>
-        protected void OnItemsChanged(IEnumerable<SelectedItem> items)
+        private void OnItemsChanged(IEnumerable<SelectedItem> items)
         {
             Trace?.Log(string.Join(" ", items.Select(i => i.Text)));
         }
+
+        /// <summary>
+        /// 获得属性方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        {
+            // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Items",
+                Description = "组件绑定数据项集合",
+                Type = "IEnumerable<SelectedItem>",
+                ValueList = "—",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "LeftButtonText",
+                Description = "左侧按钮显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "LeftPanelText",
+                Description = "左侧面板 Header 显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "列表 1"
+            },
+            new AttributeItem() {
+                Name = "RightButtonText",
+                Description = "右侧按钮显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "RightPanelText",
+                Description = "右侧面板 Header 显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "列表 2"
+            },
+            new AttributeItem() {
+                Name = "ShowSearch",
+                Description = "是否显示搜索框",
+                Type = "boolean",
+                ValueList = "—",
+                DefaultValue = "false"
+            },
+        };
+
+        /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnItemsChanged",
+                Description="组件绑定数据项集合选项变化时回调方法",
+                Type ="Action<IEnumerable<SelectedItem>>"
+            }
+        };
     }
 }

@@ -62,10 +62,10 @@ namespace BootstrapBlazor.WebConsole.Pages
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
-                Name = "Color",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Info / Warning / Danger ",
+                Name = "@bind-Value",
+                Description = "当前选中的值",
+                Type = " — ",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -76,11 +76,18 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "TagName",
-                Description = "标签",
-                Type = "string",
-                ValueList = " a / button ",
+                Name = "Color",
+                Description = "颜色",
+                Type = "Color",
+                ValueList = "Primary / Secondary / Info / Warning / Danger ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Direction",
+                Description = "下拉框弹出方向",
+                Type = "Direction",
+                ValueList = "Dropup / Dropright /  Dropleft",
+                DefaultValue = " None "
             },
             new AttributeItem() {
                 Name = "Items",
@@ -90,11 +97,25 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "@bind-Value",
-                Description = "当前选中的值",
-                Type = " — ",
-                ValueList = " — ",
+                Name = "MenuAlignment",
+                Description = "菜单对齐方式",
+                Type = "Alignment",
+                ValueList = "None / Left / Center / Right ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "MenuItem",
+                Description = "菜单项渲染标签",
+                Type = "string",
+                ValueList = "button / a ",
+                DefaultValue = " a "
+            },
+            new AttributeItem() {
+                Name = "Responsive",
+                Description = "菜单对齐",
+                Type = "string",
+                ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{lg | md | sm }-{right | left}",
+                DefaultValue = " - "
             },
             new AttributeItem() {
                 Name = "ShowSplit",
@@ -111,25 +132,11 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "None"
             },
             new AttributeItem() {
-                Name = "Direction",
-                Description = "下拉框弹出方向",
-                Type = "Direction",
-                ValueList = "Dropup / Dropright /  Dropleft",
-                DefaultValue = " None "
-            },
-            new AttributeItem() {
-                Name = "MenuItem",
-                Description = "菜单项渲染标签",
+                Name = "TagName",
+                Description = "标签",
                 Type = "string",
-                ValueList = "button / a ",
-                DefaultValue = " a "
-            },
-            new AttributeItem() {
-                Name = "Responsive",
-                Description = "菜单对齐",
-                Type = "string",
-                ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{lg | md | sm }-{right | left}",
-                DefaultValue = " - "
+                ValueList = " a / button ",
+                DefaultValue = " — "
             },
         };
 

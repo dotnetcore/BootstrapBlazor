@@ -8,7 +8,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 下拉框操作类
     /// </summary>
-    public partial class Selects
+    public sealed partial class Selects
     {
         /// <summary>
         /// 
@@ -23,17 +23,17 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 获得/设置 Logger 实例
         /// </summary>
-        protected Logger? Trace { get; set; }
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        protected Select<string>? SubSelect { get; set; }
+        private Select<string>? SubSelect { get; set; }
 
         /// <summary>
         /// 获得 默认数据集合
         /// </summary>
-        protected IEnumerable<SelectedItem> Items = new SelectedItem[]
+        private IEnumerable<SelectedItem> Items = new SelectedItem[]
         {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海") { Active = true }
@@ -43,7 +43,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 下拉选项改变时调用此方法
         /// </summary>
         /// <param name="item"></param>
-        protected void OnItemChanged(SelectedItem item)
+        private void OnItemChanged(SelectedItem item)
         {
             Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
         }
@@ -52,7 +52,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 级联绑定菜单
         /// </summary>
         /// <param name="item"></param>
-        protected void OnCascadeBindSelectClick(SelectedItem item)
+        private void OnCascadeBindSelectClick(SelectedItem item)
         {
             var items = item.Value switch
             {
@@ -68,7 +68,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -82,22 +82,22 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Color",
-                Description = "颜色",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "Primary"
-            },
             new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Color",
+                Description = "颜色",
+                Type = "Color",
+                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+                DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsDisabled",

@@ -1,0 +1,4 @@
+﻿<PopConfirmButton Placement="Placement.Top" Color="Color.Danger" 
+                  ConfirmIcon="fa fa-exclamation-triangle text-danger" 
+                  ConfirmButtonColor="Color.Danger" 
+                  DisplayText="删除确认按钮" Content="确定删除数据吗？" />

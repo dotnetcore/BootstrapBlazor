@@ -14,11 +14,25 @@ namespace BootstrapBlazor.Components
         /// 获得 当前样式名称
         /// </summary>
         protected string? GetClassName(int index) => CssBuilder.Default("time-spinner-item")
+            .AddClass("prev", ViewModel switch
+            {
+                TimePickerCellViewModel.Hour => Value.Hours - 1 == index,
+                TimePickerCellViewModel.Minute => Value.Minutes - 1 == index,
+                TimePickerCellViewModel.Second => Value.Seconds - 1 == index,
+                _ => false
+            })
             .AddClass("active", ViewModel switch
             {
                 TimePickerCellViewModel.Hour => Value.Hours == index,
                 TimePickerCellViewModel.Minute => Value.Minutes == index,
                 TimePickerCellViewModel.Second => Value.Seconds == index,
+                _ => false
+            })
+            .AddClass("next", ViewModel switch
+            {
+                TimePickerCellViewModel.Hour => Value.Hours + 1 == index,
+                TimePickerCellViewModel.Minute => Value.Minutes + 1 == index,
+                TimePickerCellViewModel.Second => Value.Seconds + 1 == index,
                 _ => false
             })
             .Build();

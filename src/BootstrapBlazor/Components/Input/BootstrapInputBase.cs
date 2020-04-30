@@ -1,4 +1,7 @@
-﻿namespace BootstrapBlazor.Components
+﻿using Microsoft.AspNetCore.Components;
+using System;
+
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// BootstrapInputTextBase 组件
@@ -11,6 +14,13 @@
         protected string? ClassName => CssBuilder.Default("form-control")
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
+
+
+        /// <summary>
+        /// 获得/设置 格式化字符串
+        /// </summary>
+        [Parameter]
+        public Func<TItem, string>? Formatter { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -27,6 +37,16 @@
                     AdditionalAttributes.Add("type", "text");
                 }
             }
+        }
+
+        /// <summary>
+        /// 数值格式化委托方法
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected override string? FormatValueAsString(TItem value)
+        {
+            return Formatter != null ? Formatter.Invoke(Value) : base.FormatValueAsString(value);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Carousels
+    public sealed partial class Carousels
     {
         private IEnumerable<string> Images => new List<string>()
         {
@@ -19,7 +19,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -30,18 +30,18 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "—"
             },
             new AttributeItem() {
-                Name = "Width",
-                Description = "设置图片宽度",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "—"
-            },
-            new AttributeItem() {
                 Name = "IsFade",
                 Description = "是否淡入淡出",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Width",
+                Description = "设置图片宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "—"
             },
         };
     }
