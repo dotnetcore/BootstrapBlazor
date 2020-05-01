@@ -88,9 +88,9 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 设置数据集合后 SelectedItem 设置默认值
-            if (Items != null && SelectedItem == null)
+            if (SelectedItem == null)
             {
-                SelectedItem = Items.FirstOrDefault();
+                SelectedItem = Items?.FirstOrDefault(i => i.Active);
             }
         }
 
@@ -104,6 +104,13 @@ namespace BootstrapBlazor.Components
             await base.SetParametersAsync(parameters);
 
             if (Color == Color.None) Color = Color.Primary;
+
+            if (SelectedItem == null || !(Items?.Contains(SelectedItem) ?? false))
+            {
+                var item = Items?.FirstOrDefault(i => i.Active);
+                if (item == null) item = Items?.FirstOrDefault();
+                if (item != null) SelectedItem = item;
+            }
         }
     }
 }

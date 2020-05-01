@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 当前选择项实例
         /// </summary>
-        public SelectedItem? SelectedItem { get; set; }
+        protected SelectedItem? SelectedItem { get; set; }
 
         /// <summary>
         /// 获得 按钮 disabled 属性
