@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// DateTimePicker 组件基类
     /// </summary>
-    public class DateTimePickerBase : ValidateInputBase<DateTime>
+    public abstract class DateTimePickerBase : ValidateInputBase<DateTime>
     {
         /// <summary>
         /// 获得 组件样式名称

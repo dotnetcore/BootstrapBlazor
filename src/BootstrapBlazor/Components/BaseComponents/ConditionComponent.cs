@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 条件输出组件
     /// </summary>
-    public class ConditionComponent : ComponentBase
+    public abstract class ConditionComponent : ComponentBase
     {
         /// <summary>
         /// 获得/设置 是否显示 默认显示组件内容
