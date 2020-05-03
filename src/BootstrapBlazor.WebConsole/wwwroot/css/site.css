@@ -93,6 +93,13 @@ section {
     width: 70px;
 }
 
+.sidebar .top-row {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    background-color: rgb(60, 40, 97);
+}
+
 .sidebar .top-item {
     font-size: 1rem;
 }
