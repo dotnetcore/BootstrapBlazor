@@ -2741,3 +2741,11 @@ a {
         transform: translateX(-50%);
     }
 /*end divider*/
+
+/*echart*/
+.echart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*end echart*/

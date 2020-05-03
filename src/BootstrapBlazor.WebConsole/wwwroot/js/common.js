@@ -58,6 +58,90 @@
             var ret = document.execCommand('copy');
             document.body.removeChild(input);
             return ret;
+        },
+        getEChartOption: function (option) {
+            var op = {
+                title: {
+                    text: '',
+                    subtext: ''
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['日访问量']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: { show: true },
+                        dataZoom: { show: true },
+                        dataView: { show: false },
+                        magicType: { show: true, type: ['line', 'bar'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                calculable: true,
+                dataZoom: {
+                    show: true,
+                    realtime: true,
+                    start: 0,
+                    end: 100
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: function () {
+                            var list = [];
+                            for (var i = 1; i <= 30; i++) {
+                                list.push('2013-03-' + i);
+                            }
+                            return list;
+                        }()
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '日访问量',
+                        type: 'line',
+                        data: function () {
+                            var list = [];
+                            for (var i = 1; i <= 30; i++) {
+                                list.push(Math.round(Math.random() * 30));
+                            }
+                            return list;
+                        }()
+                    }
+                ]
+            };
+            return $.extend(true, {}, op, {
+                legend: { data: option.legend },
+                series: [
+                    {
+                        name: option.name,
+                        data: option.data.map(function (val, index) {
+                            return val.Value;
+                        })
+                    }
+                ],
+                xAxis: [
+                    {
+                        data: option.data.map(function (val, index) {
+                            return val.Key;
+                        })
+                    }
+                ],
+                dataZoom: {
+                    start: 0
+                }
+            });
         }
     });
 

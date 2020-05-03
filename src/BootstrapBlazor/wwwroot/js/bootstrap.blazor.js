@@ -383,6 +383,16 @@
             options = {};
             options.remoteObj = { obj, complete, check, del, failed };
             $(el).uploader(options);
+        },
+        echart: function (el, obj, method, option) {
+            if (echarts) {
+                if ($.isFunction($.getEChartOption)) {
+                    var op = $.getEChartOption(option);
+                    var chart = echarts.init(el);
+                    $(el).find('.echart-loading').addClass('d-none');
+                    chart.setOption(op);
+                }
+            }
         }
     });
 
