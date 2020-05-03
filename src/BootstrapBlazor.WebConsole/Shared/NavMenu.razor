@@ -5,7 +5,7 @@
     </button>
 </div>
 
-<div class="sidebar-content @NavMenuCssClass" @onclick="ToggleNavMenu">
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <div class="top-item">
         <NavLink class="top-link" href="introduction" Match="NavLinkMatch.All">快速上手</NavLink>
         <ul class="nav flex-column">
@@ -115,17 +115,12 @@
 @code {
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : "";
+    private string? NavMenuCssClass => CssBuilder.Default("sidebar-content ")
+        .AddClass("collapse", collapseNavMenu)
+        .Build();
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
-    }
-
-    [Inject] public IJSRuntime? JSRuntime { get; set; }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        JSRuntime?.InvokeVoidAsync("$.addNiceScroll", ".sidebar-content");
     }
 }
