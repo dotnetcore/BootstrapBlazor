@@ -220,51 +220,6 @@
                 document.addEventListener('swipe', function () { return false; });
             }
         },
-        removeTab: function (tabId) {
-            // 通过当前 Tab 返回如果移除后新的 TabId
-            var activeTabId = $('#navBar').find('.active').first().attr('id');
-            var $curTab = $('#' + tabId);
-            if ($curTab.hasClass('active')) {
-                var $nextTab = $curTab.next();
-                var $prevTab = $curTab.prev();
-                if ($nextTab.length === 1) activeTabId = $nextTab.attr('id');
-                else if ($prevTab.length === 1) activeTabId = $prevTab.attr('id');
-                else activeTabId = "";
-            }
-            return activeTabId;
-        },
-        log: function (msg) {
-            console.log(msg);
-        },
-        resetTab: function (tabId) {
-            // 通过计算 Tab 宽度控制滚动条显示完整 Tab
-            var $tab = $('#' + tabId);
-            if ($tab.length === 0) return;
-
-            var $navBar = $('#navBar');
-            var $first = $navBar.children().first();
-            var marginLeft = $tab.position().left - $first.position().left;
-            var scrollLeft = $navBar.scrollLeft();
-            if (marginLeft < scrollLeft) {
-                // overflow left
-                $navBar.scrollLeft(marginLeft);
-                return;
-            }
-
-            var marginRight = $tab.position().left + $tab.outerWidth() - $navBar.outerWidth();
-            if (marginRight < 0) return;
-            $navBar.scrollLeft(marginRight - $first.position().left);
-        },
-        movePrevTab: function () {
-            var $navBar = $('#navBar');
-            var $curTab = $navBar.find('.active').first();
-            return $curTab.prev().attr('url');
-        },
-        moveNextTab: function () {
-            var $navBar = $('#navBar');
-            var $curTab = $navBar.find('.active').first();
-            return $curTab.next().attr('url');
-        },
         tooltip: function (id, method, title, content, html) {
             var $ele = $('#' + id);
             if (method === "") {
@@ -418,12 +373,7 @@
             else $input.popover(method);
         },
         tab: function (el) {
-            var $el = $(el);
-            var $activeTab = $el.find('.tabs-item.is-active');
-            var $bar = $el.find('.tabs-active-bar');
-            var width = $activeTab.width();
-            var left = $activeTab.position().left + parseInt($activeTab.css('paddingLeft'));
-            $bar.css({ 'width': width + 'px', 'transform': 'translateX(' + left + 'px)' });
+            $(el).tab('active');
         },
         captcha: function (el, obj, method, options) {
             options.remoteObj = { obj, method };
@@ -435,6 +385,127 @@
             $(el).uploader(options);
         }
     });
+
+    /**
+     * Tab
+     * @param {any} element
+     * @param {any} options
+     */
+    var Tab = function (element, options) {
+        this.$element = $(element);
+        this.$header = this.$element.find('.tabs-header');
+        this.$wrap = this.$header.find('.tabs-nav-wrap');
+        this.$scroll = this.$wrap.find('.tabs-nav-scroll');
+        this.$tab = this.$scroll.find('.tabs-nav');
+        this.options = $.extend({}, options);
+        this.init();
+    };
+
+    Tab.VERSION = "3.1.0";
+    Tab.Author = 'argo@163.com';
+    Tab.DATA_KEY = "lgb.Tab";
+
+    var _proto = Tab.prototype;
+    _proto.init = function () {
+        var that = this;
+        $(window).on('resize', function () {
+            //that.fixSize();
+            that.resize();
+        });
+        //this.fixSize();
+        this.active();
+    };
+
+    _proto.fixSize = function () {
+        var height = this.$element.height();
+        var width = this.$element.width();
+        this.$element.css({ 'height': height + 'px', 'width': width + 'px' });
+    }
+
+    _proto.resize = function () {
+        this.vertical = this.$element.hasClass('tabs-left') || this.$element.hasClass('tabs-right');
+        this.horizontal = this.$element.hasClass('tabs-top') || this.$element.hasClass('tabs-bottom');
+
+        var $lastItem = this.$tab.find('.tabs-item:last');
+        if (this.vertical) {
+            this.$wrap.css({ 'height': this.$element.height() + 'px' });
+            var tabHeight = this.$tab.height();
+            var itemHeight = $lastItem.position().top + $lastItem.outerHeight();
+            if (itemHeight < tabHeight) this.$wrap.removeClass("is-scrollable");
+            else this.$wrap.addClass('is-scrollable');
+        }
+        else {
+            this.$wrap.removeAttr('style');
+            var tabWidth = this.$tab.width();
+            var itemWidth = $lastItem.position().left + $lastItem.outerWidth();
+            if (itemWidth < tabWidth) this.$wrap.removeClass("is-scrollable");
+            else this.$wrap.addClass('is-scrollable');
+        }
+    }
+
+    _proto.active = function () {
+        // check scrollable
+        this.resize();
+
+        var $bar = this.$element.find('.tabs-active-bar');
+        var $activeTab = this.$element.find('.tabs-item.is-active');
+        if (this.vertical) {
+            //scroll
+            var top = $activeTab.position().top;
+            var itemHeight = top + $activeTab.outerHeight();
+            var scrollTop = this.$scroll.scrollTop();
+            var scrollHeight = this.$scroll.outerHeight();
+            var marginTop = itemHeight - scrollTop - scrollHeight;
+            if (marginTop > 0) {
+                this.$scroll.scrollTop(scrollTop + marginTop);
+            }
+            else {
+                var marginBottom = top - scrollTop;
+                if (marginBottom < 0) {
+                    this.$scroll.scrollTop(scrollTop + marginBottom);
+                }
+            }
+            $bar.css({ 'width': '2px', 'transform': 'translateY(' + top + 'px)' });
+        }
+        else {
+            // scroll
+            var left = $activeTab.position().left;
+            var itemWidth = left + $activeTab.outerWidth();
+            var scrollLeft = this.$scroll.scrollLeft();
+            var scrollWidth = this.$scroll.width();
+            var marginLeft = itemWidth - scrollLeft - scrollWidth;
+            if (marginLeft > 0) {
+                this.$scroll.scrollLeft(scrollLeft + marginLeft);
+            }
+            else {
+                var marginRight = left - scrollLeft;
+                if (marginRight < 0) {
+                    this.$scroll.scrollLeft(scrollLeft + marginRight);
+                }
+            }
+            var width = $activeTab.width();
+            var itemLeft = left + parseInt($activeTab.css('paddingLeft'));
+            $bar.css({ 'width': width + 'px', 'transform': 'translateX(' + itemLeft + 'px)' });
+        }
+    };
+
+    function TabPlugin(option) {
+        return this.each(function () {
+            var $this = $(this);
+            var data = $this.data(Tab.DATA_KEY);
+            var options = typeof option === 'object' && option;
+
+            if (!data) $this.data(Tab.DATA_KEY, data = new Tab(this, options));
+            if (typeof option === 'string') {
+                if (/active/.test(option))
+                    data[option].apply(data);
+            }
+        });
+    }
+
+    $.fn.tab = TabPlugin;
+    $.fn.tab.Constructor = Tab;
+    /*end tab*/
 
     /*captch*/
     var SliderCaptcha = function (element, options) {
@@ -525,8 +596,10 @@
 
     _proto.bindEvents = function () {
         var that = this;
-        var originX, originY, trail = [],
-            isMouseDown = false;
+        var originX = 0;
+        var originY = 0;
+        var trail = [];
+        var isMouseDown = false;
 
         var handleDragStart = function (e) {
             that.$barText.addClass('d-none');
@@ -574,9 +647,15 @@
         document.addEventListener('mouseup', handleDragEnd);
         document.addEventListener('touchend', handleDragEnd);
 
-        document.addEventListener('mousedown', function () { return false; });
-        document.addEventListener('touchstart', function () { return false; });
-        document.addEventListener('swipe', function () { return false; });
+        document.addEventListener('mousedown', function () {
+            return false;
+        });
+        document.addEventListener('touchstart', function () {
+            return false;
+        });
+        document.addEventListener('swipe', function () {
+            return false;
+        });
     };
 
     _proto.verify = function (offset, trails) {
@@ -783,16 +862,14 @@
                         }
                     }
                 }
+                else if (that.isstack) {
+                    $prev.addClass('is-invalid is-invalid-file');
+                    $prev.find('.upload-prev-invalid-file .file-name').html(file.name);
+                    $prev.find('.upload-prev-invalid-file .file-error').html(result.message);
+                }
                 else {
-                    if (that.isstack) {
-                        $prev.addClass('is-invalid is-invalid-file');
-                        $prev.find('.upload-prev-invalid-file .file-name').html(file.name);
-                        $prev.find('.upload-prev-invalid-file .file-error').html(result.message);
-                    }
-                    else {
-                        $prev.removeClass('is-upload is-active').addClass('is-invalid');
-                        that.showError($prev, result.message);
-                    }
+                    $prev.removeClass('is-upload is-active').addClass('is-invalid');
+                    that.showError($prev, result.message);
                 }
             });
         });

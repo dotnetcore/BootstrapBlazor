@@ -426,6 +426,27 @@ section {
         color: #e83e8c;
     }
 
+.divider {
+    height: 1px;
+    background-color: #ddd;
+    margin: 1rem 0;
+    position: relative;
+}
+
+    .divider:after {
+        content: "我是分割线";
+        position: absolute;
+        text-align: center;
+        font-size: 12px;
+        line-height: 18px;
+        height: 18px;
+        left: calc(50% - 46px);
+        top: calc(50% - 9px);
+        background-color: #fff;
+        padding: 0 1rem;
+        color: #409eff;
+    }
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;

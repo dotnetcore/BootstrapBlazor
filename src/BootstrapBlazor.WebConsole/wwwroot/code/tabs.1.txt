@@ -1,14 +1,16 @@
-﻿<Tab Items="@TabItems" />
-
-@code{
-    private IEnumerable<TabItem> TabItems => new List<TabItem>()
-    {
-        new TabItem("应用管理"),
-        new TabItem("菜单管理"),
-        new TabItem("数据管理"),
-        new TabItem("用户管理"),
-        new TabItem("部门管理"),
-        new TabItem("权限管理"),
-        new TabItem("字典管理")
-    };
-}
+﻿<Tab>
+    <TabItems>
+        <TabItem Text="用户管理">
+            <div>我是用户管理</div>
+        </TabItem>
+        <TabItem Text="菜单管理">
+            <div>我是菜单管理</div>
+        </TabItem>
+        <TabItem Text="角色管理">
+            <div>我是角色管理</div>
+        </TabItem>
+        <TabItem Text="部门管理">
+            <div>我是部门管理</div>
+        </TabItem>
+    </TabItems>
+</Tab>
