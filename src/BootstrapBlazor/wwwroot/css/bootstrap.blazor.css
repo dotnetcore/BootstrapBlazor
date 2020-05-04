@@ -2743,9 +2743,19 @@ a {
 /*end divider*/
 
 /*echart*/
-.echart {
+.chart {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
+
+    .chart.is-loading .chart-loading {
+        display: block;
+    }
+
+    .chart .chart-loading {
+        position: absolute;
+        display: none;
+    }
 /*end echart*/

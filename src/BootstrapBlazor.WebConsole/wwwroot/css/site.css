@@ -485,4 +485,8 @@ section {
     .navbar-toggler {
         display: none;
     }
+
+    .chart {
+        max-width: 650px;
+    }
 }

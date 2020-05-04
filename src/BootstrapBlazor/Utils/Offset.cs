@@ -8,11 +8,21 @@
         /// <summary>
         /// 获得/设置 X 轴偏移量
         /// </summary>
-        public int MarginX { get; set; }
+        public int Top { get; set; }
 
         /// <summary>
         /// 获得/设置 Y 轴偏移量
         /// </summary>
-        public int MarginY { get; set; }
+        public int Left { get; set; }
+
+        /// <summary>
+        /// 获得/设置 宽度
+        /// </summary>
+        public int Width { get; set; }
+
+        /// <summary>
+        /// 获得/设置 高度
+        /// </summary>
+        public int Height { get; set; }
     }
 }

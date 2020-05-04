@@ -1,0 +1,43 @@
+﻿@page "/charts"
+@implements IDisposable
+@inherits ComponentBase
+
+<h3>Chart 图表</h3>
+
+<h4>通过给定数据，绘画各种图表的组件</h4>
+
+<p>本组件依赖于 <code>Char.js</code>，使用本组件时需要引用其相应对的 <code>javascript</code> 文件，<code>Char.js</code>为开源图表组件库，请自行引用</p>
+
+<h4>CSS 文件</h4>
+
+<Pre>&lt;link rel="stylesheet" href="~/lib/chartjs/Chart.css" /&gt;</Pre>
+
+<h4>JS 文件</h4>
+
+<Pre>&lt;script src="~/lib/chartjs/Chart.bundle.js"&gt;&lt;/script&gt;</Pre>
+
+<p>组件数据在 <code>OnInit</code> 回调委托中进行设置即可</p>
+
+<Block Title="Line 图" Introduction="使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作" CodeFile="chart.1.txt">
+    <Chart OnInit="@OnInit" />  
+</Block>
+
+<Block Title="Bar 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bar</code> 图" CodeFile="chart.2.txt">
+    <Chart ChartType="ChartType.Bar" OnInit="@OnInit" />  
+</Block>
+
+<Block Title="Pie 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>pie</code> 图" CodeFile="chart.3.txt">
+    <Chart ChartType="ChartType.Pie" OnInit="@OnPieInit" />  
+</Block>
+
+<Block Title="Doughnut 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>doughnut</code> 图" CodeFile="chart.4.txt">
+    <Chart ChartType="ChartType.Doughnut" OnInit="@OnPieInit" />  
+</Block>
+
+<Block Title="Bubble 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图" CodeFile="chart.5.txt">
+    <Chart ChartType="ChartType.Bubble" OnInit="@OnBubbleInit" />  
+</Block>
+
+<Toast></Toast>
+
+<AttributeTable Items="@GetAttributes()" />

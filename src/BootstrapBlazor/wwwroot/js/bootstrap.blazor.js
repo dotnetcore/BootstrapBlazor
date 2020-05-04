@@ -1,5 +1,50 @@
 ﻿(function ($) {
     window.Toasts = [];
+
+    window.chartColors = {
+        red: 'rgb(255, 99, 132)',
+        blue: 'rgb(54, 162, 235)',
+        green: 'rgb(75, 192, 192)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(201, 203, 207)'
+    };
+
+    window.chartOption = {
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: ''
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: ''
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: ''
+                    }
+                }]
+            }
+        }
+    };
+
     Array.prototype.indexOf = function (val) {
         for (var i = 0; i < this.length; i++) {
             if (this[i] == val) return i;
@@ -12,42 +57,6 @@
             this.splice(index, 1);
         }
     };
-    $.fn.extend({
-        autoScrollSidebar: function (options) {
-            var option = $.extend({ target: null, offsetTop: 0 }, options);
-            var $navItem = option.target;
-            if ($navItem === null || $navItem.length === 0) return this;
-
-            // sidebar scroll animate
-            var middle = this.outerHeight() / 2;
-            var top = $navItem.offset().top + option.offsetTop - this.offset().top;
-            var $scrollInstance = this[0]["__overlayScrollbars__"];
-            if (top > middle) {
-                if ($scrollInstance) $scrollInstance.scroll({ x: 0, y: top - middle }, 500, "swing");
-                else this.animate({ scrollTop: top - middle });
-            }
-            return this;
-        },
-        addNiceScroll: function () {
-            if ($(window).width() > 768) {
-                this.overlayScrollbars({
-                    className: 'os-theme-light',
-                    scrollbars: {
-                        autoHide: 'leave',
-                        autoHideDelay: 100
-                    },
-                    overflowBehavior: {
-                        x: "hidden",
-                        y: "scroll"
-                    }
-                });
-            }
-            else {
-                this.css('overflow', 'auto');
-            }
-            return this;
-        }
-    });
 
     $.extend({
         format: function (source, params) {
@@ -248,73 +257,6 @@
                 $ele.popover(method);
             }
         },
-        calcPosition: function ($ele, $button) {
-            // 获得组件大小
-            var elWidth = $ele.outerWidth();
-            var elHeight = $ele.outerHeight();
-
-            // 获得 button 大小
-            var width = $button.outerWidth();
-            var height = $button.outerHeight();
-
-            var iHeight = $button.height();
-
-            // check top or bottom
-            var placement = $button.attr('data-placement');
-            if (placement === 'auto') placement = 'top';
-
-            // 设置自己位置
-            var left = 0;
-            var top = 0;
-
-            // 根据自身位置自动判断出现位置
-            var x = $button.offset().left;
-            var y = $button.offset().top;
-            var margin = y - $(window).scrollTop() - elHeight;
-
-            if (margin < 0) {
-                // top 不可用
-                placement = 'bottom';
-            }
-            else {
-                // 判断左右侧是否位置够用
-                var marginRight = $(window).width() - x - elWidth > 0;
-                var marginLeft = x - elWidth > 0;
-                if (!marginLeft && marginRight) {
-                    // 右侧空间满足
-                    placement = "right";
-                }
-                else if (marginLeft && !marginRight) {
-                    // 左侧空间不足
-                    placement = 'left';
-                }
-                else if (!marginLeft && !marginRight) {
-                    // 左右两侧空间都不够
-                    placement = 'bottom';
-                }
-            }
-
-            $ele.removeClass('top bottom left right').addClass(placement);
-
-            if (placement === 'top') {
-                left = x - Math.ceil((elWidth - width) / 2);
-                top = y - elHeight;
-            }
-            else if (placement === 'bottom') {
-                left = x - Math.ceil((elWidth - width) / 2);
-                top = y + height;
-            }
-            else if (placement === 'left') {
-                left = x - elWidth - 8;
-                top = y - Math.ceil((elHeight - height) / 2);
-            }
-            else if (placement === 'right') {
-                left = x + width + 8;
-                top = y - Math.ceil((elHeight - height) / 2);
-            }
-
-            return { left, top };
-        },
         confirm: function (id) {
             var $ele = $('[data-target="' + id + '"]');
             var $button = $('#' + id);
@@ -384,14 +326,103 @@
             options.remoteObj = { obj, complete, check, del, failed };
             $(el).uploader(options);
         },
-        echart: function (el, obj, method, option) {
-            if (echarts) {
-                if ($.isFunction($.getEChartOption)) {
-                    var op = $.getEChartOption(option);
-                    var chart = echarts.init(el);
-                    $(el).find('.echart-loading').addClass('d-none');
-                    chart.setOption(op);
+        getChartOption: function (option) {
+            var colors = [];
+            for (var name in window.chartColors) colors.push(name);
+
+            var config = {};
+            var colorFunc = null;
+            if (option.type === 'line') {
+                config = chartOption;
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: color,
+                        borderColor: color
+                    });
                 }
+            }
+            else if (option.type === 'bar') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
+                        borderColor: color,
+                        borderWidth: 1
+                    });
+                }
+            }
+            else if (option.type === 'pie' || option.type === 'doughnut') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    $.extend(data, {
+                        backgroundColor: colors.slice(0, data.data.length).map(function (name) {
+                            return chartColors[name];
+                        })
+                    });
+                }
+            }
+            else if (option.type === 'bubble') {
+                config = $.extend(true, {}, chartOption, {
+                    data: {
+                        animation: {
+                            duration: 10000
+                        },
+                    },
+                    options: {
+                        tooltips: {
+                            mode: 'point'
+                        }
+                    }
+                });
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
+                        borderWidth: 1,
+                        borderColor: color
+                    });
+                }
+            }
+
+            $.each(option.data, function () {
+                colorFunc(this);
+            });
+
+            return $.extend(true, {}, config, {
+                type: option.type,
+                data: {
+                    labels: option.labels,
+                    datasets: option.data
+                },
+                options: {
+                    responsive: option.options.responsive,
+                    title: option.options.title,
+                    scales: {
+                        xAxes: option.options.xAxes.map(function (v) {
+                            return {
+                                display: option.options.showXAxesLine,
+                                scaleLabel: v
+                            };
+                        }),
+                        yAxes: option.options.yAxes.map(function (v) {
+                            return {
+                                display: option.options.showYAxesLine,
+                                scaleLabel: v
+                            }
+                        })
+                    }
+                }
+            });
+        },
+        chart: function (el, obj, method, option) {
+            if ($.isFunction(Chart)) {
+                var $el = $(el);
+                option.type = $el.data('type');
+                var op = $.getChartOption(option);
+                new Chart(el.getElementsByTagName('canvas'), op);
+                $el.removeClass('is-loading').trigger('chart.afterInit');
             }
         }
     });
