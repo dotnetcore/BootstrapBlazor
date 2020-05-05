@@ -93,9 +93,6 @@ namespace BootstrapBlazor.Components
             .AddClass(icon)
             .Build();
 
-        /// <summary>
-        /// 获得/设置 文本文字
-        /// </summary>
         private string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
             .AddClass("is-active", active)
             .AddClass("is-closeable", TabSet?.ShowClose ?? false)
