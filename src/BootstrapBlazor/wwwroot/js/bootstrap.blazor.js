@@ -492,6 +492,25 @@
                     chart.update();
                 }
             }
+        },
+        collapse: function (el) {
+            var $el = $(el);
+            var parent = null;
+            // check accordion
+            if ($el.hasClass('is-accordion')) {
+                parent = '[' + el.getAttributeNames().pop() + ']';
+            }
+
+            $.each($el.find('.collapse-item'), function () {
+                var id = $.getUID();
+                var $item = $(this);
+                $item.attr('id', id);
+                if (parent != null) $item.attr('data-parent', parent);
+
+                var $button = $item.prev().find('[data-toggle="collapse"]');
+                $button.attr('data-target', '#' + id).attr('aria-controls', id);
+                $button.collapse();
+            });
         }
     });
 

@@ -1,11 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits CollapseBase
 
-<div @attributes="@AdditionalAttributes" class="collapse-group" data-toggle="collapse">
-    <button class="@ClassName" type="button" disabled="@Disabled" @onclick="@OnClick" aria-expanded="@Collapsed">
-        @Title
-    </button>
-    <CollapseBody IsCollapsed="@IsCollapsed" @ref="@CollapseContent">
-        @ChildContent
-    </CollapseBody>
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="CollapseElement">
+    <CascadingValue Value="this" IsFixed="true">
+        <CollapseContent OnClick="@OnItemClick" />
+        @CollapseItems
+    </CascadingValue>
 </div>
