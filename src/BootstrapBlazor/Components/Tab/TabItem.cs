@@ -5,7 +5,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// TabItem 组件基类
     /// </summary>
-    public class TabItem : BootstrapComponentBase
+    public class TabItem : ComponentBase
     {
         /// <summary>
         /// 获得/设置 文本文字
@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            TabSet?.AddTabItem(this);
+            TabSet?.AddItem(this);
         }
 
         /// <summary>

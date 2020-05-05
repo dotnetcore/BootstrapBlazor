@@ -150,7 +150,7 @@ namespace BootstrapBlazor.Components
         /// 添加 TabItem 方法 由 TabItem 方法加载时调用
         /// </summary>
         /// <param name="item">TabItemBase 实例</param>
-        internal void AddTabItem(TabItem item) => _items.Add(item);
+        internal void AddItem(TabItem item) => _items.Add(item);
 
         /// <summary>
         /// TabItem 切换后回调此方法
