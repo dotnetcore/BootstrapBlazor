@@ -403,6 +403,10 @@ section {
         color: #e83e8c;
     }
 
+.chart .btn i + span {
+    display: none;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
@@ -487,6 +491,10 @@ section {
     }
 
     .chart {
-        max-width: 650px;
+        max-width: 740px;
     }
+
+        .chart .btn i + span {
+            display: inline;
+        }
 }

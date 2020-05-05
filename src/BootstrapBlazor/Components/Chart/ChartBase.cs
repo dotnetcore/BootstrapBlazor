@@ -56,6 +56,12 @@ namespace BootstrapBlazor.Components
         public ChartType ChartType { get; set; } = ChartType.Line;
 
         /// <summary>
+        /// 获得/设置 Bubble 模式下显示角度 180 为 半圆 360 为正圆
+        /// </summary>
+        [Parameter]
+        public int Angle { get; set; }
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -71,7 +77,7 @@ namespace BootstrapBlazor.Components
 
                 var ds = await OnInit.Invoke();
 
-                Interop?.Invoke(this, Chart, "chart", nameof(Completed), ds);
+                Interop?.Invoke(this, Chart, "chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
             }
         }
 
@@ -85,13 +91,31 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 设置 Doughnut 图形显示角度
+        /// </summary>
+        /// <param name="angle"></param>
+        public void SetAngle(int angle) => Angle = angle;
+
+        /// <summary>
+        /// 更新图表方法
+        /// </summary>
+        public async Task Update(string method = "")
+        {
+            if (OnInit != null)
+            {
+                var ds = await OnInit.Invoke();
+                Interop?.Invoke(this, Chart, "chart", nameof(Completed), ds, method, ChartType.ToDescriptionString(), Angle);
+            }
+        }
+
+        /// <summary>
         /// Dispose 方法
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing) Interop?.Dispose();
+
+            base.Dispose(disposing);
         }
     }
 }

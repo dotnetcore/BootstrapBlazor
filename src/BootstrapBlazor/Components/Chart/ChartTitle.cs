@@ -8,7 +8,7 @@
         /// <summary>
         /// 获得/设置 Chart 显示名称
         /// </summary>
-        public string Text { get; set; } = "未设置";
+        public string Text { get; set; } = "Chart";
 
         /// <summary>
         /// 获得/设置 是否显示 默认为 true

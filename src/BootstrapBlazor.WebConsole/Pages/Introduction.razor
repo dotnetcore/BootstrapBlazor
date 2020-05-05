@@ -19,6 +19,13 @@
 
 <p><a href="https://v4.bootcss.com/docs/getting-started/introduction/" target="_blank">Bootstrap 快速入门</a></p>
 
+<h4>组件引用</h4>
+
+<p>组件引用有多种方法，可以参阅 <a href="install">安装</a></p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor</Pre>
+
 <h4>CSS 文件</h4>
 
 <p>将 Bootstrap 的 CSS 文件以 <code class="highlight">&lt;link&gt;</code> 标签的形式添加到 <code class="highlight">&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前就行了。</p>
@@ -31,14 +38,11 @@
 <p>Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code class="highlight">&lt;script&gt;</code> 标签放到页面尾部且在 <code class="highlight">&lt;/body&gt;</code> 标签之前即可起作用。他们之间的顺序是： jQuery 必须排在第一位，然后是我们的 JavaScript 插件。</p>
 <Pre>&lt;script src="~/lib/jquery/jquery.js"&gt;&lt;/script&gt;
 &lt;script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"&gt;&lt;/script&gt;
-&lt;script src="~/_content/BootstrapBlazor/css/bootstrap.blazor.js"&gt;&lt;/script&gt;</Pre>
+&lt;script src="~/_content/BootstrapBlazor/js/bootstrap.blazor.js"&gt;&lt;/script&gt;</Pre>
 
-<h4>组件引用</h4>
+<h4>添加命名空间到 <code>_Imports.razor</code> 文件</h4>
 
-<p>组件引用有多种方法，可以参阅 <a href="install">安装</a></p>
-
-<div class="code-label">.NET CLI</div>
-<Pre class="no-highlight">dotnet add package BootstrapBlazor</Pre>
+<Pre class="no-highlight">@@using BootstrapBlazor.Components</Pre>
 
 <h4>注册服务</h4>
 
@@ -49,10 +53,6 @@
     services.AddServerSideBlazor();
     services.AddBootstrapBlazor(); // 添加本行代码
 }</Pre>
-
-<h4>添加命名空间到 <code>_Imports.razor</code> 文件</h4>
-
-<Pre class="no-highlight">@@using BootstrapBlazor.Components</Pre>
 
 <h4>组件特色</h4>
 

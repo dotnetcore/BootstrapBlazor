@@ -25,9 +25,21 @@ namespace BootstrapBlazor.WebConsole.Pages
 
         private static Random Randomer { get; set; } = new Random();
 
-        private Task<ChartDataSource> OnInit() => OnInit(7);
-
         private JSInterop<Charts>? Interope { get; set; }
+
+        private Chart? LineChart { get; set; }
+
+        private Chart? BarChart { get; set; }
+
+        private Chart? PieChart { get; set; }
+
+        private Chart? DoughnutChart { get; set; }
+
+        private Chart? BubbleChart { get; set; }
+
+        private bool IsCricle { get; set; }
+
+        private IEnumerable<string> Colors { get; set; } = new List<string>() { "Red", "Blue", "Green", "Orange", "Yellow", "Tomato", "Pink", "Violet" };
 
         /// <summary>
         /// 
@@ -44,75 +56,129 @@ namespace BootstrapBlazor.WebConsole.Pages
             }
         }
 
-        private Task<ChartDataSource> OnInit(int length)
+        private Task<ChartDataSource> OnInit(int dsCount, int daCount)
         {
             var ds = new ChartDataSource();
-            ds.Options.Title.Text = "图表标题";
             ds.Options.XAxes.Add(new ChartAxes() { LabelString = "天数" });
             ds.Options.YAxes.Add(new ChartAxes() { LabelString = "数值" });
 
-            ds.Labels = Enumerable.Range(1, length).Select(i => i.ToString());
+            ds.Labels = Enumerable.Range(1, daCount).Select(i => i.ToString());
 
-            ds.Data.Add(new ChartDataset()
+            for (var index = 0; index < dsCount; index++)
             {
-                Label = "第一组数据",
-                Data = Enumerable.Range(1, length).Select(i => Randomer.Next(20, 37)).Cast<object>()
-            });
-            ds.Data.Add(new ChartDataset()
-            {
-                Label = "第二组数据",
-                Data = Enumerable.Range(1, length).Select(i => Randomer.Next(20, 37)).Cast<object>()
-            });
+                ds.Data.Add(new ChartDataset()
+                {
+                    Label = $"数据集 {index}",
+                    Data = Enumerable.Range(1, daCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+                });
+            }
             return Task.FromResult(ds);
         }
 
-        private Task<ChartDataSource> OnPieInit()
+        private Task<ChartDataSource> OnPieInit(int dsCount, int daCount)
         {
             var ds = new ChartDataSource();
-            ds.Options.Title.Text = "图表标题";
             ds.Options.XAxes.Add(new ChartAxes() { LabelString = "天数" });
+            ds.Options.ShowXAxesLine = false;
+
             ds.Options.YAxes.Add(new ChartAxes() { LabelString = "数值" });
+            ds.Options.ShowYAxesLine = false;
 
-            ds.Labels = Enumerable.Range(1, 5).Select(i => i.ToString());
+            ds.Labels = Colors.Take(daCount);
 
-            ds.Data.Add(new ChartDataset()
+            for (var index = 0; index < dsCount; index++)
             {
-                Label = "第一组数据",
-                Data = Enumerable.Range(1, 5).Select(i => Randomer.Next(20, 37)).Cast<object>()
-            });
+                ds.Data.Add(new ChartDataset()
+                {
+                    Label = $"数据集 {index}",
+                    Data = Enumerable.Range(1, daCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+                });
+            }
             return Task.FromResult(ds);
         }
 
-        private Task<ChartDataSource> OnBubbleInit()
+        private Task<ChartDataSource> OnBubbleInit(int dsCount, int daCount)
         {
             var ds = new ChartDataSource();
-            ds.Options.Title.Text = "图表标题";
-            ds.Options.XAxes.Add(new ChartAxes() { LabelString = "天数" });
-            ds.Options.YAxes.Add(new ChartAxes() { LabelString = "数值" });
+            ds.Labels = Enumerable.Range(1, daCount).Select(i => i.ToString());
 
-            ds.Labels = Enumerable.Range(1, 5).Select(i => i.ToString());
-
-            ds.Data.Add(new ChartDataset()
+            for (var index = 0; index < dsCount; index++)
             {
-                Label = "第一组数据",
-                Data = Enumerable.Range(1, 5).Select(i => new
+                ds.Data.Add(new ChartDataset()
                 {
-                    x = Randomer.Next(10, 40),
-                    y = Randomer.Next(10, 40),
-                    r = Randomer.Next(1, 20)
-                })
-            });
-            ds.Data.Add(new ChartDataset()
-            {
-                Label = "第二组数据",
-                Data = Enumerable.Range(1, 5).Select(i => new
-                {
-                    x = Randomer.Next(10, 40),
-                    y = Randomer.Next(10, 40),
-                    r = Randomer.Next(1, 20)
-                })
-            });
+                    Label = $"数据集 {index}",
+                    Data = Enumerable.Range(1, daCount).Select(i => new
+                    {
+                        x = Randomer.Next(10, 40),
+                        y = Randomer.Next(10, 40),
+                        r = Randomer.Next(1, 20)
+                    })
+                });
+            }
             return Task.FromResult(ds);
+        }
+
+        private void RandomData(Chart? chart)
+        {
+            chart?.Update();
+        }
+
+        private void AddDataSet(Chart? chart, ref int dsCount)
+        {
+            if (dsCount < Colors.Count())
+            {
+                dsCount++;
+                chart?.Update("addDataset");
+            }
+        }
+
+        private void RemoveDataSet(Chart? chart, ref int dsCount)
+        {
+            if (dsCount > 1)
+            {
+                dsCount--;
+                chart?.Update("removeDataset");
+            }
+        }
+
+        private void AddData(Chart? chart, ref int daCount)
+        {
+            var limit = (chart?.ChartType ?? ChartType.Line) switch
+            {
+                ChartType.Line => 14,
+                ChartType.Bar => 14,
+                ChartType.Bubble => 14,
+                _ => Colors.Count()
+            };
+
+            if (daCount < limit)
+            {
+                daCount++;
+                chart?.Update("addData");
+            }
+        }
+
+        private void RemoveData(Chart? chart, ref int daCount)
+        {
+            var limit = (chart?.ChartType ?? ChartType.Line) switch
+            {
+                ChartType.Line => 7,
+                ChartType.Bar => 7,
+                ChartType.Bubble => 4,
+                _ => 2
+            };
+            if (daCount > limit)
+            {
+                daCount--;
+                chart?.Update("removeData");
+            }
+        }
+
+        private void ToggleCircle()
+        {
+            IsCricle = !IsCricle;
+            DoughnutChart?.SetAngle(IsCricle ? 360 : 0);
+            DoughnutChart?.Update("setAngle");
         }
 
         /// <summary>
