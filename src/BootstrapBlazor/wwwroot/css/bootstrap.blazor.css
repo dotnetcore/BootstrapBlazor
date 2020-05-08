@@ -2858,3 +2858,50 @@ a {
     margin-right: 2px;
 }
 /*end tag*/
+/*end tag*/
+/*timeline*/
+.timeline { 
+    margin: 0; 
+    font-size: 14px; 
+    list-style: none;
+}
+.time-line-item { 
+    position: relative; 
+    padding-bottom: 20px
+
+}
+.time-line-item__tail { 
+    position: absolute; 
+    left: 4px; height: 100%; 
+    border-left: 2px solid #e4e7ed; 
+}
+.timeline-item__node { 
+    position: absolute;                    
+    background-color: #e4e7ed;                   
+    border-radius: 50%; display: flex;                    
+    justify-content: center;                 
+    align-items: center; 
+}
+.timeline-item__node--normal { 
+    left: -1px; 
+    width: 14px; 
+    height: 14px; 
+
+}
+.timeline-item__wrapper { 
+    position: relative; 
+    padding-left: 28px; 
+    top: -3px; }
+.timeline-item__content { 
+    color: #303133; 
+
+}
+.timeline-item__timestamp { 
+    color: #909399; 
+    line-height: 1; 
+    font-size: 13px; 
+}
+.timeline .time-line-item:last-child .time-line-item__tail { 
+    display: none 
+}
+/*end timeline*/

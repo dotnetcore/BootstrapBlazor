@@ -1,0 +1,5 @@
+﻿<div class="row">
+        <label class="text-lg-right mr-1">排序：</label>
+        <Radio OnStateChanged="@OnStateChanged" Items="@items"></Radio>
+    </div>
+<Timeline Items="timelineitems" Reverse="@isRevers"></Timeline>

@@ -1,0 +1,27 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TimelineBase
+
+<ul @attributes="AdditionalAttributes" class="timeline" id="@Id">
+    @foreach (var item in Items ?? new TimelineItem[0])
+    {
+        <li class="time-line-item">
+            <div class="time-line-item__tail"></div>
+            @if (item.Color.HasValue)
+            {
+                <div class="timeline-item__node--normal timeline-item__node bg-@item.Color.Value.ToDescriptionString()"></div>
+            }
+            else
+            {
+                <div class="timeline-item__node--normal timeline-item__node"></div>
+            }
+            <div class="timeline-item__wrapper">
+                <div class="timeline-item__content">
+                    @item.Content
+                </div>
+                <div class="timeline-item__timestamp">
+                    @item.DateTime
+                </div>
+            </div>
+        </li>
+    }
+</ul>
