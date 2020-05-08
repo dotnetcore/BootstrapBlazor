@@ -13,14 +13,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 用户自定义属性
         /// </summary>
-        /// <returns></returns>
         [Parameter(CaptureUnmatchedValues = true)]
         public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
         /// <summary>
         /// 组件初始化回调方法 用户扩展
         /// </summary>
-        /// <value></value>
         [Parameter]
         public Action<BootstrapComponentBase>? OnInitializedCallback { get; set; }
 

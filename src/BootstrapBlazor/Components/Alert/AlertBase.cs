@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
-        protected string? ClassName => CssBuilder.Default("alert fade show")
+        protected virtual string? ClassName => CssBuilder.Default("alert fade show")
             .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();

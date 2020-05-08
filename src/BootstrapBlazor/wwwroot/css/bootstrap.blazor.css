@@ -2833,3 +2833,28 @@ a {
     font-size: 1.4rem;
 }
 /*end avatar*/
+
+/*tag*/
+.tag {
+    display: inline-block;
+    height: 32px;
+    padding: 0 10px;
+    line-height: 30px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+    .tag.is-close {
+        padding-right: 30px;
+    }
+
+        .tag.is-close .close {
+            top: 8px;
+        }
+
+.tag > i {
+    margin-right: 2px;
+}
+/*end tag*/
