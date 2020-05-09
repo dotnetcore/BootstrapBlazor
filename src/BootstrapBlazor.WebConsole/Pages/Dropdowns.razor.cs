@@ -11,7 +11,7 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// </summary>
     public sealed partial class Dropdowns
     {
-        private List<SelectedItem> Items => new List<SelectedItem>
+        private List<SelectedItem> Items { get; set; } = new List<SelectedItem>
         {
             new SelectedItem{ Text="北京",Value="0"},
             new SelectedItem{ Text="上海",Value="1"},
@@ -54,7 +54,7 @@ namespace BootstrapBlazor.WebConsole.Pages
 
         private void OnRadioItemChanged(CheckboxState state, SelectedItem item)
         {
-            RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count()}", $"城市 {RadioDropDownItems.Count()}"));
+            RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count() + 1}", $"城市 {RadioDropDownItems.Count()}"));
             StateHasChanged();
         }
 

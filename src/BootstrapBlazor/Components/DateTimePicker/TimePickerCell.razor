@@ -6,6 +6,7 @@
     <i class="time-spinner-arrow fa fa-angle-down" @onclick="OnClickDown"></i>
     <div class="time-spinner-list-wrapper">
         <ul class="time-spinner-list" style="@StyleName">
+            <li class="time-spinner-item">&nbsp;</li>
             @foreach (var index in Range)
             {
                 <li class="@GetClassName(index)">@index</li>

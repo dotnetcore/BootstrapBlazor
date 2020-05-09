@@ -1,0 +1,28 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TabBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" @ref="TabElement">
+    <div class="tabs-header">
+        <div class="tabs-nav-wrap">
+            <span class="tabs-nav-prev" @onclick="@ClickPrevTab"><i class="fa fa-angle-left"></i></span>
+            <div class="tabs-nav-scroll">
+                <div role="tablist" class="tabs-nav">
+                    @if (!IsCard && !IsBorderCard)
+                    {
+                        <div class="tabs-active-bar"></div>
+                    }
+                    <CascadingValue Value="this" IsFixed="true">
+                        <TabHeaderContent OnClick="@OnTabClick" />
+                        @TabItems
+                    </CascadingValue>
+                </div>
+            </div>
+            <span class="tabs-nav-next" @onclick="@ClickNextTab"><i class="fa fa-angle-right"></i></span>
+        </div>
+    </div>
+    <div class="tabs-body">
+        <CascadingValue Value="this" IsFixed="true">
+            <TabContent @ref="TabContent" />
+        </CascadingValue>
+    </div>
+</div>

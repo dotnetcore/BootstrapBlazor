@@ -1,0 +1,10 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits NavBase
+
+<nav @attributes="@AdditionalAttributes" class="@ClassString">
+    @foreach(var item in Items?? new NavLink[0])
+    {
+        @Render(item)
+    }
+    @ChildContent
+</nav>

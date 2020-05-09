@@ -1,0 +1,17 @@
+@namespace BootstrapBlazor.Components
+@inherits AvatarBase
+
+<span @attributes="@AdditionalAttributes" class="@ClassName" @ref="AvatarElement">
+    @if(IsText) 
+    {
+        @Text
+    }
+    else if(IsIcon) 
+    {
+        <i class="@Icon"></i>
+    }
+    else 
+    {
+        <img src="@Url" class="@ImgClassString" @onerror="@OnError" @onload="@OnLoad" />
+    }
+</span>

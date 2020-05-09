@@ -1,86 +1,79 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    ///折叠组件
+    /// Collapse 折叠组件基类
     /// </summary>
     public abstract class CollapseBase : BootstrapComponentBase
     {
         /// <summary>
         /// 获得 按钮样式集合
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("btn")
-            .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
-            .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-            .AddClass("collapsed", IsCollapsed)
-            .AddClass("disabled", IsDisabled)
+        protected string? ClassString => CssBuilder.Default("accordion")
+            .AddClass("is-accordion", IsAccordion)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        /// <summary>
-        /// 是否收缩折叠面板
-        /// </summary>
-        [Parameter] public bool IsCollapsed { get; set; } = true;
+        private List<CollapseItem> _items = new List<CollapseItem>();
 
         /// <summary>
-        /// 获得/设置 按钮颜色
+        /// 获得/设置 组件 DOM 实例
         /// </summary>
-        [Parameter] public Color Color { get; set; } = Color.Primary;
+        protected ElementReference CollapseElement { get; set; }
 
         /// <summary>
-        ///获得/设置 按钮大小
+        /// 获得/设置 CollapseItem 集合
         /// </summary>
-        [Parameter] public Size Size { get; set; } = Size.None;
+        public IEnumerable<CollapseItem> Items => _items;
 
         /// <summary>
-        /// 获得 展开 Collapsed 属性
+        /// 获得/设置 指示箭头 默认不显示
         /// </summary>
-        protected string? Collapsed => !IsCollapsed ? "true" : "false";
+        [Parameter]
+        public bool ShowArrow { get; set; }
 
         /// <summary>
-        /// 获得 是否禁止 disabled 属性
+        /// 获得/设置 是否为手风琴效果 默认为 false
         /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
+        [Parameter]
+        public bool IsAccordion { get; set; }
 
         /// <summary>
-        /// 获得 折叠内容组件客户端高度
+        /// 获得/设置 CollapseItems 模板
         /// </summary>
-        protected CollapseBody? CollapseContent { get; set; }
+        [Parameter]
+        public RenderFragment? CollapseItems { get; set; }
 
         /// <summary>
-        /// 获得 显示文字
+        /// 添加 TabItem 方法 由 TabItem 方法加载时调用
         /// </summary>
-        protected string? Title => IsCollapsed ? ExpandedText : CollapsedText;
+        /// <param name="item">TabItemBase 实例</param>
+        internal void AddItem(CollapseItem item) => _items.Add(item);
 
         /// <summary>
-        /// 获得/设置 是否禁用
+        /// OnAfterRender 方法
         /// </summary>
-        [Parameter] public bool IsDisabled { get; set; }
-
-        /// <summary>
-        /// 子组件
-        /// </summary>
-        [Parameter] public RenderFragment? ChildContent { get; set; }
-
-        /// <summary>
-        /// 获得/设置 折叠后显示的文字
-        /// </summary>
-        [Parameter] public string? CollapsedText { get; set; } = "展开";
-
-        /// <summary>
-        /// 获得/设置 展开后显示的文字
-        /// </summary>
-        [Parameter] public string? ExpandedText { get; set; } = "折叠";
-
-        /// <summary>
-        /// 点击选择框方法
-        /// </summary>
-        protected void OnClick()
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
         {
-            IsCollapsed = !IsCollapsed;
+            base.OnAfterRender(firstRender);
 
-            CollapseContent?.DoAnimations(IsCollapsed);
+            if (firstRender) JSRuntime.Invoke(CollapseElement, "collapse");
+        }
+
+        /// <summary>
+        /// 点击 TabItem 时回调此方法
+        /// </summary>
+        /// <param name="item"></param>
+        protected virtual void OnItemClick(CollapseItem item)
+        {
+            foreach (var tab in Items)
+            {
+                var isActive = tab.Text == item.Text;
+                tab.SetCollapsed(isActive);
+            }
         }
     }
 }

@@ -119,9 +119,9 @@ namespace BootstrapBlazor.Components
             var height = ItemHeightCallback?.Invoke() ?? 36.594d;
             return 0 - ViewModel switch
             {
-                TimePickerCellViewModel.Hour => (Value.Hours - 1) * height,
-                TimePickerCellViewModel.Minute => (Value.Minutes - 1) * height,
-                TimePickerCellViewModel.Second => (Value.Seconds - 1) * height,
+                TimePickerCellViewModel.Hour => (Value.Hours) * height,
+                TimePickerCellViewModel.Minute => (Value.Minutes) * height,
+                TimePickerCellViewModel.Second => (Value.Seconds) * height,
                 _ => 0
             };
         }

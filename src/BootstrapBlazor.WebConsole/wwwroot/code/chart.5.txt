@@ -1,0 +1,1 @@
+<Chart ChartType="ChartType.Bubble" />

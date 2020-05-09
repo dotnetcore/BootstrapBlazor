@@ -1,0 +1,3 @@
+<Divider Text="少年包青天" Alignment="Alignment.Left"></Divider>
+<Divider Text="英雄联盟"></Divider>
+<Divider Text="学习语录" Alignment="Alignment.Right"></Divider>

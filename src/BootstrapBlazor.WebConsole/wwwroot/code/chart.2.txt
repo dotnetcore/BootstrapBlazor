@@ -1,0 +1,2 @@
+<Chart ChartType="ChartType.Bar" />
+

@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Calendar 组件基类
     /// </summary>
-    public class CalendarBase : BootstrapComponentBase
+    public abstract class CalendarBase : BootstrapComponentBase
     {
         /// <summary>
         /// 获得 当前日历框年月

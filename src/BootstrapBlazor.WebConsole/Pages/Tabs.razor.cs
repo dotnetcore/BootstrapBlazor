@@ -1,6 +1,8 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.WebConsole.Common;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.WebConsole.Pages
 {
@@ -9,19 +11,51 @@ namespace BootstrapBlazor.WebConsole.Pages
     /// </summary>
     public sealed partial class Tabs
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private IEnumerable<TabItem> TabItems => new List<TabItem>()
+        private Tab? TabSet { get; set; }
+
+        private void AddTab()
         {
-            new TabItem("应用管理"),
-            new TabItem("菜单管理"),
-            new TabItem("数据管理"),
-            new TabItem("用户管理"),
-            new TabItem("部门管理"),
-            new TabItem("权限管理"),
-            new TabItem("字典管理")
-        };
+            if (TabSet != null)
+            {
+                var text = $"Tab {TabSet.Items.Count() + 1}";
+                var item = new TabItem();
+                var parameters = new Dictionary<string, object>
+                {
+                    ["Text"] = text,
+                    ["IsActive"] = true,
+                    ["ChildContent"] = new RenderFragment(builder =>
+                    {
+                        var index = 0;
+                        builder.OpenElement(index++, "div");
+                        builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
+                        builder.CloseElement();
+                    })
+                };
+                item.SetParametersAsync(ParameterView.FromDictionary(parameters));
+                TabSet.Add(item);
+            }
+        }
+
+        private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
+
+        private void RemoveTab()
+        {
+            if (TabSet != null)
+            {
+                if (TabSet.Items.Count() > 4)
+                {
+                    var item = TabSet.Items.Last();
+                    TabSet.Remove(item);
+                }
+            }
+        }
+
+        private Placement BindPlacement = Placement.Top;
+
+        private void SetPlacement(Placement placement)
+        {
+            BindPlacement = placement;
+        }
 
         /// <summary>
         /// 获得属性方法
@@ -45,12 +79,47 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "Placement",
+                Description = "设置标签位置",
+                Type = "Placement",
+                ValueList = "Top|Right|Bottom|Left",
+                DefaultValue = "Top"
+            },
+            new AttributeItem() {
+                Name = "Height",
+                Description = "设置标签高度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "0"
+            },
+            new AttributeItem() {
                 Name = "Items",
                 Description = "TabItem 集合",
                 Type = "IEnumerable<TabItemBase>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            }
+        };
+
+        /// <summary>
+        /// 获得方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        {
+            // TODO: 移动到数据库中
+            new MethodItem() {
+                Name = "Add",
+                Description = "添加 TabItem 到 Tab 中",
+                Parameters = "TabItem",
+                ReturnValue = " — "
             },
+            new MethodItem() {
+                Name = "Remove",
+                Description = "移除 TabItem",
+                Parameters = "TabItem",
+                ReturnValue = " — "
+            }
         };
     }
 }

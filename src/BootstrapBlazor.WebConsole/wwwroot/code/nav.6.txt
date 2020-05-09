@@ -1,0 +1,6 @@
+﻿<Nav Items="@Items" IsPills="true" IsFill="true" IsJustified="true">
+    <a class="nav-link nav-item active" href="#">Active</a>
+    <NavLink class="nav-link nav-item" href="#">Link</NavLink>
+    <a class="nav-link nav-item" href="#">Link</a>
+    <a class="nav-link nav-item disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+</Nav>

@@ -1,5 +1,51 @@
 ﻿(function ($) {
     window.Toasts = [];
+
+    window.chartColors = {
+        red: 'rgb(255, 99, 132)',
+        blue: 'rgb(54, 162, 235)',
+        green: 'rgb(75, 192, 192)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        tomato: 'rgb(255, 99, 71)',
+        pink: 'rgb(255, 192, 203)',
+        violet: 'rgb(238, 130, 238)'
+    };
+
+    window.chartOption = {
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Chart'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: ''
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: ''
+                    }
+                }]
+            }
+        }
+    };
+
     Array.prototype.indexOf = function (val) {
         for (var i = 0; i < this.length; i++) {
             if (this[i] == val) return i;
@@ -12,42 +58,6 @@
             this.splice(index, 1);
         }
     };
-    $.fn.extend({
-        autoScrollSidebar: function (options) {
-            var option = $.extend({ target: null, offsetTop: 0 }, options);
-            var $navItem = option.target;
-            if ($navItem === null || $navItem.length === 0) return this;
-
-            // sidebar scroll animate
-            var middle = this.outerHeight() / 2;
-            var top = $navItem.offset().top + option.offsetTop - this.offset().top;
-            var $scrollInstance = this[0]["__overlayScrollbars__"];
-            if (top > middle) {
-                if ($scrollInstance) $scrollInstance.scroll({ x: 0, y: top - middle }, 500, "swing");
-                else this.animate({ scrollTop: top - middle });
-            }
-            return this;
-        },
-        addNiceScroll: function () {
-            if ($(window).width() > 768) {
-                this.overlayScrollbars({
-                    className: 'os-theme-light',
-                    scrollbars: {
-                        autoHide: 'leave',
-                        autoHideDelay: 100
-                    },
-                    overflowBehavior: {
-                        x: "hidden",
-                        y: "scroll"
-                    }
-                });
-            }
-            else {
-                this.css('overflow', 'auto');
-            }
-            return this;
-        }
-    });
 
     $.extend({
         format: function (source, params) {
@@ -220,51 +230,6 @@
                 document.addEventListener('swipe', function () { return false; });
             }
         },
-        removeTab: function (tabId) {
-            // 通过当前 Tab 返回如果移除后新的 TabId
-            var activeTabId = $('#navBar').find('.active').first().attr('id');
-            var $curTab = $('#' + tabId);
-            if ($curTab.hasClass('active')) {
-                var $nextTab = $curTab.next();
-                var $prevTab = $curTab.prev();
-                if ($nextTab.length === 1) activeTabId = $nextTab.attr('id');
-                else if ($prevTab.length === 1) activeTabId = $prevTab.attr('id');
-                else activeTabId = "";
-            }
-            return activeTabId;
-        },
-        log: function (msg) {
-            console.log(msg);
-        },
-        resetTab: function (tabId) {
-            // 通过计算 Tab 宽度控制滚动条显示完整 Tab
-            var $tab = $('#' + tabId);
-            if ($tab.length === 0) return;
-
-            var $navBar = $('#navBar');
-            var $first = $navBar.children().first();
-            var marginLeft = $tab.position().left - $first.position().left;
-            var scrollLeft = $navBar.scrollLeft();
-            if (marginLeft < scrollLeft) {
-                // overflow left
-                $navBar.scrollLeft(marginLeft);
-                return;
-            }
-
-            var marginRight = $tab.position().left + $tab.outerWidth() - $navBar.outerWidth();
-            if (marginRight < 0) return;
-            $navBar.scrollLeft(marginRight - $first.position().left);
-        },
-        movePrevTab: function () {
-            var $navBar = $('#navBar');
-            var $curTab = $navBar.find('.active').first();
-            return $curTab.prev().attr('url');
-        },
-        moveNextTab: function () {
-            var $navBar = $('#navBar');
-            var $curTab = $navBar.find('.active').first();
-            return $curTab.next().attr('url');
-        },
         tooltip: function (id, method, title, content, html) {
             var $ele = $('#' + id);
             if (method === "") {
@@ -292,73 +257,6 @@
             else {
                 $ele.popover(method);
             }
-        },
-        calcPosition: function ($ele, $button) {
-            // 获得组件大小
-            var elWidth = $ele.outerWidth();
-            var elHeight = $ele.outerHeight();
-
-            // 获得 button 大小
-            var width = $button.outerWidth();
-            var height = $button.outerHeight();
-
-            var iHeight = $button.height();
-
-            // check top or bottom
-            var placement = $button.attr('data-placement');
-            if (placement === 'auto') placement = 'top';
-
-            // 设置自己位置
-            var left = 0;
-            var top = 0;
-
-            // 根据自身位置自动判断出现位置
-            var x = $button.offset().left;
-            var y = $button.offset().top;
-            var margin = y - $(window).scrollTop() - elHeight;
-
-            if (margin < 0) {
-                // top 不可用
-                placement = 'bottom';
-            }
-            else {
-                // 判断左右侧是否位置够用
-                var marginRight = $(window).width() - x - elWidth > 0;
-                var marginLeft = x - elWidth > 0;
-                if (!marginLeft && marginRight) {
-                    // 右侧空间满足
-                    placement = "right";
-                }
-                else if (marginLeft && !marginRight) {
-                    // 左侧空间不足
-                    placement = 'left';
-                }
-                else if (!marginLeft && !marginRight) {
-                    // 左右两侧空间都不够
-                    placement = 'bottom';
-                }
-            }
-
-            $ele.removeClass('top bottom left right').addClass(placement);
-
-            if (placement === 'top') {
-                left = x - Math.ceil((elWidth - width) / 2);
-                top = y - elHeight;
-            }
-            else if (placement === 'bottom') {
-                left = x - Math.ceil((elWidth - width) / 2);
-                top = y + height;
-            }
-            else if (placement === 'left') {
-                left = x - elWidth - 8;
-                top = y - Math.ceil((elHeight - height) / 2);
-            }
-            else if (placement === 'right') {
-                left = x + width + 8;
-                top = y - Math.ceil((elHeight - height) / 2);
-            }
-
-            return { left, top };
         },
         confirm: function (id) {
             var $ele = $('[data-target="' + id + '"]');
@@ -418,12 +316,7 @@
             else $input.popover(method);
         },
         tab: function (el) {
-            var $el = $(el);
-            var $activeTab = $el.find('.tabs-item.is-active');
-            var $bar = $el.find('.tabs-active-bar');
-            var width = $activeTab.width();
-            var left = $activeTab.position().left + parseInt($activeTab.css('paddingLeft'));
-            $bar.css({ 'width': width + 'px', 'transform': 'translateX(' + left + 'px)' });
+            $(el).tab('active');
         },
         captcha: function (el, obj, method, options) {
             options.remoteObj = { obj, method };
@@ -433,8 +326,343 @@
             options = {};
             options.remoteObj = { obj, complete, check, del, failed };
             $(el).uploader(options);
+        },
+        getChartOption: function (option) {
+            var colors = [];
+            for (var name in window.chartColors) colors.push(name);
+
+            var config = {};
+            var colorFunc = null;
+            if (option.type === 'line') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: color,
+                        borderColor: color
+                    });
+                }
+            }
+            else if (option.type === 'bar') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
+                        borderColor: color,
+                        borderWidth: 1
+                    });
+                }
+            }
+            else if (option.type === 'pie' || option.type === 'doughnut') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    $.extend(data, {
+                        backgroundColor: colors.slice(0, data.data.length).map(function (name) {
+                            return chartColors[name];
+                        })
+                    });
+                }
+
+                if (option.type === 'doughnut') {
+                    $.extend(config.options, {
+                        cutoutPercentage: 50,
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
+                    });
+                }
+            }
+            else if (option.type === 'bubble') {
+                config = $.extend(true, {}, chartOption, {
+                    data: {
+                        animation: {
+                            duration: 10000
+                        },
+                    },
+                    options: {
+                        tooltips: {
+                            mode: 'point'
+                        }
+                    }
+                });
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
+                        borderWidth: 1,
+                        borderColor: color
+                    });
+                }
+            }
+
+            $.each(option.data, function () {
+                colorFunc(this);
+            });
+
+            return $.extend(true, config, {
+                type: option.type,
+                data: {
+                    labels: option.labels,
+                    datasets: option.data
+                },
+                options: {
+                    responsive: option.options.responsive,
+                    title: option.options.title,
+                    scales: {
+                        xAxes: option.options.xAxes.map(function (v) {
+                            return {
+                                display: option.options.showXAxesLine,
+                                scaleLabel: v
+                            };
+                        }),
+                        yAxes: option.options.yAxes.map(function (v) {
+                            return {
+                                display: option.options.showYAxesLine,
+                                scaleLabel: v
+                            }
+                        })
+                    }
+                }
+            });
+        },
+        updateChart: function (config, option) {
+            if (option.updateMethod === "addDataset") {
+                config.data.datasets.push(option.data.datasets.pop());
+            }
+            else if (option.updateMethod === "removeDataset") {
+                config.data.datasets.pop();
+            }
+            else if (option.updateMethod === "addData") {
+                if (config.data.datasets.length > 0) {
+                    config.data.labels.push(option.data.labels.pop());
+                    config.data.datasets.forEach(function (dataset, index) {
+                        dataset.data.push(option.data.datasets[index].data.pop());
+                        if (option.type === 'pie' || option.type === 'doughnut') {
+                            dataset.backgroundColor.push(option.data.datasets[index].backgroundColor.pop());
+                        }
+                    });
+                }
+            }
+            else if (option.updateMethod === "removeData") {
+                config.data.labels.pop(); // remove the label first
+
+                config.data.datasets.forEach(function (dataset) {
+                    dataset.data.pop();
+                    if (option.type === 'pie' || option.type === 'doughnut') {
+                        dataset.backgroundColor.pop();
+                    }
+                });
+            }
+            else if (option.updateMethod === "setAngle") {
+                if (option.type === 'doughnut') {
+                    if (option.angle === 360) {
+                        config.options.circumference = Math.PI;
+                        config.options.rotation = -Math.PI;
+                    }
+                    else {
+                        config.options.circumference = 2 * Math.PI;
+                        config.options.rotation = -Math.PI / 2;
+                    }
+                }
+            }
+            else {
+                config.data.datasets.forEach(function (dataset, index) {
+                    dataset.data = option.data.datasets[index].data;
+                });
+            }
+        },
+        chart: function (el, obj, method, option, updateMethod, type, angle) {
+            if ($.isFunction(Chart)) {
+                var $el = $(el);
+                option.type = type;
+                var chart = $el.data('chart');
+                if (!chart) {
+                    var op = $.getChartOption(option);
+                    $el.data('chart', chart = new Chart(el.getElementsByTagName('canvas'), op));
+                    $el.removeClass('is-loading').trigger('chart.afterInit');
+                    obj.invokeMethodAsync(method);
+                }
+                else {
+                    var op = $.getChartOption(option);
+                    op.angle = angle;
+                    op.updateMethod = updateMethod;
+                    $.updateChart(chart.config, op);
+                    chart.update();
+                }
+            }
+        },
+        collapse: function (el) {
+            var $el = $(el);
+            var parent = null;
+            // check accordion
+            if ($el.hasClass('is-accordion')) {
+                parent = '[' + el.getAttributeNames().pop() + ']';
+            }
+
+            $.each($el.find('.collapse-item'), function () {
+                var id = $.getUID();
+                var $item = $(this);
+                $item.attr('id', id);
+                if (parent != null) $item.attr('data-parent', parent);
+
+                var $button = $item.prev().find('[data-toggle="collapse"]');
+                $button.attr('data-target', '#' + id).attr('aria-controls', id);
+                $button.collapse();
+            });
+        },
+        rate: function (el, obj, method) {
+            var $el = $(el);
+            $el.val = parseInt($el.attr('aria-valuenow'));
+            var reset = function () {
+                var $items = $el.find('.rate-item');
+                $items.each(function (i) {
+                    if (i > $el.val) $(this).removeClass('is-on');
+                    else $(this).addClass('is-on');
+                });
+            };
+
+            $el.on('mouseenter', '.rate-item', function () {
+                var $items = $el.find('.rate-item');
+                var index = $items.toArray().indexOf(this);
+                $items.each(function (i) {
+                    if (i > index) $(this).removeClass('is-on');
+                    else $(this).addClass('is-on');
+                });
+            });
+            $el.on('mouseleave', function () {
+                reset();
+            });
+            $el.on('click', '.rate-item', function () {
+                var $items = $el.find('.rate-item');
+                $el.val = $items.toArray().indexOf(this);
+                $el.attr('aria-valuenow', $el.val + 1);
+                obj.invokeMethodAsync(method, $el.val + 1);
+            });
         }
     });
+
+    /**
+     * Tab
+     * @param {any} element
+     * @param {any} options
+     */
+    var Tab = function (element, options) {
+        this.$element = $(element);
+        this.$header = this.$element.find('.tabs-header');
+        this.$wrap = this.$header.find('.tabs-nav-wrap');
+        this.$scroll = this.$wrap.find('.tabs-nav-scroll');
+        this.$tab = this.$scroll.find('.tabs-nav');
+        this.options = $.extend({}, options);
+        this.init();
+    };
+
+    Tab.VERSION = "3.1.0";
+    Tab.Author = 'argo@163.com';
+    Tab.DATA_KEY = "lgb.Tab";
+
+    var _proto = Tab.prototype;
+    _proto.init = function () {
+        var that = this;
+        $(window).on('resize', function () {
+            //that.fixSize();
+            that.resize();
+        });
+        //this.fixSize();
+        this.active();
+    };
+
+    _proto.fixSize = function () {
+        var height = this.$element.height();
+        var width = this.$element.width();
+        this.$element.css({ 'height': height + 'px', 'width': width + 'px' });
+    }
+
+    _proto.resize = function () {
+        this.vertical = this.$element.hasClass('tabs-left') || this.$element.hasClass('tabs-right');
+        this.horizontal = this.$element.hasClass('tabs-top') || this.$element.hasClass('tabs-bottom');
+
+        var $lastItem = this.$tab.find('.tabs-item:last');
+        if (this.vertical) {
+            this.$wrap.css({ 'height': this.$element.height() + 'px' });
+            var tabHeight = this.$tab.height();
+            var itemHeight = $lastItem.position().top + $lastItem.outerHeight();
+            if (itemHeight < tabHeight) this.$wrap.removeClass("is-scrollable");
+            else this.$wrap.addClass('is-scrollable');
+        }
+        else {
+            this.$wrap.removeAttr('style');
+            var tabWidth = this.$tab.width();
+            var itemWidth = $lastItem.position().left + $lastItem.outerWidth();
+            if (itemWidth < tabWidth) this.$wrap.removeClass("is-scrollable");
+            else this.$wrap.addClass('is-scrollable');
+        }
+    }
+
+    _proto.active = function () {
+        // check scrollable
+        this.resize();
+
+        var $bar = this.$element.find('.tabs-active-bar');
+        var $activeTab = this.$element.find('.tabs-item.is-active');
+        if (this.vertical) {
+            //scroll
+            var top = $activeTab.position().top;
+            var itemHeight = top + $activeTab.outerHeight();
+            var scrollTop = this.$scroll.scrollTop();
+            var scrollHeight = this.$scroll.outerHeight();
+            var marginTop = itemHeight - scrollTop - scrollHeight;
+            if (marginTop > 0) {
+                this.$scroll.scrollTop(scrollTop + marginTop);
+            }
+            else {
+                var marginBottom = top - scrollTop;
+                if (marginBottom < 0) {
+                    this.$scroll.scrollTop(scrollTop + marginBottom);
+                }
+            }
+            $bar.css({ 'width': '2px', 'transform': 'translateY(' + top + 'px)' });
+        }
+        else {
+            // scroll
+            var left = $activeTab.position().left;
+            var itemWidth = left + $activeTab.outerWidth();
+            var scrollLeft = this.$scroll.scrollLeft();
+            var scrollWidth = this.$scroll.width();
+            var marginLeft = itemWidth - scrollLeft - scrollWidth;
+            if (marginLeft > 0) {
+                this.$scroll.scrollLeft(scrollLeft + marginLeft);
+            }
+            else {
+                var marginRight = left - scrollLeft;
+                if (marginRight < 0) {
+                    this.$scroll.scrollLeft(scrollLeft + marginRight);
+                }
+            }
+            var width = $activeTab.width();
+            var itemLeft = left + parseInt($activeTab.css('paddingLeft'));
+            $bar.css({ 'width': width + 'px', 'transform': 'translateX(' + itemLeft + 'px)' });
+        }
+    };
+
+    function TabPlugin(option) {
+        return this.each(function () {
+            var $this = $(this);
+            var data = $this.data(Tab.DATA_KEY);
+            var options = typeof option === 'object' && option;
+
+            if (!data) $this.data(Tab.DATA_KEY, data = new Tab(this, options));
+            if (typeof option === 'string') {
+                if (/active/.test(option))
+                    data[option].apply(data);
+            }
+        });
+    }
+
+    $.fn.tab = TabPlugin;
+    $.fn.tab.Constructor = Tab;
+    /*end tab*/
 
     /*captch*/
     var SliderCaptcha = function (element, options) {
@@ -525,8 +753,10 @@
 
     _proto.bindEvents = function () {
         var that = this;
-        var originX, originY, trail = [],
-            isMouseDown = false;
+        var originX = 0;
+        var originY = 0;
+        var trail = [];
+        var isMouseDown = false;
 
         var handleDragStart = function (e) {
             that.$barText.addClass('d-none');
@@ -574,9 +804,15 @@
         document.addEventListener('mouseup', handleDragEnd);
         document.addEventListener('touchend', handleDragEnd);
 
-        document.addEventListener('mousedown', function () { return false; });
-        document.addEventListener('touchstart', function () { return false; });
-        document.addEventListener('swipe', function () { return false; });
+        document.addEventListener('mousedown', function () {
+            return false;
+        });
+        document.addEventListener('touchstart', function () {
+            return false;
+        });
+        document.addEventListener('swipe', function () {
+            return false;
+        });
     };
 
     _proto.verify = function (offset, trails) {
@@ -783,16 +1019,14 @@
                         }
                     }
                 }
+                else if (that.isstack) {
+                    $prev.addClass('is-invalid is-invalid-file');
+                    $prev.find('.upload-prev-invalid-file .file-name').html(file.name);
+                    $prev.find('.upload-prev-invalid-file .file-error').html(result.message);
+                }
                 else {
-                    if (that.isstack) {
-                        $prev.addClass('is-invalid is-invalid-file');
-                        $prev.find('.upload-prev-invalid-file .file-name').html(file.name);
-                        $prev.find('.upload-prev-invalid-file .file-error').html(result.message);
-                    }
-                    else {
-                        $prev.removeClass('is-upload is-active').addClass('is-invalid');
-                        that.showError($prev, result.message);
-                    }
+                    $prev.removeClass('is-upload is-active').addClass('is-invalid');
+                    that.showError($prev, result.message);
                 }
             });
         });

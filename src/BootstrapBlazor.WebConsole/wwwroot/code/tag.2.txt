@@ -1,0 +1,2 @@
+<Tag Color="Color.Primary" ShowDismiss="true" OnDismiss="@DismissClick">标签一</Tag>
+<Tag Color="Color.Secondary" ShowDismiss="true" OnDismiss="@DismissClick">标签二</Tag>

@@ -1,0 +1,11 @@
+<Avatar Url="images/argo-c.png" IsCircle="true" Size="Size.ExtraLarge" />
+<Avatar Url="images/argo-c.png" IsCircle="true" Size="Size.Large" />
+<Avatar Url="images/argo-c.png" IsCircle="true" />
+<Avatar Url="images/argo-c.png" IsCircle="true" Size="Size.Small" />
+<Avatar Url="images/argo-c.png" IsCircle="true" Size="Size.ExtraSmall" />
+
+<Avatar Url="images/argo.png" Size="Size.ExtraLarge" />
+<Avatar Url="images/argo.png" Size="Size.Large" />
+<Avatar Url="images/argo.png" />
+<Avatar Url="images/argo.png" Size="Size.Small" />
+<Avatar Url="images/argo.png" Size="Size.ExtraSmall" />

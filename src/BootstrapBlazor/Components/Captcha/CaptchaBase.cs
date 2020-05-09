@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Captcha 滑块验证码组件
     /// </summary>
-    public class CaptchaBase : BootstrapComponentBase
+    public abstract class CaptchaBase : BootstrapComponentBase
     {
         private JSInterop<CaptchaBase>? Interop { get; set; }
 
