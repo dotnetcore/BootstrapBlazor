@@ -2789,7 +2789,7 @@ a {
 
 /*avatar*/
 .avatar {
-    border-radius: 4px;;
+    border-radius: 4px;
     width: 50px;
     height: 50px;
     overflow: hidden;
@@ -2805,33 +2805,33 @@ a {
         object-fit: cover;
     }
 
-.avatar.is-circle {
-    border-radius: 50%;
-}
+    .avatar.is-circle {
+        border-radius: 50%;
+    }
 
-.avatar.is-xl {
-    width: 70px;
-    height: 70px;
-}
+    .avatar.is-xl {
+        width: 70px;
+        height: 70px;
+    }
 
-.avatar.is-lg {
-    width: 60px;
-    height: 60px;
-}
+    .avatar.is-lg {
+        width: 60px;
+        height: 60px;
+    }
 
-.avatar.is-sm {
-    width: 40px;
-    height: 40px;
-}
+    .avatar.is-sm {
+        width: 40px;
+        height: 40px;
+    }
 
-.avatar.is-xs {
-    width: 30px;
-    height: 30px;
-}
+    .avatar.is-xs {
+        width: 30px;
+        height: 30px;
+    }
 
-.avatar i {
-    font-size: 1.4rem;
-}
+    .avatar i {
+        font-size: 1.4rem;
+    }
 /*end avatar*/
 
 /*tag*/
@@ -2854,54 +2854,94 @@ a {
             top: 8px;
         }
 
-.tag > i {
-    margin-right: 2px;
+    .tag > i {
+        margin-right: 2px;
+    }
+/*end tag*/
+
+/*rate*/
+.rate {
+    height: 18px;
+    line-height: 1;
+    font-size: 18px;
+    cursor: pointer;
 }
-/*end tag*/
-/*end tag*/
+
+.rate-item {
+    width: 18px;
+    height: 100%;
+    margin-right: 6px;
+}
+
+    .rate-item:last-child {
+        margin-right: 0;
+    }
+
+    .rate-item i {
+        color: rgb(198, 209, 222);
+        transition: .3s;
+    }
+
+    .rate-item.is-on i {
+        color: rgb(247, 186, 42);
+    }
+
+        .rate-item.is-on i:before {
+            content: "\f005";
+        }
+/*end rate*/
+
 /*timeline*/
-.timeline { 
-    margin: 0; 
-    font-size: 14px; 
+.timeline {
+    margin: 0;
+    font-size: 14px;
     list-style: none;
 }
-.time-line-item { 
-    position: relative; 
+
+.time-line-item {
+    position: relative;
     padding-bottom: 20px
+}
 
+.time-line-item__tail {
+    position: absolute;
+    left: 4px;
+    height: 100%;
+    border-left: 2px solid #e4e7ed;
 }
-.time-line-item__tail { 
-    position: absolute; 
-    left: 4px; height: 100%; 
-    border-left: 2px solid #e4e7ed; 
-}
-.timeline-item__node { 
-    position: absolute;                    
-    background-color: #e4e7ed;                   
-    border-radius: 50%; display: flex;                    
-    justify-content: center;                 
-    align-items: center; 
-}
-.timeline-item__node--normal { 
-    left: -1px; 
-    width: 14px; 
-    height: 14px; 
 
+.timeline-item__node {
+    position: absolute;
+    background-color: #e4e7ed;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.timeline-item__wrapper { 
-    position: relative; 
-    padding-left: 28px; 
-    top: -3px; }
-.timeline-item__content { 
-    color: #303133; 
 
+.timeline-item__node--normal {
+    left: -1px;
+    width: 14px;
+    height: 14px;
 }
-.timeline-item__timestamp { 
-    color: #909399; 
-    line-height: 1; 
-    font-size: 13px; 
+
+.timeline-item__wrapper {
+    position: relative;
+    padding-left: 28px;
+    top: -3px;
 }
-.timeline .time-line-item:last-child .time-line-item__tail { 
-    display: none 
+
+.timeline-item__content {
+    color: #303133;
+}
+
+.timeline-item__timestamp {
+    color: #909399;
+    line-height: 1;
+    font-size: 13px;
+}
+
+.timeline .time-line-item:last-child .time-line-item__tail {
+    display: none
 }
 /*end timeline*/
