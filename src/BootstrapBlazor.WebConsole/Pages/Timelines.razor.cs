@@ -1,4 +1,5 @@
 ﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.WebConsole.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.WebConsole.Pages
 {
-    public partial class Timelines
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed partial class Timelines
     {
         private bool isRevers { get; set; }
 
@@ -42,7 +46,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected readonly List<TimelineItem> timelineitems = new List<TimelineItem>
+        protected readonly IEnumerable<TimelineItem> timelineitems = new TimelineItem[]
         {
             new TimelineItem{  Content="创建时间",DateTime=DateTime.Now.ToString("yyyy-MM-dd")},
             new TimelineItem{  Content="通过审核",DateTime=DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")},
@@ -52,11 +56,32 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected readonly List<TimelineItem> timelineitemsColor = new List<TimelineItem>
+        protected readonly IEnumerable<TimelineItem> timelineitemsColor = new TimelineItem[]
         {
             new TimelineItem{ Color=Color.Warning, Content="创建时间",DateTime=DateTime.Now.ToString("yyyy-MM-dd")},
             new TimelineItem{ Color=Color.Info, Content="通过审核",DateTime=DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")},
             new TimelineItem{ Color=Color.Success, Content="活动按期开始",DateTime=DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")}
+        };
+
+        /// <summary>
+        /// 获得属性方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        {
+            // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Reverse",
+                Description = "是否倒序显示",
+                Type = "boolean",
+            },
+            new AttributeItem() {
+                Name = "Items",
+                Description = "数据集合",
+                Type = "IEnumerable<SelectedItem>",
+                ValueList = "—",
+                DefaultValue = " — "
+            }
         };
     }
 }
