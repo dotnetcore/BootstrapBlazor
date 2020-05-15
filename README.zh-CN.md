@@ -52,8 +52,8 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 ![Toast](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
 ![Upload](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload.png "Upload.png")
 ![Upload2](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload2.png "Upload2.png")
-![Pei](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pei.png "Pei.png")
 ![Bar](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Bar.png "Bar.png")
+![Pei](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
 ![Doughnut](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
 
 ## 开源协议
