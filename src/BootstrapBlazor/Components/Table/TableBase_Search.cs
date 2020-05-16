@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -65,11 +66,17 @@ namespace BootstrapBlazor.Components
         [Parameter] public Action<TItem>? OnResetSearch { get; set; }
 
         /// <summary>
+        /// 重置搜索按钮异步回调方法
+        /// </summary>
+        [Parameter] public Func<TItem, Task>? OnResetSearchAsync { get; set; }
+
+        /// <summary>
         /// 重置查询方法
         /// </summary>
         protected void ResetSearchClick()
         {
-            OnResetSearch?.Invoke(SearchModel);
+            if (OnResetSearch != null) OnResetSearch.Invoke(SearchModel);
+            else if (OnResetSearchAsync != null) OnResetSearchAsync(SearchModel).GetAwaiter().GetResult();
             SearchClick();
         }
 

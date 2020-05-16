@@ -1,18 +1,24 @@
 ﻿<Button @onclick="e => SmailModal?.ToggleAsync()">小弹窗</Button>
 <Modal @ref="SmailModal" Size="Size.Small" Title="小弹窗">
-    <ModalBody>
-        <div>我是弹窗内正文</div>
-    </ModalBody>
+    <ModalDialog Title="默认弹窗">
+        <BodyTemplate>
+            <div>我是弹窗内正文</div>
+        </BodyTemplate>
+    </ModalDialog>
 </Modal>
 <Button @onclick="e => LargeModal?.ToggleAsync()">大弹窗</Button>
 <Modal @ref="LargeModal" Size="Size.Large" Title="大弹窗">
-    <ModalBody>
-        <div>我是弹窗内正文</div>
-    </ModalBody>
+    <ModalDialog Title="默认弹窗">
+        <BodyTemplate>
+            <div>我是弹窗内正文</div>
+        </BodyTemplate>
+    </ModalDialog>
 </Modal>
 <Button @onclick="e => ExtraLargeModal?.ToggleAsync()">超大弹窗</Button>
 <Modal @ref="ExtraLargeModal" Size="Size.ExtraLarge" Title="超大弹窗">
-    <ModalBody>
-        <div>我是弹窗内正文</div>
-    </ModalBody>
+    <ModalDialog Title="默认弹窗">
+        <BodyTemplate>
+            <div>我是弹窗内正文</div>
+        </BodyTemplate>
+    </ModalDialog>
 </Modal>

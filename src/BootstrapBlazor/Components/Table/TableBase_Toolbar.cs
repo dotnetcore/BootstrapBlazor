@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -54,10 +55,10 @@ namespace BootstrapBlazor.Components
         public Func<TItem>? OnAdd { get; set; }
 
         /// <summary>
-        /// 获得/设置 编辑按钮回调方法
+        /// 获得/设置 新建按钮回调方法
         /// </summary>
         [Parameter]
-        public Action<TItem>? OnEdit { get; set; }
+        public Func<Task<TItem>>? OnAddAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 保存按钮回调方法
@@ -66,17 +67,32 @@ namespace BootstrapBlazor.Components
         public Func<TItem, bool>? OnSave { get; set; }
 
         /// <summary>
+        /// 获得/设置 保存按钮异步回调方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task<bool>>? OnSaveAsync { get; set; }
+
+        /// <summary>
         /// 获得/设置 删除按钮回调方法
         /// </summary>
         [Parameter]
         public Func<IEnumerable<TItem>, bool>? OnDelete { get; set; }
 
         /// <summary>
+        /// 获得/设置 删除按钮异步回调方法
+        /// </summary>
+        [Parameter]
+        public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteAsync { get; set; }
+
+        /// <summary>
         /// 新建按钮方法
         /// </summary>
         public void Add()
         {
-            if (OnAdd != null) EditModel = OnAdd.Invoke() ?? new TItem();
+            if (OnAdd != null) EditModel = OnAdd.Invoke();
+            else if (OnAddAsync != null) EditModel = OnAddAsync().GetAwaiter().GetResult();
+            else new TItem();
+
             SelectedItems.Clear();
             EditModalTitleString = AddModalTitle;
             EditModal?.Toggle();
@@ -109,7 +125,9 @@ namespace BootstrapBlazor.Components
         /// <param name="context"></param>
         protected void Save(EditContext context)
         {
-            var valid = OnSave?.Invoke((TItem)context.Model) ?? false;
+            var valid = false;
+            if (OnSave != null) valid = OnSave.Invoke((TItem)context.Model);
+            else if (OnSaveAsync != null) valid = OnSaveAsync.Invoke((TItem)context.Model).GetAwaiter().GetResult();
             var option = new ToastOption();
             option.Category = valid ? ToastCategory.Success : ToastCategory.Error;
             option.Title = "保存数据";
@@ -151,7 +169,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void Delete()
         {
-            var ret = OnDelete?.Invoke(SelectedItems) ?? false;
+            var ret = false;
+            if (OnDelete != null) ret = OnDelete.Invoke(SelectedItems);
+            else if (OnDeleteAsync != null) ret = OnDeleteAsync.Invoke(SelectedItems).GetAwaiter().GetResult();
             var op = new ToastOption()
             {
                 Title = "删除数据"

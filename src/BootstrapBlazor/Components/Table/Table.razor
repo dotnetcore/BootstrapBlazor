@@ -121,7 +121,7 @@
         </div>
     }
 
-    @if (OnSave != null || OnAdd != null)
+    @if (OnSave != null || OnSaveAsync != null || OnAdd != null || OnAddAsync != null)
     {
         <Modal @ref="EditModal">
             <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">

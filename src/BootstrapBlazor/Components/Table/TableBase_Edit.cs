@@ -88,9 +88,10 @@ namespace BootstrapBlazor.Components
         protected void QueryData()
         {
             SelectedItems.Clear();
+            QueryData<TItem>? queryData = null;
             if (OnQuery != null)
             {
-                var queryData = OnQuery(new QueryPageOptions()
+                queryData = OnQuery(new QueryPageOptions()
                 {
                     PageIndex = PageIndex,
                     PageItems = PageItems,
@@ -98,6 +99,21 @@ namespace BootstrapBlazor.Components
                     SortOrder = SortOrder,
                     SortName = SortName
                 });
+            }
+            else if (OnQueryAsync != null)
+            {
+                var task = OnQueryAsync(new QueryPageOptions()
+                {
+                    PageIndex = PageIndex,
+                    PageItems = PageItems,
+                    SearchText = SearchText,
+                    SortOrder = SortOrder,
+                    SortName = SortName
+                });
+                queryData = task.GetAwaiter().GetResult();
+            }
+            if (queryData != null)
+            {
                 Items = queryData.Items;
                 TotalCount = queryData.TotalCount;
                 IsFiltered = queryData.IsFiltered;

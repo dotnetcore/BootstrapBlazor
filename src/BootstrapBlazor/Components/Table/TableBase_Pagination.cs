@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -21,6 +22,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<QueryPageOptions, QueryData<TItem>>? OnQuery { get; set; }
+
+        /// <summary>
+        /// 点击翻页异步回调方法
+        /// </summary>
+        [Parameter]
+        public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 数据总条目
@@ -57,12 +64,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnPageItemsChanged(int pageItems)
         {
-            if (OnQuery != null)
-            {
-                PageIndex = 1;
-                PageItems = pageItems;
-                Query();
-            }
+            PageIndex = 1;
+            PageItems = pageItems;
+            Query();
         }
     }
 }

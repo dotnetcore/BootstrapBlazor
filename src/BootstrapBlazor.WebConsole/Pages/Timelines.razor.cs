@@ -37,7 +37,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected IEnumerable<SelectedItem> items { get; set; } = new SelectedItem[]
+        private IEnumerable<SelectedItem> items { get; set; } = new SelectedItem[]
         {
             new SelectedItem("1","正序"){ Active=true },
             new SelectedItem("2","反序")
@@ -46,7 +46,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected readonly IEnumerable<TimelineItem> timelineitems = new TimelineItem[]
+        private readonly IEnumerable<TimelineItem> timelineitems = new TimelineItem[]
         {
             new TimelineItem{  Content="创建时间",DateTime=DateTime.Now.ToString("yyyy-MM-dd")},
             new TimelineItem{  Content="通过审核",DateTime=DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")},
@@ -56,7 +56,7 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected readonly IEnumerable<TimelineItem> timelineitemsColor = new TimelineItem[]
+        private readonly IEnumerable<TimelineItem> timelineitemsColor = new TimelineItem[]
         {
             new TimelineItem{ Color=Color.Warning, Content="创建时间",DateTime=DateTime.Now.ToString("yyyy-MM-dd")},
             new TimelineItem{ Color=Color.Info, Content="通过审核",DateTime=DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")},

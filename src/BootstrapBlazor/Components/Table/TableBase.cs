@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -76,20 +77,25 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
 
             // 初始化每页显示数量
             if (IsPagination)
             {
                 PageItems = PageItemsSource?.FirstOrDefault() ?? QueryPageOptions.DefaultPageItems;
 
-                if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQuery)} instead set {nameof(Items)} property when {nameof(IsPagination)} be set True.");
+                if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQuery)} or {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(IsPagination)} be set True.");
             }
 
             // 初始化 EditModel
-            if (EditModel == null) EditModel = OnAdd?.Invoke() ?? new TItem();
+            if (EditModel == null)
+            {
+                if (OnAdd != null) EditModel = OnAdd();
+                else if (OnAddAsync != null) EditModel = await OnAddAsync();
+                else new TItem();
+            }
 
             // 设置 OnSort 回调方法
             OnSort = new Action<string, SortOrder>((sortName, sortOrder) =>
