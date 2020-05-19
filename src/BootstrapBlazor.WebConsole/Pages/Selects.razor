@@ -1,5 +1,9 @@
 ﻿@page "/selects"
 
+<h3>Select 选择器</h3>
+
+<h4>当选项过多时，使用下拉菜单展示并选择内容</h4>
+
 <Block Title="Select 下拉选择框" Introduction="提供各种颜色的下拉选择框" CodeFile="select.1.txt">
     <div class="form-inline">
         <div class="row">
@@ -94,11 +98,20 @@
                     <RequiredValidator ErrorMessage="请选择一个城市" />
                 </Select>
             </div>
-            <div class="form-group col-12 col-sm-6">
+            <div class="form-group col-12 col-sm-6 align-items-end">
                 <Button>提交</Button>
             </div>
         </div>
     </ValidateForm>
+</Block>
+
+<Block Title="分组" Introduction="备选项进行分组展示" CodeFile="select.6.txt">
+    <div class="row">
+        <div class="form-group col-12 col-sm-6">
+            <Select TItem="string" Color="Color.Primary" Items="@GroupItems">
+            </Select>
+        </div>
+    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
