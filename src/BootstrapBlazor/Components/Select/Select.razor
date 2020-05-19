@@ -13,7 +13,10 @@
     <div class="dropdown-menu">
         @foreach (var itemGroup in GetSelectedItems())
         {
-            <Divider Text="@itemGroup.Key" />
+            if (!string.IsNullOrEmpty(itemGroup.Key))
+            {
+                <Divider Text="@itemGroup.Key" />
+            }
             @foreach (var item in itemGroup)
             {
                 <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
