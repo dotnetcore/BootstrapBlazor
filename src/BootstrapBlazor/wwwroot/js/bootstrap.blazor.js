@@ -59,490 +59,6 @@
         }
     };
 
-    $.extend({
-        format: function (source, params) {
-            if (params === undefined || params === null) {
-                return null;
-            }
-            if (arguments.length > 2 && params.constructor !== Array) {
-                params = $.makeArray(arguments).slice(1);
-            }
-            if (params.constructor !== Array) {
-                params = [params];
-            }
-            $.each(params, function (i, n) {
-                source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function () {
-                    return n;
-                });
-            });
-            return source;
-        },
-        getUID: function (prefix) {
-            if (!prefix) prefix = 'b';
-            do prefix += ~~(Math.random() * 1000000);
-            while (document.getElementById(prefix));
-            return prefix;
-        },
-        run: function (code) {
-            eval(code);
-        },
-        showToast: function (id, toast, method) {
-            // 记录 Id
-            Toasts.push(id);
-
-            // 动画弹出
-            var $toast = $('#' + id);
-
-            // check autohide
-            var autoHide = $toast.attr('data-autohide') !== 'false';
-            var delay = parseInt($toast.attr('data-delay'));
-
-            $toast.addClass('d-block');
-            var autoHideHandler = null;
-            var showHandler = window.setTimeout(function () {
-                window.clearTimeout(showHandler);
-                if (autoHide) {
-                    $toast.find('.toast-progress').css({ 'width': '100%' });
-
-                    // auto close
-                    autoHideHandler = window.setTimeout(function () {
-                        window.clearTimeout(autoHideHandler);
-                        $toast.find('.close').trigger('click');
-                    }, delay);
-                }
-                $toast.addClass('show');
-            }, 50);
-
-            // handler close
-            $toast.on('click', '.close', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if (autoHideHandler != null) {
-                    window.clearTimeout(autoHideHandler);
-                }
-                $toast.removeClass('show');
-                var hideHandler = window.setTimeout(function () {
-                    window.clearTimeout(hideHandler);
-                    $toast.removeClass('d-block');
-
-                    // remove Id
-                    Toasts.remove($toast.attr('id'));
-                    if (Toasts.length === 0) {
-                        // call server method prepare remove dom
-                        toast.invokeMethodAsync(method);
-                    }
-                }, 500);
-            });
-        },
-        carousel(id) {
-            var $ele = $('#' + id).carousel();
-
-            // focus event
-            var leaveHandler = null;
-            $ele.hover(function () {
-                if (leaveHandler != null) window.clearTimeout(leaveHandler);
-
-                var $this = $(this);
-                var $bar = $this.find('[data-slide]');
-                $bar.removeClass('d-none');
-                var hoverHandler = window.setTimeout(function () {
-                    window.clearTimeout(hoverHandler);
-                    $this.addClass('hover');
-                }, 10);
-            }, function () {
-                var $this = $(this);
-                var $bar = $this.find('[data-slide]');
-                $this.removeClass('hover');
-                leaveHandler = window.setTimeout(function () {
-                    window.clearTimeout(leaveHandler);
-                    $bar.addClass('d-none');
-                }, 300);
-            });
-        },
-        slider: function (el, slider, method) {
-            var $slider = $(el);
-            var isMouseDown = false;
-            var originX = 0;
-            var curVal = 0;
-            var newVal = 0;
-            var slider_width = $slider.innerWidth();
-            var isDisabled = $slider.find('.disabled').length > 0;
-
-            if (!isDisabled) {
-                //var $button = $slider.find('.slider-button-wrapper').tooltip({ trigger: 'focus hover' });
-                //var $tooltip = null;
-
-                var handleDragStart = function (e) {
-                    e.stopPropagation();
-                    // 开始拖动
-                    isMouseDown = true;
-
-                    originX = e.clientX || e.touches[0].clientX;
-                    curVal = parseInt($slider.attr('aria-valuetext'));
-                    $slider.find('.slider-button-wrapper, .slider-button').addClass('dragging');
-                    //$tooltip = $('#' + $button.attr('aria-describedby'));
-                };
-
-                var handleDragMove = function (e) {
-                    if (!isMouseDown) return false;
-
-                    var eventX = e.clientX || e.changedTouches[0].clientX;
-                    if (eventX === originX) return false;
-
-                    newVal = Math.ceil((eventX - originX) * 100 / slider_width) + curVal;
-
-                    // tooltip
-                    //var tooltipLeft = eventX - originX + 8;
-                    //if (val >= 0 && val <= 100)
-                    //    $tooltip.css({ 'left': tooltipLeft.toString() + 'px' });
-
-                    if (newVal <= 0) newVal = 0;
-                    if (newVal >= 100) newVal = 100;
-
-                    $slider.find('.slider-bar').css({ "width": newVal.toString() + "%" });
-                    $slider.find('.slider-button-wrapper').css({ "left": newVal.toString() + "%" });
-                    $slider.attr('aria-valuetext', newVal.toString());
-
-                    slider.invokeMethodAsync(method, newVal);
-                };
-
-                var handleDragEnd = function (e) {
-                    if (!isMouseDown) return false;
-                    isMouseDown = false;
-
-                    // 结束拖动
-                    $slider.find('.slider-button-wrapper, .slider-button').removeClass('dragging');
-
-                    slider.invokeMethodAsync(method, newVal);
-                };
-
-                $slider.on('mousedown', '.slider-button-wrapper', handleDragStart);
-                $slider.on('touchstart', '.slider-button-wrapper', handleDragStart);
-
-                document.addEventListener('mousemove', handleDragMove);
-                document.addEventListener('touchmove', handleDragMove);
-                document.addEventListener('mouseup', handleDragEnd);
-                document.addEventListener('touchend', handleDragEnd);
-
-                document.addEventListener('mousedown', function () { return false; });
-                document.addEventListener('touchstart', function () { return false; });
-                document.addEventListener('swipe', function () { return false; });
-            }
-        },
-        tooltip: function (id, method, title, content, html) {
-            var $ele = $('#' + id);
-            if (method === "") {
-                var op = { html: html, sanitize: !html, title: title };
-                $ele.tooltip(op);
-            }
-            else if (method === 'enable') {
-                var op = { html: html, sanitize: !html, title: title };
-                $ele.tooltip(op);
-                var $ctl = $ele.parents('form').find('.invalid:first');
-                if ($ctl.prop("nodeName") === 'INPUT') {
-                    $ctl.focus();
-                }
-            }
-            else {
-                $ele.tooltip(method);
-            }
-        },
-        popover: function (id, method, title, content, html) {
-            var $ele = $('#' + id);
-            if (method === "") {
-                var op = { html: html, sanitize: false, title: title, content: content };
-                $ele.popover(op);
-            }
-            else {
-                $ele.popover(method);
-            }
-        },
-        confirm: function (id) {
-            var $ele = $('[data-target="' + id + '"]');
-            var $button = $('#' + id);
-
-            $button.popover({
-                toggle: 'confirm',
-                html: true,
-                sanitize: false,
-                content: $ele.find('.popover-body').html()
-            });
-            $button.popover('show');
-        },
-        fixTableHeader: function (el) {
-            var $ele = $(el);
-            var $thead = $ele.find('thead');
-            $ele.on('scroll', function () {
-                var top = $ele.scrollTop();
-                $thead.css({ 'transform': 'translateY(' + top + 'px)' });
-            });
-        },
-        timePicker: function (el) {
-            return $(el).find('.time-spinner-item').height();
-        },
-        datetimePicker: function (el, method) {
-            var $el = $(el);
-            var placement = $el.attr('data-placement') || 'auto';
-            var $input = $el.find('.datetime-picker-input');
-            if (!method) {
-                $input.popover({
-                    toggle: 'datetime-picker',
-                    placement: placement,
-                    template: '<div class="popover popover-datetime" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
-                })
-                    .on('inserted.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            $pop.find('.popover-body').append($el.find('.date-picker').removeClass('d-none'));
-                        }
-                    })
-                    .on('hide.bs.popover', function () {
-                        var pId = this.getAttribute('aria-describedby');
-                        if (pId) {
-                            var $pop = $('#' + pId);
-                            var $picker = $pop.find('.date-picker');
-                            $pop.find('.popover-body').append($picker.clone());
-                            $el.append($picker.addClass('d-none'));
-                        }
-                    });
-                $('.datetime-picker-input-icon').on('click', function (e) {
-                    e.stopImmediatePropagation();
-                    var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
-                    $input.trigger('click');
-                });
-            }
-            else $input.popover(method);
-        },
-        tab: function (el) {
-            $(el).tab('active');
-        },
-        captcha: function (el, obj, method, options) {
-            options.remoteObj = { obj, method };
-            $(el).sliderCaptcha(options);
-        },
-        uploader: function (el, obj, complete, check, del, failed) {
-            options = {};
-            options.remoteObj = { obj, complete, check, del, failed };
-            $(el).uploader(options);
-        },
-        getChartOption: function (option) {
-            var colors = [];
-            for (var name in window.chartColors) colors.push(name);
-
-            var config = {};
-            var colorFunc = null;
-            if (option.type === 'line') {
-                config = $.extend(true, {}, chartOption);
-                colorFunc = function (data) {
-                    var color = chartColors[colors.shift()]
-                    $.extend(data, {
-                        backgroundColor: color,
-                        borderColor: color
-                    });
-                }
-            }
-            else if (option.type === 'bar') {
-                config = $.extend(true, {}, chartOption);
-                colorFunc = function (data) {
-                    var color = chartColors[colors.shift()]
-                    $.extend(data, {
-                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
-                        borderColor: color,
-                        borderWidth: 1
-                    });
-                }
-            }
-            else if (option.type === 'pie' || option.type === 'doughnut') {
-                config = $.extend(true, {}, chartOption);
-                colorFunc = function (data) {
-                    $.extend(data, {
-                        backgroundColor: colors.slice(0, data.data.length).map(function (name) {
-                            return chartColors[name];
-                        })
-                    });
-                }
-
-                if (option.type === 'doughnut') {
-                    $.extend(config.options, {
-                        cutoutPercentage: 50,
-                        animation: {
-                            animateScale: true,
-                            animateRotate: true
-                        }
-                    });
-                }
-            }
-            else if (option.type === 'bubble') {
-                config = $.extend(true, {}, chartOption, {
-                    data: {
-                        animation: {
-                            duration: 10000
-                        },
-                    },
-                    options: {
-                        tooltips: {
-                            mode: 'point'
-                        }
-                    }
-                });
-                colorFunc = function (data) {
-                    var color = chartColors[colors.shift()]
-                    $.extend(data, {
-                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
-                        borderWidth: 1,
-                        borderColor: color
-                    });
-                }
-            }
-
-            $.each(option.data, function () {
-                colorFunc(this);
-            });
-
-            return $.extend(true, config, {
-                type: option.type,
-                data: {
-                    labels: option.labels,
-                    datasets: option.data
-                },
-                options: {
-                    responsive: option.options.responsive,
-                    title: option.options.title,
-                    scales: {
-                        xAxes: option.options.xAxes.map(function (v) {
-                            return {
-                                display: option.options.showXAxesLine,
-                                scaleLabel: v
-                            };
-                        }),
-                        yAxes: option.options.yAxes.map(function (v) {
-                            return {
-                                display: option.options.showYAxesLine,
-                                scaleLabel: v
-                            }
-                        })
-                    }
-                }
-            });
-        },
-        updateChart: function (config, option) {
-            if (option.updateMethod === "addDataset") {
-                config.data.datasets.push(option.data.datasets.pop());
-            }
-            else if (option.updateMethod === "removeDataset") {
-                config.data.datasets.pop();
-            }
-            else if (option.updateMethod === "addData") {
-                if (config.data.datasets.length > 0) {
-                    config.data.labels.push(option.data.labels.pop());
-                    config.data.datasets.forEach(function (dataset, index) {
-                        dataset.data.push(option.data.datasets[index].data.pop());
-                        if (option.type === 'pie' || option.type === 'doughnut') {
-                            dataset.backgroundColor.push(option.data.datasets[index].backgroundColor.pop());
-                        }
-                    });
-                }
-            }
-            else if (option.updateMethod === "removeData") {
-                config.data.labels.pop(); // remove the label first
-
-                config.data.datasets.forEach(function (dataset) {
-                    dataset.data.pop();
-                    if (option.type === 'pie' || option.type === 'doughnut') {
-                        dataset.backgroundColor.pop();
-                    }
-                });
-            }
-            else if (option.updateMethod === "setAngle") {
-                if (option.type === 'doughnut') {
-                    if (option.angle === 360) {
-                        config.options.circumference = Math.PI;
-                        config.options.rotation = -Math.PI;
-                    }
-                    else {
-                        config.options.circumference = 2 * Math.PI;
-                        config.options.rotation = -Math.PI / 2;
-                    }
-                }
-            }
-            else {
-                config.data.datasets.forEach(function (dataset, index) {
-                    dataset.data = option.data.datasets[index].data;
-                });
-            }
-        },
-        chart: function (el, obj, method, option, updateMethod, type, angle) {
-            if ($.isFunction(Chart)) {
-                var $el = $(el);
-                option.type = type;
-                var chart = $el.data('chart');
-                if (!chart) {
-                    var op = $.getChartOption(option);
-                    $el.data('chart', chart = new Chart(el.getElementsByTagName('canvas'), op));
-                    $el.removeClass('is-loading').trigger('chart.afterInit');
-                    obj.invokeMethodAsync(method);
-                }
-                else {
-                    var op = $.getChartOption(option);
-                    op.angle = angle;
-                    op.updateMethod = updateMethod;
-                    $.updateChart(chart.config, op);
-                    chart.update();
-                }
-            }
-        },
-        collapse: function (el) {
-            var $el = $(el);
-            var parent = null;
-            // check accordion
-            if ($el.hasClass('is-accordion')) {
-                parent = '[' + el.getAttributeNames().pop() + ']';
-            }
-
-            $.each($el.find('.collapse-item'), function () {
-                var id = $.getUID();
-                var $item = $(this);
-                $item.attr('id', id);
-                if (parent != null) $item.attr('data-parent', parent);
-
-                var $button = $item.prev().find('[data-toggle="collapse"]');
-                $button.attr('data-target', '#' + id).attr('aria-controls', id);
-                $button.collapse();
-            });
-        },
-        rate: function (el, obj, method) {
-            var $el = $(el);
-            $el.val = parseInt($el.attr('aria-valuenow'));
-            var reset = function () {
-                var $items = $el.find('.rate-item');
-                $items.each(function (i) {
-                    if (i > $el.val) $(this).removeClass('is-on');
-                    else $(this).addClass('is-on');
-                });
-            };
-
-            $el.on('mouseenter', '.rate-item', function () {
-                var $items = $el.find('.rate-item');
-                var index = $items.toArray().indexOf(this);
-                $items.each(function (i) {
-                    if (i > index) $(this).removeClass('is-on');
-                    else $(this).addClass('is-on');
-                });
-            });
-            $el.on('mouseleave', function () {
-                reset();
-            });
-            $el.on('click', '.rate-item', function () {
-                var $items = $el.find('.rate-item');
-                $el.val = $items.toArray().indexOf(this);
-                $el.attr('aria-valuenow', $el.val + 1);
-                obj.invokeMethodAsync(method, $el.val + 1);
-            });
-        }
-    });
-
     /**
      * Tab
      * @param {any} element
@@ -1245,6 +761,500 @@
     $.fn.uploader = UploaderPlugin;
     $.fn.uploader.Constructor = Uploader;
     /*end upload*/
+
+    $.extend({
+        format: function (source, params) {
+            if (params === undefined || params === null) {
+                return null;
+            }
+            if (arguments.length > 2 && params.constructor !== Array) {
+                params = $.makeArray(arguments).slice(1);
+            }
+            if (params.constructor !== Array) {
+                params = [params];
+            }
+            $.each(params, function (i, n) {
+                source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function () {
+                    return n;
+                });
+            });
+            return source;
+        },
+        getUID: function (prefix) {
+            if (!prefix) prefix = 'b';
+            do prefix += ~~(Math.random() * 1000000);
+            while (document.getElementById(prefix));
+            return prefix;
+        },
+        run: function (code) {
+            eval(code);
+        },
+        showToast: function (id, toast, method) {
+            // 记录 Id
+            Toasts.push(id);
+
+            // 动画弹出
+            var $toast = $('#' + id);
+
+            // check autohide
+            var autoHide = $toast.attr('data-autohide') !== 'false';
+            var delay = parseInt($toast.attr('data-delay'));
+
+            $toast.addClass('d-block');
+            var autoHideHandler = null;
+            var showHandler = window.setTimeout(function () {
+                window.clearTimeout(showHandler);
+                if (autoHide) {
+                    $toast.find('.toast-progress').css({ 'width': '100%' });
+
+                    // auto close
+                    autoHideHandler = window.setTimeout(function () {
+                        window.clearTimeout(autoHideHandler);
+                        $toast.find('.close').trigger('click');
+                    }, delay);
+                }
+                $toast.addClass('show');
+            }, 50);
+
+            // handler close
+            $toast.on('click', '.close', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (autoHideHandler != null) {
+                    window.clearTimeout(autoHideHandler);
+                }
+                $toast.removeClass('show');
+                var hideHandler = window.setTimeout(function () {
+                    window.clearTimeout(hideHandler);
+                    $toast.removeClass('d-block');
+
+                    // remove Id
+                    Toasts.remove($toast.attr('id'));
+                    if (Toasts.length === 0) {
+                        // call server method prepare remove dom
+                        toast.invokeMethodAsync(method);
+                    }
+                }, 500);
+            });
+        },
+        carousel(id) {
+            var $ele = $('#' + id).carousel();
+
+            // focus event
+            var leaveHandler = null;
+            $ele.hover(function () {
+                if (leaveHandler != null) window.clearTimeout(leaveHandler);
+
+                var $this = $(this);
+                var $bar = $this.find('[data-slide]');
+                $bar.removeClass('d-none');
+                var hoverHandler = window.setTimeout(function () {
+                    window.clearTimeout(hoverHandler);
+                    $this.addClass('hover');
+                }, 10);
+            }, function () {
+                var $this = $(this);
+                var $bar = $this.find('[data-slide]');
+                $this.removeClass('hover');
+                leaveHandler = window.setTimeout(function () {
+                    window.clearTimeout(leaveHandler);
+                    $bar.addClass('d-none');
+                }, 300);
+            });
+        },
+        slider: function (el, slider, method) {
+            var $slider = $(el);
+            var isMouseDown = false;
+            var originX = 0;
+            var curVal = 0;
+            var newVal = 0;
+            var slider_width = $slider.innerWidth();
+            var isDisabled = $slider.find('.disabled').length > 0;
+
+            if (!isDisabled) {
+                //var $button = $slider.find('.slider-button-wrapper').tooltip({ trigger: 'focus hover' });
+                //var $tooltip = null;
+
+                var handleDragStart = function (e) {
+                    e.stopPropagation();
+                    // 开始拖动
+                    isMouseDown = true;
+
+                    originX = e.clientX || e.touches[0].clientX;
+                    curVal = parseInt($slider.attr('aria-valuetext'));
+                    $slider.find('.slider-button-wrapper, .slider-button').addClass('dragging');
+                    //$tooltip = $('#' + $button.attr('aria-describedby'));
+                };
+
+                var handleDragMove = function (e) {
+                    if (!isMouseDown) return false;
+
+                    var eventX = e.clientX || e.changedTouches[0].clientX;
+                    if (eventX === originX) return false;
+
+                    newVal = Math.ceil((eventX - originX) * 100 / slider_width) + curVal;
+
+                    // tooltip
+                    //var tooltipLeft = eventX - originX + 8;
+                    //if (val >= 0 && val <= 100)
+                    //    $tooltip.css({ 'left': tooltipLeft.toString() + 'px' });
+
+                    if (newVal <= 0) newVal = 0;
+                    if (newVal >= 100) newVal = 100;
+
+                    $slider.find('.slider-bar').css({ "width": newVal.toString() + "%" });
+                    $slider.find('.slider-button-wrapper').css({ "left": newVal.toString() + "%" });
+                    $slider.attr('aria-valuetext', newVal.toString());
+
+                    slider.invokeMethodAsync(method, newVal);
+                };
+
+                var handleDragEnd = function (e) {
+                    if (!isMouseDown) return false;
+                    isMouseDown = false;
+
+                    // 结束拖动
+                    $slider.find('.slider-button-wrapper, .slider-button').removeClass('dragging');
+
+                    slider.invokeMethodAsync(method, newVal);
+                };
+
+                $slider.on('mousedown', '.slider-button-wrapper', handleDragStart);
+                $slider.on('touchstart', '.slider-button-wrapper', handleDragStart);
+
+                document.addEventListener('mousemove', handleDragMove);
+                document.addEventListener('touchmove', handleDragMove);
+                document.addEventListener('mouseup', handleDragEnd);
+                document.addEventListener('touchend', handleDragEnd);
+
+                document.addEventListener('mousedown', function () { return false; });
+                document.addEventListener('touchstart', function () { return false; });
+                document.addEventListener('swipe', function () { return false; });
+            }
+        },
+        tooltip: function (id, method, title, content, html) {
+            var $ele = $('#' + id);
+            if (method === "") {
+                var op = { html: html, sanitize: !html, title: title };
+                $ele.tooltip(op);
+            }
+            else if (method === 'enable') {
+                var op = { html: html, sanitize: !html, title: title };
+                $ele.tooltip(op);
+                var $ctl = $ele.parents('form').find('.invalid:first');
+                if ($ctl.prop("nodeName") === 'INPUT') {
+                    $ctl.focus();
+                }
+            }
+            else {
+                $ele.tooltip(method);
+            }
+        },
+        popover: function (id, method, title, content, html) {
+            var $ele = $('#' + id);
+            if (method === "") {
+                var op = { html: html, sanitize: false, title: title, content: content };
+                $ele.popover(op);
+            }
+            else {
+                $ele.popover(method);
+            }
+        },
+        confirm: function (id) {
+            var $ele = $('[data-target="' + id + '"]');
+            var $button = $('#' + id);
+
+            $button.popover({
+                toggle: 'confirm',
+                html: true,
+                sanitize: false,
+                content: $ele.find('.popover-body').html()
+            });
+            $button.popover('show');
+        },
+        fixTableHeader: function (el) {
+            var $ele = $(el);
+            var $thead = $ele.find('thead');
+            $ele.on('scroll', function () {
+                var top = $ele.scrollTop();
+                $thead.css({ 'transform': 'translateY(' + top + 'px)' });
+            });
+        },
+        timePicker: function (el) {
+            return $(el).find('.time-spinner-item').height();
+        },
+        datetimePicker: function (el, method) {
+            var $el = $(el);
+            var placement = $el.attr('data-placement') || 'auto';
+            var $input = $el.find('.datetime-picker-input');
+            if (!method) {
+                $input.popover({
+                    toggle: 'datetime-picker',
+                    placement: placement,
+                    template: '<div class="popover popover-datetime" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+                })
+                    .on('inserted.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            $pop.find('.popover-body').append($el.find('.date-picker').removeClass('d-none'));
+                        }
+                    })
+                    .on('hide.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            var $picker = $pop.find('.date-picker');
+                            $pop.find('.popover-body').append($picker.clone());
+                            $el.append($picker.addClass('d-none'));
+                        }
+                    });
+                $('.datetime-picker-input-icon').on('click', function (e) {
+                    e.stopImmediatePropagation();
+                    var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
+                    $input.trigger('click');
+                });
+            }
+            else $input.popover(method);
+        },
+        tab: function (el) {
+            $(el).tab('active');
+        },
+        captcha: function (el, obj, method, options) {
+            options.remoteObj = { obj, method };
+            $(el).sliderCaptcha(options);
+        },
+        uploader: function (el, obj, complete, check, del, failed) {
+            options = {};
+            options.remoteObj = { obj, complete, check, del, failed };
+            $(el).uploader(options);
+        },
+        getChartOption: function (option) {
+            var colors = [];
+            for (var name in window.chartColors) colors.push(name);
+
+            var config = {};
+            var colorFunc = null;
+            if (option.type === 'line') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: color,
+                        borderColor: color
+                    });
+                }
+            }
+            else if (option.type === 'bar') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
+                        borderColor: color,
+                        borderWidth: 1
+                    });
+                }
+            }
+            else if (option.type === 'pie' || option.type === 'doughnut') {
+                config = $.extend(true, {}, chartOption);
+                colorFunc = function (data) {
+                    $.extend(data, {
+                        backgroundColor: colors.slice(0, data.data.length).map(function (name) {
+                            return chartColors[name];
+                        })
+                    });
+                }
+
+                if (option.type === 'doughnut') {
+                    $.extend(config.options, {
+                        cutoutPercentage: 50,
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
+                    });
+                }
+            }
+            else if (option.type === 'bubble') {
+                config = $.extend(true, {}, chartOption, {
+                    data: {
+                        animation: {
+                            duration: 10000
+                        },
+                    },
+                    options: {
+                        tooltips: {
+                            mode: 'point'
+                        }
+                    }
+                });
+                colorFunc = function (data) {
+                    var color = chartColors[colors.shift()]
+                    $.extend(data, {
+                        backgroundColor: Chart.helpers.color(color).alpha(0.5).rgbString(),
+                        borderWidth: 1,
+                        borderColor: color
+                    });
+                }
+            }
+
+            $.each(option.data, function () {
+                colorFunc(this);
+            });
+
+            return $.extend(true, config, {
+                type: option.type,
+                data: {
+                    labels: option.labels,
+                    datasets: option.data
+                },
+                options: {
+                    responsive: option.options.responsive,
+                    title: option.options.title,
+                    scales: {
+                        xAxes: option.options.xAxes.map(function (v) {
+                            return {
+                                display: option.options.showXAxesLine,
+                                scaleLabel: v
+                            };
+                        }),
+                        yAxes: option.options.yAxes.map(function (v) {
+                            return {
+                                display: option.options.showYAxesLine,
+                                scaleLabel: v
+                            }
+                        })
+                    }
+                }
+            });
+        },
+        updateChart: function (config, option) {
+            if (option.updateMethod === "addDataset") {
+                config.data.datasets.push(option.data.datasets.pop());
+            }
+            else if (option.updateMethod === "removeDataset") {
+                config.data.datasets.pop();
+            }
+            else if (option.updateMethod === "addData") {
+                if (config.data.datasets.length > 0) {
+                    config.data.labels.push(option.data.labels.pop());
+                    config.data.datasets.forEach(function (dataset, index) {
+                        dataset.data.push(option.data.datasets[index].data.pop());
+                        if (option.type === 'pie' || option.type === 'doughnut') {
+                            dataset.backgroundColor.push(option.data.datasets[index].backgroundColor.pop());
+                        }
+                    });
+                }
+            }
+            else if (option.updateMethod === "removeData") {
+                config.data.labels.pop(); // remove the label first
+
+                config.data.datasets.forEach(function (dataset) {
+                    dataset.data.pop();
+                    if (option.type === 'pie' || option.type === 'doughnut') {
+                        dataset.backgroundColor.pop();
+                    }
+                });
+            }
+            else if (option.updateMethod === "setAngle") {
+                if (option.type === 'doughnut') {
+                    if (option.angle === 360) {
+                        config.options.circumference = Math.PI;
+                        config.options.rotation = -Math.PI;
+                    }
+                    else {
+                        config.options.circumference = 2 * Math.PI;
+                        config.options.rotation = -Math.PI / 2;
+                    }
+                }
+            }
+            else {
+                config.data.datasets.forEach(function (dataset, index) {
+                    dataset.data = option.data.datasets[index].data;
+                });
+            }
+        },
+        chart: function (el, obj, method, option, updateMethod, type, angle) {
+            if ($.isFunction(Chart)) {
+                var $el = $(el);
+                option.type = type;
+                var chart = $el.data('chart');
+                if (!chart) {
+                    var op = $.getChartOption(option);
+                    $el.data('chart', chart = new Chart(el.getElementsByTagName('canvas'), op));
+                    $el.removeClass('is-loading').trigger('chart.afterInit');
+                    obj.invokeMethodAsync(method);
+                }
+                else {
+                    var op = $.getChartOption(option);
+                    op.angle = angle;
+                    op.updateMethod = updateMethod;
+                    $.updateChart(chart.config, op);
+                    chart.update();
+                }
+            }
+        },
+        collapse: function (el) {
+            var $el = $(el);
+            var parent = null;
+            // check accordion
+            if ($el.hasClass('is-accordion')) {
+                parent = '[' + el.getAttributeNames().pop() + ']';
+            }
+
+            $.each($el.find('.collapse-item'), function () {
+                var id = $.getUID();
+                var $item = $(this);
+                $item.attr('id', id);
+                if (parent != null) $item.attr('data-parent', parent);
+
+                var $button = $item.prev().find('[data-toggle="collapse"]');
+                $button.attr('data-target', '#' + id).attr('aria-controls', id);
+                $button.collapse();
+            });
+        },
+        rate: function (el, obj, method) {
+            var $el = $(el);
+            $el.val = parseInt($el.attr('aria-valuenow'));
+            var reset = function () {
+                var $items = $el.find('.rate-item');
+                $items.each(function (i) {
+                    if (i > $el.val) $(this).removeClass('is-on');
+                    else $(this).addClass('is-on');
+                });
+            };
+
+            $el.on('mouseenter', '.rate-item', function () {
+                var $items = $el.find('.rate-item');
+                var index = $items.toArray().indexOf(this);
+                $items.each(function (i) {
+                    if (i > index) $(this).removeClass('is-on');
+                    else $(this).addClass('is-on');
+                });
+            });
+            $el.on('mouseleave', function () {
+                reset();
+            });
+            $el.on('click', '.rate-item', function () {
+                var $items = $el.find('.rate-item');
+                $el.val = $items.toArray().indexOf(this);
+                $el.attr('aria-valuenow', $el.val + 1);
+                obj.invokeMethodAsync(method, $el.val + 1);
+            });
+        },
+        footer: function (el, obj) {
+            var $el = $(el);
+            var tooltip = $el.find('[data-toggle="tooltip"]').tooltip();
+            $el.find('.footer-top').on('click', function (e) {
+                e.preventDefault();
+                if (obj === 'window' || obj === 'body') obj = window;
+                $(obj).scrollTop(0);
+                tooltip.tooltip('hide');
+            });
+        }
+    });
 
     $(function () {
         $(document)

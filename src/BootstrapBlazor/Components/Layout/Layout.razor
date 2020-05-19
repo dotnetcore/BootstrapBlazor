@@ -1,0 +1,55 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits LayoutBase
+
+@if (Side == null)
+{
+    <section class="@ClassString">
+        <header class="layout-header">
+            @Header
+        </header>
+        <main class="layout-main">
+            @Main
+        </main>
+        <footer class="layout-footer">
+            @Footer
+        </footer>
+    </section>
+}
+else if (IsFullSide)
+{
+    <section class="@ClassString">
+        <aside class="layout-side">
+            @Side
+        </aside>
+        <section class="layout-right">
+            <header class="layout-header">
+                @Header
+            </header>
+            <main class="layout-main">
+                @Main
+            </main>
+            <footer class="layout-footer">
+                @Footer
+            </footer>
+        </section>
+    </section>
+}
+else
+{
+    <section class="@ClassString">
+        <header class="layout-header">
+            @Header
+        </header>
+        <section class="has-sidebar">
+            <aside class="layout-side">
+                @Side
+            </aside>
+            <main class="layout-main">
+                @Main
+            </main>
+        </section>
+        <footer class="layout-footer">
+            @Footer
+        </footer>
+    </section>
+}

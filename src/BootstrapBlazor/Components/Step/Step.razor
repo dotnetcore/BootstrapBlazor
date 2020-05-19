@@ -1,0 +1,17 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
+    <div class="@HeadClassString">
+        <div class="step-line" style="margin-right: 0px;">
+            <i class="step-line-inner" style="@LineStyleString">
+            </i>
+        </div>
+        <div class="@StepIconClassString">
+            <i class="@IconClassString">@StepString</i>
+        </div>
+    </div><div class="step-main">
+        <div class="@TitleClassString">@Title</div>
+        <div class="@DescClassString">@Description</div>
+    </div>
+</div>

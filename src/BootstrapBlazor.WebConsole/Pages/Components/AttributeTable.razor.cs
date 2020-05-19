@@ -1,10 +1,16 @@
-﻿namespace BootstrapBlazor.WebConsole.Pages.Components
+﻿using Microsoft.AspNetCore.Components;
+
+namespace BootstrapBlazor.WebConsole.Pages.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    public partial class ParameterTable<TItem> where TItem : class, new()
+    sealed partial class AttributeTable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        public string Title { get; set; } = "Attributes 属性";
     }
 }

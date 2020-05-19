@@ -1,0 +1,41 @@
+﻿@namespace BootstrapBlazor.Components
+
+<div class="navbar navbar-expand d-none d-md-flex">
+    <ul class="navbar-nav">
+        @foreach (var menu in Items)
+        {
+            @if (menu.Items.Any())
+            {
+                <li class="@GetClassString("nav-item dropdown", menu.IsActive)">
+                    <a class="@GetClassString("nav-link dropdown-toggle", menu.IsActive)" data-toggle="dropdown" role="button" href="#">
+                        @if (!string.IsNullOrEmpty(menu.Icon))
+                        {
+                            <i class="@menu.Icon"></i>
+                        }
+                        <span>@menu.Text</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-menu-arrow"></div>
+                        @foreach (var item in menu.Items)
+                        {
+                            @if (item.Items.Any())
+                            {
+                                @RenderDropdownItem(item);
+                            }
+                            else
+                            {
+                                <MenuLink Url="@item.Url" Text="@item.Text" Active="@item.IsActive" Icon="@item.Icon" class="dropdown-item" />
+                            }
+                        }
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li class="@GetClassString("nav-item", menu.IsActive)">
+                    <MenuLink Url="@menu.Url" Text="@menu.Text" Active="@menu.IsActive" Icon="@menu.Icon" class="nav-link" />
+                </li>
+            }
+        }
+    </ul>
+</div>

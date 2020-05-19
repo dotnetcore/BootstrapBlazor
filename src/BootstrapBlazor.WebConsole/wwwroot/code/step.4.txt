@@ -1,0 +1,10 @@
+﻿<Steps IsCenter="true">
+    <Step Title="步骤一" Space="33.33%" Status="StepStatus.Finish" StepIndex="0"
+          Description="这是一段很长很长很长的描述性文字"></Step>
+    <Step Title="步骤二" Space="33.33%" Status="StepStatus.Success" StepIndex="1" 
+          Description="这是一段很长很长很长的描述性文字"></Step>
+    <Step Title="步骤三" Space="33.33%" Status="StepStatus.Process" StepIndex="2" 
+          Description="这是一段很长很长很长的描述性文字"></Step>
+    <Step Title="步骤四" Space="33.33%" StepIndex="3" IsLast="true" 
+          Description="结束语"></Step>
+</Steps>

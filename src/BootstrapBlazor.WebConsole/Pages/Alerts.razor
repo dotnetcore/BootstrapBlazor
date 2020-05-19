@@ -34,6 +34,24 @@
     <Alert Icon="fa fa-times-circle" Color="Color.Danger">错误提示的文案</Alert>
 </Block>
 
+<Block Title="显示左侧 Bar" Introduction="作为 <code>Tip</code> 使用" CodeFile="alert.4.txt">
+    <Alert ShowBar="true" Color="Color.Info">
+        <div>消息提示的文案</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Success">
+        <div>成功提示的文案</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Primary">
+        <div>主要的警告框</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Warning">
+        <div>警告的警告框</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Danger">
+        <div>危险的警告框</div>
+    </Alert>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

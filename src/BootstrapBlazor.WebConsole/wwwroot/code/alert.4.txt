@@ -1,0 +1,15 @@
+﻿<Alert ShowBar="true" Color="Color.Info">
+    <div>消息提示的文案</div>
+</Alert>
+<Alert ShowBar="true" Color="Color.Success">
+    <div>成功提示的文案</div>
+</Alert>
+<Alert ShowBar="true" Color="Color.Primary">
+    <div>主要的警告框</div>
+</Alert>
+<Alert ShowBar="true" Color="Color.Warning">
+    <div>警告的警告框</div>
+</Alert>
+<Alert ShowBar="true" Color="Color.Danger">
+    <div>危险的警告框</div>
+</Alert>

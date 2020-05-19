@@ -1,0 +1,1 @@
+﻿<Menu Items="@GetIconSideMenuItems()" IsVertical="true" IsAccordion="true" />

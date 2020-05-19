@@ -76,8 +76,15 @@ namespace BootstrapBlazor.WebConsole.Pages
             new AttributeItem() {
                 Name = "ShowDismiss",
                 Description = "关闭按钮",
-                Type = "boolean",
+                Type = "bool",
                 ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowBar",
+                Description = "是否显示左侧 Bar",
+                Type = "bool",
+                ValueList = "true|false",
                 DefaultValue = "false"
             }
         };

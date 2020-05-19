@@ -1,0 +1,28 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CollapseBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="CollapseElement">
+    @foreach (var item in Items)
+    {
+        if (item.Items.Any())
+        {
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-wrapper">
+                        <MenuLink Url="@item.Url" Text="@item.Text" Active="@item.IsActive" Icon="@item.Icon" class="nav-link collapsed collapse" data-toggle="collapse" aria-expanded="false" />
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+                <div class="collapse-item collapse">
+                    <div class="card-body has-leaf">
+                        <SideMenu Items="@item.Items" IsAccordion ="@IsAccordion"/>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <MenuLink Url="@item.Url" Text="@item.Text" Active="@item.IsActive" Icon="@item.Icon" class="nav-link" />
+        }
+    }
+</div>
