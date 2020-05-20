@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CircleBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <svg class="circle-body" style="@PrevStyleString">
+        <circle r="@CircleR" cy="@CircleDiameter" cx="@CircleDiameter" stroke-width="2" stroke="#EAEFF4" stroke-linejoin="round" stroke-linecap="round" fill="none" />
+        <circle class="@ProgressClassString" r="@CircleR" cy="@CircleDiameter" cx="@CircleDiameter" stroke-dashoffset="@ValueString" stroke-dasharray="@DashString" stroke-width="@StrokeWidth" stroke="#1593FF" stroke-linejoin="round" stroke-linecap="round" fill="none" />
+    </svg>
+    <div class="@TitleClassString">@ValueTitleString</div>
+    @ChildContent
+</div>

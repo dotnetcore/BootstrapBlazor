@@ -1,0 +1,11 @@
+﻿@page "/consoles"
+
+<h3>Console 控制台</h3>
+
+<h4>控制台组件，一般用于后台任务的输出</h4>
+
+<Block Title="基本用法" Introduction="显示后台推送的消息" CodeFile="console.1.txt">
+    <Console Items="@Messages" Height="126" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
