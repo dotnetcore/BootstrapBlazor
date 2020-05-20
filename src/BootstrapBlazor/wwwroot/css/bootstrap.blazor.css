@@ -3406,3 +3406,95 @@ a {
     right: 0;
 }
 /*end circle*/
+
+/*light*/
+.light {
+    background-image: radial-gradient(circle, #fff, #aaa, #333);
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+    .light + span {
+        display: none;
+    }
+
+.red {
+    background-image: radial-gradient(circle, #e17777, #892726, #700604);
+}
+
+    .red.flash {
+        animation: red .6s linear infinite;
+    }
+
+@keyframes red {
+    0% {
+        background-image: radial-gradient(circle, #e17777, #892726, #700604);
+    }
+
+    55% {
+        background-image: radial-gradient(circle, #e17777, #892726, #700604);
+    }
+
+    100% {
+        background-image: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+.green {
+    background-image: radial-gradient(circle, #5cb85c, #116811, #024702);
+}
+
+    .green.flash {
+        animation: green .6s linear infinite;
+    }
+
+@keyframes green {
+    0% {
+        background-image: radial-gradient(circle, #5cb85c, #116811, #024702);
+    }
+
+    55% {
+        background-image: radial-gradient(circle, #5cb85c, #116811, #024702);
+    }
+
+    100% {
+        background-image: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+.blue {
+    background-image: radial-gradient(circle, #5bc0de, #1d7792, #085166);
+}
+
+.purple {
+    background-image: radial-gradient(circle, #6061e2, #3232a0, #17177b);
+}
+
+.red:hover {
+    background-image: radial-gradient(circle, #e17777, #b33332, #bf211e);
+}
+
+.blue:hover {
+    background-image: radial-gradient(circle, #5bc0de, #188fb3, #1491b5);
+}
+
+.purple:hover {
+    background-image: radial-gradient(circle, #6061e2, #3d3da6, #4545d4);
+}
+
+.green:hover {
+    background-image: radial-gradient(circle, #5cb85c, #0c980c, #087b08);
+}
+/*end light*/
+
+/*console*/
+.console-body {
+    padding: 1rem;
+    background-color: #174482;
+    color: #fff;
+    overflow: auto;
+}
+/*end console*/
