@@ -13,7 +13,7 @@
         /// <summary>
         /// 构造函数
         /// </summary>
-        public SelectedItem(string value, string text) => (Value, Text) = (value, text);
+        public SelectedItem (string value, string text) => (Value, Text) = (value, text);
 
         /// <summary>
         /// 获得/设置 显示名称
@@ -29,10 +29,5 @@
         /// 获得/设置 是否选中
         /// </summary>
         public bool Active { get; set; }
-
-        /// <summary>
-        /// 获得/设置 分组名称
-        /// </summary>
-        public string GroupName { get; set; } = "";
     }
 }

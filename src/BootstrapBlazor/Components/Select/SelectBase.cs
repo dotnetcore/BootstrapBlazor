@@ -160,12 +160,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获得 分组数据
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<IGrouping<string, SelectedItem>> GetSelectedItems() => (Items ?? new SelectedItem[0]).GroupBy(i => i.GroupName);
-
-        /// <summary>
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>

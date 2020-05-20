@@ -1,7 +1,0 @@
-<Circle Value="10" Color="Color.Primary" />
-<Circle Value="20" Color="Color.Success" />
-<Circle Value="30" Color="Color.Info" />
-<Circle Value="40" Color="Color.Warning" />
-<Circle Value="50" Color="Color.Danger" />
-<Circle Value="60" Color="Color.Secondary" />
-<Circle Value="70" Color="Color.Dark" />

@@ -32,7 +32,6 @@ namespace BootstrapBlazor.Components
 
                 // 触发外界 OnStateChanged 事件
                 OnStateChanged?.Invoke(state, val);
-                if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(val);
             }
         }
     }
