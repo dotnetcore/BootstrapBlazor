@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,6 +31,7 @@ namespace BootstrapBlazor.WebConsole.Pages
             {
                 do
                 {
+                    _locker.WaitOne();
                     if (!_messages.IsAddingCompleted)
                     {
                         _messages.Add($"{DateTimeOffset.Now}: Dispatch Message");
@@ -40,10 +42,26 @@ namespace BootstrapBlazor.WebConsole.Pages
                         }
                         await InvokeAsync(StateHasChanged);
                     }
+                    _locker.Set();
                     await Task.Delay(2000, _cancelTokenSource.Token);
                 }
                 while (!_cancelTokenSource.IsCancellationRequested);
             });
+        }
+
+        private AutoResetEvent _locker = new AutoResetEvent(true);
+
+        private void OnClear()
+        {
+            _locker.WaitOne();
+            if (!_messages.IsAddingCompleted)
+            {
+                while (_messages.Count > 0)
+                {
+                    _messages.TryTake(out var _);
+                }
+            }
+            _locker.Set();
         }
 
         /// <summary>
@@ -64,6 +82,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 new AttributeItem(){
                     Name = "Height",
                     Description = "组件高度",
+                    Type = "int",
+                    ValueList = " — ",
+                    DefaultValue = "126"
+                },
+                new AttributeItem(){
+                    Name = "OnClear",
+                    Description = "组件清屏回调方法",
                     Type = "int",
                     ValueList = " — ",
                     DefaultValue = "126"

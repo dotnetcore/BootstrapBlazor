@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
@@ -17,10 +18,23 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 Footer 样式
+        /// </summary>
+        protected string? FooterClassString => CssBuilder.Default("card-footer text-right")
+            .AddClass("d-none", OnClear == null)
+            .Build();
+
+        /// <summary>
         /// 获得/设置 组件绑定数据源
         /// </summary>
         [Parameter]
         public IEnumerable<string> Items { get; set; } = new string[0];
+
+        /// <summary>
+        /// 获得/设置 清空委托方法
+        /// </summary>
+        [Parameter]
+        public Action? OnClear { get; set; }
 
         /// <summary>
         /// 获得/设置 组件高度 默认为 126px;
@@ -33,7 +47,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public void ClearConsole()
         {
-            Items = new string[0];
+            OnClear?.Invoke();
         }
     }
 }

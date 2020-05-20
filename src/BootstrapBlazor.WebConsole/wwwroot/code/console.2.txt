@@ -1,0 +1,1 @@
+﻿<Console Items="@Messages" OnClear="@OnClear" />
