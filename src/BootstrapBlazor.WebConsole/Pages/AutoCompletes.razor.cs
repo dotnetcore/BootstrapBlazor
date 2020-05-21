@@ -50,6 +50,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "NoDataTip",
+                Description = "自动完成数据无匹配项时提示信息",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "无匹配数据"
+            },
+            new AttributeItem() {
                 Name = "OnValueChanged",
                 Description = "文本框值变化时回调委托方法",
                 Type = "Action<string>",

@@ -30,6 +30,12 @@ namespace BootstrapBlazor.Components
         public IEnumerable<string> Items { get; set; } = new string[0];
 
         /// <summary>
+        /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
+        /// </summary>
+        [Parameter]
+        public string NoDataTip { get; set; } = "无匹配数据";
+
+        /// <summary>
         /// 获得/设置 组件值变化时回调委托方法用于通过客户端输入值获取自动完成数据
         /// </summary>
         [Parameter]
@@ -59,12 +65,6 @@ namespace BootstrapBlazor.Components
                 _placeholder = value;
             }
         }
-
-        /// <summary>
-        /// 当无匹配数据时，默认提示"无匹配数据"
-        /// </summary>
-        [Parameter]
-        public string DefaultValue { get; set; } = "无匹配数据";
 
         /// <summary>
         /// OnParametersSet
