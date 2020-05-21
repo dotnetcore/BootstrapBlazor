@@ -1,0 +1,21 @@
+﻿@page "/autocompletes"
+
+<h3>AutoComplete 自动完成</h3>
+
+<h4>输入框自动完成功能</h4>
+
+<Block Title="基础用法" Introduction="通过设置 <code>Items</code> 数据集合当用户键入信息是自动显示提示信息" CodeFile="autocomplete.1.txt">
+    <p>本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化</p>
+    <div style="width: 200px;">
+        <AutoComplete Items="@StaticItems" />
+    </div>
+</Block>
+
+<Block Title="高级用法" Introduction="通过设置 <code>OnValueChanged</code> 回调方法根据用户输入的数据进行重组数据集合再进行提示信息" CodeFile="autocomplete.2.txt">
+    <p>本例中请键入任意字符串显示查看效果，自动完成组件根据键入的字符串从新获取提示信息数据集动态变化</p>
+    <div style="width: 200px;">
+        <AutoComplete Items="@Items" OnValueChanged="@OnValueChanged" />
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
