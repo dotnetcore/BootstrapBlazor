@@ -61,6 +61,12 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 当无匹配数据时，默认提示"无匹配数据"
+        /// </summary>
+        [Parameter]
+        public string DefaultValue { get; set; } = "无匹配数据";
+
+        /// <summary>
         /// OnParametersSet
         /// </summary>
         protected override void OnParametersSet()
