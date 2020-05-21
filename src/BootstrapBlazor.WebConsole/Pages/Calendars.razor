@@ -13,3 +13,7 @@
     <Calendar @bind-Value="@BindValue" />
     <BootstrapInput TItem="DateTime" @bind-Value="@BindValue" Formatter="@Formatter" />
 </Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

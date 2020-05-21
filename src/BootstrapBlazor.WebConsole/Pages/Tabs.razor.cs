@@ -93,9 +93,23 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "0"
             },
             new AttributeItem() {
+                Name = "ShowClose",
+                Description = "是否显示关闭按钮",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "Items",
                 Description = "TabItem 集合",
                 Type = "IEnumerable<TabItemBase>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "TabItems",
+                Description = "TabItems 模板",
+                Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             }
@@ -118,6 +132,12 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Name = "Remove",
                 Description = "移除 TabItem",
                 Parameters = "TabItem",
+                ReturnValue = " — "
+            },
+            new MethodItem() {
+                Name = "ReActiveTab",
+                Description = "切换后回调此方法",
+                Parameters = " — ",
                 ReturnValue = " — "
             }
         };
