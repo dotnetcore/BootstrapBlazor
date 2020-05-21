@@ -469,6 +469,14 @@ section {
         color: #3f414d;
     }
 
+.drawer-demo .form-checkbox {
+    margin-right: 1rem;
+}
+
+.drawer-demo .form-radio-group .form-checkbox:not(:first-child) {
+    margin-left: 0;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
