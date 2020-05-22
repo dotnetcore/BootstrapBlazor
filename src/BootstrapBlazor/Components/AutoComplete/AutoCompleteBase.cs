@@ -67,13 +67,19 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 是否开启模糊查询，默认为false
+        /// </summary>
+        [Parameter]
+        public bool IsLikeMatch { get; set; } = false;
+
+        /// <summary>
         /// OnParametersSet
         /// </summary>
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
 
-            Items = Items.Where(s => s.StartsWith(CurrentValueAsString));
+            Items = IsLikeMatch ? Items.Where(s => s.Contains(CurrentValueAsString)) : Items.Where(s => s.StartsWith(CurrentValueAsString));
         }
 
         /// <summary>

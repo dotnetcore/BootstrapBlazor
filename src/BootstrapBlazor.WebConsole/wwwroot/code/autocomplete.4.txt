@@ -1,0 +1,1 @@
+﻿ <AutoComplete Items="@StaticItems" IsLikeMatch="true" />

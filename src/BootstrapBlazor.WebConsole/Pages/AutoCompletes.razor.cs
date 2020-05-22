@@ -62,6 +62,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 Type = "Action<string>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "IsLikeMatch",
+                Description = "是否开启模糊匹配",
+                Type = "bool",
+                ValueList = " — ",
+                DefaultValue = "false"
             }
         };
     }
