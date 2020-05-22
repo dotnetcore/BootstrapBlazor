@@ -5,7 +5,7 @@
         <OutputType>Library</OutputType>
         <RazorLangVersion>3.0</RazorLangVersion>
         <IsPackable>true</IsPackable>
-        <Version>3.1.4-beta02</Version>
+        <Version>3.1.4</Version>
     </PropertyGroup>
 
     <ItemGroup>
