@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 
 namespace BootstrapBlazor.Components
 {
@@ -58,16 +59,16 @@ namespace BootstrapBlazor.Components
         public EventCallback<bool> IsOpenChanged { get; set; }
 
         /// <summary>
+        /// 获得/设置 点击背景遮罩时回调委托方法
+        /// </summary>
+        [Parameter]
+        public Action? OnClickBackdrop { get; set; }
+
+        /// <summary>
         /// 获得/设置 点击遮罩是否关闭抽屉
         /// </summary>
         [Parameter]
         public bool IsBackdrop { get; set; }
-
-        /// <summary>
-        /// 获得/设置 组件 Title
-        /// </summary>
-        [Parameter]
-        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 组件出现位置 默认显示在 Left 位置
@@ -82,14 +83,6 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-        }
-
-        /// <summary>
         /// 点击背景遮罩方法
         /// </summary>
         public void OnContainerClick()
@@ -98,6 +91,7 @@ namespace BootstrapBlazor.Components
             {
                 IsOpen = false;
                 if (IsOpenChanged.HasDelegate) IsOpenChanged.InvokeAsync(IsOpen);
+                OnClickBackdrop?.Invoke();
             }
         }
     }

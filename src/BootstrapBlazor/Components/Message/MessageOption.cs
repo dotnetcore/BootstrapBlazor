@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BootstrapBlazor.Components
+﻿namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Message 组件配置类

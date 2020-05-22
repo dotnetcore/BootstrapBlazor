@@ -76,9 +76,9 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
-                Name = "Title",
-                Description = "设置分割线显示文字",
-                Type = "string",
+                Name = "OnClickBackdrop",
+                Description = "点击背景遮罩时回调委托方法",
+                Type = "Action",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
