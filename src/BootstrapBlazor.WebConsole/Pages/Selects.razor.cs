@@ -39,6 +39,16 @@ namespace BootstrapBlazor.WebConsole.Pages
             new SelectedItem ("Shanghai", "上海") { Active = true }
         };
 
+        private IEnumerable<SelectedItem> GroupItems = new SelectedItem[]
+        {
+            new SelectedItem ("Jilin", "吉林") { GroupName = "东北"},
+            new SelectedItem ("Liaoning", "辽宁") {GroupName = "东北", Active = true },
+            new SelectedItem ("Beijing", "北京") { GroupName = "华中"},
+            new SelectedItem ("Shijiazhuang", "石家庄") { GroupName = "华中"},
+            new SelectedItem ("Shanghai", "上海") {GroupName = "华东", Active = true },
+            new SelectedItem ("Ningbo", "宁波") {GroupName = "华东", Active = true }
+        };
+
         /// <summary>
         /// 下拉选项改变时调用此方法
         /// </summary>

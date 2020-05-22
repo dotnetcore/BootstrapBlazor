@@ -209,12 +209,39 @@ namespace BootstrapBlazor.WebConsole.Pages
         }
 
         /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnInit",
+                Description="组件数据初始化委托方法",
+                Type ="Func<Task<ChartDataSource>>"
+            },
+            new EventItem()
+            {
+                Name = "OnAfterInit",
+                Description="客户端绘制图表完毕后回调此委托方法",
+                Type ="Action"
+            },
+        };
+
+        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "Angle",
+                Description = "Bubble 模式下显示角度 180 为 半圆 360 为正圆",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = " — ",
+            },
             new AttributeItem() {
                 Name = "Width",
                 Description = "组件宽度支持单位 如: 100px 75%",
@@ -223,19 +250,12 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "OnInit",
-                Description = "组件数据初始化委托方法",
-                Type = "Func<Task<ChartDataSource>>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
                 Name = "ChartType",
                 Description = "设置图表类型",
                 Type = "ChartType",
-                ValueList = "Line|Bar",
+                ValueList = "Line|Bar|Pie|Doughnut|Bubble",
                 DefaultValue = "Line"
-            }
+            },
         };
     }
 }

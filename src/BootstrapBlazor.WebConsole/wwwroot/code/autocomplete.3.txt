@@ -1,0 +1,1 @@
+﻿<AutoComplete Items="@StaticItems" NoDataTip="没有找到你想要的数据" />

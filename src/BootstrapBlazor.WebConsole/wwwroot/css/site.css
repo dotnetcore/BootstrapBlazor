@@ -447,6 +447,36 @@ section {
     display: block;
 }
 
+.circle-demo {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+}
+
+    .circle-demo h1 {
+        font-size: 26px;
+        font-weight: 400;
+    }
+
+    .circle-demo i {
+        font-style: normal;
+        color: #3f414d;
+    }
+
+.drawer-demo .form-checkbox {
+    margin-right: 1rem;
+}
+
+.drawer-demo .form-radio-group .form-checkbox:not(:first-child) {
+    margin-left: 0;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;

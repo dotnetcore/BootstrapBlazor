@@ -74,6 +74,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowProgress",
+                Description = "是否显示上传进度",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "Width",
                 Description = "预览框宽度",
                 Type = "int",
@@ -116,6 +123,13 @@ namespace BootstrapBlazor.WebConsole.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "IsStack",
+                Description = "是否为堆砌效果",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "AllowFileType",
                 Description = "设置允许上传文件扩展名 设置 file 控件的 accept 属性",
                 Type = "string",
@@ -129,27 +143,32 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = "—",
                 DefaultValue = "0"
             },
-            new AttributeItem() {
+        };
+
+        /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
                 Name = "OnUploaded",
-                Description = "文件成功上传后回调此委托",
-                Type = "Action<string>",
-                ValueList = "—",
-                DefaultValue = "—"
+                Description="文件成功上传后回调此委托",
+                Type ="Action<string>"
             },
-            new AttributeItem() {
+            new EventItem()
+            {
                 Name = "OnRemoved",
-                Description = "文件成功删除后回调此委托",
-                Type = "Action<string>",
-                ValueList = "—",
-                DefaultValue = "—"
+                Description="文件成功删除后回调此委托",
+                Type ="Action<string>"
             },
-            new AttributeItem() {
+            new EventItem()
+            {
                 Name = "OnFailed",
-                Description = "文件上传失败后回调此委托",
-                Type = "Action<string>",
-                ValueList = "—",
-                DefaultValue = "—"
-            }
+                Description="文件上传失败后回调此委托",
+                Type ="Action<string>"
+            },
         };
     }
 }

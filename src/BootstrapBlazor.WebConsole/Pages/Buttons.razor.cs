@@ -94,13 +94,6 @@ namespace BootstrapBlazor.WebConsole.Pages
                 ValueList = " — ",
                 DefaultValue = "true"
             },
-            new AttributeItem() {
-                Name = "Size",
-                Description = "尺寸",
-                Type = "Size",
-                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                DefaultValue = "None"
-            },
         };
 
         /// <summary>

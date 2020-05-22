@@ -1,0 +1,1 @@
+<Select TItem="string" Color="Color.Primary" Items="@GroupItems" />

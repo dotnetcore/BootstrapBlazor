@@ -45,7 +45,10 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Radio Items="@Items" OnStateChanged="@OnItemChanged"></Radio>
+                <Radio Items="@Items" @bind-Value="@BindRadioItem" OnStateChanged="@OnItemChanged"></Radio>
+            </div>
+            <div class="form-group col-12">
+                <div>Text: @BindRadioItem.Text Value: @BindRadioItem.Value</div>
             </div>
         </div>
     </div>

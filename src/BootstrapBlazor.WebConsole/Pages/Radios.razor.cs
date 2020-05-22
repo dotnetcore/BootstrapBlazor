@@ -47,11 +47,13 @@ namespace BootstrapBlazor.WebConsole.Pages
         /// <summary>
         /// 
         /// </summary>
-        private IEnumerable<SelectedItem> Items => new SelectedItem[]
+        private IEnumerable<SelectedItem> Items { get; set; } = new SelectedItem[]
         {
             new SelectedItem("1", "北京") { Active = true },
             new SelectedItem("2", "上海")
         };
+
+        private SelectedItem BindRadioItem = new SelectedItem();
 
         /// <summary>
         /// 
