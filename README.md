@@ -48,18 +48,24 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ## 项目截图
 
-![Toggle](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
-![Toast](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
-![Upload](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload.png "Upload.png")
-![Upload2](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload2.png "Upload2.png")
-![Bar](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Bar.png "Bar.png")
-![Pei](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
-![Doughnut](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
+![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
+![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
+![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload.png "Upload.png")
+![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload2.png "Upload2.png")
+![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Bar.png "Bar.png")
+![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
+![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
 
 ## 开源协议
 [![Gitee license](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/LICENSE)
 
 ## 特别鸣谢
+
+### 上海智通建设发展股份有限公司
+
+特别鸣谢胡总对本项目的鼎力赞助 **10000** 元
+
+<img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Donate@x2.png" width="552px;" />
 
 ## 参与贡献
 
