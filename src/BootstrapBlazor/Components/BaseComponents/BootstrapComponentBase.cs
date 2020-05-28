@@ -17,26 +17,10 @@ namespace BootstrapBlazor.Components
         public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
         /// <summary>
-        /// 组件初始化回调方法 用户扩展
-        /// </summary>
-        [Parameter]
-        public Action<BootstrapComponentBase>? OnInitializedCallback { get; set; }
-
-        /// <summary>
         /// 获得/设置 IJSRuntime 实例
         /// </summary>
-        [Inject] protected IJSRuntime? JSRuntime { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            // 调用订阅信息
-            OnInitializedCallback?.Invoke(this);
-        }
+        [Inject]
+        protected IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
         /// Dispose 方法
