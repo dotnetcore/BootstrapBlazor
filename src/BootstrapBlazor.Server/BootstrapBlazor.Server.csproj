@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <IsWebProject>true</IsWebProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Longbow.Tasks" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

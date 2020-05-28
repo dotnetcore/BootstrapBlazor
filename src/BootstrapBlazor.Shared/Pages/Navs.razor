@@ -1,0 +1,75 @@
+﻿@page "/navs"
+
+<h3>Nav 导航组件</h3>
+
+<h4>为网站提供导航功能的菜单。</h4>
+
+<Block Title="基本导航样式" Introduction="本例中通过设置 <code>Items</code> 属性，通过程序 api 对导航组件进行赋值，并且在导航组件的 <code>ChildContext</code> 中直接写入 <code>NavLink</code> 组件" CodeFile="nav.1.html">
+    <Nav Items="@Items">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+</Block>
+
+<Block Title="对齐" Introduction="通过设置 <code>Alignment</code> 属性来控制组件对齐方式" CodeFile="nav.2.html">
+    <Nav Items="@Items" Alignment="Alignment.Center">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+    <Divider Text="分割线" />
+    <Nav Items="@Items" Alignment="Alignment.Right">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+</Block>
+
+<Block Title="垂直" Introduction="本例中通过设置 <code>IsVertical</code> 属性控制导航是否为垂直分布" CodeFile="nav.3.html">
+    <Nav Items="@Items" IsVertical="true">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+    <Divider Text="分割线" />
+    <Nav Items="@Items" IsVertical="true" Alignment="Alignment.Right">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+</Block>
+
+<Block Title="胶囊式" Introduction="通过设置 <code>IsPills</code> 属性控制导航菜单背景色" CodeFile="nav.4.html">
+    <Nav Items="@Items" IsPills="true">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+</Block>
+
+<Block Title="填充和对齐" Introduction="通过设置 <code>IsFill</code> 属性控制导航菜单均匀分布填满整个导航栏" CodeFile="nav.5.html">
+    <Nav Items="@Items" IsPills="true" IsFill="true">
+        <a class="nav-link nav-item active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link nav-item" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link nav-item" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link nav-item disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+</Block>
+
+<Block Title="等宽" Introduction="通过设置 <code>IsJustified</code> 属性使每个导航项目将具有相同的宽度。" CodeFile="nav.6.html">
+    <Nav Items="@Items" IsPills="true" IsFill="true" IsJustified="true">
+        <a class="nav-link nav-item active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link nav-item" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link nav-item" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link nav-item disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

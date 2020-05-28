@@ -1,0 +1,87 @@
+﻿@page "/dropdowns"
+
+<h3>Dropdown 下拉菜单</h3>
+
+<h4>将动作或菜单折叠到下拉菜单中</h4>
+
+<Block Title="基础用法" Introduction="使用 <code>TagName='a'</code> 开启带有 button 标签的下拉表" CodeFile="dropdown.1.html">
+    <Dropdown TItem="string" Items="Items" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="Dropdown 空下拉菜单" Introduction="允许空 <code>Items</code> 存在的下拉菜单" CodeFile="dropdown.1.html">
+    <Dropdown TItem="string" Items="EmptyList" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
+</Block>
+
+<Block Title="带有颜色的下拉框" Introduction='提供各种颜色的警告信息框 引用 <code>Color="Color.Primary"</code> 等颜色及样式类来定义下拉菜单的外在表现' CodeFile="dropdown.2.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Color="Color.Primary"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Color="Color.Secondary"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Color="Color.Info"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Color="Color.Warning"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Color="Color.Danger"></Dropdown></div>
+    </div>
+</Block>
+
+<Block Title="分裂式按钮下拉菜单" Introduction='可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 ShowSplit="true"(使用分裂式组件时需要加上 <code>DropdownType="DropdownType.ButtonGroup </code>") 插入此符号为下拉选项作适当的间隔（距）处理。' CodeFile="dropdown.3.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Primary"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Secondary"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Info"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Warning"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Danger"></Dropdown></div>
+    </div>
+</Block>
+
+<Block Title="尺寸大小定义" Introduction="下拉菜单有各种大小规格可以选用 <code>Size</code> 属性，包括预设及分裂式按钮下拉菜单。" CodeFile="dropdown.4.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Size="Size.ExtraSmall"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Size="Size.Small"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Size="Size.Medium"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Size="Size.Large"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Size="Size.ExtraLarge"></Dropdown></div>
+    </div>
+</Block>
+
+<Block Title="展开方向" Introduction='增加 <code>Direction="Direction.Dropup" </code> 样式，使下拉菜单向上展开。' CodeFile="dropdown.5.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Direction="Direction.Dropleft"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Direction="Direction.Dropup"></Dropdown></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Direction="Direction.Dropright"></Dropdown></div>
+    </div>
+</Block>
+
+<Block Title="菜单对齐" Introduction='默认情况下，一个下拉菜单自动从顶部和左侧的父级100％定位。添加.dropdown-menu-right 到.dropdown-menu右侧轻松对齐下拉菜单。' CodeFile="dropdown.6.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TItem="string" Items="Items" Color="Color.Secondary" MenuAlignment="Alignment.Right"></Dropdown></div>
+    </div>
+</Block>
+
+<Block Title="绑定数据源" Introduction='点击右侧按钮时，下拉框内菜单项会增加' CodeFile="dropdown.7.html">
+    <div class="row">
+        <div class="form-group col-12 col-sm-6">
+            <Dropdown TItem="string" Items="@BindItems">
+            </Dropdown>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <Button @onclick="@AddItem">添加</Button>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定数据源" Introduction="改变选项时，下拉框内菜单项会增加" CodeFile="dropdown.8.html">
+    <div class="row">
+        <div class="form-group col-12">
+            <Radio Items="@RadioItems" OnStateChanged="@OnRadioItemChanged">
+            </Radio>
+        </div>
+        <div class="form-group col-12">
+            <Dropdown TItem="string" Items="@RadioDropDownItems">
+            </Dropdown>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

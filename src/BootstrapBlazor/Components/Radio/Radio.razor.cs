@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -14,7 +15,7 @@ namespace BootstrapBlazor.Components
             }
         };
 
-        private void OnChanged(CheckboxState state, SelectedItem val)
+        private async Task OnChanged(CheckboxState state, SelectedItem val)
         {
             // 子选项点击后，更新其余组件
             if (!IsDisabled)
@@ -31,8 +32,8 @@ namespace BootstrapBlazor.Components
                 }
 
                 // 触发外界 OnStateChanged 事件
-                OnStateChanged?.Invoke(state, val);
-                if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(val);
+                if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(val);
+                if (OnStateChanged != null) await OnStateChanged.Invoke(state, val);
             }
         }
     }

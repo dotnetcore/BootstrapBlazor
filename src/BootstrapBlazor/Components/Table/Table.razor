@@ -9,8 +9,8 @@
             <TableToolbar>
                 @if (ShowDefaultButtons)
                 {
-                    <TableToolbarButton Color="Color.Success" OnClick="@Add" ButtonIcon="fa fa-plus" ButtonText="新建" />
-                    <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@Delete" Icon="fa fa-remove" DisplayText="删除" />
+                    <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" ButtonIcon="fa fa-plus" ButtonText="新建" />
+                    <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" Icon="fa fa-remove" DisplayText="删除" />
                     <TableToolbarButton Color="Color.Primary" OnClick="@Edit" ButtonIcon="fa fa-pencil" ButtonText="编辑" />
                 }
                 @TableToolbarTemplate
@@ -18,7 +18,7 @@
             @if (ShowRefresh)
             {
                 <div class="float-right table-toolbar-button table-column-right">
-                    <button class="btn btn-secondary" type="button" title="刷新" @onclick="@Query">
+                    <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
                         <i class="fa fa-refresh"></i><span class="d-none d-sm-inline-block">刷新</span>
                     </button>
                 </div>
@@ -28,7 +28,7 @@
         {
             <div class="float-right table-toolbar-button btn-group">
                 <div class="input-group">
-                    <BootstrapInput TItem="string" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
+                    <BootstrapInput TItem="string" class="table-toolbar-search" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                     </BootstrapInput>
                     <div class="input-group-append">
@@ -61,7 +61,7 @@
                             </div>
                         </th>
                     }
-                    <TableColumnCollection OnSort="@OnSort">
+                    <TableColumnCollection OnSortAsync="@OnSortAsync">
                         <TableColumnContent />
                         @HeaderTemplate?.Invoke(HeaderModel)
                     </TableColumnCollection>
@@ -76,34 +76,37 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int index = 0; index < Items.Count(); index++)
+                @if (Items != null)
                 {
-                    <tr>
-                        @if (ShowCheckbox)
-                        {
-                            <td>
-                                <div class="table-cell">
-                                    <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck" OnInitializedCallback="@OnItemCheckboxInit"></Checkbox>
-                                </div>
-                            </td>
-                        }
-                        @RowTemplate?.Invoke(Items.ElementAt(index))
-                        @if (ShowExtendButtons)
-                        {
-                            <td>
-                                <div class="table-cell">
-                                    <div class="btn-group">
-                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e=> ClickButton(e))">
-                                            <i class='fa fa-edit'></i>
-                                            <span>编辑</span>
-                                        </TableCellButton>
-                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@Delete" />
-                                        @RowButtonTemplate?.Invoke(Items.ElementAt(index))
+                    @for (int index = 0; index < Items.Count(); index++)
+                    {
+                        <tr>
+                            @if (ShowCheckbox)
+                            {
+                                <td>
+                                    <div class="table-cell">
+                                        <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck" OnInitializedCallback="@OnItemCheckboxInit"></Checkbox>
                                     </div>
-                                </div>
-                            </td>
-                        }
-                    </tr>
+                                </td>
+                            }
+                            @RowTemplate?.Invoke(Items.ElementAt(index))
+                            @if (ShowExtendButtons)
+                            {
+                                <td>
+                                    <div class="table-cell">
+                                        <div class="btn-group">
+                                            <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e=> ClickButton(e))">
+                                                <i class='fa fa-edit'></i>
+                                                <span>编辑</span>
+                                            </TableCellButton>
+                                            <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
+                                            @RowButtonTemplate?.Invoke(Items.ElementAt(index))
+                                        </div>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    }
                 }
             </tbody>
             @if (ShowFooter)
@@ -121,7 +124,7 @@
         </div>
     }
 
-    @if (OnSave != null || OnSaveAsync != null || OnAdd != null || OnAddAsync != null)
+    @if (OnSaveAsync != null || OnAddAsync != null)
     {
         <Modal @ref="EditModal">
             <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">

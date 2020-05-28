@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -19,7 +20,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 排序回调方法
         /// </summary>
-        [Parameter] public Action<string, SortOrder>? OnSort { get; set; }
+        [Parameter] public Func<string, SortOrder, Task>? OnSortAsync { get; set; }
 
         /// <summary>
         /// 获得 表头集合

@@ -22,15 +22,6 @@ namespace BootstrapBlazor.Components
         protected CollapseBase? Collapse { get; set; }
 
         /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
-        {
-            base.OnAfterRender(firstRender);
-        }
-
-        /// <summary>
         /// BuildRenderTree 方法
         /// </summary>
         /// <param name="builder"></param>

@@ -1,0 +1,20 @@
+@page "/rates"
+
+<h3>Rate 评分</h3>
+
+<h4>评分组件</h4>
+
+<Block Title="基本用法" Introduction="<code>Rate</code> 组件通过 1 - 5 颗星表示数值等级，后台可以通过 <code>bind-Value</code> 对数值进行双向绑定通过 <code>Rate</code> 组件更改其值，鼠标滑动更改值，点击星星时确认其值" CodeFile="rate.1.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Rate Value="@BindValue" ValueChanged="@OnValueChanged" />
+            </div>
+        </div>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

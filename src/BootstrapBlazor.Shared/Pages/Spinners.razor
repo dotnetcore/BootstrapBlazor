@@ -1,0 +1,71 @@
+﻿@page "/spinners"
+
+<h3>Spinner 旋转图标</h3>
+
+<h4>加载数据时显示动效</h4>
+
+<p>
+    <b>何时使用</b>
+    <br />
+    页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。
+</p>
+
+<Block Title="基础用法" Introduction="默认旋转图标" CodeFile="spinner.1.html">
+    <Spinner></Spinner>
+</Block>
+
+<Block Title="Spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标" CodeFile="spinner.2.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Primary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Secondary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Success"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Danger"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Warning"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Info"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Light"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Dark"></Spinner></div>
+    </div>
+</Block>
+
+<Block Title="Growing Spinner 旋转图标" Introduction="生长式旋转图标" CodeFile="spinner.3.html">
+    <Spinner SpinnerType="SpinnerType.Grow"></Spinner>
+</Block>
+
+<Block Title="Growing Spinner 带有颜色的旋转图标" Introduction="提供基本颜色的旋转图标" CodeFile="spinner.4.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Success"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Danger"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Warning"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Info"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Light"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Dark"></Spinner></div>
+    </div>
+</Block>
+
+<Block Title="Spinner 旋转图标大小" Introduction="图标样式大小" CodeFile="spinner.5.html">
+    <div class="row">
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small"></Spinner></div>
+        <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small" SpinnerType="SpinnerType.Grow"></Spinner></div>
+    </div>
+</Block>
+
+<Block Title="Spinner Flex" Introduction="自定义布局" CodeFile="spinner.6.html">
+    <div class="d-flex justify-content-center">
+        <Spinner></Spinner>
+    </div>
+</Block>
+
+<Block Title="Spinner Flex" Introduction="带有文字的自定义布局" CodeFile="spinner.7.html">
+    <div class="d-flex align-items-center">
+        <strong>Loading...</strong>
+        <Spinner Class="ml-auto"></Spinner>
+    </div>
+</Block>
+
+<Block Title="Spinner Floats" Introduction="使用 Float 布局" CodeFile="spinner.8.html">
+    <Spinner Class="float-right"></Spinner>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

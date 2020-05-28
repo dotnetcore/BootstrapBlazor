@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -44,12 +45,6 @@ namespace BootstrapBlazor.Components
         public EventCallback<DateTime> ValueChanged { get; set; }
 
         /// <summary>
-        /// 获得/设置 值改变时回调委托
-        /// </summary>
-        [Parameter]
-        public Action<DateTime>? OnValueChanged { get; set; }
-
-        /// <summary>
         /// OnInitialized
         /// </summary>
         protected override void OnInitialized()
@@ -63,11 +58,10 @@ namespace BootstrapBlazor.Components
         /// 选中日期时回调此方法
         /// </summary>
         /// <param name="d"></param>
-        protected void OnClickDay(DateTime d)
+        protected async Task OnClickDay(DateTime d)
         {
             Value = d;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
             StateHasChanged();
         }
 

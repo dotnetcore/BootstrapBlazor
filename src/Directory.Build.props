@@ -5,8 +5,7 @@
     <PropertyGroup>
         <RepositoryUrl>https://gitee.com/LongbowEnterprise/BootstrapBlazor.git</RepositoryUrl>
         <PackageProjectUrl>https://gitee.com/LongbowEnterprise/BootstrapBlazor</PackageProjectUrl>
-        <PackageIconUrl>https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/master/Logo/BootstrapBlazor.png</PackageIconUrl>
-        <PackageTags>Bootstrap Blazor</PackageTags>
+        <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
         <Description>Bootstrap UI components for Blazor and Razor Components</Description>
         <RepositoryType>git</RepositoryType>
         <Nullable>enable</Nullable>

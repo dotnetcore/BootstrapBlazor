@@ -57,14 +57,14 @@ namespace BootstrapBlazor.Components
                     // 如果允许排序
                     if (header.Sort)
                     {
-                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, () =>
+                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, async () =>
                         {
                             if (sortName != fieldName) sortOrder = SortOrder.Asc;
                             else sortOrder = sortOrder == SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc;
                             sortName = fieldName;
 
                             // 通知 Table 组件刷新数据
-                            Columns.OnSort?.Invoke(sortName, sortOrder);
+                            if (Columns.OnSortAsync != null) await Columns.OnSortAsync.Invoke(sortName, sortOrder);
                         }));
                         builder.AddAttribute(index++, "class", "sortable");
                     }

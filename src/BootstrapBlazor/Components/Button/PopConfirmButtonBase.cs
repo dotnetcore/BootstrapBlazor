@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -27,7 +28,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 点击确认时回调方法
         /// </summary>
-        [Parameter] public Action? OnConfirm { get; set; }
+        [Parameter] public Func<Task>? OnConfirm { get; set; }
 
         /// <summary>
         /// 获得/设置 点击关闭时回调方法
@@ -109,10 +110,10 @@ namespace BootstrapBlazor.Components
                     Icon = ConfirmIcon,
                     OnConfirm = OnConfirm,
                     OnClose = OnClose,
-                    Callback = new Action(() =>
+                    Callback = new Action(async () =>
                     {
                         // 调用 JS 进行弹窗 等待 弹窗点击确认回调
-                        JSRuntime.Invoke(Id, "confirm");
+                        if (JSRuntime != null) await JSRuntime.Invoke(Id, "confirm");
                     })
                 });
             }

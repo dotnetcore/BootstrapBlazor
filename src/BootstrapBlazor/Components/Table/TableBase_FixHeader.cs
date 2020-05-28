@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -27,12 +28,14 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender && Height.HasValue)
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender && Height.HasValue && JSRuntime != null)
             {
                 // 固定表头脚本关联
-                JSRuntime.Invoke(TableWrapper, "fixTableHeader");
+                await JSRuntime.Invoke(TableWrapper, "fixTableHeader");
             }
         }
     }

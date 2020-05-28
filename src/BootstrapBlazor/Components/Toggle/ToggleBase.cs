@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -15,6 +16,7 @@ namespace BootstrapBlazor.Components
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass("btn-default off", !Value)
             .AddClass("disabled", IsDisabled)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
@@ -67,20 +69,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击控件时触发此方法
         /// </summary>
-        protected virtual void OnClick()
+        protected virtual async Task OnClick()
         {
             if (!IsDisabled)
             {
                 Value = !Value;
-                if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-                OnValueChanged?.Invoke(Value);
+                if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
             }
         }
-
-        /// <summary>
-        /// 获得/设置 控件值变化时触发此事件
-        /// </summary>
-        [Parameter]
-        public Action<bool>? OnValueChanged { get; set; }
     }
 }

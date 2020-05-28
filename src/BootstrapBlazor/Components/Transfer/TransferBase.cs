@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -118,7 +119,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 选项状态改变时回调此方法
         /// </summary>
-        protected void OnSelectedItemsChanged() => StateHasChanged();
+        protected Task OnSelectedItemsChanged()
+        {
+            StateHasChanged();
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// 获得按钮是否可用

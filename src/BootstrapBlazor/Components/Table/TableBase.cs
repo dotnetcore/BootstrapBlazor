@@ -86,28 +86,27 @@ namespace BootstrapBlazor.Components
             {
                 PageItems = PageItemsSource?.FirstOrDefault() ?? QueryPageOptions.DefaultPageItems;
 
-                if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQuery)} or {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(IsPagination)} be set True.");
+                if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(IsPagination)} be set True.");
             }
 
             // 初始化 EditModel
             if (EditModel == null)
             {
-                if (OnAdd != null) EditModel = OnAdd();
-                else if (OnAddAsync != null) EditModel = await OnAddAsync();
+                if (OnAddAsync != null) EditModel = await OnAddAsync();
                 else new TItem();
             }
 
             // 设置 OnSort 回调方法
-            OnSort = new Action<string, SortOrder>((sortName, sortOrder) =>
+            OnSortAsync = new Func<string, SortOrder, Task>(async (sortName, sortOrder) =>
             {
                 (SortName, SortOrder) = (sortName, sortOrder);
-                Query();
+                await QueryAsync();
             });
 
             // 如果未设置 Items 数据源 自动执行查询方法
             if (Items == null)
             {
-                QueryData();
+                await QueryData();
                 if (Items == null) Items = new TItem[0];
             }
         }

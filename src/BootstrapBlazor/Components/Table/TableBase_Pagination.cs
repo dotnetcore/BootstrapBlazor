@@ -18,13 +18,7 @@ namespace BootstrapBlazor.Components
         [Parameter] public IEnumerable<int>? PageItemsSource { get; set; }
 
         /// <summary>
-        /// 点击翻页回调方法
-        /// </summary>
-        [Parameter]
-        public Func<QueryPageOptions, QueryData<TItem>>? OnQuery { get; set; }
-
-        /// <summary>
-        /// 点击翻页异步回调方法
+        /// 异步查询回调方法
         /// </summary>
         [Parameter]
         public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
@@ -49,24 +43,24 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageItems"></param>
-        protected void OnPageClick(int pageIndex, int pageItems)
+        protected async Task OnPageClick(int pageIndex, int pageItems)
         {
             if (pageIndex != PageIndex)
             {
                 PageIndex = pageIndex;
                 PageItems = pageItems;
-                Query();
+                await QueryAsync();
             }
         }
 
         /// <summary>
         /// 每页记录条数变化是调用此方法
         /// </summary>
-        protected void OnPageItemsChanged(int pageItems)
+        protected async Task OnPageItemsChanged(int pageItems)
         {
             PageIndex = 1;
             PageItems = pageItems;
-            Query();
+            await QueryAsync();
         }
     }
 }

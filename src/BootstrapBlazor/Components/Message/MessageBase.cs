@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -60,10 +61,10 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private void Show(MessageOption option)
+        private async Task Show(MessageOption option)
         {
             _messages.Add(option);
-            InvokeAsync(StateHasChanged).ConfigureAwait(false);
+            await InvokeAsync(StateHasChanged);
         }
 
         /// <summary>

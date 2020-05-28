@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -46,7 +47,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private void Show(ToastOption option)
+        private async Task Show(ToastOption option)
         {
             Toasts.Add(option, new RenderFragment(builder =>
             {
@@ -59,17 +60,17 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(index++, nameof(ToastBox.Delay), option.Delay);
                 builder.CloseComponent();
             }));
-            InvokeAsync(StateHasChanged).ConfigureAwait(false);
+            await InvokeAsync(StateHasChanged);
         }
 
         /// <summary>
         /// 清除 ToastBox 方法
         /// </summary>
         [JSInvokable]
-        public void Clear()
+        public async Task Clear()
         {
             Toasts.Clear();
-            InvokeAsync(StateHasChanged).ConfigureAwait(false);
+            await InvokeAsync(StateHasChanged);
         }
 
         /// <summary>

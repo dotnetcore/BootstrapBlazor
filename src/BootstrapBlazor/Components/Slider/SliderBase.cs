@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -70,14 +71,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender && JSRuntime != null)
             {
                 Interop = new JSInterop<SliderBase>(JSRuntime);
-                Interop.Invoke(this, Slider, "slider", nameof(SliderBase.SetValue));
+                await Interop.Invoke(this, Slider, "slider", nameof(SliderBase.SetValue));
             }
         }
 

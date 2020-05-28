@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A2182155-43E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WebConsole", "src\BootstrapBlazor.WebConsole\BootstrapBlazor.WebConsole.csproj", "{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A627F6CC-94FC-4E48-B3CC-F0EA16700527}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{EA765165-0542-41C8-93F2-85787FEDEDFF}"
@@ -44,6 +42,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9437A6C6-C
 		README.zh-CN.md = README.zh-CN.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Server", "src\BootstrapBlazor.Server\BootstrapBlazor.Server.csproj", "{89F0BD3D-6FE1-415E-BD65-F9826833FC14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Shared", "src\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj", "{C1308169-1437-475E-AB7D-EBE47775D10B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WebAssembly.ClientHost", "src\BootstrapBlazor.WebAssembly.ClientHost\BootstrapBlazor.WebAssembly.ClientHost.csproj", "{8610F08D-6532-4090-BCF2-A6CF6B0CED20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WebAssembly.ServerHost", "src\BootstrapBlazor.WebAssembly.ServerHost\BootstrapBlazor.WebAssembly.ServerHost.csproj", "{3AC7445D-0E89-4AF4-BB2B-89B5CF51F13D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dist", "dist", "{63E887C6-4610-4ED3-91F4-62EFDE7F442F}"
+	ProjectSection(SolutionItems) = preProject
+		dist\.gitattributes = dist\.gitattributes
+		dist\.nojekyll = dist\.nojekyll
+		dist\.spa = dist\.spa
+		dist\404.html = dist\404.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wasm", "wasm", "{B84D315E-967D-4FBF-9B72-1F3128155CB0}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\wasm\sync.cmd = scripts\wasm\sync.cmd
+		scripts\wasm\sync.sh = scripts\wasm\sync.sh
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Docs", "src\BootstrapBlazor.Docs\BootstrapBlazor.Docs.csproj", "{C6D0C40F-98F4-4C67-A11E-240571C0B858}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,21 +76,42 @@ Global
 		{D0AE3016-4878-4807-A04C-C33CBEC7B092}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0AE3016-4878-4807-A04C-C33CBEC7B092}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0AE3016-4878-4807-A04C-C33CBEC7B092}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F0BD3D-6FE1-415E-BD65-F9826833FC14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F0BD3D-6FE1-415E-BD65-F9826833FC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F0BD3D-6FE1-415E-BD65-F9826833FC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F0BD3D-6FE1-415E-BD65-F9826833FC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1308169-1437-475E-AB7D-EBE47775D10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1308169-1437-475E-AB7D-EBE47775D10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1308169-1437-475E-AB7D-EBE47775D10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1308169-1437-475E-AB7D-EBE47775D10B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8610F08D-6532-4090-BCF2-A6CF6B0CED20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8610F08D-6532-4090-BCF2-A6CF6B0CED20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8610F08D-6532-4090-BCF2-A6CF6B0CED20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8610F08D-6532-4090-BCF2-A6CF6B0CED20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AC7445D-0E89-4AF4-BB2B-89B5CF51F13D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AC7445D-0E89-4AF4-BB2B-89B5CF51F13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AC7445D-0E89-4AF4-BB2B-89B5CF51F13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AC7445D-0E89-4AF4-BB2B-89B5CF51F13D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D0C40F-98F4-4C67-A11E-240571C0B858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D0C40F-98F4-4C67-A11E-240571C0B858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D0C40F-98F4-4C67-A11E-240571C0B858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D0C40F-98F4-4C67-A11E-240571C0B858}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D0AE3016-4878-4807-A04C-C33CBEC7B092} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
-		{E7D0EDDA-CF63-4844-898D-45AB228C2E5A} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{EA765165-0542-41C8-93F2-85787FEDEDFF} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
 		{4A5226E2-8EBD-4DEA-A1F5-2DF374655FA9} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
 		{1E971D51-59DE-4A99-A885-76A1BA6E2388} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
 		{F0754254-903C-411B-972C-EC91254B4A67} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
+		{89F0BD3D-6FE1-415E-BD65-F9826833FC14} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{C1308169-1437-475E-AB7D-EBE47775D10B} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{8610F08D-6532-4090-BCF2-A6CF6B0CED20} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{3AC7445D-0E89-4AF4-BB2B-89B5CF51F13D} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{B84D315E-967D-4FBF-9B72-1F3128155CB0} = {A627F6CC-94FC-4E48-B3CC-F0EA16700527}
+		{C6D0C40F-98F4-4C67-A11E-240571C0B858} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

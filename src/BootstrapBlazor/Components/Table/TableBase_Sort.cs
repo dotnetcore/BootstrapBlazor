@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class TableBase<TItem>
+    public partial class TableBase<TItem>
     {
         /// <summary>
         /// 获得/设置 排序字段名称
@@ -17,9 +18,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 表头排序时回调方法
         /// </summary>
-        protected Action<string, SortOrder> OnSort { get; set; } = new Action<string, SortOrder>((sortName, sortOrder) =>
-        {
-
-        });
+        protected Func<string, SortOrder, Task> OnSortAsync { get; set; } = new Func<string, SortOrder, Task>((sortName, sortOrder) => Task.CompletedTask);
     }
 }

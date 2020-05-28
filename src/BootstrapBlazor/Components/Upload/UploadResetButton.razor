@@ -1,0 +1,21 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ComponentBase
+
+<button type="button" class="btn btn-primary btn-reset" @onclick="@OnReset">
+    <i class="fa fa-repeat"></i>
+    <span>@Text</span>
+</button>
+
+@code {
+    /// <summary>
+    /// 获得/设置 按钮文字
+    /// </summary>
+    [Parameter]
+    public string Text { get; set; } = "重置";
+
+    /// <summary>
+    /// 点击重置按钮时回调此委托
+    /// </summary>
+    [Parameter]
+    public Func<Task> OnReset { get; set; } = new Func<Task>(() => Task.CompletedTask);
+}

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta content="bootstrap,blazor,wasm,webassembly,UI,netcore,web,assembly" name="Keywords">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <title>Bootstrap Blazor 演示网站</title>
+    <base href="/bootstrapblazor/" />
+    <link rel="stylesheet" href="style/loading.css" />
+    <link rel="stylesheet" href="_content/BootstrapBlazor/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="_content/BootstrapBlazor/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="_content/BootstrapBlazor/lib/chartjs/Chart.min.css" />
+    <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.css" />
+    <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/lib/highlight/vs.css" />
+    <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/css/site.css" />
+</head>
+
+<body class="overflow-hidden">
+    <app></app>
+
+    <div class="loader" id="loading">
+        <div class="logo">
+            <div class="one common"></div>
+            <div class="two common"></div>
+            <div class="three common"></div>
+            <div class="four common"></div>
+            <div class="five common"></div>
+            <div class="six common"></div>
+            <div class="seven common"></div>
+            <div class="eight common"></div>
+        </div>
+        <div class="intro">
+            <img src="_content/BootstrapBlazor.Shared/images/brand.png" />
+            <span>精彩即将呈现</span>
+        </div>
+        <div class="bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss"><i class="fa fa-times"></i></a>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/BootstrapBlazor/lib/jquery/jquery.min.js"></script>
+    <script src="_content/BootstrapBlazor/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="_content/BootstrapBlazor/lib/chartjs/Chart.bundle.min.js"></script>
+    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.js"></script>
+    <script src="_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js"></script>
+    <script src="_content/BootstrapBlazor.Shared/js/common.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+﻿<Button @onclick="@OnClick">点击打开 Dialog</Button>
+
+<Dialog></Dialog>
+
+@code {
+    /// <summary>
+    /// 获得 DialogService 实例
+    /// </summary>
+    [Inject]
+    private DialogService? DialogService { get; set; }
+
+    /// <summary>
+    /// 点击按钮调用 Dialog 服务
+    /// </summary>
+    /// <returns></returns>
+    private Task OnClick()
+    {
+        DialogService?.Show(new DialogOption()
+        {
+            Title = "我是服务创建的弹出框",
+            BodyTemplate = new RenderFragment(builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<Button>(index++);
+                builder.AddAttribute(index++, nameof(Button.ChildContent), new RenderFragment(builder =>
+                {
+                    builder.AddContent(0, "服务创建的按钮");
+                }));
+                builder.CloseComponent();
+            })
+        });
+        return Task.CompletedTask;
+    }
+}

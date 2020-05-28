@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class TableBase<TItem>
+    public partial class TableBase<TItem>
     {
         /// <summary>
         /// 获得 高级搜索样式
@@ -61,11 +61,6 @@ namespace BootstrapBlazor.Components
         [Parameter] public EventCallback<string> SearchTextChanged { get; set; }
 
         /// <summary>
-        /// 重置搜索按钮回调方法
-        /// </summary>
-        [Parameter] public Action<TItem>? OnResetSearch { get; set; }
-
-        /// <summary>
         /// 重置搜索按钮异步回调方法
         /// </summary>
         [Parameter] public Func<TItem, Task>? OnResetSearchAsync { get; set; }
@@ -73,21 +68,20 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 重置查询方法
         /// </summary>
-        protected void ResetSearchClick()
+        protected async Task ResetSearchClick()
         {
-            if (OnResetSearch != null) OnResetSearch.Invoke(SearchModel);
-            else if (OnResetSearchAsync != null) OnResetSearchAsync(SearchModel).GetAwaiter().GetResult();
-            SearchClick();
+            if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
+            await SearchClick();
         }
 
         /// <summary>
         /// 查询方法
         /// </summary>
-        protected void SearchClick()
+        protected async Task SearchClick()
         {
             // 查询控件按钮触发此事件
             PageIndex = 1;
-            Query();
+            await QueryAsync();
         }
 
         /// <summary>
@@ -102,27 +96,28 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 重置搜索按钮调用此方法
         /// </summary>
-        protected void ClearSearchClick()
+        protected async Task ClearSearchClick()
         {
             SearchText = "";
             PageIndex = 1;
-            Query();
+            if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
+            await QueryAsync();
         }
 
         /// <summary>
         /// 搜索文本框按键回调方法
         /// </summary>
         /// <param name="e"></param>
-        protected void OnKeyUp(KeyboardEventArgs e)
+        protected async Task OnKeyUp(KeyboardEventArgs e)
         {
             // Enter Escape
             if (e.Key == "Enter")
             {
-                SearchClick();
+                await SearchClick();
             }
             else if (e.Key == "Escape")
             {
-                ClearSearchClick();
+                await ClearSearchClick();
             }
         }
     }

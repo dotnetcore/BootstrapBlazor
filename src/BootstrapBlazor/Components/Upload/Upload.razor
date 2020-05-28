@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits UploadBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName" @ref="UploaderElement" data-url="@UploadUrl">
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement" data-url="@UploadUrl">
     @if (IsStack)
     {
         <div tabindex="0" class="upload-button">
@@ -9,6 +9,10 @@
                 <i class="@Icon"></i>
                 <span>@Text</span>
             </button>
+            @if (ShowReset)
+            {
+                <UploadResetButton Text="@ResetText" OnReset="@Reset" />
+            }
         </div>
     }
     <div class="upload-body">
@@ -67,6 +71,10 @@
                 <i class="@Icon"></i>
                 <span>@Text</span>
             </button>
+            @if (ShowReset)
+            {
+                <UploadResetButton Text="@ResetText" OnReset="@Reset" />
+            }
         </div>
     }
     <input type="file" hidden multiple="@MultipleString" class="upload-input" accept="@AllowFileType">

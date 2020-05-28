@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -38,11 +39,11 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         [Parameter]
-        public Action<DateTime>? OnClick { get; set; }
+        public Func<DateTime, Task>? OnClick { get; set; }
 
-        private void OnClickDay()
+        private async Task OnClickDay()
         {
-            OnClick?.Invoke(Value);
+            if(OnClick!= null) await OnClick.Invoke(Value);
         }
     }
 }

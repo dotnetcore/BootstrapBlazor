@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 时间选择滚轮单元组件
     /// </summary>
-    partial class TimePickerCell
+    public partial class TimePickerCell
     {
         /// <summary>
         /// 获得 当前样式名称
@@ -69,11 +70,6 @@ namespace BootstrapBlazor.Components
         [Parameter] public EventCallback<TimeSpan> ValueChanged { get; set; }
 
         /// <summary>
-        /// 获得/设置 时间值改变时回调此方法
-        /// </summary>
-        [Parameter] public Action<TimeSpan>? OnValueChanged { get; set; }
-
-        /// <summary>
         /// 获得/设置 时间刻度行高
         /// </summary>
         [Parameter] public Func<double>? ItemHeightCallback { get; set; }
@@ -81,7 +77,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 上翻页按钮调用此方法
         /// </summary>
-        protected void OnClickUp()
+        protected async Task OnClickUp()
         {
             var ts = ViewModel switch
             {
@@ -91,15 +87,21 @@ namespace BootstrapBlazor.Components
                 _ => TimeSpan.Zero
             };
             Value = Value.Subtract(ts);
-            if (Value < TimeSpan.Zero) Value = Value.Add(TimeSpan.FromHours(24));
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (Value < TimeSpan.Zero)
+            {
+                Value = Value.Add(TimeSpan.FromHours(24));
+            }
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
         }
 
         /// <summary>
         /// 下翻页按钮调用此方法
         /// </summary>
-        protected void OnClickDown()
+        protected async Task OnClickDown()
         {
             var ts = ViewModel switch
             {
@@ -109,9 +111,15 @@ namespace BootstrapBlazor.Components
                 _ => TimeSpan.Zero
             };
             Value = Value.Add(ts);
-            if (Value.Days > 0) Value = Value.Subtract(TimeSpan.FromDays(1));
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (Value.Days > 0)
+            {
+                Value = Value.Subtract(TimeSpan.FromDays(1));
+            }
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
         }
 
         private double CalcTranslateY()

@@ -486,6 +486,26 @@
         }
     };
 
+    _proto.resetall = function () {
+        // 服务器端调用重置组件
+        if (this.iswall || this.multiple) {
+            this.$element.find('.upload-body .upload-prev.is-load, .upload-body .upload-prev.is-file').remove();
+        }
+        else {
+            var $prev = this.$element.find('.upload-body .upload-prev');
+            $prev.find('img').removeClass('d-block');
+            $prev.find('.fa-plus').removeClass('d-none')
+            $prev.removeClass('is-upload is-invalid is-valid is-load is-file');
+            $prev.removeAttr('data-file');
+            $prev.find('.upload-prev-progress-cur').css({ "width": "0" });
+            $prev.find('.upload-prev-progress-text').html('0 %');
+
+            if (this.iscircle) {
+                this.toggleCircle($prev, false);
+            }
+        }
+    };
+
     _proto.fileSelected = function () {
         var that = this;
 
@@ -565,7 +585,6 @@
     };
 
     _proto.createIcon = function (type) {
-        console.log(type);
         var $icon = $('<i class="fa"></fa>');
         if (type === "application/x-zip-compressed") {
             $icon.addClass('fa-file-archive-o');
@@ -690,9 +709,9 @@
                     if (v.originFileName == file.name) {
                         $prev.addClass('is-upload is-valid');
                         $prev.removeClass('is-invalid is-uploading');
-                        if (!$prev.hasClass("is-file")) $prev.find('img').attr('src', v.prevUrl);
+                        if (!$prev.hasClass("is-file")) $prev.find('img').attr('src', v.prevUrl + "?v=" + $.getUID());
                         $prev.attr('data-file', v.fileName);
-                        that.options.remoteObj.obj.invokeMethodAsync(that.options.remoteObj.complete, file.name);
+                        that.options.remoteObj.obj.invokeMethodAsync(that.options.remoteObj.complete, file.name, v.prevUrl);
                     }
 
                     if (that.iscard) {
@@ -743,9 +762,19 @@
         });
 
         xhr.open("POST", this.url);
-        xhr.send(fd);
 
-        $prev.removeClass('is-active').addClass('is-uploading');
+        // setHeader
+        var methodName = this.options.remoteObj.setHeaders;
+        this.options.remoteObj.obj.invokeMethodAsync(methodName).then(function (headers) {
+            if ($.isArray(headers)) {
+                $.each(headers, function () {
+                    xhr.setRequestHeader(this.name, this.value);
+                })
+            }
+            xhr.send(fd);
+
+            $prev.removeClass('is-active').addClass('is-uploading');
+        });
     };
 
     function UploaderPlugin(option) {
@@ -755,6 +784,12 @@
             var options = typeof option === 'object' && option;
 
             if (!data) $this.data(Uploader.DATA_KEY, data = new Uploader(this, options));
+
+            // 支持 reset 方法
+            if (typeof option === 'string') {
+                if (/Reset/.test(option))
+                    data['resetall'].apply(data);
+            }
         });
     }
 
@@ -785,9 +820,6 @@
             do prefix += ~~(Math.random() * 1000000);
             while (document.getElementById(prefix));
             return prefix;
-        },
-        run: function (code) {
-            eval(code);
         },
         showMessage: function (el, obj, method) {
             if (!window.Messages) window.Messages = [];
@@ -1018,6 +1050,10 @@
             });
             $button.popover('show');
         },
+        modal: function (el, method) {
+            var $el = $(el);
+            $el.modal(method);
+        },
         fixTableHeader: function (el) {
             var $ele = $(el);
             var $thead = $ele.find('thead');
@@ -1070,10 +1106,15 @@
             options.remoteObj = { obj, method };
             $(el).sliderCaptcha(options);
         },
-        uploader: function (el, obj, complete, check, del, failed) {
-            options = {};
-            options.remoteObj = { obj, complete, check, del, failed };
-            $(el).uploader(options);
+        uploader: function (el, obj, complete, check, del, failed, setHeaders) {
+            if (complete) {
+                options = {};
+                options.remoteObj = { obj, complete, check, del, failed, setHeaders };
+                $(el).uploader(options);
+            }
+            else {
+                $(el).uploader(obj);
+            }
         },
         getChartOption: function (option) {
             var colors = [];

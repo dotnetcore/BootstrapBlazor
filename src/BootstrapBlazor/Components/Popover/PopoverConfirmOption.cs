@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -10,7 +11,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 确认回调方法
         /// </summary>
-        public Action? OnConfirm { get; set; }
+        public Func<Task>? OnConfirm { get; set; }
         /// <summary>
         /// 获得/设置 关闭回调方法
         /// </summary>

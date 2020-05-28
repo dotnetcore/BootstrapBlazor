@@ -8,7 +8,8 @@
             <i class="fa fa-calendar"></i>
         </span>
     </div>
-    <DatePickerBody @bind-Value="@CurrentValue" OnValueChanged="@OnValueChanged" OnClickConfirm="@OnClickConfirm"
+    <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull"                                                
+                    OnConfirm="@OnConfirm" OnClear="@OnClear"
                     ViewModel="@ViewModel" ShowFooter="@ShowFooter">
     </DatePickerBody>
 </div>

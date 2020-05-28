@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -46,7 +47,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 选项状态变化时回调方法
         /// </summary>
-        [Parameter] public Action? OnSelectedItemsChanged { get; set; }
+        [Parameter] public Func<Task>? OnSelectedItemsChanged { get; set; }
 
         /// <summary>
         /// 头部复选框初始化值方法
@@ -62,13 +63,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 左侧头部复选框初始化值方法
         /// </summary>
-        protected void OnHeaderCheck(CheckboxState state, SelectedItem item)
+        protected async Task OnHeaderCheck(CheckboxState state, SelectedItem item)
         {
             if (Items != null)
             {
                 if (state == CheckboxState.Checked) Items.ToList().ForEach(i => i.Active = true);
                 else Items.ToList().ForEach(i => i.Active = false);
-                OnSelectedItemsChanged?.Invoke();
+                if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke();
             }
         }
 
@@ -87,13 +88,13 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.Value), item);
                 builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.DisplayText), item.Text);
                 builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.State), item.Active ? CheckboxState.Checked : CheckboxState.UnChecked);
-                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.OnStateChanged), new Action<CheckboxState, SelectedItem>((state, i) =>
+                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.OnStateChanged), new Func<CheckboxState, SelectedItem, Task>(async (state, i) =>
                 {
                     // trigger when transfer item clicked
                     i.Active = state == CheckboxState.Checked;
 
                     // set header
-                    OnSelectedItemsChanged?.Invoke();
+                    if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke();
                 }));
                 builder.CloseComponent();
             }

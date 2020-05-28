@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -19,7 +21,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件样式
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("upload")
+        protected string? ClassString => CssBuilder.Default("upload")
             .AddClass("is-circle", IsCircle)
             .AddClass("is-prev", ShowPreview)
             .AddClass("is-wall", IsPhotoWall)
@@ -65,6 +67,12 @@ namespace BootstrapBlazor.Components
         public string Text { get; set; } = "点击上传";
 
         /// <summary>
+        /// 获得/设置 重置按钮显示文字
+        /// </summary>
+        [Parameter]
+        public string ResetText { get; set; } = "重置";
+
+        /// <summary>
         /// 获得/设置 上传按钮图标
         /// </summary>
         [Parameter]
@@ -87,6 +95,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowProgress { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示重置按钮
+        /// </summary>
+        [Parameter]
+        public bool ShowReset { get; set; }
 
         /// <summary>
         /// 获得/设置 上传接口地址 默认值为 "api/Upload"
@@ -146,60 +160,74 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 成功上传后回调委托
         /// </summary>
         [Parameter]
-        public Action<string>? OnUploaded { get; set; }
+        public Func<string, string, Task>? OnUploaded { get; set; }
 
         /// <summary>
         /// 获得/设置 成功删除后回调委托
         /// </summary>
         [Parameter]
-        public Action<string>? OnRemoved { get; set; }
+        public Func<string, Task>? OnRemoved { get; set; }
 
         /// <summary>
         /// 获得/设置 上传失败后回调委托
         /// </summary>
         [Parameter]
-        public Action<string>? OnFailed { get; set; }
+        public Func<string, Task>? OnFailed { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置请求头回调委托
+        /// </summary>
+        [Parameter]
+        public Func<IEnumerable<UploadHeader>>? OnSetHeaders { get; set; }
 
         /// <summary>
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender)
             {
                 if (Interop == null && JSRuntime != null) Interop = new JSInterop<UploadBase>(JSRuntime);
-                Interop?.Invoke(this, UploaderElement, "uploader", nameof(Completed), nameof(CheckFiles), nameof(Removed), nameof(Failed));
+                if (Interop != null) await Interop.Invoke(this, UploaderElement, "uploader", nameof(Completed), nameof(CheckFiles), nameof(Removed), nameof(Failed), nameof(SetHeaders));
             }
+        }
+
+        /// <summary>
+        /// 组件复位方法
+        /// </summary>
+        public async Task Reset()
+        {
+            if (JSRuntime != null) await JSRuntime.Invoke(UploaderElement, "uploader", nameof(Reset));
         }
 
         /// <summary>
         /// 文件上传成功后回调此方法
         /// </summary>
         [JSInvokable]
-        public void Completed(string fileName)
+        public async Task Completed(string fileName, string prevUrl)
         {
-            OnUploaded?.Invoke(fileName);
+            if (OnUploaded != null) await OnUploaded.Invoke(fileName, prevUrl);
         }
 
         /// <summary>
         /// 文件删除成功后回调此方法
         /// </summary>
         [JSInvokable]
-        public void Removed(string fileName)
+        public async Task Removed(string fileName)
         {
-            OnRemoved?.Invoke(fileName);
+            if (OnRemoved != null) await OnRemoved.Invoke(fileName);
         }
 
         /// <summary>
         /// 文件上传失败后回调此方法
         /// </summary>
         [JSInvokable]
-        public void Failed(string fileName)
+        public async Task Failed(string fileName)
         {
-            OnFailed?.Invoke(fileName);
+            if (OnFailed != null) await OnFailed.Invoke(fileName);
         }
 
         /// <summary>
@@ -218,10 +246,10 @@ namespace BootstrapBlazor.Components
                 message = result ? null : "文件太大";
             }
 
-            if(result)
+            if (result)
             {
                 // check file extensions
-                if(AllowFileType?.Contains("image", StringComparison.OrdinalIgnoreCase) ?? false)
+                if (AllowFileType?.Contains("image", StringComparison.OrdinalIgnoreCase) ?? false)
                 {
                     result = fileType.StartsWith("image", StringComparison.OrdinalIgnoreCase);
                     message = result ? null : "只允许选择图片类型文件";
@@ -229,6 +257,16 @@ namespace BootstrapBlazor.Components
             }
 
             return new { result, message };
+        }
+
+        /// <summary>
+        /// 设置 请求头方法
+        /// </summary>
+        /// <returns></returns>
+        [JSInvokable]
+        public IEnumerable<UploadHeader> SetHeaders()
+        {
+            return OnSetHeaders?.Invoke() ?? new UploadHeader[0];
         }
 
         /// <summary>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -63,11 +65,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="state"></param>
         /// <param name="val"></param>
-        protected virtual void OnHeaderCheck(CheckboxState state, bool val)
+        protected virtual Task OnHeaderCheck(CheckboxState state, bool val)
         {
             SelectedItems.Clear();
             if (state == CheckboxState.Checked && Items != null) SelectedItems.AddRange(Items);
-            ItemCheckboxs?.ForEach(checkbox => checkbox.SetState(state));
+            ItemCheckboxs?.ForEach(async checkbox => await checkbox.SetState(state));
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -75,17 +78,17 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="state"></param>
         /// <param name="val"></param>
-        protected virtual void OnCheck(CheckboxState state, TItem val)
+        protected virtual async Task OnCheck(CheckboxState state, TItem val)
         {
             if (state == CheckboxState.Checked) SelectedItems.Add(val);
             else SelectedItems.Remove(val);
 
-            if (Items != null)
+            if (Items != null && HeaderCheckbox != null)
             {
                 var headerCheckboxState = SelectedItems.Count == 0
                     ? CheckboxState.UnChecked
                     : (SelectedItems.Count == Items.Count() ? CheckboxState.Checked : CheckboxState.Mixed);
-                HeaderCheckbox?.SetState(headerCheckboxState);
+                await HeaderCheckbox.SetState(headerCheckboxState);
             }
         }
 

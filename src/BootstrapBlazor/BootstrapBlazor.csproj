@@ -5,11 +5,16 @@
         <OutputType>Library</OutputType>
         <RazorLangVersion>3.0</RazorLangVersion>
         <IsPackable>true</IsPackable>
-        <Version>3.1.4</Version>
+        <PackageIcon>logo.png</PackageIcon>
+        <Version>3.1.5-beta-04</Version>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="logo.png" Pack="true" PackagePath="" />
     </ItemGroup>
 
 </Project>

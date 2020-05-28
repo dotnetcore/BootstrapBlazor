@@ -1,25 +1,14 @@
 ﻿<Project>
-  <PropertyGroup>
-    <Copyright>Longbow</Copyright>
-    <Authors>Argo Zhang(argo@163.com)</Authors>
-    <Company>Longbow</Company>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\keys\Longbow.Utility.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <Copyright>Longbow</Copyright>
+        <Authors>Argo Zhang(argo@163.com)</Authors>
+        <Company>Longbow</Company>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\keys\Longbow.Utility.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
 
-  <Target Condition=" $(IsTestProject) == true or $(IsWebProject) == true " Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Message Text="Copy lic file -> $(TargetDir)" Importance="high" />
-    <Copy Condition="'$(OS)' == 'Windows_NT'" DestinationFolder="$(TargetDir)" SourceFiles="$(MSBuildThisFileDirectory)src\keys\Longbow.lic" SkipUnchangedFiles="true" />
-    <Copy Condition="'$(OS)' == 'UNIX'" DestinationFolder="$(TargetDir)" SourceFiles="$(MSBuildThisFileDirectory)src/keys/Longbow.lic" SkipUnchangedFiles="true" />
-  </Target>
-
-  <Target Condition=" $(IsTestProject) == true or $(IsWebProject) == true " Name="PostPublish" AfterTargets="Publish">
-    <Message Text="Publish -> $(PublishDir)" Importance="high" />
-    <Copy Condition="'$(OS)' == 'Windows_NT'" DestinationFolder="$(PublishDir)" SourceFiles="$(MSBuildThisFileDirectory)src\keys\Longbow.lic" SkipUnchangedFiles="true" />
-    <Copy Condition="'$(OS)' == 'UNIX'" DestinationFolder="$(PublishDir)" SourceFiles="$(MSBuildThisFileDirectory)src/keys/Longbow.lic" SkipUnchangedFiles="true" />
-  </Target>
 </Project>

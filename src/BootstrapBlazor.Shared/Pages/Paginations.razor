@@ -1,0 +1,40 @@
+﻿@page "/paginations"
+
+<h3>Pagination 分页</h3>
+
+<h4>当数据量过多时，使用分页分解数据。</h4>
+
+<Block Title="基础用法" Introduction="可以通过下拉框选取每页显示数据数量" CodeFile="pagination.1.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Pagination PageItems="3" PageItemsSource="@PageItems" TotalCount="30" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+            </div>
+        </div>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="仅显示文本提示" Introduction="只有一页时不显示切换页码组件，仅显示文本提示" CodeFile="pagination.2.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Pagination PageItems="20" TotalCount="1"></Pagination>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="仅显示分页组件" Introduction='通过 <code>ShowPaginationInfo="false"</code> 设置不显示文本提示' CodeFile="pagination.3.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Pagination PageItems="20" TotalCount="100" ShowPaginationInfo="false"></Pagination>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

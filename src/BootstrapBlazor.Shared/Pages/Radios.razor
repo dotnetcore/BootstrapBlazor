@@ -1,0 +1,57 @@
+﻿@page "/radios"
+
+<h3>Radio 单选框</h3>
+
+<h4>在一组备选项中进行单选</h4>
+
+<Block Title="基础用法" Introduction="由于选项默认可见，不宜过多，若选项过多，建议使用 Select 选择器" CodeFile="radio.1.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-4">
+                <Radio Items="@DemoValues" OnStateChanged="@OnStateChanged"></Radio>
+            </div>
+        </div>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="禁用单选框" Introduction='通过 <code>IsDisabled="true"</code> 单选框不可用状态' CodeFile="radio.2.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-4">
+                <Radio TItem="string" State="CheckboxState.Checked" DisplayText="选中" IsDisabled="true"></Radio>
+            </div>
+            <div class="form-group col-4">
+                <Radio TItem="string" State="CheckboxState.UnChecked" DisplayText="未选中" IsDisabled="true"></Radio>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Label 文字" Introduction="单选框显示文字" CodeFile="radio.3.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Radio TItem="string" DisplayText="显示文字"></Radio>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步，绑定数据类型为 SelectedItem 类型数组" CodeFile="radio.4.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Radio Items="@Items" @bind-Value="@BindRadioItem" OnStateChanged="@OnItemChanged"></Radio>
+            </div>
+            <div class="form-group col-12">
+                <div>Text: @BindRadioItem.Text Value: @BindRadioItem.Value</div>
+            </div>
+        </div>
+    </div>
+    <Logger @ref="BinderLog" class="mt-3" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

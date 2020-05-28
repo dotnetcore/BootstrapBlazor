@@ -1,0 +1,33 @@
+﻿@page "/drawers"
+
+<h3>Drawer 抽屉</h3>
+
+<h4>有些时候, Dialog 组件并不满足我们的需求, 比如你的表单很长, 亦或是你需要临时展示一些文档, Drawer 拥有和 Dialog 几乎相同的 API, 在 UI 上带来不一样的体验</h4>
+
+<Block Title="基本用法" Introduction="呼出一个临时的侧边栏, 可以从多个方向呼出" CodeFile="drawer.1.html">
+    <p class="d-flex flex-wrap drawer-demo">
+        <Radio Items="@DrawerDirection" OnStateChanged="@OnStateChanged" />
+    </p>
+    <p>
+        <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = true)">点我打开</button>
+    </p>
+    <Drawer Placement="@DrawerAlign" IsOpen="@IsOpen">
+        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
+            <p>抽屉内布局、组件等完全可以自定义</p>
+            <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = false)">关闭抽屉</button>
+        </div>
+    </Drawer>
+</Block>
+
+<Block Title="点击遮罩关闭" Introduction="通过设置 <code>IsBackdrop</code> 属性为 <code>true</code>，点击遮罩部分时自动关闭抽屉" CodeFile="drawer.2.html">
+    <p>
+        <button type="button" class="btn btn-primary" @onclick="@OpenDrawer">点我打开</button>
+    </p>
+    <Drawer Placement="Placement.Left" @bind-IsOpen="@IsBackdropOpen" IsBackdrop="true">
+        <p class="mt-3 text-center">
+            点击遮罩阴影部分自动关闭抽屉
+        </p>
+    </Drawer>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

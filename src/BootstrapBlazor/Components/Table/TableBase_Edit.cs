@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class TableBase<TItem>
+    public partial class TableBase<TItem>
     {
         /// <summary>
         /// 获得 Checkbox 样式表集合
@@ -76,22 +77,23 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 查询按钮调用此方法
         /// </summary>
-        public void Query()
+        /// <returns></returns>
+        public async Task QueryAsync()
         {
-            QueryData();
+            await QueryData();
             StateHasChanged();
         }
 
         /// <summary>
         /// 调用 OnQuery 回调方法获得数据源
         /// </summary>
-        protected void QueryData()
+        protected async Task QueryData()
         {
             SelectedItems.Clear();
             QueryData<TItem>? queryData = null;
-            if (OnQuery != null)
+            if (OnQueryAsync != null)
             {
-                queryData = OnQuery(new QueryPageOptions()
+                queryData = await OnQueryAsync(new QueryPageOptions()
                 {
                     PageIndex = PageIndex,
                     PageItems = PageItems,
@@ -99,18 +101,6 @@ namespace BootstrapBlazor.Components
                     SortOrder = SortOrder,
                     SortName = SortName
                 });
-            }
-            else if (OnQueryAsync != null)
-            {
-                var task = OnQueryAsync(new QueryPageOptions()
-                {
-                    PageIndex = PageIndex,
-                    PageItems = PageItems,
-                    SearchText = SearchText,
-                    SortOrder = SortOrder,
-                    SortName = SortName
-                });
-                queryData = task.GetAwaiter().GetResult();
             }
             if (queryData != null)
             {

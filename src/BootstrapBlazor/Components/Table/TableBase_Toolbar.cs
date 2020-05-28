@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class TableBase<TItem>
+    public partial class TableBase<TItem>
     {
         /// <summary>
         /// ToastService 服务实例
@@ -52,31 +52,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 新建按钮回调方法
         /// </summary>
         [Parameter]
-        public Func<TItem>? OnAdd { get; set; }
-
-        /// <summary>
-        /// 获得/设置 新建按钮回调方法
-        /// </summary>
-        [Parameter]
         public Func<Task<TItem>>? OnAddAsync { get; set; }
-
-        /// <summary>
-        /// 获得/设置 保存按钮回调方法
-        /// </summary>
-        [Parameter]
-        public Func<TItem, bool>? OnSave { get; set; }
 
         /// <summary>
         /// 获得/设置 保存按钮异步回调方法
         /// </summary>
         [Parameter]
         public Func<TItem, Task<bool>>? OnSaveAsync { get; set; }
-
-        /// <summary>
-        /// 获得/设置 删除按钮回调方法
-        /// </summary>
-        [Parameter]
-        public Func<IEnumerable<TItem>, bool>? OnDelete { get; set; }
 
         /// <summary>
         /// 获得/设置 删除按钮异步回调方法
@@ -87,10 +69,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 新建按钮方法
         /// </summary>
-        public void Add()
+        public async Task AddAsync()
         {
-            if (OnAdd != null) EditModel = OnAdd.Invoke();
-            else if (OnAddAsync != null) EditModel = OnAddAsync().GetAwaiter().GetResult();
+            if (OnAddAsync != null) EditModel = await OnAddAsync();
             else new TItem();
 
             SelectedItems.Clear();
@@ -111,10 +92,12 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                var option = new ToastOption();
-                option.Category = ToastCategory.Information;
-                option.Title = "编辑数据";
-                option.Content = SelectedItems.Count == 0 ? "请选择要编辑的数据" : "只能选择一项要编辑的数据";
+                var option = new ToastOption
+                {
+                    Category = ToastCategory.Information,
+                    Title = "编辑数据",
+                    Content = SelectedItems.Count == 0 ? "请选择要编辑的数据" : "只能选择一项要编辑的数据"
+                };
                 Toast?.Show(option);
             }
         }
@@ -123,20 +106,21 @@ namespace BootstrapBlazor.Components
         /// 保存数据
         /// </summary>
         /// <param name="context"></param>
-        protected void Save(EditContext context)
+        protected async Task Save(EditContext context)
         {
             var valid = false;
-            if (OnSave != null) valid = OnSave.Invoke((TItem)context.Model);
-            else if (OnSaveAsync != null) valid = OnSaveAsync.Invoke((TItem)context.Model).GetAwaiter().GetResult();
-            var option = new ToastOption();
-            option.Category = valid ? ToastCategory.Success : ToastCategory.Error;
-            option.Title = "保存数据";
+            if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
+            var option = new ToastOption
+            {
+                Category = valid ? ToastCategory.Success : ToastCategory.Error,
+                Title = "保存数据"
+            };
             option.Content = $"保存数据{(valid ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
             Toast?.Show(option);
             if (valid)
             {
                 EditModal?.Toggle();
-                Query();
+                await QueryAsync();
             }
         }
 
@@ -148,17 +132,16 @@ namespace BootstrapBlazor.Components
             var ret = false;
             if (SelectedItems.Count == 0)
             {
-                var option = new ToastOption();
-                option.Category = ToastCategory.Information;
-                option.Title = "删除数据";
+                var option = new ToastOption
+                {
+                    Category = ToastCategory.Information,
+                    Title = "删除数据"
+                };
                 option.Content = $"请选择要删除的数据, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
                 Toast?.Show(option);
             }
             else
             {
-                // 更改确认弹窗的显示内容
-                //var content = SelectedItems.Count == 1 ? "确定要删除本条数据吗？" : "确定要删除选中的所有数据吗？";
-                //DeleteConfirm?.Show(content: content);
                 ret = true;
             }
             return ret;
@@ -167,11 +150,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 删除数据方法
         /// </summary>
-        protected void Delete()
+        protected async Task DeleteAsync()
         {
             var ret = false;
-            if (OnDelete != null) ret = OnDelete.Invoke(SelectedItems);
-            else if (OnDeleteAsync != null) ret = OnDeleteAsync.Invoke(SelectedItems).GetAwaiter().GetResult();
+            if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
             var op = new ToastOption()
             {
                 Title = "删除数据"
@@ -185,7 +167,7 @@ namespace BootstrapBlazor.Components
                 // 由于数据删除导致页码会改变，尤其是最后一页
                 // 重新计算页码
                 PageIndex = Math.Min(PageIndex, (TotalCount - SelectedItems.Count) / PageItems);
-                Query();
+                await QueryAsync();
             }
             Toast?.Show(op);
         }

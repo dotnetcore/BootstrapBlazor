@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,11 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 最终候选数据源
+        /// </summary>
+        protected List<string> FilterItems { get; private set; } = new List<string>();
+
+        /// <summary>
         /// 获得/设置 通过输入字符串获得匹配数据集合
         /// </summary>
         [Parameter]
@@ -33,12 +39,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string NoDataTip { get; set; } = "无匹配数据";
-
-        /// <summary>
-        /// 获得/设置 组件值变化时回调委托方法用于通过客户端输入值获取自动完成数据
-        /// </summary>
-        [Parameter]
-        public Action<string>? OnValueChanged { get; set; }
 
         private string? _placeholder;
         /// <summary>
@@ -72,58 +72,108 @@ namespace BootstrapBlazor.Components
         public bool IsLikeMatch { get; set; } = false;
 
         /// <summary>
-        /// OnParametersSet
+        /// 自定义集合过滤规则
         /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
+        [Parameter]
+        public Func<Task<IEnumerable<string>>>? CustomFilter { get; set; }
 
-            Items = IsLikeMatch ? Items.Where(s => s.Contains(CurrentValueAsString)) : Items.Where(s => s.StartsWith(CurrentValueAsString));
-        }
+        private string _selectedItem = "";
+        /// <summary>
+        /// 获得 候选项样式
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? ItemClassString(string item) => CssBuilder.Default("dropdown-item")
+            .AddClass("active", item == _selectedItem)
+            .Build();
 
         /// <summary>
         /// OnInput 方法
         /// </summary>
-        protected void OnInput(ChangeEventArgs args)
+        protected async Task OnInput(ChangeEventArgs args)
         {
-            CurrentValueAsString = Convert.ToString(args.Value) ?? "";
-            _isLoading = true;
-            Task.Run(() =>
+            if (!_isLoading)
             {
-                OnValueChanged?.Invoke(CurrentValueAsString);
-                _isLoading = false;
+                _selectedItem = "";
+                _isLoading = true;
+
+                var val = Convert.ToString(args.Value) ?? "";
+                CurrentValue = val;
+
                 _isShown = true;
-                InvokeAsync(StateHasChanged);
-            });
+                _isLoading = false;
+                if (CustomFilter != null)
+                {
+                    var items = await CustomFilter();
+                    FilterItems = items.ToList();
+                }
+                else
+                {
+                    var items = IsLikeMatch ? Items.Where(s => s.Contains(val)) : Items.Where(s => s.StartsWith(val));
+                    FilterItems = items.ToList();
+                }
+            }
         }
 
         /// <summary>
         /// OnBlur 方法
         /// </summary>
-        protected void OnBlur()
+        protected async Task OnBlur()
         {
-            InvokeAsync(async () =>
+            await Task.Delay(100);
+            await InvokeAsync(() =>
             {
-                await Task.Delay(100);
-                if (!_itemTrigger)
-                {
-                    _isShown = false;
-                    _itemTrigger = false;
-                    StateHasChanged();
-                }
+                _selectedItem = "";
+                _isShown = false;
             });
         }
 
-        private bool _itemTrigger;
+        /// <summary>
+        /// 鼠标点击候选项时回调此方法
+        /// </summary>
+        protected Task OnItemClick(string val)
+        {
+            CurrentValue = val;
+            return Task.CompletedTask;
+        }
 
         /// <summary>
-        /// 
+        /// OnKeyUp 方法
         /// </summary>
-        protected void OnItemClick(string val)
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected async Task OnKeyUp(KeyboardEventArgs args)
         {
-            _itemTrigger = true;
-            _isShown = false;
-            CurrentValueAsString = val;
+            if (_isShown)
+            {
+                var source = FilterItems;
+                if (source.Any())
+                {
+                    // 键盘向上选择
+                    if (args.Key == "ArrowUp")
+                    {
+                        var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) - 1));
+                        _selectedItem = source[index];
+                    }
+                    else if (args.Key == "ArrowDown")
+                    {
+                        var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) + 1));
+                        _selectedItem = source[index];
+                    }
+                    else if (args.Key == "Escape")
+                    {
+                        await OnBlur();
+                    }
+                    else if (args.Key == "Enter")
+                    {
+                        if (!string.IsNullOrEmpty(_selectedItem))
+                        {
+                            CurrentValue = _selectedItem;
+                            await OnBlur();
+                        }
+                    }
+                }
+            }
         }
     }
 }

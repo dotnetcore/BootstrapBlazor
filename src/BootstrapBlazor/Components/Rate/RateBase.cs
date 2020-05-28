@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -17,6 +17,13 @@ namespace BootstrapBlazor.Components
         protected ElementReference RateElement { get; set; }
 
         /// <summary>
+        /// 获得 样式集合
+        /// </summary>
+        protected virtual string? ClassString => CssBuilder.Default("rate")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
         /// 获得/设置 组件值
         /// </summary>
         [Parameter]
@@ -29,24 +36,18 @@ namespace BootstrapBlazor.Components
         public EventCallback<int> ValueChanged { get; set; }
 
         /// <summary>
-        /// 获得/设置 组件值变化时回调委托
-        /// </summary>
-        [Parameter]
-        public Action<int>? OnValueChanged { get; set; }
-
-        /// <summary>
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRenderAsync(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender)
             {
                 if (Interop == null && JSRuntime != null) Interop = new JSInterop<RateBase>(JSRuntime);
-                Interop?.Invoke(this, RateElement, "rate", nameof(Clicked));
+                if (Interop != null) await Interop.Invoke(this, RateElement, "rate", nameof(Clicked));
             }
         }
 
@@ -54,11 +55,10 @@ namespace BootstrapBlazor.Components
         /// 文件上传成功后回调此方法
         /// </summary>
         [JSInvokable]
-        public void Clicked(int val)
+        public async Task Clicked(int val)
         {
             Value = val;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
         }
 
         /// <summary>

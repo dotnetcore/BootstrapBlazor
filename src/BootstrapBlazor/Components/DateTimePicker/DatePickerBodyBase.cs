@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -9,17 +10,17 @@ namespace BootstrapBlazor.Components
     public abstract class DatePickerBodyBase : BootstrapComponentBase
     {
         /// <summary>
-        /// 获得/设置 DateTimePicker DOM 实例
-        /// </summary>
-        protected ElementReference DatePickerElement { get; set; }
-
-        /// <summary>
         /// 获得/设置 日历框开始时间
         /// </summary>
         protected DateTime StartDate
         {
             get
             {
+                if (CurrentDate == DateTime.MinValue)
+                {
+                    CurrentDate = DateTime.Now;
+                }
+
                 var d = CurrentDate.AddDays(1 - CurrentDate.Day);
                 d = d.AddDays(0 - (int)d.DayOfWeek);
                 return d;
@@ -146,32 +147,50 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 组件显示模式 默认为显示年月日模式
         /// </summary>
-        [Parameter] public DatePickerViewModel ViewModel { get; set; } = DatePickerViewModel.Date;
+        [Parameter]
+        public DatePickerViewModel ViewModel { get; set; } = DatePickerViewModel.Date;
 
         /// <summary>
         /// 获得/设置 日期格式字符串 默认为 "yyyy-MM-dd"
         /// </summary>
-        [Parameter] public string DateFormat { get; set; } = "yyyy-MM-dd";
+        [Parameter]
+        public string DateFormat { get; set; } = "yyyy-MM-dd";
 
         /// <summary>
         /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
         /// </summary>
-        [Parameter] public string TimeFormat { get; set; } = "hh\\:mm\\:ss";
+        [Parameter]
+        public string TimeFormat { get; set; } = "hh\\:mm\\:ss";
 
         /// <summary>
         /// 获得/设置 是否显示本组件默认为 false 不显示
         /// </summary>
-        [Parameter] public bool IsShown { get; set; }
+        [Parameter]
+        public bool IsShown { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否允许为空 默认 false 不允许为空
+        /// </summary>
+        [Parameter]
+        public bool AllowNull { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示本组件 Footer 区域 默认不显示
         /// </summary>
-        [Parameter] public bool ShowFooter { get; set; }
+        [Parameter]
+        public bool ShowFooter { get; set; }
 
         /// <summary>
         /// 获得/设置 确认按钮回调委托
         /// </summary>
-        [Parameter] public Action? OnClickConfirm { get; set; }
+        [Parameter]
+        public Func<Task>? OnConfirm { get; set; }
+
+        /// <summary>
+        /// 获得/设置 确认按钮回调委托
+        /// </summary>
+        [Parameter]
+        public Func<Task>? OnClear { get; set; }
 
         /// <summary>
         /// 获得/设置 组件值
@@ -194,32 +213,13 @@ namespace BootstrapBlazor.Components
         public EventCallback<DateTime> ValueChanged { get; set; }
 
         /// <summary>
-        /// 获得/设置 组件值改变时回调委托
-        /// </summary>
-        [Parameter]
-        public Action<DateTime>? OnValueChanged { get; set; }
-
-        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            // 计算开始与结束时间 每个组件显示 6 周数据
-            if (Value == DateTime.MinValue) Value = DateTime.Today;
             CurrentViewModel = ViewModel;
-        }
-
-        /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
-        {
-            base.OnAfterRender(firstRender);
-
-            if (firstRender) JSRuntime.Invoke(DatePickerElement, "datepicker");
         }
 
         /// <summary>
@@ -262,12 +262,15 @@ namespace BootstrapBlazor.Components
         /// Day 选择时触发此方法
         /// </summary>
         /// <param name="d"></param>
-        protected void OnClickDateTime(DateTime d)
+        protected async Task OnClickDateTime(DateTime d)
         {
             ShowTimePicker = false;
             CurrentDate = d;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+
             StateHasChanged();
         }
 
@@ -383,7 +386,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 此刻时调用此方法
         /// </summary>
-        protected void ClickNowButton()
+        protected async Task ClickNowButton()
         {
             ShowTimePicker = false;
             Value = ViewModel switch
@@ -391,8 +394,23 @@ namespace BootstrapBlazor.Components
                 DatePickerViewModel.DateTime => DateTime.Now,
                 _ => DateTime.Today
             };
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+        }
+
+        /// <summary>
+        /// 点击 清除按钮调用此方法
+        /// </summary>
+        /// <returns></returns>
+        protected async Task ClickClearButton()
+        {
+            ShowTimePicker = false;
+            if (OnClear != null)
+            {
+                await OnClear.Invoke();
+            }
         }
 
         /// <summary>
@@ -402,17 +420,22 @@ namespace BootstrapBlazor.Components
         protected void OnTimeValueChanged(TimeSpan ts)
         {
             CurrentTime = ts;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (ValueChanged.HasDelegate)
+            {
+                ValueChanged.InvokeAsync(Value);
+            }
         }
 
         /// <summary>
         /// 点击 确认时调用此方法
         /// </summary>
-        protected void ClickConfirmButton()
+        protected async Task ClickConfirmButton()
         {
             ShowTimePicker = false;
-            OnClickConfirm?.Invoke();
+            if (OnConfirm != null)
+            {
+                await OnConfirm.Invoke();
+            }
         }
 
         /// <summary>

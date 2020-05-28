@@ -1,0 +1,49 @@
+﻿<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem"
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="true" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="true"
+       AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+       SearchModel="@SearchModel"
+       OnQueryAsync="@OnQuery" OnResetSearchAsync="@OnResetSearch"
+       OnAddAsync="@OnAdd" OnSaveAsync="@OnSave" OnDeleteAsync="@OnDelete">
+    <HeaderTemplate>
+        <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" Sort="true" />
+        <TableColumn TItem="string" @bind-Field="@context.Name" Sort="true" />
+        <TableColumn TItem="string" @bind-Field="@context.Address" Sort="true" />
+    </HeaderTemplate>
+    <RowTemplate>
+        <TableCell>@context.DateTime</TableCell>
+        <TableCell>@context.Name</TableCell>
+        <TableCell>@context.Address</TableCell>
+    </RowTemplate>
+    <EditTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
+                        <RequiredValidator />
+                        <StringLengthValidator Length="50" />
+                    </BootstrapInput>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
+                        <RequiredValidator />
+                        <StringLengthValidator Length="50" />
+                    </BootstrapInput>
+                </div>
+            </div>
+        </div>
+    </EditTemplate>
+    <SearchTemplate>
+        <div class="form-inline">
+            <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
+                </div>
+            </div>
+        </div>
+    </SearchTemplate>
+</Table>

@@ -23,7 +23,10 @@ namespace BootstrapBlazor.Components
                 if (typeof(ICloneable).IsAssignableFrom(type))
                 {
                     var clv = type.GetMethod("Clone")?.Invoke(type, null);
-                    if (clv != null) ret = (TItem)clv;
+                    if (clv != null)
+                    {
+                        ret = (TItem)clv;
+                    }
                 }
                 if (type.IsClass)
                 {
@@ -37,6 +40,32 @@ namespace BootstrapBlazor.Components
                             valType.GetProperty(p.Name)?.SetValue(ret, v);
                         });
                     }
+                }
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static string ConvertToPercentString(this string? val)
+        {
+            var ret = "";
+            if (!string.IsNullOrEmpty(val))
+            {
+                if (val.EndsWith('%'))
+                {
+                    ret = val;
+                }
+                else if (val.EndsWith("px", StringComparison.OrdinalIgnoreCase))
+                {
+                    ret = val;
+                }
+                else if (int.TryParse(val, out var d))
+                {
+                    ret = $"{d}px";
                 }
             }
             return ret;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -36,7 +37,7 @@ namespace BootstrapBlazor.Components
             .AddClass($"height: {Height}px;", Height > 0)
             .Build();
 
-        private List<TabItem> _items = new List<TabItem>();
+        private readonly List<TabItem> _items = new List<TabItem>();
 
         /// <summary>
         /// 获得/设置 TabItem 集合
@@ -83,11 +84,11 @@ namespace BootstrapBlazor.Components
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) ReActiveTab();
+            if (firstRender) await ReActiveTab();
         }
 
         /// <summary>
@@ -155,7 +156,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// TabItem 切换后回调此方法
         /// </summary>
-        public virtual void ReActiveTab() => JSRuntime.Invoke(TabElement, "tab");
+        public virtual async Task ReActiveTab()
+        {
+            if (JSRuntime != null) await JSRuntime.Invoke(TabElement, "tab");
+        }
 
         /// <summary>
         /// 添加 TabItem 方法

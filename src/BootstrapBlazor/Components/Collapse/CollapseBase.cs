@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -16,7 +17,7 @@ namespace BootstrapBlazor.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        private List<CollapseItem> _items = new List<CollapseItem>();
+        private readonly List<CollapseItem> _items = new List<CollapseItem>();
 
         /// <summary>
         /// 获得/设置 组件 DOM 实例
@@ -56,11 +57,11 @@ namespace BootstrapBlazor.Components
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) JSRuntime.Invoke(CollapseElement, "collapse");
+            if (firstRender && JSRuntime != null) await JSRuntime.Invoke(CollapseElement, "collapse");
         }
 
         /// <summary>

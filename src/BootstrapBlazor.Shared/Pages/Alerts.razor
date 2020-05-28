@@ -1,0 +1,57 @@
+﻿@page "/alerts"
+
+<h3>Alert 警告</h3>
+
+<h4>用于页面中展示重要的提示信息。</h4>
+
+<Block Title="基本用法" Introduction="页面中的非浮层元素，不会自动消失。" CodeFile="alert.1.html">
+    <Alert Color="Color.Primary">主要的警告框</Alert>
+    <Alert Color="Color.Secondary">次要的警告框</Alert>
+    <Alert Color="Color.Success">成功的警告框</Alert>
+    <Alert Color="Color.Danger">危险的警告框</Alert>
+    <Alert Color="Color.Warning">警告的警告框</Alert>
+    <Alert Color="Color.Info">信息的警告框</Alert>
+    <Alert Color="Color.Dark">黑暗的警告框</Alert>
+</Block>
+
+<Block Title="关闭按钮" Introduction="提供关闭按钮的警告框" CodeFile="alert.2.html">
+    <div>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Primary">主要的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Secondary">次要的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Success">成功的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Danger">危险的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Warning">警告的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Info">信息的警告框</Alert>
+        <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Dark">黑暗的警告框</Alert>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="带 Icon" Introduction="表示某种状态时提升可读性。" CodeFile="alert.3.html">
+    <Alert Icon="fa fa-check-circle" Color="Color.Success">成功提示的文案</Alert>
+    <Alert Icon="fa fa-warning" Color="Color.Warning">警告提示的文案</Alert>
+    <Alert Icon="fa fa-question-circle" Color="Color.Info">消息提示的文案</Alert>
+    <Alert Icon="fa fa-times-circle" Color="Color.Danger">错误提示的文案</Alert>
+</Block>
+
+<Block Title="显示左侧 Bar" Introduction="作为 <code>Tip</code> 使用" CodeFile="alert.4.html">
+    <Alert ShowBar="true" Color="Color.Info">
+        <div>消息提示的文案</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Success">
+        <div>成功提示的文案</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Primary">
+        <div>主要的警告框</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Warning">
+        <div>警告的警告框</div>
+    </Alert>
+    <Alert ShowBar="true" Color="Color.Danger">
+        <div>危险的警告框</div>
+    </Alert>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

@@ -1,14 +1,20 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Modal 弹窗组件
     /// </summary>
-    public abstract class ModalBase : IdComponentBase
+    public abstract class ModalBase : BootstrapComponentBase
     {
+        /// <summary>
+        /// 获得/设置 DOM 元素实例
+        /// </summary>
+        protected ElementReference ModalElement { get; set; }
+
         /// <summary>
         /// 获得 后台关闭弹窗设置
         /// </summary>
@@ -17,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 ModalDialog 集合
         /// </summary>
-        protected List<ModalDialogBase> Dialogs { get; private set; } = new List<ModalDialogBase>();
+        protected List<ModalDialogBase> Dialogs { get; private set; } = new List<ModalDialogBase>(50);
 
         /// <summary>
         /// 获得/设置 是否后台关闭弹窗
@@ -33,10 +39,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 弹窗状态切换方法
         /// </summary>
-        public void Toggle()
+        public async Task Toggle()
         {
             Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
-            if (!string.IsNullOrEmpty(Id)) JSRuntime.InvokeRun(Id, "modal", "toggle");
+            if (JSRuntime != null) await JSRuntime.Invoke(ModalElement, "modal", "toggle");
         }
 
         /// <summary>
@@ -58,5 +64,10 @@ namespace BootstrapBlazor.Components
             Dialogs.ForEach(d => d.IsShown = d == dialog);
             StateHasChanged();
         }
+
+        /// <summary>
+        /// 清除对话框方法
+        /// </summary>
+        public void Clear() => Dialogs.Clear();
     }
 }

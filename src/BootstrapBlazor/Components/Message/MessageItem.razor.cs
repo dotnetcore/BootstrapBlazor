@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -49,16 +50,16 @@ namespace BootstrapBlazor.Components
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender)
             {
                 if (JSRuntime != null && Message != null)
                 {
                     _interop = new JSInterop<MessageBase>(JSRuntime);
-                    _interop.Invoke(Message, MessageItemElement, "showMessage", nameof(MessageBase.Clear));
+                    await _interop.Invoke(Message, MessageItemElement, "showMessage", nameof(MessageBase.Clear));
                 }
             }
         }

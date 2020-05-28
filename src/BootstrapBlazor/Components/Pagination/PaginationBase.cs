@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -82,13 +83,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <return>第一个参数是当前页码，第二个参数是当前每页设置显示的数据项数量</return>
         [Parameter]
-        public Action<int, int>? OnPageClick { get; set; }
+        public Func<int, int, Task>? OnPageClick { get; set; }
 
         /// <summary>
         /// 点击设置每页显示数据数量时回调方法
         /// </summary>
         [Parameter]
-        public Action<int>? OnPageItemsChanged { get; set; }
+        public Func<int, Task>? OnPageItemsChanged { get; set; }
 
         /// <summary>
         /// 上一页方法

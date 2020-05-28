@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -79,7 +80,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 确认按钮回调方法
         /// </summary>
-        [Parameter] public Action? OnConfirm { get; set; }
+        [Parameter] public Func<Task>? OnConfirm { get; set; }
 
         /// <summary>
         /// 获得/设置 确认按钮回调方法
@@ -103,10 +104,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击确认按钮调用此方法
         /// </summary>
-        public void OnConfirmClick()
+        public async Task OnConfirmClick()
         {
             PopoverService?.Hide();
-            OnConfirm?.Invoke();
+            if (OnConfirm != null) await OnConfirm();
         }
     }
 }

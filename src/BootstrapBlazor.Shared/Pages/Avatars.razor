@@ -1,0 +1,50 @@
+@page "/avatars"
+
+<h3>Avatar 头像</h3>
+
+<h4>用图标、图片或者字符的形式展示用户或事物信息。</h4>
+
+<Block Title="基本用法" Introduction="通过 <code>IsCircle</code> 和 <code>Size</code> 设置头像的形状和大小。" CodeFile="avatar.1.html">
+    <div class="d-flex flex-column">
+        <div class="text-center mb-2">Circle</div>
+        <div class="d-flex justify-content-between align-items-center">
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.ExtraLarge" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.Large" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.Small" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.ExtraSmall" />
+        </div>
+    </div>
+    <Divider Text="分割线" />
+    <div class="d-flex flex-column">
+        <div class="text-center my-2">Square</div>
+        <div class="d-flex justify-content-between align-items-center">
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo.png" Size="Size.ExtraLarge" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo.png" Size="Size.Large" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo.png" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo.png" Size="Size.Small" />
+            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo.png" Size="Size.ExtraSmall" />
+        </div>
+    </div>
+</Block>
+
+<Block Title="展示类型" Introduction="支持三种类型：图标、图片和字符" CodeFile="avatar.2.html">
+    <div class="d-flex justify-content-between align-items-center">
+        <Avatar IsCircle="true" IsIcon="true" />
+        <Avatar IsCircle="true" Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" />
+        <Avatar IsCircle="true" IsText="true" Text="User" />
+    </div>
+</Block>
+
+<Block Title="边框" Introduction="通过设置 <code>IsBorder</code> 是否显示头像框边框，此模式下图片加载失败时边框为 <code>border-danger</code> 样式，加载成功时边框为 <code>border-success</code>;其余模式下边框为<code>border-info</code>" CodeFile="avatar.3.html">
+    <div class="d-flex justify-content-between align-items-center">
+        <Avatar IsCircle="false" IsBorder="true" Url="_content/BootstrapBlazor.Shared/images/avatar2.png" />
+        <Avatar IsCircle="true" IsBorder="true" Url="_content/BootstrapBlazor.Shared/images/Argo-c1.png" />
+        <Avatar IsCircle="true" IsBorder="true" IsIcon="true" Icon="fa fa-tv" />
+        <Avatar IsCircle="true" IsBorder="true" IsText="true" Text="AZ" />
+    </div>
+    <div class="mt-3">第一幅圆角正方形头像框加载正确，所以边框为 <b class="text-info">蓝色</b></div>
+    <div>第二幅圆形头像加载图片路径错误，所以边框为 <b class="text-danger">红色</b>，图片显示为默认图标</div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

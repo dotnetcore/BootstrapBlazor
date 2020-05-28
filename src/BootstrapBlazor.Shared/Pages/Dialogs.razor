@@ -1,0 +1,37 @@
+﻿@page "/dialogs"
+
+<h3>Dialog 对话框组件</h3>
+
+<h4>通过注入服务调用 <code>ShowDialog</code> 方法弹出窗口进行人机交互</h4>
+
+<Block Title="基本用法" Introduction="通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置" CodeFile="dialog.1.html">
+    <Button @onclick="@OnClick">点击打开 Dialog</Button>
+</Block>
+
+<Block Title="弹框内显示现有组件" Introduction="通过设置 <code>BodyComponent</code> 属性，将现有组件的 <code>ref</code> 实例指向其属性值" CodeFile="dialog.2.html">
+    <p>
+        对话框中包含下面的 <code>Alert</code> 组件
+        <br />
+        此种用法建议先将其他组件外面设置一个 <code>div</code> 并且设置其样式为 <code>d-none</code> 将其设置为不可见状态
+    </p>
+
+    <Button @onclick="@OnClickRef">点击打开 Dialog</Button>
+
+    <div class="d-none">
+        <Alert @ref="@AlertTest">我是一个提示消息</Alert>
+    </div>
+</Block>
+
+<h4>特别注意</h4>
+
+<p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
+
+<p>
+    需要在使用本组件的页面中内置 <code>Dialog</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下
+</p>
+
+<Pre>&lt;Dialog /&gt;</Pre>
+
+<AttributeTable Items="@GetAttributes()" Title="DialogOption 属性" />
+
+<Dialog></Dialog>

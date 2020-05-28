@@ -1,1 +1,0 @@
-﻿<DatePickerBody IsShown="true" OnValueChanged="@DateValueChanged" />

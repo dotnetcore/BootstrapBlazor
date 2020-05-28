@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -11,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 class 样式集合
         /// </summary>
-        protected virtual string? ClassName => CssBuilder.Default("form-checkbox")
+        protected virtual string? ClassString => CssBuilder.Default("form-checkbox")
             .AddClass("is-checked", State == CheckboxState.Checked)
             .AddClass("is-indeterminate", State == CheckboxState.Mixed)
             .AddClass("is-disabled", IsDisabled)
@@ -55,7 +56,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 选择框状态改变时回调此方法
         /// </summary>
         [Parameter]
-        public Action<CheckboxState, TItem>? OnStateChanged { get; set; }
+        public Func<CheckboxState, TItem, Task>? OnStateChanged { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -75,7 +76,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击选择框方法
         /// </summary>
-        protected virtual void OnToggleClick()
+        protected virtual async Task OnToggleClick()
         {
             if (!IsDisabled)
             {
@@ -85,10 +86,10 @@ namespace BootstrapBlazor.Components
                 {
                     var v = (bool?)Convert.ChangeType(Value, TypeCode.Boolean) ?? false;
                     Value = (TItem)(object)(!v);
-                    if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
+                    if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
                 }
-                if (StateChanged.HasDelegate) StateChanged.InvokeAsync(State);
-                OnStateChanged?.Invoke(State, Value);
+                if (StateChanged.HasDelegate) await StateChanged.InvokeAsync(State);
+                if(OnStateChanged != null) await OnStateChanged.Invoke(State, Value);
             }
         }
 
@@ -96,10 +97,10 @@ namespace BootstrapBlazor.Components
         /// 设置 复选框状态方法
         /// </summary>
         /// <param name="state"></param>
-        public virtual void SetState(CheckboxState state)
+        public virtual async Task SetState(CheckboxState state)
         {
             State = state;
-            if (StateChanged.HasDelegate) StateChanged.InvokeAsync(State);
+            if (StateChanged.HasDelegate) await StateChanged.InvokeAsync(State);
             StateHasChanged();
         }
     }

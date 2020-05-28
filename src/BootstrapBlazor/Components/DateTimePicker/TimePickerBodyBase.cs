@@ -32,12 +32,14 @@ namespace BootstrapBlazor.Components
         /// <example>
         /// @bind-Value="model.PropertyName"
         /// </example>
-        [Parameter] public TimeSpan Value { get; set; }
+        [Parameter]
+        public TimeSpan Value { get; set; }
 
         /// <summary>
         /// Gets or sets a callback that updates the bound value.
         /// </summary>
-        [Parameter] public EventCallback<TimeSpan> ValueChanged { get; set; }
+        [Parameter]
+        public EventCallback<TimeSpan> ValueChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 时间刻度行高
@@ -45,19 +47,16 @@ namespace BootstrapBlazor.Components
         protected Func<double> ItemHeightCallback { get; set; } = () => 36.594d;
 
         /// <summary>
-        /// 获得/设置 时间值改变时回调此方法
-        /// </summary>
-        [Parameter] public Action<TimeSpan> OnValueChanged { get; set; } = new Action<TimeSpan>(ts => { });
-
-        /// <summary>
         /// 获得/设置 取消按钮回调委托
         /// </summary>
-        [Parameter] public Action? OnClose { get; set; }
+        [Parameter]
+        public Action? OnClose { get; set; }
 
         /// <summary>
         /// 获得/设置 确认按钮回调委托
         /// </summary>
-        [Parameter] public Action? OnConfirm { get; set; }
+        [Parameter]
+        public Action? OnConfirm { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -67,7 +66,11 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 计算开始与结束时间 每个组件显示 6 周数据
-            if (Value == TimeSpan.Zero) Value = DateTime.Now.Subtract(DateTime.Today);
+            if (Value == TimeSpan.Zero)
+            {
+                Value = DateTime.Now.Subtract(DateTime.Today);
+            }
+
             CurrentTime = Value;
         }
 
@@ -87,31 +90,26 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ts"></param>
-        protected void OnCellValueChanged(TimeSpan ts)
-        {
-            CurrentTime = ts;
-        }
-
-        /// <summary>
         /// 点击取消按钮回调此方法
         /// </summary>
-        protected void OnClickClose()
+        protected Task OnClickClose()
         {
             CurrentTime = Value;
             OnClose?.Invoke();
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 点击确认按钮时回调此方法
         /// </summary>
-        protected void OnClickConfirm()
+        protected async Task OnClickConfirm()
         {
             Value = CurrentTime;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-            OnValueChanged?.Invoke(Value);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+
             OnConfirm?.Invoke();
         }
     }

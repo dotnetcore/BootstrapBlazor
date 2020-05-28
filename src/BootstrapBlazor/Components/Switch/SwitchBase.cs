@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
         protected override string? ClassName => CssBuilder.Default("switch")
             .AddClass("is-checked", Value)
             .AddClass("is-disabled", IsDisabled)
-            .AddClass(Class)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
@@ -55,16 +55,6 @@ namespace BootstrapBlazor.Components
         [Parameter] public Color OffColor { get; set; }
 
         /// <summary>
-        ///获得/设置 按钮大小
-        /// </summary>
-        [Parameter] public Size Size { get; set; }
-
-        /// <summary>
-        /// 获得/设置 样式名称
-        /// </summary>
-        [Parameter] public string? Class { get; set; }
-
-        /// <summary>
         /// 获得/设置 组件宽度 默认 40
         /// </summary>
         [Parameter]
@@ -86,18 +76,5 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public override string? OffText { get; set; }
-
-        /// <summary>
-        /// 点击控件时触发此方法
-        /// </summary>
-        protected override void OnClick()
-        {
-            if (!IsDisabled)
-            {
-                Value = !Value;
-                if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
-                OnValueChanged?.Invoke(Value);
-            }
-        }
     }
 }

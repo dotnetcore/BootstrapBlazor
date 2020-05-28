@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 弹窗大小
         /// </summary>
         [Parameter]
-        public Size Size { get; set; }
+        public Size Size { get; set; } = Size.Large;
 
         /// <summary>
         /// 获得/设置 是否垂直居中 默认为 true
