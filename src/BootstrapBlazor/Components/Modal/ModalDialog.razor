@@ -5,7 +5,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">@Title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="@OnClose">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -17,7 +17,7 @@
             <div class="modal-footer">
                 @if (ShowCloseButton)
                 {
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@OnClose">
                         <i class="fa fa-times"></i>
                         <span>关闭</span>
                     </button>

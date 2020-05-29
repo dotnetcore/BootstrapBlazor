@@ -11,13 +11,27 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Dialogs
     {
-        private Alert? AlertTest { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<SelectedItem> RadioItems { get; private set; } = new SelectedItem[] {
+            new SelectedItem("false", "不保持状态") { Active = true },
+            new SelectedItem("true", "保持状态")
+        };
 
         /// <summary>
         /// 
         /// </summary>
         [Inject]
         private DialogService? DialogService { get; set; }
+
+        private Task OnStateChanged(CheckboxState state, SelectedItem item)
+        {
+            KeepState = bool.Parse(item.Value);
+            return Task.CompletedTask;
+        }
+
+        private bool KeepState { get; set; }
 
         /// <summary>
         /// 
@@ -46,12 +60,12 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private Task OnClickRef()
+        private Task OnClickCounter()
         {
-            DialogService?.Show(new DialogOption()
+            DialogService?.Show<Counter>(new DialogOption()
             {
-                Title = "我是服务创建的弹出框",
-                BodyComponent = AlertTest
+                Title = "自带的 Counter 组件",
+                KeepChildrenState = KeepState,
             });
             return Task.CompletedTask;
         }
@@ -72,11 +86,18 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = " — "
                 },
                 new AttributeItem() {
-                    Name = "BodyComponent",
-                    Description = "对话框 Body 中引用的组件实例",
-                    Type = "ComponentBase",
+                    Name = "BodyComponentParameters",
+                    Description = "对话框 Body 中引用的组件的参数",
+                    Type = "IEnumerable<KeyValuePair<string, object>>",
                     ValueList = " — ",
                     DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "KeepChildrenState",
+                    Description = "是否保持弹窗内组件状态",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "true"
                 },
                 new AttributeItem() {
                     Name = "FooterTemplate",

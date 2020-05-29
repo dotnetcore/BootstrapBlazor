@@ -64,19 +64,21 @@ namespace BootstrapBlazor.Components
                         var index = 0;
                         builder.OpenComponent<ModalDialog>(index++);
                         builder.AddMultipleAttributes(index++, option.ToAttributes());
-                        if (option.BodyTemplate != null)
+                        if (option.ComponentType != null)
                         {
+                            option.BodyTemplate = new RenderFragment(builder =>
+                            {
+                                builder.OpenComponent(index++, option.ComponentType);
+                                if (option.BodyComponentParameters != null) builder.AddMultipleAttributes(index++, option.BodyComponentParameters);
+                                builder.CloseComponent();
+                            });
                             builder.AddAttribute(index++, nameof(ModalDialog.BodyTemplate), option.BodyTemplate);
                         }
+                        if (option.BodyTemplate != null) builder.AddAttribute(index++, nameof(ModalDialog.BodyTemplate), option.BodyTemplate);
+
                         if (option.FooterTemplate != null)
                         {
                             builder.AddAttribute(index++, nameof(ModalDialog.FooterTemplate), option.FooterTemplate);
-                        }
-                        if (option.BodyComponent != null)
-                        {
-                            var val = GetInstanceRenderFragment(option.BodyComponent);
-                            if (val != null)
-                                builder.AddAttribute(index++, nameof(ModalDialog.BodyTemplate), val);
                         }
                         builder.CloseComponent();
                     })
