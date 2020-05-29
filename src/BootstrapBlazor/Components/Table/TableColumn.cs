@@ -14,18 +14,27 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 数据绑定字段值
         /// </summary>
-        [Parameter] public TItem Field { get; set; }
+        [Parameter]
+        public TItem Field { get; set; }
 #nullable restore
 
         /// <summary>
         /// 获得/设置 ValueExpression 表达式
         /// </summary>
-        [Parameter] public Expression<Func<TItem>>? FieldExpression { get; set; }
+        [Parameter]
+        public Expression<Func<TItem>>? FieldExpression { get; set; }
 
         /// <summary>
         /// 获得/设置 是否排序 默认 false
         /// </summary>
-        [Parameter] public bool Sort { get; set; }
+        [Parameter]
+        public bool Sort { get; set; }
+
+        /// <summary>
+        /// 获得/设置 表头显示文字
+        /// </summary>
+        [Parameter]
+        public string? Text { get; set; }
 
         /// <summary>
         /// 获得/设置 Table Header 实例
@@ -46,7 +55,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>
-        public string GetDisplayName() => _fieldIdentifier?.GetDisplayName() ?? "";
+        public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? "";
 
         /// <summary>
         /// 获取绑定字段信息方法

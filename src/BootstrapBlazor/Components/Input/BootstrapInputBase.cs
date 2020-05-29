@@ -15,6 +15,11 @@ namespace BootstrapBlazor.Components
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
+        /// <summary>
+        /// 获得/设置 是否显示前置标签 默认值为 true
+        /// </summary>
+        [Parameter]
+        public bool ShowLabel { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 格式化字符串

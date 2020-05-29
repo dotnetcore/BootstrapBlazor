@@ -5,11 +5,14 @@
 <h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
 
 <Block Title="基础表格" Introduction="基础的表格展示用法。" CodeFile="table.1.html">
+    <p>
+        表格组件 <code>HeaderTemplate</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性
+    </p>
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)">
         <HeaderTemplate>
-            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
-            <TableColumn TItem="string" @bind-Field="@context.Name" />
-            <TableColumn TItem="string" @bind-Field="@context.Address" />
+            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" Text="自定义列名1" />
+            <TableColumn TItem="string" @bind-Field="@context.Name" Text="自定义列名2" />
+            <TableColumn TItem="string" @bind-Field="@context.Address" Text="自定义列名3"/>
         </HeaderTemplate>
         <RowTemplate>
             <TableCell>@context.DateTime</TableCell>
