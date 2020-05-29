@@ -3243,6 +3243,11 @@ a {
         border-color: #409eff;
     }
 
+    .step-head.is-error {
+        color: #f56c6c;
+        border-color: #f56c6c;
+    }
+
 .step-main {
     white-space: normal;
     text-align: left;
@@ -3268,6 +3273,10 @@ a {
 
     .step-title.is-wait {
         color: #c0c4cc;
+    }
+
+    .step-title.is-error {
+        color: #f56c6c;
     }
 
 .step-description {
@@ -3364,10 +3373,6 @@ a {
     color: inherit;
     font-style: normal;
 }
-
-    .step-icon-inner.is-status {
-        transform: translateY(1px);
-    }
 
     .step-icon-inner[class*=fa]:not(.is-status) {
         font-size: 25px;
