@@ -100,19 +100,21 @@
         this.horizontal = this.$element.hasClass('tabs-top') || this.$element.hasClass('tabs-bottom');
 
         var $lastItem = this.$tab.find('.tabs-item:last');
-        if (this.vertical) {
-            this.$wrap.css({ 'height': this.$element.height() + 'px' });
-            var tabHeight = this.$tab.height();
-            var itemHeight = $lastItem.position().top + $lastItem.outerHeight();
-            if (itemHeight < tabHeight) this.$wrap.removeClass("is-scrollable");
-            else this.$wrap.addClass('is-scrollable');
-        }
-        else {
-            this.$wrap.removeAttr('style');
-            var tabWidth = this.$tab.width();
-            var itemWidth = $lastItem.position().left + $lastItem.outerWidth();
-            if (itemWidth < tabWidth) this.$wrap.removeClass("is-scrollable");
-            else this.$wrap.addClass('is-scrollable');
+        if ($lastItem.length > 0) {
+            if (this.vertical) {
+                this.$wrap.css({ 'height': this.$element.height() + 'px' });
+                var tabHeight = this.$tab.height();
+                var itemHeight = $lastItem.position().top + $lastItem.outerHeight();
+                if (itemHeight < tabHeight) this.$wrap.removeClass("is-scrollable");
+                else this.$wrap.addClass('is-scrollable');
+            }
+            else {
+                this.$wrap.removeAttr('style');
+                var tabWidth = this.$tab.width();
+                var itemWidth = $lastItem.position().left + $lastItem.outerWidth();
+                if (itemWidth < tabWidth) this.$wrap.removeClass("is-scrollable");
+                else this.$wrap.addClass('is-scrollable');
+            }
         }
     }
 
@@ -122,6 +124,8 @@
 
         var $bar = this.$element.find('.tabs-active-bar');
         var $activeTab = this.$element.find('.tabs-item.is-active');
+        if ($activeTab.length === 0) return;
+
         if (this.vertical) {
             //scroll
             var top = $activeTab.position().top;

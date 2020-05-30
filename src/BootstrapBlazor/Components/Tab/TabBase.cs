@@ -97,12 +97,7 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         protected virtual void OnTabClick(TabItem item)
         {
-            foreach (var tab in Items)
-            {
-                var isActive = tab.Text == item.Text;
-                tab.SetActive(isActive);
-            }
-            TabContent?.Render(item);
+            ActiveTab(item);
         }
 
         /// <summary>
@@ -200,6 +195,20 @@ namespace BootstrapBlazor.Components
                     TabContent?.Clear();
                 }
             }
+        }
+
+        /// <summary>
+        /// 设置指定 TabItem 为激活状态
+        /// </summary>
+        /// <param name="item"></param>
+        public virtual void ActiveTab(TabItem item)
+        {
+            foreach (var tab in Items)
+            {
+                var isActive = tab.Text == item.Text;
+                tab.SetActive(isActive);
+            }
+            TabContent?.Render(item);
         }
     }
 }
