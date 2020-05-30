@@ -2,10 +2,6 @@
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 
-body, .form-control {
-    font-size: 0.875rem;
-}
-
 a, a:hover {
     text-decoration: none;
 }

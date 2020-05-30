@@ -802,6 +802,40 @@
     /*end upload*/
 
     $.extend({
+        html5edit: function (el, options) {
+            if (!$.isFunction($.fn.summernote)) return;
+
+            var $this = $(el);
+            var op = typeof options == 'object' && options;
+            if (/destroy|hide/.test(options)) {
+                return $this.toggleClass('open').summernote(options);
+            }
+            else if (typeof options == 'string') {
+                return $this.hasClass('open') ? $this.summernote(options) : $this.html();
+            }
+            if (!$this.hasClass('open')) {
+                op = $.extend({ focus: false, lang: 'zh-CN', height: 80, dialogsInBody: true }, op);
+                if (!$this.attr('data-original-title')) $this.on('click', op, function (event) {
+                    var $this = $(this).tooltip('hide');
+                    var op = $.extend({ placeholder: $this.attr('placeholder') }, event.data);
+                    var $toolbar = $this.toggleClass('open').summernote($.extend({}, op, { focus: true }))
+                        .next().find('.note-toolbar')
+                        .on('click', 'button[data-method]', $this, function (event) {
+                            var $btn = $(this);
+                            switch ($btn.attr('data-method')) {
+                                case 'submit':
+                                    $btn.tooltip('dispose');
+                                    event.data.toggleClass('open').summernote('destroy');
+                                    break;
+                            }
+                        });
+                    var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn note-btn-close" tabindex="-1" data-method="submit" title="完成" data-placement="bottom"><i class="fa fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({ container: 'body' });
+                    $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif');
+                }).tooltip({ title: '点击展开编辑' });
+                if (op.focus) $this.trigger('click');
+            }
+            return this;
+        },
         format: function (source, params) {
             if (params === undefined || params === null) {
                 return null;
@@ -1361,6 +1395,11 @@
                 $(obj).scrollTop(0);
                 tooltip.tooltip('hide');
             });
+        },
+        editor: function (el, isEditor, height) {
+            var option = { focus: isEditor };
+            if (height) option.height = height;
+            $.html5edit(el.getElementsByClassName("editor-body"), option);
         }
     });
 
