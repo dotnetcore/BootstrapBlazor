@@ -10,15 +10,19 @@
             hljs.highlightBlock($el.find('code')[0]);
         },
         copyText: function (ele) {
-            if (typeof ele !== "string") return false;
-            var input = document.createElement('input');
-            input.setAttribute('type', 'text');
-            input.setAttribute('value', ele);
-            document.body.appendChild(input);
-            input.select();
-            var ret = document.execCommand('copy');
-            document.body.removeChild(input);
-            return ret;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(ele);
+            }
+            else {
+                if (typeof ele !== "string") return false;
+                var input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('value', ele);
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+            }
         },
         _initChart: function (el, obj, method) {
             var showToast = false;
