@@ -1,0 +1,34 @@
+﻿<Tree Items="@CheckedItems" ShowCheckbox="true" />
+
+@code {
+    private IEnumerable<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
+
+
+    private static IEnumerable<TreeItem> GetCheckedItems()
+    {
+        var ret = new List<TreeItem>
+        {
+            new TreeItem() { Text = "导航一" },
+            new TreeItem() { Text = "导航二", Checked = true, IsExpanded = true },
+            new TreeItem() { Text = "导航三" }
+        };
+
+        ret[1].AddItem(new TreeItem() { Text = "子菜单一" });
+        ret[1].AddItem(new TreeItem() { Text = "子菜单二", IsExpanded = true });
+        ret[1].AddItem(new TreeItem() { Text = "子菜单三" });
+
+        ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1一" });
+        ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1二" });
+
+        ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2一" });
+        ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2二" });
+
+        ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单一" });
+        ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单二" });
+
+        ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单一" });
+        ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单二" });
+
+        return ret;
+    }
+}

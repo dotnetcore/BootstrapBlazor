@@ -1298,7 +1298,14 @@
 
                 var $button = $item.prev().find('[data-toggle="collapse"]');
                 $button.attr('data-target', '#' + id).attr('aria-controls', id);
+
                 $button.collapse();
+
+                // expand
+                if ($button.parent().hasClass('is-expanded')) {
+                    var $collapse = $('#' + id);
+                    $collapse.collapse("show");
+                }
             });
         },
         rate: function (el, obj, method) {

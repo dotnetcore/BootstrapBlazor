@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 按钮样式集合
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("accordion")
+        protected virtual string? ClassString => CssBuilder.Default("accordion")
             .AddClass("is-accordion", IsAccordion)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();

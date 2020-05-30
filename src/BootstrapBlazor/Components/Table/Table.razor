@@ -10,7 +10,7 @@
                 @if (ShowDefaultButtons)
                 {
                     <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" ButtonIcon="fa fa-plus" ButtonText="新建" />
-                    <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" Icon="fa fa-remove" DisplayText="删除" />
+                    <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
                     <TableToolbarButton Color="Color.Primary" OnClick="@Edit" ButtonIcon="fa fa-pencil" ButtonText="编辑" />
                 }
                 @TableToolbarTemplate

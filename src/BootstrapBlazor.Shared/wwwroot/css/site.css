@@ -505,6 +505,10 @@ section {
     margin-left: 0;
 }
 
+.tree .tree-item:hover {
+    background-color: #f5f7fa;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;

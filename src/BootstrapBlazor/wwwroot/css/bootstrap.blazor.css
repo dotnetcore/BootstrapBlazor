@@ -3024,6 +3024,7 @@ a {
         padding: 0.5rem 1rem;
         color: rgba(0,0,0,.65);
         transition: color .3s linear;
+        user-select: none;
     }
 
         .menu .nav-item .nav-link.active {
@@ -3145,6 +3146,7 @@ a {
 
         .menu.is-vertical .accordion .nav-link {
             flex: 1 1 auto;
+            user-select: none;
         }
 
         .menu.is-vertical .nav-link {
@@ -3688,3 +3690,63 @@ a {
             bottom: 20px;
         }
 /*end message*/
+
+/*tree*/
+.tree {
+    position: relative;
+}
+
+    .tree .card {
+        border: none;
+    }
+
+        .tree .card .card-header {
+            padding: 0;
+            margin: 0;
+            border: none;
+            background-color: transparent;
+        }
+
+        .tree .card .card-header-wrapper {
+            padding-right: 0;
+        }
+
+        .tree .card .card-body {
+            padding: 0;
+        }
+
+    .tree .tree-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1 1 100%;
+        cursor: pointer;
+    }
+
+        .tree .tree-item .nav-link {
+            padding: 2px 4px;
+            transition: color .3s linear;
+            user-select: none;
+            flex: 1 1 auto;
+        }
+
+            .tree .tree-item .nav-link:hover {
+                color: #409eff;
+            }
+
+    .tree .has-leaf > .accordion {
+        padding-left: 20px;
+    }
+
+    .tree .form-checkbox {
+        margin: 0 2px;
+    }
+
+    .tree .fa-angle-right {
+        transition: transform .3s linear;
+    }
+
+    .tree .is-expanded .fa-angle-right {
+        transform: rotate(90deg);
+    }
+/*end tree*/

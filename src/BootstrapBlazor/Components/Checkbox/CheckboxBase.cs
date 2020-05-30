@@ -83,6 +83,19 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            if (Value is bool val)
+            {
+                State = val ? CheckboxState.Checked : CheckboxState.UnChecked;
+            }
+        }
+
+        /// <summary>
         /// 点击选择框方法
         /// </summary>
         protected virtual async Task OnToggleClick()
@@ -98,7 +111,7 @@ namespace BootstrapBlazor.Components
                     if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
                 }
                 if (StateChanged.HasDelegate) await StateChanged.InvokeAsync(State);
-                if(OnStateChanged != null) await OnStateChanged.Invoke(State, Value);
+                if (OnStateChanged != null) await OnStateChanged.Invoke(State, Value);
             }
         }
 
