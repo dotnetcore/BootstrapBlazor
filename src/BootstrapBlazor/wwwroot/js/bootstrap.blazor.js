@@ -534,7 +534,9 @@
                         // remove prev file
                         var origin = $prev.attr('data-file');
                         if (origin) {
-                            var f = that.files.findIndex(function (v, index) { return v.file.name === origin; });
+                            var f = that.files.findIndex(function (v, index) {
+                                return v.file.name === origin;
+                            });
                             if (f > -1) that.files.splice(f, 1);
                         }
                         $prev.attr('data-file', file.name);
@@ -723,7 +725,9 @@
                 failed = false;
             }
         }
-        catch (ex) { }
+        catch (ex) {
+            console.log(ex);
+        }
 
         if (failed) this.failed(evt, $prev, file);
     };
@@ -1005,9 +1009,15 @@
                 document.addEventListener('mouseup', handleDragEnd);
                 document.addEventListener('touchend', handleDragEnd);
 
-                document.addEventListener('mousedown', function () { return false; });
-                document.addEventListener('touchstart', function () { return false; });
-                document.addEventListener('swipe', function () { return false; });
+                document.addEventListener('mousedown', function () {
+                    return false;
+                });
+                document.addEventListener('touchstart', function () {
+                    return false;
+                });
+                document.addEventListener('swipe', function () {
+                    return false;
+                });
             }
         },
         tooltip: function (id, method, title, content, html) {
@@ -1306,6 +1316,11 @@
                     var $collapse = $('#' + id);
                     $collapse.collapse("show");
                 }
+            });
+
+            $el.find('.tree .tree-item > .fa').on('click', function (e) {
+                var $parent = $(this).parent();
+                $parent.find('[data-toggle="collapse"]').trigger('click');
             });
         },
         rate: function (el, obj, method) {

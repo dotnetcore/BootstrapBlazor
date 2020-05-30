@@ -3724,7 +3724,7 @@ a {
     }
 
         .tree .tree-item .nav-link {
-            padding: 2px 4px;
+            padding: 4px;
             transition: color .3s linear;
             user-select: none;
             flex: 1 1 auto;
@@ -3749,4 +3749,10 @@ a {
     .tree .is-expanded .fa-angle-right {
         transform: rotate(90deg);
     }
+
+@media (min-width: 768px) {
+    .tree .tree-item .nav-link {
+        padding: 2px 4px;
+    }
+}
 /*end tree*/

@@ -10,7 +10,7 @@
                 <div class="card-header">
                     <div class="card-header-wrapper">
                         <div role="treeitem" class="@GetTreeItemClassString(item)">
-                            <i class="fa fa-fw fa-angle-right"></i>
+                            <i class="fa fa-fw fa-angle-right" @onclick="@(e => OnClick(item))"></i>
                             @if (ShowCheckbox)
                             {
                                 <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
@@ -36,7 +36,7 @@
                 {
                     <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
                 }
-                <a role="treeitem" class="nav-link" @onclick:preventDefault @onclick="@(e => OnClick(item))">
+                <a class="nav-link" @onclick:preventDefault @onclick="@(e => OnClick(item))">
                     <span>@item.Text</span>
                 </a>
             </div>
