@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -101,6 +102,39 @@ namespace BootstrapBlazor.Components
         public EventCallback<SelectedItem> OnSelectedItemChanged { get; set; }
 
         /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            // 设置数据集合后 SelectedItem 设置默认值
+            if (SelectedItem == null)
+            {
+                SelectedItem = Items?.FirstOrDefault(i => i.Active);
+            }
+        }
+
+        /// <summary>
+        /// SetParametersAsync
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public override async Task SetParametersAsync(ParameterView parameters)
+        {
+            await base.SetParametersAsync(parameters);
+
+            if (Color == Color.None) Color = Color.Primary;
+
+            if (SelectedItem == null || !(Items?.Contains(SelectedItem) ?? false))
+            {
+                var item = Items?.FirstOrDefault(i => i.Active);
+                if (item == null) item = Items?.FirstOrDefault();
+                if (item != null) SelectedItem = item;
+            }
+        }
+
+        /// <summary>
         /// 失去焦点时触发此方法
         /// </summary>
         protected virtual void OnBlur()
@@ -122,21 +156,6 @@ namespace BootstrapBlazor.Components
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);
-        }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            // 设置数据集合后 SelectedItem 设置默认值
-
-            if (Items != null)
-            {
-                SelectedItem = ValueExpression != null ? Items.FirstOrDefault(i => i.Value == CurrentValueAsString) : Items.FirstOrDefault(i => i.Active);
-            }
         }
 
         /// <summary>
