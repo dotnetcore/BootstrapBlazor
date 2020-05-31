@@ -437,6 +437,8 @@ section {
 }
 
 .layout .side {
+    display: flex;
+    height: 100%;
     background: #3ba0e9;
     color: #fff;
 }

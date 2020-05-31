@@ -231,6 +231,9 @@
 </Block>
 
 <Block Title="程序动态添加 TabItem 面板" Introduction="通过此功能可以实现侧边栏中点击菜单链接，右侧数据区上部呈现多标签" CodeFile="tabs.7.html">
+    <p>
+        本例中右侧 <code>Tab</code> 面板内状态一直保持，关闭后重新打开时组件重新加载
+    </p>
     <Layout SideWidth="120px" style="min-height: 180px; border: 1px solid #ddd; border-radius: 4px;">
         <Header>
             <div class="header">网站 Header</div>
@@ -242,7 +245,7 @@
         </Side>
         <Main>
             <div class="tab-main-demo">
-                <Tab @ref="TabSetMenu">
+                <Tab @ref="TabSetMenu" ShowClose="true">
                     <TabItems>
                     </TabItems>
                 </Tab>
@@ -254,4 +257,3 @@
 <AttributeTable Items="@GetAttributes()" />
 
 <MethodTable Items="@GetMethods()" />
-

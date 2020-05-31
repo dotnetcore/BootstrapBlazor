@@ -1781,6 +1781,7 @@ a {
 
     .tabs-item.is-closeable .tabs-item-text {
         margin-right: 1rem;
+        margin-left: 1rem;
     }
 
     .tabs-item:hover .tabs-item-close {
@@ -1952,6 +1953,11 @@ a {
 
 .tabs-card > .tabs-header .tabs-nav-wrap:after, .tabs-border-card > .tabs-header .tabs-nav-wrap:after {
     content: none;
+}
+
+.tabs-card .tabs-item.is-closeable .tabs-item-text, .tabs-border-card .tabs-item.is-closeable .tabs-item-text {
+    margin-right: 1rem;
+    margin-left: 0rem;
 }
 /*end tabs*/
 
@@ -3186,9 +3192,8 @@ a {
     flex: 1;
 }
 
-.layout-side .side {
-    display: flex;
-    height: 100%;
+.layout-side {
+    position: relative;
 }
 
 .layout-right {
@@ -3739,7 +3744,7 @@ a {
     }
 
     .tree .form-checkbox {
-        margin: 0 2px;
+        margin: 0 4px;
     }
 
     .tree .fa-angle-right {
