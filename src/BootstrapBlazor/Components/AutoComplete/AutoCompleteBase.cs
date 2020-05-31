@@ -66,10 +66,16 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 是否开启模糊查询，默认为false
+        /// 是否开启模糊查询，默认为 false
         /// </summary>
         [Parameter]
         public bool IsLikeMatch { get; set; } = false;
+
+        /// <summary>
+        /// 匹配时是否忽略大小写，默认为 true
+        /// </summary>
+        [Parameter]
+        public bool IgnoreCase { get; set; } = true;
 
         /// <summary>
         /// 自定义集合过滤规则
@@ -109,7 +115,10 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-                    var items = IsLikeMatch ? Items.Where(s => s.Contains(val)) : Items.Where(s => s.StartsWith(val));
+                    var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+                    var items = IsLikeMatch ?
+                        Items.Where(s => s.Contains(val, comparison)):
+                        Items.Where(s => s.StartsWith(val, comparison));
                     FilterItems = items.ToList();
                 }
             }

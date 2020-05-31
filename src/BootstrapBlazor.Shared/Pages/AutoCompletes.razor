@@ -11,10 +11,10 @@
     </div>
 </Block>
 
-<Block Title="模糊查询" Introduction="通过设置 <code>IsLikeMatch</code> 值设置是否开启集合的模糊匹配" CodeFile="autocomplete.4.html">
-    <p>本例中请键入 23 字符串显示查看效果，会将集合中 123, 1234 包含 23 的都结果查询出来供选择</p>
+<Block Title="模糊查询并忽略大小写" Introduction="通过设置 <code>IsLikeMatch</code> 值设置是否开启集合的模糊匹配，通过设置 <code>IgnoreCase</code> 来控制是否忽略大小写" CodeFile="autocomplete.4.html">
+    <p>本例中请键入 abc 字符串显示查看效果，会将集合中所有包含 abc 且大小写相同的匹配出来供选择</p>
     <div style="width: 200px;">
-        <AutoComplete Items="@StaticItems" IsLikeMatch="true" />
+        <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
     </div>
 </Block>
 
