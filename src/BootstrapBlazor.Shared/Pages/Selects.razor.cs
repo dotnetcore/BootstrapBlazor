@@ -26,11 +26,6 @@ namespace BootstrapBlazor.Shared.Pages
         private Logger? Trace { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        private Select<string>? SubSelect { get; set; }
-
-        /// <summary>
         /// 获得 默认数据集合
         /// </summary>
         private readonly IEnumerable<SelectedItem> Items = new SelectedItem[]

@@ -82,7 +82,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否需要重新渲染
         /// </summary>
         [Parameter]
-        public bool ShouldRenderChilden { get; set; } = true;
+        public bool KeepChildrenState { get; set; }
 
         /// <summary>
         /// 获得/设置 弹窗容器实例
@@ -106,7 +106,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override bool ShouldRender()
         {
-            return ShouldRenderChilden;
+            return !KeepChildrenState;
         }
 
         /// <summary>

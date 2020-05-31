@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         private string? ClassString => CssBuilder.Default("has-leaf")
-            .AddClass("active", Item.IsActive)
+            .AddClass("active", Item?.IsActive ?? false)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件数据源
         /// </summary>
         [Parameter]
-        public MenuItem Item { get; set; } = new MenuItem();
+        public MenuItem? Item { get; set; }
 
         /// <summary>
         /// 

@@ -78,7 +78,7 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(IsScrolling), IsScrolling),
                 new KeyValuePair<string, object>(nameof(ShowCloseButton), ShowCloseButton),
                 new KeyValuePair<string, object>(nameof(ShowFooter), ShowFooter),
-                new KeyValuePair<string, object>(nameof(ModalDialog.ShouldRenderChilden), !KeepChildrenState)
+                new KeyValuePair<string, object>(nameof(KeepChildrenState), KeepChildrenState)
             };
         }
     }

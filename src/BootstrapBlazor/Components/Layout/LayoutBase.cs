@@ -12,6 +12,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string? ClassString => CssBuilder.Default("layout")
             .AddClass("has-sidebar", Side != null && IsFullSide)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

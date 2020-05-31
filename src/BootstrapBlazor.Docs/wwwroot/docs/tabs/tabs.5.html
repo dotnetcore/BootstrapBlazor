@@ -33,7 +33,7 @@
 @code {
     private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
 
-    private void AddTab()
+    private async Task AddTab()
     {
         if (TabSet != null)
         {
@@ -52,18 +52,18 @@
                 })
             };
             item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-            TabSet.Add(item);
+            await TabSet.Add(item);
         }
     }
 
-    private void RemoveTab()
+    private async Task RemoveTab()
     {
         if (TabSet != null)
         {
             if (TabSet.Items.Count() > 4)
             {
                 var item = TabSet.Items.Last();
-                TabSet.Remove(item);
+                await TabSet.Remove(item);
             }
         }
     }

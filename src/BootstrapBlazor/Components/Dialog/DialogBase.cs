@@ -87,19 +87,5 @@ namespace BootstrapBlazor.Components
                 StateHasChanged();
             }
         }
-
-        private RenderFragment? GetInstanceRenderFragment(ComponentBase component)
-        {
-            FieldInfo? fieldInfo = null;
-            var type = component.GetType();
-            do
-            {
-                fieldInfo = type.GetField("_renderFragment", BindingFlags.NonPublic | BindingFlags.Instance);
-                if (fieldInfo == null) type = type.BaseType;
-                if (type == null) break;
-            }
-            while (fieldInfo == null);
-            return fieldInfo?.GetValue(component) as RenderFragment;
-        }
     }
 }

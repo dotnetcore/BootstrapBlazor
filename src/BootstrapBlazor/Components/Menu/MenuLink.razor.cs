@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -8,7 +10,7 @@ namespace BootstrapBlazor.Components
     public sealed partial class MenuLink
     {
         private string? ClassString => CssBuilder.Default()
-            .AddClass("active", Active)
+            .AddClass("active", Item?.IsActive ?? false)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -16,24 +18,17 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         [Parameter]
-        public bool Active { get; set; }
+        public MenuItem? Item { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [Parameter]
-        public string? Icon { get; set; }
+        public Func<MenuItem, Task>? OnClick { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string? Url { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string? Text { get; set; }
+        private async Task OnClickLink()
+        {
+            if (OnClick != null && Item != null) await OnClick(Item);
+        }
     }
 }

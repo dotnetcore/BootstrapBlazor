@@ -3,6 +3,7 @@ using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages
     {
         private Tab? TabSet { get; set; }
 
-        private void AddTab()
+        private async Task AddTab()
         {
             if (TabSet != null)
             {
@@ -31,21 +32,21 @@ namespace BootstrapBlazor.Shared.Pages
                         builder.CloseElement();
                     })
                 };
-                item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-                TabSet.Add(item);
+                var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
+                await TabSet.Add(item);
             }
         }
 
         private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
 
-        private void RemoveTab()
+        private async Task RemoveTab()
         {
             if (TabSet != null)
             {
                 if (TabSet.Items.Count() > 4)
                 {
                     var item = TabSet.Items.Last();
-                    TabSet.Remove(item);
+                    await TabSet.Remove(item);
                 }
             }
         }
@@ -55,6 +56,47 @@ namespace BootstrapBlazor.Shared.Pages
         private void SetPlacement(Placement placement)
         {
             BindPlacement = placement;
+        }
+
+        private IEnumerable<MenuItem> GetSideMenuItems()
+        {
+            return new List<MenuItem>
+            {
+                new MenuItem() { Text = "计数器"  },
+                new MenuItem() { Text = "天气预报" }
+            };
+        }
+
+        private Tab? TabSetMenu { get; set; }
+
+        private async Task OnClickMenuItem(MenuItem item)
+        {
+            if (TabSetMenu != null)
+            {
+                var text = item.Text;
+                var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
+                if (tabItem == null) await AddTabItem(text ?? "");
+                else await TabSetMenu.ActiveTab(tabItem);
+            }
+        }
+
+        private async Task AddTabItem(string text)
+        {
+            var type = text == "计数器" ? typeof(Counter) : typeof(FetchData);
+            var item = new TabItem();
+            var parameters = new Dictionary<string, object>
+            {
+                ["Text"] = text,
+                ["IsActive"] = true,
+                ["ChildContent"] = new RenderFragment(builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent(index++, type);
+                    builder.CloseComponent();
+                })
+            };
+            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
+            if (TabSetMenu != null) await TabSetMenu.Add(item);
         }
 
         /// <summary>

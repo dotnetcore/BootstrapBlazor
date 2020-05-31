@@ -1,18 +1,26 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class TopMenu
+    public sealed partial class TopMenu
     {
         /// <summary>
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
         public IEnumerable<MenuItem> Items { get; set; } = new MenuItem[0];
+
+        /// <summary>
+        /// 获得/设置 菜单项点击回调委托
+        /// </summary>
+        [Parameter]
+        public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
         /// <summary>
         /// 渲染菜单方法

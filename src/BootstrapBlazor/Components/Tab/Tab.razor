@@ -12,7 +12,7 @@
                         <div class="tabs-active-bar"></div>
                     }
                     <CascadingValue Value="this" IsFixed="true">
-                        <TabHeaderContent OnClick="@OnTabClick" />
+                        <TabHeader @ref="TabHeader" OnClickTab="@OnClickTab" />
                         @TabItems
                     </CascadingValue>
                 </div>

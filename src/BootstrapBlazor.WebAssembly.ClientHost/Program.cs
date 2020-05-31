@@ -1,4 +1,5 @@
 ﻿using BootstrapBlazor.Shared;
+using BootstrapBlazor.Shared.Data;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -30,6 +31,8 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             // 增加 BootstrapBlazor 组件
             builder.Services.AddBootstrapBlazor();
+
+            builder.Services.AddSingleton<WeatherForecastService>();
 
             await builder.Build().RunAsync();
         }
