@@ -1,0 +1,25 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits SplitBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" role="group" data-toggle="split" @ref="SplitElement">
+    <div class="@WrapperClassString">
+        <div class="split-pane split-left" style="@StyleString">
+            @FirstPaneTemplate
+        </div>
+        <div class="split-pane split-bar">
+            <div class="split-trigger">
+                <i class="split-trigger-bar"></i>
+                <i class="split-trigger-bar"></i>
+                <i class="split-trigger-bar"></i>
+                <i class="split-trigger-bar"></i>
+                <i class="split-trigger-bar"></i>
+                <i class="split-trigger-bar"></i>
+                <i class="split-trigger-bar"></i>
+                <i class="split-trigger-bar"></i>
+            </div>
+        </div>
+        <div class="split-pane split-right" style="flex: 1;">
+            @SecondPaneTemplate
+        </div>
+    </div>
+</div>

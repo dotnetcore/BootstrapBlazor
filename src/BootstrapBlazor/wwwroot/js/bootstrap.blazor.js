@@ -276,62 +276,39 @@
         var originX = 0;
         var originY = 0;
         var trail = [];
-        var isMouseDown = false;
 
-        var handleDragStart = function (e) {
-            that.$barText.addClass('d-none');
-            originX = e.clientX || e.touches[0].clientX;
-            originY = e.clientY || e.touches[0].clientY;
-            isMouseDown = true;
-        };
+        this.$slider.drag(
+            function (e) {
+                that.$barText.addClass('d-none');
+                originX = e.clientX || e.touches[0].clientX;
+                originY = e.clientY || e.touches[0].clientY;
+            },
+            function (e) {
+                var eventX = e.clientX || e.touches[0].clientX;
+                var eventY = e.clientY || e.touches[0].clientY;
+                var moveX = eventX - originX;
+                var moveY = eventY - originY;
+                if (moveX < 0 || moveX + 40 > that.options.width) return false;
 
-        var handleDragMove = function (e) {
-            if (!isMouseDown) return false;
-            var eventX = e.clientX || e.touches[0].clientX;
-            var eventY = e.clientY || e.touches[0].clientY;
-            var moveX = eventX - originX;
-            var moveY = eventY - originY;
-            if (moveX < 0 || moveX + 40 > that.options.width) return false;
+                that.$slider.css({ 'left': (moveX - 1) + 'px' });
+                var blockLeft = (that.options.width - 40 - 20) / (that.options.width - 40) * moveX;
+                that.block.style.left = blockLeft + 'px';
 
-            that.$slider.css({ 'left': (moveX - 1) + 'px' });
-            var blockLeft = (that.options.width - 40 - 20) / (that.options.width - 40) * moveX;
-            that.block.style.left = blockLeft + 'px';
+                that.$footer.addClass('is-move');
+                that.$barLeft.css({ 'width': (moveX + 4) + 'px' });
+                trail.push(Math.round(moveY));
+            },
+            function (e) {
+                var eventX = e.clientX || e.changedTouches[0].clientX;
+                that.$footer.removeClass('is-move');
 
-            that.$footer.addClass('is-move');
-            that.$barLeft.css({ 'width': (moveX + 4) + 'px' });
-            trail.push(Math.round(moveY));
-        };
+                var offset = Math.ceil((that.options.width - 40 - 20) / (that.options.width - 40) * (eventX - originX) + 3);
+                that.verify(offset, trail);
+            }
+        );
 
-        var handleDragEnd = function (e) {
-            if (!isMouseDown) return false;
-            isMouseDown = false;
-
-            var eventX = e.clientX || e.changedTouches[0].clientX;
-            if (eventX === originX) return false;
-            that.$footer.removeClass('is-move');
-
-            var offset = Math.ceil((that.options.width - 40 - 20) / (that.options.width - 40) * (eventX - originX) + 3);
-            that.verify(offset, trail);
-        };
-
-        this.$slider.on('mousedown', handleDragStart);
-        this.$slider.on('touchstart', handleDragStart);
         this.$refresh.on('click', function () {
             that.options.barText = that.$barText.attr('data-text');
-        });
-        document.addEventListener('mousemove', handleDragMove);
-        document.addEventListener('touchmove', handleDragMove);
-        document.addEventListener('mouseup', handleDragEnd);
-        document.addEventListener('touchend', handleDragEnd);
-
-        document.addEventListener('mousedown', function () {
-            return false;
-        });
-        document.addEventListener('touchstart', function () {
-            return false;
-        });
-        document.addEventListener('swipe', function () {
-            return false;
         });
     };
 
@@ -805,6 +782,48 @@
     $.fn.uploader.Constructor = Uploader;
     /*end upload*/
 
+    $.fn.extend({
+        drag: function (star, move, end) {
+            var $this = $(this);
+
+            var handleDragStart = function (e) {
+                e.stopPropagation();
+
+                document.addEventListener('mousemove', handleDragMove);
+                document.addEventListener('touchmove', handleDragMove);
+                document.addEventListener('mouseup', handleDragEnd);
+                document.addEventListener('touchend', handleDragEnd);
+
+                if ($.isFunction(star)) {
+                    star.call(this, e);
+                }
+            };
+
+            var handleDragMove = function (e) {
+                if ($.isFunction(move)) {
+                    move.call(this, e);
+                }
+            };
+
+            var handleDragEnd = function (e) {
+                // 结束拖动
+                if ($.isFunction(end)) {
+                    end.call(this, e);
+                }
+
+                window.setTimeout(function () {
+                    document.removeEventListener('mousemove', handleDragMove);
+                    document.removeEventListener('touchmove', handleDragMove);
+                    document.removeEventListener('mouseup', handleDragEnd);
+                    document.removeEventListener('touchend', handleDragEnd);
+                }, 100);
+            };
+
+            $this.on('mousedown', handleDragStart);
+            $this.on('touchstart', handleDragStart);
+        }
+    });
+
     $.extend({
         html5edit: function (el, options) {
             if (!$.isFunction($.fn.summernote)) return;
@@ -984,78 +1003,38 @@
         },
         slider: function (el, slider, method) {
             var $slider = $(el);
-            var isMouseDown = false;
-            var originX = 0;
-            var curVal = 0;
-            var newVal = 0;
-            var slider_width = $slider.innerWidth();
+
             var isDisabled = $slider.find('.disabled').length > 0;
-
             if (!isDisabled) {
-                //var $button = $slider.find('.slider-button-wrapper').tooltip({ trigger: 'focus hover' });
-                //var $tooltip = null;
+                var originX = 0;
+                var curVal = 0;
+                var newVal = 0;
+                var slider_width = $slider.innerWidth();
+                $slider.find('.slider-button-wrapper').drag(
+                    function (e) {
+                        originX = e.clientX || e.touches[0].clientX;
+                        curVal = parseInt($slider.attr('aria-valuetext'));
+                        $slider.find('.slider-button-wrapper, .slider-button').addClass('dragging');
+                    },
+                    function (e) {
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
 
-                var handleDragStart = function (e) {
-                    e.stopPropagation();
-                    // 开始拖动
-                    isMouseDown = true;
+                        newVal = Math.ceil((eventX - originX) * 100 / slider_width) + curVal;
 
-                    originX = e.clientX || e.touches[0].clientX;
-                    curVal = parseInt($slider.attr('aria-valuetext'));
-                    $slider.find('.slider-button-wrapper, .slider-button').addClass('dragging');
-                    //$tooltip = $('#' + $button.attr('aria-describedby'));
-                };
+                        if (newVal <= 0) newVal = 0;
+                        if (newVal >= 100) newVal = 100;
 
-                var handleDragMove = function (e) {
-                    if (!isMouseDown) return false;
+                        $slider.find('.slider-bar').css({ "width": newVal.toString() + "%" });
+                        $slider.find('.slider-button-wrapper').css({ "left": newVal.toString() + "%" });
+                        $slider.attr('aria-valuetext', newVal.toString());
 
-                    var eventX = e.clientX || e.changedTouches[0].clientX;
-                    if (eventX === originX) return false;
+                        slider.invokeMethodAsync(method, newVal);
+                    },
+                    function (e) {
+                        $slider.find('.slider-button-wrapper, .slider-button').removeClass('dragging');
 
-                    newVal = Math.ceil((eventX - originX) * 100 / slider_width) + curVal;
-
-                    // tooltip
-                    //var tooltipLeft = eventX - originX + 8;
-                    //if (val >= 0 && val <= 100)
-                    //    $tooltip.css({ 'left': tooltipLeft.toString() + 'px' });
-
-                    if (newVal <= 0) newVal = 0;
-                    if (newVal >= 100) newVal = 100;
-
-                    $slider.find('.slider-bar').css({ "width": newVal.toString() + "%" });
-                    $slider.find('.slider-button-wrapper').css({ "left": newVal.toString() + "%" });
-                    $slider.attr('aria-valuetext', newVal.toString());
-
-                    slider.invokeMethodAsync(method, newVal);
-                };
-
-                var handleDragEnd = function (e) {
-                    if (!isMouseDown) return false;
-                    isMouseDown = false;
-
-                    // 结束拖动
-                    $slider.find('.slider-button-wrapper, .slider-button').removeClass('dragging');
-
-                    slider.invokeMethodAsync(method, newVal);
-                };
-
-                $slider.on('mousedown', '.slider-button-wrapper', handleDragStart);
-                $slider.on('touchstart', '.slider-button-wrapper', handleDragStart);
-
-                document.addEventListener('mousemove', handleDragMove);
-                document.addEventListener('touchmove', handleDragMove);
-                document.addEventListener('mouseup', handleDragEnd);
-                document.addEventListener('touchend', handleDragEnd);
-
-                document.addEventListener('mousedown', function () {
-                    return false;
-                });
-                document.addEventListener('touchstart', function () {
-                    return false;
-                });
-                document.addEventListener('swipe', function () {
-                    return false;
-                });
+                        slider.invokeMethodAsync(method, newVal);
+                    });
             }
         },
         tooltip: function (id, method, title, content, html) {
@@ -1404,6 +1383,50 @@
             var option = { focus: isEditor };
             if (height) option.height = height;
             $.html5edit(el.getElementsByClassName("editor-body"), option);
+        },
+        split: function (el) {
+            var $split = $(el);
+
+            var splitWidth = $split.innerWidth();
+            var splitHeight = $split.innerHeight();
+            var curVal = 0;
+            var newVal = 0;
+            var originX = 0;
+            var originY = 0;
+            var isVertical = !$split.children().hasClass('is-horizontal');
+
+            $split.children().children('.split-bar').drag(
+                function (e) {
+                    if (isVertical) {
+                        originY = e.clientY || e.touches[0].clientY;
+                        curVal = $split.children().children('.split-left').innerHeight() * 100 / splitHeight;
+                    }
+                    else {
+                        originX = e.clientX || e.touches[0].clientX;
+                        curVal = $split.children().children('.split-left').innerWidth() * 100 / splitWidth;
+                    }
+                    $split.toggleClass('dragging');
+                },
+                function (e) {
+                    if (isVertical) {
+                        var eventY = e.clientY || e.changedTouches[0].clientY;
+                        newVal = Math.ceil((eventY - originY) * 100 / splitHeight) + curVal;
+                    }
+                    else {
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
+                        newVal = Math.ceil((eventX - originX) * 100 / splitWidth) + curVal;
+                    }
+
+                    if (newVal <= 0) newVal = 0;
+                    if (newVal >= 100) newVal = 100;
+
+                    $split.children().children('.split-left').css({ "flex-basis": newVal.toString() + "%" });
+                    $split.children().children('.split-right').css({ "flex-basis": (100 - newVal).toString() + "%" });
+                    $split.attr('data-split', newVal);
+                },
+                function (e) {
+                    $split.toggleClass('dragging');
+                });
         }
     });
 
