@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -8,7 +10,7 @@ namespace BootstrapBlazor.Components
     public sealed partial class SubMenu
     {
         /// <summary>
-        /// 
+        /// 获得 组件样式
         /// </summary>
         private string? ClassString => CssBuilder.Default("has-leaf")
             .AddClass("active", Item?.IsActive ?? false)
@@ -20,6 +22,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public MenuItem? Item { get; set; }
+
+        /// <summary>
+        /// 获得/设置 菜单项点击回调委托
+        /// </summary>
+        [Parameter]
+        public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
         /// <summary>
         /// 

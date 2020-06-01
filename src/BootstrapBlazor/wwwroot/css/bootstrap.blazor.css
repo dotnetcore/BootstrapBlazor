@@ -3017,14 +3017,14 @@ a {
         padding: 0 1rem;
     }
 
-        .menu .navbar .nav-item {
-            border-bottom: solid 2px transparent;
-        }
+    .menu .navbar-nav > .nav-item {
+        border-bottom: solid 2px transparent;
+    }
 
-            .menu .navbar .nav-item.active {
-                color: #1890ff;
-                border-bottom: 2px solid #1890ff;
-            }
+        .menu .navbar-nav > .nav-item.active {
+            color: #1890ff;
+            border-bottom: 2px solid #1890ff;
+        }
 
     .menu .nav-item .nav-link {
         padding: 0.5rem 1rem;
@@ -3055,7 +3055,10 @@ a {
             transition: background-color .3s linear;
         }
 
-            .menu .dropdown-menu .dropdown-item:hover, .menu .sub-menu .nav-item:hover {
+            .menu .dropdown-menu .dropdown-item:hover,
+            .menu .dropdown-menu .dropdown-item.active,
+            .menu .sub-menu .nav-item.active,
+            .menu .sub-menu .nav-item:hover {
                 background-color: #60aff9;
             }
 

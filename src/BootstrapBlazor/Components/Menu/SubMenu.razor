@@ -14,11 +14,11 @@
             <li class="@GetClassString("nav-item", item.IsActive)">
                 @if (item.Items.Any())
                 {
-                    <SubMenu Item="@item" class="nav-link" />
+                    <SubMenu Item="@item" class="nav-link" OnClick="@OnClick" />
                 }
                 else
                 {
-                    <MenuLink Item="@item" class="nav-link" />
+                    <MenuLink Item="@item" class="nav-link" OnClick="@OnClick" />
                 }
             </li>
         }

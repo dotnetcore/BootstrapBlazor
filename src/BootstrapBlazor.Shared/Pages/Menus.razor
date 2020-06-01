@@ -5,7 +5,8 @@
 <h4>为页面和功能提供导航的菜单列表。</h4>
 
 <Block Title="顶栏" Introduction="适用广泛的基础用法。" CodeFile="menu.1.html">
-    <Menu Items="@GetItems()" />
+    <Menu Items="@GetItems()" OnClick="@OnClickMenu" />
+    <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="带图标的顶栏菜单" Introduction="适用简单的网站应用，通过设置菜单项 <code>MenuItem</code> 的 <code>Icon</code> 属性设置菜单图标" CodeFile="menu.2.html">
@@ -14,8 +15,9 @@
 
 <Block Title="侧栏" Introduction="适用于左右结构布局的网站，通过设置 <code>IsVertical</code> 更改导航菜单为侧栏" CodeFile="menu.3.html">
     <div style="width:220px;">
-        <Menu Items="@GetSideMenuItems()" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+        <Menu Items="@GetSideMenuItems()" IsVertical="true" OnClick="@OnClickSideMenu" style="border-right: 1px solid #e6e6e6;" />
     </div>
+    <Logger @ref="TraceSideMenu" class="mt-3" />
 </Block>
 
 <Block Title="带图标的侧栏菜单" Introduction="通过设置菜单项 <code>MenuItem</code> 的 <code>Icon</code> 属性设置菜单图标" CodeFile="menu.3.html">

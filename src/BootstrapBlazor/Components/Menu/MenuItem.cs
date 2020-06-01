@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components
         private readonly List<MenuItem> _items = new List<MenuItem>();
 
         /// <summary>
+        /// 
+        /// </summary>
+        internal MenuItem? Parent { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件数据源
         /// </summary>
         public IEnumerable<MenuItem> Items => _items;
@@ -39,6 +44,10 @@ namespace BootstrapBlazor.Components
         /// 添加 Menutem 方法 由 MenuItem 方法加载时调用
         /// </summary>
         /// <param name="item">Menutem 实例</param>
-        public void AddItem(MenuItem item) => _items.Add(item);
+        public void AddItem(MenuItem item)
+        {
+            item.Parent = this;
+            _items.Add(item);
+        }
     }
 }

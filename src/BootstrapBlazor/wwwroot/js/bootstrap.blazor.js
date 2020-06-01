@@ -1339,6 +1339,22 @@
                 var $parent = $(this).parent();
                 $parent.find('[data-toggle="collapse"]').trigger('click');
             });
+
+            // support menu component
+            if ($el.parent().hasClass("menu")) {
+                $el.on('click', '.nav-link:not(.collapse)', function () {
+                    var $this = $(this);
+                    $el.find('.active').removeClass('active');
+                    $this.addClass("active");
+
+                    // parent
+                    var $card = $this.closest('.card');
+                    while ($card.length > 0) {
+                        $card.children('.card-header').children('.card-header-wrapper').find('.nav-link').addClass('active');
+                        $card = $card.parent().closest('.card');
+                    }
+                });
+            }
         },
         rate: function (el, obj, method) {
             var $el = $(el);

@@ -1,7 +1,9 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -10,6 +12,28 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Menus
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private Logger? Trace { get; set; }
+
+        private Task OnClickMenu(MenuItem item)
+        {
+            Trace?.Log($"菜单点击项: {item.Text}");
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Logger? TraceSideMenu { get; set; }
+
+        private Task OnClickSideMenu(MenuItem item)
+        {
+            TraceSideMenu?.Log($"菜单点击项: {item.Text}");
+            return Task.CompletedTask;
+        }
+
         private IEnumerable<MenuItem> GetItems()
         {
             var ret = new List<MenuItem>
@@ -140,6 +164,13 @@ namespace BootstrapBlazor.Shared.Pages
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "OnClick",
+                    Description = "菜单项被点击时回调此方法",
+                    Type = "Func<MenuItem, Task>",
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 }
             };
         }
