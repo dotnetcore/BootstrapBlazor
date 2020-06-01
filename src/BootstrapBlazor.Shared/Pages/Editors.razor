@@ -4,6 +4,17 @@
 
 <h4>将输入的文字转化为 <code>html</code> 代码片段</h4>
 
+<p><code>Editor</code> 组件是依赖 <a href="https://summernote.org/" target="_blank"><code>Summernote.js</code></a> 组件库的，所以使用本组件时需要事先应用相应的 <code>css</code> 与 <code>js</code> 文件</p>
+
+<h4>CSS 文件</h4>
+<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor/lib/summernote/summernote-lite.min.css" /&gt;
+</Pre>
+
+<h4>JS 文件</h4>
+<Pre>&lt;script src="_content/BootstrapBlazor/lib/summernote/summernote-lite.min.js"&gt;&lt;/script&gt;
+&lt;script src="_content/BootstrapBlazor/lib/summernote/summernote-zh-CN.min.js"&gt;&lt;/script&gt;
+</Pre>
+
 <Block Title="基础用法" Introduction="默认呈现为 <code>div</code> 点击后变为富文本编辑框" CodeFile="editor.1.html">
     <p>通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code></p>
     <div class="form-control mb-3">我是一个普通的 <code>div</code> 点击无法编辑</div>
