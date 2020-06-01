@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -123,8 +123,6 @@ namespace BootstrapBlazor.Components
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters);
-
-            if (Color == Color.None) Color = Color.Primary;
 
             if (SelectedItem == null || !(Items?.Contains(SelectedItem) ?? false))
             {
