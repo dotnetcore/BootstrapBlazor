@@ -9,6 +9,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="favicon.png" />
+    <link href="manifest.json" rel="manifest" />
     <title>Bootstrap Blazor 演示网站</title>
     <base href="/" />
     <link rel="stylesheet" href="style/loading.css" />
@@ -56,6 +57,7 @@
     </div>
 
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script src="_content/BootstrapBlazor/lib/jquery/jquery.min.js"></script>
     <script src="_content/BootstrapBlazor/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="_content/BootstrapBlazor/lib/chartjs/Chart.bundle.min.js"></script>

@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <RazorLangVersion>3.0</RazorLangVersion>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,6 +20,10 @@
     <ItemGroup>
       <Content Include="..\BootstrapBlazor.Server\wwwroot\favicon.ico" Link="wwwroot\favicon.ico" />
       <Content Include="..\BootstrapBlazor.Server\wwwroot\favicon.png" Link="wwwroot\favicon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
     </ItemGroup>
 
     <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
