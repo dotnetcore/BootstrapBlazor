@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Components
         /// 构造函数
         /// </summary>
         /// <param name="componentType"></param>
-        /// <param name="parameters"></param>
+        /// <param name="parameters">TCom 组件所需要的参数集合</param>
         public DynamicComponent(Type componentType, IEnumerable<KeyValuePair<string, object>> parameters)
         {
             ComponentType = componentType;
@@ -35,6 +35,7 @@ namespace BootstrapBlazor.Components
         /// 创建自定义组件方法
         /// </summary>
         /// <typeparam name="TCom"></typeparam>
+        /// <param name="parameters">TCom 组件所需要的参数集合</param>
         /// <returns></returns>
         public static DynamicComponent CreateComponent<TCom>(IEnumerable<KeyValuePair<string, object>> parameters) where TCom : ComponentBase
         {
@@ -52,7 +53,7 @@ namespace BootstrapBlazor.Components
         /// 创建组件实例并渲染
         /// </summary>
         /// <returns></returns>
-        internal RenderFragment Render() => builder =>
+        public RenderFragment Render() => builder =>
         {
             var index = 0;
             builder.OpenComponent(index++, ComponentType);

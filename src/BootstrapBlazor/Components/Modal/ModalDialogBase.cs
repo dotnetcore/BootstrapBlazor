@@ -76,13 +76,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 关闭弹窗是回调委托
         /// </summary>
         [Parameter]
-        public Func<Task<bool>>? OnClose { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否需要重新渲染
-        /// </summary>
-        [Parameter]
-        public bool KeepChildrenState { get; set; }
+        public Func<Task>? OnClose { get; set; }
 
         /// <summary>
         /// 获得/设置 弹窗容器实例
@@ -98,15 +92,6 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             Modal?.AddDialog(this);
-        }
-
-        /// <summary>
-        /// ShouldRender 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override bool ShouldRender()
-        {
-            return !KeepChildrenState;
         }
 
         /// <summary>

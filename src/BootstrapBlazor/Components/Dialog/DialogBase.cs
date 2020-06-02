@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -11,9 +12,14 @@ namespace BootstrapBlazor.Components
     public abstract class DialogBase : BootstrapComponentBase
     {
         /// <summary>
-        /// Modal 容器组件实例
+        /// 获得/设置 Modal 容器组件实例
         /// </summary>
         protected Modal? ModalContainer { get; set; }
+
+        /// <summary>
+        /// 获得/设置 弹出对话框实例
+        /// </summary>
+        protected ModalDialog? ModalDialog { get; set; }
 
         private bool IsShowDialog { get; set; }
 
@@ -55,34 +61,38 @@ namespace BootstrapBlazor.Components
 
         private async Task Show(DialogOption option)
         {
-            if (ModalContainer != null)
+            if (ModalDialog != null)
             {
-                await ModalContainer.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
+                var parameters = option.ToAttributes().ToList();
+                if (option.BodyTemplate != null)
                 {
-                    [nameof(Modal.ChildContent)] = new RenderFragment(builder =>
-                    {
-                        var index = 0;
-                        builder.OpenComponent<ModalDialog>(index++);
-                        builder.AddMultipleAttributes(index++, option.ToAttributes());
-                        if (option.ComponentType != null)
-                        {
-                            option.BodyTemplate = new RenderFragment(builder =>
-                            {
-                                builder.OpenComponent(index++, option.ComponentType);
-                                if (option.BodyComponentParameters != null) builder.AddMultipleAttributes(index++, option.BodyComponentParameters);
-                                builder.CloseComponent();
-                            });
-                            builder.AddAttribute(index++, nameof(ModalDialog.BodyTemplate), option.BodyTemplate);
-                        }
-                        if (option.BodyTemplate != null) builder.AddAttribute(index++, nameof(ModalDialog.BodyTemplate), option.BodyTemplate);
+                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
+                }
+                else if (option.Component != null)
+                {
+                    option.BodyTemplate = option.Component.Render();
+                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
+                }
 
-                        if (option.FooterTemplate != null)
+                if (option.FooterTemplate != null)
+                {
+                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.FooterTemplate), option.FooterTemplate));
+                }
+
+                // 不保持状态
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
+                {
+                    if (!option.KeepChildrenState)
+                    {
+                        await Task.Delay(500);
+                        await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
                         {
-                            builder.AddAttribute(index++, nameof(ModalDialog.FooterTemplate), option.FooterTemplate);
-                        }
-                        builder.CloseComponent();
-                    })
-                }));
+                            [nameof(ModalDialogBase.BodyTemplate)] = new RenderFragment(builder => builder.AddContent(0, ""))
+                        }));
+                    }
+                })));
+
+                await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
                 IsShowDialog = true;
                 StateHasChanged();
             }

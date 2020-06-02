@@ -1,4 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits DialogBase
 
-<Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer" />
+<Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer">
+    <ModalDialog @ref="@ModalDialog">
+    </ModalDialog>
+</Modal>

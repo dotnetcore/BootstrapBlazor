@@ -22,9 +22,9 @@ namespace BootstrapBlazor.Shared.Pages
                 var item = new TabItem();
                 var parameters = new Dictionary<string, object>
                 {
-                    ["Text"] = text,
-                    ["IsActive"] = true,
-                    ["ChildContent"] = new RenderFragment(builder =>
+                    [nameof(TabItem.Text)] = text,
+                    [nameof(TabItem.IsActive)] = true,
+                    [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
                     {
                         var index = 0;
                         builder.OpenElement(index++, "div");
@@ -82,18 +82,12 @@ namespace BootstrapBlazor.Shared.Pages
 
         private async Task AddTabItem(string text)
         {
-            var type = text == "计数器" ? typeof(Counter) : typeof(FetchData);
             var item = new TabItem();
             var parameters = new Dictionary<string, object>
             {
-                ["Text"] = text,
-                ["IsActive"] = true,
-                ["ChildContent"] = new RenderFragment(builder =>
-                {
-                    var index = 0;
-                    builder.OpenComponent(index++, type);
-                    builder.CloseComponent();
-                })
+                [nameof(TabItem.Text)] = text,
+                [nameof(TabItem.IsActive)] = true,
+                [nameof(TabItem.ChildContent)] = text == "计数器" ? DynamicComponent.CreateComponent<Counter>().Render() : DynamicComponent.CreateComponent<FetchData>().Render()
             };
             var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
             if (TabSetMenu != null) await TabSetMenu.Add(item);

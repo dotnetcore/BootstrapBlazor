@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
@@ -50,19 +49,14 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FooterTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否保持弹窗内组件状态 默认为保持
+        /// 获得/设置 是否保持弹窗内组件状态 默认为不保持
         /// </summary>
-        public bool KeepChildrenState { get; set; } = true;
+        public bool KeepChildrenState { get; set; }
 
         /// <summary>
-        /// 获得/设置 组件类型
+        /// 获得/设置 自定义组件
         /// </summary>
-        internal Type? ComponentType { get; set; }
-
-        /// <summary>
-        /// 获得/设置 Body 内子组件参数集合
-        /// </summary>
-        public IEnumerable<KeyValuePair<string, object>>? BodyComponentParameters { get; set; }
+        public DynamicComponent? Component { get; set; }
 
         /// <summary>
         /// 将参数转换为组件属性方法
@@ -78,7 +72,6 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(IsScrolling), IsScrolling),
                 new KeyValuePair<string, object>(nameof(ShowCloseButton), ShowCloseButton),
                 new KeyValuePair<string, object>(nameof(ShowFooter), ShowFooter),
-                new KeyValuePair<string, object>(nameof(KeepChildrenState), KeepChildrenState)
             };
         }
     }
