@@ -404,6 +404,8 @@ section {
         .pre-code .copy-code svg {
             transition: transform .3s linear;
             display: inline-block;
+            width: 14px;
+            height: 14px;
         }
 
         .pre-code .copy-code:hover svg {

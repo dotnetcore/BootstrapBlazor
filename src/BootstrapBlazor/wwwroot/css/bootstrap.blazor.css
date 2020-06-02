@@ -3019,11 +3019,26 @@ a {
 
     .menu .navbar-nav > .nav-item {
         border-bottom: solid 2px transparent;
+        position: relative;
     }
 
         .menu .navbar-nav > .nav-item.active {
             color: #1890ff;
-            border-bottom: 2px solid #1890ff;
+        }
+
+        .menu .navbar-nav > .nav-item:after {
+            content: "";
+            position: absolute;
+            background-color: #1890ff;
+            left: 50%;
+            height: 2px;
+            width: 0px;
+            transition: width .3s linear, left .3s linear;
+        }
+
+        .menu .navbar-nav > .nav-item.active:after {
+            width: 100%;
+            left: 0;
         }
 
     .menu .nav-item .nav-link {
