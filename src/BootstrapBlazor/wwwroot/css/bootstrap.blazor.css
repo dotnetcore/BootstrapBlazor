@@ -625,7 +625,6 @@ a {
         bottom: 0;
         height: 4px;
         width: 0;
-        transition: width 4s linear;
     }
 
     .toast .close {

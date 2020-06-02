@@ -943,7 +943,7 @@
             var showHandler = window.setTimeout(function () {
                 window.clearTimeout(showHandler);
                 if (autoHide) {
-                    $toast.find('.toast-progress').css({ 'width': '100%' });
+                    $toast.find('.toast-progress').css({ 'width': '100%', 'transition': 'width ' + delay / 1000 + 's linear' });
 
                     // auto close
                     autoHideHandler = window.setTimeout(function () {
