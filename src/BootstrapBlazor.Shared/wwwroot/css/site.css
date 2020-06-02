@@ -583,10 +583,10 @@ section {
         display: inline-block !important;
     }
 
-    .navbar {
+    header.navbar {
         position: sticky;
         top: 0;
-        z-index: 1035;
+        z-index: 5;
     }
 
     .section {
