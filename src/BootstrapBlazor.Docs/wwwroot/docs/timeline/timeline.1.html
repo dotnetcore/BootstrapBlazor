@@ -1,5 +1,31 @@
-﻿<div class="row">
-        <label class="text-lg-right mr-1">排序：</label>
-        <Radio OnStateChanged="@OnStateChanged" Items="@items"></Radio>
-    </div>
-<Timeline Items="timelineitems" Reverse="@isRevers"></Timeline>
+﻿<div class="d-flex mb-3">
+    <label class="mr-1">排序：</label>
+    <Radio OnStateChanged="@OnStateChanged" Items="@Items"></Radio>
+</div>
+<Timeline Items="TimelineItems" IsReverse="@IsReverse"></Timeline>
+
+@code {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="state"></param>
+    /// <param name="value"></param>
+
+    public Task OnStateChanged(CheckboxState state, SelectedItem value)
+    {
+        IsReverse = value.Text == "正序";
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private IEnumerable<SelectedItem> Items { get; set; } = new SelectedItem[]
+    {
+        new SelectedItem("1","正序"){ Active=true },
+        new SelectedItem("2","反序")
+    };
+
+    private bool IsReverse { get; set; }
+}

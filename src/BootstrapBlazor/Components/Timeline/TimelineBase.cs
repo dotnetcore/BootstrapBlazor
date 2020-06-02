@@ -8,12 +8,15 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 时间线组件基类
     /// </summary>
-    public abstract class TimelineBase : IdComponentBase
+    public abstract class TimelineBase : BootstrapComponentBase
     {
         /// <summary>
         /// 获得 Timeline 样式
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("timeline")
+        protected string? ClassString => CssBuilder.Default("timeline")
+            .AddClass("is-alternate", IsAlternate && !IsLeft)
+            .AddClass("is-left", IsLeft)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
@@ -26,15 +29,27 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否反转
         /// </summary>
         [Parameter]
-        public bool Reverse { get; set; }
+        public bool IsReverse { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 是否左右交替出现 默认 false
+        /// </summary>
+        [Parameter]
+        public bool IsAlternate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 内容是否出现在时间线左侧 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsLeft { get; set; }
+
+        /// <summary>
+        /// OnParametersSet 方法
         /// </summary>
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            if (Reverse)
+            if (IsReverse)
             {
                 var arr = Items.Reverse();
                 Items = arr;
