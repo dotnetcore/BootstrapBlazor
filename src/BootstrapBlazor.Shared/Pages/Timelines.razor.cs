@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         public Task OnStateChanged(CheckboxState state, SelectedItem value)
         {
-            IsReverse = value.Text == "正序";
+            IsReverse = value.Text == "倒序";
             StateHasChanged();
             return Task.CompletedTask;
         }
@@ -72,7 +72,7 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<SelectedItem> Items { get; set; } = new SelectedItem[]
         {
             new SelectedItem("1","正序"){ Active=true },
-            new SelectedItem("2","反序")
+            new SelectedItem("2","倒序")
         };
 
         /// <summary>
