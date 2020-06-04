@@ -3238,20 +3238,16 @@ a {
 
         /* side menu*/
         .menu.is-vertical .nav-link {
-            position: relative;
             white-space: nowrap;
-            opacity: 1;
-            height: 37px;
         }
 
-            .menu.is-vertical .nav-link span {
-                transition: left .3s linear, opacity .3s ease-in-out;
-                position: absolute;
-                left: 38px;
+            .menu.is-vertical .nav-link .nav-link-text {
+                transition: width .3s ease-in-out, opacity .3s ease-in-out;
+                opacity: 1;
             }
 
-        .menu.is-vertical.is-collapsed .nav-link span {
-            left: calc(-100% - 4rem);
+        .menu.is-vertical.is-collapsed .nav-link .nav-link-text {
+            width: 0;
             opacity: 0;
         }
 
@@ -3263,6 +3259,9 @@ a {
             padding-left: 0;
         }
 
+    .menu .nav-link-text {
+        display: inline-block;
+    }
 /*end menu*/
 
 /*layout*/
