@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,7 +124,7 @@ namespace BootstrapBlazor.Components
         {
             await base.SetParametersAsync(parameters);
 
-            if (SelectedItem == null || !(Items?.Contains(SelectedItem) ?? false))
+            if (SelectedItem == null || !(Items?.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text) ?? false))
             {
                 var item = Items?.FirstOrDefault(i => i.Active);
                 if (item == null) item = Items?.FirstOrDefault();
