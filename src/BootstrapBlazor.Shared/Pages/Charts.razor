@@ -35,6 +35,18 @@
     <Chart ChartType="ChartType.Bar" OnInit="@(() => OnInit(BarDatasetCount, BarDataCount))" @ref="BarChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
+            <button class="btn btn-info" data-method="play" @onclick="@OnPlayChart">
+                <i class="fa fa-play-circle"></i>
+                <span>开启动画</span>
+            </button>
+            <button class="btn btn-info" data-method="stop" @onclick="@OnStopChart">
+                <i class="fa fa-stop-circle"></i>
+                <span>关闭动画</span>
+            </button>
+        </div>
+    </div>
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => RandomData(BarChart)"><i class="fa fa-bar-chart"></i><span>随机数据</span></button>
             <button class="btn btn-primary" @onclick="e => AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
             <button class="btn btn-primary" @onclick="e => RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
