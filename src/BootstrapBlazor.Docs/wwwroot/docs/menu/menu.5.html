@@ -1,0 +1,59 @@
+﻿<Layout SideWidth="0" IsFullSide="true">
+    <Header>
+        <div class="d-flex align-items-center pl-3" style="background-color: #17a2b8; height: 50px; color: #fff;">
+            <a style="padding: 4px 12px; color: #fff; background-color: #1ab394; border-color: #1ab394; border-radius: 4px;" class="@ClassString" title="点击展开收缩左侧菜单" @onclick="@CollapseMenu">
+                <i class="fa fa-bars"></i>
+            </a>
+            <span class="ml-3">我是网站标题</span>
+        </div>
+    </Header>
+    <Side>
+        <div class="menu-demo" style="background-color: #2f4050; color: #dcdfe6; height: 100%; padding: 6px 0;">
+            <Menu Items="@GetIconSideMenuItems()" IsVertical="true" IsCollapsed="@IsCollapsed" />
+        </div>
+    </Side>
+    <Main>
+        <div style="padding: 10rem 1rem;">Main</div>
+    </Main>
+    <Footer>
+        <div class="d-flex justify-content-center align-items-center" style="height: 30px; color: #fff; background-color: #5b6e84;"><a href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank" style="color: #fff;">Bootstrap Admin</a></div>
+    </Footer>
+</Layout>
+
+@code {
+
+    private bool IsCollapsed { get; set; }
+
+    private string? ClassString => CssBuilder.Default("menu-demo-bar")
+        .AddClass("is-collapsed", IsCollapsed)
+        .Build();
+
+    private Task CollapseMenu()
+    {
+        IsCollapsed = !IsCollapsed;
+        return Task.CompletedTask;
+    }
+
+    private IEnumerable<MenuItem> GetIconSideMenuItems()
+    {
+        var ret = new List<MenuItem>
+        {
+            new MenuItem() { Text = "系统设置", IsActive = true, Icon = "fa fa-fw fa-gears" },
+            new MenuItem() { Text = "权限设置", Icon = "fa fa-fw fa-users" },
+            new MenuItem() { Text = "日志设置", Icon = "fa fa-fw fa-database" }
+        };
+
+        ret[0].AddItem(new MenuItem() { Text = "网站设置", Icon = "fa fa-fw fa-fa" });
+        ret[0].AddItem(new MenuItem() { Text = "任务设置", Icon = "fa fa-fw fa-tasks" });
+
+        ret[1].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
+        ret[1].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
+        ret[1].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
+
+        ret[2].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
+        ret[2].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
+        ret[2].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
+
+        return ret;
+    }
+}

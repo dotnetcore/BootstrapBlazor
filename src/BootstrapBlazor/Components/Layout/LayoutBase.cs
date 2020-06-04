@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         /// 获得 侧边栏 Style 字符串
         /// </summary>
         protected string? SideStyleString => CssBuilder.Default()
-            .AddClass($"width: {SideWidth.ConvertToPercentString()}", !string.IsNullOrEmpty(SideWidth))
+            .AddClass($"width: {SideWidth.ConvertToPercentString()}", !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
             .Build();
 
         /// <summary>

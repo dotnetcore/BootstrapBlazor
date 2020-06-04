@@ -20,6 +20,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string? ClassString => CssBuilder.Default("menu")
             .AddClass("is-vertical", IsVertical)
+            .AddClass("is-collapsed", IsVertical && IsCollapsed)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -41,6 +42,12 @@ namespace BootstrapBlazor.Components
         /// <value></value>
         [Parameter]
         public bool IsVertical { get; set; }
+
+        /// <summary>
+        /// 获得/设置 侧栏是否收起 默认 false 未收起
+        /// </summary>
+        [Parameter]
+        public bool IsCollapsed { get; set; }
 
         /// <summary>
         /// 获得/设置 菜单项点击回调委托

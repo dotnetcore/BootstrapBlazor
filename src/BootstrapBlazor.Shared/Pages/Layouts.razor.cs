@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "SideWidth",
-                Description = "侧边栏宽度，支持百分比",
+                Description = "侧边栏宽度，支持百分比，设置 0 时关闭宽度功能",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "300px"

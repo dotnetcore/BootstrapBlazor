@@ -861,3 +861,19 @@ section {
         height: 520px;
     }
 }
+
+.menu-demo .menu.is-vertical {
+    width: 160px;
+}
+
+    .menu-demo .menu.is-vertical.is-collapsed {
+        width: 70px;
+    }
+
+.menu-demo-bar i {
+    transition: transform .3s linear;
+}
+
+.menu-demo-bar.is-collapsed i {
+    transform: rotate(90deg);
+}

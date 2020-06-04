@@ -2818,7 +2818,6 @@ a {
 
 .accordion .collapse-item {
     font-size: 13px;
-    color: #303133;
     line-height: 1.8;
 }
 /*end accordion*/
@@ -3055,6 +3054,11 @@ a {
     border-bottom: 1px solid #e6e6e6;
 }
 
+    .menu .card,
+    .menu .card .card-header {
+        background-color: inherit;
+    }
+
     .menu .navbar {
         padding: 0 1rem;
     }
@@ -3193,6 +3197,7 @@ a {
 
     .menu.is-vertical {
         border: none;
+        transition: width .3s linear;
     }
 
         .menu.is-vertical .accordion .card {
@@ -3203,7 +3208,6 @@ a {
             padding: 0;
             margin: 0;
             border: none;
-            background-color: transparent;
         }
 
         .menu.is-vertical .accordion .card-header-wrapper {
@@ -3230,6 +3234,33 @@ a {
 
         .menu.is-vertical .has-leaf > .accordion {
             padding-left: 20px;
+        }
+
+        /* side menu*/
+        .menu.is-vertical .nav-link {
+            position: relative;
+            white-space: nowrap;
+            opacity: 1;
+            height: 37px;
+        }
+
+            .menu.is-vertical .nav-link span {
+                transition: left .3s linear, opacity .3s ease-in-out;
+                position: absolute;
+                left: 38px;
+            }
+
+        .menu.is-vertical.is-collapsed .nav-link span {
+            left: calc(-100% - 4rem);
+            opacity: 0;
+        }
+
+        .menu.is-vertical .has-leaf > .accordion {
+            transition: padding-left .3s ease-in-out
+        }
+
+        .menu.is-vertical.is-collapsed .has-leaf > .accordion {
+            padding-left: 0;
         }
 
 /*end menu*/
