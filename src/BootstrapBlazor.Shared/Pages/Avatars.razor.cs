@@ -1,4 +1,4 @@
-using BootstrapBlazor.Shared.Common;
+﻿using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -52,14 +52,14 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "Icon",
-                Description = "是否为圆形",
+                Description = "头像框显示图标",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-user"
             },
             new AttributeItem() {
                 Name = "Text",
-                Description = "是否为圆形",
+                Description = "头像框显示文字",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
