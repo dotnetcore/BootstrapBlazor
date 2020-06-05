@@ -135,6 +135,14 @@
             });
 
             $('.welcome-footer [data-toggle="tooltip"]').tooltip();
+        },
+        block: function (el) {
+            var $el = $(el);
+            var id = $.getUID();
+            var $footer = $el.children('.card-footer-code');
+            var $footerBar = $el.children('.card-footer-control');
+            $footer.attr('id', id);
+            $footerBar.attr('href', '#' + id);
         }
     });
 

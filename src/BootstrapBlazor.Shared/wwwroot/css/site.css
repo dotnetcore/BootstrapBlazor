@@ -173,7 +173,7 @@ section {
                 transition: .3s linear;
             }
 
-            .content .card-footer .card-footer-control.show .fa {
+            .content .card-footer .card-footer-control.collapsed .fa {
                 transform: rotate(180deg);
             }
 
