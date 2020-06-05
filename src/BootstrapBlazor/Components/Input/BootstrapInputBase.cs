@@ -22,6 +22,12 @@ namespace BootstrapBlazor.Components
         public bool ShowLabel { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否为密码输入框 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsPassword { get; set; }
+
+        /// <summary>
         /// 获得/设置 格式化字符串
         /// </summary>
         [Parameter]
@@ -39,7 +45,7 @@ namespace BootstrapBlazor.Components
             {
                 if (!AdditionalAttributes.TryGetValue("type", out var _))
                 {
-                    AdditionalAttributes.Add("type", "text");
+                    AdditionalAttributes.Add("type", IsPassword ? "password" : "text");
                 }
             }
         }
