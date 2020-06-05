@@ -2220,10 +2220,6 @@ a {
         outline: none;
     }
 
-.calendar-body {
-    padding: 1rem;
-}
-
 .calendar-table {
     table-layout: fixed;
     width: 100%;
@@ -2283,6 +2279,33 @@ a {
         color: #c0c4cc;
     }
 
+.calendar .table-week .week-header {
+    border-radius: 50%;
+    border: 1px solid transparent;
+    padding: 4px;
+    display: inline-block;
+    min-width: 52px;
+}
+
+    .calendar .table-week .week-header.is-today {
+        border: 1px solid #409eff;
+        color: #409eff;
+    }
+
+.calendar .table-week thead tr:last-child {
+    border-bottom: 2px solid #dee2e6;
+}
+
+.calendar .table-week tbody tr {
+    text-align: center;
+}
+
+.calendar .table-week tbody td {
+    padding: 1rem 0;
+    border-right: 0;
+    border-left: 0;
+    position: relative;
+}
 /*end calendar*/
 
 /*upload*/

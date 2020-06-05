@@ -877,3 +877,31 @@ section {
 .menu-demo-bar.is-collapsed i {
     transform: rotate(90deg);
 }
+
+.calendar .table-week tbody .none {
+    color: #c0c4cc;
+}
+
+.calendar .table-week tbody .less {
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 4px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar .table-week tbody .ch {
+    background: #28a745;
+    color: #f8f9fa;
+}
+
+.calendar .table-week tbody .en {
+    background: #007bff;
+    color: #f8f9fa;
+}

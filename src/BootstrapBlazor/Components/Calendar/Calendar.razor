@@ -2,46 +2,121 @@
 @inherits CalendarBase
 
 <div class="calendar">
-    <div class="calendar-header">
-        <div class="calendar-title">@Title</div>
-        <div class="calendar-button-group">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(-1)">
-                    <span>上个月</span>
-                </button>
-                <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(0)">
-                    <span>今天</span>
-                </button>
-                <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(1)">
-                    <span>下个月</span>
-                </button>
+    @if (ViewModel == CalendarViewModel.Month)
+    {
+        <div class="calendar-header">
+            <div class="calendar-title">@Title</div>
+            <div class="calendar-button-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(-1)">
+                        <span>上个月</span>
+                    </button>
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(0)">
+                        <span>今天</span>
+                    </button>
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(1)">
+                        <span>下个月</span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="calendar-body">
-        <table cellspacing="0" cellpadding="0" class="calendar-table">
-            <thead>
-                <tr>
-                    <th>日</th>
-                    <th>一</th>
-                    <th>二</th>
-                    <th>三</th>
-                    <th>四</th>
-                    <th>五</th>
-                    <th>六</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
-                {
-                    <tr class="calendar-table-row">
-                        @for (var index = 0; index < 7; index++)
-                        {
-                            <CalendarCell Value="@week.AddDays(index)" CurrentValue="@Value" OnClick="d=> OnClickDay(d)" />
-                        }
+        <div class="calendar-body">
+            <table cellspacing="0" cellpadding="0" class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>日</th>
+                        <th>一</th>
+                        <th>二</th>
+                        <th>三</th>
+                        <th>四</th>
+                        <th>五</th>
+                        <th>六</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
+                    {
+                        <tr class="calendar-table-row">
+                            @for (var index = 0; index < 7; index++)
+                            {
+                                <CalendarCell Value="@week.AddDays(index)" CurrentValue="@Value" OnClick="d => OnClickDay(d)" />
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="calendar-header">
+            <div class="calendar-title"><span class="d-none d-sm-inline-block">@Title</span> <span>@Week</span></div>
+            <div class="calendar-button-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeWeek(-7)">
+                        <span>上一周</span>
+                    </button>
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeWeek(0)">
+                        <span>本周</span>
+                    </button>
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeWeek(7)">
+                        <span>下一周</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="calendar-body">
+            <table cellspacing="0" cellpadding="0" class="calendar-table table-week">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="@GetWeekDayClassString(0)">
+                                <div><span class="d-none d-sm-inline-block">周</span>日</div>
+                                <div>@GetWeekDayString(0)</div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="@GetWeekDayClassString(1)">
+                                <div><span class="d-none d-sm-inline-block">周</span>一</div>
+                                <div>@GetWeekDayString(1)</div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="@GetWeekDayClassString(2)">
+                                <div><span class="d-none d-sm-inline-block">周</span>二</div>
+                                <div>@GetWeekDayString(2)</div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="@GetWeekDayClassString(3)">
+                                <div><span class="d-none d-sm-inline-block">周</span>三</div>
+                                <div>@GetWeekDayString(3)</div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="@GetWeekDayClassString(4)">
+                                <div><span class="d-none d-sm-inline-block">周</span>四</div>
+                                <div>@GetWeekDayString(4)</div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="@GetWeekDayClassString(5)">
+                                <div><span class="d-none d-sm-inline-block">周</span>五</div>
+                                <div>@GetWeekDayString(5)</div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="@GetWeekDayClassString(6)">
+                                <div><span class="d-none d-sm-inline-block">周</span>六</div>
+                                <div>@GetWeekDayString(6)</div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @ChildContent
+                </tbody>
+            </table>
+        </div>
+    }
 </div>
