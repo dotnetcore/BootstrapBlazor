@@ -1,0 +1,45 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TreeBase
+
+<div @attributes="@AdditionalAttributes" tabindex="0" role="tree" class="@ClassString" @ref="CollapseElement">
+    @foreach (var item in Items)
+    {
+        if (item.Items.Any())
+        {
+            <div class="card" role="group">
+                <div class="card-header">
+                    <div class="card-header-wrapper">
+                        <div role="treeitem" class="@GetTreeItemClassString(item)">
+                            <i class="fa fa-fw fa-angle-right" @onclick="@(e => OnClick(item))"></i>
+                            @if (ShowCheckbox)
+                            {
+                                <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
+                            }
+                            <a class="nav-link collapsed collapse" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" @onclick:preventDefault @onclick="@(e => OnClick(item))">
+                                <span>@item.Text</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse-item collapse">
+                    <div class="card-body has-leaf">
+                        <Tree Items="@item.Items" IsAccordion="@IsAccordion" ShowCheckbox="@ShowCheckbox" OnTreeItemChecked="@OnTreeItemChecked" OnTreeItemClick="@OnTreeItemClick" />
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div role="treeitem" class="@GetTreeItemClassString(item)">
+                <i class="fa fa-fw"></i>
+                @if (ShowCheckbox)
+                {
+                    <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
+                }
+                <a class="nav-link" @onclick:preventDefault @onclick="@(e => OnClick(item))">
+                    <span>@item.Text</span>
+                </a>
+            </div>
+        }
+    }
+</div>

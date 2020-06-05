@@ -81,10 +81,10 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <Select TItem="string" Color="Color.Primary" Items="@Items" OnSelectedItemChanged="@OnCascadeBindSelectClick"></Select>
+                <Select TItem="string" Items="@Items" OnSelectedItemChanged="@OnCascadeBindSelectClick"></Select>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <Select TItem="string" @ref="SubSelect" Color="Color.Success"></Select>
+                <Select TItem="string" Items="@Items2"></Select>
             </div>
         </div>
     </div>
@@ -107,7 +107,7 @@
 
 <Block Title="分组" Introduction="备选项进行分组展示" CodeFile="select.6.html">
     <div class="row">
-        <div class="form-group col-12 col-sm-6">
+        <div class="form-group col-12 col-sm-3">
             <Select TItem="string" Color="Color.Primary" Items="@GroupItems">
             </Select>
         </div>

@@ -11,13 +11,27 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Dialogs
     {
-        private Alert? AlertTest { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<SelectedItem> RadioItems { get; private set; } = new SelectedItem[] {
+            new SelectedItem("false", "不保持状态") { Active = true },
+            new SelectedItem("true", "保持状态")
+        };
 
         /// <summary>
         /// 
         /// </summary>
         [Inject]
         private DialogService? DialogService { get; set; }
+
+        private Task OnStateChanged(CheckboxState state, SelectedItem item)
+        {
+            KeepState = bool.Parse(item.Value);
+            return Task.CompletedTask;
+        }
+
+        private bool KeepState { get; set; }
 
         /// <summary>
         /// 
@@ -28,16 +42,11 @@ namespace BootstrapBlazor.Shared.Pages
             DialogService?.Show(new DialogOption()
             {
                 Title = "我是服务创建的弹出框",
-                BodyTemplate = new RenderFragment(builder =>
+                BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
                 {
-                    var index = 0;
-                    builder.OpenComponent<Button>(index++);
-                    builder.AddAttribute(index++, nameof(Button.ChildContent), new RenderFragment(builder =>
-                    {
-                        builder.AddContent(0, "服务创建的按钮");
-                    }));
-                    builder.CloseComponent();
+                    new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
                 })
+                .Render()
             });
             return Task.CompletedTask;
         }
@@ -46,12 +55,13 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private Task OnClickRef()
+        private Task OnClickCounter()
         {
             DialogService?.Show(new DialogOption()
             {
-                Title = "我是服务创建的弹出框",
-                BodyComponent = AlertTest
+                Title = "自带的 Counter 组件",
+                KeepChildrenState = KeepState,
+                Component = DynamicComponent.CreateComponent<Counter>()
             });
             return Task.CompletedTask;
         }
@@ -65,6 +75,13 @@ namespace BootstrapBlazor.Shared.Pages
             return new AttributeItem[]
             {
                 new AttributeItem() {
+                    Name = "Component",
+                    Description = "对话框 Body 中引用的组件的参数",
+                    Type = "DynamicComponent",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
                     Name = "BodyTemplate",
                     Description = "模态主体 ModalBody 组件",
                     Type = "RenderFragment",
@@ -72,11 +89,11 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = " — "
                 },
                 new AttributeItem() {
-                    Name = "BodyComponent",
-                    Description = "对话框 Body 中引用的组件实例",
-                    Type = "ComponentBase",
-                    ValueList = " — ",
-                    DefaultValue = " — "
+                    Name = "KeepChildrenState",
+                    Description = "是否保持弹窗内组件状态",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "FooterTemplate",

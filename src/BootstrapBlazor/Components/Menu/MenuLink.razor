@@ -1,10 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<a @attributes="@AdditionalAttributes" class="@ClassString" href="@Url">
-    @if (!string.IsNullOrEmpty(Icon))
+<a @attributes="@AdditionalAttributes" class="@ClassString" href="@Item?.Url" @onclick="@OnClickLink">
+    @if (!string.IsNullOrEmpty(Item?.Icon))
     {
-        <i class="@Icon"></i>
+        <i class="@Item?.Icon"></i>
     }
-    <span>@Text</span>
+    <div class="nav-link-text">
+        <span>@Item?.Text</span>
+    </div>
 </a>

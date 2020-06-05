@@ -9,20 +9,20 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-wrapper">
-                        <MenuLink Url="@item.Url" Text="@item.Text" Active="@item.IsActive" Icon="@item.Icon" class="nav-link collapsed collapse" data-toggle="collapse" aria-expanded="false" />
+                        <MenuLink Item="@item" class="nav-link collapsed collapse" data-toggle="collapse" aria-expanded="false" OnClick="@OnClick" />
                         <i class="fa fa-angle-down"></i>
                     </div>
                 </div>
                 <div class="collapse-item collapse">
                     <div class="card-body has-leaf">
-                        <SideMenu Items="@item.Items" IsAccordion ="@IsAccordion"/>
+                        <SideMenu Items="@item.Items" IsAccordion ="@IsAccordion" OnClick="@OnClick"/>
                     </div>
                 </div>
             </div>
         }
         else
         {
-            <MenuLink Url="@item.Url" Text="@item.Text" Active="@item.IsActive" Icon="@item.Icon" class="nav-link" />
+            <MenuLink Item="@item" class="nav-link" OnClick="@OnClick" />
         }
     }
 </div>

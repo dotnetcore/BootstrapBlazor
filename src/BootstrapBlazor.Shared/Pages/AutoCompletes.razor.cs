@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<string> Items => _items;
 
 
-        private IEnumerable<string> StaticItems => new List<string> { "1", "12", "123", "1234", "12345", "123456" };
+        private IEnumerable<string> StaticItems => new List<string> { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
 
 
         private Task OnValueChanged(string val)
@@ -66,9 +66,17 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "IsLikeMatch",
                 Description = "是否开启模糊匹配",
                 Type = "bool",
-                ValueList = " — ",
+                ValueList = "true | false",
                 DefaultValue = "false"
-            }
+            },
+            new AttributeItem()
+            {
+                Name="IgnoreCase",
+                Description="匹配时是否忽略大小写",
+                Type="bool",
+                ValueList="true | false",
+                DefaultValue = "true"
+            },
         };
     }
 }

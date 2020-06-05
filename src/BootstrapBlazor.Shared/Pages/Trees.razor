@@ -1,0 +1,44 @@
+﻿@page "/trees"
+
+<h3>Tree 树形控件</h3>
+
+<h4>用清晰的层级结构展示信息，可展开或折叠</h4>
+
+<Block Title="基础用法" Introduction="基础的树形结构展示" CodeFile="tree.1.html">
+    <p>
+        通过设置 <code>OnTreeItemClick</code> 属性监控树形控件节点被点击时的事件，点击树形控件节点时下面日志显示选中节点的数据
+    </p>
+    <Tree Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="可选择" Introduction="适用于需要选择层级时使用" CodeFile="tree.2.html">
+    <p>
+        通过设置 <code>OnTreeItemChecked</code> 属性监控树形控件节点被勾选时的事件，选中树形控件节点前复选框时下面日志显示选中节点的数据
+    </p>
+    <Tree Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" />
+    <Logger @ref="TraceChecked" class="mt-3" />
+</Block>
+
+<Block Title="禁用状态" Introduction="可将 Tree 的某些节点设置为禁用状态" CodeFile="tree.3.html">
+    <p>
+        通过设置数据源 <code>TreeItem</code> 对象的 <code>Disabled</code> 属性，来控制此节点是否可以进行勾选动作，设置为 <code>false</code> 时不影响节点展开/收缩功能
+    </p>
+    <Tree Items="@DisabledItems" ShowCheckbox="true" />
+</Block>
+
+<Block Title="手风琴模式" Introduction="对于同一级的节点，每次只能展开一个" CodeFile="tree.4.html">
+    <p>通过设置 <code>Tree</code> 组件的 <code>IsAccordion</code> 属性开启手风琴效果</p>
+    <Tree Items="@Items" ShowCheckbox="true" IsAccordion="true" />
+</Block>
+
+<Block Title="默认展开和默认选中" Introduction="可将 Tree 的某些节点设置为默认展开或默认选中" CodeFile="tree.5.html">
+    <p>
+        通过设置 <code>TreeItem</code> 对象的 <code>IsExpanded</code> 属性，来控制此节点是否默认为展开状态，本例中 <b>导航二</b> 与 <b>子菜单二</b> 默认为展开状态，其余节点默认为收缩状态
+    </p>
+    <Tree Items="@CheckedItems" ShowCheckbox="true" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Items="@GetTreeItemAttributes()" Title="TreeItem 属性" />

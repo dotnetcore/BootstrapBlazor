@@ -214,7 +214,46 @@
     </Tab>
 </Block>
 
+<Block Title="内置其他组件" Introduction="<code>TabItem</code> 中内置其他组件" CodeFile="tabs.6.html">
+    <p>
+        <code>Tab</code> 组件各个面板内的内容默认是保持状态的，本例中面板切换时保持原有数据
+    </p>
+    <Tab IsBorderCard="true">
+        <TabItems>
+            <TabItem Text="计数组件">
+                <Counter></Counter>
+            </TabItem>
+            <TabItem Text="天气预报">
+                <FetchData></FetchData>
+            </TabItem>
+        </TabItems>
+    </Tab>
+</Block>
+
+<Block Title="程序动态添加 TabItem 面板" Introduction="通过此功能可以实现侧边栏中点击菜单链接，右侧数据区上部呈现多标签" CodeFile="tabs.7.html">
+    <p>
+        本例中右侧 <code>Tab</code> 面板内状态一直保持，关闭后重新打开时组件重新加载
+    </p>
+    <Layout SideWidth="120px" style="min-height: 180px; border: 1px solid #ddd; border-radius: 4px;">
+        <Header>
+            <div class="header">网站 Header</div>
+        </Header>
+        <Side>
+            <div style="border-right: 1px solid #e6e6e6; height: 100%; overflow: auto; padding: 1rem 0; background-color: #f8f9fa;">
+                <Menu Items="@GetSideMenuItems()" IsVertical="true" OnClick="@OnClickMenuItem" />
+            </div>
+        </Side>
+        <Main>
+            <div class="tab-main-demo">
+                <Tab @ref="TabSetMenu" ShowClose="true">
+                    <TabItems>
+                    </TabItems>
+                </Tab>
+            </div>
+        </Main>
+    </Layout>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <MethodTable Items="@GetMethods()" />
-

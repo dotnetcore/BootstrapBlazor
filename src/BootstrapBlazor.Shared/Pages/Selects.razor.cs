@@ -26,20 +26,15 @@ namespace BootstrapBlazor.Shared.Pages
         private Logger? Trace { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        private Select<string>? SubSelect { get; set; }
-
-        /// <summary>
         /// 获得 默认数据集合
         /// </summary>
-        private IEnumerable<SelectedItem> Items = new SelectedItem[]
+        private readonly IEnumerable<SelectedItem> Items = new SelectedItem[]
         {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海") { Active = true }
         };
 
-        private IEnumerable<SelectedItem> GroupItems = new SelectedItem[]
+        private readonly IEnumerable<SelectedItem> GroupItems = new SelectedItem[]
         {
             new SelectedItem ("Jilin", "吉林") { GroupName = "东北"},
             new SelectedItem ("Liaoning", "辽宁") {GroupName = "东北", Active = true },
@@ -64,15 +59,28 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="item"></param>
         private void OnCascadeBindSelectClick(SelectedItem item)
         {
-            var items = item.Value switch
+            _item2.Clear();
+            if (item.Value == "Beijing")
             {
-                "Beijing" => new SelectedItem[] { new SelectedItem("Value1", "朝阳区"), new SelectedItem("Value2", "海淀区") { Active = true } },
-                "Shanghai" => new SelectedItem[] { new SelectedItem("Value3", "浦东新区") { Active = true }, new SelectedItem("Value4", "静安区") },
-                _ => new SelectedItem[0]
-            };
-
-            if (SubSelect != null) SubSelect.SetItems(items);
+                _item2.AddRange(new SelectedItem[]
+                {
+                    new SelectedItem("1","朝阳区"),
+                    new SelectedItem("2","海淀区"),
+                });
+            }
+            else if (item.Value == "Shanghai")
+            {
+                _item2.AddRange(new SelectedItem[]
+                {
+                    new SelectedItem("1","静安区"),
+                    new SelectedItem("2","黄浦区"),
+                });
+            }
         }
+
+        private readonly List<SelectedItem> _item2 = new List<SelectedItem>();
+
+        private IEnumerable<SelectedItem> Items2 => _item2;
 
         /// <summary>
         /// 获得事件方法

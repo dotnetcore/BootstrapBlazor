@@ -49,7 +49,7 @@ namespace BootstrapBlazor.Components
         /// 添加对话窗方法
         /// </summary>
         /// <param name="dialog"></param>
-        public void AddDialogs(ModalDialogBase dialog)
+        public void AddDialog(ModalDialogBase dialog)
         {
             if (!Dialogs.Any()) dialog.IsShown = true;
             Dialogs.Add(dialog);
@@ -64,10 +64,5 @@ namespace BootstrapBlazor.Components
             Dialogs.ForEach(d => d.IsShown = d == dialog);
             StateHasChanged();
         }
-
-        /// <summary>
-        /// 清除对话框方法
-        /// </summary>
-        public void Clear() => Dialogs.Clear();
     }
 }

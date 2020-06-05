@@ -3,25 +3,35 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// TabContent 组件
     /// </summary>
-    public class TabHeaderContent : ComponentBase
+    public class TabHeader : ComponentBase
     {
         /// <summary>
         /// 获得/设置 点击 TabItem 时的回调委托
         /// </summary>
         [Parameter]
-        public Action<TabItem>? OnClick { get; set; }
+        public Func<Task>? OnClickTab { get; set; }
 
         /// <summary>
         /// 获得/设置 所属 Tab 实例
         /// </summary>
         [CascadingParameter]
         protected TabBase? TabSet { get; set; }
+
+        private string? GetIconClassString(string icon) => CssBuilder.Default("fa-fw")
+            .AddClass(icon)
+            .Build();
+
+        private string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
+            .AddClass("is-active", active)
+            .AddClass("is-closeable", TabSet?.ShowClose ?? false)
+            .Build();
 
         /// <summary>
         /// OnAfterRender
@@ -33,6 +43,11 @@ namespace BootstrapBlazor.Components
 
             if (!firstRender) TabSet?.ReActiveTab();
         }
+
+        /// <summary>
+        /// 重新渲染组件方法
+        /// </summary>
+        public void Render() => StateHasChanged();
 
         /// <summary>
         /// BuildRenderTree 方法
@@ -52,11 +67,15 @@ namespace BootstrapBlazor.Components
                 {
                     var index = 0;
                     builder.OpenElement(index++, "div");
-                    builder.SetKey(item);
                     builder.AddAttribute(index++, "role", "tab");
                     builder.AddAttribute(index++, "tabindex", "-1");
                     builder.AddAttribute(index++, "class", GetClassString(item.IsActive));
-                    builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, () => OnClick?.Invoke(item)));
+                    builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, async () =>
+                    {
+                        TabSet.Items.ToList().ForEach(i => i.SetActive(false));
+                        item.SetActive(true);
+                        if (OnClickTab != null) await OnClickTab();
+                    }));
 
                     if (!string.IsNullOrEmpty(item.Icon))
                     {
@@ -77,7 +96,7 @@ namespace BootstrapBlazor.Components
 
                         builder.OpenElement(index++, "i");
                         builder.AddAttribute(index++, "class", "fa fa-close");
-                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, () => TabSet.Remove(item)));
+                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, () => TabSet?.Remove(item)));
                         builder.AddEventStopPropagationAttribute(index++, "onclick", true);
                         builder.CloseElement();
 
@@ -88,14 +107,5 @@ namespace BootstrapBlazor.Components
                 }
             }
         }
-
-        private string? GetIconClassString(string icon) => CssBuilder.Default("fa-fw")
-            .AddClass(icon)
-            .Build();
-
-        private string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
-            .AddClass("is-active", active)
-            .AddClass("is-closeable", TabSet?.ShowClose ?? false)
-            .Build();
     }
 }

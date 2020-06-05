@@ -24,7 +24,7 @@
                             }
                             else
                             {
-                                <MenuLink Url="@item.Url" Text="@item.Text" Active="@item.IsActive" Icon="@item.Icon" class="dropdown-item" />
+                                <MenuLink Item="@item" class="dropdown-item" OnClick="@OnClickMenuItem" />
                             }
                         }
                     </div>
@@ -33,7 +33,7 @@
             else
             {
                 <li class="@GetClassString("nav-item", menu.IsActive)">
-                    <MenuLink Url="@menu.Url" Text="@menu.Text" Active="@menu.IsActive" Icon="@menu.Icon" class="nav-link" />
+                    <MenuLink Item="@menu" class="nav-link" OnClick="@OnClickMenuItem" />
                 </li>
             }
         }

@@ -40,6 +40,7 @@
 </Block>
 
 <Block Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置" CodeFile="toast.3.html">
+    <p>通过设置 <code>Toast</code> 组件的 <code>Placement</code> 值来设置弹窗出现的位置，默认值为 <code>BottomEnd</code> 除此之外的值均为右上角</p>
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6">
@@ -56,20 +57,20 @@
 
 <p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
 
-<Pre>    private void OnInfoClick()
+<Pre>private void OnInfoClick()
+{
+    ToastService.Show(new ToastOption()
     {
-        ToastService.Show(new ToastOption()
-        {
-            // 通知类别
-            Category = ToastCategory.Information,
+        // 通知类别
+        Category = ToastCategory.Information,
 
-            // 通知框 Title 值
-            Title = "消息通知",
+        // 通知框 Title 值
+        Title = "消息通知",
 
-            // 通知正文内容
-            Content = "系统增加新组件啦，4 秒后自动关闭"
-        });
-    }
+        // 通知正文内容
+        Content = "系统增加新组件啦，4 秒后自动关闭"
+    });
+}
 </Pre>
 
 <p>

@@ -1,21 +1,59 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Menus
+    public sealed partial class Menus
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private Logger? Trace { get; set; }
+
+        private Task OnClickMenu(MenuItem item)
+        {
+            Trace?.Log($"菜单点击项: {item.Text}");
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Logger? TraceSideMenu { get; set; }
+
+        private Task OnClickSideMenu(MenuItem item)
+        {
+            TraceSideMenu?.Log($"菜单点击项: {item.Text}");
+            return Task.CompletedTask;
+        }
+
+        private bool IsCollapsed { get; set; }
+
+        private string? ClassString => CssBuilder.Default("menu-demo-bar")
+            .AddClass("is-collapsed", IsCollapsed)
+            .Build();
+
+        private Task CollapseMenu()
+        {
+            IsCollapsed = !IsCollapsed;
+            return Task.CompletedTask;
+        }
+
         private IEnumerable<MenuItem> GetItems()
         {
-            var ret = new List<MenuItem>();
-            ret.Add(new MenuItem() { Text = "导航一" });
-            ret.Add(new MenuItem() { Text = "导航二", IsActive = true });
-            ret.Add(new MenuItem() { Text = "导航三" });
+            var ret = new List<MenuItem>
+            {
+                new MenuItem() { Text = "导航一" },
+                new MenuItem() { Text = "导航二", IsActive = true },
+                new MenuItem() { Text = "导航三" }
+            };
 
             ret[1].AddItem(new MenuItem() { Text = "子菜单一" });
             ret[1].AddItem(new MenuItem() { Text = "子菜单二" });
@@ -38,10 +76,12 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> GetIconItems()
         {
-            var ret = new List<MenuItem>();
-            ret.Add(new MenuItem() { Text = "导航一", Icon = "fa fa-life-bouy fa-fw" });
-            ret.Add(new MenuItem() { Text = "导航二", Icon = "fa fa-fa fa-fw", IsActive = true });
-            ret.Add(new MenuItem() { Text = "导航三", Icon = "fa fa-rebel fa-fw" });
+            var ret = new List<MenuItem>
+            {
+                new MenuItem() { Text = "导航一", Icon = "fa fa-life-bouy fa-fw" },
+                new MenuItem() { Text = "导航二", Icon = "fa fa-fa fa-fw", IsActive = true },
+                new MenuItem() { Text = "导航三", Icon = "fa fa-rebel fa-fw" }
+            };
 
             ret[1].AddItem(new MenuItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
             ret[1].AddItem(new MenuItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
@@ -52,11 +92,13 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> GetSideMenuItems()
         {
-            var ret = new List<MenuItem>();
-            ret.Add(new MenuItem() { Text = "导航一" });
-            ret.Add(new MenuItem() { Text = "导航二" });
-            ret.Add(new MenuItem() { Text = "导航三" });
-            ret.Add(new MenuItem() { Text = "导航四" });
+            var ret = new List<MenuItem>
+            {
+                new MenuItem() { Text = "导航一" },
+                new MenuItem() { Text = "导航二" },
+                new MenuItem() { Text = "导航三" },
+                new MenuItem() { Text = "导航四" }
+            };
 
             ret[1].AddItem(new MenuItem() { Text = "子菜单一" });
             ret[1].AddItem(new MenuItem() { Text = "子菜单二" });
@@ -83,10 +125,12 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> GetIconSideMenuItems()
         {
-            var ret = new List<MenuItem>();
-            ret.Add(new MenuItem() { Text = "系统设置", IsActive = true, Icon = "fa fa-fw fa-gears" });
-            ret.Add(new MenuItem() { Text = "权限设置", Icon = "fa fa-fw fa-users" });
-            ret.Add(new MenuItem() { Text = "日志设置", Icon = "fa fa-fw fa-database" });
+            var ret = new List<MenuItem>
+            {
+                new MenuItem() { Text = "系统设置", IsActive = true, Icon = "fa fa-fw fa-gears" },
+                new MenuItem() { Text = "权限设置", Icon = "fa fa-fw fa-users" },
+                new MenuItem() { Text = "日志设置", Icon = "fa fa-fw fa-database" }
+            };
 
             ret[0].AddItem(new MenuItem() { Text = "网站设置", Icon = "fa fa-fw fa-fa" });
             ret[0].AddItem(new MenuItem() { Text = "任务设置", Icon = "fa fa-fw fa-tasks" });
@@ -132,6 +176,13 @@ namespace BootstrapBlazor.Shared.Pages
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "OnClick",
+                    Description = "菜单项被点击时回调此方法",
+                    Type = "Func<MenuItem, Task>",
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 }
             };
         }

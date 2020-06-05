@@ -100,19 +100,21 @@
         this.horizontal = this.$element.hasClass('tabs-top') || this.$element.hasClass('tabs-bottom');
 
         var $lastItem = this.$tab.find('.tabs-item:last');
-        if (this.vertical) {
-            this.$wrap.css({ 'height': this.$element.height() + 'px' });
-            var tabHeight = this.$tab.height();
-            var itemHeight = $lastItem.position().top + $lastItem.outerHeight();
-            if (itemHeight < tabHeight) this.$wrap.removeClass("is-scrollable");
-            else this.$wrap.addClass('is-scrollable');
-        }
-        else {
-            this.$wrap.removeAttr('style');
-            var tabWidth = this.$tab.width();
-            var itemWidth = $lastItem.position().left + $lastItem.outerWidth();
-            if (itemWidth < tabWidth) this.$wrap.removeClass("is-scrollable");
-            else this.$wrap.addClass('is-scrollable');
+        if ($lastItem.length > 0) {
+            if (this.vertical) {
+                this.$wrap.css({ 'height': this.$element.height() + 'px' });
+                var tabHeight = this.$tab.height();
+                var itemHeight = $lastItem.position().top + $lastItem.outerHeight();
+                if (itemHeight < tabHeight) this.$wrap.removeClass("is-scrollable");
+                else this.$wrap.addClass('is-scrollable');
+            }
+            else {
+                this.$wrap.removeAttr('style');
+                var tabWidth = this.$tab.width();
+                var itemWidth = $lastItem.position().left + $lastItem.outerWidth();
+                if (itemWidth < tabWidth) this.$wrap.removeClass("is-scrollable");
+                else this.$wrap.addClass('is-scrollable');
+            }
         }
     }
 
@@ -122,6 +124,8 @@
 
         var $bar = this.$element.find('.tabs-active-bar');
         var $activeTab = this.$element.find('.tabs-item.is-active');
+        if ($activeTab.length === 0) return;
+
         if (this.vertical) {
             //scroll
             var top = $activeTab.position().top;
@@ -272,62 +276,39 @@
         var originX = 0;
         var originY = 0;
         var trail = [];
-        var isMouseDown = false;
 
-        var handleDragStart = function (e) {
-            that.$barText.addClass('d-none');
-            originX = e.clientX || e.touches[0].clientX;
-            originY = e.clientY || e.touches[0].clientY;
-            isMouseDown = true;
-        };
+        this.$slider.drag(
+            function (e) {
+                that.$barText.addClass('d-none');
+                originX = e.clientX || e.touches[0].clientX;
+                originY = e.clientY || e.touches[0].clientY;
+            },
+            function (e) {
+                var eventX = e.clientX || e.touches[0].clientX;
+                var eventY = e.clientY || e.touches[0].clientY;
+                var moveX = eventX - originX;
+                var moveY = eventY - originY;
+                if (moveX < 0 || moveX + 40 > that.options.width) return false;
 
-        var handleDragMove = function (e) {
-            if (!isMouseDown) return false;
-            var eventX = e.clientX || e.touches[0].clientX;
-            var eventY = e.clientY || e.touches[0].clientY;
-            var moveX = eventX - originX;
-            var moveY = eventY - originY;
-            if (moveX < 0 || moveX + 40 > that.options.width) return false;
+                that.$slider.css({ 'left': (moveX - 1) + 'px' });
+                var blockLeft = (that.options.width - 40 - 20) / (that.options.width - 40) * moveX;
+                that.block.style.left = blockLeft + 'px';
 
-            that.$slider.css({ 'left': (moveX - 1) + 'px' });
-            var blockLeft = (that.options.width - 40 - 20) / (that.options.width - 40) * moveX;
-            that.block.style.left = blockLeft + 'px';
+                that.$footer.addClass('is-move');
+                that.$barLeft.css({ 'width': (moveX + 4) + 'px' });
+                trail.push(Math.round(moveY));
+            },
+            function (e) {
+                var eventX = e.clientX || e.changedTouches[0].clientX;
+                that.$footer.removeClass('is-move');
 
-            that.$footer.addClass('is-move');
-            that.$barLeft.css({ 'width': (moveX + 4) + 'px' });
-            trail.push(Math.round(moveY));
-        };
+                var offset = Math.ceil((that.options.width - 40 - 20) / (that.options.width - 40) * (eventX - originX) + 3);
+                that.verify(offset, trail);
+            }
+        );
 
-        var handleDragEnd = function (e) {
-            if (!isMouseDown) return false;
-            isMouseDown = false;
-
-            var eventX = e.clientX || e.changedTouches[0].clientX;
-            if (eventX === originX) return false;
-            that.$footer.removeClass('is-move');
-
-            var offset = Math.ceil((that.options.width - 40 - 20) / (that.options.width - 40) * (eventX - originX) + 3);
-            that.verify(offset, trail);
-        };
-
-        this.$slider.on('mousedown', handleDragStart);
-        this.$slider.on('touchstart', handleDragStart);
         this.$refresh.on('click', function () {
             that.options.barText = that.$barText.attr('data-text');
-        });
-        document.addEventListener('mousemove', handleDragMove);
-        document.addEventListener('touchmove', handleDragMove);
-        document.addEventListener('mouseup', handleDragEnd);
-        document.addEventListener('touchend', handleDragEnd);
-
-        document.addEventListener('mousedown', function () {
-            return false;
-        });
-        document.addEventListener('touchstart', function () {
-            return false;
-        });
-        document.addEventListener('swipe', function () {
-            return false;
         });
     };
 
@@ -534,7 +515,9 @@
                         // remove prev file
                         var origin = $prev.attr('data-file');
                         if (origin) {
-                            var f = that.files.findIndex(function (v, index) { return v.file.name === origin; });
+                            var f = that.files.findIndex(function (v, index) {
+                                return v.file.name === origin;
+                            });
                             if (f > -1) that.files.splice(f, 1);
                         }
                         $prev.attr('data-file', file.name);
@@ -723,7 +706,9 @@
                 failed = false;
             }
         }
-        catch (ex) { }
+        catch (ex) {
+            console.log(ex);
+        }
 
         if (failed) this.failed(evt, $prev, file);
     };
@@ -797,7 +782,83 @@
     $.fn.uploader.Constructor = Uploader;
     /*end upload*/
 
+    $.fn.extend({
+        drag: function (star, move, end) {
+            var $this = $(this);
+
+            var handleDragStart = function (e) {
+                e.stopPropagation();
+
+                document.addEventListener('mousemove', handleDragMove);
+                document.addEventListener('touchmove', handleDragMove);
+                document.addEventListener('mouseup', handleDragEnd);
+                document.addEventListener('touchend', handleDragEnd);
+
+                if ($.isFunction(star)) {
+                    star.call(this, e);
+                }
+            };
+
+            var handleDragMove = function (e) {
+                if ($.isFunction(move)) {
+                    move.call(this, e);
+                }
+            };
+
+            var handleDragEnd = function (e) {
+                // 结束拖动
+                if ($.isFunction(end)) {
+                    end.call(this, e);
+                }
+
+                window.setTimeout(function () {
+                    document.removeEventListener('mousemove', handleDragMove);
+                    document.removeEventListener('touchmove', handleDragMove);
+                    document.removeEventListener('mouseup', handleDragEnd);
+                    document.removeEventListener('touchend', handleDragEnd);
+                }, 100);
+            };
+
+            $this.on('mousedown', handleDragStart);
+            $this.on('touchstart', handleDragStart);
+        }
+    });
+
     $.extend({
+        html5edit: function (el, options) {
+            if (!$.isFunction($.fn.summernote)) return;
+
+            var $this = $(el);
+            var op = typeof options == 'object' && options;
+            if (/destroy|hide/.test(options)) {
+                return $this.toggleClass('open').summernote(options);
+            }
+            else if (typeof options == 'string') {
+                return $this.hasClass('open') ? $this.summernote(options) : $this.html();
+            }
+            if (!$this.hasClass('open')) {
+                op = $.extend({ focus: false, lang: 'zh-CN', height: 80, dialogsInBody: true }, op);
+                if (!$this.attr('data-original-title')) $this.on('click', op, function (event) {
+                    var $this = $(this).tooltip('hide');
+                    var op = $.extend({ placeholder: $this.attr('placeholder') }, event.data);
+                    var $toolbar = $this.toggleClass('open').summernote($.extend({}, op, { focus: true }))
+                        .next().find('.note-toolbar')
+                        .on('click', 'button[data-method]', $this, function (event) {
+                            var $btn = $(this);
+                            switch ($btn.attr('data-method')) {
+                                case 'submit':
+                                    $btn.tooltip('dispose');
+                                    event.data.toggleClass('open').summernote('destroy');
+                                    break;
+                            }
+                        });
+                    var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn note-btn-close" tabindex="-1" data-method="submit" title="完成" data-placement="bottom"><i class="fa fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({ container: 'body' });
+                    $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif');
+                }).tooltip({ title: '点击展开编辑' });
+                if (op.focus) $this.trigger('click');
+            }
+            return this;
+        },
         format: function (source, params) {
             if (params === undefined || params === null) {
                 return null;
@@ -882,7 +943,7 @@
             var showHandler = window.setTimeout(function () {
                 window.clearTimeout(showHandler);
                 if (autoHide) {
-                    $toast.find('.toast-progress').css({ 'width': '100%' });
+                    $toast.find('.toast-progress').css({ 'width': '100%', 'transition': 'width ' + delay / 1000 + 's linear' });
 
                     // auto close
                     autoHideHandler = window.setTimeout(function () {
@@ -942,72 +1003,38 @@
         },
         slider: function (el, slider, method) {
             var $slider = $(el);
-            var isMouseDown = false;
-            var originX = 0;
-            var curVal = 0;
-            var newVal = 0;
-            var slider_width = $slider.innerWidth();
+
             var isDisabled = $slider.find('.disabled').length > 0;
-
             if (!isDisabled) {
-                //var $button = $slider.find('.slider-button-wrapper').tooltip({ trigger: 'focus hover' });
-                //var $tooltip = null;
+                var originX = 0;
+                var curVal = 0;
+                var newVal = 0;
+                var slider_width = $slider.innerWidth();
+                $slider.find('.slider-button-wrapper').drag(
+                    function (e) {
+                        originX = e.clientX || e.touches[0].clientX;
+                        curVal = parseInt($slider.attr('aria-valuetext'));
+                        $slider.find('.slider-button-wrapper, .slider-button').addClass('dragging');
+                    },
+                    function (e) {
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
 
-                var handleDragStart = function (e) {
-                    e.stopPropagation();
-                    // 开始拖动
-                    isMouseDown = true;
+                        newVal = Math.ceil((eventX - originX) * 100 / slider_width) + curVal;
 
-                    originX = e.clientX || e.touches[0].clientX;
-                    curVal = parseInt($slider.attr('aria-valuetext'));
-                    $slider.find('.slider-button-wrapper, .slider-button').addClass('dragging');
-                    //$tooltip = $('#' + $button.attr('aria-describedby'));
-                };
+                        if (newVal <= 0) newVal = 0;
+                        if (newVal >= 100) newVal = 100;
 
-                var handleDragMove = function (e) {
-                    if (!isMouseDown) return false;
+                        $slider.find('.slider-bar').css({ "width": newVal.toString() + "%" });
+                        $slider.find('.slider-button-wrapper').css({ "left": newVal.toString() + "%" });
+                        $slider.attr('aria-valuetext', newVal.toString());
 
-                    var eventX = e.clientX || e.changedTouches[0].clientX;
-                    if (eventX === originX) return false;
+                        slider.invokeMethodAsync(method, newVal);
+                    },
+                    function (e) {
+                        $slider.find('.slider-button-wrapper, .slider-button').removeClass('dragging');
 
-                    newVal = Math.ceil((eventX - originX) * 100 / slider_width) + curVal;
-
-                    // tooltip
-                    //var tooltipLeft = eventX - originX + 8;
-                    //if (val >= 0 && val <= 100)
-                    //    $tooltip.css({ 'left': tooltipLeft.toString() + 'px' });
-
-                    if (newVal <= 0) newVal = 0;
-                    if (newVal >= 100) newVal = 100;
-
-                    $slider.find('.slider-bar').css({ "width": newVal.toString() + "%" });
-                    $slider.find('.slider-button-wrapper').css({ "left": newVal.toString() + "%" });
-                    $slider.attr('aria-valuetext', newVal.toString());
-
-                    slider.invokeMethodAsync(method, newVal);
-                };
-
-                var handleDragEnd = function (e) {
-                    if (!isMouseDown) return false;
-                    isMouseDown = false;
-
-                    // 结束拖动
-                    $slider.find('.slider-button-wrapper, .slider-button').removeClass('dragging');
-
-                    slider.invokeMethodAsync(method, newVal);
-                };
-
-                $slider.on('mousedown', '.slider-button-wrapper', handleDragStart);
-                $slider.on('touchstart', '.slider-button-wrapper', handleDragStart);
-
-                document.addEventListener('mousemove', handleDragMove);
-                document.addEventListener('touchmove', handleDragMove);
-                document.addEventListener('mouseup', handleDragEnd);
-                document.addEventListener('touchend', handleDragEnd);
-
-                document.addEventListener('mousedown', function () { return false; });
-                document.addEventListener('touchstart', function () { return false; });
-                document.addEventListener('swipe', function () { return false; });
+                        slider.invokeMethodAsync(method, newVal);
+                    });
             }
         },
         tooltip: function (id, method, title, content, html) {
@@ -1298,8 +1325,36 @@
 
                 var $button = $item.prev().find('[data-toggle="collapse"]');
                 $button.attr('data-target', '#' + id).attr('aria-controls', id);
+
                 $button.collapse();
+
+                // expand
+                if ($button.parent().hasClass('is-expanded')) {
+                    var $collapse = $('#' + id);
+                    $collapse.collapse("show");
+                }
             });
+
+            $el.find('.tree .tree-item > .fa').on('click', function (e) {
+                var $parent = $(this).parent();
+                $parent.find('[data-toggle="collapse"]').trigger('click');
+            });
+
+            // support menu component
+            if ($el.parent().hasClass("menu")) {
+                $el.on('click', '.nav-link:not(.collapse)', function () {
+                    var $this = $(this);
+                    $el.find('.active').removeClass('active');
+                    $this.addClass("active");
+
+                    // parent
+                    var $card = $this.closest('.card');
+                    while ($card.length > 0) {
+                        $card.children('.card-header').children('.card-header-wrapper').find('.nav-link').addClass('active');
+                        $card = $card.parent().closest('.card');
+                    }
+                });
+            }
         },
         rate: function (el, obj, method) {
             var $el = $(el);
@@ -1339,6 +1394,55 @@
                 $(obj).scrollTop(0);
                 tooltip.tooltip('hide');
             });
+        },
+        editor: function (el, isEditor, height) {
+            var option = { focus: isEditor };
+            if (height) option.height = height;
+            $.html5edit(el.getElementsByClassName("editor-body"), option);
+        },
+        split: function (el) {
+            var $split = $(el);
+
+            var splitWidth = $split.innerWidth();
+            var splitHeight = $split.innerHeight();
+            var curVal = 0;
+            var newVal = 0;
+            var originX = 0;
+            var originY = 0;
+            var isVertical = !$split.children().hasClass('is-horizontal');
+
+            $split.children().children('.split-bar').drag(
+                function (e) {
+                    if (isVertical) {
+                        originY = e.clientY || e.touches[0].clientY;
+                        curVal = $split.children().children('.split-left').innerHeight() * 100 / splitHeight;
+                    }
+                    else {
+                        originX = e.clientX || e.touches[0].clientX;
+                        curVal = $split.children().children('.split-left').innerWidth() * 100 / splitWidth;
+                    }
+                    $split.toggleClass('dragging');
+                },
+                function (e) {
+                    if (isVertical) {
+                        var eventY = e.clientY || e.changedTouches[0].clientY;
+                        newVal = Math.ceil((eventY - originY) * 100 / splitHeight) + curVal;
+                    }
+                    else {
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
+                        newVal = Math.ceil((eventX - originX) * 100 / splitWidth) + curVal;
+                    }
+
+                    if (newVal <= 0) newVal = 0;
+                    if (newVal >= 100) newVal = 100;
+
+                    $split.children().children('.split-left').css({ "flex-basis": newVal.toString() + "%" });
+                    $split.children().children('.split-right').css({ "flex-basis": (100 - newVal).toString() + "%" });
+                    $split.attr('data-split', newVal);
+                },
+                function (e) {
+                    $split.toggleClass('dragging');
+                });
         }
     });
 

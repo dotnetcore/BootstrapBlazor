@@ -21,6 +21,11 @@ namespace BootstrapBlazor.Components
         protected TabContent? TabContent { get; set; }
 
         /// <summary>
+        /// 获得/设置 tabHeader 实例
+        /// </summary>
+        protected TabHeader? TabHeader { get; set; }
+
+        /// <summary>
         /// 获得 Tab 组件样式
         /// </summary>
         protected string? ClassString => CssBuilder.Default("tabs")
@@ -37,7 +42,7 @@ namespace BootstrapBlazor.Components
             .AddClass($"height: {Height}px;", Height > 0)
             .Build();
 
-        private readonly List<TabItem> _items = new List<TabItem>();
+        private readonly List<TabItem> _items = new List<TabItem>(50);
 
         /// <summary>
         /// 获得/设置 TabItem 集合
@@ -94,15 +99,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 TabItem 时回调此方法
         /// </summary>
-        /// <param name="item"></param>
-        protected virtual void OnTabClick(TabItem item)
+        protected virtual Task OnClickTab()
         {
-            foreach (var tab in Items)
-            {
-                var isActive = tab.Text == item.Text;
-                tab.SetActive(isActive);
-            }
-            TabContent?.Render(item);
+            TabContent?.Render();
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace BootstrapBlazor.Components
                     if (index < 0) index = _items.Count - 1;
                     item = Items.ElementAt(index);
                     item.SetActive(true);
-                    TabContent?.Render(item);
+                    TabContent?.Render();
                 }
             }
         }
@@ -142,7 +142,7 @@ namespace BootstrapBlazor.Components
                     if (index + 1 > _items.Count) index = 0;
                     item = Items.ElementAt(index);
                     item.SetActive(true);
-                    TabContent?.Render(item);
+                    TabContent?.Render();
                 }
             }
         }
@@ -165,41 +165,60 @@ namespace BootstrapBlazor.Components
         /// 添加 TabItem 方法
         /// </summary>
         /// <param name="item"></param>
-        public virtual void Add(TabItem item)
+        public virtual Task Add(TabItem item)
         {
-            _items.Add(item);
-            if (item.IsActive)
+            var check = _items.Contains(item);
+            if (item.IsActive || !check) _items.ForEach(i => i.SetActive(false));
+            if (!check)
             {
-                _items.ForEach(t =>
-                {
-                    if (t != item) t.SetActive(false);
-                });
-                OnTabClick(item);
+                _items.Add(item);
+                item.SetActive(true);
             }
+
+            TabHeader?.Render();
+            TabContent?.Render();
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 移除 TabItem 方法
         /// </summary>
         /// <param name="item"></param>
-        public virtual void Remove(TabItem item)
+        public virtual Task Remove(TabItem item)
         {
+            var index = _items.IndexOf(item);
             _items.Remove(item);
             var activeItem = _items.FirstOrDefault(i => i.IsActive);
             if (activeItem == null)
             {
-                activeItem = _items.LastOrDefault();
-                if (activeItem != null)
+                // 删除的 TabItem 是当前 Tab
+                if (index < _items.Count)
                 {
-                    activeItem.SetActive(true);
-                    OnTabClick(activeItem);
+                    // 查找后面的 Tab
+                    activeItem = _items[index];
                 }
                 else
                 {
-                    // no TabItem
-                    TabContent?.Clear();
+                    // 查找前面的 Tab
+                    activeItem = _items.LastOrDefault();
                 }
+                if (activeItem != null) activeItem.SetActive(true);
             }
+            TabContent?.Render();
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 设置指定 TabItem 为激活状态
+        /// </summary>
+        /// <param name="item"></param>
+        public virtual Task ActiveTab(TabItem item)
+        {
+            _items.ForEach(i => i.SetActive(false));
+            item.SetActive(true);
+            TabHeader?.Render();
+            TabContent?.Render();
+            return Task.CompletedTask;
         }
     }
 }

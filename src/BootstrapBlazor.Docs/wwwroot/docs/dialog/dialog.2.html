@@ -1,14 +1,8 @@
 ﻿<Button @onclick="@OnClick">点击打开 Dialog</Button>
 
-<div class="d-none">
-    <Alert @ref="@AlertTest">我是一个提示消息</Alert>
-</div>
-
 <Dialog></Dialog>
 
 @code {
-    private Alert? AlertTest { get; set; }
-
     /// <summary>
     /// 获得 DialogService 实例
     /// </summary>
@@ -23,8 +17,9 @@
     {
         DialogService?.Show(new DialogOption()
         {
-            Title = "我是服务创建的弹出框",
-            BodyComponent = AlertTest
+            Title = "自带的 Counter 组件",
+            KeepChildrenState = KeepState,
+            Component = DynamicComponent.CreateComponent<Counter>()
         });
         return Task.CompletedTask;
     }

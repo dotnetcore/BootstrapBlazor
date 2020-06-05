@@ -49,9 +49,14 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FooterTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 Body 内子组件
+        /// 获得/设置 是否保持弹窗内组件状态 默认为不保持
         /// </summary>
-        public ComponentBase? BodyComponent { get; set; }
+        public bool KeepChildrenState { get; set; }
+
+        /// <summary>
+        /// 获得/设置 自定义组件
+        /// </summary>
+        public DynamicComponent? Component { get; set; }
 
         /// <summary>
         /// 将参数转换为组件属性方法
@@ -66,7 +71,7 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(IsCentered), IsCentered),
                 new KeyValuePair<string, object>(nameof(IsScrolling), IsScrolling),
                 new KeyValuePair<string, object>(nameof(ShowCloseButton), ShowCloseButton),
-                new KeyValuePair<string, object>(nameof(ShowFooter), ShowFooter)
+                new KeyValuePair<string, object>(nameof(ShowFooter), ShowFooter),
             };
         }
     }

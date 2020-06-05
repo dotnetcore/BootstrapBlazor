@@ -2,23 +2,23 @@
 @inherits BootstrapComponentBase
 
 <a @attributes="@AdditionalAttributes" class="@ClassString">
-    @if (string.IsNullOrEmpty(Item.Icon))
+    @if (!string.IsNullOrEmpty(Item?.Icon))
     {
         <i class="@Item.Icon"></i>
     }
-    <span>@Item.Text</span>
+    <span>@Item?.Text</span>
     <i class="fa fa-angle-down nav-link-right"></i>
     <ul class="nav sub-menu">
-        @foreach (var item in Item.Items)
+        @foreach (var item in (Item?.Items ?? new MenuItem[0]))
         {
             <li class="@GetClassString("nav-item", item.IsActive)">
                 @if (item.Items.Any())
                 {
-                    <SubMenu Item="item" class="nav-link" />
+                    <SubMenu Item="@item" class="nav-link" OnClick="@OnClick" />
                 }
                 else
                 {
-                    <MenuLink Url="@item.Url" Text="@item.Text" Active="@item.IsActive" Icon="@item.Icon" class="nav-link" />
+                    <MenuLink Item="@item" class="nav-link" OnClick="@OnClick" />
                 }
             </li>
         }

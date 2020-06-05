@@ -1,4 +1,5 @@
-﻿using Longbow.Tasks;
+﻿using BootstrapBlazor.Shared.Data;
+using Longbow.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System.IO;
@@ -20,6 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         public static IServiceCollection AddBlazorBackgroundTask(this IServiceCollection services)
         {
+            services.AddSingleton<WeatherForecastService>();
             services.AddTaskServices();
             services.AddHttpClient();
             services.AddTransient(sp =>
@@ -38,7 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     internal class BlazorBackgroundServices : BackgroundService
     {
-        IWebHostEnvironment? _env;
+        private readonly IWebHostEnvironment? _env;
 
         /// <summary>
         /// 

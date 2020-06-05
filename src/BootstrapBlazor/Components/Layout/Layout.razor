@@ -3,7 +3,7 @@
 
 @if (Side == null)
 {
-    <section class="@ClassString">
+    <section @attributes="AdditionalAttributes" class="@ClassString">
         <header class="layout-header">
             @Header
         </header>
@@ -17,7 +17,7 @@
 }
 else if (IsFullSide)
 {
-    <section class="@ClassString">
+    <section @attributes="AdditionalAttributes" class="@ClassString">
         <aside class="layout-side" style="@SideStyleString">
             @Side
         </aside>
@@ -36,7 +36,7 @@ else if (IsFullSide)
 }
 else
 {
-    <section class="@ClassString">
+    <section @attributes="AdditionalAttributes" class="@ClassString">
         <header class="layout-header">
             @Header
         </header>

@@ -1,0 +1,66 @@
+﻿@page "/splits"
+
+<h3>Split 面板分割</h3>
+
+<h4>Split 面板分割</h4>
+
+<Block Title="基础用法" Introduction="左右分割" CodeFile="split.1.html">
+    <div class="border split-demo split-demo-horizontal">
+        <Split>
+            <FirstPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center">我是左侧面板</div>
+            </FirstPaneTemplate>
+            <SecondPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center">我是右侧面板</div>
+            </SecondPaneTemplate>
+        </Split>
+    </div>
+</Block>
+
+<Block Title="设置初始化百分比" Introduction="通过设置 <code>Basis</code> 属性来设置初始化位置占比" CodeFile="split.2.html">
+    <div class="border split-demo split-demo-horizontal">
+        <Split Basis="40%">
+            <FirstPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center">我是左侧面板</div>
+            </FirstPaneTemplate>
+            <SecondPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center">我是右侧面板</div>
+            </SecondPaneTemplate>
+        </Split>
+    </div>
+</Block>
+
+<Block Title="垂直分割" Introduction="通过设置 <code>IsVertical</code> 属性控制垂直分割面板" CodeFile="split.3.html">
+    <div class="border split-demo">
+        <Split IsVertical="true">
+            <FirstPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center">我是上部面板</div>
+            </FirstPaneTemplate>
+            <SecondPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center">我是底部面板</div>
+            </SecondPaneTemplate>
+        </Split>
+    </div>
+</Block>
+
+<Block Title="嵌套使用" Introduction="通过嵌套 <code>Split</code> 组件进行组合布局" CodeFile="split.4.html">
+    <div class="border split-demo">
+        <Split>
+            <FirstPaneTemplate>
+                <Split IsVertical="true">
+                    <FirstPaneTemplate>
+                        <div class="d-flex justify-content-center align-items-center">上边面板</div>
+                    </FirstPaneTemplate>
+                    <SecondPaneTemplate>
+                        <div class="d-flex justify-content-center align-items-center">下边面板</div>
+                    </SecondPaneTemplate>
+                </Split>
+            </FirstPaneTemplate>
+            <SecondPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center">右边面板</div>
+            </SecondPaneTemplate>
+        </Split>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

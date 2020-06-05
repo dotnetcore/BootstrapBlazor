@@ -1,1 +1,19 @@
 ﻿<Menu Items="@GetIconItems()" />
+
+@code {
+    private IEnumerable<MenuItem> GetIconItems()
+    {
+        var ret = new List<MenuItem>
+        {
+            new MenuItem() { Text = "导航一", Icon = "fa fa-life-bouy fa-fw" },
+            new MenuItem() { Text = "导航二", Icon = "fa fa-fa fa-fw", IsActive = true },
+            new MenuItem() { Text = "导航三", Icon = "fa fa-rebel fa-fw" }
+        };
+
+        ret[1].AddItem(new MenuItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
+        ret[1].AddItem(new MenuItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
+        ret[1].AddItem(new MenuItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw" });
+
+        return ret;
+    }
+}

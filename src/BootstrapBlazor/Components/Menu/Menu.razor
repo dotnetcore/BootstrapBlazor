@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits MenuBase
 
-<nav @attributes="@AdditionalAttributes" class="@ClassString">
+<nav @attributes="@AdditionalAttributes" class="@ClassString" @ref="@MenuElement">
     @if (IsVertical)
     {
-        <SideMenu Items="@Items" IsAccordion="@IsAccordion" />
+        <SideMenu Items="@Items" IsAccordion="@IsAccordion" OnClick="@OnClick" />
     }
     else
     {
-        <TopMenu Items="@Items" />
+        <TopMenu Items="@Items" OnClick="@OnClick" />
     }
 </nav>

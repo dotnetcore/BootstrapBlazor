@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -45,14 +46,14 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender && JSRuntime != null)
             {
                 if (Interope == null) Interope = new JSInterop<Charts>(JSRuntime);
-                Interope.Invoke(this, "", "_initChart", nameof(ShowToast));
+                await Interope.Invoke(this, "", "_initChart", nameof(ShowToast));
             }
         }
 
@@ -73,6 +74,26 @@ namespace BootstrapBlazor.Shared.Pages
                 });
             }
             return Task.FromResult(ds);
+        }
+
+        private CancellationTokenSource _chartCancellationTokenSource = new CancellationTokenSource();
+
+        private Task OnPlayChart()
+        {
+            _chartCancellationTokenSource = new CancellationTokenSource();
+            return Task.Run(async () =>
+            {
+                while (!_chartCancellationTokenSource.IsCancellationRequested)
+                {
+                    await Task.Delay(800, _chartCancellationTokenSource.Token);
+                    if (!_chartCancellationTokenSource.IsCancellationRequested) RandomData(BarChart);
+                }
+            });
+        }
+
+        private void OnStopChart()
+        {
+            _chartCancellationTokenSource.Cancel();
         }
 
         private Task<ChartDataSource> OnPieInit(int dsCount, int daCount)

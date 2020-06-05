@@ -6,36 +6,36 @@
 <Button Color="Color.Info" OnClick="@OnInfoClick" >信息通知</Button>
 
 @code{
-        protected void OnSuccessClick()
+    protected void OnSuccessClick()
+    {
+        Toast?.SetPlacement(Placement.BottomEnd);
+        ToastService?.Show(new ToastOption()
         {
-            Toast?.SetPlacement(Placement.BottomEnd);
-            ToastService?.Show(new ToastOption()
-            {
-                Category = ToastCategory.Success,
-                Title = "保存成功",
-                Content = "保存数据成功，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Success,
+            Title = "保存成功",
+            Content = "保存数据成功，4 秒后自动关闭"
+        });
+    }
 
-        protected void OnErrorClick()
+    protected void OnErrorClick()
+    {
+        Toast?.SetPlacement(Placement.BottomEnd);
+        ToastService?.Show(new ToastOption()
         {
-            Toast?.SetPlacement(Placement.BottomEnd);
-            ToastService?.Show(new ToastOption()
-            {
-                Category = ToastCategory.Error,
-                Title = "保存失败",
-                Content = "保存数据失败，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Error,
+            Title = "保存失败",
+            Content = "保存数据失败，4 秒后自动关闭"
+        });
+    }
 
-        protected void OnInfoClick()
+    protected void OnInfoClick()
+    {
+        Toast?.SetPlacement(Placement.BottomEnd);
+        ToastService?.Show(new ToastOption()
         {
-            Toast?.SetPlacement(Placement.BottomEnd);
-            ToastService?.Show(new ToastOption()
-            {
-                Category = ToastCategory.Information,
-                Title = "消息通知",
-                Content = "系统增加新组件啦，4 秒后自动关闭"
-            });
-        }
+            Category = ToastCategory.Information,
+            Title = "消息通知",
+            Content = "系统增加新组件啦，4 秒后自动关闭"
+        });
+    }
 }

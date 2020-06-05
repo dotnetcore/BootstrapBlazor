@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -9,11 +8,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class TabContent : ComponentBase
     {
-        /// <summary>
-        /// 获得/设置 当前显示的 TabItem 实例
-        /// </summary>
-        private TabItem? Item { get; set; }
-
         /// <summary>
         /// 获得/设置 所属 Tab 实例
         /// </summary>
@@ -26,26 +20,28 @@ namespace BootstrapBlazor.Components
         /// <param name="builder"></param>
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            var item = Item ?? TabSet?.Items.FirstOrDefault(i => i.IsActive);
-            builder.AddContent(0, item?.ChildContent);
+            if (TabSet != null)
+            {
+                var index = 0;
+                foreach (var item in TabSet.Items)
+                {
+                    builder.OpenElement(index++, "div");
+                    builder.AddAttribute(index++, "class", GetContentClassString(item));
+                    builder.AddContent(index++, item.ChildContent);
+                    builder.CloseElement();
+                }
+            }
         }
+
+        private static string? GetContentClassString(TabItem item) => CssBuilder.Default()
+            .AddClass("d-none", !item.IsActive)
+            .Build();
 
         /// <summary>
         /// Render 方法
         /// </summary>
-        /// <param name="item"></param>
-        public void Render(TabItem item)
+        public void Render()
         {
-            Item = item;
-            StateHasChanged();
-        }
-
-        /// <summary>
-        /// 清空方法
-        /// </summary>
-        public void Clear()
-        {
-            Item = null;
             StateHasChanged();
         }
     }

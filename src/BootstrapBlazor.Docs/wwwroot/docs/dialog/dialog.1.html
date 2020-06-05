@@ -18,16 +18,11 @@
         DialogService?.Show(new DialogOption()
         {
             Title = "我是服务创建的弹出框",
-            BodyTemplate = new RenderFragment(builder =>
+            BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
             {
-                var index = 0;
-                builder.OpenComponent<Button>(index++);
-                builder.AddAttribute(index++, nameof(Button.ChildContent), new RenderFragment(builder =>
-                {
-                    builder.AddContent(0, "服务创建的按钮");
-                }));
-                builder.CloseComponent();
+                new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
             })
+            .Render()
         });
         return Task.CompletedTask;
     }

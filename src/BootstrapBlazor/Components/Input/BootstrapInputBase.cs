@@ -15,6 +15,17 @@ namespace BootstrapBlazor.Components
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
+        /// <summary>
+        /// 获得/设置 是否显示前置标签 默认值为 true
+        /// </summary>
+        [Parameter]
+        public bool ShowLabel { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否为密码输入框 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsPassword { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串
@@ -34,7 +45,7 @@ namespace BootstrapBlazor.Components
             {
                 if (!AdditionalAttributes.TryGetValue("type", out var _))
                 {
-                    AdditionalAttributes.Add("type", "text");
+                    AdditionalAttributes.Add("type", IsPassword ? "password" : "text");
                 }
             }
         }
