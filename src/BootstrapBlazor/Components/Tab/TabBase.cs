@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -86,6 +87,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? TabItems { get; set; }
 
         /// <summary>
+        /// 获得/设置 点击 TabItem 时回调方法
+        /// </summary>
+        [Parameter]
+        public Func<TabItem, Task> OnClickTab { get; set; } = i => Task.CompletedTask;
+
+        /// <summary>
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -99,10 +106,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 TabItem 时回调此方法
         /// </summary>
-        protected virtual Task OnClickTab()
+        protected virtual async Task OnClickTabItem(TabItem item)
         {
             TabContent?.Render();
-            return Task.CompletedTask;
+            await OnClickTab.Invoke(item);
         }
 
         /// <summary>

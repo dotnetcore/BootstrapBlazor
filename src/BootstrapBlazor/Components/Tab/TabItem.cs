@@ -32,6 +32,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
+        /// 获得/设置 相关键值
+        /// </summary>
+        [Parameter]
+        public object? Key { get; set; }
+
+        /// <summary>
         /// 获得/设置 所属 Tab 实例
         /// </summary>
         [CascadingParameter]
