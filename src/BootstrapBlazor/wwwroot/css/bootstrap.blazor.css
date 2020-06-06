@@ -13,6 +13,12 @@ a {
     cursor: pointer;
 }
 
+    a, a:hover, a:focus {
+        text-decoration: none;
+        outline: none;
+        color: inherit;
+    }
+
 .alert i {
     margin-right: 0.5rem;
 }
@@ -3265,7 +3271,7 @@ a {
         }
 
             .menu.is-vertical .nav-link .nav-link-text {
-                transition: width .3s ease-in-out, opacity .3s ease-in-out;
+                transition: width .3s linear, opacity .3s linear;
                 opacity: 1;
             }
 
@@ -3275,7 +3281,7 @@ a {
         }
 
         .menu.is-vertical .has-leaf > .accordion {
-            transition: padding-left .3s ease-in-out
+            transition: padding-left .3s linear
         }
 
         .menu.is-vertical.is-collapsed .has-leaf > .accordion {
@@ -3311,6 +3317,7 @@ a {
 
 .layout-right {
     display: flex;
+    flex-flow: column;
     flex: 1;
 }
 
@@ -3334,7 +3341,7 @@ a {
 .layout.is-page .layout-side {
     background-color: #2f4050;
     color: #dcdfe6;
-    transition: width .3s ease-in-out;
+    transition: width .3s linear;
 }
 
     .layout.is-page .layout-side .menu.is-vertical {
@@ -3379,6 +3386,7 @@ a {
 
 .layout.is-page .layout-main {
     padding: 1rem;
+    position: relative;
 }
 
 .layout.is-page .layout-header.is-fixed {
@@ -3405,21 +3413,26 @@ a {
     font-size: 1.5rem;
 }
 
-    .layout.is-page .layout-side .layout-banner .layout-logo {
-        width: 44px;
-        border-radius: 4px;
-    }
+.layout-banner-link {
+    display: flex;
+    align-items: center;
+}
 
-    .layout.is-page .layout-side .layout-banner span {
-        padding-left: 1rem;
-    }
+.layout.is-page .layout-side .layout-banner .layout-logo {
+    width: 44px;
+    border-radius: 4px;
+}
+
+.layout.is-page .layout-side .layout-banner span {
+    padding-left: 1rem;
+}
 
 .layout.is-page .layout-title {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
     flex: 1 1 auto;
-    transition: all .3s ease-in-out;
+    transition: all .3s linear;
 }
 
 .layout.is-page .layout-user-state {
@@ -3462,6 +3475,10 @@ a {
     padding: 0.5rem 0;
     height: calc(100vh - 115px);
 }
+
+    .layout.is-page .layout-side .layout-menu .nav-link:not(.active) {
+        color: #dcdfe6;
+    }
 
 .layout.is-page .layout-footer {
     height: 40px;
