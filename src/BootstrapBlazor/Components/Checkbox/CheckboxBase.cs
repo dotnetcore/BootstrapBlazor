@@ -9,6 +9,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class CheckboxBase<TItem> : ValidateInputBase<TItem>
     {
+        private CheckboxState _state;
+
         /// <summary>
         /// 获得 class 样式集合
         /// </summary>
@@ -44,13 +46,30 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 选择框状态
         /// </summary>
         [Parameter]
-        public CheckboxState State { get; set; }
+        public CheckboxState State
+        {
+            get => _state;
+            set
+            {
+                var hasChanged = _state != value;
+                if (hasChanged)
+                {
+                    _state = value;
+                    if (StateChanged.HasDelegate) StateChanged.InvokeAsync(_state);
+                    if (typeof(TItem) == typeof(bool))
+                    {
+                        CurrentValue = (TItem)(object)(_state == CheckboxState.Checked);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// State 状态改变回调方法
         /// </summary>
         /// <value></value>
-        [Parameter] public EventCallback<CheckboxState> StateChanged { get; set; }
+        [Parameter]
+        public EventCallback<CheckboxState> StateChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 选择框状态改变时回调此方法
@@ -62,7 +81,7 @@ namespace BootstrapBlazor.Components
         /// 组件初始化回调方法 用户扩展
         /// </summary>
         [Parameter]
-        public Action<BootstrapComponentBase>? OnInitializedCallback { get; set; }
+        public Action<CheckboxBase<TItem>>? OnInitializedCallback { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

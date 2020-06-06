@@ -96,20 +96,20 @@ namespace BootstrapBlazor.Components
         /// 行内选择框初始化回调函数
         /// </summary>
         /// <param name="component"></param>
-        protected void OnCheckboxInit(BootstrapComponentBase component)
+        protected void OnCheckboxInit(CheckboxBase<bool> component)
         {
-            HeaderCheckbox = (CheckboxBase<bool>)component;
+            HeaderCheckbox = component;
         }
 
         /// <summary>
         /// 表头选择框初始化回调函数
         /// </summary>
         /// <param name="component"></param>
-        protected void OnItemCheckboxInit(BootstrapComponentBase component)
+        protected void OnItemCheckboxInit(CheckboxBase<TItem> component)
         {
             if (ItemCheckboxs == null) ItemCheckboxs = new List<CheckboxBase<TItem>>();
 
-            ItemCheckboxs.Add((CheckboxBase<TItem>)component);
+            ItemCheckboxs.Add(component);
         }
     }
 }
