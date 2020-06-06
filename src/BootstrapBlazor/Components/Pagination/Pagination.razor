@@ -3,7 +3,7 @@
 
 <nav class="nav nav-pages" aria-label="分页组件">
     <div class="@PaginationBarClass">
-        <div class="d-inline-block">显示第 <span>@((PageIndex - 1) * PageItems + 1)</span> 到第 <span>@(Math.Min(PageIndex * PageItems, TotalCount))</span> 条记录</div>
+        <div class="d-inline-block">显示第 <span>@StarIndex</span> 到第 <span>@EndIndex</span> 条记录</div>
         <div class="d-none d-sm-inline-block">，总共 <span>@TotalCount</span> 条记录</div>
         @if (PageCount > 1)
         {

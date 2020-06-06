@@ -166,7 +166,7 @@ namespace BootstrapBlazor.Components
                 // 删除成功 重新查询
                 // 由于数据删除导致页码会改变，尤其是最后一页
                 // 重新计算页码
-                PageIndex = Math.Min(PageIndex, (TotalCount - SelectedItems.Count) / PageItems);
+                PageIndex = Math.Max(1, Math.Min(PageIndex, (TotalCount - SelectedItems.Count) / PageItems));
                 await QueryAsync();
             }
             Toast?.Show(op);
