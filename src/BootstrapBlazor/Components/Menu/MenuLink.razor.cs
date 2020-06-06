@@ -14,6 +14,8 @@ namespace BootstrapBlazor.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
+        private string? GetHrefString => string.IsNullOrEmpty(Item?.Url) ? "#" : Item?.Url;
+
         /// <summary>
         /// 
         /// </summary>
