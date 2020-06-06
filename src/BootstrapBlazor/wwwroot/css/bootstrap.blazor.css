@@ -3311,6 +3311,7 @@ a {
 
 .layout-right {
     display: flex;
+    flex-flow: column;
     flex: 1;
 }
 
@@ -3461,6 +3462,10 @@ a {
     padding: 0.5rem 0;
     height: calc(100vh - 115px);
 }
+
+    .layout.is-page .layout-side .layout-menu .nav-link {
+        color: #dcdfe6;
+    }
 
 .layout.is-page .layout-footer {
     height: 40px;
