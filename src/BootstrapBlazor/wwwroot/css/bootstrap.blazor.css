@@ -3356,6 +3356,7 @@ a {
         position: sticky;
         top: 50px;
         height: calc(100vh - 50px);
+        z-index: 1025;
     }
 
         .layout.is-page .layout-side.is-fixed-header.is-fixed-footer {
@@ -3391,7 +3392,7 @@ a {
 .layout.is-page .layout-header.is-fixed {
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1025;
 }
 
 .layout.is-page .layout-header .layout-avatar-right {
@@ -3495,6 +3496,7 @@ a {
     .layout.is-page .layout-footer.is-fixed {
         position: sticky;
         bottom: 0;
+        z-index: 1025;
     }
 
     .layout.is-page .layout-footer .layout-gotop {
