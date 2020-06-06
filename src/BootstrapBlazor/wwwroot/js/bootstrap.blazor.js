@@ -1385,13 +1385,12 @@
                 obj.invokeMethodAsync(method, $el.val + 1);
             });
         },
-        footer: function (el, obj) {
-            var $el = $(el);
+        footer: function () {
+            var $el = $('app').find('.layout-footer');
             var tooltip = $el.find('[data-toggle="tooltip"]').tooltip();
-            $el.find('.footer-top').on('click', function (e) {
+            $el.find('.layout-gotop').on('click', function (e) {
                 e.preventDefault();
-                if (obj === 'window' || obj === 'body') obj = window;
-                $(obj).scrollTop(0);
+                $(window).scrollTop(0);
                 tooltip.tooltip('hide');
             });
         },
