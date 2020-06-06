@@ -9,8 +9,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class CheckboxBase<TItem> : ValidateInputBase<TItem>
     {
-        private CheckboxState _state;
-
         /// <summary>
         /// 获得 class 样式集合
         /// </summary>
@@ -46,23 +44,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 选择框状态
         /// </summary>
         [Parameter]
-        public CheckboxState State
-        {
-            get => _state;
-            set
-            {
-                var hasChanged = _state != value;
-                if (hasChanged)
-                {
-                    _state = value;
-                    if (StateChanged.HasDelegate) StateChanged.InvokeAsync(_state);
-                    if (typeof(TItem) == typeof(bool))
-                    {
-                        CurrentValue = (TItem)(object)(_state == CheckboxState.Checked);
-                    }
-                }
-            }
-        }
+        public CheckboxState State { get; set; }
 
         /// <summary>
         /// State 状态改变回调方法
@@ -92,13 +74,6 @@ namespace BootstrapBlazor.Components
 
             // 调用订阅信息
             OnInitializedCallback?.Invoke(this);
-
-            // 通过 Value 设置 State
-            if (typeof(TItem) == typeof(bool))
-            {
-                var v = (bool?)Convert.ChangeType(Value, TypeCode.Boolean) ?? false;
-                State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
-            }
         }
 
         /// <summary>
@@ -115,22 +90,49 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// OnAfterRender 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            _stateChanged = false;
+        }
+
+        /// <summary>
         /// 点击选择框方法
         /// </summary>
         protected virtual async Task OnToggleClick()
         {
             if (!IsDisabled)
             {
-                State = State != CheckboxState.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
+                await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
+            }
+        }
 
-                if (typeof(TItem) == typeof(bool))
+        /// <summary>
+        /// 此变量为了提高性能，避免循环更新
+        /// </summary>
+        private bool _stateChanged;
+
+        private async Task InternalStateChanged(CheckboxState state)
+        {
+            if (!_stateChanged)
+            {
+                _stateChanged = true;
+
+                if (Value is bool val)
                 {
-                    var v = (bool?)Convert.ChangeType(Value, TypeCode.Boolean) ?? false;
-                    Value = (TItem)(object)(!v);
-                    if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+                    CurrentValue = (TItem)(object)(state == CheckboxState.Checked);
                 }
-                if (StateChanged.HasDelegate) await StateChanged.InvokeAsync(State);
-                if (OnStateChanged != null) await OnStateChanged.Invoke(State, Value);
+
+                if (State != state)
+                {
+                    State = state;
+                    if (StateChanged.HasDelegate) await StateChanged.InvokeAsync(State);
+                    if (OnStateChanged != null) await OnStateChanged.Invoke(State, Value);
+                }
             }
         }
 
@@ -140,8 +142,7 @@ namespace BootstrapBlazor.Components
         /// <param name="state"></param>
         public virtual async Task SetState(CheckboxState state)
         {
-            State = state;
-            if (StateChanged.HasDelegate) await StateChanged.InvokeAsync(State);
+            await InternalStateChanged(state);
             StateHasChanged();
         }
     }
