@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击 TabItem 时的回调委托
         /// </summary>
         [Parameter]
-        public Func<Task>? OnClickTab { get; set; }
+        public Func<TabItem, Task>? OnClickTab { get; set; }
 
         /// <summary>
         /// 获得/设置 所属 Tab 实例
@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Components
                     {
                         TabSet.Items.ToList().ForEach(i => i.SetActive(false));
                         item.SetActive(true);
-                        if (OnClickTab != null) await OnClickTab();
+                        if (OnClickTab != null) await OnClickTab(item);
                     }));
 
                     if (!string.IsNullOrEmpty(item.Icon))
