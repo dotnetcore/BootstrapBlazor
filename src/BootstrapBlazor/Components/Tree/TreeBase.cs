@@ -28,6 +28,24 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 SubTree 样式
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetSubTreeLinkClassString(TreeItem item) => CssBuilder.Default("nav-link show collapse")
+            .AddClass("collapsed", !item.IsExpanded)
+            .Build();
+
+        /// <summary>
+        /// 获得 SubTree 样式
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetSubTreeClassString(TreeItem item) => CssBuilder.Default("collapse-item collapse")
+            .AddClass("show", item.IsExpanded)
+            .Build();
+
+        /// <summary>
         /// 获得 是否展开字符串
         /// </summary>
         /// <param name="item"></param>

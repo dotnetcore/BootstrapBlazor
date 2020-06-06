@@ -1318,20 +1318,15 @@
             }
 
             $.each($el.find('.collapse-item'), function () {
-                var id = $.getUID();
                 var $item = $(this);
-                $item.attr('id', id);
-                if (parent != null) $item.attr('data-parent', parent);
+                var id = $item.attr('id');
+                if (!id) {
+                    id = $.getUID();
+                    $item.attr('id', id);
+                    if (parent != null) $item.attr('data-parent', parent);
 
-                var $button = $item.prev().find('[data-toggle="collapse"]');
-                $button.attr('data-target', '#' + id).attr('aria-controls', id);
-
-                $button.collapse();
-
-                // expand
-                if ($button.parent().hasClass('is-expanded')) {
-                    var $collapse = $('#' + id);
-                    $collapse.collapse("show");
+                    var $button = $item.prev().find('[data-toggle="collapse"]');
+                    $button.attr('data-target', '#' + id).attr('aria-controls', id);
                 }
             });
 

@@ -9,11 +9,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-wrapper">
-                        <MenuLink Item="@item" class="nav-link collapsed collapse" data-toggle="collapse" aria-expanded="false" OnClick="@OnClick" />
+                        <MenuLink Item="@item" class="@GetMenuItemLinkClassString(item)" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" OnClick="@OnClick" />
                         <i class="fa fa-angle-down"></i>
                     </div>
                 </div>
-                <div class="collapse-item collapse">
+                <div class="@GetMenuItemClassString(item)">
                     <div class="card-body has-leaf">
                         <SideMenu Items="@item.Items" IsAccordion ="@IsAccordion" OnClick="@OnClick"/>
                     </div>

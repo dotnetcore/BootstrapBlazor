@@ -15,13 +15,13 @@
                             {
                                 <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
                             }
-                            <a class="nav-link collapsed collapse" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" @onclick:preventDefault @onclick="@(e => OnClick(item))">
+                            <a class="@GetSubTreeLinkClassString(item)" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" @onclick:preventDefault @onclick="@(e => OnClick(item))">
                                 <span>@item.Text</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="collapse-item collapse">
+                <div class="@GetSubTreeClassString(item)">
                     <div class="card-body has-leaf">
                         <Tree Items="@item.Items" IsAccordion="@IsAccordion" ShowCheckbox="@ShowCheckbox" OnTreeItemChecked="@OnTreeItemChecked" OnTreeItemClick="@OnTreeItemClick" />
                     </div>
