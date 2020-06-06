@@ -3344,24 +3344,25 @@ a {
     transition: width .3s linear;
 }
 
+    .layout.is-page .layout-side.is-collapsed,
+    .layout.is-page .layout-side .menu.is-vertical.is-collapsed {
+        width: 70px;
+    }
+
+    .layout.is-page .layout-side,
     .layout.is-page .layout-side .menu.is-vertical {
         width: 214px;
     }
 
-        .layout.is-page .layout-side .menu.is-vertical.is-collapsed {
-            width: 70px;
+        .layout.is-page .layout-side.is-fixed-header {
+            position: sticky;
+            top: 50px;
+            height: calc(100vh - 50px);
         }
 
-    .layout.is-page .layout-side.is-fixed-header {
-        position: sticky;
-        top: 50px;
-        height: calc(100vh - 50px);
-        z-index: 1025;
-    }
-
-        .layout.is-page .layout-side.is-fixed-header.is-fixed-footer {
-            height: calc(100vh - 90px);
-        }
+            .layout.is-page .layout-side.is-fixed-header.is-fixed-footer {
+                height: calc(100vh - 90px);
+            }
 
 .layout.is-page.has-sidebar .layout-side.is-fixed-header {
     top: 0;
@@ -3392,7 +3393,6 @@ a {
 .layout.is-page .layout-header.is-fixed {
     position: sticky;
     top: 0;
-    z-index: 1025;
 }
 
 .layout.is-page .layout-header .layout-avatar-right {
@@ -3432,7 +3432,8 @@ a {
     overflow: hidden;
     white-space: nowrap;
     flex: 1 1 auto;
-    transition: all .3s linear;
+    opacity: 1;
+    transition: opacity .3s linear;
 }
 
 .layout.is-page .layout-user-state {
@@ -3448,7 +3449,6 @@ a {
 }
 
 .layout.is-page .is-collapsed .layout-title {
-    width: 0;
     opacity: 0;
 }
 
@@ -3496,7 +3496,6 @@ a {
     .layout.is-page .layout-footer.is-fixed {
         position: sticky;
         bottom: 0;
-        z-index: 1025;
     }
 
     .layout.is-page .layout-footer .layout-gotop {
@@ -3515,6 +3514,13 @@ a {
         .layout.is-page .layout-footer .layout-gotop:hover {
             background-color: #fff;
         }
+
+    .layout.is-page .layout-footer.is-fixed,
+    .layout.is-page .layout-header.is-fixed,
+    .layout.is-page .layout-side.is-fixed-header {
+        z-index: 1025;
+    }
+
 /*end layout*/
 /*step*/
 .steps {
