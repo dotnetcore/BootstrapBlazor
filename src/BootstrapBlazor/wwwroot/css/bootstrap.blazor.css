@@ -3342,6 +3342,7 @@ a {
     background-color: #2f4050;
     color: #dcdfe6;
     transition: width .3s linear;
+    width: 214px;
 }
 
     .layout.is-page .layout-side.is-collapsed,
@@ -3349,20 +3350,15 @@ a {
         width: 70px;
     }
 
-    .layout.is-page .layout-side,
-    .layout.is-page .layout-side .menu.is-vertical {
-        width: 214px;
+    .layout.is-page .layout-side.is-fixed-header {
+        position: sticky;
+        top: 50px;
+        height: calc(100vh - 50px);
     }
 
-        .layout.is-page .layout-side.is-fixed-header {
-            position: sticky;
-            top: 50px;
-            height: calc(100vh - 50px);
+        .layout.is-page .layout-side.is-fixed-header.is-fixed-footer {
+            height: calc(100vh - 90px);
         }
-
-            .layout.is-page .layout-side.is-fixed-header.is-fixed-footer {
-                height: calc(100vh - 90px);
-            }
 
 .layout.is-page.has-sidebar .layout-side.is-fixed-header {
     top: 0;
