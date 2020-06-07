@@ -23,6 +23,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected string? ButtonClassName => CssBuilder.Default("btn")
             .AddClass("dropdown-toggle", !ShowSplit)
+            .AddClass($"btn-primary", Color == Color.None)
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
             .Build();
