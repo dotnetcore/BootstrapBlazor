@@ -3412,6 +3412,7 @@ a {
 .layout-banner-link {
     display: flex;
     align-items: center;
+    color: inherit;
 }
 
 .layout.is-page .layout-side .layout-banner .layout-logo {
