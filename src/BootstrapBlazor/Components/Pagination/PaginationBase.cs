@@ -43,12 +43,6 @@ namespace BootstrapBlazor.Components
         protected int EndIndex => Math.Min(PageIndex * PageItems, TotalCount);
 
         /// <summary>
-        /// 获得 PageItems 下拉框显示文字
-        /// </summary>
-        /// <value></value>
-        protected string? PageItemsString => $"{PageItems} 条/页";
-
-        /// <summary>
         /// 获得/设置 开始页码
         /// </summary>
         protected int StartPageIndex => Math.Max(1, Math.Min(PageCount - 4, Math.Max(1, PageIndex - 2)));

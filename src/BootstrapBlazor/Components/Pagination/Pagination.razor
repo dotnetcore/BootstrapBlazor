@@ -7,7 +7,7 @@
         <div class="d-none d-sm-inline-block">，总共 <span>@TotalCount</span> 条记录</div>
         <span>每页显示</span>
         <div class="pagination-items d-none d-sm-inline-block">
-            <Select TItem="string" Value="@PageItemsString" Items="@GetPageItems()" OnSelectedItemChanged="@OnPageItemsSelectItemChanged" />
+            <Select TItem="int" Value="@PageItems" Items="@GetPageItems()" OnSelectedItemChanged="@OnPageItemsSelectItemChanged" />
         </div>
         <span class="d-sm-none">@PageItems</span>
         <span>条记录</span>

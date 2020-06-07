@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -167,6 +168,9 @@ namespace BootstrapBlazor.Components
                 // 由于数据删除导致页码会改变，尤其是最后一页
                 // 重新计算页码
                 PageIndex = Math.Max(1, Math.Min(PageIndex, (TotalCount - SelectedItems.Count) / PageItems));
+
+                var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedItems.Count));
+                PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
                 await QueryAsync();
             }
             Toast?.Show(op);
