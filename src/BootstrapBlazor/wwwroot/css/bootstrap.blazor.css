@@ -3250,6 +3250,8 @@ a {
 
         .menu.is-vertical .nav-link {
             transition: color .3s linear;
+            color: inherit;
+            white-space: nowrap;
         }
 
             .menu.is-vertical .nav-link.active,
@@ -3266,14 +3268,10 @@ a {
         }
 
         /* side menu*/
-        .menu.is-vertical .nav-link {
-            white-space: nowrap;
+        .menu.is-vertical .nav-link .nav-link-text {
+            transition: width .3s linear, opacity .3s linear;
+            opacity: 1;
         }
-
-            .menu.is-vertical .nav-link .nav-link-text {
-                transition: width .3s linear, opacity .3s linear;
-                opacity: 1;
-            }
 
         .menu.is-vertical.is-collapsed .nav-link .nav-link-text {
             width: 0;
@@ -3472,10 +3470,6 @@ a {
     padding: 0.5rem 0;
     height: calc(100vh - 115px);
 }
-
-    .layout.is-page .layout-side .layout-menu .nav-link:not(.active) {
-        color: inherit;
-    }
 
 .layout.is-page .layout-footer {
     height: 40px;
