@@ -3474,7 +3474,7 @@ a {
 }
 
     .layout.is-page .layout-side .layout-menu .nav-link:not(.active) {
-        color: #dcdfe6;
+        color: inherit;
     }
 
 .layout.is-page .layout-footer {
