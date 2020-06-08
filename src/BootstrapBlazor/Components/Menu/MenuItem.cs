@@ -41,6 +41,11 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// 获得/设置 菜单内子组件
+        /// </summary>
+        public DynamicComponent? Component { get; set; }
+
+        /// <summary>
         /// 添加 Menutem 方法 由 MenuItem 方法加载时调用
         /// </summary>
         /// <param name="item">Menutem 实例</param>

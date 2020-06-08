@@ -1,6 +1,7 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -142,6 +143,53 @@ namespace BootstrapBlazor.Shared.Pages
             ret[2].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
             ret[2].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
             ret[2].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
+
+            return ret;
+        }
+
+        private DynamicComponent BuildDynamicComponent()
+        {
+            return DynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]
+            {
+                new KeyValuePair<string, object>(nameof(Badge.Color), Color.Danger),
+                new KeyValuePair<string, object>(nameof(Badge.IsPill), true),
+                new KeyValuePair<string, object>(nameof(Badge.ChildContent), new RenderFragment(builder =>
+                {
+                    var index = 0;
+                    builder.AddContent(index++, "10");
+                }))
+            });
+        }
+
+        private IEnumerable<MenuItem> GetWidgetIconSideMenuItems()
+        {
+            var ret = new List<MenuItem>
+            {
+                new MenuItem() { Text = "系统设置", Icon = "fa fa-fw fa-gears" },
+                new MenuItem() { Text = "权限设置", Icon = "fa fa-fw fa-users" },
+                new MenuItem() {
+                    Text = "日志设置",
+                    IsActive = true,
+                    Icon = "fa fa-fw fa-database",
+                    Component = BuildDynamicComponent()
+                }
+            };
+
+            ret[0].AddItem(new MenuItem() { Text = "网站设置", Icon = "fa fa-fw fa-fa" });
+            ret[0].AddItem(new MenuItem() { Text = "任务设置", Icon = "fa fa-fw fa-tasks" });
+
+            ret[1].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
+            ret[1].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
+            ret[1].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
+
+            ret[2].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
+            ret[2].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
+            ret[2].AddItem(new MenuItem()
+            {
+                Text = "操作日志",
+                Icon = "fa fa-fw fa-edit",
+                Component = BuildDynamicComponent()
+            });
 
             return ret;
         }

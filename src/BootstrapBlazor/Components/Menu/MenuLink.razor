@@ -7,4 +7,8 @@
         <i class="@Item?.Icon"></i>
     }
     <span class="nav-link-text">@Item?.Text</span>
+    @if (Item?.Component != null)
+    {
+        @Item.Component.Render()
+    }
 </NavLink>

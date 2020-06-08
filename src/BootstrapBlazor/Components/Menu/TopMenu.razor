@@ -13,6 +13,10 @@
                             <i class="@menu.Icon"></i>
                         }
                         <span>@menu.Text</span>
+                        @if (menu.Component != null)
+                        {
+                            @menu.Component.Render()
+                        }
                     </a>
                     <div class="dropdown-menu">
                         <div class="dropdown-menu-arrow"></div>
@@ -20,7 +24,7 @@
                         {
                             @if (item.Items.Any())
                             {
-                                @RenderDropdownItem(item);
+                                @RenderDropdownItem(item)
                             }
                             else
                             {
