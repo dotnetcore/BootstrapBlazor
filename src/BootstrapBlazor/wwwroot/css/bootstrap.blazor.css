@@ -1714,7 +1714,6 @@ a {
     }
 
     .tabs .tabs-body {
-        flex: 1 1 auto;
         padding: 1rem;
     }
 
@@ -3226,7 +3225,7 @@ a {
 
     .menu.is-vertical {
         border: none;
-        transition: width .3s linear;
+        width: 100%;
     }
 
         .menu.is-vertical .accordion .card {
@@ -3339,7 +3338,27 @@ a {
 .layout.is-page .layout-side {
     background-color: #2f4050;
     color: #dcdfe6;
+}
+
+.layout.is-page.has-sidebar .layout-side {
+    min-height: calc(100vh);
+}
+
+.layout.is-page .has-sidebar .layout-side {
+    min-height: calc(100vh - 90px);
+}
+
+.layout.is-page .layout-side,
+.layout.is-page .layout-menu .menu.is-vertical {
     transition: width .3s linear;
+}
+
+.layout.is-page :not(.layout-right) .layout-main,
+.layout-right {
+    width: calc(100% - 214px);
+}
+
+.layout.is-page .layout-side {
     width: 214px;
 }
 
@@ -3466,9 +3485,16 @@ a {
     }
 
 .layout.is-page .layout-side .layout-menu {
-    overflow: auto;
+    overflow-x: hidden;
     padding: 0.5rem 0;
+}
+
+.layout.is-page .layout-side.is-fixed-header .layout-menu {
     height: calc(100vh - 115px);
+}
+
+.layout.is-page .layout-side.is-fixed-header.is-fixed-footer .layout-menu {
+    height: calc(100vh - 155px);
 }
 
 .layout.is-page .layout-footer {
@@ -3511,6 +3537,10 @@ a {
     .layout.is-page .layout-side.is-fixed-header {
         z-index: 1025;
     }
+
+.layout.is-page .has-sidebar .layout-side.is-fixed-header {
+    z-index: 1020;
+}
 
 /*end layout*/
 /*step*/

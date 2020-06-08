@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
     }
 
-    class NugetVersionService
+    internal class NugetVersionService
     {
         private HttpClient Client { get; set; }
 
@@ -49,7 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return package.GetVersion();
         }
 
-        class NugetPackage
+        private class NugetPackage
         {
             /// <summary>
             /// Data 数据集合
@@ -63,7 +63,7 @@ namespace Microsoft.Extensions.DependencyInjection
             public string GetVersion() => Data.FirstOrDefault()?.Version ?? "";
         }
 
-        class NugetPackageData
+        private class NugetPackageData
         {
             /// <summary>
             /// 版本号

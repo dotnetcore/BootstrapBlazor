@@ -143,7 +143,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override string? FormatValueAsString(TItem value)
         {
-            var ret = "";
+            string? ret = null;
             if (value != null)
             {
                 var val = value.ToString();

@@ -450,10 +450,6 @@ section {
     align-items: center;
 }
 
-.layout .layout-right {
-    flex: 1 1 auto;
-}
-
 .layout-main .main {
     background: rgba(16, 142, 233, 1);
     color: #fff;
@@ -918,9 +914,8 @@ section {
     margin-top: 1.5rem;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 4px;
-    padding: 1rem;
+    padding: 1.5rem 1rem 1rem 1rem;
     position: relative;
-    padding-top: 1.5rem;
 }
 
     .page-layout-demo-option > p {
@@ -934,4 +929,8 @@ section {
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .page-layout-demo-option .tabs-body-content {
+        margin: 0 -1rem -2rem -1rem;
     }

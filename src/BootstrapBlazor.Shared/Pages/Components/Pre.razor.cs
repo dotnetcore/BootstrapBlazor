@@ -1,10 +1,9 @@
 ﻿using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Components
@@ -24,16 +23,8 @@ namespace BootstrapBlazor.Shared.Pages.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        /// <summary>
-        /// 获得/设置 组件呈现内容
-        /// </summary>
-        private string? Content { get; set; }
-
         [Inject]
-        private HttpClient? Client { get; set; }
-
-        [Inject]
-        private NavigationManager? Navigator { get; set; }
+        private ExampleService? Example { get; set; }
 
         /// <summary>
         /// 获得/设置 IJSRuntime 实例
@@ -61,38 +52,19 @@ namespace BootstrapBlazor.Shared.Pages.Components
         public string? CodeFile { get; set; }
 
         /// <summary>
+        /// 获得/设置 代码加载后回调委托
+        /// </summary>
+        [Parameter]
+        public Func<string, Task<string>>? OnAfterLoadCode { get; set; }
+
+        /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            if (Client != null && Navigator != null && !string.IsNullOrEmpty(CodeFile))
-            {
-                var baseUri = new Uri(Navigator.BaseUri);
-                Client.BaseAddress = baseUri;
-
-                try
-                {
-                    var folder = CodeFile.Split('.').FirstOrDefault();
-                    if (!string.IsNullOrEmpty(folder))
-                    {
-                        Content = await Client.GetStringAsync($"_content/BootstrapBlazor.Docs/docs/{folder}/{CodeFile}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Content = ex.ToString();
-                }
-
-                if (!string.IsNullOrEmpty(Content))
-                {
-                    ChildContent = builder =>
-                    {
-                        var index = 0;
-                        builder.AddContent(index++, Content);
-                    };
-                }
-            }
+            await base.OnInitializedAsync();
+            await ReloadExampleCodeAsync();
         }
 
         /// <summary>
@@ -102,6 +74,24 @@ namespace BootstrapBlazor.Shared.Pages.Components
         protected override void OnAfterRender(bool firstRender)
         {
             JSRuntime.InvokeVoidAsync("$.highlight", PreElement);
+        }
+
+        private async Task ReloadExampleCodeAsync()
+        {
+            if (Example != null && !string.IsNullOrEmpty(CodeFile))
+            {
+                var code = await Example.GetCodeAsync(CodeFile);
+                if (OnAfterLoadCode != null) code = await OnAfterLoadCode.Invoke(code);
+
+                if (!string.IsNullOrEmpty(code))
+                {
+                    ChildContent = builder =>
+                    {
+                        var index = 0;
+                        builder.AddContent(index++, code);
+                    };
+                }
+            }
         }
     }
 }
