@@ -1437,6 +1437,18 @@
                 function (e) {
                     $split.toggleClass('dragging');
                 });
+        },
+        layout: function (refObj, method) {
+            $(window).on('resize', function () {
+                calcWindow();
+            });
+
+            var calcWindow = function () {
+                var width = $(window).width();
+                refObj.invokeMethodAsync(method, width);
+            }
+
+            calcWindow();
         }
     });
 

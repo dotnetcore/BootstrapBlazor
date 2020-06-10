@@ -32,6 +32,12 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 
         /// </summary>
         [Parameter]
+        public bool ShowFooter { get; set; } = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
         public bool IsFixedHeader { get; set; }
 
         /// <summary>
@@ -50,7 +56,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 
         /// </summary>
         [Parameter]
-        public Func<bool, bool, bool, Task>? OnLayoutChanged { get; set; }
+        public Func<bool, bool, bool, bool, Task>? OnLayoutChanged { get; set; }
 
         /// <summary>
         /// 
@@ -62,20 +68,25 @@ namespace BootstrapBlazor.Shared.Pages.Components
             SideBarItems.ElementAt(IsFullSide ? 0 : 1).Active = true;
         }
 
+        private async Task OnFooterChanged(CheckboxState state, bool val)
+        {
+            if (OnLayoutChanged != null) await OnLayoutChanged.Invoke(IsFullSide, IsFixedHeader, IsFixedFooter, ShowFooter);
+        }
+
         private async Task OnHeaderStateChanged(CheckboxState state, bool val)
         {
-            if (OnLayoutChanged != null) await OnLayoutChanged.Invoke(IsFullSide, IsFixedHeader, IsFixedFooter);
+            if (OnLayoutChanged != null) await OnLayoutChanged.Invoke(IsFullSide, IsFixedHeader, IsFixedFooter, ShowFooter);
         }
 
         private async Task OnFooterStateChanged(CheckboxState state, bool val)
         {
-            if (OnLayoutChanged != null) await OnLayoutChanged.Invoke(IsFullSide, IsFixedHeader, IsFixedFooter);
+            if (OnLayoutChanged != null) await OnLayoutChanged.Invoke(IsFullSide, IsFixedHeader, IsFixedFooter, ShowFooter);
         }
 
         private async Task OnSideChanged(CheckboxState state, SelectedItem item)
         {
             IsFullSide = item.Value == "left-right";
-            if (OnLayoutChanged != null) await OnLayoutChanged.Invoke(IsFullSide, IsFixedHeader, IsFixedFooter);
+            if (OnLayoutChanged != null) await OnLayoutChanged.Invoke(IsFullSide, IsFixedHeader, IsFixedFooter, ShowFooter);
         }
     }
 }

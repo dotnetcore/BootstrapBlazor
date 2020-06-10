@@ -1,10 +1,6 @@
-﻿using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Pages.Components;
-using BootstrapBlazor.Shared.Shared;
+﻿using BootstrapBlazor.Shared.Shared;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -19,6 +15,8 @@ namespace BootstrapBlazor.Shared.Pages
         private bool IsFixedFooter { get; set; }
 
         private bool IsFullSide { get; set; }
+
+        private bool ShowFooter { get; set; }
 
         [CascadingParameter]
         private PageLayout? RootPage { get; set; }
@@ -35,6 +33,7 @@ namespace BootstrapBlazor.Shared.Pages
                 IsFullSide = RootPage.IsFullSide;
                 IsFixedHeader = RootPage.IsFixedHeader;
                 IsFixedFooter = RootPage.IsFixedFooter;
+                ShowFooter = RootPage.ShowFooter;
             }
         }
 
@@ -42,15 +41,16 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task OnLayoutChanged(bool fullside, bool fixedHeader, bool fixedFooter)
+        public async Task OnLayoutChanged(bool fullside, bool fixedHeader, bool fixedFooter, bool showFooter)
         {
             if (RootPage != null)
             {
                 await RootPage.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
                 {
                     [nameof(RootPage.IsFullSide)] = fullside,
-                    [nameof(RootPage.IsFixedFooter)] = fixedFooter,
+                    [nameof(RootPage.IsFixedFooter)] = fixedFooter && showFooter,
                     [nameof(RootPage.IsFixedHeader)] = fixedHeader,
+                    [nameof(RootPage.ShowFooter)] = showFooter,
                 }));
 
                 // 获得 Razor 示例代码

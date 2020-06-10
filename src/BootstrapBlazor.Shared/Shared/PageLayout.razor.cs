@@ -34,6 +34,12 @@ namespace BootstrapBlazor.Shared.Shared
         public bool IsFullSide { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示页脚
+        /// </summary>
+        [Parameter]
+        public bool ShowFooter { get; set; } = true;
+
+        /// <summary>
         /// 更新组件方法
         /// </summary>
         public void Update() => StateHasChanged();

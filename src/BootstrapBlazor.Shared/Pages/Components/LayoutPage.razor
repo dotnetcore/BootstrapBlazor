@@ -9,12 +9,13 @@
     <div class="page-layout-demo-option">
         <p>布局调整</p>
         <Radio Items="@SideBarItems" OnStateChanged="@OnSideChanged" />
+        <Checkbox TItem="bool" @bind-Value="ShowFooter" OnStateChanged="OnFooterChanged" DisplayText="显示页脚" />
     </div>
 
     <div class="page-layout-demo-option">
         <p>固定调整</p>
-        <Checkbox TItem="bool" @bind-Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" DisplayText="固定页头" />
-        <Checkbox TItem="bool" @bind-Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" DisplayText="固定页脚" class="ml-3" />
+        <Checkbox TItem="bool" @bind-Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" DisplayText="固定页头" class="mr-3" />
+        <Checkbox TItem="bool" @bind-Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" DisplayText="固定页脚" />
     </div>
 
     <div class="page-layout-demo-option">

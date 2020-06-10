@@ -568,8 +568,8 @@ a {
         top: 5px;
     }
 
-.form-radio-group .form-checkbox:not(:first-child) {
-    margin-left: 1rem;
+.form-radio-group .form-checkbox:not(:last-child) {
+    margin-right: 1rem;
 }
 
 @media (min-width: 576px) {
@@ -3091,6 +3091,10 @@ a {
         padding: 0 1rem;
     }
 
+    .menu .nav-link {
+        position: relative;
+    }
+
     .menu .navbar-nav > .nav-item {
         border-bottom: solid 2px transparent;
         position: relative;
@@ -3272,22 +3276,24 @@ a {
             opacity: 1;
         }
 
-        .menu.is-vertical.is-collapsed .nav-link .nav-link-text {
-            width: 0;
-            opacity: 0;
-        }
-
         .menu.is-vertical .has-leaf > .accordion {
             transition: padding-left .3s linear
-        }
-
-        .menu.is-vertical.is-collapsed .has-leaf > .accordion {
-            padding-left: 0;
         }
 
     .menu .nav-link-text {
         display: inline-block;
     }
+
+@media (min-width: 768px) {
+    .menu.is-vertical.is-collapsed .nav-link .nav-link-text {
+        width: 0;
+        opacity: 0;
+    }
+
+    .menu.is-vertical.is-collapsed .has-leaf > .accordion {
+        padding-left: 0;
+    }
+}
 /*end menu*/
 
 /*layout*/
@@ -3303,7 +3309,7 @@ a {
     }
 
 .has-sidebar {
-    flex-flow: row;
+    flex-direction: row;
     display: flex;
     flex: 1;
 }
@@ -3312,10 +3318,29 @@ a {
     position: relative;
 }
 
-.layout-right {
-    display: flex;
-    flex-flow: column;
-    flex: 1;
+.layout-side {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    transition: transform .3s linear;
+    z-index: 1030;
+}
+
+    .layout-side.is-collapsed {
+        transform: translateX(0);
+    }
+
+.layout.is-page .has-sidebar .layout-side {
+    top: 50px;
+}
+
+.layout.is-page .layout-right,
+.layout.is-page .has-sidebar .layout-main {
+    width: 100%;
 }
 
 .layout.is-page.is-fixed {
@@ -3340,48 +3365,6 @@ a {
     color: #dcdfe6;
 }
 
-.layout.is-page.has-sidebar .layout-side {
-    min-height: calc(100vh);
-}
-
-.layout.is-page .has-sidebar .layout-side {
-    min-height: calc(100vh - 90px);
-}
-
-.layout.is-page .layout-side,
-.layout.is-page .layout-menu .menu.is-vertical {
-    transition: width .3s linear;
-}
-
-.layout.is-page :not(.layout-right) .layout-main,
-.layout-right {
-    width: calc(100% - 214px);
-}
-
-.layout.is-page .layout-side {
-    width: 214px;
-}
-
-    .layout.is-page .layout-side.is-collapsed,
-    .layout.is-page .layout-side .menu.is-vertical.is-collapsed {
-        width: 70px;
-    }
-
-    .layout.is-page .layout-side.is-fixed-header {
-        position: sticky;
-        top: 50px;
-        height: calc(100vh - 50px);
-    }
-
-        .layout.is-page .layout-side.is-fixed-header.is-fixed-footer {
-            height: calc(100vh - 90px);
-        }
-
-.layout.is-page.has-sidebar .layout-side.is-fixed-header {
-    top: 0;
-    height: calc(100vh);
-}
-
 .layout-header-bar {
     padding: 4px 12px;
     color: #fff;
@@ -3401,17 +3384,27 @@ a {
 .layout.is-page .layout-main {
     padding: 1rem;
     position: relative;
+    min-height: calc(100vh - 90px);
 }
 
-.layout.is-page .layout-header.is-fixed {
+    .layout.is-page .layout-main.is-collapsed,
+    .layout.is-page .layout-footer.is-collapsed {
+        display: none;
+    }
+
+.layout.is-page .layout-header {
+    z-index: 1035;
     position: sticky;
-    top: 0;
 }
 
-.layout.is-page .layout-header .layout-avatar-right {
-    width: 44px;
-    height: 44px;
-}
+    .layout.is-page .layout-header.is-fixed {
+        top: 0;
+    }
+
+    .layout.is-page .layout-header .layout-avatar-right {
+        width: 44px;
+        height: 44px;
+    }
 
 .layout.is-page .has-sidebar .layout-side .layout-banner {
     display: none;
@@ -3441,31 +3434,6 @@ a {
     padding-left: 1rem;
 }
 
-.layout.is-page .layout-title {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    flex: 1 1 auto;
-    opacity: 1;
-    transition: opacity .3s linear;
-}
-
-.layout.is-page .layout-user-state {
-    width: 8px;
-    height: 8px;
-    background-color: #28a745;
-    border-radius: 50%;
-    margin-left: 1rem;
-}
-
-.layout .is-collapsed .layout-user-state {
-    display: none;
-}
-
-.layout.is-page .is-collapsed .layout-title {
-    opacity: 0;
-}
-
 .layout.is-page .layout-side .layout-user {
     border-bottom: 1px solid #ddd;
     padding: 0.625rem;
@@ -3487,14 +3455,15 @@ a {
 .layout.is-page .layout-side .layout-menu {
     overflow-x: hidden;
     padding: 0.5rem 0;
-}
-
-.layout.is-page .layout-side.is-fixed-header .layout-menu {
     height: calc(100vh - 115px);
 }
 
-.layout.is-page .layout-side.is-fixed-header.is-fixed-footer .layout-menu {
-    height: calc(100vh - 155px);
+.layout.is-page .layout-user-state {
+    width: 8px;
+    height: 8px;
+    background-color: #28a745;
+    border-radius: 50%;
+    margin-left: 1rem;
 }
 
 .layout.is-page .layout-footer {
@@ -3532,16 +3501,124 @@ a {
             background-color: #fff;
         }
 
+.layout.is-page .has-sidebar .layout-side.is-fixed-header {
+    z-index: 1020;
+}
+
+@media (min-width: 768px) {
+    .layout.is-page .layout-side {
+        transform: translateX(0);
+        position: relative;
+    }
+
+    .layout.is-page .has-sidebar .layout-side {
+        top: 0;
+    }
+
+        .layout.is-page.has-sidebar .layout-side.is-fixed-header {
+            top: 0;
+            height: calc(100vh);
+        }
+
+    .layout.is-page :not(.layout-right) .layout-main,
+    .layout.is-page .layout-right {
+        width: calc(100% - 214px);
+    }
+
+    .layout.is-page .layout-side {
+        width: 214px;
+    }
+
+        .layout.is-page .layout-side.is-collapsed,
+        .layout.is-page .layout-side .menu.is-vertical.is-collapsed {
+            width: 70px;
+        }
+
+        .layout.is-page .layout-side.is-fixed-header {
+            position: sticky;
+            top: 50px;
+            height: calc(100vh - 50px);
+        }
+
+            .layout.is-page .layout-side.is-fixed-header.is-fixed-footer {
+                height: calc(100vh - 90px);
+            }
+
+        .layout.is-page .layout-side .layout-menu {
+            height: auto;
+        }
+
+    .layout.is-page .layout-side,
+    .layout.is-page .layout-menu .menu.is-vertical {
+        transition: width .3s linear;
+    }
+
+    .layout-right {
+        display: flex;
+        flex-flow: column;
+        flex: 1;
+    }
+
     .layout.is-page .layout-footer.is-fixed,
     .layout.is-page .layout-header.is-fixed,
     .layout.is-page .layout-side.is-fixed-header {
         z-index: 1025;
     }
 
-.layout.is-page .has-sidebar .layout-side.is-fixed-header {
-    z-index: 1020;
-}
+    .layout.is-page .layout-title {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        flex: 1 1 auto;
+        opacity: 1;
+        transition: opacity .3s linear;
+    }
 
+    .layout.is-page .is-collapsed .layout-title {
+        opacity: 0;
+    }
+
+    .layout .is-collapsed .layout-user-state {
+        display: none;
+    }
+
+    .layout.is-page.has-sidebar .layout-side {
+        min-height: calc(100vh);
+    }
+
+    .layout.is-page .has-sidebar .layout-side {
+        min-height: calc(100vh - 90px);
+    }
+
+        .layout.is-page.has-sidebar .layout-side.is-fixed-header.is-fixed-footer .layout-menu,
+        .layout.is-page .layout-side.is-fixed-header .layout-menu {
+            height: calc(100vh - 115px);
+        }
+
+    .layout.is-page .layout-side.is-fixed-header.is-fixed-footer .layout-menu {
+        height: calc(100vh - 155px);
+    }
+
+    .layout.is-page .layout-main.is-collapsed, .layout.is-page .layout-footer.is-collapsed {
+        display: block;
+    }
+
+    .layout.is-page .layout-menu .menu.is-vertical .nav-link:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        opacity: 0;
+        transition: background-color .3s linear, opacity .3s linear;
+    }
+
+    .layout.is-page .layout-menu .menu.is-vertical.is-collapsed .nav-link.active::before {
+        opacity: 1;
+        background-color: #409eff;
+    }
+}
 /*end layout*/
 /*step*/
 .steps {
