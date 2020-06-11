@@ -30,7 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 return factory.CreateClient();
             });
             services.AddVersionManager();
-            services.AddExample();
+            services.AddExampleService();
             services.AddHostedService<BlazorBackgroundServices>();
             return services;
         }

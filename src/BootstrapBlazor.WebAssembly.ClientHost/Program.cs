@@ -29,6 +29,9 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             // 版本号服务
             builder.Services.AddVersionManager();
 
+            // 示例代码服务
+            builder.Services.AddExampleService();
+
             // 增加 BootstrapBlazor 组件
             builder.Services.AddBootstrapBlazor();
 

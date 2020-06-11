@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddExample(this IServiceCollection services)
+        public static IServiceCollection AddExampleService(this IServiceCollection services)
         {
             services.AddTransient<ExampleService>();
             return services;
