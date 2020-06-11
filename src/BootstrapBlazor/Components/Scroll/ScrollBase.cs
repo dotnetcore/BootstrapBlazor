@@ -35,6 +35,11 @@ namespace BootstrapBlazor.Components
         protected string? AutoHideString => IsAutoHide ? "true" : "false";
 
         /// <summary>
+        /// 获得 滚动条样式
+        /// </summary>
+        protected string? IsDarkString => IsDark ? "true" : "false";
+
+        /// <summary>
         /// 获得/设置 子组件
         /// </summary>
         [Parameter]
@@ -63,6 +68,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public int Delay { get; set; } = 1000;
+
+        /// <summary>
+        /// 获得/设置 是否为暗黑模式
+        /// </summary>
+        [Parameter]
+        public bool IsDark { get; set; }
 
         /// <summary>
         /// OnAfterRenderAsync 方法

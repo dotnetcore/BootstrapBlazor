@@ -4313,8 +4313,4 @@ a {
     .scroll.is-phone {
         overflow: auto;
     }
-
-    .scroll.os-theme-dark > .os-scrollbar > .os-scrollbar-track, .scroll.os-theme-light > .os-scrollbar > .os-scrollbar-track {
-        background-color: #f1f1f1;
-    }
 /*end scroll*/

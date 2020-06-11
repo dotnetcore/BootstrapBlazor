@@ -28,7 +28,9 @@
             @if (Menus != null)
             {
                 <div class="layout-menu">
-                    <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@OnClickMenu" />
+                    <Scroll IsDark="@IsDark">
+                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@OnClickMenu" />
+                    </Scroll>
                 </div>
             }
         </aside>

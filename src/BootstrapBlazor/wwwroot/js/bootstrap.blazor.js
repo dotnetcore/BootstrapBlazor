@@ -1459,7 +1459,14 @@
             if (!mac) {
                 var autoHide = $el.attr('data-hide');
                 var delay = parseInt($el.attr('data-delay'));
-                var scrollbars = {};
+                var dark = $el.attr('data-dark');
+                var className = 'os-theme-light';
+                if (dark === 'true') {
+                    className = 'os-theme-dark';
+                }
+                var scrollbars = {
+                    className: className
+                };
                 if (autoHide === 'true') {
                     if (isNaN(delay)) {
                         delay = 1000;
@@ -1470,7 +1477,7 @@
                     }
                 }
                 $el.overlayScrollbars({
-                    className: 'os-theme-dark',
+                    className: className,
                     scrollbars: scrollbars
                 });
             }

@@ -109,6 +109,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? Main { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否为暗黑模式
+        /// </summary>
+        [Parameter]
+        public bool IsDark { get; set; }
+
+        /// <summary>
         /// 获得/设置 侧边栏是否占满整个左侧 默认为 false
         /// </summary>
         [Parameter]
