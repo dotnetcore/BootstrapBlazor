@@ -1,0 +1,23 @@
+﻿@page "/scrolls"
+
+<h3>Scroll 滚动条</h3>
+
+<h4>给高度或者宽度超标的组件增加滚动条</h4>
+
+<p>由于滚动条组件内部屏蔽了系统的滚动条，设置了 <code>overflow: hidden</code> 所以自身或者其父元素必须拥有固定高度时才可呈现滚动条，可以通过外套元素设置其 <code>height</code> 或者直接设置 <code>Scroll</code> 组件的高度 <code>Height</code> 属性</p>
+
+<Block Title="普通用法" Introduction="给组件增加滚动条，通过设置 <code>Height</code> 高度值为 400 使内部子元素高度为 1000 时出现滚动条" CodeFile="scroll.1.html">
+    <Scroll Height="200" IsAutoHide="false" IsDark="true" class="scroll-demo">
+        <div style="height: 600px;">Top</div>
+        <div>Bottom</div>
+    </Scroll>
+</Block>
+
+<Block Title="自动隐藏" Introduction="鼠标 <code>hover</code> 状态下自动显示滚动条，移开鼠标后滚动条自动隐藏" CodeFile="scroll.2.html">
+    <Scroll Height="200" IsAutoHide="true" Delay="1000" IsDark="true" class="scroll-demo">
+        <div style="height: 600px;">Top</div>
+        <div>Bottom</div>
+    </Scroll>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

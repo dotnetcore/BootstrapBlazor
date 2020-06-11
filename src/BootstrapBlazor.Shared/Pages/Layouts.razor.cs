@@ -72,11 +72,74 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "Menus",
+                Description = "整页面布局时侧边栏菜单数据集合",
+                Type = "IEnumerable<MenuItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "IsFullSide",
                 Description = "侧边栏是否占满整个左边",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsPage",
+                Description = "是否为整页面布局",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsFixedFooter",
+                Description = "是否固定 Footer 组件",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsDark",
+                Description = "是否为暗黑模式",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsFixedHeader",
+                Description = "是否固定 Header 组件",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowCollapseBar",
+                Description = "是否显示收缩展开 Bar",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowFooter",
+                Description = "是否显示 Footer 模板",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowGotoTop",
+                Description = "是否显示返回顶端按钮",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "OnCollapsed",
+                Description = "收缩展开回调委托",
+                Type = "Func<bool, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

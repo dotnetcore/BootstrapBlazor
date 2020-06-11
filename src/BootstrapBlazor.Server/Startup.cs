@@ -77,18 +77,6 @@ namespace BootstrapBlazor.Server
 
             app.UseResponseCompression();
 
-            app.UseCors(builder =>
-            {
-                var origins = Configuration.GetValue("AllowedHosts", "*");
-                var b = origins switch
-                {
-                    "*" => builder.AllowAnyOrigin(),
-                    _ => builder.WithOrigins(origins.Split(',', StringSplitOptions.RemoveEmptyEntries))
-                };
-                b.AllowAnyHeader().AllowAnyMethod();
-                //.AllowCredentials();
-            });
-
             app.UseStaticFiles();
 
             app.UseRouting();

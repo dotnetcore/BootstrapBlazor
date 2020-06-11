@@ -35,6 +35,11 @@ namespace BootstrapBlazor.Components
         protected List<TItem> SelectedItems { get; set; } = new List<TItem>();
 
         /// <summary>
+        /// 获得/设置 被选中的数据集合
+        /// </summary>
+        public IEnumerable<TItem> SelectedRows => SelectedItems;
+
+        /// <summary>
         /// 获得/设置 编辑表单实例
         /// </summary>
         protected ValidateForm? ValidateForm { get; set; }

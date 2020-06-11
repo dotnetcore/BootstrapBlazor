@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
     }
 
-    class NugetVersionService
+    internal class NugetVersionService
     {
         private HttpClient Client { get; set; }
 
@@ -44,12 +44,18 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public async Task<string> GetVersionAsync()
         {
-            var url = "https://azuresearch-usnc.nuget.org/query?q=bootstrapblazor&prerelease=true&semVerLevel=2.0.0";
-            var package = await Client.GetFromJsonAsync<NugetPackage>(url);
-            return package.GetVersion();
+            var ret = "latest";
+            try
+            {
+                var url = "https://azuresearch-usnc.nuget.org/query?q=bootstrapblazor&prerelease=true&semVerLevel=2.0.0";
+                var package = await Client.GetFromJsonAsync<NugetPackage>(url);
+                ret = package.GetVersion();
+            }
+            catch { }
+            return ret;
         }
 
-        class NugetPackage
+        private class NugetPackage
         {
             /// <summary>
             /// Data 数据集合
@@ -63,7 +69,7 @@ namespace Microsoft.Extensions.DependencyInjection
             public string GetVersion() => Data.FirstOrDefault()?.Version ?? "";
         }
 
-        class NugetPackageData
+        private class NugetPackageData
         {
             /// <summary>
             /// 版本号

@@ -1318,20 +1318,15 @@
             }
 
             $.each($el.find('.collapse-item'), function () {
-                var id = $.getUID();
                 var $item = $(this);
-                $item.attr('id', id);
-                if (parent != null) $item.attr('data-parent', parent);
+                var id = $item.attr('id');
+                if (!id) {
+                    id = $.getUID();
+                    $item.attr('id', id);
+                    if (parent != null) $item.attr('data-parent', parent);
 
-                var $button = $item.prev().find('[data-toggle="collapse"]');
-                $button.attr('data-target', '#' + id).attr('aria-controls', id);
-
-                $button.collapse();
-
-                // expand
-                if ($button.parent().hasClass('is-expanded')) {
-                    var $collapse = $('#' + id);
-                    $collapse.collapse("show");
+                    var $button = $item.prev().find('[data-toggle="collapse"]');
+                    $button.attr('data-target', '#' + id).attr('aria-controls', id);
                 }
             });
 
@@ -1385,13 +1380,12 @@
                 obj.invokeMethodAsync(method, $el.val + 1);
             });
         },
-        footer: function (el, obj) {
-            var $el = $(el);
+        footer: function () {
+            var $el = $('app').find('.layout-footer');
             var tooltip = $el.find('[data-toggle="tooltip"]').tooltip();
-            $el.find('.footer-top').on('click', function (e) {
+            $el.find('.layout-gotop').on('click', function (e) {
                 e.preventDefault();
-                if (obj === 'window' || obj === 'body') obj = window;
-                $(obj).scrollTop(0);
+                $(window).scrollTop(0);
                 tooltip.tooltip('hide');
             });
         },
@@ -1443,6 +1437,53 @@
                 function (e) {
                     $split.toggleClass('dragging');
                 });
+        },
+        layout: function (refObj, method) {
+            $(window).on('resize', function () {
+                calcWindow();
+            });
+
+            var calcWindow = function () {
+                var width = $(window).width();
+                refObj.invokeMethodAsync(method, width);
+            }
+
+            calcWindow();
+        },
+        scroll: function (el) {
+            var $el = $(el);
+
+            // 移动端不需要修改滚动条
+            // 苹果系统不需要修改滚动条
+            var mac = navigator.userAgent.match(/iPhone/i);
+            if (!mac) {
+                var autoHide = $el.attr('data-hide');
+                var delay = parseInt($el.attr('data-delay'));
+                var dark = $el.attr('data-dark');
+                var className = 'os-theme-light';
+                if (dark === 'true') {
+                    className = 'os-theme-dark';
+                }
+                var scrollbars = {
+                    className: className
+                };
+                if (autoHide === 'true') {
+                    if (isNaN(delay)) {
+                        delay = 1000;
+                    }
+                    scrollbars = {
+                        autoHide: 'leave',
+                        autoHideDelay: delay
+                    }
+                }
+                $el.overlayScrollbars({
+                    className: className,
+                    scrollbars: scrollbars
+                });
+            }
+            else {
+                $el.addClass('is-phone');
+            }
         }
     });
 

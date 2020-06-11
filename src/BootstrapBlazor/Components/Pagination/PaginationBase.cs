@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// PaginationBar 样式
+        /// 获得 PaginationBar 样式
         /// </summary>
         /// <returns></returns>
         protected string? PaginationBarClass => CssBuilder.Default("pagination-bar")
@@ -33,10 +33,14 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 PageItems 下拉框显示文字
+        /// 获得 起始记录索引
         /// </summary>
-        /// <value></value>
-        protected string? PageItemsString => $"{PageItems} 条/页";
+        protected int StarIndex => (PageIndex - 1) * PageItems + 1;
+
+        /// <summary>
+        /// 获得 结尾记录索引
+        /// </summary>
+        protected int EndIndex => Math.Min(PageIndex * PageItems, TotalCount);
 
         /// <summary>
         /// 获得/设置 开始页码

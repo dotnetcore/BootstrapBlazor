@@ -74,11 +74,6 @@ namespace BootstrapBlazor.Components
         protected string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
 
         /// <summary>
-        /// 获得/设置 当前组件值
-        /// </summary>
-        protected string? ValueString => SelectedItem?.Text ?? CurrentValueAsString;
-
-        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter] public Color Color { get; set; } = Color.None;
@@ -128,8 +123,33 @@ namespace BootstrapBlazor.Components
             {
                 var item = Items?.FirstOrDefault(i => i.Active);
                 if (item == null) item = Items?.FirstOrDefault();
-                if (item != null) SelectedItem = item;
+                if (item != null)
+                {
+                    SelectedItem = item;
+                    if (Value != null && CurrentValueAsString != SelectedItem.Text)
+                    {
+                        item = Items.FirstOrDefault(i => i.Text == CurrentValueAsString);
+                        if (item != null) SelectedItem = item;
+                    }
+                    CurrentValueAsString = SelectedItem.Value;
+                }
             }
+        }
+
+        /// <summary>
+        /// FormatValueAsString 方法
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected override string? FormatValueAsString(TItem value)
+        {
+            string? ret = null;
+            if (value != null)
+            {
+                var val = value.ToString();
+                ret = Items?.FirstOrDefault(i => i.Value == val)?.Text;
+            }
+            return ret;
         }
 
         /// <summary>
@@ -150,7 +170,6 @@ namespace BootstrapBlazor.Components
 
             // ValueChanged
             CurrentValueAsString = SelectedItem.Value;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(Value);
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);

@@ -12,7 +12,7 @@
         <HeaderTemplate>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" Text="自定义列名1" />
             <TableColumn TItem="string" @bind-Field="@context.Name" Text="自定义列名2" />
-            <TableColumn TItem="string" @bind-Field="@context.Address" Text="自定义列名3"/>
+            <TableColumn TItem="string" @bind-Field="@context.Address" Text="自定义列名3" />
         </HeaderTemplate>
         <RowTemplate>
             <TableCell>@context.DateTime</TableCell>
@@ -236,3 +236,5 @@
 <PopoverConfirm></PopoverConfirm>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>
+
+<MethodTable Items="GetMethods()"></MethodTable>

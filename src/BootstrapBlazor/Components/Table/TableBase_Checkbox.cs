@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
         protected CheckboxState RowCheckState(TItem item) => SelectedItems.Contains(item) ? CheckboxState.Checked : CheckboxState.UnChecked;
 
         private List<CheckboxBase<TItem>>? ItemCheckboxs;
-        private CheckboxBase<bool>? HeaderCheckbox;
+        private CheckboxBase<TItem>? HeaderCheckbox;
 
         /// <summary>
         /// 获得/设置 显示选择列
@@ -65,11 +65,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="state"></param>
         /// <param name="val"></param>
-        protected virtual Task OnHeaderCheck(CheckboxState state, bool val)
+        protected virtual Task OnHeaderCheck(CheckboxState state, TItem val)
         {
-            SelectedItems.Clear();
-            if (state == CheckboxState.Checked && Items != null) SelectedItems.AddRange(Items);
-            ItemCheckboxs?.ForEach(async checkbox => await checkbox.SetState(state));
+            if (state != CheckboxState.Mixed && Items != null)
+            {
+                ItemCheckboxs?.ForEach(async checkbox => await checkbox.SetState(state));
+            }
             return Task.CompletedTask;
         }
 
@@ -96,20 +97,20 @@ namespace BootstrapBlazor.Components
         /// 行内选择框初始化回调函数
         /// </summary>
         /// <param name="component"></param>
-        protected void OnCheckboxInit(BootstrapComponentBase component)
+        protected void OnCheckboxInit(CheckboxBase<TItem> component)
         {
-            HeaderCheckbox = (CheckboxBase<bool>)component;
+            HeaderCheckbox = component;
         }
 
         /// <summary>
         /// 表头选择框初始化回调函数
         /// </summary>
         /// <param name="component"></param>
-        protected void OnItemCheckboxInit(BootstrapComponentBase component)
+        protected void OnItemCheckboxInit(CheckboxBase<TItem> component)
         {
             if (ItemCheckboxs == null) ItemCheckboxs = new List<CheckboxBase<TItem>>();
 
-            ItemCheckboxs.Add((CheckboxBase<TItem>)component);
+            ItemCheckboxs.Add(component);
         }
     }
 }

@@ -1,0 +1,35 @@
+﻿@inherits LayoutComponentBase
+
+<Layout SideWidth="0" IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter"
+        ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" OnCollapsed="@OnCollapsed" Menus="@GetIconSideMenuItems()">
+    <Header>
+        <span class="ml-3 flex-fill">Bootstrap of Blazor</span>
+        <img src="_content/BootstrapBlazor.Shared/images/Argo.png" class="layout-avatar-right" />
+        <span class="ml-3 d-none d-sm-block">超级管理员</span>
+    </Header>
+    <Side>
+        <div class="layout-banner">
+            <img class="layout-logo" src="_content/BootstrapBlazor.Shared/images/brand.png" />
+            <div class="layout-title">
+                <span>演示系统</span>
+            </div>
+        </div>
+        <div class="layout-user">
+            <img class="layout-avatar" src="_content/BootstrapBlazor.Shared/images/Argo-C.png">
+            <div class="layout-title">
+                <span>管理员</span>
+            </div>
+            <div class="layout-user-state"></div>
+        </div>
+    </Side>
+    <Main>
+        <CascadingValue Value="this" IsFixed="true">
+            @Body
+        </CascadingValue>
+    </Main>
+    <Footer>
+        <div class="text-center flex-fill">
+            <a href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">Bootstrap Admin</a>
+        </div>
+    </Footer>
+</Layout>

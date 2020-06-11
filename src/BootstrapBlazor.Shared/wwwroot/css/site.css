@@ -370,7 +370,7 @@ section {
     padding: 0.6rem 1.25rem 0.7rem 1.25rem;
     position: fixed;
     width: 100%;
-    z-index: 1000;
+    z-index: 1080;
 }
 
     #blazor-error-ui .dismiss {
@@ -448,10 +448,6 @@ section {
 .layout-side .side {
     justify-content: center;
     align-items: center;
-}
-
-.layout .layout-right {
-    flex: 1 1 auto;
 }
 
 .layout-main .main {
@@ -563,16 +559,6 @@ section {
         .sidebar .collapse {
             /* Never collapse the sidebar for wide screens */
             display: block;
-        }
-
-        .sidebar .sidebar-content {
-            overflow: auto;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            width: 250px;
         }
 
     .header-img span {
@@ -700,6 +686,7 @@ section {
 .welcome-footer {
     display: flex;
     flex-direction: column;
+    margin-bottom: 2rem;
 }
 
     .welcome-footer div:not(:last-child) {
@@ -738,6 +725,7 @@ section {
 
 .donate {
     margin-top: 2rem;
+    margin-bottom: 2rem;
     padding-top: 2rem;
     text-align: center;
     border-top: solid 1px #ddd;
@@ -832,14 +820,6 @@ section {
         margin: 2rem;
     }
 
-    .welcome-footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 0 15px;
-    }
-
     .donate .barcode {
         width: 480px;
     }
@@ -853,6 +833,15 @@ section {
 @media (min-width: 992px) {
     .welcome .bar {
         height: 456px;
+    }
+
+    .welcome-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0 15px;
+        margin-bottom: 0;
     }
 }
 
@@ -904,4 +893,45 @@ section {
 .calendar .table-week tbody .en {
     background: #007bff;
     color: #f8f9fa;
+}
+
+.page-layout-demo-list {
+    margin: 0;
+}
+
+    .page-layout-demo-list li {
+        margin: 0.5rem 0;
+    }
+
+.page-layout-demo-option {
+    margin-top: 1.5rem;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 4px;
+    padding: 1.5rem 1rem 1rem 1rem;
+    position: relative;
+}
+
+    .page-layout-demo-option > p {
+        position: absolute;
+        top: -10px;
+        padding: 0 0.5rem;
+        background: #fff;
+    }
+
+    .page-layout-demo-option .page-layout-demo-option-height {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .page-layout-demo-option .tabs-body-content {
+        margin: 0 -1rem -2rem -1rem;
+    }
+
+#components-reconnect-modal {
+    z-index: 1080 !important;
+}
+
+.scroll-demo.scroll.os-theme-dark > .os-scrollbar > .os-scrollbar-track {
+    background-color: #f1f1f1;
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -13,6 +14,8 @@ namespace BootstrapBlazor.Components
             .AddClass("active", Item?.IsActive ?? false)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+
+        private string? GetHrefString => (Item?.Items.Any() ?? false) ? "#" : Item?.Url;
 
         /// <summary>
         /// 

@@ -185,6 +185,31 @@ namespace BootstrapBlazor.Shared.Pages
             }
         };
 
+        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        {
+            new MethodItem()
+            {
+                Name = "AddAsync",
+                Description = "手工添加数据方法",
+                Parameters = " - ",
+                ReturnValue = "Task"
+            },
+            new MethodItem()
+            {
+                Name = "Edit",
+                Description = "手工编辑数据方法",
+                Parameters = " - ",
+                ReturnValue = " - "
+            },
+            new MethodItem()
+            {
+                Name = "QueryAsync",
+                Description = "手工查询数据方法",
+                Parameters = " - ",
+                ReturnValue = "Task"
+            },
+        };
+
         private List<BindItem> GenerateItems()
         {
             var random = new Random();

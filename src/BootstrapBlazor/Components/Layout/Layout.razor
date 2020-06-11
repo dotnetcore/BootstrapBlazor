@@ -1,55 +1,98 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits LayoutBase
 
-@if (Side == null)
-{
-    <section @attributes="AdditionalAttributes" class="@ClassString">
-        <header class="layout-header">
+<section @attributes="AdditionalAttributes" class="@ClassString">
+    @if (Side == null)
+    {
+        <header class="@HeaderClassString">
             @Header
         </header>
-        <main class="layout-main">
+        <main class="@MainClassString">
             @Main
         </main>
-        <footer class="layout-footer">
-            @Footer
-        </footer>
-    </section>
-}
-else if (IsFullSide)
-{
-    <section @attributes="AdditionalAttributes" class="@ClassString">
-        <aside class="layout-side" style="@SideStyleString">
+        @if (ShowFooter)
+        {
+            <footer class="@FooterClassString">
+                @Footer
+                @if (ShowGotoTop)
+                {
+                    <GoTop />
+                }
+            </footer>
+        }
+    }
+    else if (IsFullSide)
+    {
+        <aside class="@SideClassString" style="@SideStyleString">
             @Side
+            @if (Menus != null)
+            {
+                <div class="layout-menu">
+                    <Scroll IsDark="@IsDark">
+                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@OnClickMenu" />
+                    </Scroll>
+                </div>
+            }
         </aside>
         <section class="layout-right">
-            <header class="layout-header">
+            <header class="@HeaderClassString">
+                @if (ShowCollapseBar)
+                {
+                    <a class="@CollapseBarClassString" title="点击展开收缩左侧菜单" @onclick="@CollapseMenu">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                }
                 @Header
             </header>
-            <main class="layout-main">
+            <main class="@MainClassString">
                 @Main
             </main>
-            <footer class="layout-footer">
-                @Footer
-            </footer>
+            @if (ShowFooter)
+            {
+                <footer class="@FooterClassString">
+                    @Footer
+                    @if (ShowGotoTop)
+                    {
+                        <GoTop />
+                    }
+                </footer>
+            }
         </section>
-    </section>
-}
-else
-{
-    <section @attributes="AdditionalAttributes" class="@ClassString">
-        <header class="layout-header">
+    }
+    else
+    {
+        <header class="@HeaderClassString">
+            @if (ShowCollapseBar)
+            {
+                <a class="@CollapseBarClassString" title="点击展开收缩左侧菜单" @onclick="@CollapseMenu">
+                    <i class="fa fa-bars"></i>
+                </a>
+            }
             @Header
         </header>
         <section class="has-sidebar">
-            <aside class="layout-side" style="@SideStyleString">
+            <aside class="@SideClassString" style="@SideStyleString">
                 @Side
+                @if (Menus != null)
+                {
+                    <div class="layout-menu">
+                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@OnClickMenu" />
+                    </div>
+                }
             </aside>
-            <main class="layout-main">
+            <main class="@MainClassString">
                 @Main
             </main>
         </section>
-        <footer class="layout-footer">
-            @Footer
-        </footer>
-    </section>
-}
+        @if (ShowFooter)
+        {
+            <footer class="@FooterClassString">
+                @Footer
+                @if (ShowGotoTop)
+                {
+                    <GoTop />
+                }
+            </footer>
+        }
+    }
+</section>

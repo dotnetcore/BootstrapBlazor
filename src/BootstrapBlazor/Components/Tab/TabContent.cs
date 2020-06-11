@@ -33,7 +33,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private static string? GetContentClassString(TabItem item) => CssBuilder.Default()
+        private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
             .AddClass("d-none", !item.IsActive)
             .Build();
 
