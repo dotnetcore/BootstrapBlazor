@@ -1449,6 +1449,34 @@
             }
 
             calcWindow();
+        },
+        scroll: function (el) {
+            var $el = $(el);
+
+            // 移动端不需要修改滚动条
+            // 苹果系统不需要修改滚动条
+            var mac = navigator.userAgent.match(/iPhone/i);
+            if (!mac) {
+                var autoHide = $el.attr('data-hide');
+                var delay = parseInt($el.attr('data-delay'));
+                var scrollbars = {};
+                if (autoHide === 'true') {
+                    if (isNaN(delay)) {
+                        delay = 1000;
+                    }
+                    scrollbars = {
+                        autoHide: 'leave',
+                        autoHideDelay: delay
+                    }
+                }
+                $el.overlayScrollbars({
+                    className: 'os-theme-dark',
+                    scrollbars: scrollbars
+                });
+            }
+            else {
+                $el.addClass('is-phone');
+            }
         }
     });
 

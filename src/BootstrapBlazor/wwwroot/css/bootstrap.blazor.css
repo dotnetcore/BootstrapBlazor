@@ -3501,9 +3501,9 @@ a {
             background-color: #fff;
         }
 
-.layout.is-page .has-sidebar .layout-side.is-fixed-header {
-    z-index: 1020;
-}
+    .layout.is-page .has-sidebar .layout-side.is-fixed-header, .layout.is-page .layout-footer.is-fixed {
+        z-index: 1020;
+    }
 
 @media (min-width: 768px) {
     .layout.is-page .layout-side {
@@ -4303,3 +4303,18 @@ a {
             margin-top: 3px;
         }
 /*end split*/
+
+/*scroll*/
+.scroll {
+    height: 100%;
+    width: 100%;
+}
+
+    .scroll.is-phone {
+        overflow: auto;
+    }
+
+    .scroll.os-theme-dark > .os-scrollbar > .os-scrollbar-track, .scroll.os-theme-light > .os-scrollbar > .os-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+/*end scroll*/

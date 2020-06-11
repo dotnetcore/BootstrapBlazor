@@ -105,6 +105,22 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// Adds a conditional Style when it exists in a dictionary to the builder with space separator.
+        /// Null safe operation.
+        /// </summary>
+        /// <param name="additionalAttributes">Additional Attribute splat parameters</param>
+        /// <returns>CssBuilder</returns>
+        public CssBuilder AddStyleFromAttributes(IDictionary<string, object>? additionalAttributes)
+        {
+            if (additionalAttributes != null && additionalAttributes.TryGetValue("style", out var c))
+            {
+                var styleList = c.ToString() ?? "";
+                AddClass(styleList);
+            }
+            return this;
+        }
+
+        /// <summary>
         /// Finalize the completed CSS Classes as a string.
         /// </summary>
         /// <returns>string</returns>
