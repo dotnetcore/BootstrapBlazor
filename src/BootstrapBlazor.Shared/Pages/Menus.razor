@@ -35,7 +35,7 @@
 <Block Title="带收缩的侧栏效果" Introduction="通过设置 <code>IsCollapsed</code> 属性设置侧栏菜单为收起状态" CodeFile="menu.5.html">
     <Alert ShowBar="true">请注意 <code>IsCollapsed</code> 属性仅当 <code>IsVertical</code> 为真时才生效即仅侧边栏菜单时可用</Alert>
     <p>本例中使用布局组件 <code>Layout</code> 来进行网页构建，设置 <code>SideWith="0"</code> 关闭侧边栏宽度设置，使用内部菜单宽度来自适应</p>
-    <Layout SideWidth="0" IsFullSide="true">
+    <Layout SideWidth="0" IsFullSide="true" ShowFooter="true">
         <Header>
             <div class="d-flex align-items-center pl-3" style="background-color: #17a2b8; height: 50px; color: #fff;">
                 <a style="padding: 4px 12px; color: #fff; background-color: #1ab394; border-color: #1ab394; border-radius: 4px;" class="@ClassString" title="点击展开收缩左侧菜单" @onclick="@CollapseMenu">

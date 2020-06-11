@@ -370,7 +370,7 @@ section {
     padding: 0.6rem 1.25rem 0.7rem 1.25rem;
     position: fixed;
     width: 100%;
-    z-index: 1000;
+    z-index: 1080;
 }
 
     #blazor-error-ui .dismiss {
@@ -934,3 +934,7 @@ section {
     .page-layout-demo-option .tabs-body-content {
         margin: 0 -1rem -2rem -1rem;
     }
+
+#components-reconnect-modal {
+    z-index: 1080 !important;
+}
