@@ -6,7 +6,7 @@
         <RazorLangVersion>3.0</RazorLangVersion>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>3.1.7-beta04</Version>
+        <Version>3.1.7</Version>
     </PropertyGroup>
 
     <ItemGroup>
