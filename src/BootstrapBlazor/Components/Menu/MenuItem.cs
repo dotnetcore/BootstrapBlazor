@@ -10,9 +10,9 @@ namespace BootstrapBlazor.Components
         private readonly List<MenuItem> _items = new List<MenuItem>();
 
         /// <summary>
-        /// 
+        /// 获得 父级菜单
         /// </summary>
-        internal MenuItem? Parent { get; set; }
+        internal MenuItem? Parent { get; private set; }
 
         /// <summary>
         /// 获得/设置 组件数据源

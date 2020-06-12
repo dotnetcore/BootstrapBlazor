@@ -3258,7 +3258,9 @@ a {
         }
 
             .menu.is-vertical .nav-link.active,
-            .menu.is-vertical .nav-link:hover {
+            .menu.is-vertical .nav-link:hover,
+            .menu.is-vertical .nav-link.active + i,
+            .menu.is-vertical .nav-link:hover + i {
                 color: #409eff;
             }
 
