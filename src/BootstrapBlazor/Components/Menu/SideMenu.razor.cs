@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         private string? GetMenuItemLinkClassString(MenuItem item) => CssBuilder.Default("nav-link show collapse")
-            .AddClass("collapsed", !item.IsActive)
+            .AddClass("collapsed", !item.IsActive || item.IsCollapsed)
             .Build();
 
         /// <summary>
@@ -25,7 +25,8 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         private string? GetMenuItemClassString(MenuItem item) => CssBuilder.Default("collapse-item collapse")
-            .AddClass("show", item.IsActive)
+            .AddClass("show", item.IsActive || !item.IsCollapsed)
+            .AddClass("collapsed", item.IsCollapsed)
             .Build();
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string GetExpandedString(MenuItem item) => item.IsActive ? "true" : "false";
+        private string GetExpandedString(MenuItem item) => item.IsActive || !item.IsCollapsed ? "true" : "false";
 
         /// <summary>
         /// 获得/设置 菜单数据集合

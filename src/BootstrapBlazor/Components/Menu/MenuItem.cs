@@ -36,6 +36,11 @@ namespace BootstrapBlazor.Components
         public bool IsActive { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否收缩 默认收缩
+        /// </summary>
+        public bool IsCollapsed { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 图标字符串
         /// </summary>
         public string? Icon { get; set; }
