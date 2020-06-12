@@ -645,7 +645,8 @@ section {
     }
 
 .welcome-header {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
     font-size: 1rem;
     line-height: 2;
 }
@@ -653,6 +654,7 @@ section {
 .welcome-body {
     font-size: 22px;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     letter-spacing: 2px;
 }
 
@@ -818,6 +820,11 @@ section {
 
     .home-section {
         margin: 2rem;
+    }
+
+    .welcome-header {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     .donate .barcode {
