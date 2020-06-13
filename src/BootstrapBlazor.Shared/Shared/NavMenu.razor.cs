@@ -353,6 +353,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "跳转组件 GoTop",
+                Url = "gotops"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "分页 Pagination",
                 Url = "paginations"
             });

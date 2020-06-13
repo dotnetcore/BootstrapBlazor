@@ -1380,12 +1380,12 @@
                 obj.invokeMethodAsync(method, $el.val + 1);
             });
         },
-        footer: function () {
-            var $el = $('app').find('.layout-footer');
-            var tooltip = $el.find('[data-toggle="tooltip"]').tooltip();
-            $el.find('.layout-gotop').on('click', function (e) {
+        footer: function (el, target) {
+            var $el = $(el);
+            var tooltip = $el.tooltip();
+            $el.on('click', function (e) {
                 e.preventDefault();
-                $(window).scrollTop(0);
+                $(target || window).scrollTop(0);
                 tooltip.tooltip('hide');
             });
         },

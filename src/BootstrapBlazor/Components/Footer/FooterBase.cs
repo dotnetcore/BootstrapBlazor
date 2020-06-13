@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -8,11 +7,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class FooterBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得/设置 Footer DOM 实例
-        /// </summary>
-        protected ElementReference FooterElement { get; set; }
-
         /// <summary>
         /// 获得/设置 Footer 显示文字
         /// </summary>
@@ -24,16 +18,5 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? Target { get; set; }
-
-        /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender && JSRuntime != null) await JSRuntime.Invoke(FooterElement, "footer", Target);
-        }
     }
 }

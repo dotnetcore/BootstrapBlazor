@@ -3061,22 +3061,12 @@ a {
     display: flex;
 }
 
-    .footer .footer-top {
-        background: rgba(255,255,255,.5);
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 4px;
-    }
-
     .footer .footer-text {
         flex: 1 1 auto;
         text-align: center;
     }
 /*end footer*/
+
 /*menu*/
 .menu {
     border-bottom: 1px solid #e6e6e6;
@@ -3320,6 +3310,24 @@ a {
     position: relative;
 }
 
+.layout-gotop {
+    background: rgba(255,255,255,.5);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
+    transition: background-color .3s linear;
+    color: #606266;
+}
+
+    .layout-gotop:hover {
+        background-color: #fff;
+        color: #606266;
+    }
+
 .layout.is-page .layout-side {
     transform: translateX(-100%);
     position: fixed;
@@ -3477,31 +3485,10 @@ a {
     padding: 0 1rem;
 }
 
-    .layout.is-page .layout-footer a {
-        color: #fff;
-    }
-
     .layout.is-page .layout-footer.is-fixed {
         position: sticky;
         bottom: 0;
     }
-
-    .layout.is-page .layout-footer .layout-gotop {
-        background: rgba(255,255,255,.5);
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 4px;
-        color: #606266;
-        transition: background-color .3s linear;
-    }
-
-        .layout.is-page .layout-footer .layout-gotop:hover {
-            background-color: #fff;
-        }
 
     .layout.is-page .has-sidebar .layout-side.is-fixed-header, .layout.is-page .layout-footer.is-fixed {
         z-index: 1020;
