@@ -92,6 +92,14 @@ namespace BootstrapBlazor.Shared.Shared
                 Icon = "fa fa-fw fa-comments"
             };
             AddNotice(item);
+
+            item = new MenuItem()
+            {
+                Text = "组件总览",
+                Icon = "fa fa-fw fa-fa",
+                Url = "components"
+            };
+            AddSummary(item);
         }
 
         private void AddQuickStar(MenuItem item)
@@ -406,23 +414,34 @@ namespace BootstrapBlazor.Shared.Shared
             AddBadge(item);
         }
 
-        private void AddBadge(MenuItem item)
+        private void AddSummary(MenuItem item)
         {
-            item.Component = DynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]
-            {
-                new KeyValuePair<string, object>(nameof(Badge.Color), Color.Info),
-                new KeyValuePair<string, object>(nameof(Badge.IsPill), true),
-                new KeyValuePair<string, object>(nameof(Badge.ChildContent), new RenderFragment(builder => {
-                    builder.AddContent(0, item.Items.Count());
-                }))
-            });
+            // 计算组件总数
+            var count = 0;
+            count = Items.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Items[0].Items.Count());
+            AddBadge(item, false, count);
+            Items.Insert(1, item);
+        }
+
+        private void AddBadge(MenuItem item, bool append = true, int? count = null)
+        {
+            item.Component = CreateBadge(count ?? item.Items.Count());
 
             if (item.Items.Any(i => !string.IsNullOrEmpty(i.Url) && i.Url.Equals(ActiveUrl, System.StringComparison.OrdinalIgnoreCase)))
             {
                 item.IsActive = true;
                 item.IsCollapsed = false;
             }
-            Items.Add(item);
+            if (append) Items.Add(item);
         }
+
+        private DynamicComponent CreateBadge(int count) => DynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]
+        {
+            new KeyValuePair<string, object>(nameof(Badge.Color), Color.Info),
+            new KeyValuePair<string, object>(nameof(Badge.IsPill), true),
+            new KeyValuePair<string, object>(nameof(Badge.ChildContent), new RenderFragment(builder => {
+                builder.AddContent(0, count);
+            }))
+        });
     }
 }
