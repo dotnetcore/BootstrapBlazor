@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -12,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 父级菜单
         /// </summary>
-        internal MenuItem? Parent { get; private set; }
+        private MenuItem? Parent { get; set; }
 
         /// <summary>
         /// 获得/设置 组件数据源
@@ -58,6 +59,36 @@ namespace BootstrapBlazor.Components
         {
             item.Parent = this;
             _items.Add(item);
+        }
+
+        /// <summary>
+        /// 级联设置菜单 active=true 方法
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="active"></param>
+        public static void CascadingSetActive(MenuItem item, bool active = true)
+        {
+            item.IsActive = active;
+            var current = item;
+            while (current.Parent != null)
+            {
+                current.Parent.IsActive = active;
+                current.Parent.IsCollapsed = false;
+                current = current.Parent;
+            }
+        }
+
+        /// <summary>
+        /// 级联设置菜单 Active=false 方法
+        /// </summary>
+        /// <param name="items"></param>
+        public static void CascadingCancelActive(IEnumerable<MenuItem> items)
+        {
+            foreach (var item in items)
+            {
+                item.IsActive = false;
+                if (item.Items.Any()) CascadingCancelActive(item.Items);
+            }
         }
     }
 }

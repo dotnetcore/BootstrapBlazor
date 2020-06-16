@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits CollapseBase
+@inject NavigationManager Navigator
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="CollapseElement">
     @foreach (var item in Items)
@@ -9,13 +10,13 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-wrapper">
-                        <MenuLink Item="@item" class="@GetMenuItemLinkClassString(item)" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" OnClick="@OnClick" />
+                        <MenuLink Item="@item" class="@GetMenuItemLinkClassString(item)" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" OnClick="@OnClickMenu" />
                         <i class="fa fa-angle-down"></i>
                     </div>
                 </div>
                 <div class="@GetMenuItemClassString(item)">
                     <div class="card-body has-leaf">
-                        <SideMenu Items="@item.Items" IsAccordion ="@IsAccordion" OnClick="@OnClick"/>
+                        <SideMenu Items="@item.Items" IsAccordion="@IsAccordion" OnClick="@OnClickMenu" />
                     </div>
                 </div>
             </div>

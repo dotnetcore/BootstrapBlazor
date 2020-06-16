@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -25,39 +24,11 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClickMenuItem(MenuItem item)
         {
-            CascadingSetActive(Items);
-            CascadingSetParentActive(item);
+            MenuItem.CascadingCancelActive(Items);
+            MenuItem.CascadingSetActive(item, true);
 
             await OnClick(item);
             StateHasChanged();
-        }
-
-        /// <summary>
-        /// 级联设置菜单 active=true 方法
-        /// </summary>
-        /// <param name="item"></param>
-        private static void CascadingSetParentActive(MenuItem item)
-        {
-            item.IsActive = true;
-            var current = item;
-            while (current.Parent != null)
-            {
-                current.Parent.IsActive = true;
-                current = current.Parent;
-            }
-        }
-
-        /// <summary>
-        /// 级联设置菜单 Active=false 方法
-        /// </summary>
-        /// <param name="items"></param>
-        private static void CascadingSetActive(IEnumerable<MenuItem> items)
-        {
-            foreach (var item in items)
-            {
-                item.IsActive = false;
-                if (item.Items.Any()) CascadingSetActive(item.Items);
-            }
         }
 
         /// <summary>
