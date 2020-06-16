@@ -51,30 +51,6 @@
     </div>
     <div class="@WrapperClassName" style="@WrapperStyleName" @ref="TableWrapper">
         <table class="@ClassName">
-            <thead>
-                <tr>
-                    @if (ShowCheckbox)
-                    {
-                        <th class="@CheckboxColumnClass">
-                            <div class="table-cell">
-                                <Checkbox TItem="TItem" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" OnInitializedCallback="@OnCheckboxInit"></Checkbox>
-                            </div>
-                        </th>
-                    }
-                    <TableColumnCollection OnSortAsync="@OnSortAsync">
-                        <TableColumnContent />
-                        @HeaderTemplate?.Invoke(HeaderModel)
-                    </TableColumnCollection>
-                    @if (ShowExtendButtons)
-                    {
-                        <th class="@ButtonColumnClass">
-                            <div class="table-cell is-button-column">
-                                @ColumnButtonTemplateHeaderText
-                            </div>
-                        </th>
-                    }
-                </tr>
-            </thead>
             <tbody>
                 @if (Items != null)
                 {
@@ -109,6 +85,30 @@
                     }
                 }
             </tbody>
+            <thead>
+                <tr>
+                    @if (ShowCheckbox)
+                    {
+                        <th class="@CheckboxColumnClass">
+                            <div class="table-cell">
+                                <Checkbox TItem="TItem" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" OnInitializedCallback="@OnCheckboxInit"></Checkbox>
+                            </div>
+                        </th>
+                    }
+                    <TableColumnCollection OnSortAsync="@OnSortAsync">
+                        <TableColumnContent />
+                        @HeaderTemplate?.Invoke(HeaderModel)
+                    </TableColumnCollection>
+                    @if (ShowExtendButtons)
+                    {
+                        <th class="@ButtonColumnClass">
+                            <div class="table-cell is-button-column">
+                                @ColumnButtonTemplateHeaderText
+                            </div>
+                        </th>
+                    }
+                </tr>
+            </thead>
             @if (ShowFooter)
             {
                 <tfoot>
