@@ -20,5 +20,11 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// </summary>
         [Parameter]
         public string ImageName { get; set; } = "Divider.svg";
+
+        /// <summary>
+        /// 获得/设置 链接地址
+        /// </summary>
+        [Parameter]
+        public string? Url { get; set; }
     }
 }
