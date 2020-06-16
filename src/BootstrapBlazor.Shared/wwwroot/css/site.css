@@ -960,6 +960,12 @@ section {
         min-height: 200px;
     }
 
+    .coms-demo a {
+        width: calc(100%);
+        height: calc(100%);
+        color: #495057;
+    }
+
 @media (min-width: 768px) {
     .coms-demo .card {
         width: 100%;
