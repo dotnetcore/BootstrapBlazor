@@ -128,28 +128,28 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Items",
-                Description = "组件上传接收地址",
+                Description = "菜单数据集合",
                 Type = "IEnumerable<TreeItem>",
                 ValueList = " — ",
                 DefaultValue = "new List<TreeItem>(20)"
             },
             new AttributeItem() {
                 Name = "ShowCheckbox",
-                Description = "上传按钮显示文字",
+                Description = "是否显示 CheckBox",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "OnTreeItemClick",
-                Description = "上传按钮显示图标",
+                Description = "树形控件节点点击时回调委托",
                 Type = "Func<TreeItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnTreeItemChecked",
-                Description = "上传组件提示文字",
+                Description = "树形控件节点选中时回调委托",
                 Type = "Func<TreeItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "

@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
         public Func<TreeItem, Task> OnTreeItemClick { get; set; } = item => Task.CompletedTask;
 
         /// <summary>
-        /// 获得/设置 树形控件节点点击时回调委托
+        /// 获得/设置 树形控件节点选中时回调委托
         /// </summary>
         [Parameter]
         public Func<TreeItem, Task> OnTreeItemChecked { get; set; } = item => Task.CompletedTask;

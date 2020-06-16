@@ -960,11 +960,20 @@ section {
         min-height: 200px;
     }
 
-@media (min-width: 768px) {
+    .coms-demo a {
+        width: calc(100%);
+        height: calc(100%);
+        color: inherit;
+    }
+
     .coms-demo .card {
         width: 100%;
         height: 100%;
-        cursor: pointer;
         transition: box-shadow .3s linear;
+    }
+
+@media (min-width: 768px) {
+    .coms-demo .card {
+        cursor: pointer;
     }
 }
