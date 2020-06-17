@@ -14,7 +14,7 @@
             {
                 @foreach (var item in FilterItems)
                 {
-                    <li class="@ItemClassString(item)" @onclick="@(async e => await OnItemClick(item))">
+                    <li class="@ItemClassString(item)" @onmousedown="@(async e => await OnItemClick(item))">
                         <div>@item</div>
                     </li>
                 }

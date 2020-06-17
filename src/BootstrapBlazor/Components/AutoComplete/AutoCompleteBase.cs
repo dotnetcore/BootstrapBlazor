@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Components
                 {
                     var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
                     var items = IsLikeMatch ?
-                        Items.Where(s => s.Contains(val, comparison)):
+                        Items.Where(s => s.Contains(val, comparison)) :
                         Items.Where(s => s.StartsWith(val, comparison));
                     FilterItems = items.ToList();
                 }
@@ -127,14 +127,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnBlur 方法
         /// </summary>
-        protected async Task OnBlur()
+        protected Task OnBlur()
         {
-            await Task.Delay(100);
-            await InvokeAsync(() =>
-            {
-                _selectedItem = "";
-                _isShown = false;
-            });
+            _selectedItem = "";
+            _isShown = false;
+            return Task.CompletedTask;
         }
 
         /// <summary>
