@@ -60,23 +60,6 @@ namespace BootstrapBlazor.Components
         public Func<CheckboxState, TItem, Task>? OnStateChanged { get; set; }
 
         /// <summary>
-        /// 组件初始化回调方法 用户扩展
-        /// </summary>
-        [Parameter]
-        public Action<CheckboxBase<TItem>>? OnInitializedCallback { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            // 调用订阅信息
-            OnInitializedCallback?.Invoke(this);
-        }
-
-        /// <summary>
         /// OnParametersSet 方法
         /// </summary>
         protected override void OnParametersSet()

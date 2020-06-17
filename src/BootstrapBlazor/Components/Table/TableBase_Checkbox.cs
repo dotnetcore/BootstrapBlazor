@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class TableBase<TItem>
+    public partial class TableBase<TItem>
     {
         /// <summary>
         /// 获得 选择列显示文字
@@ -28,7 +27,7 @@ namespace BootstrapBlazor.Components
         protected CheckboxState HeaderCheckState()
         {
             var ret = CheckboxState.Mixed;
-            if (SelectedItems.Count == PageItems) ret = CheckboxState.Checked;
+            if (SelectedItems.Count == PageItems || (Items != null && SelectedItems.Count == Items.Count())) ret = CheckboxState.Checked;
             else if (SelectedItems.Count == 0) ret = CheckboxState.UnChecked;
             return ret;
         }
@@ -40,8 +39,10 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected CheckboxState RowCheckState(TItem item) => SelectedItems.Contains(item) ? CheckboxState.Checked : CheckboxState.UnChecked;
 
-        private List<CheckboxBase<TItem>>? ItemCheckboxs;
-        private CheckboxBase<TItem>? HeaderCheckbox;
+        /// <summary>
+        /// 获得/设置 表头上的复选框
+        /// </summary>
+        protected CheckboxBase<TItem>? HeaderCheckbox { get; set; }
 
         /// <summary>
         /// 获得/设置 显示选择列
@@ -67,9 +68,24 @@ namespace BootstrapBlazor.Components
         /// <param name="val"></param>
         protected virtual Task OnHeaderCheck(CheckboxState state, TItem val)
         {
-            if (state != CheckboxState.Mixed && Items != null)
+            if (Items != null)
             {
-                ItemCheckboxs?.ForEach(async checkbox => await checkbox.SetState(state));
+                switch (state)
+                {
+                    case CheckboxState.Checked:
+                        // select all
+                        SelectedItems.Clear();
+                        SelectedItems.AddRange(Items);
+                        StateHasChanged();
+                        break;
+                    case CheckboxState.UnChecked:
+                        // unselect all
+                        SelectedItems.Clear();
+                        StateHasChanged();
+                        break;
+                    default:
+                        break;
+                }
             }
             return Task.CompletedTask;
         }
@@ -91,26 +107,6 @@ namespace BootstrapBlazor.Components
                     : (SelectedItems.Count == Items.Count() ? CheckboxState.Checked : CheckboxState.Mixed);
                 await HeaderCheckbox.SetState(headerCheckboxState);
             }
-        }
-
-        /// <summary>
-        /// 行内选择框初始化回调函数
-        /// </summary>
-        /// <param name="component"></param>
-        protected void OnCheckboxInit(CheckboxBase<TItem> component)
-        {
-            HeaderCheckbox = component;
-        }
-
-        /// <summary>
-        /// 表头选择框初始化回调函数
-        /// </summary>
-        /// <param name="component"></param>
-        protected void OnItemCheckboxInit(CheckboxBase<TItem> component)
-        {
-            if (ItemCheckboxs == null) ItemCheckboxs = new List<CheckboxBase<TItem>>();
-
-            ItemCheckboxs.Add(component);
         }
     }
 }
