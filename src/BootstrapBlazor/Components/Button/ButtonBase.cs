@@ -59,6 +59,12 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// 获得/设置 显示文字
+        /// </summary>
+        [Parameter]
+        public string? Text { get; set; }
+
+        /// <summary>
         /// 获得/设置 Outline 样式
         /// </summary>
         [Parameter] public bool IsOutline { get; set; }

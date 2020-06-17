@@ -6,6 +6,10 @@
     {
         <i class="@Icon"></i>
     }
+    @if(!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
+    }
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
