@@ -61,7 +61,7 @@
                             {
                                 <td>
                                     <div class="table-cell">
-                                        <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck" OnInitializedCallback="@OnItemCheckboxInit"></Checkbox>
+                                        <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck"></Checkbox>
                                     </div>
                                 </td>
                             }
@@ -91,7 +91,7 @@
                     {
                         <th class="@CheckboxColumnClass">
                             <div class="table-cell">
-                                <Checkbox TItem="TItem" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" OnInitializedCallback="@OnCheckboxInit"></Checkbox>
+                                <Checkbox TItem="TItem" @ref="@HeaderCheckbox" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck"></Checkbox>
                             </div>
                         </th>
                     }
