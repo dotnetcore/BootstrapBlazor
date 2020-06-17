@@ -53,6 +53,12 @@ namespace BootstrapBlazor.Components
         [Parameter] public Color Color { get; set; } = Color.Primary;
 
         /// <summary>
+        /// 获得/设置 显示图标
+        /// </summary>
+        [Parameter]
+        public string? Icon { get; set; }
+
+        /// <summary>
         /// 获得/设置 Outline 样式
         /// </summary>
         [Parameter] public bool IsOutline { get; set; }

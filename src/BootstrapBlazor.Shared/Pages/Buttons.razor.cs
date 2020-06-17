@@ -53,6 +53,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
+                Name = "Icon",
+                Description = "图标",
+                Type = "string",
+                ValueList = "",
+                DefaultValue = ""
+            },
+            new AttributeItem() {
                 Name = "Size",
                 Description = "尺寸",
                 Type = "Size",

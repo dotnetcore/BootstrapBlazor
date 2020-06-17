@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
-        /// 获得/设置 文案显示文字
+        /// 获得/设置 文案显示图标
         /// </summary>
         [Parameter]
         public string? Icon { get; set; }
