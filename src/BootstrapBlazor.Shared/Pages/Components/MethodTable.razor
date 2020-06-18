@@ -8,12 +8,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Parameters" />
             <TableColumn TItem="string" @bind-Field="@context.ReturnValue" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Description</TableCell>
-            <TableCell>@context.Parameters</TableCell>
-            <TableCell>@context.ReturnValue</TableCell>
-        </RowTemplate>
     </Table>
 </div>
 

@@ -14,11 +14,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" Text="自定义列名2" />
             <TableColumn TItem="string" @bind-Field="@context.Address" Text="自定义列名3" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -29,11 +24,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -44,11 +34,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -59,11 +44,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -74,11 +54,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -87,13 +62,12 @@
         <HeaderTemplate>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
-            <TableColumn TItem="bool" @bind-Field="@context.Complete" />
+            <TableColumn TItem="bool" @bind-Field="@context.Complete">
+                <Template Context="item">
+                    <Checkbox TItem="bool" Value="@(((BindItem)item).Complete)" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell><Checkbox @bind-Value="@context.Complete" IsDisabled="true"></Checkbox></TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -105,11 +79,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -122,11 +91,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -140,11 +104,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -155,11 +114,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -171,11 +125,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
     </Table>
 </Block>
 
@@ -193,11 +142,6 @@
             <TableColumn TItem="string" @bind-Field="@context.Name" Sort="true" />
             <TableColumn TItem="string" @bind-Field="@context.Address" Sort="true" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.DateTime</TableCell>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Address</TableCell>
-        </RowTemplate>
         <EditTemplate>
             <div class="form-inline">
                 <div class="row">

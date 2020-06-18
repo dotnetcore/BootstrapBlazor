@@ -30,6 +30,11 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected TableColumnCollection? ColumnCollection { get; set; }
+
+        /// <summary>
         /// 获得 表头 Model 实例
         /// </summary>
         protected TItem HeaderModel => Items?.FirstOrDefault() ?? new TItem();
@@ -39,12 +44,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public RenderFragment<TItem>? HeaderTemplate { get; set; }
-
-        /// <summary>
-        /// 获得/设置 RowTemplate 实例
-        /// </summary>
-        [Parameter]
-        public RenderFragment<TItem>? RowTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 TableFooter 实例

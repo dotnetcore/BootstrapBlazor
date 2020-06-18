@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table Column 表头列组件
     /// </summary>
-    public class TableColumnContent : ComponentBase
+    public class TableHeaderContent : ComponentBase
     {
         /// <summary>
         /// 获得/设置 Table Header 实例

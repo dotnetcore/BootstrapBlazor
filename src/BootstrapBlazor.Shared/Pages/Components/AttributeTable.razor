@@ -9,13 +9,6 @@
             <TableColumn TItem="string" @bind-Field="@context.ValueList" />
             <TableColumn TItem="string" @bind-Field="@context.DefaultValue" />
         </HeaderTemplate>
-        <RowTemplate>
-            <TableCell>@context.Name</TableCell>
-            <TableCell>@context.Description</TableCell>
-            <TableCell>@context.Type</TableCell>
-            <TableCell>@context.ValueList</TableCell>
-            <TableCell>@context.DefaultValue</TableCell>
-        </RowTemplate>
     </Table>
 </div>
 
