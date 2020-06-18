@@ -58,7 +58,25 @@ a {
     cursor: not-allowed;
 }
 
-.btn:focus, .btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-secondary.dropdown-toggle:focus {
+.btn:focus,
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-secondary.dropdown-toggle:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus,
+.btn-success:not(:disabled):not(.disabled).active:focus,
+.btn-success:not(:disabled):not(.disabled):active:focus,
+.show > .btn-success.dropdown-toggle:focus,
+.btn-info:not(:disabled):not(.disabled).active:focus,
+.btn-info:not(:disabled):not(.disabled):active:focus,
+.show > .btn-info.dropdown-toggle:focus,
+.btn-warning:not(:disabled):not(.disabled).active:focus,
+.btn-warning:not(:disabled):not(.disabled):active:focus,
+.show > .btn-warning.dropdown-toggle:focus,
+.btn-danger:not(:disabled):not(.disabled).active:focus,
+.btn-danger:not(:disabled):not(.disabled):active:focus,
+.show > .btn-danger.dropdown-toggle:focus {
     box-shadow: none;
 }
 
@@ -4305,3 +4323,15 @@ a {
         overflow: auto;
     }
 /*end scroll*/
+
+/*searc*/
+.search {
+}
+
+    .search .input-group-append {
+        position: relative;
+    }
+
+    .search .auto-complete .fa-spin {
+        left: -26px;
+    }

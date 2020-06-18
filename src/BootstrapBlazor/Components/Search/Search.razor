@@ -1,0 +1,34 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits SearchBase
+
+<div class="search">
+    <div class="@ClassString">
+        <div class="input-group">
+            <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" data-original-title="@ErrorMessage" value="@CurrentValueAsString" @oninput="@OnInput" @onblur="@OnBlur" @onkeyup="@OnKeyUp" />
+            <div class="input-group-append">
+                <i class="fa fa-spinner fa-spin fa-fw"></i>
+                <Button Color="@SearchButtonColor" Text="@SearchButtonText" Icon="@SearchButtonIcon" OnClick="@OnClick" />
+            </div>
+        </div>
+        <div class="select-dropdown">
+            <ul class="dropdown-list">
+                @if (FilterItems.Any())
+                {
+                    @foreach (var item in FilterItems)
+                    {
+                        <li class="@ItemClassString(item)" @onmousedown="@(async e => await OnItemClick(item))">
+                            <div>@item</div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="dropdown-item">@NoDataTip</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>

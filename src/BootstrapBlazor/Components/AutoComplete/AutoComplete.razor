@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits AutoCompleteBase
 
-@if (ValueExpression != null && DisplayText != null)
+@if (ValueExpression != null || DisplayText != null)
 {
     <label class="control-label" for="@Id">@DisplayText</label>
 }

@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件样式
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("auto-complete")
+        protected virtual string? ClassString => CssBuilder.Default("auto-complete")
             .AddClass("is-loading", _isLoading)
             .AddClass("is-complete", _isShown)
             .Build();
@@ -104,7 +104,7 @@ namespace BootstrapBlazor.Components
                 _isLoading = true;
 
                 var val = Convert.ToString(args.Value) ?? "";
-                CurrentValue = val;
+                CurrentValueAsString = val;
 
                 _isShown = true;
                 _isLoading = false;
@@ -174,7 +174,7 @@ namespace BootstrapBlazor.Components
                     {
                         if (!string.IsNullOrEmpty(_selectedItem))
                         {
-                            CurrentValue = _selectedItem;
+                            CurrentValueAsString = _selectedItem;
                             await OnBlur();
                         }
                     }
