@@ -254,6 +254,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "列表组件 ListView",
+                Url = "listviews"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "弹出框 Popover",
                 Url = "popovers"
             });
