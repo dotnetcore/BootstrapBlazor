@@ -6,16 +6,11 @@
        SearchModel="@SearchModel"
        OnQueryAsync="@OnQuery" OnResetSearchAsync="@OnResetSearch"
        OnAddAsync="@OnAdd" OnSaveAsync="@OnSave" OnDeleteAsync="@OnDelete">
-    <HeaderTemplate>
+    <TableColumns>
         <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" Sort="true" />
         <TableColumn TItem="string" @bind-Field="@context.Name" Sort="true" />
         <TableColumn TItem="string" @bind-Field="@context.Address" Sort="true" />
-    </HeaderTemplate>
-    <RowTemplate>
-        <TableCell>@context.DateTime</TableCell>
-        <TableCell>@context.Name</TableCell>
-        <TableCell>@context.Address</TableCell>
-    </RowTemplate>
+    </TableColumns>
     <EditTemplate>
         <div class="form-inline">
             <div class="row">
