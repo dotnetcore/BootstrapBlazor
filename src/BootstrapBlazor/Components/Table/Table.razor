@@ -51,64 +51,64 @@
     </div>
     <div class="@WrapperClassName" style="@WrapperStyleName" @ref="TableWrapper">
         <table class="@ClassName">
-            <tbody>
-                @if (Items != null)
-                {
-                    @for (int index = 0; index < Items.Count(); index++)
+            <TableColumnCollection OnSortAsync="@OnSortAsync">
+                @TableColumns?.Invoke(HeaderModel)
+                <tbody>
+                    @if (Items != null)
                     {
-                        <tr>
-                            @if (ShowCheckbox)
-                            {
-                                <td>
-                                    <div class="table-cell">
-                                        <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck"></Checkbox>
-                                    </div>
-                                </td>
-                            }
-                            @RowTemplate?.Invoke(Items.ElementAt(index))
-                            @if (ShowExtendButtons)
-                            {
-                                <td>
-                                    <div class="table-cell">
-                                        <div class="btn-group">
-                                            <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e=> ClickButton(e))">
-                                                <i class='fa fa-edit'></i>
-                                                <span>编辑</span>
-                                            </TableCellButton>
-                                            <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
-                                            @RowButtonTemplate?.Invoke(Items.ElementAt(index))
+                        @for (int index = 0; index < Items.Count(); index++)
+                        {
+                            <tr>
+                                @if (ShowCheckbox)
+                                {
+                                    <td>
+                                        <div class="table-cell">
+                                            <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck"></Checkbox>
                                         </div>
-                                    </div>
-                                </td>
-                            }
-                        </tr>
+                                    </td>
+                                }
+                                <TableBodyContent TItem="TItem" Item="@Items.ElementAt(index)" />
+                                @if (ShowExtendButtons)
+                                {
+                                    <td>
+                                        <div class="table-cell">
+                                            <div class="btn-group">
+                                                <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e=> ClickButton(e))">
+                                                    <i class='fa fa-edit'></i>
+                                                    <span>编辑</span>
+                                                </TableCellButton>
+                                                <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
+                                                @RowButtonTemplate?.Invoke(Items.ElementAt(index))
+                                            </div>
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-            <thead>
-                <tr>
-                    @if (ShowCheckbox)
-                    {
-                        <th class="@CheckboxColumnClass">
-                            <div class="table-cell">
-                                <Checkbox TItem="TItem" @ref="@HeaderCheckbox" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck"></Checkbox>
-                            </div>
-                        </th>
-                    }
-                    <TableColumnCollection OnSortAsync="@OnSortAsync">
-                        <TableColumnContent />
-                        @HeaderTemplate?.Invoke(HeaderModel)
-                    </TableColumnCollection>
-                    @if (ShowExtendButtons)
-                    {
-                        <th class="@ButtonColumnClass">
-                            <div class="table-cell is-button-column">
-                                @ColumnButtonTemplateHeaderText
-                            </div>
-                        </th>
-                    }
-                </tr>
-            </thead>
+                </tbody>
+                <thead>
+                    <tr>
+                        @if (ShowCheckbox)
+                        {
+                            <th class="@CheckboxColumnClass">
+                                <div class="table-cell">
+                                    <Checkbox TItem="TItem" @ref="@HeaderCheckbox" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck"></Checkbox>
+                                </div>
+                            </th>
+                        }
+                        <TableHeaderContent />
+                        @if (ShowExtendButtons)
+                        {
+                            <th class="@ButtonColumnClass">
+                                <div class="table-cell is-button-column">
+                                    @ColumnButtonTemplateHeaderText
+                                </div>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+            </TableColumnCollection>
             @if (ShowFooter)
             {
                 <tfoot>

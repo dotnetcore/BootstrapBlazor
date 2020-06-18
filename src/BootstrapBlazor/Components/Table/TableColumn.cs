@@ -37,6 +37,12 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment<object>? Template { get; set; }
+
+        /// <summary>
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]

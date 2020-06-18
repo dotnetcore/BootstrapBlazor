@@ -1,0 +1,74 @@
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BootstrapBlazor.Components
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TableBodyContent<TItem> : ComponentBase where TItem : class
+    {
+        /// <summary>
+        /// 获得/设置 Table Header 实例
+        /// </summary>
+        [CascadingParameter]
+        protected TableColumnCollection? Columns { get; set; }
+
+        /// <summary>
+        /// 获得/设置 行数据实例
+        /// </summary>
+        [Parameter]
+        public TItem? Item { get; set; }
+
+        /// <summary>
+        /// 渲染组件方法
+        /// </summary>
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            // 渲染正常按钮
+            if (Columns != null)
+            {
+                var index = 0;
+                foreach (var col in Columns.Columns)
+                {
+                    builder.OpenComponent<TableCell>(index++);
+                    builder.AddAttribute(index++, nameof(TableCell.ChildContent), GetValue(col));
+                    builder.CloseComponent();
+                }
+            }
+        }
+
+        private RenderFragment GetValue(ITableColumn col) => new RenderFragment(builder =>
+        {
+            // 此处只能使用反射获取字段属性值
+            if (col.Template != null)
+            {
+                if (Item != null) builder.AddContent(0, col.Template.Invoke(Item));
+            }
+            else
+            {
+                builder.AddContent(0, GetItemValue(col.GetFieldName()));
+            }
+        });
+
+        private string GetItemValue(string filedName)
+        {
+            var ret = "";
+            if (Item != null)
+            {
+                var type = Item.GetType();
+                var p = type.GetProperties().FirstOrDefault(p => p.Name.Equals(filedName, StringComparison.OrdinalIgnoreCase));
+                if (p != null)
+                {
+                    ret = p.GetValue(Item)?.ToString() ?? "";
+                }
+            }
+            return ret;
+        }
+    }
+}

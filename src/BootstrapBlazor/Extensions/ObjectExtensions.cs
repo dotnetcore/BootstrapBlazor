@@ -35,10 +35,19 @@ namespace BootstrapBlazor.Components
                     var valType = ret?.GetType();
                     if (valType != null)
                     {
+                        // 20200608 tian_teng@outlook.com 支持字段和只读属性
+                        type.GetFields().ToList().ForEach(f =>
+                        {
+                            var v = f.GetValue(item);
+                            valType.GetField(f.Name)?.SetValue(ret, v);
+                        });
                         type.GetProperties().ToList().ForEach(p =>
                         {
-                            var v = p.GetValue(item);
-                            valType.GetProperty(p.Name)?.SetValue(ret, v);
+                            if (p.CanWrite)
+                            {
+                                var v = p.GetValue(item);
+                                valType.GetProperty(p.Name)?.SetValue(ret, v);
+                            }
                         });
                     }
                 }
