@@ -6,60 +6,60 @@
 
 <Block Title="基础表格" Introduction="基础的表格展示用法。" CodeFile="table.1.html">
     <p>
-        表格组件 <code>HeaderTemplate</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性
+        表格组件 <code>TableColumns</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性
     </p>
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" Text="自定义列名1" />
             <TableColumn TItem="string" @bind-Field="@context.Name" Text="自定义列名2" />
             <TableColumn TItem="string" @bind-Field="@context.Address" Text="自定义列名3" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可" CodeFile="table.2.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" IsStriped="true">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果" CodeFile="table.3.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" IsBordered="true">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="带选择列表格" Introduction="通过设置 <code>ShowCheckbox=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" ShowCheckbox="true">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为选择" CodeFile="table.5.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" ShowCheckbox="true" ShowCheckboxText="true">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定" CodeFile="table.6.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="bool" @bind-Field="@context.Complete">
@@ -67,18 +67,18 @@
                     <Checkbox TItem="bool" Value="@(((BindItem)item).Complete)" IsDisabled="true"></Checkbox>
                 </Template>
             </TableColumn>
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="分页表格" Introduction="设置 <code>IsPagination</code> 显示分页组件" CodeFile="table.7.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
@@ -86,11 +86,11 @@
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(4)"
            IsBordered="true"
            ShowCheckbox="true" ShowToolbar="true" ShowDefaultButtons="false">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
@@ -99,32 +99,32 @@
            IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头" CodeFile="table.11.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
 <Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.12.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" IsBordered="true" ShowCheckbox="true"
            PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Address" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </Block>
 
@@ -137,11 +137,11 @@
            SearchModel="@SearchModel"
            OnQueryAsync="@OnQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" Sort="true" />
             <TableColumn TItem="string" @bind-Field="@context.Name" Sort="true" />
             <TableColumn TItem="string" @bind-Field="@context.Address" Sort="true" />
-        </HeaderTemplate>
+        </TableColumns>
         <EditTemplate>
             <div class="form-inline">
                 <div class="row">

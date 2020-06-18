@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 TableHeader 实例
         /// </summary>
         [Parameter]
-        public RenderFragment<TItem>? HeaderTemplate { get; set; }
+        public RenderFragment<TItem>? TableColumns { get; set; }
 
         /// <summary>
         /// 获得/设置 TableFooter 实例

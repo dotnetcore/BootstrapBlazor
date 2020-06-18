@@ -52,7 +52,7 @@
     <div class="@WrapperClassName" style="@WrapperStyleName" @ref="TableWrapper">
         <table class="@ClassName">
             <TableColumnCollection OnSortAsync="@OnSortAsync">
-                @HeaderTemplate?.Invoke(HeaderModel)
+                @TableColumns?.Invoke(HeaderModel)
                 <tbody>
                     @if (Items != null)
                     {

@@ -2,12 +2,12 @@
     <h4>方法 Methods</h4>
 
     <Table TItem="BootstrapBlazor.Shared.Common.MethodItem" Items="Items">
-        <HeaderTemplate>
+        <TableColumns>
             <TableColumn TItem="string" @bind-Field="@context.Name" />
             <TableColumn TItem="string" @bind-Field="@context.Description" />
             <TableColumn TItem="string" @bind-Field="@context.Parameters" />
             <TableColumn TItem="string" @bind-Field="@context.ReturnValue" />
-        </HeaderTemplate>
+        </TableColumns>
     </Table>
 </div>
 
