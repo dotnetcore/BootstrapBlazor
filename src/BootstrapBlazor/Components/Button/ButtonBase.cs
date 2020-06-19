@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BootstrapBlazor.Enums;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -9,6 +10,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class ButtonBase : TooltipComponentBase
     {
+
         /// <summary>
         /// 获得 按钮样式集合
         /// </summary>
@@ -19,6 +21,8 @@ namespace BootstrapBlazor.Components
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass("btn-block", IsBlock)
             .AddClass("disabled", IsDisabled)
+            .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
+            .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -41,6 +45,12 @@ namespace BootstrapBlazor.Components
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter] public ValidateFormBase? EditForm { get; set; }
+
+        /// <summary>
+        /// 按钮风格枚举
+        /// </summary>
+        [Parameter]
+        public ButtonStyle ButtonStyle { get; set; }
 
         /// <summary>
         /// OnClick 事件
