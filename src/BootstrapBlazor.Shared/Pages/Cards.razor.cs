@@ -29,15 +29,8 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "CardHeard",
-                Description = "获得/设置 CardHeard",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = "内容",
+                Name = "CardHeader",
+                Description = "获得/设置 CardHeader",
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -63,20 +56,6 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
-            new AttributeItem{
-                Name = "IsShowFooter",
-                Description = "通过设置,IsShowFooter=true,显示Footer区域",
-                Type = "boolean",
-                ValueList = "true / false",
-                DefaultValue = "false"
-            },
-            new AttributeItem{
-                Name = "IsShowHeader",
-                Description = "通过设置,IsShowHeader=true,显示Header区域",
-                Type = "boolean",
-                ValueList = "true / false",
-                DefaultValue = "false"
-            }
         };
     }
 }

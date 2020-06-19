@@ -1,4 +1,4 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -8,6 +8,14 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class GoTop
     {
+        private ElementReference GoTopElement { get; set; }
+
+        /// <summary>
+        /// 获得/设置 滚动条所在组件
+        /// </summary>
+        [Parameter]
+        public string? Target { get; set; }
+
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -17,7 +25,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null) await JSRuntime.InvokeVoidAsync("$.footer");
+            if (firstRender && JSRuntime != null) await JSRuntime.Invoke(GoTopElement, "footer", Target);
         }
     }
 }

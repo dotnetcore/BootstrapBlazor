@@ -1,0 +1,85 @@
+﻿@page "/"
+@page "/components"
+
+<div class="coms-search form-inline">
+    <div class="row flex-fill">
+        <div class="col-12">
+            <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索想要的组件" Items="@ComponentItems" OnSearch="@OnSearch"></Search>
+        </div>
+    </div>
+    <div class="coms-search-filter">
+    </div>
+</div>
+
+<CascadingValue Value="ComponentItems" IsFixed="true">
+    <CascadingValue Value="@SearchText">
+
+        <ComponentCategory Text="布局组件" Desc="" Count="5">
+            <ComponentCard HeaderText="分割线 Divider" ImageName="Divider.svg" Url="dividers"></ComponentCard>
+            <ComponentCard HeaderText="布局组件 Layout" ImageName="Layout.svg" Url="layouts"></ComponentCard>
+            <ComponentCard HeaderText="页脚组件 Footer" ImageName="Footer.jpg" Url="footers"></ComponentCard>
+            <ComponentCard HeaderText="滚动条 Scroll" ImageName="Scroll.png" Url="scrolls"></ComponentCard>
+            <ComponentCard HeaderText="分割面板 Split" ImageName="Split.png" Url="splits"></ComponentCard>
+        </ComponentCategory>
+
+        <ComponentCategory Text="导航组件" Desc="" Count="7">
+            <ComponentCard HeaderText="菜单 Menu" ImageName="Menu.svg" Url="menus"></ComponentCard>
+            <ComponentCard HeaderText="导航栏 Nav" ImageName="Space.svg" Url="navs"></ComponentCard>
+            <ComponentCard HeaderText="下拉菜单 Dropdown" ImageName="Dropdown.svg" Url="dropdowns"></ComponentCard>
+            <ComponentCard HeaderText="跳转组件 GoTop" ImageName="GoTop.png" Url="gotops"></ComponentCard>
+            <ComponentCard HeaderText="分页 Pagination" ImageName="Pagination.svg" Url="paginations"></ComponentCard>
+            <ComponentCard HeaderText="步骤条 Steps" ImageName="Steps.svg" Url="stepss"></ComponentCard>
+            <ComponentCard HeaderText="标签页 Tab" ImageName="Tabs.svg" Url="tabs"></ComponentCard>
+        </ComponentCategory>
+
+        <ComponentCategory Text="表单组件" Desc="" Count="14">
+            <ComponentCard HeaderText="自动完成 AutoComplete" ImageName="AutoComplete.svg" Url="autocompletes"></ComponentCard>
+            <ComponentCard HeaderText="按钮 Button" ImageName="Button.svg" Url="buttons"></ComponentCard>
+            <ComponentCard HeaderText="多选框 Checkbox" ImageName="CheckBox.svg" Url="checkboxs"></ComponentCard>
+            <ComponentCard HeaderText="输入框 Input" ImageName="Input.svg" Url="inputs"></ComponentCard>
+            <ComponentCard HeaderText="富文本框 Editor" ImageName="Editor.png" Url="editors"></ComponentCard>
+            <ComponentCard HeaderText="单选框 Radio" ImageName="Radio.svg" Url="radios"></ComponentCard>
+            <ComponentCard HeaderText="选择器 Select" ImageName="Select.svg" Url="selects"></ComponentCard>
+            <ComponentCard HeaderText="时间框 DateTimePicker" ImageName="DatePicker.svg" Url="datetimepickers"></ComponentCard>
+            <ComponentCard HeaderText="评分 Rate" ImageName="Rate.svg" Url="rates"></ComponentCard>
+            <ComponentCard HeaderText="滑块 Slider" ImageName="Slider.svg" Url="sliders"></ComponentCard>
+            <ComponentCard HeaderText="开关 Switch" ImageName="Switch.svg" Url="switchs"></ComponentCard>
+            <ComponentCard HeaderText="开关 Toggle" ImageName="Toggle.png" Url="toggles"></ComponentCard>
+            <ComponentCard HeaderText="穿梭框 Transfer" ImageName="Transfer.svg" Url="transfers"></ComponentCard>
+            <ComponentCard HeaderText="上传组件 Upload" ImageName="Upload.svg" Url="uploads"></ComponentCard>
+        </ComponentCategory>
+
+        <ComponentCategory Text="数据组件" Desc="" Count="16">
+            <ComponentCard HeaderText="头像框 Avatar" ImageName="Avatar.svg" Url="avatars"></ComponentCard>
+            <ComponentCard HeaderText="徽章 Badge" ImageName="Badge.svg" Url="badges"></ComponentCard>
+            <ComponentCard HeaderText="卡片 Card" ImageName="Card.svg" Url="cards"></ComponentCard>
+            <ComponentCard HeaderText="日历框 Calendar" ImageName="Calendar.svg" Url="calendars"></ComponentCard>
+            <ComponentCard HeaderText="验证码 Captcha" ImageName="Captcha.png" Url="captchas"></ComponentCard>
+            <ComponentCard HeaderText="走马灯 Carousel" ImageName="Carousel.svg" Url="carousels"></ComponentCard>
+            <ComponentCard HeaderText="图表 Chart" ImageName="Chart.png" Url="charts"></ComponentCard>
+            <ComponentCard HeaderText="进度环 Circle" ImageName="Circle.png" Url="circles"></ComponentCard>
+            <ComponentCard HeaderText="折叠 Collapse" ImageName="Collapse.svg" Url="collapses"></ComponentCard>
+            <ComponentCard HeaderText="列表组件 ListView" ImageName="ListView.png" Url="listviews"></ComponentCard>
+            <ComponentCard HeaderText="弹出框 Popover" ImageName="Popover.svg" Url="popovers"></ComponentCard>
+            <ComponentCard HeaderText="表格 Table" ImageName="Table.svg" Url="tables"></ComponentCard>
+            <ComponentCard HeaderText="标签 Tag" ImageName="Tag.svg" Url="tags"></ComponentCard>
+            <ComponentCard HeaderText="时间线 Timeline" ImageName="Timeline.svg" Url="timelines"></ComponentCard>
+            <ComponentCard HeaderText="工具条 Tooltip" ImageName="Tooltip.svg" Url="tooltips"></ComponentCard>
+            <ComponentCard HeaderText="树形控件 Tree" ImageName="Tree.svg" Url="trees"></ComponentCard>
+        </ComponentCategory>
+
+        <ComponentCategory Text="消息组件" Desc="" Count="10">
+            <ComponentCard HeaderText="警告框 Alert" ImageName="Alert.svg" Url="alerts"></ComponentCard>
+            <ComponentCard HeaderText="控制台 Console" ImageName="Console.png" Url="consoles"></ComponentCard>
+            <ComponentCard HeaderText="对话框 Dialog" ImageName="Notification.svg" Url="dialogs"></ComponentCard>
+            <ComponentCard HeaderText="抽屉 Drawer" ImageName="Drawer.svg" Url="drawers"></ComponentCard>
+            <ComponentCard HeaderText="消息框 Message" ImageName="Message.svg" Url="messages"></ComponentCard>
+            <ComponentCard HeaderText="模态框 Modal" ImageName="Modal.svg" Url="modals"></ComponentCard>
+            <ComponentCard HeaderText="确认框 Popconfirm" ImageName="Popconfirm.svg" Url="popconfirms"></ComponentCard>
+            <ComponentCard HeaderText="进度条 Progress" ImageName="Progress.svg" Url="progresss"></ComponentCard>
+            <ComponentCard HeaderText="旋转图标 Spinner" ImageName="Spinner.gif" Url="spinners"></ComponentCard>
+            <ComponentCard HeaderText="轻量弹窗 Toast" ImageName="Toast.png" Url="toasts"></ComponentCard>
+        </ComponentCategory>
+
+    </CascadingValue>
+</CascadingValue>

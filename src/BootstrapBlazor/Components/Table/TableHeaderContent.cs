@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table Column 表头列组件
     /// </summary>
-    public class TableColumnContent : ComponentBase
+    public class TableHeaderContent : ComponentBase
     {
         /// <summary>
         /// 获得/设置 Table Header 实例
@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Components
                     builder.AddMultipleAttributes(index++, header.AdditionalAttributes);
 
                     // 如果允许排序
-                    if (header.Sort)
+                    if (header.Sortable)
                     {
                         builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(this, async () =>
                         {
@@ -69,13 +69,13 @@ namespace BootstrapBlazor.Components
                         builder.AddAttribute(index++, "class", "sortable");
                     }
                     builder.OpenElement(index++, "div");
-                    builder.AddAttribute(index++, "class", CssBuilder.Default("table-cell").AddClass("is-sort", header.Sort).Build());
+                    builder.AddAttribute(index++, "class", CssBuilder.Default("table-cell").AddClass("is-sort", header.Sortable).Build());
 
                     builder.OpenElement(index++, "span");
                     builder.AddContent(index++, displayName);
                     builder.CloseElement(); // span
 
-                    if (header.Sort)
+                    if (header.Sortable)
                     {
                         builder.OpenElement(index++, "i");
                         var order = sortName == fieldName ? sortOrder : SortOrder.Unset;

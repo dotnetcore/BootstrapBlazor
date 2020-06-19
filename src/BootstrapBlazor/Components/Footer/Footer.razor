@@ -1,11 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits FooterBase
 
-<footer class="footer" @attributes="@AdditionalAttributes" @ref="FooterElement">
+<footer class="footer" @attributes="@AdditionalAttributes">
     <div class="footer-text">
         <span>@Text</span>
     </div>
-    <a href="#" class="footer-top" title="返回顶部" data-toggle="tooltip" data-placement="left">
-        <i class="fa fa-angle-up"></i>
-    </a>
+    <GoTop Target="@Target"></GoTop>
 </footer>

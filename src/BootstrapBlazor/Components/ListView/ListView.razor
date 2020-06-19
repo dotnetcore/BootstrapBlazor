@@ -1,0 +1,36 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits ListViewBase<TItem>
+
+<div @attributes="@AdditionalAttributes" class="@ClassName">
+    @if (HeaderTemplate != null)
+    {
+        <div class="listview-header">
+            @HeaderTemplate
+        </div>
+    }
+    <div class="listview-body">
+        @if (BodyTemplate != null && Items != null)
+        {
+            @foreach (var item in Items)
+            {
+                <div class="listview-item">
+                    @BodyTemplate.Invoke(item)
+                </div>
+            }
+        }
+    </div>
+    @if (FooterTemplate != null || Pageable)
+    {
+        <div class="listview-footer">
+            @if (Pageable)
+            {
+                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+            }
+            else
+            {
+                @FooterTemplate
+            }
+        </div>
+    }
+</div>

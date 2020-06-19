@@ -17,8 +17,8 @@ echo "Ready to copy files to dist"
 
 echo copy $sourceDir $targetDir 
 
-cp -r $sourceDir $targetDir
+\cp -rf $sourceDir $targetDir
 
-cp $targetDir/404.html $targetDir/index.html
+\cp -f $targetDir/404.html $targetDir/index.html
 
 echo Sync success!

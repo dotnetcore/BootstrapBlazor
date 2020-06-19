@@ -80,6 +80,19 @@
     </div>
 </Block>
 
+<Block Title="带图标的按钮" Introduction="通过设置 <code>Icon</code> 属性对按钮图标进行设置，图标为字体字符串如使用 <code>font-awesome</code> 图标时 <code>fa fa-fa</code>" CodeFile="button.6.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-auto">
+                <Button Color="Color.Primary" Icon="fa fa-fa" Text="状态按钮"></Button>
+            </div>
+            <div class="form-group col-auto">
+                <Button Color="Color.Info" Icon="fa fa-spinner fa-spin fa-fw" Text="进度按钮"></Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

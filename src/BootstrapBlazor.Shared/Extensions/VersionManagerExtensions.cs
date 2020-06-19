@@ -28,6 +28,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         private HttpClient Client { get; set; }
 
+        private static string Version { get; set; } = "latest";
+
         /// <summary>
         /// 构造方法
         /// </summary>
@@ -36,6 +38,18 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);
+
+            Task.Run(async () =>
+            {
+                do
+                {
+                    await FetchVersionAsync();
+
+                    await Task.Delay(300000);
+                    Version = "latest";
+                }
+                while (true);
+            });
         }
 
         /// <summary>
@@ -44,15 +58,22 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public async Task<string> GetVersionAsync()
         {
-            var ret = "latest";
-            try
+            await FetchVersionAsync();
+            return Version;
+        }
+
+        private async Task FetchVersionAsync()
+        {
+            if (Version == "latest")
             {
-                var url = "https://azuresearch-usnc.nuget.org/query?q=bootstrapblazor&prerelease=true&semVerLevel=2.0.0";
-                var package = await Client.GetFromJsonAsync<NugetPackage>(url);
-                ret = package.GetVersion();
+                try
+                {
+                    var url = "https://azuresearch-usnc.nuget.org/query?q=bootstrapblazor&prerelease=true&semVerLevel=2.0.0";
+                    var package = await Client.GetFromJsonAsync<NugetPackage>(url);
+                    Version = package.GetVersion();
+                }
+                catch { }
             }
-            catch { }
-            return ret;
         }
 
         private class NugetPackage

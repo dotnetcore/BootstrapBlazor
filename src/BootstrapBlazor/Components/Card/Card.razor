@@ -2,17 +2,16 @@
 @inherits CardBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassName">
-    @ChildContent
-    @if (IsShowHeader)
+    @if (CardHeader != null)
     {
         <div class="card-header">
-            @CardHeard
+            @CardHeader
         </div>
     }
     <div class="@BodyClassName">
         @CardBody
     </div>
-    @if (IsShowFooter)
+    @if (CardFooter != null)
     {
         <div class="@FooterClassName">
             @CardFooter

@@ -64,4 +64,11 @@
     </div>
 </Block>
 
+<Block Title="自定义节点收缩" Introduction="通过设置 <code>MenuItem</code> 的 <code>IsCollapsed</code> 属性设置节点是否收起" CodeFile="menu.7.html">
+    <p>本例中 <b>权限设置</b> 节点为展开状态，其余节点为收起状态</p>
+    <div style="width:220px;">
+        <Menu Items="@GetCollapsedIconSideMenuItems()" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />

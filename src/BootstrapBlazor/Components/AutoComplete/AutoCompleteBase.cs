@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件样式
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("auto-complete")
+        protected virtual string? ClassString => CssBuilder.Default("auto-complete")
             .AddClass("is-loading", _isLoading)
             .AddClass("is-complete", _isShown)
             .Build();
@@ -104,7 +104,7 @@ namespace BootstrapBlazor.Components
                 _isLoading = true;
 
                 var val = Convert.ToString(args.Value) ?? "";
-                CurrentValue = val;
+                CurrentValueAsString = val;
 
                 _isShown = true;
                 _isLoading = false;
@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Components
                 {
                     var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
                     var items = IsLikeMatch ?
-                        Items.Where(s => s.Contains(val, comparison)):
+                        Items.Where(s => s.Contains(val, comparison)) :
                         Items.Where(s => s.StartsWith(val, comparison));
                     FilterItems = items.ToList();
                 }
@@ -127,14 +127,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnBlur 方法
         /// </summary>
-        protected async Task OnBlur()
+        protected Task OnBlur()
         {
-            await Task.Delay(100);
-            await InvokeAsync(() =>
-            {
-                _selectedItem = "";
-                _isShown = false;
-            });
+            _selectedItem = "";
+            _isShown = false;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -177,7 +174,7 @@ namespace BootstrapBlazor.Components
                     {
                         if (!string.IsNullOrEmpty(_selectedItem))
                         {
-                            CurrentValue = _selectedItem;
+                            CurrentValueAsString = _selectedItem;
                             await OnBlur();
                         }
                     }

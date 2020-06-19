@@ -1,0 +1,17 @@
+﻿<div class="coms-cate">
+    <h3>
+        <span>@Text</span>
+    </h3>
+    @if (Count > 0)
+    {
+        <Badge IsPill="true" Color="Color.Success">@Count</Badge>
+    }
+
+    <h4>@Desc</h4>
+
+    <div class="form-inline coms-demo">
+        <div class="row flex-fill">
+            @ChildContent
+        </div>
+    </div>
+</div>

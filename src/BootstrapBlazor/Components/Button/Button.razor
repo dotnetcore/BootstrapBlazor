@@ -2,6 +2,14 @@
 @inherits ButtonBase
 
 <button @attributes="@AdditionalAttributes" @onclick="@OnClick" Id="@Id" type="button" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab">
+    @if(!string.IsNullOrEmpty(Icon))
+    {
+        <i class="@Icon"></i>
+    }
+    @if(!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
+    }
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>

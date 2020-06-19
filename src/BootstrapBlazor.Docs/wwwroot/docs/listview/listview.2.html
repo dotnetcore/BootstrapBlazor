@@ -1,0 +1,63 @@
+﻿<ListView TItem="Product" Pageable="true" OnQueryAsync="@OnQueryAsync">
+    <HeaderTemplate>
+        <div>产品列表</div>
+    </HeaderTemplate>
+    <BodyTemplate>
+        <Card>
+            <CardBody>
+                <img src="@context.ImageUrl" />
+                <div class="listview-demo-desc">@context.Description</div>
+            </CardBody>
+        </Card>
+    </BodyTemplate>
+</ListView>
+
+@code {
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed partial class ListViews
+    {
+        private IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Products = Enumerable.Range(1, 100).Select(i => new Product()
+            {
+                ImageUrl = $"https://imgs.sdgxgz.com/images/Pic{i}.jpg",
+                Description = $"Pic{i}.jpg"
+            });
+        }
+
+        private Task<QueryData<Product>> OnQueryAsync(QueryPageOptions options)
+        {
+            var items = Products.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
+            return Task.FromResult(new QueryData<Product>()
+            {
+                Items = items,
+                TotalCount = Products.Count()
+            });
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    internal class Product
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ImageUrl { get; set; } = "";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Description { get; set; } = "";
+    }
+}

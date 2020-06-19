@@ -53,6 +53,20 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
+                Name = "Icon",
+                Description = "图标",
+                Type = "string",
+                ValueList = "",
+                DefaultValue = ""
+            },
+            new AttributeItem() {
+                Name = "Text",
+                Description = "显示文字",
+                Type = "string",
+                ValueList = "",
+                DefaultValue = ""
+            },
+            new AttributeItem() {
                 Name = "Size",
                 Description = "尺寸",
                 Type = "Size",
@@ -87,13 +101,20 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-             new AttributeItem() {
+            new AttributeItem() {
                 Name = "IsTriggerValidate",
                 Description = "是否触发客户端验证",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "true"
             },
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "内容",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
         };
 
         /// <summary>

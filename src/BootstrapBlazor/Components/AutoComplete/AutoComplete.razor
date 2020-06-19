@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits AutoCompleteBase
 
-@if (ValueExpression != null && DisplayText != null)
+@if (ValueExpression != null || DisplayText != null)
 {
     <label class="control-label" for="@Id">@DisplayText</label>
 }
@@ -14,7 +14,7 @@
             {
                 @foreach (var item in FilterItems)
                 {
-                    <li class="@ItemClassString(item)" @onclick="@(async e => await OnItemClick(item))">
+                    <li class="@ItemClassString(item)" @onmousedown="@(async e => await OnItemClick(item))">
                         <div>@item</div>
                     </li>
                 }

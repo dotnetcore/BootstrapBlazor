@@ -1,0 +1,22 @@
+﻿@page "/gotops"
+
+<h3>GoTop 返回顶端组件</h3>
+
+<h4>点击后返回指定容器的顶端</h4>
+
+<Block Title="基础用法" Introduction="点击后返回顶端" CodeFile="gotop.1.html">
+    <div id="scroll" class="overflow-auto border border-secondary p-3" style="max-height: 180px; border-radius: 4px; position: relative;">
+        <div style="height: 200px">
+            <p>底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端</p>
+            <p>本示例传递的是组件客户端 ID</p>
+        </div>
+        <footer class="footer">
+            <div class="footer-text">
+                <span>Bootstrap Blazor</span>
+            </div>
+            <GoTop Target="#scroll"></GoTop>
+        </footer>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

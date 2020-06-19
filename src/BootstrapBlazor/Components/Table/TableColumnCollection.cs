@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 表头集合
         /// </summary>
-        public ICollection<ITableColumn> Columns { get; } = new HashSet<ITableColumn>();
+        public ICollection<ITableColumn> Columns { get; } = new List<ITableColumn>(50);
 
         /// <summary>
         /// BuildRenderTree 方法
