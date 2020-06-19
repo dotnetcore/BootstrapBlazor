@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -45,7 +40,6 @@ namespace BootstrapBlazor.Components
 
         private RenderFragment GetValue(ITableColumn col) => new RenderFragment(builder =>
         {
-            // 此处只能使用反射获取字段属性值
             if (col.Template != null)
             {
                 if (Item != null) builder.AddContent(0, col.Template.Invoke(Item));
@@ -56,19 +50,6 @@ namespace BootstrapBlazor.Components
             }
         });
 
-        private string GetItemValue(string filedName)
-        {
-            var ret = "";
-            if (Item != null)
-            {
-                var type = Item.GetType();
-                var p = type.GetProperties().FirstOrDefault(p => p.Name.Equals(filedName, StringComparison.OrdinalIgnoreCase));
-                if (p != null)
-                {
-                    ret = p.GetValue(Item)?.ToString() ?? "";
-                }
-            }
-            return ret;
-        }
+        private string GetItemValue(string filedName) => Item?.GetValueByFieldName(filedName) ?? "";
     }
 }

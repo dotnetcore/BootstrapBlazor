@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Linq;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components
 {
@@ -79,6 +80,27 @@ namespace BootstrapBlazor.Components
                 }
             }
             return ret;
+        }
+
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> _propertyCache = new ConcurrentDictionary<(Type, string), PropertyInfo>();
+
+        /// <summary>
+        /// 通过 FieldName 获得属性值
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        public static string GetValueByFieldName(this object obj, string fieldName)
+        {
+            var type = obj.GetType();
+            var key = (type, fieldName);
+            var pi = _propertyCache.GetOrAdd(key, key =>
+            {
+                var p = key.ModelType.GetProperties().FirstOrDefault(p => p.Name.Equals(key.FieldName, StringComparison.OrdinalIgnoreCase));
+                return p;
+            });
+            if (pi == null) _propertyCache.TryRemove(key, out pi);
+            return pi.GetValue(obj)?.ToString() ?? "";
         }
     }
 }

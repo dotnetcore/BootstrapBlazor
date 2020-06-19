@@ -30,11 +30,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 
-        /// </summary>
-        protected TableColumnCollection? ColumnCollection { get; set; }
-
-        /// <summary>
         /// 获得 表头 Model 实例
         /// </summary>
         protected TItem HeaderModel => Items?.FirstOrDefault() ?? new TItem();

@@ -1,8 +1,8 @@
 ﻿<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem"
         IsPagination="true" PageItemsSource="@PageItemsSource" PageItems="2" OnQueryAsync="@OnQuery">
      <TableColumns>
-         <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
-         <TableColumn TItem="string" @bind-Field="@context.Name" />
-         <TableColumn TItem="string" @bind-Field="@context.Address" />
+         <TableColumn @bind-Field="@context.DateTime" />
+         <TableColumn @bind-Field="@context.Name" />
+         <TableColumn @bind-Field="@context.Address" />
      </TableColumns>
 </Table>
