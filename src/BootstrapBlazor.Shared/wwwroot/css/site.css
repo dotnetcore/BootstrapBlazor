@@ -980,8 +980,8 @@ section {
 
 .coms-search {
     position: sticky;
-    top: 3rem;
     z-index: 1;
+    top: 0;
 }
 
     .coms-search .row {
@@ -993,6 +993,12 @@ section {
     height: 2rem;
     width: 100%;
     background: linear-gradient(rgba(255,255,255,1),rgba(255,255,255,0.8),rgba(255,255,255,0));
+}
+
+@media (min-width:768px) {
+    .coms-search {
+        top: 3rem;
+    }
 }
 
 .listview-demo {
