@@ -83,14 +83,49 @@ namespace BootstrapBlazor.Shared.Pages
                     Description = "组件高度",
                     Type = "int",
                     ValueList = " — ",
-                    DefaultValue = "126"
+                    DefaultValue = "0"
                 },
                 new AttributeItem(){
                     Name = "OnClear",
                     Description = "组件清屏回调方法",
                     Type = "int",
                     ValueList = " — ",
-                    DefaultValue = "126"
+                    DefaultValue = "0"
+                },
+                new AttributeItem(){
+                    Name = "HeaderText",
+                    Description = "Header 显示文字",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = "系统监控"
+                },
+                new AttributeItem(){
+                    Name = "LightTitle",
+                    Description = "指示灯 Title",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = "通讯指示灯"
+                },
+                new AttributeItem(){
+                    Name = "ClearButtonText",
+                    Description = "按钮显示文字",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = "清屏"
+                },
+                new AttributeItem(){
+                    Name = "ClearButtonIcon",
+                    Description = "按钮显示图标",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = "fa fa-fw fa-times"
+                },
+                new AttributeItem(){
+                    Name = "ClearButtonColor",
+                    Description = "按钮颜色",
+                    Type = "Color",
+                    ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+                    DefaultValue = "Secondary"
                 }
             };
         }
