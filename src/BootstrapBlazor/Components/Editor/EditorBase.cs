@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -12,6 +14,18 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件 DOM 实例
         /// </summary>
         protected ElementReference EditorElement { get; set; }
+
+        /// <summary>
+        /// 获得/设置 JSInterop 实例
+        /// </summary>
+        protected JSInterop<EditorBase>? Interope { get; set; }
+
+        /// <summary>
+        /// 获得 Editor 样式
+        /// </summary>
+        protected string? EditClassString => CssBuilder.Default("editor-body form-control")
+            .AddClass("open", IsEditor)
+            .Build();
 
         /// <summary>
         /// 获得/设置 Placeholder 提示消息
@@ -32,6 +46,18 @@ namespace BootstrapBlazor.Components
         public int Height { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件值
+        /// </summary>
+        [Parameter]
+        public string? Value { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件值变化后的回调委托
+        /// </summary>
+        [Parameter]
+        public EventCallback<string?> ValueChanged { get; set; }
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -42,7 +68,33 @@ namespace BootstrapBlazor.Components
 
             if (firstRender && JSRuntime != null)
             {
-                await JSRuntime.Invoke(EditorElement, "editor", IsEditor, Height);
+                Interope = new JSInterop<EditorBase>(JSRuntime);
+                await Interope.Invoke(this, EditorElement, "editor", nameof(Update), Height);
+            }
+        }
+
+        /// <summary>
+        /// Update 方法
+        /// </summary>
+        /// <param name="value"></param>
+        [JSInvokable]
+        public async Task Update(string value)
+        {
+            Value = value;
+            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(value);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                Interope?.Dispose();
             }
         }
     }
