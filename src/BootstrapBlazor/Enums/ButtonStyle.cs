@@ -1,4 +1,4 @@
-﻿namespace BootstrapBlazor
+﻿namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 按钮样式枚举
