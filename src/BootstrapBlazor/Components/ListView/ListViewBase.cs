@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -53,6 +54,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public IEnumerable<int>? PageItemsSource { get; set; }
+
+        /// <summary>
+        /// 获得/设置 分组名称
+        /// </summary>
+        [Parameter]
+        public Func<TItem, object>? GroupName { get; set; }
 
         /// <summary>
         /// 异步查询回调方法

@@ -12,11 +12,27 @@
     <div class="listview-body">
         @if (BodyTemplate != null && Items != null)
         {
-            @foreach (var item in Items)
+            if (GroupName == null)
             {
-                <div class="listview-item">
-                    @BodyTemplate.Invoke(item)
-                </div>
+                foreach (var item in Items)
+                {
+                    <div class="listview-item">
+                        @BodyTemplate.Invoke(item)
+                    </div>
+                }
+            }
+            else
+            {
+                foreach (var key in Items.GroupBy(GroupName).OrderBy(k => k.Key))
+                {
+                    <div class="listview-item-group">@key.Key</div>
+                    @foreach (var item in key)
+                    {
+                        <div class="listview-item">
+                            @BodyTemplate.Invoke(item)
+                        </div>
+                    }
+                }
             }
         }
     </div>
