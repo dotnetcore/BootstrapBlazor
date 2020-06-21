@@ -1,4 +1,5 @@
 ﻿using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,23 +8,22 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class AutoCompletes
+    public sealed partial class Searchs
     {
-        private readonly List<string> _items = new List<string>();
+        private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
-        private IEnumerable<string> Items => _items;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Logger? Trace { get; set; }
 
-
-        private IEnumerable<string> StaticItems => new List<string> { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
-
-
-        private Task OnValueChanged(string val)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchText"></param>
+        private Task OnSearch(string searchText)
         {
-            _items.Clear();
-            _items.Add($"{val}@163.com");
-            _items.Add($"{val}@126.com");
-            _items.Add($"{val}@sina.com");
-            _items.Add($"{val}@hotmail.com");
+            Trace?.Log($"SearchText: {searchText}");
             return Task.CompletedTask;
         }
 
@@ -56,13 +56,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "无匹配数据"
             },
             new AttributeItem() {
-                Name = "ValueChanged",
-                Description = "文本框值变化时回调委托方法",
-                Type = "Action<string>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
                 Name = "IsLikeMatch",
                 Description = "是否开启模糊匹配",
                 Type = "bool",
@@ -77,6 +70,14 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
+            new AttributeItem()
+            {
+                Name="OnSearch",
+                Description = "点击搜索时回调此委托",
+                Type = "Func<string, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
         };
     }
 }
