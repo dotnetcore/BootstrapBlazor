@@ -5,11 +5,11 @@
 <h4>控制台组件，一般用于后台任务的输出</h4>
 
 <Block Title="基本用法" Introduction="显示后台推送的消息" CodeFile="console.1.html">
-    <Console Items="@Messages" />
+    <Console Items="@Messages" Height="126" />
 </Block>
 
 <Block Title="可清空的控制台" Introduction="通过设置 <code>OnClear</code> 回调方法对数据集进行清空操作，由于本例与上例使用相同数据源，会导致上例中数据源更新延时" CodeFile="console.2.html">
-    <Console Items="@Messages" OnClear="@OnClear" />
+    <Console Items="@Messages" Height="126" OnClear="@OnClear" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

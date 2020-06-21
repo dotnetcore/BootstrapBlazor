@@ -1,6 +1,6 @@
 ﻿<Button @onclick="e => LongContentModal?.ToggleAsync()">内容超长的弹窗</Button>
-<Modal @ref="LongContentModal" IsCentered="true" Title="内容超长的弹窗">
-    <ModalDialog Title="默认弹窗">
+<Modal @ref="LongContentModal">
+    <ModalDialog IsCentered="true" Title="内容超长的弹窗">
         <BodyTemplate>
             <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
@@ -25,8 +25,8 @@
 </Modal>
            
 <Button @onclick="e => ScrollModal?.ToggleAsync()">内置滚动条弹窗</Button>
-<Modal @ref="ScrollModal" IsCentered="true" IsScrolling="true" Title="内置滚动条弹窗" >
-    <ModalDialog Title="默认弹窗">
+<Modal @ref="ScrollModal">
+    <ModalDialog IsCentered="true" IsScrolling="true" Title="内置滚动条弹窗">
         <BodyTemplate>
             <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>

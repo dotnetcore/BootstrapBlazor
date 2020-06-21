@@ -96,6 +96,16 @@ a {
     margin-left: 4px;
 }
 
+.btn.is-circle {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+}
+
+.btn.is-round {
+    border-radius: 20px;
+}
+
 /*select*/
 .form-select .dropdown-menu {
     margin-top: 10px;

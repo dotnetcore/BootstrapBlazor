@@ -8,6 +8,8 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Editors
     {
+        private string EditorValue { get; set; } = "初始值 <b>Test</b>";
+
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
@@ -33,6 +35,5 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             }
         };
-
     }
 }
