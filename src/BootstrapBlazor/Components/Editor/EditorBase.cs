@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -28,11 +27,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 编辑器文本内容
-        /// </summary>
-        protected MarkupString ValueString => new MarkupString(Value);
-
-        /// <summary>
         /// 获得/设置 Placeholder 提示消息
         /// </summary>
         [Parameter]
@@ -50,11 +44,24 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public int Height { get; set; }
 
+        private string? _value;
+        private bool _renderValue;
         /// <summary>
         /// 获得/设置 组件值
         /// </summary>
         [Parameter]
-        public string? Value { get; set; }
+        public string? Value
+        {
+            get { return _value; }
+            set
+            {
+                if (_value != value)
+                {
+                    _value = value;
+                    _renderValue = true;
+                }
+            }
+        }
 
         /// <summary>
         /// 获得/设置 组件值变化后的回调委托
@@ -74,7 +81,12 @@ namespace BootstrapBlazor.Components
             if (firstRender && JSRuntime != null)
             {
                 Interope = new JSInterop<EditorBase>(JSRuntime);
-                await Interope.Invoke(this, EditorElement, "editor", nameof(Update), Height);
+                await Interope.Invoke(this, EditorElement, "editor", nameof(Update), Height, Value ?? "");
+            }
+            if (_renderValue && JSRuntime != null)
+            {
+                _renderValue = false;
+                await JSRuntime.Invoke(EditorElement, "editor", "code", "", "", Value ?? "");
             }
         }
 
@@ -86,7 +98,8 @@ namespace BootstrapBlazor.Components
         public async Task Update(string value)
         {
             Value = value;
-            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(value);
+            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+            _renderValue = false;
         }
 
         /// <summary>

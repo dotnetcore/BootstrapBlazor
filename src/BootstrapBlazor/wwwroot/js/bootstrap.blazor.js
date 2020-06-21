@@ -832,6 +832,7 @@
 
             var $this = $(el);
             var op = typeof options == 'object' && options;
+
             if (/destroy|hide/.test(options)) {
                 return $this.toggleClass('open').summernote(options);
             }
@@ -845,15 +846,22 @@
             $this.on('click', op, function (event, args) {
                 var $this = $(this).tooltip('hide');
                 var op = $.extend({ placeholder: $this.attr('placeholder') }, event.data, args || {});
-                var $toolbar = $this.toggleClass('open').summernote($.extend({}, op))
+                var $toolbar = $this.toggleClass('open').summernote($.extend({
+                    callbacks: {
+                        onChange: function (htmlString) {
+                            op.obj.invokeMethodAsync(op.method, htmlString);
+                        }
+                    }
+                }, op))
                     .next().find('.note-toolbar')
                     .on('click', 'button[data-method]', { note: $this, op: op }, function (event) {
                         var $btn = $(this);
                         switch ($btn.attr('data-method')) {
                             case 'submit':
                                 $btn.tooltip('dispose');
-                                event.data.note.toggleClass('open').summernote('destroy');
-                                var htmlString = event.data.note.html();
+                                var $note = event.data.note.toggleClass('open');
+                                var htmlString = $note.summernote('code');
+                                $note.summernote('destroy');
                                 event.data.op.obj.invokeMethodAsync(event.data.op.method, htmlString);
                                 break;
                         }
@@ -862,6 +870,7 @@
                 $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif');
             }).tooltip({ title: '点击展开编辑' });
 
+            if (op.value) $this.html(op.value);
             if ($this.hasClass('open')) {
                 // 初始化为 editor
                 $this.trigger('click', { focus: false });
@@ -1398,10 +1407,23 @@
                 tooltip.tooltip('hide');
             });
         },
-        editor: function (el, obj, method, height) {
-            var option = { obj: obj, method: method };
-            if (height) option.height = height;
-            $.html5edit(el.getElementsByClassName("editor-body"), option);
+        editor: function (el, obj, method, height, value) {
+            var editor = el.getElementsByClassName("editor-body");
+
+            if (obj === 'code') {
+                if ($(editor).hasClass('open')) {
+                    $(editor).summernote('code', value);
+                }
+                else {
+                    $(editor).html(value);
+                }
+            }
+            else {
+                var option = { obj: obj, method: method, height: height };
+                if (value) option.value = value;
+
+                $.html5edit(editor, option);
+            }
         },
         split: function (el) {
             var $split = $(el);
