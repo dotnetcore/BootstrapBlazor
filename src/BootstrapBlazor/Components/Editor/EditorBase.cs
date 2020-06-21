@@ -28,6 +28,11 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 编辑器文本内容
+        /// </summary>
+        protected MarkupString ValueString => new MarkupString(Value);
+
+        /// <summary>
         /// 获得/设置 Placeholder 提示消息
         /// </summary>
         [Parameter]

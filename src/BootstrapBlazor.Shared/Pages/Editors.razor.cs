@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Editors
     {
-        private string EditorValue { get; set; } = "";
+        private string EditorValue { get; set; } = "<b>初始值</b>";
 
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
