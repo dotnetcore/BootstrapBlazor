@@ -10,7 +10,7 @@
             </button>
         </div>
         <div class="modal-body">
-            @BodyTemplate
+            @BodyTemplate?.Invoke(BodyContext)
         </div>
         @if (ShowFooter)
         {

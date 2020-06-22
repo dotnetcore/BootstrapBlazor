@@ -39,9 +39,14 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 BodyTemplate 关联上线文
+        /// </summary>
+        public object BodyContext = "";
+
+        /// <summary>
         /// 获得/设置 ModalBody 组件
         /// </summary>
-        public RenderFragment? BodyTemplate { get; set; }
+        public RenderFragment<object>? BodyTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 ModalFooter 组件
