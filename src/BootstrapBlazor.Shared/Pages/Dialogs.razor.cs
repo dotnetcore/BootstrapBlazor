@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Shared.Pages
                 {
                     new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
                 })
-                .Render()
+                .Render<object>()
             });
             return Task.CompletedTask;
         }

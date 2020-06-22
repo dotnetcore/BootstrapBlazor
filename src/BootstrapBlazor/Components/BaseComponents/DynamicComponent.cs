@@ -53,12 +53,19 @@ namespace BootstrapBlazor.Components
         /// 创建组件实例并渲染
         /// </summary>
         /// <returns></returns>
-        public RenderFragment<object> Render() => context => builder =>
+        public RenderFragment Render() => builder =>
         {
             var index = 0;
             builder.OpenComponent(index++, ComponentType);
             builder.AddMultipleAttributes(index++, Parameters);
             builder.CloseComponent();
         };
+
+        /// <summary>
+        /// 创建组件实例并渲染
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <returns></returns>
+        public RenderFragment<TValue> Render<TValue>() => context => Render();
     }
 }

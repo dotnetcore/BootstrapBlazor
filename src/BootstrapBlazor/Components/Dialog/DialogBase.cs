@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Components
                 }
                 else if (option.Component != null)
                 {
-                    option.BodyTemplate = option.Component.Render();
+                    option.BodyTemplate = option.Component.Render<object>();
                     parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
                 }
 
