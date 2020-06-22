@@ -64,15 +64,15 @@ namespace BootstrapBlazor.Components
             if (ModalDialog != null)
             {
                 var parameters = option.ToAttributes().ToList();
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyContext), option.BodyContext));
+
                 if (option.BodyTemplate != null)
                 {
-                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyContext), option.BodyContext));
                     parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
                 }
                 else if (option.Component != null)
                 {
                     option.BodyTemplate = option.Component.Render();
-                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyContext), option.BodyContext));
                     parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
                 }
 
