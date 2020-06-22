@@ -63,6 +63,8 @@ namespace BootstrapBlazor.Components
         {
             if (ModalDialog != null)
             {
+                option.Modal = ModalContainer;
+
                 var parameters = option.ToAttributes().ToList();
                 parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyContext), option.BodyContext));
 

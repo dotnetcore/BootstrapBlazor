@@ -9,6 +9,11 @@ namespace BootstrapBlazor.Components
     public class DialogOption
     {
         /// <summary>
+        /// 获得/设置 相关弹窗实例
+        /// </summary>
+        internal ModalBase? Modal { get; set; }
+
+        /// <summary>
         /// 获得/设置 弹窗标题
         /// </summary>
         public string Title { get; set; } = "未设置";
