@@ -128,7 +128,7 @@
     </Table>
 </Block>
 
-<Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件件" CodeFile="table.10.html">
+<Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.10.html">
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -172,6 +172,23 @@
                 </div>
             </div>
         </SearchTemplate>
+    </Table>
+</Block>
+
+<Block Title="自定义扩展按钮" Introduction="设置 <code>TableToolbarTemplate</code> 模板添加自定义扩展按钮" CodeFile="table.13.html">
+    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+        </TableColumns>
     </Table>
 </Block>
 
