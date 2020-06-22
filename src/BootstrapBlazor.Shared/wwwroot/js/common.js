@@ -50,7 +50,7 @@
                 }, 600);
             }
         },
-        type: function (el) {
+        indexTyper: function (el) {
             var $this = $(el);
             var $cursor = $this.next();
 

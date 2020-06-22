@@ -24,12 +24,12 @@ namespace BootstrapBlazor.Components
         public bool IsCentered { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否弹窗正文超长时滚动
+        /// 获得/设置 是否弹窗正文超长时滚动 默认为 false
         /// </summary>
         public bool IsScrolling { get; set; } = false;
 
         /// <summary>
-        /// 获得/设置 是否显示关闭按钮
+        /// 获得/设置 是否显示关闭按钮 默认为 true
         /// </summary>
         public bool ShowCloseButton { get; set; } = true;
 
@@ -49,7 +49,7 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FooterTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否保持弹窗内组件状态 默认为不保持
+        /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
         /// </summary>
         public bool KeepChildrenState { get; set; }
 

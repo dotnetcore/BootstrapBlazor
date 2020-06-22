@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null) await JSRuntime.InvokeVoidAsync("$.type", TypeElement);
+            if (firstRender && JSRuntime != null) await JSRuntime.InvokeVoidAsync("$.indexTyper", TypeElement);
         }
     }
 }

@@ -27,9 +27,27 @@
     </div>
 </Block>
 
-<Block Title="分页显示" Introduction="设置 <code>IsPagination</code> 显示分页组件" CodeFile="listview.2.html">
+<Block Title="分页显示" Introduction="设置 <code>Pageable</code> 显示分页组件" CodeFile="listview.2.html">
     <div class="listview-demo">
         <ListView TItem="Product" Pageable="true" OnQueryAsync="@OnQueryAsync">
+            <HeaderTemplate>
+                <div>产品列表</div>
+            </HeaderTemplate>
+            <BodyTemplate>
+                <Card>
+                    <CardBody>
+                        <img src="@context.ImageUrl" />
+                        <div class="listview-demo-desc">@context.Description</div>
+                    </CardBody>
+                </Card>
+            </BodyTemplate>
+        </ListView>
+    </div>
+</Block>
+
+<Block Title="分组显示" Introduction="设置 <code>GroupName</code> 数据进行分组显示" CodeFile="listview.3.html">
+    <div class="listview-demo">
+        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync">
             <HeaderTemplate>
                 <div>产品列表</div>
             </HeaderTemplate>

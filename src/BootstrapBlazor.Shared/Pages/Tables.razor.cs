@@ -51,6 +51,34 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "TableFooter",
+                Description = "Table Footer 模板",
+                Type = "RenderFragment",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "TableToolbarTemplate",
+                Description = "自定义按钮模板",
+                Type = "RenderFragment",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "EditTemplate",
+                Description = "编辑弹窗模板",
+                Type = "RenderFragment<TItem?>",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "SearchTemplate",
+                Description = "高级搜索模板",
+                Type = "RenderFragment<TItem>",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "IsBordered",
                 Description = "边框",
                 Type = "boolean",
@@ -93,13 +121,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "—"
             },
             new AttributeItem() {
-                Name = "RowTemplate",
-                Description = "RowTemplate 实例",
-                Type = "RenderFragment<TItem>",
-                ValueList = "—",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
                 Name = "ShowCheckbox",
                 Description = "选择列",
                 Type = "boolean",
@@ -132,13 +153,6 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "显示 Toolbar",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "TableFooter",
-                Description = "TableFooter 实例",
-                Type = "RenderFragment<TItem>",
-                ValueList = "—",
                 DefaultValue = " — "
             },
             new AttributeItem() {

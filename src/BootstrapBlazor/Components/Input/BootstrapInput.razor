@@ -4,7 +4,7 @@
 
 @if (ShowLabel)
 {
-    @if (ValueExpression != null && DisplayText != null)
+    @if (ValueExpression != null || DisplayText != null)
     {
         <label class="control-label" for="@Id">@DisplayText</label>
     }

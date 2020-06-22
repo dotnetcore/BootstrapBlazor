@@ -114,6 +114,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ButtonStyle",
+                Description = "按钮风格",
+                Type = "ButtonStyle",
+                ValueList = "None / Circle / Round",
+                DefaultValue = "None"
             }
         };
 

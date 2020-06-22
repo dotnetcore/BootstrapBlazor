@@ -1,0 +1,12 @@
+﻿<Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" Items="@Items" OnSearch="@OnSearch"></Search>
+
+@code {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="searchText"></param>
+    private Task OnSearch(string searchText)
+    {
+        return Task.CompletedTask;
+    }
+}

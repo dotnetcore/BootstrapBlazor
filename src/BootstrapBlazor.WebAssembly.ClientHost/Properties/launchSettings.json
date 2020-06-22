@@ -1,4 +1,5 @@
 {
+  "useWebAssemblyDebugging": true,
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,

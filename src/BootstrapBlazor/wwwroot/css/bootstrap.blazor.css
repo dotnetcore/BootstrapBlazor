@@ -96,6 +96,16 @@ a {
     margin-left: 4px;
 }
 
+.btn.is-circle {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+}
+
+.btn.is-round {
+    border-radius: 20px;
+}
+
 /*select*/
 .form-select .dropdown-menu {
     margin-top: 10px;
@@ -4368,6 +4378,23 @@ a {
         .listview .listview-body .listview-item {
             margin: 0 1rem 1rem 0;
         }
+
+        .listview .listview-body .listview-item-group {
+            flex-basis: 100%;
+            margin: 1rem 0;
+            font-weight: bold;
+            position: relative;
+        }
+
+            .listview .listview-body .listview-item-group:after {
+                content: "";
+                position: absolute;
+                top: calc(-50%);
+                left: -1rem;
+                right: 0;
+                background-color: rgba(0,0,0,.1);
+                height: calc(200%);
+            }
 
     .listview .listview-footer {
         padding: 1rem;

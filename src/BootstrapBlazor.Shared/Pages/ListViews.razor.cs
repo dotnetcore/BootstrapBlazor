@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,7 +24,8 @@ namespace BootstrapBlazor.Shared.Pages
             Products = Enumerable.Range(1, 100).Select(i => new Product()
             {
                 ImageUrl = $"https://imgs.sdgxgz.com/images/Pic{i}.jpg",
-                Description = $"Pic{i}.jpg"
+                Description = $"Pic{i}.jpg",
+                Category = $"Group{(i % 4) + 1}"
             });
         }
 
@@ -123,5 +125,10 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         public string Description { get; set; } = "";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Category { get; set; } = "";
     }
 }

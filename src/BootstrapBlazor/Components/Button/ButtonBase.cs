@@ -19,6 +19,8 @@ namespace BootstrapBlazor.Components
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass("btn-block", IsBlock)
             .AddClass("disabled", IsDisabled)
+            .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
+            .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -33,14 +35,9 @@ namespace BootstrapBlazor.Components
         protected string? Tab => IsDisabled ? "-1" : null;
 
         /// <summary>
-        /// 获得 EditContext 实例
+        /// 按钮风格枚举
         /// </summary>
-        [CascadingParameter] protected EditContext? EditContext { get; set; }
-
-        /// <summary>
-        /// 获得 ValidateFormBase 实例
-        /// </summary>
-        [CascadingParameter] public ValidateFormBase? EditForm { get; set; }
+        [Parameter] public ButtonStyle ButtonStyle { get; set; }
 
         /// <summary>
         /// OnClick 事件
@@ -93,6 +90,16 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 RenderFragment 实例
         /// </summary>
         [Parameter] public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
+        /// 获得 EditContext 实例
+        /// </summary>
+        [CascadingParameter] protected EditContext? EditContext { get; set; }
+
+        /// <summary>
+        /// 获得 ValidateFormBase 实例
+        /// </summary>
+        [CascadingParameter] public ValidateFormBase? EditForm { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
