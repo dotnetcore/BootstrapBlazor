@@ -106,6 +106,15 @@ a {
     border-radius: 20px;
 }
 
+/*grid*/
+@media (min-width: 576px) {
+    .form-inline .control-label {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+}
+/*end grid*/
+
 /*select*/
 .form-select .dropdown-menu {
     margin-top: 10px;
