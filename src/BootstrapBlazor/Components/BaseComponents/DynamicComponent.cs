@@ -53,7 +53,7 @@ namespace BootstrapBlazor.Components
         /// 创建组件实例并渲染
         /// </summary>
         /// <returns></returns>
-        public RenderFragment Render() => builder =>
+        public RenderFragment<object> Render() => context => builder =>
         {
             var index = 0;
             builder.OpenComponent(index++, ComponentType);

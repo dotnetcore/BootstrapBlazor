@@ -1,0 +1,14 @@
+﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="false"
+       OnQueryAsync="@OnQueryAsync">
+    <TableToolbarTemplate>
+        <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
+    </TableToolbarTemplate>
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
+        <TableColumn @bind-Field="@context.Name" Sortable="true" />
+        <TableColumn @bind-Field="@context.Address" Sortable="true" />
+    </TableColumns>
+</Table>
