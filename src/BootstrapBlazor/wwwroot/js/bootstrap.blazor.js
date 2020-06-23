@@ -1515,6 +1515,13 @@
             else {
                 $el.addClass('is-phone');
             }
+        },
+        markdown: function (el) {
+            var id = $.getUID();
+            $(el).attr('id', id);
+            var editor = editormd(id, {
+                path: "/lib/"
+            });
         }
     });
 
