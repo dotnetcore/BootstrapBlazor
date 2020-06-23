@@ -192,6 +192,42 @@
     </Table>
 </Block>
 
+<Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制" CodeFile="table.14.html">
+    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true"
+           ShowExtendButtons="true" ExtendButtonColumnWidth="240"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="150" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" Width="100" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+        </TableColumns>
+        <RowButtonTemplate>
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+                <i class='fa fa-edit'></i>
+                <span>明细</span>
+            </TableCellButton>
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+                <i class='fa fa-edit'></i>
+                <span>编辑</span>
+            </TableCellButton>
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+                <i class='fa fa-edit'></i>
+                <span>权限</span>
+            </TableCellButton>
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+                <i class='fa fa-edit'></i>
+                <span>审批</span>
+            </TableCellButton>
+        </RowButtonTemplate>
+    </Table>
+</Block>
+
 <Toast></Toast>
 
 <PopoverConfirm></PopoverConfirm>

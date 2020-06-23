@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// 转化为带单位的字符串 [% px] => [% px] [int] => [int]px
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>

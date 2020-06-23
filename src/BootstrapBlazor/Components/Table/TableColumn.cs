@@ -35,6 +35,12 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 列宽 默认为 auto
+        /// </summary>
+        [Parameter]
+        public int Width { get; set; }
+
+        /// <summary>
         /// 获得/设置 模板
         /// </summary>
         [Parameter]

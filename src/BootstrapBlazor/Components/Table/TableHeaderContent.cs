@@ -9,28 +9,28 @@ namespace BootstrapBlazor.Components
     public class TableHeaderContent : ComponentBase
     {
         /// <summary>
-        /// 获得/设置 Table Header 实例
-        /// </summary>
-        [CascadingParameter]
-        protected TableColumnCollection? Columns { get; set; }
-
-        /// <summary>
         /// 获得/设置 升序图标
         /// </summary>
         [Parameter]
-        public string SortIconAsc { get; set; } = "fa fa-sort-asc";
+        public string? SortIconAsc { get; set; }
 
         /// <summary>
         /// 获得/设置 降序图标
         /// </summary>
         [Parameter]
-        public string SortIconDesc { get; set; } = "fa fa-sort-desc";
+        public string? SortIconDesc { get; set; }
 
         /// <summary>
         /// 获得/设置 默认图标
         /// </summary>
         [Parameter]
-        public string SortDefault { get; set; } = "fa fa-sort";
+        public string? SortIcon { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Table Header 实例
+        /// </summary>
+        [CascadingParameter]
+        protected TableColumnCollection? Columns { get; set; }
 
         private string sortName = "";
         private SortOrder sortOrder;
@@ -83,7 +83,7 @@ namespace BootstrapBlazor.Components
                         {
                             SortOrder.Asc => SortIconAsc,
                             SortOrder.Desc => SortIconDesc,
-                            _ => SortDefault
+                            _ => SortIcon
                         };
                         builder.AddAttribute(index++, "class", icon);
                         builder.CloseElement(); // end i

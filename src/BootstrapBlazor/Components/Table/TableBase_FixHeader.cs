@@ -14,13 +14,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 样式表集合
-        /// </summary>
-        protected string? StyleName => CssBuilder.Default()
-            .AddClass("width:100%", IsAutoColumnWidth)
-            .Build();
-
-        /// <summary>
         /// 获得/设置 TableWrapper 引用
         /// </summary>
         /// <value></value>

@@ -31,6 +31,11 @@ namespace BootstrapBlazor.Components
         bool Sortable { get; set; }
 
         /// <summary>
+        /// 获得/设置 列宽
+        /// </summary>
+        int Width { get; set; }
+
+        /// <summary>
         /// 获得/设置 模板
         /// </summary>
         RenderFragment<object>? Template { get; set; }

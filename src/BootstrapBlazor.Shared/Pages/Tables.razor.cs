@@ -79,6 +79,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "RowButtonTemplate",
+                Description = "Table 行按钮模板",
+                Type = "RenderFragment<TItem>",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "IsBordered",
                 Description = "边框",
                 Type = "boolean",
@@ -156,10 +163,31 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "ShowDefaultButtons",
+                Description = "显示默认按钮 增加编辑删除",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowExtendButtons",
+                Description = "显示行操作按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ExtendButtonColumnWidth",
+                Description = "行操作按钮列宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "130"
+            },
+            new AttributeItem() {
                 Name = "OnQueryAsync",
                 Description = "异步查询回调方法",
                 Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -173,21 +201,21 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnSaveAsync",
                 Description = "保存按钮异步回调方法",
                 Type = "Func<TItem, Task>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnDeleteAsync",
                 Description = "删除按钮异步回调方法",
                 Type = "Func<IEnumerable<TItem>, Task<bool>>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnResetSearchAsync",
                 Description = "重置搜索按钮异步回调方法",
                 Type = "Func<TItem, Task>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -196,6 +224,27 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "Func<string, SortOrder, Task>",
                 ValueList = "—",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "SortIcon",
+                Description = "排序默认图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-sort"
+            },
+            new AttributeItem() {
+                Name = "SortIconAsc",
+                Description = "排序升序图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-sort-asc"
+            },
+            new AttributeItem() {
+                Name = "SortIconDesc",
+                Description = "排序降序图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-sort-desc"
             }
         };
 

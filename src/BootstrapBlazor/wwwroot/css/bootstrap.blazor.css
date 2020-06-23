@@ -892,9 +892,13 @@ a {
 /*end pagination*/
 
 /*table*/
-.table-wrapper.table-bordered {
-    border-radius: 4px;
+.table-wrapper {
+    overflow: auto;
 }
+
+    .table-wrapper.table-bordered {
+        border-radius: 4px;
+    }
 
 .table-bordered th, .table-bordered td {
     border: 1px solid #dee2e6;
@@ -936,6 +940,7 @@ a {
         overflow: hidden;
         vertical-align: middle;
         border-bottom: none;
+        white-space: nowrap;
     }
 
         .table thead th .table-cell {

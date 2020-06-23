@@ -70,9 +70,9 @@ namespace BootstrapBlazor.Components
         [Parameter] public RenderFragment<TItem?>? EditTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 EditTemplate 实例
+        /// 获得/设置 RowButtonTemplate 实例
         /// </summary>
-        [Parameter] public RenderFragment<TItem?>? RowButtonTemplate { get; set; }
+        [Parameter] public RenderFragment<TItem>? RowButtonTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 EditModel 实例
