@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -23,6 +24,28 @@ namespace BootstrapBlazor.Components
             await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender && JSRuntime != null) await JSRuntime.Invoke(MarkdownElement, "markdown");
+        }
+
+        /// <summary>
+        /// 获得 Markdown 编辑器源码
+        /// </summary>
+        /// <returns></returns>
+        public async ValueTask<string> GetMarkdownString()
+        {
+            var ret = "";
+            if (JSRuntime != null) ret = await JSRuntime.InvokeAsync<string>(MarkdownElement, "markdown", "getMarkdown");
+            return ret;
+        }
+
+        /// <summary>
+        /// 获得 Markdown 编辑器 HTML 源码
+        /// </summary>
+        /// <returns></returns>
+        public async ValueTask<string> GetMarkdownHtmlString()
+        {
+            var ret = "";
+            if (JSRuntime != null) ret = await JSRuntime.InvokeAsync<string>(MarkdownElement, "markdown", "getHTML");
+            return ret;
         }
     }
 }
