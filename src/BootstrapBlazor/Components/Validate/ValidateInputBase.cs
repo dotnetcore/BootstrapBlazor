@@ -217,9 +217,23 @@ namespace BootstrapBlazor.Components
 
                 try
                 {
-                    result = (TItem)Convert.ChangeType(value, typeof(TItem));
-                    validationErrorMessage = null;
-                    return true;
+                    var t = typeof(TItem);
+                    if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        var ft = t.GetGenericArguments().FirstOrDefault();
+                        if (ft != null)
+                        {
+                            result = (TItem)Convert.ChangeType(value, ft);
+                            validationErrorMessage = null;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        result = (TItem)Convert.ChangeType(value, typeof(TItem));
+                        validationErrorMessage = null;
+                        return true;
+                    }
                 }
                 catch (Exception ex)
                 {
