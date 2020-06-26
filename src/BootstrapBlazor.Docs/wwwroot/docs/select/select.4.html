@@ -15,19 +15,22 @@
     /// <param name="item"></param>
     protected void OnCascadeBindSelectClick(SelectedItem item)
     {
-        var items = item.Value switch
+        _item2.Clear();
+        if (item.Value == "Beijing")
         {
-            "Beijing" => new SelectedItem[] { 
-                new SelectedItem("Value1", "朝阳区"), 
-                new SelectedItem("Value2", "海淀区") { Active = true } 
-            },
-            "Shanghai" => new SelectedItem[] { 
-                new SelectedItem("Value3", "浦东新区") { Active = true }, 
-                new SelectedItem("Value4", "静安区") 
-            },
-            _ => new SelectedItem[0]
-        };
-
-        if (SubSelect != null) SubSelect.SetItems(items);
+            _item2.AddRange(new SelectedItem[]
+            {
+                new SelectedItem("1","朝阳区"),
+                new SelectedItem("2","海淀区"),
+            });
+        }
+        else if (item.Value == "Shanghai")
+        {
+            _item2.AddRange(new SelectedItem[]
+            {
+                new SelectedItem("1","静安区"),
+                new SelectedItem("2","黄浦区"),
+            });
+        }
     }
 }

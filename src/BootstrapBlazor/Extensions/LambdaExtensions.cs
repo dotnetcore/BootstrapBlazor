@@ -103,5 +103,37 @@ namespace System.Linq
             var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
             return Expression.Call(left, method, right);
         }
+
+        private delegate TResult FuncEx<T1, TOut, TResult>(T1 str, out TOut outValue);
+
+        /// <summary>
+        /// 尝试使用 TryParse 进行数据转换
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static bool TryParse<TItem>(this string source, out TItem v)
+        {
+            bool ret = false;
+            var t = typeof(TItem);
+            var p1 = Expression.Parameter(typeof(string));
+            var p2 = Expression.Parameter(typeof(TItem).MakeByRefType());
+            var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
+            TItem outValue = default;
+#nullable disable
+            if (method != null)
+            {
+                var tryParseLambda = Expression.Lambda<FuncEx<string, TItem, bool>>(Expression.Call(method, p1, p2), p1, p2);
+                if (tryParseLambda.Compile().Invoke(source, out outValue))
+                {
+                    v = outValue;
+                    ret = true;
+                }
+            }
+            v = outValue;
+#nullable restore
+            return ret;
+        }
     }
 }
