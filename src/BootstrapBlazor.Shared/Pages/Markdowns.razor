@@ -1,0 +1,48 @@
+﻿@page "/markdowns"
+
+<h3>Markdown 编辑器</h3>
+
+<h4>提供 Markdown 语法支持的文本编辑器</h4>
+
+<Alert ShowBar="true" Color="Color.Info">Markdown 组件是网友封装 editor.md 提交 PR 而来，使用本组件时，需要手动拷贝相关依赖文件到项目文件夹中，相关文档请查看 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Markdown%20%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3?sort_id=2368826" target="_blank">[传送门]</a></Alert>
+
+<Block Title="普通用法" Introduction="" CodeFile="markdown.1.html">
+    <p>输入 Markdown 相关代码后，点击下方相关按钮查看数据</p>
+    <div style="width: 100%; height: 300px;">
+        <Markdown @ref="MarkdownElement" />
+    </div>
+    <div class="mt-3">
+        <div class="btn-group">
+            <Button Text="Markdown 源码" OnClick="@GetMarkdownString"></Button>
+            <Button Text="HTML 源码" OnClick="@GetHTMLString"></Button>
+        </div>
+    </div>
+    <div class="mt-3">
+        <textarea class="form-control" rows="6" disabled="disabled">
+            @MarkdownString
+        </textarea>
+    </div>
+    <div class="mt-3">
+        <textarea class="form-control" rows="6" disabled="disabled">
+            @HtmlString        
+        </textarea>
+    </div>
+</Block>
+
+@code {
+    private string? MarkdownString { get; set; }
+
+    private string? HtmlString { get; set; }
+
+    private MarkdownBase? MarkdownElement { get; set; }
+
+    private async Task GetMarkdownString()
+    {
+        if (MarkdownElement != null) MarkdownString = await MarkdownElement.GetMarkdownString();
+    }
+
+    private async Task GetHTMLString()
+    {
+        if (MarkdownElement != null) HtmlString = await MarkdownElement.GetMarkdownHtmlString();
+    }
+}

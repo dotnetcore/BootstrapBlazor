@@ -1,4 +1,7 @@
-﻿namespace BootstrapBlazor.Components
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 查询条件实体类
@@ -24,6 +27,11 @@
         /// 获得/设置 排序方式
         /// </summary>
         public SortOrder SortOrder { get; set; }
+
+        /// <summary>
+        /// 获得/设置 过滤条件集合
+        /// </summary>
+        public IEnumerable<FilterKeyValueAction> Filters { get; set; } = Enumerable.Empty<FilterKeyValueAction>();
 
         /// <summary>
         /// 获得/设置 当前页码 首页为 第一页

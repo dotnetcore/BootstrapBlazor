@@ -14,13 +14,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 样式表集合
-        /// </summary>
-        protected string? StyleName => CssBuilder.Default()
-            .AddClass("width:100%", IsAutoColumnWidth)
-            .Build();
-
-        /// <summary>
         /// 获得/设置 TableWrapper 引用
         /// </summary>
         /// <value></value>
@@ -39,10 +32,10 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && Height.HasValue && JSRuntime != null)
+            if (firstRender && JSRuntime != null)
             {
                 // 固定表头脚本关联
-                await JSRuntime.Invoke(TableWrapper, "fixTableHeader");
+                await JSRuntime.Invoke(TableWrapper, "table", Height.HasValue ? "fixTableHeader" : "init");
             }
         }
     }

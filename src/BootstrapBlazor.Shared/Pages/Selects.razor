@@ -114,6 +114,18 @@
     </div>
 </Block>
 
+<Block Title="绑定泛型为 Guid 结构" Introduction="组件绑定值为 Guid 结构体示例" CodeFile="select.7.html">
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <Select TItem="Guid" Color="Color.Primary" Items="@GuidItems" @bind-Value="@CurrentGuid">
+            </Select>
+        </div>
+        <div class="form-group col-12 col-sm-9">
+            <div class="form-control">@CurrentGuid</div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

@@ -3,16 +3,16 @@
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-ride="carousel">
     <ol class="carousel-indicators">
-        @for(var index = 0; index < Images.Count(); index++)
+        @for (var index = 0; index < Images.Count(); index++)
         {
             <li data-slide-to="@index" class="@CheckActive(index)" data-target="@TargetId"></li>
         }
     </ol>
     <div class="carousel-inner">
-        @for(var index = 0; index < Images.Count(); index++)
+        @for (var index = 0; index < Images.Count(); index++)
         {
             <div class="@CheckActive(index, "carousel-item")">
-                <img src="@Images.ElementAt(index)" class="d-block">
+                <CarouselImage ImageUrl="@Images.ElementAt(index)" OnClick="@OnClick"></CarouselImage>
             </div>
         }
     </div>

@@ -1099,13 +1099,62 @@
             var $el = $(el);
             $el.modal(method);
         },
-        fixTableHeader: function (el) {
+        bb_filter: function (el, obj, method) {
+            $(el).data('bb_filter', { obj: obj, method: method });
+        },
+        table: function (el, method) {
             var $ele = $(el);
-            var $thead = $ele.find('thead');
-            $ele.on('scroll', function () {
-                var top = $ele.scrollTop();
-                $thead.css({ 'transform': 'translateY(' + top + 'px)' });
-            });
+            if (method === 'fixTableHeader') {
+                var $thead = $ele.find('thead');
+                var $wrapper = $ele.find('.table-wrapper');
+                $wrapper.on('scroll', function () {
+                    var top = $wrapper.scrollTop();
+                    $thead.css({ 'transform': 'translateY(' + top + 'px)' });
+                });
+            }
+            else if (method === 'init') {
+                // sort
+                var $tooltip = $ele.find('.table-cell.is-sort .table-text');
+                var tooltipTitle = { unset: "点击升序", sortAsc: "点击降序", sortDesc: "取消排序" };
+                $tooltip.tooltip({
+                    container: 'body',
+                    title: tooltipTitle.unset
+                });
+                $tooltip.on('click', function () {
+                    var $this = $(this);
+                    var $fa = $this.parent().find('.fa:last');
+                    var sortOrder = 'sortAsc';
+                    if ($fa.hasClass('fa-sort-asc')) sortOrder = "sortDesc";
+                    else if ($fa.hasClass('fa-sort-desc')) sortOrder = "unset";
+                    var $tooltip = $('#' + $this.attr('aria-describedby'));
+                    if ($tooltip.length > 0) {
+                        var $tooltipBody = $tooltip.find(".tooltip-inner");
+                        $tooltipBody.html(tooltipTitle[sortOrder]);
+                        $this.attr('data-original-title', tooltipTitle[sortOrder]);
+                    }
+                });
+
+                // filter
+                var $filters = $ele.find('.filterable .fa-filter');
+                $.each($filters, function (index) {
+                    // position
+                    var position = $(this).position();
+                    var field = $(this).attr('data-field');
+                    var $body = $ele.find('.table-filter-item[data-field="' + field + '"]');
+                    var th = $(this).closest('th');
+                    var left = th.outerWidth() + th.position().left - $body.outerWidth() / 2;
+                    var marginRight = 0;
+                    if (th.hasClass('sortable')) marginRight = 24;
+                    if (th.hasClass('filterable')) marginRight = marginRight + 12;
+
+                    // 判断是否越界
+                    var margin = th.offset().left + th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
+                    if(margin > 0) {
+                        left = left - margin - 16;
+                    }
+                    $body.css({ "top": position.top + 50, "left": left - marginRight });
+                });
+            }
         },
         timePicker: function (el) {
             return $(el).find('.time-spinner-item').height();
@@ -1335,7 +1384,7 @@
                 parent = '[' + el.getAttributeNames().pop() + ']';
             }
 
-            $.each($el.find('.collapse-item'), function () {
+            $.each($el.children('.card').children('.collapse-item'), function () {
                 var $item = $(this);
                 var id = $item.attr('id');
                 if (!id) {
@@ -1515,6 +1564,27 @@
             else {
                 $el.addClass('is-phone');
             }
+        },
+        markdown: function (el, method) {
+            var key = 'bb_editor';
+            var $el = $(el);
+            if (method) {
+                var editor = $el.data(key);
+                if (editor) {
+                    var result = editor[method]();
+                    console.log(result);
+                    return result;
+                }
+            }
+            else {
+                var id = $.getUID();
+                $el.attr('id', id);
+                var editor = editormd(id, {
+                    saveHTMLToTextarea: true,
+                    path: "/lib/"
+                });
+                $el.data(key, editor);
+            }
         }
     });
 
@@ -1548,6 +1618,7 @@
             // hide popover
             var hide = true;
             var $el = $(e.target);
+
             // 判断是否点击 popover 内部
             var $confirm = findConfirmButton($el);
             if ($confirm != null) hide = false;
@@ -1576,6 +1647,26 @@
                         if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
                     }
                 }
+            }
+
+            // table filter
+            // 处理 Filter 中的 DateTimePicker 点击
+            var $target = $(e.target);
+            var $pd = $target.closest('.popover-datetime');
+            if ($pd.length == 1) {
+                var pid = $pd.attr('id');
+                var $el = $('[aria-describedby="' + pid + '"]');
+                if ($el.hasClass('is-filter')) {
+                    return;
+                }
+            }
+
+            var $filter = $target.closest('.table-filter-item');
+            if ($filter.length == 0) {
+                $('.table-filter-item.show').each(function (index) {
+                    var filter = $(this).data('bb_filter');
+                    filter.obj.invokeMethodAsync(filter.method);
+                })
             }
         });
 

@@ -158,6 +158,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "富文本框 Markdown",
+                Url = "markdowns"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "单选框 Radio",
                 Url = "radios"
             });

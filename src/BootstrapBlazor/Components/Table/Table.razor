@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits TableBase<TItem>
 
-<div class="table-container">
+<div class="table-container" @ref="TableWrapper">
     <div class="table-toolbar">
         @if (ShowToolbar)
         {
@@ -49,10 +49,29 @@
             </div>
         }
     </div>
-    <div class="@WrapperClassName" style="@WrapperStyleName" @ref="TableWrapper">
-        <table class="@ClassName" style="@StyleName">
-            <TableColumnCollection OnSortAsync="@OnSortAsync">
+
+    <TableColumnCollection OnSortAsync="@OnSortAsync" OnFilterAsync="@OnFilterAsync">
+        <div class="@WrapperClassName" style="@WrapperStyleName">
+            <table class="@ClassName">
                 @TableColumns?.Invoke(HeaderModel)
+                <colgroup>
+                    @if (ShowCheckbox)
+                    {
+                        @if (ShowCheckboxText)
+                        {
+                            <col width="80" />
+                        }
+                        else
+                        {
+                            <col width="36" />
+                        }
+                    }
+                    <TableColumnContent />
+                    @if (ShowExtendButtons)
+                    {
+                        <col width="@ExtendButtonColumnWidth" />
+                    }
+                </colgroup>
                 <tbody>
                     @if (Items != null)
                     {
@@ -73,11 +92,14 @@
                                     <td>
                                         <div class="table-cell">
                                             <div class="btn-group">
-                                                <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e=> ClickButton(e))">
-                                                    <i class='fa fa-edit'></i>
-                                                    <span>编辑</span>
-                                                </TableCellButton>
-                                                <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
+                                                @if (ShowDefaultButtons)
+                                                {
+                                                    <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e => ClickButton(e))">
+                                                        <i class='fa fa-edit'></i>
+                                                        <span>编辑</span>
+                                                    </TableCellButton>
+                                                    <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
+                                                }
                                                 @RowButtonTemplate?.Invoke(Items.ElementAt(index))
                                             </div>
                                         </div>
@@ -97,7 +119,7 @@
                                 </div>
                             </th>
                         }
-                        <TableHeaderContent />
+                        <TableHeaderContent SortIcon="@SortIcon" SortIconAsc="@SortIconAsc" SortIconDesc="@SortIconDesc" />
                         @if (ShowExtendButtons)
                         {
                             <th class="@ButtonColumnClass">
@@ -108,21 +130,27 @@
                         }
                     </tr>
                 </thead>
-            </TableColumnCollection>
-            @if (ShowFooter)
-            {
-                <tfoot>
-                    <tr>@TableFooter</tr>
-                </tfoot>
-            }
-        </table>
-    </div>
-    @if (TotalCount > 0 && IsPagination)
-    {
-        <div class="table-pagination">
-            <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                @if (ShowFooter)
+                {
+                    <tfoot>
+                        <tr>@TableFooter</tr>
+                    </tfoot>
+                }
+            </table>
         </div>
-    }
+
+        @if (TotalCount > 0 && IsPagination)
+        {
+            <div class="table-pagination">
+                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+            </div>
+        }
+
+        <div class="table-filter">
+            <TableFilterContent />
+        </div>
+
+    </TableColumnCollection>
 
     @if (OnSaveAsync != null || OnAddAsync != null)
     {

@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        public void Show(TOption option)
+        public virtual void Show(TOption option)
         {
             Subscribes.ForEach(async callback => await callback.Invoke(option));
         }

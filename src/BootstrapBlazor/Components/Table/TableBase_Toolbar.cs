@@ -32,6 +32,12 @@ namespace BootstrapBlazor.Components
         public bool ShowExtendButtons { get; set; }
 
         /// <summary>
+        /// 获得/设置 行内操作列宽度 默认为 130
+        /// </summary>
+        [Parameter]
+        public int ExtendButtonColumnWidth { get; set; } = 130;
+
+        /// <summary>
         /// 获得/设置 是否显示刷新按钮 默认为 true
         /// </summary>
         [Parameter]

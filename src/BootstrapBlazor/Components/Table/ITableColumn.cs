@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
@@ -29,6 +30,21 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否允许排序 默认为 false
         /// </summary>
         bool Sortable { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否允许过滤数据 默认为 false
+        /// </summary>
+        bool Filterable { get; set; }
+
+        /// <summary>
+        /// 获得/设置 列宽
+        /// </summary>
+        int Width { get; set; }
+
+        /// <summary>
+        /// 获得/设置 绑定列类型
+        /// </summary>
+        Type? FieldType { get; set; }
 
         /// <summary>
         /// 获得/设置 模板

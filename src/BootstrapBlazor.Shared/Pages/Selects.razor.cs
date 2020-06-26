@@ -1,6 +1,7 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -42,6 +43,14 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("Shijiazhuang", "石家庄") { GroupName = "华中"},
             new SelectedItem ("Shanghai", "上海") {GroupName = "华东", Active = true },
             new SelectedItem ("Ningbo", "宁波") {GroupName = "华东", Active = true }
+        };
+
+        private Guid CurrentGuid { get; set; }
+
+        private readonly IEnumerable<SelectedItem> GuidItems = new SelectedItem[]
+        {
+            new SelectedItem(Guid.NewGuid().ToString(), "Guid1"),
+            new SelectedItem(Guid.NewGuid().ToString(), "Guid2")
         };
 
         /// <summary>

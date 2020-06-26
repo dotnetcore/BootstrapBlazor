@@ -16,6 +16,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected virtual string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
@@ -99,26 +100,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
-            base.OnInitialized();
+            base.OnParametersSet();
 
             // 设置数据集合后 SelectedItem 设置默认值
-            if (SelectedItem == null)
-            {
-                SelectedItem = Items?.FirstOrDefault(i => i.Active);
-            }
-        }
-
-        /// <summary>
-        /// SetParametersAsync
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters);
-
             if (SelectedItem == null || !(Items?.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text) ?? false))
             {
                 var item = Items?.FirstOrDefault(i => i.Active);

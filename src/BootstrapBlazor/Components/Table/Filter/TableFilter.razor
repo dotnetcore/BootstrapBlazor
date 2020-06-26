@@ -1,0 +1,23 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TableFilterBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" data-field="@FieldKey" @ref="@FilterElement">
+    <div class="card-arrow"></div>
+    <div class="card-header"><span>@HeaderText</span></div>
+    <div class="card-body">
+        <CascadingValue Value="this" IsFixed="true">
+            @BodyTemplate
+        </CascadingValue>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex flex-fill">
+            @if (ShowMoreButton)
+            {
+                <Button Color="@Color.None" OnClick="@OnClickPlus" Icon="fa fa-fw fa-plus" IsDisabled="@(Count == 1)"></Button>
+                <Button Color="@Color.None" OnClick="@OnClickMinus" Icon="fa fa-fw fa-minus" IsDisabled="@(Count == 0)"></Button>
+            }
+        </div>
+        <Button Color="@Color.None" class="is-close" OnClick="@OnClickReset" Text="重置"></Button>
+        <Button Color="@Color.None" class="is-close" OnClick="@OnClickConfirm" Text="确认"></Button>
+    </div>
+</div>

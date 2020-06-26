@@ -1,0 +1,67 @@
+﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+       OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="150" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+            <Template Context="item">
+                <Checkbox TItem="bool" Value="@(((BindItem)item).Complete)" IsDisabled="true"></Checkbox>
+            </Template>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />
+    </TableColumns>
+</Table>
+
+@code {
+    private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
+    {
+        var items = Items;
+        if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
+        if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
+        if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
+                || (item.Address?.Contains(options.SearchText) ?? false)).ToList();
+
+        // 排序
+        if (options.SortOrder != SortOrder.Unset)
+        {
+            var sortName = options.SortName;
+            if (string.IsNullOrEmpty(sortName)) sortName = nameof(BindItem.Name);
+            items = sortName switch
+            {
+                nameof(BindItem.Address) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Address).ToList() : items.OrderByDescending(i => i.Address).ToList(),
+                nameof(BindItem.DateTime) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.DateTime).ToList() : items.OrderByDescending(i => i.DateTime).ToList(),
+                nameof(BindItem.Count) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Count).ToList() : items.OrderByDescending(i => i.Count).ToList(),
+                nameof(BindItem.Complete) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Complete).ToList() : items.OrderByDescending(i => i.Complete).ToList(),
+                _ => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Name).ToList() : items.OrderByDescending(i => i.Name).ToList()
+            };
+        }
+
+        // 过滤
+        var isFiltered = false;
+        if (options.Filters.Any())
+        {
+            items = items.Where(options.Filters.GetFilterFunc<BindItem>()).ToList();
+
+            // 通知内部已经过滤数据
+            isFiltered = true;
+        }
+
+        // 设置记录总数
+        var total = items.Count();
+
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<BindItem>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsFiltered = isFiltered,
+            IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
+        });
+    }
+}

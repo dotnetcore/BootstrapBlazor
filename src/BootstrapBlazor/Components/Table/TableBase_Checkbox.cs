@@ -102,7 +102,7 @@ namespace BootstrapBlazor.Components
 
             if (Items != null && HeaderCheckbox != null)
             {
-                var headerCheckboxState = SelectedItems.Count == 0
+                var headerCheckboxState = SelectedItems.Count == 0 && Items.Count() > 0
                     ? CheckboxState.UnChecked
                     : (SelectedItems.Count == Items.Count() ? CheckboxState.Checked : CheckboxState.Mixed);
                 await HeaderCheckbox.SetState(headerCheckboxState);

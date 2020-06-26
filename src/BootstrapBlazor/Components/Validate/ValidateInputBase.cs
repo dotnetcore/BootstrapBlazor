@@ -172,13 +172,14 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override bool TryParseValueFromString(string value, out TItem result, out string? validationErrorMessage)
         {
-            if (typeof(TItem) == typeof(string))
+            var t = typeof(TItem);
+            if (t == typeof(string))
             {
                 result = (TItem)(object)value;
                 validationErrorMessage = null;
                 return true;
             }
-            else if (typeof(TItem).IsEnum)
+            else if (t.IsEnum)
             {
                 var success = BindConverter.TryConvertTo<TItem>(value, CultureInfo.CurrentCulture, out var parsedValue);
                 if (success)
@@ -204,7 +205,7 @@ namespace BootstrapBlazor.Components
                     }
                 }
             }
-            else if (typeof(TItem).IsValueType)
+            else if (t.IsValueType)
             {
                 if (string.IsNullOrEmpty(value))
                 {
@@ -217,9 +218,31 @@ namespace BootstrapBlazor.Components
 
                 try
                 {
-                    result = (TItem)Convert.ChangeType(value, typeof(TItem));
-                    validationErrorMessage = null;
-                    return true;
+                    if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        var ft = t.GetGenericArguments().FirstOrDefault();
+                        if (ft != null)
+                        {
+                            result = (TItem)Convert.ChangeType(value, ft);
+                            validationErrorMessage = null;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        if (value.TryParse<TItem>(out var v))
+                        {
+                            result = v;
+                            validationErrorMessage = null;
+                            return true;
+                        }
+                        else
+                        {
+                            result = (TItem)Convert.ChangeType(value, typeof(TItem));
+                            validationErrorMessage = null;
+                            return true;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {

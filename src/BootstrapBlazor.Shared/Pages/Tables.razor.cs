@@ -79,6 +79,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "RowButtonTemplate",
+                Description = "Table 行按钮模板",
+                Type = "RenderFragment<TItem>",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "IsBordered",
                 Description = "边框",
                 Type = "boolean",
@@ -156,10 +163,31 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "ShowDefaultButtons",
+                Description = "显示默认按钮 增加编辑删除",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowExtendButtons",
+                Description = "显示行操作按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ExtendButtonColumnWidth",
+                Description = "行操作按钮列宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "130"
+            },
+            new AttributeItem() {
                 Name = "OnQueryAsync",
                 Description = "异步查询回调方法",
                 Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -173,21 +201,21 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnSaveAsync",
                 Description = "保存按钮异步回调方法",
                 Type = "Func<TItem, Task>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnDeleteAsync",
                 Description = "删除按钮异步回调方法",
                 Type = "Func<IEnumerable<TItem>, Task<bool>>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnResetSearchAsync",
                 Description = "重置搜索按钮异步回调方法",
                 Type = "Func<TItem, Task>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -196,6 +224,27 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "Func<string, SortOrder, Task>",
                 ValueList = "—",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "SortIcon",
+                Description = "排序默认图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-sort"
+            },
+            new AttributeItem() {
+                Name = "SortIconAsc",
+                Description = "排序升序图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-sort-asc"
+            },
+            new AttributeItem() {
+                Name = "SortIconDesc",
+                Description = "排序降序图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-sort-desc"
             }
         };
 
@@ -246,18 +295,33 @@ namespace BootstrapBlazor.Shared.Pages
             if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
                  || (item.Address?.Contains(options.SearchText) ?? false)).ToList();
 
+            // 排序
+            if (options.SortOrder != SortOrder.Unset)
+            {
+                var sortName = options.SortName;
+                if (string.IsNullOrEmpty(sortName)) sortName = nameof(BindItem.Name);
+                items = sortName switch
+                {
+                    nameof(BindItem.Address) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Address).ToList() : items.OrderByDescending(i => i.Address).ToList(),
+                    nameof(BindItem.DateTime) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.DateTime).ToList() : items.OrderByDescending(i => i.DateTime).ToList(),
+                    nameof(BindItem.Count) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Count).ToList() : items.OrderByDescending(i => i.Count).ToList(),
+                    nameof(BindItem.Complete) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Complete).ToList() : items.OrderByDescending(i => i.Complete).ToList(),
+                    _ => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Name).ToList() : items.OrderByDescending(i => i.Name).ToList()
+                };
+            }
+
+            // 过滤
+            var isFiltered = false;
+            if (options.Filters.Any())
+            {
+                items = items.Where(options.Filters.GetFilterFunc<BindItem>()).ToList();
+
+                // 通知内部已经过滤数据了
+                isFiltered = true;
+            }
+
             // 设置记录总数
             var total = items.Count();
-
-            // 排序
-            var sortName = options.SortName;
-            if (string.IsNullOrEmpty(sortName)) sortName = nameof(BindItem.Name);
-            items = sortName switch
-            {
-                nameof(BindItem.Address) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Address).ToList() : items.OrderByDescending(i => i.Address).ToList(),
-                nameof(BindItem.DateTime) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.DateTime).ToList() : items.OrderByDescending(i => i.DateTime).ToList(),
-                _ => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Name).ToList() : items.OrderByDescending(i => i.Name).ToList()
-            };
 
             // 内存分页
             items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
@@ -266,7 +330,8 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Items = items,
                 TotalCount = total,
-                IsFiltered = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
+                IsFiltered = isFiltered,
+                IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
             });
         }
 

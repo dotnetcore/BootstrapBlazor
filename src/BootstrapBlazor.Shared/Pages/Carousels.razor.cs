@@ -1,5 +1,7 @@
 ﻿using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -8,12 +10,28 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Carousels
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private Logger? Trace { get; set; }
+
         private IEnumerable<string> Images => new List<string>()
         {
             "_content/BootstrapBlazor.Shared/images/Pic0.jpg",
             "_content/BootstrapBlazor.Shared/images/Pic1.jpg",
             "_content/BootstrapBlazor.Shared/images/Pic2.jpg"
         };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="imageUrl"></param>
+        /// <returns></returns>
+        private Task OnClick(string imageUrl)
+        {
+            Trace?.Log($"Image Clicked: {imageUrl}");
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// 获得属性方法
@@ -43,6 +61,13 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = " — ",
                 DefaultValue = "—"
             },
+            new AttributeItem() {
+                Name = "OnClick",
+                Description = "点击图片回调委托",
+                Type = "Func<string, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
         };
     }
 }

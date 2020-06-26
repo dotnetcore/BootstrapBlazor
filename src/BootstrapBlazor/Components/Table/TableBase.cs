@@ -15,14 +15,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 wrapper 样式表集合
         /// </summary>
-        protected string? WrapperClassName => CssBuilder.Default(IsAutoColumnWidth ? "table-responsive" : "table-wrapper")
+        protected string? WrapperClassName => CssBuilder.Default("table-wrapper")
             .AddClass("table-bordered", IsBordered)
             .Build();
 
         /// <summary>
         /// 获得 class 样式表集合
         /// </summary>
-        protected string? ClassName => CssBuilder.Default(IsAutoColumnWidth ? "text-nowrap" : "table")
+        protected string? ClassName => CssBuilder.Default("table")
             .AddClass("table-striped", IsStriped)
             .AddClass("table-hover", IsStriped)
             .AddClass("table-fixed", Height.HasValue)
@@ -61,18 +61,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否斑马线样式
         /// </summary>
-        [Parameter] public bool IsStriped { get; set; }
+        [Parameter]
+        public bool IsStriped { get; set; }
 
         /// <summary>
         /// 获得/设置 是否带边框样式
         /// </summary>
-        [Parameter] public bool IsBordered { get; set; }
-
-        /// <summary>
-        /// 设置列自动宽度.
-        /// </summary>
-        /// <value><c>true</c> if this instance is automatic column width; otherwise, <c>false</c>.</value>
-        [Parameter] public bool IsAutoColumnWidth { get; set; }
+        [Parameter]
+        public bool IsBordered { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -97,11 +93,18 @@ namespace BootstrapBlazor.Components
             }
 
             // 设置 OnSort 回调方法
-            OnSortAsync = new Func<string, SortOrder, Task>(async (sortName, sortOrder) =>
+            OnSortAsync = async (sortName, sortOrder) =>
             {
                 (SortName, SortOrder) = (sortName, sortOrder);
                 await QueryAsync();
-            });
+            };
+
+            OnFilterAsync = async filters =>
+            {
+                Filters.Clear();
+                Filters.AddRange(filters);
+                await QueryAsync();
+            };
 
             // 如果未设置 Items 数据源 自动执行查询方法
             if (Items == null)
