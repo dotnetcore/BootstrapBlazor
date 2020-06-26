@@ -120,20 +120,6 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
-                    Name = "ModalBody",
-                    Description = "ModalBody 代码块",
-                    Type = "RenderFragment",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem() {
-                    Name = "ModalFooter",
-                    Description = "Footer 代码块",
-                    Type = "RenderFragment",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem() {
                     Name = "ShowCloseButton",
                     Description = "是否显示关闭按钮",
                     Type = "boolean",

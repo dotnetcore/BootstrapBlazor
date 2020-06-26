@@ -64,9 +64,7 @@ namespace BootstrapBlazor.Components
             if (ModalDialog != null)
             {
                 option.Modal = ModalContainer;
-
                 var parameters = option.ToAttributes().ToList();
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyContext), option.BodyContext));
 
                 if (option.BodyTemplate != null)
                 {
@@ -74,7 +72,7 @@ namespace BootstrapBlazor.Components
                 }
                 else if (option.Component != null)
                 {
-                    option.BodyTemplate = option.Component.Render<object>();
+                    option.BodyTemplate = option.Component.Render();
                     parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
                 }
 
@@ -91,8 +89,7 @@ namespace BootstrapBlazor.Components
                         await Task.Delay(500);
                         await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
                         {
-                            [nameof(ModalDialogBase.BodyContext)] = option.BodyContext,
-                            [nameof(ModalDialogBase.BodyTemplate)] = new RenderFragment<object>(context => builder => builder.AddContent(0, ""))
+                            [nameof(ModalDialogBase.BodyTemplate)] = new RenderFragment(builder => builder.AddContent(0, ""))
                         }));
                     }
                 })));
