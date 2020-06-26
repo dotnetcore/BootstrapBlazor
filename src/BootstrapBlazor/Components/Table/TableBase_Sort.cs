@@ -4,17 +4,20 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class TableBase<TItem>
     {
         /// <summary>
         /// 获得/设置 排序字段名称
         /// </summary>
-        public string? SortName { get; set; }
+        protected string? SortName { get; set; }
 
         /// <summary>
         /// 获得/设置 排序方式
         /// </summary>
-        public SortOrder SortOrder { get; set; }
+        protected SortOrder SortOrder { get; set; }
 
         /// <summary>
         /// 获得/设置 升序图标
@@ -37,6 +40,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 表头排序时回调方法
         /// </summary>
-        protected Func<string, SortOrder, Task> OnSortAsync { get; set; } = new Func<string, SortOrder, Task>((sortName, sortOrder) => Task.CompletedTask);
+        protected Func<string, SortOrder, Task> OnSortAsync { get; set; } = (sortName, sortOrder) => Task.CompletedTask;
     }
 }

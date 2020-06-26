@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits TableBase<TItem>
 
-<div class="table-container">
+<div class="table-container" @ref="TableWrapper">
     <div class="table-toolbar">
         @if (ShowToolbar)
         {
@@ -49,9 +49,10 @@
             </div>
         }
     </div>
-    <div class="@WrapperClassName" style="@WrapperStyleName" @ref="TableWrapper">
-        <table class="@ClassName">
-            <TableColumnCollection OnSortAsync="@OnSortAsync">
+
+    <TableColumnCollection OnSortAsync="@OnSortAsync" OnFilterAsync="@OnFilterAsync">
+        <div class="@WrapperClassName" style="@WrapperStyleName">
+            <table class="@ClassName">
                 @TableColumns?.Invoke(HeaderModel)
                 <colgroup>
                     @if (ShowCheckbox)
@@ -129,21 +130,27 @@
                         }
                     </tr>
                 </thead>
-            </TableColumnCollection>
-            @if (ShowFooter)
-            {
-                <tfoot>
-                    <tr>@TableFooter</tr>
-                </tfoot>
-            }
-        </table>
-    </div>
-    @if (TotalCount > 0 && IsPagination)
-    {
-        <div class="table-pagination">
-            <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                @if (ShowFooter)
+                {
+                    <tfoot>
+                        <tr>@TableFooter</tr>
+                    </tfoot>
+                }
+            </table>
         </div>
-    }
+
+        @if (TotalCount > 0 && IsPagination)
+        {
+            <div class="table-pagination">
+                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+            </div>
+        }
+
+        <div class="table-filter">
+            <TableFilterContent />
+        </div>
+
+    </TableColumnCollection>
 
     @if (OnSaveAsync != null || OnAddAsync != null)
     {

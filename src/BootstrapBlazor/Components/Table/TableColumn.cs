@@ -11,6 +11,11 @@ namespace BootstrapBlazor.Components
     public class TableColumn : BootstrapComponentBase, ITableColumn
     {
         /// <summary>
+        /// 获得/设置 绑定列类型
+        /// </summary>
+        public Type? FieldType { get; set; }
+
+        /// <summary>
         /// 获得/设置 数据绑定字段值
         /// </summary>
         [Parameter]
@@ -27,6 +32,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool Sortable { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否可过滤数据 默认 false
+        /// </summary>
+        [Parameter]
+        public bool Filterable { get; set; }
 
         /// <summary>
         /// 获得/设置 表头显示文字
@@ -59,6 +70,7 @@ namespace BootstrapBlazor.Components
         {
             Columns?.Columns.Add(this);
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+            if (Field != null) FieldType = Field.GetType();
         }
 
         private FieldIdentifier? _fieldIdentifier;

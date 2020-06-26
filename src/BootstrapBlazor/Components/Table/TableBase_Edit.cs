@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -104,7 +105,8 @@ namespace BootstrapBlazor.Components
                     PageItems = PageItems,
                     SearchText = SearchText,
                     SortOrder = SortOrder,
-                    SortName = SortName
+                    SortName = SortName,
+                    Filters = Filters
                 });
             }
             if (queryData != null)
@@ -112,6 +114,12 @@ namespace BootstrapBlazor.Components
                 Items = queryData.Items;
                 TotalCount = queryData.TotalCount;
                 IsFiltered = queryData.IsFiltered;
+                IsSearch = queryData.IsSearch;
+
+                if (!IsFiltered)
+                {
+                    Items = Items.Where(Filters.GetFilterFunc<TItem>());
+                }
             }
         }
 

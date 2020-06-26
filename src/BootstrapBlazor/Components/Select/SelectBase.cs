@@ -16,6 +16,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected virtual string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

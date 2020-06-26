@@ -295,18 +295,33 @@ namespace BootstrapBlazor.Shared.Pages
             if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
                  || (item.Address?.Contains(options.SearchText) ?? false)).ToList();
 
+            // 排序
+            if (options.SortOrder != SortOrder.Unset)
+            {
+                var sortName = options.SortName;
+                if (string.IsNullOrEmpty(sortName)) sortName = nameof(BindItem.Name);
+                items = sortName switch
+                {
+                    nameof(BindItem.Address) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Address).ToList() : items.OrderByDescending(i => i.Address).ToList(),
+                    nameof(BindItem.DateTime) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.DateTime).ToList() : items.OrderByDescending(i => i.DateTime).ToList(),
+                    nameof(BindItem.Count) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Count).ToList() : items.OrderByDescending(i => i.Count).ToList(),
+                    nameof(BindItem.Complete) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Complete).ToList() : items.OrderByDescending(i => i.Complete).ToList(),
+                    _ => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Name).ToList() : items.OrderByDescending(i => i.Name).ToList()
+                };
+            }
+
+            // 过滤
+            var isFiltered = false;
+            if (options.Filters.Any())
+            {
+                items = items.Where(options.Filters.GetFilterFunc<BindItem>()).ToList();
+
+                // 通知内部已经过滤数据了
+                isFiltered = true;
+            }
+
             // 设置记录总数
             var total = items.Count();
-
-            // 排序
-            var sortName = options.SortName;
-            if (string.IsNullOrEmpty(sortName)) sortName = nameof(BindItem.Name);
-            items = sortName switch
-            {
-                nameof(BindItem.Address) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Address).ToList() : items.OrderByDescending(i => i.Address).ToList(),
-                nameof(BindItem.DateTime) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.DateTime).ToList() : items.OrderByDescending(i => i.DateTime).ToList(),
-                _ => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Name).ToList() : items.OrderByDescending(i => i.Name).ToList()
-            };
 
             // 内存分页
             items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
@@ -315,7 +330,8 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Items = items,
                 TotalCount = total,
-                IsFiltered = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
+                IsFiltered = isFiltered,
+                IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
             });
         }
 

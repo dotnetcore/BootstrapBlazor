@@ -892,6 +892,10 @@ a {
 /*end pagination*/
 
 /*table*/
+.table-container {
+    position: relative;
+}
+
 .table-wrapper {
     overflow: auto;
 }
@@ -943,9 +947,71 @@ a {
         white-space: nowrap;
     }
 
+        .table thead th.sortable:hover,
+        .table thead th.filterable:hover {
+            background-color: #e9ecef;
+        }
+
+            .table thead th.sortable:hover .fa {
+                color: #999;
+            }
+
         .table thead th .table-cell {
             border-bottom: solid 2px #dee2e6;
             justify-content: space-between;
+            position: relative;
+        }
+
+            .table thead th .table-cell .table-text {
+                flex: 1;
+            }
+
+            .table thead th .table-cell .fa {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ddd;
+            }
+
+                .table thead th .table-cell .fa:hover {
+                    background-color: #ddd;
+                    color: #606266;
+                }
+
+            .table thead th .table-cell .fa-filter {
+                cursor: pointer;
+            }
+
+                .table thead th .table-cell .fa-filter.active {
+                    color: #409eff;
+                }
+
+        .table thead th.sortable .fa-sort-asc,
+        .table thead th.sortable .fa-sort-desc {
+            color: inherit;
+        }
+
+        .table thead th.sortable .table-cell .table-text,
+        .table thead th.filterable .table-cell .table-text {
+            padding-right: 1rem;
+        }
+
+        .table thead th.filterable .table-cell .fa-filter {
+            right: 0;
+        }
+
+        .table thead th.sortable.filterable .table-cell .fa-filter {
+            right: 1.5rem;
+        }
+
+        .table thead th.sortable.filterable .table-cell .table-text {
+            padding-right: 3rem;
         }
 
     .table tbody td {
@@ -978,6 +1044,100 @@ a {
     .table-cell .btn-group .btn {
         white-space: nowrap;
     }
+
+.table-filter {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+    .table-filter .table-filter-item {
+        min-width: 220px;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.125);
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.125);
+        position: absolute;
+        display: none;
+    }
+
+        .table-filter .table-filter-item.show {
+            display: block;
+        }
+
+    .table-filter .card-header {
+        padding: 0.5rem 1rem;
+    }
+
+    .table-filter .card-arrow {
+        position: absolute;
+        display: block;
+        width: 1rem;
+        height: .5rem;
+        margin: 0;
+        top: calc((.5rem + 1px) * -1);
+        left: calc(50% - 0.5rem);
+    }
+
+        .table-filter .card-arrow:before,
+        .table-filter .card-arrow:after {
+            position: absolute;
+            display: block;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+
+        .table-filter .card-arrow:before {
+            border-bottom-color: #ced4da;
+            top: 0;
+            border-width: 0 .5rem .5rem .5rem;
+        }
+
+        .table-filter .card-arrow:after {
+            top: 1px;
+            border-width: 0 .5rem .5rem .5rem;
+            border-bottom-color: #f7f7f7;
+        }
+
+    .table-filter .card-body {
+        padding: 1rem;
+    }
+
+        .table-filter .card-body .is-condition {
+            max-width: 10rem;
+        }
+
+        .table-filter .card-body > *:not(:first-child) {
+            margin-top: 0.5rem;
+        }
+
+    .table-filter .card-footer {
+        padding: 0.5rem;
+        display: flex;
+        white-space: nowrap;
+    }
+
+        .table-filter .card-footer .btn:not(:first-child) {
+            margin-left: 0.5rem;
+        }
+
+        .table-filter .card-footer .btn {
+            padding: 7px 15px;
+            font-size: 0.875rem;
+            border-radius: 3px;
+            line-height: 12px;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            transition: border-color .3s linear, color .3s linear;
+        }
+
+            .table-filter .card-footer .btn:not(.is-disabled):not(:disabled):hover {
+                border-color: #409eff;
+                color: #409eff;
+            }
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #fafafa;
@@ -1486,7 +1646,6 @@ a {
     height: 36px;
     line-height: 25px;
     text-align: right;
-    box-sizing: border-box;
 }
 
 .time-panel-btn {

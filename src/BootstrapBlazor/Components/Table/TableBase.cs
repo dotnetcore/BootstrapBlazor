@@ -61,12 +61,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否斑马线样式
         /// </summary>
-        [Parameter] public bool IsStriped { get; set; }
+        [Parameter]
+        public bool IsStriped { get; set; }
 
         /// <summary>
         /// 获得/设置 是否带边框样式
         /// </summary>
-        [Parameter] public bool IsBordered { get; set; }
+        [Parameter]
+        public bool IsBordered { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -91,11 +93,18 @@ namespace BootstrapBlazor.Components
             }
 
             // 设置 OnSort 回调方法
-            OnSortAsync = new Func<string, SortOrder, Task>(async (sortName, sortOrder) =>
+            OnSortAsync = async (sortName, sortOrder) =>
             {
                 (SortName, SortOrder) = (sortName, sortOrder);
                 await QueryAsync();
-            });
+            };
+
+            OnFilterAsync = async filters =>
+            {
+                Filters.Clear();
+                Filters.AddRange(filters);
+                await QueryAsync();
+            };
 
             // 如果未设置 Items 数据源 自动执行查询方法
             if (Items == null)

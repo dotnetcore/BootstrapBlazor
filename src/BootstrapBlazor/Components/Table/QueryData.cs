@@ -21,6 +21,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 数据是否被过滤 默认为 false 未被过滤
         /// </summary>
+        /// <remarks>组件内部通过此属性判断，如果外部未进行数据过滤，内部将进行数据过滤操作</remarks>
         public bool IsFiltered { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据是否为搜索模式 默认为 false
+        /// </summary>
+        /// <remarks>设置本属性为 true 时，Table 组件的高级搜索按钮改变颜色</remarks>
+        public bool IsSearch { get; set; }
     }
 }
