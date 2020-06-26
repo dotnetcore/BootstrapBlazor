@@ -15,6 +15,16 @@ namespace BootstrapBlazor.Components
         public IEnumerable<TreeItem> Items => _items;
 
         /// <summary>
+        /// 获得/设置 TreeItem 标识
+        /// </summary>
+        public object? Key { get; set; }
+
+        /// <summary>
+        /// 获得/设置 TreeItem 相关额外信息
+        /// </summary>
+        public object? Tag { get; set; }
+
+        /// <summary>
         /// 获得/设置 显示文字
         /// </summary>
         public string? Text { get; set; }

@@ -160,6 +160,13 @@ namespace BootstrapBlazor.Shared.Pages
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
+                Name = nameof(TreeItem.Key),
+                Description = "TreeItem 标识",
+                Type = "object?",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "Items",
                 Description = "子节点数据源",
                 Type = "IEnumerable<TreeItem>",
@@ -193,7 +200,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
-            }
+            },
+            new AttributeItem() {
+                Name = nameof(TreeItem.Tag),
+                Description = "TreeItem 附加数据",
+                Type = "object?",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
         };
     }
 }
