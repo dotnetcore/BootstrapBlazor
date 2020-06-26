@@ -1384,7 +1384,7 @@
                 parent = '[' + el.getAttributeNames().pop() + ']';
             }
 
-            $.each($el.find('.collapse-item'), function () {
+            $.each($el.children('.card').children('.collapse-item'), function () {
                 var $item = $(this);
                 var id = $item.attr('id');
                 if (!id) {
