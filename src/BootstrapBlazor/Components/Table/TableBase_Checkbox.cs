@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components
         protected CheckboxState HeaderCheckState()
         {
             var ret = CheckboxState.Mixed;
-            if (SelectedItems.Count == PageItems || (Items != null && SelectedItems.Count == Items.Count())) ret = CheckboxState.Checked;
+            if (SelectedItems.Count == PageItems || (Items != null && SelectedItems.Count == Items.Count() && Items.Count() > 0)) ret = CheckboxState.Checked;
             else if (SelectedItems.Count == 0) ret = CheckboxState.UnChecked;
             return ret;
         }
