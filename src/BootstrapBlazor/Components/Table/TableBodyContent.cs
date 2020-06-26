@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -50,6 +51,6 @@ namespace BootstrapBlazor.Components
             }
         });
 
-        private string GetItemValue(string filedName) => Item?.GetValueByFieldName(filedName) ?? "";
+        private string GetItemValue(string filedName) => Item?.GetPropertyValue<TItem, object>(filedName)?.ToString() ?? "";
     }
 }

@@ -1,10 +1,6 @@
 ﻿using BootstrapBlazor.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace System.Linq
 {
@@ -134,6 +130,34 @@ namespace System.Linq
             v = outValue;
 #nullable restore
             return ret;
+        }
+
+        /// <summary>
+        /// 通过属性名称获取其实例值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static TResult GetPropertyValue<T, TResult>(this T t, string name)
+        {
+#nullable disable
+            TResult ret = default;
+            if (t != null)
+            {
+                var type = t.GetType();
+                var p = type.GetProperty(name);
+                if (p != null)
+                {
+                    var param_obj = Expression.Parameter(type);
+                    var body = Expression.Property(param_obj, p);
+                    var getValue = Expression.Lambda<Func<T, TResult>>(Expression.Convert(body, typeof(TResult)), param_obj).Compile();
+                    ret = getValue(t);
+                }
+            }
+            return ret;
+#nullable restore
         }
     }
 }
