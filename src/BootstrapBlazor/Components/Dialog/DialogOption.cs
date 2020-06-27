@@ -44,6 +44,11 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 相关连数据，多用于传值使用
+        /// </summary>
+        public object? BodyContext { get; set; }
+
+        /// <summary>
         /// 获得/设置 ModalBody 组件
         /// </summary>
         public RenderFragment? BodyTemplate { get; set; }
@@ -77,6 +82,7 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(IsScrolling), IsScrolling),
                 new KeyValuePair<string, object>(nameof(ShowCloseButton), ShowCloseButton),
                 new KeyValuePair<string, object>(nameof(ShowFooter), ShowFooter),
+                new KeyValuePair<string, object>(nameof(BodyContext), BodyContext ?? ""),
             };
         }
     }

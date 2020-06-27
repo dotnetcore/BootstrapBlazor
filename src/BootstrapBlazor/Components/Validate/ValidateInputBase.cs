@@ -79,10 +79,14 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            if (FieldIdentifier != null && DisplayText == null)
+            {
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
+            }
+
             if (EditForm != null && FieldIdentifier != null)
             {
                 EditForm.AddValidator((EditForm, FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
-                if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
         }
 

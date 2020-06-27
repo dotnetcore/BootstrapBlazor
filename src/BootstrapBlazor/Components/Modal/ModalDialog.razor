@@ -9,21 +9,23 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            @BodyTemplate
-        </div>
-        @if (ShowFooter)
-        {
-            <div class="modal-footer">
-                @if (ShowCloseButton)
-                {
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@OnClose">
-                        <i class="fa fa-times"></i>
-                        <span>关闭</span>
-                    </button>
-                }
-                @FooterTemplate
+        <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
+            <div class="modal-body">
+                @BodyTemplate
             </div>
-        }
+            @if (ShowFooter)
+            {
+                <div class="modal-footer">
+                    @if (ShowCloseButton)
+                    {
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@OnClose">
+                            <i class="fa fa-times"></i>
+                            <span>关闭</span>
+                        </button>
+                    }
+                    @FooterTemplate
+                </div>
+            }
+        </CascadingValue>
     </div>
 </div>

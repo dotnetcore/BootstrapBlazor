@@ -102,6 +102,7 @@ namespace System.Linq
 
         private delegate TResult FuncEx<T1, TOut, TResult>(T1 str, out TOut outValue);
 
+#nullable disable
         /// <summary>
         /// 尝试使用 TryParse 进行数据转换
         /// </summary>
@@ -117,7 +118,6 @@ namespace System.Linq
             var p2 = Expression.Parameter(typeof(TItem).MakeByRefType());
             var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
             TItem outValue = default;
-#nullable disable
             if (method != null)
             {
                 var tryParseLambda = Expression.Lambda<FuncEx<string, TItem, bool>>(Expression.Call(method, p1, p2), p1, p2);
@@ -128,7 +128,6 @@ namespace System.Linq
                 }
             }
             v = outValue;
-#nullable restore
             return ret;
         }
 
@@ -142,7 +141,6 @@ namespace System.Linq
         /// <returns></returns>
         public static TResult GetPropertyValue<T, TResult>(this T t, string name)
         {
-#nullable disable
             TResult ret = default;
             if (t != null)
             {
@@ -157,7 +155,35 @@ namespace System.Linq
                 }
             }
             return ret;
-#nullable restore
         }
+
+        /// <summary>
+        /// 根据属性名称设置属性的值
+        /// </summary>
+        /// <typeparam name="TModel">对象类型</typeparam>
+        /// <param name="t">对象</param>
+        /// <param name="name">属性名</param>
+        /// <param name="value">属性的值</param>
+        public static void SetPropertyValue<TModel>(this TModel t, string name, object value)
+        {
+            var type = t.GetType();
+            var p = type.GetProperty(name);
+            if (p != null)
+            {
+                var param_obj = Expression.Parameter(type);
+                var param_val = Expression.Parameter(typeof(object));
+                var body_val = Expression.Convert(param_val, p.PropertyType);
+
+                //获取设置属性的值的方法
+                var mi = p.GetSetMethod(true);
+                if (mi != null)
+                {
+                    var body = Expression.Call(param_obj, mi, body_val);
+                    var setValue = Expression.Lambda<Action<TModel, object>>(body, param_obj, param_val).Compile();
+                    setValue(t, value);
+                }
+            }
+        }
+#nullable restore
     }
 }

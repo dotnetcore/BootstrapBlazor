@@ -61,6 +61,12 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 弹窗内容相关数据 多用于传值
+        /// </summary>
+        [Parameter]
+        public object? BodyContext { get; set; }
+
+        /// <summary>
         /// 获得/设置 ModalBody 组件
         /// </summary>
         [Parameter]
