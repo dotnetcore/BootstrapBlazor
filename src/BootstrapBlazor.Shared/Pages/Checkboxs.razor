@@ -61,7 +61,7 @@
                 <Checkbox TItem="bool" DisplayText="双向绑定" @bind-Value="@BindValue" OnStateChanged="@OnItemChanged"></Checkbox>
             </div>
             <div class="form-group col-12">
-                <BootstrapInput TItem="bool" @bind-Value="@BindValue" disabled></BootstrapInput>
+                <BootstrapInput TItem="bool" @bind-Value="@BindValue" ShowLabel="false" disabled></BootstrapInput>
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
                 <Checkbox TItem="string" DisplayText="双向绑定" @bind-Value="@BindString" OnStateChanged="@OnItemChangedString"></Checkbox>
             </div>
             <div class="form-group col-12">
-                <BootstrapInput TItem="string" @bind-Value="@BindString" disabled></BootstrapInput>
+                <BootstrapInput TItem="string" @bind-Value="@BindString" ShowLabel="false" disabled></BootstrapInput>
             </div>
         </div>
     </div>
