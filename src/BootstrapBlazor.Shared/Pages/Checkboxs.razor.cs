@@ -80,6 +80,13 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = "—"
                 },
                 new AttributeItem(){
+                    Name = "ShowDisplayText",
+                    Description = "是否显示文字",
+                    Type = "boolean",
+                    ValueList = "true|false",
+                    DefaultValue = "true"
+                },
+                new AttributeItem(){
                     Name = "IsDisabled",
                     Description = "是否禁用",
                     Type = "boolean",

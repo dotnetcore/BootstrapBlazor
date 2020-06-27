@@ -6,7 +6,7 @@
     <span class="checkbox-input">
         <span class="checkbox-inner"></span>
     </span>
-    @if (!string.IsNullOrEmpty(DisplayText))
+    @if (ShowDisplayText && !string.IsNullOrEmpty(DisplayText))
     {
         <span class="checkbox-label">@DisplayText</span>
     }
