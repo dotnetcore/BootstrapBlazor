@@ -94,19 +94,10 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnStateChanged(CheckboxState state, TreeItem item)
         {
-            // 级联操作
-            CascadeCheck(item.Items, item.Checked);
+            // 向下级联操作
+            item.CascadeSetCheck(item.Checked);
 
             if (OnTreeItemChecked != null) await OnTreeItemChecked.Invoke(item);
-        }
-
-        private void CascadeCheck(IEnumerable<TreeItem> items, bool isChecked)
-        {
-            foreach (var item in items)
-            {
-                item.Checked = isChecked;
-                CascadeCheck(item.Items, item.Checked);
-            }
         }
     }
 }

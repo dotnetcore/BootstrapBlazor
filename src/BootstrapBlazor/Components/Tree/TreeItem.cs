@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -8,6 +9,11 @@ namespace BootstrapBlazor.Components
     public class TreeItem
     {
         private readonly List<TreeItem> _items = new List<TreeItem>(20);
+
+        /// <summary>
+        /// 获得 父级菜单
+        /// </summary>
+        private TreeItem? Parent { get; set; }
 
         /// <summary>
         /// 获得/设置 子节点数据源
@@ -49,6 +55,22 @@ namespace BootstrapBlazor.Components
         /// 添加 Menutem 方法 由 MenuItem 方法加载时调用
         /// </summary>
         /// <param name="item">Menutem 实例</param>
-        public void AddItem(TreeItem item) => _items.Add(item);
+        public void AddItem(TreeItem item)
+        {
+            item.Parent = this;
+            _items.Add(item);
+        }
+
+        /// <summary>
+        /// 级联设置复选状态
+        /// </summary>
+        public void CascadeSetCheck(bool isChecked)
+        {
+            foreach (var item in Items)
+            {
+                item.Checked = isChecked;
+                if (item.Items.Any()) item.CascadeSetCheck(isChecked);
+            }
+        }
     }
 }
