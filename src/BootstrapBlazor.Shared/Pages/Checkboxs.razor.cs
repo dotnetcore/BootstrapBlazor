@@ -72,19 +72,19 @@ namespace BootstrapBlazor.Shared.Pages
         {
             return new AttributeItem[]
             {
-                new AttributeItem(){
-                    Name = "DisplayText",
-                    Description = "显示文字",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = "—"
-                },
-                new AttributeItem(){
-                    Name = "ShowDisplayText",
-                    Description = "是否显示文字",
-                    Type = "boolean",
+                new AttributeItem() {
+                    Name = "ShowLabel",
+                    Description = "是否显示前置标签",
+                    Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "true"
+                },
+                new AttributeItem() {
+                    Name = "DisplayText",
+                    Description = "前置标签显示文本",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 },
                 new AttributeItem(){
                     Name = "IsDisabled",

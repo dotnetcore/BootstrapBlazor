@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -40,7 +39,7 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         protected virtual string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-            .AddClass("active", () => item.Value == SelectedItem?.Value)
+            .AddClass("active", () => item.Value == CurrentValueAsString)
             .Build();
 
         /// <summary>
@@ -75,6 +74,11 @@ namespace BootstrapBlazor.Components
         protected string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
 
         /// <summary>
+        /// 获得 当前选项显示文本
+        /// </summary>
+        protected string CurrentTextAsString => SelectedItem?.Text ?? "";
+
+        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter] public Color Color { get; set; } = Color.None;
@@ -104,6 +108,12 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
+            // 双向绑定其他组件更改了数据源值时
+            if (Items != null && SelectedItem != null && SelectedItem.Value != CurrentValueAsString)
+            {
+                SelectedItem = Items.FirstOrDefault(i => i.Value == CurrentValueAsString);
+            }
+
             // 设置数据集合后 SelectedItem 设置默认值
             if (SelectedItem == null || !(Items?.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text) ?? false))
             {
@@ -112,7 +122,7 @@ namespace BootstrapBlazor.Components
                 if (item != null)
                 {
                     SelectedItem = item;
-                    if (Value != null && CurrentValueAsString != SelectedItem.Text)
+                    if (Value != null && CurrentValueAsString != SelectedItem.Value)
                     {
                         item = Items.FirstOrDefault(i => i.Text == CurrentValueAsString);
                         if (item != null) SelectedItem = item;
@@ -120,22 +130,6 @@ namespace BootstrapBlazor.Components
                     CurrentValueAsString = SelectedItem.Value;
                 }
             }
-        }
-
-        /// <summary>
-        /// FormatValueAsString 方法
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected override string? FormatValueAsString(TItem value)
-        {
-            string? ret = null;
-            if (value != null)
-            {
-                var val = value.ToString();
-                ret = Items?.FirstOrDefault(i => i.Value == val)?.Text;
-            }
-            return ret;
         }
 
         /// <summary>
@@ -151,6 +145,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnItemClick(SelectedItem item)
         {
+            if (SelectedItem != null) SelectedItem.Active = false;
             SelectedItem = item;
             SelectedItem.Active = true;
 

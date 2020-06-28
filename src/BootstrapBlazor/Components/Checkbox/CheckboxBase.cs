@@ -35,12 +35,6 @@ namespace BootstrapBlazor.Components
         protected string? Disabled => IsDisabled ? "true" : null;
 
         /// <summary>
-        /// 获得/设置 是否显示 DisplayText 文字 默认为 true 显示
-        /// </summary>
-        [Parameter]
-        public bool ShowDisplayText { get; set; } = true;
-
-        /// <summary>
         /// 获得/设置 是否禁用
         /// </summary>
         [Parameter]

@@ -11,6 +11,6 @@ namespace BootstrapBlazor.Shared.Common
         /// 
         /// </summary>
         [DisplayName("城市名称")]
-        public string Name { get; set; } = "上海";
+        public string Name { get; set; } = "Shanghai";
     }
 }

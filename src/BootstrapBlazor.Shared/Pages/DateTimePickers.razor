@@ -86,6 +86,17 @@
     </div>
 </Block>
 
+<Block Title="显示标签" Introduction="作为表单组件时，显示组件前方标签" CodeFile="datepicker.7.html">
+    <p>前置标签显式规则与 <code>Select</code> 组件一致 <a href="selects">[传送门]</a></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <DateTimePicker AllowNull="true" @bind-Value="@BindNullValue" DisplayText="选择时间" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

@@ -139,6 +139,20 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
+                Name = "ShowLabel",
+                Description = "是否显示前置标签",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "DisplayText",
+                Description = "前置标签显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "DateFormat",
                 Description = "日期格式字符串 默认为 yyyy-MM-dd",
                 Type = "string",

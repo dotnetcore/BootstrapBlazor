@@ -47,15 +47,15 @@
             </div>
             <Divider Text="占位" />
             <div class="form-group col-12">
-                <p>设置 <code>DisplayText</code> 值为 <code>string.Empty</code></p>
+                <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示</p>
             </div>
             <div class="form-group col-12">
-                <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" DisplayText="">
+                <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" ShowLabel="true">
                 </BootstrapInput>
             </div>
             <Divider Text="不占位" />
             <div class="form-group col-12">
-                <p>设置 <code>ShowLabel</code> 为 <code>false</code></p>
+                <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示</p>
             </div>
             <div class="form-group col-12">
                 <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" ShowLabel="false">
@@ -69,7 +69,6 @@
     <ValidateForm class="form-inline" Model="@Model">
         <div class="row">
             <div class="form-group col-12">
-                <label class="control-label">数据验证</label>
                 <BootstrapInput TItem="string" maxlength="5" placeholder="请输入 ..." @bind-Value="@Model.Name">
                     <RequiredValidator />
                     <StringLengthValidator Length="5" />
@@ -117,6 +116,13 @@
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "DisplayText",
+                Description = "前置标签显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
