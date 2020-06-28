@@ -1,12 +1,4 @@
-﻿html, body, button, .popover {
-    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-}
-
-a, a:hover {
-    text-decoration: none;
-}
-
-a, .btn-link {
+﻿a, .btn-link {
     color: #0366d6;
 }
 

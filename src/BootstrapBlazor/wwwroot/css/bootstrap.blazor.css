@@ -1,4 +1,8 @@
-﻿body, .form-control, .dropdown-menu,
+﻿html, body, button, .popover {
+    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+}
+
+body, .form-control, .dropdown-menu,
 .btn:not(.btn-xs):not(.btn-sm):not(.btn-md):not(.btn-lg):not(.btn-xl),
 .alert .close .fa-times, .toast .close,
 .input-group-text {
