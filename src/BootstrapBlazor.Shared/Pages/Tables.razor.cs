@@ -367,6 +367,8 @@ namespace BootstrapBlazor.Shared.Pages
                     var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
                     oldItem.Name = item.Name;
                     oldItem.Address = item.Address;
+                    oldItem.DateTime = item.DateTime;
+                    oldItem.Count = item.Count;
                 }
             }
             return Task.FromResult(true);
@@ -400,7 +402,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [DisplayName("日期")]
-        public DateTime DateTime { get; set; }
+        public DateTime? DateTime { get; set; }
 
         /// <summary>
         /// 

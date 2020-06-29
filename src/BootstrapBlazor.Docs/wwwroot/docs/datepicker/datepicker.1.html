@@ -1,1 +1,13 @@
 ﻿<DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" />
+
+@code {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="d"></param>
+    private Task DateValueChanged(DateTime d)
+    {
+        DateLogger?.Log($"选择的日期为: {d:yyyy-MM-dd}");
+        return Task.CompletedTask;
+    }
+}

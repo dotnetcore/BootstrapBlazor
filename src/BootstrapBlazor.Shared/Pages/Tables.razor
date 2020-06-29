@@ -141,6 +141,7 @@
             <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
             <TableColumn @bind-Field="@context.Name" Sortable="true" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
         </TableColumns>
         <EditTemplate>
             <div class="form-inline">
@@ -155,6 +156,16 @@
                         <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
                             <RequiredValidator />
                             <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <DateTimePicker @bind-Value="@context.DateTime">
+                            <RequiredValidator />
+                        </DateTimePicker>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Count">
+                            <RequiredValidator />
                         </BootstrapInput>
                     </div>
                 </div>
@@ -203,7 +214,7 @@
             <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
         </TableToolbarTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="150" />
+            <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="180" />
             <TableColumn @bind-Field="@context.Name" Sortable="true" Width="100" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" />
         </TableColumns>

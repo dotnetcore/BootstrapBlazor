@@ -21,12 +21,14 @@
         <div class="row">
             <div class="form-group col-12 col-sm-6">
                 <div class="d-flex flex-column">
+                    <div class="mb-1"><code>TimeSpan</code> 类型</div>
                     <TimePickerBody @bind-Value="@SpanValue" />
                     <BootstrapInput TItem="TimeSpan" @bind-Value="@SpanValue" Formatter="@FormatterSpanString" style="width: 180px; margin-top: 0.5rem;" />
                 </div>
             </div>
             <div class="form-group col-12 col-sm-6">
                 <div class="d-flex flex-column">
+                    <div class="mb-1"><code>string</code> 类型</div>
                     <TimePickerBody ValueChanged="@OnValueChange" />
                     <BootstrapInput TItem="string" @bind-Value="@SpanValue2" style="width: 180px; margin-top: 0.5rem;" />
                 </div>
@@ -63,7 +65,8 @@
     </div>
 </Block>
 
-<Block Title="带时间的选择器" Introduction="在同一个选择器里选择日期和时间" CodeFile="datepicker.5.html">
+<Block Title="带时间的选择器" Introduction="在同一个选择器里选择日期和时间，点击确认按钮后关闭弹窗" CodeFile="datepicker.5.html">
+    <p>设置 <code>ViewModel</code> 属性值为 <code>DatePickerViewModel.DateTime</code></p>
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-sm-4">
@@ -74,12 +77,13 @@
 </Block>
 
 <Block Title="允许空时间" Introduction="多用于条件选择" CodeFile="datepicker.6.html">
+    <p>设置 <code>AllowNull</code> 属性值为 <code>true</code></p>
     <div class="form-inline">
         <div class="row">
-            <div class="form-group col-sm-4">
+            <div class="form-group col-12 col-sm-8">
                 <DateTimePicker AllowNull="true" @bind-Value="@BindNullValue" />
             </div>
-            <div class="form-group col-sm-4">
+            <div class="form-group col-12 col-sm-4">
                 <div class="form-control">@GetNullValueString</div>
             </div>
         </div>
@@ -87,10 +91,11 @@
 </Block>
 
 <Block Title="显示标签" Introduction="作为表单组件时，显示组件前方标签" CodeFile="datepicker.7.html">
+    <p>设置 <code>DisplayText</code> 属性值为 <code>选择时间</code></p>
     <p>前置标签显式规则与 <code>Select</code> 组件一致 <a href="selects">[传送门]</a></p>
     <div class="form-inline">
         <div class="row">
-            <div class="form-group col-sm-4">
+            <div class="form-group col-12">
                 <DateTimePicker AllowNull="true" @bind-Value="@BindNullValue" DisplayText="选择时间" />
             </div>
         </div>

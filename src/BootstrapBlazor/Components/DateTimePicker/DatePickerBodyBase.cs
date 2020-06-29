@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
             {
                 if (CurrentDate == DateTime.MinValue)
                 {
-                    CurrentDate = DateTime.Now;
+                    CurrentDate = DateTime.Today;
                 }
 
                 var d = CurrentDate.AddDays(1 - CurrentDate.Day);
@@ -220,6 +220,13 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             CurrentViewModel = ViewModel;
+
+
+            // 计算开始与结束时间 每个组件显示 6 周数据
+            if (Value == DateTime.MinValue)
+            {
+                Value = DateTime.Today;
+            }
         }
 
         /// <summary>
@@ -414,24 +421,15 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 时间值 改变时触发此方法
-        /// </summary>
-        /// <param name="ts"></param>
-        protected void OnTimeValueChanged(TimeSpan ts)
-        {
-            CurrentTime = ts;
-            if (ValueChanged.HasDelegate)
-            {
-                ValueChanged.InvokeAsync(Value);
-            }
-        }
-
-        /// <summary>
         /// 点击 确认时调用此方法
         /// </summary>
         protected async Task ClickConfirmButton()
         {
             ShowTimePicker = false;
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
             if (OnConfirm != null)
             {
                 await OnConfirm.Invoke();
