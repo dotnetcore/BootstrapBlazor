@@ -88,6 +88,8 @@ namespace BootstrapBlazor.Components
         {
             Columns?.Columns.Add(this);
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+
+            // 获取模型属性定义类型
             FieldType = _fieldIdentifier.Value.Model.GetType().GetProperty(GetFieldName())?.PropertyType;
         }
 

@@ -71,7 +71,10 @@ namespace BootstrapBlazor.Components
                             return Task.CompletedTask;
                         }));
 
-                        switch (header.FieldType.Name)
+
+                        // 获得可为空具体类型
+                        var fieldType = Nullable.GetUnderlyingType(header.FieldType) ?? header.FieldType;
+                        switch (fieldType.Name)
                         {
                             case nameof(Boolean):
                                 builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderBoolFilter());

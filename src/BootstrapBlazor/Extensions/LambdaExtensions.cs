@@ -62,7 +62,9 @@ namespace System.Linq
                 {
                     var p = Expression.Parameter(typeof(TItem));
                     var fieldExpression = Expression.Property(p, prop);
-                    var eq = GetExpression(filter, fieldExpression);
+
+                    // 可为空类型转化为具体类型
+                    var eq = GetExpression(filter, Expression.Convert(fieldExpression, filter.FieldValue.GetType()));
                     ret = Expression.Lambda<Func<TItem, bool>>(eq, p);
                 }
             }
