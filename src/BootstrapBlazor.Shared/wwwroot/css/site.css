@@ -1005,3 +1005,11 @@ section {
     .listview-demo .listview-demo-desc {
         text-align: center;
     }
+
+.demo-inputnumber {
+    width: 160px;
+}
+
+.form-inline .demo-inputnumber > .form-control {
+    width: inherit;
+}

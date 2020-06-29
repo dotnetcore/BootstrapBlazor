@@ -153,6 +153,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "数值框 InputNumber",
+                Url = "inputnumbers"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "富文本框 Editor",
                 Url = "editors"
             });

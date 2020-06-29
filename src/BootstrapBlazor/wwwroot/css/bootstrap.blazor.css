@@ -260,6 +260,66 @@ a {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69,.6);
 }
 
+.arrow-primary {
+    border-color: transparent transparent #007bff;
+}
+
+.arrow-success {
+    border-color: transparent transparent #28a745;
+}
+
+.arrow-info {
+    border-color: transparent transparent #17a2b8;
+}
+
+.arrow-warning {
+    border-color: transparent transparent #ffc107;
+}
+
+.arrow-danger {
+    border-color: transparent transparent #dc3545;
+}
+
+.show .shadow-primary, .shadow-primary:hover, .shadow-primary:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 123, 255, 0.5);
+    border-color: #007bff !important;
+}
+
+.show .shadow-success, .shadow-success:hover, .shadow-success:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69, 0.5);
+    border-color: #28a745 !important;
+}
+
+.show .shadow-info, .shadow-info:hover, .shadow-info:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(23, 162, 184, 0.5);
+    border-color: #17a2b8 !important;
+}
+
+.show .shadow-warning, .shadow-warning:hover, .shadow-warning:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 193, 7, 0.5);
+    border-color: #ffc107 !important;
+}
+
+.show .shadow-danger, .shadow-danger:hover, .shadow-danger:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69, 0.5);
+    border: 1px solid #dc3545 !important;
+}
+
+.show .shadow-secondary, .shadow-secondary:hover, .shadow-secondary:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #c0c4cc;
+    border: 1px solid #6c757d !important;
+}
+
+.show .shadow-dark, .shadow-dark:hover, .shadow-dark:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #c0c4cc;
+    border: 1px solid #343a40 !important;
+}
+
+.show .shadow-default, .shadow-default:hover, .shadow-default:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    border: 1px solid #337ab7;
+}
+
 .tooltip-inner {
     max-width: 768px;
 }
@@ -4580,3 +4640,12 @@ a {
         border-top-style: solid;
     }
 /*end listview*/
+
+/* InputNumber */
+.input-number-fix::-webkit-outer-spin-button,
+.input-number-fix::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield;
+}
+/*end InputNumber*/

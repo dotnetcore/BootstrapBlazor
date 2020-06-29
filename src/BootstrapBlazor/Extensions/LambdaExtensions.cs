@@ -125,7 +125,6 @@ namespace System.Linq
                 var tryParseLambda = Expression.Lambda<FuncEx<string, TItem, bool>>(Expression.Call(method, p1, p2), p1, p2);
                 if (tryParseLambda.Compile().Invoke(source, out outValue))
                 {
-                    v = outValue;
                     ret = true;
                 }
             }
@@ -201,5 +200,87 @@ namespace System.Linq
             return convert(obj);
         }
 #nullable restore
+
+        /// <summary>
+        /// 大于等于
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static bool GreaterThanOrEqual<TValue>(this TValue t, object v)
+        {
+            var left = Expression.Constant(v);
+            var right = Expression.Constant(t);
+            var getValue = Expression.Lambda<Func<TValue, bool>>(Expression.GreaterThanOrEqual(Expression.Convert(left, typeof(TValue)), right)).Compile();
+            return getValue(t);
+        }
+
+        /// <summary>
+        /// V++
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="v"></param>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static TValue Add<TValue>(this TValue v, TValue val)
+        {
+            var exp_val = Expression.Constant(v);
+            var exp_var = Expression.Constant(val);
+            var getValue = Expression.Lambda<Func<TValue>>(Expression.AddChecked(exp_val, exp_var)).Compile();
+            return getValue();
+        }
+
+        /// <summary>
+        /// V--
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="v"></param>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static TValue Subtract<TValue>(this TValue v, TValue val)
+        {
+            var exp_val = Expression.Constant(v);
+            var exp_var = Expression.Constant(val);
+            var getValue = Expression.Lambda<Func<TValue>>(Expression.SubtractChecked(exp_val, exp_var)).Compile();
+            return getValue();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="v"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static TValue Range<TValue>(this TValue v, string? min, string? max)
+        {
+            var ret = v;
+            if (v != null)
+            {
+                if (max != null && max.TryParse<TValue>(out var v_max))
+                {
+                    var exp_val = Expression.Parameter(v.GetType());
+                    var exp_max = Expression.Parameter(v.GetType());
+
+                    var method_min = typeof(Math).GetMethod(nameof(Math.Min), new Type[] { typeof(TValue), typeof(TValue) });
+                    var body = Expression.Call(method_min, exp_val, exp_max);
+                    var func = Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_val, exp_max).Compile();
+                    ret = func(ret, v_max);
+                }
+
+                if (min != null && min.TryParse<TValue>(out var v_min))
+                {
+                    var exp_val = Expression.Parameter(v.GetType());
+                    var exp_min = Expression.Parameter(v.GetType());
+                    var method_max = typeof(Math).GetMethod(nameof(Math.Max), new Type[] { typeof(TValue), typeof(TValue) });
+                    var body = Expression.Call(method_max, exp_val, exp_min);
+                    var func = Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_val, exp_min).Compile();
+                    ret = func(ret, v_min);
+                }
+            }
+            return ret;
+        }
     }
 }
