@@ -9,7 +9,7 @@
         <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
         <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
             <Template Context="item">
-                <Checkbox TItem="bool" Value="@(((BindItem)item).Complete)" IsDisabled="true"></Checkbox>
+                <Checkbox Value="@value" IsDisabled="true"></Checkbox>
             </Template>
         </TableColumn>
         <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />

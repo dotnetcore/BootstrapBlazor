@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components
@@ -8,24 +9,26 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 表头组件
     /// </summary>
-    public class TableColumn : BootstrapComponentBase, ITableColumn
+    public class TableColumn<TItem> : BootstrapComponentBase, ITableColumn
     {
         /// <summary>
         /// 获得/设置 绑定列类型
         /// </summary>
         public Type? FieldType { get; set; }
 
+#nullable disable
         /// <summary>
         /// 获得/设置 数据绑定字段值
         /// </summary>
         [Parameter]
-        public object? Field { get; set; }
+        public TItem Field { get; set; }
+#nullable restore
 
         /// <summary>
         /// 获得/设置 ValueExpression 表达式
         /// </summary>
         [Parameter]
-        public Expression<Func<object?>>? FieldExpression { get; set; }
+        public Expression<Func<TItem>>? FieldExpression { get; set; }
 
         /// <summary>
         /// 获得/设置 是否排序 默认 false
@@ -55,7 +58,22 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 模板
         /// </summary>
         [Parameter]
-        public RenderFragment<object>? Template { get; set; }
+        public RenderFragment<TItem>? Template { get; set; }
+
+        /// <summary>
+        /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
+        /// </summary>
+        RenderFragment<object>? ITableColumn.Template
+        {
+            get
+            {
+                return this.Template == null ? null : new RenderFragment<object>(context => builder =>
+                {
+                    // 将绑定字段值放入上下文中
+                    if (_fieldIdentifier.HasValue) builder.AddContent(0, this.Template.Invoke(context.GetPropertyValue<object, TItem>(GetFieldName())));
+                });
+            }
+        }
 
         /// <summary>
         /// 获得/设置 Table Header 实例
@@ -70,7 +88,7 @@ namespace BootstrapBlazor.Components
         {
             Columns?.Columns.Add(this);
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
-            if (Field != null) FieldType = Field.GetType();
+            FieldType = _fieldIdentifier.Value.Model.GetType().GetProperty(GetFieldName())?.PropertyType;
         }
 
         private FieldIdentifier? _fieldIdentifier;

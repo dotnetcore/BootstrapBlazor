@@ -49,6 +49,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 模板
         /// </summary>
-        RenderFragment<object>? Template { get; set; }
+        RenderFragment<object>? Template { get; }
     }
 }

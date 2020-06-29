@@ -148,8 +148,8 @@ namespace System.Linq
                 var p = type.GetProperty(name);
                 if (p != null)
                 {
-                    var param_obj = Expression.Parameter(type);
-                    var body = Expression.Property(param_obj, p);
+                    var param_obj = Expression.Parameter(typeof(T));
+                    var body = Expression.Property(Expression.Convert(param_obj, t.GetType()), p);
                     var getValue = Expression.Lambda<Func<T, TResult>>(Expression.Convert(body, typeof(TResult)), param_obj).Compile();
                     ret = getValue(t);
                 }
@@ -183,6 +183,20 @@ namespace System.Linq
                     setValue(t, value);
                 }
             }
+        }
+
+        /// <summary>
+        /// 根据传参 object 类型强制转换为 TResult 泛型
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static TResult Convert<TResult>(this object obj)
+        {
+            var param_obj = Expression.Parameter(typeof(object));
+            var body = Expression.Convert(param_obj, typeof(TResult));
+            var convert = Expression.Lambda<Func<object, TResult>>(body, param_obj).Compile();
+            return convert(obj);
         }
 #nullable restore
     }

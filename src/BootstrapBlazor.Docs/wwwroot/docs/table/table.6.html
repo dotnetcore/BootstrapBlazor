@@ -3,8 +3,8 @@
         <TableColumn @bind-Field="@context.DateTime" />
         <TableColumn @bind-Field="@context.Name" />
         <TableColumn @bind-Field="@context.Complete">
-            <Template Context="item">
-                <Checkbox TItem="bool" Value="@(((BindItem)item).Complete)" IsDisabled="true"></Checkbox>
+            <Template Context="value">
+                <Checkbox Value="@value" IsDisabled="true"></Checkbox>
             </Template>
         </TableColumn>
     </TableColumns>
