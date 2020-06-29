@@ -167,20 +167,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "AllowNull",
-                Description = "是否允许为空 默认 false 不允许为空",
-                Type = "boolean",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowFooter",
-                Description = "是否显示本组件 Footer 区域",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
                 Name = "TimeFormat",
                 Description = "时间格式字符串 默认为 hh:mm:ss",
                 Type = "string",
@@ -190,8 +176,8 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Value",
                 Description = "组件值与 ValueChanged 作为双向绑定的值",
-                Type = "DateTime?",
-                ValueList = " — ",
+                Type = "TValue",
+                ValueList = "DateTime | DateTime?",
                 DefaultValue = " — "
             },
              new AttributeItem() {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -7,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// DateTimePicker 组件基类
     /// </summary>
-    public abstract class DateTimePickerBase : ValidateInputBase<DateTime?>
+    public abstract class DateTimePickerBase<TValue> : ValidateInputBase<TValue>
     {
         /// <summary>
         /// 获得 组件样式名称
@@ -36,12 +37,36 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
+        /// 获得/设置 是否允许为空 默认 false 不允许为空
+        /// </summary>
+        protected bool AllowNull { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件时间
         /// </summary>
         protected DateTime ComponentValue
         {
-            get => CurrentValue.HasValue ? CurrentValue.Value : DateTime.Now;
-            set => CurrentValue = value;
+            get
+            {
+                DateTime v = DateTime.Now;
+                if (AllowNull)
+                {
+                    var t = Value as DateTime?;
+                    if (t.HasValue) v = t.Value;
+                }
+                else
+                {
+#nullable disable
+                    var t = (DateTime)(object)Value;
+#nullable restore
+                    v = t;
+                }
+                return v;
+            }
+            set
+            {
+                CurrentValue = (TValue)(object)value;
+            }
         }
 
         /// <summary>
@@ -68,34 +93,29 @@ namespace BootstrapBlazor.Components
         public DatePickerViewModel ViewModel { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示本组件 Footer 区域 默认不显示
-        /// </summary>
-        [Parameter]
-        public bool ShowFooter { get; set; } = true;
-
-        /// <summary>
-        /// 获得/设置 是否允许为空 默认 false 不允许为空
-        /// </summary>
-        [Parameter]
-        public bool AllowNull { get; set; }
-
-        /// <summary>
         /// OnInitialized
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
+            // 判断泛型类型
+            var isDateTime = typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?);
+            if (!isDateTime) throw new InvalidOperationException($"DateTimePicker 组件仅支持绑定泛型为 DateTime 或者 DateTime?");
+
+            // 泛型设置为可为空
+            AllowNull = typeof(TValue) == typeof(DateTime?);
+
             // 不允许为空时设置 Value 默认值
             if (!AllowNull && Value == null)
             {
-                Value = DateTime.Now;
+                Value = (TValue)(object)DateTime.Now;
             }
 
             // Value 为 MinValue 时 设置 Value 默认值
-            if (Value.HasValue && Value.Value == DateTime.MinValue)
+            if (Value?.ToString() == DateTime.MinValue.ToString())
             {
-                Value = DateTime.Now;
+                Value = (TValue)(object)DateTime.Now;
             }
         }
 
@@ -116,10 +136,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 格式化数值方法
         /// </summary>
-        protected override string FormatValueAsString(DateTime? value)
+        protected override string FormatValueAsString(TValue value)
         {
             var ret = "";
-            if (value.HasValue)
+            if (Value != null)
             {
                 var format = Format;
                 if (string.IsNullOrEmpty(format))
@@ -127,7 +147,7 @@ namespace BootstrapBlazor.Components
                     format = ViewModel == DatePickerViewModel.DateTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
                 }
 
-                ret = value.Value.ToString(format);
+                ret = ComponentValue.ToString(format);
             }
             return ret;
         }
@@ -136,11 +156,13 @@ namespace BootstrapBlazor.Components
         /// 清空按钮点击时回调此方法
         /// </summary>
         /// <returns></returns>
-        protected Task OnClear()
+        protected async Task OnClear()
         {
-            CurrentValue = null;
+#nullable disable
+            CurrentValue = default;
+#nullable restore
             StateHasChanged();
-            return Task.CompletedTask;
+            if (JSRuntime != null) await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
         }
 
         /// <summary>

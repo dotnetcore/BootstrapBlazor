@@ -41,7 +41,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-sm-4">
-                <DateTimePicker Value="@DateTime.Today" />
+                <DateTimePicker TValue="DateTime" Value="@DateTime.Today" />
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-sm-6">
-                <DateTimePicker Value="@BindValue" ValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
+                <DateTimePicker TValue="DateTime?" Value="@BindValue" ValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
             </div>
             <div class="form-group col-sm-6">
                 <input class="form-control" @bind="@BindValueString" />
@@ -70,18 +70,18 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-sm-4">
-                <DateTimePicker ViewModel="DatePickerViewModel.DateTime" />
+                <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.DateTime" />
             </div>
         </div>
     </div>
 </Block>
 
 <Block Title="允许空时间" Introduction="多用于条件选择" CodeFile="datepicker.6.html">
-    <p>设置 <code>AllowNull</code> 属性值为 <code>true</code></p>
+    <p>绑定值为可为空类型 <code>DateTime?</code> 时自动出现 <b>清空</b> 按钮</p>
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-8">
-                <DateTimePicker AllowNull="true" @bind-Value="@BindNullValue" />
+                <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" />
             </div>
             <div class="form-group col-12 col-sm-4">
                 <div class="form-control">@GetNullValueString</div>
@@ -96,7 +96,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <DateTimePicker AllowNull="true" @bind-Value="@BindNullValue" DisplayText="选择时间" />
+                <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="选择时间" />
             </div>
         </div>
     </div>

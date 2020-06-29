@@ -114,13 +114,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 日历 Footer 样式
-        /// </summary>
-        protected string? FooterClassName => CssBuilder.Default("picker-panel-footer")
-            .AddClass("d-none", !ShowFooter)
-            .Build();
-
-        /// <summary>
         /// 获得 年显示文字
         /// </summary>
         protected string? YearString => CurrentViewModel switch
@@ -173,12 +166,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool AllowNull { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否显示本组件 Footer 区域 默认不显示
-        /// </summary>
-        [Parameter]
-        public bool ShowFooter { get; set; }
 
         /// <summary>
         /// 获得/设置 确认按钮回调委托
@@ -269,16 +256,12 @@ namespace BootstrapBlazor.Components
         /// Day 选择时触发此方法
         /// </summary>
         /// <param name="d"></param>
-        protected async Task OnClickDateTime(DateTime d)
+        protected Task OnClickDateTime(DateTime d)
         {
             ShowTimePicker = false;
             CurrentDate = d;
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(Value);
-            }
-
             StateHasChanged();
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -393,7 +376,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 此刻时调用此方法
         /// </summary>
-        protected async Task ClickNowButton()
+        protected Task ClickNowButton()
         {
             ShowTimePicker = false;
             Value = ViewModel switch
@@ -401,10 +384,7 @@ namespace BootstrapBlazor.Components
                 DatePickerViewModel.DateTime => DateTime.Now,
                 _ => DateTime.Today
             };
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(Value);
-            }
+            return Task.CompletedTask;
         }
 
         /// <summary>

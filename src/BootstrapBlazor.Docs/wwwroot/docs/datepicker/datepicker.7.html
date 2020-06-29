@@ -1,4 +1,4 @@
-﻿<DateTimePicker AllowNull="true" @bind-Value="@BindNullValue" DisplayText="选择时间" />
+﻿<DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="选择时间" />
 
 @code {
     private DateTime? BindNullValue { get; set; }

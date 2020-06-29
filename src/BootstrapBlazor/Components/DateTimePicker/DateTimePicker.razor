@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits DateTimePickerBase
+@typeparam TValue
+@inherits DateTimePickerBase<TValue>
 
 @if (IsShowLabel)
 {
@@ -14,6 +15,6 @@
     </div>
     <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull"
                     OnConfirm="@OnConfirm" OnClear="@OnClear"
-                    ViewModel="@ViewModel" ShowFooter="@ShowFooter">
+                    ViewModel="@ViewModel">
     </DatePickerBody>
 </div>
