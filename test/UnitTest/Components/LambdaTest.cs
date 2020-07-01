@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using Xunit;
 
-namespace UnitTest
+namespace UnitTest.Components
 {
     /// <summary>
     /// 
@@ -12,8 +14,17 @@ namespace UnitTest
         public void Range_Ok()
         {
             int v = 10;
-            var t = v.Subtract(1).Range("20", "30");
-            Assert.Equal(20, t);
+        }
+
+        [Fact]
+        public void TryParse_Ok()
+        {
+            var exp = Expression.Parameter(typeof(int?));
+            var pi = typeof(int?).GetProperty("HasValue");
+            var exp_p = Expression.Property(exp, pi);
+
+            var func = Expression.Lambda<Func<int?, bool>>(exp_p, exp).Compile();
+            var b = func.Invoke((int)10);
         }
     }
 }

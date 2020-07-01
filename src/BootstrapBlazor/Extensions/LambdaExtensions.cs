@@ -102,185 +102,104 @@ namespace System.Linq
             return Expression.Call(left, method, right);
         }
 
-        private delegate TResult FuncEx<T1, TOut, TResult>(T1 str, out TOut outValue);
-
-#nullable disable
         /// <summary>
-        /// 尝试使用 TryParse 进行数据转换
-        /// </summary>
-        /// <typeparam name="TItem"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="v"></param>
-        /// <returns></returns>
-        public static bool TryParse<TItem>(this string source, out TItem v)
-        {
-            bool ret = false;
-            var t = typeof(TItem);
-            var p1 = Expression.Parameter(typeof(string));
-            var p2 = Expression.Parameter(typeof(TItem).MakeByRefType());
-            var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
-            TItem outValue = default;
-            if (method != null)
-            {
-                var tryParseLambda = Expression.Lambda<FuncEx<string, TItem, bool>>(Expression.Call(method, p1, p2), p1, p2);
-                if (tryParseLambda.Compile().Invoke(source, out outValue))
-                {
-                    ret = true;
-                }
-            }
-            v = outValue;
-            return ret;
-        }
-
-        /// <summary>
-        /// 通过属性名称获取其实例值
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="t"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static TResult GetPropertyValue<T, TResult>(this T t, string name)
-        {
-            TResult ret = default;
-            if (t != null)
-            {
-                var type = t.GetType();
-                var p = type.GetProperty(name);
-                if (p != null)
-                {
-                    var param_obj = Expression.Parameter(typeof(T));
-                    var body = Expression.Property(Expression.Convert(param_obj, t.GetType()), p);
-                    var getValue = Expression.Lambda<Func<T, TResult>>(Expression.Convert(body, typeof(TResult)), param_obj).Compile();
-                    ret = getValue(t);
-                }
-            }
-            return ret;
-        }
-
-        /// <summary>
-        /// 根据属性名称设置属性的值
-        /// </summary>
-        /// <typeparam name="TModel">对象类型</typeparam>
-        /// <param name="t">对象</param>
-        /// <param name="name">属性名</param>
-        /// <param name="value">属性的值</param>
-        public static void SetPropertyValue<TModel>(this TModel t, string name, object value)
-        {
-            var type = t.GetType();
-            var p = type.GetProperty(name);
-            if (p != null)
-            {
-                var param_obj = Expression.Parameter(type);
-                var param_val = Expression.Parameter(typeof(object));
-                var body_val = Expression.Convert(param_val, p.PropertyType);
-
-                //获取设置属性的值的方法
-                var mi = p.GetSetMethod(true);
-                if (mi != null)
-                {
-                    var body = Expression.Call(param_obj, mi, body_val);
-                    var setValue = Expression.Lambda<Action<TModel, object>>(body, param_obj, param_val).Compile();
-                    setValue(t, value);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 根据传参 object 类型强制转换为 TResult 泛型
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static TResult Convert<TResult>(this object obj)
-        {
-            var param_obj = Expression.Parameter(typeof(object));
-            var body = Expression.Convert(param_obj, typeof(TResult));
-            var convert = Expression.Lambda<Func<object, TResult>>(body, param_obj).Compile();
-            return convert(obj);
-        }
-#nullable restore
-
-        /// <summary>
-        /// 大于等于
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="t"></param>
-        /// <param name="v"></param>
-        /// <returns></returns>
-        public static bool GreaterThanOrEqual<TValue>(this TValue t, object v)
-        {
-            var left = Expression.Constant(v);
-            var right = Expression.Constant(t);
-            var getValue = Expression.Lambda<Func<TValue, bool>>(Expression.GreaterThanOrEqual(Expression.Convert(left, typeof(TValue)), right)).Compile();
-            return getValue(t);
-        }
-
-        /// <summary>
-        /// V++
+        /// 大于等于 Lambda 表达式
         /// </summary>
         /// <typeparam name="TValue"></typeparam>
         /// <param name="v"></param>
-        /// <param name="val"></param>
         /// <returns></returns>
-        public static TValue Add<TValue>(this TValue v, TValue val)
+        public static Expression<Func<TValue, object, bool>> GetGreaterThanOrEqualLambda<TValue>(this TValue v)
         {
-            var exp_val = Expression.Constant(v);
-            var exp_var = Expression.Constant(val);
-            var getValue = Expression.Lambda<Func<TValue>>(Expression.AddChecked(exp_val, exp_var)).Compile();
-            return getValue();
-        }
+            if (v == null) throw new ArgumentNullException(nameof(v));
 
-        /// <summary>
-        /// V--
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="v"></param>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static TValue Subtract<TValue>(this TValue v, TValue val)
-        {
-            var exp_val = Expression.Constant(v);
-            var exp_var = Expression.Constant(val);
-            var getValue = Expression.Lambda<Func<TValue>>(Expression.SubtractChecked(exp_val, exp_var)).Compile();
-            return getValue();
+            var left = Expression.Parameter(v.GetType());
+            var right = Expression.Parameter(typeof(object));
+            return Expression.Lambda<Func<TValue, object, bool>>(Expression.GreaterThanOrEqual(left, Expression.Convert(right, v.GetType())), left, right);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="TValue"></typeparam>
-        /// <param name="v"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
         /// <returns></returns>
-        public static TValue Range<TValue>(this TValue v, string? min, string? max)
+        public static bool GreaterThanOrEqual<TValue>(this TValue v1, object v2)
         {
-            var ret = v;
-            if (v != null)
-            {
-                if (max != null && max.TryParse<TValue>(out var v_max))
-                {
-                    var exp_val = Expression.Parameter(v.GetType());
-                    var exp_max = Expression.Parameter(v.GetType());
+            var invoker = v1.GetGreaterThanOrEqualLambda<TValue>().Compile();
+            return invoker(v1, v2);
+        }
 
-                    var method_min = typeof(Math).GetMethod(nameof(Math.Min), new Type[] { typeof(TValue), typeof(TValue) });
-                    var body = Expression.Call(method_min, exp_val, exp_max);
-                    var func = Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_val, exp_max).Compile();
-                    ret = func(ret, v_max);
-                }
+        /// <summary>
+        /// 通过属性名称获取其实例值
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static TResult GetPropertyValue<TItem, TResult>(this TItem t, string name)
+        {
+            var invoker = t.GetPropertyValueLambda<TItem, TResult>(name).Compile();
+            return invoker(t);
+        }
 
-                if (min != null && min.TryParse<TValue>(out var v_min))
-                {
-                    var exp_val = Expression.Parameter(v.GetType());
-                    var exp_min = Expression.Parameter(v.GetType());
-                    var method_max = typeof(Math).GetMethod(nameof(Math.Max), new Type[] { typeof(TValue), typeof(TValue) });
-                    var body = Expression.Call(method_max, exp_val, exp_min);
-                    var func = Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_val, exp_min).Compile();
-                    ret = func(ret, v_min);
-                }
-            }
-            return ret;
+        /// <summary>
+        /// 获取属性方法 Lambda 表达式
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Expression<Func<TItem, TResult>> GetPropertyValueLambda<TItem, TResult>(this TItem item, string name)
+        {
+            if (item == null) throw new ArgumentNullException(nameof(item));
+
+            var p = item.GetType().GetProperty(name);
+            if (p == null) throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {name} 属性，无法获取其值");
+
+            var param_p1 = Expression.Parameter(typeof(TItem));
+            var body = Expression.Property(Expression.Convert(param_p1, item.GetType()), p);
+            return Expression.Lambda<Func<TItem, TResult>>(Expression.Convert(body, typeof(TResult)), param_p1);
+        }
+
+        /// <summary>
+        /// 根据属性名称设置属性的值
+        /// </summary>
+        /// <typeparam name="TItem">对象类型</typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="t">对象</param>
+        /// <param name="name">属性名</param>
+        /// <param name="value">属性的值</param>
+        public static void SetPropertyValue<TItem, TValue>(this TItem t, string name, TValue value)
+        {
+            var invoker = t.SetPropertyValueLambda<TItem, TValue>(name).Compile();
+            invoker(t, value);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Expression<Action<TItem, TValue>> SetPropertyValueLambda<TItem, TValue>(this TItem t, string name)
+        {
+            if (t == null) throw new ArgumentNullException(nameof(t));
+
+            var p = t.GetType().GetProperty(name);
+            if (p == null) throw new InvalidOperationException($"类型 {typeof(TItem).Name} 未找到 {name} 属性，无法设置其值");
+
+            var param_p1 = Expression.Parameter(typeof(TItem));
+            var param_p2 = Expression.Parameter(typeof(TValue));
+
+            //获取设置属性的值的方法
+            var mi = p.GetSetMethod(true);
+            var body = Expression.Call(Expression.Convert(param_p1, t.GetType()), mi, Expression.Convert(param_p2, p.PropertyType));
+            return Expression.Lambda<Action<TItem, TValue>>(body, param_p1, param_p2);
         }
     }
 }

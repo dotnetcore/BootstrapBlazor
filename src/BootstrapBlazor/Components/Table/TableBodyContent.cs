@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
+using System.Collections.Concurrent;
 using System.Linq;
 
 namespace BootstrapBlazor.Components
@@ -51,6 +53,17 @@ namespace BootstrapBlazor.Components
             }
         };
 
-        private string GetItemValue(string filedName) => Item?.GetPropertyValue<TItem, object>(filedName)?.ToString() ?? "";
+        private string GetItemValue(string fieldName)
+        {
+            var ret = "";
+            if (Item != null)
+            {
+                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => Item.GetPropertyValueLambda<TItem, object>(key.Item2).Compile());
+                ret = invoker(Item).ToString();
+            }
+            return ret;
+        }
+
+        private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object>>();
     }
 }

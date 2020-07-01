@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -69,7 +70,8 @@ namespace BootstrapBlazor.Components
             {
                 // 此处 context 为行数据
                 // 将绑定字段值放入上下文中
-                var value = context.GetPropertyValue<object, TItem>(GetFieldName());
+                var invoker = GetPropertyCache.GetOrAdd(GetFieldName(), key => context.GetPropertyValueLambda<object, TItem>(key).Compile());
+                var value = invoker(context);
                 builder.AddContent(0, this.Template.Invoke(new TableColumnContext<object, TItem>() { Row = context, Value = value }));
             });
         }
@@ -102,5 +104,7 @@ namespace BootstrapBlazor.Components
         /// 获取绑定字段信息方法
         /// </summary>
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
+
+        private static readonly ConcurrentDictionary<string, Func<object, TItem>> GetPropertyCache = new ConcurrentDictionary<string, Func<object, TItem>>();
     }
 }

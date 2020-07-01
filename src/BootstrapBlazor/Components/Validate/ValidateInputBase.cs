@@ -246,11 +246,11 @@ namespace BootstrapBlazor.Components
                     }
                     else
                     {
-                        if (value.TryParse<TItem>(out var v))
+                        if (false) //value.TryParse<TItem>(out var v))
                         {
-                            result = v;
-                            validationErrorMessage = null;
-                            return true;
+                            //result = v;
+                            //validationErrorMessage = null;
+                            //return true;
                         }
                         else
                         {

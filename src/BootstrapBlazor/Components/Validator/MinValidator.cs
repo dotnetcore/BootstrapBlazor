@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -37,11 +38,14 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            var ret = propertyValue != null && Value.GreaterThanOrEqual(propertyValue);
-            if (ret)
+            if (propertyValue != null)
             {
-                results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+                var invoker = GreaterThanOrEqualCache.GetOrAdd(typeof(TValue), key => Value.GetGreaterThanOrEqualLambda().Compile());
+                var ret = invoker(Value, propertyValue);
+                if (ret) results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
             }
         }
+
+        private static readonly ConcurrentDictionary<Type, Func<TValue, object, bool>> GreaterThanOrEqualCache = new ConcurrentDictionary<Type, Func<TValue, object, bool>>();
     }
 }
