@@ -41,25 +41,14 @@ namespace BootstrapBlazor.Components
 
         private RenderFragment GetValue(ITableColumn col) => builder =>
         {
-            var index = 0;
-            builder.OpenComponent<CascadingValue<TItem>>(index++);
-            builder.AddAttribute(index++, "Value", Item);
-            builder.AddAttribute(index++, "IsFixed", true);
-            builder.AddAttribute(index++, "Name", "ModelContext");
-
-            // 将行数据放入级联参数中
-            builder.AddAttribute(index++, "ChildContent", new RenderFragment(render =>
+            if (col.Template != null)
             {
-                if (col.Template != null)
-                {
-                    if (Item != null) render.AddContent(0, col.Template.Invoke(Item));
-                }
-                else
-                {
-                    render.AddContent(0, GetItemValue(col.GetFieldName()));
-                }
-            }));
-            builder.CloseComponent();
+                if (Item != null) builder.AddContent(0, col.Template.Invoke(Item));
+            }
+            else
+            {
+                builder.AddContent(0, GetItemValue(col.GetFieldName()));
+            }
         };
 
         private string GetItemValue(string filedName) => Item?.GetPropertyValue<TItem, object>(filedName)?.ToString() ?? "";

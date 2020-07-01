@@ -58,21 +58,20 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 模板
         /// </summary>
         [Parameter]
-        public RenderFragment<TItem>? Template { get; set; }
+        public RenderFragment<TableColumnContext<object, TItem>>? Template { get; set; }
 
         /// <summary>
         /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
         /// </summary>
         RenderFragment<object>? ITableColumn.Template
         {
-            get
+            get => this.Template == null ? null : new RenderFragment<object>(context => builder =>
             {
-                return this.Template == null ? null : new RenderFragment<object>(context => builder =>
-                {
-                    // 将绑定字段值放入上下文中
-                    if (_fieldIdentifier.HasValue) builder.AddContent(0, this.Template.Invoke(context.GetPropertyValue<object, TItem>(GetFieldName())));
-                });
-            }
+                // 此处 context 为行数据
+                // 将绑定字段值放入上下文中
+                var value = context.GetPropertyValue<object, TItem>(GetFieldName());
+                builder.AddContent(0, this.Template.Invoke(new TableColumnContext<object, TItem>() { Row = context, Value = value }));
+            });
         }
 
         /// <summary>

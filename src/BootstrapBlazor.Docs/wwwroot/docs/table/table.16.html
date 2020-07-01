@@ -1,0 +1,27 @@
+﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+       OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true">
+            <Template Context="value">
+                @if (((BindItem)value.Row).Complete)
+                {
+                    <div class="text-success">@value.Value</div>
+                }
+                else
+                {
+                    <div class="text-danger">@value.Value</div>
+                }
+            </Template>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+            <Template Context="value">
+                <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+            </Template>
+        </TableColumn>
+    </TableColumns>
+</Table>

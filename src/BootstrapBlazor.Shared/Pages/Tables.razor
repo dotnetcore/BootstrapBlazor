@@ -64,7 +64,7 @@
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Complete">
                 <Template Context="value">
-                    <Checkbox Value="@value" IsDisabled="true"></Checkbox>
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
                 </Template>
             </TableColumn>
         </TableColumns>
@@ -268,10 +268,51 @@
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
                 <Template Context="value">
-                    <Checkbox Value="@value" IsDisabled="true"></Checkbox>
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
                 </Template>
             </TableColumn>
             <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义列数据模板" Introduction="自定义 <code>TableColumn</code> 列的 <code>Template</code> 模板来实现任意 UI" CodeFile="table.16.html">
+    <p>
+        本例中列 <code>DateTime</code> 值根据 <code>Complete</code> 值是否为 <code>true</code> 显示不同颜色
+    </p>
+    <p>
+        本例中列 <code>Complete</code> 根据 <code>Complete</code> 值自定义显示为 <code>Checkbox</code> 组件
+    </p>
+    <p><code>Template</code> 模板自带 <code>Context</code> 相关联上下文，其值为 <code>TableColumnContext</code> 类型</p>
+    <ul>
+        <li><code>Value</code> 为当前绑定列的数据值</li>
+        <li><code>Row</code> 为当前绑定列所在行的数据值</li>
+    </ul>
+    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true">
+                <Template Context="value">
+                    @if (((BindItem)value.Row).Complete)
+                    {
+                        <div class="text-success">@value.Value</div>
+                    }
+                    else
+                    {
+                        <div class="text-danger">@value.Value</div>
+                    }
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
         </TableColumns>
     </Table>
 </Block>
