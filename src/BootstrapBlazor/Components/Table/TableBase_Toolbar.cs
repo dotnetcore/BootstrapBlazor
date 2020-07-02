@@ -12,21 +12,42 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// ToastService 服务实例
         /// </summary>
-        [Inject] protected ToastService? Toast { get; set; }
+        [Inject]
+        protected ToastService? Toast { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示工具栏 默认 false 不显示
         /// </summary>
-        [Parameter] public bool ShowToolbar { get; set; }
+        [Parameter]
+        public bool ShowToolbar { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示按钮列 默认为 false
+        /// 获得/设置 是否显示按钮列 默认为 true
         /// </summary>
+        /// <remarks>本属性设置为 true 新建编辑删除按钮设置为 false 可单独控制每个按钮是否显示</remarks>
         [Parameter]
         public bool ShowDefaultButtons { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否显示扩展按钮 默认为 true
+        /// 获得/设置 是否显示新建按钮 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowNewButton { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示编辑按钮 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowEditButton { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示删除按钮 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowDeleteButton { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示扩展按钮 默认为 false
         /// </summary>
         [Parameter]
         public bool ShowExtendButtons { get; set; }

@@ -8,7 +8,7 @@
     <p>
         表格组件 <code>TableColumns</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性
     </p>
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)">
+    <Table TItem="BindItem" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" />
             <TableColumn @bind-Field="@context.Name" Text="自定义列名2" />
@@ -18,7 +18,7 @@
 </Block>
 
 <Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可" CodeFile="table.2.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" IsStriped="true">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -28,7 +28,7 @@
 </Block>
 
 <Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果" CodeFile="table.3.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" IsBordered="true">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -38,7 +38,7 @@
 </Block>
 
 <Block Title="带选择列表格" Introduction="通过设置 <code>ShowCheckbox=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" ShowCheckbox="true">
+    <Table TItem="BindItem" Items="@Items.Take(3)" ShowCheckbox="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -48,7 +48,7 @@
 </Block>
 
 <Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为选择" CodeFile="table.5.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)" ShowCheckbox="true" ShowCheckboxText="true">
+    <Table TItem="BindItem" Items="@Items.Take(3)" ShowCheckbox="true" ShowCheckboxText="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -58,7 +58,7 @@
 </Block>
 
 <Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定" CodeFile="table.6.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(3)">
+    <Table TItem="BindItem" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -72,7 +72,7 @@
 </Block>
 
 <Block Title="分页表格" Introduction="设置 <code>IsPagination</code> 显示分页组件" CodeFile="table.7.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
@@ -83,7 +83,7 @@
 </Block>
 
 <Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件" CodeFile="table.8.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(4)"
+    <Table TItem="BindItem" Items="@Items.Take(4)"
            IsBordered="true"
            ShowCheckbox="true" ShowToolbar="true" ShowDefaultButtons="false">
         <TableColumns>
@@ -95,7 +95,7 @@
 </Block>
 
 <Block Title="带查询的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.9.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
@@ -108,7 +108,7 @@
 </Block>
 
 <Block Title="固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头" CodeFile="table.11.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
+    <Table TItem="BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -118,7 +118,7 @@
 </Block>
 
 <Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.12.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem" IsBordered="true" ShowCheckbox="true"
+    <Table TItem="BindItem" IsBordered="true" ShowCheckbox="true"
            PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
@@ -129,7 +129,7 @@
 </Block>
 
 <Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.10.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="true"
@@ -187,7 +187,7 @@
 </Block>
 
 <Block Title="自定义扩展按钮" Introduction="设置 <code>TableToolbarTemplate</code> 模板添加自定义扩展按钮" CodeFile="table.13.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true" ShowExtendButtons="false"
@@ -204,7 +204,7 @@
 </Block>
 
 <Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制" CodeFile="table.14.html">
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true"
@@ -219,19 +219,19 @@
             <TableColumn @bind-Field="@context.Address" Sortable="true" />
         </TableColumns>
         <RowButtonTemplate>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BindItem" Item="@context">
                 <i class='fa fa-edit'></i>
                 <span>明细</span>
             </TableCellButton>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="BindItem" Item="@context">
                 <i class='fa fa-edit'></i>
                 <span>编辑</span>
             </TableCellButton>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="BindItem" Item="@context">
                 <i class='fa fa-edit'></i>
                 <span>权限</span>
             </TableCellButton>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="BootstrapBlazor.Shared.Pages.BindItem" Item="@context">
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="BindItem" Item="@context">
                 <i class='fa fa-edit'></i>
                 <span>审批</span>
             </TableCellButton>
@@ -257,7 +257,7 @@
         </div>
         <Alert ShowBar="true" Color="Color.Info" class="mt-3">开启过滤功能仅需要设置 <code>TableColumn</code> 的 <code>Filterable</code> 值为 <code>true</code>，无需额外任何代码</Alert>
     </p>
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
@@ -288,7 +288,7 @@
         <li><code>Value</code> 为当前绑定列的数据值</li>
         <li><code>Row</code> 为当前绑定列所在行的数据值</li>
     </ul>
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
@@ -324,7 +324,7 @@
     <p>
         本例中列 <code>Count</code> 值根据 <code>IntFormatter</code> 将值格式化为 <code>0.00</code> 保留两位小数格式
     </p>
-    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
@@ -343,6 +343,22 @@
     </Table>
 </Block>
 
+<Block Title="自定义显示功能按钮" Introduction="通过设置 <code>ShowNewButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示" CodeFile="table.18.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowCheckbox="true" 
+           ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
 <Toast></Toast>
 
 <PopoverConfirm></PopoverConfirm>
@@ -351,4 +367,4 @@
 
 <MethodTable Items="GetMethods()"></MethodTable>
 
-<AttributeTable Items="GetTableColumnAttributes()" Title="TableColumn 属性"/>
+<AttributeTable Items="GetTableColumnAttributes()" Title="TableColumn 属性" />

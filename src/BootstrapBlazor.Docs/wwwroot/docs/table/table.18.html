@@ -1,0 +1,65 @@
+﻿<Table TItem="BindItem"
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="true" ShowCheckbox="true"
+       ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+       OnQueryAsync="@OnQueryAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Count" Sortable="true" />
+    </TableColumns>
+</Table>
+
+@code {
+    private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+
+    private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
+    {
+        var items = Items.AsEnumerable();
+
+        //TODO: 此处代码后期精简
+        if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
+        if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);
+        if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
+                || (item.Address?.Contains(options.SearchText) ?? false));
+
+        // 过滤
+        var isFiltered = false;
+        if (options.Filters.Any())
+        {
+            items = items.Where(options.Filters.GetFilterFunc<BindItem>());
+
+            // 通知内部已经过滤数据了
+            isFiltered = true;
+        }
+
+        // 排序
+        var isSorted = false;
+        if (!string.IsNullOrEmpty(options.SortName))
+        {
+            // 外部未进行排序，内部自动进行排序处理
+            var invoker = SortLambdaCache.GetOrAdd(typeof(BindItem), key => items.GetSortLambda().Compile());
+            items = invoker(items, options.SortName, options.SortOrder);
+
+            // 通知内部已经过滤数据了
+            isSorted = true;
+        }
+
+        // 设置记录总数
+        var total = items.Count();
+
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<BindItem>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = isSorted,
+            IsFiltered = isFiltered,
+            IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
+        });
+    }
+}

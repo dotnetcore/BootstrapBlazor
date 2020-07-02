@@ -217,6 +217,27 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
+                Name = "ShowNewButton",
+                Description = "显示增加按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowEditButton",
+                Description = "显示编辑按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowDeleteButton",
+                Description = "显示删除按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
                 Name = "ShowExtendButtons",
                 Description = "显示行操作按钮",
                 Type = "boolean",
