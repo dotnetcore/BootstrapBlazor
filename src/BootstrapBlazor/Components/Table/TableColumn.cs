@@ -89,7 +89,7 @@ namespace BootstrapBlazor.Components
             {
                 // 此处 context 为行数据
                 // 将绑定字段值放入上下文中
-                var invoker = GetPropertyCache.GetOrAdd(GetFieldName(), key => context.GetPropertyValueLambda<object, TItem>(key).Compile());
+                var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => context.GetPropertyValueLambda<object, TItem>(key.FieldName).Compile());
                 var value = invoker(context);
                 builder.AddContent(0, this.Template.Invoke(new TableColumnContext<object, TItem>() { Row = context, Value = value }));
             });
@@ -118,6 +118,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
 
-        private static readonly ConcurrentDictionary<string, Func<object, TItem>> GetPropertyCache = new ConcurrentDictionary<string, Func<object, TItem>>();
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TItem>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<object, TItem>>();
     }
 }
