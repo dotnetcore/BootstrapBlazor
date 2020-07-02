@@ -1,6 +1,7 @@
 ﻿using BootstrapBlazor.Components;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace System.Linq
 {
@@ -55,10 +56,10 @@ namespace System.Linq
         public static Expression<Func<TItem, bool>> GetFilterExpression<TItem>(this FilterKeyValueAction filter)
         {
             Expression<Func<TItem, bool>> ret = t => true;
-            if (!string.IsNullOrEmpty(filter.FieldKey))
+            if (!string.IsNullOrEmpty(filter.FieldKey) && filter.FieldValue != null)
             {
                 var prop = typeof(TItem).GetProperty(filter.FieldKey);
-                if (prop != null && filter.FieldValue != null)
+                if (prop != null)
                 {
                     var p = Expression.Parameter(typeof(TItem));
                     var fieldExpression = Expression.Property(p, prop);
@@ -101,6 +102,61 @@ namespace System.Linq
             var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
             return Expression.Call(left, method, right);
         }
+        #region Sort
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>(this IEnumerable<TItem> items)
+        {
+            var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
+            var exp_p2 = Expression.Parameter(typeof(string));
+            var exp_p3 = Expression.Parameter(typeof(SortOrder));
+
+            var mi = typeof(LambdaExtensions).GetMethod("Sort").MakeGenericMethod(typeof(TItem));
+            var body = Expression.Call(mi, exp_p1, exp_p2, exp_p3);
+            return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, exp_p1, exp_p2, exp_p3);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="items"></param>
+        /// <param name="sortName"></param>
+        /// <param name="sortOrder"></param>
+        /// <returns></returns>
+        public static IEnumerable<TItem> Sort<TItem>(this IEnumerable<TItem> items, string sortName, SortOrder sortOrder)
+        {
+            return sortOrder == SortOrder.Unset ? items : _OrderBy(items, sortName, sortOrder);
+        }
+
+        private static IOrderedQueryable<TItem> _OrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
+        {
+            string methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
+
+            var pi = typeof(TItem).GetProperty(propertyName);
+            var mi = typeof(LambdaExtensions).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)
+                                       .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+
+            return (IOrderedQueryable<TItem>)mi.Invoke(null, new object[] { query.AsQueryable(), pi });
+        }
+
+        private static IOrderedQueryable<TItem> OrderByInternal<TItem, TKey>(IQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.OrderBy(GetPropertyLambda<TItem, TKey>(memberProperty));
+
+        private static IOrderedQueryable<TItem> OrderByDescendingInternal<TItem, TKey>(IQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.OrderByDescending(GetPropertyLambda<TItem, TKey>(memberProperty));
+
+        private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
+        {
+            if (pi.PropertyType != typeof(TKey)) throw new InvalidOperationException();
+
+            var exp_p1 = Expression.Parameter(typeof(TItem));
+            return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
+        }
+        #endregion
 
         /// <summary>
         /// 大于等于 Lambda 表达式

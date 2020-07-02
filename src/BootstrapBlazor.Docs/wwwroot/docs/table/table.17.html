@@ -1,19 +1,34 @@
 ﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
        IsPagination="true" PageItemsSource="@PageItemsSource"
        IsStriped="true" IsBordered="true"
-       ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="false"
+       ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
        OnQueryAsync="@OnQueryAsync">
-    <TableToolbarTemplate>
-        <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
-    </TableToolbarTemplate>
     <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
-        <TableColumn @bind-Field="@context.Name" Sortable="true" />
-        <TableColumn @bind-Field="@context.Address" Sortable="true" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" Formatter="@DateTimeFormatter" />
+        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+        <TableColumn @bind-Field="@context.Count" Sortable="true" Formatter="@IntFormatter" />
+        <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+            <Template Context="value">
+                <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+            </Template>
+        </TableColumn>
     </TableColumns>
 </Table>
 
 @code {
+    private Task<string> DateTimeFormatter(object? d)
+    {
+        var data = (DateTime?)d;
+        return  Task.FromResult(data?.ToString("yyyy-MM-dd") ?? "");
+    }
+
+    private Task<string> IntFormatter(object? d)
+    {
+        var data = (int?)d;
+        return  Task.FromResult(data?.ToString("0.00") ?? "");
+    }
+
     private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
 
     private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)

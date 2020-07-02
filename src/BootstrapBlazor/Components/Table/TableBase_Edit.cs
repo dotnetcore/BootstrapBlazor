@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -106,7 +108,8 @@ namespace BootstrapBlazor.Components
                     SearchText = SearchText,
                     SortOrder = SortOrder,
                     SortName = SortName,
-                    Filters = Filters
+                    Filters = Filters,
+                    Searchs = Searchs
                 });
             }
             if (queryData != null)
@@ -114,14 +117,25 @@ namespace BootstrapBlazor.Components
                 Items = queryData.Items;
                 TotalCount = queryData.TotalCount;
                 IsFiltered = queryData.IsFiltered;
+                IsSorted = queryData.IsSorted;
                 IsSearch = queryData.IsSearch;
 
+                // 外部未过滤，内部自行过滤
                 if (!IsFiltered)
                 {
                     Items = Items.Where(Filters.GetFilterFunc<TItem>());
                 }
+
+                // 外部未处理排序，内部自行排序
+                if (!IsSorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
+                {
+                    var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => Items.GetSortLambda().Compile());
+                    Items = invoker(Items, SortName, SortOrder);
+                }
             }
         }
+
+        private readonly static ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>();
 
         /// <summary>
         /// 行尾列按钮点击回调此方法

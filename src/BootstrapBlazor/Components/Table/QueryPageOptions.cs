@@ -34,6 +34,11 @@ namespace BootstrapBlazor.Components
         public IEnumerable<FilterKeyValueAction> Filters { get; set; } = Enumerable.Empty<FilterKeyValueAction>();
 
         /// <summary>
+        /// 获得/设置 搜索条件集合
+        /// </summary>
+        public IEnumerable<FilterKeyValueAction> Searchs { get; set; } = Enumerable.Empty<FilterKeyValueAction>();
+
+        /// <summary>
         /// 获得/设置 当前页码 首页为 第一页
         /// </summary>
         public int PageIndex { get; set; } = 1;

@@ -1,6 +1,7 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -28,6 +29,52 @@ namespace BootstrapBlazor.Shared.Pages
 
             Items = GenerateItems();
         }
+
+        private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
+        {
+            new AttributeItem() {
+                Name = "Sortable",
+                Description = "是否排序",
+                Type = "string",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Filterable",
+                Description = "是否可过滤数据",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Text",
+                Description = "表头显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Width",
+                Description = "列宽度",
+                Type = "int",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Formatter",
+                Description = "TableHeader 实例",
+                Type = "RenderFragment<TItem>",
+                ValueList = "—",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Template",
+                Description = "模板",
+                Type = "RenderFragment<TableColumnContext<object, TItem>>",
+                ValueList = "—",
+                DefaultValue = " — "
+            }
+        };
 
         /// <summary>
         /// 获得属性方法
@@ -287,37 +334,38 @@ namespace BootstrapBlazor.Shared.Pages
             }));
         }
 
+        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+
         private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
         {
-            var items = Items;
-            if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
-            if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
-            if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
-                 || (item.Address?.Contains(options.SearchText) ?? false)).ToList();
+            var items = Items.AsEnumerable();
 
-            // 排序
-            if (options.SortOrder != SortOrder.Unset)
-            {
-                var sortName = options.SortName;
-                if (string.IsNullOrEmpty(sortName)) sortName = nameof(BindItem.Name);
-                items = sortName switch
-                {
-                    nameof(BindItem.Address) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Address).ToList() : items.OrderByDescending(i => i.Address).ToList(),
-                    nameof(BindItem.DateTime) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.DateTime).ToList() : items.OrderByDescending(i => i.DateTime).ToList(),
-                    nameof(BindItem.Count) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Count).ToList() : items.OrderByDescending(i => i.Count).ToList(),
-                    nameof(BindItem.Complete) => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Complete).ToList() : items.OrderByDescending(i => i.Complete).ToList(),
-                    _ => options.SortOrder == SortOrder.Asc ? items.OrderBy(i => i.Name).ToList() : items.OrderByDescending(i => i.Name).ToList()
-                };
-            }
+            //TODO: 此处代码后期精简
+            if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
+            if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);
+            if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
+                 || (item.Address?.Contains(options.SearchText) ?? false));
 
             // 过滤
             var isFiltered = false;
             if (options.Filters.Any())
             {
-                items = items.Where(options.Filters.GetFilterFunc<BindItem>()).ToList();
+                items = items.Where(options.Filters.GetFilterFunc<BindItem>());
 
                 // 通知内部已经过滤数据了
                 isFiltered = true;
+            }
+
+            // 排序
+            var isSorted = false;
+            if (!string.IsNullOrEmpty(options.SortName))
+            {
+                // 外部未进行排序，内部自动进行排序处理
+                var invoker = SortLambdaCache.GetOrAdd(typeof(BindItem), key => items.GetSortLambda().Compile());
+                items = invoker(items, options.SortName, options.SortOrder);
+
+                // 通知内部已经过滤数据了
+                isSorted = true;
             }
 
             // 设置记录总数
@@ -330,9 +378,22 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Items = items,
                 TotalCount = total,
+                IsSorted = isSorted,
                 IsFiltered = isFiltered,
                 IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
             });
+        }
+
+        private Task<string> DateTimeFormatter(object? d)
+        {
+            var data = (DateTime?)d;
+            return  Task.FromResult(data?.ToString("yyyy-MM-dd") ?? "");
+        }
+
+        private Task<string> IntFormatter(object? d)
+        {
+            var data = (int?)d;
+            return  Task.FromResult(data?.ToString("0.00") ?? "");
         }
 
         private Task OnResetSearchAsync(BindItem item)
@@ -422,5 +483,4 @@ namespace BootstrapBlazor.Shared.Pages
         [DisplayName("是/否")]
         public bool Complete { get; set; }
     }
-
 }

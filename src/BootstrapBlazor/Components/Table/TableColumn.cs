@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -56,10 +57,22 @@ namespace BootstrapBlazor.Components
         public int Width { get; set; }
 
         /// <summary>
+        /// 获得/设置 列格式化回调委托
+        /// </summary>
+        [Parameter]
+        public Func<object?, Task<string>>? Formatter { get; set; }
+
+        /// <summary>
         /// 获得/设置 模板
         /// </summary>
         [Parameter]
         public RenderFragment<TableColumnContext<object, TItem>>? Template { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Table Header 实例
+        /// </summary>
+        [CascadingParameter]
+        protected TableColumnCollection? Columns { get; set; }
 
         /// <summary>
         /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
@@ -75,12 +88,6 @@ namespace BootstrapBlazor.Components
                 builder.AddContent(0, this.Template.Invoke(new TableColumnContext<object, TItem>() { Row = context, Value = value }));
             });
         }
-
-        /// <summary>
-        /// 获得/设置 Table Header 实例
-        /// </summary>
-        [CascadingParameter]
-        protected TableColumnCollection? Columns { get; set; }
 
         /// <summary>
         /// 组件初始化方法

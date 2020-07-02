@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private RenderFragment GetValue(ITableColumn col) => builder =>
+        private RenderFragment GetValue(ITableColumn col) => async builder =>
         {
             if (col.Template != null)
             {
@@ -49,17 +49,27 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                builder.AddContent(0, GetItemValue(col.GetFieldName()));
+                string content = "";
+                var val = GetItemValue(col.GetFieldName());
+                if (col.Formatter != null)
+                {
+                    content = await col.Formatter(val);
+                }
+                else
+                {
+                    content = val?.ToString() ?? "";
+                }
+                builder.AddContent(0, content);
             }
         };
 
-        private string GetItemValue(string fieldName)
+        private object? GetItemValue(string fieldName)
         {
-            var ret = "";
+            object? ret = null;
             if (Item != null)
             {
                 var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => Item.GetPropertyValueLambda<TItem, object>(key.Item2).Compile());
-                ret = invoker(Item)?.ToString() ?? "";
+                ret = invoker(Item);
             }
             return ret;
         }

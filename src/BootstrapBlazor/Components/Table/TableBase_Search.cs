@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -25,6 +26,11 @@ namespace BootstrapBlazor.Components
         protected bool IsFiltered { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否数据排序
+        /// </summary>
+        protected bool IsSorted { get; set; }
+
+        /// <summary>
         /// 高级查询弹窗
         /// </summary>
         protected Modal? SearchModal { get; set; }
@@ -33,6 +39,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 搜索框提示文字
         /// </summary>
         protected string SearchTooltip { get; set; } = "<div class='search-input-tooltip'>输入任意字符串全局搜索</br><kbd>Enter</kbd> 搜索 <kbd>ESC</kbd> 清除搜索</div>";
+
+        /// <summary>
+        /// 获得 搜索条件集合
+        /// </summary>
+        protected List<FilterKeyValueAction> Searchs { get; } = new List<FilterKeyValueAction>(10);
 
         /// <summary>
         /// 获得/设置 SearchTemplate 实例
@@ -85,6 +96,9 @@ namespace BootstrapBlazor.Components
         protected async Task SearchClick()
         {
             // 查询控件按钮触发此事件
+            // 拼接 Searchs 通过 SearchModel 遍历属性值获取搜索条件 未完待续
+            Searchs.Clear();
+            
             PageIndex = 1;
             await QueryAsync();
         }

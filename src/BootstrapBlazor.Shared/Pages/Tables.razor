@@ -190,7 +190,7 @@
     <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
             <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
@@ -317,6 +317,32 @@
     </Table>
 </Block>
 
+<Block Title="自定义列数据格式" Introduction="列绑定时通过指定 <code>Formatter</code> 回调委托来实现单元格数值格式化" CodeFile="table.17.html">
+    <p>
+        本例中列 <code>DateTime</code> 值根据 <code>DateTimeFormatter</code> 将值格式化为 <code>yyyy-MM-dd</code> 年月日格式
+    </p>
+    <p>
+        本例中列 <code>Count</code> 值根据 <code>IntFormatter</code> 将值格式化为 <code>0.00</code> 保留两位小数格式
+    </p>
+    <Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" Formatter="@DateTimeFormatter" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" Formatter="@IntFormatter" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
 <Toast></Toast>
 
 <PopoverConfirm></PopoverConfirm>
@@ -324,3 +350,5 @@
 <AttributeTable Items="GetAttributes()"></AttributeTable>
 
 <MethodTable Items="GetMethods()"></MethodTable>
+
+<AttributeTable Items="GetTableColumnAttributes()" Title="TableColumn 属性"/>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -50,5 +51,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 模板
         /// </summary>
         RenderFragment<object>? Template { get; }
+
+        /// <summary>
+        /// 获得/设置 列格式化回调委托
+        /// </summary>
+        [Parameter]
+        Func<object?, Task<string>>? Formatter { get; set; }
     }
 }
