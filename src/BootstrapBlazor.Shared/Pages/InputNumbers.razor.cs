@@ -22,14 +22,14 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem() {
                     Name = "Value",
                     Description = "当前值",
-                    Type = "<T>",
+                    Type = "int|long|short|float|double|decimal",
                     ValueList = " — ",
                     DefaultValue = "0"
                 },
                 new AttributeItem() {
                     Name = "Max",
                     Description = "可允许最大值",
-                    Type = "<T>",
+                    Type = "string",
                     ValueList = " - ",
                     DefaultValue = " - "
                 },
@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Shared.Pages
                 {
                     Name = "Min",
                     Description = "可允许最小值",
-                    Type = "<T>",
+                    Type = "string",
                     ValueList = " - ",
                     DefaultValue = " - "
                 },
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Shared.Pages
                 {
                     Name = "Step",
                     Description = "步长",
-                    Type = "<T>",
+                    Type = "int|long|short|float|double|decimal",
                     ValueList = " - ",
                     DefaultValue = "1"
                 },

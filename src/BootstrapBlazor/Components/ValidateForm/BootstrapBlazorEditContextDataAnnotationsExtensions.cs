@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
     {
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> _propertyInfoCache = new ConcurrentDictionary<(Type, string), PropertyInfo>();
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> _propertyInfoCache = new ConcurrentDictionary<(Type, string), PropertyInfo>();
 
         /// <summary>
         /// 添加数据合规检查

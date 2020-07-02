@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
-using System.Net.WebSockets;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
