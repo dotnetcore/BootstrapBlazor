@@ -53,7 +53,13 @@ namespace BootstrapBlazor.Components
                 var val = GetItemValue(col.GetFieldName());
                 if (col.Formatter != null)
                 {
+                    // 格式化回调委托
                     content = await col.Formatter(val);
+                }
+                else if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    // 格式化字符串
+                    content = val?.Format(col.FormatString) ?? "";
                 }
                 else
                 {

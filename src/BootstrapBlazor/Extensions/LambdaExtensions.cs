@@ -1,4 +1,5 @@
 ﻿using BootstrapBlazor.Components;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -102,8 +103,8 @@ namespace System.Linq
             var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
             return Expression.Call(left, method, right);
         }
-        #region Sort
 
+        #region Sort
         /// <summary>
         /// 
         /// </summary>
@@ -155,6 +156,47 @@ namespace System.Linq
 
             var exp_p1 = Expression.Parameter(typeof(TItem));
             return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
+        }
+        #endregion
+
+        #region ToString
+        private static ConcurrentDictionary<Type, Func<object, string, string>> FormatLambdaCache = new ConcurrentDictionary<Type, Func<object, string, string>>();
+        /// <summary>
+        /// 任意类型格式化方法
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        public static string Format(this object source, string format)
+        {
+            var invoker = FormatLambdaCache.GetOrAdd(source.GetType(), key => source.GetFormatLambda().Compile());
+            return invoker(source, format);
+        }
+
+        /// <summary>
+        /// 获取 Format 方法的 Lambda 表达式
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static Expression<Func<object, string, string>> GetFormatLambda(this object source)
+        {
+            var type = source.GetType();
+            var exp_p1 = Expression.Parameter(typeof(object));
+            var exp_p2 = Expression.Parameter(typeof(string));
+            var body = (Expression)exp_p2;
+            if (type.IsSubclassOf(typeof(IFormattable)))
+            {
+                // 通过 IFormattable 接口格式化
+                var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2, Expression.Constant(null));
+            }
+            else
+            {
+                // 通过 ToString(string format) 方法格式化
+                var mi = type.GetMethod("ToString", new Type[] { typeof(string) });
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2);
+            }
+            return Expression.Lambda<Func<object, string, string>>(body, exp_p1, exp_p2);
         }
         #endregion
 

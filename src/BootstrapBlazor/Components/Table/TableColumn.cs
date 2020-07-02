@@ -57,6 +57,12 @@ namespace BootstrapBlazor.Components
         public int Width { get; set; }
 
         /// <summary>
+        /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+        /// </summary>
+        [Parameter]
+        public string? FormatString { get; set; }
+
+        /// <summary>
         /// 获得/设置 列格式化回调委托
         /// </summary>
         [Parameter]

@@ -4,15 +4,10 @@
        ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
        OnQueryAsync="@OnQueryAsync">
     <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" Formatter="@DateTimeFormatter" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" FormatString="yyyy-MM-dd" />
         <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
         <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
         <TableColumn @bind-Field="@context.Count" Sortable="true" Formatter="@IntFormatter" />
-        <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
-            <Template Context="value">
-                <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-            </Template>
-        </TableColumn>
     </TableColumns>
 </Table>
 

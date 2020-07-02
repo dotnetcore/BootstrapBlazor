@@ -317,12 +317,12 @@
     </Table>
 </Block>
 
-<Block Title="自定义列数据格式" Introduction="列绑定时通过指定 <code>Formatter</code> 回调委托来实现单元格数值格式化" CodeFile="table.17.html">
+<Block Title="自定义列数据格式" Introduction="列绑定时通过指定 <code>FormatString</code> 或者 <code>Formatter</code> 回调委托来实现单元格数值格式化" CodeFile="table.17.html">
     <p>
-        本例中列 <code>DateTime</code> 值根据 <code>DateTimeFormatter</code> 将值格式化为 <code>yyyy-MM-dd</code> 年月日格式
+        本例中列 <code>DateTime</code> 值根据 <code>FormatString</code> 将值格式化为 <code>yyyy-MM-dd</code> 年月日格式
     </p>
     <p>
-        本例中列 <code>Count</code> 值根据 <code>IntFormatter</code> 将值格式化为 <code>0.00</code> 保留两位小数格式
+        本例中列 <code>Count</code> 值根据 <code>Formatter</code> 将值格式化为 <code>0.00</code> 保留两位小数格式
     </p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -330,15 +330,10 @@
            ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" Formatter="@DateTimeFormatter" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" FormatString="yyyy-MM-dd" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Count" Sortable="true" Formatter="@IntFormatter" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
-                <Template Context="value">
-                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-                </Template>
-            </TableColumn>
         </TableColumns>
     </Table>
 </Block>

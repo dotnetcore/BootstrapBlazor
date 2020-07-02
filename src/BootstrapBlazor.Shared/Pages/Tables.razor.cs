@@ -57,21 +57,28 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Width",
                 Description = "列宽度",
                 Type = "int",
-                ValueList = "—",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "FormatString",
+                Description = "数值格式化字符串",
+                Type = "string",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Formatter",
                 Description = "TableHeader 实例",
                 Type = "RenderFragment<TItem>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Template",
                 Description = "模板",
                 Type = "RenderFragment<TableColumnContext<object, TItem>>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             }
         };
@@ -87,49 +94,49 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Height",
                 Description = "固定表头",
                 Type = "int",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "HeaderTemplate",
                 Description = "TableHeader 实例",
                 Type = "RenderFragment<TItem>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "TableFooter",
                 Description = "Table Footer 模板",
                 Type = "RenderFragment",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "TableToolbarTemplate",
                 Description = "自定义按钮模板",
                 Type = "RenderFragment",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "EditTemplate",
                 Description = "编辑弹窗模板",
                 Type = "RenderFragment<TItem?>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "SearchTemplate",
                 Description = "高级搜索模板",
                 Type = "RenderFragment<TItem>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RowButtonTemplate",
                 Description = "Table 行按钮模板",
                 Type = "RenderFragment<TItem>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -157,7 +164,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Items",
                 Description = "数据集合",
                 Type = "IEnumerable<TItem>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -165,14 +172,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "IsPagination=true 设置每页显示数据数量",
                 Type = "int",
                 ValueList = " — ",
-                DefaultValue = "—"
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "PageItemsSource",
                 Description = "IsPagination=true 设置每页显示数据数量的外部数据源",
                 Type = "IEnumerable<int>",
                 ValueList = " — ",
-                DefaultValue = "—"
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowCheckbox",
@@ -262,7 +269,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnAddAsync",
                 Description = "新建按钮回调方法",
                 Type = "Func<Task<TItem>>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
@@ -290,7 +297,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnSortAsync",
                 Description = "排序方法",
                 Type = "Func<string, SortOrder, Task>",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
