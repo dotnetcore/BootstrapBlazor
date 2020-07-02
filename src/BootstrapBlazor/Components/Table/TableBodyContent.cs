@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Components
             if (Item != null)
             {
                 var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => Item.GetPropertyValueLambda<TItem, object>(key.Item2).Compile());
-                ret = invoker(Item).ToString();
+                ret = invoker(Item)?.ToString() ?? "";
             }
             return ret;
         }
