@@ -182,12 +182,12 @@ namespace BootstrapBlazor.Components
         {
             var ret = false;
             if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
-            var op = new ToastOption()
+            var option = new ToastOption()
             {
                 Title = "删除数据"
             };
-            op.Category = ret ? ToastCategory.Success : ToastCategory.Error;
-            op.Content = $"删除数据{(ret ? "成功" : "失败")}, {Math.Ceiling(op.Delay / 1000.0)} 秒后自动关闭";
+            option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
+            option.Content = $"删除数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
 
             if (ret)
             {
@@ -200,7 +200,7 @@ namespace BootstrapBlazor.Components
                 PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
                 await QueryAsync();
             }
-            Toast?.Show(op);
+            Toast?.Show(option);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
             // 注册 Toast 弹窗事件
             if (DialogService != null)
             {
-                DialogService.Subscribe(Show);
+                DialogService.Register(Show);
             }
         }
 
