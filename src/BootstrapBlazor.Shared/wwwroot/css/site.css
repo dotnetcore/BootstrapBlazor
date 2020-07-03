@@ -1,12 +1,4 @@
-﻿html, body, button, .popover {
-    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-}
-
-a, a:hover {
-    text-decoration: none;
-}
-
-a, .btn-link {
+﻿a, .btn-link {
     color: #0366d6;
 }
 
@@ -537,7 +529,7 @@ section {
     header.navbar {
         position: sticky;
         top: 0;
-        z-index: 1080;
+        z-index: 1040;
         height: 50px;
     }
 
@@ -1013,3 +1005,11 @@ section {
     .listview-demo .listview-demo-desc {
         text-align: center;
     }
+
+.demo-inputnumber {
+    width: 160px;
+}
+
+.form-inline .demo-inputnumber > .form-control {
+    width: inherit;
+}

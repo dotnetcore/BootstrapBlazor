@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
+using System.Collections.Concurrent;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -38,7 +41,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private RenderFragment GetValue(ITableColumn col) => new RenderFragment(builder =>
+        private RenderFragment GetValue(ITableColumn col) => async builder =>
         {
             if (col.Template != null)
             {
@@ -46,10 +49,37 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                builder.AddContent(0, GetItemValue(col.GetFieldName()));
+                string content = "";
+                var val = GetItemValue(col.GetFieldName());
+                if (col.Formatter != null)
+                {
+                    // 格式化回调委托
+                    content = await col.Formatter(val);
+                }
+                else if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    // 格式化字符串
+                    content = val?.Format(col.FormatString) ?? "";
+                }
+                else
+                {
+                    content = val?.ToString() ?? "";
+                }
+                builder.AddContent(0, content);
             }
-        });
+        };
 
-        private string GetItemValue(string filedName) => Item?.GetValueByFieldName(filedName) ?? "";
+        private object? GetItemValue(string fieldName)
+        {
+            object? ret = null;
+            if (Item != null)
+            {
+                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => Item.GetPropertyValueLambda<TItem, object>(key.Item2).Compile());
+                ret = invoker(Item);
+            }
+            return ret;
+        }
+
+        private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object>>();
     }
 }

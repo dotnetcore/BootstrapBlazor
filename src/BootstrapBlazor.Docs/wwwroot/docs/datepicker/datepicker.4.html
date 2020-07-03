@@ -1,6 +1,28 @@
-﻿<DateTimePicker Value="@BindValue" ValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
+﻿<DateTimePicker TValue="DateTime?" Value="@BindValue" ValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
 <input class="form-control" @bind="@BindValueString" />
 
 @code{
    protected DateTime BindValue { get; set; } = DateTime.Today;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private string BindValueString
+    {
+        get
+        {
+            return BindValue.HasValue ? BindValue.Value.ToString("yyyy-MM-dd") : "";
+        }
+        set
+        {
+            if (DateTime.TryParse(value, out var d))
+            {
+                BindValue = d;
+            }
+            else
+            {
+                BindValue = DateTime.Today;
+            }
+        }
+    }
 }

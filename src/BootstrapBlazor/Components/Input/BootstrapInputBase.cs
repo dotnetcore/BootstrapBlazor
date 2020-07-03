@@ -16,12 +16,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得/设置 是否显示前置标签 默认值为 true
-        /// </summary>
-        [Parameter]
-        public bool ShowLabel { get; set; } = true;
-
-        /// <summary>
         /// 获得/设置 是否为密码输入框 默认为 false
         /// </summary>
         [Parameter]

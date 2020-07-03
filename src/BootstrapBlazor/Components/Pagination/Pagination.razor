@@ -20,6 +20,7 @@
         </li>
         @if (PageCount > 5)
         {
+            <PaginationItem PageIndex="1" Active="PageIndex == 1" OnClick="OnPageItemClick" />
             <li class="page-item">
                 <a class="page-link page-link-prev" aria-label="上一页" href="#" @onclick:preventDefault @onclick="e => MovePrev(5)">
                     <i class="fa fa-ellipsis-h"></i>
@@ -28,6 +29,7 @@
         }
         @for (int i = StartPageIndex; i <= EndPageIndex; i++)
         {
+            @if (PageCount > 5 && (i == 1 || i == EndPageIndex)) continue;
             <PaginationItem PageIndex="@i" Active="PageIndex == i" OnClick="OnPageItemClick" />
         }
         @if (PageCount > 5)
@@ -37,6 +39,7 @@
                     <i class="fa fa-ellipsis-h"></i>
                 </a>
             </li>
+            <PaginationItem PageIndex="@PageCount" Active="PageIndex == PageCount" OnClick="OnPageItemClick" />
         }
         <li class="page-item">
             <a class="page-link" aria-label="下一页" href="#" @onclick:preventDefault @onclick="e => MoveNext(1)">

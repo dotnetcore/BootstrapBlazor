@@ -42,7 +42,7 @@
                                 {
                                     <td class="@GetDayClass(week.AddDays(index))">
                                         <div>
-                                            <DatePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="@(async d=> await OnClickDateTime(d))" />
+                                            <DatePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="@(d=> OnClickDateTime(d))" />
                                         </div>
                                     </td>
                                 }
@@ -87,7 +87,7 @@
             </div>
         </div>
     </div>
-    <div class="@FooterClassName">
+    <div class="picker-panel-footer">
         <div class="flex-fill">
             @if (AllowNull)
             {

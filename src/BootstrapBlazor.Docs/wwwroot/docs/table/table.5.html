@@ -1,4 +1,4 @@
-<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)" 
+﻿<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)" 
     ShowCheckbox="true" ShowCheckboxText="true">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" />
@@ -6,3 +6,31 @@
         <TableColumn @bind-Field="@context.Address" />
     </TableColumns>
 </Table>
+
+@code {
+    private List<BindItem>? Items { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = GenerateItems();
+    }
+
+    private List<BindItem> GenerateItems()
+    {
+        var random = new Random();
+        return new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
+        {
+            Id = i,
+            Name = $"张三 {i:d4}",
+            DateTime = DateTime.Now.AddDays(i - 1),
+            Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50
+        }));
+    }
+}

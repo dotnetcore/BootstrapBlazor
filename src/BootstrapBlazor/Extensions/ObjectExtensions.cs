@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Linq;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components
 {
@@ -82,25 +80,21 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> _propertyCache = new ConcurrentDictionary<(Type, string), PropertyInfo>();
-
         /// <summary>
-        /// 通过 FieldName 获得属性值
+        /// 检查是否为 Number 数据类型
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="fieldName"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
-        public static string GetValueByFieldName(this object obj, string fieldName)
+        public static bool IsNumber(this Type t)
         {
-            var type = obj.GetType();
-            var key = (type, fieldName);
-            var pi = _propertyCache.GetOrAdd(key, key =>
-            {
-                var p = key.ModelType.GetProperties().FirstOrDefault(p => p.Name.Equals(key.FieldName, StringComparison.OrdinalIgnoreCase));
-                return p;
-            });
-            if (pi == null) _propertyCache.TryRemove(key, out pi);
-            return pi.GetValue(obj)?.ToString() ?? "";
+            var targetType = Nullable.GetUnderlyingType(t) ?? t;
+            var check = targetType == typeof(int) ||
+                targetType == typeof(long) ||
+                targetType == typeof(short) ||
+                targetType == typeof(float) ||
+                targetType == typeof(double) ||
+                targetType == typeof(decimal);
+            return check;
         }
     }
 }

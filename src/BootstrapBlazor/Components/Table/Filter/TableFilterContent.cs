@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -71,7 +70,10 @@ namespace BootstrapBlazor.Components
                             return Task.CompletedTask;
                         }));
 
-                        switch (header.FieldType.Name)
+
+                        // 获得可为空具体类型
+                        var fieldType = Nullable.GetUnderlyingType(header.FieldType) ?? header.FieldType;
+                        switch (fieldType.Name)
                         {
                             case nameof(Boolean):
                                 builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderBoolFilter());

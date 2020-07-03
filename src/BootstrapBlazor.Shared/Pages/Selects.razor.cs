@@ -14,12 +14,12 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private Foo Model { get; set; } = new Foo() { Name = "Beijing" };
+        private Foo Model { get; set; } = new Foo();
 
         /// <summary>
         /// 
         /// </summary>
-        private Foo BindModel { get; set; } = new Foo() { Name = "" };
+        private Foo BindModel { get; set; } = new Foo();
 
         /// <summary>
         /// 获得/设置 Logger 实例
@@ -112,6 +112,20 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "ShowLabel",
+                Description = "是否显示前置标签",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "DisplayText",
+                Description = "前置标签显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
             new AttributeItem() {
                 Name = "Class",
                 Description = "样式",

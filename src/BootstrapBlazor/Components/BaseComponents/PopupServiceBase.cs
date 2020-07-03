@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -10,42 +9,25 @@ namespace BootstrapBlazor.Components
     /// <typeparam name="TOption"></typeparam>
     public abstract class PopupServiceBase<TOption>
     {
-        private List<Func<TOption, Task>> Subscribes { get; set; }
+        private Func<TOption, Task>? Callback { get; set; }
 
         /// <summary>
-        /// 默认构造函数
-        /// </summary>
-        public PopupServiceBase()
-        {
-            Subscribes = new List<Func<TOption, Task>>(100);
-        }
-
-        /// <summary>
-        /// 显示窗口方法
+        /// 回调方法
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
         public virtual void Show(TOption option)
         {
-            Subscribes.ForEach(async callback => await callback.Invoke(option));
+            Callback?.Invoke(option);
         }
 
         /// <summary>
-        /// 订阅弹窗事件
+        /// 注册弹窗事件
         /// </summary>
         /// <param name="callback"></param>
-        internal void Subscribe(Func<TOption, Task> callback)
+        internal void Register(Func<TOption, Task> callback)
         {
-            Subscribes.Add(callback);
-        }
-
-        /// <summary>
-        /// 退订弹窗事件
-        /// </summary>
-        /// <param name="callback"></param>
-        internal void UnSubscribe(Func<TOption, Task> callback)
-        {
-            Subscribes.Remove(callback);
+            Callback = callback;
         }
     }
 }

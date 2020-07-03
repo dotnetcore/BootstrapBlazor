@@ -1,6 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits DateTimePickerBase
+@typeparam TValue
+@inherits DateTimePickerBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="control-label">@DisplayText</label>
+}
 <div @attributes="@AdditionalAttributes" class="datetime-picker" @ref="Picker" data-placement="@PlacementString">
     <div class="datetime-picker-bar">
         <input readonly="readonly" class="@ClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" />
@@ -8,8 +13,8 @@
             <i class="fa fa-calendar"></i>
         </span>
     </div>
-    <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull"                                                
+    <DatePickerBody @bind-Value="@ComponentValue" AllowNull="@AllowNull"
                     OnConfirm="@OnConfirm" OnClear="@OnClear"
-                    ViewModel="@ViewModel" ShowFooter="@ShowFooter">
+                    ViewModel="@ViewModel">
     </DatePickerBody>
 </div>

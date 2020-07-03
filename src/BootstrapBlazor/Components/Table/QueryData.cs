@@ -25,6 +25,11 @@ namespace BootstrapBlazor.Components
         public bool IsFiltered { get; set; }
 
         /// <summary>
+        /// 获得/设置 数据是否被排序 默认为 false 未被排序
+        /// </summary>
+        public bool IsSorted { get; set; }
+
+        /// <summary>
         /// 获得/设置 数据是否为搜索模式 默认为 false
         /// </summary>
         /// <remarks>设置本属性为 true 时，Table 组件的高级搜索按钮改变颜色</remarks>

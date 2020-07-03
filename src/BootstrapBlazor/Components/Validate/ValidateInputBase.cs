@@ -35,6 +35,11 @@ namespace BootstrapBlazor.Components
         protected bool? IsValid { get; set; }
 
         /// <summary>
+        /// 是否显示 标签
+        /// </summary>
+        protected bool IsShowLabel { get; set; }
+
+        /// <summary>
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
@@ -56,6 +61,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示前置标签 默认值为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowLabel { get; set; }
 
         /// <summary>
         /// 获得/设置 显示名称
@@ -82,8 +93,13 @@ namespace BootstrapBlazor.Components
             if (EditForm != null && FieldIdentifier != null)
             {
                 EditForm.AddValidator((EditForm, FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
+
+                // 内置到验证组件时才使用绑定属性值获取 DisplayName
                 if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
+
+            //显式设置显示标签时一定显示
+            IsShowLabel = ShowLabel || !string.IsNullOrEmpty(DisplayText);
         }
 
         /// <summary>
@@ -230,11 +246,11 @@ namespace BootstrapBlazor.Components
                     }
                     else
                     {
-                        if (value.TryParse<TItem>(out var v))
+                        if (false) //value.TryParse<TItem>(out var v))
                         {
-                            result = v;
-                            validationErrorMessage = null;
-                            return true;
+                            //result = v;
+                            //validationErrorMessage = null;
+                            //return true;
                         }
                         else
                         {

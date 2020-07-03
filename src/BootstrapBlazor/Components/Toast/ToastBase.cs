@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
             // 注册 Toast 弹窗事件
             if (ToastService != null)
             {
-                ToastService.Subscribe(Show);
+                ToastService.Register(Show);
             }
         }
 
@@ -81,16 +81,6 @@ namespace BootstrapBlazor.Components
         {
             Placement = placement;
             StateHasChanged();
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
-        {
-            // 移除 Toast 弹窗服务事件
-            if (ToastService != null) ToastService.UnSubscribe(Show);
         }
     }
 }

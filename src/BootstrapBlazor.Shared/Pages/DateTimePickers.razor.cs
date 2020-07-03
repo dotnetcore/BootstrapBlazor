@@ -139,6 +139,20 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
+                Name = "ShowLabel",
+                Description = "是否显示前置标签",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "DisplayText",
+                Description = "前置标签显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "DateFormat",
                 Description = "日期格式字符串 默认为 yyyy-MM-dd",
                 Type = "string",
@@ -153,20 +167,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "AllowNull",
-                Description = "是否允许为空 默认 false 不允许为空",
-                Type = "boolean",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "ShowFooter",
-                Description = "是否显示本组件 Footer 区域",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
                 Name = "TimeFormat",
                 Description = "时间格式字符串 默认为 hh:mm:ss",
                 Type = "string",
@@ -176,8 +176,8 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Value",
                 Description = "组件值与 ValueChanged 作为双向绑定的值",
-                Type = "DateTime?",
-                ValueList = " — ",
+                Type = "TValue",
+                ValueList = "DateTime | DateTime?",
                 DefaultValue = " — "
             },
              new AttributeItem() {

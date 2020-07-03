@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     internal static class DisplayNamesExtensions
     {
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), string> _displayNameCache = new ConcurrentDictionary<(Type, string), string>();
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), string> _displayNameCache = new ConcurrentDictionary<(Type, string), string>();
 
         /// <summary>
         /// 尝试获取指定 Model 指定属性值的显示名称

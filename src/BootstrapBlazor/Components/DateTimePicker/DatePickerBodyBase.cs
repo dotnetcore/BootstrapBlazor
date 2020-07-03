@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
             {
                 if (CurrentDate == DateTime.MinValue)
                 {
-                    CurrentDate = DateTime.Now;
+                    CurrentDate = DateTime.Today;
                 }
 
                 var d = CurrentDate.AddDays(1 - CurrentDate.Day);
@@ -114,13 +114,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 日历 Footer 样式
-        /// </summary>
-        protected string? FooterClassName => CssBuilder.Default("picker-panel-footer")
-            .AddClass("d-none", !ShowFooter)
-            .Build();
-
-        /// <summary>
         /// 获得 年显示文字
         /// </summary>
         protected string? YearString => CurrentViewModel switch
@@ -175,12 +168,6 @@ namespace BootstrapBlazor.Components
         public bool AllowNull { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示本组件 Footer 区域 默认不显示
-        /// </summary>
-        [Parameter]
-        public bool ShowFooter { get; set; }
-
-        /// <summary>
         /// 获得/设置 确认按钮回调委托
         /// </summary>
         [Parameter]
@@ -220,6 +207,13 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             CurrentViewModel = ViewModel;
+
+
+            // 计算开始与结束时间 每个组件显示 6 周数据
+            if (Value == DateTime.MinValue)
+            {
+                Value = DateTime.Today;
+            }
         }
 
         /// <summary>
@@ -262,16 +256,12 @@ namespace BootstrapBlazor.Components
         /// Day 选择时触发此方法
         /// </summary>
         /// <param name="d"></param>
-        protected async Task OnClickDateTime(DateTime d)
+        protected Task OnClickDateTime(DateTime d)
         {
             ShowTimePicker = false;
             CurrentDate = d;
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(Value);
-            }
-
             StateHasChanged();
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -386,7 +376,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 此刻时调用此方法
         /// </summary>
-        protected async Task ClickNowButton()
+        protected Task ClickNowButton()
         {
             ShowTimePicker = false;
             Value = ViewModel switch
@@ -394,10 +384,7 @@ namespace BootstrapBlazor.Components
                 DatePickerViewModel.DateTime => DateTime.Now,
                 _ => DateTime.Today
             };
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(Value);
-            }
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -414,24 +401,15 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 时间值 改变时触发此方法
-        /// </summary>
-        /// <param name="ts"></param>
-        protected void OnTimeValueChanged(TimeSpan ts)
-        {
-            CurrentTime = ts;
-            if (ValueChanged.HasDelegate)
-            {
-                ValueChanged.InvokeAsync(Value);
-            }
-        }
-
-        /// <summary>
         /// 点击 确认时调用此方法
         /// </summary>
         protected async Task ClickConfirmButton()
         {
             ShowTimePicker = false;
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
             if (OnConfirm != null)
             {
                 await OnConfirm.Invoke();

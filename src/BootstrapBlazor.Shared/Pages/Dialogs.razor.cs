@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace BootstrapBlazor.Shared.Pages
                 {
                     new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
                 })
-                .Render<object>()
+                .Render()
             });
             return Task.CompletedTask;
         }
@@ -67,6 +68,26 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Task OnClickParameter()
+        {
+            DialogService?.Show(new DialogOption()
+            {
+                Title = "自带的 Counter 组件",
+                BodyContext = "我是传参",
+                BodyTemplate = builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<DemoComponent>(index++);
+                    builder.CloseComponent();
+                }
+            });
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
@@ -78,6 +99,13 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "Component",
                     Description = "对话框 Body 中引用的组件的参数",
                     Type = "DynamicComponent",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "BodyContext",
+                    Description = "弹窗传参",
+                    Type = "object",
                     ValueList = " — ",
                     DefaultValue = " — "
                 },

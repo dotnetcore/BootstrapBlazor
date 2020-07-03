@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 结束页码
         /// </summary>
-        protected int EndPageIndex => Math.Min(PageCount, Math.Max(5, PageIndex + 2));
+        protected int EndPageIndex => Math.Min(PageCount, Math.Max(5, PageIndex + 3));
 
         /// <summary>
         /// 获得/设置 数据总数

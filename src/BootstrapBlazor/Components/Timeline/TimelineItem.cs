@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace BootstrapBlazor.Components
+﻿namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 时间线选项

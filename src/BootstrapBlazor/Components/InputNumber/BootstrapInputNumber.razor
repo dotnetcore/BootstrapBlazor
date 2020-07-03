@@ -1,0 +1,34 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits BootstrapInputNumberBase<TValue>
+
+@if (ShowLabel)
+{
+    @if (ValueExpression != null || DisplayText != null)
+    {
+        <label class="control-label" for="@Id">@DisplayText</label>
+    }
+}
+@if (ShowButton)
+{
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <button class="@ButtonClassString" type="button" @onclick="OnClickDec">
+                <i class="fa fa-fw fa-minus-circle"></i>
+            </button>
+        </div>
+        <input @attributes="AdditionalAttributes" data-original-title="@ErrorMessage" type="number" class="@InputClassString" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+        <div class="input-group-append">
+            <button class="@ButtonClassString" type="button" @onclick="OnClickInc">
+                <i class="fa fa-fw fa-plus-circle"></i>
+            </button>
+        </div>
+    </div>
+}
+else
+{
+    <input @attributes="AdditionalAttributes" data-original-title="@ErrorMessage" type="number" class="@InputClassString" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+}
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>

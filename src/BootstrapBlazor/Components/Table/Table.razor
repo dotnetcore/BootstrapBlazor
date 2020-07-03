@@ -9,9 +9,18 @@
             <TableToolbar>
                 @if (ShowDefaultButtons)
                 {
-                    <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" ButtonIcon="fa fa-plus" ButtonText="新建" />
-                    <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
-                    <TableToolbarButton Color="Color.Primary" OnClick="@Edit" ButtonIcon="fa fa-pencil" ButtonText="编辑" />
+                    @if (ShowNewButton)
+                    {
+                        <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" ButtonIcon="fa fa-plus" ButtonText="新建" />
+                    }
+                    @if (ShowEditButton)
+                    {
+                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit" ButtonIcon="fa fa-pencil" ButtonText="编辑" />
+                    }
+                    @if (ShowDeleteButton)
+                    {
+                        <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
+                    }
                 }
                 @TableToolbarTemplate
             </TableToolbar>
@@ -75,18 +84,18 @@
                 <tbody>
                     @if (Items != null)
                     {
-                        @for (int index = 0; index < Items.Count(); index++)
+                        @foreach (var item in Items)
                         {
                             <tr>
                                 @if (ShowCheckbox)
                                 {
                                     <td>
                                         <div class="table-cell">
-                                            <Checkbox TItem="TItem" Value="@Items.ElementAt(index)" State="@RowCheckState(Items.ElementAt(index))" OnStateChanged="@OnCheck"></Checkbox>
+                                            <Checkbox TItem="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
                                         </div>
                                     </td>
                                 }
-                                <TableBodyContent TItem="TItem" Item="@Items.ElementAt(index)" />
+                                <TableBodyContent TItem="TItem" Item="@item" />
                                 @if (ShowExtendButtons)
                                 {
                                     <td>
@@ -94,13 +103,19 @@
                                             <div class="btn-group">
                                                 @if (ShowDefaultButtons)
                                                 {
-                                                    <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" OnClickCallback="@(e => ClickButton(e))">
-                                                        <i class='fa fa-edit'></i>
-                                                        <span>编辑</span>
-                                                    </TableCellButton>
-                                                    <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@Items.ElementAt(index)" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
+                                                    @if (ShowEditButton)
+                                                    {
+                                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@item" OnClickCallback="@(e => ClickButton(e))">
+                                                            <i class='fa fa-edit'></i>
+                                                            <span>编辑</span>
+                                                        </TableCellButton>
+                                                    }
+                                                    @if (ShowDeleteButton)
+                                                    {
+                                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@item" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
+                                                    }
                                                 }
-                                                @RowButtonTemplate?.Invoke(Items.ElementAt(index))
+                                                @RowButtonTemplate?.Invoke(item)
                                             </div>
                                         </div>
                                     </td>

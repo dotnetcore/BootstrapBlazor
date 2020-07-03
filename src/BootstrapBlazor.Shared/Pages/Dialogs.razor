@@ -24,6 +24,13 @@
     <Button @onclick="@OnClickCounter">点击打开 Dialog</Button>
 </Block>
 
+<Block Title="弹窗传参" Introduction="通过设置 <code>BodyContext</code> 属性值，可以把参数传递给弹窗中的组件内" CodeFile="dialog.3.html">
+    <p>
+        本例中点击按钮时设置 <code>BodyContext</code> 值为 <code>我是传参</code>，弹窗内容为自定义组件 <code>DemoComponent</code>，组件内通过级联参数获取到其值
+    </p>
+    <Button @onclick="@OnClickParameter">Dialog 传参示例</Button>
+</Block>
+
 <h4>特别注意</h4>
 
 <p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
