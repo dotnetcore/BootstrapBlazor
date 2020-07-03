@@ -1151,6 +1151,10 @@
                     var margin = th.offset().left + th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
                     if(margin > 0) {
                         left = left - margin - 16;
+
+                        // set arrow
+                        $arrow = $body.find('.card-arrow');
+                        $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
                     }
                     $body.css({ "top": position.top + 50, "left": left - marginRight });
                 });
