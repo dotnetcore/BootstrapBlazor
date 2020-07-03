@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 相关弹窗实例
         /// </summary>
-        internal ModalBase? Modal { get; set; }
+        public ModalBase? Dialog { get; internal set; }
 
         /// <summary>
         /// 获得/设置 弹窗标题

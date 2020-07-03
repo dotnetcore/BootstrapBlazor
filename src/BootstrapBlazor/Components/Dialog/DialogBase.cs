@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
         {
             if (ModalDialog != null)
             {
-                option.Modal = ModalContainer;
+                option.Dialog = ModalContainer;
                 var parameters = option.ToAttributes().ToList();
 
                 if (option.BodyTemplate != null)
