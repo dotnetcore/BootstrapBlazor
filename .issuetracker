@@ -3,7 +3,7 @@
 # (note that '\' need to be escaped).
 
 [issuetracker "Gitee-Issue"]
-  regex = "#((?!.*Issue|issue|Comme|comme).{5})"
+  regex = "#(.+?)\\)"
   url = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/$1?from=project-issue"
 
 [issuetracker "Gitee-Url"]
