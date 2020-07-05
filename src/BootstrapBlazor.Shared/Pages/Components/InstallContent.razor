@@ -1,0 +1,34 @@
+﻿@using Microsoft.Extensions.DependencyInjection 
+@inject NugetVersionService VersionManager
+
+<h3>@Title</h3>
+
+<h4>组件引用</h4>
+
+<p>组件引用有多种方法，可以参阅 <a href="install">类库安装</a></p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
+
+<h4>CSS 文件</h4>
+
+<p>将 Bootstrap 的 CSS 文件以 <code class="highlight">&lt;link&gt;</code> 标签的形式添加到 <code class="highlight">&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前就行了。</p>
+
+<Pre CodeFile="install.1.html"></Pre>
+<h4>JS 文件</h4>
+
+<p>Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code>&lt;script&gt;</code> 标签放到页面尾部且在 <code>&lt;/body&gt;</code> 标签之前即可起作用。他们之间的顺序是： jQuery 必须排在第一位，然后是我们的 JavaScript 插件。</p>
+<Pre CodeFile="install.2.html"></Pre>
+
+<h4>添加命名空间到 <code>_Imports.razor</code> 文件</h4>
+
+<Pre class="no-highlight">@@using BootstrapBlazor.Components</Pre>
+
+<h4>注册服务</h4>
+
+<p>组件中的 <code>Toast</code> 与 <code>PopoverConfirm</code> 使用了注入服务，方便随时随地调用 <code>Show</code> 方法进行弹出对话框进行提示操作，所以在项目的 <code>Startup</code> 文件中的 <code>ConfigureServices</code> 方法中加入如下代码</p>
+@ChildContent
+<h4>使用组件</h4>
+
+<p>在 <code>razor</code>组件中引用 <code>BootstrapBlazor</code> 组件</p>
+<Pre>&lt;Button Color="Color.Primary"&gt;主要按钮&lt;/Button&gt;</Pre>
