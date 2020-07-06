@@ -84,12 +84,28 @@
     </BootstrapInput>
 </Block>
 
+<Block Title="泛型绑定" Introduction="<code>BootstrapInput</code> 组件双向绑定值是泛型的，本例中双向绑定一个 double 类型数值" CodeFile="input.6.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput TItem="double" placeholder="请输入 ..." type="number" FormatString="0.00" @bind-Value="@BindDoubleValue" DisplayText="请输入数字">
+                </BootstrapInput>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div>绑定数值: @BindDoubleValue.ToString("0.00")</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 @code {
     private string InputValue => "数据值";
 
     private string BindValue { get; set; } = "绑定值";
+
+    private double BindDoubleValue { get; set; } = 1.0;
 
     private FooModel Model { get; set; } = new FooModel();
 
@@ -121,6 +137,20 @@
                 Name = "DisplayText",
                 Description = "前置标签显示文本",
                 Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "FormatString",
+                Description = "数值格式化字符串",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Formatter",
+                Description = "TableHeader 实例",
+                Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },

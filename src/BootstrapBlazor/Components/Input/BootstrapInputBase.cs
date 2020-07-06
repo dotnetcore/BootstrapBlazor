@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -28,6 +29,12 @@ namespace BootstrapBlazor.Components
         public Func<TItem, string>? Formatter { get; set; }
 
         /// <summary>
+        /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+        /// </summary>
+        [Parameter]
+        public string? FormatString { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -51,7 +58,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override string? FormatValueAsString(TItem value)
         {
-            return Formatter != null ? Formatter.Invoke(Value) : base.FormatValueAsString(value);
+            return Formatter != null ? Formatter.Invoke(Value) : (!string.IsNullOrEmpty(FormatString) && value != null ? ((object)value).Format(FormatString) : base.FormatValueAsString(value));
         }
     }
 }

@@ -299,5 +299,40 @@ namespace System.Linq
             var body = Expression.Call(Expression.Convert(param_p1, t.GetType()), mi, Expression.Convert(param_p2, p.PropertyType));
             return Expression.Lambda<Action<TItem, TValue>>(body, param_p1, param_p2);
         }
+
+        #region TryParse
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TIn"></typeparam>
+        /// <typeparam name="TOut"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="outValue"></param>
+        /// <returns></returns>
+        internal delegate TResult FuncEx<TIn, TOut, TResult>(TIn source, out TOut outValue);
+
+        /// <summary>
+        /// 尝试使用 TryParse 进行数据转换
+        /// </summary>
+        /// <returns></returns>
+        internal static Expression<FuncEx<string, TValue, bool>> TryParse<TValue>()
+        {
+            var t = typeof(TValue);
+            var p1 = Expression.Parameter(typeof(string));
+            var p2 = Expression.Parameter(t.MakeByRefType());
+            var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
+            var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(LambdaExtensions).GetMethod("TryParseEmpty", BindingFlags.NonPublic | BindingFlags.Static).MakeGenericMethod(typeof(TValue)), p1, p2);
+            return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
+        }
+
+        private static bool TryParseEmpty<TValue>(string source, out TValue val)
+        {
+#nullable disable
+            val = default;
+#nullable restore
+            return false;
+        }
+        #endregion
     }
 }

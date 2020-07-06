@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -180,6 +181,23 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        internal static ConcurrentDictionary<Type, LambdaExtensions.FuncEx<string, TItem, bool>> TryParseCache { get; set; } = new ConcurrentDictionary<Type, LambdaExtensions.FuncEx<string, TItem, bool>>();
+
+        /// <summary>
+        /// TryParse 泛型方法
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected bool TryParse(string source, out TItem item)
+        {
+            var invoker = TryParseCache.GetOrAdd(typeof(TItem), key => LambdaExtensions.TryParse<TItem>().Compile());
+            return invoker(source, out item);
+        }
+
+        /// <summary>
         /// 将 字符串 Value 属性转化为 泛型 Value 方法
         /// </summary>
         /// <param name="value"></param>
@@ -246,11 +264,12 @@ namespace BootstrapBlazor.Components
                     }
                     else
                     {
-                        if (false) //value.TryParse<TItem>(out var v))
+                        // 尝试使用 TryParse 方法
+                        if (TryParse(value, out var v))
                         {
-                            //result = v;
-                            //validationErrorMessage = null;
-                            //return true;
+                            result = v;
+                            validationErrorMessage = null;
+                            return true;
                         }
                         else
                         {

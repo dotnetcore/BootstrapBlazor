@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A52
 		scripts\windows\pack.cmd = scripts\windows\pack.cmd
 		scripts\windows\publish.cmd = scripts\windows\publish.cmd
 		scripts\windows\push.cmd = scripts\windows\push.cmd
+		scripts\windows\push.ps1 = scripts\windows\push.ps1
 		scripts\windows\watch-run.cmd = scripts\windows\watch-run.cmd
 	EndProjectSection
 EndProject

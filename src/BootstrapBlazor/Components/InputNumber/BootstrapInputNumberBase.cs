@@ -193,47 +193,6 @@ namespace BootstrapBlazor.Components
         private static readonly ConcurrentDictionary<Type, Func<TValue, TValue, bool>> LessThanOrEqualCache = new ConcurrentDictionary<Type, Func<TValue, TValue, bool>>();
         #endregion
 
-        #region TryParse
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TIn"></typeparam>
-        /// <typeparam name="TOut"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="outValue"></param>
-        /// <returns></returns>
-        private delegate TResult FuncEx<TIn, TOut, TResult>(TIn source, out TOut outValue);
-
-        /// <summary>
-        /// 尝试使用 TryParse 进行数据转换
-        /// </summary>
-        /// <returns></returns>
-        private static Expression<FuncEx<string, TValue, bool>> TryParse()
-        {
-            var t = typeof(TValue);
-            var p1 = Expression.Parameter(typeof(string));
-            var p2 = Expression.Parameter(t.MakeByRefType());
-            var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
-            var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(BootstrapInputNumber<TValue>).GetMethod("TryParseEmpty"), p1, p2);
-            return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="outValue"></param>
-        /// <returns></returns>
-        private static bool TryParse(string source, out TValue outValue)
-        {
-            var invoker = TryParseCache.GetOrAdd(typeof(TValue), key => TryParse().Compile());
-            return invoker(source, out outValue);
-        }
-
-        private static readonly ConcurrentDictionary<Type, FuncEx<string, TValue, bool>> TryParseCache = new ConcurrentDictionary<Type, FuncEx<string, TValue, bool>>();
-        #endregion
-
         #region Operation
         /// <summary>
         /// V++
@@ -275,7 +234,6 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Math
-
         private static Expression<Func<TValue, TValue, TValue>> MathMin()
         {
             var exp_p1 = Expression.Parameter(typeof(TValue));
