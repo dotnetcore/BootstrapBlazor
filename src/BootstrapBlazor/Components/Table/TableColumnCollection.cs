@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -28,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 过滤回调方法
         /// </summary>
         [Parameter]
-        public Func<IEnumerable<FilterKeyValueAction>, Task>? OnFilterAsync { get; set; }
+        public Func<IEnumerable<ITableFilter>, Task>? OnFilterAsync { get; set; }
 
         /// <summary>
         /// 获得 表头集合
@@ -59,7 +58,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 过滤条件集合
         /// </summary>
-        private Dictionary<string, IEnumerable<FilterKeyValueAction>> FilterActions { get; set; } = new Dictionary<string, IEnumerable<FilterKeyValueAction>>();
+        private Dictionary<string, ITableFilter> FilterActions { get; set; } = new Dictionary<string, ITableFilter>();
 
         /// <summary>
         /// 注册过滤条件变化通知
@@ -105,21 +104,16 @@ namespace BootstrapBlazor.Components
         /// 添加指定 Key 的过滤条件
         /// </summary>
         /// <param name="filterKey"></param>
-        /// <param name="filters"></param>
-        internal void AddFilters(string filterKey, IEnumerable<FilterKeyValueAction> filters)
+        /// <param name="filter"></param>
+        internal void AddFilters(string filterKey, ITableFilter filter)
         {
             // 过滤条件变化通知 Header 更新 UI
             FilterActions.Remove(filterKey);
-            if (filters.Any()) FilterActions.Add(filterKey, filters);
+            FilterActions.Add(filterKey, filter);
             Notifications.ForEach(c => c.Invoke());
         }
 
-        internal IEnumerable<FilterKeyValueAction> GetFilters() => FilterActions
-            .Aggregate(new List<FilterKeyValueAction>(), (result, source) =>
-            {
-                result.AddRange(source.Value);
-                return result;
-            });
+        internal IEnumerable<ITableFilter> GetFilters() => FilterActions.Values;
 
         /// <summary>
         /// 弹出 Filter 窗口方法

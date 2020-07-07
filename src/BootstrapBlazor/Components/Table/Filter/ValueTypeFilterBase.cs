@@ -5,8 +5,8 @@ namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 
-    /// </summary>
-    public abstract class ValueTypeFilterBase : ComponentBase
+    /// /// </summary>
+    public abstract class ValueTypeFilterBase : ComponentBase, ITableFilter
     {
         /// <summary>
         /// 
@@ -56,14 +56,21 @@ namespace BootstrapBlazor.Components
         protected abstract void ResetFilter();
 
         /// <summary>
-        /// 获取过滤集合
+        /// 获得 添加 ITableFilter 实例到 Column 集合中
+        /// </summary>
+        /// <returns></returns>
+        public void AddFilters()
+        {
+            TableFilter?.AddFilters(this);
+        }
+
+        /// <summary>
+        /// 获得 过滤窗口的所有条件
         /// </summary>
         /// <returns></returns>
         public IEnumerable<FilterKeyValueAction> GetFilters()
         {
-            var filters = BuildFilters();
-            TableFilter?.AddFilters(filters);
-            return filters;
+            return BuildFilters();
         }
 
         /// <summary>

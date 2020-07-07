@@ -49,7 +49,7 @@ namespace BootstrapBlazor.Components
                         {
                             if (Cache.TryGetValue(filter, out var vf))
                             {
-                                vf.GetFilters();
+                                vf.AddFilters();
                                 if (filter.OnFilter != null) await filter.OnFilter(Columns.GetFilters());
                             }
                         }));

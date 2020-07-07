@@ -19,16 +19,10 @@ namespace System.Linq
         /// <returns></returns>
         public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters)
         {
-            Expression<Func<TItem, bool>>? ret = null;
+            Expression<Func<TItem, bool>> ret = r => true;
             foreach (var filter in filters)
             {
-                var exp = filter.GetFilterExpression<TItem>();
-                if (ret == null)
-                {
-                    ret = exp;
-                    continue;
-                }
-
+                var exp = filter.GetFilterLambda<TItem>();
                 var invokedExpr = Expression.Invoke(exp, ret.Parameters.Cast<Expression>());
 
                 ret = filter.FilterLogic switch
@@ -37,16 +31,42 @@ namespace System.Linq
                     _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(ret.Body, invokedExpr), ret.Parameters),
                 };
             }
-            return ret ?? (t => true);
+            return ret;
+        }
+
+        private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions)
+        {
+            Expression<Func<TItem, bool>>? ret = r => true;
+            foreach (var exp in expressions)
+            {
+                var invokedExpr = Expression.Invoke(exp, ret.Parameters.Cast<Expression>());
+                ret = Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(ret.Body, invokedExpr), ret.Parameters);
+            }
+            return ret;
         }
 
         /// <summary>
-        /// 指定集合获取委托
+        /// 指定 ITableFilter 集合获取委托
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<FilterKeyValueAction> filters) => filters.GetFilterLambda<TItem>().Compile();
+        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<ITableFilter> filters)
+        {
+            return filters.GetFilterLambda<TItem>().Compile();
+        }
+
+        /// <summary>
+        /// 指定 ITableFilter 集合获取 Lambda 表达式
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<ITableFilter> filters)
+        {
+            var exps = filters.Select(f => f.GetFilters().GetFilterLambda<TItem>());
+            return exps.GetFilterLambda<TItem>();
+        }
 
         /// <summary>
         /// 指定 FilterKeyValueAction 获取 Lambda 表达式
@@ -54,7 +74,7 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static Expression<Func<TItem, bool>> GetFilterExpression<TItem>(this FilterKeyValueAction filter)
+        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter)
         {
             Expression<Func<TItem, bool>> ret = t => true;
             if (!string.IsNullOrEmpty(filter.FieldKey) && filter.FieldValue != null)
@@ -79,7 +99,7 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterExpression<TItem>().Compile();
+        public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterLambda<TItem>().Compile();
 
         private static Expression GetExpression(FilterKeyValueAction filter, Expression left)
         {

@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击确认过滤按钮时回调委托
         /// </summary>
         [Parameter]
-        public Func<IEnumerable<FilterKeyValueAction>, Task>? OnFilter { get; set; }
+        public Func<IEnumerable<ITableFilter>, Task>? OnFilter { get; set; }
 
         /// <summary>
         /// 获得/设置 相关 Field 字段名称
@@ -161,10 +161,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 添加过滤条件方法
         /// </summary>
-        /// <param name="filters"></param>
-        internal void AddFilters(IEnumerable<FilterKeyValueAction> filters)
+        /// <param name="filter"></param>
+        internal void AddFilters(ITableFilter filter)
         {
-            Columns?.AddFilters(FieldKey, filters);
+            Columns?.AddFilters(FieldKey, filter);
         }
 
         /// <summary>
