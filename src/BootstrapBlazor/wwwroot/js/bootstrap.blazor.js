@@ -1136,6 +1136,7 @@
 
                 // filter
                 var $filters = $ele.find('.filterable .fa-filter');
+                var $toolbar = $ele.find('.table-toolbar');
                 $.each($filters, function (index) {
                     // position
                     var position = $(this).position();
@@ -1149,14 +1150,14 @@
 
                     // 判断是否越界
                     var margin = th.offset().left + th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
-                    if(margin > 0) {
+                    if (margin > 0) {
                         left = left - margin - 16;
 
                         // set arrow
                         $arrow = $body.find('.card-arrow');
                         $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
                     }
-                    $body.css({ "top": position.top + 50, "left": left - marginRight });
+                    $body.css({ "top": position.top + $toolbar.height() + 50, "left": left - marginRight });
                 });
             }
         },
@@ -1691,6 +1692,23 @@
                     ? $ele.find('.popover-confirm-buttons .btn:first')
                     : $ele.find('.popover-confirm-buttons .btn:last');
                 $button.trigger('click');
+            }
+        });
+
+        $(document).on('keyup', function (e) {
+            if (e.key === 'Enter') {
+                // 关闭 TableFilter 过滤面板
+                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
+                if (bb) {
+                    bb.obj.invokeMethodAsync('ConfirmByKey');
+                }
+            }
+            else if (e.key === 'Escape') {
+                // 关闭 TableFilter 过滤面板
+                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
+                if (bb) {
+                    bb.obj.invokeMethodAsync('EscByKey');
+                }
             }
         });
     });

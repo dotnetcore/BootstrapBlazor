@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击确认过滤按钮时回调委托
         /// </summary>
         [Parameter]
-        public Func<IEnumerable<ITableFilter>, Task>? OnFilter { get; set; }
+        public Func<IEnumerable<IFilter>, Task>? OnFilter { get; set; }
 
         /// <summary>
         /// 获得/设置 相关 Field 字段名称
@@ -67,25 +67,25 @@ namespace BootstrapBlazor.Components
         public RenderFragment? BodyTemplate { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 重置过滤条件回调委托
         /// </summary>
         [Parameter]
         public Func<TableFilterBase, Task>? OnReset { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 确认过滤条件回调委托
         /// </summary>
         [Parameter]
         public Func<TableFilterBase, Task>? OnConfirm { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 点击加号增加过滤条件回调委托
         /// </summary>
         [Parameter]
         public Func<TableFilterBase, Task>? OnPlus { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 点击减号增加过滤条件回调委托
         /// </summary>
         [Parameter]
         public Func<TableFilterBase, Task>? OnMinus { get; set; }
@@ -142,12 +142,45 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 客户端 JS 回车按键事件调用
+        /// </summary>
+        [JSInvokable]
+        public async Task ConfirmByKey()
+        {
+            if (IsShow)
+            {
+                IsShow = false;
+                if (OnConfirm != null)
+                {
+                    await OnConfirm(this);
+                }
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
+        /// 客户端 JS ESC 按键事件调用
+        /// </summary>
+        [JSInvokable]
+        public async Task EscByKey()
+        {
+            if (IsShow)
+            {
+                await OnClickReset();
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
         /// Table 表头过滤按钮点击时调用此方法 弹出 TableFilter 弹窗
         /// </summary>
-        internal void ShowFilter()
+        internal void ShowTableFilter()
         {
-            IsShow = true;
-            StateHasChanged();
+            if (!IsShow)
+            {
+                IsShow = true;
+                StateHasChanged();
+            }
         }
 
         /// <summary>
@@ -162,9 +195,9 @@ namespace BootstrapBlazor.Components
         /// 添加过滤条件方法
         /// </summary>
         /// <param name="filter"></param>
-        internal void AddFilters(ITableFilter filter)
+        internal void AddFilter(IFilter filter)
         {
-            Columns?.AddFilters(FieldKey, filter);
+            Columns?.AddFilter(FieldKey, filter);
         }
 
         /// <summary>

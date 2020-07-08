@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 
     /// /// </summary>
-    public abstract class ValueTypeFilterBase : ComponentBase, ITableFilter
+    public abstract class ValueTypeConditionBase : ComponentBase, IFilter
     {
         /// <summary>
         /// 
@@ -45,39 +46,39 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public void Reset()
         {
-            ResetFilter();
+            ResetFilterCondition();
             TableFilter?.ResetFilter();
             StateHasChanged();
         }
 
         /// <summary>
-        /// 
+        /// 重置过滤条件方法
         /// </summary>
-        protected abstract void ResetFilter();
+        protected abstract void ResetFilterCondition();
 
         /// <summary>
-        /// 获得 添加 ITableFilter 实例到 Column 集合中
+        /// 获得 添加 IFilter 实例到 Column 集合中
         /// </summary>
         /// <returns></returns>
-        public void AddFilters()
+        public void AddFilter()
         {
-            TableFilter?.AddFilters(this);
+            if (BuildConditions().Any()) TableFilter?.AddFilter(this);
         }
 
         /// <summary>
         /// 获得 过滤窗口的所有条件
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<FilterKeyValueAction> GetFilters()
+        public IEnumerable<FilterKeyValueAction> GetFilterConditions()
         {
-            return BuildFilters();
+            return BuildConditions();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected abstract IEnumerable<FilterKeyValueAction> BuildFilters();
+        protected abstract IEnumerable<FilterKeyValueAction> BuildConditions();
 
         /// <summary>
         /// 增加过滤条件方法

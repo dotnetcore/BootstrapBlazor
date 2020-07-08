@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 过滤回调方法
         /// </summary>
         [Parameter]
-        public Func<IEnumerable<ITableFilter>, Task>? OnFilterAsync { get; set; }
+        public Func<IEnumerable<IFilter>, Task>? OnFilterAsync { get; set; }
 
         /// <summary>
         /// 获得 表头集合
@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 过滤条件集合
         /// </summary>
-        private Dictionary<string, ITableFilter> FilterActions { get; set; } = new Dictionary<string, ITableFilter>();
+        private Dictionary<string, IFilter> FilterActions { get; set; } = new Dictionary<string, IFilter>();
 
         /// <summary>
         /// 注册过滤条件变化通知
@@ -101,11 +101,11 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 添加指定 Key 的过滤条件
+        /// 添加指定 Key 的 IFilter 实例
         /// </summary>
         /// <param name="filterKey"></param>
         /// <param name="filter"></param>
-        internal void AddFilters(string filterKey, ITableFilter filter)
+        internal void AddFilter(string filterKey, IFilter filter)
         {
             // 过滤条件变化通知 Header 更新 UI
             FilterActions.Remove(filterKey);
@@ -113,17 +113,17 @@ namespace BootstrapBlazor.Components
             Notifications.ForEach(c => c.Invoke());
         }
 
-        internal IEnumerable<ITableFilter> GetFilters() => FilterActions.Values;
+        internal IEnumerable<IFilter> GetFilters() => FilterActions.Values;
 
         /// <summary>
         /// 弹出 Filter 窗口方法
         /// </summary>
         /// <param name="fieldName"></param>
-        internal void ShowFilter(string fieldName)
+        internal void ShowTableFilter(string fieldName)
         {
             if (Filters.TryGetValue(fieldName, out var filter))
             {
-                filter.ShowFilter();
+                filter.ShowTableFilter();
             }
         }
     }
