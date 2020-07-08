@@ -110,8 +110,27 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClickDec()
         {
-            Range(Subtract(CurrentValue, Step));
-            if (OnDecrement != null) await OnDecrement(CurrentValue);
+#nullable disable
+            if (typeof(TValue) == typeof(sbyte))
+            {
+                var v = (sbyte)(object)Value;
+                var s = (sbyte)(object)Step;
+
+                CurrentValueAsString = (v - s).ToString();
+            }
+            else if (typeof(TValue) == typeof(byte))
+            {
+                var v = (byte)(object)Value;
+                var s = (byte)(object)Step;
+
+                CurrentValueAsString = (v - s).ToString();
+            }
+#nullable restore
+            else
+            {
+                Range(Subtract(CurrentValue, Step));
+                if (OnDecrement != null) await OnDecrement(CurrentValue);
+            }
         }
 
         /// <summary>
@@ -120,8 +139,27 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClickInc()
         {
-            Range(Add(CurrentValue, Step));
-            if (OnIncrement != null) await OnIncrement(CurrentValue);
+#nullable disable
+            if (typeof(TValue) == typeof(sbyte))
+            {
+                var v = (sbyte)(object)Value;
+                var s = (sbyte)(object)Step;
+
+                CurrentValueAsString = (v + s).ToString();
+            }
+            else if (typeof(TValue) == typeof(byte))
+            {
+                var v = (byte)(object)Value;
+                var s = (byte)(object)Step;
+
+                CurrentValueAsString = (v + s).ToString();
+            }
+#nullable restore
+            else
+            {
+                Range(Add(CurrentValue, Step));
+                if (OnIncrement != null) await OnIncrement(CurrentValue);
+            }
         }
 
         /// <summary>
