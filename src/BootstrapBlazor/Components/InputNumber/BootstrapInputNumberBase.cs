@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -88,6 +89,7 @@ namespace BootstrapBlazor.Components
             // 本组件接受的类型均不可为空
             SetStep();
 
+            // 设置最大值与最小值区间
             SetRange();
 
             if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>(100);
@@ -163,6 +165,49 @@ namespace BootstrapBlazor.Components
             {
                 MaxValue = max;
             }
+
+            if (typeof(TValue) == typeof(sbyte)
+                || typeof(TValue) == typeof(byte)
+                || typeof(TValue) == typeof(short)
+                || typeof(TValue) == typeof(int))
+            {
+                if (MaxValue == null)
+                {
+                    MaxValue = MaxValueCache.GetOrAdd(typeof(TValue), key =>
+                    {
+                        var invoker = GetMaxValue().Compile();
+                        return invoker();
+                    });
+                }
+                if (MinValue == null)
+                {
+                    MinValue = MinValueCache.GetOrAdd(typeof(TValue), key =>
+                    {
+                        var invoker = GetMinValue().Compile();
+                        return invoker();
+                    });
+                }
+            }
+        }
+
+        private static ConcurrentDictionary<Type, TValue> MinValueCache { get; } = new ConcurrentDictionary<Type, TValue>();
+
+        private static ConcurrentDictionary<Type, TValue> MaxValueCache { get; } = new ConcurrentDictionary<Type, TValue>();
+
+        private static Expression<Func<TValue>> GetMinValue()
+        {
+            var type = typeof(TValue);
+            var p = type.GetField("MinValue");
+            var body = Expression.Field(null, p);
+            return Expression.Lambda<Func<TValue>>(body);
+        }
+
+        private static Expression<Func<TValue>> GetMaxValue()
+        {
+            var type = typeof(TValue);
+            var p = type.GetField("MaxValue");
+            var body = Expression.Field(null, p);
+            return Expression.Lambda<Func<TValue>>(body);
         }
 
         #region LessThan

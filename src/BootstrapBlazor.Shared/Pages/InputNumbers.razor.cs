@@ -13,6 +13,41 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         public int BindValue { get; set; } = 5;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public sbyte BindSByteValue { get; set; } = 10;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public byte BindByteValue { get; set; } = 10;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public long BindLongValue { get; set; } = 10;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public short BindShortValue { get; set; } = 10;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double BindDoubleValue { get; set; } = 10;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public float BindFloatValue { get; set; } = 10;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal BindDecimalValue { get; set; } = 10;
+
         private string Formatter(double val) => val.ToString("0.0");
 
         private IEnumerable<AttributeItem> GetAttributes()
@@ -22,7 +57,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem() {
                     Name = "Value",
                     Description = "当前值",
-                    Type = "int|long|short|float|double|decimal",
+                    Type = "sbyte|byte|int|long|short|float|double|decimal",
                     ValueList = " — ",
                     DefaultValue = "0"
                 },

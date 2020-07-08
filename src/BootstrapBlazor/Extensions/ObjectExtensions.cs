@@ -88,7 +88,9 @@ namespace BootstrapBlazor.Components
         public static bool IsNumber(this Type t)
         {
             var targetType = Nullable.GetUnderlyingType(t) ?? t;
-            var check = targetType == typeof(int) ||
+            var check = targetType == typeof(byte) ||
+                targetType == typeof(sbyte) ||
+                targetType == typeof(int) ||
                 targetType == typeof(long) ||
                 targetType == typeof(short) ||
                 targetType == typeof(float) ||
