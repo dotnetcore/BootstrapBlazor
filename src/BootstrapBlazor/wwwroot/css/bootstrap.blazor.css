@@ -1095,6 +1095,7 @@ a {
     padding: 12px 10px;
     display: flex;
     align-items: center;
+    word-break: break-all;
 }
 
     .table-cell.is-sort {
