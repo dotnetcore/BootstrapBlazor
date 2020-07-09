@@ -12,6 +12,30 @@ namespace System.Linq
     public static class LambdaExtensions
     {
         /// <summary>
+        /// 通过base.Visit(node)返回的Expression统一node变量
+        /// </summary>
+        class ComboExpressionVisitor : ExpressionVisitor
+        {
+            private ParameterExpression exp_p { get; set; }
+
+            /// <summary>
+            /// 构造
+            /// </summary>
+            /// <param name="parameter"></param>
+            public ComboExpressionVisitor(ParameterExpression parameter)
+            {
+                exp_p = parameter;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="p"></param>
+            /// <returns></returns>
+            protected override Expression VisitParameter(ParameterExpression p) => exp_p;
+        }
+
+        /// <summary>
         /// 指定 FilterKeyValueAction 集合获取 Lambda 表达式
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
@@ -19,19 +43,29 @@ namespace System.Linq
         /// <returns></returns>
         public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters)
         {
-            Expression<Func<TItem, bool>> ret = r => true;
+            Expression<Func<TItem, bool>>? ret = null;
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
+
             foreach (var filter in filters)
             {
                 var exp = filter.GetFilterLambda<TItem>();
-                var invokedExpr = Expression.Invoke(exp, ret.Parameters.Cast<Expression>());
+                if (ret == null)
+                {
+                    ret = exp;
+                    continue;
+                }
+
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
 
                 ret = filter.FilterLogic switch
                 {
-                    FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(ret.Body, invokedExpr), ret.Parameters),
-                    _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(ret.Body, invokedExpr), ret.Parameters),
+                    FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p),
+                    _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p),
                 };
             }
-            return ret;
+            return ret ?? (r => true);
         }
 
         /// <summary>
@@ -42,13 +76,23 @@ namespace System.Linq
         /// <returns></returns>
         private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions)
         {
-            Expression<Func<TItem, bool>>? ret = r => true;
+            Expression<Func<TItem, bool>>? ret = null;
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
+
             foreach (var exp in expressions)
             {
-                var invokedExpr = Expression.Invoke(exp, ret.Parameters.Cast<Expression>());
-                ret = Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(ret.Body, invokedExpr), ret.Parameters);
+                if (ret == null)
+                {
+                    ret = exp;
+                    continue;
+                }
+
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
+                ret = Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p);
             }
-            return ret;
+            return ret ?? (r => true);
         }
 
         /// <summary>
