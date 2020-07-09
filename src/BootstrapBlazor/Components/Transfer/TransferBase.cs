@@ -58,37 +58,56 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 组件绑定数据项集合
         /// </summary>
-        [Parameter] public IEnumerable<SelectedItem>? Items { get; set; }
+        [Parameter]
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 组件绑定数据项集合选项变化时回调方法
         /// </summary>
-        [Parameter] public Action<IEnumerable<SelectedItem>>? OnItemsChanged { get; set; }
+        [Parameter]
+        public Action<IEnumerable<SelectedItem>>? OnItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 左侧面板 Header 显示文本
         /// </summary>
-        [Parameter] public string LeftPanelText { get; set; } = "列表 1";
+        [Parameter]
+        public string LeftPanelText { get; set; } = "列表 1";
 
         /// <summary>
         /// 获得/设置 右侧面板 Header 显示文本
         /// </summary>
-        [Parameter] public string RightPanelText { get; set; } = "列表 2";
+        [Parameter]
+        public string RightPanelText { get; set; } = "列表 2";
 
         /// <summary>
         /// 获得/设置 左侧按钮显示文本
         /// </summary>
-        [Parameter] public string LeftButtonText { get; set; } = "";
+        [Parameter]
+        public string LeftButtonText { get; set; } = "";
 
         /// <summary>
         /// 获得/设置 右侧按钮显示文本
         /// </summary>
-        [Parameter] public string RightButtonText { get; set; } = "";
+        [Parameter]
+        public string RightButtonText { get; set; } = "";
 
         /// <summary>
         /// 获得/设置 是否显示搜索框
         /// </summary>
-        [Parameter] public bool ShowSearch { get; set; }
+        [Parameter]
+        public bool ShowSearch { get; set; }
+
+        /// <summary>
+        /// 获得/设置 左侧面板搜索框 placeholder 文字
+        /// </summary>
+        [Parameter]
+        public string? LeftPannelSearchPlaceHolderString { get; set; }
+
+        /// <summary>
+        /// 获得/设置 右侧面板搜索框 placeholder 文字
+        /// </summary>
+        [Parameter]
+        public string? RightPannelSearchPlaceHolderString { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

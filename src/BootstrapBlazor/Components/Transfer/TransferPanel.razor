@@ -10,7 +10,7 @@
         @if (ShowSearch)
         {
             <div class="transfer-panel-filter">
-                <input type="text" autocomplete="off" placeholder="请输入城市拼音" class="input-inner" value="@SearchText" @oninput="@OnSearch" @onkeyup="@OnKeyUp">
+                <input type="text" autocomplete="off" placeholder="@SearchPlaceHolderString" class="input-inner" value="@SearchText" @oninput="@OnSearch" @onkeyup="@OnKeyUp">
                 <span class="@SearchClass" @onclick="@ClearSearch">
                     <i class="fa fa-search"></i>
                 </span>

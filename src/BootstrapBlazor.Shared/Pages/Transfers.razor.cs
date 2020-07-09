@@ -56,43 +56,57 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Items",
                 Description = "组件绑定数据项集合",
                 Type = "IEnumerable<SelectedItem>",
-                ValueList = "—",
-                DefaultValue = "—"
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftButtonText",
                 Description = "左侧按钮显示文本",
                 Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftPanelText",
                 Description = "左侧面板 Header 显示文本",
                 Type = "string",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = "列表 1"
             },
             new AttributeItem() {
                 Name = "RightButtonText",
                 Description = "右侧按钮显示文本",
                 Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RightPanelText",
                 Description = "右侧面板 Header 显示文本",
                 Type = "string",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = "列表 2"
             },
             new AttributeItem() {
                 Name = "ShowSearch",
                 Description = "是否显示搜索框",
                 Type = "boolean",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "LeftPannelSearchPlaceHolderString",
+                Description = "左侧面板中的搜索框 placeholder 字符串",
+                Type = "string",
+                ValueList = " ",
+                DefaultValue = " "
+            },
+            new AttributeItem() {
+                Name = "RightPannelSearchPlaceHolderString",
+                Description = "右侧面板中的搜索框 placeholder 字符串",
+                Type = "string",
+                ValueList = " ",
+                DefaultValue = " "
             },
         };
 

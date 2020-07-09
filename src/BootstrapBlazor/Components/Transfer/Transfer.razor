@@ -1,8 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits TransferBase
 
-<div class="transfer">
-    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" ShowSearch="@ShowSearch"
+<div @attributes="@AdditionalAttributes" class="transfer">
+    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" 
+                   ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPannelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@OnSelectedItemsChanged">
     </TransferPanel>
     <div class="transfer-buttons">
@@ -15,7 +16,8 @@
             <i class="fa fa-angle-right"></i>
         </button>
     </div>
-    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" ShowSearch="@ShowSearch"
+    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" 
+                   ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPannelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@OnSelectedItemsChanged">
     </TransferPanel>
 </div>

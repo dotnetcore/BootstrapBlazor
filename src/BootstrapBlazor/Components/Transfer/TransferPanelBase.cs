@@ -32,22 +32,32 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 数据集合
         /// </summary>
-        [Parameter] public IEnumerable<SelectedItem>? Items { get; set; }
+        [Parameter]
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 面板显示文字
         /// </summary>
-        [Parameter] public string Text { get; set; } = "列表";
+        [Parameter]
+        public string Text { get; set; } = "列表";
 
         /// <summary>
         /// 获得/设置 是否显示搜索框
         /// </summary>
-        [Parameter] public bool ShowSearch { get; set; }
+        [Parameter]
+        public bool ShowSearch { get; set; }
 
         /// <summary>
         /// 获得/设置 选项状态变化时回调方法
         /// </summary>
-        [Parameter] public Func<Task>? OnSelectedItemsChanged { get; set; }
+        [Parameter]
+        public Func<Task>? OnSelectedItemsChanged { get; set; }
+
+        /// <summary>
+        /// 获得/设置 搜索框的 placeholder 字符串
+        /// </summary>
+        [Parameter]
+        public string? SearchPlaceHolderString { get; set; } = "请输入 ...";
 
         /// <summary>
         /// 头部复选框初始化值方法
