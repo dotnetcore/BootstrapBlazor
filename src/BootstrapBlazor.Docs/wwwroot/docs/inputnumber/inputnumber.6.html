@@ -1,0 +1,66 @@
+﻿<div class="form-inline">
+    <div class="row">
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindSByteValue" DisplayText="SByte" ShowLabel="true" />
+        </div>
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindByteValue" DisplayText="Byte" ShowLabel="true" />
+        </div>
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindShortValue" DisplayText="Short" ShowLabel="true" />
+        </div>
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindLongValue" DisplayText="Long" ShowLabel="true" />
+        </div>
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindFloatValue" DisplayText="Float" ShowLabel="true" />
+        </div>
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindValue" DisplayText="Int" ShowLabel="true" />
+        </div>
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindDoubleValue" DisplayText="Double" ShowLabel="true" />
+        </div>
+        <div class="form-group col-12 col-sm-6 col-md-4">
+            <BootstrapInputNumber Value="@BindDecimalValue" DisplayText="Decimal" ShowLabel="true" />
+        </div>
+    </div>
+</div>
+
+@code {
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public int BindValue { get; set; } = 5;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sbyte BindSByteValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public byte BindByteValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long BindLongValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public short BindShortValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public double BindDoubleValue { get; set; } = 10;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public float BindFloatValue { get; set; } = 10;
+}

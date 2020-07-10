@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected override void ResetFilter()
+        protected override void ResetFilterCondition()
         {
             Value1 = null;
             Value2 = null;
@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IEnumerable<FilterKeyValueAction> BuildFilters()
+        protected override IEnumerable<FilterKeyValueAction> BuildConditions()
         {
             var filters = new List<FilterKeyValueAction>();
             if (Value1 != null) filters.Add(new FilterKeyValueAction()

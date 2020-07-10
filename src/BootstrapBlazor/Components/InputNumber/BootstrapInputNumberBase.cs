@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -88,6 +89,7 @@ namespace BootstrapBlazor.Components
             // 本组件接受的类型均不可为空
             SetStep();
 
+            // 设置最大值与最小值区间
             SetRange();
 
             if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>(100);
@@ -108,8 +110,27 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClickDec()
         {
-            Range(Subtract(CurrentValue, Step));
-            if (OnDecrement != null) await OnDecrement(CurrentValue);
+#nullable disable
+            if (typeof(TValue) == typeof(sbyte))
+            {
+                var v = (sbyte)(object)Value;
+                var s = (sbyte)(object)Step;
+
+                CurrentValueAsString = (v - s).ToString();
+            }
+            else if (typeof(TValue) == typeof(byte))
+            {
+                var v = (byte)(object)Value;
+                var s = (byte)(object)Step;
+
+                CurrentValueAsString = (v - s).ToString();
+            }
+#nullable restore
+            else
+            {
+                Range(Subtract(CurrentValue, Step));
+                if (OnDecrement != null) await OnDecrement(CurrentValue);
+            }
         }
 
         /// <summary>
@@ -118,8 +139,27 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClickInc()
         {
-            Range(Add(CurrentValue, Step));
-            if (OnIncrement != null) await OnIncrement(CurrentValue);
+#nullable disable
+            if (typeof(TValue) == typeof(sbyte))
+            {
+                var v = (sbyte)(object)Value;
+                var s = (sbyte)(object)Step;
+
+                CurrentValueAsString = (v + s).ToString();
+            }
+            else if (typeof(TValue) == typeof(byte))
+            {
+                var v = (byte)(object)Value;
+                var s = (byte)(object)Step;
+
+                CurrentValueAsString = (v + s).ToString();
+            }
+#nullable restore
+            else
+            {
+                Range(Add(CurrentValue, Step));
+                if (OnIncrement != null) await OnIncrement(CurrentValue);
+            }
         }
 
         /// <summary>
@@ -163,6 +203,49 @@ namespace BootstrapBlazor.Components
             {
                 MaxValue = max;
             }
+
+            if (typeof(TValue) == typeof(sbyte)
+                || typeof(TValue) == typeof(byte)
+                || typeof(TValue) == typeof(short)
+                || typeof(TValue) == typeof(int))
+            {
+                if (MaxValue == null)
+                {
+                    MaxValue = MaxValueCache.GetOrAdd(typeof(TValue), key =>
+                    {
+                        var invoker = GetMaxValue().Compile();
+                        return invoker();
+                    });
+                }
+                if (MinValue == null)
+                {
+                    MinValue = MinValueCache.GetOrAdd(typeof(TValue), key =>
+                    {
+                        var invoker = GetMinValue().Compile();
+                        return invoker();
+                    });
+                }
+            }
+        }
+
+        private static ConcurrentDictionary<Type, TValue> MinValueCache { get; } = new ConcurrentDictionary<Type, TValue>();
+
+        private static ConcurrentDictionary<Type, TValue> MaxValueCache { get; } = new ConcurrentDictionary<Type, TValue>();
+
+        private static Expression<Func<TValue>> GetMinValue()
+        {
+            var type = typeof(TValue);
+            var p = type.GetField("MinValue");
+            var body = Expression.Field(null, p);
+            return Expression.Lambda<Func<TValue>>(body);
+        }
+
+        private static Expression<Func<TValue>> GetMaxValue()
+        {
+            var type = typeof(TValue);
+            var p = type.GetField("MaxValue");
+            var body = Expression.Field(null, p);
+            return Expression.Lambda<Func<TValue>>(body);
         }
 
         #region LessThan
@@ -191,47 +274,6 @@ namespace BootstrapBlazor.Components
         }
 
         private static readonly ConcurrentDictionary<Type, Func<TValue, TValue, bool>> LessThanOrEqualCache = new ConcurrentDictionary<Type, Func<TValue, TValue, bool>>();
-        #endregion
-
-        #region TryParse
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TIn"></typeparam>
-        /// <typeparam name="TOut"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="outValue"></param>
-        /// <returns></returns>
-        private delegate TResult FuncEx<TIn, TOut, TResult>(TIn source, out TOut outValue);
-
-        /// <summary>
-        /// 尝试使用 TryParse 进行数据转换
-        /// </summary>
-        /// <returns></returns>
-        private static Expression<FuncEx<string, TValue, bool>> TryParse()
-        {
-            var t = typeof(TValue);
-            var p1 = Expression.Parameter(typeof(string));
-            var p2 = Expression.Parameter(t.MakeByRefType());
-            var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
-            var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(BootstrapInputNumber<TValue>).GetMethod("TryParseEmpty"), p1, p2);
-            return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="outValue"></param>
-        /// <returns></returns>
-        private static bool TryParse(string source, out TValue outValue)
-        {
-            var invoker = TryParseCache.GetOrAdd(typeof(TValue), key => TryParse().Compile());
-            return invoker(source, out outValue);
-        }
-
-        private static readonly ConcurrentDictionary<Type, FuncEx<string, TValue, bool>> TryParseCache = new ConcurrentDictionary<Type, FuncEx<string, TValue, bool>>();
         #endregion
 
         #region Operation
@@ -275,7 +317,6 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Math
-
         private static Expression<Func<TValue, TValue, TValue>> MathMin()
         {
             var exp_p1 = Expression.Parameter(typeof(TValue));

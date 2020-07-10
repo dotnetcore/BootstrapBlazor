@@ -1135,8 +1135,12 @@
                 });
 
                 // filter
-                var $filters = $ele.find('.filterable .fa-filter');
-                $.each($filters, function (index) {
+                var $toolbar = $ele.find('.table-toolbar');
+                var marginTop = 0;
+                if ($toolbar.length > 0) marginTop = $toolbar.height();
+
+                // 点击 filter 小按钮时计算弹出位置
+                $ele.find('.filterable .fa-filter').on('click', function () {
                     // position
                     var position = $(this).position();
                     var field = $(this).attr('data-field');
@@ -1149,14 +1153,14 @@
 
                     // 判断是否越界
                     var margin = th.offset().left + th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
-                    if(margin > 0) {
+                    if (margin > 0) {
                         left = left - margin - 16;
 
                         // set arrow
                         $arrow = $body.find('.card-arrow');
                         $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
                     }
-                    $body.css({ "top": position.top + 50, "left": left - marginRight });
+                    $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
             }
         },
@@ -1691,6 +1695,23 @@
                     ? $ele.find('.popover-confirm-buttons .btn:first')
                     : $ele.find('.popover-confirm-buttons .btn:last');
                 $button.trigger('click');
+            }
+        });
+
+        $(document).on('keyup', function (e) {
+            if (e.key === 'Enter') {
+                // 关闭 TableFilter 过滤面板
+                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
+                if (bb) {
+                    bb.obj.invokeMethodAsync('ConfirmByKey');
+                }
+            }
+            else if (e.key === 'Escape') {
+                // 关闭 TableFilter 过滤面板
+                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
+                if (bb) {
+                    bb.obj.invokeMethodAsync('EscByKey');
+                }
             }
         });
     });

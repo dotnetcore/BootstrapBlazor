@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,37 +57,56 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 组件绑定数据项集合
         /// </summary>
-        [Parameter] public IEnumerable<SelectedItem>? Items { get; set; }
+        [Parameter]
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 组件绑定数据项集合选项变化时回调方法
         /// </summary>
-        [Parameter] public Action<IEnumerable<SelectedItem>>? OnItemsChanged { get; set; }
+        [Parameter]
+        public EventCallback<IEnumerable<SelectedItem>?> ItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 左侧面板 Header 显示文本
         /// </summary>
-        [Parameter] public string LeftPanelText { get; set; } = "列表 1";
+        [Parameter]
+        public string LeftPanelText { get; set; } = "列表 1";
 
         /// <summary>
         /// 获得/设置 右侧面板 Header 显示文本
         /// </summary>
-        [Parameter] public string RightPanelText { get; set; } = "列表 2";
+        [Parameter]
+        public string RightPanelText { get; set; } = "列表 2";
 
         /// <summary>
         /// 获得/设置 左侧按钮显示文本
         /// </summary>
-        [Parameter] public string LeftButtonText { get; set; } = "";
+        [Parameter]
+        public string LeftButtonText { get; set; } = "";
 
         /// <summary>
         /// 获得/设置 右侧按钮显示文本
         /// </summary>
-        [Parameter] public string RightButtonText { get; set; } = "";
+        [Parameter]
+        public string RightButtonText { get; set; } = "";
 
         /// <summary>
         /// 获得/设置 是否显示搜索框
         /// </summary>
-        [Parameter] public bool ShowSearch { get; set; }
+        [Parameter]
+        public bool ShowSearch { get; set; }
+
+        /// <summary>
+        /// 获得/设置 左侧面板搜索框 placeholder 文字
+        /// </summary>
+        [Parameter]
+        public string? LeftPannelSearchPlaceHolderString { get; set; }
+
+        /// <summary>
+        /// 获得/设置 右侧面板搜索框 placeholder 文字
+        /// </summary>
+        [Parameter]
+        public string? RightPannelSearchPlaceHolderString { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -97,23 +115,36 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (Items != null)
-            {
-                LeftItems.AddRange(Items.Where(i => !i.Active));
-                RightItems.AddRange(Items.Where(i => i.Active));
-            }
+            if (Items != null) LeftItems.AddRange(Items.Where(i => !i.Active));
+            if (Items != null) RightItems.AddRange(Items.Where(i => i.Active));
         }
 
         /// <summary>
         /// 选中数据移动方法
         /// </summary>
-        protected void Transfer(List<SelectedItem> source, List<SelectedItem> target)
+        protected async Task Transfer(List<SelectedItem> source, List<SelectedItem> target)
         {
             var items = source.Where(i => i.Active).ToList();
             source.RemoveAll(i => i.Active);
             items.ForEach(i => i.Active = false);
             target.AddRange(items);
-            OnItemsChanged?.Invoke(RightItems);
+
+            // 回调
+            if (ItemsChanged.HasDelegate && Items != null)
+            {
+                var s = Items.ToList();
+                LeftItems.ToList().ForEach(i =>
+                {
+                    var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
+                    s[index].Active = false;
+                });
+                RightItems.ToList().ForEach(i =>
+                {
+                    var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
+                    s[index].Active = true;
+                });
+                await ItemsChanged.InvokeAsync(s);
+            }
         }
 
         /// <summary>

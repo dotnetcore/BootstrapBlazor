@@ -412,12 +412,6 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        private Task<string> DateTimeFormatter(object? d)
-        {
-            var data = (DateTime?)d;
-            return  Task.FromResult(data?.ToString("yyyy-MM-dd") ?? "");
-        }
-
         private Task<string> IntFormatter(object? d)
         {
             var data = (int?)d;

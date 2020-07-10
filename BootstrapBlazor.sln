@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A52
 		scripts\windows\pack.cmd = scripts\windows\pack.cmd
 		scripts\windows\publish.cmd = scripts\windows\publish.cmd
 		scripts\windows\push.cmd = scripts\windows\push.cmd
+		scripts\windows\push.ps1 = scripts\windows\push.ps1
 		scripts\windows\watch-run.cmd = scripts\windows\watch-run.cmd
 	EndProjectSection
 EndProject
@@ -66,7 +67,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wasm", "wasm", "{B84D315E-9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Docs", "src\BootstrapBlazor.Docs\BootstrapBlazor.Docs.csproj", "{C6D0C40F-98F4-4C67-A11E-240571C0B858}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "test\UnitTest\UnitTest.csproj", "{190F25CF-C6F9-4964-97E9-F6A912D527AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "test\UnitTest\UnitTest.csproj", "{190F25CF-C6F9-4964-97E9-F6A912D527AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

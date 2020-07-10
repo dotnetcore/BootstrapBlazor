@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 过滤条件集合
         /// </summary>
-        public IEnumerable<FilterKeyValueAction> Filters { get; set; } = Enumerable.Empty<FilterKeyValueAction>();
+        public IEnumerable<IFilter> Filters { get; set; } = Enumerable.Empty<IFilter>();
 
         /// <summary>
         /// 获得/设置 搜索条件集合

@@ -17,6 +17,8 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private IEnumerable<SelectedItem>? Items { get; set; }
 
+        private IEnumerable<SelectedItem>? Items1 { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -34,6 +36,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Text = $"备选 {i:d2}",
                 Value = i.ToString()
             });
+
+            Items1 = Enumerable.Range(1, 20).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
+                Value = i.ToString()
+            });
         }
 
         /// <summary>
@@ -42,7 +50,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="items"></param>
         private void OnItemsChanged(IEnumerable<SelectedItem> items)
         {
-            Trace?.Log(string.Join(" ", items.Select(i => i.Text)));
+            Trace?.Log(string.Join(" ", items.Where(i => i.Active).Select(i => i.Text)));
         }
 
         /// <summary>
@@ -56,43 +64,57 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Items",
                 Description = "组件绑定数据项集合",
                 Type = "IEnumerable<SelectedItem>",
-                ValueList = "—",
-                DefaultValue = "—"
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftButtonText",
                 Description = "左侧按钮显示文本",
                 Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftPanelText",
                 Description = "左侧面板 Header 显示文本",
                 Type = "string",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = "列表 1"
             },
             new AttributeItem() {
                 Name = "RightButtonText",
                 Description = "右侧按钮显示文本",
                 Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RightPanelText",
                 Description = "右侧面板 Header 显示文本",
                 Type = "string",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = "列表 2"
             },
             new AttributeItem() {
                 Name = "ShowSearch",
                 Description = "是否显示搜索框",
                 Type = "boolean",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "LeftPannelSearchPlaceHolderString",
+                Description = "左侧面板中的搜索框 placeholder 字符串",
+                Type = "string",
+                ValueList = " ",
+                DefaultValue = " "
+            },
+            new AttributeItem() {
+                Name = "RightPannelSearchPlaceHolderString",
+                Description = "右侧面板中的搜索框 placeholder 字符串",
+                Type = "string",
+                ValueList = " ",
+                DefaultValue = " "
             },
         };
 

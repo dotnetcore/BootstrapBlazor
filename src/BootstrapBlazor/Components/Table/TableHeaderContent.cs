@@ -105,7 +105,7 @@ namespace BootstrapBlazor.Components
                         builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e =>
                         {
                             // 点击 Filter 小图标事件
-                            Columns.ShowFilter(fieldName);
+                            Columns.ShowTableFilter(fieldName);
                         }));
                         builder.CloseElement(); // end i
                     }

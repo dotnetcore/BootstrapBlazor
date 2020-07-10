@@ -1,6 +1,7 @@
 ﻿using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -9,15 +10,21 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Switchs
     {
-        /// <summary>
-        ///
-        /// </summary>
-        private bool BindValue { get; set; }
+        class Foo
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            [DisplayName("绑定标签")]
+            public bool BindValue { get; set; }
+        }
+
+        private Foo Model { get; set; } = new Foo();
 
         /// <summary>
         /// 
         /// </summary>
-        private bool BindValue1 { get; set; } = true;
+        private bool BindValue { get; set; } = true;
 
         /// <summary>
         ///
@@ -30,7 +37,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="val"></param>
         private void OnValueChanged(bool val)
         {
-            BindValue1 = val;
+            BindValue = val;
             Trace?.Log($"Switch CurrentValue: {val}");
         }
 
@@ -110,6 +117,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "boolean",
                 ValueList = " ",
                 DefaultValue = "None"
+            },
+            new AttributeItem() {
+                Name = "ShowLabel",
+                Description = "是否显示前置标签",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "DisplayText",
+                Description = "前置标签显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
             },
         };
 

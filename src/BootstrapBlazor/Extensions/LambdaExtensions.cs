@@ -12,7 +12,31 @@ namespace System.Linq
     public static class LambdaExtensions
     {
         /// <summary>
-        /// 指定集合获取 Lambda 表达式
+        /// 通过base.Visit(node)返回的Expression统一node变量
+        /// </summary>
+        class ComboExpressionVisitor : ExpressionVisitor
+        {
+            private ParameterExpression exp_p { get; set; }
+
+            /// <summary>
+            /// 构造
+            /// </summary>
+            /// <param name="parameter"></param>
+            public ComboExpressionVisitor(ParameterExpression parameter)
+            {
+                exp_p = parameter;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="p"></param>
+            /// <returns></returns>
+            protected override Expression VisitParameter(ParameterExpression p) => exp_p;
+        }
+
+        /// <summary>
+        /// 指定 FilterKeyValueAction 集合获取 Lambda 表达式
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
@@ -20,33 +44,79 @@ namespace System.Linq
         public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters)
         {
             Expression<Func<TItem, bool>>? ret = null;
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
+
             foreach (var filter in filters)
             {
-                var exp = filter.GetFilterExpression<TItem>();
+                var exp = filter.GetFilterLambda<TItem>();
                 if (ret == null)
                 {
                     ret = exp;
                     continue;
                 }
 
-                var invokedExpr = Expression.Invoke(exp, ret.Parameters.Cast<Expression>());
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
 
                 ret = filter.FilterLogic switch
                 {
-                    FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(ret.Body, invokedExpr), ret.Parameters),
-                    _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(ret.Body, invokedExpr), ret.Parameters),
+                    FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p),
+                    _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p),
                 };
             }
-            return ret ?? (t => true);
+            return ret ?? (r => true);
         }
 
         /// <summary>
-        /// 指定集合获取委托
+        /// 表达式取 and 逻辑操作方法
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="expressions"></param>
+        /// <returns></returns>
+        private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions)
+        {
+            Expression<Func<TItem, bool>>? ret = null;
+            var exp_p = Expression.Parameter(typeof(TItem));
+            var visitor = new ComboExpressionVisitor(exp_p);
+
+            foreach (var exp in expressions)
+            {
+                if (ret == null)
+                {
+                    ret = exp;
+                    continue;
+                }
+
+                var left = visitor.Visit(ret.Body);
+                var right = visitor.Visit(exp.Body);
+                ret = Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p);
+            }
+            return ret ?? (r => true);
+        }
+
+        /// <summary>
+        /// 指定 IFilter 集合获取委托
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<FilterKeyValueAction> filters) => filters.GetFilterLambda<TItem>().Compile();
+        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilter> filters)
+        {
+            return filters.GetFilterLambda<TItem>().Compile();
+        }
+
+        /// <summary>
+        /// 指定 IFilter 集合获取 Lambda 表达式
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilter> filters)
+        {
+            var exps = filters.Select(f => f.GetFilterConditions().GetFilterLambda<TItem>());
+            return exps.ExpressionAndLambda<TItem>();
+        }
 
         /// <summary>
         /// 指定 FilterKeyValueAction 获取 Lambda 表达式
@@ -54,7 +124,7 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static Expression<Func<TItem, bool>> GetFilterExpression<TItem>(this FilterKeyValueAction filter)
+        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter)
         {
             Expression<Func<TItem, bool>> ret = t => true;
             if (!string.IsNullOrEmpty(filter.FieldKey) && filter.FieldValue != null)
@@ -66,7 +136,7 @@ namespace System.Linq
                     var fieldExpression = Expression.Property(p, prop);
 
                     // 可为空类型转化为具体类型
-                    var eq = GetExpression(filter, Expression.Convert(fieldExpression, filter.FieldValue.GetType()));
+                    var eq = filter.GetExpression(Expression.Convert(fieldExpression, filter.FieldValue.GetType()));
                     ret = Expression.Lambda<Func<TItem, bool>>(eq, p);
                 }
             }
@@ -79,9 +149,9 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterExpression<TItem>().Compile();
+        public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterLambda<TItem>().Compile();
 
-        private static Expression GetExpression(FilterKeyValueAction filter, Expression left)
+        private static Expression GetExpression(this FilterKeyValueAction filter, Expression left)
         {
             var right = Expression.Constant(filter.FieldValue);
             return filter.FilterAction switch
@@ -299,5 +369,40 @@ namespace System.Linq
             var body = Expression.Call(Expression.Convert(param_p1, t.GetType()), mi, Expression.Convert(param_p2, p.PropertyType));
             return Expression.Lambda<Action<TItem, TValue>>(body, param_p1, param_p2);
         }
+
+        #region TryParse
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TIn"></typeparam>
+        /// <typeparam name="TOut"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="outValue"></param>
+        /// <returns></returns>
+        internal delegate TResult FuncEx<TIn, TOut, TResult>(TIn source, out TOut outValue);
+
+        /// <summary>
+        /// 尝试使用 TryParse 进行数据转换
+        /// </summary>
+        /// <returns></returns>
+        internal static Expression<FuncEx<string, TValue, bool>> TryParse<TValue>()
+        {
+            var t = typeof(TValue);
+            var p1 = Expression.Parameter(typeof(string));
+            var p2 = Expression.Parameter(t.MakeByRefType());
+            var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
+            var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(LambdaExtensions).GetMethod("TryParseEmpty", BindingFlags.NonPublic | BindingFlags.Static).MakeGenericMethod(typeof(TValue)), p1, p2);
+            return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
+        }
+
+        private static bool TryParseEmpty<TValue>(string source, out TValue val)
+        {
+#nullable disable
+            val = default;
+#nullable restore
+            return false;
+        }
+        #endregion
     }
 }

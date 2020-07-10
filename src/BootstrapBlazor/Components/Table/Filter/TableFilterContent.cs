@@ -11,7 +11,10 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class TableFilterContent : ComponentBase
     {
-        private Dictionary<TableFilterBase, ValueTypeFilterBase> Cache { get; set; } = new Dictionary<TableFilterBase, ValueTypeFilterBase>();
+        /// <summary>
+        /// 内部缓存 Key 为 TableFilter Value 为 数据类型的 Condition
+        /// </summary>
+        private Dictionary<TableFilterBase, ValueTypeConditionBase> Cache { get; set; } = new Dictionary<TableFilterBase, ValueTypeConditionBase>();
 
         /// <summary>
         /// 获得/设置 Table Header 实例
@@ -39,6 +42,7 @@ namespace BootstrapBlazor.Components
                         builder.AddAttribute(index++, nameof(TableFilter.Filters), this);
                         builder.AddAttribute(index++, nameof(TableFilter.OnReset), new Func<TableFilterBase, Task>(async filter =>
                         {
+                            // 重置过滤条件回调方法
                             if (Cache.TryGetValue(filter, out var vf))
                             {
                                 vf.Reset();
@@ -47,9 +51,10 @@ namespace BootstrapBlazor.Components
                         }));
                         builder.AddAttribute(index++, nameof(TableFilter.OnConfirm), new Func<TableFilterBase, Task>(async filter =>
                         {
+                            // 过滤弹窗中点击确认按钮回调方法
                             if (Cache.TryGetValue(filter, out var vf))
                             {
-                                vf.GetFilters();
+                                vf.AddFilter();
                                 if (filter.OnFilter != null) await filter.OnFilter(Columns.GetFilters());
                             }
                         }));
@@ -100,11 +105,11 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// 添加 Filter 与 Condition 到缓存中
         /// </summary>
         /// <param name="tableFilter"></param>
         /// <param name="filter"></param>
-        public void AddFilter(TableFilterBase tableFilter, ValueTypeFilterBase filter)
+        public void AddFilter(TableFilterBase tableFilter, ValueTypeConditionBase filter)
         {
             Cache.Add(tableFilter, filter);
         }
@@ -130,7 +135,6 @@ namespace BootstrapBlazor.Components
             builder.OpenComponent<NumberFilter>(index++);
             builder.CloseComponent();
         };
-
 
         private RenderFragment RenderStringFilter() => builder =>
         {
