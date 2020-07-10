@@ -1135,9 +1135,12 @@
                 });
 
                 // filter
-                var $filters = $ele.find('.filterable .fa-filter');
                 var $toolbar = $ele.find('.table-toolbar');
-                $.each($filters, function (index) {
+                var marginTop = 0;
+                if ($toolbar.length > 0) marginTop = $toolbar.height();
+
+                // 点击 filter 小按钮时计算弹出位置
+                $ele.find('.filterable .fa-filter').on('click', function () {
                     // position
                     var position = $(this).position();
                     var field = $(this).attr('data-field');
@@ -1157,7 +1160,7 @@
                         $arrow = $body.find('.card-arrow');
                         $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
                     }
-                    $body.css({ "top": position.top + $toolbar.height() + 50, "left": left - marginRight });
+                    $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
             }
         },
