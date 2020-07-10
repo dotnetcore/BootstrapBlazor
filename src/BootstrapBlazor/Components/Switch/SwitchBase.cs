@@ -47,12 +47,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 开颜色
         /// </summary>
-        [Parameter] public Color OnColor { get; set; } = Color.Success;
+        [Parameter]
+        public Color OnColor { get; set; } = Color.Success;
 
         /// <summary>
         /// 获得/设置 关颜色
         /// </summary>
-        [Parameter] public Color OffColor { get; set; }
+        [Parameter]
+        public Color OffColor { get; set; }
 
         /// <summary>
         /// 获得/设置 组件宽度 默认 40
@@ -63,7 +65,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 控件高度默认 20px
         /// </summary>
-        [Parameter] public int Height { get; set; } = 20;
+        [Parameter]
+        public int Height { get; set; } = 20;
 
         /// <summary>
         /// 获得/设置 组件 On 时显示文本
