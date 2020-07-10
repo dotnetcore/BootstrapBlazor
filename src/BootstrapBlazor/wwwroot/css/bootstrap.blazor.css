@@ -1075,7 +1075,9 @@ a {
         }
 
         .table thead th.sortable.filterable .table-cell .table-text {
-            padding-right: 3rem;
+            padding-right: 2.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
     .table tbody td {
