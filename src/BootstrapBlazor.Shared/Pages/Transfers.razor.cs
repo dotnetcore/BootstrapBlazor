@@ -17,6 +17,8 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private IEnumerable<SelectedItem>? Items { get; set; }
 
+        private IEnumerable<SelectedItem>? Items1 { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -32,6 +34,12 @@ namespace BootstrapBlazor.Shared.Pages
             Items = Enumerable.Range(1, 20).Select(i => new SelectedItem()
             {
                 Text = $"备选 {i:d2}",
+                Value = i.ToString()
+            });
+
+            Items1 = Enumerable.Range(1, 20).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
                 Value = i.ToString()
             });
         }

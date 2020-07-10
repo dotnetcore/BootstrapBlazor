@@ -23,6 +23,13 @@
               ShowSearch="true" />
 </Block>
 
+<Block Title="双向绑定" Introduction="组件数据发生变化时，更新绑定数据源 <code>Items</code>" CodeFile="transfer.4.html">
+    <p>本例中 <code>Transfer</code> 组件双向绑定数据源 <code>Item1</code>，左右移动数据后，源集合中 <code>Active = false</code> 的为左侧面板中数据集合，<code>Active = true</code> 的为右侧面板中数据集合</p>
+    <Transfer @bind-Items="@Items1"
+              LeftPanelText="左侧列表" RightPanelText="右侧列表"
+              LeftButtonText="到左边" RightButtonText="到右边" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

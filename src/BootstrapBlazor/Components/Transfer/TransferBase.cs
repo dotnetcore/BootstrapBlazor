@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,34 +54,17 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Button? RightButton { get; set; }
 
-        private List<SelectedItem> _items = new List<SelectedItem>(200);
-
         /// <summary>
         /// 获得/设置 组件绑定数据项集合
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem> Items
-        {
-            get
-            {
-                _items.Clear();
-                _items.AddRange(LeftItems);
-
-                _items.AddRange(RightItems.Select(i => new SelectedItem(i.Value, i.Text) { Active = true }));
-                return _items;
-            }
-            set
-            {
-                _items.Clear();
-                _items.AddRange(value);
-            }
-        }
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 组件绑定数据项集合选项变化时回调方法
         /// </summary>
         [Parameter]
-        public EventCallback<IEnumerable<SelectedItem>> ItemsChanged { get; set; }
+        public EventCallback<IEnumerable<SelectedItem>?> ItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 左侧面板 Header 显示文本
@@ -133,8 +115,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            LeftItems.AddRange(_items.Where(i => !i.Active));
-            RightItems.AddRange(_items.Where(i => i.Active));
+            if (Items != null) LeftItems.AddRange(Items.Where(i => !i.Active));
+            if (Items != null) RightItems.AddRange(Items.Where(i => i.Active));
         }
 
         /// <summary>
@@ -146,7 +128,23 @@ namespace BootstrapBlazor.Components
             source.RemoveAll(i => i.Active);
             items.ForEach(i => i.Active = false);
             target.AddRange(items);
-            if (ItemsChanged.HasDelegate) await ItemsChanged.InvokeAsync(Items);
+
+            // 回调
+            if (ItemsChanged.HasDelegate && Items != null)
+            {
+                var s = Items.ToList();
+                LeftItems.ToList().ForEach(i =>
+                {
+                    var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
+                    s[index].Active = false;
+                });
+                RightItems.ToList().ForEach(i =>
+                {
+                    var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
+                    s[index].Active = true;
+                });
+                await ItemsChanged.InvokeAsync(s);
+            }
         }
 
         /// <summary>
