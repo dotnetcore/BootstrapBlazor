@@ -2,7 +2,7 @@
 branches:
   only:
   - master
-  - dev
+  - release
 image: Visual Studio 2019
 clone_depth: 1
 init:
@@ -33,4 +33,4 @@ deploy:
   skip_symbols: true
   artifact: NuGet
   on:
-    branch: /^master$|^dev$/
+    branch: /^master$|^release$/
