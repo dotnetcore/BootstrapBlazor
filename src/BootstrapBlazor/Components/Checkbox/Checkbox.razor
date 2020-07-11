@@ -2,11 +2,15 @@
 @typeparam TItem
 @inherits CheckboxBase<TItem>
 
+@if (IsShowLabel)
+{
+    <label class="control-label" for="@Id">@DisplayText</label>
+}
 <label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
     <span class="checkbox-input">
         <span class="checkbox-inner"></span>
     </span>
-    @if (IsShowLabel)
+    @if (IsShowAfterLabel)
     {
         <span class="checkbox-label">@DisplayText</span>
     }

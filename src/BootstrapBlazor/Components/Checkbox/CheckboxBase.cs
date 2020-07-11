@@ -35,6 +35,11 @@ namespace BootstrapBlazor.Components
         protected string? Disabled => IsDisabled ? "true" : null;
 
         /// <summary>
+        /// 获得/设置 是否显示 Checkbox 后置 label 文字
+        /// </summary>
+        protected bool IsShowAfterLabel { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否禁用
         /// </summary>
         [Parameter]
@@ -58,6 +63,18 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<CheckboxState, TItem, Task>? OnStateChanged { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            // 内置到 表单中时 DisplayName 放置到组件前面
+            IsShowAfterLabel = IsShowLabel && EditForm == null;
+            IsShowLabel &= EditForm != null;
+        }
 
         /// <summary>
         /// OnParametersSet 方法

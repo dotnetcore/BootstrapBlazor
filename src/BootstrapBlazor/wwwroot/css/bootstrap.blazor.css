@@ -541,6 +541,16 @@ a {
 /*end switch*/
 
 /*checkbox*/
+.form-inline .control-label + .form-checkbox {
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 576px) {
+    .form-inline .control-label + .form-checkbox {
+        margin-bottom: 0;
+    }
+}
+
 .form-checkbox {
     font-weight: 500;
     cursor: pointer;

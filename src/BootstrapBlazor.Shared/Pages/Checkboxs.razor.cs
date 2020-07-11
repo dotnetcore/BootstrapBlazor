@@ -2,6 +2,7 @@
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -11,6 +12,14 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Checkboxs
     {
+        class Foo
+        {
+            [DisplayName("标签文字")]
+            public bool BindValue { get; set; }
+        }
+
+        private Foo Model { get; set; } = new Foo();
+
         /// <summary>
         /// 
         /// </summary>
