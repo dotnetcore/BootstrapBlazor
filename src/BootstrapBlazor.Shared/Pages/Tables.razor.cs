@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = "列宽度",
+                Description = "列宽度（像素px）",
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = " — "
