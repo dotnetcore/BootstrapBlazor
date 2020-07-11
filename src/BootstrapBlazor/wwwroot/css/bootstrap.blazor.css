@@ -4149,15 +4149,19 @@ a {
         display: none;
     }
 
-.red {
+.light-danger {
     background-image: radial-gradient(circle, #e17777, #892726, #700604);
 }
 
-    .red.flash {
-        animation: red .6s linear infinite;
+    .light-danger.flash {
+        animation: danger .6s linear infinite;
     }
 
-@keyframes red {
+    .light-danger:hover {
+        background-image: radial-gradient(circle, #e17777, #b33332, #bf211e);
+    }
+
+@keyframes danger {
     0% {
         background-image: radial-gradient(circle, #e17777, #892726, #700604);
     }
@@ -4171,15 +4175,19 @@ a {
     }
 }
 
-.green {
+.light-success {
     background-image: radial-gradient(circle, #5cb85c, #116811, #024702);
 }
 
-    .green.flash {
-        animation: green .6s linear infinite;
+    .light-success.flash {
+        animation: success .6s linear infinite;
     }
 
-@keyframes green {
+    .light-success:hover {
+        background-image: radial-gradient(circle, #5cb85c, #0c980c, #087b08);
+    }
+
+@keyframes success {
     0% {
         background-image: radial-gradient(circle, #5cb85c, #116811, #024702);
     }
@@ -4193,28 +4201,134 @@ a {
     }
 }
 
-.blue {
+.light-info {
     background-image: radial-gradient(circle, #5bc0de, #1d7792, #085166);
 }
 
-.purple {
+    .light-info.flash {
+        animation: info .6s linear infinite;
+    }
+
+    .light-info:hover {
+        background-image: radial-gradient(circle, #5bc0de, #085166, #085166);
+    }
+
+@keyframes info {
+    0% {
+        background-image: radial-gradient(circle, #5bc0de, #1d7792, #085166);
+    }
+
+    55% {
+        background-image: radial-gradient(circle, #5bc0de, #1d7792, #085166);
+    }
+
+    100% {
+        background-image: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+.light-warning {
+    background-image: radial-gradient(circle, #ffc107, #cc9f18, #a28018);
+}
+
+    .light-warning.flash {
+        animation: warning .6s linear infinite;
+    }
+
+    .light-warning:hover {
+        background-image: radial-gradient(circle, #ffc107, #a28018, #a28018);
+    }
+
+@keyframes warning {
+    0% {
+        background-image: radial-gradient(circle, #ffc107, #cc9f18, #a28018);
+    }
+
+    55% {
+        background-image: radial-gradient(circle, #ffc107, #cc9f18, #a28018);
+    }
+
+    100% {
+        background-image: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+.light-primary {
+    background-image: radial-gradient(circle, #007bff, #0f5fb5, #104f94);
+}
+
+    .light-primary.flash {
+        animation: primary .6s linear infinite;
+    }
+
+    .light-primary:hover {
+        background-image: radial-gradient(circle, #007bff, #104f94, #104f94);
+    }
+
+@keyframes primary {
+    0% {
+        background-image: radial-gradient(circle, #007bff, #0f5fb5, #104f94);
+    }
+
+    55% {
+        background-image: radial-gradient(circle, #007bff, #0f5fb5, #104f94);
+    }
+
+    100% {
+        background-image: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+.light-secondary {
+    background-image: radial-gradient(circle, #6c757d, #4b5054, #3b3d40);
+}
+
+    .light-secondary.flash {
+        animation: secondary .6s linear infinite;
+    }
+
+    .light-secondary:hover {
+        background-image: radial-gradient(circle, #6c757d, #3b3d40, #3b3d40)
+    }
+
+@keyframes secondary {
+    0% {
+        background-image: radial-gradient(circle, #6c757d, #4b5054, #3b3d40);
+    }
+
+    55% {
+        background-image: radial-gradient(circle, #6c757d, #3b3d40, #3b3d40);
+    }
+
+    100% {
+        background-image: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+.light-dark {
     background-image: radial-gradient(circle, #6061e2, #3232a0, #17177b);
 }
 
-.red:hover {
-    background-image: radial-gradient(circle, #e17777, #b33332, #bf211e);
-}
+    .light-dark.flash {
+        animation: dark .6s linear infinite;
+    }
 
-.blue:hover {
-    background-image: radial-gradient(circle, #5bc0de, #188fb3, #1491b5);
-}
+    .light-dark:hover {
+        background-image: radial-gradient(circle, #6061e2, #17177b, #17177b);
+    }
 
-.purple:hover {
-    background-image: radial-gradient(circle, #6061e2, #3d3da6, #4545d4);
-}
+@keyframes dark {
+    0% {
+        background-image: radial-gradient(circle, #6061e2, #3232a0, #17177b);
+    }
 
-.green:hover {
-    background-image: radial-gradient(circle, #5cb85c, #0c980c, #087b08);
+    55% {
+        background-image: radial-gradient(circle, #6061e2, #3232a0, #17177b);
+    }
+
+    100% {
+        background-image: radial-gradient(circle, #fff, #aaa, #333);
+    }
 }
 /*end light*/
 

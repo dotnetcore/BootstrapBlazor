@@ -4,7 +4,7 @@
 <div @attributes="@AdditionalAttributes" class="@ClassString">
     <div class="card-header d-flex">
         <span class="flex-fill">@HeaderText</span>
-        <span class="light flash green" data-toggle="tooltip" title="@LightTitle"></span>
+        <Light IsFlash="true" LightTitle="@LightTitle" Color="@Color.Success"></Light>
     </div>
     <div class="card-body console-body" style="@BodyStyleString">
         <div class="console-window">
