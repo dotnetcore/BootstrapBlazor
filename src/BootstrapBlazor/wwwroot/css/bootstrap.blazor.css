@@ -1360,7 +1360,7 @@ a {
 
 .datetime-picker-input[readonly] {
     cursor: pointer;
-    padding-left: 30px;
+    padding-left: 2rem;
     background-color: #fff;
 }
 
@@ -1370,13 +1370,11 @@ a {
 
 .datetime-picker-input-icon {
     position: absolute;
-    left: 0;
+    left: 0px;
     top: 0;
-    height: 35px;
     line-height: 35px;
-    width: 30px;
-    text-align: center;
     cursor: pointer;
+    padding: 0 0.75rem;
 }
 
 .date-picker-time-header {
