@@ -1103,6 +1103,15 @@ a {
         text-align: left;
     }
 
+    .table.is-single tbody tr {
+        cursor: pointer;
+    }
+
+        .table.is-single tbody tr.active,
+        .table.is-single tbody tr.active:hover td {
+            background-color: #9ec6ef;
+        }
+
 .table-cell {
     padding: 12px 10px;
     display: flex;

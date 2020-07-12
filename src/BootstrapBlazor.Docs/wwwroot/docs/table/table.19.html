@@ -1,30 +1,21 @@
-﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
-       IsPagination="true" PageItemsSource="@PageItemsSource"
-       IsStriped="true" IsBordered="true"
-       ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-       OnQueryAsync="@OnQueryAsync">
+<Table TItem="BindItem"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true"
+        ShowDefaultButtons="false" ClickToSelect="true"
+        OnQueryAsync="@OnQueryAsync">
     <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" FormatString="yyyy-MM-dd" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
         <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
         <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-        <TableColumn @bind-Field="@context.Count" Sortable="true" Formatter="@IntFormatter" />
+        <TableColumn @bind-Field="@context.Count" Sortable="true" />
     </TableColumns>
 </Table>
 
 @code {
-    private Task<string> DateTimeFormatter(object? d)
-    {
-        var data = (DateTime?)d;
-        return  Task.FromResult(data?.ToString("yyyy-MM-dd") ?? "");
-    }
-
-    private Task<string> IntFormatter(object? d)
-    {
-        var data = (int?)d;
-        return  Task.FromResult(data?.ToString("0.00") ?? "");
-    }
-
     private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+
+    private IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
 
     private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
     {

@@ -186,11 +186,18 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "ShowCheckbox",
-                Description = "选择列",
+                Name = "IsMultipleSelect",
+                Description = "是否为多选模式，为 true 时第一列自动为复选框列",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " — "
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ClickToSelect",
+                Description = "行操作按钮列宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "130"
             },
             new AttributeItem() {
                 Name = "ShowCheckboxText",
@@ -489,7 +496,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             var cate = ToastCategory.Information;
             var title = "自定义按钮处理方法";
-            var content = "通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合";
+            var content = $"通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合，当前选择数据 {items.Count()} 条";
             ToastService?.Show(new ToastOption()
             {
                 Category = cate,

@@ -15,7 +15,7 @@
                 <PopConfirmButton Placement="Placement.Left" Text="左侧弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
             <div class="d-flex justify-content-center">
-                <PopConfirmButton Placement="Placement.Top"Text="上面弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
+                <PopConfirmButton Placement="Placement.Top" Text="上面弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
         </div>
     </div>
@@ -37,3 +37,5 @@
 <PopoverConfirm />
 
 <AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

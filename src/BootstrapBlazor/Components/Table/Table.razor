@@ -64,7 +64,7 @@
             <table class="@ClassName">
                 @TableColumns?.Invoke(HeaderModel)
                 <colgroup>
-                    @if (ShowCheckbox)
+                    @if (IsMultipleSelect)
                     {
                         @if (ShowCheckboxText)
                         {
@@ -86,47 +86,21 @@
                     {
                         @foreach (var item in Items)
                         {
-                            <tr>
-                                @if (ShowCheckbox)
-                                {
-                                    <td>
-                                        <div class="table-cell">
-                                            <Checkbox TItem="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
-                                        </div>
-                                    </td>
-                                }
-                                <TableBodyContent TItem="TItem" Item="@item" />
-                                @if (ShowExtendButtons)
-                                {
-                                    <td>
-                                        <div class="table-cell">
-                                            <div class="btn-group">
-                                                @if (ShowDefaultButtons)
-                                                {
-                                                    @if (ShowEditButton)
-                                                    {
-                                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@item" OnClickCallback="@ClickButton">
-                                                            <i class='fa fa-edit'></i>
-                                                            <span>编辑</span>
-                                                        </TableCellButton>
-                                                    }
-                                                    @if (ShowDeleteButton)
-                                                    {
-                                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@item" Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除" OnClickCallback="@ClickDeleteButton" OnConfirm="@DeleteAsync" />
-                                                    }
-                                                }
-                                                @RowButtonTemplate?.Invoke(item)
-                                            </div>
-                                        </div>
-                                    </td>
-                                }
-                            </tr>
+                            <TableRow TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect" 
+                                      ShowDefaultButtons="@ShowDefaultButtons" ShowDeleteButton="@ShowDeleteButton" ShowEditButton="@ShowEditButton"
+                                      ShowNewButton="@ShowNewButton" ShowExtendButtons="@ShowExtendButtons"
+                                      OnClickEditButton="@ClickEditButton" OnClickDeleteButton="@ClickDeleteButton" OnDelete="@DeleteAsync"
+                                      OnCheck="@OnCheck" RowCheckState="@RowCheckState" 
+                                      IsActive="@CheckActive(item)" OnSelectedRow="@OnSelectRow" OnEditRow="@OnEditRow"
+                                      ClickToSelect="@ClickToSelect" DoubleClickToEdit="@DoubleClickToEdit" >
+                                @RowButtonTemplate?.Invoke(item)
+                            </TableRow>
                         }
                     }
                 </tbody>
                 <thead>
                     <tr>
-                        @if (ShowCheckbox)
+                        @if (IsMultipleSelect)
                         {
                             <th class="@CheckboxColumnClass">
                                 <div class="table-cell">

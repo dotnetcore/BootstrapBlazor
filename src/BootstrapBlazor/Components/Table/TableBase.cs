@@ -26,6 +26,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-striped", IsStriped)
             .AddClass("table-hover", IsStriped)
             .AddClass("table-fixed", Height.HasValue)
+            .AddClass("is-single", !IsMultipleSelect && ClickToSelect)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

@@ -37,8 +37,8 @@
     </Table>
 </Block>
 
-<Block Title="带选择列表格" Introduction="通过设置 <code>ShowCheckbox=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
-    <Table TItem="BindItem" Items="@Items.Take(3)" ShowCheckbox="true">
+<Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -47,8 +47,8 @@
     </Table>
 </Block>
 
-<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为选择" CodeFile="table.5.html">
-    <Table TItem="BindItem" Items="@Items.Take(3)" ShowCheckbox="true" ShowCheckboxText="true">
+<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>" CodeFile="table.5.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -85,7 +85,7 @@
 <Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件" CodeFile="table.8.html">
     <Table TItem="BindItem" Items="@Items.Take(4)"
            IsBordered="true"
-           ShowCheckbox="true" ShowToolbar="true" ShowDefaultButtons="false">
+           IsMultipleSelect="true" ShowToolbar="true" ShowDefaultButtons="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -118,7 +118,7 @@
 </Block>
 
 <Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.12.html">
-    <Table TItem="BindItem" IsBordered="true" ShowCheckbox="true"
+    <Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
            PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
@@ -132,7 +132,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="true"
+           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            SearchModel="@SearchModel"
            OnQueryAsync="@OnQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
@@ -190,7 +190,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
             <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => DownloadAsync(items)))" />
@@ -208,7 +208,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
@@ -252,7 +252,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
@@ -283,7 +283,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true">
@@ -319,7 +319,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" FormatString="yyyy-MM-dd" />
@@ -334,8 +334,24 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowCheckbox="true" 
+           ShowToolbar="true" IsMultipleSelect="true"
            ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="点击单元格选中整行效果" Introduction="<code>Table</code> 组件默认为单选，通过设置 <code>ClickToSelect</code> 属性值可以实现点击任意单元格选中整行效果，选中行样式被设置为 <code>active</code>" CodeFile="table.19.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" ClickToSelect="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />

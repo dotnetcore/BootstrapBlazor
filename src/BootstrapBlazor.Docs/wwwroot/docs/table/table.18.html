@@ -1,7 +1,7 @@
 ﻿<Table TItem="BindItem"
        IsPagination="true" PageItemsSource="@PageItemsSource"
        IsStriped="true" IsBordered="true"
-       ShowToolbar="true" ShowCheckbox="true"
+       ShowToolbar="true" IsMultipleSelect="true"
        ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
        OnQueryAsync="@OnQueryAsync">
     <TableColumns>
@@ -14,6 +14,8 @@
 
 @code {
     private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+
+    private IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
 
     private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
     {

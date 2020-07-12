@@ -1,7 +1,7 @@
 ﻿<Table TItem="BindItem"
        IsPagination="true" PageItemsSource="@PageItemsSource"
        IsStriped="true" IsBordered="true"
-       ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="false"
+       ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="false"
        OnQueryAsync="@OnQueryAsync">
     <TableToolbarTemplate>
         <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => DownloadAsync(items)))" />
