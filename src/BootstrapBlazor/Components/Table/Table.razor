@@ -86,13 +86,14 @@
                     {
                         @foreach (var item in Items)
                         {
-                            <TableRow TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect" 
+                            <TableRow TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
                                       ShowDefaultButtons="@ShowDefaultButtons" ShowDeleteButton="@ShowDeleteButton" ShowEditButton="@ShowEditButton"
                                       ShowNewButton="@ShowNewButton" ShowExtendButtons="@ShowExtendButtons"
                                       OnClickEditButton="@ClickEditButton" OnClickDeleteButton="@ClickDeleteButton" OnDelete="@DeleteAsync"
-                                      OnCheck="@OnCheck" RowCheckState="@RowCheckState" 
-                                      IsActive="@CheckActive(item)" OnSelectedRow="@OnSelectRow" OnEditRow="@ClickEditButton"
-                                      ClickToSelect="@ClickToSelect" DoubleClickToEdit="@DoubleClickToEdit" >
+                                      OnCheck="@OnCheck" RowCheckState="@RowCheckState"
+                                      IsActive="@CheckActive(item)" OnSelectedRow="@SelectRow" OnEditRow="@DoubleClickRow"
+                                      ClickToSelect="@ClickToSelect" DoubleClickToEdit="@DoubleClickToEdit"
+                                      OnDoubleClickRowCallback="@OnDoubleClickRowCallback">
                                 @RowButtonTemplate?.Invoke(item)
                             </TableRow>
                         }

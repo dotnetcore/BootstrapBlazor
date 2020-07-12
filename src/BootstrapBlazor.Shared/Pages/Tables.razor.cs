@@ -312,6 +312,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "OnDoubleClickRowCallback",
+                Description = "双击行回调委托方法",
+                Type = "Func<TItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "SortIcon",
                 Description = "排序默认图标",
                 Type = "string",
@@ -516,6 +523,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Title = title,
                 Content = content
             });
+        }
+
+        private Task DoubleClickRowCallback(BindItem item)
+        {
+            var cate = ToastCategory.Success;
+            var title = "双击行回调委托示例";
+            var content = $"选中行数据为名称 {item.Name} 的数据";
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
+            return Task.CompletedTask;
         }
     }
 

@@ -72,6 +72,12 @@ namespace BootstrapBlazor.Components
         public bool IsBordered { get; set; }
 
         /// <summary>
+        /// 获得/设置 双击行回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task> OnDoubleClickRowCallback { get; set; } = _ => Task.CompletedTask;
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override async Task OnInitializedAsync()

@@ -12,19 +12,7 @@
         @RenderRow(this)
     </tr>
 }
-else if (ClickToSelect && !DoubleClickToEdit)
-{
-    <tr class="@ClassString" @onclick="@(e => OnSelectedRow(Item))">
-        @RenderRow(this)
-    </tr>
-}
-else if (!ClickToSelect && DoubleClickToEdit)
-{
-    <tr @ondblclick="@(e => OnEditRow(Item))">
-        @RenderRow(this)
-    </tr>
-}
-else if (ClickToSelect && DoubleClickToEdit)
+else if (ClickToSelect)
 {
     <tr class="@ClassString" @onclick="@(e => OnSelectedRow(Item))" @ondblclick="@(e => OnEditRow(Item))">
         @RenderRow(this)
@@ -32,7 +20,7 @@ else if (ClickToSelect && DoubleClickToEdit)
 }
 else
 {
-    <tr>
+    <tr class="@ClassString" @ondblclick="@(e => OnEditRow(Item))">
         @RenderRow(this)
     </tr>
 }

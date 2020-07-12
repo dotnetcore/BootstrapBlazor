@@ -406,6 +406,22 @@
     </Table>
 </Block>
 
+<Block Title="自定义行双击事件" Introduction="单选模式下通过设置 <code>DoubleClickRowCallback</code> 属性值可以实现双击任意单元格自定义回调委托方法，实现自己的需求功能" CodeFile="table.21.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
 <Toast></Toast>
 
 <PopoverConfirm></PopoverConfirm>

@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Components
         /// 单选模式下选择行时调用此方法
         /// </summary>
         /// <param name="val"></param>
-        protected virtual void OnSelectRow(TItem val)
+        protected virtual void SelectRow(TItem val)
         {
             SelectedItems.Clear();
             SelectedItems.Add(val);
@@ -187,9 +187,26 @@ namespace BootstrapBlazor.Components
             SelectedItems.Clear();
             SelectedItems.Add(item);
 
-            // 更新行选中状态
-            Edit();
-            StateHasChanged();
+            if (OnSaveAsync != null || OnAddAsync != null)
+            {
+                // 更新行选中状态
+                Edit();
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
+        /// 双击行回调此方法
+        /// </summary>
+        /// <param name="item"></param>
+        protected void DoubleClickRow(TItem item)
+        {
+            if (DoubleClickToEdit)
+            {
+                ClickEditButton(item);
+            }
+
+            OnDoubleClickRowCallback.Invoke(item);
         }
 
         /// <summary>

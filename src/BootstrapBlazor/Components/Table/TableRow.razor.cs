@@ -117,9 +117,15 @@ namespace BootstrapBlazor.Components
         public Action<TItem?> OnSelectedRow { get; set; } = _ => { };
 
         /// <summary>
-        /// 获得/设置 单击行回调委托方法
+        /// 获得/设置 双击行回调委托方法
         /// </summary>
         [Parameter]
         public Action<TItem?> OnEditRow { get; set; } = _ => { };
+
+        /// <summary>
+        /// 获得/设置 双击行回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem?, Task>? OnDoubleClickRowCallback { get; set; }
     }
 }
