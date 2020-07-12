@@ -6,20 +6,20 @@
     <div class="table-toolbar">
         @if (ShowToolbar)
         {
-            <TableToolbar>
+            <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
                 @if (ShowDefaultButtons)
                 {
                     @if (ShowNewButton)
                     {
-                        <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" ButtonIcon="fa fa-plus" ButtonText="新建" />
+                        <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-fw fa-plus" Text="新建" />
                     }
                     @if (ShowEditButton)
                     {
-                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit" ButtonIcon="fa fa-pencil" ButtonText="编辑" />
+                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit" Icon="fa fa-fw fa-pencil" Text="编辑" />
                     }
                     @if (ShowDeleteButton)
                     {
-                        <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
+                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
                     }
                 }
                 @TableToolbarTemplate
@@ -105,14 +105,14 @@
                                                 {
                                                     @if (ShowEditButton)
                                                     {
-                                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@item" OnClickCallback="@(e => ClickButton(e))">
+                                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@item" OnClickCallback="@ClickButton">
                                                             <i class='fa fa-edit'></i>
                                                             <span>编辑</span>
                                                         </TableCellButton>
                                                     }
                                                     @if (ShowDeleteButton)
                                                     {
-                                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@item" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
+                                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@item" Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除" OnClickCallback="@ClickDeleteButton" OnConfirm="@DeleteAsync" />
                                                     }
                                                 }
                                                 @RowButtonTemplate?.Invoke(item)

@@ -155,12 +155,11 @@ namespace BootstrapBlazor.Components
         /// 行尾列按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected bool ClickDeleteButton(TItem item)
+        protected void ClickDeleteButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
             StateHasChanged();
-            return true;
         }
     }
 }

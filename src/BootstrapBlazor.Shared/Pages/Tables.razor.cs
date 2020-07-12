@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Tables
     {
+        [Inject]
+        private ToastService? ToastService { get; set; }
+
         private List<BindItem>? Items { get; set; }
 
         private IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
@@ -415,7 +419,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task<string> IntFormatter(object? d)
         {
             var data = (int?)d;
-            return  Task.FromResult(data?.ToString("0.00") ?? "");
+            return Task.FromResult(data?.ToString("0.00") ?? "");
         }
 
         private Task OnResetSearchAsync(BindItem item)
@@ -461,6 +465,50 @@ namespace BootstrapBlazor.Shared.Pages
         {
             if (Items != null) items.ToList().ForEach(i => Items.Remove(i));
             return Task.FromResult(true);
+        }
+
+        private void DownloadAsync(IEnumerable<BindItem> items)
+        {
+            var cate = ToastCategory.Information;
+            var title = "自定义下载示例";
+            var content = "请先选择数据，然后点击下载按钮";
+            if (items.Any())
+            {
+                cate = ToastCategory.Success;
+                content = $"开始下载选中的 {items.Count()} 条数据";
+            }
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
+        }
+
+        private void CustomerButton(IEnumerable<BindItem> items)
+        {
+            var cate = ToastCategory.Information;
+            var title = "自定义按钮处理方法";
+            var content = "通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合";
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
+        }
+
+        private void OnRowButtonClick(BindItem item)
+        {
+            var cate = ToastCategory.Success;
+            var title = "行内按钮处理方法";
+            var content = "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据";
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
         }
     }
 

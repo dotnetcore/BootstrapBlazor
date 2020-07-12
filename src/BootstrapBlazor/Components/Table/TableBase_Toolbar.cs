@@ -202,5 +202,11 @@ namespace BootstrapBlazor.Components
             }
             Toast?.Show(option);
         }
+
+        /// <summary>
+        /// 获取当前 Table 选中的所有行数据
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<TItem> GetSelectedRows() => SelectedRows;
     }
 }

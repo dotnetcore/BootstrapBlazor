@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Table Toolbar 实例
         /// </summary>
         [CascadingParameter]
-        protected TableToolbar? Toolbar { get; set; }
+        protected ITableToolbar? Toolbar { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

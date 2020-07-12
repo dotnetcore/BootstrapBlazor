@@ -42,14 +42,14 @@ namespace BootstrapBlazor.Shared.Pages
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
-                Name = "ButtonText",
+                Name = "Text",
                 Description = "显示标题",
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "删除"
             },
             new AttributeItem() {
-                Name = "ButtonIcon",
+                Name = "Icon",
                 Description = "按钮图标",
                 Type = "string",
                 ValueList = "",
