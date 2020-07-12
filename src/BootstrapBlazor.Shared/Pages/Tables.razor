@@ -362,6 +362,50 @@
     </Table>
 </Block>
 
+<Block Title="双击单元格编辑本行效果" Introduction="<code>Table</code> 组件默认为单选，通过设置 <code>DoubleClickToEdit</code> 属性值可以实现双击任意单元格编辑本行效果，此功能前提是 <code>Edit</code> 功能可用" CodeFile="table.20.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="true" ShowDeleteButton="false"
+           ClickToSelect="true" DoubleClickToEdit="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+        <EditTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <DateTimePicker @bind-Value="@context.DateTime">
+                            <RequiredValidator />
+                        </DateTimePicker>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Count">
+                            <RequiredValidator />
+                        </BootstrapInput>
+                    </div>
+                </div>
+            </div>
+        </EditTemplate>
+    </Table>
+</Block>
+
 <Toast></Toast>
 
 <PopoverConfirm></PopoverConfirm>

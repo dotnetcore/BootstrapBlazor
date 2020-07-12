@@ -109,15 +109,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 单选模式下点击整行直接编辑回调委托方法
-        /// </summary>
-        /// <param name="val"></param>
-        protected virtual void OnEditRow(TItem val)
-        {
-
-        }
-
-        /// <summary>
         /// 检查当前行是否被选中方法
         /// </summary>
         /// <param name="val"></param>
