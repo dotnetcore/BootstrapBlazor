@@ -15,7 +15,13 @@ namespace BootstrapBlazor.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        private string? GetHrefString => (Item?.Items.Any() ?? false) ? "#" : Item?.Url;
+        private string? GetHrefString => DisableNavigation ? null : ((Item?.Items.Any() ?? false) ? "#" : Item?.Url);
+
+        /// <summary>
+        /// 获得/设置 是否禁止导航 默认为 false 允许导航
+        /// </summary>
+        [Parameter]
+        public bool DisableNavigation { get; set; }
 
         /// <summary>
         /// 

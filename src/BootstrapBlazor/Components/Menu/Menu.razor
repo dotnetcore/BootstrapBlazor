@@ -4,10 +4,10 @@
 <nav @attributes="@AdditionalAttributes" class="@ClassString" @ref="@MenuElement">
     @if (IsVertical)
     {
-        <SideMenu Items="@Items" IsAccordion="@IsAccordion" OnClick="@OnClick" />
+        <SideMenu Items="@Items" DisableNavigation="@DisableNavigation" IsAccordion="@IsAccordion" OnClick="@OnClick" />
     }
     else
     {
-        <TopMenu Items="@Items" OnClick="@OnClick" />
+        <TopMenu Items="@Items" DisableNavigation="@DisableNavigation" OnClick="@OnClick" />
     }
 </nav>
