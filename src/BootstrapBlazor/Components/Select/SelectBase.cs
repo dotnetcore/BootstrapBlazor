@@ -118,7 +118,7 @@ namespace BootstrapBlazor.Components
             if (SelectedItem == null || !(Items?.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text) ?? false))
             {
                 var item = Items?.FirstOrDefault(i => i.Active);
-                if (item == null) item = Items?.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? Items.FirstOrDefault();
+                if (item == null) item = Items?.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? Items?.FirstOrDefault();
                 if (item != null)
                 {
                     SelectedItem = item;

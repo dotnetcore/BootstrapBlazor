@@ -72,8 +72,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 内置到 表单中时 DisplayName 放置到组件前面
-            IsShowAfterLabel = IsShowLabel && EditForm == null;
-            IsShowLabel &= EditForm != null;
+            IsShowAfterLabel = EditForm == null;
         }
 
         /// <summary>

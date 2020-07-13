@@ -36,11 +36,6 @@ namespace BootstrapBlazor.Components
         protected bool? IsValid { get; set; }
 
         /// <summary>
-        /// 是否显示 标签
-        /// </summary>
-        protected bool IsShowLabel { get; set; }
-
-        /// <summary>
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
@@ -98,9 +93,6 @@ namespace BootstrapBlazor.Components
                 // 内置到验证组件时才使用绑定属性值获取 DisplayName
                 if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
-
-            //显式设置显示标签时一定显示
-            IsShowLabel = ShowLabel || !string.IsNullOrEmpty(DisplayText);
         }
 
         /// <summary>

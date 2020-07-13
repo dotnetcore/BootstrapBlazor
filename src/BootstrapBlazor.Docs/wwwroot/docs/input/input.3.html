@@ -10,7 +10,7 @@
     <p>设置 <code>DisplayText</code> 值为 <b>自定义标签</b></p>
 </div>
 <div class="form-group col-12">
-    <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" DisplayText="自定义标签">
+    <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" DisplayText="自定义标签" ShowLabel="true">
     </BootstrapInput>
 </div>
 <Divider Text="占位" />
@@ -31,5 +31,6 @@
 </div>
 
 @code {
+    [System.ComponentModel.DisplayName("标签值")]
     private string BindValue { get; set; } = "绑定值";
 }
