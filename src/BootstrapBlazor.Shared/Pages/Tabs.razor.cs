@@ -143,8 +143,8 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "TabItems",
-                Description = "TabItems 模板",
+                Name = "ChildContent",
+                Description = "ChildContent 模板",
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

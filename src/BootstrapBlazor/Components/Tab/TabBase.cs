@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 TabItems 模板
         /// </summary>
         [Parameter]
-        public RenderFragment? TabItems { get; set; }
+        public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
         /// 获得/设置 点击 TabItem 时回调方法
