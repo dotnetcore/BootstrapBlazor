@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -43,19 +44,21 @@ namespace BootstrapBlazor.Components
         /// 表单验证方法
         /// </summary>
         /// <returns></returns>
-        public void Validate()
+        public async Task<bool> Validate()
         {
+            var valid = false;
             if (CurrentEditContext != null)
             {
-                var valid = CurrentEditContext.Validate();
+                valid = CurrentEditContext.Validate();
 
                 if (EditForm != null)
                 {
-                    if (valid && EditForm.OnValidSubmit.HasDelegate) EditForm.OnValidSubmit.InvokeAsync(CurrentEditContext);
-                    else if (valid && EditForm.OnSubmit.HasDelegate) EditForm.OnSubmit.InvokeAsync(CurrentEditContext);
-                    else if (EditForm.OnInvalidSubmit.HasDelegate) EditForm.OnInvalidSubmit.InvokeAsync(CurrentEditContext);
+                    if (valid && EditForm.OnValidSubmit.HasDelegate) await EditForm.OnValidSubmit.InvokeAsync(CurrentEditContext);
+                    else if (valid && EditForm.OnSubmit.HasDelegate) await EditForm.OnSubmit.InvokeAsync(CurrentEditContext);
+                    else if (EditForm.OnInvalidSubmit.HasDelegate) await EditForm.OnInvalidSubmit.InvokeAsync(CurrentEditContext);
                 }
             }
+            return valid;
         }
     }
 }

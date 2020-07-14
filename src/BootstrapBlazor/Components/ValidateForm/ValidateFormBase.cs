@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -109,6 +110,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 表单验证方法
         /// </summary>
-        public void Validate() => Validator?.Validate();
+        public async Task<bool> Validate()
+        {
+            var ret = false;
+            if (Validator != null) ret = await Validator.Validate();
+            return ret;
+        }
     }
 }
