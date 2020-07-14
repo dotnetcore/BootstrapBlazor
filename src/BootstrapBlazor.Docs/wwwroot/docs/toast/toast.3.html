@@ -1,7 +1,14 @@
 ﻿<Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
 <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
 
+<Toast @ref="Toast"></Toast>
+
 @code{
+    /// <summary>
+    /// 
+    /// </summary>
+    [Inject] public ToastService? ToastService { get; set; }
+    
     protected void OnPlacementClick(Placement placement)
     {
         Toast?.SetPlacement(placement);
