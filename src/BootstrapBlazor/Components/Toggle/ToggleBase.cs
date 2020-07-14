@@ -12,10 +12,16 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         protected virtual string? ClassName => CssBuilder.Default("toggle btn")
-            .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass("btn-default off", !Value)
             .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
+        /// 获得 ToggleOn 样式
+        /// </summary>
+        protected string? ToggleOnClassString => CssBuilder.Default("toggle-on")
+            .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
             .Build();
 
         /// <summary>
@@ -30,11 +36,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public virtual int Width { get; set; } = 120;
-
-        /// <summary>
-        /// 获得/设置 是否禁用
-        /// </summary>
-        [Parameter] public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 获得/设置 组件 On 时显示文本

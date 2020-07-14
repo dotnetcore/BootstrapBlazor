@@ -109,6 +109,12 @@ namespace BootstrapBlazor.Components
         public string? RightPannelSearchPlaceHolderString { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否禁用 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -124,26 +130,29 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task Transfer(List<SelectedItem> source, List<SelectedItem> target)
         {
-            var items = source.Where(i => i.Active).ToList();
-            source.RemoveAll(i => i.Active);
-            items.ForEach(i => i.Active = false);
-            target.AddRange(items);
-
-            // 回调
-            if (ItemsChanged.HasDelegate && Items != null)
+            if (!IsDisabled)
             {
-                var s = Items.ToList();
-                LeftItems.ToList().ForEach(i =>
+                var items = source.Where(i => i.Active).ToList();
+                source.RemoveAll(i => i.Active);
+                items.ForEach(i => i.Active = false);
+                target.AddRange(items);
+
+                // 回调
+                if (ItemsChanged.HasDelegate && Items != null)
                 {
-                    var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
-                    s[index].Active = false;
-                });
-                RightItems.ToList().ForEach(i =>
-                {
-                    var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
-                    s[index].Active = true;
-                });
-                await ItemsChanged.InvokeAsync(s);
+                    var s = Items.ToList();
+                    LeftItems.ToList().ForEach(i =>
+                    {
+                        var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
+                        s[index].Active = false;
+                    });
+                    RightItems.ToList().ForEach(i =>
+                    {
+                        var index = s.FindIndex(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
+                        s[index].Active = true;
+                    });
+                    await ItemsChanged.InvokeAsync(s);
+                }
             }
         }
 

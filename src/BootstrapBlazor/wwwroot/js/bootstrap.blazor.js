@@ -398,12 +398,14 @@
         }
 
         this.$element.on('click', '.upload-prev', function () {
-            if (that.isstack || $(this).hasClass('is-upload') || $(this).hasClass('is-uploading')) return;
+            if (that.$element.hasClass('is-disabled') || that.isstack || $(this).hasClass('is-upload') || $(this).hasClass('is-uploading')) return;
 
             that.$prev = $(this);
             that.$file.trigger('click');
         });
         this.$element.on('click', '.btn-upload', function () {
+            if (that.$element.hasClass('is-disabled')) return;
+
             if (that.isstack) {
                 that.$file.trigger('click');
             }
@@ -416,6 +418,8 @@
         });
 
         this.$element.on('click', '.upload-prev .upload-item-delete, .upload-prev .btn-delete', function (e) {
+            if (that.$element.hasClass('is-disabled')) return;
+
             var $prev = $(this).parents('.upload-prev');
             var fileName = $prev.attr('data-file');
             if ($prev.hasClass('is-invalid-file')) {
@@ -1193,7 +1197,11 @@
                             $el.append($picker.addClass('d-none'));
                         }
                     });
+
                 $('.datetime-picker-input-icon').on('click', function (e) {
+                    // handler disabled event
+                    if ($(this).hasClass('disabled')) return;
+
                     e.stopImmediatePropagation();
                     var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
                     $input.trigger('click');

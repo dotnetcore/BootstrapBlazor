@@ -2,7 +2,7 @@
 @inherits TransferBase
 
 <div @attributes="@AdditionalAttributes" class="transfer">
-    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" 
+    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPannelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@OnSelectedItemsChanged">
     </TransferPanel>
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </button>
     </div>
-    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" 
+    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" IsDisabled="@IsDisabled"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPannelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@OnSelectedItemsChanged">
     </TransferPanel>

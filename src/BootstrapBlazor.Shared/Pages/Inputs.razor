@@ -99,6 +99,16 @@
     </div>
 </Block>
 
+<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" CodeFile="input.7.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput TItem="string" IsDisabled="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 @code {
@@ -172,6 +182,14 @@
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
+            new AttributeItem()
+            {
+                Name = "IsDisabled",
+                Description = "是否禁用 默认为 fasle",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            }
         };
     }
 }

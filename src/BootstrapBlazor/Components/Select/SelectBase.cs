@@ -64,11 +64,6 @@ namespace BootstrapBlazor.Components
         protected SelectedItem? SelectedItem { get; set; }
 
         /// <summary>
-        /// 获得 按钮 disabled 属性
-        /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
-
-        /// <summary>
         /// 获得/设置 Select 内部 Input 组件 Id
         /// </summary>
         protected string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
@@ -88,12 +83,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public IEnumerable<SelectedItem>? Items { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否禁用
-        /// </summary>
-        [Parameter]
-        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// SelectedItemChanged 方法

@@ -98,6 +98,19 @@
     <Upload MaxFileLength="20971520" IsStack="true" ShowProgress="true" Text="点击选择文件" ShowReset="true"></Upload>
 </Block>
 
+<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" CodeFile="upload.13.html">
+    <Divider Text="默认模式" />
+    <Upload IsDisabled="true"></Upload>
+    <Divider Text="显示预览模式" />
+    <Upload IsDisabled="true" ShowPreview="true"></Upload>
+    <Divider Text="圆形模式" />
+    <Upload IsDisabled="true" IsCircle="true"></Upload>
+    <Divider Text="卡片模式" />
+    <Upload IsDisabled="true" Width="240" Height="280" IsCard="true" IsPhotoWall="true"></Upload>
+    <Divider Text="堆栈模式" />
+    <Upload IsDisabled="true" IsStack="true" ShowProgress="true" Text="点击选择文件"></Upload>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

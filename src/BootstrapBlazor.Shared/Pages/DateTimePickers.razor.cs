@@ -166,6 +166,14 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "",
                 DefaultValue = "false"
             },
+            new AttributeItem()
+            {
+                Name = "IsDisabled",
+                Description = "是否禁用 默认为 fasle",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
             new AttributeItem() {
                 Name = "TimeFormat",
                 Description = "时间格式字符串 默认为 hh:mm:ss",

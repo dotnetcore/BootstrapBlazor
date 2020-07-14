@@ -58,7 +58,12 @@ a {
     background-color: #ecf8ff;
 }
 
-.btn:disabled {
+.btn:disabled,
+input:disabled,
+.datetime-picker-input-icon.disabled,
+.datetime-picker-input.is-disabled,
+.datetime-picker-input:disabled,
+.upload.is-disabled {
     cursor: not-allowed;
 }
 
@@ -337,15 +342,14 @@ a {
 .toggle {
     position: relative;
     overflow: hidden;
+    border: 1px solid #c0c4cc;
+    min-width: 70px;
+    min-height: 35px;
 }
 
-    .toggle.disabled .toggle-group label, .toggle.disabled .toggle-group span {
+    .toggle.disabled .toggle-group label,
+    .toggle.disabled .toggle-group span {
         cursor: not-allowed;
-    }
-
-    .toggle.btn {
-        min-width: 70px;
-        min-height: 35px;
     }
 
     .toggle.off .toggle-group {
@@ -383,6 +387,10 @@ a {
 
         .toggle .toggle-group label, .toggle .toggle-group span {
             cursor: pointer;
+        }
+
+        .toggle .toggle-group .toggle-on.bg-dark {
+            color: #e4e7ed;
         }
 
     .toggle .btn-handle {
@@ -1367,16 +1375,14 @@ a {
     color: #adb5bd;
 }
 
-.datetime-picker-input[readonly] {
+.datetime-picker-input {
     cursor: pointer;
     padding-left: 2rem;
-    background-color: #fff;
 }
 
-.datetime-picker-input.is-disabled,
-.datetime-picker-input:disabled {
-    cursor: not-allowed;
-}
+    .datetime-picker-input[readonly]:not([disabled]) {
+        background-color: #fff;
+    }
 
 .datetime-picker-input-icon {
     position: absolute;
@@ -2289,8 +2295,11 @@ a {
     padding: 6px 0;
     list-style: none;
     height: 246px;
-    overflow: auto;
 }
+
+    .transfer-panel-list:not(.disabled) {
+        overflow: auto;
+    }
 
 .transfer-panel-item {
     height: 30px;
@@ -2614,6 +2623,10 @@ a {
         border-radius: 6px;
     }
 
+    .upload.is-disabled {
+        cursor: not-allowed;
+    }
+
 .upload-input {
     display: none;
 }
@@ -2662,6 +2675,11 @@ a {
         height: 100%;
         display: none;
     }
+
+.is-disabled .upload-prev {
+    cursor: not-allowed;
+    color: #dcdfe6
+}
 
 .is-card .upload-prev {
     padding: 1rem;

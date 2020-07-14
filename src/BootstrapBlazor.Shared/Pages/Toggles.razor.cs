@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "IsDisabled",
                 Description = "是否禁用",
                 Type = "boolean",
-                ValueList = " — ",
+                ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {

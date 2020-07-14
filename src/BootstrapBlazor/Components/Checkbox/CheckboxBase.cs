@@ -30,20 +30,9 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
-        /// 获得 按钮 disabled 属性
-        /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
-
-        /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字
         /// </summary>
         protected bool IsShowAfterLabel { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否禁用
-        /// </summary>
-        [Parameter]
-        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 获得/设置 选择框状态

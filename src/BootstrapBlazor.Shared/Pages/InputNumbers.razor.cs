@@ -84,6 +84,14 @@ namespace BootstrapBlazor.Shared.Pages
                     ValueList = " - ",
                     DefaultValue = "1"
                 },
+                new AttributeItem()
+                {
+                    Name = "IsDisabled",
+                    Description = "是否禁用 默认为 fasle",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
+                }
             };
         }
     }

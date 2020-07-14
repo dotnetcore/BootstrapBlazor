@@ -149,6 +149,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "IsDisabled",
+                Description = "是否禁用",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "AllowFileType",
                 Description = "设置允许上传文件扩展名 设置 file 控件的 accept 属性",
                 Type = "string",
@@ -161,7 +168,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "long",
                 ValueList = "—",
                 DefaultValue = "0"
-            },
+            }
         };
 
         /// <summary>

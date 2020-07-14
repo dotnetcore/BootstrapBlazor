@@ -106,16 +106,23 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "LeftPannelSearchPlaceHolderString",
                 Description = "左侧面板中的搜索框 placeholder 字符串",
                 Type = "string",
-                ValueList = " ",
-                DefaultValue = " "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RightPannelSearchPlaceHolderString",
                 Description = "右侧面板中的搜索框 placeholder 字符串",
                 Type = "string",
-                ValueList = " ",
-                DefaultValue = " "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
+            new AttributeItem() {
+                Name = "IsDisabled",
+                Description = "是否禁用",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            }
         };
 
         /// <summary>

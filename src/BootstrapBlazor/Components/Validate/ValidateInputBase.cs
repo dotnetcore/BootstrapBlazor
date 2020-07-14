@@ -36,6 +36,11 @@ namespace BootstrapBlazor.Components
         protected bool? IsValid { get; set; }
 
         /// <summary>
+        /// 获得 组件是否被禁用属性值
+        /// </summary>
+        protected string? DisabledString => IsDisabled ? "disabled" : null;
+
+        /// <summary>
         /// 是否显示 标签
         /// </summary>
         protected bool IsShowLabel { get; set; }
@@ -74,6 +79,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? DisplayText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否禁用 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 验证组件添加时调用此方法
