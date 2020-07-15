@@ -32,13 +32,6 @@ namespace BootstrapBlazor.Shared.Pages
                     Type = "boolean",
                     ValueList = " — ",
                     DefaultValue = "false"
-                },
-                new AttributeItem(){
-                    Name = "Pageable",
-                    Description = "是否分页",
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
                 }
             };
         }

@@ -275,11 +275,6 @@ section {
         max-width: 250px;
     }
 
-        .table-demo td:first-child,
-        .table-demo th:first-child {
-            padding-left: 10px;
-        }
-
 .table-attr {
     margin-top: 2rem;
 }
