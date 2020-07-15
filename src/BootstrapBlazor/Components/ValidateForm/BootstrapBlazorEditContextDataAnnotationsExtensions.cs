@@ -68,21 +68,36 @@ namespace BootstrapBlazor.Components
 
         private static void ValidateField(EditContext editContext, ValidationMessageStore messages, in FieldIdentifier fieldIdentifier, ValidateFormBase editForm)
         {
+            // 获取验证消息
             if (TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
             {
-                var propertyValue = propertyInfo.GetValue(fieldIdentifier.Model);
+                var results = new List<ValidationResult>();
                 var validationContext = new ValidationContext(fieldIdentifier.Model)
                 {
                     MemberName = propertyInfo.Name
                 };
-                var results = new List<ValidationResult>();
+                var message = editContext.GetValidationMessages(fieldIdentifier);
+                if (message.Any())
+                {
+                    var msg = message.First();
+                    results.Add(new ValidationResult(msg, new string[] { validationContext.MemberName }));
 
-                Validator.TryValidateProperty(propertyValue, validationContext, results);
-                editForm.ValidateProperty(propertyValue, validationContext, results);
+                    // 通知表单验证信息
+                    editForm.ValidateProperty(null, validationContext, results);
 
-                messages.Clear(fieldIdentifier);
-                messages.Add(fieldIdentifier, results.Select(result => result.ErrorMessage));
+                    messages.Clear(fieldIdentifier);
+                    messages.Add(fieldIdentifier, msg);
+                }
+                else
+                {
+                    var propertyValue = propertyInfo.GetValue(fieldIdentifier.Model);
 
+                    Validator.TryValidateProperty(propertyValue, validationContext, results);
+                    editForm.ValidateProperty(propertyValue, validationContext, results);
+
+                    messages.Clear(fieldIdentifier);
+                    messages.Add(fieldIdentifier, results.Select(result => result.ErrorMessage));
+                }
                 editContext.NotifyValidationStateChanged();
             }
         }

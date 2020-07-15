@@ -158,7 +158,7 @@ namespace BootstrapBlazor.Components
         /// <param name="validProperty">是否对本属性进行数据验证</param>
         public void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
         {
-            if (Rules.Any() && FieldIdentifier != null)
+            if (FieldIdentifier != null)
             {
                 var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName));
                 if (messages.Any())
@@ -217,19 +217,11 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override bool TryParseValueFromString(string value, out TItem result, out string? validationErrorMessage)
         {
-            var t = typeof(TItem);
-            if (t == typeof(string))
+            try
             {
-                result = (TItem)(object)value;
-                validationErrorMessage = null;
-                return true;
-            }
-            else if (t.IsEnum)
-            {
-                var success = BindConverter.TryConvertTo<TItem>(value, CultureInfo.CurrentCulture, out var parsedValue);
-                if (success)
+                if (BindConverter.TryConvertTo<TItem>(value, CultureInfo.InvariantCulture, out var v))
                 {
-                    result = parsedValue;
+                    result = v;
                     validationErrorMessage = null;
                     return true;
                 }
@@ -238,69 +230,18 @@ namespace BootstrapBlazor.Components
 #nullable disable
                     result = default;
 #nullable restore
-                    if (FieldIdentifier != null)
-                    {
-                        validationErrorMessage = $"The {FieldIdentifier.Value.FieldName} field is not valid.";
-                        return false;
-                    }
-                    else
-                    {
-                        validationErrorMessage = null;
-                        return true;
-                    }
-                }
-            }
-            else if (t.IsValueType)
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    validationErrorMessage = null;
-#nullable disable
-                    result = default;
-#nullable restore
-                    return true;
-                }
-
-                try
-                {
-                    if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
-                    {
-                        var ft = t.GetGenericArguments().FirstOrDefault();
-                        if (ft != null)
-                        {
-                            result = (TItem)Convert.ChangeType(value, ft);
-                            validationErrorMessage = null;
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        // 尝试使用 TryParse 方法
-                        if (TryParse(value, out var v))
-                        {
-                            result = v;
-                            validationErrorMessage = null;
-                            return true;
-                        }
-                        else
-                        {
-                            result = (TItem)Convert.ChangeType(value, typeof(TItem));
-                            validationErrorMessage = null;
-                            return true;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    validationErrorMessage = ex.Message;
-#nullable disable
-                    result = default;
-#nullable restore
+                    validationErrorMessage = $"The {FieldIdentifier?.FieldName} field must be a {typeof(TItem)}.";
                     return false;
                 }
             }
-
-            throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(TItem)}'.");
+            catch (Exception ex)
+            {
+                validationErrorMessage = ex.Message;
+#nullable disable
+                result = default;
+#nullable restore
+                return false;
+            }
         }
 
         /// <summary>

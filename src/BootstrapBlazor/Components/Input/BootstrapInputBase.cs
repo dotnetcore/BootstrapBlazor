@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BootstrapBlazor.Components
@@ -41,10 +42,16 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            // TODO: 此处应该检查 html5 type 类型检查
-            if (AdditionalAttributes != null)
+            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+
+            if (!AdditionalAttributes.TryGetValue("type", out var _))
             {
-                if (!AdditionalAttributes.TryGetValue("type", out var _))
+                // 设置 Number 类型
+                if (typeof(TItem).IsNumber())
+                {
+                    AdditionalAttributes.Add("type", "number");
+                }
+                else
                 {
                     AdditionalAttributes.Add("type", IsPassword ? "password" : "text");
                 }
@@ -58,7 +65,11 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override string? FormatValueAsString(TItem value)
         {
-            return Formatter != null ? Formatter.Invoke(Value) : (!string.IsNullOrEmpty(FormatString) && value != null ? ((object)value).Format(FormatString) : base.FormatValueAsString(value));
+            return Formatter != null
+                ? Formatter.Invoke(Value)
+                : (!string.IsNullOrEmpty(FormatString) && value != null
+                    ? ((object)value).Format(FormatString)
+                    : base.FormatValueAsString(value));
         }
     }
 }
