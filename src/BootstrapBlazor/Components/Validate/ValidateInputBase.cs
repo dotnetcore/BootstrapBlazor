@@ -104,7 +104,7 @@ namespace BootstrapBlazor.Components
 
             if (EditForm != null && FieldIdentifier != null)
             {
-                EditForm.AddValidator((EditForm, FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
+                if (!IsDisabled) EditForm.AddValidator((EditForm, FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
 
                 // 内置到验证组件时才使用绑定属性值获取 DisplayName
                 if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
@@ -148,7 +148,15 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            Rules.ToList().ForEach(validator => validator.Validate(propertyValue, context, results));
+            // 如果禁用移除验证信息
+            if (IsDisabled)
+            {
+                results.Clear();
+            }
+            else
+            {
+                Rules.ToList().ForEach(validator => validator.Validate(propertyValue, context, results));
+            }
         }
 
         /// <summary>
