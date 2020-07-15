@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -28,6 +29,11 @@ namespace BootstrapBlazor.Components
             CheckboxState.Checked => "true",
             _ => "mixed"
         };
+
+        /// <summary>
+        /// 判断双向绑定类型是否为 boolean 类型
+        /// </summary>
+        protected bool isBoolean { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字
@@ -62,6 +68,8 @@ namespace BootstrapBlazor.Components
 
             // 内置到 表单中时 DisplayName 放置到组件前面
             IsShowAfterLabel = EditForm == null;
+
+            isBoolean = (Nullable.GetUnderlyingType(typeof(TItem)) ?? typeof(TItem)) == typeof(Boolean);
         }
 
         /// <summary>
@@ -71,9 +79,12 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
-            if (Value is bool val)
+            if (isBoolean && Value != null)
             {
-                State = val ? CheckboxState.Checked : CheckboxState.UnChecked;
+                if (BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
+                {
+                    State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
+                }
             }
         }
 
@@ -110,7 +121,7 @@ namespace BootstrapBlazor.Components
             {
                 _stateChanged = true;
 
-                if (Value is bool val)
+                if (isBoolean)
                 {
                     CurrentValue = (TItem)(object)(state == CheckboxState.Checked);
                 }
