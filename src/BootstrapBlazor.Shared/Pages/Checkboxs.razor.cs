@@ -86,7 +86,14 @@ namespace BootstrapBlazor.Shared.Pages
                     Description = "是否显示前置标签",
                     Type = "bool",
                     ValueList = "true|false",
-                    DefaultValue = "true"
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "ShowAfterLabel",
+                    Description = "是否显示后置标签",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",

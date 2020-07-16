@@ -565,6 +565,10 @@ input:disabled,
     }
 }
 
+.control-label.checkbox-label {
+    cursor: pointer;
+}
+
 .form-checkbox {
     font-weight: 500;
     cursor: pointer;

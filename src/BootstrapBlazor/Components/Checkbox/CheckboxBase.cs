@@ -36,9 +36,10 @@ namespace BootstrapBlazor.Components
         protected bool isBoolean { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示 Checkbox 后置 label 文字
+        /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false
         /// </summary>
-        protected bool IsShowAfterLabel { get; set; }
+        [Parameter]
+        public bool ShowAfterLabel { get; set; }
 
         /// <summary>
         /// 获得/设置 选择框状态
@@ -65,9 +66,6 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            // 内置到 表单中时 DisplayName 放置到组件前面
-            IsShowAfterLabel = EditForm == null;
 
             isBoolean = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)) == typeof(bool);
         }

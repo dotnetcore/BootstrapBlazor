@@ -7,17 +7,11 @@
 <Block Title="基础用法" Introduction="单独使用可以表示两种状态之间的切换，列头或者表头使用时可以表示三种状态之间的切换。组件支持泛型数据绑定，通过 <code>TValue</code> 设置绑定数据类型，通过 <code>State</code> 设置组件状态" CodeFile="checkbox.1.html">
     <div class="form-inline">
         <div class="row">
-            <div class="form-group col-12 col-md-4">
-                <label class="control-label">混合</label>
-                <Checkbox TValue="string" State="CheckboxState.Mixed" OnStateChanged="@OnStateChanged"></Checkbox>
+            <div class="form-group col-12 col-sm-6">
+                <Checkbox TValue="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged" DisplayText="选中" ShowLabel="true"></Checkbox>
             </div>
-            <div class="form-group col-12 col-md-4">
-                <label class="control-label">选中</label>
-                <Checkbox TValue="string" State="CheckboxState.Checked" OnStateChanged="@OnStateChanged"></Checkbox>
-            </div>
-            <div class="form-group col-12 col-md-4">
-                <label class="control-label">未选</label>
-                <Checkbox TValue="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged"></Checkbox>
+            <div class="form-group col-12 col-sm-6">
+                <Checkbox TValue="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged" DisplayText="未选" ShowLabel="true"></Checkbox>
             </div>
         </div>
     </div>
@@ -28,16 +22,10 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-md-4">
-                <label class="control-label">混合</label>
-                <Checkbox TValue="string" State="CheckboxState.Mixed" IsDisabled="true"></Checkbox>
+                <Checkbox TValue="string" State="CheckboxState.Checked" IsDisabled="true" DisplayText="选中" ShowLabel="true"></Checkbox>
             </div>
             <div class="form-group col-12 col-md-4">
-                <label class="control-label">选中</label>
-                <Checkbox TValue="string" State="CheckboxState.Checked" IsDisabled="true"></Checkbox>
-            </div>
-            <div class="form-group col-12 col-md-4">
-                <label class="control-label">未选</label>
-                <Checkbox TValue="string" State="CheckboxState.UnChecked" IsDisabled="true"></Checkbox>
+                <Checkbox TValue="string" State="CheckboxState.UnChecked" IsDisabled="true" DisplayText="未选" ShowLabel="true"></Checkbox>
             </div>
         </div>
     </div>
@@ -48,7 +36,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Checkbox TValue="string" DisplayText="显示文字"></Checkbox>
+                <Checkbox TValue="string" DisplayText="显示文字" ShowAfterLabel="true"></Checkbox>
             </div>
         </div>
     </div>
@@ -58,7 +46,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Checkbox DisplayText="双向绑定" @bind-Value="@BindValue" OnStateChanged="@OnItemChanged"></Checkbox>
+                <Checkbox DisplayText="双向绑定" ShowLabel="true" @bind-Value="@BindValue" OnStateChanged="@OnItemChanged"></Checkbox>
             </div>
             <div class="form-group col-12">
                 <BootstrapInput @bind-Value="@BindValue" IsDisabled="true"></BootstrapInput>
@@ -72,10 +60,10 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Checkbox DisplayText="双向绑定" @bind-Value="@BindString" OnStateChanged="@OnItemChangedString"></Checkbox>
+                <Checkbox DisplayText="双向绑定" ShowLabel="true" @bind-Value="@BindString" OnStateChanged="@OnItemChangedString"></Checkbox>
             </div>
             <div class="form-group col-12">
-                <BootstrapInput @bind-Value="@BindString" disabled></BootstrapInput>
+                <BootstrapInput @bind-Value="@BindString"></BootstrapInput>
             </div>
         </div>
     </div>

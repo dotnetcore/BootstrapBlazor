@@ -4,13 +4,13 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@Id">@DisplayText</label>
+    <label class="control-label checkbox-label" @onclick="@OnToggleClick">@DisplayText</label>
 }
-<label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
+<label @attributes="AdditionalAttributes" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
     <span class="checkbox-input">
         <span class="checkbox-inner"></span>
     </span>
-    @if (IsShowAfterLabel)
+    @if (ShowAfterLabel)
     {
         <span class="checkbox-label">@DisplayText</span>
     }
