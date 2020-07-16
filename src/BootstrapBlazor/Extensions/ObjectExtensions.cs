@@ -98,5 +98,32 @@ namespace BootstrapBlazor.Components
                 targetType == typeof(decimal);
             return check;
         }
+
+        /// <summary>
+        /// 检查是否为 DateTime 数据类型
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static bool IsDateTime(this Type t)
+        {
+            var targetType = Nullable.GetUnderlyingType(t) ?? t;
+            var check = targetType == typeof(DateTime) ||
+               targetType == typeof(DateTimeOffset);
+            return check;
+        }
+
+        /// <summary>
+        /// 通过类型获取类型描述文字
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static string GetTypeDesc(this Type t)
+        {
+            string? ret;
+            if (t.IsNumber()) ret = "数字";
+            else if (t.IsDateTime()) ret = "日期";
+            else ret = "字符串";
+            return ret;
+        }
     }
 }

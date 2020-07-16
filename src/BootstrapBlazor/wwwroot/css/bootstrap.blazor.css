@@ -255,12 +255,18 @@ input:disabled,
     justify-content: flex-start;
 }
 
-.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus, .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus,
+.was-validated .custom-select:invalid:focus,
+.custom-select.is-invalid:focus {
     border-color: #dc3545;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69,.6);
 }
 
-.was-validated .form-control:valid:focus, .form-control.is-valid:focus, .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
+.was-validated .form-control:valid:focus,
+.form-control.is-valid:focus,
+.was-validated .custom-select:valid:focus,
+.custom-select.is-valid:focus {
     border-color: #28a745;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69,.6);
 }
@@ -685,6 +691,14 @@ input:disabled,
         left: 0;
         right: 0;
         top: 5px;
+    }
+
+    .form-checkbox.is-invalid .checkbox-input .checkbox-inner {
+        border-color: #dc3545;
+    }
+
+    .form-checkbox.is-valid .checkbox-input .checkbox-inner {
+        border-color: #28a745;
     }
 
 .form-radio-group .form-checkbox:not(:last-child) {

@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// BootstrapInputTextBase 组件
     /// </summary>
-    public abstract class CheckboxBase<TItem> : ValidateInputBase<TItem>
+    public abstract class CheckboxBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 class 样式集合
@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 选择框状态改变时回调此方法
         /// </summary>
         [Parameter]
-        public Func<CheckboxState, TItem, Task>? OnStateChanged { get; set; }
+        public Func<CheckboxState, TValue, Task>? OnStateChanged { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -69,7 +69,7 @@ namespace BootstrapBlazor.Components
             // 内置到 表单中时 DisplayName 放置到组件前面
             IsShowAfterLabel = EditForm == null;
 
-            isBoolean = (Nullable.GetUnderlyingType(typeof(TItem)) ?? typeof(TItem)) == typeof(Boolean);
+            isBoolean = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)) == typeof(bool);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace BootstrapBlazor.Components
 
                 if (isBoolean)
                 {
-                    CurrentValue = (TItem)(object)(state == CheckboxState.Checked);
+                    CurrentValue = (TValue)(object)(state == CheckboxState.Checked);
                 }
 
                 if (State != state)

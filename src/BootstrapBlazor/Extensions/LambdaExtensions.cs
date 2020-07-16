@@ -301,35 +301,35 @@ namespace System.Linq
         /// <summary>
         /// 通过属性名称获取其实例值
         /// </summary>
-        /// <typeparam name="TItem"></typeparam>
+        /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="t"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static TResult GetPropertyValue<TItem, TResult>(this TItem t, string name)
+        public static TResult GetPropertyValue<TModel, TResult>(this TModel t, string name)
         {
-            var invoker = t.GetPropertyValueLambda<TItem, TResult>(name).Compile();
+            var invoker = t.GetPropertyValueLambda<TModel, TResult>(name).Compile();
             return invoker(t);
         }
 
         /// <summary>
         /// 获取属性方法 Lambda 表达式
         /// </summary>
-        /// <typeparam name="TItem"></typeparam>
+        /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="item"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static Expression<Func<TItem, TResult>> GetPropertyValueLambda<TItem, TResult>(this TItem item, string name)
+        public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(this TModel item, string name)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
 
             var p = item.GetType().GetProperty(name);
             if (p == null) throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {name} 属性，无法获取其值");
 
-            var param_p1 = Expression.Parameter(typeof(TItem));
+            var param_p1 = Expression.Parameter(typeof(TModel));
             var body = Expression.Property(Expression.Convert(param_p1, item.GetType()), p);
-            return Expression.Lambda<Func<TItem, TResult>>(Expression.Convert(body, typeof(TResult)), param_p1);
+            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body, typeof(TResult)), param_p1);
         }
 
         /// <summary>

@@ -3,7 +3,7 @@
 
 <div class="transfer-panel">
     <p class="transfer-panel-header">
-        <Checkbox TItem="SelectedItem" DisplayText="@Text" @ref="HeaderCheckbox" IsDisabled="@IsDisabled"
+        <Checkbox TValue="SelectedItem" DisplayText="@Text" @ref="HeaderCheckbox" IsDisabled="@IsDisabled"
                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
     </p>
     <div class="transfer-panel-body">

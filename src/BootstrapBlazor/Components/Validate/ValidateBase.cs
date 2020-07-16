@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -10,34 +13,25 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 支持客户端验证的文本框基类
     /// </summary>
-    public abstract class ValidateBase<TValue> : TooltipComponentBase
+    public abstract class ValidateBase<TValue> : TooltipComponentBase, IValidateComponent, IValidateRules
     {
         private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
-        private bool _previousParsingAttemptFailed;
         private ValidationMessageStore? _parsingValidationMessages;
-        private Type? _nullableUnderlyingType;
-
-        [CascadingParameter] EditContext? CascadedEditContext { get; set; }
-
-#nullable disable
-        /// <summary>
-        /// Gets or sets the value of the input. This should be used with two-way binding.
-        /// </summary>
-        /// <example>
-        /// @bind-Value="model.PropertyName"
-        /// </example>
-        [Parameter] public TValue Value { get; set; }
-#nullable restore
 
         /// <summary>
-        /// Gets or sets a callback that updates the bound value.
+        /// 获得/设置 上一次转化是否失败 为 true 时表示上一次转化失败
         /// </summary>
-        [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+        protected bool PreviousParsingAttemptFailed { get; set; }
 
         /// <summary>
-        /// Gets or sets an expression that identifies the bound value.
+        /// 获得/设置 上一次转化失败错误描述信息
         /// </summary>
-        [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
+        protected string PreviousErrorMessage { get; set; } = "";
+
+        /// <summary>
+        /// 获得/设置 泛型参数 TValue 可为空类型 Type 实例
+        /// </summary>
+        protected Type? NullableUnderlyingType { get; set; }
 
         /// <summary>
         /// Gets the associated <see cref="EditContext"/>.
@@ -48,6 +42,36 @@ namespace BootstrapBlazor.Components
         /// Gets the <see cref="FieldIdentifier"/> for the bound value.
         /// </summary>
         protected FieldIdentifier? FieldIdentifier { get; set; }
+
+        /// <summary>
+        /// 获得/设置 错误描述信息
+        /// </summary>
+        protected string? ErrorMessage { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据合规样式
+        /// </summary>
+        protected string? ValidCss => IsValid.HasValue ? (IsValid.Value ? "is-valid" : "is-invalid") : null;
+
+        /// <summary>
+        /// 获得/设置 Tooltip 命令
+        /// </summary>
+        protected string TooltipMethod { get; set; } = "";
+
+        /// <summary>
+        /// 获得/设置 组件是否合规 默认为 null 未检查
+        /// </summary>
+        protected bool? IsValid { get; set; }
+
+        /// <summary>
+        /// 获得 组件是否被禁用属性值
+        /// </summary>
+        protected string? DisabledString => IsDisabled ? "disabled" : null;
+
+        /// <summary>
+        /// 是否显示 标签
+        /// </summary>
+        protected bool IsShowLabel { get; set; }
 
         /// <summary>
         /// Gets or sets the current value of the input.
@@ -77,26 +101,25 @@ namespace BootstrapBlazor.Components
             {
                 _parsingValidationMessages?.Clear();
 
-                bool parsingFailed;
-
-                if (_nullableUnderlyingType != null && string.IsNullOrEmpty(value))
+                if (NullableUnderlyingType != null && string.IsNullOrEmpty(value))
                 {
                     // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
                     // Then all subclasses get nullable support almost automatically (they just have to
                     // not reject Nullable<T> based on the type itself).
-                    parsingFailed = false;
+                    PreviousParsingAttemptFailed = false;
 #nullable disable
                     CurrentValue = default;
 #nullable restore
                 }
                 else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
                 {
-                    parsingFailed = false;
+                    PreviousParsingAttemptFailed = false;
                     CurrentValue = parsedValue;
                 }
                 else
                 {
-                    parsingFailed = true;
+                    PreviousParsingAttemptFailed = true;
+                    PreviousErrorMessage = validationErrorMessage ?? "";
 
                     if (_parsingValidationMessages == null && EditContext != null)
                     {
@@ -113,13 +136,86 @@ namespace BootstrapBlazor.Components
                 }
 
                 // We can skip the validation notification if we were previously valid and still are
-                if (parsingFailed || _previousParsingAttemptFailed)
+                if (PreviousParsingAttemptFailed)
                 {
                     EditContext?.NotifyValidationStateChanged();
-                    _previousParsingAttemptFailed = parsingFailed;
                 }
             }
         }
+
+        /// <summary>
+        /// 获得/设置 类型转化失败格式化字符串 默认为 {0}字段值必须为{1}类型
+        /// </summary>
+        [Parameter]
+        public string ParsingErrorMessage { get; set; } = "{0}字段值必须为{1}类型";
+
+        /// <summary>
+        /// Gets or sets the value of the input. This should be used with two-way binding.
+        /// </summary>
+        /// <example>
+        /// @bind-Value="model.PropertyName"
+        /// </example>
+        [Parameter]
+        public TValue Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets a callback that updates the bound value.
+        /// </summary>
+        [Parameter]
+        public EventCallback<TValue> ValueChanged { get; set; }
+
+        /// <summary>
+        /// Gets or sets an expression that identifies the bound value.
+        /// </summary>
+        [Parameter]
+        public Expression<Func<TValue>>? ValueExpression { get; set; }
+
+        private string? _id;
+        /// <summary>
+        /// 获得 当前组件 Id
+        /// </summary>
+        [Parameter]
+        public override string? Id
+        {
+            get { return (EditForm != null && !string.IsNullOrEmpty(EditForm.Id) && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.FieldName}" : _id; }
+            set { _id = value; }
+        }
+
+        /// <summary>
+        /// 获得 子组件 RenderFragment 实例
+        /// </summary>
+        [Parameter]
+        public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示前置标签 默认值为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowLabel { get; set; }
+
+        /// <summary>
+        /// 获得/设置 显示名称
+        /// </summary>
+        [Parameter]
+        public string? DisplayText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否禁用 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
+        /// <summary>
+        /// 获得 父组件的 EditContext 实例
+        /// </summary>
+        [CascadingParameter]
+        private EditContext? CascadedEditContext { get; set; }
+
+        /// <summary>
+        /// 获得 ValidateFormBase 实例
+        /// </summary>
+        [CascadingParameter]
+        protected ValidateFormBase? EditForm { get; set; }
 
 #nullable disable
         /// <summary>
@@ -146,7 +242,36 @@ namespace BootstrapBlazor.Components
         /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
         /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
         /// <returns>True if the value could be parsed; otherwise false.</returns>
-        protected abstract bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage);
+        protected virtual bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
+        {
+            try
+            {
+                if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var v))
+                {
+                    result = v;
+                    validationErrorMessage = null;
+                    return true;
+                }
+                else
+                {
+#nullable disable
+                    result = default;
+#nullable restore
+                    var fieldName = FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : "";
+                    var typeName = typeof(TValue).GetTypeDesc();
+                    validationErrorMessage = string.Format(ParsingErrorMessage, fieldName, typeName);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                validationErrorMessage = ex.Message;
+#nullable disable
+                result = default;
+#nullable restore
+                return false;
+            }
+        }
 
         /// <summary>
         /// Gets a string that indicates the status of the field being edited. This will include
@@ -175,7 +300,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// SetParametersAsync 方法
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
@@ -191,7 +316,7 @@ namespace BootstrapBlazor.Components
                 if (CascadedEditContext != null) EditContext = CascadedEditContext;
                 if (ValueExpression != null) FieldIdentifier = Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression);
 
-                _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
+                NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
 
                 if (EditContext != null) EditContext.OnValidationStateChanged += _validationStateChangedHandler;
             }
@@ -199,6 +324,144 @@ namespace BootstrapBlazor.Components
             return base.SetParametersAsync(ParameterView.Empty);
         }
 
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (EditForm != null && FieldIdentifier != null)
+            {
+                // 组件被禁用时不进行客户端验证
+                if (!IsDisabled) EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
+
+                // 内置到验证组件时才使用绑定属性值获取 DisplayName
+                if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
+            }
+
+            //显式设置显示标签时一定显示
+            IsShowLabel = ShowLabel || EditForm != null;
+        }
+
+        #region Validation
+        /// <summary>
+        /// 调用 Tooltip 脚本方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void InvokeTooltip(bool firstRender)
+        {
+            base.InvokeTooltip(firstRender);
+
+            if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
+            {
+                InvokeAsync(async () =>
+                {
+                    await Task.Delay(10);
+
+                    // 异步执行
+                    JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
+                    TooltipMethod = "";
+                }).ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// 获得 数据验证方法集合
+        /// </summary>
+        public ICollection<IValidator> Rules { get; } = new HashSet<IValidator>();
+
+        /// <summary>
+        /// 验证组件添加时调用此方法
+        /// </summary>
+        /// <param name="validator"></param>
+        public virtual void OnRuleAdded(IValidator validator)
+        {
+
+        }
+
+        /// <summary>
+        /// 属性验证方法
+        /// </summary>
+        /// <param name="propertyValue"></param>
+        /// <param name="context"></param>
+        /// <param name="results"></param>
+        public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+        {
+            // 如果禁用移除验证信息
+            if (IsDisabled)
+            {
+                results.Clear();
+            }
+            else
+            {
+                // 模型验证设置 验证属性名称
+                // 验证组件内部使用
+                if (string.IsNullOrEmpty(context.MemberName) && FieldIdentifier.HasValue) context.MemberName = FieldIdentifier.Value.FieldName;
+
+                // 增加数值类型验证如 泛型 TValue 为 int 输入为 Empty 时
+                ValidateType(context, results);
+
+                Rules.ToList().ForEach(validator => validator.Validate(propertyValue, context, results));
+            }
+        }
+
+        private void ValidateType(ValidationContext context, List<ValidationResult> results)
+        {
+            // 增加数据基础类型验证 如泛型约定为 int 文本框值为 Empty
+            // 可为空泛型约束时不检查
+            if (NullableUnderlyingType == null)
+            {
+                if (PreviousParsingAttemptFailed)
+                {
+                    // 上一次转化失败
+                    results.Add(new ValidationResult(PreviousErrorMessage, new string[] { context.MemberName }));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 显示/隐藏验证结果方法
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="validProperty">是否对本属性进行数据验证</param>
+        public void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+        {
+            if (FieldIdentifier != null)
+            {
+                var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName));
+                if (messages.Any())
+                {
+                    ErrorMessage = messages.First().ErrorMessage;
+                    IsValid = false;
+
+                    // 控件自身数据验证时显示 tooltip
+                    // EditForm 数据验证时调用 tooltip('enable') 保证 tooltip 组件生成
+                    // 调用 tooltip('hide') 后导致鼠标悬停时 tooltip 无法正常显示
+                    TooltipMethod = validProperty ? "show" : "enable";
+                }
+                else
+                {
+                    ErrorMessage = null;
+                    IsValid = true;
+                    TooltipMethod = "dispose";
+                }
+
+                OnValidate(IsValid ?? true);
+            }
+        }
+
+        /// <summary>
+        /// 客户端检查完成时调用此方法
+        /// </summary>
+        /// <param name="valid">检查结果</param>
+        protected virtual void OnValidate(bool valid)
+        {
+            InvokeTooltip(false);
+        }
+        #endregion
+
+        #region Dispose
         /// <summary>
         /// Dispose 方法
         /// </summary>
@@ -209,8 +472,10 @@ namespace BootstrapBlazor.Components
 
             if (disposing && EditContext != null)
             {
+                JSRuntime.Tooltip(Id, "dispose");
                 EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
             }
         }
+        #endregion
     }
 }

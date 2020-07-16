@@ -66,7 +66,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private string? BindString { get; set; } = "我爱 Blazor";
+        private string BindString { get; set; } = "我爱 Blazor";
 
         /// <summary>
         /// 

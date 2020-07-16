@@ -6,7 +6,7 @@
     <tr>
         <td>
             <div class="table-cell">
-                <Checkbox TItem="TItem" Value="@Item" State="@RowCheckState(Item)" OnStateChanged="@OnCheck"></Checkbox>
+                <Checkbox TValue="TItem" Value="@Item" State="@RowCheckState(Item)" OnStateChanged="@OnCheck"></Checkbox>
             </div>
         </td>
         @RenderRow(this)

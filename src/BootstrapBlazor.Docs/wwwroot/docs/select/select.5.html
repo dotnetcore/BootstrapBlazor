@@ -1,7 +1,7 @@
 ﻿<ValidateForm class="form-inline" Model="@BindModel">
     <div class="row">
         <div class="form-group col-12 col-sm-6">
-            <Select TItem="string" Color="Color.Primary" @bind-Value="@BindModel.Name">
+            <Select Color="Color.Primary" @bind-Value="@BindModel.Name">
                 <RequiredValidator ErrorMessage="请选择一个城市" />
             </Select>
         </div>

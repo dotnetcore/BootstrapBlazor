@@ -1,12 +1,12 @@
 @namespace BootstrapBlazor.Components
-@typeparam TItem
-@inherits BootstrapInputBase<TItem>
+@typeparam TValue
+@inherits BootstrapInputBase<TValue>
 
 @if (IsShowLabel)
 { 
     <label class="control-label" for="@Id">@DisplayText</label>
 }
-<input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@DisabledString" data-original-title="@ErrorMessage" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+<input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@DisabledString" data-original-title="@ErrorMessage" value="@BindConverter.FormatValue(CurrentValue)" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>

@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// BootstrapInputTextBase 组件
     /// </summary>
-    public abstract class BootstrapInputBase<TItem> : ValidateInputBase<TItem>
+    public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 class 样式集合
@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 格式化字符串
         /// </summary>
         [Parameter]
-        public Func<TItem, string>? Formatter { get; set; }
+        public Func<TValue, string>? Formatter { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
             if (!AdditionalAttributes.TryGetValue("type", out var _))
             {
                 // 设置 Number 类型
-                if (typeof(TItem).IsNumber())
+                if (typeof(TValue).IsNumber())
                 {
                     AdditionalAttributes.Add("type", "number");
                 }
@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override string? FormatValueAsString(TItem value)
+        protected override string? FormatValueAsString(TValue value)
         {
             return Formatter != null
                 ? Formatter.Invoke(Value)

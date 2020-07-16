@@ -9,7 +9,7 @@
         <div class="row">
             <div class="form-group col-12">
                 <label class="control-label">基本用法</label>
-                <BootstrapInput TItem="string" placeholder="请输入 ..."></BootstrapInput>
+                <BootstrapInput TValue="string" placeholder="请输入 ..."></BootstrapInput>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="form-group col-12">
                 <label class="control-label">单向绑定</label>
-                <BootstrapInput TItem="string" placeholder="请输入 ..." Value="@InputValue"></BootstrapInput>
+                <BootstrapInput placeholder="请输入 ..." Value="@InputValue"></BootstrapInput>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" DisplayText="双向绑定示例">
+                <BootstrapInput placeholder="请输入 ..." @bind-Value="@BindValue" DisplayText="双向绑定示例">
                 </BootstrapInput>
             </div>
             <div class="form-group col-12">
@@ -43,7 +43,7 @@
                 <p>设置 <code>DisplayText</code> 值为 <b>自定义标签</b></p>
             </div>
             <div class="form-group col-12">
-                <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" DisplayText="自定义标签" ShowLabel="true">
+                <BootstrapInput placeholder="请输入 ..." @bind-Value="@BindValue" DisplayText="自定义标签" ShowLabel="true">
                 </BootstrapInput>
             </div>
             <Divider Text="占位" />
@@ -51,7 +51,7 @@
                 <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示</p>
             </div>
             <div class="form-group col-12">
-                <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" ShowLabel="true">
+                <BootstrapInput placeholder="请输入 ..." @bind-Value="@BindValue" ShowLabel="true">
                 </BootstrapInput>
             </div>
             <Divider Text="不占位" />
@@ -59,7 +59,7 @@
                 <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示</p>
             </div>
             <div class="form-group col-12">
-                <BootstrapInput TItem="string" placeholder="请输入 ..." @bind-Value="@BindValue" ShowLabel="false">
+                <BootstrapInput placeholder="请输入 ..." @bind-Value="@BindValue" ShowLabel="false">
                 </BootstrapInput>
             </div>
         </div>
@@ -70,7 +70,7 @@
     <ValidateForm class="form-inline" Model="@Model">
         <div class="row">
             <div class="form-group col-12">
-                <BootstrapInput TItem="string" maxlength="5" placeholder="请输入 ..." @bind-Value="@Model.Name">
+                <BootstrapInput maxlength="5" placeholder="请输入 ..." @bind-Value="@Model.Name">
                     <RequiredValidator />
                     <StringLengthValidator Length="5" />
                 </BootstrapInput>
@@ -81,7 +81,7 @@
 
 <Block Title="密码框" Introduction="通过设置属性 <code>IsPassword</code> 值使输入数字后以 <code>*</code> 进行屏蔽的密码输入框" CodeFile="input.5.html">
     <p>为了支持更多的文本框属性本组件可以直接写入 <code>type="email"</code> <code>type="number"</code> <code>type="phone"</code> 等 <code>html5</code> 新标准支持的全部属性值，组件未设置 <code>type</code> 值时使用默认的 <code>type="text"</code>, 仅当未设置 <code>type</code> 属性值时 <code>IsPassword</code> 才生效</p>
-    <BootstrapInput TItem="string" IsPassword="true" maxlength="5" placeholder="请输入 ..." style="width: 120px;">
+    <BootstrapInput TValue="string" IsPassword="true" maxlength="5" placeholder="请输入 ..." style="width: 120px;">
     </BootstrapInput>
 </Block>
 
@@ -89,7 +89,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <BootstrapInput TItem="double" placeholder="请输入 ..." type="number" FormatString="0.00" @bind-Value="@BindDoubleValue" DisplayText="请输入数字">
+                <BootstrapInput placeholder="请输入 ..." type="number" FormatString="0.00" @bind-Value="@BindDoubleValue" DisplayText="请输入数字">
                 </BootstrapInput>
             </div>
             <div class="form-group col-12 col-sm-6">
@@ -103,7 +103,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <BootstrapInput TItem="string" IsDisabled="true" />
+                <BootstrapInput TValue="string" IsDisabled="true" />
             </div>
         </div>
     </div>

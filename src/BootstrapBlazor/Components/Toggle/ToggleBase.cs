@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Toggle 开关组件
     /// </summary>
-    public class ToggleBase : ValidateInputBase<bool>
+    public class ToggleBase : ValidateBase<bool>
     {
         /// <summary>
         /// 获得 样式集合

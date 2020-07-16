@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Select 组件基类
     /// </summary>
-    public abstract class SelectBase<TItem> : ValidateInputBase<TItem>
+    public abstract class SelectBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 样式集合
@@ -76,7 +76,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
-        [Parameter] public Color Color { get; set; } = Color.None;
+        [Parameter]
+        public Color Color { get; set; } = Color.None;
 
         /// <summary>
         /// 获得/设置 绑定数据集

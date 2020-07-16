@@ -52,16 +52,16 @@ namespace BootstrapBlazor.Components
         [Parameter] public EventCallback<EditContext> OnInvalidSubmit { get; set; }
 
         /// <summary>
-        /// 验证组件缓存 静态全局提高性能
+        /// 验证组件缓存
         /// </summary>
-        private static ConcurrentDictionary<(ValidateFormBase EditForm, Type ModelType, string FieldName), IValidateComponent> _validatorCache = new ConcurrentDictionary<(ValidateFormBase, Type, string), IValidateComponent>();
+        private ConcurrentDictionary<(Type ModelType, string FieldName), IValidateComponent> _validatorCache = new ConcurrentDictionary<(Type, string), IValidateComponent>();
 
         /// <summary>
         /// 添加数据验证组件到 EditForm 中
         /// </summary>
         /// <param name="key"></param>
         /// <param name="comp"></param>
-        public void AddValidator((ValidateFormBase EditForm, Type ModelType, string FieldName) key, IValidateComponent comp) => _validatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
+        public void AddValidator((Type ModelType, string FieldName) key, IValidateComponent comp) => _validatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
 
         /// <summary>
         /// EditModel 数据模型验证方法
@@ -74,20 +74,18 @@ namespace BootstrapBlazor.Components
             // 遍历所有可验证组件进行数据验证
             foreach (var key in _validatorCache)
             {
-                if (key.Key.EditForm == this && key.Key.ModelType == context.ObjectType)
+                if (key.Key.ModelType == context.ObjectType)
                 {
-                    if (BootstrapBlazorEditContextDataAnnotationsExtensions.TryGetValidatableProperty(new FieldIdentifier(model, key.Key.FieldName), out var propertyInfo))
-                    {
-                        // 设置其关联属性字段
-                        var propertyValue = propertyInfo.GetValue(model);
-                        context.MemberName = propertyInfo.Name;
+                    var fi = new FieldIdentifier(model, key.Key.FieldName);
 
-                        var validator = _validatorCache[key.Key];
+                    // 设置其关联属性字段
+                    var propertyValue = fi.GetPropertyValue();
+                    var validator = _validatorCache[key.Key];
 
-                        // 数据验证
-                        validator.ValidateProperty(propertyValue, context, results);
-                        validator.ToggleMessage(results, false);
-                    }
+                    // 数据验证
+                    context.MemberName = fi.FieldName;
+                    validator.ValidateProperty(propertyValue, context, results);
+                    validator.ToggleMessage(results, false);
                 }
             }
         }
@@ -100,7 +98,7 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            if (_validatorCache.TryGetValue((this, context.ObjectType, context.MemberName), out var validator))
+            if (_validatorCache.TryGetValue((context.ObjectType, context.MemberName), out var validator))
             {
                 validator.ValidateProperty(propertyValue, context, results);
                 validator.ToggleMessage(results, true);
