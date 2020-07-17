@@ -1,0 +1,60 @@
+<Table TItem="BindItem"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="true"
+        AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+        OnQueryAsync="@OnQueryAsync"
+        OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
+        <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" />
+        <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
+        <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+    </TableColumns>
+</Table>
+
+@code {
+    /// <summary>
+    /// 
+    /// </summary>
+    public class BindItem
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("主键")]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("姓名")]
+        [Required(ErrorMessage = "姓名不能为空")]
+        public string? Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("日期")]
+        public DateTime? DateTime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("地址")]
+        [Required(ErrorMessage = "地址不能为空")]
+        public string? Address { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("数量")]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("是/否")]
+        public bool Complete { get; set; }
+    }
+}
