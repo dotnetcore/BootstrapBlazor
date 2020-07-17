@@ -42,6 +42,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "ChildContent 模板",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

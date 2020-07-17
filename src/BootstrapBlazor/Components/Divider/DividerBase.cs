@@ -56,5 +56,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? Icon { get; set; }
+
+        /// <summary>
+        /// 获得/设置 子内容
+        /// </summary>
+        [Parameter]
+        public RenderFragment? ChildContent { get; set; }
     }
 }
