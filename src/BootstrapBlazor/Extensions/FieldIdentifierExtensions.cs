@@ -28,10 +28,10 @@ namespace Microsoft.AspNetCore.Components.Forms
             {
                 if (TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
                 {
-                    var displayNameAttribute = propertyInfo.GetCustomAttributes<DisplayNameAttribute>();
-                    if (displayNameAttribute.Any())
+                    var displayNameAttribute = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
+                    if (displayNameAttribute != null)
                     {
-                        dn = displayNameAttribute.First().DisplayName;
+                        dn = displayNameAttribute.DisplayName;
 
                         // add display name into cache
                         DisplayNameCache.GetOrAdd((fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName), key => dn);
