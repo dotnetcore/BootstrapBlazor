@@ -28,6 +28,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-card", IsCard)
             .AddClass("is-stack", IsStack)
             .AddClass("is-progress", ShowProgress)
+            .AddClass("is-disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -59,6 +60,11 @@ namespace BootstrapBlazor.Components
         /// 获得 是否允许多文件上传 默认不允许 IsStack 模式下允许多文件上传
         /// </summary>
         protected string? MultipleString => (IsMultiple || IsStack) ? "multiple" : null;
+        
+        /// <summary>
+        /// 获得 组件是否被禁用属性值
+        /// </summary>
+        protected string? DisabledString => IsDisabled ? "disabled" : null;
 
         /// <summary>
         /// 获得/设置 上传按钮显示文字
@@ -143,6 +149,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsPhotoWall { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否禁用 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 获得/设置 允许上传文件扩展名集合

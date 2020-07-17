@@ -5,7 +5,14 @@
 <Button Color="Color.Danger" OnClick="@OnErrorClick" >失败通知</Button>
 <Button Color="Color.Info" OnClick="@OnInfoClick" >信息通知</Button>
 
+<Toast @ref="Toast"></Toast>
+
 @code{
+    /// <summary>
+    /// 
+    /// </summary>
+    [Inject] public ToastService? ToastService { get; set; }
+
     protected void OnSuccessClick()
     {
         Toast?.SetPlacement(Placement.BottomEnd);

@@ -1,12 +1,16 @@
 ﻿@namespace BootstrapBlazor.Components
-@typeparam TItem
-@inherits CheckboxBase<TItem>
+@typeparam TValue
+@inherits CheckboxBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="control-label checkbox-label" @onclick="@OnToggleClick">@DisplayText</label>
+}
 <label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
     <span class="checkbox-input">
         <span class="checkbox-inner"></span>
     </span>
-    @if (IsShowLabel)
+    @if (ShowAfterLabel)
     {
         <span class="checkbox-label">@DisplayText</span>
     }

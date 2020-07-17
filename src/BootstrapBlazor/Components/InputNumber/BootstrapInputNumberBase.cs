@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -246,6 +246,23 @@ namespace BootstrapBlazor.Components
             var p = type.GetField("MaxValue");
             var body = Expression.Field(null, p);
             return Expression.Lambda<Func<TValue>>(body);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static ConcurrentDictionary<Type, LambdaExtensions.FuncEx<string, TValue, bool>> TryParseCache { get; set; } = new ConcurrentDictionary<Type, LambdaExtensions.FuncEx<string, TValue, bool>>();
+
+        /// <summary>
+        /// TryParse 泛型方法
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected bool TryParse(string source, out TValue item)
+        {
+            var invoker = TryParseCache.GetOrAdd(typeof(TValue), key => LambdaExtensions.TryParse<TValue>().Compile());
+            return invoker(source, out item);
         }
 
         #region LessThan

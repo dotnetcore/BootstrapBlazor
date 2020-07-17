@@ -1,10 +1,10 @@
-﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
+﻿<Table TItem="BindItem"
        IsPagination="true" PageItemsSource="@PageItemsSource"
        IsStriped="true" IsBordered="true"
-       ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="false"
+       ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="false"
        OnQueryAsync="@OnQueryAsync">
     <TableToolbarTemplate>
-        <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
+        <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => DownloadAsync(items)))" />
     </TableToolbarTemplate>
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
@@ -14,6 +14,9 @@
 </Table>
 
 @code {
+    [Inject]
+    private ToastService? ToastService { get; set; }
+
     private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
 
     private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
@@ -61,6 +64,24 @@
             IsSorted = isSorted,
             IsFiltered = isFiltered,
             IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
+        });
+    }
+
+    private void DownloadAsync(IEnumerable<BindItem> items)
+    {
+        var cate = ToastCategory.Information;
+        var title = "自定义下载示例";
+        var content = "请先选择数据，然后点击下载按钮";
+        if (items.Any())
+        {
+            cate = ToastCategory.Success;
+            content = $"开始下载选中的 {items.Count()} 条数据";
+        }
+        ToastService?.Show(new ToastOption()
+        {
+            Category = cate,
+            Title = title,
+            Content = content
         });
     }
 }

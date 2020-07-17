@@ -1,6 +1,13 @@
 ﻿<Button OnClick="@OnNotAutoHideClick">成功通知</Button>
 
+<Toast @ref="Toast"></Toast>
+
 @code{
+    /// <summary>
+    /// 
+    /// </summary>
+    [Inject] public ToastService? ToastService { get; set; }
+    
     protected void OnNotAutoHideClick()
     {
         Toast?.SetPlacement(Placement.BottomEnd);

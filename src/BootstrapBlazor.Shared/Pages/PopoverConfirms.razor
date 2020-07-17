@@ -8,14 +8,14 @@
     <div class="d-flex justify-content-center border p-3 rounded">
         <div class="d-flex flex-column w-100" style="height: 240px;">
             <div class="d-flex justify-content-center">
-                <PopConfirmButton Placement="Placement.Bottom" ConfirmButtonColor="Color.Danger" DisplayText="下面弹框" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
+                <PopConfirmButton Placement="Placement.Bottom" ConfirmButtonColor="Color.Danger" Text="下面弹框" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
             <div class="d-flex justify-content-between m-4 align-items-center flex-fill">
-                <PopConfirmButton Placement="Placement.Right" CloseButtonText="取消" DisplayText="右侧弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
-                <PopConfirmButton Placement="Placement.Left" DisplayText="左侧弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
+                <PopConfirmButton Placement="Placement.Right" CloseButtonText="取消" Text="右侧弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
+                <PopConfirmButton Placement="Placement.Left" Text="左侧弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
             <div class="d-flex justify-content-center">
-                <PopConfirmButton Placement="Placement.Top" DisplayText="上面弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
+                <PopConfirmButton Placement="Placement.Top" Text="上面弹窗" Content="这是一段内容确定删除吗？" OnConfirm="@OnConfirm" OnClose="@OnClose" />
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 </Block>
 
 <Block Title="Content 更改确认弹窗显示文字" Introduction="通过设置<code>Content</code> 属性更改确认弹窗显示文字" CodeFile="popconfirm.2.html">
-    <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger" ConfirmButtonColor="Color.Danger" DisplayText="删除确认按钮" Content="确定删除数据吗？" />
+    <PopConfirmButton Placement="Placement.Top" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger" ConfirmButtonColor="Color.Danger" Text="删除确认按钮" Content="确定删除数据吗？" />
 </Block>
 
 <h4>特别注意</h4>
@@ -37,3 +37,5 @@
 <PopoverConfirm />
 
 <AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

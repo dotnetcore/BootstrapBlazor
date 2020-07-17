@@ -1,17 +1,28 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ComponentBase
 
-<button type="button" class="btn btn-primary btn-reset" @onclick="@OnReset">
+<button type="button" class="btn btn-primary btn-reset" @onclick="@OnReset" disabled="@DisabledString">
     <i class="fa fa-repeat"></i>
     <span>@Text</span>
 </button>
 
 @code {
     /// <summary>
+    /// 获得 组件是否被禁用属性值
+    /// </summary>
+    protected string? DisabledString => IsDisabled ? "disabled" : null;
+
+    /// <summary>
     /// 获得/设置 按钮文字
     /// </summary>
     [Parameter]
     public string Text { get; set; } = "重置";
+
+    /// <summary>
+    /// 获得/设置 是否禁用 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
 
     /// <summary>
     /// 点击重置按钮时回调此委托

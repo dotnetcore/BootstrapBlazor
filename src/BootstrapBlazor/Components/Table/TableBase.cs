@@ -26,6 +26,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-striped", IsStriped)
             .AddClass("table-hover", IsStriped)
             .AddClass("table-fixed", Height.HasValue)
+            .AddClass("is-single", !IsMultipleSelect && ClickToSelect)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -69,6 +70,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsBordered { get; set; }
+
+        /// <summary>
+        /// 获得/设置 双击行回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task> OnDoubleClickRowCallback { get; set; } = _ => Task.CompletedTask;
 
         /// <summary>
         /// OnInitialized 方法

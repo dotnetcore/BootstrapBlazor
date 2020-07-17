@@ -6,20 +6,20 @@
     <div class="table-toolbar">
         @if (ShowToolbar)
         {
-            <TableToolbar>
+            <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
                 @if (ShowDefaultButtons)
                 {
                     @if (ShowNewButton)
                     {
-                        <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" ButtonIcon="fa fa-plus" ButtonText="新建" />
+                        <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-fw fa-plus" Text="新建" />
                     }
                     @if (ShowEditButton)
                     {
-                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit" ButtonIcon="fa fa-pencil" ButtonText="编辑" />
+                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit" Icon="fa fa-fw fa-pencil" Text="编辑" />
                     }
                     @if (ShowDeleteButton)
                     {
-                        <TableToolbarPopconfirmButton Color="Color.Danger" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
+                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
                     }
                 }
                 @TableToolbarTemplate
@@ -64,7 +64,7 @@
             <table class="@ClassName">
                 @TableColumns?.Invoke(HeaderModel)
                 <colgroup>
-                    @if (ShowCheckbox)
+                    @if (IsMultipleSelect)
                     {
                         @if (ShowCheckboxText)
                         {
@@ -86,51 +86,26 @@
                     {
                         @foreach (var item in Items)
                         {
-                            <tr>
-                                @if (ShowCheckbox)
-                                {
-                                    <td>
-                                        <div class="table-cell">
-                                            <Checkbox TItem="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
-                                        </div>
-                                    </td>
-                                }
-                                <TableBodyContent TItem="TItem" Item="@item" />
-                                @if (ShowExtendButtons)
-                                {
-                                    <td>
-                                        <div class="table-cell">
-                                            <div class="btn-group">
-                                                @if (ShowDefaultButtons)
-                                                {
-                                                    @if (ShowEditButton)
-                                                    {
-                                                        <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@item" OnClickCallback="@(e => ClickButton(e))">
-                                                            <i class='fa fa-edit'></i>
-                                                            <span>编辑</span>
-                                                        </TableCellButton>
-                                                    }
-                                                    @if (ShowDeleteButton)
-                                                    {
-                                                        <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@item" Color="Color.Danger" ButtonText="删除" OnClickCallback="@(e => ClickDeleteButton(e))" OnConfirm="@DeleteAsync" />
-                                                    }
-                                                }
-                                                @RowButtonTemplate?.Invoke(item)
-                                            </div>
-                                        </div>
-                                    </td>
-                                }
-                            </tr>
+                            <TableRow TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
+                                      ShowDefaultButtons="@ShowDefaultButtons" ShowDeleteButton="@ShowDeleteButton" ShowEditButton="@ShowEditButton"
+                                      ShowNewButton="@ShowNewButton" ShowExtendButtons="@ShowExtendButtons"
+                                      OnClickEditButton="@ClickEditButton" OnClickDeleteButton="@ClickDeleteButton" OnDelete="@DeleteAsync"
+                                      OnCheck="@OnCheck" RowCheckState="@RowCheckState"
+                                      IsActive="@CheckActive(item)" OnSelectedRow="@SelectRow" OnEditRow="@DoubleClickRow"
+                                      ClickToSelect="@ClickToSelect" DoubleClickToEdit="@DoubleClickToEdit"
+                                      OnDoubleClickRowCallback="@OnDoubleClickRowCallback">
+                                @RowButtonTemplate?.Invoke(item)
+                            </TableRow>
                         }
                     }
                 </tbody>
                 <thead>
                     <tr>
-                        @if (ShowCheckbox)
+                        @if (IsMultipleSelect)
                         {
                             <th class="@CheckboxColumnClass">
                                 <div class="table-cell">
-                                    <Checkbox TItem="TItem" @ref="@HeaderCheckbox" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck"></Checkbox>
+                                    <Checkbox TValue="TItem" @ref="@HeaderCheckbox" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" ShowAfterLabel="@ShowCheckboxText"></Checkbox>
                                 </div>
                             </th>
                         }

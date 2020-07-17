@@ -92,11 +92,21 @@
 
 <Block Title="显示标签" Introduction="作为表单组件时，显示组件前方标签" CodeFile="datepicker.7.html">
     <p>设置 <code>DisplayText</code> 属性值为 <code>选择时间</code></p>
-    <p>前置标签显式规则与 <code>Select</code> 组件一致 <a href="selects">[传送门]</a></p>
+    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="选择时间" />
+                <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="选择时间" ShowLabel="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" CodeFile="datepicker.8.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <DateTimePicker TValue="DateTime" IsDisabled="true" />
             </div>
         </div>
     </div>

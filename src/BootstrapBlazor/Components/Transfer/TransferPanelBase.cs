@@ -30,6 +30,18 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 Panel 样式
+        /// </summary>
+        protected string? PanelListClassString => CssBuilder.Default("checkbox-group transfer-panel-list")
+            .AddClass("disabled", IsDisabled)
+            .Build();
+
+        /// <summary>
+        /// 获得 组件是否被禁用属性值
+        /// </summary>
+        protected string? DisabledString => IsDisabled ? "disabled" : null;
+
+        /// <summary>
         /// 获得/设置 数据集合
         /// </summary>
         [Parameter]
@@ -58,6 +70,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? SearchPlaceHolderString { get; set; } = "请输入 ...";
+
+        /// <summary>
+        /// 获得/设置 是否禁用 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 头部复选框初始化值方法
@@ -96,6 +114,7 @@ namespace BootstrapBlazor.Components
                 builder.OpenComponent<Checkbox<SelectedItem>>(index++);
                 builder.AddAttribute(index++, "class", "transfer-panel-item");
                 builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.Value), item);
+                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.IsDisabled), IsDisabled);
                 builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.DisplayText), item.Text);
                 builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.State), item.Active ? CheckboxState.Checked : CheckboxState.UnChecked);
                 builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.OnStateChanged), new Func<CheckboxState, SelectedItem, Task>(async (state, i) =>

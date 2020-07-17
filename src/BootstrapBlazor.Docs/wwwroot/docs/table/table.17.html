@@ -1,7 +1,7 @@
 ﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
        IsPagination="true" PageItemsSource="@PageItemsSource"
        IsStriped="true" IsBordered="true"
-       ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+       ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
        OnQueryAsync="@OnQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" FormatString="yyyy-MM-dd" />

@@ -7,13 +7,20 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// DateTimePicker 组件基类
     /// </summary>
-    public abstract class DateTimePickerBase<TValue> : ValidateInputBase<TValue>
+    public abstract class DateTimePickerBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 组件样式名称
         /// </summary>
         protected string? ClassName => CssBuilder.Default("form-control datetime-picker-input")
             .AddClass(CssClass).AddClass(ValidCss)
+            .Build();
+
+        /// <summary>
+        /// 获得 组件小图标样式
+        /// </summary>
+        protected string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-input-icon")
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>

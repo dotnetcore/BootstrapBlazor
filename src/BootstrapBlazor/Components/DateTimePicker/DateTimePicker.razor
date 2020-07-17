@@ -8,8 +8,8 @@
 }
 <div @attributes="@AdditionalAttributes" class="datetime-picker" @ref="Picker" data-placement="@PlacementString">
     <div class="datetime-picker-bar">
-        <input readonly="readonly" class="@ClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" />
-        <span class="datetime-picker-input-icon">
+        <input readonly="readonly" class="@ClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@DisabledString" />
+        <span class="@DateTimePickerIconClassString">
             <i class="fa fa-calendar"></i>
         </span>
     </div>

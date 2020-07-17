@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -7,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// BootstrapInputTextBase 组件
     /// </summary>
-    public abstract class CheckboxBase<TItem> : ValidateInputBase<TItem>
+    public abstract class CheckboxBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 class 样式集合
@@ -30,15 +31,15 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
-        /// 获得 按钮 disabled 属性
+        /// 判断双向绑定类型是否为 boolean 类型
         /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
+        protected bool isBoolean { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否禁用
+        /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false
         /// </summary>
         [Parameter]
-        public bool IsDisabled { get; set; }
+        public bool ShowAfterLabel { get; set; }
 
         /// <summary>
         /// 获得/设置 选择框状态
@@ -57,7 +58,17 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 选择框状态改变时回调此方法
         /// </summary>
         [Parameter]
-        public Func<CheckboxState, TItem, Task>? OnStateChanged { get; set; }
+        public Func<CheckboxState, TValue, Task>? OnStateChanged { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            isBoolean = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)) == typeof(bool);
+        }
 
         /// <summary>
         /// OnParametersSet 方法
@@ -66,9 +77,12 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
-            if (Value is bool val)
+            if (isBoolean && Value != null)
             {
-                State = val ? CheckboxState.Checked : CheckboxState.UnChecked;
+                if (BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
+                {
+                    State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
+                }
             }
         }
 
@@ -105,9 +119,9 @@ namespace BootstrapBlazor.Components
             {
                 _stateChanged = true;
 
-                if (Value is bool val)
+                if (isBoolean)
                 {
-                    CurrentValue = (TItem)(object)(state == CheckboxState.Checked);
+                    CurrentValue = (TValue)(object)(state == CheckboxState.Checked);
                 }
 
                 if (State != state)

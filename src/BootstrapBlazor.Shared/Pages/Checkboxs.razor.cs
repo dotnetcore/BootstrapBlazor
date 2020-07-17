@@ -2,6 +2,7 @@
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -11,6 +12,14 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Checkboxs
     {
+        class Foo
+        {
+            [DisplayName("标签文字")]
+            public bool BindValue { get; set; }
+        }
+
+        private Foo Model { get; set; } = new Foo();
+
         /// <summary>
         /// 
         /// </summary>
@@ -57,7 +66,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private string? BindString { get; set; } = "我爱 Blazor";
+        private string BindString { get; set; } = "我爱 Blazor";
 
         /// <summary>
         /// 
@@ -77,7 +86,14 @@ namespace BootstrapBlazor.Shared.Pages
                     Description = "是否显示前置标签",
                     Type = "bool",
                     ValueList = "true|false",
-                    DefaultValue = "true"
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "ShowAfterLabel",
+                    Description = "是否显示后置标签",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",
@@ -90,7 +106,7 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "IsDisabled",
                     Description = "是否禁用",
                     Type = "boolean",
-                    ValueList = " — ",
+                    ValueList = "true / false",
                     DefaultValue = "false"
                 },
                 new AttributeItem()

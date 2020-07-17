@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using System.Linq;
 
 namespace BootstrapBlazor.Components
@@ -7,13 +8,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table Toolbar 按钮呈现组件
     /// </summary>
-    public class TableToolbarContent : ComponentBase
+    public class TableToolbarContent<TItem> : ComponentBase
     {
         /// <summary>
         /// 获得/设置 Table Toolbar 实例
         /// </summary>
         [CascadingParameter]
-        protected TableToolbar? Toolbar { get; set; }
+        protected TableToolbar<TItem>? Toolbar { get; set; }
 
         /// <summary>
         /// 渲染组件方法
@@ -34,21 +35,21 @@ namespace BootstrapBlazor.Components
                         var i = 0;
                         if (button is TableToolbarButton b)
                         {
-                            builder.OpenElement(i++, "button");
-                            builder.AddAttribute(i++, "type", "button");
-                            builder.AddAttribute(i++, "role", "button");
-                            builder.AddAttribute(i++, "onclick", b.OnClick);
-                            builder.AddAttribute(i++, "class", CssBuilder.Default("btn").AddClass($"btn-{b.Color.ToDescriptionString()}").Build());
+                            builder.OpenComponent<Button>(i++);
+                            builder.AddAttribute(i++, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+                            {
+                                if (b.OnClick.HasDelegate) await b.OnClick.InvokeAsync(e);
 
-                            builder.OpenElement(i++, "i");
-                            builder.AddAttribute(i++, "class", b.ButtonIcon);
-                            builder.CloseElement(); // end i
-
-                            builder.OpenElement(i++, "span");
-                            builder.AddContent(i++, b.ButtonText);
-                            builder.CloseElement(); // end span
-
-                            builder.CloseElement(); // end button
+                                // 传递当前选中行给回调委托方法
+                                if (b.OnClickCallback != null)
+                                {
+                                    b.OnClickCallback.DynamicInvoke(Toolbar.OnGetSelectedRows());
+                                }
+                            }));
+                            builder.AddAttribute(i++, nameof(Button.Color), b.Color);
+                            builder.AddAttribute(i++, nameof(Button.Icon), b.Icon);
+                            builder.AddAttribute(i++, nameof(Button.Text), b.Text);
+                            builder.CloseComponent(); // end button
                         }
                         else if (button is TableToolbarPopconfirmButton popButton)
                         {
@@ -56,12 +57,12 @@ namespace BootstrapBlazor.Components
                             builder.AddMultipleAttributes(i++, popButton.AdditionalAttributes);
                             builder.AddAttribute(i++, nameof(PopConfirmButton.ConfirmIcon), popButton.ConfirmIcon);
                             builder.AddAttribute(i++, nameof(PopConfirmButton.Color), popButton.Color);
-                            builder.AddAttribute(i++, nameof(PopConfirmButton.ButtonIcon), popButton.ButtonIcon);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.Icon), popButton.Icon);
                             builder.AddAttribute(i++, nameof(PopConfirmButton.OnBeforeClick), popButton.OnBeforeClick);
                             builder.AddAttribute(i++, nameof(PopConfirmButton.OnClose), popButton.OnClose);
                             builder.AddAttribute(i++, nameof(PopConfirmButton.OnConfirm), popButton.OnConfirm);
-                            builder.AddAttribute(i++, nameof(PopConfirmButton.ButtonIcon), popButton.ButtonIcon);
-                            builder.AddAttribute(i++, nameof(PopConfirmButton.ButtonText), popButton.ButtonText);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.Icon), popButton.Icon);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.Text), popButton.Text);
                             builder.CloseComponent();
                         }
                     }));
@@ -95,16 +96,23 @@ namespace BootstrapBlazor.Components
                     // icon
                     builder.OpenElement(index++, "i");
 
-                    // class="fa fa-plus" aria-hidden="true"
-
                     if (button is TableToolbarButton b)
                     {
-                        builder.AddAttribute(index++, "class", b.ButtonIcon);
-                        builder.AddAttribute(index++, "onclick", button.OnClick);
+                        builder.AddAttribute(index++, "class", b.Icon);
+                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+                        {
+                            if (b.OnClick.HasDelegate) await b.OnClick.InvokeAsync(e);
+
+                            // 传递当前选中行给回调委托方法
+                            if (b.OnClickCallback != null)
+                            {
+                                b.OnClickCallback.DynamicInvoke(Toolbar.OnGetSelectedRows());
+                            }
+                        }));
                     }
                     else if (button is TableToolbarPopconfirmButton popButton)
                     {
-                        builder.AddAttribute(index++, "class", popButton.ButtonIcon);
+                        builder.AddAttribute(index++, "class", popButton.Icon);
 
                         // 移动端适配删除弹窗
                         builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create(popButton, popButton.OnConfirm));

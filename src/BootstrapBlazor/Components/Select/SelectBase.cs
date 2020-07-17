@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Select 组件基类
     /// </summary>
-    public abstract class SelectBase<TItem> : ValidateInputBase<TItem>
+    public abstract class SelectBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 样式集合
@@ -64,11 +64,6 @@ namespace BootstrapBlazor.Components
         protected SelectedItem? SelectedItem { get; set; }
 
         /// <summary>
-        /// 获得 按钮 disabled 属性
-        /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
-
-        /// <summary>
         /// 获得/设置 Select 内部 Input 组件 Id
         /// </summary>
         protected string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
@@ -81,19 +76,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
-        [Parameter] public Color Color { get; set; } = Color.None;
+        [Parameter]
+        public Color Color { get; set; } = Color.None;
 
         /// <summary>
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]
         public IEnumerable<SelectedItem>? Items { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否禁用
-        /// </summary>
-        [Parameter]
-        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// SelectedItemChanged 方法
@@ -118,7 +108,7 @@ namespace BootstrapBlazor.Components
             if (SelectedItem == null || !(Items?.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text) ?? false))
             {
                 var item = Items?.FirstOrDefault(i => i.Active);
-                if (item == null) item = Items?.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? Items.FirstOrDefault();
+                if (item == null) item = Items?.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? Items?.FirstOrDefault();
                 if (item != null)
                 {
                     SelectedItem = item;

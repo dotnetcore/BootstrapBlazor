@@ -11,6 +11,12 @@ namespace BootstrapBlazor.Components
     public sealed partial class TopMenu
     {
         /// <summary>
+        /// 获得/设置 是否禁止导航 默认为 false 允许导航
+        /// </summary>
+        [Parameter]
+        public bool DisableNavigation { get; set; }
+
+        /// <summary>
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]

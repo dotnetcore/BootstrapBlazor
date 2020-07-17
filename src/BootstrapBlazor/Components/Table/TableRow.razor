@@ -1,0 +1,57 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+
+@if (IsMultipleSelect)
+{
+    <tr>
+        <td>
+            <div class="table-cell">
+                <Checkbox TValue="TItem" Value="@Item" State="@RowCheckState(Item)" OnStateChanged="@OnCheck"></Checkbox>
+            </div>
+        </td>
+        @RenderRow(this)
+    </tr>
+}
+else if (ClickToSelect)
+{
+    <tr class="@ClassString" @onclick="@(e => OnSelectedRow(Item))" @ondblclick="@(e => OnEditRow(Item))">
+        @RenderRow(this)
+    </tr>
+}
+else
+{
+    <tr class="@ClassString" @ondblclick="@(e => OnEditRow(Item))">
+        @RenderRow(this)
+    </tr>
+}
+
+@code {
+    RenderFragment<TableRow<TItem>> RenderRow = row =>
+    @<TableRowTemplate>
+        <TableBodyContent TItem="TItem" Item="@row.Item" />
+        @if (row.ShowExtendButtons)
+        {
+            <td>
+                <div class="table-cell">
+                    <div class="btn-group">
+                        @if (row.ShowDefaultButtons)
+                        {
+                            @if (row.ShowEditButton)
+                            {
+                                <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@row.Item" OnClickCallback="@row.OnClickEditButton">
+                                    <i class='fa fa-edit'></i>
+                                    <span>编辑</span>
+                                </TableCellButton>
+                            }
+                            @if (row.ShowDeleteButton)
+                            {
+                                <TableCellConfirmButton TItem="TItem" Placement="Placement.Left" Size="Size.ExtraSmall" Item="@row.Item" Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除" OnClickCallback="@row.OnClickDeleteButton" OnConfirm="@row.OnDelete" />
+                            }
+                        }
+                        @row.ChildContent
+                    </div>
+                </div>
+            </td>
+        }
+    </TableRowTemplate>;
+}

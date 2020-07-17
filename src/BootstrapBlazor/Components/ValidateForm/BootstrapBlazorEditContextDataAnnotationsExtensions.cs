@@ -4,7 +4,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components
 {
@@ -13,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
     {
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> _propertyInfoCache = new ConcurrentDictionary<(Type, string), PropertyInfo>();
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object>> PropertyValueInvokerCache = new ConcurrentDictionary<(Type, string), Func<object, object>>();
 
         /// <summary>
         /// 添加数据合规检查
@@ -68,39 +67,36 @@ namespace BootstrapBlazor.Components
 
         private static void ValidateField(EditContext editContext, ValidationMessageStore messages, in FieldIdentifier fieldIdentifier, ValidateFormBase editForm)
         {
-            if (TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
+            // 获取验证消息
+            var results = new List<ValidationResult>();
+            var validationContext = new ValidationContext(fieldIdentifier.Model)
             {
-                var propertyValue = propertyInfo.GetValue(fieldIdentifier.Model);
-                var validationContext = new ValidationContext(fieldIdentifier.Model)
-                {
-                    MemberName = propertyInfo.Name
-                };
-                var results = new List<ValidationResult>();
+                MemberName = fieldIdentifier.FieldName,
+                DisplayName = fieldIdentifier.GetDisplayName()
+            };
 
-                Validator.TryValidateProperty(propertyValue, validationContext, results);
-                editForm.ValidateProperty(propertyValue, validationContext, results);
+            var propertyValue = fieldIdentifier.GetPropertyValue();
+            Validator.TryValidateProperty(propertyValue, validationContext, results);
+            editForm.ValidateProperty(propertyValue, validationContext, results);
 
-                messages.Clear(fieldIdentifier);
-                messages.Add(fieldIdentifier, results.Select(result => result.ErrorMessage));
+            messages.Clear(fieldIdentifier);
+            messages.Add(fieldIdentifier, results.Select(result => result.ErrorMessage));
 
-                editContext.NotifyValidationStateChanged();
-            }
+            editContext.NotifyValidationStateChanged();
         }
 
-#nullable disable
-        internal static bool TryGetValidatableProperty(in FieldIdentifier fieldIdentifier, out PropertyInfo propertyInfo)
+        /// <summary>
+        /// 获取 FieldIdentifier 属性值
+        /// </summary>
+        /// <param name="fieldIdentifier"></param>
+        /// <returns></returns>
+        internal static object GetPropertyValue(this in FieldIdentifier fieldIdentifier)
         {
-            var cacheKey = (ModelType: fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
-            if (!_propertyInfoCache.TryGetValue(cacheKey, out propertyInfo))
-            {
-                // Validator.TryValidateProperty 只能对 Public 属性生效
-                propertyInfo = cacheKey.ModelType.GetProperty(cacheKey.FieldName);
+            var cacheKey = (fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
+            var model = fieldIdentifier.Model;
+            var invoker = PropertyValueInvokerCache.GetOrAdd(cacheKey, key => model.GetPropertyValueLambda<object, object>(key.FieldName).Compile());
 
-                _propertyInfoCache[cacheKey] = propertyInfo;
-            }
-
-            return propertyInfo != null;
+            return invoker.Invoke(model);
         }
-#nullable restore
     }
 }

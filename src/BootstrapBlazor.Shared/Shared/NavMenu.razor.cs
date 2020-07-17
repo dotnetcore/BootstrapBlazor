@@ -340,6 +340,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "指示灯 Light",
+                Url = "lights"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "确认框 Popconfirm",
                 Url = "popconfirms"
             });

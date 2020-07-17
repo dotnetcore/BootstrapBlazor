@@ -83,6 +83,47 @@ namespace BootstrapBlazor.Components
         [Parameter] public TItem? EditModel { get; set; }
 
         /// <summary>
+        /// 获得/设置 单选模式下点击行即选中本行 默认为 true
+        /// </summary>
+        [Parameter]
+        public bool ClickToSelect { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 单选模式下双击即编辑本行 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool DoubleClickToEdit { get; set; }
+
+        /// <summary>
+        /// 单选模式下选择行时调用此方法
+        /// </summary>
+        /// <param name="val"></param>
+        protected virtual void SelectRow(TItem val)
+        {
+            SelectedItems.Clear();
+            SelectedItems.Add(val);
+
+            // TODO: 性能问题此处重新渲染整个 DataGrid
+            // 合理做法是将 tbody 做成组件仅渲染 tbody 即可，后期优化此处 
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// 检查当前行是否被选中方法
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        protected virtual bool CheckActive(TItem val)
+        {
+            var ret = false;
+            if (!IsMultipleSelect && ClickToSelect)
+            {
+                ret = SelectedItems.Contains(val);
+            }
+            return ret;
+        }
+
+        /// <summary>
         /// 查询按钮调用此方法
         /// </summary>
         /// <returns></returns>
@@ -135,32 +176,48 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private readonly static ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>();
+        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>();
 
         /// <summary>
-        /// 行尾列按钮点击回调此方法
+        /// 行尾列编辑按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected void ClickButton(TItem item)
+        protected void ClickEditButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
 
-            // 更新行选中状态
-            Edit();
-            StateHasChanged();
+            if (OnSaveAsync != null || OnAddAsync != null)
+            {
+                // 更新行选中状态
+                Edit();
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
+        /// 双击行回调此方法
+        /// </summary>
+        /// <param name="item"></param>
+        protected void DoubleClickRow(TItem item)
+        {
+            if (DoubleClickToEdit)
+            {
+                ClickEditButton(item);
+            }
+
+            OnDoubleClickRowCallback.Invoke(item);
         }
 
         /// <summary>
         /// 行尾列按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected bool ClickDeleteButton(TItem item)
+        protected void ClickDeleteButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
             StateHasChanged();
-            return true;
         }
     }
 }

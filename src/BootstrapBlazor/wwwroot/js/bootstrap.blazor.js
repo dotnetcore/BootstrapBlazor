@@ -398,12 +398,14 @@
         }
 
         this.$element.on('click', '.upload-prev', function () {
-            if (that.isstack || $(this).hasClass('is-upload') || $(this).hasClass('is-uploading')) return;
+            if (that.$element.hasClass('is-disabled') || that.isstack || $(this).hasClass('is-upload') || $(this).hasClass('is-uploading')) return;
 
             that.$prev = $(this);
             that.$file.trigger('click');
         });
         this.$element.on('click', '.btn-upload', function () {
+            if (that.$element.hasClass('is-disabled')) return;
+
             if (that.isstack) {
                 that.$file.trigger('click');
             }
@@ -416,6 +418,8 @@
         });
 
         this.$element.on('click', '.upload-prev .upload-item-delete, .upload-prev .btn-delete', function (e) {
+            if (that.$element.hasClass('is-disabled')) return;
+
             var $prev = $(this).parents('.upload-prev');
             var fileName = $prev.attr('data-file');
             if ($prev.hasClass('is-invalid-file')) {
@@ -795,20 +799,20 @@
                 document.addEventListener('touchend', handleDragEnd);
 
                 if ($.isFunction(star)) {
-                    star.call(this, e);
+                    star.call($this, e);
                 }
             };
 
             var handleDragMove = function (e) {
                 if ($.isFunction(move)) {
-                    move.call(this, e);
+                    move.call($this, e);
                 }
             };
 
             var handleDragEnd = function (e) {
                 // 结束拖动
                 if ($.isFunction(end)) {
-                    end.call(this, e);
+                    end.call($this, e);
                 }
 
                 window.setTimeout(function () {
@@ -1098,6 +1102,61 @@
         modal: function (el, method) {
             var $el = $(el);
             $el.modal(method);
+
+            // monitor mousedown ready to drag dialog
+            var originX = 0;
+            var originY = 0;
+            var dialogWidth = 0;
+            var dialogHeight = 0;
+            var pt = { top: 0, left: 0 };
+            var $dialog = null;
+            $el.find('.is-draggable .modal-header').drag(
+                function (e) {
+                    originX = e.clientX || e.touches[0].clientX;
+                    originY = e.clientY || e.touches[0].clientY;
+
+                    // 弹窗大小
+                    $dialog = this.closest('.modal-dialog');
+                    dialogWidth = $dialog.width();
+                    dialogHeight = $dialog.height();
+
+                    // 偏移量
+                    pt.top = parseInt($dialog.css('marginTop').replace("px", ""));
+                    pt.left = parseInt($dialog.css('marginLeft').replace("px", ""));
+
+                    // 移除 Center 样式
+                    $dialog.css({ "marginLeft": pt.left, "marginTop": pt.top });
+                    $dialog.removeClass('modal-dialog-centered');
+
+                    // 固定大小
+                    $dialog.css("width", dialogWidth);
+                    this.addClass('is-drag');
+                },
+                function (e) {
+                    var eventX = e.clientX || e.changedTouches[0].clientX;
+                    var eventY = e.clientY || e.changedTouches[0].clientY;
+
+                    newValX = pt.left + Math.ceil(eventX - originX);
+                    newValY = pt.top + Math.ceil(eventY - originY);
+
+                    if (newValX <= 0) newValX = 0;
+                    if (newValY <= 0) newValY = 0;
+
+                    if (newValX + dialogWidth < $(window).width()) {
+                        if ($dialog != null) {
+                            $dialog.css({ "marginLeft": newValX });
+                        }
+                    }
+                    if (newValY + dialogHeight < $(window).height()) {
+                        if ($dialog != null) {
+                            $dialog.css({ "marginTop": newValY });
+                        }
+                    }
+                },
+                function (e) {
+                    this.removeClass('is-drag');
+                }
+            );
         },
         bb_filter: function (el, obj, method) {
             $(el).data('bb_filter', { obj: obj, method: method });
@@ -1193,7 +1252,11 @@
                             $el.append($picker.addClass('d-none'));
                         }
                     });
+
                 $('.datetime-picker-input-icon').on('click', function (e) {
+                    // handler disabled event
+                    if ($(this).hasClass('disabled')) return;
+
                     e.stopImmediatePropagation();
                     var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
                     $input.trigger('click');

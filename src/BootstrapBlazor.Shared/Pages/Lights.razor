@@ -1,0 +1,63 @@
+﻿@page "/lights"
+
+<h3>Light 指示灯</h3>
+
+<h4>提供各种状态的指示灯</h4>
+
+<Block Title="普通用法" Introduction="用于状态指示" CodeFile="light.1.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Danger"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Info"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Warning"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Primary"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Secondary"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Dark"></Light>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="闪烁" Introduction="通过设置属性 <code>IsFlash</code> 使指示灯进行闪烁" CodeFile="light.2.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light IsFlash="true"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Danger" IsFlash="true"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Info" IsFlash="true"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Warning" IsFlash="true"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Primary" IsFlash="true"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Secondary" IsFlash="true"></Light>
+            </div>
+            <div class="form-group col-12 col-sm-4 col-md-3 col-lg-auto">
+                <Light Color="Color.Dark" IsFlash="true"></Light>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="GetAttributes()"></AttributeTable>

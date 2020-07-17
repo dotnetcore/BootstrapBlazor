@@ -21,7 +21,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 颜色
         /// </summary>
-        [Parameter] public Color Color { get; set; } = Color.Primary;
+        [Parameter]
+        public Color Color { get; set; } = Color.Primary;
 
         /// <summary>
         /// 获得/设置 是否显示关闭按钮
@@ -38,12 +39,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否显示左侧 Bar
         /// </summary>
-        [Parameter] public bool ShowBar { get; set; }
+        [Parameter]
+        public bool ShowBar { get; set; }
 
         /// <summary>
         /// 子组件
         /// </summary>
-        [Parameter] public RenderFragment? ChildContent { get; set; }
+        [Parameter]
+        public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
         /// 关闭警告框回调方法

@@ -1,111 +1,25 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 枚举类型扩展方法
     /// </summary>
     public static class EnumExtensions
     {
         /// <summary>
-        /// 
+        /// 获取 DescriptionAttribute 标签方法
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static string ToDescriptionString(this Color val)
+        public static string ToDescriptionString<TEnum>(this TEnum val)
         {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
+            if (val == null) throw new ArgumentNullException(nameof(val));
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static string ToDescriptionString(this Size val)
-        {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+            var attributes = typeof(TEnum).GetField(val.ToString())?.GetCustomAttribute<DescriptionAttribute>();
+            return attributes?.Description ?? string.Empty;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static string ToDescriptionString(this Direction val)
-        {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static string ToDescriptionString(this DropdownType val)
-        {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static string ToDescriptionString(this Alignment val)
-        {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static string ToDescriptionString(this Placement val)
-        {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static string ToDescriptionString(this ChartType val)
-        {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static string ToDescriptionString(this StepStatus val)
-        {
-            var attributes = val.GetType().GetField(val.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[] ?? new DescriptionAttribute[0];
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-
-        /*
-        public static string ToDescriptionString(this DropdownDirection val)
-        {
-            var attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-        public static string ToDescriptionString(this HeadingSize val)
-        {
-            var attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
-        */
     }
 }

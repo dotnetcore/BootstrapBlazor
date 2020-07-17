@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BootstrapBlazor.Components
@@ -7,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// BootstrapInputTextBase 组件
     /// </summary>
-    public abstract class BootstrapInputBase<TItem> : ValidateInputBase<TItem>
+    public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 class 样式集合
@@ -26,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 格式化字符串
         /// </summary>
         [Parameter]
-        public Func<TItem, string>? Formatter { get; set; }
+        public Func<TValue, string>? Formatter { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -41,10 +42,16 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            // TODO: 此处应该检查 html5 type 类型检查
-            if (AdditionalAttributes != null)
+            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+
+            if (!AdditionalAttributes.TryGetValue("type", out var _))
             {
-                if (!AdditionalAttributes.TryGetValue("type", out var _))
+                // 设置 Number 类型
+                if (typeof(TValue).IsNumber())
+                {
+                    AdditionalAttributes.Add("type", "number");
+                }
+                else
                 {
                     AdditionalAttributes.Add("type", IsPassword ? "password" : "text");
                 }
@@ -56,9 +63,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override string? FormatValueAsString(TItem value)
+        protected override string? FormatValueAsString(TValue value)
         {
-            return Formatter != null ? Formatter.Invoke(Value) : (!string.IsNullOrEmpty(FormatString) && value != null ? ((object)value).Format(FormatString) : base.FormatValueAsString(value));
+            return Formatter != null
+                ? Formatter.Invoke(Value)
+                : (!string.IsNullOrEmpty(FormatString) && value != null
+                    ? ((object)value).Format(FormatString)
+                    : base.FormatValueAsString(value));
         }
     }
 }

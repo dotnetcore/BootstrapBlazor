@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
             set
             {
                 _length = value;
-                ErrorMessage = $"不可为空，{_length}字以内";
+                ErrorMessage = $"最多可以输入 {_length} 个字符";
             }
         }
 

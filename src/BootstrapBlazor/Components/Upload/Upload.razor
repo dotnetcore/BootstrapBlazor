@@ -5,13 +5,13 @@
     @if (IsStack)
     {
         <div tabindex="0" class="upload-button">
-            <button type="button" class="btn btn-primary btn-upload">
+            <button type="button" class="btn btn-primary btn-upload" disabled="@DisabledString">
                 <i class="@Icon"></i>
                 <span>@Text</span>
             </button>
             @if (ShowReset)
             {
-                <UploadResetButton Text="@ResetText" OnReset="@Reset" />
+                <UploadResetButton Text="@ResetText" OnReset="@Reset" IsDisabled="@IsDisabled" />
             }
         </div>
     }
@@ -67,13 +67,13 @@
     @if (ShowPreview && !IsStack)
     {
         <div tabindex="0" class="upload-button">
-            <button type="button" class="btn btn-primary btn-upload">
+            <button type="button" class="btn btn-primary btn-upload" disabled="@DisabledString">
                 <i class="@Icon"></i>
                 <span>@Text</span>
             </button>
             @if (ShowReset)
             {
-                <UploadResetButton Text="@ResetText" OnReset="@Reset" />
+                <UploadResetButton Text="@ResetText" OnReset="@Reset" IsDisabled="@IsDisabled" />
             }
         </div>
     }

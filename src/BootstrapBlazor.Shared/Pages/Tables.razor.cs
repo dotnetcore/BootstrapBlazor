@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Tables
     {
+        [Inject]
+        private ToastService? ToastService { get; set; }
+
         private List<BindItem>? Items { get; set; }
 
         private IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
@@ -55,7 +59,7 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = "列宽度",
+                Description = "列宽度（像素px）",
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -182,11 +186,18 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "ShowCheckbox",
-                Description = "选择列",
+                Name = "IsMultipleSelect",
+                Description = "是否为多选模式，为 true 时第一列自动为复选框列",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " — "
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ClickToSelect",
+                Description = "行操作按钮列宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "130"
             },
             new AttributeItem() {
                 Name = "ShowCheckboxText",
@@ -297,6 +308,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnSortAsync",
                 Description = "排序方法",
                 Type = "Func<string, SortOrder, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnDoubleClickRowCallback",
+                Description = "双击行回调委托方法",
+                Type = "Func<TItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
@@ -415,7 +433,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task<string> IntFormatter(object? d)
         {
             var data = (int?)d;
-            return  Task.FromResult(data?.ToString("0.00") ?? "");
+            return Task.FromResult(data?.ToString("0.00") ?? "");
         }
 
         private Task OnResetSearchAsync(BindItem item)
@@ -461,6 +479,64 @@ namespace BootstrapBlazor.Shared.Pages
         {
             if (Items != null) items.ToList().ForEach(i => Items.Remove(i));
             return Task.FromResult(true);
+        }
+
+        private void DownloadAsync(IEnumerable<BindItem> items)
+        {
+            var cate = ToastCategory.Information;
+            var title = "自定义下载示例";
+            var content = "请先选择数据，然后点击下载按钮";
+            if (items.Any())
+            {
+                cate = ToastCategory.Success;
+                content = $"开始下载选中的 {items.Count()} 条数据";
+            }
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
+        }
+
+        private void CustomerButton(IEnumerable<BindItem> items)
+        {
+            var cate = ToastCategory.Information;
+            var title = "自定义按钮处理方法";
+            var content = $"通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合，当前选择数据 {items.Count()} 条";
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
+        }
+
+        private void OnRowButtonClick(BindItem item)
+        {
+            var cate = ToastCategory.Success;
+            var title = "行内按钮处理方法";
+            var content = "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据";
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
+        }
+
+        private Task DoubleClickRowCallback(BindItem item)
+        {
+            var cate = ToastCategory.Success;
+            var title = "双击行回调委托示例";
+            var content = $"选中行数据为名称 {item.Name} 的数据";
+            ToastService?.Show(new ToastOption()
+            {
+                Category = cate,
+                Title = title,
+                Content = content
+            });
+            return Task.CompletedTask;
         }
     }
 

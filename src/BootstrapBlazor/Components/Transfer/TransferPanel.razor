@@ -3,20 +3,20 @@
 
 <div class="transfer-panel">
     <p class="transfer-panel-header">
-        <Checkbox TItem="SelectedItem" DisplayText="@Text" @ref="HeaderCheckbox"
+        <Checkbox TValue="SelectedItem" DisplayText="@Text" @ref="HeaderCheckbox" IsDisabled="@IsDisabled"
                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
     </p>
     <div class="transfer-panel-body">
         @if (ShowSearch)
         {
             <div class="transfer-panel-filter">
-                <input type="text" autocomplete="off" placeholder="@SearchPlaceHolderString" class="input-inner" value="@SearchText" @oninput="@OnSearch" @onkeyup="@OnKeyUp">
+                <input type="text" autocomplete="off" placeholder="@SearchPlaceHolderString" disabled="@DisabledString" class="input-inner" value="@SearchText" @oninput="@OnSearch" @onkeyup="@OnKeyUp">
                 <span class="@SearchClass" @onclick="@ClearSearch">
                     <i class="fa fa-search"></i>
                 </span>
             </div>
         }
-    <div role="group" aria-label="checkbox-group" class="checkbox-group transfer-panel-list">
+    <div role="group" aria-label="checkbox-group" class="@PanelListClassString">
         @RenderItem()
     </div>
         <p class="transfer-panel-empty" style="display: none;">无匹配数据</p>

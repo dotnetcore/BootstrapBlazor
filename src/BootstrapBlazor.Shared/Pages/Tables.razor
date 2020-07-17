@@ -37,8 +37,8 @@
     </Table>
 </Block>
 
-<Block Title="带选择列表格" Introduction="通过设置 <code>ShowCheckbox=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
-    <Table TItem="BindItem" Items="@Items.Take(3)" ShowCheckbox="true">
+<Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -47,8 +47,8 @@
     </Table>
 </Block>
 
-<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为选择" CodeFile="table.5.html">
-    <Table TItem="BindItem" Items="@Items.Take(3)" ShowCheckbox="true" ShowCheckboxText="true">
+<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>" CodeFile="table.5.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -85,7 +85,7 @@
 <Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件" CodeFile="table.8.html">
     <Table TItem="BindItem" Items="@Items.Take(4)"
            IsBordered="true"
-           ShowCheckbox="true" ShowToolbar="true" ShowDefaultButtons="false">
+           IsMultipleSelect="true" ShowToolbar="true" ShowDefaultButtons="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
@@ -118,7 +118,7 @@
 </Block>
 
 <Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.12.html">
-    <Table TItem="BindItem" IsBordered="true" ShowCheckbox="true"
+    <Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
            PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" />
@@ -132,7 +132,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowSearch="true" ShowCheckbox="true" ShowExtendButtons="true"
+           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            SearchModel="@SearchModel"
            OnQueryAsync="@OnQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
@@ -190,10 +190,10 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
+            <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => DownloadAsync(items)))" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
@@ -204,14 +204,18 @@
 </Block>
 
 <Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制" CodeFile="table.14.html">
+    <p>本例中继续上一个例子，实现了自定义四个功能按钮，并且扩展到行内，点击各个按钮时均有相对应的回调委托方法，<code>TableToolbarButton</code> 采用的是 <code>Delegate</code> 方式完成数据交换，点击工具栏按钮时设置 <code>OnClickCallback</code> 委托方法即可获取表内选中的行数据集合</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowCheckbox="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton Color="Color.Primary" ButtonIcon="fa fa-fw fa-download" ButtonText="下载" />
+            <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="明细" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+            <TableToolbarButton Color="Color.Success" Icon="fa fa-fw fa-edit" Text="编辑" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+            <TableToolbarButton Color="Color.Warning" Icon="fa fa-fw fa-edit" Text="权限" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+            <TableToolbarButton Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="180" />
@@ -219,22 +223,10 @@
             <TableColumn @bind-Field="@context.Address" Sortable="true" />
         </TableColumns>
         <RowButtonTemplate>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BindItem" Item="@context">
-                <i class='fa fa-edit'></i>
-                <span>明细</span>
-            </TableCellButton>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="BindItem" Item="@context">
-                <i class='fa fa-edit'></i>
-                <span>编辑</span>
-            </TableCellButton>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="BindItem" Item="@context">
-                <i class='fa fa-edit'></i>
-                <span>权限</span>
-            </TableCellButton>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="BindItem" Item="@context">
-                <i class='fa fa-edit'></i>
-                <span>审批</span>
-            </TableCellButton>
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="明细" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="编辑" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="权限" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="审批" OnClickCallback="@OnRowButtonClick" />
         </RowButtonTemplate>
     </Table>
 </Block>
@@ -260,7 +252,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
@@ -291,7 +283,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true">
@@ -327,7 +319,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="false" ShowCheckbox="true" ShowExtendButtons="false"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" FormatString="yyyy-MM-dd" />
@@ -342,8 +334,84 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowCheckbox="true" 
+           ShowToolbar="true" IsMultipleSelect="true"
            ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="点击单元格选中整行效果" Introduction="本功能仅限 <code>Table</code> 组件单选模式下生效，通过设置 <code>ClickToSelect</code> 属性值可以实现点击任意单元格选中整行效果，选中行样式被设置为 <code>active</code>" CodeFile="table.19.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" ClickToSelect="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="双击单元格编辑本行效果" Introduction="本功能仅限 <code>Table</code> 组件单选模式下生效，通过设置 <code>DoubleClickToEdit</code> 属性值可以实现双击任意单元格编辑本行效果，此功能前提是 <code>Edit</code> 功能可用" CodeFile="table.20.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="true" ShowDeleteButton="false"
+           ClickToSelect="true" DoubleClickToEdit="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+        <EditTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <DateTimePicker @bind-Value="@context.DateTime">
+                            <RequiredValidator />
+                        </DateTimePicker>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Count">
+                            <RequiredValidator />
+                        </BootstrapInput>
+                    </div>
+                </div>
+            </div>
+        </EditTemplate>
+    </Table>
+</Block>
+
+<Block Title="自定义行双击事件" Introduction="本功能仅限 <code>Table</code> 组件单选模式下生效，通过设置 <code>DoubleClickRowCallback</code> 属性值可以实现双击任意单元格自定义回调委托方法，实现自己的需求功能" CodeFile="table.21.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />

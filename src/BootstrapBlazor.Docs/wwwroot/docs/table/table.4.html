@@ -1,5 +1,5 @@
 ﻿<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" Items="@Items.Take(3)" 
-    ShowCheckbox="true">
+    IsMultipleSelect="true">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" />
         <TableColumn @bind-Field="@context.Name" />
