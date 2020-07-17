@@ -140,26 +140,36 @@
             <TableFilterContent />
         </div>
 
+        @if (OnSaveAsync != null || OnAddAsync != null)
+        {
+            <Modal @ref="EditModal">
+                <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">
+                    <BodyTemplate>
+                        <ValidateForm @ref="@ValidateForm" Model="@EditModel" OnValidSubmit="@Save">
+                            @if (EditTemplate != null)
+                            {
+                                @EditTemplate?.Invoke(EditModel)
+                            }
+                            else
+                            {
+                                <div class="form-inline">
+                                    <div class="row">
+                                        <DataEditorContent TModel="TItem" Model="@EditModel" />
+                                    </div>
+                                </div>
+                            }
+                        </ValidateForm>
+                    </BodyTemplate>
+                    <FooterTemplate>
+                        <button type="button" class="btn btn-primary" @onclick="e => ValidateForm?.Validate()">
+                            <i class="fa fa-save"></i>
+                            <span>保存</span>
+                        </button>
+                    </FooterTemplate>
+                </ModalDialog>
+            </Modal>
+        }
     </TableColumnCollection>
-
-    @if (OnSaveAsync != null || OnAddAsync != null)
-    {
-        <Modal @ref="EditModal">
-            <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">
-                <BodyTemplate>
-                    <ValidateForm @ref="@ValidateForm" Model="@EditModel" OnValidSubmit="@Save">
-                        @EditTemplate?.Invoke(EditModel)
-                    </ValidateForm>
-                </BodyTemplate>
-                <FooterTemplate>
-                    <button type="button" class="btn btn-primary" @onclick="e => ValidateForm?.Validate()">
-                        <i class="fa fa-save"></i>
-                        <span>保存</span>
-                    </button>
-                </FooterTemplate>
-            </ModalDialog>
-        </Modal>
-    }
 
     @if (ShowSearch && ShowAdvancedSearch)
     {
