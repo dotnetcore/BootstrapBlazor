@@ -252,7 +252,7 @@ input:disabled,
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    justify-content: flex-start;
+    display: block;
 }
 
 .was-validated .form-control:invalid:focus,
