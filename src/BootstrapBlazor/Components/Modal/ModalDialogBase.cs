@@ -16,6 +16,7 @@ namespace BootstrapBlazor.Components
             .AddClass("modal-dialog-centered", IsCentered)
             .AddClass($"modal-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass("modal-dialog-scrollable", IsScrolling)
+            .AddClass("is-draggable", IsDraggable)
             .AddClass("d-none", !IsShown)
             .Build();
 
@@ -47,6 +48,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsScrolling { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否可以拖拽弹窗
+        /// </summary>
+        [Parameter]
+        public bool IsDraggable { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示关闭按钮

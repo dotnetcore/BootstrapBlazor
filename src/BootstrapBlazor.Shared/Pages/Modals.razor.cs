@@ -120,6 +120,20 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
+                    Name = "IsFade",
+                    Description = "是否开启淡入淡出动画效果",
+                    Type = "boolean",
+                    ValueList = " — ",
+                    DefaultValue = "true"
+                },
+                new AttributeItem() {
+                    Name = "IsDraggable",
+                    Description = "是否开启可拖拽效果",
+                    Type = "boolean",
+                    ValueList = " — ",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
                     Name = "ShowCloseButton",
                     Description = "是否显示关闭按钮",
                     Type = "boolean",

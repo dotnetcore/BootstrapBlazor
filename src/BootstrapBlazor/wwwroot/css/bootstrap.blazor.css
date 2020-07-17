@@ -4820,3 +4820,13 @@ input:disabled,
     -moz-appearance: textfield;
 }
 /*end InputNumber*/
+
+/*Modal*/
+.is-draggable .modal-header {
+    cursor: pointer;
+}
+
+.modal-header.is-drag {
+    cursor: move;
+}
+/*End Modal*/

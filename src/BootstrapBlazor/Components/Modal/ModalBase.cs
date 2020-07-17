@@ -16,6 +16,13 @@ namespace BootstrapBlazor.Components
         protected ElementReference ModalElement { get; set; }
 
         /// <summary>
+        /// 获得 样式字符串
+        /// </summary>
+        protected string? ClassString => CssBuilder.Default("modal")
+            .AddClass("fade", IsFade)
+            .Build();
+
+        /// <summary>
         /// 获得 后台关闭弹窗设置
         /// </summary>
         protected string? Backdrop => IsBackdrop ? null : "static";
@@ -28,7 +35,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否后台关闭弹窗
         /// </summary>
-        [Parameter] public bool IsBackdrop { get; set; }
+        [Parameter]
+        public bool IsBackdrop { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否开启淡入淡出动画 默认为 true 开启动画
+        /// </summary>
+        [Parameter]
+        public bool IsFade { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 子组件
