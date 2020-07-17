@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +11,10 @@ namespace Microsoft.AspNetCore.Components.Forms
     /// </summary>
     public static class FieldIdentifierExtensions
     {
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(Type, string), string>();
+
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> PropertyInfoCache { get; } = new ConcurrentDictionary<(Type, string), PropertyInfo>();
+
         /// <summary>
         /// 获取显示名称方法
         /// </summary>
@@ -21,7 +24,7 @@ namespace Microsoft.AspNetCore.Components.Forms
         {
             var cacheKey = (Type: fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
 
-            if (!DisplayNamesExtensions.TryGetValue(cacheKey, out var dn))
+            if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
             {
                 if (TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
                 {
@@ -31,24 +34,22 @@ namespace Microsoft.AspNetCore.Components.Forms
                         dn = displayNameAttribute.First().DisplayName;
 
                         // add display name into cache
-                        DisplayNamesExtensions.GetOrAdd((fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName), key => dn);
+                        DisplayNameCache.GetOrAdd((fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName), key => dn);
                     }
                 }
             }
             return dn ?? cacheKey.FieldName;
         }
 
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> _propertyInfoCache = new ConcurrentDictionary<(Type, string), PropertyInfo>();
-
         private static bool TryGetValidatableProperty(in FieldIdentifier fieldIdentifier, out PropertyInfo propertyInfo)
         {
             var cacheKey = (ModelType: fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
-            if (!_propertyInfoCache.TryGetValue(cacheKey, out propertyInfo))
+            if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))
             {
                 // Validator.TryValidateProperty 只能对 Public 属性生效
                 propertyInfo = cacheKey.ModelType.GetProperty(cacheKey.FieldName);
 
-                if (propertyInfo != null) _propertyInfoCache[cacheKey] = propertyInfo;
+                if (propertyInfo != null) PropertyInfoCache[cacheKey] = propertyInfo;
             }
 
             return propertyInfo != null;
