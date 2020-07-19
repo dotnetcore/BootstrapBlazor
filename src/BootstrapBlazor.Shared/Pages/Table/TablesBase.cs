@@ -2,40 +2,50 @@
 using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Tables
+    public abstract class TablesBase : ComponentBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
-        private ToastService? ToastService { get; set; }
+        protected ToastService? ToastService { get; set; }
 
-        private List<BindItem>? Items { get; set; }
-
-        private IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
-
-        private BindItem SearchModel { get; set; } = new BindItem();
+        private static readonly Random random = new Random();
 
         /// <summary>
-        /// OnInitialized 方法
+        /// 
         /// </summary>
-        protected override void OnInitialized()
+        /// <returns></returns>
+        protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
         {
-            base.OnInitialized();
+            Id = i,
+            Name = $"张三 {i:d4}",
+            DateTime = DateTime.Now.AddDays(i - 1),
+            Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50
+        }));
 
-            Items = GenerateItems();
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
 
-        private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "Sortable",
@@ -92,7 +102,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -342,7 +352,11 @@ namespace BootstrapBlazor.Shared.Pages
             }
         };
 
-        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<MethodItem> GetMethods() => new MethodItem[]
         {
             new MethodItem()
             {
@@ -366,179 +380,6 @@ namespace BootstrapBlazor.Shared.Pages
                 ReturnValue = "Task"
             },
         };
-
-        private List<BindItem> GenerateItems()
-        {
-            var random = new Random();
-            return new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
-            {
-                Id = i,
-                Name = $"张三 {i:d4}",
-                DateTime = DateTime.Now.AddDays(i - 1),
-                Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
-                Count = random.Next(1, 100),
-                Complete = random.Next(1, 100) > 50
-            }));
-        }
-
-        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
-
-        private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
-        {
-            var items = Items.AsEnumerable();
-
-            //TODO: 此处代码后期精简
-            if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
-                 || (item.Address?.Contains(options.SearchText) ?? false));
-
-            // 过滤
-            var isFiltered = false;
-            if (options.Filters.Any())
-            {
-                items = items.Where(options.Filters.GetFilterFunc<BindItem>());
-
-                // 通知内部已经过滤数据了
-                isFiltered = true;
-            }
-
-            // 排序
-            var isSorted = false;
-            if (!string.IsNullOrEmpty(options.SortName))
-            {
-                // 外部未进行排序，内部自动进行排序处理
-                var invoker = SortLambdaCache.GetOrAdd(typeof(BindItem), key => items.GetSortLambda().Compile());
-                items = invoker(items, options.SortName, options.SortOrder);
-
-                // 通知内部已经过滤数据了
-                isSorted = true;
-            }
-
-            // 设置记录总数
-            var total = items.Count();
-
-            // 内存分页
-            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-            return Task.FromResult(new QueryData<BindItem>()
-            {
-                Items = items,
-                TotalCount = total,
-                IsSorted = isSorted,
-                IsFiltered = isFiltered,
-                IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
-            });
-        }
-
-        private Task<string> IntFormatter(object? d)
-        {
-            var data = (int?)d;
-            return Task.FromResult(data?.ToString("0.00") ?? "");
-        }
-
-        private Task OnResetSearchAsync(BindItem item)
-        {
-            item.Name = "";
-            item.Address = "";
-            return Task.CompletedTask;
-        }
-
-        private Task<BindItem> OnAddAsync()
-        {
-            return Task.FromResult(new BindItem() { DateTime = DateTime.Now });
-        }
-
-        private static readonly object _objectLock = new object();
-
-        private Task<bool> OnSaveAsync(BindItem item)
-        {
-            // 增加数据演示代码
-            if (Items != null)
-            {
-                if (item.Id == 0)
-                {
-                    lock (_objectLock)
-                    {
-                        item.Id = Items.Max(i => i.Id) + 1;
-                        Items.Add(item);
-                    }
-                }
-                else
-                {
-                    var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
-                    oldItem.Name = item.Name;
-                    oldItem.Address = item.Address;
-                    oldItem.DateTime = item.DateTime;
-                    oldItem.Count = item.Count;
-                }
-            }
-            return Task.FromResult(true);
-        }
-
-        private Task<bool> OnDeleteAsync(IEnumerable<BindItem> items)
-        {
-            if (Items != null) items.ToList().ForEach(i => Items.Remove(i));
-            return Task.FromResult(true);
-        }
-
-        private void DownloadAsync(IEnumerable<BindItem> items)
-        {
-            var cate = ToastCategory.Information;
-            var title = "自定义下载示例";
-            var content = "请先选择数据，然后点击下载按钮";
-            if (items.Any())
-            {
-                cate = ToastCategory.Success;
-                content = $"开始下载选中的 {items.Count()} 条数据";
-            }
-            ToastService?.Show(new ToastOption()
-            {
-                Category = cate,
-                Title = title,
-                Content = content
-            });
-        }
-
-        private void CustomerButton(IEnumerable<BindItem> items)
-        {
-            var cate = ToastCategory.Information;
-            var title = "自定义按钮处理方法";
-            var content = $"通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合，当前选择数据 {items.Count()} 条";
-            ToastService?.Show(new ToastOption()
-            {
-                Category = cate,
-                Title = title,
-                Content = content
-            });
-        }
-
-        private void OnRowButtonClick(BindItem item)
-        {
-            var cate = ToastCategory.Success;
-            var title = "行内按钮处理方法";
-            var content = "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据";
-            ToastService?.Show(new ToastOption()
-            {
-                Category = cate,
-                Title = title,
-                Content = content
-            });
-        }
-
-        private Task DoubleClickRowCallback(BindItem item)
-        {
-            var cate = ToastCategory.Success;
-            var title = "双击行回调委托示例";
-            var content = $"选中行数据为名称 {item.Name} 的数据";
-            ToastService?.Show(new ToastOption()
-            {
-                Category = cate,
-                Title = title,
-                Content = content
-            });
-            return Task.CompletedTask;
-        }
     }
 
     /// <summary>

@@ -1,0 +1,27 @@
+﻿@inherits TablesBaseQuery
+@page "/tables/header"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头" CodeFile="table.11.html">
+    <Table TItem="BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带分页数据固定表头的表格" Introduction="设置 <code>Height=200</code> 固定表头，由于默认每页仅显示 <code>2</code> 行数据所以高度采用自适应方式，当每页显示数据为 <code>4</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.12.html">
+    <Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
+           PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>

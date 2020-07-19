@@ -1,0 +1,17 @@
+﻿@inherits TablesBaseQuery
+@page "/tables/pages"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="分页表格" Introduction="设置 <code>IsPagination</code> 显示分页组件" CodeFile="table.7.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>

@@ -1613,14 +1613,9 @@ input:disabled,
     }
 
 @media (min-width: 576px) {
-    .form-inline .form-control.datetime-picker-input {
+    .form-inline input.form-control {
         width: 196px;
     }
-
-        .form-inline .form-control.datetime-picker-input.is-valid,
-        .form-inline .form-control.datetime-picker-input.is-invalid {
-            width: 217px;
-        }
 }
 /*end datetimepicker*/
 

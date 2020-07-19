@@ -381,6 +381,7 @@ section {
         padding: 10px 16px;
         -webkit-font-smoothing: auto;
         display: block;
+        white-space: pre-wrap;
     }
 
     .pre-code .no-highlight code {

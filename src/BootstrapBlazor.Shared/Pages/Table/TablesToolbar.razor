@@ -1,0 +1,162 @@
+﻿@inherits TablesBaseEdit
+@page "/tables/toolbar"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件" CodeFile="table.8.html">
+    <Table TItem="BindItem" Items="@EditItems.Take(4)"
+           IsBordered="true"
+           IsMultipleSelect="true" ShowToolbar="true" ShowDefaultButtons="false">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带查询的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.9.html">
+    <Table TItem="BindItem"
+           IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+           ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.10.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           SearchModel="@SearchModel"
+           OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+        <EditTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <DateTimePicker @bind-Value="@context.DateTime">
+                            <RequiredValidator />
+                        </DateTimePicker>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Count">
+                            <RequiredValidator />
+                        </BootstrapInput>
+                    </div>
+                </div>
+            </div>
+        </EditTemplate>
+        <SearchTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+        </SearchTemplate>
+    </Table>
+</Block>
+
+<Block Title="自定义扩展按钮" Introduction="设置 <code>TableToolbarTemplate</code> 模板添加自定义扩展按钮" CodeFile="table.13.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => DownloadAsync(items)))" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义显示功能按钮" Introduction="通过设置 <code>ShowNewButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示" CodeFile="table.18.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" IsMultipleSelect="true"
+           ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自动生成单表维护功能的表格" Introduction="当设置了 <code>OnAddAsync</code> 或者 <code>OnSaveAsync</code> 回调委托方法时，如果未设置 <code>EditTemplate</code> 编辑模板时，组件会尝试自动生成表单维护 UI" CodeFile="table.22.html">
+    <p>通过设置 <code>TItem</code> 泛型约束的类实例 <code>BindItem</code> 属性的 <code>[Required]</code> 等验证标签即可实现客户端验证</p>
+    <p>数据绑定类型为可为空类型时自动允许为空，如日期绑定列为 <code>DateTime?</code> 类型</p>
+    <p>数据绑定类型为数值类型时如，如数量绑定列为 <code>int</code> 类型，自动进行数值验证</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+@code {
+    private void DownloadAsync(IEnumerable<BindItem> items)
+    {
+        var cate = ToastCategory.Information;
+        var title = "自定义下载示例";
+        var content = "请先选择数据，然后点击下载按钮";
+        if (items.Any())
+        {
+            cate = ToastCategory.Success;
+            content = $"开始下载选中的 {items.Count()} 条数据";
+        }
+        ToastService?.Show(new ToastOption()
+        {
+            Category = cate,
+            Title = title,
+            Content = content
+        });
+    }
+}

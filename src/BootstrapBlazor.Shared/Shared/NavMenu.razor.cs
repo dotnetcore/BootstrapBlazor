@@ -277,11 +277,7 @@ namespace BootstrapBlazor.Shared.Shared
                 Text = "搜索框 Search",
                 Url = "searchs"
             });
-            item.AddItem(new MenuItem()
-            {
-                Text = "表格 Table",
-                Url = "tables"
-            });
+            AddTableItem(item);
             item.AddItem(new MenuItem()
             {
                 Text = "标签 Tag",
@@ -304,6 +300,60 @@ namespace BootstrapBlazor.Shared.Shared
             });
 
             AddBadge(item);
+        }
+
+        private void AddTableItem(MenuItem item)
+        {
+            var it = new MenuItem()
+            {
+                Text = "表格 Table"
+            };
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "基本功能",
+                Url = "tables"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "列设置",
+                Url = "tables/column"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "行设置",
+                Url = "tables/row"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "过滤功能",
+                Url = "tables/filter"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "固定表头",
+                Url = "tables/header"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "分页功能",
+                Url = "tables/pages"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "工具栏",
+                Url = "tables/toolbar"
+            });
+
+            item.AddItem(it);
+
+            AddBadge(it, false);
         }
 
         private void AddNotice(MenuItem item)
@@ -452,10 +502,13 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.Component = CreateBadge(count ?? item.Items.Count());
 
-            if (item.Items.Any(i => !string.IsNullOrEmpty(i.Url) && i.Url.Equals(ActiveUrl, System.StringComparison.OrdinalIgnoreCase)))
+            var im = item.Items.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && i.Url.Equals(ActiveUrl, System.StringComparison.OrdinalIgnoreCase));
+            if (im != null)
             {
-                item.IsActive = true;
-                item.IsCollapsed = false;
+                im.IsActive = true;
+                im.IsCollapsed = false;
+
+                MenuItem.CascadingSetActive(im);
             }
             if (append) Items.Add(item);
         }

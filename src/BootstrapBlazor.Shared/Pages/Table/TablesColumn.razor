@@ -1,0 +1,143 @@
+﻿@inherits TablesBaseColumn
+@page "/tables/column"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="自定义列名" Introduction="通过设置 <code>Text</code> 增加列头显示名称" CodeFile="table.1.html">
+    <p>
+        表格组件 <code>TableColumns</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性
+    </p>
+    <Table TItem="BindItem" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" />
+            <TableColumn @bind-Field="@context.Name" Text="自定义列名2" />
+            <TableColumn @bind-Field="@context.Address" Text="自定义列名3" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>" CodeFile="table.5.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定" CodeFile="table.6.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制" CodeFile="table.14.html">
+    <p>本例中继续上一个例子，实现了自定义四个功能按钮，并且扩展到行内，点击各个按钮时均有相对应的回调委托方法，<code>TableToolbarButton</code> 采用的是 <code>Delegate</code> 方式完成数据交换，点击工具栏按钮时设置 <code>OnClickCallback</code> 委托方法即可获取表内选中的行数据集合</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
+           ShowExtendButtons="true" ExtendButtonColumnWidth="240"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="明细" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+            <TableToolbarButton Color="Color.Success" Icon="fa fa-fw fa-edit" Text="编辑" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+            <TableToolbarButton Color="Color.Warning" Icon="fa fa-fw fa-edit" Text="权限" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+            <TableToolbarButton Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" Width="100" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+        </TableColumns>
+        <RowButtonTemplate>
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="明细" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="编辑" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="权限" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="审批" OnClickCallback="@OnRowButtonClick" />
+        </RowButtonTemplate>
+    </Table>
+</Block>
+
+<Block Title="自定义列数据模板" Introduction="自定义 <code>TableColumn</code> 列的 <code>Template</code> 模板来实现任意 UI" CodeFile="table.16.html">
+    <p>
+        本例中列 <code>DateTime</code> 值根据 <code>Complete</code> 值是否为 <code>true</code> 显示不同颜色
+    </p>
+    <p>
+        本例中列 <code>Complete</code> 根据 <code>Complete</code> 值自定义显示为 <code>Checkbox</code> 组件
+    </p>
+    <p><code>Template</code> 模板自带 <code>Context</code> 相关联上下文，其值为 <code>TableColumnContext</code> 类型</p>
+    <ul>
+        <li><code>Value</code> 为当前绑定列的数据值</li>
+        <li><code>Row</code> 为当前绑定列所在行的数据值</li>
+    </ul>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180">
+                <Template Context="value">
+                    @if (((BindItem)value.Row).Complete)
+                    {
+                        <div class="text-success">@value.Value</div>
+                    }
+                    else
+                    {
+                        <div class="text-danger">@value.Value</div>
+                    }
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Complete" Width="100">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义列数据格式" Introduction="列绑定时通过指定 <code>FormatString</code> 或者 <code>Formatter</code> 回调委托来实现单元格数值格式化" CodeFile="table.17.html">
+    <p>
+        本例中列 <code>DateTime</code> 值根据 <code>FormatString</code> 将值格式化为 <code>yyyy-MM-dd</code> 年月日格式
+    </p>
+    <p>
+        本例中列 <code>Count</code> 值根据 <code>Formatter</code> 将值格式化为 <code>0.00</code> 保留两位小数格式
+    </p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
+        </TableColumns>
+    </Table>
+</Block>

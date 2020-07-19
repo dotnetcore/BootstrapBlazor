@@ -1,0 +1,43 @@
+﻿@inherits TablesBaseQuery
+@page "/tables/filter"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="可过滤数据的表格" Introduction="设置 <code>TableColumn</code> 列的 <code>Filterable</code> 属性，控制列头是否开启数据过滤功能" CodeFile="table.15.html">
+    <p>
+        <code>Filterable</code> 目前支持两种应用方式：
+        <ul>
+            <li>查询方法参数中的 Filters 是过滤条件，数据库查询数据时可以通过此属性自行进行数据过滤</li>
+            <li>无感使用，正常查询数据，对过滤不进行任何处理，组件内部将根据 Filter 进行内部处理</li>
+        </ul>
+        <div>
+            如果外部已经进行了过滤时请设置 <code>QueryData&lt;TItem&gt;</code> 参数的 <code>IsFiltered</code> 属性值为 <code>true</code>
+        </div>
+        <div>
+            本示例中共显示五列，分别为 <code>DateTime、string、bool、int</code> 类型，弹出过滤框也分别不同
+        </div>
+        <div>
+            各列可分别设置过滤条件，各列之间过滤条件为 <code>And</code> 并且的关系
+        </div>
+        <Alert ShowBar="true" Color="Color.Info" class="mt-3">开启过滤功能仅需要设置 <code>TableColumn</code> 的 <code>Filterable</code> 值为 <code>true</code>，无需额外任何代码</Alert>
+    </p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />
+        </TableColumns>
+    </Table>
+</Block>

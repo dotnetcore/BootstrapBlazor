@@ -1,0 +1,42 @@
+﻿@inherits TablesBase
+@page "/tables"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="基础表格" Introduction="基础的表格展示用法。" CodeFile="table.1.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可" CodeFile="table.2.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsStriped="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果" CodeFile="table.3.html">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<AttributeTable Items="GetAttributes()"></AttributeTable>
+
+<MethodTable Items="GetMethods()"></MethodTable>
+
+<AttributeTable Items="GetTableColumnAttributes()" Title="TableColumn 属性" />
