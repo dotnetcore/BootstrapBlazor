@@ -3,7 +3,7 @@
         IsStriped="true" IsBordered="true"
         ShowToolbar="true" ShowDefaultButtons="true" ShowDeleteButton="false"
         ClickToSelect="true" DoubleClickToEdit="true"
-        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+        OnQueryAsync="@OnEditQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
         <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
@@ -41,14 +41,75 @@
 </Table>
 
 @code {
-    private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+    private static readonly object _objectLock = new object();
 
-    private IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+    /// <summary>
+    /// 
+    /// </summary>
+    protected List<BindItem> EditItems { get; set; } = GenerateItems();
 
-    private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> OnEditQueryAsync(QueryPageOptions options) => BindItemQueryAsync(EditItems, options);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected Task<BindItem> OnAddAsync()
     {
-        var items = Items.AsEnumerable();
+        return Task.FromResult(new BindItem() { DateTime = DateTime.Now });
+    }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected Task<bool> OnSaveAsync(BindItem item)
+    {
+        // 增加数据演示代码
+        if (item.Id == 0)
+        {
+            lock (_objectLock)
+            {
+                item.Id = EditItems.Max(i => i.Id) + 1;
+                EditItems.Add(item);
+            }
+        }
+        else
+        {
+            var oldItem = EditItems.FirstOrDefault(i => i.Id == item.Id);
+            oldItem.Name = item.Name;
+            oldItem.Address = item.Address;
+            oldItem.DateTime = item.DateTime;
+            oldItem.Count = item.Count;
+        }
+        return Task.FromResult(true);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="items"></param>
+    /// <returns></returns>
+    protected Task<bool> OnDeleteAsync(IEnumerable<BindItem> items)
+    {
+        items.ToList().ForEach(i => EditItems.Remove(i));
+        return Task.FromResult(true);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> BindItemQueryAsync(IEnumerable<BindItem> items, QueryPageOptions options)
+    {
         //TODO: 此处代码后期精简
         if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
         if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);
@@ -91,35 +152,5 @@
             IsFiltered = isFiltered,
             IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
         });
-    }
-
-    private Task<BindItem> OnAddAsync()
-    {
-        return Task.FromResult(new BindItem() { DateTime = DateTime.Now });
-    }
-
-    private Task<bool> OnSaveAsync(BindItem item)
-    {
-        // 增加数据演示代码
-        if (Items != null)
-        {
-            if (item.Id == 0)
-            {
-                lock (_objectLock)
-                {
-                    item.Id = Items.Max(i => i.Id) + 1;
-                    Items.Add(item);
-                }
-            }
-            else
-            {
-                var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
-                oldItem.Name = item.Name;
-                oldItem.Address = item.Address;
-                oldItem.DateTime = item.DateTime;
-                oldItem.Count = item.Count;
-            }
-        }
-        return Task.FromResult(true);
     }
 }

@@ -1,5 +1,5 @@
-﻿<Table TItem="BootstrapBlazor.WebConsole.Pages.BindItem" IsBordered="true"
-       PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQuery" Height="200">
+﻿<Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
+        PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" />
         <TableColumn @bind-Field="@context.Name" />
@@ -8,12 +8,47 @@
 </Table>
 
 @code {
-    private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+    private static readonly Random random = new Random();
 
-    private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
     {
-        var items = Items.AsEnumerable();
+        Id = i,
+        Name = $"张三 {i:d4}",
+        DateTime = DateTime.Now.AddDays(i - 1),
+        Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
+        Count = random.Next(1, 100),
+        Complete = random.Next(1, 100) > 50
+    }));
 
+    /// <summary>
+    /// 
+    /// </summary>
+    protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options) => BindItemQueryAsync(Items, options);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> BindItemQueryAsync(IEnumerable<BindItem> items, QueryPageOptions options)
+    {
         //TODO: 此处代码后期精简
         if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
         if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);

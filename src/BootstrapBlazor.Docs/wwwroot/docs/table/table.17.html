@@ -1,35 +1,69 @@
-﻿<Table TItem="BootstrapBlazor.Shared.Pages.BindItem"
-       IsPagination="true" PageItemsSource="@PageItemsSource"
-       IsStriped="true" IsBordered="true"
-       ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-       OnQueryAsync="@OnQueryAsync">
+﻿<Table TItem="BindItem"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+        OnQueryAsync="@OnQueryAsync">
     <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" FormatString="yyyy-MM-dd" />
-        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-        <TableColumn @bind-Field="@context.Count" Sortable="true" Formatter="@IntFormatter" />
+        <TableColumn @bind-Field="@context.DateTime" Width="180" FormatString="yyyy-MM-dd" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
     </TableColumns>
 </Table>
 
 @code {
-    private Task<string> DateTimeFormatter(object? d)
-    {
-        var data = (DateTime?)d;
-        return  Task.FromResult(data?.ToString("yyyy-MM-dd") ?? "");
-    }
+    private static readonly Random random = new Random();
 
-    private Task<string> IntFormatter(object? d)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
+    {
+        Id = i,
+        Name = $"张三 {i:d4}",
+        DateTime = DateTime.Now.AddDays(i - 1),
+        Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
+        Count = random.Next(1, 100),
+        Complete = random.Next(1, 100) > 50
+    }));
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options) => BindItemQueryAsync(Items, options);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="d"></param>
+    /// <returns></returns>
+    protected Task<string> IntFormatter(object? d)
     {
         var data = (int?)d;
-        return  Task.FromResult(data?.ToString("0.00") ?? "");
+        return Task.FromResult(data?.ToString("0.00") ?? "");
     }
-
-    private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
-
-    private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> BindItemQueryAsync(IEnumerable<BindItem> items, QueryPageOptions options)
     {
-        var items = Items.AsEnumerable();
-
         //TODO: 此处代码后期精简
         if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
         if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);
@@ -72,5 +106,5 @@
             IsFiltered = isFiltered,
             IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
         });
-    }
+    }    
 }

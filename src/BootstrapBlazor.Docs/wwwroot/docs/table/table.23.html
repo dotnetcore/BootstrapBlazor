@@ -1,8 +1,8 @@
-﻿<Table TItem="BindItem" Items="@Items.Take(3)" IsStriped="true">
+<Table TItem="BindItem" Items="@Items.Take(3)">
     <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" />
-        <TableColumn @bind-Field="@context.Name" />
-        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" />
+        <TableColumn @bind-Field="@context.Name" Text="自定义列名2" />
+        <TableColumn @bind-Field="@context.Address" Text="自定义列名3" />
     </TableColumns>
 </Table>
 

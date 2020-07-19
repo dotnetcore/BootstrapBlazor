@@ -46,6 +46,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="items"></param>
         /// <param name="options"></param>
         /// <returns></returns>
         protected Task<QueryData<BindItem>> BindItemQueryAsync(IEnumerable<BindItem> items, QueryPageOptions options)

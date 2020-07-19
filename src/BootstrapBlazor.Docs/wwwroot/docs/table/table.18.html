@@ -1,26 +1,59 @@
-﻿<Table TItem="BindItem"
-       IsPagination="true" PageItemsSource="@PageItemsSource"
-       IsStriped="true" IsBordered="true"
-       ShowToolbar="true" IsMultipleSelect="true"
-       ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
-       OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-        <TableColumn @bind-Field="@context.Count" Sortable="true" />
-    </TableColumns>
-</Table>
+﻿    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" IsMultipleSelect="true"
+           ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
 
 @code {
-    private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+    private static readonly Random random = new Random();
 
-    private IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
-
-    private Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
     {
-        var items = Items.AsEnumerable();
+        Id = i,
+        Name = $"张三 {i:d4}",
+        DateTime = DateTime.Now.AddDays(i - 1),
+        Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
+        Count = random.Next(1, 100),
+        Complete = random.Next(1, 100) > 50
+    }));
 
+    /// <summary>
+    /// 
+    /// </summary>
+    protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options) => BindItemQueryAsync(Items, options);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    protected Task<QueryData<BindItem>> BindItemQueryAsync(IEnumerable<BindItem> items, QueryPageOptions options)
+    {
         //TODO: 此处代码后期精简
         if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
         if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);

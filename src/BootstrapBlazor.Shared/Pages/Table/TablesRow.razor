@@ -27,7 +27,7 @@
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="true" ShowDeleteButton="false"
            ClickToSelect="true" DoubleClickToEdit="true"
-           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+           OnQueryAsync="@OnEditQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
