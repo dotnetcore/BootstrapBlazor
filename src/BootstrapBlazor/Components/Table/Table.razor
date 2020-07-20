@@ -11,11 +11,11 @@
                 {
                     @if (ShowNewButton)
                     {
-                        <TableToolbarButton Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-fw fa-plus" Text="新建" />
+                        <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-fw fa-plus" Text="新建" />
                     }
                     @if (ShowEditButton)
                     {
-                        <TableToolbarButton Color="Color.Primary" OnClick="@Edit" Icon="fa fa-fw fa-pencil" Text="编辑" />
+                        <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@Edit" Icon="fa fa-fw fa-pencil" Text="编辑" />
                     }
                     @if (ShowDeleteButton)
                     {

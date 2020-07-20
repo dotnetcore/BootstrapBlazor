@@ -61,10 +61,10 @@
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="明细" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
-            <TableToolbarButton Color="Color.Success" Icon="fa fa-fw fa-edit" Text="编辑" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
-            <TableToolbarButton Color="Color.Warning" Icon="fa fa-fw fa-edit" Text="权限" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
-            <TableToolbarButton Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => CustomerButton(items)))" />
+            <TableToolbarButton TItem="BindItem" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="明细" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="BindItem" Color="Color.Success" Icon="fa fa-fw fa-edit" Text="编辑" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="BindItem" Color="Color.Warning" Icon="fa fa-fw fa-edit" Text="权限" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="BindItem" Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@CustomerButton" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="180" />

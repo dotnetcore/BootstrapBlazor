@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <param name="items"></param>
-        protected void CustomerButton(IEnumerable<BindItem> items)
+        protected Task CustomerButton(IEnumerable<BindItem> items)
         {
             var cate = ToastCategory.Information;
             var title = "自定义按钮处理方法";
@@ -36,6 +36,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Title = title,
                 Content = content
             });
+            return Task.CompletedTask;
         }
 
         /// <summary>

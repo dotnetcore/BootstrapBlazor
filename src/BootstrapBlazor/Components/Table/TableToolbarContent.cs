@@ -33,19 +33,10 @@ namespace BootstrapBlazor.Components
                     builder.AddContent(index++, new RenderFragment(builder =>
                     {
                         var i = 0;
-                        if (button is TableToolbarButton b)
+                        if (button is TableToolbarButton<TItem> b)
                         {
                             builder.OpenComponent<Button>(i++);
-                            builder.AddAttribute(i++, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
-                            {
-                                if (b.OnClick.HasDelegate) await b.OnClick.InvokeAsync(e);
-
-                                // 传递当前选中行给回调委托方法
-                                if (b.OnClickCallback != null)
-                                {
-                                    b.OnClickCallback.DynamicInvoke(Toolbar.OnGetSelectedRows());
-                                }
-                            }));
+                            builder.AddAttribute(i++, nameof(Button.OnClick), CreateCallback(b));
                             builder.AddAttribute(i++, nameof(Button.Color), b.Color);
                             builder.AddAttribute(i++, nameof(Button.Icon), b.Icon);
                             builder.AddAttribute(i++, nameof(Button.Text), b.Text);
@@ -96,19 +87,10 @@ namespace BootstrapBlazor.Components
                     // icon
                     builder.OpenElement(index++, "i");
 
-                    if (button is TableToolbarButton b)
+                    if (button is TableToolbarButton<TItem> b)
                     {
                         builder.AddAttribute(index++, "class", b.Icon);
-                        builder.AddAttribute(index++, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
-                        {
-                            if (b.OnClick.HasDelegate) await b.OnClick.InvokeAsync(e);
-
-                            // 传递当前选中行给回调委托方法
-                            if (b.OnClickCallback != null)
-                            {
-                                b.OnClickCallback.DynamicInvoke(Toolbar.OnGetSelectedRows());
-                            }
-                        }));
+                        builder.AddAttribute(index++, "onclick", CreateCallback(b));
                     }
                     else if (button is TableToolbarPopconfirmButton popButton)
                     {
@@ -126,5 +108,16 @@ namespace BootstrapBlazor.Components
                 builder.CloseElement(); // end div
             }
         }
+
+        private EventCallback<MouseEventArgs> CreateCallback(TableToolbarButton<TItem> button) => EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+        {
+            if (button.OnClick.HasDelegate) await button.OnClick.InvokeAsync(e);
+
+            // 传递当前选中行给回调委托方法
+            if (Toolbar != null && button.OnClickCallback != null)
+            {
+                await button.OnClickCallback.Invoke(Toolbar.OnGetSelectedRows());
+            }
+        });
     }
 }

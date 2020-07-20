@@ -99,7 +99,7 @@
         });
     }
         
-    private void DownloadAsync(IEnumerable<BindItem> items)
+    private Task DownloadAsync(IEnumerable<BindItem> items)
     {
         var cate = ToastCategory.Information;
         var title = "自定义下载示例";
@@ -115,5 +115,6 @@
             Title = title,
             Content = content
         });
+        return Task.CompletedTask;
     }
 }

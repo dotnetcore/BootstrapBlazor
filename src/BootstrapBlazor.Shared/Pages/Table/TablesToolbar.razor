@@ -38,7 +38,7 @@
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@(new Action<IEnumerable<BindItem>>(items => DownloadAsync(items)))" />
+            <TableToolbarButton TItem="BindItem" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@DownloadAsync" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
@@ -65,7 +65,7 @@
 </Block>
 
 @code {
-    private void DownloadAsync(IEnumerable<BindItem> items)
+    private Task DownloadAsync(IEnumerable<BindItem> items)
     {
         var cate = ToastCategory.Information;
         var title = "自定义下载示例";
@@ -81,5 +81,6 @@
             Title = title,
             Content = content
         });
+        return Task.CompletedTask;
     }
 }
