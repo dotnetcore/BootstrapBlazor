@@ -1310,6 +1310,13 @@ input:disabled,
 .table-fixed thead th .table-cell {
     background-color: #fff;
 }
+
+.table-loading {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /*end table*/
 
 /*popover confirm*/

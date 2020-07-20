@@ -1,0 +1,37 @@
+﻿@namespace BootstrapBlazor.Components
+
+<tr>
+    <td colspan="@GetColSpan()">
+        <div class="table-loading">
+            <Spinner Color="Color.Primary" />
+        </div>
+    </td>
+</tr>
+
+@code {
+    /// <summary>
+    /// 获得/设置 是否显示扩展按钮 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool ShowExtendButtons { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为多选模式
+    /// </summary>
+    [Parameter]
+    public bool IsMultipleSelect { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Table Header 实例
+    /// </summary>
+    [CascadingParameter]
+    private TableColumnCollection? Columns { get; set; }
+
+    private string GetColSpan()
+    {
+        var colNumber = Columns?.Columns.Count ?? 0;
+        if (ShowExtendButtons) colNumber++;
+        if (IsMultipleSelect) colNumber++;
+        return colNumber.ToString();
+    }
+}

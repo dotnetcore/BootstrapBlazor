@@ -351,6 +351,12 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "tables/toolbar"
             });
 
+            it.AddItem(new MenuItem()
+            {
+                Text = "表单维护",
+                Url = "tables/edit"
+            });
+
             item.AddItem(it);
 
             AddBadge(it, false);
