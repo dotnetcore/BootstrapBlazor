@@ -253,7 +253,7 @@ namespace System.Linq
             var type = source.GetType();
             var exp_p1 = Expression.Parameter(typeof(object));
             var exp_p2 = Expression.Parameter(typeof(string));
-            var body = (Expression)exp_p2;
+            Expression? body;
             if (type.IsSubclassOf(typeof(IFormattable)))
             {
                 // 通过 IFormattable 接口格式化

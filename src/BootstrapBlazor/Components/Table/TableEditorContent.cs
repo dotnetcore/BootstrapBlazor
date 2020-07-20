@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public class DataEditorContent<TModel> : ComponentBase where TModel : class, new()
+    public class TableEditorContent<TModel> : ComponentBase where TModel : class, new()
     {
         /// <summary>
         /// 获得/设置 组件相关联的实体类
