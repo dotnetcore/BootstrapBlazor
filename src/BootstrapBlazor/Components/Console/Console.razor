@@ -10,7 +10,7 @@
         <div class="console-window">
             @foreach (var text in Items)
             {
-                <div>@text</div>
+                <div @key="@text">@text</div>
             }
         </div>
     </div>
