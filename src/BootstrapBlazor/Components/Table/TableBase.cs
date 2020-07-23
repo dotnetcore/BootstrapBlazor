@@ -96,7 +96,7 @@ namespace BootstrapBlazor.Components
             if (EditModel == null)
             {
                 if (OnAddAsync != null) EditModel = await OnAddAsync();
-                else new TItem();
+                else EditModel = new TItem();
             }
 
             // 设置 OnSort 回调方法

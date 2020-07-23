@@ -66,19 +66,23 @@ namespace BootstrapBlazor.Components
         {
             var ret = new List<KeyValuePair<string, object>>();
             var type = Nullable.GetUnderlyingType(t) ?? t;
-            switch (type.Name)
+            if (type.IsEnum)
             {
-                case nameof(Byte):
-                    // 枚举类型
-                    // 通过字符串转化为枚举类实例
-                    // var items = Model?.EnumToSelectedItems(mem.GetFieldName(), Nullable.GetUnderlyingType(t) != null);
-                    //if (items != null) ret.Add(new KeyValuePair<string, object>("Items", items));
-                    break;
-                case nameof(String):
-                    ret.Add(new KeyValuePair<string, object>("placeholder", "请输入 ..."));
-                    break;
-                default:
-                    break;
+                // 枚举类型
+                // 通过字符串转化为枚举类实例
+                var items = type.ToSelectList();
+                if (items != null) ret.Add(new KeyValuePair<string, object>("Items", items));
+            }
+            else
+            {
+                switch (type.Name)
+                {
+                    case nameof(String):
+                        ret.Add(new KeyValuePair<string, object>("placeholder", "请输入 ..."));
+                        break;
+                    default:
+                        break;
+                }
             }
             return ret;
         }
@@ -86,26 +90,30 @@ namespace BootstrapBlazor.Components
         private Type GenerateComponent(Type t)
         {
             Type? ret = null;
-            var typeName = (Nullable.GetUnderlyingType(t) ?? t).Name;
-            switch (typeName)
+            var type = (Nullable.GetUnderlyingType(t) ?? t);
+            if (type.IsEnum)
             {
-                case nameof(Byte):
-                    ret = typeof(Select<>).MakeGenericType(t);
-                    break;
-                case nameof(Boolean):
-                    ret = typeof(Checkbox<>).MakeGenericType(t);
-                    break;
-                case nameof(DateTime):
-                    ret = typeof(DateTimePicker<>).MakeGenericType(t);
-                    break;
-                case nameof(Int32):
-                case nameof(Double):
-                case nameof(Decimal):
-                    ret = typeof(BootstrapInput<>).MakeGenericType(t);
-                    break;
-                case nameof(String):
-                    ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-                    break;
+                ret = typeof(Select<>).MakeGenericType(t);
+            }
+            else
+            {
+                switch (type.Name)
+                {
+                    case nameof(Boolean):
+                        ret = typeof(Checkbox<>).MakeGenericType(t);
+                        break;
+                    case nameof(DateTime):
+                        ret = typeof(DateTimePicker<>).MakeGenericType(t);
+                        break;
+                    case nameof(Int32):
+                    case nameof(Double):
+                    case nameof(Decimal):
+                        ret = typeof(BootstrapInput<>).MakeGenericType(t);
+                        break;
+                    case nameof(String):
+                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
+                        break;
+                }
             }
             return ret ?? typeof(BootstrapInput<>).MakeGenericType(typeof(string));
         }

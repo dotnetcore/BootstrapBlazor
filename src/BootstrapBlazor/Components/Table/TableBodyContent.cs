@@ -61,6 +61,10 @@ namespace BootstrapBlazor.Components
                     // 格式化字符串
                     content = val?.Format(col.FormatString) ?? "";
                 }
+                else if (col.FieldType.IsEnum())
+                {
+                    content = col.FieldType.ToDescriptionString(val?.ToString());
+                }
                 else
                 {
                     content = val?.ToString() ?? "";
