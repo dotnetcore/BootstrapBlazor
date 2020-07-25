@@ -24,6 +24,12 @@ namespace BootstrapBlazor.Components
         public bool IsPassword { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否为 Input-Group 组合
+        /// </summary>
+        [Parameter]
+        public bool IsGroup { get; set; }
+
+        /// <summary>
         /// 获得/设置 格式化字符串
         /// </summary>
         [Parameter]

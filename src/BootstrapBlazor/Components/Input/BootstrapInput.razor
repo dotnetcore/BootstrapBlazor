@@ -2,8 +2,8 @@
 @typeparam TValue
 @inherits BootstrapInputBase<TValue>
 
-@if (IsShowLabel)
-{ 
+@if (IsShowLabel && !IsGroup)
+{
     <label class="control-label" for="@Id">@DisplayText</label>
 }
 <input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@DisabledString" data-original-title="@ErrorMessage" value="@BindConverter.FormatValue(CurrentValue)" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
