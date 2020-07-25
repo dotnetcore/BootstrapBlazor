@@ -100,7 +100,7 @@
                     }
                     else
                     {
-                        <TableLoading IsMultipleSelect="@IsMultipleSelect" ShowExtendButtons="@ShowExtendButtons"/>
+                        <TableLoading IsMultipleSelect="@IsMultipleSelect" ShowExtendButtons="@ShowExtendButtons" />
                     }
                 </tbody>
                 <thead>
@@ -147,9 +147,9 @@
         @if (OnSaveAsync != null || OnAddAsync != null)
         {
             <Modal @ref="EditModal">
-                <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true">
+                <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true" ShowFooter="false">
                     <BodyTemplate>
-                        <ValidateForm @ref="@ValidateForm" Model="@EditModel" OnValidSubmit="@Save">
+                        <ValidateForm Model="@EditModel" OnValidSubmit="@Save">
                             @if (EditTemplate != null)
                             {
                                 @EditTemplate?.Invoke(EditModel)
@@ -162,14 +162,15 @@
                                     </div>
                                 </div>
                             }
+                            <div class="modal-footer table-modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@(e => EditModal?.Toggle())">
+                                    <i class="fa fa-times"></i>
+                                    <span>关闭</span>
+                                </button>
+                                <Button Color="Color.Primary" IsTriggerValidate="true" Icon="fa fa-fw fa-save" Text="保存" />
+                            </div>
                         </ValidateForm>
                     </BodyTemplate>
-                    <FooterTemplate>
-                        <button type="button" class="btn btn-primary" @onclick="e => ValidateForm?.Validate()">
-                            <i class="fa fa-save"></i>
-                            <span>保存</span>
-                        </button>
-                    </FooterTemplate>
                 </ModalDialog>
             </Modal>
         }
@@ -180,9 +181,7 @@
         <Modal @ref="@SearchModal">
             <ModalDialog Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
                 <BodyTemplate>
-                    <ValidateForm Model="@SearchModel">
-                        @SearchTemplate?.Invoke(SearchModel)
-                    </ValidateForm>
+                    @SearchTemplate?.Invoke(SearchModel)
                 </BodyTemplate>
                 <FooterTemplate>
                     <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">

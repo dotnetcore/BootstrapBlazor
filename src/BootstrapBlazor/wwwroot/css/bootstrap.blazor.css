@@ -1317,6 +1317,10 @@ input:disabled,
     justify-content: center;
     align-items: center;
 }
+
+.table-modal-footer {
+    margin: 1rem -1rem -1rem -1rem;
+}
 /*end table*/
 
 /*popover confirm*/

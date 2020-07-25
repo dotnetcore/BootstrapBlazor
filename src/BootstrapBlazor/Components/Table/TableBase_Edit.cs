@@ -43,11 +43,6 @@ namespace BootstrapBlazor.Components
         public IEnumerable<TItem> SelectedRows => SelectedItems;
 
         /// <summary>
-        /// 获得/设置 编辑表单实例
-        /// </summary>
-        protected ValidateForm? ValidateForm { get; set; }
-
-        /// <summary>
         /// 获得/设置 编辑数据弹窗实例
         /// </summary>
         protected Modal? EditModal { get; set; }

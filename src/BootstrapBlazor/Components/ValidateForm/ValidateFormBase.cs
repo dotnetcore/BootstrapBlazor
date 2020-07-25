@@ -37,31 +37,35 @@ namespace BootstrapBlazor.Components
         /// If using this parameter, you are responsible for triggering any validation
         /// manually, e.g., by calling <see cref="EditContext.Validate"/>.
         /// </summary>
-        [Parameter] public EventCallback<EditContext> OnSubmit { get; set; }
+        [Parameter]
+        public EventCallback<EditContext> OnSubmit { get; set; }
 
         /// <summary>
         /// A callback that will be invoked when the form is submitted and the
         /// <see cref="EditContext"/> is determined to be valid.
         /// </summary>
-        [Parameter] public EventCallback<EditContext> OnValidSubmit { get; set; }
+        [Parameter]
+        public EventCallback<EditContext> OnValidSubmit { get; set; }
 
         /// <summary>
         /// A callback that will be invoked when the form is submitted and the
         /// <see cref="EditContext"/> is determined to be invalid.
         /// </summary>
-        [Parameter] public EventCallback<EditContext> OnInvalidSubmit { get; set; }
+        [Parameter]
+        public EventCallback<EditContext> OnInvalidSubmit { get; set; }
 
         /// <summary>
         /// 验证组件缓存
         /// </summary>
-        private ConcurrentDictionary<(Type ModelType, string FieldName), IValidateComponent> _validatorCache = new ConcurrentDictionary<(Type, string), IValidateComponent>();
+        private ConcurrentDictionary<(Type ModelType, string FieldName), IValidateComponent> ValidatorCache { get; } =
+        new ConcurrentDictionary<(Type, string), IValidateComponent>();
 
         /// <summary>
         /// 添加数据验证组件到 EditForm 中
         /// </summary>
         /// <param name="key"></param>
         /// <param name="comp"></param>
-        public void AddValidator((Type ModelType, string FieldName) key, IValidateComponent comp) => _validatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
+        public void AddValidator((Type ModelType, string FieldName) key, IValidateComponent comp) => ValidatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
 
         /// <summary>
         /// EditModel 数据模型验证方法
@@ -72,7 +76,7 @@ namespace BootstrapBlazor.Components
         public void ValidateObject(object model, ValidationContext context, List<ValidationResult> results)
         {
             // 遍历所有可验证组件进行数据验证
-            foreach (var key in _validatorCache)
+            foreach (var key in ValidatorCache)
             {
                 if (key.Key.ModelType == context.ObjectType)
                 {
@@ -80,7 +84,7 @@ namespace BootstrapBlazor.Components
 
                     // 设置其关联属性字段
                     var propertyValue = fi.GetPropertyValue();
-                    var validator = _validatorCache[key.Key];
+                    var validator = ValidatorCache[key.Key];
 
                     // 数据验证
                     context.MemberName = fi.FieldName;
@@ -98,7 +102,7 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            if (_validatorCache.TryGetValue((context.ObjectType, context.MemberName), out var validator))
+            if (ValidatorCache.TryGetValue((context.ObjectType, context.MemberName), out var validator))
             {
                 validator.ValidateProperty(propertyValue, context, results);
                 validator.ToggleMessage(results, true);

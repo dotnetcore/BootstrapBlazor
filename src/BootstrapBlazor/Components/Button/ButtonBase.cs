@@ -37,17 +37,20 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 按钮风格枚举
         /// </summary>
-        [Parameter] public ButtonStyle ButtonStyle { get; set; }
+        [Parameter]
+        public ButtonStyle ButtonStyle { get; set; }
 
         /// <summary>
         /// OnClick 事件
         /// </summary>
-        [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+        [Parameter]
+        public EventCallback<MouseEventArgs> OnClick { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
-        [Parameter] public Color Color { get; set; } = Color.Primary;
+        [Parameter]
+        public Color Color { get; set; } = Color.Primary;
 
         /// <summary>
         /// 获得/设置 显示图标
@@ -64,22 +67,26 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 Outline 样式
         /// </summary>
-        [Parameter] public bool IsOutline { get; set; }
+        [Parameter]
+        public bool IsOutline { get; set; }
 
         /// <summary>
         /// 获得/设置 Size 大小
         /// </summary>
-        [Parameter] public Size Size { get; set; } = Size.None;
+        [Parameter]
+        public Size Size { get; set; } = Size.None;
 
         /// <summary>
         /// 获得/设置 Block 模式
         /// </summary>
-        [Parameter] public bool IsBlock { get; set; }
+        [Parameter]
+        public bool IsBlock { get; set; }
 
         /// <summary>
         /// 获得/设置 是否禁用
         /// </summary>
-        [Parameter] public bool IsDisabled { get; set; }
+        [Parameter]
+        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 获得/设置 是否触发客户端验证 默认为 true 触发
@@ -89,17 +96,20 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 RenderFragment 实例
         /// </summary>
-        [Parameter] public RenderFragment? ChildContent { get; set; }
+        [Parameter]
+        public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
         /// 获得 EditContext 实例
         /// </summary>
-        [CascadingParameter] protected EditContext? EditContext { get; set; }
+        [CascadingParameter]
+        protected EditContext? EditContext { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
         /// </summary>
-        [CascadingParameter] public ValidateFormBase? EditForm { get; set; }
+        [CascadingParameter]
+        public ValidateFormBase? EditForm { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -109,20 +119,14 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             var onClick = OnClick;
-            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                var valid = IsTriggerValidate && (EditContext?.Validate() ?? true);
-                if (valid) onClick.InvokeAsync(e);
-
-                // 触发 ValidateForm 事件
-                if (EditForm != null && EditContext != null)
+                bool valid = true;
+                if (EditForm != null)
                 {
-                    if (EditForm.OnInvalidSubmit.HasDelegate && !valid) EditForm.OnInvalidSubmit.InvokeAsync(EditContext);
-                    if (EditForm.OnValidSubmit.HasDelegate && valid) EditForm.OnValidSubmit.InvokeAsync(EditContext);
-
-                    // OnSubmit
-                    if (EditForm.OnSubmit.HasDelegate) EditForm.OnSubmit.InvokeAsync(EditContext);
+                    valid = await EditForm.Validate();
                 }
+                if (valid && onClick.HasDelegate) await onClick.InvokeAsync(e);
             });
         }
 
