@@ -4,13 +4,13 @@
 <div @attributes="@AdditionalAttributes" class="@ClassString">
     <div class="card-header d-flex">
         <span class="flex-fill">@HeaderText</span>
-        <Light IsFlash="true" LightTitle="@LightTitle" Color="@Color.Success"></Light>
+        <Light IsFlash="true" Title="@LightTitle" Color="@Color.Success"></Light>
     </div>
     <div class="card-body console-body" style="@BodyStyleString">
         <div class="console-window">
             @foreach (var text in Items)
             {
-                <div @key="@text">@text</div>
+                <div @key="@DateTime.Now.Ticks">@text</div>
             }
         </div>
     </div>
