@@ -54,6 +54,11 @@ namespace BootstrapBlazor.Components
                             builder.AddAttribute(i++, nameof(PopConfirmButton.OnConfirm), popButton.OnConfirm);
                             builder.AddAttribute(i++, nameof(PopConfirmButton.Icon), popButton.Icon);
                             builder.AddAttribute(i++, nameof(PopConfirmButton.Text), popButton.Text);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.ConfirmButtonColor), popButton.ConfirmButtonColor);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.ConfirmButtonText), popButton.ConfirmButtonText);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.CloseButtonColor), popButton.CloseButtonColor);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.CloseButtonText), popButton.CloseButtonText);
+                            builder.AddAttribute(i++, nameof(PopConfirmButton.Content), popButton.Content);
                             builder.CloseComponent();
                         }
                     }));

@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Components
             // 初始化每页显示数量
             if (IsPagination)
             {
-                PageItems = PageItemsSource?.FirstOrDefault() ?? QueryPageOptions.DefaultPageItems;
+                PageItems = PageItemsSource.FirstOrDefault();
 
                 if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(IsPagination)} be set True.");
             }

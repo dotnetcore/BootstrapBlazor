@@ -15,7 +15,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 每页显示数据数量的外部数据源
         /// </summary>
-        [Parameter] public IEnumerable<int>? PageItemsSource { get; set; }
+        [Parameter]
+        public IEnumerable<int> PageItemsSource { get; set; } = new int[] { 20, 50, 100, 200, 500, 1000 };
 
         /// <summary>
         /// 异步查询回调方法

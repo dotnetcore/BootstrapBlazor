@@ -19,7 +19,10 @@
                     }
                     @if (ShowDeleteButton)
                     {
-                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除" OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync" />
+                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除"
+                                                      OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
+                                                      CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
+                                                      ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
                     }
                 }
                 @TableToolbarTemplate
