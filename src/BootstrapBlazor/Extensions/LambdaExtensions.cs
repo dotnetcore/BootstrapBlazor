@@ -170,9 +170,21 @@ namespace System.Linq
 
         private static Expression Contains(this Expression left, Expression right)
         {
-            var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
-            return Expression.Call(left, method, right);
+            var method = typeof(LambdaExtensions).GetMethod("NullableContains", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(string), typeof(string) }, null);
+            return Expression.Call(null, method, left, right);
         }
+
+#nullable disable
+        private static bool NullableContains(string left, string right)
+        {
+            var ret = false;
+            if (left != null && right != null)
+            {
+                ret = left.Contains(right);
+            }
+            return ret;
+        }
+#nullable restore
 
         #region Sort
         /// <summary>
