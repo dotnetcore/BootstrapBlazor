@@ -174,7 +174,6 @@ namespace System.Linq
             return Expression.Call(null, method, left, right);
         }
 
-#nullable disable
         private static bool NullableContains(string left, string right)
         {
             var ret = false;
@@ -184,7 +183,6 @@ namespace System.Linq
             }
             return ret;
         }
-#nullable restore
 
         #region Sort
         /// <summary>
