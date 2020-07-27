@@ -8,9 +8,9 @@
     </div>
     <div class="card-body console-body" style="@BodyStyleString">
         <div class="console-window">
-            @foreach (var text in Items)
+            @foreach (var item in Items)
             {
-                <div @key="@DateTime.Now.Ticks">@text</div>
+                <div @key="@DateTime.Now.Ticks" class="@GetClassString(item)">@item.Message</div>
             }
         </div>
     </div>

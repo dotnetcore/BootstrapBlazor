@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -41,7 +42,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件绑定数据源
         /// </summary>
         [Parameter]
-        public IEnumerable<string> Items { get; set; } = new string[0];
+        public IEnumerable<ConsoleMessageItem> Items { get; set; } = Enumerable.Empty<ConsoleMessageItem>();
 
         /// <summary>
         /// 获得/设置 Header 显示文字 默认值为 系统监控
@@ -84,6 +85,18 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public int Height { get; set; }
+
+        /// <summary>
+        /// 获取消息样式
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected virtual string? GetClassString(ConsoleMessageItem item)
+        {
+            return CssBuilder.Default()
+                .AddClass($"text-{item.Color.ToDescriptionString()}", item.Color != Color.None)
+                .Build();
+        }
 
         /// <summary>
         /// 清空控制台消息方法

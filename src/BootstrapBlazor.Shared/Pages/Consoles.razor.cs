@@ -1,4 +1,5 @@
-﻿using BootstrapBlazor.Shared.Common;
+﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Common;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     sealed partial class Consoles : IDisposable
     {
-        private readonly BlockingCollection<string> _messages = new BlockingCollection<string>(new ConcurrentQueue<string>());
+        private readonly BlockingCollection<ConsoleMessageItem> _messages = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
+        private readonly BlockingCollection<ConsoleMessageItem> _messages2 = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
 
         private CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
 
-        private IEnumerable<string> Messages => _messages;
+        private IEnumerable<ConsoleMessageItem> Messages => _messages;
+        private IEnumerable<ConsoleMessageItem> ColorMessages => _messages2;
 
         /// <summary>
         /// 
@@ -33,7 +36,9 @@ namespace BootstrapBlazor.Shared.Pages
                     _locker.WaitOne();
                     if (!_messages.IsAddingCompleted)
                     {
-                        _messages.Add($"{DateTimeOffset.Now}: Dispatch Message");
+                        _messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
+
+                        _messages2.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
 
                         if (_messages.Count > 8)
                         {
@@ -46,6 +51,17 @@ namespace BootstrapBlazor.Shared.Pages
                 }
                 while (!_cancelTokenSource.IsCancellationRequested);
             });
+        }
+
+        private Color GetColor()
+        {
+            var second = DateTime.Now.Second;
+            return (second % 3) switch
+            {
+                1 => Color.Danger,
+                2 => Color.Info,
+                _ => Color.None
+            };
         }
 
         private AutoResetEvent _locker = new AutoResetEvent(true);

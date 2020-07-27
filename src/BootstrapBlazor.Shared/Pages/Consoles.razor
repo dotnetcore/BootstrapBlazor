@@ -12,4 +12,8 @@
     <Console Items="@Messages" Height="126" OnClear="@OnClear" />
 </Block>
 
+<Block Title="不同颜色的消息" Introduction="通过设置 <code>ConsoleMessageItem</code> 的 <code>Color</code> 参数进行对颜色的更改" CodeFile="console.3.html">
+    <Console Items="@ColorMessages" Height="126" OnClear="@OnClear" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
