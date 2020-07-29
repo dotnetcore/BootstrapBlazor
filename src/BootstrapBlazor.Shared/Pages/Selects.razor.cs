@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private Foo BindModel { get; set; } = new Foo();
+        private Foo BindModel { get; set; } = new Foo() { Name = "" };
 
         /// <summary>
         /// 获得/设置 Logger 实例
@@ -151,6 +151,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Items",
                 Description = "数据集合",
                 Type = "IEnumerable<SelectedItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "SelectItems",
+                Description = "静态数据模板",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "数据模板",
+                Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             }

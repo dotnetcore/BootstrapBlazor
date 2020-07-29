@@ -153,6 +153,20 @@
     </div>
 </Block>
 
+<Block Title="静态数据" Introduction="直接在 <code>Select</code> 组件内部进行硬编码书写，适用于静态数据下拉框" CodeFile="select.9.html">
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <Select TValue="string">
+                <SelectItems>
+                    <SelectItem Text="北京" Value="1" />
+                    <SelectItem Text="上海" Value="2" Active="true" />
+                    <SelectItem Text="广州" Value="3" />
+                </SelectItems>
+            </Select>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

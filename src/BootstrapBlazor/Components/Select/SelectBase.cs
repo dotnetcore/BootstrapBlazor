@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Select 组件基类
     /// </summary>
-    public abstract class SelectBase<TValue> : ValidateBase<TValue>
+    public abstract class SelectBase<TValue> : ValidateBase<TValue>, ISelectContainer
     {
         /// <summary>
         /// 获得 样式集合
@@ -92,35 +93,10 @@ namespace BootstrapBlazor.Components
         public EventCallback<SelectedItem> OnSelectedItemChanged { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
+        /// 
         /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-
-            // 双向绑定其他组件更改了数据源值时
-            if (Items != null && SelectedItem != null && SelectedItem.Value != CurrentValueAsString)
-            {
-                SelectedItem = Items.FirstOrDefault(i => i.Value == CurrentValueAsString);
-            }
-
-            // 设置数据集合后 SelectedItem 设置默认值
-            if (SelectedItem == null || !(Items?.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text) ?? false))
-            {
-                var item = Items?.FirstOrDefault(i => i.Active);
-                if (item == null) item = Items?.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? Items?.FirstOrDefault();
-                if (item != null)
-                {
-                    SelectedItem = item;
-                    if (Value != null && CurrentValueAsString != SelectedItem.Value)
-                    {
-                        item = Items.FirstOrDefault(i => i.Text == CurrentValueAsString);
-                        if (item != null) SelectedItem = item;
-                    }
-                    CurrentValueAsString = SelectedItem.Value;
-                }
-            }
-        }
+        [Parameter]
+        public RenderFragment? SelectItems { get; set; }
 
         /// <summary>
         /// 失去焦点时触发此方法
@@ -170,7 +146,38 @@ namespace BootstrapBlazor.Components
         /// 获得 分组数据
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<IGrouping<string, SelectedItem>> GetSelectedItems() => (Items ?? new SelectedItem[0]).GroupBy(i => i.GroupName);
+        protected IEnumerable<IGrouping<string, SelectedItem>> GetSelectedItems() => GetItems().GroupBy(i => i.GroupName);
+
+        private IEnumerable<SelectedItem> GetItems()
+        {
+            var items = Items?.ToList() ?? new List<SelectedItem>();
+            items.AddRange(Childs);
+
+            // 双向绑定其他组件更改了数据源值时
+            if (SelectedItem != null && SelectedItem.Value != CurrentValueAsString)
+            {
+                SelectedItem = items.FirstOrDefault(i => i.Value == CurrentValueAsString);
+            }
+
+            // 设置数据集合后 SelectedItem 设置默认值
+            if (SelectedItem == null || !items.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text))
+            {
+                var item = items.FirstOrDefault(i => i.Active);
+                if (item == null) item = items.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? items.FirstOrDefault();
+                if (item != null)
+                {
+                    SelectedItem = item;
+                    if (Value != null && CurrentValueAsString != SelectedItem.Value)
+                    {
+                        item = items.FirstOrDefault(i => i.Text == CurrentValueAsString);
+                        if (item != null) SelectedItem = item;
+                    }
+                    CurrentValueAsString = SelectedItem.Value;
+                }
+            }
+
+            return items;
+        }
 
         /// <summary>
         /// 更改组件数据源方法
@@ -179,7 +186,17 @@ namespace BootstrapBlazor.Components
         public void SetItems(IEnumerable<SelectedItem> items)
         {
             Items = items;
-            SelectedItem = Items.FirstOrDefault(i => i.Active);
+            SelectedItem = GetItems().FirstOrDefault(i => i.Active);
+        }
+
+        private List<SelectedItem> Childs { get; set; } = new List<SelectedItem>();
+        /// <summary>
+        /// 添加静态下拉项方法
+        /// </summary>
+        /// <param name="item"></param>
+        public void Add(SelectedItem item)
+        {
+            Childs.Add(item);
         }
 
         /// <summary>

@@ -7,22 +7,30 @@
     <label class="control-label" for="@InputId">@DisplayText</label>
 }
 <div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
-    <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" data-original-title="@ErrorMessage" value="@CurrentTextAsString" @onblur="@OnBlur" />
-    <span class="@ArrowClassName"><i class="fa fa-angle-up"></i></span>
-    <div class="dropdown-menu-arrow"></div>
-    <div class="dropdown-menu">
-        @foreach (var itemGroup in GetSelectedItems())
-        {
-            if (!string.IsNullOrEmpty(itemGroup.Key))
-            {
-                <Divider Text="@itemGroup.Key" />
-            }
-            @foreach (var item in itemGroup)
-            {
-                <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
-            }
+    <CascadingValue Value="this" IsFixed="true">
+        @SelectItems
+    </CascadingValue>
+    <RenderTemplate>
+        @{
+            var items = GetSelectedItems();
         }
-    </div>
+        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" data-original-title="@ErrorMessage" value="@CurrentTextAsString" @onblur="@OnBlur" />
+        <span class="@ArrowClassName"><i class="fa fa-angle-up"></i></span>
+        <div class="dropdown-menu-arrow"></div>
+        <div class="dropdown-menu">
+            @foreach (var itemGroup in items)
+            {
+                if (!string.IsNullOrEmpty(itemGroup.Key))
+                {
+                    <Divider Text="@itemGroup.Key" />
+                }
+                @foreach (var item in itemGroup)
+                {
+                    <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
+                }
+            }
+        </div>
+    </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
