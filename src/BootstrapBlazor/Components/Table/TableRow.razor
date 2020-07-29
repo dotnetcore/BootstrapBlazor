@@ -27,7 +27,7 @@ else
 
 @code {
     RenderFragment<TableRow<TItem>> RenderRow = row =>
-    @<TableRowTemplate>
+    @<RenderTemplate>
         <TableBodyContent TItem="TItem" Item="@row.Item" />
         @if (row.ShowExtendButtons)
         {
@@ -58,5 +58,5 @@ else
                 </div>
             </td>
         }
-    </TableRowTemplate>;
+    </RenderTemplate>;
 }
