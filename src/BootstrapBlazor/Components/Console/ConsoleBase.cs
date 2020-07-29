@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -10,6 +11,11 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class ConsoleBase : BootstrapComponentBase
     {
+        /// <summary>
+        /// 获得 Console 组件客户端引用实例
+        /// </summary>
+        protected ElementReference ConsoleElement { get; set; }
+
         /// <summary>
         /// 获得 组件样式
         /// </summary>
@@ -28,7 +34,7 @@ namespace BootstrapBlazor.Components
         /// 获得 Footer 样式
         /// </summary>
         protected string? FooterClassString => CssBuilder.Default("card-footer text-right")
-            .AddClass("d-none", OnClear == null)
+            .AddClass("d-none", OnClear == null && !ShowAutoScroll)
             .Build();
 
         /// <summary>
@@ -37,6 +43,19 @@ namespace BootstrapBlazor.Components
         protected string? ClearButtonClassString => CssBuilder.Default("btn btn-secondary")
             .AddClass($"btn-{ClearButtonColor.ToDescriptionString()}", ClearButtonColor != Color.None)
             .Build();
+
+        /// <summary>
+        /// 获得 客户端是否自动滚屏样式字符串
+        /// </summary>
+        protected string? AutoScrollClassString => CssBuilder.Default("fa text-left")
+            .AddClass("fa-check-square-o", IsAutoScroll)
+            .AddClass("fa-square-o", !IsAutoScroll)
+            .Build();
+
+        /// <summary>
+        /// 获得 客户端是否自动滚屏标识
+        /// </summary>
+        protected string? AutoScrollString => (IsAutoScroll && ShowAutoScroll) ? "auto" : null;
 
         /// <summary>
         /// 获得/设置 组件绑定数据源
@@ -55,6 +74,18 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string LightTitle { get; set; } = "通讯指示灯";
+
+        /// <summary>
+        /// 获得/设置 是否显示自动滚屏选项 默认 false
+        /// </summary>
+        [Parameter]
+        public bool ShowAutoScroll { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否自动滚屏默认 true
+        /// </summary>
+        [Parameter]
+        public bool IsAutoScroll { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 按钮 显示文字 默认值为 清屏
@@ -85,6 +116,26 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public int Height { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            JSRuntime?.Invoke(ConsoleElement, "bb_console_log");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void ClickAutoScroll()
+        {
+            IsAutoScroll = !IsAutoScroll;
+        }
 
         /// <summary>
         /// 获取消息样式

@@ -1,12 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ConsoleBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="@ConsoleElement">
     <div class="card-header d-flex">
         <span class="flex-fill">@HeaderText</span>
         <Light IsFlash="true" Title="@LightTitle" Color="@Color.Success"></Light>
     </div>
-    <div class="card-body console-body" style="@BodyStyleString">
+    <div class="card-body console-body" data-scroll="@AutoScrollString" style="@BodyStyleString">
         <div class="console-window">
             @foreach (var item in Items)
             {
@@ -15,9 +15,19 @@
         </div>
     </div>
     <div class="@FooterClassString">
-        <button type="button" class="@ClearButtonClassString" @onclick="@ClearConsole">
-            <i class="@ClearButtonIcon"></i>
-            <span>@ClearButtonText</span>
-        </button>
+        @if (ShowAutoScroll)
+        {
+            <a class="btn" style="cursor: pointer;" @onclick="@ClickAutoScroll">
+                <i class="@AutoScrollClassString" style="width: 13px;"></i>
+                <span>自动滚屏</span>
+            </a>
+        }
+        @if (OnClear != null)
+        {
+            <button type="button" class="@ClearButtonClassString" @onclick="@ClearConsole">
+                <i class="@ClearButtonIcon"></i>
+                <span>@ClearButtonText</span>
+            </button>
+        }
     </div>
 </div>

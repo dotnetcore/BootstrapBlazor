@@ -13,7 +13,11 @@
 </Block>
 
 <Block Title="不同颜色的消息" Introduction="通过设置 <code>ConsoleMessageItem</code> 的 <code>Color</code> 参数进行对颜色的更改" CodeFile="console.3.html">
-    <Console Items="@ColorMessages" Height="126" OnClear="@OnClear" />
+    <Console Items="@ColorMessages" Height="126" />
+</Block>
+
+<Block Title="自动滚屏" Introduction="通过设置 <code>ShowAutoScroll</code> 属性值开启或者关闭自动滚屏功能" CodeFile="console.4.html">
+    <Console Items="@Messages" Height="126" ShowAutoScroll="true" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

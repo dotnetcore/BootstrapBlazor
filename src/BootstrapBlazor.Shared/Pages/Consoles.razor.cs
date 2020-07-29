@@ -44,6 +44,11 @@ namespace BootstrapBlazor.Shared.Pages
                         {
                             _messages.TryTake(out var _);
                         }
+
+                        if (_messages2.Count > 12)
+                        {
+                            _messages2.TryTake(out var _);
+                        }
                         await InvokeAsync(StateHasChanged);
                     }
                     _locker.Set();
@@ -100,6 +105,13 @@ namespace BootstrapBlazor.Shared.Pages
                     Type = "int",
                     ValueList = " — ",
                     DefaultValue = "0"
+                },
+                new AttributeItem(){
+                    Name = "ShowAutoScroll",
+                    Description = "是否显示自动滚屏选项",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
                 },
                 new AttributeItem(){
                     Name = "OnClear",
