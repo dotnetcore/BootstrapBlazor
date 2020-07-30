@@ -26,6 +26,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            if (Size == Size.None) Size = Size.ExtraSmall;
+
             var onClick = OnClick;
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {

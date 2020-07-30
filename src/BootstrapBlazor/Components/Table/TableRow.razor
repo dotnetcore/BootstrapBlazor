@@ -38,10 +38,7 @@ else
                         {
                             @if (row.ShowEditButton)
                             {
-                                <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@row.Item" OnClickCallback="@row.OnClickEditButton">
-                                    <i class='fa fa-edit'></i>
-                                    <span>编辑</span>
-                                </TableCellButton>
+                                <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@row.Item" OnClickCallback="@row.OnClickEditButton" Icon="fa fa-fw fa-edit" Text="编辑" />
                             }
                             @if (row.ShowDeleteButton)
                             {
