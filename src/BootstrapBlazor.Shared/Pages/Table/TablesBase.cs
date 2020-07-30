@@ -205,10 +205,10 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "ClickToSelect",
-                Description = "行操作按钮列宽度",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "130"
+                Description = "单选模式下点击行即选中本行",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowCheckboxText",
