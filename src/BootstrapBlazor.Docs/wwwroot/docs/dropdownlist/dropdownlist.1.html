@@ -1,0 +1,17 @@
+<DropdownListPreview Data="@Items"
+                        @bind-Value="@ValueField"
+                        TextField="Text"
+                        ValueField="Value">
+</DropdownListPreview>
+<div>双向绑定对象值：@ValueField</div>
+
+@code {
+    private object ValueField { get; set; } = "2";
+
+    private List<SelectedItem> Items { get; set; } = new List<SelectedItem>
+    {
+        new SelectedItem{ Text="北京",Value="0"},
+        new SelectedItem{ Text="上海",Value="1"},
+        new SelectedItem{ Text="广州",Value="2"},
+    };
+}

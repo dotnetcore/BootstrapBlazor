@@ -1,0 +1,18 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits DropdownListBase<TValue>
+
+<div data-toggle="lgbSelect" class="@ClassName">
+    <input type="text" readonly class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" value="@Text"  />
+    <span class="@ArrowClassName"><i class="fa fa-angle-up"></i></span>
+    <div class="dropdown-menu-arrow"></div>
+    <div class="dropdown-menu">
+        @if (Data != null)
+        {
+            @foreach (var item in Data)
+            {
+                <div class="@ActiveItem(item)" data-val="@GetValue(item)" @onclick="@(e => OnItemClick(item))">@GetText(item)</div>
+            }
+        }
+    </div>
+</div>

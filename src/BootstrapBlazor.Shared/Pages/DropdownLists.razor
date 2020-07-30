@@ -1,0 +1,26 @@
+﻿@page "/dropdownlists"
+
+<h3>DropdownList 下拉菜单准备替换 Select 组件</h3>
+
+<h4>将动作或菜单折叠到下拉菜单中</h4>
+
+<Block Title="基础用法" Introduction="通过设置 <code>ValueField</code> 与 <code>TextField</code> 对数据源的字段进行显示" CodeFile="dropdownlist.1.html">
+    <p>组件数据源为 <code>IEnumerable&lt;object&gt;</code> 类型，可以绑定任意集合，<code>TextField</code> 设置数据源模型中显示为文本的字段名称，<code>ValueField</code> 设置数据源模型中选中值得字段名称，通过 <code>@@bind-Value</code> 属性设置组件与变量值之间双向绑定。</p>
+    <DropdownListPreview Data="@Items"
+                         @bind-Value="@ValueField"
+                         TextField="Text"
+                         ValueField="Value">
+    </DropdownListPreview>
+    <div>双向绑定对象值：@ValueField</div>
+</Block>
+
+@code {
+    private object ValueField { get; set; } = "2";
+
+    private List<SelectedItem> Items { get; set; } = new List<SelectedItem>
+{
+        new SelectedItem{ Text="北京",Value="0"},
+        new SelectedItem{ Text="上海",Value="1"},
+        new SelectedItem{ Text="广州",Value="2"},
+    };
+}
