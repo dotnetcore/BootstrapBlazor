@@ -13,15 +13,26 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Timelines
     {
-        private readonly BlockingCollection<string> _messages = new BlockingCollection<string>(new ConcurrentQueue<string>());
+        private readonly BlockingCollection<ConsoleMessageItem> _messages = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
 
         private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
 
         private readonly AutoResetEvent _locker = new AutoResetEvent(true);
 
-        private IEnumerable<string> Messages => _messages;
+        private IEnumerable<ConsoleMessageItem> Messages => _messages;
 
         private bool IsReverse { get; set; }
+
+        private Color GetColor()
+        {
+            var second = DateTime.Now.Second;
+            return (second % 3) switch
+            {
+                1 => Color.Danger,
+                2 => Color.Info,
+                _ => Color.None
+            };
+        }
 
         /// <summary>
         /// 
@@ -38,7 +49,7 @@ namespace BootstrapBlazor.Shared.Pages
                     _locker.WaitOne();
                     if (!_messages.IsAddingCompleted)
                     {
-                        _messages.Add($"{DateTimeOffset.Now}: Dispatch Message");
+                        _messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
 
                         if (_messages.Count > 8)
                         {
