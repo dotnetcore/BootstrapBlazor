@@ -1627,6 +1627,10 @@ input:disabled,
     .form-inline input.form-control {
         width: 196px;
     }
+
+    .input-group input.form-control {
+        width: 1%;
+    }
 }
 /*end datetimepicker*/
 
