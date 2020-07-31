@@ -15,11 +15,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 显示标题
         /// </summary>
-        [Parameter] public override string Title { get; set; } = "Popover";
+        [Parameter]
+        public override string Title { get; set; } = "Popover";
 
         /// <summary>
         /// 获得/设置 显示文字
         /// </summary>
-        [Parameter] public override string Content { get; set; } = "Popover";
+        [Parameter]
+        public override string Content { get; set; } = "Popover";
     }
 }

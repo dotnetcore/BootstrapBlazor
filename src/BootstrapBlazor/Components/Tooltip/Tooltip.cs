@@ -20,17 +20,26 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 显示文字是否为 Html 默认为 false
         /// </summary>
-        [Parameter] public bool IsHtml { get; set; }
+        [Parameter]
+        public bool IsHtml { get; set; }
 
         /// <summary>
         /// 获得/设置 位置 默认为 Placement.Auto
         /// </summary>
-        [Parameter] public Placement Placement { get; set; }
+        [Parameter]
+        public Placement Placement { get; set; }
 
         /// <summary>
         /// 获得/设置 显示文字
         /// </summary>
-        [Parameter] public virtual string Title { get; set; } = "Tooltip";
+        [Parameter]
+        public virtual string Title { get; set; } = "Tooltip";
+
+        /// <summary>
+        /// 获得/设置 触发方式 可组合 click focus hover 默认为 click
+        /// </summary>
+        [Parameter]
+        public string? Trigger { get; set; }
 
         /// <summary>
         /// 获得/设置 ITooltip 实例

@@ -344,6 +344,25 @@ namespace BootstrapBlazor.Components
             IsShowLabel = ShowLabel || EditForm != null;
         }
 
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (Tooltip != null && firstRender)
+            {
+                if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+                if (!AdditionalAttributes.TryGetValue("data-trigger", out var _))
+                {
+                    AdditionalAttributes["data-trigger"] = "focus";
+                }
+            }
+
+            await base.OnAfterRenderAsync(firstRender);
+        }
+
         #region Validation
         /// <summary>
         /// 调用 Tooltip 脚本方法

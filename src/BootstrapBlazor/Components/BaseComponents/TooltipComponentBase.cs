@@ -31,6 +31,13 @@ namespace BootstrapBlazor.Components
                 {
                     if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
                     AdditionalAttributes["data-placement"] = Tooltip.Placement.ToDescriptionString();
+
+                    if (!AdditionalAttributes.TryGetValue("data-trigger", out var _) && !string.IsNullOrEmpty(Tooltip.Trigger))
+                    {
+                        AdditionalAttributes["data-trigger"] = Tooltip.Trigger;
+                    }
+
+                    // 更新客户端
                     await InvokeAsync(StateHasChanged).ConfigureAwait(false);
 
                     // 增加一个延时保证客户端生成 Id
@@ -50,18 +57,37 @@ namespace BootstrapBlazor.Components
         {
             if (firstRender && Tooltip != null)
             {
-                JSRuntime.Tooltip(Id, "", Tooltip.PopoverType, RetrieveTitle(), RetrieveContent(), Tooltip.IsHtml);
+                JSRuntime.Tooltip(Id, "", Tooltip.PopoverType, RetrieveTitle(), RetrieveContent(), RetrieveIsHtml());
             }
         }
 
-        private string RetrieveTitle()
+        /// <summary>
+        /// 获得 弹窗标题方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string RetrieveTitle()
         {
             return Tooltip != null ? Tooltip.Title : "";
         }
 
-        private string RetrieveContent()
+        /// <summary>
+        /// 获得 弹窗内容方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string RetrieveContent()
         {
-            return Tooltip != null ? (Tooltip.PopoverType == PopoverType.Popover ? Tooltip.Content : "") : "";
+            return Tooltip != null
+                ? (Tooltip.PopoverType == PopoverType.Popover ? Tooltip.Content : "")
+                : "";
+        }
+
+        /// <summary>
+        /// 获得 弹窗内容是否为 Html 方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool RetrieveIsHtml()
+        {
+            return Tooltip?.IsHtml ?? false;
         }
 
         /// <summary>

@@ -29,5 +29,10 @@
         /// 获得/设置 弹出方式 默认为 Tooltip
         /// </summary>
         PopoverType PopoverType { get; set; }
+
+        /// <summary>
+        /// 获得/设置 触发方式 可组合 click focus hover 默认为 click
+        /// </summary>
+        string? Trigger { get; set; }
     }
 }
