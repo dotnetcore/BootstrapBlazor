@@ -12,19 +12,42 @@ namespace BootstrapBlazor.Components
     public abstract class TabBase : BootstrapComponentBase
     {
         /// <summary>
+        /// 
+        /// </summary>
+        protected bool FirstRender { get; private set; } = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
+            .AddClass("d-none", !item.IsActive)
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        protected string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
+            .AddClass("is-active", active)
+            .AddClass("is-closeable", ShowClose)
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="icon"></param>
+        /// <returns></returns>
+        protected string? GetIconClassString(string icon) => CssBuilder.Default("fa fa-fw")
+            .AddClass(icon)
+            .Build();
+
+        /// <summary>
         /// 获得/设置 Tab 组件 DOM 实例
         /// </summary>
         protected ElementReference TabElement { get; set; }
-
-        /// <summary>
-        /// 获得/设置 TabContent 实例
-        /// </summary>
-        protected TabContent? TabContent { get; set; }
-
-        /// <summary>
-        /// 获得/设置 tabHeader 实例
-        /// </summary>
-        protected TabHeader? TabHeader { get; set; }
 
         /// <summary>
         /// 获得 Tab 组件样式
@@ -90,7 +113,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击 TabItem 时回调方法
         /// </summary>
         [Parameter]
-        public Func<TabItem, Task> OnClickTab { get; set; } = i => Task.CompletedTask;
+        public Func<TabItem, Task>? OnClickTab { get; set; }
 
         /// <summary>
         /// OnAfterRender 方法
@@ -98,9 +121,11 @@ namespace BootstrapBlazor.Components
         /// <param name="firstRender"></param>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            FirstRender = firstRender;
+
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) await ReActiveTab();
+            await ReActiveTab();
         }
 
         /// <summary>
@@ -108,8 +133,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected virtual async Task OnClickTabItem(TabItem item)
         {
-            TabContent?.Render();
-            await OnClickTab.Invoke(item);
+            Items.ToList().ForEach(i => i.SetActive(false));
+            item.SetActive(true);
+            if (OnClickTab != null) await OnClickTab(item);
         }
 
         /// <summary>
@@ -128,7 +154,6 @@ namespace BootstrapBlazor.Components
                     if (index < 0) index = _items.Count - 1;
                     item = Items.ElementAt(index);
                     item.SetActive(true);
-                    TabContent?.Render();
                 }
             }
         }
@@ -149,7 +174,6 @@ namespace BootstrapBlazor.Components
                     if (index + 1 > _items.Count) index = 0;
                     item = Items.ElementAt(index);
                     item.SetActive(true);
-                    TabContent?.Render();
                 }
             }
         }
@@ -181,9 +205,7 @@ namespace BootstrapBlazor.Components
                 _items.Add(item);
                 item.SetActive(true);
             }
-
-            TabHeader?.Render();
-            TabContent?.Render();
+            StateHasChanged();
             return Task.CompletedTask;
         }
 
@@ -211,7 +233,6 @@ namespace BootstrapBlazor.Components
                 }
                 if (activeItem != null) activeItem.SetActive(true);
             }
-            TabContent?.Render();
             return Task.CompletedTask;
         }
 
@@ -223,8 +244,6 @@ namespace BootstrapBlazor.Components
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
-            TabHeader?.Render();
-            TabContent?.Render();
             return Task.CompletedTask;
         }
     }

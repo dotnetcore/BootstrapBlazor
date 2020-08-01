@@ -12,17 +12,46 @@
                         <div class="tabs-active-bar"></div>
                     }
                     <CascadingValue Value="this" IsFixed="true">
-                        <TabHeader @ref="TabHeader" OnClickTab="@OnClickTabItem" />
                         @ChildContent
                     </CascadingValue>
+                    <RenderTemplate>
+                        @if (FirstRender)
+                        {
+                            if (!Items.Any(t => t.IsActive))
+                            {
+                                Items.FirstOrDefault()?.SetActive(true);
+                            }
+                        }
+                        @foreach (var item in Items)
+                        {
+                            <div role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" @onclick="@(e =>OnClickTabItem(item))">
+                                @if (!string.IsNullOrEmpty(item.Icon))
+                                {
+                                    <i class="@GetIconClassString(item.Icon)"></i>
+                                }
+                                <span class="tabs-item-text">@item.Text</span>
+                                @if (ShowClose)
+                                {
+                                    <span class="tabs-item-close" @onclick:stopPropagation @onclick="@(e => Remove(item))">
+                                        <i class="fa fa-fw fa-close"></i>
+                                    </span>
+                                }
+                            </div>
+                        }
+                    </RenderTemplate>
                 </div>
             </div>
             <span class="tabs-nav-next" @onclick="@ClickNextTab"><i class="fa fa-angle-right"></i></span>
         </div>
     </div>
     <div class="tabs-body">
-        <CascadingValue Value="this" IsFixed="true">
-            <TabContent @ref="TabContent" />
-        </CascadingValue>
+        <RenderTemplate>
+            @foreach (var item in Items)
+            {
+                <div class="@GetContentClassString(item)">
+                    @item.ChildContent
+                </div>
+            }
+        </RenderTemplate>
     </div>
 </div>
