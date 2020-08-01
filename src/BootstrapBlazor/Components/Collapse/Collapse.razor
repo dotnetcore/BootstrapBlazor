@@ -3,7 +3,27 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="CollapseElement">
     <CascadingValue Value="this" IsFixed="true">
-        <CollapseContent OnClick="@OnItemClick" />
         @CollapseItems
     </CascadingValue>
+    <RenderTemplate>
+        @foreach (var item in Items)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-wrapper">
+                        <button class="@GetButtonClassString(item.IsCollapsed)" type="button" data-toggle="collapse" aria-expanded="@(item.IsCollapsed ? "false" : "true")">@item.Text</button>
+                        @if (ShowArrow)
+                        {
+                            <i class="fa fa-angle-down"></i>
+                        }
+                    </div>
+                </div>
+                <div class="@GetClassString(item.IsCollapsed)" @onclick="@(e => OnItemClick(item))">
+                    <div class="card-body">
+                        @item.ChildContent
+                    </div>
+                </div>
+            </div>
+        }
+    </RenderTemplate>
 </div>

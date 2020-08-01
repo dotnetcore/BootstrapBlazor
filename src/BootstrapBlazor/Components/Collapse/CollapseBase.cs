@@ -10,6 +10,25 @@ namespace BootstrapBlazor.Components
     public abstract class CollapseBase : BootstrapComponentBase
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collapsed"></param>
+        /// <returns></returns>
+        protected string? GetButtonClassString(bool collapsed) => CssBuilder.Default("btn btn-link")
+            .AddClass("collapsed", collapsed)
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collpased"></param>
+        /// <returns></returns>
+        protected string? GetClassString(bool collpased) => CssBuilder.Default("collapse-item")
+            .AddClass("collapse", collpased)
+            .AddClass("collapse show", !collpased)
+            .Build();
+
+        /// <summary>
         /// 获得 按钮样式集合
         /// </summary>
         protected virtual string? ClassString => CssBuilder.Default("accordion")
@@ -70,10 +89,10 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         protected virtual void OnItemClick(CollapseItem item)
         {
-            foreach (var tab in Items)
+            foreach (var collapseItem in Items)
             {
-                var isActive = tab.Text == item.Text;
-                tab.SetCollapsed(isActive);
+                var isActive = collapseItem.Text == item.Text;
+                collapseItem.SetCollapsed(isActive);
             }
         }
     }
