@@ -84,6 +84,27 @@ namespace BootstrapBlazor.Shared.Pages
             _locker.Set();
         }
 
+        private IEnumerable<AttributeItem> GetItemAttributes()
+        {
+            return new AttributeItem[]
+            {
+                new AttributeItem(){
+                    Name = "Message",
+                    Description = "控制台输出消息",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem(){
+                    Name = "Color",
+                    Description = "消息颜色",
+                    Type = "Color",
+                    ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+                    DefaultValue = "None"
+                }
+            };
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -95,7 +116,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem(){
                     Name = "Items",
                     Description = "组件数据源",
-                    Type = "IEnumerable<string>",
+                    Type = "IEnumerable<ConsoleMessageItem>",
                     ValueList = " — ",
                     DefaultValue = " — "
                 },
