@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components
     public partial class ToastBox
     {
         /// <summary>
+        /// ToastBox HTML 实例引用
+        /// </summary>
+        protected ElementReference ToastBoxElement { get; set; }
+
+        /// <summary>
         /// 获得/设置 弹出框类型
         /// </summary>
         protected string? AutoHide => !IsAutoHide ? "false" : null;
@@ -50,9 +55,9 @@ namespace BootstrapBlazor.Components
         [Parameter] public ToastCategory Category { get; set; }
 
         /// <summary>
-        /// 获得/设置 显示标题
+        /// 获得/设置 显示标题 默认为 未设置
         /// </summary>
-        [Parameter] public string Title { get; set; } = "Toast";
+        [Parameter] public string Title { get; set; } = "未设置";
 
         /// <summary>
         /// 获得/设置 Toast Body 子组件
@@ -87,10 +92,10 @@ namespace BootstrapBlazor.Components
             // 执行客户端动画
             if (firstRender && JSRuntime != null)
             {
-                if (Toast != null && !string.IsNullOrEmpty(Id))
+                if (Toast != null)
                 {
                     _interop = new JSInterop<Toast>(JSRuntime);
-                    await _interop.Invoke(Toast, Id, "showToast", nameof(ToastBase.Clear));
+                    await _interop.Invoke(Toast, ToastBoxElement, "showToast", nameof(ToastBase.Clear));
                 }
             }
         }

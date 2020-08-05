@@ -949,12 +949,12 @@
                 $el.close();
             });
         },
-        showToast: function (id, toast, method) {
+        showToast: function (el, toast, method) {
             // 记录 Id
-            Toasts.push(id);
+            Toasts.push(el);
 
             // 动画弹出
-            var $toast = $('#' + id);
+            var $toast = $(el);
 
             // check autohide
             var autoHide = $toast.attr('data-autohide') !== 'false';
@@ -990,7 +990,7 @@
                     $toast.removeClass('d-block');
 
                     // remove Id
-                    Toasts.remove($toast.attr('id'));
+                    Toasts.remove($toast[0]);
                     if (Toasts.length === 0) {
                         // call server method prepare remove dom
                         toast.invokeMethodAsync(method);

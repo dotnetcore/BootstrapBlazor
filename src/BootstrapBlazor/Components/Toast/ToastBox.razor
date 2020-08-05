@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits IdComponentBase
+@inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="@AutoHide" data-delay="@DelayString">
+<div @attributes="@AdditionalAttributes" @ref="ToastBoxElement" class="@ClassName" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="@AutoHide" data-delay="@DelayString">
     <div class="toast-header">
         <div class="toast-bar mr-2">
             <i class="@IconString"></i>

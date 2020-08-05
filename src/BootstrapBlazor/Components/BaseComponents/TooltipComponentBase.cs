@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (Tooltip != null) InvokeTooltip(firstRender);
+            InvokeTooltip(firstRender);
         }
 
         /// <summary>
