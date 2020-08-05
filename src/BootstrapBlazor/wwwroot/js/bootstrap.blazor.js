@@ -1081,6 +1081,7 @@
             var $ele = $('#' + id);
             if (method === "") {
                 var op = { html: html, sanitize: false, title: title, content: content };
+                $ele.popover('dispose')
                 $ele.popover(op);
             }
             else {
