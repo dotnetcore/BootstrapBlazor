@@ -167,7 +167,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击元素事件
         /// </summary>
-        /// <param name="e"></param>
         /// <param name="item"></param>
         /// <returns></returns>
         protected async Task OnClick(TItem item)

@@ -85,13 +85,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         RenderFragment<object>? ITableColumn.Template
         {
-            get => this.Template == null ? null : new RenderFragment<object>(context => builder =>
+            get => Template == null ? null : new RenderFragment<object>(context => builder =>
             {
                 // 此处 context 为行数据
                 // 将绑定字段值放入上下文中
                 var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => context.GetPropertyValueLambda<object, TItem>(key.FieldName).Compile());
                 var value = invoker(context);
-                builder.AddContent(0, this.Template.Invoke(new TableColumnContext<object, TItem>() { Row = context, Value = value }));
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TItem>() { Row = context, Value = value }));
             });
         }
 
