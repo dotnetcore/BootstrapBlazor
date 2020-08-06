@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -153,27 +152,34 @@ namespace BootstrapBlazor.Components
             var items = Items?.ToList() ?? new List<SelectedItem>();
             items.AddRange(Childs);
 
-            // 双向绑定其他组件更改了数据源值时
-            if (SelectedItem != null && SelectedItem.Value != CurrentValueAsString)
+            if (items.Any())
             {
-                SelectedItem = items.FirstOrDefault(i => i.Value == CurrentValueAsString);
-            }
-
-            // 设置数据集合后 SelectedItem 设置默认值
-            if (SelectedItem == null || !items.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text))
-            {
-                var item = items.FirstOrDefault(i => i.Active);
-                if (item == null) item = items.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? items.FirstOrDefault();
-                if (item != null)
+                // 双向绑定其他组件更改了数据源值时
+                if (SelectedItem != null && SelectedItem.Value != CurrentValueAsString)
                 {
-                    SelectedItem = item;
-                    if (Value != null && CurrentValueAsString != SelectedItem.Value)
-                    {
-                        item = items.FirstOrDefault(i => i.Text == CurrentValueAsString);
-                        if (item != null) SelectedItem = item;
-                    }
-                    CurrentValueAsString = SelectedItem.Value;
+                    SelectedItem = items.FirstOrDefault(i => i.Value == CurrentValueAsString);
                 }
+
+                // 设置数据集合后 SelectedItem 设置默认值
+                if (SelectedItem == null || !items.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text))
+                {
+                    var item = items.FirstOrDefault(i => i.Active);
+                    if (item == null) item = items.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? items.FirstOrDefault();
+                    if (item != null)
+                    {
+                        SelectedItem = item;
+                        if (Value != null && CurrentValueAsString != SelectedItem.Value)
+                        {
+                            item = items.FirstOrDefault(i => i.Text == CurrentValueAsString);
+                            if (item != null) SelectedItem = item;
+                        }
+                        CurrentValueAsString = SelectedItem.Value;
+                    }
+                }
+            }
+            else
+            {
+                SelectedItem = null;
             }
 
             return items;

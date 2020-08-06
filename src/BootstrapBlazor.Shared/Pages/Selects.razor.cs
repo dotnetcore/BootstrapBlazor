@@ -32,7 +32,18 @@ namespace BootstrapBlazor.Shared.Pages
         private readonly IEnumerable<SelectedItem> Items = new SelectedItem[]
         {
             new SelectedItem ("Beijing", "北京"),
-            new SelectedItem ("Shanghai", "上海") { Active = true }
+            new SelectedItem ("Shanghai", "上海") { Active = true },
+        };
+
+        /// <summary>
+        /// 获得 默认数据集合
+        /// </summary>
+        private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
+        {
+            new SelectedItem ("", "请选择 ..."),
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Hangzhou", "杭州")
         };
 
         private readonly IEnumerable<SelectedItem> GroupItems = new SelectedItem[]
