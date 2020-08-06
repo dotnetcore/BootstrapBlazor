@@ -38,6 +38,11 @@ namespace BootstrapBlazor.Components
         bool Filterable { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否参与搜索 默认为 false
+        /// </summary>
+        bool Searchable { get; set; }
+
+        /// <summary>
         /// 获得/设置 列宽
         /// </summary>
         int Width { get; set; }

@@ -48,17 +48,20 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 SearchTemplate 实例
         /// </summary>
-        [Parameter] public RenderFragment<TItem>? SearchTemplate { get; set; }
+        [Parameter]
+        public RenderFragment<TItem>? SearchTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 SearchModel 实例
         /// </summary>
-        [Parameter] public TItem SearchModel { get; set; } = new TItem();
+        [Parameter]
+        public TItem SearchModel { get; set; } = new TItem();
 
         /// <summary>
         /// 获得/设置 是否显示搜索框 默认为 false 不显示搜索框
         /// </summary>
-        [Parameter] public bool ShowSearch { get; set; }
+        [Parameter]
+        public bool ShowSearch { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示高级搜索按钮 默认显示
@@ -69,17 +72,20 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 搜索关键字
         /// </summary>
-        [Parameter] public string SearchText { get; set; } = "";
+        [Parameter]
+        public string SearchText { get; set; } = "";
 
         /// <summary>
         /// 获得/设置 搜索关键字改变事件
         /// </summary>
-        [Parameter] public EventCallback<string> SearchTextChanged { get; set; }
+        [Parameter]
+        public EventCallback<string> SearchTextChanged { get; set; }
 
         /// <summary>
         /// 重置搜索按钮异步回调方法
         /// </summary>
-        [Parameter] public Func<TItem, Task>? OnResetSearchAsync { get; set; }
+        [Parameter]
+        public Func<TItem, Task>? OnResetSearchAsync { get; set; }
 
         /// <summary>
         /// 重置查询方法
@@ -87,6 +93,7 @@ namespace BootstrapBlazor.Components
         protected async Task ResetSearchClick()
         {
             if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
+            else if (SearchTemplate == null) SearchModel.Reset();
             await SearchClick();
         }
 
@@ -96,9 +103,9 @@ namespace BootstrapBlazor.Components
         protected async Task SearchClick()
         {
             // 查询控件按钮触发此事件
-            // 拼接 Searchs 通过 SearchModel 遍历属性值获取搜索条件 未完待续
+            // TODO: 拼接 Searchs 通过 SearchModel 遍历属性值获取搜索条件 未完待续
             Searchs.Clear();
-            
+
             PageIndex = 1;
             await QueryAsync();
         }
@@ -118,9 +125,7 @@ namespace BootstrapBlazor.Components
         protected async Task ClearSearchClick()
         {
             SearchText = "";
-            PageIndex = 1;
-            if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
-            await QueryAsync();
+            await ResetSearchClick();
         }
 
         /// <summary>

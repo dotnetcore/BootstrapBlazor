@@ -9,9 +9,8 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
-           SearchModel="@SearchModel"
            OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
@@ -48,18 +47,6 @@
                 </div>
             </div>
         </EditTemplate>
-        <SearchTemplate>
-            <div class="form-inline">
-                <div class="row">
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="姓名" />
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="地址" />
-                    </div>
-                </div>
-            </div>
-        </SearchTemplate>
     </Table>
 </Block>
 
@@ -70,7 +57,7 @@
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">

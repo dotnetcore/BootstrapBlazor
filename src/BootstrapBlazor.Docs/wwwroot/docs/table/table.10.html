@@ -1,9 +1,8 @@
 ﻿<Table TItem="BindItem"
        IsPagination="true" PageItemsSource="@PageItemsSource"
        IsStriped="true" IsBordered="true"
-       ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+       ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
        AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
-       SearchModel="@SearchModel"
        OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
        OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
     <TableColumns>

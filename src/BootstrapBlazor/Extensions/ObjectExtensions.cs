@@ -55,6 +55,19 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 重置对象属性值到默认值方法
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        public static void Reset<TItem>(this TItem source) where TItem : class, new()
+        {
+            var v = new TItem();
+            foreach (var pi in source.GetType().GetProperties())
+            {
+                pi.SetValue(source, v.GetType().GetProperty(pi.Name).GetValue(v));
+            }
+        }
+
+        /// <summary>
         /// 转化为带单位的字符串 [% px] => [% px] [int] => [int]px
         /// </summary>
         /// <param name="val"></param>

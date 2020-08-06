@@ -45,6 +45,12 @@ namespace BootstrapBlazor.Components
         public bool Filterable { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否参与搜索自动生成 默认 false
+        /// </summary>
+        [Parameter]
+        public bool Searchable { get; set; }
+
+        /// <summary>
         /// 获得/设置 表头显示文字
         /// </summary>
         [Parameter]

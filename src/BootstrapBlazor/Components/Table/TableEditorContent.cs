@@ -21,6 +21,12 @@ namespace BootstrapBlazor.Components
         public TModel? Model { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示前置文字 默认 false 
+        /// </summary>
+        [Parameter]
+        public bool IsSearch { get; set; }
+
+        /// <summary>
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]
@@ -35,7 +41,7 @@ namespace BootstrapBlazor.Components
             if (Collections != null)
             {
                 var index = 0;
-                foreach (var mem in Collections.Columns)
+                foreach (var mem in Collections.Columns.Where(col => IsSearch ? col.Searchable : true))
                 {
                     builder.OpenElement(index++, "div");
                     builder.AddAttribute(index++, "class", "form-group col-12 col-sm-6");
@@ -83,6 +89,11 @@ namespace BootstrapBlazor.Components
                     default:
                         break;
                 }
+            }
+
+            if (IsSearch)
+            {
+                ret.Add(new KeyValuePair<string, object>("ShowLabel", true));
             }
             return ret;
         }

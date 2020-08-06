@@ -329,6 +329,12 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new MenuItem()
             {
+                Text = "搜索功能",
+                Url = "tables/search"
+            });
+
+            it.AddItem(new MenuItem()
+            {
                 Text = "过滤功能",
                 Url = "tables/filter"
             });

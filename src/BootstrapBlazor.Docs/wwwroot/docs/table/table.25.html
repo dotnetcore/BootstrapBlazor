@@ -1,0 +1,18 @@
+<Table TItem="BindItem"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
+        ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+        AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+        OnQueryAsync="@OnEditQueryAsync"
+        OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
+        <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" Searchable="true" />
+        <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" Searchable="true" />
+        <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+    </TableColumns>
+</Table>
+
+@code {
+    // 代码请参考其他示例
+}

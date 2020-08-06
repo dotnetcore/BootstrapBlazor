@@ -31,7 +31,8 @@
             {
                 <div class="float-right table-toolbar-button table-column-right">
                     <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
-                        <i class="fa fa-refresh"></i><span class="d-none d-sm-inline-block">刷新</span>
+                        <i class="fa fa-fw fa-refresh"></i>
+                        <span class="d-none d-sm-inline-block">刷新</span>
                     </button>
                 </div>
             }
@@ -45,15 +46,18 @@
                     </BootstrapInput>
                     <div class="input-group-append">
                         <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
-                            <i class="fa fa-search"></i><span class="d-none d-sm-inline-block">搜索</span>
+                            <i class="fa fa-fw fa-search"></i>
+                            <span class="d-none d-sm-inline-block">搜索</span>
                         </button>
                         <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
-                            <i class="fa fa-trash"></i><span class="d-none d-sm-inline-block">清空过滤</span>
+                            <i class="fa fa-fw fa-trash"></i>
+                            <span class="d-none d-sm-inline-block">清空过滤</span>
                         </button>
                         @if (ShowAdvancedSearch)
                         {
                             <button class="@AdvanceSearchClass" type="button" title="高级搜索" @onclick="@AdvancedSearchClick">
-                                <i class="fa fa-search-plus"></i><span class="d-none d-sm-inline-block">高级搜索</span>
+                                <i class="fa fa-fw fa-search-plus"></i>
+                                <span class="d-none d-sm-inline-block">高级搜索</span>
                             </button>
                         }
                     </div>
@@ -167,7 +171,7 @@
                             }
                             <div class="modal-footer table-modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    <i class="fa fa-times"></i>
+                                    <i class="fa fa-fw fa-times"></i>
                                     <span>关闭</span>
                                 </button>
                                 <Button Color="Color.Primary" IsTriggerValidate="true" Icon="fa fa-fw fa-save" Text="保存" />
@@ -177,26 +181,37 @@
                 </ModalDialog>
             </Modal>
         }
-    </TableColumnCollection>
 
-    @if (ShowSearch && ShowAdvancedSearch)
-    {
-        <Modal @ref="@SearchModal">
-            <ModalDialog Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
-                <BodyTemplate>
-                    @SearchTemplate?.Invoke(SearchModel)
-                </BodyTemplate>
-                <FooterTemplate>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
-                        <i class="fa fa-trash-o"></i>
-                        <span>重置</span>
-                    </button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
-                        <i class="fa fa-search"></i>
-                        <span>查询</span>
-                    </button>
-                </FooterTemplate>
-            </ModalDialog>
-        </Modal>
-    }
+        @if (ShowSearch && ShowAdvancedSearch)
+        {
+            <Modal @ref="@SearchModal">
+                <ModalDialog Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
+                    <BodyTemplate>
+                        @if (SearchTemplate != null)
+                        {
+                            @SearchTemplate?.Invoke(SearchModel)
+                        }
+                        else
+                        {
+                            <div class="form-inline">
+                                <div class="row">
+                                    <TableEditorContent TModel="TItem" Model="@SearchModel" IsSearch="true" />
+                                </div>
+                            </div>
+                        }
+                    </BodyTemplate>
+                    <FooterTemplate>
+                        <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
+                            <i class="fa fa-fw fa-trash-o"></i>
+                            <span>重置</span>
+                        </button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
+                            <i class="fa fa-fw fa-search"></i>
+                            <span>查询</span>
+                        </button>
+                    </FooterTemplate>
+                </ModalDialog>
+            </Modal>
+        }
+    </TableColumnCollection>
 </div>

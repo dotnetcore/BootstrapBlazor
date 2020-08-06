@@ -1,0 +1,54 @@
+﻿@inherits TablesBaseEdit
+@page "/tables/search"
+
+<h3>Table 表格</h3>
+
+<h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
+
+<Block Title="具有搜索功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件，通过设置 <code>SearchTemplate</code> 模板自定义搜索 UI" CodeFile="table.24.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           SearchModel="@SearchModel"
+           OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+        <SearchTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="姓名" />
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="地址" />
+                    </div>
+                </div>
+            </div>
+        </SearchTemplate>
+    </Table>
+</Block>
+
+<Block Title="自动生成搜索功能的表格" Introduction="当设置了 <code>ShowSearch</code> 时，如果未设置 <code>SearchTemplate</code> 编辑模板时，组件会尝试自动生成搜索条件 UI" CodeFile="table.25.html">
+    <p>列信息绑定时通过设置 <code>Searchable</code> 属性，设置搜索条件自动构建 UI</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" Searchable="true" />
+            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" Searchable="true" />
+            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
