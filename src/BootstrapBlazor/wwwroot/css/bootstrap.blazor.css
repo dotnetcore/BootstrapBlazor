@@ -4804,9 +4804,17 @@ input:disabled,
         flex: 1;
     }
 
-        .listview .listview-body .listview-item {
-            margin: 0 1rem 1rem 0;
-        }
+.listview .listview-body .listview-item {
+    padding: 3px;
+    margin: 0 1rem 1rem 0;
+}
+
+.listview .listview-body .listview-item:hover {
+    padding: 3px;
+    margin: 0 1rem 1rem 0;
+    cursor: pointer;
+    background-color: #E0E0E0;
+}
 
         .listview .listview-body .listview-item-group {
             flex-basis: 100%;

@@ -16,7 +16,7 @@
             {
                 foreach (var item in Items)
                 {
-                    <div class="listview-item">
+                    <div class="listview-item" @onclick="@(e => OnClick(e,item))">
                         @BodyTemplate.Invoke(item)
                     </div>
                 }
@@ -28,7 +28,7 @@
                     <div class="listview-item-group">@key.Key</div>
                     @foreach (var item in key)
                     {
-                        <div class="listview-item">
+                        <div class="listview-item" @onclick="@(e => OnClick(e,item))">
                             @BodyTemplate.Invoke(item)
                         </div>
                     }

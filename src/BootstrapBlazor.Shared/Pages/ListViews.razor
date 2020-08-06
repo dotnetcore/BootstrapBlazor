@@ -6,7 +6,7 @@
 
 <Block Title="普通用法" Introduction="适用于大量重复的数据实现规则排列" CodeFile="listview.1.html">
     <div class="listview-demo">
-        <ListView TItem="Product" Items="@Products">
+        <ListView TItem="Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
             <HeaderTemplate>
                 <div>产品列表</div>
             </HeaderTemplate>
@@ -25,6 +25,7 @@
             </FooterTemplate>
         </ListView>
     </div>
+    <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="分页显示" Introduction="设置 <code>Pageable</code> 显示分页组件" CodeFile="listview.2.html">

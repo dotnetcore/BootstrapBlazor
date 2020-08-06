@@ -3,6 +3,7 @@ using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BootstrapBlazor.Shared.Pages.Components;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -11,6 +12,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class ListViews
     {
+        private Logger? Trace { get; set; }
         private IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
 
         /// <summary>
@@ -37,7 +39,11 @@ namespace BootstrapBlazor.Shared.Pages
                 TotalCount = Products.Count()
             });
         }
-
+        private Task OnListViewItemClick(Product item)
+        {
+            Trace?.Log($"ListViewItem: {item.Description} clicked");
+            return Task.CompletedTask;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -93,6 +99,13 @@ namespace BootstrapBlazor.Shared.Pages
                     Description = "异步查询回调方法",
                     Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
                     ValueList = "—",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "OnListViewItemClick",
+                    Description = "ListView元素点击时回调委托",
+                    Type = "Func<TItem, Task>",
+                    ValueList = " — ",
                     DefaultValue = " — "
                 }
             };

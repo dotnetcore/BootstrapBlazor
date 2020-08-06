@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components
 {
@@ -65,6 +66,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
+        /// <summary>
+        /// 获得/设置 ListView组件元素点击时回调委托
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task> OnListViewItemClick { get; set; } = item => Task.CompletedTask;
 
         /// <summary>
         /// 获得/设置 数据总条目
@@ -158,6 +164,16 @@ namespace BootstrapBlazor.Components
                 Items = queryData.Items;
                 TotalCount = queryData.TotalCount;
             }
+        }
+        /// <summary>
+        /// 点击元素事件
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected async Task OnClick(MouseEventArgs e, TItem item)
+        {
+            if (OnListViewItemClick != null) await OnListViewItemClick.Invoke(item);
         }
     }
 }
