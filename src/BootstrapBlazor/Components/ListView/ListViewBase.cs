@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace BootstrapBlazor.Components
 {
@@ -171,7 +170,7 @@ namespace BootstrapBlazor.Components
         /// <param name="e"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected async Task OnClick(MouseEventArgs e, TItem item)
+        protected async Task OnClick(TItem item)
         {
             if (OnListViewItemClick != null) await OnListViewItemClick.Invoke(item);
         }
