@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
             if (Collections != null)
             {
                 var index = 0;
-                foreach (var mem in Collections.Columns.Where(col => IsSearch ? col.Searchable : true))
+                foreach (var mem in Collections.Columns.Where(col => IsSearch ? col.Searchable : col.Editable))
                 {
                     builder.OpenElement(index++, "div");
                     builder.AddAttribute(index++, "class", "form-group col-12 col-sm-6");

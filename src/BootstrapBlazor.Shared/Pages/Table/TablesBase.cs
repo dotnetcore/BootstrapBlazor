@@ -62,6 +62,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "Editable",
+                Description = "是否生成编辑组件",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
                 Name = "Text",
                 Description = "表头显示文字",
                 Type = "string",

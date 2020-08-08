@@ -43,6 +43,11 @@ namespace BootstrapBlazor.Components
         bool Searchable { get; set; }
 
         /// <summary>
+        /// 获得/设置 当前列是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
+        /// </summary>
+        bool Editable { get; set; }
+
+        /// <summary>
         /// 获得/设置 列宽
         /// </summary>
         int Width { get; set; }
