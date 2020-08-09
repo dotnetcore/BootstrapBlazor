@@ -68,6 +68,11 @@ namespace BootstrapBlazor.Components
         RenderFragment<object?>? EditTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 搜索模板
+        /// </summary>
+        RenderFragment<object?>? SearchTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
         /// </summary>
         string? FormatString { get; set; }

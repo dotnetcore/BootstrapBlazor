@@ -45,8 +45,12 @@ namespace BootstrapBlazor.Components
                 {
                     builder.OpenElement(index++, "div");
                     builder.AddAttribute(index++, "class", "form-group col-12 col-sm-6");
-                    if (mem.EditTemplate == null) builder.AddContent(index++, AutoGenerateTemplate(mem));
-                    else builder.AddContent(index++, mem.EditTemplate.Invoke(Model));
+
+                    RenderFragment? content = null;
+                    if (IsSearch) content = mem.SearchTemplate?.Invoke(Model);
+                    if (content == null) content = mem.EditTemplate?.Invoke(Model) ?? AutoGenerateTemplate(mem);
+                    if (content != null) builder.AddContent(index++, content);
+                    
                     builder.CloseElement();
                 }
             }

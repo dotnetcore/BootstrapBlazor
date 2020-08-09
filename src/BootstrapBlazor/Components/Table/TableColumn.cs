@@ -90,7 +90,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 编辑模板
         /// </summary>
         [Parameter]
-        public RenderFragment<object>? EditTemplate { get; set; }
+        public RenderFragment<object?>? EditTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 搜索模板
+        /// </summary>
+        /// <value></value>
+        [Parameter]
+        public RenderFragment<object?>? SearchTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 Table Header 实例

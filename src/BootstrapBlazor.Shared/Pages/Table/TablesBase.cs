@@ -102,6 +102,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "RenderFragment<TableColumnContext<object, TItem>>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "EditTemplate",
+                Description = "模板",
+                Type = "RenderFragment<object>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "SearchTemplate",
+                Description = "模板",
+                Type = "RenderFragment<object>",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
 
