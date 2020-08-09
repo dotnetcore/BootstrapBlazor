@@ -3,7 +3,7 @@
 
 <div class="transfer-panel">
     <p class="transfer-panel-header">
-        <Checkbox TValue="SelectedItem" DisplayText="@Text" @ref="HeaderCheckbox" IsDisabled="@IsDisabled"
+        <Checkbox TValue="SelectedItem" DisplayText="@Text" @ref="HeaderCheckbox" IsDisabled="@IsDisabled" ShowAfterLabel="true"
                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
     </p>
     <div class="transfer-panel-body">
@@ -16,9 +16,19 @@
                 </span>
             </div>
         }
-    <div role="group" aria-label="checkbox-group" class="@PanelListClassString">
-        @RenderItem()
-    </div>
+        <div role="group" aria-label="checkbox-group" class="@PanelListClassString">
+            @{
+                var items = (string.IsNullOrEmpty(SearchText) ? Items : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase))) ?? new SelectedItem[0];
+
+                foreach (var item in items)
+                {
+                    var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
+                    <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="transfer-panel-item"
+                              DisplayText="@item.Text" Value="item" ShowAfterLabel="true"
+                              State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
+                }
+            }
+        </div>
         <p class="transfer-panel-empty" style="display: none;">无匹配数据</p>
         <p class="transfer-panel-empty" style="display: none;">无数据</p>
     </div>

@@ -102,32 +102,17 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// RenderItem 方法
+        /// 
         /// </summary>
         /// <returns></returns>
-        protected virtual RenderFragment RenderItem() => new RenderFragment(builder =>
+        protected async Task OnStateChanged(CheckboxState state, SelectedItem item)
         {
-            var output = string.IsNullOrEmpty(SearchText) ? Items : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-            foreach (var item in (output ?? new SelectedItem[0]))
-            {
-                var index = 0;
-                builder.OpenComponent<Checkbox<SelectedItem>>(index++);
-                builder.AddAttribute(index++, "class", "transfer-panel-item");
-                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.Value), item);
-                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.IsDisabled), IsDisabled);
-                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.DisplayText), item.Text);
-                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.State), item.Active ? CheckboxState.Checked : CheckboxState.UnChecked);
-                builder.AddAttribute(index++, nameof(Checkbox<SelectedItem>.OnStateChanged), new Func<CheckboxState, SelectedItem, Task>(async (state, i) =>
-                {
-                    // trigger when transfer item clicked
-                    i.Active = state == CheckboxState.Checked;
+            // trigger when transfer item clicked
+            item.Active = state == CheckboxState.Checked;
 
-                    // set header
-                    if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke();
-                }));
-                builder.CloseComponent();
-            }
-        });
+            // set header
+            if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke();
+        }
 
         /// <summary>
         /// 搜索框文本改变时回调此方法
