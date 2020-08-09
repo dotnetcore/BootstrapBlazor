@@ -147,7 +147,11 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected IEnumerable<IGrouping<string, SelectedItem>> GetSelectedItems() => GetItems().GroupBy(i => i.GroupName);
 
-        private IEnumerable<SelectedItem> GetItems()
+        /// <summary>
+        /// 获得 数据源
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<SelectedItem> GetItems()
         {
             var items = Items?.ToList() ?? new List<SelectedItem>();
             items.AddRange(Childs);

@@ -9,7 +9,7 @@
         <button type="button" class="@ClassName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
     }
     <div class="@MenuAlignmentClass" aria-labelledby="dropdownMenuButton">
-        @foreach (var item in Items ?? new SelectedItem[0])
+        @foreach (var item in GetItems())
         {
             <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
         }
