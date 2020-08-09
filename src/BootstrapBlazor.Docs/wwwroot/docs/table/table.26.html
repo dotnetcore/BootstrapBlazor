@@ -1,0 +1,35 @@
+﻿<Table TItem="BindItem"
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true"
+       ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+       AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+       OnQueryAsync="@OnEditQueryAsync"
+       OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
+        <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true">
+            <EditTemplate Context="value">
+                @{
+                    var model = value as BindItem;
+                    if (model != null)
+                    {
+                        var items = new List<SelectedItem>()
+                        {
+                            new SelectedItem { Text = "自定义姓名1", Value = "自定义姓名1" },
+                            new SelectedItem { Text = "自定义姓名2", Value = "自定义姓名2" },
+                            new SelectedItem { Text = "自定义姓名3", Value = "自定义姓名3" },
+                            new SelectedItem { Text = "自定义姓名4", Value = "自定义姓名4" },
+                        };
+                        <Select TValue="string" Items="items" @bind-Value="@model.Name" />
+                    }
+                }
+            </EditTemplate>
+        </TableColumn>
+        <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
+        <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+    </TableColumns>
+</Table>
+
+@code {
+    // 为了避免代码重复请查看其他示例的 c# 代码
+}

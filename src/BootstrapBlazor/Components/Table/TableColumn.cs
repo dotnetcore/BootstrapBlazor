@@ -81,10 +81,16 @@ namespace BootstrapBlazor.Components
         public Func<object?, Task<string>>? Formatter { get; set; }
 
         /// <summary>
-        /// 获得/设置 模板
+        /// 获得/设置 显示模板
         /// </summary>
         [Parameter]
         public RenderFragment<TableColumnContext<object, TItem>>? Template { get; set; }
+
+        /// <summary>
+        /// 获得/设置 编辑模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment<object>? EditTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 Table Header 实例

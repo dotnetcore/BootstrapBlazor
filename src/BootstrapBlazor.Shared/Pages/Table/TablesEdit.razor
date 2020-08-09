@@ -70,3 +70,38 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="自定义列编辑模板" Introduction="当设置列的 <code>EditTemplate</code> 时，组件自动生成表单维护 UI 时使用此模板作为呈现 UI" CodeFile="table.26.html">
+    <p>通过设置姓名列的 <code>EditTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true">
+                <EditTemplate Context="value">
+                    @{
+                        var model = value as BindItem;
+                        if (model != null)
+                        {
+                            var items = new List<SelectedItem>()
+                            {
+                                new SelectedItem { Text = "自定义姓名1", Value = "自定义姓名1" },
+                                new SelectedItem { Text = "自定义姓名2", Value = "自定义姓名2" },
+                                new SelectedItem { Text = "自定义姓名3", Value = "自定义姓名3" },
+                                new SelectedItem { Text = "自定义姓名4", Value = "自定义姓名4" },
+                            };
+                            <Select TValue="string" Items="items" @bind-Value="@model.Name" />
+                        }
+                    }
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>

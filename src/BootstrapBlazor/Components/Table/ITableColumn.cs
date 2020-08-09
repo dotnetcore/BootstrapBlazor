@@ -58,9 +58,14 @@ namespace BootstrapBlazor.Components
         Type? FieldType { get; set; }
 
         /// <summary>
-        /// 获得/设置 模板
+        /// 获得/设置 显示模板
         /// </summary>
         RenderFragment<object>? Template { get; }
+
+        /// <summary>
+        /// 获得/设置 编辑模板
+        /// </summary>
+        RenderFragment<object?>? EditTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
