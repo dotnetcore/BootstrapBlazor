@@ -155,7 +155,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 确认删除按钮方法
         /// </summary>
-        protected bool ConfirmDelete()
+        protected Task<bool> ConfirmDelete()
         {
             var ret = false;
             if (SelectedItems.Count == 0)
@@ -172,7 +172,7 @@ namespace BootstrapBlazor.Components
             {
                 ret = true;
             }
-            return ret;
+            return Task.FromResult(ret);
         }
 
         /// <summary>

@@ -93,7 +93,7 @@ namespace BootstrapBlazor.Components
         /// 单选模式下选择行时调用此方法
         /// </summary>
         /// <param name="val"></param>
-        protected virtual void SelectRow(TItem val)
+        protected virtual Task SelectRow(TItem val)
         {
             SelectedItems.Clear();
             SelectedItems.Add(val);
@@ -101,6 +101,8 @@ namespace BootstrapBlazor.Components
             // TODO: 性能问题此处重新渲染整个 DataGrid
             // 合理做法是将 tbody 做成组件仅渲染 tbody 即可，后期优化此处 
             StateHasChanged();
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -195,25 +197,27 @@ namespace BootstrapBlazor.Components
         /// 双击行回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected void DoubleClickRow(TItem item)
+        protected async Task DoubleClickRow(TItem item)
         {
             if (DoubleClickToEdit)
             {
-                ClickEditButton(item);
+                await ClickEditButton(item);
             }
 
-            OnDoubleClickRowCallback.Invoke(item);
+            await OnDoubleClickRowCallback.Invoke(item);
         }
 
         /// <summary>
         /// 行尾列按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected void ClickDeleteButton(TItem item)
+        protected Task ClickDeleteButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
             StateHasChanged();
+
+            return Task.CompletedTask;
         }
     }
 }

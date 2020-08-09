@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出
         /// </summary>
-        [Parameter] public Func<bool> OnBeforeClick { get; set; } = new Func<bool>(() => true);
+        [Parameter] public Func<Task<bool>> OnBeforeClick { get; set; } = () => Task.FromResult(true);
 
         /// <summary>
         /// 获得/设置 显示标题
@@ -82,10 +82,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 显示确认弹窗方法
         /// </summary>
-        protected void Show()
+        protected async Task Show()
         {
             // 回调消费者逻辑 判断是否需要弹出确认框
-            if (OnBeforeClick())
+            if (await OnBeforeClick())
             {
                 // 生成客户端弹窗
                 PopoverService?.Show(new PopoverConfirmOption()

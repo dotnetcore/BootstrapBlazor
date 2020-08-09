@@ -84,13 +84,13 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         [Parameter]
-        public Func<TItem, Task> OnClickEditButton { get; set; } = t => Task.CompletedTask;
+        public Func<TItem, Task> OnClickEditButton { get; set; } = _ => Task.CompletedTask;
 
         /// <summary>
         /// 
         /// </summary>
         [Parameter]
-        public Action<TItem> OnClickDeleteButton { get; set; } = t => { };
+        public Func<TItem, Task> OnClickDeleteButton { get; set; } = _ => Task.CompletedTask;
 
         /// <summary>
         /// 
@@ -114,13 +114,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 单击行回调委托方法
         /// </summary>
         [Parameter]
-        public Action<TItem?> OnSelectedRow { get; set; } = _ => { };
+        public Func<TItem?, Task> OnSelectedRow { get; set; } = _ => Task.CompletedTask;
 
         /// <summary>
         /// 获得/设置 双击行回调委托方法
         /// </summary>
         [Parameter]
-        public Action<TItem?> OnEditRow { get; set; } = _ => { };
+        public Func<TItem?, Task> OnEditRow { get; set; } = _ => Task.CompletedTask;
 
         /// <summary>
         /// 获得/设置 双击行回调委托方法
