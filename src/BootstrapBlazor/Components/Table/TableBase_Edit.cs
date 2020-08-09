@@ -177,7 +177,7 @@ namespace BootstrapBlazor.Components
         /// 行尾列编辑按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected void ClickEditButton(TItem item)
+        protected Task ClickEditButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
@@ -188,6 +188,7 @@ namespace BootstrapBlazor.Components
                 Edit();
                 StateHasChanged();
             }
+            return Task.CompletedTask;
         }
 
         /// <summary>

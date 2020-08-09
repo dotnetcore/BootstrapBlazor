@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         [Parameter]
-        public Action<TItem> OnClickEditButton { get; set; } = t => { };
+        public Func<TItem, Task> OnClickEditButton { get; set; } = t => Task.CompletedTask;
 
         /// <summary>
         /// 

@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <param name="item"></param>
-        protected void OnRowButtonClick(BindItem item)
+        protected Task OnRowButtonClick(BindItem item)
         {
             var cate = ToastCategory.Success;
             var title = "行内按钮处理方法";
@@ -54,6 +54,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Title = title,
                 Content = content
             });
+            return Task.CompletedTask;
         }
     }
 }

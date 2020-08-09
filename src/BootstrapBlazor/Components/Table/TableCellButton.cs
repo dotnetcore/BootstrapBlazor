@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -17,7 +18,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 按钮点击后的回调方法
         /// </summary>
-        [Parameter] public Action<TItem>? OnClickCallback { get; set; }
+        [Parameter] public Func<TItem, Task>? OnClickCallback { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -29,11 +30,11 @@ namespace BootstrapBlazor.Components
             if (Size == Size.None) Size = Size.ExtraSmall;
 
             var onClick = OnClick;
-            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                if (onClick.HasDelegate) onClick.InvokeAsync(e);
+                if (onClick.HasDelegate) await onClick.InvokeAsync(e);
 
-                if (Item != null) OnClickCallback?.Invoke(Item);
+                if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
             });
         }
     }
