@@ -1,15 +1,15 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ValueTypeConditionBase
 
-<Select TItem="FilterAction" Items="@Items" @bind-Value="@Action1"></Select>
+<Select Items="@Items" @bind-Value="@Action1"></Select>
 
-<DateTimePicker class="is-filter" @bind-Value="@Value1" AllowNull="true"></DateTimePicker>
+<DateTimePicker class="is-filter" @bind-Value="@Value1"></DateTimePicker>
 
 @if (Count > 0)
 {
     <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
 
-    <Select TItem="FilterAction" Items="@Items" @bind-Value="@Action2"></Select>
+    <Select Items="@Items" @bind-Value="@Action2"></Select>
 
-    <DateTimePicker class="is-filter" @bind-Value="@Value2" AllowNull="true"></DateTimePicker>
+    <DateTimePicker class="is-filter" @bind-Value="@Value2"></DateTimePicker>
 }

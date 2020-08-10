@@ -100,6 +100,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment<object?>? SearchTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 过滤模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? FilterTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]

@@ -75,29 +75,36 @@ namespace BootstrapBlazor.Components
                             return Task.CompletedTask;
                         }));
 
-
-                        // 获得可为空具体类型
-                        var fieldType = Nullable.GetUnderlyingType(header.FieldType) ?? header.FieldType;
-                        switch (fieldType.Name)
+                        // 检查是否设置了过滤模板
+                        if (header.FilterTemplate != null)
                         {
-                            case nameof(Boolean):
-                                builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderBoolFilter());
-                                break;
-                            case nameof(DateTime):
-                                builder.AddAttribute(index++, nameof(TableFilter.ShowMoreButton), true);
-                                builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderDateTimeFilter());
-                                break;
-                            case nameof(Int32):
-                            case nameof(Double):
-                            case nameof(Decimal):
-                                builder.AddAttribute(index++, nameof(TableFilter.ShowMoreButton), true);
-                                builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderNumberFilter());
-                                break;
-                            default:
-                                builder.AddAttribute(index++, nameof(TableFilter.ShowMoreButton), true);
-                                builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderStringFilter());
-                                break;
-                        };
+                            builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), header.FilterTemplate);
+                        }
+                        else
+                        {
+                            // 获得可为空具体类型
+                            var fieldType = Nullable.GetUnderlyingType(header.FieldType) ?? header.FieldType;
+                            switch (fieldType.Name)
+                            {
+                                case nameof(Boolean):
+                                    builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderBoolFilter());
+                                    break;
+                                case nameof(DateTime):
+                                    builder.AddAttribute(index++, nameof(TableFilter.ShowMoreButton), true);
+                                    builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderDateTimeFilter());
+                                    break;
+                                case nameof(Int32):
+                                case nameof(Double):
+                                case nameof(Decimal):
+                                    builder.AddAttribute(index++, nameof(TableFilter.ShowMoreButton), true);
+                                    builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderNumberFilter());
+                                    break;
+                                default:
+                                    builder.AddAttribute(index++, nameof(TableFilter.ShowMoreButton), true);
+                                    builder.AddAttribute(index++, nameof(TableFilter.BodyTemplate), RenderStringFilter());
+                                    break;
+                            };
+                        }
                         builder.CloseComponent();
                     }
                 }

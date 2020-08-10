@@ -16,7 +16,7 @@
             如果外部已经进行了过滤时请设置 <code>QueryData&lt;TItem&gt;</code> 参数的 <code>IsFiltered</code> 属性值为 <code>true</code>
         </div>
         <div>
-            本示例中共显示五列，分别为 <code>DateTime、string、bool、int</code> 类型，弹出过滤框也分别不同
+            本示例分别为 <code>DateTime、string、bool、int</code> 类型，弹出过滤框也分别不同
         </div>
         <div>
             各列可分别设置过滤条件，各列之间过滤条件为 <code>And</code> 并且的关系
@@ -41,3 +41,33 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="自定义过滤模板" Introduction="设置 <code>FilterTemplate</code> 模板值，自定义列过滤模板，非常适用于复杂类型的过滤弹窗" CodeFile="table.28.html">
+    <p>
+        <code>FilterTemplate</code> 类型为 <code>RenderFragment</code>：
+        <span>其值为自定义组件，组件必须继承</span> <code>ValueTypeConditionBase</code>
+        <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/src/BootstrapBlazor.Shared/Pages/Table/CustomerFilter.razor" target="_blank">CustomerFilter 组件源码</a>
+    </p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
+                <FilterTemplate>
+                    <CustomerFilter></CustomerFilter>
+                </FilterTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
