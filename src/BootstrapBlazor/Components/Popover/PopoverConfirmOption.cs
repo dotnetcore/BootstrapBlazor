@@ -15,12 +15,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 关闭回调方法
         /// </summary>
-        public Action? OnClose { get; set; }
+        public Func<Task>? OnClose { get; set; }
 
         /// <summary>
         /// 获得/设置 确认弹窗回调方法
         /// </summary>
-        public Action? Callback { get; set; }
+        public Func<Task>? Callback { get; set; }
 
         /// <summary>
         /// 获得/设置 弹框按钮触发源组件 Id

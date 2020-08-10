@@ -28,7 +28,17 @@ else
 @code {
     RenderFragment<TableRow<TItem>> RenderRow = row =>
     @<RenderTemplate>
-        <TableBodyContent TItem="TItem" Item="@row.Item" />
+        @if (row.Columns != null)
+        {
+            foreach (var col in row.Columns.Columns)
+            {
+                <td>
+                    <div class="table-cell">
+                        @row.GetValue(col)
+                    </div>
+                </td>
+            }
+        }
         @if (row.ShowExtendButtons)
         {
             <td>

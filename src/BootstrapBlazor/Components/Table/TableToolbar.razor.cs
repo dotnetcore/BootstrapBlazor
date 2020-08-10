@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -31,5 +33,19 @@ namespace BootstrapBlazor.Components
         /// 获得 Toolbar 按钮集合
         /// </summary>
         public ICollection<ButtonBase> Buttons { get; } = new HashSet<ButtonBase>();
+
+        private async Task OnToolbarButtonClick(MouseEventArgs e, TableToolbarButton<TItem> button)
+        {
+            if (!button.IsDisabled)
+            {
+                if (button.OnClick.HasDelegate) await button.OnClick.InvokeAsync(e);
+
+                // 传递当前选中行给回调委托方法
+                if (button.OnClickCallback != null)
+                {
+                    await button.OnClickCallback.Invoke(OnGetSelectedRows());
+                }
+            }
+        }
     }
 }

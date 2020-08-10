@@ -32,9 +32,12 @@ namespace BootstrapBlazor.Components
             var onClick = OnClick;
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                if (onClick.HasDelegate) await onClick.InvokeAsync(e);
+                if (!IsDisabled)
+                {
+                    if (onClick.HasDelegate) await onClick.InvokeAsync(e);
 
-                if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
+                    if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
+                }
             });
         }
     }

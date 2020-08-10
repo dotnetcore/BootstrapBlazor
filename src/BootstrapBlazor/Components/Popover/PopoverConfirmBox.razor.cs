@@ -85,7 +85,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 确认按钮回调方法
         /// </summary>
-        [Parameter] public Action? OnClose { get; set; }
+        [Parameter] public Func<Task> OnClose { get; set; } = () => Task.CompletedTask;
 
         /// <summary>
         /// 获得/设置 PopoverConfirm 服务实例
@@ -95,10 +95,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击关闭按钮调用此方法
         /// </summary>
-        public void OnCloseClick()
+        public async Task OnCloseClick()
         {
             PopoverService?.Hide();
-            OnClose?.Invoke();
+            await OnClose.Invoke();
         }
 
         /// <summary>

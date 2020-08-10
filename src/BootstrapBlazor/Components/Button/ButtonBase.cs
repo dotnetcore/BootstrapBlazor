@@ -121,12 +121,15 @@ namespace BootstrapBlazor.Components
             var onClick = OnClick;
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                bool valid = true;
-                if (EditForm != null)
+                if (!IsDisabled)
                 {
-                    valid = await EditForm.Validate();
+                    bool valid = true;
+                    if (EditForm != null)
+                    {
+                        valid = await EditForm.Validate();
+                    }
+                    if (valid && onClick.HasDelegate) await onClick.InvokeAsync(e);
                 }
-                if (valid && onClick.HasDelegate) await onClick.InvokeAsync(e);
             });
         }
 

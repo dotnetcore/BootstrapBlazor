@@ -31,7 +31,10 @@ namespace BootstrapBlazor.Components
 
             OnBeforeClick = async () =>
             {
-                if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
+                if (!IsDisabled)
+                {
+                    if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
+                }
                 return true;
             };
         }
