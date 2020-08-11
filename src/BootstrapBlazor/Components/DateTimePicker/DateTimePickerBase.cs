@@ -67,7 +67,7 @@ namespace BootstrapBlazor.Components
 #nullable restore
                     v = t;
                 }
-                return v;
+                return ViewModel == DatePickerViewModel.Date ? v.Date : v;
             }
             set
             {
