@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 内部缓存 Key 为 TableFilter Value 为 数据类型的 Condition
         /// </summary>
-        private Dictionary<TableFilterBase, ValueTypeConditionBase> Cache { get; set; } = new Dictionary<TableFilterBase, ValueTypeConditionBase>();
+        private Dictionary<TableFilterBase, FilterBase> Cache { get; set; } = new Dictionary<TableFilterBase, FilterBase>();
 
         /// <summary>
         /// 获得/设置 Table Header 实例
@@ -116,7 +116,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="tableFilter"></param>
         /// <param name="filter"></param>
-        public void AddFilter(TableFilterBase tableFilter, ValueTypeConditionBase filter)
+        public void AddFilter(TableFilterBase tableFilter, FilterBase filter)
         {
             Cache.Add(tableFilter, filter);
         }

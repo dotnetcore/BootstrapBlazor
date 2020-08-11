@@ -1,12 +1,12 @@
 ﻿@namespace BootstrapBlazor.Shared.Pages
-@inherits ValueTypeConditionBase
+@inherits FilterBase
 
 <Select Items="@Items" @bind-Value="@Value"></Select>
 
 @code {
     private List<SelectedItem> Items { get; set; } = new List<SelectedItem>();
 
-    private int Value = 0;
+    private int Value = 10;
 
     /// <summary>
     /// OnInitialized 方法
@@ -17,9 +17,9 @@
 
         Items.AddRange(new SelectedItem[]
         {
-            new SelectedItem{ Value = "10", Text = "大于 10" },
-            new SelectedItem{ Value = "50", Text = "大于 50" },
-            new SelectedItem{ Value = "100", Text = "大于 100" }
+            new SelectedItem { Value = "10", Text = "大于 10" },
+            new SelectedItem { Value = "50", Text = "大于 50" },
+            new SelectedItem { Value = "100", Text = "大于 100" }
         });
     }
 
@@ -28,7 +28,7 @@
     /// </summary>
     protected override void ResetFilterCondition()
     {
-        Value = 0;
+        Value = 10;
     }
 
     /// <summary>

@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// /// </summary>
-    public abstract class ValueTypeConditionBase : ComponentBase, IFilter
+    public abstract class FilterBase : ComponentBase, IFilter
     {
         /// <summary>
         /// 

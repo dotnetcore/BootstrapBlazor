@@ -45,7 +45,7 @@
 <Block Title="自定义过滤模板" Introduction="设置 <code>FilterTemplate</code> 模板值，自定义列过滤模板，非常适用于复杂类型的过滤弹窗" CodeFile="table.28.html">
     <p>
         <code>FilterTemplate</code> 类型为 <code>RenderFragment</code>：
-        <span>其值为自定义组件，组件必须继承</span> <code>ValueTypeConditionBase</code>
+        <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过过滤模板使用自定义组件 <code>CustomerFilter</code>
         <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/src/BootstrapBlazor.Shared/Pages/Table/CustomerFilter.razor" target="_blank">CustomerFilter 组件源码</a>
     </p>
     <Table TItem="BindItem"
