@@ -17,11 +17,8 @@ namespace BootstrapBlazor.Shared.Shared
             .AddClass("collapse", collapseNavMenu)
             .Build();
 
-        private readonly List<MenuItem> Items = new List<MenuItem>(100);
+        private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
 
-        private IEnumerable<MenuItem> Menus => Items;
-
-        private string ActiveUrl { get; set; } = "";
         /// <summary>
         /// 
         /// </summary>
@@ -29,7 +26,6 @@ namespace BootstrapBlazor.Shared.Shared
         {
             base.OnInitialized();
 
-            ActiveUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
             InitMenus();
         }
 
@@ -126,7 +122,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
 
             item.IsCollapsed = false;
-            Items.Add(item);
+            Menus.Add(item);
         }
 
         private void AddForm(MenuItem item)
@@ -505,24 +501,15 @@ namespace BootstrapBlazor.Shared.Shared
         {
             // 计算组件总数
             var count = 0;
-            count = Items.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Items[0].Items.Count());
+            count = Menus.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Menus[0].Items.Count());
             AddBadge(item, false, count);
-            Items.Insert(1, item);
+            Menus.Insert(1, item);
         }
 
         private void AddBadge(MenuItem item, bool append = true, int? count = null)
         {
             item.Component = CreateBadge(count ?? item.Items.Count());
-
-            var im = item.Items.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && i.Url.Equals(ActiveUrl, System.StringComparison.OrdinalIgnoreCase));
-            if (im != null)
-            {
-                im.IsActive = true;
-                im.IsCollapsed = false;
-
-                MenuItem.CascadingSetActive(im);
-            }
-            if (append) Items.Add(item);
+            if (append) Menus.Add(item);
         }
 
         private DynamicComponent CreateBadge(int count) => DynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]

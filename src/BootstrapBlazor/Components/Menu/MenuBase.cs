@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -28,7 +29,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<MenuItem> Items { get; set; } = new MenuItem[0];
+        public IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
 
         /// <summary>
         /// 获得/设置 是否为手风琴效果 默认为 false
@@ -60,5 +61,49 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
+
+        /// <summary>
+        /// 获得/设置 NavigationManager 实例
+        /// </summary>
+        [Inject]
+        protected NavigationManager? Navigator { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (!DisableNavigation && Navigator != null)
+            {
+                // 首次加载根据地址栏寻找当前菜单
+                var url = Navigator.ToBaseRelativePath(Navigator.Uri);
+                if (!string.IsNullOrEmpty(url))
+                {
+                    var menuItem = FindMenuItemByUrl(Items, url);
+                    if (menuItem != null) MenuItem.CascadingSetActive(menuItem, true);
+                }
+            }
+        }
+
+        private MenuItem? FindMenuItemByUrl(IEnumerable<MenuItem> items, string url)
+        {
+            MenuItem? ret = null;
+            foreach (var item in items)
+            {
+                if (!string.IsNullOrEmpty(item.Url) && item.Url.Equals(url, StringComparison.OrdinalIgnoreCase))
+                {
+                    ret = item;
+                    break;
+                }
+                if (item.Items.Any())
+                {
+                    ret = FindMenuItemByUrl(item.Items, url);
+                    if (ret != null) break;
+                }
+            }
+            return ret;
+        }
     }
 }
