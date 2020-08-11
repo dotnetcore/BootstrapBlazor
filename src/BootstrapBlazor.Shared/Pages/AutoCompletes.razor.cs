@@ -13,6 +13,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<string> Items => _items;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private Foo Model { get; set; } = new Foo() { Name = "" };
 
         private IEnumerable<string> StaticItems => new List<string> { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
 
@@ -34,6 +38,13 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
+            new AttributeItem() {
+                Name = "ShowLabel",
+                Description = "是否显示前置标签",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
             new AttributeItem() {
                 Name = "ChildContent",
                 Description = "内容",
