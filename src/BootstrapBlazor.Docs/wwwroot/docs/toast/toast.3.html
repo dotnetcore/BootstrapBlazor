@@ -8,7 +8,7 @@
     /// 
     /// </summary>
     [Inject] public ToastService? ToastService { get; set; }
-    
+    private Toast? Toast { get; set; }
     protected void OnPlacementClick(Placement placement)
     {
         Toast?.SetPlacement(placement);
