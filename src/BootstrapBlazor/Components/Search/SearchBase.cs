@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 搜索按钮图标
         /// </summary>
         [Parameter]
-        public string? SearchButtonIcon { get; set; } = "fa fa-fw fa-search";
+        public string? SearchButtonIcon { get; set; } = "fa fa-search";
 
         /// <summary>
         /// 获得/设置 搜索按钮文字

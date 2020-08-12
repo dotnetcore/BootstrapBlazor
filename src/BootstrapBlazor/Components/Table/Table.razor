@@ -11,15 +11,15 @@
                 {
                     @if (ShowNewButton)
                     {
-                        <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-fw fa-plus" Text="新建" />
+                        <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="新建" />
                     }
                     @if (ShowEditButton)
                     {
-                        <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@Edit" Icon="fa fa-fw fa-pencil" Text="编辑" />
+                        <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@Edit" Icon="fa fa-pencil" Text="编辑" />
                     }
                     @if (ShowDeleteButton)
                     {
-                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除"
+                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-remove" Text="删除"
                                                       OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
                                                       CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                                       ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
@@ -31,7 +31,7 @@
             {
                 <div class="float-right table-toolbar-button table-column-right">
                     <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
-                        <i class="fa fa-fw fa-refresh"></i>
+                        <i class="fa fa-refresh"></i>
                         <span class="d-none d-sm-inline-block">刷新</span>
                     </button>
                 </div>
@@ -46,17 +46,17 @@
                     </BootstrapInput>
                     <div class="input-group-append">
                         <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
-                            <i class="fa fa-fw fa-search"></i>
+                            <i class="fa fa-search"></i>
                             <span class="d-none d-sm-inline-block">搜索</span>
                         </button>
                         <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
-                            <i class="fa fa-fw fa-trash"></i>
+                            <i class="fa fa-trash"></i>
                             <span class="d-none d-sm-inline-block">清空过滤</span>
                         </button>
                         @if (ShowAdvancedSearch)
                         {
                             <button class="@AdvanceSearchClass" type="button" title="高级搜索" @onclick="@AdvancedSearchClick">
-                                <i class="fa fa-fw fa-search-plus"></i>
+                                <i class="fa fa-search-plus"></i>
                                 <span class="d-none d-sm-inline-block">高级搜索</span>
                             </button>
                         }
@@ -171,10 +171,10 @@
                             }
                             <div class="modal-footer table-modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    <i class="fa fa-fw fa-times"></i>
+                                    <i class="fa fa-times"></i>
                                     <span>关闭</span>
                                 </button>
-                                <Button Color="Color.Primary" IsTriggerValidate="true" Icon="fa fa-fw fa-save" Text="保存" />
+                                <Button Color="Color.Primary" IsTriggerValidate="true" Icon="fa fa-save" Text="保存" />
                             </div>
                         </ValidateForm>
                     </BodyTemplate>
@@ -202,11 +202,11 @@
                     </BodyTemplate>
                     <FooterTemplate>
                         <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
-                            <i class="fa fa-fw fa-trash-o"></i>
+                            <i class="fa fa-trash-o"></i>
                             <span>重置</span>
                         </button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
-                            <i class="fa fa-fw fa-search"></i>
+                            <i class="fa fa-search"></i>
                             <span>查询</span>
                         </button>
                     </FooterTemplate>

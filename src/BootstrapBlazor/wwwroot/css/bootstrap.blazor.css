@@ -101,7 +101,7 @@ input:disabled,
     border-radius: 0.4rem;
 }
 
-.btn .badge {
+.btn .badge, .btn i + span, .badge i + span {
     margin-left: 4px;
 }
 

@@ -48,13 +48,13 @@ else
                         {
                             @if (row.ShowEditButton)
                             {
-                                <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@row.Item" OnClickCallback="@row.OnClickEditButton" Icon="fa fa-fw fa-edit" Text="编辑" />
+                                <TableCellButton TItem="TItem" Size="Size.ExtraSmall" Item="@row.Item" OnClickCallback="@row.OnClickEditButton" Icon="fa fa-edit" Text="编辑" />
                             }
                             @if (row.ShowDeleteButton)
                             {
                                 <TableCellConfirmButton TItem="TItem" Item="@row.Item"
                                                         Placement="Placement.Left" Size="Size.ExtraSmall"
-                                                        Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除"
+                                                        Color="Color.Danger" Icon="fa fa-remove" Text="删除"
                                                         OnClickCallback="@row.OnClickDeleteButton" OnConfirm="@row.OnDelete"
                                                         CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                                         ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除" />

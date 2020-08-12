@@ -163,6 +163,19 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 失去焦点是触发此方法
+        /// </summary>
+        /// <returns></returns>
+        protected Task OnBlur()
+        {
+            if (MinValue != null || MaxValue != null)
+            {
+                Range(Value);
+            }
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
         /// 通过 MinValue 与 MaxValue 区间判断当前值方法
         /// </summary>
         /// <returns></returns>
