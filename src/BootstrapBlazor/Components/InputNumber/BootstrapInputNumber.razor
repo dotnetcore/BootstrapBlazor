@@ -2,12 +2,9 @@
 @typeparam TValue
 @inherits BootstrapInputNumberBase<TValue>
 
-@if (ShowLabel)
+@if (IsShowLabel)
 {
-    @if (ValueExpression != null || DisplayText != null)
-    {
-        <label class="control-label" for="@Id">@DisplayText</label>
-    }
+    <label class="control-label" for="@Id">@DisplayText</label>
 }
 @if (ShowButton)
 {

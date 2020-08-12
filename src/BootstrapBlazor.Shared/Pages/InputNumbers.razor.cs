@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -48,6 +49,20 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         public decimal BindDecimalValue { get; set; } = 10;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private InputModel Model { get; set; } = new InputModel() { Count = 10 };
+
+        private class InputModel
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            [DisplayName("数量")]
+            public int Count { get; set; }
+        }
+
         private string Formatter(double val) => val.ToString("0.0");
 
         private IEnumerable<AttributeItem> GetAttributes()
@@ -91,6 +106,20 @@ namespace BootstrapBlazor.Shared.Pages
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "ShowLabel",
+                    Description = "是否显示前置标签",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "DisplayText",
+                    Description = "前置标签显示文本",
+                    Type = "string",
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 }
             };
         }
