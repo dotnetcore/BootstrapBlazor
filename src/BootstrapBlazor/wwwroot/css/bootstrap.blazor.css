@@ -3429,6 +3429,11 @@ input:disabled,
         position: relative;
     }
 
+        .menu .nav-link i + span,
+        .menu .dropdown-item i + span {
+            margin-left: 4px;
+        }
+
     .menu .navbar-nav > .nav-item {
         border-bottom: solid 2px transparent;
         position: relative;
