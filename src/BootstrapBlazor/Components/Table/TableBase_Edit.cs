@@ -162,6 +162,7 @@ namespace BootstrapBlazor.Components
                 if (!IsFiltered)
                 {
                     Items = Items.Where(Filters.GetFilterFunc<TItem>());
+                    TotalCount = Items.Count();
                 }
 
                 // 外部未处理排序，内部自行排序
