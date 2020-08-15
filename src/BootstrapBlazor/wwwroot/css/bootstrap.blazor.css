@@ -4862,3 +4862,11 @@ input:disabled,
     cursor: move;
 }
 /*End Modal*/
+
+/*Textarea*/
+@media (min-width: 576px) {
+    .form-inline .row textarea {
+        width: calc(100% - 100px);
+    }
+}
+/*End Textarea*/

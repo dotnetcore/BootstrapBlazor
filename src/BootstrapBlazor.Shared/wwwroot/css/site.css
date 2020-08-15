@@ -1009,3 +1009,12 @@ section {
 .form-inline .demo-inputnumber > .form-control {
     width: inherit;
 }
+
+@media (min-width: 576px) {
+    .form-inline .textarea-demo {
+        word-break: break-all;
+        height: auto;
+        min-height: 35px;
+        width: calc(100% - 100px);
+    }
+}

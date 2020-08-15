@@ -199,6 +199,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "多行文本框 Textarea",
+                Url = "textareas"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "开关 Toggle",
                 Url = "toggles"
             });
