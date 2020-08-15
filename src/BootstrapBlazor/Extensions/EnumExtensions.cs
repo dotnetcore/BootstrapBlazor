@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         public static string ToDescriptionString<TEnum>(this TEnum val) where TEnum : Enum => typeof(TEnum).ToDescriptionString(val.ToString());
 
         /// <summary>
-        /// 
+        /// 通过字段名称获取 DescriptionAttribute 标签值
         /// </summary>
         /// <param name="type"></param>
         /// <param name="fieldName"></param>
@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获取指定枚举类型的枚举值集合，默认通过 Description 标签显示 DisplayName
+        /// 获取指定枚举类型的枚举值集合，默认通过 Description 标签显示 DisplayName 未设置 Description 标签时显示字段名称
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -47,6 +47,7 @@ namespace BootstrapBlazor.Components
             foreach (var field in Enum.GetNames(type))
             {
                 var desc = type.ToDescriptionString(field);
+                if (string.IsNullOrEmpty(desc)) desc = field;
                 ret.Add(new SelectedItem(field, desc));
             }
             return ret;

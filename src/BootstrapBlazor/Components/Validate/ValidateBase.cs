@@ -244,23 +244,31 @@ namespace BootstrapBlazor.Components
         /// <returns>True if the value could be parsed; otherwise false.</returns>
         protected virtual bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
         {
+            var ret = false;
+            validationErrorMessage = null;
             try
             {
-                if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var v))
+                if (typeof(TValue).IsEnum && Enum.TryParse(typeof(TValue), value, out var v))
                 {
-                    result = v;
-                    validationErrorMessage = null;
-                    return true;
+                    result = (TValue)v;
+                    ret = true;
+                }
+                else if (typeof(TValue) == typeof(object))
+                {
+                    result = (TValue)(object)value;
+                    ret = true;
+                }
+                else if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var v1))
+                {
+                    result = v1;
+                    ret = true;
                 }
                 else
                 {
 #nullable disable
                     result = default;
 #nullable restore
-                    var fieldName = FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : "";
-                    var typeName = typeof(TValue).GetTypeDesc();
-                    validationErrorMessage = string.Format(ParsingErrorMessage, fieldName, typeName);
-                    return false;
+                    ret = false;
                 }
             }
             catch (Exception ex)
@@ -269,8 +277,16 @@ namespace BootstrapBlazor.Components
 #nullable disable
                 result = default;
 #nullable restore
-                return false;
+                ret = false;
             }
+
+            if (!ret && validationErrorMessage == null)
+            {
+                var fieldName = FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : "";
+                var typeName = typeof(TValue).GetTypeDesc();
+                validationErrorMessage = string.Format(ParsingErrorMessage, fieldName, typeName);
+            }
+            return ret;
         }
 
         /// <summary>

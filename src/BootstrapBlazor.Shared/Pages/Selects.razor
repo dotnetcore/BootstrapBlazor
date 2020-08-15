@@ -167,6 +167,19 @@
     </div>
 </Block>
 
+<Block Title="枚举数据" Introduction="<code>Select</code> 组件绑定枚举类型示例" CodeFile="select.10.html">
+    <p>本次展现的是通过 <code>Select</code> 组件绑定枚举类型 <code>SortOrder</code>，通过选项的更改绑定数据</p>
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <Select Items="@EnumItems" @bind-Value="@SelectedEnumItem">
+            </Select>
+        </div>
+        <div class="form-group col-12 col-sm-3">
+            <div class="form-control">@SelectedEnumItem</div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

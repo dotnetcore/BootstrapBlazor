@@ -133,7 +133,8 @@ namespace BootstrapBlazor.Components
         public static string GetTypeDesc(this Type t)
         {
             string? ret;
-            if (t.IsNumber()) ret = "数字";
+            if (t.IsEnum) ret = "枚举";
+            else if (t.IsNumber()) ret = "数字";
             else if (t.IsDateTime()) ret = "日期";
             else ret = "字符串";
             return ret;

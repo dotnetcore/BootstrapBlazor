@@ -102,6 +102,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<SelectedItem> Items2 => _item2;
 
+        private IEnumerable<SelectedItem> EnumItems { get; set; } = typeof(SortOrder).ToSelectList();
+
+        private SortOrder SelectedEnumItem { get; set; } = SortOrder.Unset;
+
         /// <summary>
         /// 获得事件方法
         /// </summary>
