@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
                     if (IsSearch) content = mem.SearchTemplate?.Invoke(Model);
                     if (content == null) content = mem.EditTemplate?.Invoke(Model) ?? AutoGenerateTemplate(mem);
                     if (content != null) builder.AddContent(index++, content);
-                    
+
                     builder.CloseElement();
                 }
             }
@@ -58,25 +58,46 @@ namespace BootstrapBlazor.Components
 
         private RenderFragment AutoGenerateTemplate(ITableColumn col) => builder =>
         {
-            var type = col.FieldType;
-            if (type != null)
+            var fieldType = col.FieldType;
+            if (fieldType != null)
             {
+                // GetDisplayName
+                var displayName = col.GetDisplayName();
+                var fieldName = col.GetFieldName();
+
+                // FieldValue
+                object? fieldValue = "";
+                if (Model != null)
+                {
+                    var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => Model.GetPropertyValueLambda<TModel, object?>(key.FieldName).Compile());
+                    fieldValue = valueInvoker.Invoke(Model);
+                }
+
+                // ValueChanged
+                var valueChangedInvoker = EventCallbackCache.GetOrAdd((typeof(TModel), fieldName), key => (CreateLambda(fieldType).Compile()));
+                var fieldValueChanged = valueChangedInvoker(fieldName);
+
+                // ValueExpression
+                var p = Expression.Property(Expression.Constant(Model), typeof(TModel).GetProperty(fieldName));
+                var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
+                var valueExpression = Expression.Lambda(tDelegate, p);
+
                 var index = 0;
-                var componentType = GenerateComponent(type);
+                var componentType = GenerateComponent(fieldType);
                 builder.OpenComponent(index++, componentType);
-                builder.AddAttribute(index++, "DisplayText", col.GetDisplayName());
-                builder.AddAttribute(index++, "Value", Model?.GetPropertyValue<TModel, object>(col.GetFieldName()));
-                builder.AddAttribute(index++, "ValueExpression", CreateValueExpression(type, col.GetFieldName()));
-                if (Model != null) builder.AddAttribute(index++, "ValueChanged", Create(col, type));
-                builder.AddMultipleAttributes(index++, CreateMultipleAttributes(col, type));
+                builder.AddAttribute(index++, "DisplayText", displayName);
+                builder.AddAttribute(index++, "Value", fieldValue);
+                builder.AddAttribute(index++, "ValueChanged", fieldValueChanged);
+                builder.AddAttribute(index++, "ValueExpression", valueExpression);
+                builder.AddMultipleAttributes(index++, CreateMultipleAttributes(fieldType));
                 builder.CloseComponent();
             }
         };
 
-        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(ITableColumn col, Type t)
+        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType)
         {
             var ret = new List<KeyValuePair<string, object>>();
-            var type = Nullable.GetUnderlyingType(t) ?? t;
+            var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
             if (type.IsEnum)
             {
                 // 枚举类型
@@ -103,28 +124,28 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private Type GenerateComponent(Type t)
+        private Type GenerateComponent(Type fieldType)
         {
             Type? ret = null;
-            var type = (Nullable.GetUnderlyingType(t) ?? t);
+            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
             if (type.IsEnum)
             {
-                ret = typeof(Select<>).MakeGenericType(t);
+                ret = typeof(Select<>).MakeGenericType(fieldType);
             }
             else
             {
                 switch (type.Name)
                 {
                     case nameof(Boolean):
-                        ret = typeof(Checkbox<>).MakeGenericType(t);
+                        ret = typeof(Checkbox<>).MakeGenericType(fieldType);
                         break;
                     case nameof(DateTime):
-                        ret = typeof(DateTimePicker<>).MakeGenericType(t);
+                        ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
                         break;
                     case nameof(Int32):
                     case nameof(Double):
                     case nameof(Decimal):
-                        ret = typeof(BootstrapInput<>).MakeGenericType(t);
+                        ret = typeof(BootstrapInput<>).MakeGenericType(fieldType);
                         break;
                     case nameof(String):
                         ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
@@ -138,34 +159,27 @@ namespace BootstrapBlazor.Components
         {
             return EventCallback.Factory.Create<TType>(this, t =>
             {
-                Model?.SetPropertyValue(fieldName, t);
+                if (Model != null)
+                {
+                    var invoker = SetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => Model.SetPropertyValueLambda<TModel, object?>(key.FieldName).Compile());
+                    invoker.Invoke(Model, t);
+                }
             });
         }
 
-        private Expression<Func<string, object>> CreateLambda(Type type)
+        private Expression<Func<string, object>> CreateLambda(Type fieldType)
         {
             var exp_p1 = Expression.Parameter(typeof(string));
-            var method = GetType().GetMethod("CreateCallback", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(type);
+            var method = GetType().GetMethod("CreateCallback", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(fieldType);
             var body = Expression.Call(Expression.Constant(this), method, exp_p1);
 
             return Expression.Lambda<Func<string, object>>(Expression.Convert(body, typeof(object)), exp_p1);
         }
 
-        private Expression CreateValueExpression(Type type, string fieldName)
-        {
-            var p = Expression.Property(Expression.Constant(Model), typeof(TModel).GetProperty(fieldName));
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<TModel, object?>> GetPropertyValueLambdaCache { get; } = new ConcurrentDictionary<(Type, string), Func<TModel, object?>>();
 
-            var tDelegate = typeof(Func<>).MakeGenericType(type);
-            return Expression.Lambda(tDelegate, p);
-        }
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Action<TModel, object?>> SetPropertyValueLambdaCache { get; } = new ConcurrentDictionary<(Type, string), Action<TModel, object?>>();
 
-        private object Create(ITableColumn col, Type type)
-        {
-            var fieldName = col.GetFieldName();
-            var invoker = EventCallbackCache.GetOrAdd((type, fieldName), key => (CreateLambda(type).Compile()));
-            return invoker(fieldName);
-        }
-
-        private ConcurrentDictionary<(Type ModelType, string FieldName), Func<string, object>> EventCallbackCache { get; } = new ConcurrentDictionary<(Type, string), Func<string, object>>();
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<string, object>> EventCallbackCache { get; } = new ConcurrentDictionary<(Type, string), Func<string, object>>();
     }
 }

@@ -209,7 +209,7 @@ namespace BootstrapBlazor.Components
         /// 获得 父组件的 EditContext 实例
         /// </summary>
         [CascadingParameter]
-        private EditContext? CascadedEditContext { get; set; }
+        protected EditContext? CascadedEditContext { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
@@ -377,6 +377,16 @@ namespace BootstrapBlazor.Components
             }
 
             await base.OnAfterRenderAsync(firstRender);
+        }
+
+        /// <summary>
+        /// 失去焦点时触发此方法
+        /// </summary>
+        protected virtual Task OnBlur()
+        {
+            if (FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+
+            return Task.CompletedTask;
         }
 
         #region Validation

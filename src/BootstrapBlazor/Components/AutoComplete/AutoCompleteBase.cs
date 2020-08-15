@@ -127,11 +127,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnBlur 方法
         /// </summary>
-        protected Task OnBlur()
+        protected override async Task OnBlur()
         {
+            await base.OnBlur();
+
             _selectedItem = "";
             _isShown = false;
-            return Task.CompletedTask;
         }
 
         /// <summary>

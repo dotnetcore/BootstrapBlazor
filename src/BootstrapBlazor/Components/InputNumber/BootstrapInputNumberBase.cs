@@ -166,13 +166,14 @@ namespace BootstrapBlazor.Components
         /// 失去焦点是触发此方法
         /// </summary>
         /// <returns></returns>
-        protected Task OnBlur()
+        protected override async Task OnBlur()
         {
+            await base.OnBlur();
+
             if (MinValue != null || MaxValue != null)
             {
                 Range(Value);
             }
-            return Task.CompletedTask;
         }
 
         /// <summary>

@@ -144,6 +144,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "下拉框 DropdownList",
+                Url = "dropdownlists"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "输入框 Input",
                 Url = "inputs"
             });

@@ -103,14 +103,6 @@ namespace BootstrapBlazor.Components
         public RenderFragment? SelectItems { get; set; }
 
         /// <summary>
-        /// 失去焦点时触发此方法
-        /// </summary>
-        protected virtual void OnBlur()
-        {
-            if (FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
-        }
-
-        /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
         protected void OnItemClick(SelectedItem item)

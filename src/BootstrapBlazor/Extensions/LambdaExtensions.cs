@@ -115,7 +115,7 @@ namespace System.Linq
         public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilter> filters)
         {
             var exps = filters.Select(f => f.GetFilterConditions().GetFilterLambda<TItem>());
-            return exps.ExpressionAndLambda<TItem>();
+            return exps.ExpressionAndLambda();
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace System.Linq
         /// <returns></returns>
         public static bool GreaterThanOrEqual<TValue>(this TValue v1, object v2)
         {
-            var invoker = v1.GetGreaterThanOrEqualLambda<TValue>().Compile();
+            var invoker = v1.GetGreaterThanOrEqualLambda().Compile();
             return invoker(v1, v2);
         }
 
