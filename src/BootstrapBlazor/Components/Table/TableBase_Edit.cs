@@ -159,7 +159,7 @@ namespace BootstrapBlazor.Components
                 IsSearch = queryData.IsSearch;
 
                 // 外部未过滤，内部自行过滤
-                if (!IsFiltered)
+                if (!IsFiltered && Filters.Any())
                 {
                     Items = Items.Where(Filters.GetFilterFunc<TItem>());
                     TotalCount = Items.Count();
