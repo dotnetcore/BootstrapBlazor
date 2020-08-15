@@ -74,6 +74,11 @@ namespace BootstrapBlazor.Components
         protected string CurrentTextAsString => SelectedItem?.Text ?? "";
 
         /// <summary>
+        /// 获得/设置 是否初始化完成 默认为 false
+        /// </summary>
+        protected bool Initialized { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter]
@@ -92,7 +97,7 @@ namespace BootstrapBlazor.Components
         public EventCallback<SelectedItem> OnSelectedItemChanged { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 选项模板支持静态数据
         /// </summary>
         [Parameter]
         public RenderFragment? SelectItems { get; set; }

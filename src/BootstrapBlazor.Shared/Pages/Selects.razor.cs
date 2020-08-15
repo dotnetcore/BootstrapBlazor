@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Shared.Pages
         private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
         {
             new SelectedItem ("", "请选择 ..."),
-            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Beijing", "北京") { Active = true },
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Hangzhou", "杭州")
         };

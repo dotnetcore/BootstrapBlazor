@@ -30,6 +30,11 @@
                 }
             }
         </div>
+        @if (!Initialized && SelectedItem != null && OnSelectedItemChanged.HasDelegate)
+        {
+            Initialized = true;
+            OnSelectedItemChanged.InvokeAsync(SelectedItem);
+        }
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">
