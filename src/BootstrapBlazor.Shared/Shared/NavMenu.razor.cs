@@ -144,6 +144,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "多选框组 CheckboxList",
+                Url = "checkboxlists"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "下拉框 DropdownList",
                 Url = "dropdownlists"
             });

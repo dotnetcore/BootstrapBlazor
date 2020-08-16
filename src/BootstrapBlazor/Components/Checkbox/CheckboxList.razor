@@ -1,0 +1,16 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits CheckboxListBase<TItem>
+
+<div @attributes="@AdditionalAttributes" class="checkboxlist" role="checkbox">
+    <div class="form-inline">
+        <div class="row">
+            @foreach (var item in Items)
+            {
+                <div class="@CheckboxClass">
+                    <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@GetDisplayText(item)" Value="@GetChecked(item)" ValueChanged="@(v => OnValueChanged(item, v))"></Checkbox>
+                </div>
+            }
+        </div>
+    </div>
+</div>

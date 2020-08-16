@@ -1,0 +1,31 @@
+<CheckboxList TItem="Foo" Items="@Items" TextField="Text" CheckedField="Checked"></CheckboxList>
+
+@code {
+    private class Foo
+    {
+        public string Text { get; set; } = "";
+
+        public int Value { get; set; }
+
+        public bool Checked { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private IEnumerable<Foo> Items { get; set; } = new List<Foo>()
+    {
+        new Foo { Text = "Item 1", Value = 1, Checked = true },
+        new Foo { Text = "Item 2", Value = 2, Checked = false },
+        new Foo { Text = "Item 3", Value = 3, Checked = true },
+        new Foo { Text = "Item 4", Value = 4, Checked = false },
+        new Foo { Text = "Item 5", Value = 5, Checked = true },
+        new Foo { Text = "Item 6", Value = 6, Checked = false },
+        new Foo { Text = "Item 7", Value = 7, Checked = true },
+        new Foo { Text = "Item 8", Value = 8, Checked = false },
+        new Foo { Text = "Item 9", Value = 9, Checked = true },
+        new Foo { Text = "Item 10", Value = 10, Checked = false },
+        new Foo { Text = "Item 11", Value = 11, Checked = true },
+        new Foo { Text = "Item 12", Value = 12, Checked = false },
+    };
+}

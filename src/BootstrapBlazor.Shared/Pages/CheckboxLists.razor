@@ -1,0 +1,22 @@
+﻿@page "/checkboxlists"
+
+<h3>CheckboxList 多选框组</h3>
+
+<h4>控件用于创建多选的复选框组</h4>
+
+<Block Title="基础用法" Introduction="通过数据绑定展现复选框组" CodeFile="checkboxlist.1.html">
+    <p>使用说明：</p>
+    <ul>
+        <li>通过 <code>Items</code> 设置数据源</li>
+        <li>通过 <code>TextField</code> 设置显示文字字段</li>
+        <li>通过 <code>CheckedField</code> 设置 Checkbox 状态字段 bool 值类型</li>
+        <li>通过 <code>OnSelectedChanged</code> 回调方法获取改变项实例</li>
+    </ul>
+    <CheckboxList TItem="Foo" Items="@Items" OnSelectedChanged="@OnSelectedChanged"
+                  TextField="Text" CheckedField="Checked"></CheckboxList>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />
