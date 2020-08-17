@@ -17,7 +17,8 @@ namespace BootstrapBlazor.Components
             .AddClass("is-checked", State == CheckboxState.Checked)
             .AddClass("is-indeterminate", State == CheckboxState.Mixed)
             .AddClass("is-disabled", IsDisabled)
-            .AddClass(CssClass).AddClass(ValidCss)
+            .AddClass(ValidCss)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

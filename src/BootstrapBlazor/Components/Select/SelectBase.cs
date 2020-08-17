@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string? InputClassName => CssBuilder.Default("form-control form-select-input")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
-            .AddClass(CssClass).AddClass(ValidCss)
+            .AddClass(ValidCss)
             .Build();
 
         /// <summary>

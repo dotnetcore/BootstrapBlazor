@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
         /// 获得 组件样式名称
         /// </summary>
         protected string? ClassName => CssBuilder.Default("form-control datetime-picker-input")
-            .AddClass(CssClass).AddClass(ValidCss)
+            .AddClass(ValidCss)
             .Build();
 
         /// <summary>

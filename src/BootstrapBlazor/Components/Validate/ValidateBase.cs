@@ -300,20 +300,10 @@ namespace BootstrapBlazor.Components
         /// properties. Derived components should typically use this value for the primary HTML element's
         /// 'class' attribute.
         /// </summary>
-        protected string CssClass
-        {
-            get
-            {
-                if (AdditionalAttributes != null &&
-                    AdditionalAttributes.TryGetValue("class", out var @class) &&
-                    !string.IsNullOrEmpty(Convert.ToString(@class)))
-                {
-                    return $"{@class} {FieldClass}";
-                }
-
-                return FieldClass; // Never null or empty
-            }
-        }
+        protected string? CssClass => CssBuilder.Default()
+                    .AddClass(FieldClass)
+                    .AddClassFromAttributes(AdditionalAttributes)
+                    .Build();
 
         /// <summary>
         /// SetParametersAsync 方法
