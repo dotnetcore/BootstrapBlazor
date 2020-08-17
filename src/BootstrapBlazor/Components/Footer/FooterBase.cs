@@ -8,6 +8,14 @@ namespace BootstrapBlazor.Components
     public abstract class FooterBase : BootstrapComponentBase
     {
         /// <summary>
+        /// 获得 按钮样式集合
+        /// </summary>
+        /// <returns></returns>
+        protected string? ClassName => CssBuilder.Default("footer")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
         /// 获得/设置 Footer 显示文字
         /// </summary>
         [Parameter]
