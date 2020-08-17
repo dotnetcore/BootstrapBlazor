@@ -45,6 +45,23 @@ namespace BootstrapBlazor.Shared.Pages
             Trace?.Log($"{foo.Text} - {foo.Checked} Value: {foo.Value} 共 {Items.Where(i => i.Checked).Count()} 项被选中");
         }
 
+        private class Model
+        {
+            public IEnumerable<Foo> Items { get; set; } = new List<Foo>();
+        }
+
+        private Model FooModel { get; set; } = new Model();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            FooModel.Items = Items;
+        }
+
         /// <summary>
         /// 
         /// </summary>

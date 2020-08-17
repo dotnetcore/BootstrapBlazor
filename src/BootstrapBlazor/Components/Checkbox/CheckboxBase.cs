@@ -68,6 +68,8 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             isBoolean = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)) == typeof(bool);
+
+            if (ShowAfterLabel) IsShowLabel = false;
         }
 
         /// <summary>

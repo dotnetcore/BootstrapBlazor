@@ -17,6 +17,14 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
+<Block Title="内置 EditForm 中使用" Introduction="" CodeFile="checkboxlist.2.html">
+    <p>由于与上例中使用的是同一个数据源，所以本例中选项更改时上例中的选项也进行同步更改</p>
+    <ValidateForm Model="FooModel">
+        <CheckboxList TItem="Foo" Items="@FooModel.Items" OnSelectedChanged="@OnSelectedChanged"
+                      TextField="Text" CheckedField="Checked"></CheckboxList>
+    </ValidateForm>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
