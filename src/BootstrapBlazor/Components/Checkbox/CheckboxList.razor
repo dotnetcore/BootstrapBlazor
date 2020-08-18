@@ -1,16 +1,20 @@
 ﻿@namespace BootstrapBlazor.Components
-@typeparam TItem
-@inherits CheckboxListBase<TItem>
+@typeparam TModel
+@typeparam TValue
+@inherits CheckboxListBase<TModel, TValue>
 
-<div @attributes="@AdditionalAttributes" class="checkboxlist" role="checkbox">
-    <div class="form-inline">
-        <div class="row">
-            @foreach (var item in Items)
-            {
-                <div class="@CheckboxClass">
-                    <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@GetDisplayText(item)" Value="@GetChecked(item)" ValueChanged="@(v => OnValueChanged(item, v))"></Checkbox>
-                </div>
-            }
+@if (IsShowLabel)
+{
+    <label class="control-label">@DisplayText</label>
+}
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="checkbox" data-original-title="@ErrorMessage">
+    @foreach (var item in Items)
+    {
+        <div class="@CheckboxItemClassString">
+            <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@GetDisplayText(item)" Value="@GetChecked(item)" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
         </div>
-    </div>
+    }
 </div>
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>

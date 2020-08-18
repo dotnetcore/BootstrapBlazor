@@ -1,26 +1,30 @@
-<ValidateForm Model="FooModel">
-    <CheckboxList TItem="Foo" Items="@FooModel.Items" OnSelectedChanged="@OnSelectedChanged"
-                  TextField="Text" CheckedField="Checked"></CheckboxList>
+<ValidateForm Model="@FooModel">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <CheckboxList TModel="Foo" TValue="string" @bind-Value="@FooModel.Value" Items="@Items2"
+                              ValueField="Value" TextField="Text" CheckedField="Checked">
+                    <RequiredValidator />
+                </CheckboxList>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12">
+                <div class="control-label">绑定值：</div>
+                <div class="form-control">@FooModel.Value</div>
+            </div>
+        </div>
+    </div>
 </ValidateForm>
 
 @code {
     private class Model
     {
-        public IEnumerable<Foo> Items { get; set; } = new List<Foo>();
+        public string Value { get; set; } = "5,8";
     }
 
     private Model FooModel { get; set; } = new Model();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        FooModel.Items = Items;
-    }
-    
+   
     private class Foo
     {
         public string Text { get; set; } = "";
@@ -30,29 +34,11 @@
         public bool Checked { get; set; }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private IEnumerable<Foo> Items { get; set; } = new List<Foo>()
+    private IEnumerable<Foo> Items2 { get; set; } = new List<Foo>()
     {
-        new Foo { Text = "Item 1", Value = 1, Checked = true },
-        new Foo { Text = "Item 2", Value = 2, Checked = false },
-        new Foo { Text = "Item 3", Value = 3, Checked = true },
-        new Foo { Text = "Item 4", Value = 4, Checked = false },
         new Foo { Text = "Item 5", Value = 5, Checked = true },
         new Foo { Text = "Item 6", Value = 6, Checked = false },
         new Foo { Text = "Item 7", Value = 7, Checked = true },
-        new Foo { Text = "Item 8", Value = 8, Checked = false },
-        new Foo { Text = "Item 9", Value = 9, Checked = true },
-        new Foo { Text = "Item 10", Value = 10, Checked = false },
-        new Foo { Text = "Item 11", Value = 11, Checked = true },
-        new Foo { Text = "Item 12", Value = 12, Checked = false },
+        new Foo { Text = "Item 8", Value = 8, Checked = false }
     };
-
-    private Logger? Trace { get; set; }
-
-    private void OnSelectedChanged(Foo foo)
-    {
-        Trace?.Log($"{foo.Text} - {foo.Checked} Value: {foo.Value} 共 {Items.Where(i => i.Checked).Count()} 项被选中");
-    }    
 }

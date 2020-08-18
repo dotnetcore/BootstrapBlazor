@@ -1,0 +1,22 @@
+<CheckboxList TModel="Foo" TValue="IEnumerable<int>" Items="@Items3" @bind-Value="@Value2"
+              ValueField="Value" TextField="Text" CheckedField="Checked"></CheckboxList>
+<div class="form-inline mt-3">
+    <div class="row">
+        <div class="form-group col-12">
+            <div class="control-label">绑定值：</div>
+            <div class="form-control">@(string.Join(",", Value2))</div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private IEnumerable<Foo> Items3 { get; set; } = new List<Foo>()
+    {
+        new Foo { Text = "Item 9", Value = 9, Checked = false },
+        new Foo { Text = "Item 10", Value = 10, Checked = false },
+        new Foo { Text = "Item 11", Value = 11, Checked = false },
+        new Foo { Text = "Item 12", Value = 12, Checked = false }
+    }; 
+
+    private IEnumerable<int> Value2 { get; set; } = new int[] { 9, 10 };
+}

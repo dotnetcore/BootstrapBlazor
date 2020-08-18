@@ -4870,3 +4870,29 @@ input:disabled,
     }
 }
 /*End Textarea*/
+
+/*CheckboxList*/
+.checkbox-list {
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+    .checkbox-list .checkbox-item:not(:last-child) {
+        margin-right: 1rem;
+        width: 140px;
+    }
+
+    .checkbox-list .checkbox-item .form-checkbox {
+        vertical-align: middle;
+        margin: 0.25rem 0;
+        width: 100%;
+    }
+
+@media (min-width: 576px) {
+    .form-inline .checkbox-list {
+        display: flex;
+        width: calc(100% - 100px);
+    }
+}
+/*End CheckboxList*/

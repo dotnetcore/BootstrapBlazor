@@ -244,7 +244,7 @@ namespace BootstrapBlazor.Components
         /// <returns>True if the value could be parsed; otherwise false.</returns>
         protected virtual bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
         {
-            var ret = false;
+            bool ret = false;
             validationErrorMessage = null;
             try
             {
@@ -268,7 +268,6 @@ namespace BootstrapBlazor.Components
 #nullable disable
                     result = default;
 #nullable restore
-                    ret = false;
                 }
             }
             catch (Exception ex)
@@ -277,7 +276,6 @@ namespace BootstrapBlazor.Components
 #nullable disable
                 result = default;
 #nullable restore
-                ret = false;
             }
 
             if (!ret && validationErrorMessage == null)
@@ -301,9 +299,9 @@ namespace BootstrapBlazor.Components
         /// 'class' attribute.
         /// </summary>
         protected string? CssClass => CssBuilder.Default()
-                    .AddClass(FieldClass)
-                    .AddClassFromAttributes(AdditionalAttributes)
-                    .Build();
+            .AddClass(FieldClass)
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
 
         /// <summary>
         /// SetParametersAsync 方法

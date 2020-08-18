@@ -1018,3 +1018,7 @@ section {
         width: calc(100% - 100px);
     }
 }
+
+.card-demo ul li {
+    margin-bottom: 0.25rem;
+}
