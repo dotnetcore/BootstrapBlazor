@@ -104,6 +104,20 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<SelectedItem> EnumItems { get; set; } = typeof(SortOrder).ToSelectList();
 
+        private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
+        {
+            new SelectedItem() { Text = "Item 1", Value = "" },
+            new SelectedItem() { Text = "Item 2", Value = "2" },
+            new SelectedItem() { Text = "Item 3", Value = "3" }
+        };
+
+        private int? SelectedIntItem = null;
+
+        private string GetSelectedIntItemString()
+        {
+            return SelectedIntItem.HasValue ? SelectedIntItem.Value.ToString() : "null";
+        }
+
         private SortOrder SelectedEnumItem { get; set; } = SortOrder.Unset;
 
         /// <summary>

@@ -154,28 +154,47 @@
 </Block>
 
 <Block Title="静态数据" Introduction="直接在 <code>Select</code> 组件内部进行硬编码书写，适用于静态数据下拉框" CodeFile="select.9.html">
-    <div class="row">
-        <div class="form-group col-12 col-sm-3">
-            <Select TValue="string">
-                <SelectItems>
-                    <SelectItem Text="北京" Value="1" />
-                    <SelectItem Text="上海" Value="2" Active="true" />
-                    <SelectItem Text="广州" Value="3" />
-                </SelectItems>
-            </Select>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-3">
+                <Select TValue="string">
+                    <SelectItems>
+                        <SelectItem Text="北京" Value="1" />
+                        <SelectItem Text="上海" Value="2" Active="true" />
+                        <SelectItem Text="广州" Value="3" />
+                    </SelectItems>
+                </Select>
+            </div>
         </div>
     </div>
 </Block>
 
 <Block Title="枚举数据" Introduction="<code>Select</code> 组件绑定枚举类型示例" CodeFile="select.10.html">
     <p>本次展现的是通过 <code>Select</code> 组件绑定枚举类型 <code>SortOrder</code>，通过选项的更改绑定数据</p>
-    <div class="row">
-        <div class="form-group col-12 col-sm-3">
-            <Select Items="@EnumItems" @bind-Value="@SelectedEnumItem">
-            </Select>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-3">
+                <Select Items="@EnumItems" @bind-Value="@SelectedEnumItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-3">
+                <div class="form-control">@SelectedEnumItem</div>
+            </div>
         </div>
-        <div class="form-group col-12 col-sm-3">
-            <div class="form-control">@SelectedEnumItem</div>
+    </div>
+</Block>
+
+<Block Title="绑定可为空类型" Introduction="<code>Select</code> 组件绑定 <code>int?</code> 类型示例" CodeFile="select.11.html">
+    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-3">
+                <Select Items="@NullableIntItems" @bind-Value="@SelectedIntItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-3">
+                <div class="form-control">@GetSelectedIntItemString()</div>
+            </div>
         </div>
     </div>
 </Block>
