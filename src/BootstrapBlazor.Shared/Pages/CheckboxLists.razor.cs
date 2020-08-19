@@ -26,9 +26,13 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<Foo> Items3 { get; set; } = Enumerable.Empty<Foo>();
 
+        private IEnumerable<Foo> Items4 { get; set; } = Enumerable.Empty<Foo>();
+
         private string Value1 { get; set; } = "1,3";
 
         private IEnumerable<int> Value2 { get; set; } = new int[] { 9, 10 };
+
+        private IEnumerable<string> Value3 { get; set; } = new string[] { "Item 13", "Item 15" };
 
         private Logger? Trace { get; set; }
 
@@ -61,6 +65,14 @@ namespace BootstrapBlazor.Shared.Pages
                 new Foo { Text = "Item 10", Value = 10, Checked = false },
                 new Foo { Text = "Item 11", Value = 11, Checked = false },
                 new Foo { Text = "Item 12", Value = 12, Checked = false },
+            });
+
+            Items4 = new List<Foo>(new List<Foo>
+            {
+                new Foo { Text = "Item 13", Value = 13, Checked = false },
+                new Foo { Text = "Item 14", Value = 14, Checked = false },
+                new Foo { Text = "Item 15", Value = 15, Checked = false },
+                new Foo { Text = "Item 16", Value = 16, Checked = false },
             });
         }
 
