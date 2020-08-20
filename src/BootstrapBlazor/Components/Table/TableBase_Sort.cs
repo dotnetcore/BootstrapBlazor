@@ -40,6 +40,55 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 表头排序时回调方法
         /// </summary>
-        protected Func<string, SortOrder, Task> OnSortAsync { get; set; } = (sortName, sortOrder) => Task.CompletedTask;
+        protected Func<Task> OnSortAsync { get; set; } = () => Task.CompletedTask;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected async Task OnSortClick(string fieldName)
+        {
+            if (SortOrder == SortOrder.Unset) SortOrder = SortOrder.Asc;
+            else if (SortOrder == SortOrder.Asc) SortOrder = SortOrder.Desc;
+            else if (SortOrder == SortOrder.Desc) SortOrder = SortOrder.Unset;
+            SortName = fieldName;
+
+            // 通知 Table 组件刷新数据
+            if (OnSortAsync != null) await OnSortAsync.Invoke();
+        }
+
+        /// <summary>
+        /// 获取指定列头样式字符串
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        protected string? GetHeaderClassString(ITableColumn col) => CssBuilder.Default()
+            .AddClass("sortable", col.Sortable)
+            .AddClass("filterable", col.Filterable)
+            .Build();
+
+        /// <summary>
+        /// 获取指定列头样式字符串
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        protected string? GetCellClassString(ITableColumn col) => CssBuilder.Default("table-cell")
+            .AddClass("is-sort", col.Sortable)
+            .AddClass("is-filter", col.Filterable)
+            .Build();
+
+        /// <summary>
+        /// 获取指定列头样式字符串
+        /// </summary>
+        /// <returns></returns>
+        protected string? GetIconClassString(string fieldName)
+        {
+            var order = SortName == fieldName ? SortOrder : SortOrder.Unset;
+            return order switch
+            {
+                SortOrder.Asc => SortIconAsc,
+                SortOrder.Desc => SortIconDesc,
+                _ => SortIcon
+            };
+        }
     }
 }

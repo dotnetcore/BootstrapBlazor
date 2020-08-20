@@ -1041,7 +1041,6 @@ input:disabled,
 
     .table thead th {
         font-weight: bold;
-        overflow: hidden;
         vertical-align: middle;
         border-bottom: none;
         white-space: nowrap;
@@ -1052,7 +1051,7 @@ input:disabled,
             background-color: #e9ecef;
         }
 
-            .table thead th.sortable:hover .fa {
+            .table thead th.sortable:hover > .fa {
                 color: #999;
             }
 
@@ -1066,7 +1065,7 @@ input:disabled,
                 flex: 1;
             }
 
-            .table thead th .table-cell .fa {
+            .table thead th .table-cell > .fa {
                 content: "";
                 position: absolute;
                 right: 0;
@@ -1079,7 +1078,7 @@ input:disabled,
                 color: #ddd;
             }
 
-                .table thead th .table-cell .fa:hover {
+                .table thead th .table-cell > .fa:hover {
                     background-color: #ddd;
                     color: #606266;
                 }

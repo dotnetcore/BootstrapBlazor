@@ -66,7 +66,7 @@
         }
     </div>
 
-    <TableColumnCollection OnSortAsync="@OnSortAsync" OnFilterAsync="@OnFilterAsync">
+    <CascadingValue Value="this" IsFixed="true">
         <div class="@WrapperClassName" style="@WrapperStyleName">
             <table class="@ClassName">
                 @TableColumns?.Invoke(HeaderModel)
@@ -82,7 +82,12 @@
                             <col width="36" />
                         }
                     }
-                    <TableColumnContent />
+                    <RenderTemplate>
+                        @foreach (var col in Columns)
+                        {
+                            <col width="@col.Width" />
+                        }
+                    </RenderTemplate>
                     @if (ShowExtendButtons)
                     {
                         <col width="@ExtendButtonColumnWidth" />
@@ -120,7 +125,26 @@
                                 </div>
                             </th>
                         }
-                        <TableHeaderContent SortIcon="@SortIcon" SortIconAsc="@SortIconAsc" SortIconDesc="@SortIconDesc" />
+                        <RenderTemplate>
+                            @foreach (var col in Columns)
+                            {
+                                var fieldName = col.GetFieldName();
+                                var displayName = col.GetDisplayName();
+                                <th class="@GetHeaderClassString(col)" @onclick="@(e => OnSortClick(fieldName))">
+                                    <div class="@GetCellClassString(col)">
+                                        <span class="table-text">@displayName</span>
+                                        @if (col.Filterable)
+                                        {
+                                            <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(e => OnFilterClick(col))"></i>
+                                        }
+                                        @if (col.Sortable)
+                                        {
+                                            <i class="@GetIconClassString(fieldName)"></i>
+                                        }
+                                    </div>
+                                </th>
+                            }
+                        </RenderTemplate>
                         @if (ShowExtendButtons)
                         {
                             <th class="@ButtonColumnClass">
@@ -140,16 +164,21 @@
             </table>
         </div>
 
+        <div class="table-filter">
+            <RenderTemplate>
+                @foreach (var col in Columns)
+                {
+                    <TableFilter Column="col" />
+                }
+            </RenderTemplate>
+        </div>
+
         @if (TotalCount > 0 && IsPagination)
         {
             <div class="table-pagination">
                 <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
         }
-
-        <div class="table-filter">
-            <TableFilterContent />
-        </div>
 
         @if (OnSaveAsync != null || OnAddAsync != null)
         {
@@ -165,7 +194,15 @@
                             {
                                 <div class="form-inline">
                                     <div class="row">
-                                        <TableEditorContent TModel="TItem" Model="@EditModel" />
+                                        @foreach (var col in Columns)
+                                        {
+                                            if (col.Editable)
+                                            {
+                                                <div class="form-group col-12 col-sm-6">
+                                                    @(col.EditTemplate?.Invoke(EditModel) ?? AutoGenerateTemplate(col, EditModel))
+                                                </div>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             }
@@ -195,7 +232,15 @@
                         {
                             <div class="form-inline">
                                 <div class="row">
-                                    <TableEditorContent TModel="TItem" Model="@SearchModel" IsSearch="true" />
+                                    @foreach (var col in Columns)
+                                    {
+                                        if (col.Searchable)
+                                        {
+                                            <div class="form-group col-12 col-sm-6">
+                                                @(col.EditTemplate?.Invoke(SearchModal) ?? AutoGenerateTemplate(col, SearchModel))
+                                            </div>
+                                        }
+                                    }
                                 </div>
                             </div>
                         }
@@ -213,5 +258,5 @@
                 </ModalDialog>
             </Modal>
         }
-    </TableColumnCollection>
+    </CascadingValue>
 </div>

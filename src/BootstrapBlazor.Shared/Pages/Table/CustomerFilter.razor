@@ -26,7 +26,7 @@
     /// <summary>
     /// 重置过滤条件方法
     /// </summary>
-    protected override void ResetFilterCondition()
+    public override void Reset()
     {
         Value = 10;
     }
@@ -35,7 +35,7 @@
     /// 生成过滤条件方法
     /// </summary>
     /// <returns></returns>
-    protected override IEnumerable<FilterKeyValueAction> BuildConditions()
+    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
     {
         var filters = new List<FilterKeyValueAction>();
         filters.Add(new FilterKeyValueAction()

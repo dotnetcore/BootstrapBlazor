@@ -28,9 +28,9 @@ else
 @code {
     RenderFragment<TableRow<TItem>> RenderRow = row =>
     @<RenderTemplate>
-        @if (row.Columns != null)
+        @if (row.Table != null)
         {
-            foreach (var col in row.Columns.Columns)
+            foreach (var col in row.Table.Columns)
             {
                 <td>
                     <div class="table-cell">

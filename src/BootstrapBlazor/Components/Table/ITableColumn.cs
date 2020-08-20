@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 列宽
         /// </summary>
-        int Width { get; set; }
+        int? Width { get; set; }
 
         /// <summary>
         /// 获得/设置 绑定列类型
@@ -76,6 +76,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 过滤模板
         /// </summary>
         RenderFragment? FilterTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 列过滤器
+        /// </summary>
+        IFilter? Filter { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd

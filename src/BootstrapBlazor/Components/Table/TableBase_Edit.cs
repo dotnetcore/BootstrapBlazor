@@ -3,6 +3,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -136,6 +138,7 @@ namespace BootstrapBlazor.Components
         protected async Task QueryData()
         {
             SelectedItems.Clear();
+
             QueryData<TItem>? queryData = null;
             if (OnQueryAsync != null)
             {
@@ -146,7 +149,7 @@ namespace BootstrapBlazor.Components
                     SearchText = SearchText,
                     SortOrder = SortOrder,
                     SortName = SortName,
-                    Filters = Filters,
+                    Filters = Filters.Values,
                     Searchs = Searchs
                 });
             }
@@ -161,7 +164,7 @@ namespace BootstrapBlazor.Components
                 // 外部未过滤，内部自行过滤
                 if (!IsFiltered && Filters.Any())
                 {
-                    Items = Items.Where(Filters.GetFilterFunc<TItem>());
+                    Items = Items.Where(Filters.Values.GetFilterFunc<TItem>());
                     TotalCount = Items.Count();
                 }
 
@@ -220,5 +223,141 @@ namespace BootstrapBlazor.Components
 
             return Task.CompletedTask;
         }
+
+        #region AutoEdit
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        protected RenderFragment AutoGenerateTemplate(ITableColumn col, TItem? model) => builder =>
+        {
+            var fieldType = col.FieldType;
+            if (fieldType != null && model != null)
+            {
+                // GetDisplayName
+                var displayName = col.GetDisplayName();
+                var fieldName = col.GetFieldName();
+
+                // FieldValue
+                var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TItem), fieldName), key => model.GetPropertyValueLambda<TItem, object?>(key.FieldName).Compile());
+                var fieldValue = valueInvoker.Invoke(model);
+
+                // ValueChanged
+                var valueChangedInvoker = CreateLambda(fieldType).Compile();
+                var fieldValueChanged = valueChangedInvoker(model, fieldName);
+
+                // ValueExpression
+                var body = Expression.Property(Expression.Constant(model), typeof(TItem), fieldName);
+                var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
+                var valueExpression = Expression.Lambda(tDelegate, body);
+
+                var index = 0;
+                var componentType = GenerateComponent(fieldType);
+                builder.OpenComponent(index++, componentType);
+                builder.AddAttribute(index++, "DisplayText", displayName);
+                builder.AddAttribute(index++, "Value", fieldValue);
+                builder.AddAttribute(index++, "ValueChanged", fieldValueChanged);
+                builder.AddAttribute(index++, "ValueExpression", valueExpression);
+                builder.AddMultipleAttributes(index++, CreateMultipleAttributes(fieldType));
+                builder.CloseComponent();
+            }
+        };
+
+        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType)
+        {
+            var ret = new List<KeyValuePair<string, object>>();
+            var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
+            if (type.IsEnum)
+            {
+                // 枚举类型
+                // 通过字符串转化为枚举类实例
+                var items = type.ToSelectList();
+                if (items != null) ret.Add(new KeyValuePair<string, object>("Items", items));
+            }
+            else
+            {
+                switch (type.Name)
+                {
+                    case nameof(String):
+                        ret.Add(new KeyValuePair<string, object>("placeholder", "请输入 ..."));
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (IsSearch)
+            {
+                ret.Add(new KeyValuePair<string, object>("ShowLabel", true));
+            }
+            return ret;
+        }
+
+        private Type GenerateComponent(Type fieldType)
+        {
+            Type? ret = null;
+            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
+            if (type.IsEnum)
+            {
+                ret = typeof(Select<>).MakeGenericType(fieldType);
+            }
+            else
+            {
+                switch (type.Name)
+                {
+                    case nameof(Boolean):
+                        ret = typeof(Checkbox<>).MakeGenericType(fieldType);
+                        break;
+                    case nameof(DateTime):
+                        ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
+                        break;
+                    case nameof(Int32):
+                    case nameof(Double):
+                    case nameof(Decimal):
+                        ret = typeof(BootstrapInput<>).MakeGenericType(fieldType);
+                        break;
+                    case nameof(String):
+                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
+                        break;
+                }
+            }
+            return ret ?? typeof(BootstrapInput<>).MakeGenericType(typeof(string));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TType"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        protected EventCallback<TType> CreateCallback<TType>(TItem model, string fieldName)
+        {
+            return EventCallback.Factory.Create<TType>(this, t =>
+            {
+                if (model != null)
+                {
+                    var invoker = SetPropertyValueLambdaCache.GetOrAdd((typeof(TItem), fieldName), key => model.SetPropertyValueLambda<TItem, object?>(key.FieldName).Compile());
+                    invoker.Invoke(model, t);
+                }
+            });
+        }
+
+        private Expression<Func<TItem, string, object>> CreateLambda(Type fieldType)
+        {
+            var exp_p1 = Expression.Parameter(typeof(TItem));
+            var exp_p2 = Expression.Parameter(typeof(string));
+            var method = GetType().GetMethod("CreateCallback", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(fieldType);
+            var body = Expression.Call(Expression.Constant(this), method, exp_p1, exp_p2);
+
+            return Expression.Lambda<Func<TItem, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2);
+        }
+
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<TItem, object?>> GetPropertyValueLambdaCache { get; } = new ConcurrentDictionary<(Type, string), Func<TItem, object?>>();
+
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Action<TItem, object?>> SetPropertyValueLambdaCache { get; } = new ConcurrentDictionary<(Type, string), Action<TItem, object?>>();
+        #endregion
     }
 }

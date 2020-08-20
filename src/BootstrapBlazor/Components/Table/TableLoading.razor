@@ -25,11 +25,11 @@
     /// 获得/设置 Table Header 实例
     /// </summary>
     [CascadingParameter]
-    private TableColumnCollection? Columns { get; set; }
+    private ITable? Table { get; set; }
 
     private string GetColSpan()
     {
-        var colNumber = Columns?.Columns.Count ?? 0;
+        var colNumber = Table?.Columns.Count ?? 0;
         if (ShowExtendButtons) colNumber++;
         if (IsMultipleSelect) colNumber++;
         return colNumber.ToString();

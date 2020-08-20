@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// Table 组件基类
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
-    public abstract partial class TableBase<TItem> : BootstrapComponentBase where TItem : class, new()
+    public abstract partial class TableBase<TItem> : BootstrapComponentBase, ITable where TItem : class, new()
     {
         /// <summary>
         /// 获得 wrapper 样式表集合
@@ -34,6 +34,11 @@ namespace BootstrapBlazor.Components
         /// 获得 表头 Model 实例
         /// </summary>
         protected TItem HeaderModel => Items?.FirstOrDefault() ?? new TItem();
+
+        /// <summary>
+        /// 获得 表头集合
+        /// </summary>
+        public List<ITableColumn> Columns { get; } = new List<ITableColumn>(50);
 
         /// <summary>
         /// 获得/设置 TableHeader 实例
@@ -100,18 +105,10 @@ namespace BootstrapBlazor.Components
             }
 
             // 设置 OnSort 回调方法
-            OnSortAsync = async (sortName, sortOrder) =>
-            {
-                (SortName, SortOrder) = (sortName, sortOrder);
-                await QueryAsync();
-            };
+            OnSortAsync = QueryAsync;
 
-            OnFilterAsync = async filters =>
-            {
-                Filters.Clear();
-                Filters.AddRange(filters);
-                await QueryAsync();
-            };
+            // 设置 OnFilter 回调方法
+            OnFilterAsync = QueryAsync;
 
             // 如果未设置 Items 数据源 自动执行查询方法
             if (Items == null)

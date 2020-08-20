@@ -59,9 +59,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task OnPageItemsChanged(int pageItems)
         {
-            PageIndex = 1;
-            PageItems = pageItems;
-            await QueryAsync();
+            if (PageItems != pageItems)
+            {
+                PageIndex = 1;
+                PageItems = pageItems;
+                await QueryAsync();
+            }
         }
     }
 }

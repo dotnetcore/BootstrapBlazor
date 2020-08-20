@@ -18,6 +18,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public Type? FieldType { get; set; }
 
+        /// <summary>
+        /// 获得/设置 相关过滤器
+        /// </summary>
+        public IFilter? Filter { get; set; }
+
 #nullable disable
         /// <summary>
         /// 获得/设置 数据绑定字段值
@@ -66,7 +71,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 列宽 默认为 auto
         /// </summary>
         [Parameter]
-        public int Width { get; set; }
+        public int? Width { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -108,8 +113,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 Table Header 实例
         /// </summary>
+        //[CascadingParameter]
+        //protected TableColumnCollection? Columns { get; set; }
+
         [CascadingParameter]
-        protected TableColumnCollection? Columns { get; set; }
+        protected ITable? Table { get; set; }
 
         /// <summary>
         /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
@@ -131,7 +139,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnInitialized()
         {
-            Columns?.Columns.Add(this);
+            Table?.Columns.Add(this);
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
 
             // 获取模型属性定义类型

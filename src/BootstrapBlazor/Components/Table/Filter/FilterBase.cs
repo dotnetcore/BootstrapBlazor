@@ -1,19 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 类型过滤器基类
     /// /// </summary>
-    public abstract class FilterBase : ComponentBase, IFilter
+    public abstract class FilterBase : ComponentBase, IFilterAction
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        protected int Count { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -22,13 +16,19 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 相关 Field 字段名称
         /// </summary>
-        protected string FieldKey { get; set; } = "";
+        protected string? FieldKey { get; set; }
+
+        /// <summary>
+        /// 获得/设置 条件数量
+        /// </summary>
+        [Parameter]
+        public int Count { get; set; }
 
         /// <summary>
         /// 获得/设置 所属 TableFilter 实例
         /// </summary>
         [CascadingParameter]
-        protected TableFilterBase? TableFilter { get; set; }
+        protected TableFilter? TableFilter { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -37,71 +37,22 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            TableFilter?.Filters?.AddFilter(TableFilter, this);
-            FieldKey = TableFilter?.FieldKey ?? "";
-        }
-
-        /// <summary>
-        /// 重置方法
-        /// </summary>
-        public void Reset()
-        {
-            ResetFilterCondition();
-            TableFilter?.ResetFilter();
-            StateHasChanged();
+            if (TableFilter != null)
+            {
+                TableFilter.FilterAction = this;
+                FieldKey = TableFilter.FieldKey;
+            }
         }
 
         /// <summary>
         /// 重置过滤条件方法
         /// </summary>
-        protected abstract void ResetFilterCondition();
+        public abstract void Reset();
 
         /// <summary>
-        /// 获得 添加 IFilter 实例到 Column 集合中
+        /// 获得过滤窗口的所有条件方法
         /// </summary>
         /// <returns></returns>
-        public void AddFilter()
-        {
-            if (BuildConditions().Any()) TableFilter?.AddFilter(this);
-        }
-
-        /// <summary>
-        /// 获得 过滤窗口的所有条件
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<FilterKeyValueAction> GetFilterConditions()
-        {
-            return BuildConditions();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected abstract IEnumerable<FilterKeyValueAction> BuildConditions();
-
-        /// <summary>
-        /// 增加过滤条件方法
-        /// </summary>
-        public virtual void Plus()
-        {
-            if (Count == 0)
-            {
-                Count++;
-                StateHasChanged();
-            }
-        }
-
-        /// <summary>
-        /// 减少过滤条件方法
-        /// </summary>
-        public virtual void Minus()
-        {
-            if (Count == 1)
-            {
-                Count--;
-                StateHasChanged();
-            }
-        }
+        public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();
     }
 }

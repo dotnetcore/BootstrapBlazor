@@ -134,7 +134,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]
-        private TableColumnCollection? Columns { get; set; }
+        private ITable? Table { get; set; }
 
         private RenderFragment GetValue(ITableColumn col) => async builder =>
         {

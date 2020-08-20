@@ -101,7 +101,7 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilter> filters)
+        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters)
         {
             return filters.GetFilterLambda<TItem>().Compile();
         }
@@ -112,7 +112,7 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilter> filters)
+        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters)
         {
             var exps = filters.Select(f => f.GetFilterConditions().GetFilterLambda<TItem>());
             return exps.ExpressionAndLambda();

@@ -10,13 +10,29 @@ namespace BootstrapBlazor.Components
     public partial class TableBase<TItem>
     {
         /// <summary>
-        /// 获得/设置 过滤条件集合
+        /// 获得 过滤小图标样式
         /// </summary>
-        protected List<IFilter> Filters { get; } = new List<IFilter>(10);
+        protected string? GetFilterClassString(string fieldName) => CssBuilder.Default("fa fa-fw fa-filter")
+            .AddClass("active", Filters.ContainsKey(fieldName))
+            .Build();
 
         /// <summary>
         /// 获得/设置 表头过滤时回调方法
         /// </summary>
-        protected Func<IEnumerable<IFilter>, Task> OnFilterAsync { get; set; } = _ => Task.CompletedTask;
+        public Func<Task>? OnFilterAsync { get; private set; }
+
+        /// <summary>
+        /// 获得 过滤集合
+        /// </summary>
+        public Dictionary<string, IFilterAction> Filters { get; } = new Dictionary<string, IFilterAction>();
+
+        /// <summary>
+        /// 点击 过滤小图标方法
+        /// </summary>
+        /// <param name="col"></param>
+        protected void OnFilterClick(ITableColumn col)
+        {
+            col.Filter?.Show();
+        }
     }
 }
