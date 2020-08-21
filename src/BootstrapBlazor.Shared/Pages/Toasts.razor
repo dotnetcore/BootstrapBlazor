@@ -44,10 +44,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-6">
-                <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
-            </div>
-            <div class="form-group col-6">
-                <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
+                <Button OnClick="@OnClick">右下角</Button>
             </div>
         </div>
     </div>
@@ -80,5 +77,3 @@
 <Pre>&lt;Toast /&gt;</Pre>
 
 <AttributeTable Items="@GetAttributes()" />
-
-<Toast @ref="Toast"></Toast>

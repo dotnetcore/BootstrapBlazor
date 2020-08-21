@@ -97,15 +97,13 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="placement"></param>
-        private void OnPlacementClick(Placement placement)
+        private void OnClick()
         {
-            Toast?.SetPlacement(placement);
             ToastService?.Show(new ToastOption()
             {
                 Category = ToastCategory.Information,
                 Title = "消息通知",
-                Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
+                Content = "<b>Toast</b> 组件可以设置出现位置，4 秒后自动关闭"
             });
         }
 
