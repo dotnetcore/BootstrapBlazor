@@ -1,8 +1,4 @@
-﻿a, .btn-link {
-    color: #0366d6;
-}
-
-header {
+﻿header {
     background-color: #4a3275;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     font-size: 1rem;
@@ -1019,6 +1015,6 @@ section {
     }
 }
 
-.card-demo ul li {
+.checkbox-list-demo li {
     margin-bottom: 0.25rem;
 }
