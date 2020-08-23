@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Components
                 {
                     await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
                     {
-                        [nameof(ModalDialogBase.BodyContext)] = option.BodyContext!,
+                        [nameof(ModalDialogBase.BodyContext)] = null!,
                         [nameof(ModalDialogBase.BodyTemplate)] = null!
                     }));
                 }
