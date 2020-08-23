@@ -16,10 +16,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Modal? ModalContainer { get; set; }
 
+#nullable disable
         /// <summary>
         /// 获得/设置 弹出对话框实例
         /// </summary>
-        protected ModalDialog? ModalDialog { get; set; }
+        protected ModalDialog ModalDialog { get; set; }
+#nullable restore
 
         private bool IsShowDialog { get; set; }
 
@@ -61,38 +63,39 @@ namespace BootstrapBlazor.Components
 
         private async Task Show(DialogOption option)
         {
-            if (ModalDialog != null)
+            option.Dialog = ModalContainer;
+            var parameters = option.ToAttributes().ToList();
+
+            if (option.BodyTemplate != null)
             {
-                option.Dialog = ModalContainer;
-                var parameters = option.ToAttributes().ToList();
-
-                if (option.BodyTemplate != null)
-                {
-                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
-                }
-                else if (option.Component != null)
-                {
-                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.Component.Render()));
-                }
-
-                if (option.FooterTemplate != null)
-                {
-                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.FooterTemplate), option.FooterTemplate));
-                }
-
-                // 不保持状态
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(() =>
-                {
-                    if (!option.KeepChildrenState)
-                    {
-                    }
-                    return Task.CompletedTask;
-                })));
-
-                await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
-                IsShowDialog = true;
-                StateHasChanged();
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
             }
+            else if (option.Component != null)
+            {
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.Component.Render()));
+            }
+
+            if (option.FooterTemplate != null)
+            {
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.FooterTemplate), option.FooterTemplate));
+            }
+
+            // 不保持状态
+            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
+            {
+                if (!option.KeepChildrenState)
+                {
+                    await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
+                    {
+                        [nameof(ModalDialogBase.BodyContext)] = option.BodyContext!,
+                        [nameof(ModalDialogBase.BodyTemplate)] = null!
+                    }));
+                }
+            })));
+
+            await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
+            IsShowDialog = true;
+            StateHasChanged();
         }
     }
 }

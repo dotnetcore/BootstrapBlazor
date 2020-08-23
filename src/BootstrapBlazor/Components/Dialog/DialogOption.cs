@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹窗标题
         /// </summary>
-        public string Title { get; set; } = "未设置";
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 弹窗大小
@@ -76,13 +76,13 @@ namespace BootstrapBlazor.Components
         {
             return new KeyValuePair<string, object>[]
             {
-                new KeyValuePair<string, object>(nameof(Title), Title),
+                new KeyValuePair<string, object>(nameof(Title), Title!),
                 new KeyValuePair<string, object>(nameof(Size), Size),
                 new KeyValuePair<string, object>(nameof(IsCentered), IsCentered),
                 new KeyValuePair<string, object>(nameof(IsScrolling), IsScrolling),
                 new KeyValuePair<string, object>(nameof(ShowCloseButton), ShowCloseButton),
                 new KeyValuePair<string, object>(nameof(ShowFooter), ShowFooter),
-                new KeyValuePair<string, object>(nameof(BodyContext), BodyContext ?? ""),
+                new KeyValuePair<string, object>(nameof(BodyContext), BodyContext!),
             };
         }
     }
