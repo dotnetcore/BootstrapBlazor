@@ -35,6 +35,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnClick",
                 Description="点击按钮时触发此事件",
                 Type ="EventCallback<MouseEventArgs>"
+            },
+            new EventItem()
+            {
+                Name = "OnClickWithoutRender",
+                Description="点击按钮时触发此事件并且不刷新当前组件，用于提高性能时使用",
+                Type ="Func<Task>"
             }
         };
 

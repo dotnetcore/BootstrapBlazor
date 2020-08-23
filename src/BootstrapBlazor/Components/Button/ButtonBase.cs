@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -45,6 +47,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+        /// <summary>
+        /// OnClick 事件不刷新父组件
+        /// </summary>
+        [Parameter]
+        public Func<Task>? OnClickWithoutRender { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -123,6 +131,8 @@ namespace BootstrapBlazor.Components
             {
                 if (!IsDisabled)
                 {
+                    if (OnClickWithoutRender != null) await OnClickWithoutRender.Invoke();
+
                     bool valid = true;
                     if (EditForm != null)
                     {
