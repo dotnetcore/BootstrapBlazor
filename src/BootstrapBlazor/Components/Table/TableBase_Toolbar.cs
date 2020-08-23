@@ -10,12 +10,6 @@ namespace BootstrapBlazor.Components
     public partial class TableBase<TItem>
     {
         /// <summary>
-        /// ToastService 服务实例
-        /// </summary>
-        [Inject]
-        protected ToastService? Toast { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否显示工具栏 默认 false 不显示
         /// </summary>
         [Parameter]
@@ -95,6 +89,18 @@ namespace BootstrapBlazor.Components
         public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteAsync { get; set; }
 
         /// <summary>
+        /// ToastService 服务实例
+        /// </summary>
+        [Inject]
+        protected ToastService? Toast { get; set; }
+
+        /// <summary>
+        /// DialogService 服务实例
+        /// </summary>
+        [Inject]
+        protected DialogService? DialogService { get; set; }
+
+        /// <summary>
         /// 新建按钮方法
         /// </summary>
         public async Task AddAsync()
@@ -104,19 +110,21 @@ namespace BootstrapBlazor.Components
 
             SelectedItems.Clear();
             EditModalTitleString = AddModalTitle;
-            EditModal?.Toggle();
+
+            ShowEditorDialog();
         }
 
         /// <summary>
         /// 编辑按钮方法
         /// </summary>
-        public void Edit()
+        public Task EditAsync()
         {
             if (SelectedItems.Count == 1)
             {
                 EditModel = SelectedItems[0].Clone();
                 EditModalTitleString = EditModalTitle;
-                EditModal?.Toggle();
+
+                ShowEditorDialog();
             }
             else
             {
@@ -128,6 +136,7 @@ namespace BootstrapBlazor.Components
                 };
                 Toast?.Show(option);
             }
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -147,9 +156,34 @@ namespace BootstrapBlazor.Components
             Toast?.Show(option);
             if (valid)
             {
-                EditModal?.Toggle();
+                DialogOption.Dialog?.Toggle();
                 await QueryAsync();
             }
+        }
+
+        private readonly DialogOption DialogOption = new DialogOption();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void ShowEditorDialog()
+        {
+            DialogOption.IsScrolling = true;
+            DialogOption.ShowFooter = false;
+            DialogOption.Size = Size.ExtraLarge;
+            DialogOption.Title = EditModalTitleString ?? "未设置";
+
+            var editorParameters = new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Model), EditModel),
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Columns), Columns),
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(Save)),
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.ShowLabel), false),
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate)
+            };
+            DialogOption.Component = DynamicComponent.CreateComponent<TableEditorDialog<TItem>>(editorParameters);
+
+            DialogService?.Show(DialogOption);
         }
 
         /// <summary>

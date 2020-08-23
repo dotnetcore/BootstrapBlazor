@@ -1,0 +1,33 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TModel
+@inherits TableDialog<TModel>
+
+<ValidateForm Model="@Model" OnValidSubmit="@OnSaveAsync">
+    @if (BodyTemplate != null)
+    {
+        @BodyTemplate?.Invoke(Model)
+    }
+    else
+    {
+        <div class="form-inline">
+            <div class="row">
+                @foreach (var col in Columns)
+                {
+                    if (col.Editable)
+                    {
+                        <div class="form-group col-12 col-sm-6">
+                            @(col.EditTemplate?.Invoke(Model) ?? AutoGenerateTemplate(col, Model))
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+    <div class="modal-footer table-modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-times"></i>
+            <span>关闭</span>
+        </button>
+        <Button Color="Color.Primary" IsTriggerValidate="true" Icon="fa fa-save" Text="保存" />
+    </div>
+</ValidateForm>

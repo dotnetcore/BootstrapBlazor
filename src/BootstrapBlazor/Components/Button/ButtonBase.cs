@@ -99,7 +99,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否触发客户端验证 默认为 true 触发
         /// </summary>
-        [Parameter] public bool IsTriggerValidate { get; set; } = true;
+        [Parameter]
+        public bool IsTriggerValidate { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 RenderFragment 实例
@@ -117,7 +118,7 @@ namespace BootstrapBlazor.Components
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
-        public ValidateFormBase? EditForm { get; set; }
+        public ValidateFormBase? ValidateForm { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -134,9 +135,9 @@ namespace BootstrapBlazor.Components
                     if (OnClickWithoutRender != null) await OnClickWithoutRender.Invoke();
 
                     bool valid = true;
-                    if (EditForm != null)
+                    if (ValidateForm != null && IsTriggerValidate)
                     {
-                        valid = await EditForm.Validate();
+                        valid = await ValidateForm.Validate();
                     }
                     if (valid && onClick.HasDelegate) await onClick.InvokeAsync(e);
                 }

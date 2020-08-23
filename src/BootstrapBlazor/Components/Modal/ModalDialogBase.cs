@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否显示对话框
         /// </summary>
-        public bool IsShown { get; set; }
+        internal bool IsShown { get; set; }
 
         /// <summary>
         /// 获得/设置 弹窗标题

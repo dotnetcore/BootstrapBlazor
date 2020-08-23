@@ -72,8 +72,7 @@ namespace BootstrapBlazor.Components
                 }
                 else if (option.Component != null)
                 {
-                    option.BodyTemplate = option.Component.Render();
-                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
+                    parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.Component.Render()));
                 }
 
                 if (option.FooterTemplate != null)
@@ -82,16 +81,12 @@ namespace BootstrapBlazor.Components
                 }
 
                 // 不保持状态
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(() =>
                 {
                     if (!option.KeepChildrenState)
                     {
-                        await Task.Delay(500);
-                        await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
-                        {
-                            [nameof(ModalDialogBase.BodyTemplate)] = new RenderFragment(builder => builder.AddContent(0, ""))
-                        }));
                     }
+                    return Task.CompletedTask;
                 })));
 
                 await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));

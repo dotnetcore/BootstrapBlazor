@@ -739,10 +739,6 @@ section {
         }
 
 @media (min-width: 576px) {
-    .form-inline .form-group {
-        margin-bottom: 2rem;
-    }
-
     .intro .card {
         border-color: #dce3e8;
         height: 263px;

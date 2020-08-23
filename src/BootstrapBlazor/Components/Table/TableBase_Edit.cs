@@ -45,39 +45,42 @@ namespace BootstrapBlazor.Components
         public IEnumerable<TItem> SelectedRows => SelectedItems;
 
         /// <summary>
-        /// 获得/设置 编辑数据弹窗实例
-        /// </summary>
-        protected Modal? EditModal { get; set; }
-
-        /// <summary>
         /// 获得/设置 编辑数据弹窗 Title
         /// </summary>
-        [Parameter] public string EditModalTitle { get; set; } = "编辑数据窗口";
+        [Parameter]
+        public string EditModalTitle { get; set; } = "编辑数据窗口";
 
         /// <summary>
         /// 获得/设置 新建数据弹窗 Title
         /// </summary>
-        [Parameter] public string AddModalTitle { get; set; } = "新建数据窗口";
+        [Parameter]
+        public string AddModalTitle { get; set; } = "新建数据窗口";
 
+#nullable disable
         /// <summary>
-        /// 获得/设置 新建数据弹窗 Title
+        /// 获得/设置 EditModel 实例
         /// </summary>
-        [Parameter] public string ColumnButtonTemplateHeaderText { get; set; } = "操作";
+        [Parameter]
+        public TItem EditModel { get; set; }
 
         /// <summary>
         /// 获得/设置 EditTemplate 实例
         /// </summary>
-        [Parameter] public RenderFragment<TItem?>? EditTemplate { get; set; }
+        [Parameter]
+        public RenderFragment<TItem> EditTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 RowButtonTemplate 实例
         /// </summary>
-        [Parameter] public RenderFragment<TItem>? RowButtonTemplate { get; set; }
+        [Parameter]
+        public RenderFragment<TItem> RowButtonTemplate { get; set; }
+#nullable restore
 
         /// <summary>
-        /// 获得/设置 EditModel 实例
+        /// 获得/设置 新建数据弹窗 Title
         /// </summary>
-        [Parameter] public TItem? EditModel { get; set; }
+        [Parameter]
+        public string ColumnButtonTemplateHeaderText { get; set; } = "操作";
 
         /// <summary>
         /// 获得/设置 单选模式下点击行即选中本行 默认为 true
@@ -183,7 +186,7 @@ namespace BootstrapBlazor.Components
         /// 行尾列编辑按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected Task ClickEditButton(TItem item)
+        protected async Task ClickEditButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
@@ -191,10 +194,8 @@ namespace BootstrapBlazor.Components
             if (OnSaveAsync != null || OnAddAsync != null)
             {
                 // 更新行选中状态
-                Edit();
-                StateHasChanged();
+                await EditAsync();
             }
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -219,145 +220,8 @@ namespace BootstrapBlazor.Components
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
-            StateHasChanged();
 
             return Task.CompletedTask;
         }
-
-        #region AutoEdit
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="col"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        protected RenderFragment AutoGenerateTemplate(ITableColumn col, TItem? model) => builder =>
-        {
-            var fieldType = col.FieldType;
-            if (fieldType != null && model != null)
-            {
-                // GetDisplayName
-                var displayName = col.GetDisplayName();
-                var fieldName = col.GetFieldName();
-
-                // FieldValue
-                var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TItem), fieldName), key => model.GetPropertyValueLambda<TItem, object?>(key.FieldName).Compile());
-                var fieldValue = valueInvoker.Invoke(model);
-
-                // ValueChanged
-                var valueChangedInvoker = CreateLambda(fieldType).Compile();
-                var fieldValueChanged = valueChangedInvoker(model, fieldName);
-
-                // ValueExpression
-                var body = Expression.Property(Expression.Constant(model), typeof(TItem), fieldName);
-                var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
-                var valueExpression = Expression.Lambda(tDelegate, body);
-
-                var index = 0;
-                var componentType = GenerateComponent(fieldType);
-                builder.OpenComponent(index++, componentType);
-                builder.AddAttribute(index++, "DisplayText", displayName);
-                builder.AddAttribute(index++, "Value", fieldValue);
-                builder.AddAttribute(index++, "ValueChanged", fieldValueChanged);
-                builder.AddAttribute(index++, "ValueExpression", valueExpression);
-                builder.AddMultipleAttributes(index++, CreateMultipleAttributes(fieldType));
-                builder.CloseComponent();
-            }
-        };
-
-        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType)
-        {
-            var ret = new List<KeyValuePair<string, object>>();
-            var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
-            if (type.IsEnum)
-            {
-                // 枚举类型
-                // 通过字符串转化为枚举类实例
-                var items = type.ToSelectList();
-                if (items != null) ret.Add(new KeyValuePair<string, object>("Items", items));
-            }
-            else
-            {
-                switch (type.Name)
-                {
-                    case nameof(String):
-                        ret.Add(new KeyValuePair<string, object>("placeholder", "请输入 ..."));
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            if (IsSearch)
-            {
-                ret.Add(new KeyValuePair<string, object>("ShowLabel", true));
-            }
-            return ret;
-        }
-
-        private Type GenerateComponent(Type fieldType)
-        {
-            Type? ret = null;
-            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
-            if (type.IsEnum)
-            {
-                ret = typeof(Select<>).MakeGenericType(fieldType);
-            }
-            else
-            {
-                switch (type.Name)
-                {
-                    case nameof(Boolean):
-                        ret = typeof(Checkbox<>).MakeGenericType(fieldType);
-                        break;
-                    case nameof(DateTime):
-                        ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
-                        break;
-                    case nameof(Int32):
-                    case nameof(Double):
-                    case nameof(Decimal):
-                        ret = typeof(BootstrapInput<>).MakeGenericType(fieldType);
-                        break;
-                    case nameof(String):
-                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-                        break;
-                }
-            }
-            return ret ?? typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TType"></typeparam>
-        /// <param name="model"></param>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
-        protected EventCallback<TType> CreateCallback<TType>(TItem model, string fieldName)
-        {
-            return EventCallback.Factory.Create<TType>(this, t =>
-            {
-                if (model != null)
-                {
-                    var invoker = SetPropertyValueLambdaCache.GetOrAdd((typeof(TItem), fieldName), key => model.SetPropertyValueLambda<TItem, object?>(key.FieldName).Compile());
-                    invoker.Invoke(model, t);
-                }
-            });
-        }
-
-        private Expression<Func<TItem, string, object>> CreateLambda(Type fieldType)
-        {
-            var exp_p1 = Expression.Parameter(typeof(TItem));
-            var exp_p2 = Expression.Parameter(typeof(string));
-            var method = GetType().GetMethod("CreateCallback", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(fieldType);
-            var body = Expression.Call(Expression.Constant(this), method, exp_p1, exp_p2);
-
-            return Expression.Lambda<Func<TItem, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2);
-        }
-
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<TItem, object?>> GetPropertyValueLambdaCache { get; } = new ConcurrentDictionary<(Type, string), Func<TItem, object?>>();
-
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), Action<TItem, object?>> SetPropertyValueLambdaCache { get; } = new ConcurrentDictionary<(Type, string), Action<TItem, object?>>();
-        #endregion
     }
 }

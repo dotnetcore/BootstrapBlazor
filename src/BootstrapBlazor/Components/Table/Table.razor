@@ -15,11 +15,11 @@
                     }
                     @if (ShowEditButton)
                     {
-                        <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@Edit" Icon="fa fa-pencil" Text="编辑" />
+                        <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@EditAsync" Icon="fa fa-pencil" Text="编辑" />
                     }
                     @if (ShowDeleteButton)
                     {
-                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                        <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" Icon="fa fa-remove" Text="删除"
                                                       OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
                                                       CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                                       ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
@@ -55,10 +55,9 @@
                         </button>
                         @if (ShowAdvancedSearch)
                         {
-                            <button class="@AdvanceSearchClass" type="button" title="高级搜索" @onclick="@AdvancedSearchClick">
-                                <i class="fa fa-search-plus"></i>
+                            <Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
                                 <span class="d-none d-sm-inline-block">高级搜索</span>
-                            </button>
+                            </Button>
                         }
                     </div>
                 </div>
@@ -98,7 +97,7 @@
                     {
                         @foreach (var item in Items)
                         {
-                            <TableRow TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
+                            <TableRow @key="@item" TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
                                       ShowDefaultButtons="@ShowDefaultButtons" ShowDeleteButton="@ShowDeleteButton" ShowEditButton="@ShowEditButton"
                                       ShowNewButton="@ShowNewButton" ShowExtendButtons="@ShowExtendButtons"
                                       OnClickEditButton="@ClickEditButton" OnClickDeleteButton="@ClickDeleteButton" OnDelete="@DeleteAsync"
@@ -178,85 +177,6 @@
             <div class="table-pagination">
                 <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
-        }
-
-        @if (OnSaveAsync != null || OnAddAsync != null)
-        {
-            <Modal @ref="EditModal">
-                <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true" ShowFooter="false">
-                    <BodyTemplate>
-                        <ValidateForm Model="@EditModel" OnValidSubmit="@Save">
-                            @if (EditTemplate != null)
-                            {
-                                @EditTemplate?.Invoke(EditModel)
-                            }
-                            else
-                            {
-                                <div class="form-inline">
-                                    <div class="row">
-                                        @foreach (var col in Columns)
-                                        {
-                                            if (col.Editable)
-                                            {
-                                                <div class="form-group col-12 col-sm-6">
-                                                    @(col.EditTemplate?.Invoke(EditModel) ?? AutoGenerateTemplate(col, EditModel))
-                                                </div>
-                                            }
-                                        }
-                                    </div>
-                                </div>
-                            }
-                            <div class="modal-footer table-modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    <i class="fa fa-times"></i>
-                                    <span>关闭</span>
-                                </button>
-                                <Button Color="Color.Primary" IsTriggerValidate="true" Icon="fa fa-save" Text="保存" />
-                            </div>
-                        </ValidateForm>
-                    </BodyTemplate>
-                </ModalDialog>
-            </Modal>
-        }
-
-        @if (ShowSearch && ShowAdvancedSearch)
-        {
-            <Modal @ref="@SearchModal">
-                <ModalDialog Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
-                    <BodyTemplate>
-                        @if (SearchTemplate != null)
-                        {
-                            @SearchTemplate?.Invoke(SearchModel)
-                        }
-                        else
-                        {
-                            <div class="form-inline">
-                                <div class="row">
-                                    @foreach (var col in Columns)
-                                    {
-                                        if (col.Searchable)
-                                        {
-                                            <div class="form-group col-12 col-sm-6">
-                                                @(col.EditTemplate?.Invoke(SearchModal) ?? AutoGenerateTemplate(col, SearchModel))
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        }
-                    </BodyTemplate>
-                    <FooterTemplate>
-                        <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
-                            <i class="fa fa-trash-o"></i>
-                            <span>重置</span>
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
-                            <i class="fa fa-search"></i>
-                            <span>查询</span>
-                        </button>
-                    </FooterTemplate>
-                </ModalDialog>
-            </Modal>
         }
     </CascadingValue>
 </div>
