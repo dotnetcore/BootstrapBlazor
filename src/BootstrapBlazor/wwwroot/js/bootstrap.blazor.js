@@ -1602,7 +1602,7 @@
 
             calcWindow();
         },
-        scroll: function (el) {
+        bb_scroll: function (el) {
             var $el = $(el);
 
             // 移动端不需要修改滚动条
@@ -1610,28 +1610,17 @@
             var mac = navigator.userAgent.match(/iPhone/i);
             if (!mac) {
                 var autoHide = $el.attr('data-hide');
-                var delay = parseInt($el.attr('data-delay'));
-                var dark = $el.attr('data-dark');
-                var className = 'os-theme-light';
-                if (dark === 'true') {
-                    className = 'os-theme-dark';
-                }
-                var scrollbars = {
-                    className: className
+                var height = $el.attr('data-height');
+                var width = $el.attr('data-width');
+
+                var option = {
+                    alwaysVisible: autoHide !== "true",
                 };
-                if (autoHide === 'true') {
-                    if (isNaN(delay)) {
-                        delay = 1000;
-                    }
-                    scrollbars = {
-                        autoHide: 'leave',
-                        autoHideDelay: delay
-                    }
-                }
-                $el.overlayScrollbars({
-                    className: className,
-                    scrollbars: scrollbars
-                });
+
+                if (!height) height = "auto";
+                if (height !== "") option.height = height;
+                if (!width) option.width = width;
+                $el.slimScroll(option);
             }
             else {
                 $el.addClass('is-phone');

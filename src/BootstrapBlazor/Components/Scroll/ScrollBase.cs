@@ -21,23 +21,9 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 组件 Style
-        /// </summary>
-        protected string? StyleString => CssBuilder.Default()
-            .AddClass($"height: {Height}px", Height > 0)
-            .AddClass($"width: {Width}px", Width > 0)
-            .AddStyleFromAttributes(AdditionalAttributes)
-            .Build();
-
-        /// <summary>
         /// 获得 是否自动隐藏
         /// </summary>
         protected string? AutoHideString => IsAutoHide ? "true" : "false";
-
-        /// <summary>
-        /// 获得 滚动条样式
-        /// </summary>
-        protected string? IsDarkString => IsDark ? "true" : "false";
 
         /// <summary>
         /// 获得/设置 子组件
@@ -49,31 +35,19 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件高度
         /// </summary>
         [Parameter]
-        public int Height { get; set; }
+        public string Height { get; set; } = "auto";
 
         /// <summary>
         /// 获得/设置 组件宽度
         /// </summary>
         [Parameter]
-        public int Width { get; set; }
+        public string Width { get; set; } = "auto";
 
         /// <summary>
         /// 获得/设置 是否自动隐藏
         /// </summary>
         [Parameter]
         public bool IsAutoHide { get; set; } = true;
-
-        /// <summary>
-        /// 获得/设置 自动隐藏延时时间 默认 1000 毫秒
-        /// </summary>
-        [Parameter]
-        public int Delay { get; set; } = 1000;
-
-        /// <summary>
-        /// 获得/设置 是否为暗黑模式
-        /// </summary>
-        [Parameter]
-        public bool IsDark { get; set; }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -86,7 +60,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender && JSRuntime != null)
             {
-                await JSRuntime.Invoke(ScrollElement, "scroll");
+                await JSRuntime.Invoke(ScrollElement, "bb_scroll");
             }
         }
     }

@@ -898,8 +898,9 @@ section {
     z-index: 1080 !important;
 }
 
-.scroll-demo.scroll.os-theme-dark > .os-scrollbar > .os-scrollbar-track {
-    background-color: #f1f1f1;
+.scroll-demo {
+    border: solid 1px #f1f1f1;
+    padding: 1rem;
 }
 
 .coms-cate {
