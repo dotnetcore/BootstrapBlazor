@@ -65,7 +65,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="key"></param>
         /// <param name="comp"></param>
-        public void AddValidator((Type ModelType, string FieldName) key, IValidateComponent comp) => ValidatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
+        internal void AddValidator((Type ModelType, string FieldName) key, IValidateComponent comp) => ValidatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
 
         /// <summary>
         /// EditModel 数据模型验证方法
@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
         /// <param name="model"></param>
         /// <param name="context"></param>
         /// <param name="results"></param>
-        public void ValidateObject(object model, ValidationContext context, List<ValidationResult> results)
+        internal void ValidateObject(object model, ValidationContext context, List<ValidationResult> results)
         {
             // 遍历所有可验证组件进行数据验证
             foreach (var key in ValidatorCache)
@@ -100,7 +100,7 @@ namespace BootstrapBlazor.Components
         /// <param name="propertyValue"></param>
         /// <param name="context"></param>
         /// <param name="results"></param>
-        public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+        internal void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
             if (ValidatorCache.TryGetValue((context.ObjectType, context.MemberName), out var validator))
             {

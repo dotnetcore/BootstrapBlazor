@@ -54,8 +54,8 @@ namespace BootstrapBlazor.Components
                 if (EditForm != null)
                 {
                     if (valid && EditForm.OnValidSubmit.HasDelegate) await EditForm.OnValidSubmit.InvokeAsync(CurrentEditContext);
-                    else if (valid && EditForm.OnSubmit.HasDelegate) await EditForm.OnSubmit.InvokeAsync(CurrentEditContext);
-                    else if (EditForm.OnInvalidSubmit.HasDelegate) await EditForm.OnInvalidSubmit.InvokeAsync(CurrentEditContext);
+                    if (!valid && EditForm.OnInvalidSubmit.HasDelegate) await EditForm.OnInvalidSubmit.InvokeAsync(CurrentEditContext);
+                    if (EditForm.OnSubmit.HasDelegate) await EditForm.OnSubmit.InvokeAsync(CurrentEditContext);
                 }
             }
             return valid;
