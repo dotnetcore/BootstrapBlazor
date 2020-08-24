@@ -29,9 +29,10 @@ namespace BootstrapBlazor.Components
         /// 获得 文本框样式
         /// </summary>
         protected string? InputClassString => CssBuilder.Default("form-control")
-           .AddClass("input-number-fix", ShowButton)
-           .AddClass($"border-{Color.ToDescriptionString()} shadow-{Color.ToDescriptionString()}", Color != Color.None)
-           .Build();
+            .AddClass(CssClass).AddClass(ValidCss)
+            .AddClass("input-number-fix", ShowButton)
+            .AddClass($"border-{Color.ToDescriptionString()} shadow-{Color.ToDescriptionString()}", Color != Color.None)
+            .Build();
 
 #nullable disable
         /// <summary>
