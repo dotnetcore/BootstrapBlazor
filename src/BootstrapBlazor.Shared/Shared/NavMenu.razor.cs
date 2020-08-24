@@ -129,6 +129,11 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new MenuItem()
             {
+                Text = "表单组件 ValidateForm",
+                Url = "forms"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "自动完成 AutoComplete",
                 Url = "autocompletes"
             });

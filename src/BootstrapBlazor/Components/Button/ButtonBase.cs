@@ -97,10 +97,10 @@ namespace BootstrapBlazor.Components
         public bool IsDisabled { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否触发客户端验证 默认为 true 触发
+        /// 获得/设置 是否触发客户端验证 默认为 false 触发
         /// </summary>
         [Parameter]
-        public bool IsTriggerValidate { get; set; } = true;
+        public bool IsTriggerValidate { get; set; }
 
         /// <summary>
         /// 获得/设置 RenderFragment 实例

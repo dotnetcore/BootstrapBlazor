@@ -112,7 +112,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "是否触发客户端验证",
                 Type = "boolean",
                 ValueList = " — ",
-                DefaultValue = "true"
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ChildContent",
