@@ -44,11 +44,14 @@ namespace BootstrapBlazor.Components
         public static IEnumerable<SelectedItem> ToSelectList(this Type type)
         {
             var ret = new List<SelectedItem>();
-            foreach (var field in Enum.GetNames(type))
+            if (type.IsEnum)
             {
-                var desc = type.ToDescriptionString(field);
-                if (string.IsNullOrEmpty(desc)) desc = field;
-                ret.Add(new SelectedItem(field, desc));
+                foreach (var field in Enum.GetNames(type))
+                {
+                    var desc = type.ToDescriptionString(field);
+                    if (string.IsNullOrEmpty(desc)) desc = field;
+                    ret.Add(new SelectedItem(field, desc));
+                }
             }
             return ret;
         }
