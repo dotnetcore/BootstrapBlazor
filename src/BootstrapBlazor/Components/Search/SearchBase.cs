@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -40,6 +42,21 @@ namespace BootstrapBlazor.Components
         protected async Task OnClick()
         {
             if (OnSearch != null) await OnSearch(CurrentValueAsString);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected override async Task OnKeyUp(KeyboardEventArgs args)
+        {
+            await base.OnKeyUp(args);
+
+            if (!string.IsNullOrEmpty(CurrentValueAsString) && args.Key == "Enter")
+            {
+                await OnClick();
+            }
         }
     }
 }

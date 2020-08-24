@@ -10,4 +10,12 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
+<input @bind-value="@TestValue" @bind-value:event="oninput" />
+
+<div>@TestValue</div>
+
 <AttributeTable Items="@GetAttributes()" />
+
+@code {
+    private string TestValue { get; set; } = "123";
+}

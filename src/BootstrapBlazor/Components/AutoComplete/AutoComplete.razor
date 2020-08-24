@@ -6,7 +6,7 @@
     <label class="control-label" for="@Id">@DisplayText</label>
 }
 <div class="@ClassString">
-    <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" data-original-title="@ErrorMessage" value="@CurrentValueAsString" @oninput="@OnInput" @onblur="@OnBlur" @onkeyup="@OnKeyUp" />
+    <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" data-original-title="@ErrorMessage" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="@OnBlur" @onkeyup="@OnKeyUp" />
     <i class="fa fa-spinner fa-spin fa-fw"></i>
     <div class="select-dropdown">
         <ul class="dropdown-list">
