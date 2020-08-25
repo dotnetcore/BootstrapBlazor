@@ -1093,7 +1093,7 @@
                 $ele.popover(method);
             }
         },
-        confirm: function (id) {
+        bb_confirm: function (id) {
             var $ele = $('[data-target="' + id + '"]');
             var $button = $('#' + id);
 

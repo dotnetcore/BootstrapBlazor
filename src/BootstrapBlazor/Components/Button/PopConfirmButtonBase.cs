@@ -75,6 +75,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             // 进行弹窗拦截，点击确认按钮后回调原有 OnClick
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e => Show());
         }
@@ -103,7 +105,7 @@ namespace BootstrapBlazor.Components
                     Callback = async () =>
                     {
                         // 调用 JS 进行弹窗 等待 弹窗点击确认回调
-                        if (JSRuntime != null) await JSRuntime.Invoke(Id, "confirm");
+                        if (JSRuntime != null) await JSRuntime.Invoke(Id, "bb_confirm");
                     }
                 });
             }
