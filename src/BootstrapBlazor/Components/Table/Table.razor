@@ -163,14 +163,20 @@
             </table>
         </div>
 
-        <div class="table-filter">
-            <RenderTemplate>
-                @foreach (var col in Columns)
+        <RenderTemplate>
+            @{
+                if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
+                if (FilterColumns.Any())
                 {
-                    <TableFilter Column="col" />
+                    <div class="table-filter">
+                        @foreach (var col in FilterColumns)
+                        {
+                            <TableFilter Column="col" />
+                        }
+                    </div>
                 }
-            </RenderTemplate>
-        </div>
+            }
+        </RenderTemplate>
 
         @if (TotalCount > 0 && IsPagination)
         {
