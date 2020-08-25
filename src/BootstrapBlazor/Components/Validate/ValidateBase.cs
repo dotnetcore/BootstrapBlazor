@@ -248,14 +248,14 @@ namespace BootstrapBlazor.Components
             validationErrorMessage = null;
             try
             {
-                if (typeof(TValue).IsEnum && Enum.TryParse(typeof(TValue), value, out var v))
-                {
-                    result = (TValue)v;
-                    ret = true;
-                }
-                else if (typeof(TValue) == typeof(object))
+                if (typeof(TValue) == typeof(object))
                 {
                     result = (TValue)(object)value;
+                    ret = true;
+                }
+                else if (typeof(TValue).IsEnum && Enum.TryParse(typeof(TValue), value, out var v))
+                {
+                    result = (TValue)v;
                     ret = true;
                 }
                 else if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var v1))
@@ -265,17 +265,13 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-#nullable disable
-                    result = default;
-#nullable restore
+                    result = default!;
                 }
             }
             catch (Exception ex)
             {
                 validationErrorMessage = ex.Message;
-#nullable disable
-                result = default;
-#nullable restore
+                result = default!;
             }
 
             if (!ret && validationErrorMessage == null)
@@ -344,27 +340,29 @@ namespace BootstrapBlazor.Components
                 if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
 
+            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+            if (!AdditionalAttributes.TryGetValue("data-trigger", out var _))
+            {
+                AdditionalAttributes["data-trigger"] = "hover focus";
+            }
+
             //显式设置显示标签时一定显示
             IsShowLabel = ShowLabel || EditForm != null;
         }
 
         /// <summary>
-        /// OnAfterRenderAsync 方法
+        /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (Tooltip != null && firstRender)
-            {
-                if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-                if (!AdditionalAttributes.TryGetValue("data-trigger", out var _))
-                {
-                    AdditionalAttributes["data-trigger"] = "focus";
-                }
-            }
-
             await base.OnAfterRenderAsync(firstRender);
+
+            if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
+            {
+                JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
+                TooltipMethod = "";
+            }
         }
 
         /// <summary>
@@ -378,27 +376,6 @@ namespace BootstrapBlazor.Components
         }
 
         #region Validation
-        /// <summary>
-        /// 调用 Tooltip 脚本方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void InvokeTooltip(bool firstRender)
-        {
-            base.InvokeTooltip(firstRender);
-
-            if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
-            {
-                InvokeAsync(async () =>
-                {
-                    await Task.Delay(10);
-
-                    // 异步执行
-                    JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
-                    TooltipMethod = "";
-                }).ConfigureAwait(false);
-            }
-        }
-
         /// <summary>
         /// 获得 数据验证方法集合
         /// </summary>
@@ -490,7 +467,7 @@ namespace BootstrapBlazor.Components
         /// <param name="valid">检查结果</param>
         protected virtual void OnValidate(bool valid)
         {
-            InvokeTooltip(false);
+
         }
         #endregion
 

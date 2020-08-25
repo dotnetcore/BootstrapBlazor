@@ -1059,7 +1059,7 @@
                     });
             }
         },
-        tooltip: function (id, method, title, content, html) {
+        bb_tooltip: function (id, method, title, content, html) {
             var $ele = $('#' + id);
             if (method === "") {
                 var op = { html: html, sanitize: !html, title: title };
@@ -1077,7 +1077,7 @@
                 $ele.tooltip(method);
             }
         },
-        popover: function (id, method, title, content, html) {
+        bb_popover: function (id, method, title, content, html) {
             var $ele = $('#' + id);
             if (method === "") {
                 var op = { html: html, sanitize: false, title: title, content: content };

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -14,24 +13,13 @@ namespace BootstrapBlazor.Components
         [Parameter] public virtual string? Id { get; set; }
 
         /// <summary>
-        /// OnAfterRenderAsync 方法
+        /// OnInitialized 方法
         /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override void OnInitialized()
         {
-            await base.OnAfterRenderAsync(firstRender);
+            base.OnInitialized();
 
-            // 客户端组件生成后通过 invoke 生成客户端组件 id
-            if (firstRender)
-            {
-                if (JSRuntime != null && string.IsNullOrEmpty(Id))
-                {
-                    // 生成 Id
-                    Id = await JSRuntime.InvokeAsync<string>(func: "getUID");
-                    await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-                }
-            }
+            Id = $"bb_{GetHashCode()}";
         }
     }
 }

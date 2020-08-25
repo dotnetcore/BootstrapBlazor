@@ -68,7 +68,7 @@
                 <div class="form-group col-12">
                     <CheckboxList TModel="SelectedItem" TValue="IEnumerable<string>" @bind-Value="@DummyModel.Hobby" Items="@Hobbys"
                                   ValueField="Value" TextField="Text" CheckedField="Active">
-                        <RequiredValidator />
+                        <RequiredValidator ErrorMessage="至少选择一种爱好" />
                     </CheckboxList>
                 </div>
                 <div class="form-group col-12">
