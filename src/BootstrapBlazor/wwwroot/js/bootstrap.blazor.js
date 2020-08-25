@@ -1068,9 +1068,14 @@
             else if (method === 'enable') {
                 var op = { html: html, sanitize: !html, title: title };
                 $ele.tooltip(op);
-                var $ctl = $ele.parents('form').find('.invalid:first');
+                var $ctl = $ele.parents('form').find('.is-invalid:first');
                 if ($ctl.prop("nodeName") === 'INPUT') {
-                    $ctl.focus();
+                    if ($ctl.prop('readonly')) {
+                        $ctl.trigger('focus');
+                    }
+                    else {
+                        $ctl.focus();
+                    }
                 }
             }
             else {

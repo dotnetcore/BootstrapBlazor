@@ -370,7 +370,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected virtual Task OnBlur()
         {
-            if (FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+            if (FieldIdentifier != null && EditContext != null)
+            {
+                EditContext.NotifyFieldChanged(FieldIdentifier.Value);
+            }
 
             return Task.CompletedTask;
         }

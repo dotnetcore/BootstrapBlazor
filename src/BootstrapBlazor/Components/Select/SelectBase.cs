@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string? InputClassName => CssBuilder.Default("form-control form-select-input")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
-            .AddClass(ValidCss)
+            .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
         /// <summary>
@@ -79,6 +79,11 @@ namespace BootstrapBlazor.Components
         protected bool Initialized { get; set; }
 
         /// <summary>
+        /// 获得/设置 用户自定义属性
+        /// </summary>
+        protected IDictionary<string, object>? SelectAdditionalAttributes { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter]
@@ -103,6 +108,42 @@ namespace BootstrapBlazor.Components
         public RenderFragment? SelectItems { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            AdditionalAttributes?.Remove("data-placement");
+            AdditionalAttributes?.Remove("data-trigger");
+            if (SelectAdditionalAttributes == null) SelectAdditionalAttributes = new Dictionary<string, object>();
+            if (!SelectAdditionalAttributes.TryGetValue("data-trigger", out var _))
+            {
+                SelectAdditionalAttributes["data-trigger"] = "hover focus";
+            }
+        }
+
+        /// <summary>
+        /// OnAfterRender 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (firstRender)
+            {
+                JSRuntime.Tooltip(InputId, "", PopoverType.Tooltip, "", "", false);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(TooltipMethod))
+                {
+                    JSRuntime.Tooltip(InputId, TooltipMethod, title: ErrorMessage);
+                    TooltipMethod = "";
+                }
+            }
+        }
+
+        /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
         protected void OnItemClick(SelectedItem item)
@@ -124,18 +165,7 @@ namespace BootstrapBlazor.Components
         /// <param name="valid"></param>
         protected override void OnValidate(bool valid)
         {
-            base.OnValidate(valid);
             Color = valid ? Color.Success : Color.Danger;
-        }
-
-        /// <summary>
-        /// 调用 Tooltip 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void InvokeTooltip(bool firstRender)
-        {
-            if (firstRender) JSRuntime.Tooltip(InputId);
-            else JSRuntime.Tooltip(InputId, "show");
         }
 
         /// <summary>
