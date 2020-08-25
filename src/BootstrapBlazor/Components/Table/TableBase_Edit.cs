@@ -195,6 +195,7 @@ namespace BootstrapBlazor.Components
             {
                 // 更新行选中状态
                 await EditAsync();
+                StateHasChanged();
             }
         }
 
