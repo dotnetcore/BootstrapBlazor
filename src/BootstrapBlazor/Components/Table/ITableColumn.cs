@@ -91,5 +91,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 列格式化回调委托
         /// </summary>
         Func<object?, Task<string>>? Formatter { get; set; }
+
+        /// <summary>
+        /// 获得/设置 文字对齐方式 默认为 Alignment.None
+        /// </summary>
+        Alignment Align { get; set; }
     }
 }

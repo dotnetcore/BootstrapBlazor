@@ -97,7 +97,7 @@
                     {
                         @foreach (var item in Items)
                         {
-                            <TableRow @key="@item" TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
+                            <TableRow @key="@item.GetHashCode()" TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
                                       ShowDefaultButtons="@ShowDefaultButtons" ShowDeleteButton="@ShowDeleteButton" ShowEditButton="@ShowEditButton"
                                       ShowNewButton="@ShowNewButton" ShowExtendButtons="@ShowExtendButtons"
                                       OnClickEditButton="@ClickEditButton" OnClickDeleteButton="@ClickDeleteButton" OnDelete="@DeleteAsync"
@@ -131,7 +131,7 @@
                                 var displayName = col.GetDisplayName();
                                 <th class="@GetHeaderClassString(col)" @onclick="@(e => OnSortClick(fieldName))">
                                     <div class="@GetCellClassString(col)">
-                                        <span class="table-text">@displayName</span>
+                                        <span class="@GetHeaderTextClassString(col)">@displayName</span>
                                         @if (col.Filterable)
                                         {
                                             <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(e => OnFilterClick(col))"></i>

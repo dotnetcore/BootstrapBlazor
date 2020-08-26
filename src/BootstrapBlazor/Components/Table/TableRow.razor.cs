@@ -134,7 +134,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]
-        private ITable? Table { get; set; }
+        private TableBase<TItem>? Table { get; set; }
+
+        private string? GetCellClassString(ITableColumn col) => CssBuilder.Default("table-cell")
+            .AddClass("justify-content-start", col.Align == Alignment.Left)
+            .AddClass("justify-content-end", col.Align == Alignment.Right)
+            .AddClass("justify-content-center", col.Align == Alignment.Center)
+            .Build();
 
         private RenderFragment GetValue(ITableColumn col) => async builder =>
         {

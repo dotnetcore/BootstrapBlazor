@@ -141,3 +141,24 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="列数据对齐方式" Introduction="列绑定时通过指定 <code>Align</code> 属性设置对齐方式" CodeFile="table.30.html">
+    <p>
+        本例中列 <code>DateTime</code> 列设置为居中对齐 <code>Alignment.Center</code>
+    </p>
+    <p>
+        本例中列 <code>Count</code> 列设置为右侧对齐 <code>Alignment.Right</code>
+    </p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" Width="60" Align="Alignment.Right" />
+        </TableColumns>
+    </Table>
+</Block>

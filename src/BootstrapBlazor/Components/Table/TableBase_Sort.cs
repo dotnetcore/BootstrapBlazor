@@ -77,6 +77,17 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 Header 中表头文字样式
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        protected string? GetHeaderTextClassString(ITableColumn col) => CssBuilder.Default("table-text")
+            .AddClass("text-left", col.Align == Alignment.Left)
+            .AddClass("text-right", col.Align == Alignment.Right)
+            .AddClass("text-center", col.Align == Alignment.Center)
+            .Build();
+
+        /// <summary>
         /// 获取指定列头样式字符串
         /// </summary>
         /// <returns></returns>

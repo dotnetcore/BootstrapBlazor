@@ -25,9 +25,9 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected CheckboxState HeaderCheckState()
         {
-            var ret = CheckboxState.Mixed;
-            if (SelectedItems.Count == PageItems || (Items != null && SelectedItems.Count == Items.Count() && Items.Count() > 0)) ret = CheckboxState.Checked;
-            else if (SelectedItems.Count == 0) ret = CheckboxState.UnChecked;
+            var ret = CheckboxState.UnChecked;
+            if (Items.All(i => SelectedItems.Contains(i))) ret = CheckboxState.Checked;
+            else if (Items.Any(i => SelectedItems.Contains(i))) ret = CheckboxState.Mixed;
             return ret;
         }
 
@@ -75,11 +75,19 @@ namespace BootstrapBlazor.Components
                         // select all
                         SelectedItems.Clear();
                         SelectedItems.AddRange(Items);
+
+                        // callback
+                        if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
+
                         StateHasChanged();
                         break;
                     case CheckboxState.UnChecked:
                         // unselect all
                         SelectedItems.Clear();
+
+                        // callback
+                        if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
+
                         StateHasChanged();
                         break;
                     default:
@@ -98,6 +106,8 @@ namespace BootstrapBlazor.Components
         {
             if (state == CheckboxState.Checked) SelectedItems.Add(val);
             else SelectedItems.Remove(val);
+
+            if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
 
             if (Items != null && HeaderCheckbox != null)
             {

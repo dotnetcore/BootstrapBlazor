@@ -42,7 +42,24 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 被选中的数据集合
         /// </summary>
-        public IEnumerable<TItem> SelectedRows => SelectedItems;
+        [Parameter]
+        public IEnumerable<TItem> SelectedRows
+        {
+            get
+            {
+                return SelectedItems;
+            }
+            set
+            {
+                if (SelectedItems != value) SelectedItems = value.ToList();
+            }
+        }
+
+        /// <summary>
+        /// 获得/设置 被选中的数据集合回调委托
+        /// </summary>
+        [Parameter]
+        public EventCallback<IEnumerable<TItem>> SelectedRowsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 编辑数据弹窗 Title
@@ -103,10 +120,7 @@ namespace BootstrapBlazor.Components
             SelectedItems.Clear();
             SelectedItems.Add(val);
 
-            // TODO: 性能问题此处重新渲染整个 DataGrid
-            // 合理做法是将 tbody 做成组件仅渲染 tbody 即可，后期优化此处 
             StateHasChanged();
-
             return Task.CompletedTask;
         }
 
@@ -115,15 +129,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        protected virtual bool CheckActive(TItem val)
-        {
-            var ret = false;
-            if (!IsMultipleSelect && ClickToSelect)
-            {
-                ret = SelectedItems.Contains(val);
-            }
-            return ret;
-        }
+        protected virtual bool CheckActive(TItem val) => SelectedItems.Contains(val);
 
         /// <summary>
         /// 查询按钮调用此方法
@@ -140,8 +146,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task QueryData()
         {
-            SelectedItems.Clear();
-
             QueryData<TItem>? queryData = null;
             if (OnQueryAsync != null)
             {

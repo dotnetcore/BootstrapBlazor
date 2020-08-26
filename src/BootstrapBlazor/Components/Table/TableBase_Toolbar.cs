@@ -225,6 +225,8 @@ namespace BootstrapBlazor.Components
 
             if (ret)
             {
+                SelectedItems.Clear();
+
                 // 删除成功 重新查询
                 // 由于数据删除导致页码会改变，尤其是最后一页
                 // 重新计算页码
@@ -241,6 +243,6 @@ namespace BootstrapBlazor.Components
         /// 获取当前 Table 选中的所有行数据
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<TItem> GetSelectedRows() => SelectedRows;
+        protected IEnumerable<TItem> GetSelectedRows() => SelectedItems;
     }
 }

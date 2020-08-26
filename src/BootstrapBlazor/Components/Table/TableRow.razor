@@ -3,7 +3,7 @@
 
 @if (IsMultipleSelect)
 {
-    <tr>
+    <tr class="@ClassString">
         <td>
             <div class="table-cell">
                 <Checkbox TValue="TItem" Value="@Item" State="@RowCheckState(Item)" OnStateChanged="@OnCheck"></Checkbox>
@@ -33,7 +33,7 @@ else
             foreach (var col in row.Table.Columns)
             {
                 <td>
-                    <div class="table-cell">
+                    <div class="@row.GetCellClassString(col)">
                         @row.GetValue(col)
                     </div>
                 </td>

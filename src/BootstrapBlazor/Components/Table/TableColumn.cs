@@ -74,6 +74,12 @@ namespace BootstrapBlazor.Components
         public int? Width { get; set; }
 
         /// <summary>
+        /// 获得/设置 文字对齐方式 默认为 Alignment.None
+        /// </summary>
+        [Parameter]
+        public Alignment Align { get; set; } = Alignment.None;
+
+        /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
         /// </summary>
         [Parameter]

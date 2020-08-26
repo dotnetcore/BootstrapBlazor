@@ -1136,11 +1136,6 @@ input:disabled,
         cursor: pointer;
     }
 
-        .table.is-single tbody tr.active,
-        .table.is-single tbody tr.active:hover td {
-            background-color: #9ec6ef;
-        }
-
 .table-cell {
     padding: 12px 10px;
     display: flex;
@@ -1323,6 +1318,11 @@ input:disabled,
 
 .table-modal-footer {
     margin: 0 -1rem -1rem -1rem;
+}
+
+.table tbody tr.active,
+.table tbody tr.active:hover td {
+    background-color: #9ec6ef;
 }
 /*end table*/
 
