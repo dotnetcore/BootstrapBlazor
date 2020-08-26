@@ -14,16 +14,8 @@
         /// </summary>
         Submit,
         /// <summary>
-        /// Link 按钮
-        /// </summary>
-        Link,
-        /// <summary>
         /// 重置按钮
         /// </summary>
         Reset,
-        /// <summary>
-        /// 普通按钮
-        /// </summary>
-        Input,
     }
 }

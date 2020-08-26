@@ -108,13 +108,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "IsTriggerValidate",
-                Description = "是否触发客户端验证",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
                 Name = "ChildContent",
                 Description = "内容",
                 Type = "RenderFragment",
@@ -127,6 +120,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "ButtonStyle",
                 ValueList = "None / Circle / Round",
                 DefaultValue = "None"
+            },
+            new AttributeItem() {
+                Name = "ButtonType",
+                Description = "按钮类型",
+                Type = "ButtonType",
+                ValueList = "Button / Submit / Reset",
+                DefaultValue = "Button"
             }
         };
 

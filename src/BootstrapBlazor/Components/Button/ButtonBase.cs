@@ -37,19 +37,25 @@ namespace BootstrapBlazor.Components
         protected string? Tab => IsDisabled ? "-1" : null;
 
         /// <summary>
-        /// 按钮风格枚举
+        /// 获得/设置 按钮风格枚举
         /// </summary>
         [Parameter]
         public ButtonStyle ButtonStyle { get; set; }
 
         /// <summary>
-        /// OnClick 事件
+        /// 获得/设置 按钮类型 Submit 为表单提交按钮 Reset 为表单重置按钮 默认为 Button
+        /// </summary>
+        [Parameter]
+        public ButtonType ButtonType { get; set; } = ButtonType.Button;
+
+        /// <summary>
+        /// 获得/设置 OnClick 事件
         /// </summary>
         [Parameter]
         public EventCallback<MouseEventArgs> OnClick { get; set; }
 
         /// <summary>
-        /// OnClick 事件不刷新父组件
+        /// 获得/设置 OnClick 事件不刷新父组件
         /// </summary>
         [Parameter]
         public Func<Task>? OnClickWithoutRender { get; set; }
