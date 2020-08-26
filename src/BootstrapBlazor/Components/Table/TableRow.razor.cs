@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     public sealed partial class TableRow<TItem> where TItem : class, new()
     {
         private string? ClassString => CssBuilder.Default("")
-               .AddClass("active", IsActive)
+               .AddClass("active", Table != null && Table.SelectedRowsChanged.HasDelegate && IsActive)
                .Build();
 
         /// <summary>

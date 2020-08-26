@@ -116,6 +116,8 @@ namespace BootstrapBlazor.Components
                     : (SelectedItems.Count == Items.Count() ? CheckboxState.Checked : CheckboxState.Mixed);
                 await HeaderCheckbox.SetState(headerCheckboxState);
             }
+
+            if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
         }
     }
 }

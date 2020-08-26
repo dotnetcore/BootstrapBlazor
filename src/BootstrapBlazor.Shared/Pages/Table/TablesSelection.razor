@@ -9,7 +9,7 @@
 <Block Title="设置选中行功能" Introduction="通过设置 <code>SelectedRows</code> 属性集合初始化表格时默认为选中状态" CodeFile="table.29.html">
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="false"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" @bind-SelectedRows="@SelectedRows"
            ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
