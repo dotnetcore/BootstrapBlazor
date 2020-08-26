@@ -96,10 +96,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnBlur 方法
         /// </summary>
-        protected override async Task OnBlur()
+        protected void OnBlur()
         {
-            await base.OnBlur();
-
             _selectedItem = "";
             _isShown = false;
         }
@@ -156,14 +154,14 @@ namespace BootstrapBlazor.Components
                 }
                 else if (args.Key == "Escape")
                 {
-                    await OnBlur();
+                    OnBlur();
                 }
                 else if (args.Key == "Enter")
                 {
                     if (!string.IsNullOrEmpty(_selectedItem))
                     {
                         CurrentValueAsString = _selectedItem;
-                        await OnBlur();
+                        OnBlur();
                     }
                 }
             }

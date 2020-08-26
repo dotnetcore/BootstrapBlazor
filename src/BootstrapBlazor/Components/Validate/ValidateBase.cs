@@ -15,7 +15,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class ValidateBase<TValue> : TooltipComponentBase, IValidateComponent, IValidateRules
     {
-        private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
         private ValidationMessageStore? _parsingValidationMessages;
 
         /// <summary>
@@ -149,6 +148,7 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public string ParsingErrorMessage { get; set; } = "{0}字段值必须为{1}类型";
 
+#nullable disable
         /// <summary>
         /// Gets or sets the value of the input. This should be used with two-way binding.
         /// </summary>
@@ -157,6 +157,7 @@ namespace BootstrapBlazor.Components
         /// </example>
         [Parameter]
         public TValue Value { get; set; }
+#nullable restore
 
         /// <summary>
         /// Gets or sets a callback that updates the bound value.
@@ -216,16 +217,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [CascadingParameter]
         protected ValidateFormBase? EditForm { get; set; }
-
-#nullable disable
-        /// <summary>
-        /// Constructs an instance of <see cref="InputBase{TValue}"/>.
-        /// </summary>
-        protected ValidateBase()
-        {
-            _validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
-        }
-#nullable restore
 
         /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
@@ -308,6 +299,8 @@ namespace BootstrapBlazor.Components
         {
             parameters.SetParameterProperties(this);
 
+            NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
+
             if (EditContext == null)
             {
                 // This is the first run
@@ -315,11 +308,8 @@ namespace BootstrapBlazor.Components
 
                 if (CascadedEditContext != null) EditContext = CascadedEditContext;
                 if (ValueExpression != null) FieldIdentifier = Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression);
-
-                NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
-
-                if (EditContext != null) EditContext.OnValidationStateChanged += _validationStateChangedHandler;
             }
+
             // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
             return base.SetParametersAsync(ParameterView.Empty);
         }
@@ -363,19 +353,6 @@ namespace BootstrapBlazor.Components
                 JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
                 TooltipMethod = "";
             }
-        }
-
-        /// <summary>
-        /// 失去焦点时触发此方法
-        /// </summary>
-        protected virtual Task OnBlur()
-        {
-            if (FieldIdentifier != null && EditContext != null)
-            {
-                EditContext.NotifyFieldChanged(FieldIdentifier.Value);
-            }
-
-            return Task.CompletedTask;
         }
 
         #region Validation
@@ -470,7 +447,7 @@ namespace BootstrapBlazor.Components
         /// <param name="valid">检查结果</param>
         protected virtual void OnValidate(bool valid)
         {
-
+            if (AdditionalAttributes != null) AdditionalAttributes["aria-invalid"] = !valid;
         }
         #endregion
 
@@ -486,7 +463,6 @@ namespace BootstrapBlazor.Components
             if (disposing && EditContext != null)
             {
                 JSRuntime.Tooltip(Id, "dispose");
-                EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
             }
         }
         #endregion

@@ -10,10 +10,12 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class TableEditorDialog<TModel>
     {
+#nullable disable
         /// <summary>
         /// 获得/设置 保存回调委托
         /// </summary>
         [Parameter]
-        public Func<EditContext, Task>? OnSaveAsync { get; set; }
+        public Func<EditContext, Task> OnSaveAsync { get; set; }
+#nullable restore
     }
 }

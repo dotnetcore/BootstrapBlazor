@@ -14,11 +14,6 @@ namespace BootstrapBlazor.Components
     public abstract class ValidateFormBase : IdComponentBase
     {
         /// <summary>
-        /// 获得/设置 BootstrapBlazorDataAnnotationsValidator 组件实例
-        /// </summary>
-        protected BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
-
-        /// <summary>
         /// Specifies the top-level model object for the form. An edit context will
         /// be constructed for this model. If using this parameter, do not also supply
         /// a value for <see cref="EditContext"/>.
@@ -38,27 +33,26 @@ namespace BootstrapBlazor.Components
         /// manually, e.g., by calling <see cref="EditContext.Validate"/>.
         /// </summary>
         [Parameter]
-        public EventCallback<EditContext> OnSubmit { get; set; }
+        public Func<EditContext, Task>? OnSubmit { get; set; }
 
         /// <summary>
         /// A callback that will be invoked when the form is submitted and the
         /// <see cref="EditContext"/> is determined to be valid.
         /// </summary>
         [Parameter]
-        public EventCallback<EditContext> OnValidSubmit { get; set; }
+        public Func<EditContext, Task>? OnValidSubmit { get; set; }
 
         /// <summary>
         /// A callback that will be invoked when the form is submitted and the
         /// <see cref="EditContext"/> is determined to be invalid.
         /// </summary>
         [Parameter]
-        public EventCallback<EditContext> OnInvalidSubmit { get; set; }
+        public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
 
         /// <summary>
         /// 验证组件缓存
         /// </summary>
-        private ConcurrentDictionary<(Type ModelType, string FieldName), IValidateComponent> ValidatorCache { get; } =
-        new ConcurrentDictionary<(Type, string), IValidateComponent>();
+        private ConcurrentDictionary<(Type ModelType, string FieldName), IValidateComponent> ValidatorCache { get; } = new ConcurrentDictionary<(Type, string), IValidateComponent>();
 
         /// <summary>
         /// 添加数据验证组件到 EditForm 中
@@ -107,16 +101,6 @@ namespace BootstrapBlazor.Components
                 validator.ValidateProperty(propertyValue, context, results);
                 validator.ToggleMessage(results, true);
             }
-        }
-
-        /// <summary>
-        /// 表单验证方法
-        /// </summary>
-        public async Task<bool> Validate()
-        {
-            var ret = false;
-            if (Validator != null) ret = await Validator.Validate();
-            return ret;
         }
     }
 }

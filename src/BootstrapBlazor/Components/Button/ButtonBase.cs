@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -103,12 +104,6 @@ namespace BootstrapBlazor.Components
         public bool IsDisabled { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否触发客户端验证 默认为 false 触发
-        /// </summary>
-        [Parameter]
-        public bool IsTriggerValidate { get; set; }
-
-        /// <summary>
         /// 获得/设置 RenderFragment 实例
         /// </summary>
         [Parameter]
@@ -133,19 +128,20 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+
+            if (!AdditionalAttributes.TryGetValue("type", out var _))
+            {
+                AdditionalAttributes["type"] = "button";
+            }
+
             var onClick = OnClick;
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
                 if (!IsDisabled)
                 {
                     if (OnClickWithoutRender != null) await OnClickWithoutRender.Invoke();
-
-                    bool valid = true;
-                    if (ValidateForm != null && IsTriggerValidate)
-                    {
-                        valid = await ValidateForm.Validate();
-                    }
-                    if (valid && onClick.HasDelegate) await onClick.InvokeAsync(e);
+                    if (onClick.HasDelegate) await onClick.InvokeAsync(e);
                 }
             });
         }
