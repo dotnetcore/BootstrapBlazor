@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Select 组件基类
     /// </summary>
-    public abstract class SelectBase<TValue> : ValidateBase<TValue>, ISelectContainer
+    public abstract class SelectBase<TValue> : ValidateBase<TValue>, ISelect
     {
         /// <summary>
         /// 获得 样式集合
@@ -99,13 +100,13 @@ namespace BootstrapBlazor.Components
         /// SelectedItemChanged 方法
         /// </summary>
         [Parameter]
-        public EventCallback<SelectedItem> OnSelectedItemChanged { get; set; }
+        public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 选项模板支持静态数据
         /// </summary>
         [Parameter]
-        public RenderFragment? SelectItems { get; set; }
+        public RenderFragment? Options { get; set; }
 
         /// <summary>
         /// 
@@ -146,17 +147,18 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
-        protected void OnItemClick(SelectedItem item)
+        protected async Task OnItemClick(SelectedItem item)
         {
             if (SelectedItem != null) SelectedItem.Active = false;
             SelectedItem = item;
+
             SelectedItem.Active = true;
 
             // ValueChanged
             CurrentValueAsString = SelectedItem.Value;
 
             // 触发 SelectedItemChanged 事件
-            if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);
+            if (OnSelectedItemChanged != null) await OnSelectedItemChanged.Invoke(SelectedItem);
         }
 
         /// <summary>

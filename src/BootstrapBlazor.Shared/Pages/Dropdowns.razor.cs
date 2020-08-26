@@ -43,9 +43,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Logger? Trace { get; set; }
 
-        private void ShowMessage(SelectedItem e)
+        private Task ShowMessage(SelectedItem e)
         {
             Trace?.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
+            return Task.CompletedTask;
         }
 
         private void AddItem()

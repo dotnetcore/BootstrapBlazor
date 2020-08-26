@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public interface ISelectContainer
+    public interface ISelect
     {
         /// <summary>
         /// 

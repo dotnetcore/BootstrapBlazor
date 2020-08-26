@@ -3,9 +3,9 @@
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// SelectOption 组件
     /// </summary>
-    public class SelectItem : ComponentBase
+    public partial class SelectOption : ComponentBase
     {
         /// <summary>
         /// 获得/设置 显示名称
@@ -32,10 +32,10 @@ namespace BootstrapBlazor.Components
         public string GroupName { get; set; } = "";
 
         /// <summary>
-        /// 
+        /// 父组件通过级联参数获得
         /// </summary>
         [CascadingParameter]
-        private ISelectContainer? Container { get; set; }
+        private ISelect? Container { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

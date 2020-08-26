@@ -8,7 +8,7 @@
 }
 <div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
     <CascadingValue Value="this" IsFixed="true">
-        @SelectItems
+        @Options
     </CascadingValue>
     <RenderTemplate>
         @{
@@ -30,10 +30,10 @@
                 }
             }
         </div>
-        @if (!Initialized && SelectedItem != null && OnSelectedItemChanged.HasDelegate)
+        @if (!Initialized && SelectedItem != null && OnSelectedItemChanged != null)
         {
             Initialized = true;
-            OnSelectedItemChanged.InvokeAsync(SelectedItem);
+            OnSelectedItemChanged.Invoke(SelectedItem);
         }
     </RenderTemplate>
 </div>

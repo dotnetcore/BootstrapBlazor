@@ -143,13 +143,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 每页显示数据项数量选项更改时回调方法
         /// </summary>
-        protected void OnPageItemsSelectItemChanged(SelectedItem item)
+        protected async Task OnPageItemsSelectItemChanged(SelectedItem item)
         {
             if (int.TryParse(item.Value, out var pageItems))
             {
                 PageItems = pageItems;
                 PageIndex = 1;
-                OnPageItemsChanged?.Invoke(PageItems);
+                if (OnPageItemsChanged != null) await OnPageItemsChanged.Invoke(PageItems);
             }
         }
     }

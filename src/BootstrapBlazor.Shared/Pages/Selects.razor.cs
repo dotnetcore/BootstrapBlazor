@@ -3,6 +3,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -68,16 +69,17 @@ namespace BootstrapBlazor.Shared.Pages
         /// 下拉选项改变时调用此方法
         /// </summary>
         /// <param name="item"></param>
-        private void OnItemChanged(SelectedItem item)
+        private Task OnItemChanged(SelectedItem item)
         {
             Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 级联绑定菜单
         /// </summary>
         /// <param name="item"></param>
-        private void OnCascadeBindSelectClick(SelectedItem item)
+        private Task OnCascadeBindSelectClick(SelectedItem item)
         {
             _item2.Clear();
             if (item.Value == "Beijing")
@@ -96,6 +98,8 @@ namespace BootstrapBlazor.Shared.Pages
                     new SelectedItem("2","黄浦区"),
                 });
             }
+            StateHasChanged();
+            return Task.CompletedTask;
         }
 
         private readonly List<SelectedItem> _item2 = new List<SelectedItem>();
