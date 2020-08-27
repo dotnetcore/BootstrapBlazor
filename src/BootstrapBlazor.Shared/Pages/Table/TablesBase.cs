@@ -226,10 +226,10 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "ClickToSelect",
-                Description = "单选模式下点击行即选中本行",
+                Description = "点击行即选中本行",
                 Type = "bool",
                 ValueList = "true|false",
-                DefaultValue = "true"
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowCheckboxText",

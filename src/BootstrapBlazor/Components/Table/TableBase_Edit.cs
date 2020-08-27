@@ -106,10 +106,10 @@ namespace BootstrapBlazor.Components
         public string ColumnButtonTemplateHeaderText { get; set; } = "操作";
 
         /// <summary>
-        /// 获得/设置 单选模式下点击行即选中本行 默认为 true
+        /// 获得/设置 点击行即选中本行 默认为 false
         /// </summary>
         [Parameter]
-        public bool ClickToSelect { get; set; } = true;
+        public bool ClickToSelect { get; set; }
 
         /// <summary>
         /// 获得/设置 单选模式下双击即编辑本行 默认为 false
