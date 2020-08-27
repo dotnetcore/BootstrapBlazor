@@ -2,7 +2,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true"
-           ShowDefaultButtons="false" ClickToSelect="true"
+           ShowDefaultButtons="false" ClickToSelect="true" OnClickRowCallback="@ClickRow"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
@@ -96,5 +96,14 @@
             IsFiltered = isFiltered,
             IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
         });
+    }
+
+    private BindItem? CurrentItem { get; set; }
+
+    private Task ClickRow(BindItem item)
+    {
+        CurrentItem = item;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }

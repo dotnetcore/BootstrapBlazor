@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
     public sealed partial class MenuLink
     {
         private string? ClassString => CssBuilder.Default()
-            .AddClass("active", Item?.IsActive ?? false)
+            .AddClass("active", Item.IsActive)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected string? GetRowClassString(TItem item) => CssBuilder.Default("")
            .AddClass(SetRowClassFormatter?.Invoke(item))
-           .AddClass("active", SelectedRowsChanged.HasDelegate && CheckActive(item))
+           .AddClass("active", CheckActive(item))
            .Build();
 
         /// <summary>
@@ -93,10 +93,16 @@ namespace BootstrapBlazor.Components
         public bool IsBordered { get; set; }
 
         /// <summary>
+        /// 获得/设置 单击行回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task>? OnClickRowCallback { get; set; }
+
+        /// <summary>
         /// 获得/设置 双击行回调委托方法
         /// </summary>
         [Parameter]
-        public Func<TItem, Task> OnDoubleClickRowCallback { get; set; } = _ => Task.CompletedTask;
+        public Func<TItem, Task>? OnDoubleClickRowCallback { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

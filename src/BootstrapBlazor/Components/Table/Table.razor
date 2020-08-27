@@ -99,7 +99,7 @@
                         {
                             @if (IsMultipleSelect)
                             {
-                                <tr class="@GetRowClassString(item)">
+                                <tr class="@GetRowClassString(item)" @onclick="@(e => ClickRow(item))">
                                     <td>
                                         <div class="table-cell">
                                             <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
@@ -108,15 +108,9 @@
                                     @RenderRow(item)
                                 </tr>
                             }
-                            else if (ClickToSelect)
-                            {
-                                <tr class="@GetRowClassString(item)" @onclick="@(e => SelectRow(item))" @ondblclick="@(e => OnDoubleClickRowCallback(item))">
-                                    @RenderRow(item)
-                                </tr>
-                            }
                             else
                             {
-                                <tr class="@GetRowClassString(item)" @ondblclick="@(e => OnDoubleClickRowCallback(item))">
+                                <tr class="@GetRowClassString(item)" @onclick="@(e => ClickRow(item))" @ondblclick="@(e => DoubleClickRow(item))">
                                     @RenderRow(item)
                                 </tr>
                             }

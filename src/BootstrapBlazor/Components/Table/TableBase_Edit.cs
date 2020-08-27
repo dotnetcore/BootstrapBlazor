@@ -121,13 +121,17 @@ namespace BootstrapBlazor.Components
         /// 单选模式下选择行时调用此方法
         /// </summary>
         /// <param name="val"></param>
-        protected virtual Task SelectRow(TItem val)
+        protected virtual async Task ClickRow(TItem val)
         {
-            SelectedItems.Clear();
-            SelectedItems.Add(val);
+            if (ClickToSelect)
+            {
+                SelectedItems.Clear();
+                SelectedItems.Add(val);
 
-            StateHasChanged();
-            return Task.CompletedTask;
+                StateHasChanged();
+            }
+
+            if (OnClickRowCallback != null) await OnClickRowCallback(val);
         }
 
         /// <summary>
@@ -219,7 +223,7 @@ namespace BootstrapBlazor.Components
                 await ClickEditButton(item);
             }
 
-            await OnDoubleClickRowCallback.Invoke(item);
+            if(OnDoubleClickRowCallback != null) await OnDoubleClickRowCallback(item);
         }
 
         /// <summary>
