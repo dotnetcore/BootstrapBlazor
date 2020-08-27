@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 Interop = new JSInterop<TableFilter>(JSRuntime);
                 await Interop.Invoke(this, FilterElement, "bb_filter", nameof(Close));

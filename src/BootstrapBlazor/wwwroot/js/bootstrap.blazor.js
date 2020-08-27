@@ -1270,7 +1270,7 @@
             }
             else $input.popover(method);
         },
-        tab: function (el) {
+        bb_tab: function (el) {
             $(el).tab('active');
         },
         captcha: function (el, obj, method, options) {

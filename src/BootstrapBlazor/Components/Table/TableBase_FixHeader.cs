@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 // 固定表头脚本关联
                 await JSRuntime.Invoke(TableWrapper, "table", Height.HasValue ? "fixTableHeader" : "init");

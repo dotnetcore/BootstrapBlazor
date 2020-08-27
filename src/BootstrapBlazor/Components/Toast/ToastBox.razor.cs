@@ -90,7 +90,7 @@ namespace BootstrapBlazor.Components
             await base.OnAfterRenderAsync(firstRender);
 
             // 执行客户端动画
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 if (Toast != null)
                 {

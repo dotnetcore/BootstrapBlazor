@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && !string.IsNullOrEmpty(Id) && JSRuntime != null) await JSRuntime.Invoke(Id, "carousel");
+            if (firstRender && !string.IsNullOrEmpty(Id)) await JSRuntime.Invoke(Id, "carousel");
         }
 
         /// <summary>

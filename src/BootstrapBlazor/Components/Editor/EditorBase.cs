@@ -78,12 +78,12 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 Interope = new JSInterop<EditorBase>(JSRuntime);
                 await Interope.Invoke(this, EditorElement, "editor", nameof(Update), Height, Value ?? "");
             }
-            if (_renderValue && JSRuntime != null)
+            if (_renderValue)
             {
                 _renderValue = false;
                 await JSRuntime.Invoke(EditorElement, "editor", "code", "", "", Value ?? "");

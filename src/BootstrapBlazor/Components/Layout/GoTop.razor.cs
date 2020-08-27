@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null) await JSRuntime.Invoke(GoTopElement, "footer", Target);
+            if (firstRender) await JSRuntime.Invoke(GoTopElement, "footer", Target);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         /// <param name="title"></param>
         /// <param name="content"></param>
         /// <param name="html"></param>
-        public static void Tooltip(this IJSRuntime? jsRuntime, string? id, string method = "", PopoverType popoverType = PopoverType.Tooltip, string? title = "", string? content = "", bool html = false)
+        public static void Tooltip(this IJSRuntime jsRuntime, string? id, string method = "", PopoverType popoverType = PopoverType.Tooltip, string? title = "", string? content = "", bool html = false)
         {
             if (!string.IsNullOrEmpty(id)) jsRuntime.InvokeVoidAsync(popoverType == PopoverType.Tooltip ? "$.bb_tooltip" : "$.bb_popover", id, method, title, content, html);
         }

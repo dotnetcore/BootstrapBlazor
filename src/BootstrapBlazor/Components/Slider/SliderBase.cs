@@ -75,7 +75,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 Interop = new JSInterop<SliderBase>(JSRuntime);
                 await Interop.Invoke(this, Slider, "slider", nameof(SliderBase.SetValue));

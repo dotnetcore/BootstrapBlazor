@@ -105,7 +105,7 @@ namespace BootstrapBlazor.Components
                     Callback = async () =>
                     {
                         // 调用 JS 进行弹窗 等待 弹窗点击确认回调
-                        if (JSRuntime != null) await JSRuntime.Invoke(Id, "bb_confirm");
+                        await JSRuntime.Invoke(Id, "bb_confirm");
                     }
                 });
             }

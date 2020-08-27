@@ -121,11 +121,11 @@ namespace BootstrapBlazor.Components
         /// <param name="firstRender"></param>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            FirstRender = firstRender;
-
             await base.OnAfterRenderAsync(firstRender);
 
-            await ReActiveTab();
+            FirstRender = false;
+
+            await JSRuntime.Invoke(TabElement, "bb_tab");
         }
 
         /// <summary>
@@ -185,14 +185,6 @@ namespace BootstrapBlazor.Components
         internal void AddItem(TabItem item) => _items.Add(item);
 
         /// <summary>
-        /// TabItem 切换后回调此方法
-        /// </summary>
-        public virtual async Task ReActiveTab()
-        {
-            if (JSRuntime != null) await JSRuntime.Invoke(TabElement, "tab");
-        }
-
-        /// <summary>
         /// 添加 TabItem 方法
         /// </summary>
         /// <param name="item"></param>
@@ -244,6 +236,8 @@ namespace BootstrapBlazor.Components
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
+
+            StateHasChanged();
             return Task.CompletedTask;
         }
     }

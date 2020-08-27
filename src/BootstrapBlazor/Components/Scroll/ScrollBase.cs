@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 await JSRuntime.Invoke(ScrollElement, "bb_scroll");
             }

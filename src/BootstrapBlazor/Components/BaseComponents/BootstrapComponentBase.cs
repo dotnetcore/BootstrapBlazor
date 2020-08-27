@@ -16,11 +16,13 @@ namespace BootstrapBlazor.Components
         [Parameter(CaptureUnmatchedValues = true)]
         public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
+#nullable disable
         /// <summary>
         /// 获得/设置 IJSRuntime 实例
         /// </summary>
         [Inject]
-        protected IJSRuntime? JSRuntime { get; set; }
+        protected IJSRuntime JSRuntime { get; set; }
+#nullable restore
 
         /// <summary>
         /// Dispose 方法

@@ -54,13 +54,10 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender)
+            if (firstRender && Message != null)
             {
-                if (JSRuntime != null && Message != null)
-                {
-                    _interop = new JSInterop<MessageBase>(JSRuntime);
-                    await _interop.Invoke(Message, MessageItemElement, "showMessage", nameof(MessageBase.Clear));
-                }
+                _interop = new JSInterop<MessageBase>(JSRuntime);
+                await _interop.Invoke(Message, MessageItemElement, "showMessage", nameof(MessageBase.Clear));
             }
         }
     }

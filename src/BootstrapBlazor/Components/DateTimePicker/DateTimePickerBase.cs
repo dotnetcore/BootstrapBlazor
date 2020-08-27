@@ -133,7 +133,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 await JSRuntime.Invoke(Picker, "datetimePicker");
             }
@@ -164,11 +164,9 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClear()
         {
-#nullable disable
-            CurrentValue = default;
-#nullable restore
+            CurrentValue = default!;
             StateHasChanged();
-            if (JSRuntime != null) await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
+            await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
         }
 
         /// <summary>
@@ -176,7 +174,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task OnConfirm()
         {
-            if (JSRuntime != null) await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
+            await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
         }
     }
 }

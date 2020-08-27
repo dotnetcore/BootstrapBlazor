@@ -206,7 +206,7 @@ namespace BootstrapBlazor.Components
         public void Reset()
         {
             var option = GetCaptchaOption();
-            if (Interop == null && JSRuntime != null) Interop = new JSInterop<CaptchaBase>(JSRuntime);
+            if (Interop == null) Interop = new JSInterop<CaptchaBase>(JSRuntime);
             Interop?.Invoke(this, Captcha, "captcha", nameof(Verify), option);
         }
     }
