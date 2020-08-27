@@ -199,6 +199,22 @@
     </div>
 </Block>
 
+<Block Title="绑定可为空布尔类型" Introduction="<code>Select</code> 组件绑定 <code>bool?</code> 类型示例" CodeFile="select.12.html">
+    <p>可为空布尔类型多用于条件搜索框中</p>
+    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@NullableBoolItems" @bind-Value="@SelectedBoolItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="form-control">@GetSelectedBoolItemString()</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

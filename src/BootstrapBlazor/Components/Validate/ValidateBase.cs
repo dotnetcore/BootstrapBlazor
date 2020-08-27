@@ -239,14 +239,20 @@ namespace BootstrapBlazor.Components
             validationErrorMessage = null;
             try
             {
-                if (typeof(TValue) == typeof(object))
+                var valueType = typeof(TValue);
+                if (valueType == typeof(object))
                 {
                     result = (TValue)(object)value;
                     ret = true;
                 }
-                else if (typeof(TValue).IsEnum && Enum.TryParse(typeof(TValue), value, out var v))
+                else if (valueType.IsEnum && Enum.TryParse(typeof(TValue), value, out var v))
                 {
                     result = (TValue)v;
+                    ret = true;
+                }
+                else if (valueType == typeof(bool) || valueType == typeof(bool?))
+                {
+                    result = (TValue)(object)value.Equals("true", StringComparison.InvariantCultureIgnoreCase);
                     ret = true;
                 }
                 else if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var v1))

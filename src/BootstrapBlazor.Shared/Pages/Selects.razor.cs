@@ -122,6 +122,20 @@ namespace BootstrapBlazor.Shared.Pages
             return SelectedIntItem.HasValue ? SelectedIntItem.Value.ToString() : "null";
         }
 
+        private IEnumerable<SelectedItem> NullableBoolItems { get; set; } = new SelectedItem[]
+        {
+            new SelectedItem() { Text = "空值", Value = "" },
+            new SelectedItem() { Text = "True 值", Value = "true" },
+            new SelectedItem() { Text = "False 值", Value = "false" }
+        };
+
+        private bool? SelectedBoolItem = null;
+
+        private string GetSelectedBoolItemString()
+        {
+            return SelectedBoolItem.HasValue ? SelectedBoolItem.Value.ToString() : "null";
+        }
+
         private SortOrder SelectedEnumItem { get; set; } = SortOrder.Unset;
 
         /// <summary>
