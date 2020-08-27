@@ -199,7 +199,6 @@ namespace BootstrapBlazor.Components
             {
                 // 更新行选中状态
                 await EditAsync();
-                StateHasChanged();
             }
         }
 
@@ -221,12 +220,12 @@ namespace BootstrapBlazor.Components
         /// 行尾列按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected Task ClickDeleteButton(TItem item)
+        protected Task<bool> ClickDeleteButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
 
-            return Task.CompletedTask;
+            return Task.FromResult(true);
         }
     }
 }

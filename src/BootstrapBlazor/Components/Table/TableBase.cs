@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +30,15 @@ namespace BootstrapBlazor.Components
             .AddClass("is-single", !IsMultipleSelect && ClickToSelect)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+
+        /// <summary>
+        /// 获得 Body 内行样式
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetRowClassString(TItem item) => CssBuilder.Default("")
+           .AddClass("active", SelectedRowsChanged.HasDelegate && CheckActive(item))
+           .Build();
 
         /// <summary>
         /// 获得 表头 Model 实例
@@ -122,5 +132,58 @@ namespace BootstrapBlazor.Components
                 if (Items == null) Items = new TItem[0];
             }
         }
+
+        #region 生成 Row 方法
+        /// <summary>
+        /// 获得 指定单元格数据方法
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected RenderFragment GetValue(ITableColumn col, TItem item) => async builder =>
+        {
+            if (col.Template != null)
+            {
+                builder.AddContent(0, col.Template.Invoke(item));
+            }
+            else
+            {
+                string content = "";
+                var val = GetItemValue(col.GetFieldName(), item);
+                if (col.Formatter != null)
+                {
+                    // 格式化回调委托
+                    content = await col.Formatter(val);
+                }
+                else if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    // 格式化字符串
+                    content = val?.Format(col.FormatString) ?? "";
+                }
+                else if (col.FieldType.IsEnum())
+                {
+                    content = col.FieldType.ToDescriptionString(val?.ToString());
+                }
+                else
+                {
+                    content = val?.ToString() ?? "";
+                }
+                builder.AddContent(0, content);
+            }
+        };
+
+        private object? GetItemValue(string fieldName, TItem item)
+        {
+            object? ret = null;
+            if (item != null)
+            {
+                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => item.GetPropertyValueLambda<TItem, object>(key.Item2).Compile());
+                ret = invoker(item);
+            }
+            return ret;
+        }
+
+        private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object>>();
+        #endregion
     }
 }

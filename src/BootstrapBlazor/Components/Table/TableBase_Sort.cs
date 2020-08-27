@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
-        protected string? GetCellClassString(ITableColumn col) => CssBuilder.Default("table-cell")
+        protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
             .AddClass("is-sort", col.Sortable)
             .AddClass("is-filter", col.Filterable)
             .Build();
@@ -86,6 +86,17 @@ namespace BootstrapBlazor.Components
             .AddClass("text-right", col.Align == Alignment.Right)
             .AddClass("text-center", col.Align == Alignment.Center)
             .Build();
+
+        /// <summary>
+        /// 获得 Cell 文字样式
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        protected string? GetCellClassString(ITableColumn col) => CssBuilder.Default("table-cell")
+             .AddClass("justify-content-start", col.Align == Alignment.Left)
+             .AddClass("justify-content-end", col.Align == Alignment.Right)
+             .AddClass("justify-content-center", col.Align == Alignment.Center)
+             .Build();
 
         /// <summary>
         /// 获取指定列头样式字符串

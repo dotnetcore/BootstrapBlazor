@@ -97,16 +97,29 @@
                     {
                         @foreach (var item in Items)
                         {
-                            <TableRow @key="@item.GetHashCode()" TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
-                                      ShowDefaultButtons="@ShowDefaultButtons" ShowDeleteButton="@ShowDeleteButton" ShowEditButton="@ShowEditButton"
-                                      ShowNewButton="@ShowNewButton" ShowExtendButtons="@ShowExtendButtons"
-                                      OnClickEditButton="@ClickEditButton" OnClickDeleteButton="@ClickDeleteButton" OnDelete="@DeleteAsync"
-                                      OnCheck="@OnCheck" RowCheckState="@RowCheckState"
-                                      IsActive="@CheckActive(item)" OnSelectedRow="@SelectRow" OnEditRow="@DoubleClickRow"
-                                      ClickToSelect="@ClickToSelect" DoubleClickToEdit="@DoubleClickToEdit"
-                                      OnDoubleClickRowCallback="@OnDoubleClickRowCallback">
-                                @RowButtonTemplate?.Invoke(item)
-                            </TableRow>
+                            @if (IsMultipleSelect)
+                            {
+                                <tr class="@GetRowClassString(item)">
+                                    <td>
+                                        <div class="table-cell">
+                                            <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
+                                        </div>
+                                    </td>
+                                    @RenderRow(item)
+                                </tr>
+                            }
+                            else if (ClickToSelect)
+                            {
+                                <tr class="@GetRowClassString(item)" @onclick="@(e => SelectRow(item))" @ondblclick="@(e => OnDoubleClickRowCallback(item))">
+                                    @RenderRow(item)
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr class="@GetRowClassString(item)" @ondblclick="@(e => OnDoubleClickRowCallback(item))">
+                                    @RenderRow(item)
+                                </tr>
+                            }
                         }
                     }
                     else
@@ -130,7 +143,7 @@
                                 var fieldName = col.GetFieldName();
                                 var displayName = col.GetDisplayName();
                                 <th class="@GetHeaderClassString(col)" @onclick="@(e => OnSortClick(fieldName))">
-                                    <div class="@GetCellClassString(col)">
+                                    <div class="@GetHeaderWrapperClassString(col)">
                                         <span class="@GetHeaderTextClassString(col)">@displayName</span>
                                         @if (col.Filterable)
                                         {
@@ -186,3 +199,43 @@
         }
     </CascadingValue>
 </div>
+
+@code {
+    RenderFragment<TItem> RenderRow => item =>
+    @<RenderTemplate>
+        @foreach (var col in Columns)
+        {
+            <td>
+                <div class="@GetCellClassString(col)">
+                    @GetValue(col, item)
+                </div>
+            </td>
+        }
+        @if (ShowExtendButtons)
+        {
+            <td>
+                <div class="table-cell">
+                    <div class="btn-group">
+                        @if (ShowDefaultButtons)
+                        {
+                            @if (ShowEditButton)
+                            {
+                                <Button Size="Size.ExtraSmall" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickEditButton(item)))" Icon="fa fa-edit" Text="编辑" />
+                            }
+                            @if (ShowDeleteButton)
+                            {
+                                <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                                  Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                                                  CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
+                                                  ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
+                                                  OnBeforeClick="@(new Func<Task<bool>>(() => ClickDeleteButton(item)))"
+                                                  OnConfirm="@(new Func<Task>(DeleteAsync))" />
+                            }
+                        }
+                        @RowButtonTemplate?.Invoke(item)
+                    </div>
+                </div>
+            </td>
+        }
+    </RenderTemplate>;
+}

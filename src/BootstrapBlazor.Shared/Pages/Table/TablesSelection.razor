@@ -1,5 +1,4 @@
 ﻿@inherits TablesBaseEdit
-@inject IJSRuntime JSRuntime
 @page "/tables/selection"
 
 <h3>Table 表格</h3>
@@ -41,12 +40,5 @@
         base.OnInitialized();
 
         SelectedRows = Items.Take(2);
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-
-        JSRuntime.InvokeVoidAsync("console.log", "table");
     }
 }
