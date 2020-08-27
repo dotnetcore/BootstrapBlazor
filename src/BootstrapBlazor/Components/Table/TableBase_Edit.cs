@@ -62,6 +62,12 @@ namespace BootstrapBlazor.Components
         public EventCallback<IEnumerable<TItem>> SelectedRowsChanged { get; set; }
 
         /// <summary>
+        /// 获得/设置 行样式格式回调委托
+        /// </summary>
+        [Parameter]
+        public Func<TItem, string?>? SetRowClassFormatter { get; set; }
+
+        /// <summary>
         /// 获得/设置 编辑数据弹窗 Title
         /// </summary>
         [Parameter]

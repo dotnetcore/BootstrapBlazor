@@ -37,6 +37,7 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         protected string? GetRowClassString(TItem item) => CssBuilder.Default("")
+           .AddClass(SetRowClassFormatter?.Invoke(item))
            .AddClass("active", SelectedRowsChanged.HasDelegate && CheckActive(item))
            .Build();
 

@@ -81,6 +81,23 @@
     </Table>
 </Block>
 
+<Block Title="自定义行高亮" Introduction="通过设置 <code>SetRowClassFormatter</code> 属性值可以实现通过行数据逻辑对行样式进行设置,实现自己高亮需求功能" CodeFile="table.31.html">
+    <p>本例中 <code>SetRowClassFormatter</code> 方法通过判断绑定数据的 <code>Count > 60</code> 时行高亮显示</p>
+    <Table TItem="BindItem" SetRowClassFormatter="@SetRowClassFormatter"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
 @code {
 
     private Task DoubleClickRowCallback(BindItem item)
@@ -95,5 +112,10 @@
             Content = content
         });
         return Task.CompletedTask;
+    }
+
+    private string? SetRowClassFormatter(BindItem item)
+    {
+        return item.Count > 60 ? "highlight" : null;
     }
 }
