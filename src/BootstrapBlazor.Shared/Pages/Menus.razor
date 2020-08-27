@@ -5,30 +5,30 @@
 <h4>为页面和功能提供导航的菜单列表。</h4>
 
 <Block Title="顶栏" Introduction="适用广泛的基础用法。" CodeFile="menu.1.html">
-    <Menu Items="@GetItems()" OnClick="@OnClickMenu" />
+    <Menu Items="@Items" OnClick="@OnClickMenu" />
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="带图标的顶栏菜单" Introduction="适用简单的网站应用，通过设置菜单项 <code>MenuItem</code> 的 <code>Icon</code> 属性设置菜单图标" CodeFile="menu.2.html">
-    <Menu Items="@GetIconItems()" />
+    <Menu Items="@IconItems" />
 </Block>
 
 <Block Title="侧栏" Introduction="适用于左右结构布局的网站，通过设置 <code>IsVertical</code> 更改导航菜单为侧栏" CodeFile="menu.3.html">
     <div style="width:220px;">
-        <Menu Items="@GetSideMenuItems()" IsVertical="true" OnClick="@OnClickSideMenu" style="border-right: 1px solid #e6e6e6;" />
+        <Menu Items="@SideMenuItems" IsVertical="true" OnClick="@OnClickSideMenu" style="border-right: 1px solid #e6e6e6;" />
     </div>
     <Logger @ref="TraceSideMenu" class="mt-3" />
 </Block>
 
 <Block Title="带图标的侧栏菜单" Introduction="通过设置菜单项 <code>MenuItem</code> 的 <code>Icon</code> 属性设置菜单图标" CodeFile="menu.3.html">
     <div style="width:220px;">
-        <Menu Items="@GetIconSideMenuItems()" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+        <Menu Items="@IconSideMenuItems" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
     </div>
 </Block>
 
 <Block Title="手风琴效果的侧栏" Introduction="通过设置 <code>IsAccordion</code> 属性设置手风琴特效侧栏菜单" CodeFile="menu.4.html">
     <div style="width:220px;">
-        <Menu Items="@GetIconSideMenuItems()" IsVertical="true" IsAccordion="true" style="border-right: 1px solid #e6e6e6;" />
+        <Menu Items="@IconSideMenuItems" IsVertical="true" IsAccordion="true" style="border-right: 1px solid #e6e6e6;" />
     </div>
 </Block>
 
@@ -46,7 +46,7 @@
         </Header>
         <Side>
             <div class="menu-demo" style="background-color: #2f4050; color: #dcdfe6; height: 100%; padding: 6px 0;">
-                <Menu Items="@GetIconSideMenuItems()" IsVertical="true" IsCollapsed="@IsCollapsed" />
+                <Menu Items="@IconSideMenuItems" IsVertical="true" IsCollapsed="@IsCollapsed" />
             </div>
         </Side>
         <Main>
@@ -60,14 +60,14 @@
 
 <Block Title="带挂件的菜单" Introduction="通过设置 <code>MenuItem</code> 的 <code>Component</code> 属性设置自定义组件到菜单中" CodeFile="menu.6.html">
     <div style="width:220px;">
-        <Menu Items="@GetWidgetIconSideMenuItems()" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+        <Menu Items="@WidgetIconSideMenuItems" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
     </div>
 </Block>
 
 <Block Title="自定义节点收缩" Introduction="通过设置 <code>MenuItem</code> 的 <code>IsCollapsed</code> 属性设置节点是否收起" CodeFile="menu.7.html">
     <p>本例中 <b>权限设置</b> 节点为展开状态，其余节点为收起状态</p>
     <div style="width:220px;">
-        <Menu Items="@GetCollapsedIconSideMenuItems()" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+        <Menu Items="@CollapsedIconSideMenuItems" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
     </div>
 </Block>
 

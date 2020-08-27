@@ -55,10 +55,21 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <param name="className"></param>
-        /// <param name="active"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetClassString(string className, bool active) => CssBuilder.Default(className)
-            .AddClass("active", active)
+        private string? GetClassString(string className, MenuItem item) => CssBuilder.Default(className)
+            .AddClass("active", item.IsActive || CheckActiveUrl(item.Url))
             .Build();
+
+        private bool CheckActiveUrl(string? url)
+        {
+            bool ret = false;
+            if (!string.IsNullOrEmpty(url))
+            {
+                var navUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
+                ret = url.TrimStart('/').Equals(navUrl, StringComparison.OrdinalIgnoreCase);
+            }
+            return ret;
+        }
     }
 }

@@ -1,6 +1,8 @@
-﻿<Menu Items="@GetSideMenuItems()" IsVertical="true" />
+﻿<Menu Items="@SideMenuItems" IsVertical="true" />
 
 @code {
+    private IEnumerable<MenuItem> SideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
+
     private IEnumerable<MenuItem> GetSideMenuItems()
     {
         var ret = new List<MenuItem>
@@ -32,5 +34,14 @@
         ret[1].Items.ElementAt(0).Items.ElementAt(0).Items.ElementAt(0).AddItem(new MenuItem() { Text = "曾曾孙菜单二" });
 
         return ret;
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        SideMenuItems = GetSideMenuItems();
     }
 }

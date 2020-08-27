@@ -1,6 +1,8 @@
-﻿<Menu Items="@GetItems()" />
+﻿<Menu Items="@Items" />
 
 @code {
+    private IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
+
     private IEnumerable<MenuItem> GetItems()
     {
         var ret = new List<MenuItem>
@@ -27,5 +29,14 @@
         ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new MenuItem() { Text = "曾曾孙菜单二" });
 
         return ret;
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Items = GetItems();
     }
 }

@@ -1,4 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
+@inject NavigationManager Navigator
 
 <div class="navbar navbar-expand d-flex">
     <ul class="navbar-nav">
@@ -6,8 +7,8 @@
         {
             @if (menu.Items.Any())
             {
-                <li class="@GetClassString("nav-item dropdown", menu.IsActive)">
-                    <a class="@GetClassString("nav-link dropdown-toggle", menu.IsActive)" data-toggle="dropdown" role="button" href="#">
+                <li class="@GetClassString("nav-item dropdown", menu)">
+                    <a class="@GetClassString("nav-link dropdown-toggle", menu)" data-toggle="dropdown" role="button" href="#">
                         @if (!string.IsNullOrEmpty(menu.Icon))
                         {
                             <i class="@menu.Icon"></i>
@@ -36,7 +37,7 @@
             }
             else
             {
-                <li class="@GetClassString("nav-item", menu.IsActive)">
+                <li class="@GetClassString("nav-item", menu)">
                     <MenuLink Item="@menu" DisableNavigation="@DisableNavigation" class="nav-link" OnClick="@OnClickMenuItem" />
                 </li>
             }

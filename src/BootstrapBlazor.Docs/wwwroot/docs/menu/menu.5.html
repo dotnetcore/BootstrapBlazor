@@ -9,7 +9,7 @@
     </Header>
     <Side>
         <div class="menu-demo" style="background-color: #2f4050; color: #dcdfe6; height: 100%; padding: 6px 0;">
-            <Menu Items="@GetIconSideMenuItems()" IsVertical="true" IsCollapsed="@IsCollapsed" />
+            <Menu Items="@IconSideMenuItems" IsVertical="true" IsCollapsed="@IsCollapsed" />
         </div>
     </Side>
     <Main>
@@ -34,6 +34,8 @@
         return Task.CompletedTask;
     }
 
+    private IEnumerable<MenuItem> IconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
+
     private IEnumerable<MenuItem> GetIconSideMenuItems()
     {
         var ret = new List<MenuItem>
@@ -55,5 +57,14 @@
         ret[2].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
 
         return ret;
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        IconSideMenuItems = GetIconSideMenuItems();
     }
 }

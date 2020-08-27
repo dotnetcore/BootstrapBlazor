@@ -1,4 +1,4 @@
-﻿<Menu Items="@GetWidgetIconSideMenuItems()" IsVertical="true" />
+﻿<Menu Items="@WidgetIconSideMenuItems" IsVertical="true" />
 
 @code {
     private DynamicComponent BuildDynamicComponent()
@@ -14,6 +14,8 @@
             }))
         });
     }
+
+    private IEnumerable<MenuItem> WidgetIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
     private IEnumerable<MenuItem> GetWidgetIconSideMenuItems()
     {
@@ -46,5 +48,14 @@
         });
 
         return ret;
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        WidgetIconSideMenuItems = GetWidgetIconSideMenuItems();
     }
 }
