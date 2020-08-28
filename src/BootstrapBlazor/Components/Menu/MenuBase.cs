@@ -78,12 +78,11 @@ namespace BootstrapBlazor.Components
             if (!DisableNavigation && Navigator != null)
             {
                 // 首次加载根据地址栏寻找当前菜单
+                Items = Items.ToList();
+
                 var url = Navigator.ToBaseRelativePath(Navigator.Uri);
-                if (!string.IsNullOrEmpty(url))
-                {
-                    var menuItem = FindMenuItemByUrl(Items, url);
-                    if (menuItem != null) MenuItem.CascadingSetActive(menuItem, true);
-                }
+                var menuItem = FindMenuItemByUrl(Items, url);
+                if (menuItem != null) MenuItem.CascadingSetActive(menuItem, true);
             }
         }
 
@@ -92,7 +91,7 @@ namespace BootstrapBlazor.Components
             MenuItem? ret = null;
             foreach (var item in items)
             {
-                if (!string.IsNullOrEmpty(item.Url) && item.Url.Equals(url, StringComparison.OrdinalIgnoreCase))
+                if (item.Url?.TrimStart('/').Equals(url, StringComparison.OrdinalIgnoreCase) ?? false)
                 {
                     ret = item;
                     break;
