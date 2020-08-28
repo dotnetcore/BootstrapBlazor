@@ -11,8 +11,8 @@
     <ul class="nav sub-menu">
         @foreach (var item in (Item?.Items ?? new MenuItem[0]))
         {
-            <li class="@GetClassString("nav-item", item.IsActive)">
-                @if (item.Items.Any())
+            <li class="@GetClassString("nav-item", item)">
+                @if (item.Items.Any() && !item.IsDisabled)
                 {
                     <SubMenu Item="@item" class="nav-link" OnClick="@OnClick" />
                 }

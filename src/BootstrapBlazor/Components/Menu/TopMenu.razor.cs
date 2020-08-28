@@ -38,27 +38,14 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 渲染菜单方法
-        /// </summary>
-        /// <returns></returns>
-        private RenderFragment RenderDropdownItem(MenuItem item) => new RenderFragment(builder =>
-        {
-            var index = 0;
-            builder.OpenComponent<SubMenu>(index++);
-            builder.AddAttribute(index++, nameof(SubMenu.Item), item);
-            builder.AddAttribute(index++, nameof(SubMenu.OnClick), new Func<MenuItem, Task>(i => OnClickMenuItem(i)));
-            builder.AddAttribute(index++, "class", "dropdown-item");
-            builder.CloseComponent();
-        });
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="className"></param>
         /// <param name="item"></param>
         /// <returns></returns>
         private string? GetClassString(string className, MenuItem item) => CssBuilder.Default(className)
-            .AddClass("active", item.IsActive || CheckActiveUrl(item.Url))
+            .AddClass("active", (item.IsActive || CheckActiveUrl(item.Url)) && !item.IsDisabled)
+            .AddClass("disabled", item.IsDisabled)
             .Build();
 
         private bool CheckActiveUrl(string? url)

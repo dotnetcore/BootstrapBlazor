@@ -11,11 +11,12 @@ namespace BootstrapBlazor.Components
     public sealed partial class MenuLink
     {
         private string? ClassString => CssBuilder.Default()
-            .AddClass("active", Item.IsActive)
+            .AddClass("active", Item.IsActive && !Item.IsDisabled)
+            .AddClass("disabled", Item.IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        private string? GetHrefString => DisableNavigation ? null : (Item.Items.Any() ? "#" : Item.Url?.TrimStart('/'));
+        private string? GetHrefString => (DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url?.TrimStart('/'));
 
         /// <summary>
         /// 获得/设置 是否禁止导航 默认为 false 允许导航
@@ -39,7 +40,7 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClickLink()
         {
-            if (OnClick != null) await OnClick(Item);
+            if (OnClick != null && !Item.IsDisabled) await OnClick(Item);
         }
     }
 }

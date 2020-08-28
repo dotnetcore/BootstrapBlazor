@@ -19,20 +19,23 @@
                             @menu.Component.Render()
                         }
                     </a>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-menu-arrow"></div>
-                        @foreach (var item in menu.Items)
-                        {
-                            @if (item.Items.Any())
+                    @if (!menu.IsDisabled)
+                    {
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-arrow"></div>
+                            @foreach (var item in menu.Items)
                             {
-                                @RenderDropdownItem(item)
+                                @if (item.Items.Any())
+                                {
+                                    <SubMenu Item="@item" OnClick="OnClickMenuItem" class="dropdown-item"></SubMenu>
+                                }
+                                else
+                                {
+                                    <MenuLink Item="@item" DisableNavigation="@DisableNavigation" class="dropdown-item" OnClick="@OnClickMenuItem" />
+                                }
                             }
-                            else
-                            {
-                                <MenuLink Item="@item" DisableNavigation="@DisableNavigation" class="dropdown-item" OnClick="@OnClickMenuItem" />
-                            }
-                        }
-                    </div>
+                        </div>
+                    }
                 </li>
             }
             else

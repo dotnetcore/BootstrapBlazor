@@ -9,16 +9,19 @@
         {
             <div class="card">
                 <div class="card-header">
-                    <div class="card-header-wrapper">
+                    <div class="@GetMenuWrapperClassString(item)">
                         <MenuLink Item="@item" DisableNavigation="@DisableNavigation" class="@GetMenuItemLinkClassString(item)" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" OnClick="@OnClickMenu" />
                         <i class="fa fa-angle-down"></i>
                     </div>
                 </div>
-                <div class="@GetMenuItemClassString(item)">
-                    <div class="card-body has-leaf">
-                        <SideMenu Items="@item.Items" DisableNavigation="@DisableNavigation" IsAccordion="@IsAccordion" OnClick="@OnClickMenu" />
+                @if (!item.IsDisabled)
+                {
+                    <div class="@GetMenuItemClassString(item)">
+                        <div class="card-body has-leaf">
+                            <SideMenu Items="@item.Items" DisableNavigation="@DisableNavigation" IsAccordion="@IsAccordion" OnClick="@OnClickMenu" />
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         }
         else

@@ -3630,6 +3630,18 @@ input:disabled,
         display: inline-block;
     }
 
+    .menu .nav-item.disabled {
+        cursor: not-allowed;
+    }
+
+        .menu .nav-item.disabled .nav-link,
+        .menu .nav-link.disabled,
+        .menu .card-header-wrapper.disabled,
+        .dropdown-item.disabled {
+            cursor: not-allowed;
+            color: #ddd;
+        }
+
 @media (min-width: 768px) {
     .menu.is-vertical.is-collapsed .nav-link .nav-link-text {
         width: 0;

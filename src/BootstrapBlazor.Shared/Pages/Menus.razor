@@ -71,4 +71,13 @@
     </div>
 </Block>
 
+<Block Title="部分菜单禁用功能" Introduction="通过设置 <code>MenuItem</code> 的 <code>IsDisabled</code> 属性设置节点是否禁用" CodeFile="menu.8.html">
+    <p>本例中 <b>导航二</b> 节点为禁用状态，菜单与其子菜单均不可点击</p>
+    <Menu Items="@DisabledMenuItems" />
+    <p class="mt-3"><b>侧栏的禁用示例</b></p>
+    <div style="width:220px;">
+        <Menu Items="@DisabledMenuItems" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />

@@ -31,6 +31,10 @@ namespace BootstrapBlazor.Components
             .AddClass("collapsed", item.IsCollapsed)
             .Build();
 
+        private string? GetMenuWrapperClassString(MenuItem item) => CssBuilder.Default("card-header-wrapper")
+            .AddClass("disabled", item.IsDisabled)
+            .Build();
+
         /// <summary>
         /// 获得 是否展开字符串
         /// </summary>
@@ -109,7 +113,7 @@ namespace BootstrapBlazor.Components
                 {
                     ret = FindMenuItem(item.Items, url);
                 }
-                else if (item.Url?.Equals(url, System.StringComparison.OrdinalIgnoreCase) ?? false)
+                else if (item.Url?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false)
                 {
                     ret = item;
                 }
@@ -125,10 +129,13 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private async Task OnClickMenu(MenuItem item)
         {
-            MenuClicked = true;
+            if (!item.IsDisabled)
+            {
+                MenuClicked = true;
 
-            // 回调委托
-            await OnClick(item);
+                // 回调委托
+                await OnClick(item);
+            }
         }
     }
 }

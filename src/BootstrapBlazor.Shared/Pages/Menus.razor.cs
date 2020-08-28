@@ -229,6 +229,26 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
+        private IEnumerable<MenuItem> DisabledMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
+
+        private IEnumerable<MenuItem> GetDisabledMenuItems()
+        {
+            var ret = new List<MenuItem>
+            {
+                new MenuItem() { Text = "导航一", IsActive = true },
+                new MenuItem() { Text = "导航二", IsDisabled = true },
+                new MenuItem() { Text = "导航三" },
+                new MenuItem() { Text = "导航四", IsDisabled = true },
+            };
+
+            ret[1].AddItem(new MenuItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
+
+            ret[2].AddItem(new MenuItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
+            ret[2].AddItem(new MenuItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw", IsDisabled = true });
+
+            return ret;
+        }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -241,6 +261,7 @@ namespace BootstrapBlazor.Shared.Pages
             IconSideMenuItems = GetIconSideMenuItems();
             WidgetIconSideMenuItems = GetWidgetIconSideMenuItems();
             CollapsedIconSideMenuItems = GetCollapsedIconSideMenuItems();
+            DisabledMenuItems = GetDisabledMenuItems();
         }
 
         /// <summary>
