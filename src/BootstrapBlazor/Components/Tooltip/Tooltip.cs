@@ -10,12 +10,18 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出框类型
         /// </summary>
-        public virtual PopoverType PopoverType { get; set; }
+        public PopoverType PopoverType { get; set; }
 
         /// <summary>
         /// 获得/设置 显示内容
         /// </summary>
-        public virtual string Content { get; set; } = "";
+        public string? Content { get; set; }
+
+        /// <summary>
+        /// 获得/设置 显示内容函数名称
+        /// </summary>
+        [Parameter]
+        public string? GetContentFuncName { get; set; }
 
         /// <summary>
         /// 获得/设置 显示文字是否为 Html 默认为 false
@@ -33,13 +39,19 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示文字
         /// </summary>
         [Parameter]
-        public virtual string Title { get; set; } = "Tooltip";
+        public string? Title { get; set; }
 
         /// <summary>
-        /// 获得/设置 触发方式 可组合 click focus hover 默认为 click
+        /// 获得/设置 显示文字函数名称
         /// </summary>
         [Parameter]
-        public string? Trigger { get; set; }
+        public string? GetTitleFuncName { get; set; }
+
+        /// <summary>
+        /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
+        /// </summary>
+        [Parameter]
+        public string Trigger { get; set; } = "focus hover";
 
         /// <summary>
         /// 获得/设置 ITooltip 实例

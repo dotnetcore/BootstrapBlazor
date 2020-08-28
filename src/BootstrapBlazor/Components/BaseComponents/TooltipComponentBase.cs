@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -15,26 +14,6 @@ namespace BootstrapBlazor.Components
         public ITooltip? Tooltip { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            // 初始化 Tooltip 组件
-            if (Tooltip != null)
-            {
-                if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-                AdditionalAttributes["data-placement"] = Tooltip.Placement.ToDescriptionString();
-
-                if (!AdditionalAttributes.TryGetValue("data-trigger", out var _) && !string.IsNullOrEmpty(Tooltip.Trigger))
-                {
-                    AdditionalAttributes["data-trigger"] = Tooltip.Trigger;
-                }
-            }
-        }
-
-        /// <summary>
         /// OnAfterRenderAsync
         /// </summary>
         /// <param name="firstRender"></param>
@@ -45,7 +24,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender && Tooltip != null)
             {
-                JSRuntime.Tooltip(Id, "", Tooltip.PopoverType, RetrieveTitle(), RetrieveContent(), RetrieveIsHtml());
+                await JSRuntime.Tooltip(Id, "", Tooltip.PopoverType, RetrieveTitle(), RetrieveContent(), RetrieveIsHtml(), RetrieveTrigger());
             }
         }
 
@@ -55,7 +34,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected virtual string RetrieveTitle()
         {
-            return Tooltip != null ? Tooltip.Title : "";
+            return Tooltip?.Title ?? "";
         }
 
         /// <summary>
@@ -64,9 +43,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected virtual string RetrieveContent()
         {
-            return Tooltip != null
-                ? (Tooltip.PopoverType == PopoverType.Popover ? Tooltip.Content : "")
-                : "";
+            return Tooltip?.Content ?? "";
         }
 
         /// <summary>
@@ -79,6 +56,15 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 获得 弹窗激活方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string RetrieveTrigger()
+        {
+            return Tooltip?.Trigger ?? "hover focus";
+        }
+
+        /// <summary>
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
@@ -86,7 +72,7 @@ namespace BootstrapBlazor.Components
         {
             if (disposing && Tooltip != null)
             {
-                JSRuntime.Tooltip(Id, "dispose", popoverType: Tooltip.PopoverType);
+                _ = JSRuntime.Tooltip(Id, "dispose", popoverType: Tooltip.PopoverType);
             }
         }
     }

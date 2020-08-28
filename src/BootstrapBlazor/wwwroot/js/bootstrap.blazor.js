@@ -1059,14 +1059,18 @@
                     });
             }
         },
-        bb_tooltip: function (id, method, title, content, html) {
+        bb_tooltip: function (id, method, title, html, trigger) {
             var $ele = $('#' + id);
             if (method === "") {
                 var op = { html: html, sanitize: !html, title: title };
+                if (trigger) op.trigger = trigger;
+                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose')
                 $ele.tooltip(op);
             }
             else if (method === 'enable') {
                 var op = { html: html, sanitize: !html, title: title };
+                if (trigger) op.trigger = trigger;
+
                 $ele.tooltip(op);
                 var $ctl = $ele.parents('form').find('.is-invalid:first');
                 if ($ctl.prop("nodeName") === 'INPUT') {
@@ -1082,11 +1086,13 @@
                 $ele.tooltip(method);
             }
         },
-        bb_popover: function (id, method, title, content, html) {
+        bb_popover: function (id, method, title, content, html, trigger) {
             var $ele = $('#' + id);
             if (method === "") {
                 var op = { html: html, sanitize: false, title: title, content: content };
-                $ele.popover('dispose')
+                if (trigger) op.trigger = trigger;
+
+                if ($ele.data('bs.popover')) $ele.popover('dispose')
                 $ele.popover(op);
             }
             else {

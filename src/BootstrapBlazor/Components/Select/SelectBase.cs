@@ -128,17 +128,17 @@ namespace BootstrapBlazor.Components
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                JSRuntime.Tooltip(InputId, "", PopoverType.Tooltip, "", "", false);
+                await JSRuntime.Tooltip(InputId, "", PopoverType.Tooltip, "", "", false);
             }
             else
             {
                 if (!string.IsNullOrEmpty(TooltipMethod))
                 {
-                    JSRuntime.Tooltip(InputId, TooltipMethod, title: ErrorMessage);
+                    await JSRuntime.Tooltip(InputId, TooltipMethod, title: ErrorMessage);
                     TooltipMethod = "";
                 }
             }
@@ -246,7 +246,7 @@ namespace BootstrapBlazor.Components
         {
             base.Dispose(disposing);
 
-            if (disposing) JSRuntime.Tooltip(InputId, "dispose");
+            if (disposing) _ = JSRuntime.Tooltip(InputId, "dispose");
         }
     }
 }

@@ -347,7 +347,7 @@ namespace BootstrapBlazor.Components
 
             if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
             {
-                JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
+                await JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
                 TooltipMethod = "";
             }
         }
@@ -459,7 +459,7 @@ namespace BootstrapBlazor.Components
 
             if (disposing && EditContext != null)
             {
-                JSRuntime.Tooltip(Id, "dispose");
+                _ = JSRuntime.Tooltip(Id, "dispose");
             }
         }
         #endregion
