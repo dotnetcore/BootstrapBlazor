@@ -3966,6 +3966,11 @@ input:disabled,
         opacity: 1;
         background-color: #409eff;
     }
+
+    .layout.is-page .layout-side .layout-menu .slimScrollBar {
+        opacity: 1 !important;
+        background-color: #c1c1c1 !important;
+    }
 }
 /*end layout*/
 /*step*/

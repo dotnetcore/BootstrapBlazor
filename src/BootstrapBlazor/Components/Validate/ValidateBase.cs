@@ -106,9 +106,12 @@ namespace BootstrapBlazor.Components
                     // Then all subclasses get nullable support almost automatically (they just have to
                     // not reject Nullable<T> based on the type itself).
                     PreviousParsingAttemptFailed = false;
-#nullable disable
-                    CurrentValue = default;
-#nullable restore
+                    CurrentValue = default!;
+                }
+                else if (typeof(TValue) == typeof(object))
+                {
+                    PreviousParsingAttemptFailed = false;
+                    CurrentValue = (TValue)(object)value;
                 }
                 else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
                 {
@@ -240,22 +243,10 @@ namespace BootstrapBlazor.Components
             try
             {
                 var valueType = typeof(TValue);
-                if (valueType == typeof(object))
-                {
-                    result = (TValue)(object)value;
-                    ret = true;
-                }
-                else if (valueType.IsEnum && Enum.TryParse(typeof(TValue), value, out var v))
-                {
-                    result = (TValue)v;
-                    ret = true;
-                }
-                else if (valueType == typeof(bool) || valueType == typeof(bool?))
-                {
-                    result = (TValue)(object)value.Equals("true", StringComparison.InvariantCultureIgnoreCase);
-                    ret = true;
-                }
-                else if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var v1))
+                var isBoolean = valueType == typeof(bool) || valueType == typeof(bool?);
+                object v = isBoolean ? (object)value.Equals("true", StringComparison.CurrentCultureIgnoreCase) : value;
+
+                if (BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out var v1))
                 {
                     result = v1;
                     ret = true;
