@@ -43,17 +43,20 @@ namespace BootstrapBlazor.Components
         protected Func<Task> OnSortAsync { get; set; } = () => Task.CompletedTask;
 
         /// <summary>
-        /// 
+        /// 点击列进行排序方法
         /// </summary>
-        protected async Task OnSortClick(string fieldName)
+        protected async Task OnClickHeader(ITableColumn col)
         {
-            if (SortOrder == SortOrder.Unset) SortOrder = SortOrder.Asc;
-            else if (SortOrder == SortOrder.Asc) SortOrder = SortOrder.Desc;
-            else if (SortOrder == SortOrder.Desc) SortOrder = SortOrder.Unset;
-            SortName = fieldName;
+            if (col.Sortable)
+            {
+                if (SortOrder == SortOrder.Unset) SortOrder = SortOrder.Asc;
+                else if (SortOrder == SortOrder.Asc) SortOrder = SortOrder.Desc;
+                else if (SortOrder == SortOrder.Desc) SortOrder = SortOrder.Unset;
+                SortName = col.GetFieldName();
 
-            // 通知 Table 组件刷新数据
-            if (OnSortAsync != null) await OnSortAsync.Invoke();
+                // 通知 Table 组件刷新数据
+                if (OnSortAsync != null) await OnSortAsync.Invoke();
+            }
         }
 
         /// <summary>

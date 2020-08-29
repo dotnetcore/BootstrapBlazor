@@ -138,7 +138,7 @@
                                 {
                                     var fieldName = col.GetFieldName();
                                     var displayName = col.GetDisplayName();
-                                    <th class="@GetHeaderClassString(col)" @onclick="@(e => OnSortClick(fieldName))">
+                                    <th class="@GetHeaderClassString(col)" @onclick="@(e => OnClickHeader(col))">
                                         <div class="@GetHeaderWrapperClassString(col)">
                                             <span class="@GetHeaderTextClassString(col)">@displayName</span>
                                             @if (col.Filterable)
