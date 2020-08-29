@@ -1187,10 +1187,20 @@
                 // sort
                 var $tooltip = $ele.find('.table-cell.is-sort .table-text');
                 var tooltipTitle = { unset: "点击升序", sortAsc: "点击降序", sortDesc: "取消排序" };
-                $tooltip.tooltip({
-                    container: 'body',
-                    title: tooltipTitle.unset
+
+                $tooltip.each(function () {
+                    var $sortIcon = $(this).parent().find('.fa:last');
+                    if ($sortIcon.length > 0) {
+                        var defaultTitle = tooltipTitle.unset;
+                        if ($sortIcon.hasClass('fa-sort-asc')) defaultTitle = tooltipTitle.sortAsc;
+                        else if ($sortIcon.hasClass('fa-sort-desc')) defaultTitle = tooltipTitle.sortDesc;
+                        $(this).tooltip({
+                            container: 'body',
+                            title: defaultTitle
+                        });
+                    }
                 });
+
                 $tooltip.on('click', function () {
                     var $this = $(this);
                     var $fa = $this.parent().find('.fa:last');
