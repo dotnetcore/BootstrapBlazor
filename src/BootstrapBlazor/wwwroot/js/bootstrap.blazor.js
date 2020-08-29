@@ -1760,7 +1760,7 @@
             if ($pd.length == 1) {
                 var pid = $pd.attr('id');
                 var $el = $('[aria-describedby="' + pid + '"]');
-                if ($el.hasClass('is-filter')) {
+                if ($el.closest('.datetime-picker').hasClass('is-filter')) {
                     return;
                 }
             }
