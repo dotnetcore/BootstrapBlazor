@@ -3,98 +3,103 @@
 @inherits TableBase<TItem>
 
 <div class="table-container" @ref="TableWrapper">
-    <div class="table-toolbar">
-        @if (ShowToolbar)
-        {
-            <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
-                @if (ShowDefaultButtons)
-                {
-                    @if (ShowNewButton)
-                    {
-                        <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="新建" />
-                    }
-                    @if (ShowEditButton)
-                    {
-                        <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@EditAsync" Icon="fa fa-pencil" Text="编辑" />
-                    }
-                    @if (ShowDeleteButton)
-                    {
-                        <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" Icon="fa fa-remove" Text="删除"
-                                                      OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
-                                                      CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
-                                                      ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
-                    }
-                }
-                @TableToolbarTemplate
-            </TableToolbar>
-            @if (ShowRefresh)
+    @if (Items == null)
+    {
+        <div class="table-loading">
+            <Spinner Color="Color.Primary" />
+        </div>
+    }
+    else
+    {
+        <div class="table-toolbar">
+            @if (ShowToolbar)
             {
-                <div class="float-right table-toolbar-button table-column-right">
-                    <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
-                        <i class="fa fa-refresh"></i>
-                        <span class="d-none d-sm-inline-block">刷新</span>
-                    </button>
-                </div>
-            }
-        }
-        @if (ShowSearch)
-        {
-            <div class="float-right table-toolbar-button btn-group">
-                <div class="input-group">
-                    <BootstrapInput TItem="string" class="table-toolbar-search" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
-                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                    </BootstrapInput>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
-                            <i class="fa fa-search"></i>
-                            <span class="d-none d-sm-inline-block">搜索</span>
-                        </button>
-                        <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
-                            <i class="fa fa-trash"></i>
-                            <span class="d-none d-sm-inline-block">清空过滤</span>
-                        </button>
-                        @if (ShowAdvancedSearch)
+                <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
+                    @if (ShowDefaultButtons)
+                    {
+                        @if (ShowNewButton)
                         {
-                            <Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
-                                <span class="d-none d-sm-inline-block">高级搜索</span>
-                            </Button>
+                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="新建" />
                         }
+                        @if (ShowEditButton)
+                        {
+                            <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@EditAsync" Icon="fa fa-pencil" Text="编辑" />
+                        }
+                        @if (ShowDeleteButton)
+                        {
+                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                                                          OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
+                                                          CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
+                                                          ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
+                        }
+                    }
+                    @TableToolbarTemplate
+                </TableToolbar>
+                @if (ShowRefresh)
+                {
+                    <div class="float-right table-toolbar-button table-column-right">
+                        <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
+                            <i class="fa fa-refresh"></i>
+                            <span class="d-none d-sm-inline-block">刷新</span>
+                        </button>
+                    </div>
+                }
+            }
+            @if (ShowSearch)
+            {
+                <div class="float-right table-toolbar-button btn-group">
+                    <div class="input-group">
+                        <BootstrapInput TItem="string" class="table-toolbar-search" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
+                            <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                        </BootstrapInput>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
+                                <i class="fa fa-search"></i>
+                                <span class="d-none d-sm-inline-block">搜索</span>
+                            </button>
+                            <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
+                                <i class="fa fa-trash"></i>
+                                <span class="d-none d-sm-inline-block">清空过滤</span>
+                            </button>
+                            @if (ShowAdvancedSearch)
+                            {
+                                <Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
+                                    <span class="d-none d-sm-inline-block">高级搜索</span>
+                                </Button>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-
-    <CascadingValue Value="this" IsFixed="true">
-        <div class="@WrapperClassName" style="@WrapperStyleName">
-            <table class="@ClassName">
-                @TableColumns?.Invoke(HeaderModel)
-                <colgroup>
-                    @if (IsMultipleSelect)
-                    {
-                        @if (ShowCheckboxText)
+            }
+        </div>
+        <CascadingValue Value="this" IsFixed="true">
+            <div class="@WrapperClassName" style="@WrapperStyleName">
+                <table class="@ClassName">
+                    @TableColumns?.Invoke(HeaderModel)
+                    <colgroup>
+                        @if (IsMultipleSelect)
                         {
-                            <col width="80" />
+                            @if (ShowCheckboxText)
+                            {
+                                <col width="80" />
+                            }
+                            else
+                            {
+                                <col width="36" />
+                            }
                         }
-                        else
+                        <RenderTemplate>
+                            @foreach (var col in Columns)
+                            {
+                                <col width="@col.Width" />
+                            }
+                        </RenderTemplate>
+                        @if (ShowExtendButtons)
                         {
-                            <col width="36" />
+                            <col width="@ExtendButtonColumnWidth" />
                         }
-                    }
-                    <RenderTemplate>
-                        @foreach (var col in Columns)
-                        {
-                            <col width="@col.Width" />
-                        }
-                    </RenderTemplate>
-                    @if (ShowExtendButtons)
-                    {
-                        <col width="@ExtendButtonColumnWidth" />
-                    }
-                </colgroup>
-                <tbody>
-                    @if (Items != null)
-                    {
+                    </colgroup>
+                    <tbody>
                         @foreach (var item in Items)
                         {
                             @if (IsMultipleSelect)
@@ -115,83 +120,81 @@
                                 </tr>
                             }
                         }
-                    }
-                    else
-                    {
-                        <TableLoading IsMultipleSelect="@IsMultipleSelect" ShowExtendButtons="@ShowExtendButtons" />
-                    }
-                </tbody>
-                <thead>
-                    <tr>
-                        @if (IsMultipleSelect)
-                        {
-                            <th class="@CheckboxColumnClass">
-                                <div class="table-cell">
-                                    <Checkbox TValue="TItem" @ref="@HeaderCheckbox" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" ShowAfterLabel="@ShowCheckboxText"></Checkbox>
-                                </div>
-                            </th>
-                        }
-                        <RenderTemplate>
-                            @foreach (var col in Columns)
+                    </tbody>
+                    <thead>
+                        <tr>
+                            @if (IsMultipleSelect)
                             {
-                                var fieldName = col.GetFieldName();
-                                var displayName = col.GetDisplayName();
-                                <th class="@GetHeaderClassString(col)" @onclick="@(e => OnSortClick(fieldName))">
-                                    <div class="@GetHeaderWrapperClassString(col)">
-                                        <span class="@GetHeaderTextClassString(col)">@displayName</span>
-                                        @if (col.Filterable)
-                                        {
-                                            <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(e => OnFilterClick(col))"></i>
-                                        }
-                                        @if (col.Sortable)
-                                        {
-                                            <i class="@GetIconClassString(fieldName)"></i>
-                                        }
+                                <th class="@CheckboxColumnClass">
+                                    <div class="table-cell">
+                                        <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
+                                                  DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                                                  State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck"></Checkbox>
                                     </div>
                                 </th>
                             }
-                        </RenderTemplate>
-                        @if (ShowExtendButtons)
-                        {
-                            <th class="@ButtonColumnClass">
-                                <div class="table-cell is-button-column">
-                                    @ColumnButtonTemplateHeaderText
-                                </div>
-                            </th>
-                        }
-                    </tr>
-                </thead>
-                @if (ShowFooter)
-                {
-                    <tfoot>
-                        <tr>@TableFooter</tr>
-                    </tfoot>
-                }
-            </table>
-        </div>
-
-        <RenderTemplate>
-            @{
-                if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
-                if (FilterColumns.Any())
-                {
-                    <div class="table-filter">
-                        @foreach (var col in FilterColumns)
-                        {
-                            <TableFilter Column="col" />
-                        }
-                    </div>
-                }
-            }
-        </RenderTemplate>
-
-        @if (TotalCount > 0 && IsPagination)
-        {
-            <div class="table-pagination">
-                <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                            <RenderTemplate>
+                                @foreach (var col in Columns)
+                                {
+                                    var fieldName = col.GetFieldName();
+                                    var displayName = col.GetDisplayName();
+                                    <th class="@GetHeaderClassString(col)" @onclick="@(e => OnSortClick(fieldName))">
+                                        <div class="@GetHeaderWrapperClassString(col)">
+                                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                                            @if (col.Filterable)
+                                            {
+                                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(e => OnFilterClick(col))"></i>
+                                            }
+                                            @if (col.Sortable)
+                                            {
+                                                <i class="@GetIconClassString(fieldName)"></i>
+                                            }
+                                        </div>
+                                    </th>
+                                }
+                            </RenderTemplate>
+                            @if (ShowExtendButtons)
+                            {
+                                <th class="@ButtonColumnClass">
+                                    <div class="table-cell is-button-column">
+                                        @ColumnButtonTemplateHeaderText
+                                    </div>
+                                </th>
+                            }
+                        </tr>
+                    </thead>
+                    @if (ShowFooter)
+                    {
+                        <tfoot>
+                            <tr>@TableFooter</tr>
+                        </tfoot>
+                    }
+                </table>
             </div>
-        }
-    </CascadingValue>
+
+            <RenderTemplate>
+                @{
+                    if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
+                    if (FilterColumns.Any())
+                    {
+                        <div class="table-filter">
+                            @foreach (var col in FilterColumns)
+                            {
+                                <TableFilter Column="col" />
+                            }
+                        </div>
+                    }
+                }
+            </RenderTemplate>
+
+            @if (TotalCount > 0 && IsPagination)
+            {
+                <div class="table-pagination">
+                    <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
+                </div>
+            }
+        </CascadingValue>
+    }
 </div>
 
 @code {

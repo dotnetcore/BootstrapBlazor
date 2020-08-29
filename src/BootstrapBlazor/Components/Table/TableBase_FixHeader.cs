@@ -23,20 +23,5 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Table 高度
         /// </summary>
         [Parameter] public int? Height { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
-            {
-                // 固定表头脚本关联
-                await JSRuntime.Invoke(TableWrapper, "table", Height.HasValue ? "fixTableHeader" : "init");
-            }
-        }
     }
 }

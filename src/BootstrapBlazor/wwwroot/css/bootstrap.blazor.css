@@ -1310,10 +1310,12 @@ input:disabled,
 }
 
 .table-loading {
-    margin: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2rem;
 }
 
 .table-modal-footer {

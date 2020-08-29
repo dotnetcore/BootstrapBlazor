@@ -131,12 +131,28 @@ namespace BootstrapBlazor.Components
 
             // 设置 OnFilter 回调方法
             OnFilterAsync = QueryAsync;
+        }
 
-            // 如果未设置 Items 数据源 自动执行查询方法
-            if (Items == null)
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
             {
-                await QueryData();
-                if (Items == null) Items = new TItem[0];
+                // 固定表头脚本关联
+                await JSRuntime.Invoke(TableWrapper, "table", Height.HasValue ? "fixTableHeader" : "init");
+
+                // 如果未设置 Items 数据源 自动执行查询方法
+                if (Items == null)
+                {
+                    await QueryData();
+                    if (Items == null) Items = new TItem[0];
+                    StateHasChanged();
+                }
             }
         }
 

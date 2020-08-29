@@ -223,7 +223,7 @@ namespace BootstrapBlazor.Components
                 await ClickEditButton(item);
             }
 
-            if(OnDoubleClickRowCallback != null) await OnDoubleClickRowCallback(item);
+            if (OnDoubleClickRowCallback != null) await OnDoubleClickRowCallback(item);
         }
 
         /// <summary>
