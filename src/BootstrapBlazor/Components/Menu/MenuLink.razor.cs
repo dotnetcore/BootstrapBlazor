@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClickLink()
         {
-            if (OnClick != null && !Item.IsDisabled) await OnClick(Item);
+            if (OnClick != null) await OnClick(Item);
         }
     }
 }

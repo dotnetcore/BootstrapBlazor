@@ -9,13 +9,8 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Menu 组件基类
     /// </summary>
-    public abstract class MenuBase : BootstrapComponentBase
+    public partial class Menu
     {
-        /// <summary>
-        /// 获得/设置 菜单组件 DOM 实例
-        /// </summary>
-        protected ElementReference MenuElement { get; set; }
-
         /// <summary>
         /// 获得 组件样式
         /// </summary>
@@ -62,11 +57,13 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
+#nullable disable
         /// <summary>
         /// 获得/设置 NavigationManager 实例
         /// </summary>
         [Inject]
-        protected NavigationManager? Navigator { get; set; }
+        private NavigationManager Navigator { get; set; }
+#nullable restore
 
         /// <summary>
         /// OnInitialized 方法
@@ -75,34 +72,55 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (!DisableNavigation && Navigator != null)
-            {
-                // 首次加载根据地址栏寻找当前菜单
-                Items = Items.ToList();
+            var item = FindMenuItem(Items, Navigator.ToBaseRelativePath(Navigator.Uri));
+            CascadingSetActive(item);
+        }
 
-                var url = Navigator.ToBaseRelativePath(Navigator.Uri);
-                var menuItem = FindMenuItemByUrl(Items, url);
-                if (menuItem != null) MenuItem.CascadingSetActive(menuItem, true);
+        /// <summary>
+        /// 根据当前路径设置菜单激活状态
+        /// </summary>
+        /// <param name="item"></param>
+        private void CascadingSetActive(MenuItem? item)
+        {
+            // 重新设置菜单激活状态
+            if (item != null)
+            {
+                MenuItem.CascadingCancelActive(Items);
+                MenuItem.CascadingSetActive(item);
             }
         }
 
-        private MenuItem? FindMenuItemByUrl(IEnumerable<MenuItem> items, string url)
+        private static MenuItem? FindMenuItem(IEnumerable<MenuItem> menus, string url)
         {
             MenuItem? ret = null;
-            foreach (var item in items)
+            foreach (var item in menus)
             {
-                if (item.Url?.TrimStart('/').Equals(url, StringComparison.OrdinalIgnoreCase) ?? false)
-                {
-                    ret = item;
-                    break;
-                }
                 if (item.Items.Any())
                 {
-                    ret = FindMenuItemByUrl(item.Items, url);
-                    if (ret != null) break;
+                    ret = FindMenuItem(item.Items, url);
                 }
+                else if (item.Url?.TrimStart('/').Equals(url, StringComparison.OrdinalIgnoreCase) ?? false)
+                {
+                    ret = item;
+                }
+
+                if (ret != null) break;
             }
             return ret;
+        }
+
+        private async Task OnClickMenu(MenuItem item)
+        {
+            if (!item.IsDisabled)
+            {
+                // 回调委托
+                await OnClick(item);
+                if (!item.Items.Any())
+                {
+                    CascadingSetActive(item);
+                    StateHasChanged();
+                }
+            }
         }
     }
 }

@@ -28,15 +28,6 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
-        private async Task OnClickMenuItem(MenuItem item)
-        {
-            MenuItem.CascadingCancelActive(Items);
-            MenuItem.CascadingSetActive(item, true);
-
-            await OnClick(item);
-            StateHasChanged();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -44,19 +35,8 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         private string? GetClassString(string className, MenuItem item) => CssBuilder.Default(className)
-            .AddClass("active", (item.IsActive || CheckActiveUrl(item.Url)) && !item.IsDisabled)
+            .AddClass("active", item.IsActive && !item.IsDisabled)
             .AddClass("disabled", item.IsDisabled)
             .Build();
-
-        private bool CheckActiveUrl(string? url)
-        {
-            bool ret = false;
-            if (!string.IsNullOrEmpty(url))
-            {
-                var navUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
-                ret = url.TrimStart('/').Equals(navUrl, StringComparison.OrdinalIgnoreCase);
-            }
-            return ret;
-        }
     }
 }

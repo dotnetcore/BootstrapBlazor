@@ -1,5 +1,4 @@
 ﻿@namespace BootstrapBlazor.Components
-@inject NavigationManager Navigator
 
 <div class="navbar navbar-expand d-flex">
     <ul class="navbar-nav">
@@ -27,11 +26,11 @@
                             {
                                 @if (item.Items.Any())
                                 {
-                                    <SubMenu Item="@item" OnClick="OnClickMenuItem" class="dropdown-item"></SubMenu>
+                                    <SubMenu Item="@item" OnClick="@OnClick" class="dropdown-item"></SubMenu>
                                 }
                                 else
                                 {
-                                    <MenuLink Item="@item" DisableNavigation="@DisableNavigation" class="dropdown-item" OnClick="@OnClickMenuItem" />
+                                    <MenuLink Item="@item" DisableNavigation="@DisableNavigation" class="dropdown-item" OnClick="@OnClick" />
                                 }
                             }
                         </div>
@@ -41,7 +40,7 @@
             else
             {
                 <li class="@GetClassString("nav-item", menu)">
-                    <MenuLink Item="@menu" DisableNavigation="@DisableNavigation" class="nav-link" OnClick="@OnClickMenuItem" />
+                    <MenuLink Item="@menu" DisableNavigation="@DisableNavigation" class="nav-link" OnClick="@OnClick" />
                 </li>
             }
         }
