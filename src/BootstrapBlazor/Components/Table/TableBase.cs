@@ -133,6 +133,7 @@ namespace BootstrapBlazor.Components
             OnFilterAsync = QueryAsync;
         }
 
+        private string? methodName;
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -143,16 +144,21 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                // 固定表头脚本关联
-                await JSRuntime.Invoke(TableWrapper, "table", Height.HasValue ? "fixTableHeader" : "init");
-
-                // 如果未设置 Items 数据源 自动执行查询方法
+                methodName = Height.HasValue ? "fixTableHeader" : "init";
                 if (Items == null)
                 {
                     await QueryData();
                     if (Items == null) Items = new TItem[0];
+
                     StateHasChanged();
                 }
+            }
+
+            if (!string.IsNullOrEmpty(methodName))
+            {
+                // 固定表头脚本关联
+                await JSRuntime.Invoke(TableWrapper, "bb_table", methodName);
+                methodName = null;
             }
         }
 

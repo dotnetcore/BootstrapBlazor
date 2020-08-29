@@ -1173,7 +1173,7 @@
         bb_filter: function (el, obj, method) {
             $(el).data('bb_filter', { obj: obj, method: method });
         },
-        table: function (el, method) {
+        bb_table: function (el, method) {
             var $ele = $(el);
             if (method === 'fixTableHeader') {
                 var $thead = $ele.find('thead');

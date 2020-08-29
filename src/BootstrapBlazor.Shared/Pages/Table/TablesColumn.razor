@@ -67,9 +67,9 @@
             <TableToolbarButton TItem="BindItem" Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@CustomerButton" />
         </TableToolbarTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" Width="100" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
         <RowButtonTemplate>
             <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="明细" OnClickCallback="@OnRowButtonClick" />

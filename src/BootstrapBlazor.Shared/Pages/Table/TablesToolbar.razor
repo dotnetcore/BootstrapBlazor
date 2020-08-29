@@ -41,9 +41,9 @@
             <TableToolbarButton TItem="BindItem" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@DownloadAsync" />
         </TableToolbarTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
     </Table>
 </Block>
@@ -56,10 +56,10 @@
            ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </Block>

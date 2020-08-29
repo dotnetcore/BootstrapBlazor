@@ -15,10 +15,10 @@
            OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <SearchTemplate>
             <div class="form-inline">
@@ -45,10 +45,10 @@
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" Searchable="true" />
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" Searchable="true" />
-            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </Block>
@@ -65,8 +65,8 @@
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" Searchable="true">
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true">
                 <SearchTemplate Context="value">
                     @{
                         var model = value as BindItem;
@@ -78,13 +78,13 @@
                                 new SelectedItem { Text = "姓名1", Value = "姓名1" },
                                 new SelectedItem { Text = "姓名2", Value = "姓名2" },
                             };
-                            <Select TValue="string" Items="items" @bind-Value="@model.Name" ShowLabel="true" DisplayText="姓名" />
+                            <Select Items="items" @bind-Value="@model.Name" ShowLabel="true" DisplayText="姓名" />
                         }
                     }
                 </SearchTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" Searchable="true" />
-            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </Block>

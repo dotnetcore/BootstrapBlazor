@@ -15,10 +15,10 @@
            ShowDefaultButtons="false" ClickToSelect="true" OnClickRowCallback="@ClickRow"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
     <p>当前选中行：@(CurrentItem?.Name ?? "无")</p>
@@ -32,10 +32,10 @@
            ClickToSelect="true" DoubleClickToEdit="true"
            OnQueryAsync="@OnEditQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <EditTemplate>
             <div class="form-inline">
@@ -76,10 +76,10 @@
            ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </Block>
@@ -93,10 +93,10 @@
            ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </Block>

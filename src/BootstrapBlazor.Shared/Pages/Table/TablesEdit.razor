@@ -14,10 +14,10 @@
            OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <EditTemplate>
             <div class="form-inline">
@@ -63,10 +63,10 @@
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" Editable="false" />
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" Editable="false" />
         </TableColumns>
     </Table>
 </Block>
@@ -81,14 +81,14 @@
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true">
+            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
                     <TablesNameDrop Model="@((BindItem)value)" />
                 </EditTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </Block>
