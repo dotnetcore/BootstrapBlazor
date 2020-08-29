@@ -26,15 +26,16 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
+        protected static List<BindItem> GenerateItems() => Enumerable.Range(1, 80).Select(i => new BindItem()
         {
             Id = i,
             Name = $"张三 {i:d4}",
             DateTime = DateTime.Now.AddDays(i - 1),
             Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
             Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50
-        }));
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        }).ToList();
 
         /// <summary>
         /// 
@@ -445,5 +446,30 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [DisplayName("是/否")]
         public bool Complete { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required(ErrorMessage = "请选择学历")]
+        [DisplayName("学历")]
+        public EnumEducation? Education { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum EnumEducation
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("小学")]
+        Primary,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("中学")]
+        Middel
     }
 }

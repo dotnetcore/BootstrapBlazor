@@ -14,16 +14,16 @@ namespace BootstrapBlazor.Components
     public class TableColumn<TItem> : BootstrapComponentBase, ITableColumn
     {
         /// <summary>
-        /// 获得/设置 绑定列类型
-        /// </summary>
-        public Type? FieldType { get; set; }
-
-        /// <summary>
         /// 获得/设置 相关过滤器
         /// </summary>
         public IFilter? Filter { get; set; }
 
 #nullable disable
+        /// <summary>
+        /// 获得/设置 绑定列类型
+        /// </summary>
+        public Type FieldType { get; set; }
+
         /// <summary>
         /// 获得/设置 数据绑定字段值
         /// </summary>
@@ -161,7 +161,7 @@ namespace BootstrapBlazor.Components
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
 
             // 获取模型属性定义类型
-            FieldType = _fieldIdentifier.Value.Model.GetType().GetProperty(GetFieldName())?.PropertyType;
+            FieldType = typeof(TItem);
         }
 
         private FieldIdentifier? _fieldIdentifier;

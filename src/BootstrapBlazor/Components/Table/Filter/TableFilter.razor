@@ -12,6 +12,10 @@
                 {
                     @Column.FilterTemplate;
                 }
+                else if (Column.FieldType.IsEnum())
+                {
+                    <EnumFilter Type="@Column.FieldType"></EnumFilter>
+                }
                 else
                 {
                     var fieldType = Nullable.GetUnderlyingType(Column.FieldType) ?? Column.FieldType;

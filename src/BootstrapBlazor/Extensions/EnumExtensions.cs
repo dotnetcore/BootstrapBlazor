@@ -40,15 +40,19 @@ namespace BootstrapBlazor.Components
         /// 获取指定枚举类型的枚举值集合，默认通过 Description 标签显示 DisplayName 未设置 Description 标签时显示字段名称
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="addtionalItem"></param>
         /// <returns></returns>
-        public static IEnumerable<SelectedItem> ToSelectList(this Type type)
+        public static IEnumerable<SelectedItem> ToSelectList(this Type type, SelectedItem? addtionalItem = null)
         {
             var ret = new List<SelectedItem>();
-            if (type.IsEnum)
+            if (addtionalItem != null) ret.Add(addtionalItem);
+
+            if (type.IsEnum())
             {
-                foreach (var field in Enum.GetNames(type))
+                var t = Nullable.GetUnderlyingType(type) ?? type;
+                foreach (var field in Enum.GetNames(t))
                 {
-                    var desc = type.ToDescriptionString(field);
+                    var desc = t.ToDescriptionString(field);
                     if (string.IsNullOrEmpty(desc)) desc = field;
                     ret.Add(new SelectedItem(field, desc));
                 }

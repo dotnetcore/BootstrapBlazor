@@ -65,7 +65,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 绑定列类型
         /// </summary>
-        Type? FieldType { get; set; }
+        Type FieldType { get; set; }
 
         /// <summary>
         /// 获得/设置 显示模板

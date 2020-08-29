@@ -43,15 +43,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
 
         private IEnumerable<SelectedItem>? Educations { get; set; }
 
-        private enum EnumEducation
-        {
-            [Description("小学")]
-            Primary,
-
-            [Description("中学")]
-            Middel
-        }
-
         private IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
         {
             new SelectedItem("游泳", "游泳"),
@@ -68,10 +59,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
             base.OnInitialized();
 
             // 初始化参数
-            var list = new List<SelectedItem>() { new SelectedItem("", "请选择 ...") };
-            list.AddRange(typeof(EnumEducation).ToSelectList());
-
-            Educations = list;
+            Educations = typeof(EnumEducation).ToSelectList(new SelectedItem("", "请选择 ..."));
         }
         private Task OnValidSubmit(EditContext context)
         {
