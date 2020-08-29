@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Components
         protected CheckboxBase<TItem>? HeaderCheckbox { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否为多选模式
+        /// 获得/设置 是否为多选模式 默认为 false
         /// </summary>
         [Parameter] public bool IsMultipleSelect { get; set; }
 

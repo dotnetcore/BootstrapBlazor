@@ -33,6 +33,16 @@ namespace BootstrapBlazor.Components
         bool Sortable { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否为默认排序列 默认为 false
+        /// </summary>
+        bool DefaultSort { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
+        /// </summary>
+        SortOrder DefaultSortOrder { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否允许过滤数据 默认为 false
         /// </summary>
         bool Filterable { get; set; }

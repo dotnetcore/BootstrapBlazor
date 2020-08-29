@@ -147,6 +147,13 @@ namespace BootstrapBlazor.Components
                 methodName = Height.HasValue ? "fixTableHeader" : "init";
                 if (Items == null)
                 {
+                    // set default sortName
+                    var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
+                    if (col != null)
+                    {
+                        SortName = col.GetFieldName();
+                        SortOrder = col.DefaultSortOrder;
+                    }
                     await QueryData();
                     if (Items == null) Items = new TItem[0];
 
