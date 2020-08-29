@@ -1,0 +1,21 @@
+﻿@inherits TablesBaseQuery
+@page "/tables/autorefresh"
+
+<h3>自动刷新表格功能</h3>
+
+<h4>在某种应用场景中，数据源的变化需要重新刷新表格组件</h4>
+
+<Block Title="自动刷新" Introduction="本示例演示在后台线程中对数据源进行监控，当数据源变化时通知表格组件进行数据刷新" CodeFile="table.33.html">
+    <p><code>Table</code> 组件自身渲染完毕后属性 <code>IsRendered</code> 值为 <code>true</code>，通过判断此值然后根据条件或者周期性调用组件的 <code>QueryAsync</code> 方法使表格具有自动刷新功能</p>
+    <Table TItem="BindItem" @ref="AutoRefreshTable"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>

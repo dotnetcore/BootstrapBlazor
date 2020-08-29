@@ -385,6 +385,12 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "tables/selection"
             });
 
+            it.AddItem(new MenuItem()
+            {
+                Text = "自动刷新",
+                Url = "tables/autorefresh"
+            });
+
             item.AddItem(it);
 
             AddBadge(it, false);

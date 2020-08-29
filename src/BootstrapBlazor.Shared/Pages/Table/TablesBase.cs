@@ -20,7 +20,10 @@ namespace BootstrapBlazor.Shared.Pages
         [Inject]
         protected ToastService? ToastService { get; set; }
 
-        private static readonly Random random = new Random();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected static readonly Random random = new Random();
 
         /// <summary>
         /// 
@@ -40,7 +43,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
+        protected static List<BindItem> Items { get; } = GenerateItems();
 
         /// <summary>
         /// 
@@ -196,6 +199,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "IsRendered",
+                Description = "组件是否渲染完毕",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",

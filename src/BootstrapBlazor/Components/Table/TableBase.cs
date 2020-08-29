@@ -52,6 +52,11 @@ namespace BootstrapBlazor.Components
         protected IEnumerable<ITableColumn>? FilterColumns { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件是否渲染完毕 默认 false
+        /// </summary>
+        public bool IsRendered { get; set; }
+
+        /// <summary>
         /// 获得 表头集合
         /// </summary>
         public List<ITableColumn> Columns { get; } = new List<ITableColumn>(50);
@@ -167,6 +172,8 @@ namespace BootstrapBlazor.Components
                 await JSRuntime.Invoke(TableWrapper, "bb_table", methodName);
                 methodName = null;
             }
+
+            IsRendered = true;
         }
 
         #region 生成 Row 方法
