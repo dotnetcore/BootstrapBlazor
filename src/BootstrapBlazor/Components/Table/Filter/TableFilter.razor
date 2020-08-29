@@ -7,38 +7,36 @@
     <div class="card-body">
         @if (Column != null)
         {
-            @if (Column.FilterTemplate != null)
-            {
-                @Column.FilterTemplate;
-            }
-            else
-            {
-                <CascadingValue Value="this" IsFixed="true">
-                    @{
-                        var fieldType = Nullable.GetUnderlyingType(Column.FieldType) ?? Column.FieldType;
-                        switch (fieldType?.Name)
-                        {
-                            case nameof(Boolean):
-                                <BoolFilter />
-                                break;
-                            case nameof(DateTime):
-                                <DateTimeFilter Count="@Count" />
-                                break;
-                            case nameof(Int32):
-                            case nameof(Double):
-                            case nameof(Decimal):
-                                <NumberFilter Count="@Count" />
-                                break;
-                            case nameof(String):
-                                <StringFilter Count="@Count" />
-                                break;
-                            default:
-                                <div>不支持的类型</div>
-                                break;
-                        };
-                    }
-                </CascadingValue>
-            }
+            <CascadingValue Value="this" IsFixed="true">
+                @if (Column.FilterTemplate != null)
+                {
+                    @Column.FilterTemplate;
+                }
+                else
+                {
+                    var fieldType = Nullable.GetUnderlyingType(Column.FieldType) ?? Column.FieldType;
+                    switch (fieldType?.Name)
+                    {
+                        case nameof(Boolean):
+                            <BoolFilter />
+                            break;
+                        case nameof(DateTime):
+                            <DateTimeFilter Count="@Count" />
+                            break;
+                        case nameof(Int32):
+                        case nameof(Double):
+                        case nameof(Decimal):
+                            <NumberFilter Count="@Count" />
+                            break;
+                        case nameof(String):
+                            <StringFilter Count="@Count" />
+                            break;
+                        default:
+                            <div>不支持的类型</div>
+                            break;
+                    };
+                }
+            </CascadingValue>
         }
     </div>
     <div class="card-footer">

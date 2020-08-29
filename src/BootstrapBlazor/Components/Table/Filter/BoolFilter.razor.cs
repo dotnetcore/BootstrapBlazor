@@ -16,6 +16,19 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (TableFilter != null)
+            {
+                TableFilter.ShowMoreButton = false;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         public override void Reset()

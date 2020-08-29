@@ -43,12 +43,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 条件数量
         /// </summary>
-        internal int Count { get; set; }
+        private int Count { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示增加减少条件按钮
         /// </summary>
-        internal bool ShowMoreButton { get; set; } = true;
+        public bool ShowMoreButton { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 过滤条件 IFilterAction 接口
