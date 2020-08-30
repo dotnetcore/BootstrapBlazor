@@ -135,7 +135,7 @@ namespace BootstrapBlazor.Components
             };
             DialogOption.Component = DynamicComponent.CreateComponent<TableSearchDialog<TItem>>(editorParameters);
 
-            DialogService?.Show(DialogOption);
+            DialogService.Show(DialogOption);
 
             return Task.CompletedTask;
         }

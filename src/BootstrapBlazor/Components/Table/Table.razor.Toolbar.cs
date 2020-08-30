@@ -88,17 +88,19 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteAsync { get; set; }
 
+#nullable disable
         /// <summary>
         /// ToastService 服务实例
         /// </summary>
         [Inject]
-        protected ToastService? Toast { get; set; }
+        protected ToastService Toast { get; set; }
 
         /// <summary>
         /// DialogService 服务实例
         /// </summary>
         [Inject]
-        protected DialogService? DialogService { get; set; }
+        protected DialogService DialogService { get; set; }
+#nullable restore
 
         /// <summary>
         /// 新建按钮方法
@@ -112,6 +114,8 @@ namespace BootstrapBlazor.Components
             EditModalTitleString = AddModalTitle;
 
             ShowEditorDialog();
+
+            StateHasChanged();
         }
 
         /// <summary>
@@ -134,7 +138,7 @@ namespace BootstrapBlazor.Components
                     Title = "编辑数据",
                     Content = SelectedItems.Count == 0 ? "请选择要编辑的数据" : "只能选择一项要编辑的数据"
                 };
-                Toast?.Show(option);
+                Toast.Show(option);
             }
             return Task.CompletedTask;
         }
@@ -153,7 +157,7 @@ namespace BootstrapBlazor.Components
                 Title = "保存数据"
             };
             option.Content = $"保存数据{(valid ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
-            Toast?.Show(option);
+            Toast.Show(option);
             if (valid)
             {
                 DialogOption.Dialog?.Toggle();
@@ -183,7 +187,7 @@ namespace BootstrapBlazor.Components
             };
             DialogOption.Component = DynamicComponent.CreateComponent<TableEditorDialog<TItem>>(editorParameters);
 
-            DialogService?.Show(DialogOption);
+            DialogService.Show(DialogOption);
         }
 
         /// <summary>
@@ -200,7 +204,7 @@ namespace BootstrapBlazor.Components
                     Title = "删除数据"
                 };
                 option.Content = $"请选择要删除的数据, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
-                Toast?.Show(option);
+                Toast.Show(option);
             }
             else
             {
@@ -236,7 +240,7 @@ namespace BootstrapBlazor.Components
                 PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
                 await QueryAsync();
             }
-            Toast?.Show(option);
+            Toast.Show(option);
         }
 
         /// <summary>
