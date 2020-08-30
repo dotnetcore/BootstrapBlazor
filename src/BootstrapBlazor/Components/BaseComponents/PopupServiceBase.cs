@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -9,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <typeparam name="TOption"></typeparam>
     public abstract class PopupServiceBase<TOption>
     {
-        private Func<TOption, Task>? Callback { get; set; }
+        private List<(int Key, Func<TOption, Task> Callback)> Callbacks { get; set; } = new List<(int, Func<TOption, Task>)>();
 
         /// <summary>
         /// 回调方法
@@ -18,25 +21,26 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public virtual void Show(TOption option)
         {
-            Callback?.Invoke(option);
+            Callbacks.LastOrDefault().Callback.Invoke(option);
         }
 
         /// <summary>
         /// 注册弹窗事件
         /// </summary>
+        /// <param name="key"></param>
         /// <param name="callback"></param>
-        internal void Register(Func<TOption, Task> callback)
+        internal void Register(int key, Func<TOption, Task> callback)
         {
-            if (Callback != null)
-            {
-                (string ServiceName, string ServiceTag) context = ("未知服务", "<Unknown />");
-                if (GetType() == typeof(DialogService)) context = (nameof(DialogService), "<Dialog />");
-                else if (GetType() == typeof(MessageService)) context = (nameof(MessageService), "<Message />");
-                else if (GetType() == typeof(ToastService)) context = (nameof(ToastService), "<Toast />");
+            Callbacks.Add((key, callback));
+        }
 
-                throw new InvalidOperationException($"{context.ServiceName} 服务已经注册，请移除重复标签 {context.ServiceTag}");
-            }
-            Callback = callback;
+        /// <summary>
+        /// 注销弹窗事件
+        /// </summary>
+        internal void UnRegister(int key)
+        {
+            var item = Callbacks.FirstOrDefault(i => i.Key == key);
+            if (item != default) Callbacks.Remove(item);
         }
     }
 }

@@ -8,30 +8,30 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Toast 弹出窗组件
     /// </summary>
-    public abstract class ToastBase : BootstrapComponentBase
+    public partial class Toast : BootstrapComponentBase
     {
         /// <summary>
         /// 获得 Toast 组件样式设置
         /// </summary>
-        protected string? StyleString => CssBuilder.Default("position: fixed; z-index: 1040;")
-            .AddClass("top: 1rem; right: 1rem;", Placement != Placement.BottomEnd)
+        private string? StyleString => CssBuilder.Default("position: fixed; z-index: 1040;")
+            .AddClass("top: 1rem; left: 1rem;", Placement == Placement.TopStart)
+            .AddClass("top: 1rem; right: 1rem;", Placement == Placement.TopEnd)
+            .AddClass("bottom: 1rem; left: 1rem;", Placement == Placement.BottomStart)
             .AddClass("bottom: 1rem; right: 1rem;", Placement == Placement.BottomEnd)
             .Build();
 
         /// <summary>
         /// 获得 弹出窗集合
         /// </summary>
-        protected Dictionary<ToastOption, RenderFragment> Toasts { get; set; } = new Dictionary<ToastOption, RenderFragment>();
+        private Dictionary<ToastOption, RenderFragment> Toasts { get; set; } = new Dictionary<ToastOption, RenderFragment>();
 
-        /// <summary>
-        /// ToastServices 服务实例
-        /// </summary>
-        [Inject] public ToastService? ToastService { get; set; }
+        private bool IsLeft() => Placement == Placement.TopStart || Placement == Placement.BottomStart;
 
         /// <summary>
         /// 获得/设置 显示文字
         /// </summary>
-        [Parameter] public Placement Placement { get; set; } = Placement.BottomEnd;
+        [Parameter]
+        public Placement Placement { get; set; } = Placement.BottomEnd;
 
         /// <summary>
         /// OnInitialized 方法
@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
             // 注册 Toast 弹窗事件
             if (ToastService != null)
             {
-                ToastService.Register(Show);
+                ToastService.Register(GetHashCode(), Show);
             }
         }
 
@@ -53,6 +53,7 @@ namespace BootstrapBlazor.Components
             {
                 var index = 0;
                 builder.OpenComponent<ToastBox>(index++);
+                builder.AddAttribute(index++, "class", IsLeft() ? "left" : "");
                 builder.AddAttribute(index++, nameof(ToastBox.Category), option.Category);
                 builder.AddAttribute(index++, nameof(ToastBox.Title), option.Title);
                 builder.AddAttribute(index++, nameof(ToastBox.Content), option.Content);
@@ -81,6 +82,20 @@ namespace BootstrapBlazor.Components
         {
             Placement = placement;
             StateHasChanged();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                ToastService.UnRegister(GetHashCode());
+            }
         }
     }
 }

@@ -763,6 +763,14 @@ input:disabled,
         transform: translateX(0);
     }
 
+    .toast.left {
+        transform: translateX(-100%);
+    }
+
+        .toast.left.show {
+            transform: translateX(0);
+        }
+
     .toast:hover {
         box-shadow: 0px 1px 0.75rem rgba(0,0,0,.15);
     }
@@ -773,6 +781,11 @@ input:disabled,
         bottom: 0;
         height: 4px;
         width: 0;
+    }
+
+    .toast.left .toast-progress {
+        left: 0;
+        right: unset;
     }
 
     .toast .close {

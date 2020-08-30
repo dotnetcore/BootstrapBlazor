@@ -21,15 +21,15 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 弹出对话框实例
         /// </summary>
         protected ModalDialog ModalDialog { get; set; }
-#nullable restore
-
-        private bool IsShowDialog { get; set; }
 
         /// <summary>
         /// DialogServices 服务实例
         /// </summary>
         [Inject]
-        public DialogService? DialogService { get; set; }
+        public DialogService DialogService { get; set; }
+#nullable restore
+
+        private bool IsShowDialog { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -39,10 +39,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 注册 Toast 弹窗事件
-            if (DialogService != null)
-            {
-                DialogService.Register(Show);
-            }
+            DialogService.Register(this.GetHashCode(), Show);
         }
 
         /// <summary>
@@ -96,6 +93,20 @@ namespace BootstrapBlazor.Components
             await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
             IsShowDialog = true;
             StateHasChanged();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                DialogService.UnRegister(GetHashCode());
+            }
         }
     }
 }

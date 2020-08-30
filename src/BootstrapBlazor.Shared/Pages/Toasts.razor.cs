@@ -8,21 +8,13 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    /// Toasts 示例
     /// </summary>
     public sealed partial class Toasts
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject] public ToastService? ToastService { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject] public IJSRuntime? JSRuntime { get; set; }
-
-        private Toast? Toast { get; set; }
+#nullable disable
+        private Toast Toast { get; set; }
+#nullable restore
 
         /// <summary>
         /// 
@@ -31,10 +23,25 @@ namespace BootstrapBlazor.Shared.Pages
         /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 await JSRuntime.InvokeVoidAsync("$._showToast");
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="placement"></param>
+        private void OnPlacementClick(Placement placement)
+        {
+            Toast?.SetPlacement(placement);
+            ToastService?.Show(new ToastOption()
+            {
+                Category = ToastCategory.Information,
+                Title = "消息通知",
+                Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
+            });
         }
 
         /// <summary>
@@ -91,19 +98,6 @@ namespace BootstrapBlazor.Shared.Pages
                 IsAutoHide = false,
                 Title = "消息通知",
                 Content = "我不会自动关闭哦，请点击右上角关闭按钮"
-            });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void OnClick()
-        {
-            ToastService?.Show(new ToastOption()
-            {
-                Category = ToastCategory.Information,
-                Title = "消息通知",
-                Content = "<b>Toast</b> 组件可以设置出现位置，4 秒后自动关闭"
             });
         }
 
