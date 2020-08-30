@@ -254,21 +254,28 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "是否显示表脚",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " false "
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowSearch",
                 Description = "显示搜索栏",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " — "
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowToolbar",
                 Description = "显示 Toolbar",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " — "
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowLineNo",
+                Description = "显示 行号",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowDefaultButtons",

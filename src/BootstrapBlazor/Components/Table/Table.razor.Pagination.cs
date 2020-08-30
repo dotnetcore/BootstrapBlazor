@@ -13,6 +13,18 @@ namespace BootstrapBlazor.Components
         [Parameter] public bool IsPagination { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示行号列 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowLineNo { get; set; }
+
+        /// <summary>
+        /// 获得/设置 行号列标题文字 默认为 行号
+        /// </summary>
+        [Parameter]
+        public string LineNoText { get; set; } = "行号";
+
+        /// <summary>
         /// 获得/设置 每页显示数据数量的外部数据源
         /// </summary>
         [Parameter]

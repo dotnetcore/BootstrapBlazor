@@ -90,6 +90,10 @@
                                 <col width="36" />
                             }
                         }
+                        @if (ShowLineNo)
+                        {
+                            <col width="60" />
+                        }
                         @foreach (var col in Columns)
                         {
                             <col width="@col.Width" />
@@ -131,6 +135,12 @@
                                                   DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
                                                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck"></Checkbox>
                                     </div>
+                                </th>
+                            }
+                            @if (ShowLineNo)
+                            {
+                                <th>
+                                    <div class="table-cell">@LineNoText</div>
                                 </th>
                             }
                             @foreach (var col in Columns)
@@ -200,6 +210,12 @@
 @code {
     RenderFragment<TItem> RenderRow => item =>
     @<RenderTemplate>
+        @if (ShowLineNo)
+        {
+            <td>
+                <div class="table-cell">@(StarRowIndex++)</div>
+            </td>
+        }
         @foreach (var col in Columns)
         {
             <td>

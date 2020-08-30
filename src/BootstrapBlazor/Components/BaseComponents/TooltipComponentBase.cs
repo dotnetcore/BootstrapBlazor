@@ -85,7 +85,7 @@ namespace BootstrapBlazor.Components
         /// 获得 弹窗位置
         /// </summary>
         /// <returns></returns>
-        protected virtual string RetrievePlacement() => Tooltip?.Placement.ToDescriptionString() ?? "auto";
+        protected virtual string RetrievePlacement() => Tooltip?.Placement.ToDescriptionString() ?? "top";
 
         /// <summary>
         /// 获得 弹窗内容是否为 Html 方法

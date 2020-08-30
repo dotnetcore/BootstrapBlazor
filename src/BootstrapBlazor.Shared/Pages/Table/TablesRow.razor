@@ -5,6 +5,23 @@
 
 <h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
 
+<Block Title="显示行号" Introduction="通过设置 <code>ShowLineNo</code> 属性为 <code>true</code> 时表格显示行号了，默认值为 <code>false</code>" CodeFile="table.34.html">
+    <p>设置 <code>LineNoText</code> 属性值来设置行号列头显示文本，默认为 <code>行号</code></p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowLineNo="true" LineNoText="序号"
+           ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
 <Block Title="点击单元格选中整行效果" Introduction="本功能仅限 <code>Table</code> 组件单选模式下生效，通过设置 <code>ClickToSelect</code> 属性值可以实现点击任意单元格选中整行效果，选中行样式被设置为 <code>active</code>" CodeFile="table.19.html">
     <p>可以设置 <code>OnClickRowCallback</code> 回调委托方法对点击行做相应处理，点击表格中任意一行后在下方显示选中行绑定数据的 <code>Name</code> 值</p>
     <p>注意：此回调委托内部不进行 UI 渲染，需要 UI 数据更新操作时，请手动显式调用 <code>StateHasChanged</code> 方法</p>
