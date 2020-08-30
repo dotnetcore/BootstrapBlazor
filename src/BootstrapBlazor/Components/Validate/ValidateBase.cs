@@ -347,10 +347,16 @@ namespace BootstrapBlazor.Components
 
             if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
             {
-                await JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
+                await ShowTooltip();
                 TooltipMethod = "";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override string RetrieveMethod() => TooltipMethod;
 
         #region Validation
         /// <summary>
@@ -434,6 +440,8 @@ namespace BootstrapBlazor.Components
                     TooltipMethod = "dispose";
                 }
 
+                if (Tooltip != null) Tooltip.Title = ErrorMessage;
+
                 OnValidate(IsValid ?? true);
             }
         }
@@ -455,11 +463,9 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(true);
-
             if (disposing && EditContext != null)
             {
-                _ = JSRuntime.Tooltip(Id, "dispose");
+                base.Dispose(true);
             }
         }
         #endregion

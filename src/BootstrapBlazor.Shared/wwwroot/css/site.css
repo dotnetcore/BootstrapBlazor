@@ -489,12 +489,18 @@ section {
     }
 }
 
+.popover-demo,
+.tooltip-demo {
+    height: 240px;
+}
+
 @media (min-width: 576px) {
     .content .form-inline .form-group {
         margin-bottom: 1rem;
     }
 
-    .popover-input {
+    .popover-demo input,
+    .tooltip-demo input {
         width: 100px;
     }
 }

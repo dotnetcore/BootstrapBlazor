@@ -1059,16 +1059,16 @@
                     });
             }
         },
-        bb_tooltip: function (id, method, title, html, trigger) {
+        bb_tooltip: function (id, method, title, placement, html, trigger) {
             var $ele = $('#' + id);
             if (method === "") {
-                var op = { html: html, sanitize: !html, title: title };
+                var op = { html: html, sanitize: !html, title: title, placement: placement };
                 if (trigger) op.trigger = trigger;
                 if ($ele.data('bs.tooltip')) $ele.tooltip('dispose')
                 $ele.tooltip(op);
             }
             else if (method === 'enable') {
-                var op = { html: html, sanitize: !html, title: title };
+                var op = { html: html, sanitize: !html, title: title, placement: placement };
                 if (trigger) op.trigger = trigger;
 
                 $ele.tooltip(op);
@@ -1086,10 +1086,10 @@
                 $ele.tooltip(method);
             }
         },
-        bb_popover: function (id, method, title, content, html, trigger) {
+        bb_popover: function (id, method, title, content, placement, html, trigger) {
             var $ele = $('#' + id);
             if (method === "") {
-                var op = { html: html, sanitize: false, title: title, content: content };
+                var op = { html: html, sanitize: false, title: title, content: content, placement: placement };
                 if (trigger) op.trigger = trigger;
 
                 if ($ele.data('bs.popover')) $ele.popover('dispose')

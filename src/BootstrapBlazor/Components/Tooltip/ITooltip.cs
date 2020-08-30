@@ -11,19 +11,9 @@
         Placement Placement { get; set; }
 
         /// <summary>
-        /// 获得/设置 显示文字函数名称
-        /// </summary>
-        string? GetTitleFuncName { get; set; }
-
-        /// <summary>
         /// 获得/设置 显示文字
         /// </summary>
         string? Title { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        string? GetContentFuncName { get; set; }
 
         /// <summary>
         /// 获得/设置 显示内容

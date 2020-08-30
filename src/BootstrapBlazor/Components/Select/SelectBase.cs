@@ -125,24 +125,10 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// OnAfterRender 方法
+        /// 
         /// </summary>
-        /// <param name="firstRender"></param>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await JSRuntime.Tooltip(InputId, "", PopoverType.Tooltip, "", "", false);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(TooltipMethod))
-                {
-                    await JSRuntime.Tooltip(InputId, TooltipMethod, title: ErrorMessage);
-                    TooltipMethod = "";
-                }
-            }
-        }
+        /// <returns></returns>
+        protected override string? RetrieveId() => InputId;
 
         /// <summary>
         /// 下拉框选项点击时调用此方法
@@ -236,17 +222,6 @@ namespace BootstrapBlazor.Components
         public void Add(SelectedItem item)
         {
             Childs.Add(item);
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            if (disposing) _ = JSRuntime.Tooltip(InputId, "dispose");
         }
     }
 }

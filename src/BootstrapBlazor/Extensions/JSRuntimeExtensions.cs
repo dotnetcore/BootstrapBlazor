@@ -10,28 +10,6 @@ namespace BootstrapBlazor.Components
     internal static class JSRuntimeExtensions
     {
         /// <summary>
-        /// 弹出 Tooltip 组件
-        /// </summary>
-        /// <param name="jsRuntime"></param>
-        /// <param name="id"></param>
-        /// <param name="method"></param>
-        /// <param name="popoverType"></param>
-        /// <param name="title"></param>
-        /// <param name="content"></param>
-        /// <param name="html"></param>
-        /// <param name="trigger"></param>
-        public static async ValueTask Tooltip(this IJSRuntime jsRuntime, string? id, string method = "", PopoverType popoverType = PopoverType.Tooltip, string? title = "", string? content = "", bool html = false, string trigger = "hover focus")
-        {
-            if (!string.IsNullOrEmpty(id))
-            {
-                if (popoverType == PopoverType.Tooltip)
-                    await jsRuntime.InvokeVoidAsync("$.bb_tooltip", id, method, title, html, trigger);
-                else
-                    await jsRuntime.InvokeVoidAsync("$.bb_popover", id, method, title, content, html, trigger);
-            }
-        }
-
-        /// <summary>
         /// 调用 JSInvoke 方法
         /// </summary>
         /// <param name="jsRuntime">IJSRuntime 实例</param>

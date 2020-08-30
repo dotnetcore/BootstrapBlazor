@@ -15,13 +15,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 显示内容
         /// </summary>
-        public string? Content { get; set; }
-
-        /// <summary>
-        /// 获得/设置 显示内容函数名称
-        /// </summary>
         [Parameter]
-        public string? GetContentFuncName { get; set; }
+        public string? Content { get; set; }
 
         /// <summary>
         /// 获得/设置 显示文字是否为 Html 默认为 false
@@ -40,12 +35,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? Title { get; set; }
-
-        /// <summary>
-        /// 获得/设置 显示文字函数名称
-        /// </summary>
-        [Parameter]
-        public string? GetTitleFuncName { get; set; }
 
         /// <summary>
         /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
