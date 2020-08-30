@@ -4,53 +4,50 @@
 <div class="float-left table-toolbar-button">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
-        <RenderTemplate>
-            @if (Buttons.Any())
+    </CascadingValue>
+    <RenderTemplate>
+        <div class="btn-toolbar btn-group d-none d-sm-inline-flex">
+            @foreach (var button in Buttons)
             {
-                <div class="btn-toolbar btn-group d-none d-sm-inline-flex">
-                    @foreach (var button in Buttons)
-                    {
+                @if (button is TableToolbarButton<TItem> b)
+                {
+                    <Button AdditionalAttributes="b.AdditionalAttributes"
+                            Color="@b.Color" Icon="@b.Icon" Text="@b.Text"
+                            OnClick="@(e => OnToolbarButtonClick(b))"
+                            IsDisabled="@b.IsDisabled"></Button>
+                }
+                else if (button is TableToolbarPopconfirmButton<TItem> pb)
+                {
+                    <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
+                                      Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text"
+                                      IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
+                                      OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
+                                      ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
+                                      ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
+                                      CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
+                    </PopConfirmButton>
+                }
+            }
+        </div>
+        <div class="btn-gear btn-group d-sm-none">
+            <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" type="button">
+                <i class="fa fa-fw fa-gear"></i>
+            </button>
+            <div class="dropdown-menu">
+                @foreach (var button in Buttons)
+                {
+                    <div class="dropdown-item">
                         @if (button is TableToolbarButton<TItem> b)
                         {
-                            <Button AdditionalAttributes="b.AdditionalAttributes" 
-                                    Color="@b.Color" Icon="@b.Icon" Text="@b.Text" 
-                                    OnClick="@(e => OnToolbarButtonClick(b))"
-                                    IsDisabled="@b.IsDisabled"></Button>
+                            <i class="@b.Icon" @onclick="@(e => OnToolbarButtonClick(b))"></i>
                         }
                         else if (button is TableToolbarPopconfirmButton<TItem> pb)
                         {
-                            <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes" 
-                                              Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text"
-                                              IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
-                                              OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
-                                              ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
-                                              ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
-                                              CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
-                            </PopConfirmButton>
-                        }
-                    }
-                </div>
-                <div class="btn-gear btn-group d-sm-none">
-                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" type="button">
-                        <i class="fa fa-fw fa-gear"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                        @foreach (var button in Buttons)
-                        {
-                            <div class="dropdown-item">
-                                @if (button is TableToolbarButton<TItem> b)
-                                {
-                                    <i class="@b.Icon" @onclick="@(e => OnToolbarButtonClick(b))"></i>
-                                }
-                                else if (button is TableToolbarPopconfirmButton<TItem> pb)
-                                {
-                                    <i class="@pb.Icon" @onclick="@pb.OnConfirm"></i>
-                                }
-                            </div>
+                            <i class="@pb.Icon" @onclick="@pb.OnConfirm"></i>
                         }
                     </div>
-                </div>
-            }
-        </RenderTemplate>
-    </CascadingValue>
+                }
+            </div>
+        </div>
+    </RenderTemplate>
 </div>

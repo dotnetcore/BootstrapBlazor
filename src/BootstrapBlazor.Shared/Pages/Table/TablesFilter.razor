@@ -33,12 +33,12 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
                 <Template Context="value">
                     <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
                 </Template>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true">
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true">
                 <Template Context="value">
                     <span>@value.Value?.ToDescriptionString()</span>
                 </Template>
@@ -63,7 +63,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Filterable="true">
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
                 <Template Context="value">
                     <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
                 </Template>
@@ -82,6 +82,7 @@
         <li>设置 <code>DefaultSort=true</code> 开启默认排序功能，当多列设置此属性时，第一列起作用</li>
         <li>设置 <code>DefaultSortOrder</code> 值，设置默认排序规则</li>
     </ul>
+    <p>本例中默认排序为最后一列倒序排序</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"

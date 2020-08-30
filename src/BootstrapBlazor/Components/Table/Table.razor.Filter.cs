@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class TableBase<TItem>
+    public partial class Table<TItem>
     {
         /// <summary>
         /// 获得 过滤小图标样式

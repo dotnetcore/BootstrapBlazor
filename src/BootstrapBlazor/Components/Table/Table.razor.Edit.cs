@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    public partial class TableBase<TItem>
+    public partial class Table<TItem>
     {
         /// <summary>
         /// 获得 Checkbox 样式表集合

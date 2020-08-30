@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class TableBase<TItem>
+    partial class Table<TItem>
     {
         /// <summary>
         /// 获得 wrapper 样式表集合

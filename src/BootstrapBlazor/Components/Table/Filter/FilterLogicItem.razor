@@ -24,8 +24,5 @@
     [Parameter]
     public EventCallback<FilterLogic> LogicChanged { get; set; }
 
-    private IEnumerable<SelectedItem> Items => new SelectedItem[] {
-        new SelectedItem("And", "并且"),
-        new SelectedItem("Or", "或者")
-    };
+    private IEnumerable<SelectedItem> Items => typeof(FilterLogic).ToSelectList();
 }

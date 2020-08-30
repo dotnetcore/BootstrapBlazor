@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class TableBase<TItem>
+    partial class Table<TItem>
     {
         /// <summary>
         /// 获得/设置 是否分页

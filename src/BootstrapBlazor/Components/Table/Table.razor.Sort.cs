@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class TableBase<TItem>
+    partial class Table<TItem>
     {
         /// <summary>
         /// 获得/设置 排序字段名称

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    public partial class TableBase<TItem>
+    partial class Table<TItem>
     {
         /// <summary>
         /// 获得/设置 是否显示工具栏 默认 false 不显示

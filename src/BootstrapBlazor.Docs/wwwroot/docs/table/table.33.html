@@ -1,7 +1,7 @@
 <Table TItem="BindItem" @ref="AutoRefreshTable"
-        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
         IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-        OnQueryAsync="@OnQueryAsync">
+        OnQueryAsync="@OnRefreshQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="180" />
         <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -17,6 +17,18 @@
     private Table<BindItem> AutoRefreshTable { get; set; }
     #nullable restore
     
+    private List<BindItem> AutoItems { get; set; } = new List<BindItem>();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        AutoItems = Items.Take(2).ToList();
+    }
+
     /// <summary>
     /// OnAfterRender 方法
     /// </summary>
@@ -28,16 +40,36 @@
         if (firstRender) RunAutoRefreshTask();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    private Task<QueryData<BindItem>> OnRefreshQueryAsync(QueryPageOptions options)
+    {
+        // 设置记录总数
+        var total = AutoItems.Count();
+
+        // 内存分页
+        var items = AutoItems.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<BindItem>()
+        {
+            Items = items,
+            TotalCount = total
+        });
+    }
+
     private void RunAutoRefreshTask()
     {
         Task.Run(async () =>
         {
-            var i = Items.Count;
+            var i = AutoItems.Count;
             while (!CancelTokenSource.IsCancellationRequested)
             {
                 if (AutoRefreshTable.IsRendered)
                 {
-                    Items.Insert(0, new BindItem()
+                    AutoItems.Insert(0, new BindItem()
                     {
                         Id = i++,
                         Name = $"张三 {i:d4}",
@@ -48,7 +80,7 @@
                         Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
                     });
 
-                    if (Items.Count > 90) Items.RemoveRange(90, 1);
+                    if (AutoItems.Count > 10) AutoItems.RemoveRange(10, 1);
 
                     await InvokeAsync(AutoRefreshTable.QueryAsync);
                 }

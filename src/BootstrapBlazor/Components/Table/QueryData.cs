@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 要显示页码的数据集合
         /// </summary>
-        public IEnumerable<TItem> Items { get; set; } = new TItem[0];
+        public IEnumerable<TItem> Items { get; set; } = new List<TItem>();
 
         /// <summary>
         /// 获得/设置 数据集合总数
