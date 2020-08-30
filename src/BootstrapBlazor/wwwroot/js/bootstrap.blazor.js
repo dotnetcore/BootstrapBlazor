@@ -1060,17 +1060,14 @@
             }
         },
         bb_tooltip: function (id, method, title, placement, html, trigger) {
+            var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
             var $ele = $('#' + id);
             if (method === "") {
-                var op = { html: html, sanitize: !html, title: title, placement: placement };
-                if (trigger) op.trigger = trigger;
-                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose')
+                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose');
                 $ele.tooltip(op);
             }
             else if (method === 'enable') {
-                var op = { html: html, sanitize: !html, title: title, placement: placement };
-                if (trigger) op.trigger = trigger;
-
+                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose');
                 $ele.tooltip(op);
                 var $ctl = $ele.parents('form').find('.is-invalid:first');
                 if ($ctl.prop("nodeName") === 'INPUT') {
@@ -1083,19 +1080,19 @@
                 }
             }
             else {
+                if (!$ele.data('bs.tooltip')) $ele.tooltip(op);
                 $ele.tooltip(method);
             }
         },
         bb_popover: function (id, method, title, content, placement, html, trigger) {
             var $ele = $('#' + id);
+            var op = { html: html, sanitize: false, title: title, content: content, placement: placement, trigger: trigger };
             if (method === "") {
-                var op = { html: html, sanitize: false, title: title, content: content, placement: placement };
-                if (trigger) op.trigger = trigger;
-
-                if ($ele.data('bs.popover')) $ele.popover('dispose')
+                if ($ele.data('bs.popover')) $ele.popover('dispose');
                 $ele.popover(op);
             }
             else {
+                if (!$ele.data('bs.popover')) $ele.popover(op);
                 $ele.popover(method);
             }
         },

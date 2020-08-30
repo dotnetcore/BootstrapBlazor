@@ -188,6 +188,10 @@ section {
         margin-bottom: -1rem;
     }
 
+    .content .card-body .modal-body .form-inline {
+        margin-bottom: inherit;
+    }
+
     .content .code-label {
         font-weight: 500;
         color: #333;

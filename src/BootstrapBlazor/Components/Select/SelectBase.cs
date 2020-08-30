@@ -111,22 +111,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            AdditionalAttributes?.Remove("data-placement");
-            AdditionalAttributes?.Remove("data-trigger");
-            if (SelectAdditionalAttributes == null) SelectAdditionalAttributes = new Dictionary<string, object>();
-            if (!SelectAdditionalAttributes.TryGetValue("data-trigger", out var _))
-            {
-                SelectAdditionalAttributes["data-trigger"] = "hover focus";
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
         protected override string? RetrieveId() => InputId;
 

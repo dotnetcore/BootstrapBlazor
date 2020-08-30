@@ -327,12 +327,6 @@ namespace BootstrapBlazor.Components
                 if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
 
-            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-            if (!AdditionalAttributes.TryGetValue("data-trigger", out var _))
-            {
-                AdditionalAttributes["data-trigger"] = "hover focus";
-            }
-
             //显式设置显示标签时一定显示
             IsShowLabel = ShowLabel || EditForm != null;
         }
@@ -357,6 +351,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         protected override string RetrieveMethod() => TooltipMethod;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override string RetrieveTitle() => Tooltip?.Title ?? ErrorMessage ?? "";
 
         #region Validation
         /// <summary>
