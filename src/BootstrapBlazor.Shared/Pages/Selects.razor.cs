@@ -148,7 +148,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = "OnSelectedItemChanged",
                 Description="下拉框选项改变时触发此事件",
-                Type ="EventCallback<SelectedItem>"
+                Type ="Func<SelectedItem, Task>"
             }
         };
 

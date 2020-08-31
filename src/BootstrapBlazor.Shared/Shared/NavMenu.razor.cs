@@ -154,8 +154,18 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "时间框 DateTimePicker",
+                Url = "datetimepickers"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "下拉框 DropdownList",
                 Url = "dropdownlists"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "富文本框 Editor",
+                Url = "editors"
             });
             item.AddItem(new MenuItem()
             {
@@ -169,11 +179,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
-                Text = "富文本框 Editor",
-                Url = "editors"
-            });
-            item.AddItem(new MenuItem()
-            {
                 Text = "富文本框 Markdown",
                 Url = "markdowns"
             });
@@ -184,18 +189,18 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "评分 Rate",
+                Url = "rates"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "选择器 Select",
                 Url = "selects"
             });
             item.AddItem(new MenuItem()
             {
-                Text = "时间框 DateTimePicker",
-                Url = "datetimepickers"
-            });
-            item.AddItem(new MenuItem()
-            {
-                Text = "评分 Rate",
-                Url = "rates"
+                Text = "多项选择器 MultiSelect",
+                Url = "multi-selects"
             });
             item.AddItem(new MenuItem()
             {

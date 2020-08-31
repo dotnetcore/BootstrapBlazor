@@ -30,7 +30,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected string? ArrowClassName => CssBuilder.Default("form-select-append")
+        protected string? AppendClassName => CssBuilder.Default("form-select-append")
             .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .Build();
 
@@ -78,11 +78,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否初始化完成 默认为 false
         /// </summary>
         protected bool Initialized { get; set; }
-
-        /// <summary>
-        /// 获得/设置 用户自定义属性
-        /// </summary>
-        protected IDictionary<string, object>? SelectAdditionalAttributes { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮颜色

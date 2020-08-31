@@ -1078,6 +1078,9 @@
                         $ctl.focus();
                     }
                 }
+                else if ($ctl.prop("nodeName") === 'DIV') {
+                    $ctl.trigger('focus');
+                }
             }
             else {
                 if (!$ele.data('bs.tooltip')) $ele.tooltip(op);
@@ -1672,6 +1675,9 @@
                 var $win = $body.find('.console-window');
                 $body.scrollTop($win.height());
             }
+        },
+        bb_multi_select: function (el, obj, method) {
+            $(el).data('bb_multi_select', { obj: obj, method: method });
         }
     });
 
@@ -1769,6 +1775,16 @@
                     filter.obj.invokeMethodAsync(filter.method);
                 })
             }
+
+
+            // 处理 MultiSelect 弹窗
+            var $select = $target.closest('.multi-select');
+            $('.multi-select.show').each(function () {
+                if ($select.length === 0 || this != $select[0]) {
+                    var select = $(this).data('bb_multi_select');
+                    select.obj.invokeMethodAsync(select.method);
+                }
+            });
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {

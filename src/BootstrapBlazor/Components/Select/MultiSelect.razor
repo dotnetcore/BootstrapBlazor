@@ -1,0 +1,45 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits ValidateBase<TValue>
+
+@if (IsShowLabel)
+{
+    <label class="control-label" for="@Id">@DisplayText</label>
+}
+<div class="@ClassString" @ref="SelectElement">
+    <div class="@ToggleClassString" tabindex="0" hidefocus="true" outline="0" id="@Id" @onclick="@ToggleMenu">
+        <div class="multi-select-items">
+            @foreach (var item in SelectedItems)
+            {
+                <span>@item.Text</span>
+            }
+        </div>
+        <span class="@AppendClassString">
+            <i class="dropdown fa fa-angle-up"></i>
+        </span>
+    </div>
+    <div class="@MenuClassString">
+        @if (ShowSearch)
+        {
+            <div class="search">
+                <input type="text" class="search-text" @bind="@SearchText" @bind:event="oninput" />
+                <i class="fa fa-search"></i>
+            </div>
+        }
+        @if (ShowSelectAllButton)
+        {
+            <div class="toolbar">
+                <button class="btn" type="button" @onclick="@SelectAll">全选</button>
+                <button class="btn" type="button" @onclick="@InvertSelect">反选</button>
+                <button class="btn" type="button" @onclick="@Clear">清除</button>
+            </div>
+        }
+        @foreach (var item in GetData())
+        {
+            <div class="@GetItemClassString(item)" @onclick="@(e => ToggleRow(item))">
+                <Checkbox TValue="bool" Value="@GetCheckedState(item)"></Checkbox>
+                <span>@item.Text</span>
+            </div>
+        }
+    </div>
+</div>
