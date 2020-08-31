@@ -18,10 +18,9 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得/设置 是否为密码输入框 默认为 false
+        /// 获得/设置 input 类型 text password number
         /// </summary>
-        [Parameter]
-        public bool IsPassword { get; set; }
+        protected string Type { get; set; } = "text";
 
         /// <summary>
         /// 获得/设置 是否为 Input-Group 组合
@@ -48,20 +47,13 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-
-            if (!AdditionalAttributes.TryGetValue("type", out var _))
+            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("type", out var t))
             {
-                // 设置 Number 类型
-                if (typeof(TValue).IsNumber())
-                {
-                    AdditionalAttributes.Add("type", "number");
-                }
-                else
-                {
-                    AdditionalAttributes.Add("type", IsPassword ? "password" : "text");
-                }
+                Type = t.ToString();
             }
+
+            // 设置 Number 类型
+            if (typeof(TValue).IsNumber()) Type = "number";
         }
 
         /// <summary>

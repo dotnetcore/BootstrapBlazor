@@ -79,9 +79,9 @@
     </ValidateForm>
 </Block>
 
-<Block Title="密码框" Introduction="通过设置属性 <code>IsPassword</code> 值使输入数字后以 <code>*</code> 进行屏蔽的密码输入框" CodeFile="input.5.html">
-    <p>为了支持更多的文本框属性本组件可以直接写入 <code>type="email"</code> <code>type="number"</code> <code>type="phone"</code> 等 <code>html5</code> 新标准支持的全部属性值，组件未设置 <code>type</code> 值时使用默认的 <code>type="text"</code>, 仅当未设置 <code>type</code> 属性值时 <code>IsPassword</code> 才生效</p>
-    <BootstrapInput TValue="string" IsPassword="true" maxlength="5" placeholder="请输入 ..." style="width: 120px;">
+<Block Title="密码框" Introduction="通过设置属性 <code>type</code> 值为 <code>password</code> 使输入文字后以 <code>*</code> 进行屏蔽的密码输入框" CodeFile="input.5.html">
+    <p>为了支持更多的文本框属性本组件可以直接写入 <code>type="email"</code> <code>type="number"</code> <code>type="phone"</code> 等 <code>html5</code> 新标准支持的全部属性值，组件未设置 <code>type</code> 值时使用默认的 <code>type="text"</code></p>
+    <BootstrapInput TValue="string" type="password" maxlength="5" placeholder="请输入 ..." style="width: 120px;">
     </BootstrapInput>
 </Block>
 
@@ -173,14 +173,6 @@
                 Type = "string",
                 ValueList = "text / number / email / url / password",
                 DefaultValue = "text"
-            },
-            new AttributeItem()
-            {
-                Name = "IsPassword",
-                Description = "密码框",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
             },
             new AttributeItem()
             {
