@@ -87,6 +87,24 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private int DataPrimaryId { get; set; }
+
+        private Task OnClickShowDataById()
+        {
+            DialogService?.Show(new DialogOption()
+            {
+                Title = "数据查询窗口",
+                BodyContext = DataPrimaryId,
+                BodyTemplate = builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<DataDialogComponent>(index++);
+                    builder.CloseComponent();
+                }
+            });
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// 获得属性方法
         /// </summary>

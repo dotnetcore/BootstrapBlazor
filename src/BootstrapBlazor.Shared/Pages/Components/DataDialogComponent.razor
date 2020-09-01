@@ -1,0 +1,56 @@
+﻿<p>同时通过传递数据主键获取数据后再显示的例子组件</p>
+
+<p>传递的参数主键为：@DataPrimaryId</p>
+
+<p>通过传递参数获取的数据为：</p>
+
+@if (Model != null)
+{
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </div>
+        </div>
+    </ValidateForm>
+}
+
+@code {
+    [CascadingParameter(Name = "BodyContext")]
+    private object? DataPrimaryId { get; set; }
+
+    private BindItem? Model { get; set; }
+
+    private List<BindItem>? Items { get; set; }
+
+    private static readonly Random random = new Random();
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    protected List<BindItem> GenerateItems() => Enumerable.Range(1, 10).Select(i => new BindItem()
+    {
+        Id = i,
+        Name = $"张三 {i:d4}",
+        Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄"
+    }).ToList();
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = GenerateItems();
+
+        if (DataPrimaryId is int primaryId)
+        {
+            Model = Items.FirstOrDefault(i => i.Id == primaryId);
+        }
+    }
+}
