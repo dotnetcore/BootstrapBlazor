@@ -104,6 +104,9 @@
                         }
                     </colgroup>
                     <tbody>
+                        @{
+                            StarRowIndex = (PageIndex - 1) * PageItems + 1;
+                        }
                         @foreach (var item in Items)
                         {
                             @if (IsMultipleSelect)

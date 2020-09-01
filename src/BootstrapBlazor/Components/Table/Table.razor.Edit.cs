@@ -192,9 +192,6 @@ namespace BootstrapBlazor.Components
                     Items = invoker(Items, SortName, SortOrder);
                 }
             }
-
-            // 设置起始行号
-            StarRowIndex = (PageIndex - 1) * PageItems + 1;
         }
 
         private static readonly ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>();
