@@ -177,7 +177,7 @@
                     @if (ShowFooter)
                     {
                         <tfoot>
-                            <tr>@TableFooter</tr>
+                            <tr>@TableFooter?.Invoke(Items ?? Enumerable.Empty<TItem>())</tr>
                         </tfoot>
                     }
                 </table>

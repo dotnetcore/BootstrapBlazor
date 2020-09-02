@@ -1,0 +1,14 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<td @attributes="@AdditionalAttributes">
+    <div class="table-cell">@Text</div>
+</td>
+
+@code {
+    /// <summary>
+    /// 获得/设置 单元格内容
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+}

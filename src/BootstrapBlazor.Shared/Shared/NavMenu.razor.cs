@@ -396,6 +396,12 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "tables/autorefresh"
             });
 
+            it.AddItem(new MenuItem()
+            {
+                Text = "统计合并",
+                Url = "tables/footer"
+            });
+
             item.AddItem(it);
 
             AddBadge(it, false);

@@ -1149,6 +1149,11 @@ input:disabled,
         border-bottom: 1px solid #ebeef5
     }
 
+    .table tfoot .table-cell {
+        border-top: solid 2px #dee2e6;
+        font-weight: bold;
+    }
+
     .table td, .table th {
         padding: 0px;
         min-width: 0;

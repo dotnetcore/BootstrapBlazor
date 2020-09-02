@@ -75,7 +75,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 TableFooter 实例
         /// </summary>
         [Parameter]
-        public RenderFragment? TableFooter { get; set; }
+        public RenderFragment<IEnumerable<TItem>>? TableFooter { get; set; }
 
         /// <summary>
         /// 获得/设置 数据集合

@@ -1045,3 +1045,7 @@ section {
         background-color: #fff;
         padding: 0 0.5rem;
     }
+
+.footer-demo tfoot tr {
+    color: #409eff;
+}
