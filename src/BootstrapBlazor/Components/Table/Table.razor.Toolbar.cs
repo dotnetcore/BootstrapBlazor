@@ -172,7 +172,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void ShowEditorDialog()
         {
-            DialogOption.IsScrolling = true;
+            DialogOption.IsScrolling = ScollingDialogContent;
             DialogOption.ShowFooter = false;
             DialogOption.Size = Size.ExtraLarge;
             DialogOption.Title = EditModalTitleString ?? "未设置";

@@ -40,6 +40,12 @@ namespace BootstrapBlazor.Components
         protected List<TItem> SelectedItems { get; set; } = new List<TItem>();
 
         /// <summary>
+        /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false
+        /// </summary>
+        [Parameter]
+        public bool ScollingDialogContent { get; set; }
+
+        /// <summary>
         /// 获得/设置 被选中的数据集合
         /// </summary>
         [Parameter]

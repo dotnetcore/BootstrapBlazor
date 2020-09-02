@@ -320,6 +320,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "130"
             },
             new AttributeItem() {
+                Name = "ScollingDialogContent",
+                Description = "编辑弹窗框是否为内部出现滚动条",
+                Type = "bool",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "OnQueryAsync",
                 Description = "异步查询回调方法",
                 Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
