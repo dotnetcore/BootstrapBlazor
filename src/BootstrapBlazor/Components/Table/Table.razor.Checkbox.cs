@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         protected CheckboxState HeaderCheckState()
         {
             var ret = CheckboxState.UnChecked;
-            if (Items.All(i => SelectedItems.Contains(i))) ret = CheckboxState.Checked;
+            if (Items.Any() && Items.All(i => SelectedItems.Contains(i))) ret = CheckboxState.Checked;
             else if (Items.Any(i => SelectedItems.Contains(i))) ret = CheckboxState.Mixed;
             return ret;
         }
@@ -67,32 +67,29 @@ namespace BootstrapBlazor.Components
         /// <param name="val"></param>
         protected virtual Task OnHeaderCheck(CheckboxState state, TItem val)
         {
-            if (Items != null)
+            switch (state)
             {
-                switch (state)
-                {
-                    case CheckboxState.Checked:
-                        // select all
-                        SelectedItems.Clear();
-                        SelectedItems.AddRange(Items);
+                case CheckboxState.Checked:
+                    // select all
+                    SelectedItems.Clear();
+                    SelectedItems.AddRange(Items);
 
-                        // callback
-                        if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
+                    // callback
+                    if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
 
-                        StateHasChanged();
-                        break;
-                    case CheckboxState.UnChecked:
-                        // unselect all
-                        SelectedItems.Clear();
+                    StateHasChanged();
+                    break;
+                case CheckboxState.UnChecked:
+                    // unselect all
+                    SelectedItems.Clear();
 
-                        // callback
-                        if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
+                    // callback
+                    if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
 
-                        StateHasChanged();
-                        break;
-                    default:
-                        break;
-                }
+                    StateHasChanged();
+                    break;
+                default:
+                    break;
             }
             return Task.CompletedTask;
         }
@@ -109,9 +106,9 @@ namespace BootstrapBlazor.Components
 
             if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
 
-            if (Items != null && HeaderCheckbox != null)
+            if (HeaderCheckbox != null)
             {
-                var headerCheckboxState = SelectedItems.Count == 0 && Items.Count() > 0
+                var headerCheckboxState = SelectedItems.Count == 0 && Items.Any()
                     ? CheckboxState.UnChecked
                     : (SelectedItems.Count == Items.Count() ? CheckboxState.Checked : CheckboxState.Mixed);
                 await HeaderCheckbox.SetState(headerCheckboxState);

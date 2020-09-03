@@ -275,7 +275,8 @@ section {
         max-width: 250px;
     }
 
-.table-container .table tbody tr.highlight {
+.table-container .table tbody tr.highlight,
+.table-container .table-row.highlight {
     background-color: #409eff;
 }
 
@@ -1046,6 +1047,8 @@ section {
         padding: 0 0.5rem;
     }
 
-.footer-demo tfoot tr {
+.footer-demo tfoot tr,
+.footer-demo .table-row.table-footer .table-cell {
     color: #409eff;
+    font-weight: bold;
 }

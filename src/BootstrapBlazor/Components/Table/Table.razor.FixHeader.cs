@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -14,10 +13,10 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得/设置 TableWrapper 引用
+        /// 获得/设置 Table 组件引用
         /// </summary>
         /// <value></value>
-        protected ElementReference TableWrapper { get; set; }
+        protected ElementReference TableElement { get; set; }
 
         /// <summary>
         /// 获得/设置 Table 高度

@@ -13,37 +13,43 @@ namespace BootstrapBlazor.Components
     public partial class Table<TItem> : BootstrapComponentBase, ITable where TItem : class, new()
     {
         /// <summary>
+        /// 获得 Table 组件样式表
+        /// </summary>
+        protected string? TableClassName => CssBuilder.Default("table-container")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
         /// 获得 wrapper 样式表集合
         /// </summary>
         protected string? WrapperClassName => CssBuilder.Default("table-wrapper")
             .AddClass("table-bordered", IsBordered)
+            .AddClass("table-striped table-hover", IsStriped)
+            .AddClass("is-single", !IsMultipleSelect && ClickToSelect)
             .Build();
 
         /// <summary>
         /// 获得 class 样式表集合
         /// </summary>
         protected string? ClassName => CssBuilder.Default("table")
-            .AddClass("table-striped", IsStriped)
-            .AddClass("table-hover", IsStriped)
             .AddClass("table-fixed", Height.HasValue)
-            .AddClass("is-single", !IsMultipleSelect && ClickToSelect)
-            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
         /// 获得 Body 内行样式
         /// </summary>
         /// <param name="item"></param>
+        /// <param name="css"></param>
         /// <returns></returns>
-        protected string? GetRowClassString(TItem item) => CssBuilder.Default("")
-           .AddClass(SetRowClassFormatter?.Invoke(item))
-           .AddClass("active", CheckActive(item))
-           .Build();
+        protected string? GetRowClassString(TItem item, string? css = null) => CssBuilder.Default(css)
+            .AddClass(SetRowClassFormatter?.Invoke(item))
+            .AddClass("active", CheckActive(item))
+            .Build();
 
         /// <summary>
         /// 获得 表头 Model 实例
         /// </summary>
-        protected TItem HeaderModel => Items?.FirstOrDefault() ?? new TItem();
+        protected TItem HeaderModel => Items.FirstOrDefault() ?? new TItem();
 
         /// <summary>
         /// 获得/设置 可过滤表格列集合
@@ -81,7 +87,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<TItem>? Items { get; set; }
+        public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
 
         /// <summary>
         /// 获得/设置 是否显示表脚 默认为 false
@@ -124,8 +130,6 @@ namespace BootstrapBlazor.Components
             if (IsPagination)
             {
                 PageItems = PageItemsSource.FirstOrDefault();
-
-                if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(IsPagination)} be set True.");
             }
 
             // 初始化 EditModel
@@ -154,31 +158,33 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 methodName = Height.HasValue ? "fixTableHeader" : "init";
-                if (Items == null)
-                {
-                    // set default sortName
-                    var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
-                    if (col != null)
-                    {
-                        SortName = col.GetFieldName();
-                        SortOrder = col.DefaultSortOrder;
-                    }
-                    await QueryData();
-                    if (Items == null) Items = new TItem[0];
+                ScreenSize = await RetrieveWidth();
 
-                    StateHasChanged();
+                // set default sortName
+                var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
+                if (col != null)
+                {
+                    SortName = col.GetFieldName();
+                    SortOrder = col.DefaultSortOrder;
                 }
+                await QueryAsync();
             }
 
             if (!string.IsNullOrEmpty(methodName))
             {
                 // 固定表头脚本关联
-                await JSRuntime.Invoke(TableWrapper, "bb_table", methodName);
+                await JSRuntime.Invoke(TableElement, "bb_table", methodName);
                 methodName = null;
             }
 
-            IsRendered = true;
+            if (!firstRender) IsRendered = true;
         }
+
+        /// <summary>
+        /// 获得 Table 组件客户端宽度
+        /// </summary>
+        /// <returns></returns>
+        protected ValueTask<int> RetrieveWidth() => JSRuntime.InvokeAsync<int>(TableElement, "bb_table", "width");
 
         #region 生成 Row 方法
         /// <summary>

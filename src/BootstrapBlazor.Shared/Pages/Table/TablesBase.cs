@@ -395,6 +395,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-sort-desc"
+            },
+            new AttributeItem() {
+                Name = "ViewModel",
+                Description = "Table 组件布局模式设置",
+                Type = "TableViewModel",
+                ValueList = "Auto|Table|CardView",
+                DefaultValue = "Auto"
+            },
+            new AttributeItem() {
+                Name = "ViewModelResponsiveWidth",
+                Description = "组件布局模式自动切换阈值",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "768"
             }
         };
 

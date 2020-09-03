@@ -40,6 +40,32 @@ namespace BootstrapBlazor.Components
         protected List<TItem> SelectedItems { get; set; } = new List<TItem>();
 
         /// <summary>
+        /// 获得 渲染模式
+        /// </summary>
+        protected TableViewModel RetrieveRenderModel => ViewModel switch
+        {
+            TableViewModel.Auto => ScreenSize > ViewModelResponsiveWidth ? TableViewModel.Table : TableViewModel.CardView,
+            _ => ViewModel
+        };
+
+        /// <summary>
+        /// 获得/设置 客户端屏幕宽度
+        /// </summary>
+        protected int ScreenSize { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件布局方式 默认为 Auto
+        /// </summary>
+        [Parameter]
+        public TableViewModel ViewModel { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件布局自适应切换阈值 默认为 768
+        /// </summary>
+        [Parameter]
+        public int ViewModelResponsiveWidth { get; set; } = 768;
+
+        /// <summary>
         /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false
         /// </summary>
         [Parameter]
@@ -106,7 +132,7 @@ namespace BootstrapBlazor.Components
 #nullable restore
 
         /// <summary>
-        /// 获得/设置 新建数据弹窗 Title
+        /// 获得/设置 行内功能按钮列头文本 默认为 操作
         /// </summary>
         [Parameter]
         public string ColumnButtonTemplateHeaderText { get; set; } = "操作";
