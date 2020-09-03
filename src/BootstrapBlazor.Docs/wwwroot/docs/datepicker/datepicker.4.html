@@ -3,12 +3,9 @@
 
 @code{
    protected DateTime BindValue { get; set; } = DateTime.Today;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private string BindValueString
-    {
+    
+   private string BindValueString
+   {
         get
         {
             return BindValue.HasValue ? BindValue.Value.ToString("yyyy-MM-dd") : "";
@@ -24,5 +21,12 @@
                 BindValue = DateTime.Today;
             }
         }
+    }
+	
+    private Task DateTimeValueChanged(DateTime? d)
+    {
+        BindValue = d;
+        DateTimeLogger?.Log($"选择的时间为: {d:yyyy-MM-dd}");
+        return Task.CompletedTask;
     }
 }
