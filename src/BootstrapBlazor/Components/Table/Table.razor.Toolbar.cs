@@ -108,7 +108,7 @@ namespace BootstrapBlazor.Components
         public async Task AddAsync()
         {
             if (OnAddAsync != null) EditModel = await OnAddAsync();
-            else new TItem();
+            else EditModel = new TItem();
 
             SelectedItems.Clear();
             EditModalTitleString = AddModalTitle;
