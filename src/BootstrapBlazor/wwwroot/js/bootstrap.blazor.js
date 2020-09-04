@@ -1244,7 +1244,9 @@
                     $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
             }
-            return $ele.width();
+            else if (method === 'width') {
+                return $ele.width();
+            }
         },
         timePicker: function (el) {
             return $(el).find('.time-spinner-item').height();

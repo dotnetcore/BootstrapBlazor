@@ -51,7 +51,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 客户端屏幕宽度
         /// </summary>
-        protected int ScreenSize { get; set; }
+        protected decimal ScreenSize { get; set; }
 
         /// <summary>
         /// 获得/设置 组件布局方式 默认为 Auto
@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件布局自适应切换阈值 默认为 768
         /// </summary>
         [Parameter]
-        public int ViewModelResponsiveWidth { get; set; } = 768;
+        public decimal ViewModelResponsiveWidth { get; set; } = 768;
 
         /// <summary>
         /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false

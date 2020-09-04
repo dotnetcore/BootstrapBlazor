@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 OnClick 事件不刷新父组件
         /// </summary>
         [Parameter]
-        public new Func<TItem, Task>? OnClickWithoutRender { get; set; }
+        public Func<TItem, Task>? OnClickWithoutRenderCallback { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
                     if (onClick.HasDelegate) await onClick.InvokeAsync(e);
 
                     if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
-                    if (Item != null && OnClickWithoutRender != null) await OnClickWithoutRender.Invoke(Item);
+                    if (Item != null && OnClickWithoutRenderCallback != null) await OnClickWithoutRenderCallback.Invoke(Item);
                 }
             });
         }

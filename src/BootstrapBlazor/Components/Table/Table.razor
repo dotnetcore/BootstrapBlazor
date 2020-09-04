@@ -1,12 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits BootstrapComponentBase
+@inherits BootstrapComponentBase 
 
 <div @attributes="@AdditionalAttributes" class="@TableClassName" @ref="TableElement">
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(HeaderModel)
     </CascadingValue>
-    @if (ScreenSize == 0)
+    @if (FirstRender)
     {
         <div class="table-loading">
             <Spinner Color="Color.Primary" />

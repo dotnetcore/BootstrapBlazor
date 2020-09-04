@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -147,6 +149,12 @@ namespace BootstrapBlazor.Components
         }
 
         private string? methodName;
+
+        /// <summary>
+        /// 获得/设置 是否我第一次 Render
+        /// </summary>
+        protected bool FirstRender { get; set; } = true;
+
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -157,7 +165,9 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
+                FirstRender = false;
                 methodName = Height.HasValue ? "fixTableHeader" : "init";
+
                 ScreenSize = await RetrieveWidth();
 
                 // set default sortName
@@ -184,7 +194,7 @@ namespace BootstrapBlazor.Components
         /// 获得 Table 组件客户端宽度
         /// </summary>
         /// <returns></returns>
-        protected ValueTask<int> RetrieveWidth() => JSRuntime.InvokeAsync<int>(TableElement, "bb_table", "width");
+        protected ValueTask<decimal> RetrieveWidth() => JSRuntime.InvokeAsync<decimal>(TableElement, "bb_table", "width");
 
         #region 生成 Row 方法
         /// <summary>
