@@ -196,6 +196,23 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected ValueTask<decimal> RetrieveWidth() => JSRuntime.InvokeAsync<decimal>(TableElement, "bb_table", "width");
 
+        /// <summary>
+        /// 检查当前列是否显示方法
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        protected bool CheckShownWithBreakpoint(ITableColumn col)
+        {
+            return col.ShownWithBreakPoint switch
+            {
+                BreakPoint.Small => ScreenSize >= 576,
+                BreakPoint.Medium => ScreenSize >= 768,
+                BreakPoint.Large => ScreenSize >= 992,
+                BreakPoint.ExtraLarge => ScreenSize >= 1200,
+                _ => true
+            };
+        }
+
         #region 生成 Row 方法
         /// <summary>
         /// 获得 指定单元格数据方法

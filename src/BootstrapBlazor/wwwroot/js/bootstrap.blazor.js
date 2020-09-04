@@ -1245,7 +1245,7 @@
                 });
             }
             else if (method === 'width') {
-                return $ele.width();
+                return $(document).width();
             }
         },
         timePicker: function (el) {

@@ -129,6 +129,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FilterTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
+        /// </summary>
+        [Parameter]
+        public BreakPoint ShownWithBreakPoint { get; set; }
+
+        /// <summary>
         /// 获得/设置 Table 实例
         /// </summary>
         [CascadingParameter]

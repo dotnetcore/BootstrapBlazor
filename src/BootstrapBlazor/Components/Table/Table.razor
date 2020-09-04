@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits BootstrapComponentBase 
+@inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@TableClassName" @ref="TableElement">
     <CascadingValue Value="this" IsFixed="true">
@@ -98,7 +98,10 @@
                             }
                             @foreach (var col in Columns)
                             {
-                                <col width="@col.Width" />
+                                @if (CheckShownWithBreakpoint(col))
+                                {
+                                    <col width="@col.Width" />
+                                }
                             }
                             @if (ShowExtendButtons)
                             {
@@ -150,21 +153,24 @@
                                 }
                                 @foreach (var col in Columns)
                                 {
-                                    var fieldName = col.GetFieldName();
-                                    var displayName = col.GetDisplayName();
-                                    <th class="@GetHeaderClassString(col)" @onclick="@(e => OnClickHeader(col))">
-                                        <div class="@GetHeaderWrapperClassString(col)">
-                                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
-                                            @if (col.Filterable)
-                                            {
-                                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(e => OnFilterClick(col))"></i>
-                                            }
-                                            @if (col.Sortable)
-                                            {
-                                                <i class="@GetIconClassString(fieldName)"></i>
-                                            }
-                                        </div>
-                                    </th>
+                                    @if (CheckShownWithBreakpoint(col))
+                                    {
+                                        var fieldName = col.GetFieldName();
+                                        var displayName = col.GetDisplayName();
+                                        <th class="@GetHeaderClassString(col)" @onclick="@(e => OnClickHeader(col))">
+                                            <div class="@GetHeaderWrapperClassString(col)">
+                                                <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                                                @if (col.Filterable)
+                                                {
+                                                    <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(e => OnFilterClick(col))"></i>
+                                                }
+                                                @if (col.Sortable)
+                                                {
+                                                    <i class="@GetIconClassString(fieldName)"></i>
+                                                }
+                                            </div>
+                                        </th>
+                                    }
                                 }
                                 @if (ShowExtendButtons)
                                 {
@@ -299,11 +305,14 @@
         }
         @foreach (var col in Columns)
         {
-            <td>
-                <div class="@GetCellClassString(col)">
-                    @GetValue(col, item)
-                </div>
-            </td>
+            @if (CheckShownWithBreakpoint(col))
+            {
+                <td>
+                    <div class="@GetCellClassString(col)">
+                        @GetValue(col, item)
+                    </div>
+                </td>
+            }
         }
         @if (ShowExtendButtons)
         {

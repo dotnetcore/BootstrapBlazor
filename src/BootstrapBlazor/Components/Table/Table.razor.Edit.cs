@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected TableViewModel RetrieveRenderModel => ViewModel switch
         {
-            TableViewModel.Auto => ScreenSize > ViewModelResponsiveWidth ? TableViewModel.Table : TableViewModel.CardView,
+            TableViewModel.Auto => ScreenSize < ViewModelResponsiveWidth ? TableViewModel.CardView : TableViewModel.Table,
             _ => ViewModel
         };
 

@@ -162,3 +162,33 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="根据屏幕宽度自动显示/隐藏列" Introduction="通过指定 <code>ShownWithBreakPoint</code> 属性设置在不同宽度下是否显示" CodeFile="table.36.html">
+    <p>
+        <code>ShownWithBreakPoint</code> 枚举值为：
+    </p>
+    <ul class="ul-demo">
+        <li><code>None</code> 未设置均显示</li>
+        <li><code>Small</code> 屏幕大于等于 <code>576px</code> 时显示</li>
+        <li><code>Medium</code> 屏幕大于等于 <code>768px</code> 时显示</li>
+        <li><code>Large</code> 屏幕大于等于 <code>992px</code> 时显示</li>
+        <li><code>ExtraLarge</code> 屏幕大于等于 <code>1200px</code> 时显示</li>
+    </ul>
+    <p>
+        本例中列 <code>Count</code> 列设置为 <code>BreakPoint.Large</code> 即屏幕在大于 <code>992px</code> 时才显示
+    </p>
+    <p>注意：</p>
+    <p>由于 <code>Table</code> 组件默认是支持移动端适配，所以小屏幕时采用的是卡片式模式，本例中显式设置使用 <code>ViewModel="TableViewModel.Table"</code> 模式</p>
+    <Table TItem="BindItem" ViewModel="TableViewModel.Table"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" ShownWithBreakPoint="BreakPoint.Large" Formatter="@IntFormatter" Width="60" />
+        </TableColumns>
+    </Table>
+</Block>

@@ -63,6 +63,11 @@ namespace BootstrapBlazor.Components
         int? Width { get; set; }
 
         /// <summary>
+        /// 显示节点阈值 默认值 BreakPoint.None 未设置
+        /// </summary>
+        BreakPoint ShownWithBreakPoint { get; set; }
+
+        /// <summary>
         /// 获得/设置 绑定列类型
         /// </summary>
         Type FieldType { get; set; }
