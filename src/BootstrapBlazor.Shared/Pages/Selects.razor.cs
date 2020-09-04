@@ -209,6 +209,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "ItemTemplate",
+                Description = "数据选项模板",
+                Type = "RenderFragment<SelectedItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "ChildContent",
                 Description = "数据模板",
                 Type = "RenderFragment",

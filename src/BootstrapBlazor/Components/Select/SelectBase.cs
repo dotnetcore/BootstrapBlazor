@@ -89,7 +89,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem>? Items { get; set; }
+        public IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
+
+        /// <summary>
+        /// 获得/设置 选项模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
         /// <summary>
         /// SelectedItemChanged 方法
@@ -147,7 +153,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected IEnumerable<SelectedItem> GetItems()
         {
-            var items = Items?.ToList() ?? new List<SelectedItem>();
+            var items = Items.ToList();
             items.AddRange(Childs);
 
             if (items.Any())

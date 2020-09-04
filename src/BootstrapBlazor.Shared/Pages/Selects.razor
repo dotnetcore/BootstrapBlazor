@@ -215,6 +215,24 @@
     </div>
 </Block>
 
+<Block Title="自定义选项模板" Introduction="通过设置<code>ItemTemplate</code> 可以自定义选项渲染样式" CodeFile="select.13.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items">
+                    <ItemTemplate>
+                        <div class="dropdown-item-demo">
+                            <i class="fa fa-fa"></i>
+                            <span>@context.Text</span>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </ItemTemplate>
+                </Select>
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
