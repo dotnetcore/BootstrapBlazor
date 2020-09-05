@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-@if (ScreenSize > ViewModelResponsiveWidth)
+@if (ScreenSize > RenderModelResponsiveWidth)
 {
     <td @attributes="@AdditionalAttributes">
         <div class="table-cell">@Text</div>
@@ -28,6 +28,6 @@ else
     /// <summary>
     ///
     /// </summary>
-    [CascadingParameter(Name = "ViewModelResponsiveWidth")]
-    public decimal ViewModelResponsiveWidth { get; set; }
+    [CascadingParameter(Name = "RenderModelResponsiveWidth")]
+    public decimal RenderModelResponsiveWidth { get; set; }
 }

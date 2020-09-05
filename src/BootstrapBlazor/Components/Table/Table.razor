@@ -77,7 +77,7 @@
         </div>
         <CascadingValue Value="this" IsFixed="true">
             <div class="@WrapperClassName" style="@WrapperStyleName">
-                @if (RetrieveRenderModel == TableViewModel.Table)
+                @if (RetrieveRenderModel == TableRenderModel.Table)
                 {
                     <table class="@ClassName">
                         <colgroup>
@@ -187,7 +187,7 @@
                             <tfoot>
                                 <tr>
                                     <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                                        <CascadingValue Value="@ViewModelResponsiveWidth" Name="ViewModelResponsiveWidth">
+                                        <CascadingValue Value="@RenderModelResponsiveWidth" Name="ViewModelResponsiveWidth">
                                             @TableFooter?.Invoke(Items)
                                         </CascadingValue>
                                     </CascadingValue>
@@ -258,7 +258,7 @@
                     {
                         <div class="table-row table-footer">
                             <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                                <CascadingValue Value="@ViewModelResponsiveWidth" Name="ViewModelResponsiveWidth">
+                                <CascadingValue Value="@RenderModelResponsiveWidth" Name="RenderModelResponsiveWidth">
                                     @TableFooter?.Invoke(Items)
                                 </CascadingValue>
                             </CascadingValue>

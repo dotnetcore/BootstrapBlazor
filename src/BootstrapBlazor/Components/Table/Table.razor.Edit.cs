@@ -42,10 +42,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 渲染模式
         /// </summary>
-        protected TableViewModel RetrieveRenderModel => ViewModel switch
+        protected TableRenderModel RetrieveRenderModel => RenderModel switch
         {
-            TableViewModel.Auto => ScreenSize < ViewModelResponsiveWidth ? TableViewModel.CardView : TableViewModel.Table,
-            _ => ViewModel
+            TableRenderModel.Auto => ScreenSize < RenderModelResponsiveWidth ? TableRenderModel.CardView : TableRenderModel.Table,
+            _ => RenderModel
         };
 
         /// <summary>
@@ -54,16 +54,22 @@ namespace BootstrapBlazor.Components
         protected decimal ScreenSize { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件渲染模式是否使用组件宽度来判断 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool UseComponentWidth { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件布局方式 默认为 Auto
         /// </summary>
         [Parameter]
-        public TableViewModel ViewModel { get; set; }
+        public TableRenderModel RenderModel { get; set; }
 
         /// <summary>
         /// 获得/设置 组件布局自适应切换阈值 默认为 768
         /// </summary>
         [Parameter]
-        public decimal ViewModelResponsiveWidth { get; set; } = 768;
+        public decimal RenderModelResponsiveWidth { get; set; } = 768;
 
         /// <summary>
         /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false

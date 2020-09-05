@@ -5,7 +5,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table 视图枚举类型
     /// </summary>
-    public enum TableViewModel
+    public enum TableRenderModel
     {
         /// <summary>
         /// 自动

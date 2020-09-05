@@ -1173,7 +1173,7 @@
         bb_filter: function (el, obj, method) {
             $(el).data('bb_filter', { obj: obj, method: method });
         },
-        bb_table: function (el, method) {
+        bb_table: function (el, method, args) {
             var $ele = $(el);
             if (method === 'fixTableHeader') {
                 var $thead = $ele.find('thead');
@@ -1245,7 +1245,10 @@
                 });
             }
             else if (method === 'width') {
-                return $(document).width();
+                var width = 0;
+                if (args) width = $ele.outerWidth(true);
+                else width = $(window).outerWidth(true);
+                return width;
             }
         },
         timePicker: function (el) {
