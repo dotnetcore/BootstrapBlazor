@@ -1,0 +1,6 @@
+﻿<BootstrapInput TValue="DateTime" Value="DateTime.Now" FormatString="yyyy-MM-dd" IsDisabled="true" />
+<BootstrapInput TValue="DateTime" Value="DateTime.Now" Formatter="@DateTimeFormatter" IsDisabled="true" />
+
+@code {
+    private string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
+}

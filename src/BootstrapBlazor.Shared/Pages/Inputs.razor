@@ -109,6 +109,21 @@
     </div>
 </Block>
 
+<Block Title="自定义格式" Introduction="设置 <code>FormatString</code> 属性值为 <code>yyyy-MM-dd</code> 时，组件显示的时间格式为年月日" CodeFile="input.7.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">设置 <code class="ml-1">FormatString</code></div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput TValue="DateTime" Value="DateTime.Now" FormatString="yyyy-MM-dd" IsDisabled="true" />
+            </div>
+            <div class="form-group col-12 col-sm-6">设置 <code class="ml-1">Formatter</code></div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput TValue="DateTime" Value="DateTime.Now" Formatter="@DateTimeFormatter" IsDisabled="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 @code {
@@ -120,6 +135,8 @@
     private double BindDoubleValue { get; set; } = 1.0;
 
     private FooModel Model { get; set; } = new FooModel();
+
+    private string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
 
     private class FooModel
     {
@@ -182,6 +199,6 @@
                 ValueList = "true|false",
                 DefaultValue = "false"
             }
-        };
+            };
     }
 }
