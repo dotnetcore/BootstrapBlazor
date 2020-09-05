@@ -1,4 +1,5 @@
 ﻿@page "/selects"
+@inject DialogService Dialog
 
 <h3>Select 选择器</h3>
 
@@ -84,7 +85,10 @@
                 <Select TValue="string" Items="@Items3" OnSelectedItemChanged="@OnCascadeBindSelectClick" />
             </div>
             <div class="form-group col-12 col-sm-6">
-                <Select TValue="string" Items="@Items2" />
+                <Select @ref="Select2" TValue="string" Items="@Items2" />
+            </div>
+            <div class="form-group col-12">
+                <Button Text="弹窗中级联示例" OnClickWithoutRender="@OnShowDialog" />
             </div>
         </div>
     </div>
@@ -95,7 +99,15 @@
         <div class="row">
             <div class="form-group col-12 col-sm-6">
                 <Select @bind-Value="@BindModel.Name">
-                    <RequiredValidator ErrorMessage="请选择一个城市" />
+                    <Options>
+                        <SelectOption Text="请选择 ..." Value="" />
+                        <SelectOption Text="北京" Value="1" />
+                        <SelectOption Text="上海" Value="2" />
+                        <SelectOption Text="广州" Value="3" />
+                    </Options>
+                    <ChildContent>
+                        <RequiredValidator ErrorMessage="请选择一个城市" />
+                    </ChildContent>
                 </Select>
             </div>
             <div class="form-group col-12 col-sm-6 align-items-end">

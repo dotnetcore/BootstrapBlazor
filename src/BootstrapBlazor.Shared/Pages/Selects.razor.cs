@@ -75,6 +75,8 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Select<string>? Select2 = null;
+
         /// <summary>
         /// 级联绑定菜单
         /// </summary>
@@ -98,7 +100,17 @@ namespace BootstrapBlazor.Shared.Pages
                     new SelectedItem("2","黄浦区"),
                 });
             }
-            StateHasChanged();
+            Select2?.SetItems(_item2);
+            return Task.CompletedTask;
+        }
+
+        private Task OnShowDialog()
+        {
+            Dialog.Show(new DialogOption()
+            {
+                Title = "弹窗中使用级联下拉框",
+                Component = DynamicComponent.CreateComponent<CustomerSelectDialog>()
+            });
             return Task.CompletedTask;
         }
 

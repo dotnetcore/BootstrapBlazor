@@ -197,6 +197,7 @@ namespace BootstrapBlazor.Components
         {
             Items = items;
             SelectedItem = GetItems().FirstOrDefault(i => i.Active);
+            StateHasChanged();
         }
 
         private List<SelectedItem> Childs { get; set; } = new List<SelectedItem>();
