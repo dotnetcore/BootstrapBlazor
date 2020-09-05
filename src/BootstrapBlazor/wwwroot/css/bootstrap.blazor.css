@@ -764,6 +764,11 @@ input:disabled,
     margin-top: 1rem;
 }
 
+.toast-container {
+    position: fixed;
+    z-index: 1040;
+}
+
 .toast {
     width: 246px;
     cursor: pointer;

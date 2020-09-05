@@ -2,7 +2,7 @@
 @inherits BootstrapComponentBase
 @inject ToastService ToastService
 
-<div style="@StyleString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
     <CascadingValue Value="this" IsFixed="true">
         @foreach (var toast in Toasts.Values)
         {

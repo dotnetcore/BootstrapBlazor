@@ -1,6 +1,5 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,9 +11,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Toasts
     {
-#nullable disable
-        private Toast Toast { get; set; }
-#nullable restore
+        private Toast? Toast { get; set; }
 
         /// <summary>
         /// 

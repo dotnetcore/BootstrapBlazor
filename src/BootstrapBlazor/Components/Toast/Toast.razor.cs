@@ -10,10 +10,14 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Toast : BootstrapComponentBase
     {
+        private string? ClassString => CssBuilder.Default("toast-container")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
         /// <summary>
         /// 获得 Toast 组件样式设置
         /// </summary>
-        private string? StyleString => CssBuilder.Default("position: fixed; z-index: 1040;")
+        private string? StyleString => CssBuilder.Default()
             .AddClass("top: 1rem; left: 1rem;", Placement == Placement.TopStart)
             .AddClass("top: 1rem; right: 1rem;", Placement == Placement.TopEnd)
             .AddClass("bottom: 1rem; left: 1rem;", Placement == Placement.BottomStart)
@@ -31,7 +35,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示文字
         /// </summary>
         [Parameter]
-        public Placement Placement { get; set; } = Placement.BottomEnd;
+        public Placement Placement { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -39,6 +43,8 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            Placement = Placement.BottomEnd;
 
             // 注册 Toast 弹窗事件
             if (ToastService != null)
