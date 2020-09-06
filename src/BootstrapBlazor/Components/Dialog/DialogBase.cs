@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 注册 Toast 弹窗事件
-            DialogService.Register(this.GetHashCode(), Show);
+            DialogService.Register(this, Show);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
-                DialogService.UnRegister(GetHashCode());
+                DialogService.UnRegister(this);
             }
         }
     }

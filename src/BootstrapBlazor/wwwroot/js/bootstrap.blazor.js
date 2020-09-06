@@ -949,6 +949,15 @@
                 $el.close();
             });
         },
+        bb_pop: function (el, method) {
+            var $el = $(el);
+            if (method === 'init') {
+                $el.appendTo($('body'));
+            }
+            else if (method === 'dispose') {
+                $el.remove();
+            }
+        },
         showToast: function (el, toast, method) {
             // 记录 Id
             Toasts.push(el);
@@ -1111,64 +1120,74 @@
             });
             $button.popover('show');
         },
-        modal: function (el, method) {
+        bb_modal: function (el, method) {
             var $el = $(el);
-            $el.modal(method);
 
-            // monitor mousedown ready to drag dialog
-            var originX = 0;
-            var originY = 0;
-            var dialogWidth = 0;
-            var dialogHeight = 0;
-            var pt = { top: 0, left: 0 };
-            var $dialog = null;
-            $el.find('.is-draggable .modal-header').drag(
-                function (e) {
-                    originX = e.clientX || e.touches[0].clientX;
-                    originY = e.clientY || e.touches[0].clientY;
+            if (method === 'dispose') {
+                $el.remove();
+            }
+            else if (method === 'init') {
+                // move self end of the body
+                $('body').append($el);
 
-                    // 弹窗大小
-                    $dialog = this.closest('.modal-dialog');
-                    dialogWidth = $dialog.width();
-                    dialogHeight = $dialog.height();
+                // monitor mousedown ready to drag dialog
+                var originX = 0;
+                var originY = 0;
+                var dialogWidth = 0;
+                var dialogHeight = 0;
+                var pt = { top: 0, left: 0 };
+                var $dialog = null;
+                $el.find('.is-draggable .modal-header').drag(
+                    function (e) {
+                        originX = e.clientX || e.touches[0].clientX;
+                        originY = e.clientY || e.touches[0].clientY;
 
-                    // 偏移量
-                    pt.top = parseInt($dialog.css('marginTop').replace("px", ""));
-                    pt.left = parseInt($dialog.css('marginLeft').replace("px", ""));
+                        // 弹窗大小
+                        $dialog = this.closest('.modal-dialog');
+                        dialogWidth = $dialog.width();
+                        dialogHeight = $dialog.height();
 
-                    // 移除 Center 样式
-                    $dialog.css({ "marginLeft": pt.left, "marginTop": pt.top });
-                    $dialog.removeClass('modal-dialog-centered');
+                        // 偏移量
+                        pt.top = parseInt($dialog.css('marginTop').replace("px", ""));
+                        pt.left = parseInt($dialog.css('marginLeft').replace("px", ""));
 
-                    // 固定大小
-                    $dialog.css("width", dialogWidth);
-                    this.addClass('is-drag');
-                },
-                function (e) {
-                    var eventX = e.clientX || e.changedTouches[0].clientX;
-                    var eventY = e.clientY || e.changedTouches[0].clientY;
+                        // 移除 Center 样式
+                        $dialog.css({ "marginLeft": pt.left, "marginTop": pt.top });
+                        $dialog.removeClass('modal-dialog-centered');
 
-                    newValX = pt.left + Math.ceil(eventX - originX);
-                    newValY = pt.top + Math.ceil(eventY - originY);
+                        // 固定大小
+                        $dialog.css("width", dialogWidth);
+                        this.addClass('is-drag');
+                    },
+                    function (e) {
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
+                        var eventY = e.clientY || e.changedTouches[0].clientY;
 
-                    if (newValX <= 0) newValX = 0;
-                    if (newValY <= 0) newValY = 0;
+                        newValX = pt.left + Math.ceil(eventX - originX);
+                        newValY = pt.top + Math.ceil(eventY - originY);
 
-                    if (newValX + dialogWidth < $(window).width()) {
-                        if ($dialog != null) {
-                            $dialog.css({ "marginLeft": newValX });
+                        if (newValX <= 0) newValX = 0;
+                        if (newValY <= 0) newValY = 0;
+
+                        if (newValX + dialogWidth < $(window).width()) {
+                            if ($dialog != null) {
+                                $dialog.css({ "marginLeft": newValX });
+                            }
                         }
-                    }
-                    if (newValY + dialogHeight < $(window).height()) {
-                        if ($dialog != null) {
-                            $dialog.css({ "marginTop": newValY });
+                        if (newValY + dialogHeight < $(window).height()) {
+                            if ($dialog != null) {
+                                $dialog.css({ "marginTop": newValY });
+                            }
                         }
+                    },
+                    function (e) {
+                        this.removeClass('is-drag');
                     }
-                },
-                function (e) {
-                    this.removeClass('is-drag');
-                }
-            );
+                );
+            }
+            else {
+                $el.modal(method);
+            }
         },
         bb_filter: function (el, obj, method) {
             $(el).data('bb_filter', { obj: obj, method: method });

@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Message 组件基类
     /// </summary>
-    public abstract class MessageBase : BootstrapComponentBase
+    public abstract class MessageBase : PopupComponentBase
     {
         /// <summary>
         /// 获得 组件样式
@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 注册 Toast 弹窗事件
-            MessageService.Register(GetHashCode(), Show);
+            MessageService.Register(this, Show);
         }
 
         private async Task Show(MessageOption option)
@@ -96,7 +96,7 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
-                MessageService.UnRegister(GetHashCode());
+                MessageService.UnRegister(this);
             }
         }
     }

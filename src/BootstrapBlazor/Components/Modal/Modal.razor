@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ModalBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="@Backdrop" @ref="ModalElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="@Backdrop" @ref="PopupElement">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>

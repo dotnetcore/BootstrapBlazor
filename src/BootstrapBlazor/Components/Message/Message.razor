@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits MessageBase
 
-<div class="@ClassString" style="@StyleName">
+<div class="@ClassString" style="@StyleName" @ref="PopupElement">
     <CascadingValue Value="this" IsFixed="true">
         @foreach (var item in (Placement == Placement.Top ? Messages : Messages.Reverse()))
         {

@@ -47,11 +47,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 表头 Model 实例
-        /// </summary>
-        protected TItem HeaderModel => Items.FirstOrDefault() ?? new TItem();
-
-        /// <summary>
         /// 获得/设置 可过滤表格列集合
         /// </summary>
         protected IEnumerable<ITableColumn>? FilterColumns { get; set; }

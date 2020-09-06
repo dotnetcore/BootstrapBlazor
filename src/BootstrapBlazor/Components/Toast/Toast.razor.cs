@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Toast 弹出窗组件
     /// </summary>
-    public partial class Toast : BootstrapComponentBase
+    public partial class Toast
     {
         private string? ClassString => CssBuilder.Default("toast-container")
             .AddClassFromAttributes(AdditionalAttributes)
@@ -49,7 +49,7 @@ namespace BootstrapBlazor.Components
             // 注册 Toast 弹窗事件
             if (ToastService != null)
             {
-                ToastService.Register(GetHashCode(), Show);
+                ToastService.Register(this, Show);
             }
         }
 
@@ -100,7 +100,7 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
-                ToastService.UnRegister(GetHashCode());
+                ToastService.UnRegister(this);
             }
         }
     }
