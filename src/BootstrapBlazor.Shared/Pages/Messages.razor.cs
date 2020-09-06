@@ -10,7 +10,10 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     sealed partial class Messages
     {
-        private Placement MessagePlacement { get; set; } = Placement.Top;
+#nullable disable
+        private Message MessageElement { get; set; }
+#nullable restore
+
         /// <summary>
         /// 
         /// </summary>
@@ -18,18 +21,20 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void ShowMessage()
         {
-            MessagePlacement = Placement.Top;
+            MessageElement.SetPlacement(Placement.Top);
             MessageService?.Show(new MessageOption()
             {
+                Host = MessageElement,
                 Content = "这是一条提示消息"
             });
         }
 
         private void ShowIconMessage()
         {
-            MessagePlacement = Placement.Top;
+            MessageElement.SetPlacement(Placement.Top);
             MessageService?.Show(new MessageOption()
             {
+                Host = MessageElement,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle"
             });
@@ -37,9 +42,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void ShowCloseMessage()
         {
-            MessagePlacement = Placement.Top;
+            MessageElement.SetPlacement(Placement.Top);
             MessageService?.Show(new MessageOption()
             {
+                Host = MessageElement,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle",
                 ShowDismiss = true,
@@ -48,9 +54,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void ShowBarMessage()
         {
-            MessagePlacement = Placement.Top;
+            MessageElement.SetPlacement(Placement.Top);
             MessageService?.Show(new MessageOption()
             {
+                Host = MessageElement,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle",
                 ShowBar = true,
@@ -59,9 +66,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void ShowColorMessage(Color color)
         {
-            MessagePlacement = Placement.Top;
+            MessageElement.SetPlacement(Placement.Top);
             MessageService?.Show(new MessageOption()
             {
+                Host = MessageElement,
                 Content = "这是带颜色的消息",
                 Icon = "fa fa-info-circle",
                 Color = color
@@ -70,9 +78,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void ShowBottomMessage()
         {
-            MessagePlacement = Placement.Bottom;
+            MessageElement.SetPlacement(Placement.Bottom);
             MessageService?.Show(new MessageOption()
             {
+                Host = MessageElement,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle",
             });
