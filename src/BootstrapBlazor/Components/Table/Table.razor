@@ -288,14 +288,8 @@
     }
 </div>
 
-@if (!DialogService.HasRegistered<Dialog>())
-{
-    <Dialog />
-}
-@if (!Toast.HasRegistered<Toast>())
-{
-    <Toast />
-}
+<Toast />
+<Dialog />
 <PopoverConfirm />
 
 @code {

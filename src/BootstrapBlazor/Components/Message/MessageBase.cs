@@ -8,8 +8,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Message 组件基类
     /// </summary>
-    public abstract class MessageBase : PopupComponentBase
+    public abstract class MessageBase : BootstrapComponentBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ElementReference MessageElement { get; set; }
+
         /// <summary>
         /// 获得 组件样式
         /// </summary>
@@ -60,6 +65,18 @@ namespace BootstrapBlazor.Components
             MessageService.Register(this, Show);
         }
 
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender) await JSRuntime.InvokeVoidAsync(MessageElement, "bb_pop", "init");
+        }
+
         private async Task Show(MessageOption option)
         {
             _messages.Add(option);
@@ -97,6 +114,7 @@ namespace BootstrapBlazor.Components
             if (disposing)
             {
                 MessageService.UnRegister(this);
+                _ = JSRuntime.InvokeVoidAsync(MessageElement, "bb_pop", "dispose");
             }
         }
     }

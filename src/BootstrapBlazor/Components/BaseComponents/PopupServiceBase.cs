@@ -35,22 +35,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 判断指定 Component 类型是否已经注册过
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        internal bool HasRegistered(Type type)
-        {
-            return Cache.Any(i => i.Key.GetType().FullName == type.FullName);
-        }
-
-        /// <summary>
-        /// 判断指定 Component 是否已经注册过
-        /// </summary>
-        /// <returns></returns>
-        internal bool HasRegistered<TComponent>() where TComponent : ComponentBase => HasRegistered(typeof(TComponent));
-
-        /// <summary>
         /// 注册弹窗事件
         /// </summary>
         /// <param name="key"></param>

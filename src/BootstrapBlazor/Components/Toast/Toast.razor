@@ -1,8 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits PopupComponentBase
+@inherits BootstrapComponentBase
 @inject ToastService ToastService
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" @ref="PopupElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" @ref="ToastElement">
     <CascadingValue Value="this" IsFixed="true">
         @foreach (var toast in Toasts.Values)
         {
