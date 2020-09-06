@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         protected string? WrapperClassName => CssBuilder.Default("table-wrapper")
             .AddClass("table-bordered", IsBordered)
             .AddClass("table-striped table-hover", IsStriped)
-            .AddClass("is-single", !IsMultipleSelect && ClickToSelect)
+            .AddClass("is-single", ClickToSelect || DoubleClickToEdit)
             .Build();
 
         /// <summary>
@@ -91,13 +91,13 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否斑马线样式
+        /// 获得/设置 是否斑马线样式 默认为 false
         /// </summary>
         [Parameter]
         public bool IsStriped { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否带边框样式
+        /// 获得/设置 是否带边框样式 默认为 false
         /// </summary>
         [Parameter]
         public bool IsBordered { get; set; }

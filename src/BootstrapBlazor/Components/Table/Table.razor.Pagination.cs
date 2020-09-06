@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     partial class Table<TItem>
     {
         /// <summary>
-        /// 获得/设置 是否分页
+        /// 获得/设置 是否分页 默认为 false
         /// </summary>
         [Parameter] public bool IsPagination { get; set; }
 

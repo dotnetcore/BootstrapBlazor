@@ -402,6 +402,12 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "tables/footer"
             });
 
+            it.AddItem(new MenuItem()
+            {
+                Text = "弹窗联动",
+                Url = "tables/dialog"
+            });
+
             item.AddItem(it);
 
             AddBadge(it, false);

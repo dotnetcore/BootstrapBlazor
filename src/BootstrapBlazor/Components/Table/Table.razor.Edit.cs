@@ -161,8 +161,10 @@ namespace BootstrapBlazor.Components
         {
             if (ClickToSelect)
             {
-                SelectedItems.Clear();
+                if (!IsMultipleSelect) SelectedItems.Clear();
                 SelectedItems.Add(val);
+
+                if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
 
                 StateHasChanged();
             }
@@ -241,11 +243,8 @@ namespace BootstrapBlazor.Components
             SelectedItems.Clear();
             SelectedItems.Add(item);
 
-            if (OnSaveAsync != null || OnAddAsync != null)
-            {
-                // 更新行选中状态
-                await EditAsync();
-            }
+            // 更新行选中状态
+            await EditAsync();
         }
 
         /// <summary>

@@ -58,6 +58,11 @@ namespace BootstrapBlazor.Components
         bool Editable { get; set; }
 
         /// <summary>
+        /// 获得/设置 当前列编辑时是否只读 默认为 false
+        /// </summary>
+        bool Readonly { get; set; }
+
+        /// <summary>
         /// 获得/设置 列宽
         /// </summary>
         int? Width { get; set; }

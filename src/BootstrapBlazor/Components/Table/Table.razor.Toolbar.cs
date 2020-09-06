@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示新建按钮 默认为 true 显示
         /// </summary>
         [Parameter]
-        public bool ShowNewButton { get; set; } = true;
+        public bool ShowAddButton { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 是否显示编辑按钮 默认为 true 显示
@@ -107,26 +107,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task AddAsync()
         {
-            if (OnAddAsync != null) EditModel = await OnAddAsync();
-            else EditModel = new TItem();
-
-            SelectedItems.Clear();
-            EditModalTitleString = AddModalTitle;
-
-            ShowEditorDialog();
-
-            StateHasChanged();
-        }
-
-        /// <summary>
-        /// 编辑按钮方法
-        /// </summary>
-        public Task EditAsync()
-        {
-            if (SelectedItems.Count == 1)
+            if (OnSaveAsync != null)
             {
-                EditModel = SelectedItems[0].Clone();
-                EditModalTitleString = EditModalTitle;
+                if (OnAddAsync != null) EditModel = await OnAddAsync();
+                else EditModel = new TItem();
+
+                SelectedItems.Clear();
+                EditModalTitleString = AddModalTitle;
 
                 ShowEditorDialog();
             }
@@ -134,9 +121,46 @@ namespace BootstrapBlazor.Components
             {
                 var option = new ToastOption
                 {
-                    Category = ToastCategory.Information,
+                    Category = ToastCategory.Error,
+                    Title = "新建数据",
+                    Content = "未提供保存数据方法，无法新建数据"
+                };
+                Toast.Show(option);
+            }
+        }
+
+        /// <summary>
+        /// 编辑按钮方法
+        /// </summary>
+        public Task EditAsync()
+        {
+            if (OnSaveAsync != null)
+            {
+                if (SelectedItems.Count == 1)
+                {
+                    EditModel = SelectedItems[0].Clone();
+                    EditModalTitleString = EditModalTitle;
+
+                    ShowEditorDialog();
+                }
+                else
+                {
+                    var option = new ToastOption
+                    {
+                        Category = ToastCategory.Information,
+                        Title = "编辑数据",
+                        Content = SelectedItems.Count == 0 ? "请选择要编辑的数据" : "只能选择一项要编辑的数据"
+                    };
+                    Toast.Show(option);
+                }
+            }
+            else
+            {
+                var option = new ToastOption
+                {
+                    Category = ToastCategory.Error,
                     Title = "编辑数据",
-                    Content = SelectedItems.Count == 0 ? "请选择要编辑的数据" : "只能选择一项要编辑的数据"
+                    Content = "未提供保存数据方法，无法编辑数据"
                 };
                 Toast.Show(option);
             }
@@ -150,18 +174,31 @@ namespace BootstrapBlazor.Components
         protected async Task Save(EditContext context)
         {
             var valid = false;
-            if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
-            var option = new ToastOption
+            if (OnSaveAsync != null)
             {
-                Category = valid ? ToastCategory.Success : ToastCategory.Error,
-                Title = "保存数据"
-            };
-            option.Content = $"保存数据{(valid ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
-            Toast.Show(option);
-            if (valid)
+                valid = await OnSaveAsync((TItem)context.Model);
+                var option = new ToastOption
+                {
+                    Category = valid ? ToastCategory.Success : ToastCategory.Error,
+                    Title = "保存数据"
+                };
+                option.Content = $"保存数据{(valid ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+                Toast.Show(option);
+                if (valid)
+                {
+                    DialogOption.Dialog?.Toggle();
+                    await QueryAsync();
+                }
+            }
+            else
             {
-                DialogOption.Dialog?.Toggle();
-                await QueryAsync();
+                var option = new ToastOption
+                {
+                    Category = ToastCategory.Error,
+                    Title = "编辑数据",
+                    Content = "未提供保存数据方法，无法保存数据"
+                };
+                Toast.Show(option);
             }
         }
 

@@ -75,6 +75,7 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(index++, "Value", fieldValue);
                 builder.AddAttribute(index++, "ValueChanged", fieldValueChanged);
                 builder.AddAttribute(index++, "ValueExpression", valueExpression);
+                builder.AddAttribute(index++, "IsDisabled", col.Readonly);
                 builder.AddMultipleAttributes(index++, CreateMultipleAttributes(fieldType));
                 builder.CloseComponent();
             }

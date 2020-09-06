@@ -74,6 +74,12 @@ namespace BootstrapBlazor.Components
         public bool Editable { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 当前列编辑时是否为只读模式 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool Readonly { get; set; }
+
+        /// <summary>
         /// 获得/设置 表头显示文字
         /// </summary>
         [Parameter]

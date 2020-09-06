@@ -20,7 +20,7 @@
                 <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
                     @if (ShowDefaultButtons)
                     {
-                        @if (ShowNewButton)
+                        @if (ShowAddButton)
                         {
                             <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="新建" />
                         }

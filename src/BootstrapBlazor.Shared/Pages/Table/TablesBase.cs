@@ -285,7 +285,7 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
-                Name = "ShowNewButton",
+                Name = "ShowAddButton",
                 Description = "显示增加按钮",
                 Type = "boolean",
                 ValueList = "true / false",
