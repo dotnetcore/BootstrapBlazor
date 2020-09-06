@@ -8,8 +8,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Modal 弹窗组件
     /// </summary>
-    public abstract class ModalBase : PopupComponentBase
+    public abstract class ModalBase : BootstrapComponentBase
     {
+        /// <summary>
+        /// 获得/设置 DOM 元素实例
+        /// </summary>
+        protected ElementReference ModalElement { get; set; }
+
         /// <summary>
         /// 获得 样式字符串
         /// </summary>
@@ -51,7 +56,7 @@ namespace BootstrapBlazor.Components
         public async Task Toggle()
         {
             Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
-            await JSRuntime.InvokeVoidAsync(PopupElement, "bb_modal", "toggle");
+            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "toggle");
         }
 
         /// <summary>
