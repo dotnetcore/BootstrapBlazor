@@ -10,7 +10,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 组件 id 属性
         /// </summary>
-        [Parameter] public virtual string? Id { get; set; }
+        [Parameter]
+        public virtual string? Id { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -19,7 +20,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            Id = $"bb_{GetHashCode()}";
+            if (string.IsNullOrEmpty(Id)) Id = $"bb_{GetHashCode()}";
         }
     }
 }

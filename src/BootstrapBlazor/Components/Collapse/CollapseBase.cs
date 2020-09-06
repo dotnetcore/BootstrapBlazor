@@ -80,7 +80,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) await JSRuntime.Invoke(CollapseElement, "collapse");
+            if (firstRender) await JSRuntime.InvokeVoidAsync(CollapseElement, "collapse");
         }
 
         /// <summary>

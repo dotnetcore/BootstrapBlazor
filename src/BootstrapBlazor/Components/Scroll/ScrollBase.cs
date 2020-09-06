@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.Invoke(ScrollElement, "bb_scroll");
+                await JSRuntime.InvokeVoidAsync(ScrollElement, "bb_scroll");
             }
         }
     }

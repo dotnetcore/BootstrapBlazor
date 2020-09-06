@@ -142,7 +142,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.Invoke(Picker, "datetimePicker");
+                await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker");
             }
         }
 
@@ -173,7 +173,7 @@ namespace BootstrapBlazor.Components
         {
             CurrentValue = default!;
             StateHasChanged();
-            await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
+            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task OnConfirm()
         {
-            await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
+            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
         }
     }
 }

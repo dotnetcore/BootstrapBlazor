@@ -125,7 +125,7 @@ namespace BootstrapBlazor.Components
 
             FirstRender = false;
 
-            await JSRuntime.Invoke(TabElement, "bb_tab");
+            await JSRuntime.InvokeVoidAsync(TabElement, "bb_tab");
         }
 
         /// <summary>

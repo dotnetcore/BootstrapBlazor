@@ -1,5 +1,4 @@
-﻿using Microsoft.JSInterop;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -41,7 +40,7 @@ namespace BootstrapBlazor.Components
             var id = RetrieveId();
             if (!string.IsNullOrEmpty(id))
             {
-                await JSRuntime.InvokeVoidAsync("$.bb_tooltip", id, RetrieveMethod(), RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
+                await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, RetrieveMethod(), RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
             }
         }
 
@@ -54,7 +53,7 @@ namespace BootstrapBlazor.Components
             var id = RetrieveId();
             if (!string.IsNullOrEmpty(id))
             {
-                await JSRuntime.InvokeVoidAsync("$.bb_popover", id, RetrieveMethod(), RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
+                await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, RetrieveMethod(), RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
             }
         }
 
@@ -107,10 +106,14 @@ namespace BootstrapBlazor.Components
         {
             if (disposing && Tooltip != null)
             {
-                if (Tooltip.PopoverType == PopoverType.Tooltip)
-                    _ = JSRuntime.InvokeVoidAsync("$.bb_tooltip", RetrieveId(), "dispose");
-                else
-                    _ = JSRuntime.InvokeVoidAsync("$.bb_popover", RetrieveId(), "dispose");
+                var id = RetrieveId();
+                if (!string.IsNullOrEmpty(id))
+                {
+                    if (Tooltip.PopoverType == PopoverType.Tooltip)
+                        _ = JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                    else
+                        _ = JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                }
             }
         }
     }

@@ -69,7 +69,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.Invoke(SplitElement, "split");
+                await JSRuntime.InvokeVoidAsync(SplitElement, "split");
             }
         }
     }

@@ -126,7 +126,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            await JSRuntime.Invoke(ConsoleElement, "bb_console_log");
+            await JSRuntime.InvokeVoidAsync(ConsoleElement, "bb_console_log");
         }
 
         /// <summary>

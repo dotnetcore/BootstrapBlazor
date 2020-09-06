@@ -181,7 +181,7 @@ namespace BootstrapBlazor.Components
             if (!string.IsNullOrEmpty(methodName))
             {
                 // 固定表头脚本关联
-                await JSRuntime.Invoke(TableElement, "bb_table", methodName);
+                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName);
                 methodName = null;
             }
 

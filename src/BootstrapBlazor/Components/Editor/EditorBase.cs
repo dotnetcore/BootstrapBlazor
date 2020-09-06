@@ -86,7 +86,7 @@ namespace BootstrapBlazor.Components
             if (_renderValue)
             {
                 _renderValue = false;
-                await JSRuntime.Invoke(EditorElement, "editor", "code", "", "", Value ?? "");
+                await JSRuntime.InvokeVoidAsync(EditorElement, "editor", "code", "", "", Value ?? "");
             }
         }
 

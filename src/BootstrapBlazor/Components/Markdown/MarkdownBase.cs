@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) await JSRuntime.Invoke(MarkdownElement, "markdown");
+            if (firstRender) await JSRuntime.InvokeVoidAsync(MarkdownElement, "markdown");
         }
 
         /// <summary>

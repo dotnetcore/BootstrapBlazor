@@ -30,13 +30,16 @@ namespace BootstrapBlazor.Components
         /// <param name="func"></param>
         /// <param name="method"></param>
         /// <param name="args"></param>
-        public async Task Invoke(TValue value, object? el, string func, string? method, params object[] args)
+        public async ValueTask Invoke(TValue value, object? el, string func, string? method, params object[] args)
         {
             _objRef = DotNetObjectReference.Create(value);
-            var paras = new List<object>();
+            var paras = new List<object>()
+            {
+                _objRef
+            };
             if (!string.IsNullOrEmpty(method)) paras.Add(method);
             if (args != null) paras.AddRange(args);
-            await _jsRuntime.Invoke(el, func, _objRef, paras.ToArray());
+            await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
         }
 
         /// <summary>
@@ -48,6 +51,7 @@ namespace BootstrapBlazor.Components
             if (disposing)
             {
                 _objRef?.Dispose();
+                _objRef = null;
             }
         }
 
