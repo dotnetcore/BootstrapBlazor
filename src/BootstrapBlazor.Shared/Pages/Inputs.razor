@@ -122,11 +122,24 @@
             </div>
         </div>
     </div>
+    <p class="mt-3"><code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">设置 <code class="ml-1">Formatter</code></div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput TValue="byte[]" Value="@ByteArray" Formatter="@ByteArrayFormatter" IsDisabled="true" />
+            </div>
+        </div>
+    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
 
 @code {
+    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+
+    private string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+
     private string InputValue => "数据值";
 
     [System.ComponentModel.DisplayName("标签值")]
@@ -199,6 +212,6 @@
                 ValueList = "true|false",
                 DefaultValue = "false"
             }
-            };
+        };
     }
 }

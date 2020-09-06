@@ -73,6 +73,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
+                Name = "Readonly",
+                Description = "编辑时是否只读模式",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "Text",
                 Description = "表头显示文字",
                 Type = "string",
