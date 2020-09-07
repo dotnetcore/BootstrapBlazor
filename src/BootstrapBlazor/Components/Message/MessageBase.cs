@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Components
     public abstract class MessageBase : BootstrapComponentBase
     {
         /// <summary>
-        /// 
-        /// </summary>
-        protected ElementReference MessageElement { get; set; }
-
-        /// <summary>
         /// 获得 组件样式
         /// </summary>
         protected string? ClassString => CssBuilder.Default("message")
@@ -46,13 +41,11 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Placement Placement { get; set; } = Placement.Top;
 
-#nullable disable
         /// <summary>
         /// ToastServices 服务实例
         /// </summary>
         [Inject]
-        public MessageService MessageService { get; set; }
-#nullable restore
+        public MessageService? MessageService { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -62,19 +55,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 注册 Toast 弹窗事件
-            MessageService.Register(this, Show);
-        }
-
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender) await JSRuntime.InvokeVoidAsync(MessageElement, "bb_pop", "init");
+            MessageService?.Register(this, Show);
         }
 
         private async Task Show(MessageOption option)
@@ -113,8 +94,7 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
-                MessageService.UnRegister(this);
-                _ = JSRuntime.InvokeVoidAsync(MessageElement, "bb_pop", "dispose");
+                MessageService?.UnRegister(this);
             }
         }
     }

@@ -10,11 +10,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Toast
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private ElementReference ToastElement { get; set; }
-
         private string? ClassString => CssBuilder.Default("toast-container")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
@@ -56,18 +51,6 @@ namespace BootstrapBlazor.Components
             {
                 ToastService.Register(this, Show);
             }
-        }
-
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender) await JSRuntime.InvokeVoidAsync(ToastElement, "bb_pop", "init");
         }
 
         private async Task Show(ToastOption option)
@@ -118,7 +101,6 @@ namespace BootstrapBlazor.Components
             if (disposing)
             {
                 ToastService.UnRegister(this);
-                _ = JSRuntime.InvokeVoidAsync(ToastElement, "bb_pop", "dispose");
             }
         }
     }
