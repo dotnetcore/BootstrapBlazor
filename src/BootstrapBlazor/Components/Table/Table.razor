@@ -118,7 +118,7 @@
                                 <tr class="@GetRowClassString(item)" @onclick="@(e => ClickRow(item))">
                                     <td>
                                         <div class="table-cell">
-                                            <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
+                                            <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck" @onclick:stopPropagation></Checkbox>
                                         </div>
                                     </td>
                                     @RenderRow(item)
