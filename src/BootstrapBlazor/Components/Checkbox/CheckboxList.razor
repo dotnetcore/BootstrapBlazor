@@ -7,7 +7,7 @@
 {
     <label class="control-label">@DisplayText</label>
 }
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="checkbox">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="checkbox" tabindex="0" hidefocus="true">
     @foreach (var item in Items)
     {
         <div class="@CheckboxItemClassString">
