@@ -40,11 +40,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string SearchTooltip { get; set; } = "<div class='search-input-tooltip'>输入任意字符串全局搜索</br><kbd>Enter</kbd> 搜索 <kbd>ESC</kbd> 清除搜索</div>";
 
-        /// <summary>
-        /// 获得 搜索条件集合
-        /// </summary>
-        protected List<FilterKeyValueAction> Searchs { get; } = new List<FilterKeyValueAction>(10);
-
 #nullable disable
         /// <summary>
         /// 获得/设置 SearchTemplate 实例
@@ -104,11 +99,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task SearchClick()
         {
-            // 查询控件按钮触发此事件
-            // TODO: 拼接 Searchs 通过 SearchModel 遍历属性值获取搜索条件 未完待续
-            Searchs.Clear();
-
-            PageIndex = 1;
             await QueryAsync();
         }
 
@@ -118,7 +108,7 @@ namespace BootstrapBlazor.Components
         protected Task ShowSearchDialog()
         {
             // 弹出高级查询弹窗
-            DialogOption.IsScrolling = true;
+            DialogOption.IsScrolling = ScrollingDialogContent;
             DialogOption.Size = Size.ExtraLarge;
             DialogOption.Title = "查询条件";
             DialogOption.ShowCloseButton = false;

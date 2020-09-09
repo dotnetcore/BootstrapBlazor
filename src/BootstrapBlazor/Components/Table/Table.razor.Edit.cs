@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false
         /// </summary>
         [Parameter]
-        public bool ScollingDialogContent { get; set; }
+        public bool ScrollingDialogContent { get; set; }
 
         /// <summary>
         /// 获得/设置 被选中的数据集合
@@ -214,7 +214,7 @@ namespace BootstrapBlazor.Components
                     SortOrder = SortOrder,
                     SortName = SortName,
                     Filters = Filters.Values,
-                    Searchs = Searchs
+                    SearchModel = SearchModel
                 });
             }
             if (queryData != null)
