@@ -5192,3 +5192,14 @@ input:disabled,
     }
 }
 /*end multi-select*/
+
+/*editor-form*/
+.ef-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2rem;
+}
+/*end editor-form*/

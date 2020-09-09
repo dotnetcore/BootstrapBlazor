@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// ITableHeader 接口
     /// </summary>
-    public interface ITableColumn
+    public interface ITableColumn : IEditorItem
     {
         /// <summary>
         /// 获得/设置 用户自定义属性
@@ -16,16 +16,6 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         [Parameter(CaptureUnmatchedValues = true)]
         public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
-        /// <summary>
-        /// 获取绑定字段显示名称方法
-        /// </summary>
-        string GetDisplayName();
-
-        /// <summary>
-        /// 获取绑定字段信息方法
-        /// </summary>
-        string GetFieldName();
 
         /// <summary>
         /// 获得/设置 是否允许排序 默认为 false
@@ -53,16 +43,6 @@ namespace BootstrapBlazor.Components
         bool Searchable { get; set; }
 
         /// <summary>
-        /// 获得/设置 当前列是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
-        /// </summary>
-        bool Editable { get; set; }
-
-        /// <summary>
-        /// 获得/设置 当前列编辑时是否只读 默认为 false
-        /// </summary>
-        bool Readonly { get; set; }
-
-        /// <summary>
         /// 获得/设置 列宽
         /// </summary>
         int? Width { get; set; }
@@ -73,24 +53,14 @@ namespace BootstrapBlazor.Components
         BreakPoint ShownWithBreakPoint { get; set; }
 
         /// <summary>
-        /// 获得/设置 绑定列类型
-        /// </summary>
-        Type FieldType { get; set; }
-
-        /// <summary>
         /// 获得/设置 显示模板
         /// </summary>
         RenderFragment<object>? Template { get; }
 
         /// <summary>
-        /// 获得/设置 编辑模板
-        /// </summary>
-        RenderFragment<object?>? EditTemplate { get; set; }
-
-        /// <summary>
         /// 获得/设置 搜索模板
         /// </summary>
-        RenderFragment<object?>? SearchTemplate { get; set; }
+        RenderFragment<object>? SearchTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 过滤模板

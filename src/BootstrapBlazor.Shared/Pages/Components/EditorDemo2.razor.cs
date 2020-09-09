@@ -19,28 +19,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
 
         private Dummy DummyModel = new Dummy();
 
-        private class Dummy
-        {
-            [Required(ErrorMessage = "姓名不可以为空")]
-            [DisplayName("姓名")]
-            public string? Name { get; set; }
-
-            [Required(ErrorMessage = "年龄不可以为空")]
-            [DisplayName("年龄")]
-            public int Age { get; set; }
-
-            [DisplayName("生日")]
-            public DateTime BirthDay { get; set; } = DateTime.Today.AddYears(-20);
-
-            [Required(ErrorMessage = "请选择一种爱好")]
-            [DisplayName("爱好")]
-            public IEnumerable<string> Hobby { get; set; } = new List<string>();
-
-            [Required(ErrorMessage = "请选择学历")]
-            [DisplayName("学历")]
-            public EnumEducation? Education { get; set; }
-        }
-
         private IEnumerable<SelectedItem>? Educations { get; set; }
 
         private IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()

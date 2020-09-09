@@ -119,14 +119,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 编辑模板
         /// </summary>
         [Parameter]
-        public RenderFragment<object?>? EditTemplate { get; set; }
+        public RenderFragment<object>? EditTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索模板
         /// </summary>
         /// <value></value>
         [Parameter]
-        public RenderFragment<object?>? SearchTemplate { get; set; }
+        public RenderFragment<object>? SearchTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 过滤模板
@@ -167,7 +167,7 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             Table?.Columns.Add(this);
-            _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+            if (FieldExpression != null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
 
             // 获取模型属性定义类型
             FieldType = typeof(TItem);
