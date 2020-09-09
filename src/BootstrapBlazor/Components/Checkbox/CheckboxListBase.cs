@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
         /// 获得 组件样式
         /// </summary>
         protected string? ClassString => CssBuilder.Default("checkbox-list form-control")
-            .AddClass(ValidCss).AddClass(ValidCss)
+            .AddClass(CssClass).AddClass(ValidCss)
             .Build();
         /// <summary>
         /// 获得 组件内部 Checkbox 项目样式

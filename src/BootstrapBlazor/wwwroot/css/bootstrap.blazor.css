@@ -4996,18 +4996,32 @@ input:disabled,
     height: auto;
     display: flex;
     flex-flow: row wrap;
+    padding-bottom: 0;
 }
 
-    .checkbox-list .checkbox-item:not(:last-child) {
-        margin-right: 1rem;
-        width: 140px;
+    .checkbox-list .checkbox-item {
+        display: inline-flex;
+        width: 120px;
+        margin-bottom: 0.375rem;
     }
 
-    .checkbox-list .checkbox-item .form-checkbox {
-        vertical-align: middle;
-        margin: 0.25rem 0;
-        width: 100%;
-    }
+        .checkbox-list .checkbox-item .form-checkbox {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-right: 0.5rem;
+        }
+
+            .checkbox-list .checkbox-item .form-checkbox .checkbox-input {
+                display: inline-flex;
+            }
+
+            .checkbox-list .checkbox-item .form-checkbox .checkbox-label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
 
 @media (min-width: 576px) {
     .form-inline .checkbox-list {
