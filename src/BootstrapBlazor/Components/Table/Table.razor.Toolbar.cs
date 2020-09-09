@@ -266,15 +266,15 @@ namespace BootstrapBlazor.Components
 
             if (ret)
             {
-                SelectedItems.Clear();
-
                 // 删除成功 重新查询
                 // 由于数据删除导致页码会改变，尤其是最后一页
                 // 重新计算页码
-                PageIndex = Math.Max(1, Math.Min(PageIndex, (TotalCount - SelectedItems.Count) / PageItems));
-
+                // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
+                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedItems.Count) * 1d / PageItems).ToString())));
                 var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedItems.Count));
                 PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+
+                SelectedItems.Clear();
                 await QueryAsync();
             }
             Toast.Show(option);
