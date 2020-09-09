@@ -99,6 +99,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task SearchClick()
         {
+            PageIndex = 1;
             await QueryAsync();
         }
 
