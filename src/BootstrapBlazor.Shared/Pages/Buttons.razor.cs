@@ -1,7 +1,9 @@
-﻿using BootstrapBlazor.Shared.Common;
+﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -14,6 +16,25 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         private Logger? Trace { get; set; }
+
+#nullable disable
+        private Button ButtonDisableDemo { get; set; }
+#nullable restore
+
+        private bool IsDisable { get; set; }
+
+        private void ClickButton1()
+        {
+            IsDisable = !IsDisable;
+            StateHasChanged();
+        }
+
+        private Task ClickButton2()
+        {
+            IsDisable = false;
+            ButtonDisableDemo.SetDisable(false);
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// 

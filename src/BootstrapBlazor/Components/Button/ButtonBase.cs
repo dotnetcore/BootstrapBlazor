@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Components
         public bool IsBlock { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否禁用
+        /// 获得/设置 是否禁用 默认为 false
         /// </summary>
         [Parameter]
         public bool IsDisabled { get; set; }
@@ -144,6 +144,40 @@ namespace BootstrapBlazor.Components
                     if (onClick.HasDelegate) await onClick.InvokeAsync(e);
                 }
             });
+        }
+
+        private bool _prevDisable;
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (!firstRender && Tooltip != null)
+            {
+                var id = RetrieveId();
+                if (!string.IsNullOrEmpty(id) && _prevDisable != IsDisabled)
+                {
+                    _prevDisable = IsDisabled;
+                    if (IsDisabled)
+                    {
+                        if (Tooltip.PopoverType == PopoverType.Tooltip)
+                            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                        else
+                            await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                    }
+                    else
+                    {
+                        if (Tooltip.PopoverType == PopoverType.Tooltip)
+                            await ShowTooltip();
+                        else
+                            await ShowPopover();
+                    }
+                }
+            }
         }
 
         /// <summary>

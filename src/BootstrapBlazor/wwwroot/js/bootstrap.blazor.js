@@ -1091,6 +1091,9 @@
                     $ctl.trigger('focus');
                 }
             }
+            else if (method === "dispose") {
+                if ($ele.data('bs.tooltip')) $ele.tooltip(method);
+            }
             else {
                 if (!$ele.data('bs.tooltip')) $ele.tooltip(op);
                 $ele.tooltip(method);
@@ -1102,6 +1105,9 @@
             if (method === "") {
                 if ($ele.data('bs.popover')) $ele.popover('dispose');
                 $ele.popover(op);
+            }
+            else if (method === "dispose") {
+                if ($ele.data('bs.popover')) $ele.popover(method);
             }
             else {
                 if (!$ele.data('bs.popover')) $ele.popover(op);
