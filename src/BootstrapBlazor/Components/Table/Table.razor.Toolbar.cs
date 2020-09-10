@@ -217,7 +217,7 @@ namespace BootstrapBlazor.Components
             var editorParameters = new List<KeyValuePair<string, object>>
             {
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Model), EditModel),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Columns), Columns),
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Columns), Columns.Where(i => i.Editable)),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(Save)),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.ShowLabel), false),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate)

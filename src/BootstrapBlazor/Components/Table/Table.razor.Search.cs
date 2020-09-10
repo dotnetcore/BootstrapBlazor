@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -115,10 +116,12 @@ namespace BootstrapBlazor.Components
             DialogOption.ShowCloseButton = false;
             DialogOption.ShowFooter = false;
 
+            var columns = Columns.Where(i => i.Searchable).ToList();
+            columns.ForEach(i => i.EditTemplate = i.SearchTemplate);
             var editorParameters = new List<KeyValuePair<string, object>>
             {
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Model), SearchModel),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Columns), Columns),
+                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Columns), columns),
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.ShowLabel), true),
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.BodyTemplate), SearchTemplate),
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.OnResetSearchClick), new Func<Task>(ResetSearchClick)),

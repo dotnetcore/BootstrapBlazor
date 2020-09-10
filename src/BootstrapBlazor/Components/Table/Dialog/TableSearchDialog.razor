@@ -5,30 +5,29 @@
 @if (BodyTemplate != null)
 {
     @BodyTemplate?.Invoke(Model)
+    @RenderFooter
 }
 else
 {
-    <div class="form-inline">
-        <div class="row">
-            @foreach (var col in Columns)
-            {
-                if (col.Searchable)
-                {
-                    <div class="form-group col-12 col-sm-6">
-                        @(col.SearchTemplate?.Invoke(Model) ?? AutoGenerateTemplate(col, Model))
-                    </div>
-                }
-            }
-        </div>
-    </div>
+    <CascadingValue Value="Columns" IsFixed="true">
+        <EditorForm Model="Model">
+            <Buttons>
+                @RenderFooter
+            </Buttons>
+        </EditorForm>
+    </CascadingValue>
 }
-<div class="modal-footer table-modal-footer">
-    <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@OnResetSearchClick">
-        <i class="fa fa-trash-o"></i>
-        <span>重置</span>
-    </button>
-    <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@OnSearchClick">
-        <i class="fa fa-search"></i>
-        <span>查询</span>
-    </button>
-</div>
+
+@code {
+    RenderFragment RenderFooter =>
+    @<div class="modal-footer table-modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@OnResetSearchClick">
+            <i class="fa fa-trash-o"></i>
+            <span>重置</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@OnSearchClick">
+            <i class="fa fa-search"></i>
+            <span>查询</span>
+        </button>
+    </div>;
+}

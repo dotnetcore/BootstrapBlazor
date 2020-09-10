@@ -43,10 +43,16 @@ namespace BootstrapBlazor.Components
         public bool? ShowLabel { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 级联上线文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值
+        /// 获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值
         /// </summary>
         [CascadingParameter]
         private EditContext? CascadedEditContext { get; set; }
+
+        /// <summary>
+        /// 获得/设置 级联上下文绑定字段信息集合
+        /// </summary>
+        [CascadingParameter]
+        private IEnumerable<IEditorItem> CascadeEditorItems { get; set; } = Enumerable.Empty<IEditorItem>();
 
         /// <summary>
         /// 获得/设置 配置编辑项目集合
@@ -95,22 +101,31 @@ namespace BootstrapBlazor.Components
 
                 // 如果 EditorItems 有值表示 用户自定义列
                 var items = Model.GetType().GetProperties().Select(p => new InternalEditorItem<TModel>(Model, p)).ToList();
-                foreach (var item in EditorItems)
+
+                if (CascadeEditorItems.Any())
                 {
-                    var el = items.FirstOrDefault(i => i.GetFieldName() == item.GetFieldName());
-
-                    if (el != null)
-                    {
-                        // 过滤掉不编辑的列
-                        if (!item.Editable) items.Remove(el);
-
-                        // 设置只读属性与列模板
-                        el.Readonly = item.Readonly;
-                        el.EditTemplate = item.EditTemplate;
-                    }
+                    FormItems.AddRange(CascadeEditorItems);
                 }
-                FormItems.AddRange(items.OrderBy(i => GetOrder(i.FieldName)));
+                else
+                {
+                    foreach (var el in EditorItems)
+                    {
+                        var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
 
+                        if (item != null)
+                        {
+                            // 过滤掉不编辑的列
+                            if (!el.Editable) items.Remove(item);
+                            else
+                            {
+                                // 设置只读属性与列模板
+                                item.Readonly = el.Readonly;
+                                item.EditTemplate = el.EditTemplate;
+                            }
+                        }
+                    }
+                    FormItems.AddRange(items.OrderBy(i => GetOrder(i.FieldName)));
+                }
                 StateHasChanged();
             }
         }

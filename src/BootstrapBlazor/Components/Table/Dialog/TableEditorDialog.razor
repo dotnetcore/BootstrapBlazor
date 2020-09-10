@@ -6,28 +6,27 @@
     @if (BodyTemplate != null)
     {
         @BodyTemplate?.Invoke(Model)
+        @RenderFooter
     }
     else
     {
-        <div class="form-inline">
-            <div class="row">
-                @foreach (var col in Columns)
-                {
-                    if (col.Editable)
-                    {
-                        <div class="form-group col-12 col-sm-6">
-                            @(col.EditTemplate?.Invoke(Model) ?? AutoGenerateTemplate(col, Model))
-                        </div>
-                    }
-                }
-            </div>
-        </div>
+        <CascadingValue Value="Columns" IsFixed="true">
+            <EditorForm TModel="TModel">
+                <Buttons>
+                    @RenderFooter
+                </Buttons>
+            </EditorForm>
+        </CascadingValue>
     }
-    <div class="modal-footer table-modal-footer">
+</ValidateForm>
+
+@code {
+    RenderFragment RenderFooter =>
+    @<div class="modal-footer table-modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
             <i class="fa fa-times"></i>
             <span>关闭</span>
         </button>
         <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="保存" />
-    </div>
-</ValidateForm>
+    </div>;
+}
