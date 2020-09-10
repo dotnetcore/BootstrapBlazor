@@ -18,7 +18,7 @@
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
         <SearchTemplate>
             <div class="form-inline">
@@ -48,7 +48,7 @@
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" Searchable="true" />
             <TableColumn @bind-Field="@context.Address" Searchable="true" />
-            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
 </Block>
@@ -86,7 +86,7 @@
                 </SearchTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Searchable="true" />
-            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
 </Block>

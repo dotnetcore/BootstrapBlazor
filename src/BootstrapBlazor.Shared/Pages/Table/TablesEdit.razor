@@ -17,7 +17,7 @@
             <TableColumn @bind-Field="@context.DateTime" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
         <EditTemplate>
             <div class="form-inline">
@@ -40,9 +40,9 @@
                         </DateTimePicker>
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Count">
+                        <Select Items="@Educations" @bind-Value="@context.Education">
                             <RequiredValidator />
-                        </BootstrapInput>
+                        </Select>
                     </div>
                 </div>
             </div>
@@ -67,6 +67,7 @@
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" Editable="false" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
 </Block>
@@ -90,7 +91,7 @@
                 </EditTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
 </Block>
