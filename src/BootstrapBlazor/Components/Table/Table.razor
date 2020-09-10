@@ -75,125 +75,25 @@
                 </div>
             }
         </div>
-        <div class="@WrapperClassName" style="@WrapperStyleName">
-            @if (RetrieveRenderModel == TableRenderModel.Table)
+        <div class="@WrapperClassName">
+            @if (ActiveRenderModel == TableRenderModel.Table)
             {
-                <table class="@ClassName">
-                    <colgroup>
-                        @if (IsMultipleSelect)
-                        {
-                            @if (ShowCheckboxText)
-                            {
-                                <col width="80" />
-                            }
-                            else
-                            {
-                                <col width="36" />
-                            }
-                        }
-                        @if (ShowLineNo)
-                        {
-                            <col width="60" />
-                        }
-                        @foreach (var col in Columns)
-                        {
-                            @if (CheckShownWithBreakpoint(col))
-                            {
-                                <col width="@col.Width" />
-                            }
-                        }
-                        @if (ShowExtendButtons)
-                        {
-                            <col width="@ExtendButtonColumnWidth" />
-                        }
-                    </colgroup>
-                    <tbody>
-                        @{
-                            StarRowIndex = (PageIndex - 1) * PageItems + 1;
-                        }
-                        @foreach (var item in Items)
-                        {
-                            @if (IsMultipleSelect)
-                            {
-                                <tr class="@GetRowClassString(item)" @onclick="@(e => ClickRow(item))">
-                                    <td>
-                                        <div class="table-cell">
-                                            <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck" @onclick:stopPropagation></Checkbox>
-                                        </div>
-                                    </td>
-                                    @RenderRow(item)
-                                </tr>
-                            }
-                            else
-                            {
-                                <tr class="@GetRowClassString(item)" @onclick="@(e => ClickRow(item))" @ondblclick="@(e => DoubleClickRow(item))">
-                                    @RenderRow(item)
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                    <thead>
-                        <tr>
-                            @if (IsMultipleSelect)
-                            {
-                                <th class="@CheckboxColumnClass">
-                                    <div class="table-cell">
-                                        <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
-                                                  DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
-                                                  State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck"></Checkbox>
-                                    </div>
-                                </th>
-                            }
-                            @if (ShowLineNo)
-                            {
-                                <th>
-                                    <div class="table-cell">@LineNoText</div>
-                                </th>
-                            }
-                            @foreach (var col in Columns)
-                            {
-                                @if (CheckShownWithBreakpoint(col))
-                                {
-                                    var fieldName = col.GetFieldName();
-                                    var displayName = col.GetDisplayName();
-                                    <th class="@GetHeaderClassString(col)" @onclick="@(e => OnClickHeader(col))">
-                                        <div class="@GetHeaderWrapperClassString(col)">
-                                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
-                                            @if (col.Filterable)
-                                            {
-                                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(e => OnFilterClick(col))"></i>
-                                            }
-                                            @if (col.Sortable)
-                                            {
-                                                <i class="@GetIconClassString(fieldName)"></i>
-                                            }
-                                        </div>
-                                    </th>
-                                }
-                            }
-                            @if (ShowExtendButtons)
-                            {
-                                <th class="@ButtonColumnClass">
-                                    <div class="table-cell is-button-column">
-                                        @ColumnButtonTemplateHeaderText
-                                    </div>
-                                </th>
-                            }
-                        </tr>
-                    </thead>
-                    @if (ShowFooter)
-                    {
-                        <tfoot>
-                            <tr>
-                                <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                                    <CascadingValue Value="@RenderModelResponsiveWidth" Name="ViewModelResponsiveWidth">
-                                        @TableFooter?.Invoke(Items)
-                                    </CascadingValue>
-                                </CascadingValue>
-                            </tr>
-                        </tfoot>
-                    }
-                </table>
+                if (Height.HasValue)
+                {
+                    <div class="table-fixed-header">
+                        <table class="table">
+                            @RenderColgroup
+                            @RenderHeader.Invoke(true)
+                        </table>
+                    </div>
+                    <div class="table-fixed-body" style="@FixedHeaderStyleName">
+                        @RenderTable.Invoke(false)
+                    </div>
+                }
+                else
+                {
+                    @RenderTable.Invoke(true)
+                }
             }
             else
             {
@@ -266,17 +166,20 @@
             }
         </div>
 
-        if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
-        if (FilterColumns.Any())
+        if (ActiveRenderModel == TableRenderModel.Table)
         {
-            <CascadingValue Value="this" IsFixed="true">
-                <div class="table-filter">
-                    @foreach (var col in FilterColumns)
-                    {
-                        <TableFilter Column="col" />
-                    }
-                </div>
-            </CascadingValue>
+            if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
+            if (FilterColumns.Any())
+            {
+                <CascadingValue Value="this" IsFixed="true">
+                    <div class="table-filter">
+                        @foreach (var col in FilterColumns)
+                        {
+                            <TableFilter Column="col" />
+                        }
+                    </div>
+                </CascadingValue>
+            }
         }
 
         @if (TotalCount > 0 && IsPagination)
@@ -293,50 +196,179 @@
 <PopoverConfirm />
 
 @code {
-    RenderFragment<TItem> RenderRow => item =>
-    @<RenderTemplate>
-        @if (ShowLineNo)
-        {
-            <td>
-                <div class="table-cell">@(StarRowIndex++)</div>
-            </td>
-        }
-        @foreach (var col in Columns)
-        {
-            @if (CheckShownWithBreakpoint(col))
-            {
-                <td>
-                    <div class="@GetCellClassString(col)">
-                        @GetValue(col, item)
-                    </div>
-                </td>
+    RenderFragment<bool> RenderTable => fixedHeader =>
+    @<table class="@ClassName">
+        @RenderColgroup
+        @RenderHeader.Invoke(fixedHeader)
+        <tbody>
+            @{
+                StarRowIndex = (PageIndex - 1) * PageItems + 1;
             }
+            @foreach (var item in Items)
+            {
+                @if (IsMultipleSelect)
+                {
+                    <tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))">
+                        <td>
+                            <div class="table-cell">
+                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnCheck))" @onclick:stopPropagation></Checkbox>
+                            </div>
+                        </td>
+                        @RenderRow(item)
+                    </tr>
+                }
+                else
+                {
+                    <tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))" @ondblclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => DoubleClickRow(item)))">
+                        @RenderRow(item)
+                    </tr>
+                }
+            }
+        </tbody>
+        @if (ShowFooter)
+        {
+            <tfoot>
+                <tr>
+                    <CascadingValue Value="@ScreenSize" Name="ScreenSize">
+                        <CascadingValue Value="@RenderModelResponsiveWidth" Name="ViewModelResponsiveWidth">
+                            @TableFooter?.Invoke(Items)
+                        </CascadingValue>
+                    </CascadingValue>
+                </tr>
+            </tfoot>
         }
-        @if (ShowExtendButtons)
+    </table>;
+
+RenderFragment RenderColgroup =>
+@<colgroup>
+    @if (IsMultipleSelect)
+    {
+        @if (ShowCheckboxText)
+        {
+            <col width="80" />
+        }
+        else
+        {
+            <col width="36" />
+        }
+    }
+    @if (ShowLineNo)
+    {
+        <col width="60" />
+    }
+    @foreach (var col in Columns)
+    {
+        @if (CheckShownWithBreakpoint(col))
+        {
+            <col width="@col.Width" />
+        }
+    }
+    @if (ShowExtendButtons)
+    {
+        <col width="@ExtendButtonColumnWidth" />
+    }
+</colgroup>;
+
+RenderFragment<bool> RenderHeader => fixedHeader =>
+@<RenderTemplate>
+    <thead>
+        <tr>
+            @if (IsMultipleSelect)
+            {
+                <th class="@CheckboxColumnClass">
+                    <div class="table-cell">
+                        @if (fixedHeader)
+                        {
+                            <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
+                                      DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                                      State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
+                        }
+                    </div>
+                </th>
+            }
+            @if (ShowLineNo)
+            {
+                <th>
+                    <div class="table-cell">@LineNoText</div>
+                </th>
+            }
+            @foreach (var col in Columns)
+            {
+                @if (CheckShownWithBreakpoint(col))
+                {
+                    var fieldName = col.GetFieldName();
+                    var displayName = col.GetDisplayName();
+                    <th class="@GetHeaderClassString(col)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClickHeader(col)))">
+                        <div class="@GetHeaderWrapperClassString(col)">
+                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                            @if (col.Filterable)
+                            {
+                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnFilterClick(col)))"></i>
+                            }
+                            @if (col.Sortable)
+                            {
+                                <i class="@GetIconClassString(fieldName)"></i>
+                            }
+                        </div>
+                    </th>
+                }
+            }
+            @if (ShowExtendButtons)
+            {
+                <th class="@ButtonColumnClass">
+                    <div class="table-cell is-button-column">
+                        @ColumnButtonTemplateHeaderText
+                    </div>
+                </th>
+            }
+        </tr>
+    </thead>
+</RenderTemplate>;
+
+RenderFragment<TItem> RenderRow => item =>
+@<RenderTemplate>
+    @if (ShowLineNo)
+    {
+        <td>
+            <div class="table-cell">@(StarRowIndex++)</div>
+        </td>
+    }
+    @foreach (var col in Columns)
+    {
+        @if (CheckShownWithBreakpoint(col))
         {
             <td>
-                <div class="table-cell">
-                    <div class="btn-group">
-                        @if (ShowDefaultButtons)
-                        {
-                            @if (ShowEditButton)
-                            {
-                                <Button Size="Size.ExtraSmall" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickEditButton(item)))" Icon="fa fa-edit" Text="编辑" />
-                            }
-                            @if (ShowDeleteButton)
-                            {
-                                <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                                  Color="Color.Danger" Icon="fa fa-remove" Text="删除"
-                                                  CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
-                                                  ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
-                                                  OnBeforeClick="@(new Func<Task<bool>>(() => ClickDeleteButton(item)))"
-                                                  OnConfirm="@(new Func<Task>(DeleteAsync))" />
-                            }
-                        }
-                        @RowButtonTemplate?.Invoke(item)
-                    </div>
+                <div class="@GetCellClassString(col)">
+                    @GetValue(col, item)
                 </div>
             </td>
         }
-    </RenderTemplate>;
+    }
+    @if (ShowExtendButtons)
+    {
+        <td>
+            <div class="table-cell">
+                <div class="btn-group">
+                    @if (ShowDefaultButtons)
+                    {
+                        @if (ShowEditButton)
+                        {
+                            <Button Size="Size.ExtraSmall" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickEditButton(item)))" Icon="fa fa-edit" Text="编辑" />
+                        }
+                        @if (ShowDeleteButton)
+                        {
+                            <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                              Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                                              CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
+                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
+                                              OnBeforeClick="@(new Func<Task<bool>>(() => ClickDeleteButton(item)))"
+                                              OnConfirm="@(new Func<Task>(DeleteAsync))" />
+                        }
+                    }
+                    @RowButtonTemplate?.Invoke(item)
+                </div>
+            </div>
+        </td>
+    }
+</RenderTemplate>;
 }

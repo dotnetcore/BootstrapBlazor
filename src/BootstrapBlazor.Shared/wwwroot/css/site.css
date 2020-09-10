@@ -1062,3 +1062,7 @@ section {
         flex: 1;
         padding: 0 0.5rem;
     }
+
+.fixed-header-demo .table-fixed-header {
+    margin-right: 17px;
+}

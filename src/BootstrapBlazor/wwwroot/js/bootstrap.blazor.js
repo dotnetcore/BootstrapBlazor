@@ -1201,11 +1201,11 @@
         bb_table: function (el, method, args) {
             var $ele = $(el);
             if (method === 'fixTableHeader') {
-                var $thead = $ele.find('thead');
-                var $wrapper = $ele.find('.table-wrapper');
-                $wrapper.on('scroll', function () {
-                    var top = $wrapper.scrollTop();
-                    $thead.css({ 'transform': 'translateY(' + top + 'px)' });
+                var $thead = $ele.find('.table-fixed-header');
+                var $body = $ele.find('.table-fixed-body');
+                $body.on('scroll', function () {
+                    var left = $body.scrollLeft();
+                    $thead.scrollLeft(left);
                 });
             }
             else if (method === 'init') {

@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 wrapper 样式表集合
         /// </summary>
-        protected string? WrapperClassName => CssBuilder.Default("table-wrapper")
+        protected string? WrapperClassName => CssBuilder.Default()
             .AddClass("table-bordered", IsBordered)
             .AddClass("table-striped table-hover", IsStriped)
             .AddClass("is-single", ClickToSelect || DoubleClickToEdit)

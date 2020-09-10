@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 渲染模式
         /// </summary>
-        protected TableRenderModel RetrieveRenderModel => RenderModel switch
+        protected TableRenderModel ActiveRenderModel => RenderModel switch
         {
             TableRenderModel.Auto => ScreenSize < RenderModelResponsiveWidth ? TableRenderModel.CardView : TableRenderModel.Table,
             _ => RenderModel

@@ -1031,26 +1031,22 @@ input:disabled,
     position: relative;
 }
 
-.table-wrapper {
-    overflow: auto;
+.table-bordered {
+    border-radius: 4px;
 }
 
-    .table-wrapper.table-bordered {
-        border-radius: 4px;
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #dee2e6;
+        border-left: 0;
     }
 
-.table-bordered th, .table-bordered td {
-    border: 1px solid #dee2e6;
-    border-left: 0;
-}
+        .table-bordered th:last-child, .table-bordered td:last-child {
+            border-right: 0;
+        }
 
-    .table-bordered th:last-child, .table-bordered td:last-child {
-        border-right: 0;
+    .table-bordered tr:last-child td {
+        border-bottom: 0;
     }
-
-.table-bordered tr:last-child td {
-    border-bottom: 0;
-}
 
 .table-th-checkbox {
     width: 36px;
@@ -1343,8 +1339,12 @@ input:disabled,
         padding: 1px 6px;
     }
 
-.table-fixed thead th .table-cell {
-    background-color: #fff;
+.table-fixed thead {
+    display: none;
+}
+
+.table-fixed-header {
+    overflow: hidden;
 }
 
 .table-loading {
