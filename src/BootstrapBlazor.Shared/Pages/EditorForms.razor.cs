@@ -100,6 +100,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "Text",
+                Description = "编辑列前置标签名",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "EditTemplate",
                 Description = "列编辑模板",
                 Type = "RenderFragment<object>",

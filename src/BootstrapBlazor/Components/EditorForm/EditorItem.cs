@@ -7,19 +7,20 @@ using System.Linq.Expressions;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// EditorItem 组件
     /// </summary>
+    /// <remarks>用于 EditorForm 的 FieldItems 模板内</remarks>
     public class EditorItem<TValue> : ComponentBase, IEditorItem
     {
 #nullable disable
         /// <summary>
-        /// 
+        /// 获得/设置 绑定字段值
         /// </summary>
         [Parameter]
         public TValue Field { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 绑定字段值变化回调委托
         /// </summary>
         [Parameter]
         public EventCallback<TValue> FieldChanged { get; set; }
@@ -48,8 +49,11 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool Readonly { get; set; }
 
-        [CascadingParameter]
-        private List<IEditorItem>? EditorItems { get; set; }
+        /// <summary>
+        /// 获得/设置 表头显示文字
+        /// </summary>
+        [Parameter]
+        public string? Text { get; set; }
 
         /// <summary>
         /// 获得/设置 编辑模板
@@ -58,7 +62,14 @@ namespace BootstrapBlazor.Components
         public RenderFragment<object>? EditTemplate { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 IEditorItem 集合实例
+        /// </summary>
+        /// <remarks>EditorForm 组件级联传参下来的值</remarks>
+        [CascadingParameter]
+        private List<IEditorItem>? EditorItems { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
@@ -75,7 +86,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>
-        public string GetDisplayName() => _fieldIdentifier?.GetDisplayName() ?? "";
+        public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? "";
 
         /// <summary>
         /// 获取绑定字段信息方法

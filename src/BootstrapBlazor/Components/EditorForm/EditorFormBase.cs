@@ -99,15 +99,19 @@ namespace BootstrapBlazor.Components
             {
                 FirstRender = false;
 
-                // 如果 EditorItems 有值表示 用户自定义列
-                var items = Model.GetType().GetProperties().Select(p => new InternalEditorItem<TModel>(Model, p)).ToList();
-
                 if (CascadeEditorItems.Any())
                 {
+                    // 通过级联参数渲染组件
                     FormItems.AddRange(CascadeEditorItems);
                 }
                 else
                 {
+                    // 如果 EditorItems 有值表示 用户自定义列
+
+                    // 获取绑定模型所有属性
+                    var items = Model.GetType().GetProperties().Select(p => new InternalEditorItem<TModel>(Model, p)).ToList();
+
+                    // 通过设定的 FieldItems 模板获取项进行渲染
                     foreach (var el in EditorItems)
                     {
                         var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());

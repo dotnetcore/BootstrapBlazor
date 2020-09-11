@@ -24,6 +24,11 @@ namespace BootstrapBlazor.Components
         bool Readonly { get; set; }
 
         /// <summary>
+        /// 获得/设置 表头显示文字
+        /// </summary>
+        public string? Text { get; set; }
+
+        /// <summary>
         /// 获得/设置 编辑模板
         /// </summary>
         RenderFragment<object>? EditTemplate { get; set; }
