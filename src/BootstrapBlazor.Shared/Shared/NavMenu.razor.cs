@@ -544,6 +544,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "骨架屏 Skeleton",
+                Url = "skeletons"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "分割面板 Split",
                 Url = "splits"
             });

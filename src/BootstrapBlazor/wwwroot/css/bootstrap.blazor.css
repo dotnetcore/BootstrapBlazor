@@ -5217,3 +5217,80 @@ input:disabled,
     padding: 2rem;
 }
 /*end editor-form*/
+
+/*skeleton*/
+.skeleton {
+    width: 100%;
+    flex: 1;
+}
+
+.skeleton-content {
+    position: relative;
+}
+
+.skeleton-row {
+    min-height: 32px;
+    background-color: #e9ecef;
+}
+
+    .skeleton-row:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+
+.skeleton-content.round .skeleton-row {
+    border-radius: 4px;
+}
+
+.skeleton-content.active .skeleton-row,
+.skeleton-content.active .skeleton-avatar {
+    background: -webkit-gradient(linear,left top,right top,color-stop(25%,#f2f2f2),color-stop(37%,#e6e6e6),color-stop(63%,#f2f2f2));
+    background: linear-gradient(90deg,#f2f2f2 25%,#e6e6e6 37%,#f2f2f2 63%);
+    background-size: 400% 100%;
+    -webkit-animation: skeleton-loading 1.4s ease infinite;
+    animation: skeleton-loading 1.4s ease infinite;
+}
+
+@-webkit-keyframes skeleton-loading {
+    0% {
+        background-position: 100% 50%
+    }
+
+    to {
+        background-position: 0 50%
+    }
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 100% 50%
+    }
+
+    to {
+        background-position: 0 50%
+    }
+}
+
+@media (min-width: 576px) {
+    .skeleton-content .control-label.skeleton-row {
+        margin-bottom: 0;
+    }
+}
+
+.skeleton-content .form-control.skeleton-row {
+    flex: 1;
+}
+
+.skeleton-avatar {
+    width: 2rem;
+    height: 2rem;
+}
+
+.skeleton-content.round .skeleton-avatar {
+    border-radius: 4px;
+}
+
+.skeleton-content .skeleton-avatar.circle {
+    border-radius: 50%;
+}
+
+/*end skeleton*/

@@ -1067,3 +1067,11 @@ section {
     margin-right: 17px;
     border-right: 1px solid #dee2e6;
 }
+
+.skeleton-demo .skeleton-content {
+    text-align: center;
+}
+
+    .skeleton-demo .skeleton-content .skeleton-avatar {
+        display: inline-block;
+    }
