@@ -116,6 +116,8 @@ namespace BootstrapBlazor.Components
                 EditModalTitleString = AddModalTitle;
 
                 ShowEditorDialog();
+
+                StateHasChanged();
             }
             else
             {
