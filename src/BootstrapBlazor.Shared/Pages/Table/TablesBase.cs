@@ -320,6 +320,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowSkeleton",
+                Description = "加载时是否显示骨架屏",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ExtendButtonColumnWidth",
                 Description = "行操作按钮列宽度",
                 Type = "int",

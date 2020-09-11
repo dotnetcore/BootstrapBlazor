@@ -8,8 +8,8 @@
 <Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.10.html">
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
@@ -57,8 +57,8 @@
     <p>表格呈现的有些数据列是计算得到的结果，此种类型的列是无法参与编辑的，通过设置 <code>Editable=false</code> 自动生成编辑 UI 时就不会生成此列编辑组件，如本示例中 <code>Count</code> 列在编辑弹窗中是不出现的</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
@@ -76,8 +76,8 @@
     <p>通过设置姓名列的 <code>EditTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">

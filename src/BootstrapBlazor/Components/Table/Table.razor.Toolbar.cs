@@ -16,6 +16,12 @@ namespace BootstrapBlazor.Components
         public bool ShowToolbar { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示加载骨架屏 默认 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSkeleton { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示按钮列 默认为 true
         /// </summary>
         /// <remarks>本属性设置为 true 新建编辑删除按钮设置为 false 可单独控制每个按钮是否显示</remarks>

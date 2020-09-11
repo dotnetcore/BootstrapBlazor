@@ -8,9 +8,16 @@
     </CascadingValue>
     @if (FirstRender)
     {
-        <div class="table-loading">
-            <Spinner Color="Color.Primary" />
-        </div>
+        if (ShowSkeleton)
+        {
+            <SkeletonTable></SkeletonTable>
+        }
+        else
+        {
+            <div class="table-loading">
+                <Spinner Color="Color.Primary" />
+            </div>
+        }
     }
     else
     {
