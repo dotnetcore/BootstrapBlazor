@@ -1044,11 +1044,12 @@ input:disabled,
 
     .table-bordered th, .table-bordered td {
         border: 1px solid #dee2e6;
-        border-left: 0;
+        border-right: 0;
     }
 
-        .table-bordered th:last-child, .table-bordered td:last-child {
-            border-right: 0;
+        .table-bordered th:first-child, .table-bordered td:first-child,
+        .table-bordered .table-fixed-header th:last-child {
+            border-left: 0;
         }
 
     .table-bordered tr:last-child td {
@@ -1345,10 +1346,6 @@ input:disabled,
         background: #17a2b8;
         padding: 1px 6px;
     }
-
-.table-fixed thead {
-    display: none;
-}
 
 .table-fixed-header {
     overflow: hidden;

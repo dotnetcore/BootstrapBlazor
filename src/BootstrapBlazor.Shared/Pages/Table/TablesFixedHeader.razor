@@ -25,14 +25,9 @@
 
 <Block Title="宽度固定" Introduction="设置 <code>Height=200</code> 固定表头，当每页显示数据为 <code>10</code> 行时高度超出设置值 <code>200</code> 后，Table 组件出现纵向滚动条" CodeFile="table.12.html">
     <p>
-        所有列均设置宽度，当屏幕过小时会自动出现横向滚动条，请自行添加样式
-        <pre style="background-color: #e9ecef; padding: 6px; border-radius: 4px;"><code style="color: #e83e8c">.fixed-header-demo .table-fixed-header {
-    margin-right: 17px;
-    border-right: 1px solid #dee2e6;
-}
-</code></pre>
+        所有列均设置宽度，当屏幕过小时会自动出现横向滚动条
     </p>
-    <Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true" class="fixed-header-demo"
+    <Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
            PageItemsSource="new int[] { 10, 20 }" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="150" />

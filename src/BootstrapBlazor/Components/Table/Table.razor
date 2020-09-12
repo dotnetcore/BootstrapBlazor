@@ -89,7 +89,7 @@
                 {
                     <div class="table-fixed-header">
                         <table class="table">
-                            @RenderColgroup
+                            @RenderColgroup.Invoke(true)
                             @RenderHeader.Invoke(true)
                         </table>
                     </div>
@@ -203,10 +203,13 @@
 <PopoverConfirm />
 
 @code {
-    RenderFragment<bool> RenderTable => fixedHeader =>
+    RenderFragment<bool> RenderTable => hasHeader =>
     @<table class="@ClassName">
-        @RenderColgroup
-        @RenderHeader.Invoke(fixedHeader)
+        @RenderColgroup.Invoke(false)
+        @if (hasHeader)
+        {
+            @RenderHeader.Invoke(false)
+        }
         <tbody>
             @{
                 StarRowIndex = (PageIndex - 1) * PageItems + 1;
@@ -246,7 +249,7 @@
         }
     </table>;
 
-RenderFragment RenderColgroup =>
+RenderFragment<bool> RenderColgroup => hasScroll =>
 @<colgroup>
     @if (IsMultipleSelect)
     {
@@ -274,21 +277,22 @@ RenderFragment RenderColgroup =>
     {
         <col width="@ExtendButtonColumnWidth" />
     }
+    @if (hasScroll)
+    {
+        <col width="17" />
+    }
 </colgroup>;
 
-RenderFragment<bool> RenderHeader => fixedHeader =>
+RenderFragment<bool> RenderHeader => hasScroll =>
 @<thead>
     <tr>
         @if (IsMultipleSelect)
         {
             <th class="@CheckboxColumnClass">
                 <div class="table-cell">
-                    @if (fixedHeader)
-                    {
-                        <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
-                                  DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
-                                  State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
-                    }
+                    <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
+                              DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                              State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
                 </div>
             </th>
         }
@@ -326,6 +330,10 @@ RenderFragment<bool> RenderHeader => fixedHeader =>
                     @ColumnButtonTemplateHeaderText
                 </div>
             </th>
+        }
+        @if(hasScroll)
+        {
+            <th><div class="table-cell"><span>&nbsp;</span></div></th>
         }
     </tr>
 </thead>;
