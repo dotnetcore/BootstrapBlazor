@@ -27,6 +27,16 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected string? GetInnerText()
+        {
+            string? ret = null;
+            if (ShowInnerText) ret = Value ? OnInnerText : OffInnerText;
+            return ret;
+        }
+
+        /// <summary>
         /// 获得 显示文字
         /// </summary>
         protected string? Text => Value ? OnText : OffText;
@@ -79,5 +89,23 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public override string? OffText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件 On 时内置显示文本
+        /// </summary>
+        [Parameter]
+        public string OnInnerText { get; set; } = "开";
+
+        /// <summary>
+        /// 获得/设置 组件 Off 时内置显示文本
+        /// </summary>
+        [Parameter]
+        public string OffInnerText { get; set; } = "关";
+
+        /// <summary>
+        /// 获得/设置 是否显示内置文字
+        /// </summary>
+        [Parameter]
+        public bool ShowInnerText { get; set; }
     }
 }

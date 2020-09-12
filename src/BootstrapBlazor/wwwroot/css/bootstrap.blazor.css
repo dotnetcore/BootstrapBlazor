@@ -514,19 +514,7 @@ input:disabled,
 .switch {
     display: inline-flex;
     align-items: center;
-    position: relative;
-    line-height: 20px;
-    height: 20px;
-    vertical-align: middle;
 }
-
-    .switch .switch-input {
-        position: absolute;
-        width: 0;
-        height: 0;
-        opacity: 0;
-        margin: 0;
-    }
 
     .switch .switch-core {
         margin: 0;
@@ -554,9 +542,24 @@ input:disabled,
             background-color: #fff;
         }
 
+        .switch .switch-core:before {
+            content: attr(data-inner-text);
+            position: absolute;
+            top: 1px;
+            left: calc(100% - 17px);
+            transition: all .3s;
+            font-size: 80%;
+            color: #606266;
+        }
+
     .switch.is-checked .switch-core:after {
         left: 100%;
         margin-left: -17px;
+    }
+
+    .switch.is-checked .switch-core:before {
+        left: 5px;
+        color: #fff;
     }
 
     .switch .switch-label {
@@ -570,6 +573,10 @@ input:disabled,
 
     .switch.is-disabled, .switch.switch.is-disabled .switch-core, .switch.switch.is-disabled .switch-label {
         cursor: not-allowed;
+    }
+
+    .switch .switch-inner-text {
+        font-size: 80%;
     }
 /*end switch*/
 

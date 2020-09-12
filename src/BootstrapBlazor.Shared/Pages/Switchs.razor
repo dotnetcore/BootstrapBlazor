@@ -87,6 +87,22 @@
     </div>
 </Block>
 
+<Block Title="显示内置文字" Introduction="通过设置 <code>ShowInnerText</code> 属性控制组件显示内置文字" CodeFile="switch.5.html">
+    <p>通过设置 <code>OnInnerText</code> <code>OffInnerText</code> 属性更改内置文字，默认情况下建议使用一个汉字，可自定义组件宽度来增加内置文字数量</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <label class="control-label">默认文字：</label>
+                <Switch OnColor="Color.Primary" ShowInnerText="true" />
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <label class="control-label">自定义文字：</label>
+                <Switch OnColor="Color.Primary" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
