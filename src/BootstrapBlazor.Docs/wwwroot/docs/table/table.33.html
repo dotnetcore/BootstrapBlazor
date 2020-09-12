@@ -7,21 +7,22 @@
         <TableColumn @bind-Field="@context.Name" Width="100" />
         <TableColumn @bind-Field="@context.Address" />
         <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Complete">
+            <Template Context="v">
+                <Switch IsDisabled="true" Value="v.Value" />
+            </Template>
+        </TableColumn>
     </TableColumns>
 </Table>
 
 @code {
     private CancellationTokenSource CancelTokenSource { get; set; } = new CancellationTokenSource();
 
-    #nullable disable
     private Table<BindItem> AutoRefreshTable { get; set; }
-    #nullable restore
     
     private List<BindItem> AutoItems { get; set; } = new List<BindItem>();
 
-    /// <summary>
-    /// 
-    /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -29,10 +30,6 @@
         AutoItems = Items.Take(2).ToList();
     }
 
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <returns></returns>
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
@@ -40,11 +37,6 @@
         if (firstRender) RunAutoRefreshTask();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="options"></param>
-    /// <returns></returns>
     private Task<QueryData<BindItem>> OnRefreshQueryAsync(QueryPageOptions options)
     {
         // 设置记录总数
@@ -89,10 +81,6 @@
         });
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
@@ -102,9 +90,6 @@
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void Dispose()
     {
         Dispose(true);

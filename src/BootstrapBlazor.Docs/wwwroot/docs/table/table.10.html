@@ -9,7 +9,13 @@
         <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
         <TableColumn @bind-Field="@context.Name" Sortable="true" />
         <TableColumn @bind-Field="@context.Address" Sortable="true" />
-        <TableColumn @bind-Field="@context.Education" Sortable="true" />
+        <TableColumn @bind-Field="@context.Education" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Complete">
+            <Template Context="v">
+                <Switch IsDisabled="true" Value="v.Value" />
+            </Template>
+        </TableColumn>
     </TableColumns>
     <EditTemplate>
         <div class="form-inline">
@@ -35,6 +41,12 @@
                     <Select Items="@Educations" @bind-Value="@context.Education">
                         <RequiredValidator />
                     </Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Count" />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Switch @bind-Value="@context.Complete" />
                 </div>
             </div>
         </div>

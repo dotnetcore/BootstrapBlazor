@@ -17,6 +17,11 @@
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" />
+                </Template>
+            </TableColumn>
         </TableColumns>
     </Table>
 </Block>

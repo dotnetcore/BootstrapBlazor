@@ -277,60 +277,58 @@ RenderFragment RenderColgroup =>
 </colgroup>;
 
 RenderFragment<bool> RenderHeader => fixedHeader =>
-@<RenderTemplate>
-    <thead>
-        <tr>
-            @if (IsMultipleSelect)
+@<thead>
+    <tr>
+        @if (IsMultipleSelect)
+        {
+            <th class="@CheckboxColumnClass">
+                <div class="table-cell">
+                    @if (fixedHeader)
+                    {
+                        <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
+                                  DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                                  State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
+                    }
+                </div>
+            </th>
+        }
+        @if (ShowLineNo)
+        {
+            <th>
+                <div class="table-cell">@LineNoText</div>
+            </th>
+        }
+        @foreach (var col in Columns)
+        {
+            @if (CheckShownWithBreakpoint(col))
             {
-                <th class="@CheckboxColumnClass">
-                    <div class="table-cell">
-                        @if (fixedHeader)
+                var fieldName = col.GetFieldName();
+                var displayName = col.GetDisplayName();
+                <th class="@GetHeaderClassString(col)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClickHeader(col)))">
+                    <div class="@GetHeaderWrapperClassString(col)">
+                        <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                        @if (col.Filterable)
                         {
-                            <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
-                                      DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
-                                      State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
+                            <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnFilterClick(col)))"></i>
+                        }
+                        @if (col.Sortable)
+                        {
+                            <i class="@GetIconClassString(fieldName)"></i>
                         }
                     </div>
                 </th>
             }
-            @if (ShowLineNo)
-            {
-                <th>
-                    <div class="table-cell">@LineNoText</div>
-                </th>
-            }
-            @foreach (var col in Columns)
-            {
-                @if (CheckShownWithBreakpoint(col))
-                {
-                    var fieldName = col.GetFieldName();
-                    var displayName = col.GetDisplayName();
-                    <th class="@GetHeaderClassString(col)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClickHeader(col)))">
-                        <div class="@GetHeaderWrapperClassString(col)">
-                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
-                            @if (col.Filterable)
-                            {
-                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnFilterClick(col)))"></i>
-                            }
-                            @if (col.Sortable)
-                            {
-                                <i class="@GetIconClassString(fieldName)"></i>
-                            }
-                        </div>
-                    </th>
-                }
-            }
-            @if (ShowExtendButtons)
-            {
-                <th class="@ButtonColumnClass">
-                    <div class="table-cell is-button-column">
-                        @ColumnButtonTemplateHeaderText
-                    </div>
-                </th>
-            }
-        </tr>
-    </thead>
-</RenderTemplate>;
+        }
+        @if (ShowExtendButtons)
+        {
+            <th class="@ButtonColumnClass">
+                <div class="table-cell is-button-column">
+                    @ColumnButtonTemplateHeaderText
+                </div>
+            </th>
+        }
+    </tr>
+</thead>;
 
 RenderFragment<TItem> RenderRow => item =>
 @<RenderTemplate>
