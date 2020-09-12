@@ -92,6 +92,12 @@ namespace BootstrapBlazor.Components
         public int? Width { get; set; }
 
         /// <summary>
+        /// 获得/设置 列 td 自定义样式 默认为 null 未设置
+        /// </summary>
+        [Parameter]
+        public string? CssClass { get; set; }
+
+        /// <summary>
         /// 获得/设置 文字对齐方式 默认为 Alignment.None
         /// </summary>
         [Parameter]

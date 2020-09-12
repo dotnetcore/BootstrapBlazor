@@ -26,12 +26,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-bordered", IsBordered)
             .AddClass("table-striped table-hover", IsStriped)
             .AddClass("is-single", ClickToSelect || DoubleClickToEdit)
-            .Build();
-
-        /// <summary>
-        /// 获得 class 样式表集合
-        /// </summary>
-        protected string? ClassName => CssBuilder.Default("table")
+            .AddClass("table-scroll", !Height.HasValue)
             .AddClass("table-fixed", Height.HasValue)
             .Build();
 

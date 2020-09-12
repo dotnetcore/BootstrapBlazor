@@ -11,7 +11,7 @@
            IsMultipleSelect="true" ShowToolbar="true" ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -24,7 +24,7 @@
            ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -41,7 +41,7 @@
             <TableToolbarButton TItem="BindItem" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@DownloadAsync" />
         </TableToolbarTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>

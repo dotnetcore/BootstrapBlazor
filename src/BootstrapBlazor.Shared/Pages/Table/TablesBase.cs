@@ -94,6 +94,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "CssClass",
+                Description = "自定义单元格样式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "FormatString",
                 Description = "数值格式化字符串",
                 Type = "string",

@@ -14,7 +14,7 @@
            OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
@@ -76,7 +76,7 @@
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Readonly="true" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
@@ -105,7 +105,7 @@
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
                     <div class="form-group col-12 col-sm-6">

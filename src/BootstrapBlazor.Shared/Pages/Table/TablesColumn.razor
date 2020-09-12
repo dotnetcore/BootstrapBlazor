@@ -11,7 +11,7 @@
     </p>
     <Table TItem="BindItem" Items="@Items.Take(3)">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" />
+            <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" Width="180" />
             <TableColumn @bind-Field="@context.Name" Text="自定义列名2" />
             <TableColumn @bind-Field="@context.Address" Text="自定义列名3" />
         </TableColumns>
@@ -21,7 +21,7 @@
 <Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
     <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -31,7 +31,7 @@
 <Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>" CodeFile="table.5.html">
     <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -41,7 +41,7 @@
 <Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定" CodeFile="table.6.html">
     <Table TItem="BindItem" Items="@Items.Take(3)">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Complete">
                 <Template Context="value">
@@ -134,7 +134,7 @@
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />

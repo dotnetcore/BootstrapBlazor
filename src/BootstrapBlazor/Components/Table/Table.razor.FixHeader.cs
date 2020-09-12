@@ -8,8 +8,8 @@ namespace BootstrapBlazor.Components
         /// 获得 wrapper 样式表集合
         /// </summary>
         protected string? FixedHeaderStyleName => CssBuilder.Default()
-            .AddClass($"height: {Height}px; overflow-y: scroll; overflow-x: auto;", Height.HasValue && !IsPagination)
-            .AddClass($"max-height: {Height}px; overflow-y: scroll; overflow-x: auto;", Height.HasValue && IsPagination)
+            .AddClass($"height: {Height}px;", Height.HasValue && !IsPagination)
+            .AddClass($"max-height: {Height}px;", Height.HasValue && IsPagination)
             .Build();
 
         /// <summary>

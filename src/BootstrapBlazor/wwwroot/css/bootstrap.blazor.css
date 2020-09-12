@@ -1069,8 +1069,6 @@ input:disabled,
 }
 
 .table {
-    width: 100%;
-    table-layout: fixed;
     margin-bottom: 0;
 }
 
@@ -1347,9 +1345,26 @@ input:disabled,
         padding: 1px 6px;
     }
 
+.table-fixed .table {
+    table-layout: fixed;
+}
+
 .table-fixed-header {
     overflow: hidden;
 }
+
+.table-fixed-body {
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+
+.table-scroll {
+    overflow: auto;
+}
+
+    .table-scroll .table tbody td .table-cell {
+        white-space: nowrap;
+    }
 
 .table-loading {
     display: flex;

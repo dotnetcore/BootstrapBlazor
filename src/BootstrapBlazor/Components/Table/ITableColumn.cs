@@ -48,6 +48,11 @@ namespace BootstrapBlazor.Components
         int? Width { get; set; }
 
         /// <summary>
+        /// 获得/设置 列 td 自定义样式 默认为 null 未设置
+        /// </summary>
+        string? CssClass { get; set; }
+
+        /// <summary>
         /// 显示节点阈值 默认值 BreakPoint.None 未设置
         /// </summary>
         BreakPoint ShownWithBreakPoint { get; set; }

@@ -96,10 +96,11 @@ namespace BootstrapBlazor.Components
         /// <param name="col"></param>
         /// <returns></returns>
         protected string? GetCellClassString(ITableColumn col) => CssBuilder.Default("table-cell")
-             .AddClass("justify-content-start", col.Align == Alignment.Left)
-             .AddClass("justify-content-end", col.Align == Alignment.Right)
-             .AddClass("justify-content-center", col.Align == Alignment.Center)
-             .Build();
+            .AddClass("justify-content-start", col.Align == Alignment.Left)
+            .AddClass("justify-content-end", col.Align == Alignment.Right)
+            .AddClass("justify-content-center", col.Align == Alignment.Center)
+            .AddClass(col.CssClass)
+            .Build();
 
         /// <summary>
         /// 获取指定列头样式字符串

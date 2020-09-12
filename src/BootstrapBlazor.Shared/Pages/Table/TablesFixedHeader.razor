@@ -16,7 +16,7 @@
     <p>请设置个列宽度，允许一列宽度不设置，进行自动填充</p>
     <Table TItem="BindItem" Items="@Items.Take(10)" Height="200" IsBordered="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="150" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -30,7 +30,7 @@
     <Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
            PageItemsSource="new int[] { 10, 20 }" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="150" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" Width="800" />
         </TableColumns>
