@@ -97,6 +97,12 @@
                         @RenderTable.Invoke(false)
                     </div>
                 }
+                else if (Columns.Any(col => col.Fixed))
+                {
+                    <div class="overflow-auto">
+                        @RenderTable.Invoke(true)
+                    </div>
+                }
                 else
                 {
                     @RenderTable.Invoke(true)
@@ -308,7 +314,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             {
                 var fieldName = col.GetFieldName();
                 var displayName = col.GetDisplayName();
-                <th class="@GetHeaderClassString(col)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClickHeader(col)))">
+                <th class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 17)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClickHeader(col)))">
                     <div class="@GetHeaderWrapperClassString(col)">
                         <span class="@GetHeaderTextClassString(col)">@displayName</span>
                         @if (col.Filterable)
@@ -331,9 +337,9 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 </div>
             </th>
         }
-        @if(hasScroll)
+        @if (hasScroll)
         {
-            <th><div class="table-cell"><span>&nbsp;</span></div></th>
+            <th class="@GetScrollHeaderClass()"><div class="table-cell"><span>&nbsp;</span></div></th>
         }
     </tr>
 </thead>;
@@ -350,7 +356,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         @if (CheckShownWithBreakpoint(col))
         {
-            <td>
+            <td class="@GetFixedCellClassString(col)" style="@GetFixedCellStyleString(col)">
                 <div class="@GetCellClassString(col)">
                     @GetValue(col, item)
                 </div>

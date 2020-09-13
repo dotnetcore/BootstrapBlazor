@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -67,7 +68,72 @@ namespace BootstrapBlazor.Components
         protected string? GetHeaderClassString(ITableColumn col) => CssBuilder.Default()
             .AddClass("sortable", col.Sortable)
             .AddClass("filterable", col.Filterable)
+            .AddClass(GetFixedCellClassString(col))
             .Build();
+
+        /// <summary>
+        /// 获得指定列头固定列样式
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        protected string? GetFixedCellClassString(ITableColumn col) => CssBuilder.Default()
+            .AddClass("fixed", col.Fixed)
+            .AddClass("fixed-right", col.Fixed && IsTail(col))
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected string? GetScrollHeaderClass() => CssBuilder.Default()
+            .AddClass("fixed-scroll", Columns.LastOrDefault()?.Fixed ?? false)
+            .Build();
+
+        private bool IsTail(ITableColumn col)
+        {
+            var middle = Math.Ceiling(Columns.Count * 1.0 / 2);
+            var index = Columns.IndexOf(col);
+            return middle < index;
+        }
+
+        /// <summary>
+        /// 获得指定列头固定列样式
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="margin"></param>
+        /// <returns></returns>
+        protected string? GetFixedCellStyleString(ITableColumn col, int margin = 0)
+        {
+            string? style = null;
+            if (col.Fixed)
+            {
+                var defaultWidth = 200;
+                var isTail = IsTail(col);
+                var index = Columns.IndexOf(col);
+                var width = 0;
+                var start = 0;
+                if (isTail)
+                {
+                    // after
+                    while (index + 1 < Columns.Count)
+                    {
+                        width += Columns[index++].Width ?? defaultWidth;
+                    }
+                    // 如果是固定表头时增加滚动条位置
+                    if (Height.HasValue && (index + 1) == Columns.Count) width += margin;
+                    style = $"right: {width}px;";
+                }
+                else
+                {
+                    while (index > start)
+                    {
+                        width += Columns[start++].Width ?? defaultWidth;
+                    };
+                    style = $"left: {width}px;";
+                }
+            }
+            return style;
+        }
 
         /// <summary>
         /// 获取指定列头样式字符串

@@ -1,18 +1,10 @@
-﻿<Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true" class="fixed-header-demo"
-        PageItemsSource="new int[] { 10, 20 }" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
+﻿<Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" class="fixed-header-demo" Height="200">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="150" />
         <TableColumn @bind-Field="@context.Name" Width="100" />
         <TableColumn @bind-Field="@context.Address" Width="400" />
     </TableColumns>
 </Table>
-
-// css
-<style>
-    .fixed-header-demo .table-fixed-header {
-        margin-right: 17px;
-    }
-</style>
 
 @code {
     private static readonly Random random = new Random();

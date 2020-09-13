@@ -28,6 +28,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-single", ClickToSelect || DoubleClickToEdit)
             .AddClass("table-scroll", !Height.HasValue)
             .AddClass("table-fixed", Height.HasValue)
+            .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
             .Build();
 
         /// <summary>

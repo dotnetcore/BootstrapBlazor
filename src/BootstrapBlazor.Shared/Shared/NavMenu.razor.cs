@@ -373,6 +373,12 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new MenuItem()
             {
+                Text = "固定列",
+                Url = "tables/fix-column"
+            });
+
+            it.AddItem(new MenuItem()
+            {
                 Text = "分页功能",
                 Url = "tables/pages"
             });

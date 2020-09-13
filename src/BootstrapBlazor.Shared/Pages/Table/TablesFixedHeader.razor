@@ -1,9 +1,9 @@
 ﻿@inherits TablesBaseQuery
 @page "/tables/header"
 
-<h3>Table 表格</h3>
+<h3>固定表头功能</h3>
 
-<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+<h4>滚动数据时表头固定方便查看各列表头信息</h4>
 
 <p>
     本组件固定表头做法采用的是 <code>双表头</code> 做法，常见问题时出现列不对齐的问题，根据自己实际情况请自行添加部分样式
@@ -27,12 +27,11 @@
     <p>
         所有列均设置宽度，当屏幕过小时会自动出现横向滚动条
     </p>
-    <Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
-           PageItemsSource="new int[] { 10, 20 }" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
+    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" IsPagination="true" Height="200">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" Width="800" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
         </TableColumns>
     </Table>
 </Block>

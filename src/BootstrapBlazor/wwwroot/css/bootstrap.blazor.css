@@ -1438,6 +1438,38 @@ input:disabled,
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+
+.table-fixed-column .table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    .table-fixed-column .table .fixed {
+        position: sticky;
+        z-index: 2;
+        background-color: #fff;
+    }
+
+.table-striped.table-fixed-column tbody tr:nth-of-type(odd) .fixed,
+.table-striped.table-fixed-column .table-row:not(.active):nth-of-type(odd) .fixed {
+    background-color: #fafafa;
+}
+
+.table-fixed-column .table .fixed {
+    border-right: 1px solid #409eff;
+}
+
+.table-fixed-column .table .fixed-right {
+    border-right: inherit;
+    border-left: 1px solid #409eff;
+}
+
+.table-fixed-column .fixed-scroll {
+    position: sticky;
+    right: 0;
+    background-color: #fff;
+}
 /*end table*/
 
 /*popover confirm*/

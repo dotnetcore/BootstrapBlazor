@@ -92,6 +92,12 @@ namespace BootstrapBlazor.Components
         public int? Width { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否固定本列 默认 false 不固定
+        /// </summary>
+        [Parameter]
+        public bool Fixed { get; set; }
+
+        /// <summary>
         /// 获得/设置 列 td 自定义样式 默认为 null 未设置
         /// </summary>
         [Parameter]

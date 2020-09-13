@@ -1070,3 +1070,8 @@ section {
     .skeleton-demo .skeleton-content .skeleton-avatar {
         display: inline-block;
     }
+
+.table-fixed-column-demo .table th:nth-child(1).fixed,
+.table-fixed-column-demo .table td:nth-child(1).fixed {
+    border-right: inherit;
+}
