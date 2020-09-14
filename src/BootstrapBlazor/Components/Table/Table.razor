@@ -222,23 +222,17 @@
             }
             @foreach (var item in Items)
             {
-                @if (IsMultipleSelect)
-                {
-                    <tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))">
+                <tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))" @ondblclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => DoubleClickRow(item)))">
+                    @if (IsMultipleSelect)
+                    {
                         <td>
                             <div class="table-cell">
                                 <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnCheck))" @onclick:stopPropagation></Checkbox>
                             </div>
                         </td>
-                        @RenderRow(item)
-                    </tr>
-                }
-                else
-                {
-                    <tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))" @ondblclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => DoubleClickRow(item)))">
-                        @RenderRow(item)
-                    </tr>
-                }
+                    }
+                    @RenderRow(item)
+                </tr>
             }
         </tbody>
         @if (ShowFooter)

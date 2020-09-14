@@ -165,13 +165,13 @@ namespace BootstrapBlazor.Components
                 if (!IsMultipleSelect)
                 {
                     SelectedItems.Clear();
-                    SelectedItems.Add(val);
                 }
-                else
+                else if (SelectedItems.Contains(val))
                 {
-                    if (SelectedItems.Contains(val)) SelectedItems.Remove(val);
-                    else SelectedItems.Add(val);
+                    SelectedItems.Remove(val);
                 }
+
+                SelectedItems.Add(val);
 
                 if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
 
