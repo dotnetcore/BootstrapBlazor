@@ -80,6 +80,17 @@ namespace BootstrapBlazor.Components
         protected bool Initialized { get; set; }
 
         /// <summary>
+        /// 获得/设置 搜索文字
+        /// </summary>
+        protected string SearchText { get; set; } = "";
+
+        /// <summary>
+        /// 获得/设置 是否显示搜索框 默认为 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSearch { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter]
@@ -98,6 +109,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 搜索文本发生变化时回调此方法
+        /// </summary>
+        [Parameter]
+        public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
+
+        /// <summary>
         /// SelectedItemChanged 方法
         /// </summary>
         [Parameter]
@@ -114,6 +131,19 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         protected override string? RetrieveId() => InputId;
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (OnSearchTextChanged == null)
+            {
+                OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+            }
+        }
 
         /// <summary>
         /// 下拉框选项点击时调用此方法
@@ -142,16 +172,10 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获得 分组数据
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<IGrouping<string, SelectedItem>> GetSelectedItems() => GetItems().GroupBy(i => i.GroupName);
-
-        /// <summary>
         /// 获得 数据源
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<SelectedItem> GetItems()
+        private IEnumerable<SelectedItem> GetItems()
         {
             var items = Items.ToList();
             items.AddRange(Childs);
@@ -187,6 +211,30 @@ namespace BootstrapBlazor.Components
             }
 
             return items;
+        }
+
+        /// <summary>
+        /// 获取显示的候选项集合
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<SelectedItem> GetShownItems()
+        {
+            IEnumerable<SelectedItem>? ret;
+            if (ItemTemplate != null)
+            {
+                ret = Items;
+            }
+            else
+            {
+                ret = GetItems();
+            }
+
+            // handler SearchText
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                ret = OnSearchTextChanged!.Invoke(SearchText);
+            }
+            return ret;
         }
 
         /// <summary>

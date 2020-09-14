@@ -39,6 +39,22 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 获得 默认数据集合
         /// </summary>
+        private readonly IEnumerable<SelectedItem> StringItems = new SelectedItem[]
+        {
+            new SelectedItem ("1", "1"),
+            new SelectedItem ("12", "12"),
+            new SelectedItem ("123", "123"),
+            new SelectedItem ("1234", "1234"),
+            new SelectedItem ("a", "a"),
+            new SelectedItem ("ab", "ab"),
+            new SelectedItem ("abc", "abc"),
+            new SelectedItem ("abcd", "abcd"),
+            new SelectedItem ("abcde", "abcde")
+        };
+
+        /// <summary>
+        /// 获得 默认数据集合
+        /// </summary>
         private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
         {
             new SelectedItem ("", "请选择 ..."),
@@ -177,6 +193,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowSearch",
+                Description = "是否显示搜索框",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",

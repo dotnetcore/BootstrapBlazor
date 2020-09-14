@@ -240,6 +240,26 @@ input:disabled,
         transform: rotate(180deg);
     }
 
+.form-select .search {
+    padding: 7px 10px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.625rem;
+    margin-bottom: 0.5rem;
+}
+
+    .form-select .search .search-text {
+        width: 100%;
+        padding-right: 30px;
+    }
+
+    .form-select .search .fa-search {
+        position: absolute;
+        left: calc(100% - 34px);
+        top: 18px;
+        color: #adb5bd;
+    }
+
 .form-control:focus {
     border-color: #66afe9;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);

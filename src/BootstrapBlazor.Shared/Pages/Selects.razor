@@ -227,7 +227,7 @@
     </div>
 </Block>
 
-<Block Title="自定义选项模板" Introduction="通过设置<code>ItemTemplate</code> 可以自定义选项渲染样式" CodeFile="select.13.html">
+<Block Title="自定义选项模板" Introduction="通过设置 <code>ItemTemplate</code> 可以自定义选项渲染样式" CodeFile="select.13.html">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
@@ -240,6 +240,19 @@
                         </div>
                     </ItemTemplate>
                 </Select>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="带搜索框的下拉框" Introduction="通过设置 <code>ShowSearchBox</code> 属性控制是否显示搜索框，默认为 false 不显示搜索框" CodeFile="select.14.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items" ShowSearch="true" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@StringItems" ShowSearch="true" />
             </div>
         </div>
     </div>
