@@ -115,6 +115,9 @@ namespace BootstrapBlazor.Components
             }
 
             if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
+
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
+            StateHasChanged();
         }
     }
 }
