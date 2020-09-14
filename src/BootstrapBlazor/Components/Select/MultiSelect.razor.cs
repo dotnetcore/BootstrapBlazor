@@ -34,13 +34,6 @@ namespace BootstrapBlazor.Components
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
-        /// <summary>
-        /// 获得 样式集合
-        /// </summary>
-        private string? AppendClassString => CssBuilder.Default("append")
-            .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
-            .Build();
-
         private string? GetItemClassString(SelectedItem item) => CssBuilder.Default("multi-select-menu-item")
             .AddClass("active", GetCheckedState(item))
             .Build();
@@ -52,6 +45,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowSearch { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示关闭按钮 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowCloseButton { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 是否显示全选功能按钮 默认为 false 不显示

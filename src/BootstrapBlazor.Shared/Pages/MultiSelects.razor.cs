@@ -99,6 +99,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
+                Name = "ShowCloseButton",
+                Description = "是否显示前置标签关闭按钮",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
                 Name = "DisplayText",
                 Description = "前置标签显示文本",
                 Type = "string",

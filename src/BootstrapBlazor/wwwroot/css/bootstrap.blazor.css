@@ -5118,7 +5118,6 @@ input:disabled,
     border: solid 1px #ddd;
     border-radius: 4px;
     cursor: pointer;
-    padding-right: 33px;
     min-height: 35px;
     max-height: 70px;
     overflow: auto;
@@ -5179,6 +5178,7 @@ input:disabled,
     flex-wrap: wrap;
     padding-top: 3px;
     padding-left: 3px;
+    position: relative;
 }
 
     .multi-select-items span {
@@ -5186,14 +5186,39 @@ input:disabled,
         border-radius: 4px;
         padding: 2px 6px;
         background-color: #e9ecef;
+        margin-bottom: 3px;
+    }
+
+    .multi-select-items .multi-select-item {
         display: inline-block;
         max-width: 130px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
         margin-right: 3px;
-        margin-bottom: 3px;
     }
+
+    .multi-select-items .multi-select-item-group {
+        display: inline-flex;
+        position: relative;
+    }
+
+        .multi-select-items .multi-select-item-group .multi-select-item {
+            padding-left: 9px;
+        }
+
+    .multi-select-items .multi-select-close {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: -3px;
+        z-index: 2;
+        transition: color .3s linear, background-color .3s linear;
+    }
+
+        .multi-select-items .multi-select-close:hover {
+            color: #333;
+            background-color: #ddd;
+        }
 
 .multi-select-menu {
     margin-top: 10px;

@@ -11,12 +11,21 @@
         <div class="multi-select-items">
             @foreach (var item in SelectedItems)
             {
-                <span>@item.Text</span>
+                @if (ShowCloseButton)
+                {
+                    <div class="multi-select-item-group">
+                        <span class="multi-select-close" @onclick:stopPropagation @onclick="@(e => ToggleRow(item))">
+                            <i class="fa fa-times"></i>
+                        </span>
+                        <span class="multi-select-item">@item.Text</span>
+                    </div>
+                }
+                else
+                {
+                    <span class="multi-select-item">@item.Text</span>
+                }
             }
         </div>
-        <span class="@AppendClassString">
-            <i class="dropdown fa fa-angle-up"></i>
-        </span>
     </div>
     <div class="@MenuClassString">
         @if (ShowSearch)
