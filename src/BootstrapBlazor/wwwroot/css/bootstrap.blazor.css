@@ -1171,8 +1171,8 @@ input:disabled,
         text-align: left;
     }
 
-.is-single tbody tr,
-.is-single .table-row {
+.is-clickable tbody tr,
+.is-clickable .table-row {
     cursor: pointer;
 }
 

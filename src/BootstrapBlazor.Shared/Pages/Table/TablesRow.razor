@@ -41,7 +41,7 @@
     <p>当前选中行：@(CurrentItem?.Name ?? "无")</p>
 </Block>
 
-<Block Title="双击单元格编辑本行效果" Introduction="本功能仅限 <code>Table</code> 组件单选模式下生效，通过设置 <code>DoubleClickToEdit</code> 属性值可以实现双击任意单元格编辑本行效果，此功能前提是 <code>Edit</code> 功能可用" CodeFile="table.20.html">
+<Block Title="双击单元格编辑本行效果" Introduction="通过设置 <code>DoubleClickToEdit</code> 属性值可以实现双击任意单元格编辑本行效果，此功能前提是 <code>Edit</code> 功能可用" CodeFile="table.20.html">
     <p>移动端（CardView）模式暂时不支持双击编辑当前行功能</p>
     <p>多选模式下同样支持双击编辑功能，如果设置 <code>ClickToSelect</code> 点击选择效果后，双击编辑功能会导致行选中状态交替选中，请自行设置 <code>ClickToSelect=false</code> 关闭此功能</p>
     <Table TItem="BindItem"
