@@ -81,14 +81,6 @@ namespace BootstrapBlazor.Components
             .AddClass("fixed-right", col.Fixed && IsTail(col))
             .Build();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected string? GetScrollHeaderClass() => CssBuilder.Default()
-            .AddClass("fixed-scroll", Columns.LastOrDefault()?.Fixed ?? false)
-            .Build();
-
         private bool IsTail(ITableColumn col)
         {
             var middle = Math.Ceiling(Columns.Count * 1.0 / 2);

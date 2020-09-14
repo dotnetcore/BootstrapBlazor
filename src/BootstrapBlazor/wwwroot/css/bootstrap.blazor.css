@@ -1047,8 +1047,9 @@ input:disabled,
         border-right: 0;
     }
 
-        .table-bordered th:first-child, .table-bordered td:first-child,
-        .table-bordered .table-fixed-header th:last-child {
+        .table-bordered th:first-child,
+        .table-bordered td:first-child,
+        .table-bordered th.fixed-scroll {
             border-left: 0;
         }
 
@@ -1469,6 +1470,11 @@ input:disabled,
     position: sticky;
     right: 0;
     background-color: #fff;
+}
+
+.table-striped.table-fixed-column tbody tr.active .fixed,
+.table-striped.table-fixed-column .table-row.active .fixed {
+    background-color: inherit;
 }
 /*end table*/
 

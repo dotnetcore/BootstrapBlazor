@@ -1229,22 +1229,29 @@
                     var left = $body.scrollLeft();
                     $thead.scrollLeft(left);
                 });
-                if ($.browser.versions.mac) {
-                    var $fs = $ele.find('.fixed-scroll');
-                    if ($fs.length === 1) {
-                        var $prev = $fs.prev();
-                        while ($prev.length === 1) {
-                            if ($prev.hasClass('fixed-right') && !$prev.hasClass('modified')) {
-                                var margin = $prev.css('right');
-                                margin = margin.replace('px', '');
+                var $fs = $ele.find('.fixed-scroll');
+                if ($fs.length === 1) {
+                    var $prev = $fs.prev();
+                    while ($prev.length === 1) {
+                        if ($prev.hasClass('fixed-right') && !$prev.hasClass('modified')) {
+                            var margin = $prev.css('right');
+                            margin = margin.replace('px', '');
+                            if ($.browser.versions.mac) {
                                 margin = (parseFloat(margin) - 2) + 'px';
-                                $prev.css({ 'right': margin }).addClass('modified');
-                                $prev = $prev.prev();
                             }
-                            else {
-                                break;
+                            else if ($.browser.versions.mobile) {
+                                margin = (parseFloat(margin) - 17) + 'px';
                             }
+                            $prev.css({ 'right': margin }).addClass('modified');
+                            $prev = $prev.prev();
                         }
+                        else {
+                            break;
+                        }
+                    }
+
+                    if ($.browser.versions.mobile) {
+                        $fs.remove();
                     }
                 }
             }

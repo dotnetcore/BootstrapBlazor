@@ -1075,3 +1075,13 @@ section {
 .table-fixed-column-demo .table td:nth-child(1).fixed {
     border-right: inherit;
 }
+
+.table-fixed-column-demo .table th:nth-child(1).fixed,
+.table-fixed-column-demo .table td:nth-child(1).fixed {
+    border-right: inherit;
+}
+
+.table-fixed-column-demo2 .table th:nth-child(3),
+.table-fixed-column-demo2 .table td:nth-child(3) {
+    border-left: 0;
+}

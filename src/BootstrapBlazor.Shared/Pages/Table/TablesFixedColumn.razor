@@ -28,7 +28,7 @@
 </Block>
 
 <Block Title="固定表头与列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>Fixed</code> 对列进行固定" CodeFile="table.39.html">
-    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200">
+    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200" class="table-fixed-column-demo2">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
