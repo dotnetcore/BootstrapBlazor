@@ -5307,6 +5307,14 @@ input:disabled,
         width: 196px;
     }
 }
+
+.multi-select-ph {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    color: #c0c4cc;
+}
 /*end multi-select*/
 
 /*editor-form*/

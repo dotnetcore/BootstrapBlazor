@@ -38,7 +38,17 @@ namespace BootstrapBlazor.Components
             .AddClass("active", GetCheckedState(item))
             .Build();
 
+        private string? PlaceHolderClassString => CssBuilder.Default("multi-select-ph")
+            .AddClass("d-none", SelectedItems.Any())
+            .Build();
+
         private JSInterop<MultiSelect<TValue>>? Interop { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件 PlaceHolder 文字 默认为 点击进行多选 ...
+        /// </summary>
+        [Parameter]
+        public string PlaceHolder { get; set; } = "点击进行多选 ...";
 
         /// <summary>
         /// 获得/设置 是否显示搜索框 默认为 false 不显示

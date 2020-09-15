@@ -113,6 +113,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "PlaceHolder",
+                Description = "未选择时的占位显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "点击进行多选 ..."
+            },
+            new AttributeItem() {
                 Name = "Class",
                 Description = "样式",
                 Type = "string",
