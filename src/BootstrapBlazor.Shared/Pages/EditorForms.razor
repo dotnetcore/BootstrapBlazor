@@ -22,7 +22,9 @@
                 <EditorItem @bind-Field="@Model.Hobby" Editable="false" />
             </FieldItems>
             <Buttons>
-                <Button Icon="fa fa-save" Text="提交" />
+                <div class="d-flex mt-3">
+                    <Button Icon="fa fa-save" Text="提交" />
+                </div>
             </Buttons>
         </EditorForm>
     </div>
@@ -54,7 +56,9 @@
                     </EditorItem>
                 </FieldItems>
                 <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                    <div class="d-flex mt-3">
+                        <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                    </div>
                 </Buttons>
             </EditorForm>
         </ValidateForm>
