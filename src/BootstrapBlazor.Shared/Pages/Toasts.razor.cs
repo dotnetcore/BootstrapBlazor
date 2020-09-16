@@ -111,14 +111,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "弹出框类型",
                 Type = "ToastCategory",
                 ValueList = "Success/Information/Error",
-                DefaultValue = "false"
+                DefaultValue = "Success"
             },
             new AttributeItem() {
                 Name = "Cotent",
-                Description = "Popover 弹窗内容",
+                Description = "弹窗内容",
                 Type = "string",
                 ValueList = "—",
-                DefaultValue = "Popover"
+                DefaultValue = ""
             },
             new AttributeItem() {
                 Name = "Delay",
@@ -150,10 +150,10 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "Title",
-                Description = "Popover 弹窗标题",
+                Description = "弹窗标题",
                 Type = "string",
                 ValueList = "—",
-                DefaultValue = "Popover"
+                DefaultValue = ""
             },
         };
     }

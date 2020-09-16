@@ -1,4 +1,6 @@
-﻿html, body, button, .popover {
+﻿@import url('sweetalert2.min.css');
+
+html, body, button, .popover {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 
@@ -5404,3 +5406,18 @@ input:disabled,
 }
 
 /*end skeleton*/
+
+/*swal*/
+.swal .modal-header {
+    display: none;
+}
+
+.swal .swal2-icon,
+.swal .swal2-actions {
+    display: flex;
+}
+
+.swal .swal2-actions {
+    margin-bottom: 1rem;
+}
+/*end swal*/

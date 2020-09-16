@@ -1,0 +1,10 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+@inject SwalService Swal
+
+<div class="swal">
+    <Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer">
+        <ModalDialog @ref="@ModalDialog">
+        </ModalDialog>
+    </Modal>
+</div>

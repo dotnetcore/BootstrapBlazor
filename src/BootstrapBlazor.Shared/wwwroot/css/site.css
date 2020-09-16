@@ -1087,3 +1087,16 @@ section {
 .table-fixed-column-demo2 .table td:nth-child(3) {
     border-left: 0;
 }
+
+.swal-demo .form-group {
+    justify-content: space-around;
+}
+
+    .swal-demo .form-group > div:first-child {
+        font-size: 1rem;
+    }
+
+.swal-demo .swal2-icon {
+    margin: 0;
+    display: flex;
+}

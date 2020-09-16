@@ -478,6 +478,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "模态弹窗 SweetAlert",
+                Url = "swals"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "轻量弹窗 Toast",
                 Url = "toasts"
             });
