@@ -16,6 +16,10 @@
                                 <Checkbox @bind-Value="@item.Checked" ShowDisplayText="false" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
                             }
                             <a class="@GetSubTreeLinkClassString(item)" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" @onclick:preventDefault @onclick="@(e => OnClick(item))">
+                                @if (ShowIcon)
+                                {
+                                    <i class="@GetIconClassString(item)"></i>
+                                }
                                 <span>@item.Text</span>
                             </a>
                         </div>
@@ -37,6 +41,10 @@
                     <Checkbox @bind-Value="@item.Checked" ShowDisplayText="false" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
                 }
                 <a class="nav-link" @onclick:preventDefault @onclick="@(e => OnClick(item))">
+                    @if (ShowIcon)
+                    {
+                        <i class="@GetIconClassString(item)"></i>
+                    }
                     <span>@item.Text</span>
                 </a>
             </div>

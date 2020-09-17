@@ -39,6 +39,13 @@
     <Tree Items="@CheckedItems" ShowCheckbox="true" />
 </Block>
 
+<Block Title="显示图标" Introduction="通过设置 <code>ShowIcon</code> 来控制组件是否显示图标" CodeFile="tree.6.html">
+    <p>
+        通过设置 <code>TreeItem</code> 对象的 <code>ShowIcon</code> 属性，来控制此节点是否显示图标
+    </p>
+    <Tree Items="@GetIconItems()" ShowIcon="true" ShowCheckbox="true" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Items="@GetTreeItemAttributes()" Title="TreeItem 属性" />

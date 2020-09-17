@@ -53,6 +53,15 @@ namespace BootstrapBlazor.Components
         protected string GetExpandedString(TreeItem item) => item.IsExpanded ? "true" : "false";
 
         /// <summary>
+        /// 获得/设置 TreeItem 图标
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetIconClassString(TreeItem item) => CssBuilder.Default("tree-icon")
+            .AddClass(item.Icon)
+            .Build();
+
+        /// <summary>
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
@@ -63,6 +72,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowCheckbox { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示 Icon 图标
+        /// </summary>
+        [Parameter]
+        public bool ShowIcon { get; set; }
 
         /// <summary>
         /// 获得/设置 树形控件节点点击时回调委托

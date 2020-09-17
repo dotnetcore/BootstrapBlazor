@@ -36,6 +36,11 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 图标
+        /// </summary>
+        public string? Icon { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否被选中
         /// </summary>
         public bool Checked { get; set; }

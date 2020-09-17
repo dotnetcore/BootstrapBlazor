@@ -4827,6 +4827,10 @@ input:disabled,
         transform: rotate(90deg);
     }
 
+.tree-icon {
+    width: 18px;
+}
+
 @media (min-width: 768px) {
     .tree .tree-item .nav-link {
         padding: 2px 4px;
