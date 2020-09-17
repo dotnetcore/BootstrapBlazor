@@ -219,15 +219,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected IEnumerable<SelectedItem> GetShownItems()
         {
-            IEnumerable<SelectedItem>? ret;
-            if (ItemTemplate != null)
-            {
-                ret = Items;
-            }
-            else
-            {
-                ret = GetItems();
-            }
+            IEnumerable<SelectedItem> ret = GetItems();
 
             // handler SearchText
             if (!string.IsNullOrEmpty(SearchText))
