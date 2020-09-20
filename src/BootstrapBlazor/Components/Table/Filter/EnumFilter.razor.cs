@@ -49,6 +49,7 @@ namespace BootstrapBlazor.Components
         public override void Reset()
         {
             Value = "";
+            StateHasChanged();
         }
 
         /// <summary>

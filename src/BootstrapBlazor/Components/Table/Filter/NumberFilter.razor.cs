@@ -34,6 +34,7 @@ namespace BootstrapBlazor.Components
             Action1 = FilterAction.GreaterThanOrEqual;
             Action2 = FilterAction.LessThanOrEqual;
             Count = 0;
+            StateHasChanged();
         }
 
         /// <summary>

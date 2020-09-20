@@ -38,6 +38,7 @@ namespace BootstrapBlazor.Components
             Action2 = FilterAction.Contains;
             Logic = FilterLogic.Or;
             Count = 0;
+            StateHasChanged();
         }
 
         /// <summary>
