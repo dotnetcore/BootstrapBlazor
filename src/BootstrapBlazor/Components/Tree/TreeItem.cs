@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Components
         private readonly List<TreeItem> _items = new List<TreeItem>(20);
 
         /// <summary>
-        /// 获得 父级菜单
-        /// </summary>
-        private TreeItem? Parent { get; set; }
-
-        /// <summary>
         /// 获得/设置 子节点数据源
         /// </summary>
         public IEnumerable<TreeItem> Items => _items;
@@ -41,6 +36,12 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否激活
+        /// </summary>
+        /// <value></value>
+        public bool IsActive { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否被选中
         /// </summary>
         public bool Checked { get; set; }
@@ -62,7 +63,6 @@ namespace BootstrapBlazor.Components
         /// <param name="item">Menutem 实例</param>
         public void AddItem(TreeItem item)
         {
-            item.Parent = this;
             _items.Add(item);
         }
 

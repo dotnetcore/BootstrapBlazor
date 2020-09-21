@@ -4836,6 +4836,27 @@ input:disabled,
         padding: 2px 4px;
     }
 }
+
+.tree .tree-item .nav-link.active,
+.tree .tree-item .nav-link.active .tree-icon,
+.tree .tree-item .nav-link.active span {
+    position: relative;
+}
+
+.tree .tree-item .nav-link.active {
+    color: #fff;
+}
+
+    .tree .tree-item .nav-link.active:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 25px;
+        background-color: #409eff;
+        border-radius: 4px;
+    }
 /*end tree*/
 
 /*editor*/

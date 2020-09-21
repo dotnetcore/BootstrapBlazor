@@ -15,7 +15,7 @@
     {
         base.OnInitialized();
 
-        if(TableFilter != null) TableFilter.ShowMoreButton = false;
+        if (TableFilter != null) TableFilter.ShowMoreButton = false;
 
         Items.AddRange(new SelectedItem[]
         {
@@ -31,6 +31,8 @@
     public override void Reset()
     {
         Value = 10;
+
+        StateHasChanged();
     }
 
     /// <summary>
