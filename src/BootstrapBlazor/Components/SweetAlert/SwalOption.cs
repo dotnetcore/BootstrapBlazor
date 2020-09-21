@@ -34,16 +34,6 @@ namespace BootstrapBlazor.Components
         public RenderFragment? BodyTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 ModalFooter 组件
-        /// </summary>
-        public RenderFragment? FooterTemplate { get; set; }
-
-        /// <summary>
-        /// 获得/设置 自定义组件
-        /// </summary>
-        public DynamicComponent? Component { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否显示关闭按钮 默认为 true 显示
         /// </summary>
         public bool ShowClose { get; set; } = true;

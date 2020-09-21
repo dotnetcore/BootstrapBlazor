@@ -41,6 +41,12 @@ namespace BootstrapBlazor.Components
         public Action? OnClose { get; set; }
 
         /// <summary>
+        /// 获得/设置 显示内容模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? BodyTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮模板
         /// </summary>
         [Parameter]
@@ -66,6 +72,7 @@ namespace BootstrapBlazor.Components
             new KeyValuePair<string, object>(nameof(SweetAlertBody.OnClose) , new Action(() => option.Dialog?.Toggle())),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.Content), option.Content ?? ""),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.ShowClose), option.ShowClose),
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate!),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!)
         };
     }

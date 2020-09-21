@@ -66,6 +66,23 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Task ShowComponent()
+        {
+            var op = new SwalOption()
+            {
+                BodyTemplate = new RenderFragment(builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.AddAttribute(1, "class", "text-center");
+                    builder.OpenComponent<Counter>(2);
+                    builder.CloseComponent();
+                    builder.CloseElement();
+                })
+            };
+            SwalService.Show(op);
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// 
         /// </summary>

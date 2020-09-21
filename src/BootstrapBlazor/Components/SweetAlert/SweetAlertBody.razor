@@ -29,7 +29,11 @@
     }
 </div>
 
-@if (!string.IsNullOrEmpty(Content))
+@if (BodyTemplate != null)
+{
+    @BodyTemplate
+}
+else
 {
     <div class="swal2-content d-flex">
         @Content

@@ -62,18 +62,7 @@ namespace BootstrapBlazor.Components
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes().ToList();
 
-            if (option.BodyTemplate != null)
-            {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
-            }
-            else if (option.Component != null)
-            {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.Component.Render()));
-            }
-            else
-            {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
-            }
+            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
 
             // 不保持状态
             parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
@@ -85,7 +74,7 @@ namespace BootstrapBlazor.Components
                 }));
             })));
 
-            await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
+            await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary()));
             IsShowDialog = true;
             StateHasChanged();
         }
