@@ -1305,7 +1305,9 @@
                     if (th.hasClass('filterable')) marginRight = marginRight + 12;
 
                     // 判断是否越界
+                    var scrollLeft = th.closest('table').parent().scrollLeft();
                     var margin = th.offset().left + th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
+                    marginRight = marginRight + scrollLeft;
                     if (margin > 0) {
                         left = left - margin - 16;
 
