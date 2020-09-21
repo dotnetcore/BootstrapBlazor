@@ -22,5 +22,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Table 高度
         /// </summary>
         [Parameter] public int? Height { get; set; }
+
+        /// <summary>
+        /// 获得/设置 多表头模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? MultiHeaderTemplate { get; set; }
     }
 }
