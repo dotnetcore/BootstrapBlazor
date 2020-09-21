@@ -61,12 +61,21 @@
     </div>
 </Block>
 
-<Block Title="设置显示内容" Introduction="通过设置 <code>Content</code> 用于显示弹窗内容" CodeFile="swal.2.html">
-    <div>正在开发中 ...</div>
+<Block Title="设置显示内容" Introduction="通过设置 <code>Title</code> <code>Content</code> 用于显示弹窗标题与内容" CodeFile="swal.2.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Button Icon="fa fa-fa" Text="Title" Color="Color.Success" OnClick="@ShowTitle" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Button Icon="fa fa-fa" Text="Content" Color="Color.Success" OnClick="@ShowContent" />
+            </div>
+        </div>
+    </div>
 </Block>
 
 <Block Title="自定义按钮" Introduction="通过设置 <code>ButtonTemplate</code> 自定义弹窗内按钮" CodeFile="swal.3.html">
-    <div>正在开发中 ...</div>
+    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Success" OnClick="@ShowButtons" />
 </Block>
 
 <SweetAlert />

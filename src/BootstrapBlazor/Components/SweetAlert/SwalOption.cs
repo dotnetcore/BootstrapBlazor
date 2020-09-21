@@ -44,6 +44,16 @@ namespace BootstrapBlazor.Components
         public DynamicComponent? Component { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示关闭按钮 默认为 true 显示
+        /// </summary>
+        public bool ShowClose { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 按钮模板
+        /// </summary>
+        public RenderFragment? ButtonTemplate { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public SwalOption()
@@ -55,18 +65,15 @@ namespace BootstrapBlazor.Components
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<KeyValuePair<string, object>> ToAttributes()
+        public IEnumerable<KeyValuePair<string, object>> ToAttributes() => new List<KeyValuePair<string, object>>
         {
-            return new KeyValuePair<string, object>[]
-            {
-                new KeyValuePair<string, object>(nameof(ModalDialogBase.Title), Title!),
-                new KeyValuePair<string, object>(nameof(ModalDialogBase.Size), Size.Medium),
-                new KeyValuePair<string, object>(nameof(ModalDialogBase.IsCentered), true),
-                new KeyValuePair<string, object>(nameof(ModalDialogBase.IsScrolling), false),
-                new KeyValuePair<string, object>(nameof(ModalDialogBase.ShowCloseButton), false),
-                new KeyValuePair<string, object>(nameof(ModalDialogBase.ShowFooter), false),
-                new KeyValuePair<string, object>(nameof(BodyContext), BodyContext!),
-            };
-        }
+            new KeyValuePair<string, object>(nameof(ModalDialogBase.Title), Title),
+            new KeyValuePair<string, object>(nameof(ModalDialogBase.Size), Size.Medium),
+            new KeyValuePair<string, object>(nameof(ModalDialogBase.IsCentered), true),
+            new KeyValuePair<string, object>(nameof(ModalDialogBase.IsScrolling), false),
+            new KeyValuePair<string, object>(nameof(ModalDialogBase.ShowCloseButton), false),
+            new KeyValuePair<string, object>(nameof(ModalDialogBase.ShowFooter), false),
+            new KeyValuePair<string, object>(nameof(BodyContext), BodyContext!)
+        };
     }
 }

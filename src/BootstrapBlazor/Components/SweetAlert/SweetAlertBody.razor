@@ -29,9 +29,20 @@
     }
 </div>
 
+@if (!string.IsNullOrEmpty(Content))
+{
+    <div class="swal2-content d-flex">
+        @Content
+    </div>
+}
+
 <div class="swal2-actions">
-    <button type="button" class="btn btn-secondary" @onclick="@OnClose">
-        <i class="fa fa-times"></i>
-        <span>关闭</span>
-    </button>
+    @if (ShowClose)
+    {
+        <button type="button" class="btn btn-secondary" @onclick="@OnClose">
+            <i class="fa fa-times"></i>
+            <span>关闭</span>
+        </button>
+    }
+    @ButtonTemplate
 </div>

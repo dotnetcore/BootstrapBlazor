@@ -1,5 +1,8 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,6 +20,49 @@ namespace BootstrapBlazor.Shared.Pages
                 Category = cate,
                 Title = "Sweet 弹窗"
             });
+            return Task.CompletedTask;
+        }
+
+        private Task ShowTitle()
+        {
+            SwalService.Show(new SwalOption()
+            {
+                Category = SwalCategory.Success,
+                Title = "我是 Title"
+            });
+            return Task.CompletedTask;
+        }
+
+        private Task ShowContent()
+        {
+            SwalService.Show(new SwalOption()
+            {
+                Category = SwalCategory.Success,
+                Content = "我是 Content"
+            });
+            return Task.CompletedTask;
+        }
+
+        private Task ShowButtons()
+        {
+            var op = new SwalOption()
+            {
+                Category = SwalCategory.Success,
+                Title = "我是 Title",
+                Content = "我是 Content",
+                ShowClose = false
+            };
+            op.ButtonTemplate = new RenderFragment(builder =>
+            {
+                builder.OpenComponent<Button>(0);
+                builder.AddAttribute(1, nameof(Button.Text), "自定义关闭按钮");
+                builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, new Action(() =>
+                {
+                    op.Dialog?.Toggle();
+                })));
+                builder.CloseComponent();
+            });
+            SwalService.Show(op);
             return Task.CompletedTask;
         }
 
