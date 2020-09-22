@@ -468,10 +468,6 @@ section {
     margin-left: 0;
 }
 
-.tree .tree-item:hover {
-    background-color: #f5f7fa;
-}
-
 .split-demo {
     height: 200px;
     width: 240px;

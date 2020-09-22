@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -97,7 +98,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClick(TreeItem item)
         {
-            item.IsExpanded = !item.IsExpanded;
+            if (item.Items.Any()) item.IsExpanded = !item.IsExpanded;
             if (OnTreeItemClick != null) await OnTreeItemClick.Invoke(item);
         }
 
