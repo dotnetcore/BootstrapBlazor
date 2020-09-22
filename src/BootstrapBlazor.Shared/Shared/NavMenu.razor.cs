@@ -425,6 +425,12 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "tables/dialog"
             });
 
+            it.AddItem(new MenuItem()
+            {
+                Text = "折行演示",
+                Url = "tables/wrap"
+            });
+
             item.AddItem(it);
 
             AddBadge(it, false);

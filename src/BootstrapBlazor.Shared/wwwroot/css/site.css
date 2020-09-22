@@ -1096,3 +1096,22 @@ section {
     margin: 0;
     display: flex;
 }
+
+.table-wrap-header-demo .table th .table-cell span {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-wrap-cell-demo .table tbody td:nth-child(3) .table-cell {
+    white-space: pre-line;
+}
+
+.table-wrap-cell-demo2 .table tbody td:nth-child(3) .table-cell {
+    max-width: 290px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}

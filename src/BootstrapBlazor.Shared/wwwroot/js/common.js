@@ -143,6 +143,21 @@
             var $footerBar = $el.children('.card-footer-control');
             $footer.attr('id', id);
             $footerBar.attr('href', '#' + id);
+        },
+        table_wrap: function () {
+            var handler = window.setInterval(function () {
+                var spans = $('body').find('.table-wrap-header-demo th .table-cell span');
+                if (spans.length === 0) {
+                    return;
+                }
+
+                window.clearInterval(handler);
+                spans.each(function () {
+                    $(this).tooltip({
+                        title: $(this).text()
+                    });
+                });
+            }, 500);
         }
     });
 
