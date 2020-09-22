@@ -266,7 +266,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     {
         <col width="60" />
     }
-    @foreach (var col in Columns)
+    @foreach (var col in Columns.Where(i => i.Visible))
     {
         @if (CheckShownWithBreakpoint(col))
         {
@@ -310,7 +310,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             }
             else
             {
-                @foreach (var col in Columns)
+                @foreach (var col in Columns.Where(i => i.Visible))
                 {
                     @if (CheckShownWithBreakpoint(col))
                     {
@@ -356,7 +356,7 @@ RenderFragment<TItem> RenderRow => item =>
             <div class="table-cell">@(StarRowIndex++)</div>
         </td>
     }
-    @foreach (var col in Columns)
+    @foreach (var col in Columns.Where(i => i.Visible))
     {
         @if (CheckShownWithBreakpoint(col))
         {

@@ -98,6 +98,12 @@ namespace BootstrapBlazor.Components
         public bool Fixed { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示本列 默认 true 显示
+        /// </summary>
+        [Parameter]
+        public bool Visible { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 列 td 自定义样式 默认为 null 未设置
         /// </summary>
         [Parameter]

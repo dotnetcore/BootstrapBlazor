@@ -53,6 +53,11 @@ namespace BootstrapBlazor.Components
         bool Fixed { get; set; }
 
         /// <summary>
+        /// 获得/设置 列是否显示 默认为 true 可见的
+        /// </summary>
+        bool Visible { get; set; }
+
+        /// <summary>
         /// 获得/设置 列 td 自定义样式 默认为 null 未设置
         /// </summary>
         string? CssClass { get; set; }
