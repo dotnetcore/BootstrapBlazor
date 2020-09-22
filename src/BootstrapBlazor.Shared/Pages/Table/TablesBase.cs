@@ -80,6 +80,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "Visible",
+                Description = "是否显示此列",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
                 Name = "Text",
                 Description = "表头显示文字",
                 Type = "string",
@@ -329,6 +336,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "ShowSkeleton",
                 Description = "加载时是否显示骨架屏",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowColumnList",
+                Description = "是否显示列显示/隐藏控制按钮",
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"

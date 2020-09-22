@@ -1222,6 +1222,16 @@
         },
         bb_table: function (el, method, args) {
             var $ele = $(el);
+
+            var btn = $ele.find('.btn-col');
+            if (!btn.hasClass('init')) {
+                btn.addClass('init');
+                btn.on('click', function () {
+                    var $menu = $(this).prev();
+                    $menu.toggleClass('show');
+                });
+            }
+
             if (method === 'fixTableHeader') {
                 var $thead = $ele.find('.table-fixed-header');
                 var $body = $ele.find('.table-fixed-body');
@@ -1865,6 +1875,15 @@
                     select.obj.invokeMethodAsync(select.method);
                 }
             });
+
+            // 处理 Table ColumnList
+            var $btn = $target.closest('.btn-col.init');
+            if (!$btn.hasClass('btn-col init')) {
+                var $menu = $target.closest('.dropdown-menu.dropdown-menu-right.show');
+                if ($menu.length === 0) {
+                    $('.table-toolbar-button .dropdown-menu.show').removeClass('show');
+                }
+            }
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {

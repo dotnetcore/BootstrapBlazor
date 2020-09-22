@@ -159,6 +159,8 @@ namespace BootstrapBlazor.Components
 
                 ScreenSize = await RetrieveWidth();
 
+                ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
+
                 // set default sortName
                 var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
                 if (col != null)

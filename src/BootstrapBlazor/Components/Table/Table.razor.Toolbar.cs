@@ -65,6 +65,12 @@ namespace BootstrapBlazor.Components
         public bool ShowRefresh { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示列选择下拉框 默认为 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowColumnList { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮列 Header 文本 默认为 操作
         /// </summary>
         [Parameter]
@@ -106,7 +112,30 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Inject]
         protected DialogService DialogService { get; set; }
+
+        /// <summary>
+        /// 获得/设置 各列是否显示状态集合
+        /// </summary>
+        private IEnumerable<ColumnVisibleItem> ColumnVisibles { get; set; }
+
+        private class ColumnVisibleItem
+        {
+            public string FieldName { get; set; }
+
+            public bool Visible { get; set; }
+        }
 #nullable restore
+
+        private IEnumerable<ITableColumn> GetColumns()
+        {
+            var items = ColumnVisibles.Where(i => i.Visible);
+            return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
+        }
+
+        private bool GetColumnsListState(ITableColumn col)
+        {
+            return ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
+        }
 
         /// <summary>
         /// 新建按钮方法
