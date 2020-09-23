@@ -98,6 +98,10 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClick(TreeItem item)
         {
+            if (this.IsAccordion){
+                foreach (var treeItem in Items.Where(p => p.IsExpanded && p!=item))
+                    treeItem.IsExpanded = !treeItem.IsExpanded;
+            }
             if (item.Items.Any()) item.IsExpanded = !item.IsExpanded;
             if (OnTreeItemClick != null) await OnTreeItemClick.Invoke(item);
         }
