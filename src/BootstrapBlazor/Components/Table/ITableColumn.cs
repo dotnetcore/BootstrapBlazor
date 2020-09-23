@@ -58,6 +58,11 @@ namespace BootstrapBlazor.Components
         bool Visible { get; set; }
 
         /// <summary>
+        /// 获得/设置 本列是否允许换行
+        /// </summary>
+        bool AllowTextWrap { get; set; }
+
+        /// <summary>
         /// 获得/设置 列 td 自定义样式 默认为 null 未设置
         /// </summary>
         string? CssClass { get; set; }

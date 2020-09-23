@@ -50,6 +50,12 @@ namespace BootstrapBlazor.Components
         public bool DefaultSort { get; set; }
 
         /// <summary>
+        /// 获得/设置 本列是否允许换行
+        /// </summary>
+        [Parameter]
+        public bool AllowTextWrap { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
         /// </summary>
         [Parameter]

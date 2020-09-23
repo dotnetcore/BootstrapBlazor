@@ -1391,7 +1391,7 @@ input:disabled,
     overflow: auto;
 }
 
-    .table-scroll .table tbody td .table-cell {
+    .table-scroll .table tbody td .table-cell:not(.is-wrap) {
         white-space: nowrap;
     }
 

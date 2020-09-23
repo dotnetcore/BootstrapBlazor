@@ -157,6 +157,7 @@ namespace BootstrapBlazor.Components
             .AddClass("justify-content-start", col.Align == Alignment.Left)
             .AddClass("justify-content-end", col.Align == Alignment.Right)
             .AddClass("justify-content-center", col.Align == Alignment.Center)
+            .AddClass("is-wrap", col.AllowTextWrap)
             .AddClass(col.CssClass)
             .Build();
 
