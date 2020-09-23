@@ -150,6 +150,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "new List<TreeItem>(20)"
             },
             new AttributeItem() {
+                Name = "ClickToggleNode",
+                Description = "是否点击节点时展开或者收缩子项",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ShowCheckbox",
                 Description = "是否显示 CheckBox",
                 Type = "bool",

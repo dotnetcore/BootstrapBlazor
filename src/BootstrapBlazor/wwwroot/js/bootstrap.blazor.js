@@ -1930,11 +1930,5 @@
                 }
             }
         });
-
-        $(document).on('click', '.tree-item', function (e) {
-            var $tree = $(this).parents('.tree:last');
-            $tree.find('.active').removeClass('active');
-            $(this).addClass('active');
-        });
     });
 })(jQuery);

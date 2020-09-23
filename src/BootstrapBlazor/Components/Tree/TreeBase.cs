@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetFullrowClassString(TreeItem item) => CssBuilder.Default("tree-fullrow")
+        protected string? GetItemClassString(TreeItem item) => CssBuilder.Default("tree-item")
             .AddClass("active", ActiveItem == item)
             .Build();
 
@@ -70,6 +70,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsAccordion { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否点击节点时展开或者收缩子项 默认 false
+        /// </summary>
+        [Parameter]
+        public bool ClickToggleNode { get; set; }
 
         /// <summary>
         /// 获得/设置 菜单数据集合
@@ -110,7 +116,10 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
+            }
         }
 
         /// <summary>
@@ -120,6 +129,7 @@ namespace BootstrapBlazor.Components
         protected async Task OnClick(TreeItem item)
         {
             ActiveItem = item;
+            if (ClickToggleNode) OnExpandRow(item);
             if (OnTreeItemClick != null) await OnTreeItemClick.Invoke(item);
         }
 

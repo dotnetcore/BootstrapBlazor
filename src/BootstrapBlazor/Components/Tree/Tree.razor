@@ -20,15 +20,14 @@
     </ul>;
 
 private RenderFragment<TreeItem> RenderTreeItem => item =>
-@<li role="treeitem" class="tree-item">
-    <div class="@GetFullrowClassString(item)"></div>
+@<li role="treeitem" class="@GetItemClassString(item)">
     <div class="tree-content">
-        <i class="@GetCaretClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, new Action(() => OnExpandRow(item))))"></i>
+        <i class="@GetCaretClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, () => OnExpandRow(item)))"></i>
         @if (ShowCheckbox)
         {
-            <Checkbox @bind-Value="@item.Checked" ShowDisplayText="false" IsDisabled="@item.Disabled" OnStateChanged="@(new Func<CheckboxState, bool, Task>( (state, v) => OnStateChanged(state, item)))" />
+            <Checkbox @bind-Value="@item.Checked" ShowDisplayText="false" IsDisabled="@item.Disabled" OnStateChanged="@(new Func<CheckboxState, bool, Task>((state, v) => OnStateChanged(state, item)))" />
         }
-        <div class="flex-fill" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, new Action(async () => await OnClick(item))))">
+        <div class="tree-node" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, async () => await OnClick(item)))">
             @if (ShowIcon)
             {
                 <i class="@GetIconClassString(item)"></i>

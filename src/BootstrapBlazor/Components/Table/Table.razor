@@ -240,17 +240,7 @@
             }
             @foreach (var item in Items)
             {
-                <tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))" @ondblclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => DoubleClickRow(item)))">
-                    @if (IsMultipleSelect)
-                    {
-                        <td>
-                            <div class="table-cell">
-                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnCheck))" @onclick:stopPropagation></Checkbox>
-                            </div>
-                        </td>
-                    }
-                    @RenderRow(item)
-                </tr>
+                @RenderRow.Invoke(item)
             }
         </tbody>
         @if (ShowFooter)
@@ -326,7 +316,6 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <div class="table-cell">@LineNoText</div>
                 </th>
             }
-
             @foreach (var col in GetColumns())
             {
                 @if (CheckShownWithBreakpoint(col))
@@ -365,7 +354,16 @@ RenderFragment<bool> RenderHeader => hasScroll =>
 </thead>;
 
 RenderFragment<TItem> RenderRow => item =>
-@<RenderTemplate>
+@<tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))" @ondblclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => DoubleClickRow(item)))">
+    @if (IsMultipleSelect)
+    {
+        <td>
+            <div class="table-cell">
+                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnCheck))" @onclick:stopPropagation></Checkbox>
+            </div>
+        </td>
+    }
+
     @if (ShowLineNo)
     {
         <td>
@@ -409,5 +407,5 @@ RenderFragment<TItem> RenderRow => item =>
             </div>
         </td>
     }
-</RenderTemplate>;
+</tr>;
 }
