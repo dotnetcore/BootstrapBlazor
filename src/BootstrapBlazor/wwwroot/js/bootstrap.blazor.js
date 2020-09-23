@@ -1768,6 +1768,14 @@
         },
         bb_multi_select: function (el, obj, method) {
             $(el).data('bb_multi_select', { obj: obj, method: method });
+        },
+        bb_tree: function (el) {
+            var $el = $(el);
+            $el.find('.tree-content').hover(function () {
+                $(this).parent().addClass('hover');
+            }, function () {
+                $(this).parent().removeClass('hover');
+            });
         }
     });
 

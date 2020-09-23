@@ -11,6 +11,11 @@ namespace BootstrapBlazor.Components
         private readonly List<TreeItem> _items = new List<TreeItem>(20);
 
         /// <summary>
+        /// 获得 父级节点
+        /// </summary>
+        private TreeItem? Parent { get; set; }
+
+        /// <summary>
         /// 获得/设置 子节点数据源
         /// </summary>
         public IEnumerable<TreeItem> Items => _items;
@@ -63,6 +68,7 @@ namespace BootstrapBlazor.Components
         /// <param name="item">Menutem 实例</param>
         public void AddItem(TreeItem item)
         {
+            item.Parent = this;
             _items.Add(item);
         }
 
@@ -75,6 +81,21 @@ namespace BootstrapBlazor.Components
             {
                 item.Checked = isChecked;
                 if (item.Items.Any()) item.CascadeSetCheck(isChecked);
+            }
+        }
+
+        /// <summary>
+        /// 级联设置展开状态方法
+        /// </summary>
+        /// <param name="item"></param>
+        public static void CollapseRow(TreeItem item)
+        {
+            if (item.Parent != null)
+            {
+                foreach (var node in item.Parent.Items)
+                {
+                    node.IsExpanded = false;
+                }
             }
         }
     }
