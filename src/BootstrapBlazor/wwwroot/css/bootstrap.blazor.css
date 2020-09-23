@@ -1395,6 +1395,12 @@ input:disabled,
         white-space: nowrap;
     }
 
+.table-cell.is-ellips {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .table-loading {
     display: flex;
     justify-content: center;

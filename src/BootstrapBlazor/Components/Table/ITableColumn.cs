@@ -58,9 +58,14 @@ namespace BootstrapBlazor.Components
         bool Visible { get; set; }
 
         /// <summary>
-        /// 获得/设置 本列是否允许换行
+        /// 获得/设置 本列是否允许换行 默认为 false
         /// </summary>
         bool AllowTextWrap { get; set; }
+
+        /// <summary>
+        /// 获得/设置 本列文本超出省略 默认为 false
+        /// </summary>
+        bool TextEllipsis { get; set; }
 
         /// <summary>
         /// 获得/设置 列 td 自定义样式 默认为 null 未设置

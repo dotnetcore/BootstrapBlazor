@@ -1103,11 +1103,3 @@ section {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-.table-wrap-cell-demo2 .table tbody td:nth-child(3) .table-cell {
-    max-width: 290px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}

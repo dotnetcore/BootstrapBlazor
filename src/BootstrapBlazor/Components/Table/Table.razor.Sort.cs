@@ -89,6 +89,13 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 获得列单元格 Style 用于设置文本超长溢出
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        protected string? GetCellStyleString(ITableColumn col) => col.TextEllipsis ? $"width: {col.Width ?? 200}px" : null;
+
+        /// <summary>
         /// 获得指定列头固定列样式
         /// </summary>
         /// <param name="col"></param>
@@ -96,7 +103,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected string? GetFixedCellStyleString(ITableColumn col, int margin = 0)
         {
-            string? style = null;
+            var style = CssBuilder.Default();
             if (col.Fixed)
             {
                 var defaultWidth = 200;
@@ -113,7 +120,7 @@ namespace BootstrapBlazor.Components
                     }
                     // 如果是固定表头时增加滚动条位置
                     if (Height.HasValue && (index + 1) == Columns.Count) width += margin;
-                    style = $"right: {width}px;";
+                    style.AddClass($"right: {width}px;");
                 }
                 else
                 {
@@ -121,10 +128,10 @@ namespace BootstrapBlazor.Components
                     {
                         width += Columns[start++].Width ?? defaultWidth;
                     };
-                    style = $"left: {width}px;";
+                    style.AddClass($"left: {width}px;");
                 }
             }
-            return style;
+            return style.Build();
         }
 
         /// <summary>
@@ -158,6 +165,7 @@ namespace BootstrapBlazor.Components
             .AddClass("justify-content-end", col.Align == Alignment.Right)
             .AddClass("justify-content-center", col.Align == Alignment.Center)
             .AddClass("is-wrap", col.AllowTextWrap)
+            .AddClass("is-ellips", col.TextEllipsis)
             .AddClass(col.CssClass)
             .Build();
 

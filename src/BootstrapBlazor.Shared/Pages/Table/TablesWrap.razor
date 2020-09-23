@@ -45,32 +45,23 @@
 </Block>
 
 <Block Title="单元格数据超长省略示例" Introduction="在某种特殊情况下可能单元格内容比较长，需要进行省略处理" CodeFile="table.43.html">
-    <p>可以拖动窗口大小，窗口过小时 <b>地址</b> 列自动进行忽略处理</p>
-    <p>
-        通过自定义样式来完成此需求，<code>TableColumn</code> 设置宽度为 290，可以通过自定义 js 设置单元格 title 属性或者实现 <code>Tooltip</code> 显示完整信息方法<pre style="color: #e83e8c">
-.table-wrap-cell-demo2 .table tbody td:nth-child(3) .table-cell {
-    max-width: 290px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-</pre>
-    </p>
-    <div class="table-wrap-cell-demo2">
-        <Table TItem="BindItem" IsBordered="true" IsStriped="true" Items="@CellItems">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
-                <TableColumn @bind-Field="@context.Name" Text="姓名" />
-                <TableColumn @bind-Field="@context.Address" Text="地址" Width="290" />
-                <TableColumn @bind-Field="@context.Education" />
-                <TableColumn @bind-Field="@context.Count" />
-                <TableColumn @bind-Field="@context.Complete">
-                    <Template Context="v">
-                        <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </Template>
-                </TableColumn>
-            </TableColumns>
-        </Table>
-    </div>
+    <ul class="ul-demo">
+        <li>可以拖动窗口大小，窗口过小时 <b>地址</b> 列自动进行省略处理</li>
+        <li>通过设置 <code>OverflowEllipsis</code> 来开启文本超长省略功能</li>
+        <li><b>注意：</b>推荐使用 <code>Width</code> 对列宽度进行设置，如未设置列宽内部自动使用 200px 宽度</li>
+    </ul>
+    <Table TItem="BindItem" IsBordered="true" IsStriped="true" Items="@CellItems">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
+            <TableColumn @bind-Field="@context.Name" Text="姓名" />
+            <TableColumn @bind-Field="@context.Address" Text="地址" Width="200" TextEllipsis="true" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
 </Block>

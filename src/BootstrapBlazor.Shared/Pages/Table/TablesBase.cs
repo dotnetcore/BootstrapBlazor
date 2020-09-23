@@ -80,6 +80,20 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "AllowTextWrap",
+                Description = "是否允许换行",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "TextEllipsis",
+                Description = "是否文本超出时省略",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "Visible",
                 Description = "是否显示此列",
                 Type = "bool",
