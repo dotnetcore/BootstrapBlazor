@@ -92,7 +92,7 @@ namespace BootstrapBlazor.Components
         {
             if (item.Parent != null)
             {
-                foreach (var node in item.Parent.Items)
+                foreach (var node in item.Parent.Items.Where(p => p.IsExpanded && p != item))
                 {
                     node.IsExpanded = false;
                 }

@@ -139,7 +139,17 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         protected void OnExpandRow(TreeItem item)
         {
-            if (IsAccordion) TreeItem.CollapseRow(item);
+            if (IsAccordion)
+            {
+                if (Items.Contains(item))
+                {
+                    foreach (var rootNode in Items.Where(p => p.IsExpanded && p != item)) rootNode.IsExpanded = false;
+                }
+                else
+                {
+                    TreeItem.CollapseRow(item);
+                }
+            }
             item.IsExpanded = !item.IsExpanded;
         }
 

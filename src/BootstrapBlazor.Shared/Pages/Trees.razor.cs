@@ -24,6 +24,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new TreeItem() { Text = "导航二" },
                 new TreeItem() { Text = "导航三" }
             };
+            ret[0].AddItem(new TreeItem() { Text = "子菜单" });
 
             ret[1].AddItem(new TreeItem() { Text = "子菜单一" });
             ret[1].AddItem(new TreeItem() { Text = "子菜单二" });
