@@ -69,11 +69,11 @@ namespace BootstrapBlazor.Components
         {
             new KeyValuePair<string, object>(nameof(SweetAlertBody.Category) , option.Category),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.Title) , option.Title),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.OnClose) , new Action(() => option.Dialog?.Toggle())),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.Content), option.Content ?? ""),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.ShowClose), option.ShowClose),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate!),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!)
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!),
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close()))
         };
     }
 }

@@ -108,8 +108,8 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 弹窗状态切换方法
+        /// 显示弹窗方法
         /// </summary>
-        public void Toggle() => Modal?.ShowDialog(this);
+        public void Show() => Modal?.ShowDialog(this);
     }
 }

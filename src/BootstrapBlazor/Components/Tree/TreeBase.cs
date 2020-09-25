@@ -147,7 +147,7 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-                    TreeItem.CollapseRow(item);
+                    item.CollapseOtherNodes();
                 }
             }
             item.IsExpanded = !item.IsExpanded;

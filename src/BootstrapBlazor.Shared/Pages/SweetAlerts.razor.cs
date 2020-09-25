@@ -56,10 +56,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 builder.OpenComponent<Button>(0);
                 builder.AddAttribute(1, nameof(Button.Text), "自定义关闭按钮");
-                builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, new Action(() =>
-                {
-                    op.Dialog?.Toggle();
-                })));
+                builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
                 builder.CloseComponent();
             });
             SwalService.Show(op);

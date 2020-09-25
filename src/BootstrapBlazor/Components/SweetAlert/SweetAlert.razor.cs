@@ -60,19 +60,23 @@ namespace BootstrapBlazor.Components
         private async Task Show(SwalOption option)
         {
             option.Dialog = ModalContainer;
+            option.Body = ModalDialog;
             var parameters = option.ToAttributes().ToList();
-
-            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
 
             // 不保持状态
             parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
             {
-                await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
+                if (!option.KeepChildrenState)
                 {
-                    [nameof(ModalDialogBase.BodyContext)] = null!,
-                    [nameof(ModalDialogBase.BodyTemplate)] = null!
-                }));
+                    await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
+                    {
+                        [nameof(ModalDialogBase.BodyContext)] = null!,
+                        [nameof(ModalDialogBase.BodyTemplate)] = null!
+                    }));
+                }
             })));
+
+            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
 
             await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary()));
             IsShowDialog = true;

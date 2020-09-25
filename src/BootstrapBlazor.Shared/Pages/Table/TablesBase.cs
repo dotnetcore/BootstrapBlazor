@@ -61,42 +61,42 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Filterable",
                 Description = "是否可过滤数据",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Editable",
                 Description = "是否生成编辑组件",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "Readonly",
                 Description = "编辑时是否只读模式",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "AllowTextWrap",
                 Description = "是否允许换行",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "TextEllipsis",
                 Description = "是否文本超出时省略",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Visible",
                 Description = "是否显示此列",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
@@ -173,6 +173,41 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "PageItems",
+                Description = "IsPagination=true 设置每页显示数据数量",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ExtendButtonColumnWidth",
+                Description = "行操作按钮列宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "130"
+            },
+            new AttributeItem() {
+                Name = "RenderModelResponsiveWidth",
+                Description = "组件布局模式自动切换阈值",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "768"
+            },
+            new AttributeItem() {
+                Name = "Items",
+                Description = "数据集合",
+                Type = "IEnumerable<TItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "PageItemsSource",
+                Description = "IsPagination=true 设置每页显示数据数量的外部数据源",
+                Type = "IEnumerable<int>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "HeaderTemplate",
                 Description = "TableHeader 实例",
                 Type = "RenderFragment<TItem>",
@@ -243,27 +278,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "Items",
-                Description = "数据集合",
-                Type = "IEnumerable<TItem>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "PageItems",
-                Description = "IsPagination=true 设置每页显示数据数量",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "PageItemsSource",
-                Description = "IsPagination=true 设置每页显示数据数量的外部数据源",
-                Type = "IEnumerable<int>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
                 Name = "IsMultipleSelect",
                 Description = "是否为多选模式，为 true 时第一列自动为复选框列",
                 Type = "boolean",
@@ -273,7 +287,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "ClickToSelect",
                 Description = "点击行即选中本行",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
@@ -362,16 +376,16 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "ExtendButtonColumnWidth",
-                Description = "行操作按钮列宽度",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "130"
+                Name = "UseComponentWidth",
+                Description = "组件渲染模式是否使用组件宽度来判断",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ScollingDialogContent",
                 Description = "编辑弹窗框是否为内部出现滚动条",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
@@ -451,20 +465,6 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "TableRenderModel",
                 ValueList = "Auto|Table|CardView",
                 DefaultValue = "Auto"
-            },
-            new AttributeItem() {
-                Name = "RenderModelResponsiveWidth",
-                Description = "组件布局模式自动切换阈值",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "768"
-            },
-            new AttributeItem() {
-                Name = "UseComponentWidth",
-                Description = "组件渲染模式是否使用组件宽度来判断",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
             }
         };
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -11,7 +12,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 相关弹窗实例
         /// </summary>
-        public ModalBase? Dialog { get; internal set; }
+        internal ModalBase? Dialog { get; set; }
+
+        /// <summary>
+        /// 获得/设置 相关弹窗实例
+        /// </summary>
+        internal ModalDialogBase? Body { get; set; }
 
         /// <summary>
         /// 获得/设置 提示类型 默认为 Sucess
@@ -37,6 +43,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示关闭按钮 默认为 true 显示
         /// </summary>
         public bool ShowClose { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
+        /// </summary>
+        public bool KeepChildrenState { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮模板
@@ -65,5 +76,22 @@ namespace BootstrapBlazor.Components
             new KeyValuePair<string, object>(nameof(ModalDialogBase.ShowFooter), false),
             new KeyValuePair<string, object>(nameof(BodyContext), BodyContext!)
         };
+
+        /// <summary>
+        /// 关闭弹窗方法
+        /// </summary>
+        public async Task Close()
+        {
+            if (Dialog != null)
+            {
+                await Dialog.Toggle();
+            }
+
+            if (Body != null && Body.OnClose != null)
+            {
+                await Task.Delay(500);
+                await Body.OnClose();
+            }
+        }
     }
 }

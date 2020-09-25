@@ -87,12 +87,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 级联设置展开状态方法
         /// </summary>
-        /// <param name="item"></param>
-        public static void CollapseRow(TreeItem item)
+        public void CollapseOtherNodes()
         {
-            if (item.Parent != null)
+            if (Parent != null)
             {
-                foreach (var node in item.Parent.Items.Where(p => p.IsExpanded && p != item))
+                foreach (var node in Parent.Items.Where(p => p.IsExpanded && p != this))
                 {
                     node.IsExpanded = false;
                 }
