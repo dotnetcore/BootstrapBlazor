@@ -77,13 +77,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "None"
             },
             new AttributeItem() {
-                Name = "OffText",
-                Description = "组件 Off 时显示文本",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
-            },
-            new AttributeItem() {
                 Name = "OnColor",
                 Description = "开颜色设置",
                 Type = "Color",
@@ -98,11 +91,32 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "—"
             },
             new AttributeItem() {
-                Name = "Size",
-                Description = "尺寸",
-                Type = "Size",
-                ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
-                DefaultValue = "None"
+                Name = "OffText",
+                Description = "组件 Off 时显示文本",
+                Type = "string",
+                ValueList = "—",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
+                Name = "OnInnerText",
+                Description = "组件 On 时内置显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "开"
+            },
+            new AttributeItem() {
+                Name = "OffInnerText",
+                Description = "组件 Off 时内置显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "关"
+            },
+            new AttributeItem() {
+                Name = "ShowInnerText",
+                Description = "是否显示内置显示文本",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Width",

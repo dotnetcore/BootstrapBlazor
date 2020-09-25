@@ -1,0 +1,26 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TModel
+@typeparam TValue
+@inherits DropdownListBase<TModel, TValue>
+
+@if (IsShowLabel)
+{
+    <label class="control-label" for="@InputId">@DisplayText</label>
+}
+<div @attributes="AdditionalAttributes" data-toggle="lgbSelect" id="@Id" class="@ClassName">
+    <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" value="@Text" />
+    <span class="@ArrowClassName"><i class="fa fa-angle-up"></i></span>
+    <div class="dropdown-menu-arrow"></div>
+    <div class="dropdown-menu">
+        @if (Data != null)
+        {
+            @foreach (var item in Data)
+            {
+                <div class="@ActiveItem(item)" data-val="@GetValue(item)" @onclick="@(e => OnItemClick(item))">@GetText(item)</div>
+            }
+        }
+    </div>
+</div>
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>

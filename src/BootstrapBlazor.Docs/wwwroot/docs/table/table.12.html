@@ -1,19 +1,14 @@
-﻿<Table TItem="BindItem" IsBordered="true" IsMultipleSelect="true"
-        PageItemsSource="@PageItemsSource" IsPagination="true" OnQueryAsync="@OnQueryAsync" Height="200">
+﻿<Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" class="fixed-header-demo" Height="200">
     <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" />
-        <TableColumn @bind-Field="@context.Name" />
-        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.DateTime" Width="150" />
+        <TableColumn @bind-Field="@context.Name" Width="100" />
+        <TableColumn @bind-Field="@context.Address" Width="400" />
     </TableColumns>
 </Table>
 
 @code {
     private static readonly Random random = new Random();
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
     {
         Id = i,
@@ -24,29 +19,12 @@
         Complete = random.Next(1, 100) > 50
     }));
 
-    /// <summary>
-    /// 
-    /// </summary>
     protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
 
-    /// <summary>
-    /// 
-    /// </summary>
     protected IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
     
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="options"></param>
-    /// <returns></returns>
     protected Task<QueryData<BindItem>> OnQueryAsync(QueryPageOptions options) => BindItemQueryAsync(Items, options);
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="items"></param>
-    /// <param name="options"></param>
-    /// <returns></returns>
     protected Task<QueryData<BindItem>> BindItemQueryAsync(IEnumerable<BindItem> items, QueryPageOptions options)
     {
         //TODO: 此处代码后期精简

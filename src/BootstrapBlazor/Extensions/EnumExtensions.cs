@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
@@ -19,7 +18,7 @@ namespace BootstrapBlazor.Components
         public static string ToDescriptionString<TEnum>(this TEnum val) where TEnum : Enum => typeof(TEnum).ToDescriptionString(val.ToString());
 
         /// <summary>
-        /// 
+        /// 通过字段名称获取 DescriptionAttribute 标签值
         /// </summary>
         /// <param name="type"></param>
         /// <param name="fieldName"></param>
@@ -37,17 +36,25 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获取指定枚举类型的枚举值集合，默认通过 Description 标签显示 DisplayName
+        /// 获取指定枚举类型的枚举值集合，默认通过 Description 标签显示 DisplayName 未设置 Description 标签时显示字段名称
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="addtionalItem"></param>
         /// <returns></returns>
-        public static IEnumerable<SelectedItem> ToSelectList(this Type type)
+        public static IEnumerable<SelectedItem> ToSelectList(this Type type, SelectedItem? addtionalItem = null)
         {
             var ret = new List<SelectedItem>();
-            foreach (var field in Enum.GetNames(type))
+            if (addtionalItem != null) ret.Add(addtionalItem);
+
+            if (type.IsEnum())
             {
-                var desc = type.ToDescriptionString(field);
-                ret.Add(new SelectedItem(field, desc));
+                var t = Nullable.GetUnderlyingType(type) ?? type;
+                foreach (var field in Enum.GetNames(t))
+                {
+                    var desc = t.ToDescriptionString(field);
+                    if (string.IsNullOrEmpty(desc)) desc = field;
+                    ret.Add(new SelectedItem(field, desc));
+                }
             }
             return ret;
         }

@@ -8,28 +8,52 @@
 }
 <div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
     <CascadingValue Value="this" IsFixed="true">
-        @SelectItems
+        @Options
     </CascadingValue>
     <RenderTemplate>
         @{
-            var items = GetSelectedItems();
+            var items = GetShownItems();
         }
-        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" data-original-title="@ErrorMessage" value="@CurrentTextAsString" @onblur="@OnBlur" />
-        <span class="@ArrowClassName"><i class="fa fa-angle-up"></i></span>
+        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" value="@CurrentTextAsString" />
+        <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
         <div class="dropdown-menu-arrow"></div>
         <div class="dropdown-menu">
-            @foreach (var itemGroup in items)
+            @if (ShowSearch)
             {
-                if (!string.IsNullOrEmpty(itemGroup.Key))
+                <div class="search">
+                    <input type="text" class="search-text form-control" @bind="@SearchText" @bind:event="oninput" />
+                    <i class="fa fa-search"></i>
+                </div>
+            }
+            @if (ItemTemplate != null)
+            {
+                foreach (var item in items)
                 {
-                    <Divider Text="@itemGroup.Key" />
+                    <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">
+                        @ItemTemplate.Invoke(item)
+                    </div>
                 }
-                @foreach (var item in itemGroup)
+            }
+            else
+            {
+                @foreach (var itemGroup in items.GroupBy(i => i.GroupName))
                 {
-                    <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        <Divider Text="@itemGroup.Key" />
+                    }
+                    @foreach (var item in itemGroup)
+                    {
+                        <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
+                    }
                 }
             }
         </div>
+        @if (!Initialized && SelectedItem != null && OnSelectedItemChanged != null)
+        {
+            Initialized = true;
+            OnSelectedItemChanged.Invoke(SelectedItem);
+        }
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">

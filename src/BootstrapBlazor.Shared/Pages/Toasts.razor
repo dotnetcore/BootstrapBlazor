@@ -1,4 +1,6 @@
 ﻿@page "/toasts"
+@inject ToastService ToastService
+@inject IJSRuntime JSRuntime
 
 <h3>Toast 轻量弹窗</h3>
 
@@ -43,11 +45,17 @@
     <p>通过设置 <code>Toast</code> 组件的 <code>Placement</code> 值来设置弹窗出现的位置，默认值为 <code>BottomEnd</code> 除此之外的值均为右上角</p>
     <div class="form-inline">
         <div class="row">
-            <div class="form-group col-6">
+            <div class="form-group col-6 col-md-3">
                 <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-6 col-md-3">
                 <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
+            </div>
+            <div class="form-group col-6 col-md-3">
+                <Button OnClick="e => OnPlacementClick(Placement.TopStart)">左上角</Button>
+            </div>
+            <div class="form-group col-6 col-md-3">
+                <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">左下角</Button>
             </div>
         </div>
     </div>
@@ -79,6 +87,7 @@
 
 <Pre>&lt;Toast /&gt;</Pre>
 
+<Toast @ref="Toast"></Toast>
+
 <AttributeTable Items="@GetAttributes()" />
 
-<Toast @ref="Toast"></Toast>

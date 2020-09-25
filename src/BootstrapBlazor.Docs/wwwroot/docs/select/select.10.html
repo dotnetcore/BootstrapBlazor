@@ -1,0 +1,7 @@
+<Select Items="@EnumItems" @bind-Value="@SelectedEnumItem" />
+
+@code {
+    private IEnumerable<SelectedItem> EnumItems { get; set; } = typeof(SortOrder).ToSelectList();
+
+    private SortOrder SelectedEnumItem { get; set; } = SortOrder.Unset;
+}

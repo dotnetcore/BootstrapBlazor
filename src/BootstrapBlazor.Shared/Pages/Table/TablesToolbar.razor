@@ -11,7 +11,7 @@
            IsMultipleSelect="true" ShowToolbar="true" ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -24,7 +24,7 @@
            ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -41,25 +41,24 @@
             <TableToolbarButton TItem="BindItem" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@DownloadAsync" />
         </TableToolbarTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
     </Table>
 </Block>
 
-<Block Title="自定义显示功能按钮" Introduction="通过设置 <code>ShowNewButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示" CodeFile="table.18.html">
+<Block Title="自定义显示功能按钮" Introduction="通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示" CodeFile="table.18.html">
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" IsMultipleSelect="true"
-           ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
 </Block>

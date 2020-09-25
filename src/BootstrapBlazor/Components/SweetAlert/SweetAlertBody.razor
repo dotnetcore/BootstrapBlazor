@@ -1,0 +1,52 @@
+﻿@namespace BootstrapBlazor.Components
+
+<div class="swal2-header">
+    @if (Category == SwalCategory.Success)
+    {
+        <div class="@IconClassString">
+            <div class="swal2-success-circular-line-left"></div>
+            <span class="swal2-success-line-tip"></span><span class="swal2-success-line-long"></span>
+            <div class="swal2-success-ring"></div><div class="swal2-success-fix"></div>
+            <div class="swal2-success-circular-line-right"></div>
+        </div>
+    }
+    else if (Category == SwalCategory.Error)
+    {
+        <div class="@IconClassString">
+            <span class="swal2-x-mark">
+                <span class="swal2-x-mark-line-left"></span>
+                <span class="swal2-x-mark-line-right"></span>
+            </span>
+        </div>
+    }
+    else
+    {
+        <div class="@IconClassString"></div>
+    }
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h2 class="swal2-title">@Title</h2>
+    }
+</div>
+
+@if (BodyTemplate != null)
+{
+    @BodyTemplate
+}
+else
+{
+    <div class="swal2-content d-flex">
+        @Content
+    </div>
+}
+
+<div class="swal2-actions">
+    @if (ShowClose)
+    {
+        <button type="button" class="btn btn-secondary" @onclick="@OnClose">
+            <i class="fa fa-times"></i>
+            <span>关闭</span>
+        </button>
+    }
+    @ButtonTemplate
+</div>

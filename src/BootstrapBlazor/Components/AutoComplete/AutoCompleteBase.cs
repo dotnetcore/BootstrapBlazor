@@ -94,44 +94,12 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// OnInput 方法
-        /// </summary>
-        protected async Task OnInput(ChangeEventArgs args)
-        {
-            if (!_isLoading)
-            {
-                _selectedItem = "";
-                _isLoading = true;
-
-                var val = Convert.ToString(args.Value) ?? "";
-                CurrentValueAsString = val;
-
-                _isShown = true;
-                _isLoading = false;
-                if (CustomFilter != null)
-                {
-                    var items = await CustomFilter();
-                    FilterItems = items.ToList();
-                }
-                else
-                {
-                    var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-                    var items = IsLikeMatch ?
-                        Items.Where(s => s.Contains(val, comparison)) :
-                        Items.Where(s => s.StartsWith(val, comparison));
-                    FilterItems = items.ToList();
-                }
-            }
-        }
-
-        /// <summary>
         /// OnBlur 方法
         /// </summary>
-        protected Task OnBlur()
+        protected void OnBlur()
         {
             _selectedItem = "";
             _isShown = false;
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -148,35 +116,52 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        protected async Task OnKeyUp(KeyboardEventArgs args)
+        protected virtual async Task OnKeyUp(KeyboardEventArgs args)
         {
-            if (_isShown)
+            if (!_isLoading)
             {
-                var source = FilterItems;
-                if (source.Any())
+                _isLoading = true;
+                if (CustomFilter != null)
                 {
-                    // 键盘向上选择
-                    if (args.Key == "ArrowUp")
+                    var items = await CustomFilter();
+                    FilterItems = items.ToList();
+                }
+                else
+                {
+                    var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+                    var items = IsLikeMatch ?
+                        Items.Where(s => s.Contains(CurrentValueAsString, comparison)) :
+                        Items.Where(s => s.StartsWith(CurrentValueAsString, comparison));
+                    FilterItems = items.ToList();
+                }
+                _isLoading = false;
+                _isShown = true;
+            }
+
+            var source = FilterItems;
+            if (source.Any())
+            {
+                // 键盘向上选择
+                if (args.Key == "ArrowUp")
+                {
+                    var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) - 1));
+                    _selectedItem = source[index];
+                }
+                else if (args.Key == "ArrowDown")
+                {
+                    var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) + 1));
+                    _selectedItem = source[index];
+                }
+                else if (args.Key == "Escape")
+                {
+                    OnBlur();
+                }
+                else if (args.Key == "Enter")
+                {
+                    if (!string.IsNullOrEmpty(_selectedItem))
                     {
-                        var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) - 1));
-                        _selectedItem = source[index];
-                    }
-                    else if (args.Key == "ArrowDown")
-                    {
-                        var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) + 1));
-                        _selectedItem = source[index];
-                    }
-                    else if (args.Key == "Escape")
-                    {
-                        await OnBlur();
-                    }
-                    else if (args.Key == "Enter")
-                    {
-                        if (!string.IsNullOrEmpty(_selectedItem))
-                        {
-                            CurrentValueAsString = _selectedItem;
-                            await OnBlur();
-                        }
+                        CurrentValueAsString = _selectedItem;
+                        OnBlur();
                     }
                 }
             }

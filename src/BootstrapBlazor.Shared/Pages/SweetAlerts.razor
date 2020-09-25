@@ -1,0 +1,87 @@
+﻿@page "/swals"
+@inject SwalService SwalService
+
+<h3>SweetAlert 弹窗组件</h3>
+
+<h4>模态对话框，多用于动作过程中进行询问后继续，或者显示执行结果</h4>
+
+<Block Title="基础用法" Introduction="通过注入服务调用 <code>Swal</code> 来弹出一个对话框" CodeFile="swal.1.html">
+    <div class="form-inline">
+        <div class="row swal-demo">
+            <div class="form-group col-12">
+                <div class="text-success">成功</div>
+                <div>
+                    <div class="swal2-icon swal2-success">
+                        <div class="swal2-success-circular-line-left"></div>
+                        <span class="swal2-success-line-tip"></span><span class="swal2-success-line-long"></span>
+                        <div class="swal2-success-ring"></div><div class="swal2-success-fix"></div>
+                        <div class="swal2-success-circular-line-right"></div>
+                    </div>
+                </div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Success" OnClick="@(e => OnSwal(SwalCategory.Success))" />
+                </div>
+            </div>
+            <div class="form-group col-12">
+                <div class="text-success">失败</div>
+                <div>
+                    <div class="swal2-icon swal2-error">
+                        <span class="swal2-x-mark">
+                            <span class="swal2-x-mark-line-left"></span>
+                            <span class="swal2-x-mark-line-right"></span>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Danger" OnClick="@(e => OnSwal(SwalCategory.Error))" />
+                </div>
+            </div>
+            <div class="form-group col-12">
+                <div class="text-success">警告</div>
+                <div><div class="swal2-icon swal2-warning"></div></div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
+                </div>
+            </div>
+            <div class="form-group col-12">
+                <div class="text-success">提示</div>
+                <div><div class="swal2-icon swal2-info"></div></div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
+                </div>
+            </div>
+            <div class="form-group col-12">
+                <div class="text-success">疑问</div>
+                <div><div class="swal2-icon swal2-question"></div></div>
+                <div>
+                    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
+                </div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="设置显示内容" Introduction="通过设置 <code>Title</code> <code>Content</code> 用于显示弹窗标题与内容" CodeFile="swal.2.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Button Icon="fa fa-fa" Text="Title" Color="Color.Success" OnClick="@ShowTitle" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Button Icon="fa fa-fa" Text="Content" Color="Color.Success" OnClick="@ShowContent" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="自定义按钮" Introduction="通过设置 <code>ButtonTemplate</code> 自定义弹窗内按钮" CodeFile="swal.3.html">
+    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Success" OnClick="@ShowButtons" />
+</Block>
+
+<Block Title="显示自定义组件" Introduction="通过设置 <code>Component</code> 弹窗内容为自定义组件" CodeFile="swal.4.html">
+    <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Success" OnClick="@ShowComponent" />
+</Block>
+
+<SweetAlert />
+
+<AttributeTable Items="@GetAttributes()" />

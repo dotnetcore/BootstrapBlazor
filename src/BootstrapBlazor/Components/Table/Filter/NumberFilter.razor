@@ -1,15 +1,15 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ValueTypeConditionBase
+@inherits FilterBase
 
-<Select TItem="FilterAction" Items="@Items" @bind-Value="@Action1"></Select>
+<Select Items="@Items" @bind-Value="@Action1"></Select>
 
-<BootstrapInput TItem="int?" @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
+<BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
 
 @if (Count > 0)
 {
     <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
 
-    <Select TItem="FilterAction" Items="@Items" @bind-Value="@Action2"></Select>
+    <Select Items="@Items" @bind-Value="@Action2"></Select>
 
-    <BootstrapInput TItem="int?" @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
+    <BootstrapInput @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
 }

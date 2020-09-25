@@ -1,144 +1,217 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits TableBase<TItem>
+@inherits BootstrapComponentBase
 
-<div class="table-container" @ref="TableWrapper">
-    <div class="table-toolbar">
-        @if (ShowToolbar)
+<div @attributes="@AdditionalAttributes" class="@TableClassName" @ref="TableElement">
+    <CascadingValue Value="this" IsFixed="true">
+        @TableColumns?.Invoke(new TItem())
+    </CascadingValue>
+    @if (FirstRender)
+    {
+        if (ShowSkeleton)
         {
-            <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
-                @if (ShowDefaultButtons)
-                {
-                    @if (ShowNewButton)
-                    {
-                        <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-fw fa-plus" Text="新建" />
-                    }
-                    @if (ShowEditButton)
-                    {
-                        <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@Edit" Icon="fa fa-fw fa-pencil" Text="编辑" />
-                    }
-                    @if (ShowDeleteButton)
-                    {
-                        <TableToolbarPopconfirmButton Color="Color.Danger" Icon="fa fa-fw fa-remove" Text="删除"
-                                                      OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
-                                                      CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
-                                                      ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
-                    }
-                }
-                @TableToolbarTemplate
-            </TableToolbar>
-            @if (ShowRefresh)
-            {
-                <div class="float-right table-toolbar-button table-column-right">
-                    <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
-                        <i class="fa fa-fw fa-refresh"></i>
-                        <span class="d-none d-sm-inline-block">刷新</span>
-                    </button>
-                </div>
-            }
+            <SkeletonTable></SkeletonTable>
         }
-        @if (ShowSearch)
+        else
         {
-            <div class="float-right table-toolbar-button btn-group">
-                <div class="input-group">
-                    <BootstrapInput TItem="string" class="table-toolbar-search" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
-                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                    </BootstrapInput>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
-                            <i class="fa fa-fw fa-search"></i>
-                            <span class="d-none d-sm-inline-block">搜索</span>
-                        </button>
-                        <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
-                            <i class="fa fa-fw fa-trash"></i>
-                            <span class="d-none d-sm-inline-block">清空过滤</span>
-                        </button>
-                        @if (ShowAdvancedSearch)
-                        {
-                            <button class="@AdvanceSearchClass" type="button" title="高级搜索" @onclick="@AdvancedSearchClick">
-                                <i class="fa fa-fw fa-search-plus"></i>
-                                <span class="d-none d-sm-inline-block">高级搜索</span>
-                            </button>
-                        }
-                    </div>
-                </div>
+            <div class="table-loading">
+                <Spinner Color="Color.Primary" />
             </div>
         }
-    </div>
-
-    <TableColumnCollection OnSortAsync="@OnSortAsync" OnFilterAsync="@OnFilterAsync">
-        <div class="@WrapperClassName" style="@WrapperStyleName">
-            <table class="@ClassName">
-                @TableColumns?.Invoke(HeaderModel)
-                <colgroup>
-                    @if (IsMultipleSelect)
+    }
+    else
+    {
+        <div class="table-toolbar">
+            @if (ShowToolbar)
+            {
+                <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
+                    @if (ShowDefaultButtons)
                     {
-                        @if (ShowCheckboxText)
+                        @if (ShowAddButton)
                         {
-                            <col width="80" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="新建" />
                         }
-                        else
+                        @if (ShowEditButton)
                         {
-                            <col width="36" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@EditAsync" Icon="fa fa-pencil" Text="编辑" />
                         }
-                    }
-                    <TableColumnContent />
-                    @if (ShowExtendButtons)
-                    {
-                        <col width="@ExtendButtonColumnWidth" />
-                    }
-                </colgroup>
-                <tbody>
-                    @if (Items != null)
-                    {
-                        @foreach (var item in Items)
+                        @if (ShowDeleteButton)
                         {
-                            <TableRow TItem="TItem" Item="@item" IsMultipleSelect="@IsMultipleSelect"
-                                      ShowDefaultButtons="@ShowDefaultButtons" ShowDeleteButton="@ShowDeleteButton" ShowEditButton="@ShowEditButton"
-                                      ShowNewButton="@ShowNewButton" ShowExtendButtons="@ShowExtendButtons"
-                                      OnClickEditButton="@ClickEditButton" OnClickDeleteButton="@ClickDeleteButton" OnDelete="@DeleteAsync"
-                                      OnCheck="@OnCheck" RowCheckState="@RowCheckState"
-                                      IsActive="@CheckActive(item)" OnSelectedRow="@SelectRow" OnEditRow="@DoubleClickRow"
-                                      ClickToSelect="@ClickToSelect" DoubleClickToEdit="@DoubleClickToEdit"
-                                      OnDoubleClickRowCallback="@OnDoubleClickRowCallback">
-                                @RowButtonTemplate?.Invoke(item)
-                            </TableRow>
+                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                                                          OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
+                                                          CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
+                                                          ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
                         }
                     }
-                    else
+                    @TableToolbarTemplate
+                </TableToolbar>
+                <div class="float-right table-toolbar-button btn-group table-column-right">
+                    @if (ShowRefresh)
                     {
-                        <TableLoading IsMultipleSelect="@IsMultipleSelect" ShowExtendButtons="@ShowExtendButtons" />
+                        <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
+                            <i class="fa fa-refresh"></i>
+                            <span class="d-none d-sm-inline-block">刷新</span>
+                        </button>
                     }
-                </tbody>
-                <thead>
-                    <tr>
+                    @if (ShowColumnList)
+                    {
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            @foreach (var item in Columns)
+                            {
+                                var poco = ColumnVisibles.FirstOrDefault(i => i.FieldName == item.GetFieldName());
+                                <div class="dropdown-item">
+                                    <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
+                                              DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
+                                    </Checkbox>
+                                </div>
+                            }
+                        </div>
+                        <button class="btn btn-secondary btn-col" type="button" title="列显示隐藏控制">
+                            <i class="fa fa-th-list"></i>
+                            <span class="d-none d-sm-inline-block">列</span>
+                        </button>
+                    }
+                </div>
+            }
+            @if (ShowSearch)
+            {
+                <div class="float-right table-toolbar-button btn-group">
+                    <div class="input-group">
+                        <BootstrapInput class="table-toolbar-search" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
+                            <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                        </BootstrapInput>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
+                                <i class="fa fa-search"></i>
+                                <span class="d-none d-sm-inline-block">搜索</span>
+                            </button>
+                            <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
+                                <i class="fa fa-trash"></i>
+                                <span class="d-none d-sm-inline-block">清空过滤</span>
+                            </button>
+                            @if (ShowAdvancedSearch)
+                            {
+                                <Button class="@AdvanceSearchClass" title="高级搜索" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
+                                    <span class="d-none d-sm-inline-block">高级搜索</span>
+                                </Button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="@WrapperClassName">
+            @if (ActiveRenderModel == TableRenderModel.Table)
+            {
+                if (Height.HasValue)
+                {
+                    <div class="table-fixed-header">
+                        <table class="table">
+                            @RenderColgroup.Invoke(true)
+                            @RenderHeader.Invoke(true)
+                        </table>
+                    </div>
+                    <div class="table-fixed-body" style="@FixedHeaderStyleName">
+                        @RenderTable.Invoke(false)
+                    </div>
+                }
+                else if (Columns.Any(col => col.Fixed))
+                {
+                    <div class="overflow-auto">
+                        @RenderTable.Invoke(true)
+                    </div>
+                }
+                else
+                {
+                    @RenderTable.Invoke(true)
+                }
+            }
+            else
+            {
+                StarRowIndex = (PageIndex - 1) * PageItems + 1;
+                foreach (var item in Items)
+                {
+                    <div class="@GetRowClassString(item, "table-row")" @onclick="@(e => ClickRow(item))">
                         @if (IsMultipleSelect)
                         {
-                            <th class="@CheckboxColumnClass">
-                                <div class="table-cell">
-                                    <Checkbox TValue="TItem" @ref="@HeaderCheckbox" DisplayText="@CheckboxDisplayTextString" State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" ShowAfterLabel="@ShowCheckboxText"></Checkbox>
-                                </div>
-                            </th>
+                            <div class="table-cell">
+                                <label>@CheckboxDisplayText</label>
+                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
+                            </div>
                         }
-                        <TableHeaderContent SortIcon="@SortIcon" SortIconAsc="@SortIconAsc" SortIconDesc="@SortIconDesc" />
+                        @if (ShowLineNo)
+                        {
+                            <div class="table-cell">
+                                <label>@LineNoText</label>
+                                <span>@(StarRowIndex++)</span>
+                            </div>
+                        }
+                        @foreach (var col in Columns)
+                        {
+                            <div class="table-cell">
+                                <label>
+                                    @col.GetDisplayName()
+                                </label>
+                                <span>
+                                    @GetValue(col, item)
+                                </span>
+                            </div>
+                        }
                         @if (ShowExtendButtons)
                         {
-                            <th class="@ButtonColumnClass">
-                                <div class="table-cell is-button-column">
-                                    @ColumnButtonTemplateHeaderText
-                                </div>
-                            </th>
+                            <div class="table-cell">
+                                <label>@ColumnButtonTemplateHeaderText</label>
+                                <span class="btn-group">
+                                    @if (ShowDefaultButtons)
+                                    {
+                                        @if (ShowEditButton)
+                                        {
+                                            <Button Size="Size.ExtraSmall" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickEditButton(item)))" Icon="fa fa-edit" Text="编辑" />
+                                        }
+                                        @if (ShowDeleteButton)
+                                        {
+                                            <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                                              Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                                                              CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
+                                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
+                                                              OnBeforeClick="@(new Func<Task<bool>>(() => ClickDeleteButton(item)))"
+                                                              OnConfirm="@(new Func<Task>(DeleteAsync))" />
+                                        }
+                                    }
+                                    @RowButtonTemplate?.Invoke(item)
+                                </span>
+                            </div>
                         }
-                    </tr>
-                </thead>
+                    </div>
+                }
                 @if (ShowFooter)
                 {
-                    <tfoot>
-                        <tr>@TableFooter</tr>
-                    </tfoot>
+                    <div class="table-row table-footer">
+                        <CascadingValue Value="@ScreenSize" Name="ScreenSize">
+                            <CascadingValue Value="@RenderModelResponsiveWidth" Name="RenderModelResponsiveWidth">
+                                @TableFooter?.Invoke(Items)
+                            </CascadingValue>
+                        </CascadingValue>
+                    </div>
                 }
-            </table>
+            }
         </div>
+
+        if (ActiveRenderModel == TableRenderModel.Table)
+        {
+            if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
+            if (FilterColumns.Any())
+            {
+                <CascadingValue Value="this" IsFixed="true">
+                    <div class="table-filter">
+                        @foreach (var col in FilterColumns)
+                        {
+                            <TableFilter Column="col" />
+                        }
+                    </div>
+                </CascadingValue>
+            }
+        }
 
         @if (TotalCount > 0 && IsPagination)
         {
@@ -146,72 +219,193 @@
                 <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
         }
-
-        <div class="table-filter">
-            <TableFilterContent />
-        </div>
-
-        @if (OnSaveAsync != null || OnAddAsync != null)
-        {
-            <Modal @ref="EditModal">
-                <ModalDialog Title="@EditModalTitleString" Size="@Size.ExtraLarge" IsCentered="true" ShowFooter="false">
-                    <BodyTemplate>
-                        <ValidateForm Model="@EditModel" OnValidSubmit="@Save">
-                            @if (EditTemplate != null)
-                            {
-                                @EditTemplate?.Invoke(EditModel)
-                            }
-                            else
-                            {
-                                <div class="form-inline">
-                                    <div class="row">
-                                        <TableEditorContent TModel="TItem" Model="@EditModel" />
-                                    </div>
-                                </div>
-                            }
-                            <div class="modal-footer table-modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    <i class="fa fa-fw fa-times"></i>
-                                    <span>关闭</span>
-                                </button>
-                                <Button Color="Color.Primary" IsTriggerValidate="true" Icon="fa fa-fw fa-save" Text="保存" />
-                            </div>
-                        </ValidateForm>
-                    </BodyTemplate>
-                </ModalDialog>
-            </Modal>
-        }
-
-        @if (ShowSearch && ShowAdvancedSearch)
-        {
-            <Modal @ref="@SearchModal">
-                <ModalDialog Title="查询条件" Size="@Size.Large" ShowCloseButton="false" IsCentered="true">
-                    <BodyTemplate>
-                        @if (SearchTemplate != null)
-                        {
-                            @SearchTemplate?.Invoke(SearchModel)
-                        }
-                        else
-                        {
-                            <div class="form-inline">
-                                <div class="row">
-                                    <TableEditorContent TModel="TItem" Model="@SearchModel" IsSearch="true" />
-                                </div>
-                            </div>
-                        }
-                    </BodyTemplate>
-                    <FooterTemplate>
-                        <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@ResetSearchClick">
-                            <i class="fa fa-fw fa-trash-o"></i>
-                            <span>重置</span>
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@SearchClick">
-                            <i class="fa fa-fw fa-search"></i>
-                            <span>查询</span>
-                        </button>
-                    </FooterTemplate>
-                </ModalDialog>
-            </Modal>
-        }
-    </TableColumnCollection>
+    }
 </div>
+
+<Toast />
+<Dialog />
+<PopoverConfirm />
+
+@code {
+    RenderFragment<bool> RenderTable => hasHeader =>
+    @<table class="table">
+        @RenderColgroup.Invoke(false)
+        @if (hasHeader)
+        {
+            @RenderHeader.Invoke(false)
+        }
+        <tbody>
+            @{
+                StarRowIndex = (PageIndex - 1) * PageItems + 1;
+            }
+            @foreach (var item in Items)
+            {
+                @RenderRow.Invoke(item)
+            }
+        </tbody>
+        @if (ShowFooter)
+        {
+            <tfoot>
+                <tr>
+                    <CascadingValue Value="@ScreenSize" Name="ScreenSize">
+                        <CascadingValue Value="@RenderModelResponsiveWidth" Name="ViewModelResponsiveWidth">
+                            @TableFooter?.Invoke(Items)
+                        </CascadingValue>
+                    </CascadingValue>
+                </tr>
+            </tfoot>
+        }
+    </table>;
+
+RenderFragment<bool> RenderColgroup => hasScroll =>
+@<colgroup>
+    @if (IsMultipleSelect)
+    {
+        @if (ShowCheckboxText)
+        {
+            <col width="80" />
+        }
+        else
+        {
+            <col width="36" />
+        }
+    }
+    @if (ShowLineNo)
+    {
+        <col width="60" />
+    }
+    @foreach (var col in GetColumns())
+    {
+        @if (CheckShownWithBreakpoint(col))
+        {
+            <col width="@col.Width" />
+        }
+    }
+    @if (ShowExtendButtons)
+    {
+        <col width="@ExtendButtonColumnWidth" />
+    }
+    @if (hasScroll)
+    {
+        <col width="17" />
+    }
+</colgroup>;
+
+RenderFragment<bool> RenderHeader => hasScroll =>
+@<thead>
+    @if (MultiHeaderTemplate != null)
+    {
+        @MultiHeaderTemplate
+    }
+    else
+    {
+        <tr>
+            @if (IsMultipleSelect)
+            {
+                <th class="@CheckboxColumnClass">
+                    <div class="table-cell">
+                        <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
+                                  DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                                  State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
+                    </div>
+                </th>
+            }
+            @if (ShowLineNo)
+            {
+                <th>
+                    <div class="table-cell">@LineNoText</div>
+                </th>
+            }
+            @foreach (var col in GetColumns())
+            {
+                @if (CheckShownWithBreakpoint(col))
+                {
+                    var fieldName = col.GetFieldName();
+                    var displayName = col.GetDisplayName();
+                    <th class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 17)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClickHeader(col)))">
+                        <div class="@GetHeaderWrapperClassString(col)">
+                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                            @if (col.Filterable)
+                            {
+                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnFilterClick(col)))"></i>
+                            }
+                            @if (col.Sortable)
+                            {
+                                <i class="@GetIconClassString(fieldName)"></i>
+                            }
+                        </div>
+                    </th>
+                }
+            }
+            @if (ShowExtendButtons)
+            {
+                <th class="@ButtonColumnClass">
+                    <div class="table-cell is-button-column">
+                        @ColumnButtonTemplateHeaderText
+                    </div>
+                </th>
+            }
+            @if (hasScroll)
+            {
+                <th class="fixed-scroll"><div class="table-cell"><span>&nbsp;</span></div></th>
+            }
+        </tr>
+    }
+</thead>;
+
+RenderFragment<TItem> RenderRow => item =>
+@<tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))" @ondblclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => DoubleClickRow(item)))">
+    @if (IsMultipleSelect)
+    {
+        <td>
+            <div class="table-cell">
+                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnCheck))" @onclick:stopPropagation></Checkbox>
+            </div>
+        </td>
+    }
+
+    @if (ShowLineNo)
+    {
+        <td>
+            <div class="table-cell">@(StarRowIndex++)</div>
+        </td>
+    }
+    @foreach (var col in GetColumns())
+    {
+        @if (CheckShownWithBreakpoint(col))
+        {
+            <td class="@GetFixedCellClassString(col)" style="@GetFixedCellStyleString(col)">
+                <div class="@GetCellClassString(col)" style="@GetCellStyleString(col)">
+                    @GetValue(col, item)
+                </div>
+            </td>
+        }
+    }
+    @if (ShowExtendButtons)
+    {
+        <td>
+            <div class="table-cell">
+                <div class="btn-group">
+                    @if (ShowDefaultButtons)
+                    {
+                        @if (ShowEditButton)
+                        {
+                            <Button Size="Size.ExtraSmall" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickEditButton(item)))" Icon="fa fa-edit" Text="编辑" />
+                        }
+                        @if (ShowDeleteButton)
+                        {
+                            <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                              Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                                              CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
+                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
+                                              OnBeforeClick="@(new Func<Task<bool>>(() => ClickDeleteButton(item)))"
+                                              OnConfirm="@(new Func<Task>(DeleteAsync))" />
+                        }
+                    }
+                    @RowButtonTemplate?.Invoke(item)
+                </div>
+            </div>
+        </td>
+    }
+</tr>;
+}

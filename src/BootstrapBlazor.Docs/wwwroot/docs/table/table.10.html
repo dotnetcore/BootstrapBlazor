@@ -1,7 +1,7 @@
 ﻿<Table TItem="BindItem"
        IsPagination="true" PageItemsSource="@PageItemsSource"
-       IsStriped="true" IsBordered="true"
-       ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+       IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
        AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
        OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
        OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
@@ -9,7 +9,13 @@
         <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
         <TableColumn @bind-Field="@context.Name" Sortable="true" />
         <TableColumn @bind-Field="@context.Address" Sortable="true" />
-        <TableColumn @bind-Field="@context.Count" Sortable="true" />
+        <TableColumn @bind-Field="@context.Education" />
+        <TableColumn @bind-Field="@context.Count" />
+        <TableColumn @bind-Field="@context.Complete">
+            <Template Context="v">
+                <Switch IsDisabled="true" Value="v.Value" />
+            </Template>
+        </TableColumn>
     </TableColumns>
     <EditTemplate>
         <div class="form-inline">
@@ -32,9 +38,15 @@
                     </DateTimePicker>
                 </div>
                 <div class="form-group col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Count">
+                    <Select Items="@Educations" @bind-Value="@context.Education">
                         <RequiredValidator />
-                    </BootstrapInput>
+                    </Select>
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Count" />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Switch @bind-Value="@context.Complete" />
                 </div>
             </div>
         </div>
@@ -60,6 +72,21 @@
     /// 
     /// </summary>
     protected List<BindItem> EditItems { get; set; } = GenerateItems();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected IEnumerable<SelectedItem>? Educations { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Educations = typeof(EnumEducation).ToSelectList();
+    }
 
     /// <summary>
     /// 

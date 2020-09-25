@@ -3,7 +3,7 @@
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 字符串类型过滤条件
     /// </summary>
     public partial class StringFilter
     {
@@ -30,7 +30,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected override void ResetFilterCondition()
+        public override void Reset()
         {
             Value1 = "";
             Value2 = "";
@@ -38,13 +38,14 @@ namespace BootstrapBlazor.Components
             Action2 = FilterAction.Contains;
             Logic = FilterLogic.Or;
             Count = 0;
+            StateHasChanged();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IEnumerable<FilterKeyValueAction> BuildConditions()
+        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
         {
             var filters = new List<FilterKeyValueAction>();
             if (!string.IsNullOrEmpty(Value1)) filters.Add(new FilterKeyValueAction()
@@ -53,7 +54,7 @@ namespace BootstrapBlazor.Components
                 FieldValue = Value1,
                 FilterAction = Action1
             });
-            if (!string.IsNullOrEmpty(Value2)) filters.Add(new FilterKeyValueAction()
+            if (Count > 0 && !string.IsNullOrEmpty(Value2)) filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value2,

@@ -25,6 +25,8 @@ namespace BootstrapBlazor.Shared.Pages
                 new TreeItem() { Text = "导航三" }
             };
 
+            ret[0].AddItem(new TreeItem() { Text = "子菜单" });
+
             ret[1].AddItem(new TreeItem() { Text = "子菜单一" });
             ret[1].AddItem(new TreeItem() { Text = "子菜单二" });
             ret[1].AddItem(new TreeItem() { Text = "子菜单三" });
@@ -104,6 +106,22 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
+        private static IEnumerable<TreeItem> GetIconItems()
+        {
+            var ret = new List<TreeItem>
+            {
+                new TreeItem() { Text = "导航一", Icon = "fa fa-fa fa-fw" },
+                new TreeItem() { Text = "导航二", Icon = "fa fa-fa fa-fw" },
+                new TreeItem() { Text = "导航三", Icon = "fa fa-fa fa-fw" }
+            };
+
+            ret[1].AddItem(new TreeItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
+            ret[1].AddItem(new TreeItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
+            ret[1].AddItem(new TreeItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw" });
+
+            return ret;
+        }
+
         private IEnumerable<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
 
         private Task OnTreeItemClick(TreeItem item)
@@ -134,8 +152,22 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "new List<TreeItem>(20)"
             },
             new AttributeItem() {
+                Name = "ClickToggleNode",
+                Description = "是否点击节点时展开或者收缩子项",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ShowCheckbox",
                 Description = "是否显示 CheckBox",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowIcon",
+                Description = "是否显示 Icon",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -176,6 +208,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Text",
                 Description = "显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Icon",
+                Description = "显示图标",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

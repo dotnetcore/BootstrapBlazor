@@ -28,12 +28,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 点击确认时回调方法
         /// </summary>
-        [Parameter] public Func<Task>? OnConfirm { get; set; }
+        [Parameter] public Func<Task> OnConfirm { get; set; } = () => Task.CompletedTask;
 
         /// <summary>
         /// 获得/设置 点击关闭时回调方法
         /// </summary>
-        [Parameter] public Action? OnClose { get; set; }
+        [Parameter] public Func<Task> OnClose { get; set; } = () => Task.CompletedTask;
 
         /// <summary>
         /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出
@@ -75,6 +75,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             // 进行弹窗拦截，点击确认按钮后回调原有 OnClick
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, e => Show());
         }
@@ -100,11 +102,11 @@ namespace BootstrapBlazor.Components
                     Icon = ConfirmIcon,
                     OnConfirm = OnConfirm,
                     OnClose = OnClose,
-                    Callback = new Action(async () =>
+                    Callback = async () =>
                     {
                         // 调用 JS 进行弹窗 等待 弹窗点击确认回调
-                        if (JSRuntime != null) await JSRuntime.Invoke(Id, "confirm");
-                    })
+                        await JSRuntime.InvokeVoidAsync(Id, "bb_confirm");
+                    }
                 });
             }
         }

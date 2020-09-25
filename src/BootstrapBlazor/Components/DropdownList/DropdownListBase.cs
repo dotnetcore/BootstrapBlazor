@@ -1,19 +1,24 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// DropdownListBase 组件基类
     /// </summary>
-    public abstract class DropdownListBase<TValue> : BootstrapInputBase<TValue>
+    public abstract class DropdownListBase<TModel, TValue> : BootstrapInputBase<TValue>
     {
         /// <summary>
         /// 获得 样式集合
         /// </summary>
         protected new string? ClassName => CssBuilder.Default("form-select dropdown")
+            .AddClass("is-disabled", IsDisabled)
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
@@ -40,23 +45,30 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 设置当前项是否 Active 方法
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected virtual string? ActiveItem(object item) => CssBuilder.Default("dropdown-item")
-            .AddClass("active", () => item == CurrentItem)
-            .Build();
-
-        /// <summary>
         /// 
         /// </summary>
         protected string Text => GetText(CurrentItem);
 
         /// <summary>
+        /// 获得/设置 Select 内部 Input 组件 Id
+        /// </summary>
+        protected string? InputId => string.IsNullOrEmpty(Id) ? null : $"{Id}_input";
+
+#nullable disable
+        /// <summary>
+        /// 设置当前项是否 Active 方法
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected virtual string ActiveItem(TModel item) => CssBuilder.Default("dropdown-item")
+            .AddClass("active", () => item.Equals(CurrentItem))
+            .Build();
+
+        /// <summary>
         /// 
         /// </summary>
-        protected object? CurrentItem { get; set; }
+        protected TModel CurrentItem { get; set; }
+#nullable restore
 
         /// <summary>
         /// 获得 PlaceHolder 属性
@@ -90,7 +102,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]
-        public IEnumerable<object>? Data { get; set; }
+        public IEnumerable<TModel>? Data { get; set; }
 
         /// <summary>
         /// 
@@ -103,6 +115,36 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string ValueField { get; set; } = "";
+
+        /// <summary>
+        /// SelectedItemChanged 方法
+        /// </summary>
+        [Parameter]
+        public EventCallback<TValue> OnSelectedItemChanged { get; set; }
+
+        /// <summary>
+        /// SetParametersAsync 方法
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public override async Task SetParametersAsync(ParameterView parameters)
+        {
+            parameters.SetParameterProperties(this);
+
+            var context = EditContext ?? CascadedEditContext;
+            if (context != null && ValueExpression != null)
+            {
+                var model = context.Model;
+                if (model != null)
+                {
+                    var p = Expression.Property(Expression.Constant(model), typeof(TModel).GetProperty(ValueField));
+                    var tDelegate = typeof(Func<>).MakeGenericType(typeof(TValue));
+                    ValueExpression = Expression.Lambda(tDelegate, p) as Expression<Func<TValue>>;
+                }
+            }
+
+            await base.SetParametersAsync(ParameterView.Empty);
+        }
 
         /// <summary>
         /// OnInitialized 方法
@@ -120,78 +162,74 @@ namespace BootstrapBlazor.Components
             // 设置数据集合后 SelectedItem 设置默认值
             if (CurrentItem == null || !(Data?.Any(i => GetValue(i) == CurrentItem.ToString() && GetText(i) == Text) ?? false))
             {
-                var item = Data?.FirstOrDefault();
-                if (item == null) item = Data?.FirstOrDefault(i => GetValue(i) == CurrentValueAsString) ?? Data?.FirstOrDefault();
-                if (item != null)
+                if (Data != null)
                 {
-                    CurrentItem = item;
-                    if (Value != null && CurrentValueAsString != GetValue(CurrentItem))
+                    var item = Data.FirstOrDefault();
+                    if (item == null) item = Data.FirstOrDefault(i => GetValue(i) == CurrentValueAsString) ?? Data.FirstOrDefault();
+                    if (item != null)
                     {
-                        item = Data.FirstOrDefault(i => GetValue(i) == CurrentValueAsString);
-                        if (item != null) CurrentItem = item;
+                        CurrentItem = item;
+                        if (Value != null && CurrentValueAsString != GetValue(CurrentItem))
+                        {
+                            item = Data.FirstOrDefault(i => GetValue(i) == CurrentValueAsString);
+                            if (item != null) CurrentItem = item;
+                        }
+                        CurrentValueAsString = GetValue(CurrentItem);
                     }
-                    CurrentValueAsString = GetValue(CurrentItem);
                 }
             }
+
+            if (CurrentItem != null && OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(Value);
         }
 
         /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
-        protected void OnItemClick(object item)
+        protected void OnItemClick(TModel item)
         {
             CurrentItem = item;
 
             // ValueChanged
             CurrentValueAsString = GetValue(item);
+
+            if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(Value);
         }
 
+#nullable disable
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        protected string GetValue(object? model) => GetFieldValue(model, ValueField);
+        protected string GetValue(TModel model) => GetFieldValue(model, ValueField);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        protected string GetText(object? model) => GetFieldValue(model, TextField);
+        protected string GetText(TModel model) => GetFieldValue(model, TextField);
+#nullable restore
 
-        private string GetFieldValue(object? model, string fieldName)
+        private string GetFieldValue(TModel model, string fieldName)
         {
             var ret = "";
             if (model != null)
             {
-                var v = model.GetPropertyValue<object, object>(fieldName);
-                ret = v?.ToString() ?? "";
+                if (typeof(TModel).IsValueType || typeof(TModel) == typeof(string))
+                {
+                    ret = model.ToString();
+                }
+                else
+                {
+                    var invoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => model.GetPropertyValueLambda<TModel, object>(key.FieldName).Compile());
+                    var v = invoker.Invoke(model);
+                    ret = v?.ToString() ?? "";
+                }
             }
             return ret;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="result"></param>
-        /// <param name="validationErrorMessage"></param>
-        /// <returns></returns>
-        protected override bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
-        {
-            bool ret;
-            if (typeof(TValue) == typeof(object))
-            {
-                result = (TValue)(object)value;
-                validationErrorMessage = null;
-                ret = true;
-            }
-            else
-            {
-                ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
-            }
-            return ret;
-        }
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<TModel, object>> GetPropertyValueLambdaCache { get; set; } = new ConcurrentDictionary<(Type, string), Func<TModel, object>>();
     }
 }

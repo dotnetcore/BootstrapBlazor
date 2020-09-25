@@ -36,16 +36,16 @@ namespace BootstrapBlazor.Components
         protected IEnumerable<MessageOption> Messages => _messages;
 
         /// <summary>
-        /// ToastServices 服务实例
-        /// </summary>
-        [Inject]
-        public MessageService? MessageService { get; set; }
-
-        /// <summary>
         /// 获得/设置 显示位置 默认为 Top
         /// </summary>
         [Parameter]
         public Placement Placement { get; set; } = Placement.Top;
+
+        /// <summary>
+        /// ToastServices 服务实例
+        /// </summary>
+        [Inject]
+        public MessageService? MessageService { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -55,10 +55,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 注册 Toast 弹窗事件
-            if (MessageService != null)
-            {
-                MessageService.Register(Show);
-            }
+            MessageService?.Register(this, Show);
         }
 
         private async Task Show(MessageOption option)
@@ -85,6 +82,20 @@ namespace BootstrapBlazor.Components
         {
             Placement = placement;
             StateHasChanged();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                MessageService?.UnRegister(this);
+            }
         }
     }
 }

@@ -31,12 +31,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 过滤条件集合
         /// </summary>
-        public IEnumerable<IFilter> Filters { get; set; } = Enumerable.Empty<IFilter>();
+        public IEnumerable<IFilterAction> Filters { get; set; } = Enumerable.Empty<IFilterAction>();
 
         /// <summary>
-        /// 获得/设置 搜索条件集合
+        /// 获得/设置 搜索条件绑定模型
         /// </summary>
-        public IEnumerable<FilterKeyValueAction> Searchs { get; set; } = Enumerable.Empty<FilterKeyValueAction>();
+        public object? SearchModel { get; set; }
 
         /// <summary>
         /// 获得/设置 当前页码 首页为 第一页

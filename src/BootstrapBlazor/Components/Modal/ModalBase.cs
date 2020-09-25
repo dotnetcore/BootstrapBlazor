@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components
         public async Task Toggle()
         {
             Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
-            if (JSRuntime != null) await JSRuntime.Invoke(ModalElement, "modal", "toggle");
+            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "toggle");
         }
 
         /// <summary>

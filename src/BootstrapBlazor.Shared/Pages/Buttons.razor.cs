@@ -1,7 +1,9 @@
-﻿using BootstrapBlazor.Shared.Common;
+﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -14,6 +16,25 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         private Logger? Trace { get; set; }
+
+#nullable disable
+        private Button ButtonDisableDemo { get; set; }
+#nullable restore
+
+        private bool IsDisable { get; set; }
+
+        private void ClickButton1()
+        {
+            IsDisable = !IsDisable;
+            StateHasChanged();
+        }
+
+        private Task ClickButton2()
+        {
+            IsDisable = false;
+            ButtonDisableDemo.SetDisable(false);
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// 
@@ -35,6 +56,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnClick",
                 Description="点击按钮时触发此事件",
                 Type ="EventCallback<MouseEventArgs>"
+            },
+            new EventItem()
+            {
+                Name = "OnClickWithoutRender",
+                Description="点击按钮时触发此事件并且不刷新当前组件，用于提高性能时使用",
+                Type ="Func<Task>"
             }
         };
 
@@ -102,13 +129,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "IsTriggerValidate",
-                Description = "是否触发客户端验证",
-                Type = "boolean",
-                ValueList = " — ",
-                DefaultValue = "true"
-            },
-            new AttributeItem() {
                 Name = "ChildContent",
                 Description = "内容",
                 Type = "RenderFragment",
@@ -121,6 +141,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "ButtonStyle",
                 ValueList = "None / Circle / Round",
                 DefaultValue = "None"
+            },
+            new AttributeItem() {
+                Name = "ButtonType",
+                Description = "按钮类型",
+                Type = "ButtonType",
+                ValueList = "Button / Submit / Reset",
+                DefaultValue = "Button"
             }
         };
 

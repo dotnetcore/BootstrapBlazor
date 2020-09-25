@@ -14,11 +14,16 @@ namespace BootstrapBlazor.Components
     public class TableColumn<TItem> : BootstrapComponentBase, ITableColumn
     {
         /// <summary>
-        /// 获得/设置 绑定列类型
+        /// 获得/设置 相关过滤器
         /// </summary>
-        public Type? FieldType { get; set; }
+        public IFilter? Filter { get; set; }
 
 #nullable disable
+        /// <summary>
+        /// 获得/设置 绑定列类型
+        /// </summary>
+        public Type FieldType { get; set; }
+
         /// <summary>
         /// 获得/设置 数据绑定字段值
         /// </summary>
@@ -39,6 +44,30 @@ namespace BootstrapBlazor.Components
         public bool Sortable { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否为默认排序列 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool DefaultSort { get; set; }
+
+        /// <summary>
+        /// 获得/设置 本列是否允许换行 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool AllowTextWrap { get; set; }
+
+        /// <summary>
+        /// 获得/设置 本列文本超出省略 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool TextEllipsis { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
+        /// </summary>
+        [Parameter]
+        public SortOrder DefaultSortOrder { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否可过滤数据 默认 false
         /// </summary>
         [Parameter]
@@ -57,6 +86,12 @@ namespace BootstrapBlazor.Components
         public bool Editable { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 当前列编辑时是否为只读模式 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool Readonly { get; set; }
+
+        /// <summary>
         /// 获得/设置 表头显示文字
         /// </summary>
         [Parameter]
@@ -66,7 +101,31 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 列宽 默认为 auto
         /// </summary>
         [Parameter]
-        public int Width { get; set; }
+        public int? Width { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否固定本列 默认 false 不固定
+        /// </summary>
+        [Parameter]
+        public bool Fixed { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示本列 默认 true 显示
+        /// </summary>
+        [Parameter]
+        public bool Visible { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 列 td 自定义样式 默认为 null 未设置
+        /// </summary>
+        [Parameter]
+        public string? CssClass { get; set; }
+
+        /// <summary>
+        /// 获得/设置 文字对齐方式 默认为 Alignment.None
+        /// </summary>
+        [Parameter]
+        public Alignment Align { get; set; } = Alignment.None;
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -93,10 +152,29 @@ namespace BootstrapBlazor.Components
         public RenderFragment<object>? EditTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 Table Header 实例
+        /// 获得/设置 搜索模板
+        /// </summary>
+        /// <value></value>
+        [Parameter]
+        public RenderFragment<object>? SearchTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 过滤模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? FilterTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
+        /// </summary>
+        [Parameter]
+        public BreakPoint ShownWithBreakPoint { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Table 实例
         /// </summary>
         [CascadingParameter]
-        protected TableColumnCollection? Columns { get; set; }
+        protected ITable? Table { get; set; }
 
         /// <summary>
         /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
@@ -118,11 +196,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnInitialized()
         {
-            Columns?.Columns.Add(this);
-            _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+            Table?.Columns.Add(this);
+            if (FieldExpression != null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
 
             // 获取模型属性定义类型
-            FieldType = _fieldIdentifier.Value.Model.GetType().GetProperty(GetFieldName())?.PropertyType;
+            FieldType = typeof(TItem);
         }
 
         private FieldIdentifier? _fieldIdentifier;

@@ -6,8 +6,7 @@
     <label class="control-label">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassName" @onclick="@OnClick">
-    <input type="checkbox" class="switch-input" checked="@Value" disabled="@Disabled" />
-    <span class="@CoreClassName" style="@StyleName"></span>
+    <span class="@CoreClassName" data-inner-text="@GetInnerText()" style="@StyleName" />
     @if (!string.IsNullOrEmpty(Text))
     {
         <span class="switch-label">

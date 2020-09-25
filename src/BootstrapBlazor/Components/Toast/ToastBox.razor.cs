@@ -90,12 +90,12 @@ namespace BootstrapBlazor.Components
             await base.OnAfterRenderAsync(firstRender);
 
             // 执行客户端动画
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 if (Toast != null)
                 {
                     _interop = new JSInterop<Toast>(JSRuntime);
-                    await _interop.Invoke(Toast, ToastBoxElement, "showToast", nameof(ToastBase.Clear));
+                    await _interop.Invoke(Toast, ToastBoxElement, "showToast", nameof(Toast.Clear));
                 }
             }
         }

@@ -18,10 +18,11 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private void OnClose()
+        private Task OnClose()
         {
             // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
             Trace?.Log("OnClose Trigger");
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -130,19 +131,19 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = "OnConfirm",
                 Description="点击确认时回调方法",
-                Type ="Action"
+                Type ="Func<Task>"
             },
             new EventItem()
             {
                 Name = "OnClose",
                 Description="点击关闭时回调方法",
-                Type ="Action"
+                Type ="Func<Task>"
             },
             new EventItem()
             {
                 Name = "OnBeforeClick",
                 Description="点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出",
-                Type ="Func<bool>"
+                Type ="Func<Task<bool>>"
             },
         };
     }

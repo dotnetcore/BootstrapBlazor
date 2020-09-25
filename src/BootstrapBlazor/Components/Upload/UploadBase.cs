@@ -202,7 +202,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                if (Interop == null && JSRuntime != null) Interop = new JSInterop<UploadBase>(JSRuntime);
+                if (Interop == null) Interop = new JSInterop<UploadBase>(JSRuntime);
                 if (Interop != null) await Interop.Invoke(this, UploaderElement, "uploader", nameof(Completed), nameof(CheckFiles), nameof(Removed), nameof(Failed), nameof(SetHeaders));
             }
         }
@@ -210,10 +210,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 组件复位方法
         /// </summary>
-        public async Task Reset()
-        {
-            if (JSRuntime != null) await JSRuntime.Invoke(UploaderElement, "uploader", nameof(Reset));
-        }
+        public async Task Reset() => await JSRuntime.InvokeVoidAsync(UploaderElement, "uploader", nameof(Reset));
 
         /// <summary>
         /// 文件上传成功后回调此方法

@@ -1,4 +1,26 @@
 ﻿(function ($) {
+    // client
+    $.browser = {
+        versions: function () {
+            var u = navigator.userAgent;
+            return {         //移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPod: u.indexOf('iPod') > -1, //是否为iPod或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                mac: u.indexOf('Macintosh') > -1,
+                webApp: u.indexOf('Safari') === -1 //是否web应该程序，没有头部与底部
+            };
+        }(),
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    };
+
     window.Toasts = [];
 
     window.chartColors = {
@@ -949,6 +971,15 @@
                 $el.close();
             });
         },
+        bb_pop: function (el, method) {
+            var $el = $(el);
+            if (method === 'init') {
+                $el.appendTo($('body'));
+            }
+            else if (method === 'dispose') {
+                $el.remove();
+            }
+        },
         showToast: function (el, toast, method) {
             // 记录 Id
             Toasts.push(el);
@@ -1059,36 +1090,53 @@
                     });
             }
         },
-        tooltip: function (id, method, title, content, html) {
+        bb_tooltip: function (id, method, title, placement, html, trigger) {
+            var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
             var $ele = $('#' + id);
             if (method === "") {
-                var op = { html: html, sanitize: !html, title: title };
+                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose');
                 $ele.tooltip(op);
             }
             else if (method === 'enable') {
-                var op = { html: html, sanitize: !html, title: title };
+                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose');
                 $ele.tooltip(op);
-                var $ctl = $ele.parents('form').find('.invalid:first');
+                var $ctl = $ele.parents('form').find('.is-invalid:first');
                 if ($ctl.prop("nodeName") === 'INPUT') {
-                    $ctl.focus();
+                    if ($ctl.prop('readonly')) {
+                        $ctl.trigger('focus');
+                    }
+                    else {
+                        $ctl.focus();
+                    }
+                }
+                else if ($ctl.prop("nodeName") === 'DIV') {
+                    $ctl.trigger('focus');
                 }
             }
+            else if (method === "dispose") {
+                if ($ele.data('bs.tooltip')) $ele.tooltip(method);
+            }
             else {
+                if (!$ele.data('bs.tooltip')) $ele.tooltip(op);
                 $ele.tooltip(method);
             }
         },
-        popover: function (id, method, title, content, html) {
+        bb_popover: function (id, method, title, content, placement, html, trigger) {
             var $ele = $('#' + id);
+            var op = { html: html, sanitize: false, title: title, content: content, placement: placement, trigger: trigger };
             if (method === "") {
-                var op = { html: html, sanitize: false, title: title, content: content };
-                $ele.popover('dispose')
+                if ($ele.data('bs.popover')) $ele.popover('dispose');
                 $ele.popover(op);
             }
+            else if (method === "dispose") {
+                if ($ele.data('bs.popover')) $ele.popover(method);
+            }
             else {
+                if (!$ele.data('bs.popover')) $ele.popover(op);
                 $ele.popover(method);
             }
         },
-        confirm: function (id) {
+        bb_confirm: function (id) {
             var $ele = $('[data-target="' + id + '"]');
             var $button = $('#' + id);
 
@@ -1100,86 +1148,141 @@
             });
             $button.popover('show');
         },
-        modal: function (el, method) {
+        bb_modal: function (el, method) {
             var $el = $(el);
-            $el.modal(method);
 
-            // monitor mousedown ready to drag dialog
-            var originX = 0;
-            var originY = 0;
-            var dialogWidth = 0;
-            var dialogHeight = 0;
-            var pt = { top: 0, left: 0 };
-            var $dialog = null;
-            $el.find('.is-draggable .modal-header').drag(
-                function (e) {
-                    originX = e.clientX || e.touches[0].clientX;
-                    originY = e.clientY || e.touches[0].clientY;
+            if (method === 'dispose') {
+                $el.remove();
+            }
+            else if (method === 'init') {
+                // move self end of the body
+                $('body').append($el);
 
-                    // 弹窗大小
-                    $dialog = this.closest('.modal-dialog');
-                    dialogWidth = $dialog.width();
-                    dialogHeight = $dialog.height();
+                // monitor mousedown ready to drag dialog
+                var originX = 0;
+                var originY = 0;
+                var dialogWidth = 0;
+                var dialogHeight = 0;
+                var pt = { top: 0, left: 0 };
+                var $dialog = null;
+                $el.find('.is-draggable .modal-header').drag(
+                    function (e) {
+                        originX = e.clientX || e.touches[0].clientX;
+                        originY = e.clientY || e.touches[0].clientY;
 
-                    // 偏移量
-                    pt.top = parseInt($dialog.css('marginTop').replace("px", ""));
-                    pt.left = parseInt($dialog.css('marginLeft').replace("px", ""));
+                        // 弹窗大小
+                        $dialog = this.closest('.modal-dialog');
+                        dialogWidth = $dialog.width();
+                        dialogHeight = $dialog.height();
 
-                    // 移除 Center 样式
-                    $dialog.css({ "marginLeft": pt.left, "marginTop": pt.top });
-                    $dialog.removeClass('modal-dialog-centered');
+                        // 偏移量
+                        pt.top = parseInt($dialog.css('marginTop').replace("px", ""));
+                        pt.left = parseInt($dialog.css('marginLeft').replace("px", ""));
 
-                    // 固定大小
-                    $dialog.css("width", dialogWidth);
-                    this.addClass('is-drag');
-                },
-                function (e) {
-                    var eventX = e.clientX || e.changedTouches[0].clientX;
-                    var eventY = e.clientY || e.changedTouches[0].clientY;
+                        // 移除 Center 样式
+                        $dialog.css({ "marginLeft": pt.left, "marginTop": pt.top });
+                        $dialog.removeClass('modal-dialog-centered');
 
-                    newValX = pt.left + Math.ceil(eventX - originX);
-                    newValY = pt.top + Math.ceil(eventY - originY);
+                        // 固定大小
+                        $dialog.css("width", dialogWidth);
+                        this.addClass('is-drag');
+                    },
+                    function (e) {
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
+                        var eventY = e.clientY || e.changedTouches[0].clientY;
 
-                    if (newValX <= 0) newValX = 0;
-                    if (newValY <= 0) newValY = 0;
+                        newValX = pt.left + Math.ceil(eventX - originX);
+                        newValY = pt.top + Math.ceil(eventY - originY);
 
-                    if (newValX + dialogWidth < $(window).width()) {
-                        if ($dialog != null) {
-                            $dialog.css({ "marginLeft": newValX });
+                        if (newValX <= 0) newValX = 0;
+                        if (newValY <= 0) newValY = 0;
+
+                        if (newValX + dialogWidth < $(window).width()) {
+                            if ($dialog != null) {
+                                $dialog.css({ "marginLeft": newValX });
+                            }
                         }
-                    }
-                    if (newValY + dialogHeight < $(window).height()) {
-                        if ($dialog != null) {
-                            $dialog.css({ "marginTop": newValY });
+                        if (newValY + dialogHeight < $(window).height()) {
+                            if ($dialog != null) {
+                                $dialog.css({ "marginTop": newValY });
+                            }
                         }
+                    },
+                    function (e) {
+                        this.removeClass('is-drag');
                     }
-                },
-                function (e) {
-                    this.removeClass('is-drag');
-                }
-            );
+                );
+            }
+            else {
+                $el.modal(method);
+            }
         },
         bb_filter: function (el, obj, method) {
             $(el).data('bb_filter', { obj: obj, method: method });
         },
-        table: function (el, method) {
+        bb_table: function (el, method, args) {
             var $ele = $(el);
-            if (method === 'fixTableHeader') {
-                var $thead = $ele.find('thead');
-                var $wrapper = $ele.find('.table-wrapper');
-                $wrapper.on('scroll', function () {
-                    var top = $wrapper.scrollTop();
-                    $thead.css({ 'transform': 'translateY(' + top + 'px)' });
+
+            var btn = $ele.find('.btn-col');
+            if (!btn.hasClass('init')) {
+                btn.addClass('init');
+                btn.on('click', function () {
+                    var $menu = $(this).prev();
+                    $menu.toggleClass('show');
                 });
+            }
+
+            if (method === 'fixTableHeader') {
+                var $thead = $ele.find('.table-fixed-header');
+                var $body = $ele.find('.table-fixed-body');
+                $body.on('scroll', function () {
+                    var left = $body.scrollLeft();
+                    $thead.scrollLeft(left);
+                });
+                var $fs = $ele.find('.fixed-scroll');
+                if ($fs.length === 1) {
+                    var $prev = $fs.prev();
+                    while ($prev.length === 1) {
+                        if ($prev.hasClass('fixed-right') && !$prev.hasClass('modified')) {
+                            var margin = $prev.css('right');
+                            margin = margin.replace('px', '');
+                            if ($.browser.versions.mac) {
+                                margin = (parseFloat(margin) - 2) + 'px';
+                            }
+                            else if ($.browser.versions.mobile) {
+                                margin = (parseFloat(margin) - 17) + 'px';
+                            }
+                            $prev.css({ 'right': margin }).addClass('modified');
+                            $prev = $prev.prev();
+                        }
+                        else {
+                            break;
+                        }
+                    }
+
+                    if ($.browser.versions.mobile) {
+                        $fs.remove();
+                    }
+                }
             }
             else if (method === 'init') {
                 // sort
                 var $tooltip = $ele.find('.table-cell.is-sort .table-text');
                 var tooltipTitle = { unset: "点击升序", sortAsc: "点击降序", sortDesc: "取消排序" };
-                $tooltip.tooltip({
-                    container: 'body',
-                    title: tooltipTitle.unset
+
+                $tooltip.each(function () {
+                    var $sortIcon = $(this).parent().find('.fa:last');
+                    if ($sortIcon.length > 0) {
+                        var defaultTitle = tooltipTitle.unset;
+                        if ($sortIcon.hasClass('fa-sort-asc')) defaultTitle = tooltipTitle.sortAsc;
+                        else if ($sortIcon.hasClass('fa-sort-desc')) defaultTitle = tooltipTitle.sortDesc;
+                        $(this).tooltip({
+                            container: 'body',
+                            title: defaultTitle
+                        });
+                    }
                 });
+
                 $tooltip.on('click', function () {
                     var $this = $(this);
                     var $fa = $this.parent().find('.fa:last');
@@ -1212,7 +1315,9 @@
                     if (th.hasClass('filterable')) marginRight = marginRight + 12;
 
                     // 判断是否越界
+                    var scrollLeft = th.closest('table').parent().scrollLeft();
                     var margin = th.offset().left + th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
+                    marginRight = marginRight + scrollLeft;
                     if (margin > 0) {
                         left = left - margin - 16;
 
@@ -1222,6 +1327,12 @@
                     }
                     $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
+            }
+            else if (method === 'width') {
+                var width = 0;
+                if (args) width = $ele.outerWidth(true);
+                else width = $(window).outerWidth(true);
+                return width;
             }
         },
         timePicker: function (el) {
@@ -1265,7 +1376,7 @@
             }
             else $input.popover(method);
         },
-        tab: function (el) {
+        bb_tab: function (el) {
             $(el).tab('active');
         },
         captcha: function (el, obj, method, options) {
@@ -1602,7 +1713,7 @@
 
             calcWindow();
         },
-        scroll: function (el) {
+        bb_scroll: function (el) {
             var $el = $(el);
 
             // 移动端不需要修改滚动条
@@ -1610,28 +1721,17 @@
             var mac = navigator.userAgent.match(/iPhone/i);
             if (!mac) {
                 var autoHide = $el.attr('data-hide');
-                var delay = parseInt($el.attr('data-delay'));
-                var dark = $el.attr('data-dark');
-                var className = 'os-theme-light';
-                if (dark === 'true') {
-                    className = 'os-theme-dark';
-                }
-                var scrollbars = {
-                    className: className
+                var height = $el.attr('data-height');
+                var width = $el.attr('data-width');
+
+                var option = {
+                    alwaysVisible: autoHide !== "true",
                 };
-                if (autoHide === 'true') {
-                    if (isNaN(delay)) {
-                        delay = 1000;
-                    }
-                    scrollbars = {
-                        autoHide: 'leave',
-                        autoHideDelay: delay
-                    }
-                }
-                $el.overlayScrollbars({
-                    className: className,
-                    scrollbars: scrollbars
-                });
+
+                if (!height) height = "auto";
+                if (height !== "") option.height = height;
+                if (!width) option.width = width;
+                $el.slimScroll(option);
             }
             else {
                 $el.addClass('is-phone');
@@ -1665,6 +1765,17 @@
                 var $win = $body.find('.console-window');
                 $body.scrollTop($win.height());
             }
+        },
+        bb_multi_select: function (el, obj, method) {
+            $(el).data('bb_multi_select', { obj: obj, method: method });
+        },
+        bb_tree: function (el) {
+            var $el = $(el);
+            $el.find('.tree-content').hover(function () {
+                $(this).parent().addClass('hover');
+            }, function () {
+                $(this).parent().removeClass('hover');
+            });
         }
     });
 
@@ -1750,7 +1861,7 @@
             if ($pd.length == 1) {
                 var pid = $pd.attr('id');
                 var $el = $('[aria-describedby="' + pid + '"]');
-                if ($el.hasClass('is-filter')) {
+                if ($el.closest('.datetime-picker').hasClass('is-filter')) {
                     return;
                 }
             }
@@ -1761,6 +1872,25 @@
                     var filter = $(this).data('bb_filter');
                     filter.obj.invokeMethodAsync(filter.method);
                 })
+            }
+
+
+            // 处理 MultiSelect 弹窗
+            var $select = $target.closest('.multi-select');
+            $('.multi-select.show').each(function () {
+                if ($select.length === 0 || this != $select[0]) {
+                    var select = $(this).data('bb_multi_select');
+                    select.obj.invokeMethodAsync(select.method);
+                }
+            });
+
+            // 处理 Table ColumnList
+            var $btn = $target.closest('.btn-col.init');
+            if (!$btn.hasClass('btn-col init')) {
+                var $menu = $target.closest('.dropdown-menu.dropdown-menu-right.show');
+                if ($menu.length === 0) {
+                    $('.table-toolbar-button .dropdown-menu.show').removeClass('show');
+                }
             }
         });
 

@@ -101,7 +101,7 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilter> filters)
+        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters)
         {
             return filters.GetFilterLambda<TItem>().Compile();
         }
@@ -112,10 +112,10 @@ namespace System.Linq
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilter> filters)
+        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters)
         {
             var exps = filters.Select(f => f.GetFilterConditions().GetFilterLambda<TItem>());
-            return exps.ExpressionAndLambda<TItem>();
+            return exps.ExpressionAndLambda();
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace System.Linq
         /// <returns></returns>
         public static bool GreaterThanOrEqual<TValue>(this TValue v1, object v2)
         {
-            var invoker = v1.GetGreaterThanOrEqualLambda<TValue>().Compile();
+            var invoker = v1.GetGreaterThanOrEqualLambda().Compile();
             return invoker(v1, v2);
         }
 

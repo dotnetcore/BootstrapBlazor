@@ -1,9 +1,11 @@
-﻿namespace BootstrapBlazor.Components
+﻿using Microsoft.AspNetCore.Components;
+
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Message 组件配置类
     /// </summary>
-    public class MessageOption : PopupOptionBase
+    public class MessageOption : PopupOptionBase, IPopupHost
     {
         /// <summary>
         /// 获得/设置 颜色
@@ -24,5 +26,11 @@
         /// 获得/设置 是否显示左侧 Bar
         /// </summary>
         public bool ShowBar { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件主体用于指定弹窗组件 默认为空
+        /// </summary>
+        /// <remarks>设置此属性值可指定弹窗主体组件</remarks>
+        public ComponentBase? Host { get; set; }
     }
 }

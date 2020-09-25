@@ -1,10 +1,9 @@
-﻿@using Microsoft.AspNetCore.Components.Forms
-@namespace BootstrapBlazor.Components
+﻿@namespace BootstrapBlazor.Components
 @inherits ValidateFormBase
 
 <CascadingValue Value="this">
-    <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" OnSubmit="OnSubmit" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
-        <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
+    <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" OnSubmit="@OnSubmit" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+        <BootstrapBlazorDataAnnotationsValidator />
         @ChildContent
     </EditForm>
 </CascadingValue>

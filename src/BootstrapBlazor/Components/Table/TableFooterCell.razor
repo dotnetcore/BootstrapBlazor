@@ -1,0 +1,33 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+@if (ScreenSize > RenderModelResponsiveWidth)
+{
+    <td @attributes="@AdditionalAttributes">
+        <div class="table-cell">@Text</div>
+    </td>
+}
+else
+{
+    <div class="table-cell">@Text</div>
+}
+
+@code {
+    /// <summary>
+    /// 获得/设置 单元格内容
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [CascadingParameter(Name = "ScreenSize")]
+    public decimal ScreenSize { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [CascadingParameter(Name = "RenderModelResponsiveWidth")]
+    public decimal RenderModelResponsiveWidth { get; set; }
+}

@@ -11,7 +11,7 @@
     </p>
     <Table TItem="BindItem" Items="@Items.Take(3)">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" />
+            <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" Width="180" />
             <TableColumn @bind-Field="@context.Name" Text="自定义列名2" />
             <TableColumn @bind-Field="@context.Address" Text="自定义列名3" />
         </TableColumns>
@@ -21,7 +21,7 @@
 <Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
     <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -31,7 +31,7 @@
 <Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>" CodeFile="table.5.html">
     <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
@@ -41,7 +41,7 @@
 <Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定" CodeFile="table.6.html">
     <Table TItem="BindItem" Items="@Items.Take(3)">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Complete">
                 <Template Context="value">
@@ -67,9 +67,9 @@
             <TableToolbarButton TItem="BindItem" Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@CustomerButton" />
         </TableToolbarTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" Width="100" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
         <RowButtonTemplate>
             <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="明细" OnClickCallback="@OnRowButtonClick" />
@@ -134,10 +134,86 @@
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="列数据对齐方式" Introduction="列绑定时通过指定 <code>Align</code> 属性设置对齐方式" CodeFile="table.30.html">
+    <p>
+        本例中列 <code>DateTime</code> 列设置为居中对齐 <code>Alignment.Center</code>
+    </p>
+    <p>
+        本例中列 <code>Count</code> 列设置为右侧对齐 <code>Alignment.Right</code>
+    </p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" Width="60" Align="Alignment.Right" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="根据屏幕宽度自动显示/隐藏列" Introduction="通过指定 <code>ShownWithBreakPoint</code> 属性设置在不同宽度下是否显示" CodeFile="table.36.html">
+    <p>
+        <code>ShownWithBreakPoint</code> 枚举值为：
+    </p>
+    <ul class="ul-demo">
+        <li><code>None</code> 未设置均显示</li>
+        <li><code>Small</code> 屏幕大于等于 <code>576px</code> 时显示</li>
+        <li><code>Medium</code> 屏幕大于等于 <code>768px</code> 时显示</li>
+        <li><code>Large</code> 屏幕大于等于 <code>992px</code> 时显示</li>
+        <li><code>ExtraLarge</code> 屏幕大于等于 <code>1200px</code> 时显示</li>
+    </ul>
+    <p>
+        本例中列 <code>Count</code> 列设置为 <code>BreakPoint.Large</code> 即屏幕在大于 <code>992px</code> 时才显示
+    </p>
+    <p>注意：</p>
+    <p>由于 <code>Table</code> 组件默认是支持移动端适配，所以小屏幕时采用的是卡片式模式，本例中显式设置使用 <code>RenderModel="TableRenderModel.Table"</code> 模式</p>
+    <Table TItem="BindItem" RenderModel="TableRenderModel.Table"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" ShownWithBreakPoint="BreakPoint.Large" Formatter="@IntFormatter" Width="60" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义显示/隐藏列" Introduction="通过指定 <code>ShowColumnList</code> 属性设置列是否显示" CodeFile="table.44.html">
+    <p><code>ShowColumnList</code> 默认值为 false，显式指定为 true 后工具栏出现相应列调整按钮</p>
+    <p><code>TableColumn</code> 增加 <code>Visiable</code> 属性，其默认值为 true，显示设置为 false 时不显示此列</p>
+    <p>此例中 <b>数量</b> 列通过设置 <code>Visible</code> 未显示，可以通过列控制按钮进行显示设置</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
+           ShowExtendButtons="false" ShowColumnList="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
+            <TableColumn @bind-Field="@context.Name" Text="姓名" />
+            <TableColumn @bind-Field="@context.Address" Text="地址" Width="290" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" Visible="false" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
         </TableColumns>
     </Table>
 </Block>

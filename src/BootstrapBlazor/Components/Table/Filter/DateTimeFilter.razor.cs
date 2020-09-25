@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 时间类型过滤条件
     /// </summary>
     public partial class DateTimeFilter
     {
@@ -28,20 +28,21 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected override void ResetFilterCondition()
+        public override void Reset()
         {
             Value1 = null;
             Value2 = null;
             Action1 = FilterAction.GreaterThanOrEqual;
             Action2 = FilterAction.LessThanOrEqual;
             Count = 0;
+            StateHasChanged();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IEnumerable<FilterKeyValueAction> BuildConditions()
+        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
         {
             var filters = new List<FilterKeyValueAction>();
             if (Value1 != null) filters.Add(new FilterKeyValueAction()
@@ -50,7 +51,7 @@ namespace BootstrapBlazor.Components
                 FieldValue = Value1,
                 FilterAction = Action1
             });
-            if (Value2 != null) filters.Add(new FilterKeyValueAction()
+            if (Count > 0 && Value2 != null) filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value2,

@@ -15,10 +15,10 @@
            OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
         <SearchTemplate>
             <div class="form-inline">
@@ -45,10 +45,48 @@
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" Searchable="true" />
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" Searchable="true" />
-            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义列搜索模板" Introduction="当设置了 <code>SearchTemplate</code> 时，组件自动生成搜索 UI 时使用此模板作为呈现 UI" CodeFile="table.27.html">
+    <p>通过设置姓名列的 <code>SearchTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
+    <p>由于是搜索条件，本例中姓名搜索列下拉框增加了 请选择... 项</p>
+    <p>生成列搜索模板是查找顺序为 SearchTemplate -> AutoGenerate 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true">
+                <SearchTemplate Context="value">
+                    @{
+                        var model = value as BindItem;
+                        if (model != null)
+                        {
+                            var items = new List<SelectedItem>()
+                            {
+                                new SelectedItem { Text = "请选择 ...", Value = "" },
+                                new SelectedItem { Text = "姓名1", Value = "姓名1" },
+                                new SelectedItem { Text = "姓名2", Value = "姓名2" },
+                            };
+                            <div class="form-group col-12 col-sm-6">
+                                <Select Items="items" @bind-Value="@model.Name" ShowLabel="true" DisplayText="姓名" />
+                            </div>
+                        }
+                    }
+                </SearchTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
 </Block>

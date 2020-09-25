@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -27,12 +28,12 @@ namespace BootstrapBlazor.Components
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             // 生成代码后，调用 javascript 进行弹窗操作
-            PopoverService?.InvokeRun();
+            if (PopoverService != null) await PopoverService.InvokeRun();
         }
     }
 }

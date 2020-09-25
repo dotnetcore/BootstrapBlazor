@@ -12,7 +12,7 @@
     /// 
     /// </summary>
     [Inject] public ToastService? ToastService { get; set; }
-
+    private Toast? Toast { get; set; }
     protected void OnSuccessClick()
     {
         Toast?.SetPlacement(Placement.BottomEnd);

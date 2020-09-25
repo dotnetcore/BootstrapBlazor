@@ -2,6 +2,7 @@
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -84,6 +85,28 @@ namespace BootstrapBlazor.Shared.Pages
                     builder.CloseComponent();
                 }
             });
+            return Task.CompletedTask;
+        }
+
+        private int DataPrimaryId { get; set; }
+
+        private Task OnClickShowDataById()
+        {
+            var op = new DialogOption()
+            {
+                Title = "数据查询窗口",
+                ShowFooter = false,
+                BodyContext = DataPrimaryId
+            };
+            op.BodyTemplate = DynamicComponent.CreateComponent<DataDialogComponent>(new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(() =>
+                {
+                    op.Dialog?.Toggle();
+                }))
+            }).Render();
+
+            DialogService?.Show(op);
             return Task.CompletedTask;
         }
 

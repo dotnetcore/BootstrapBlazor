@@ -1,7 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Shared
 {
@@ -10,11 +9,6 @@ namespace BootstrapBlazor.Shared.Shared
     /// </summary>
     public sealed partial class PageLayout
     {
-        /// <summary>
-        ///获得/设置 是否收缩侧边栏
-        /// </summary>
-        public bool IsCollapsed { get; set; }
-
         /// <summary>
         /// 获得/设置 是否固定页头
         /// </summary>
@@ -43,12 +37,6 @@ namespace BootstrapBlazor.Shared.Shared
         /// 更新组件方法
         /// </summary>
         public void Update() => StateHasChanged();
-
-        private Task OnCollapsed(bool collapsed)
-        {
-            IsCollapsed = collapsed;
-            return Task.CompletedTask;
-        }
 
         private IEnumerable<MenuItem> GetIconSideMenuItems()
         {

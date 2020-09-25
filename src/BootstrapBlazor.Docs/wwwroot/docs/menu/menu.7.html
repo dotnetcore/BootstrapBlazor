@@ -1,6 +1,8 @@
-﻿<Menu Items="@GetCollapsedIconSideMenuItems()" IsVertical="true" />
+﻿<Menu Items="@CollapsedIconSideMenuItems" IsVertical="true" />
 
 @code {
+    private IEnumerable<MenuItem> CollapsedIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
+
     private IEnumerable<MenuItem> GetCollapsedIconSideMenuItems()
     {
         var ret = new List<MenuItem>
@@ -22,5 +24,14 @@
         ret[2].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
 
         return ret;
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CollapsedIconSideMenuItems = GetCollapsedIconSideMenuItems();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -23,72 +22,81 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender)
+            if (firstRender && Tooltip != null)
             {
-                // 初始化 Tooltip 组件
-                // 调用客户端 Tooltip 方法
-                if (Tooltip != null)
-                {
-                    if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-                    AdditionalAttributes["data-placement"] = Tooltip.Placement.ToDescriptionString();
-
-                    if (!AdditionalAttributes.TryGetValue("data-trigger", out var _) && !string.IsNullOrEmpty(Tooltip.Trigger))
-                    {
-                        AdditionalAttributes["data-trigger"] = Tooltip.Trigger;
-                    }
-
-                    // 更新客户端
-                    await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-
-                    // 增加一个延时保证客户端生成 Id
-                    await Task.Delay(150);
-                }
+                if (Tooltip.PopoverType == PopoverType.Tooltip)
+                    await ShowTooltip();
+                else
+                    await ShowPopover();
             }
-
-            InvokeTooltip(firstRender);
         }
 
         /// <summary>
-        /// 调用 Tooltip 脚本方法
+        /// 调用 $.bb_tooltip 脚本方法
         /// </summary>
-        /// <param name="firstRender"></param>
-        /// <remarks>OnAfterRenderAsync 方法内部调用此方法</remarks>
-        protected virtual void InvokeTooltip(bool firstRender)
+        /// <returns></returns>
+        protected virtual async ValueTask ShowTooltip()
         {
-            if (firstRender && Tooltip != null)
+            var id = RetrieveId();
+            if (!string.IsNullOrEmpty(id))
             {
-                JSRuntime.Tooltip(Id, "", Tooltip.PopoverType, RetrieveTitle(), RetrieveContent(), RetrieveIsHtml());
+                await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, RetrieveMethod(), RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
             }
         }
+
+        /// <summary>
+        /// 调用 $.bb_popover 脚本方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async ValueTask ShowPopover()
+        {
+            var id = RetrieveId();
+            if (!string.IsNullOrEmpty(id))
+            {
+                await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, RetrieveMethod(), RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
+            }
+        }
+
+        /// <summary>
+        /// 获得 弹窗客户端 ID
+        /// </summary>
+        protected virtual string? RetrieveId() => Id;
+
+        /// <summary>
+        /// 获得 弹窗脚本执行方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string RetrieveMethod() => "";
 
         /// <summary>
         /// 获得 弹窗标题方法
         /// </summary>
         /// <returns></returns>
-        protected virtual string RetrieveTitle()
-        {
-            return Tooltip != null ? Tooltip.Title : "";
-        }
+        protected virtual string RetrieveTitle() => Tooltip?.Title ?? "";
 
         /// <summary>
         /// 获得 弹窗内容方法
         /// </summary>
         /// <returns></returns>
-        protected virtual string RetrieveContent()
-        {
-            return Tooltip != null
-                ? (Tooltip.PopoverType == PopoverType.Popover ? Tooltip.Content : "")
-                : "";
-        }
+        protected virtual string RetrieveContent() => Tooltip?.Content ?? "";
+
+        /// <summary>
+        /// 获得 弹窗位置
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string RetrievePlacement() => Tooltip?.Placement.ToDescriptionString() ?? "top";
 
         /// <summary>
         /// 获得 弹窗内容是否为 Html 方法
         /// </summary>
         /// <returns></returns>
-        protected virtual bool RetrieveIsHtml()
-        {
-            return Tooltip?.IsHtml ?? false;
-        }
+        protected virtual bool RetrieveIsHtml() => Tooltip?.IsHtml ?? false;
+
+        /// <summary>
+        /// 获得 弹窗激活方法
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string RetrieveTrigger() => Tooltip?.Trigger ?? "hover focus";
 
         /// <summary>
         /// Dispose 方法
@@ -98,7 +106,14 @@ namespace BootstrapBlazor.Components
         {
             if (disposing && Tooltip != null)
             {
-                JSRuntime.Tooltip(Id, "dispose", popoverType: Tooltip.PopoverType);
+                var id = RetrieveId();
+                if (!string.IsNullOrEmpty(id))
+                {
+                    if (Tooltip.PopoverType == PopoverType.Tooltip)
+                        _ = JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                    else
+                        _ = JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                }
             }
         }
     }

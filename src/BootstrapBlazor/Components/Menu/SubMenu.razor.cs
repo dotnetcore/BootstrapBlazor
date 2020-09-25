@@ -33,10 +33,11 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <param name="className"></param>
-        /// <param name="active"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetClassString(string className, bool active) => CssBuilder.Default(className)
-            .AddClass("active", active)
+        private string? GetClassString(string className, MenuItem item) => CssBuilder.Default(className)
+            .AddClass("active", item.IsActive && !item.IsDisabled)
+            .AddClass("disabled", item.IsDisabled)
             .Build();
 
     }

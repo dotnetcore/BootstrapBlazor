@@ -1,0 +1,35 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TModel
+@inherits EditorFormBase<TModel>
+
+<CascadingValue Value="@EditorItems" IsFixed="true">
+    @FieldItems?.Invoke(Model)
+</CascadingValue>
+
+@if (FirstRender)
+{
+    <div class="ef-loading">
+        <Spinner Color="Color.Primary" />
+    </div>
+}
+else
+{
+    <div class="form-inline">
+        <div class="row">
+            @foreach (var item in FormItems)
+            {
+                @if (item.EditTemplate != null)
+                {
+                    @item.EditTemplate.Invoke(Model)
+                }
+                else
+                {
+                    <div class="form-group col-12 col-sm-6">
+                        @AutoGenerateTemplate(item)
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    @Buttons
+}

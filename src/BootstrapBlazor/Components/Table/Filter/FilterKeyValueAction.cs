@@ -8,7 +8,7 @@
         /// <summary>
         /// 获得/设置 Filter 项字段名称
         /// </summary>
-        public string FieldKey { get; set; } = "";
+        public string? FieldKey { get; set; }
 
         /// <summary>
         /// 获得/设置 Filter 项字段值

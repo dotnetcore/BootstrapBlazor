@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BootstrapBlazor.Components
@@ -133,10 +134,23 @@ namespace BootstrapBlazor.Components
         public static string GetTypeDesc(this Type t)
         {
             string? ret;
-            if (t.IsNumber()) ret = "数字";
+            if (t.IsEnum) ret = "枚举";
+            else if (t.IsNumber()) ret = "数字";
             else if (t.IsDateTime()) ret = "日期";
             else ret = "字符串";
             return ret;
+        }
+
+        /// <summary>
+        /// 增加扩展方法 List 转化为 字典集合
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this List<KeyValuePair<TKey, TValue>> source)
+        {
+            return source.ToDictionary(key => key.Key, val => val.Value);
         }
     }
 }

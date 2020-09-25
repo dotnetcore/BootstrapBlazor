@@ -21,6 +21,21 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
+        protected IEnumerable<SelectedItem>? Educations { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Educations = typeof(EnumEducation).ToSelectList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
         protected Task<QueryData<BindItem>> OnEditQueryAsync(QueryPageOptions options) => BindItemQueryAsync(EditItems, options);
@@ -57,6 +72,8 @@ namespace BootstrapBlazor.Shared.Pages
                 oldItem.Address = item.Address;
                 oldItem.DateTime = item.DateTime;
                 oldItem.Count = item.Count;
+                oldItem.Complete = item.Complete;
+                oldItem.Education = item.Education;
             }
             return Task.FromResult(true);
         }

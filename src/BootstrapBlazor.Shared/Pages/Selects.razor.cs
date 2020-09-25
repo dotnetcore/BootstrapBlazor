@@ -3,6 +3,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -38,10 +39,26 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 获得 默认数据集合
         /// </summary>
+        private readonly IEnumerable<SelectedItem> StringItems = new SelectedItem[]
+        {
+            new SelectedItem ("1", "1"),
+            new SelectedItem ("12", "12"),
+            new SelectedItem ("123", "123"),
+            new SelectedItem ("1234", "1234"),
+            new SelectedItem ("a", "a"),
+            new SelectedItem ("ab", "ab"),
+            new SelectedItem ("abc", "abc"),
+            new SelectedItem ("abcd", "abcd"),
+            new SelectedItem ("abcde", "abcde")
+        };
+
+        /// <summary>
+        /// 获得 默认数据集合
+        /// </summary>
         private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
         {
             new SelectedItem ("", "请选择 ..."),
-            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Beijing", "北京") { Active = true },
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Hangzhou", "杭州")
         };
@@ -68,16 +85,19 @@ namespace BootstrapBlazor.Shared.Pages
         /// 下拉选项改变时调用此方法
         /// </summary>
         /// <param name="item"></param>
-        private void OnItemChanged(SelectedItem item)
+        private Task OnItemChanged(SelectedItem item)
         {
             Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+            return Task.CompletedTask;
         }
+
+        private Select<string>? Select2 = null;
 
         /// <summary>
         /// 级联绑定菜单
         /// </summary>
         /// <param name="item"></param>
-        private void OnCascadeBindSelectClick(SelectedItem item)
+        private Task OnCascadeBindSelectClick(SelectedItem item)
         {
             _item2.Clear();
             if (item.Value == "Beijing")
@@ -96,11 +116,55 @@ namespace BootstrapBlazor.Shared.Pages
                     new SelectedItem("2","黄浦区"),
                 });
             }
+            Select2?.SetItems(_item2);
+            return Task.CompletedTask;
+        }
+
+        private Task OnShowDialog()
+        {
+            Dialog.Show(new DialogOption()
+            {
+                Title = "弹窗中使用级联下拉框",
+                Component = DynamicComponent.CreateComponent<CustomerSelectDialog>()
+            });
+            return Task.CompletedTask;
         }
 
         private readonly List<SelectedItem> _item2 = new List<SelectedItem>();
 
         private IEnumerable<SelectedItem> Items2 => _item2;
+
+        private IEnumerable<SelectedItem> EnumItems { get; set; } = typeof(SortOrder).ToSelectList();
+
+        private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
+        {
+            new SelectedItem() { Text = "Item 1", Value = "" },
+            new SelectedItem() { Text = "Item 2", Value = "2" },
+            new SelectedItem() { Text = "Item 3", Value = "3" }
+        };
+
+        private int? SelectedIntItem = null;
+
+        private string GetSelectedIntItemString()
+        {
+            return SelectedIntItem.HasValue ? SelectedIntItem.Value.ToString() : "null";
+        }
+
+        private IEnumerable<SelectedItem> NullableBoolItems { get; set; } = new SelectedItem[]
+        {
+            new SelectedItem() { Text = "空值", Value = "" },
+            new SelectedItem() { Text = "True 值", Value = "true" },
+            new SelectedItem() { Text = "False 值", Value = "false" }
+        };
+
+        private bool? SelectedBoolItem = null;
+
+        private string GetSelectedBoolItemString()
+        {
+            return SelectedBoolItem.HasValue ? SelectedBoolItem.Value.ToString() : "null";
+        }
+
+        private SortOrder SelectedEnumItem { get; set; } = SortOrder.Unset;
 
         /// <summary>
         /// 获得事件方法
@@ -112,7 +176,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = "OnSelectedItemChanged",
                 Description="下拉框选项改变时触发此事件",
-                Type ="EventCallback<SelectedItem>"
+                Type ="Func<SelectedItem, Task>"
             }
         };
 
@@ -129,6 +193,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowSearch",
+                Description = "是否显示搜索框",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
@@ -169,6 +240,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "SelectItems",
                 Description = "静态数据模板",
                 Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ItemTemplate",
+                Description = "数据选项模板",
+                Type = "RenderFragment<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },

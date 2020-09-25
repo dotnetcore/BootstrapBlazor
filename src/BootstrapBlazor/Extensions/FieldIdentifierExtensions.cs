@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 
 namespace Microsoft.AspNetCore.Components.Forms
@@ -20,13 +19,21 @@ namespace Microsoft.AspNetCore.Components.Forms
         /// </summary>
         /// <param name="fieldIdentifier"></param>
         /// <returns></returns>
-        public static string GetDisplayName(this FieldIdentifier fieldIdentifier)
+        public static string GetDisplayName(this FieldIdentifier fieldIdentifier) => GetDisplayName(fieldIdentifier.Model, fieldIdentifier.FieldName);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        public static string GetDisplayName(this object model, string fieldName)
         {
-            var cacheKey = (Type: fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
+            var cacheKey = (Type: model.GetType(), FieldName: fieldName);
 
             if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
             {
-                if (TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
+                if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
                     var displayNameAttribute = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
                     if (displayNameAttribute != null)
@@ -34,16 +41,16 @@ namespace Microsoft.AspNetCore.Components.Forms
                         dn = displayNameAttribute.DisplayName;
 
                         // add display name into cache
-                        DisplayNameCache.GetOrAdd((fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName), key => dn);
+                        DisplayNameCache.GetOrAdd(cacheKey, key => dn);
                     }
                 }
             }
             return dn ?? cacheKey.FieldName;
         }
 
-        private static bool TryGetValidatableProperty(in FieldIdentifier fieldIdentifier, out PropertyInfo propertyInfo)
+        private static bool TryGetValidatableProperty(Type modelType, string fieldName, out PropertyInfo propertyInfo)
         {
-            var cacheKey = (ModelType: fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
+            var cacheKey = (ModelType: modelType, FieldName: fieldName);
             if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))
             {
                 // Validator.TryValidateProperty 只能对 Public 属性生效
@@ -51,7 +58,6 @@ namespace Microsoft.AspNetCore.Components.Forms
 
                 if (propertyInfo != null) PropertyInfoCache[cacheKey] = propertyInfo;
             }
-
             return propertyInfo != null;
         }
     }

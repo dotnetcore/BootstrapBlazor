@@ -13,31 +13,31 @@ namespace BootstrapBlazor.Components
         None,
 
         /// <summary>
-        /// xs 超小设置
+        /// xs 超小设置 576px
         /// </summary>
         [Description("xs")]
         ExtraSmall,
 
         /// <summary>
-        /// xs 小设置
+        /// sm 小设置 576px
         /// </summary>
         [Description("sm")]
         Small,
 
         /// <summary>
-        /// xs 中等设置
+        /// md 中等设置 768px
         /// </summary>
         [Description("md")]
         Medium,
 
         /// <summary>
-        /// xs 大设置
+        /// lg 大设置 992px
         /// </summary>
         [Description("lg")]
         Large,
 
         /// <summary>
-        /// xs 超大设置
+        /// xl 超大设置 1200px
         /// </summary>
         [Description("xl")]
         ExtraLarge

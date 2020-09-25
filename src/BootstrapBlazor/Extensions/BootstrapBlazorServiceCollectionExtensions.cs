@@ -18,6 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<MessageService>();
             services.AddScoped<PopoverService>();
             services.AddScoped<ToastService>();
+            services.AddScoped<SwalService>();
             return services;
         }
     }

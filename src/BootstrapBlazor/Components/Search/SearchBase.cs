@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 搜索按钮图标
         /// </summary>
         [Parameter]
-        public string? SearchButtonIcon { get; set; } = "fa fa-fw fa-search";
+        public string? SearchButtonIcon { get; set; } = "fa fa-search";
 
         /// <summary>
         /// 获得/设置 搜索按钮文字
@@ -40,6 +41,21 @@ namespace BootstrapBlazor.Components
         protected async Task OnClick()
         {
             if (OnSearch != null) await OnSearch(CurrentValueAsString);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected override async Task OnKeyUp(KeyboardEventArgs args)
+        {
+            await base.OnKeyUp(args);
+
+            if (!string.IsNullOrEmpty(CurrentValueAsString) && args.Key == "Enter")
+            {
+                await OnClick();
+            }
         }
     }
 }

@@ -176,7 +176,7 @@ namespace BootstrapBlazor.Components
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 Interop = new JSInterop<LayoutBase>(JSRuntime);
                 await Interop.Invoke(this, null, "layout", nameof(SetCollapsed));

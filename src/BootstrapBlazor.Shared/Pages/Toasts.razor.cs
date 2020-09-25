@@ -1,6 +1,5 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,20 +7,10 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    /// Toasts 示例
     /// </summary>
     public sealed partial class Toasts
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject] public ToastService? ToastService { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject] public IJSRuntime? JSRuntime { get; set; }
-
         private Toast? Toast { get; set; }
 
         /// <summary>
@@ -31,10 +20,26 @@ namespace BootstrapBlazor.Shared.Pages
         /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
                 await JSRuntime.InvokeVoidAsync("$._showToast");
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="placement"></param>
+        private void OnPlacementClick(Placement placement)
+        {
+            Toast?.SetPlacement(placement);
+            ToastService?.Show(new ToastOption()
+            {
+                Host = Toast,
+                Category = ToastCategory.Information,
+                Title = "消息通知",
+                Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
+            });
         }
 
         /// <summary>
@@ -95,21 +100,6 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="placement"></param>
-        private void OnPlacementClick(Placement placement)
-        {
-            Toast?.SetPlacement(placement);
-            ToastService?.Show(new ToastOption()
-            {
-                Category = ToastCategory.Information,
-                Title = "消息通知",
-                Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"
-            });
-        }
-
-        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
@@ -121,14 +111,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "弹出框类型",
                 Type = "ToastCategory",
                 ValueList = "Success/Information/Error",
-                DefaultValue = "false"
+                DefaultValue = "Success"
             },
             new AttributeItem() {
                 Name = "Cotent",
-                Description = "Popover 弹窗内容",
+                Description = "弹窗内容",
                 Type = "string",
                 ValueList = "—",
-                DefaultValue = "Popover"
+                DefaultValue = ""
             },
             new AttributeItem() {
                 Name = "Delay",
@@ -160,10 +150,10 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "Title",
-                Description = "Popover 弹窗标题",
+                Description = "弹窗标题",
                 Type = "string",
                 ValueList = "—",
-                DefaultValue = "Popover"
+                DefaultValue = ""
             },
         };
     }

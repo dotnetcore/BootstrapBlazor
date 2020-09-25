@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 
-<div class="navbar navbar-expand d-none d-md-flex">
+<div class="navbar navbar-expand d-flex">
     <ul class="navbar-nav">
         @foreach (var menu in Items)
         {
             @if (menu.Items.Any())
             {
-                <li class="@GetClassString("nav-item dropdown", menu.IsActive)">
-                    <a class="@GetClassString("nav-link dropdown-toggle", menu.IsActive)" data-toggle="dropdown" role="button" href="#">
+                <li class="@GetClassString("nav-item dropdown", menu)">
+                    <a class="@GetClassString("nav-link dropdown-toggle", menu)" data-toggle="dropdown" role="button" href="#">
                         @if (!string.IsNullOrEmpty(menu.Icon))
                         {
                             <i class="@menu.Icon"></i>
@@ -18,26 +18,29 @@
                             @menu.Component.Render()
                         }
                     </a>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-menu-arrow"></div>
-                        @foreach (var item in menu.Items)
-                        {
-                            @if (item.Items.Any())
+                    @if (!menu.IsDisabled)
+                    {
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-arrow"></div>
+                            @foreach (var item in menu.Items)
                             {
-                                @RenderDropdownItem(item)
+                                @if (item.Items.Any())
+                                {
+                                    <SubMenu Item="@item" OnClick="@OnClick" class="dropdown-item"></SubMenu>
+                                }
+                                else
+                                {
+                                    <MenuLink Item="@item" DisableNavigation="@DisableNavigation" class="dropdown-item" OnClick="@OnClick" />
+                                }
                             }
-                            else
-                            {
-                                <MenuLink Item="@item" DisableNavigation="@DisableNavigation" class="dropdown-item" OnClick="@OnClickMenuItem" />
-                            }
-                        }
-                    </div>
+                        </div>
+                    }
                 </li>
             }
             else
             {
-                <li class="@GetClassString("nav-item", menu.IsActive)">
-                    <MenuLink Item="@menu" DisableNavigation="@DisableNavigation" class="nav-link" OnClick="@OnClickMenuItem" />
+                <li class="@GetClassString("nav-item", menu)">
+                    <MenuLink Item="@menu" DisableNavigation="@DisableNavigation" class="nav-link" OnClick="@OnClick" />
                 </li>
             }
         }

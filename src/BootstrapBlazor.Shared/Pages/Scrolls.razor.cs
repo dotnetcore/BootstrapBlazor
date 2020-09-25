@@ -37,25 +37,11 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "0"
             },
             new AttributeItem() {
-                Name = "IsDark",
-                Description = "是否为暗黑模式",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
                 Name = "IsAutoHide",
                 Description = "是否自动隐藏",
                 Type = "true",
                 ValueList = "true|false",
                 DefaultValue = "true"
-            },
-            new AttributeItem() {
-                Name = "Delay",
-                Description = "自动隐藏延时时间",
-                Type = "int",
-                ValueList = "—",
-                DefaultValue = "1000"
             }
         };
     }

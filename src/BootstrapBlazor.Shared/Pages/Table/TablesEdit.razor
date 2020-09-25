@@ -8,16 +8,22 @@
 <Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" CodeFile="table.10.html">
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
         </TableColumns>
         <EditTemplate>
             <div class="form-inline">
@@ -40,9 +46,15 @@
                         </DateTimePicker>
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Count">
+                        <Select Items="@Educations" @bind-Value="@context.Education">
                             <RequiredValidator />
-                        </BootstrapInput>
+                        </Select>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Count" />
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="@context.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
                     </div>
                 </div>
             </div>
@@ -55,18 +67,30 @@
     <p>数据绑定类型为可为空类型时自动允许为空，如日期绑定列为 <code>DateTime?</code> 类型</p>
     <p>数据绑定类型为数值类型时如，如数量绑定列为 <code>int</code> 类型，自动进行数值验证</p>
     <p>表格呈现的有些数据列是计算得到的结果，此种类型的列是无法参与编辑的，通过设置 <code>Editable=false</code> 自动生成编辑 UI 时就不会生成此列编辑组件，如本示例中 <code>Count</code> 列在编辑弹窗中是不出现的</p>
+    <p>通过设置 <code>Readonly=true</code> 自动生成编辑 UI 会将此字段进行只读处理</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" Editable="false" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Readonly="true" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" Editable="false" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
         </TableColumns>
     </Table>
 </Block>
@@ -75,33 +99,33 @@
     <p>通过设置姓名列的 <code>EditTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnEditQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true">
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
-                    @{
-                        var model = value as BindItem;
-                        if (model != null)
-                        {
-                            var items = new List<SelectedItem>()
-                            {
-                                new SelectedItem { Text = "自定义姓名1", Value = "自定义姓名1" },
-                                new SelectedItem { Text = "自定义姓名2", Value = "自定义姓名2" },
-                                new SelectedItem { Text = "自定义姓名3", Value = "自定义姓名3" },
-                                new SelectedItem { Text = "自定义姓名4", Value = "自定义姓名4" },
-                            };
-                            <Select TValue="string" Items="items" @bind-Value="@model.Name" />
-                        }
-                    }
+                    <div class="form-group col-12 col-sm-6">
+                        <TablesNameDrop Model="@((BindItem)value)" />
+                    </div>
                 </EditTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
         </TableColumns>
     </Table>
 </Block>

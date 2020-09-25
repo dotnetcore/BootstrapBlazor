@@ -8,8 +8,32 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 表格 Toolbar 按钮组件
     /// </summary>
-    public class TableToolbarButton<TItem> : ButtonBase
+    public class TableToolbarButton<TItem> : BootstrapComponentBase, IToolbarButton<TItem>
     {
+        /// <summary>
+        /// 获得/设置 按钮颜色
+        /// </summary>
+        [Parameter]
+        public Color Color { get; set; } = Color.Primary;
+
+        /// <summary>
+        /// 获得/设置 显示图标
+        /// </summary>
+        [Parameter]
+        public string? Icon { get; set; }
+
+        /// <summary>
+        /// 获得/设置 显示文字
+        /// </summary>
+        [Parameter]
+        public string? Text { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否禁用
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
         /// <summary>
         /// 获得/设置 按钮点击后回调委托
         /// </summary>
@@ -17,10 +41,16 @@ namespace BootstrapBlazor.Components
         public Func<IEnumerable<TItem>, Task>? OnClickCallback { get; set; }
 
         /// <summary>
+        /// 获得/设置 按钮点击后回调委托
+        /// </summary>
+        [Parameter]
+        public Func<Task>? OnClick { get; set; }
+
+        /// <summary>
         /// 获得/设置 Table Toolbar 实例
         /// </summary>
         [CascadingParameter]
-        protected ITableToolbar? Toolbar { get; set; }
+        protected TableToolbar<TItem>? Toolbar { get; set; }
 
         /// <summary>
         /// 组件初始化方法
@@ -29,7 +59,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            Toolbar?.AddButtons(this);
+            Toolbar?.AddButton(this);
         }
     }
 }

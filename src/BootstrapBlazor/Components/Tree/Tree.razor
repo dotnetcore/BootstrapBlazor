@@ -1,45 +1,43 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits TreeBase
 
-<div @attributes="@AdditionalAttributes" tabindex="0" role="tree" class="@ClassString" @ref="CollapseElement">
-    @foreach (var item in Items)
-    {
-        if (item.Items.Any())
+<div @attributes="@AdditionalAttributes" tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
+    <ul class="tree-root" role="tree">
+        @foreach (var item in Items)
         {
-            <div class="card" role="group">
-                <div class="card-header">
-                    <div class="card-header-wrapper">
-                        <div role="treeitem" class="@GetTreeItemClassString(item)">
-                            <i class="fa fa-fw fa-angle-right" @onclick="@(e => OnClick(item))"></i>
-                            @if (ShowCheckbox)
-                            {
-                                <Checkbox @bind-Value="@item.Checked" ShowDisplayText="false" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
-                            }
-                            <a class="@GetSubTreeLinkClassString(item)" data-toggle="collapse" aria-expanded="@GetExpandedString(item)" @onclick:preventDefault @onclick="@(e => OnClick(item))">
-                                <span>@item.Text</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="@GetSubTreeClassString(item)">
-                    <div class="card-body has-leaf">
-                        <Tree Items="@item.Items" IsAccordion="@IsAccordion" ShowCheckbox="@ShowCheckbox" OnTreeItemChecked="@OnTreeItemChecked" OnTreeItemClick="@OnTreeItemClick" />
-                    </div>
-                </div>
-            </div>
+            @RenderTreeItem(item)
         }
-        else
-        {
-            <div role="treeitem" class="@GetTreeItemClassString(item)">
-                <i class="fa fa-fw"></i>
-                @if (ShowCheckbox)
-                {
-                    <Checkbox @bind-Value="@item.Checked" ShowDisplayText="false" IsDisabled="@item.Disabled" StateChanged="@(state => OnStateChanged(state, item))" />
-                }
-                <a class="nav-link" @onclick:preventDefault @onclick="@(e => OnClick(item))">
-                    <span>@item.Text</span>
-                </a>
-            </div>
-        }
-    }
+    </ul>
 </div>
+
+@code {
+    private RenderFragment<TreeItem> RenderTreeNode => item =>
+    @<ul class="@GetTreeNodeClassString(item)" role="group">
+        @foreach (var node in item.Items)
+        {
+            @RenderTreeItem(node)
+        }
+    </ul>;
+
+private RenderFragment<TreeItem> RenderTreeItem => item =>
+@<li role="treeitem" class="@GetItemClassString(item)">
+    <div class="tree-content">
+        <i class="@GetCaretClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, () => OnExpandRow(item)))"></i>
+        @if (ShowCheckbox)
+        {
+            <Checkbox @bind-Value="@item.Checked" ShowDisplayText="false" IsDisabled="@item.Disabled" OnStateChanged="@(new Func<CheckboxState, bool, Task>((state, v) => OnStateChanged(state, item)))" />
+        }
+        <div class="tree-node" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, async () => await OnClick(item)))">
+            @if (ShowIcon)
+            {
+                <i class="@GetIconClassString(item)"></i>
+            }
+            <span>@item.Text</span>
+        </div>
+    </div>
+    @if (item.Items.Any())
+    {
+        @RenderTreeNode(item)
+    }
+</li>;
+}

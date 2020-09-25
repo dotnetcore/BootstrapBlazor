@@ -1,13 +1,47 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TableFilterBase
+@inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" data-field="@FieldKey" @ref="@FilterElement">
     <div class="card-arrow"></div>
-    <div class="card-header"><span>@HeaderText</span></div>
+    <div class="card-header"><span>@Title</span></div>
     <div class="card-body">
-        <CascadingValue Value="this" IsFixed="true">
-            @BodyTemplate
-        </CascadingValue>
+        @if (Column != null)
+        {
+            <CascadingValue Value="this" IsFixed="true">
+                @if (Column.FilterTemplate != null)
+                {
+                    @Column.FilterTemplate;
+                }
+                else if (Column.FieldType.IsEnum())
+                {
+                    <EnumFilter Type="@Column.FieldType"></EnumFilter>
+                }
+                else
+                {
+                    var fieldType = Nullable.GetUnderlyingType(Column.FieldType) ?? Column.FieldType;
+                    switch (fieldType?.Name)
+                    {
+                        case nameof(Boolean):
+                            <BoolFilter />
+                            break;
+                        case nameof(DateTime):
+                            <DateTimeFilter Count="@Count" />
+                            break;
+                        case nameof(Int32):
+                        case nameof(Double):
+                        case nameof(Decimal):
+                            <NumberFilter Count="@Count" />
+                            break;
+                        case nameof(String):
+                            <StringFilter Count="@Count" />
+                            break;
+                        default:
+                            <div>不支持的类型</div>
+                            break;
+                    };
+                }
+            </CascadingValue>
+        }
     </div>
     <div class="card-footer">
         <div class="d-flex flex-fill">

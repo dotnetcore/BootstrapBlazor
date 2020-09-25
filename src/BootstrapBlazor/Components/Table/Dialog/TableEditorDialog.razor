@@ -1,0 +1,32 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TModel
+@inherits TableDialog<TModel>
+
+<ValidateForm Model="@Model" OnValidSubmit="@OnSaveAsync">
+    @if (BodyTemplate != null)
+    {
+        @BodyTemplate?.Invoke(Model)
+        @RenderFooter
+    }
+    else
+    {
+        <CascadingValue Value="Columns" IsFixed="true">
+            <EditorForm TModel="TModel">
+                <Buttons>
+                    @RenderFooter
+                </Buttons>
+            </EditorForm>
+        </CascadingValue>
+    }
+</ValidateForm>
+
+@code {
+    RenderFragment RenderFooter =>
+    @<div class="modal-footer table-modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-times"></i>
+            <span>关闭</span>
+        </button>
+        <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="保存" />
+    </div>;
+}

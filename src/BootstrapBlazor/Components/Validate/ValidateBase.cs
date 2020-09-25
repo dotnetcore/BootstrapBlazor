@@ -15,7 +15,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class ValidateBase<TValue> : TooltipComponentBase, IValidateComponent, IValidateRules
     {
-        private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
         private ValidationMessageStore? _parsingValidationMessages;
 
         /// <summary>
@@ -107,9 +106,12 @@ namespace BootstrapBlazor.Components
                     // Then all subclasses get nullable support almost automatically (they just have to
                     // not reject Nullable<T> based on the type itself).
                     PreviousParsingAttemptFailed = false;
-#nullable disable
-                    CurrentValue = default;
-#nullable restore
+                    CurrentValue = default!;
+                }
+                else if (typeof(TValue) == typeof(object))
+                {
+                    PreviousParsingAttemptFailed = false;
+                    CurrentValue = (TValue)(object)value;
                 }
                 else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
                 {
@@ -149,6 +151,7 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public string ParsingErrorMessage { get; set; } = "{0}字段值必须为{1}类型";
 
+#nullable disable
         /// <summary>
         /// Gets or sets the value of the input. This should be used with two-way binding.
         /// </summary>
@@ -157,6 +160,7 @@ namespace BootstrapBlazor.Components
         /// </example>
         [Parameter]
         public TValue Value { get; set; }
+#nullable restore
 
         /// <summary>
         /// Gets or sets a callback that updates the bound value.
@@ -209,23 +213,13 @@ namespace BootstrapBlazor.Components
         /// 获得 父组件的 EditContext 实例
         /// </summary>
         [CascadingParameter]
-        private EditContext? CascadedEditContext { get; set; }
+        protected EditContext? CascadedEditContext { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
         protected ValidateFormBase? EditForm { get; set; }
-
-#nullable disable
-        /// <summary>
-        /// Constructs an instance of <see cref="InputBase{TValue}"/>.
-        /// </summary>
-        protected ValidateBase()
-        {
-            _validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
-        }
-#nullable restore
 
         /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
@@ -244,33 +238,37 @@ namespace BootstrapBlazor.Components
         /// <returns>True if the value could be parsed; otherwise false.</returns>
         protected virtual bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
         {
+            bool ret = false;
+            validationErrorMessage = null;
             try
             {
-                if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out var v))
+                var valueType = typeof(TValue);
+                var isBoolean = valueType == typeof(bool) || valueType == typeof(bool?);
+                object v = isBoolean ? (object)value.Equals("true", StringComparison.CurrentCultureIgnoreCase) : value;
+
+                if (BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out var v1))
                 {
-                    result = v;
-                    validationErrorMessage = null;
-                    return true;
+                    result = v1;
+                    ret = true;
                 }
                 else
                 {
-#nullable disable
-                    result = default;
-#nullable restore
-                    var fieldName = FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : "";
-                    var typeName = typeof(TValue).GetTypeDesc();
-                    validationErrorMessage = string.Format(ParsingErrorMessage, fieldName, typeName);
-                    return false;
+                    result = default!;
                 }
             }
             catch (Exception ex)
             {
                 validationErrorMessage = ex.Message;
-#nullable disable
-                result = default;
-#nullable restore
-                return false;
+                result = default!;
             }
+
+            if (!ret && validationErrorMessage == null)
+            {
+                var fieldName = FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : "";
+                var typeName = typeof(TValue).GetTypeDesc();
+                validationErrorMessage = string.Format(ParsingErrorMessage, fieldName, typeName);
+            }
+            return ret;
         }
 
         /// <summary>
@@ -284,20 +282,10 @@ namespace BootstrapBlazor.Components
         /// properties. Derived components should typically use this value for the primary HTML element's
         /// 'class' attribute.
         /// </summary>
-        protected string CssClass
-        {
-            get
-            {
-                if (AdditionalAttributes != null &&
-                    AdditionalAttributes.TryGetValue("class", out var @class) &&
-                    !string.IsNullOrEmpty(Convert.ToString(@class)))
-                {
-                    return $"{@class} {FieldClass}";
-                }
-
-                return FieldClass; // Never null or empty
-            }
-        }
+        protected string? CssClass => CssBuilder.Default()
+            .AddClass(FieldClass)
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
 
         /// <summary>
         /// SetParametersAsync 方法
@@ -308,6 +296,8 @@ namespace BootstrapBlazor.Components
         {
             parameters.SetParameterProperties(this);
 
+            NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
+
             if (EditContext == null)
             {
                 // This is the first run
@@ -315,11 +305,8 @@ namespace BootstrapBlazor.Components
 
                 if (CascadedEditContext != null) EditContext = CascadedEditContext;
                 if (ValueExpression != null) FieldIdentifier = Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression);
-
-                NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
-
-                if (EditContext != null) EditContext.OnValidationStateChanged += _validationStateChangedHandler;
             }
+
             // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
             return base.SetParametersAsync(ParameterView.Empty);
         }
@@ -345,46 +332,33 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// OnAfterRenderAsync 方法
+        /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (Tooltip != null && firstRender)
-            {
-                if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
-                if (!AdditionalAttributes.TryGetValue("data-trigger", out var _))
-                {
-                    AdditionalAttributes["data-trigger"] = "focus";
-                }
-            }
-
             await base.OnAfterRenderAsync(firstRender);
-        }
-
-        #region Validation
-        /// <summary>
-        /// 调用 Tooltip 脚本方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void InvokeTooltip(bool firstRender)
-        {
-            base.InvokeTooltip(firstRender);
 
             if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
             {
-                InvokeAsync(async () =>
-                {
-                    await Task.Delay(10);
-
-                    // 异步执行
-                    JSRuntime.Tooltip(Id, TooltipMethod, title: ErrorMessage);
-                    TooltipMethod = "";
-                }).ConfigureAwait(false);
+                await ShowTooltip();
+                TooltipMethod = "";
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override string RetrieveMethod() => TooltipMethod;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override string RetrieveTitle() => Tooltip?.Title ?? ErrorMessage ?? "";
+
+        #region Validation
         /// <summary>
         /// 获得 数据验证方法集合
         /// </summary>
@@ -466,6 +440,8 @@ namespace BootstrapBlazor.Components
                     TooltipMethod = "dispose";
                 }
 
+                if (Tooltip != null) Tooltip.Title = ErrorMessage;
+
                 OnValidate(IsValid ?? true);
             }
         }
@@ -476,7 +452,7 @@ namespace BootstrapBlazor.Components
         /// <param name="valid">检查结果</param>
         protected virtual void OnValidate(bool valid)
         {
-            InvokeTooltip(false);
+            if (AdditionalAttributes != null) AdditionalAttributes["aria-invalid"] = !valid;
         }
         #endregion
 
@@ -487,12 +463,9 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(true);
-
             if (disposing && EditContext != null)
             {
-                JSRuntime.Tooltip(Id, "dispose");
-                EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
+                base.Dispose(true);
             }
         }
         #endregion

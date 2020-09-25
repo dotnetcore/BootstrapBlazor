@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Select 组件基类
     /// </summary>
-    public abstract class SelectBase<TValue> : ValidateBase<TValue>, ISelectContainer
+    public abstract class SelectBase<TValue> : ValidateBase<TValue>, ISelect
     {
         /// <summary>
         /// 获得 样式集合
@@ -29,7 +30,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected string? ArrowClassName => CssBuilder.Default("form-select-append")
+        protected string? AppendClassName => CssBuilder.Default("form-select-append")
             .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .Build();
 
@@ -74,6 +75,22 @@ namespace BootstrapBlazor.Components
         protected string CurrentTextAsString => SelectedItem?.Text ?? "";
 
         /// <summary>
+        /// 获得/设置 是否初始化完成 默认为 false
+        /// </summary>
+        protected bool Initialized { get; set; }
+
+        /// <summary>
+        /// 获得/设置 搜索文字
+        /// </summary>
+        protected string SearchText { get; set; } = "";
+
+        /// <summary>
+        /// 获得/设置 是否显示搜索框 默认为 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSearch { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter]
@@ -83,42 +100,66 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem>? Items { get; set; }
+        public IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
+
+        /// <summary>
+        /// 获得/设置 选项模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 搜索文本发生变化时回调此方法
+        /// </summary>
+        [Parameter]
+        public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
         /// <summary>
         /// SelectedItemChanged 方法
         /// </summary>
         [Parameter]
-        public EventCallback<SelectedItem> OnSelectedItemChanged { get; set; }
+        public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
+
+        /// <summary>
+        /// 获得/设置 选项模板支持静态数据
+        /// </summary>
+        [Parameter]
+        public RenderFragment? Options { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Parameter]
-        public RenderFragment? SelectItems { get; set; }
+        /// <returns></returns>
+        protected override string? RetrieveId() => InputId;
 
         /// <summary>
-        /// 失去焦点时触发此方法
+        /// OnInitialized 方法
         /// </summary>
-        protected virtual void OnBlur()
+        protected override void OnInitialized()
         {
-            if (FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+            base.OnInitialized();
+
+            if (OnSearchTextChanged == null)
+            {
+                OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
-        protected void OnItemClick(SelectedItem item)
+        protected async Task OnItemClick(SelectedItem item)
         {
             if (SelectedItem != null) SelectedItem.Active = false;
             SelectedItem = item;
+
             SelectedItem.Active = true;
 
             // ValueChanged
             CurrentValueAsString = SelectedItem.Value;
 
             // 触发 SelectedItemChanged 事件
-            if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(item);
+            if (OnSelectedItemChanged != null) await OnSelectedItemChanged.Invoke(SelectedItem);
         }
 
         /// <summary>
@@ -127,33 +168,16 @@ namespace BootstrapBlazor.Components
         /// <param name="valid"></param>
         protected override void OnValidate(bool valid)
         {
-            base.OnValidate(valid);
             Color = valid ? Color.Success : Color.Danger;
         }
-
-        /// <summary>
-        /// 调用 Tooltip 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void InvokeTooltip(bool firstRender)
-        {
-            if (firstRender) JSRuntime.Tooltip(InputId);
-            else JSRuntime.Tooltip(InputId, "show");
-        }
-
-        /// <summary>
-        /// 获得 分组数据
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<IGrouping<string, SelectedItem>> GetSelectedItems() => GetItems().GroupBy(i => i.GroupName);
 
         /// <summary>
         /// 获得 数据源
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<SelectedItem> GetItems()
+        private IEnumerable<SelectedItem> GetItems()
         {
-            var items = Items?.ToList() ?? new List<SelectedItem>();
+            var items = Items.ToList();
             items.AddRange(Childs);
 
             if (items.Any())
@@ -190,6 +214,22 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 获取显示的候选项集合
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<SelectedItem> GetShownItems()
+        {
+            IEnumerable<SelectedItem> ret = GetItems();
+
+            // handler SearchText
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                ret = OnSearchTextChanged!.Invoke(SearchText);
+            }
+            return ret;
+        }
+
+        /// <summary>
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
@@ -197,6 +237,7 @@ namespace BootstrapBlazor.Components
         {
             Items = items;
             SelectedItem = GetItems().FirstOrDefault(i => i.Active);
+            StateHasChanged();
         }
 
         private List<SelectedItem> Childs { get; set; } = new List<SelectedItem>();
@@ -207,17 +248,6 @@ namespace BootstrapBlazor.Components
         public void Add(SelectedItem item)
         {
             Childs.Add(item);
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            if (disposing) JSRuntime.Tooltip(InputId, "dispose");
         }
     }
 }

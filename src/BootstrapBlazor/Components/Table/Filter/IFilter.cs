@@ -1,16 +1,19 @@
-﻿using System.Collections.Generic;
-
-namespace BootstrapBlazor.Components
+﻿namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// ITableFitler 接口
+    /// 过滤器接口
     /// </summary>
     public interface IFilter
     {
         /// <summary>
-        /// 获得 IFilter 实例中的过滤条件集合
+        /// 显示过滤窗口方法
         /// </summary>
         /// <returns></returns>
-        IEnumerable<FilterKeyValueAction> GetFilterConditions();
+        void Show();
+
+        /// <summary>
+        /// 获得/设置 本过滤器相关 IFilterAction 实例
+        /// </summary>
+        IFilterAction? FilterAction { get; set; }
     }
 }

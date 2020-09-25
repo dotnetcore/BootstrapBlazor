@@ -29,9 +29,10 @@ namespace BootstrapBlazor.Components
         /// 获得 文本框样式
         /// </summary>
         protected string? InputClassString => CssBuilder.Default("form-control")
-           .AddClass("input-number-fix", ShowButton)
-           .AddClass($"border-{Color.ToDescriptionString()} shadow-{Color.ToDescriptionString()}", Color != Color.None)
-           .Build();
+            .AddClass(CssClass).AddClass(ValidCss)
+            .AddClass("input-number-fix", ShowButton)
+            .AddClass($"border-{Color.ToDescriptionString()} shadow-{Color.ToDescriptionString()}", Color != Color.None)
+            .Build();
 
 #nullable disable
         /// <summary>
@@ -159,6 +160,18 @@ namespace BootstrapBlazor.Components
             {
                 Range(Add(CurrentValue, Step));
                 if (OnIncrement != null) await OnIncrement(CurrentValue);
+            }
+        }
+
+        /// <summary>
+        /// 失去焦点是触发此方法
+        /// </summary>
+        /// <returns></returns>
+        protected void OnBlur()
+        {
+            if (MinValue != null || MaxValue != null)
+            {
+                Range(Value);
             }
         }
 

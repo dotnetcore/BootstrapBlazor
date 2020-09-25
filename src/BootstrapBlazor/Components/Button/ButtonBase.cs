@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -35,16 +38,28 @@ namespace BootstrapBlazor.Components
         protected string? Tab => IsDisabled ? "-1" : null;
 
         /// <summary>
-        /// 按钮风格枚举
+        /// 获得/设置 按钮风格枚举
         /// </summary>
         [Parameter]
         public ButtonStyle ButtonStyle { get; set; }
 
         /// <summary>
-        /// OnClick 事件
+        /// 获得/设置 按钮类型 Submit 为表单提交按钮 Reset 为表单重置按钮 默认为 Button
+        /// </summary>
+        [Parameter]
+        public ButtonType ButtonType { get; set; } = ButtonType.Button;
+
+        /// <summary>
+        /// 获得/设置 OnClick 事件
         /// </summary>
         [Parameter]
         public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+        /// <summary>
+        /// 获得/设置 OnClick 事件不刷新父组件
+        /// </summary>
+        [Parameter]
+        public Func<Task>? OnClickWithoutRender { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -83,15 +98,10 @@ namespace BootstrapBlazor.Components
         public bool IsBlock { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否禁用
+        /// 获得/设置 是否禁用 默认为 false
         /// </summary>
         [Parameter]
         public bool IsDisabled { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否触发客户端验证 默认为 true 触发
-        /// </summary>
-        [Parameter] public bool IsTriggerValidate { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 RenderFragment 实例
@@ -109,7 +119,7 @@ namespace BootstrapBlazor.Components
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
-        public ValidateFormBase? EditForm { get; set; }
+        public ValidateFormBase? ValidateForm { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -118,16 +128,56 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+
+            if (!AdditionalAttributes.TryGetValue("type", out var _))
+            {
+                AdditionalAttributes["type"] = "button";
+            }
+
             var onClick = OnClick;
             OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                bool valid = true;
-                if (EditForm != null)
+                if (!IsDisabled)
                 {
-                    valid = await EditForm.Validate();
+                    if (OnClickWithoutRender != null) await OnClickWithoutRender.Invoke();
+                    if (onClick.HasDelegate) await onClick.InvokeAsync(e);
                 }
-                if (valid && onClick.HasDelegate) await onClick.InvokeAsync(e);
             });
+        }
+
+        private bool _prevDisable;
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (!firstRender && Tooltip != null)
+            {
+                var id = RetrieveId();
+                if (!string.IsNullOrEmpty(id) && _prevDisable != IsDisabled)
+                {
+                    _prevDisable = IsDisabled;
+                    if (IsDisabled)
+                    {
+                        if (Tooltip.PopoverType == PopoverType.Tooltip)
+                            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                        else
+                            await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                    }
+                    else
+                    {
+                        if (Tooltip.PopoverType == PopoverType.Tooltip)
+                            await ShowTooltip();
+                        else
+                            await ShowPopover();
+                    }
+                }
+            }
         }
 
         /// <summary>

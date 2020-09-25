@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace BootstrapBlazor.Components
+﻿namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Popover 弹出窗组件
@@ -8,20 +6,13 @@ namespace BootstrapBlazor.Components
     public class Popover : Tooltip
     {
         /// <summary>
-        /// 获得/设置 弹出框类型
+        /// OnInitialized 方法
         /// </summary>
-        public override PopoverType PopoverType { get; set; } = PopoverType.Popover;
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-        /// <summary>
-        /// 获得/设置 显示标题
-        /// </summary>
-        [Parameter]
-        public override string Title { get; set; } = "Popover";
-
-        /// <summary>
-        /// 获得/设置 显示文字
-        /// </summary>
-        [Parameter]
-        public override string Content { get; set; } = "Popover";
+            PopoverType = PopoverType.Popover;
+        }
     }
 }

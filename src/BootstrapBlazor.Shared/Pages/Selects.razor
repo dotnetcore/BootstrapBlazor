@@ -1,4 +1,5 @@
 ﻿@page "/selects"
+@inject DialogService Dialog
 
 <h3>Select 选择器</h3>
 
@@ -84,7 +85,10 @@
                 <Select TValue="string" Items="@Items3" OnSelectedItemChanged="@OnCascadeBindSelectClick" />
             </div>
             <div class="form-group col-12 col-sm-6">
-                <Select TValue="string" Items="@Items2" />
+                <Select @ref="Select2" TValue="string" Items="@Items2" />
+            </div>
+            <div class="form-group col-12">
+                <Button Text="弹窗中级联示例" OnClickWithoutRender="@OnShowDialog" />
             </div>
         </div>
     </div>
@@ -94,12 +98,20 @@
     <ValidateForm class="form-inline" Model="@BindModel">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <Select TItem="string" Color="Color.Primary" @bind-Value="@BindModel.Name">
-                    <RequiredValidator ErrorMessage="请选择一个城市" />
+                <Select @bind-Value="@BindModel.Name">
+                    <Options>
+                        <SelectOption Text="请选择 ..." Value="" />
+                        <SelectOption Text="北京" Value="1" />
+                        <SelectOption Text="上海" Value="2" />
+                        <SelectOption Text="广州" Value="3" />
+                    </Options>
+                    <ChildContent>
+                        <RequiredValidator ErrorMessage="请选择一个城市" />
+                    </ChildContent>
                 </Select>
             </div>
             <div class="form-group col-12 col-sm-6 align-items-end">
-                <Button>提交</Button>
+                <Button ButtonType="ButtonType.Submit">提交</Button>
             </div>
         </div>
     </ValidateForm>
@@ -131,7 +143,7 @@
     <ValidateForm class="form-inline" Model="@Model">
         <div class="row">
             <div class="form-group col-12">
-                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name" ShowLabel="true" />
+                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name" />
             </div>
         </div>
     </ValidateForm>
@@ -139,7 +151,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name" ShowLabel="false" />
+                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name" />
             </div>
         </div>
     </div>
@@ -154,15 +166,94 @@
 </Block>
 
 <Block Title="静态数据" Introduction="直接在 <code>Select</code> 组件内部进行硬编码书写，适用于静态数据下拉框" CodeFile="select.9.html">
-    <div class="row">
-        <div class="form-group col-12 col-sm-3">
-            <Select TValue="string">
-                <SelectItems>
-                    <SelectItem Text="北京" Value="1" />
-                    <SelectItem Text="上海" Value="2" Active="true" />
-                    <SelectItem Text="广州" Value="3" />
-                </SelectItems>
-            </Select>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string">
+                    <Options>
+                        <SelectOption Text="北京" Value="1" />
+                        <SelectOption Text="上海" Value="2" Active="true" />
+                        <SelectOption Text="广州" Value="3" />
+                    </Options>
+                </Select>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="枚举数据" Introduction="<code>Select</code> 组件绑定枚举类型示例" CodeFile="select.10.html">
+    <p>本次展现的是通过 <code>Select</code> 组件绑定枚举类型 <code>SortOrder</code>，通过选项的更改绑定数据</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@EnumItems" @bind-Value="@SelectedEnumItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="form-control">@SelectedEnumItem</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定可为空类型" Introduction="<code>Select</code> 组件绑定 <code>int?</code> 类型示例" CodeFile="select.11.html">
+    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@NullableIntItems" @bind-Value="@SelectedIntItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="form-control">@GetSelectedIntItemString()</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定可为空布尔类型" Introduction="<code>Select</code> 组件绑定 <code>bool?</code> 类型示例" CodeFile="select.12.html">
+    <p>可为空布尔类型多用于条件搜索框中</p>
+    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@NullableBoolItems" @bind-Value="@SelectedBoolItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="form-control">@GetSelectedBoolItemString()</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="自定义选项模板" Introduction="通过设置 <code>ItemTemplate</code> 可以自定义选项渲染样式" CodeFile="select.13.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items">
+                    <ItemTemplate>
+                        <div class="dropdown-item-demo">
+                            <i class="fa fa-fa"></i>
+                            <span>@context.Text</span>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </ItemTemplate>
+                </Select>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="带搜索框的下拉框" Introduction="通过设置 <code>ShowSearchBox</code> 属性控制是否显示搜索框，默认为 false 不显示搜索框" CodeFile="select.14.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items" ShowSearch="true" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@StringItems" ShowSearch="true" />
+            </div>
         </div>
     </div>
 </Block>

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -27,38 +25,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnInitialized()
         {
-            if (CurrentEditContext == null)
-            {
-                throw new InvalidOperationException($"{nameof(DataAnnotationsValidator)} requires a cascading parameter of type {nameof(EditContext)}. For example, you can use {nameof(DataAnnotationsValidator)} inside an EditForm.");
-            }
-
-            if (EditForm == null)
-            {
-                throw new InvalidOperationException($"{nameof(DataAnnotationsValidator)} requires a cascading parameter of type {nameof(ValidateFormBase)}. For example, you can use {nameof(DataAnnotationsValidator)} inside an EditForm.");
-            }
-
-            CurrentEditContext.AddEditContextDataAnnotationsValidation(EditForm);
-        }
-
-        /// <summary>
-        /// 表单验证方法
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> Validate()
-        {
-            var valid = false;
-            if (CurrentEditContext != null)
-            {
-                valid = CurrentEditContext.Validate();
-
-                if (EditForm != null)
-                {
-                    if (valid && EditForm.OnValidSubmit.HasDelegate) await EditForm.OnValidSubmit.InvokeAsync(CurrentEditContext);
-                    else if (valid && EditForm.OnSubmit.HasDelegate) await EditForm.OnSubmit.InvokeAsync(CurrentEditContext);
-                    else if (EditForm.OnInvalidSubmit.HasDelegate) await EditForm.OnInvalidSubmit.InvokeAsync(CurrentEditContext);
-                }
-            }
-            return valid;
+            CurrentEditContext!.AddEditContextDataAnnotationsValidation(EditForm!);
         }
     }
 }

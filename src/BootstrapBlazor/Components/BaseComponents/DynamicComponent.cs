@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Components
         /// <typeparam name="TCom"></typeparam>
         /// <param name="parameters">TCom 组件所需要的参数集合</param>
         /// <returns></returns>
-        public static DynamicComponent CreateComponent<TCom>(IEnumerable<KeyValuePair<string, object>> parameters) where TCom : ComponentBase
+        public static DynamicComponent CreateComponent<TCom>(IEnumerable<KeyValuePair<string, object>> parameters) where TCom : IComponent
         {
             return new DynamicComponent(typeof(TCom), parameters);
         }
@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <typeparam name="TCom"></typeparam>
         /// <returns></returns>
-        public static DynamicComponent CreateComponent<TCom>() where TCom : ComponentBase => CreateComponent<TCom>(Enumerable.Empty<KeyValuePair<string, object>>());
+        public static DynamicComponent CreateComponent<TCom>() where TCom : IComponent => CreateComponent<TCom>(Enumerable.Empty<KeyValuePair<string, object>>());
 
         /// <summary>
         /// 创建组件实例并渲染
@@ -60,12 +60,5 @@ namespace BootstrapBlazor.Components
             builder.AddMultipleAttributes(index++, Parameters);
             builder.CloseComponent();
         };
-
-        /// <summary>
-        /// 创建组件实例并渲染
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <returns></returns>
-        public RenderFragment<TValue> Render<TValue>() => context => Render();
     }
 }

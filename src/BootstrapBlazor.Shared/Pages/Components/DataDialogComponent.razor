@@ -1,0 +1,96 @@
+﻿@inject ToastService Toast
+
+<p>同时通过传递数据主键获取数据后再显示的例子组件</p>
+
+<p>传递的参数主键为：@DataPrimaryId</p>
+
+<p>通过传递参数获取的数据为：</p>
+
+@if (Model != null)
+{
+    <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmit">
+        <EditorForm TModel="BindItem">
+            <FieldItems>
+                <EditorItem @bind-Field="@context.Id" Editable="false" />
+                <EditorItem @bind-Field="@context.Complete">
+                    <EditTemplate Context="value">
+                        <div class="form-group col-12 col-sm-6">
+                            <Switch @bind-Value="@(((BindItem)value).Complete)" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                        </div>
+                    </EditTemplate>
+                </EditorItem>
+            </FieldItems>
+        </EditorForm>
+        <div class="modal-footer table-modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <i class="fa fa-times"></i>
+                <span>关闭</span>
+            </button>
+            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="保存" />
+        </div>
+    </ValidateForm>
+}
+
+<Toast />
+
+@code {
+    [Parameter]
+    public Action? OnClose { get; set; }
+
+    [CascadingParameter(Name = "BodyContext")]
+    private object? DataPrimaryId { get; set; }
+
+    private BindItem? Model { get; set; }
+
+    private List<BindItem>? Items { get; set; }
+
+    private static readonly Random random = new Random();
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    protected List<BindItem> GenerateItems() => Enumerable.Range(1, 10).Select(i => new BindItem()
+    {
+        Id = i,
+        Name = $"张三 {i:d4}",
+        DateTime = DateTime.Now.AddDays(i - 1),
+        Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
+        Count = random.Next(1, 100),
+        Complete = random.Next(1, 100) > 50,
+        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+    }).ToList();
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = GenerateItems();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (DataPrimaryId is int primaryId)
+        {
+            Model = Items.FirstOrDefault(i => i.Id == primaryId);
+        }
+    }
+
+    private Task OnValidSubmit(EditContext model)
+    {
+        // do someting like save model into db
+        OnClose?.Invoke();
+
+        Toast?.Show(new ToastOption()
+        {
+            Title = "保存数据",
+            Content = "保存成功，4 秒后自动关闭"
+        });
+        return Task.CompletedTask;
+    }
+}

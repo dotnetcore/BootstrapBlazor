@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
             {
                 if (OnInit == null) throw new InvalidOperationException("OnInit paramenter must be set");
 
-                if (Interop == null && JSRuntime != null) Interop = new JSInterop<ChartBase>(JSRuntime);
+                if (Interop == null) Interop = new JSInterop<ChartBase>(JSRuntime);
 
                 var ds = await OnInit.Invoke();
 

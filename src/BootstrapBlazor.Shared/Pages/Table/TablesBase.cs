@@ -20,26 +20,30 @@ namespace BootstrapBlazor.Shared.Pages
         [Inject]
         protected ToastService? ToastService { get; set; }
 
-        private static readonly Random random = new Random();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected static readonly Random random = new Random();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
+        protected static List<BindItem> GenerateItems() => Enumerable.Range(1, 80).Select(i => new BindItem()
         {
             Id = i,
             Name = $"张三 {i:d4}",
             DateTime = DateTime.Now.AddDays(i - 1),
             Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
             Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50
-        }));
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        }).ToList();
 
         /// <summary>
         /// 
         /// </summary>
-        protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
+        protected static List<BindItem> Items { get; } = GenerateItems();
 
         /// <summary>
         /// 
@@ -57,14 +61,42 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Filterable",
                 Description = "是否可过滤数据",
-                Type = "bool",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Editable",
                 Description = "是否生成编辑组件",
-                Type = "bool",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "Readonly",
+                Description = "编辑时是否只读模式",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "AllowTextWrap",
+                Description = "是否允许换行",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "TextEllipsis",
+                Description = "是否文本超出时省略",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Visible",
+                Description = "是否显示此列",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
@@ -79,6 +111,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Width",
                 Description = "列宽度（像素px）",
                 Type = "int",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "CssClass",
+                Description = "自定义单元格样式",
+                Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
@@ -102,6 +141,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "RenderFragment<TableColumnContext<object, TItem>>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "EditTemplate",
+                Description = "模板",
+                Type = "RenderFragment<object>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "SearchTemplate",
+                Description = "模板",
+                Type = "RenderFragment<object>",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
 
@@ -116,6 +169,41 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Height",
                 Description = "固定表头",
                 Type = "int",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "PageItems",
+                Description = "IsPagination=true 设置每页显示数据数量",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ExtendButtonColumnWidth",
+                Description = "行操作按钮列宽度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "130"
+            },
+            new AttributeItem() {
+                Name = "RenderModelResponsiveWidth",
+                Description = "组件布局模式自动切换阈值",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "768"
+            },
+            new AttributeItem() {
+                Name = "Items",
+                Description = "数据集合",
+                Type = "IEnumerable<TItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "PageItemsSource",
+                Description = "IsPagination=true 设置每页显示数据数量的外部数据源",
+                Type = "IEnumerable<int>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
@@ -183,25 +271,11 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "Items",
-                Description = "数据集合",
-                Type = "IEnumerable<TItem>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "PageItems",
-                Description = "IsPagination=true 设置每页显示数据数量",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "PageItemsSource",
-                Description = "IsPagination=true 设置每页显示数据数量的外部数据源",
-                Type = "IEnumerable<int>",
-                ValueList = " — ",
-                DefaultValue = " — "
+                Name = "IsRendered",
+                Description = "组件是否渲染完毕",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsMultipleSelect",
@@ -212,10 +286,10 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "ClickToSelect",
-                Description = "单选模式下点击行即选中本行",
-                Type = "bool",
+                Description = "点击行即选中本行",
+                Type = "boolean",
                 ValueList = "true|false",
-                DefaultValue = "true"
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowCheckboxText",
@@ -229,21 +303,28 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "是否显示表脚",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " false "
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowSearch",
                 Description = "显示搜索栏",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " — "
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowToolbar",
                 Description = "显示 Toolbar",
                 Type = "boolean",
                 ValueList = "true / false",
-                DefaultValue = " — "
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowLineNo",
+                Description = "显示 行号",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowDefaultButtons",
@@ -253,7 +334,7 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
-                Name = "ShowNewButton",
+                Name = "ShowAddButton",
                 Description = "显示增加按钮",
                 Type = "boolean",
                 ValueList = "true / false",
@@ -281,11 +362,32 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "ExtendButtonColumnWidth",
-                Description = "行操作按钮列宽度",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "130"
+                Name = "ShowSkeleton",
+                Description = "加载时是否显示骨架屏",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowColumnList",
+                Description = "是否显示列显示/隐藏控制按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "UseComponentWidth",
+                Description = "组件渲染模式是否使用组件宽度来判断",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ScollingDialogContent",
+                Description = "编辑弹窗框是否为内部出现滚动条",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "OnQueryAsync",
@@ -356,6 +458,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-sort-desc"
+            },
+            new AttributeItem() {
+                Name = "RenderModel",
+                Description = "Table 组件布局模式设置",
+                Type = "TableRenderModel",
+                ValueList = "Auto|Table|CardView",
+                DefaultValue = "Auto"
             }
         };
 
@@ -431,5 +540,30 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [DisplayName("是/否")]
         public bool Complete { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required(ErrorMessage = "请选择学历")]
+        [DisplayName("学历")]
+        public EnumEducation? Education { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum EnumEducation
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("小学")]
+        Primary,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("中学")]
+        Middel
     }
 }

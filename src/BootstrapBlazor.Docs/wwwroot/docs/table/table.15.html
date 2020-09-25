@@ -1,7 +1,7 @@
 ﻿<Table TItem="BindItem"
         IsPagination="true" PageItemsSource="@PageItemsSource"
-        IsStriped="true" IsBordered="true"
-        ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+        ShowSkeleton="true"
         OnQueryAsync="@OnQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
@@ -12,6 +12,11 @@
                 <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
             </Template>
         </TableColumn>
+        <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true">
+            <Template Context="value">
+                <span>@value.Value?.ToDescriptionString()</span>
+            </Template>
+        </TableColumn>
         <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />
     </TableColumns>
 </Table>
@@ -19,19 +24,35 @@
 @code {
     private static readonly Random random = new Random();
 
+    public enum EnumEducation
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("小学")]
+        Primary,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("中学")]
+        Middel
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    protected static List<BindItem> GenerateItems() => new List<BindItem>(Enumerable.Range(1, 80).Select(i => new BindItem()
+    protected static List<BindItem> GenerateItems() => Enumerable.Range(1, 80).Select(i => new BindItem()
     {
         Id = i,
         Name = $"张三 {i:d4}",
         DateTime = DateTime.Now.AddDays(i - 1),
         Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
         Count = random.Next(1, 100),
-        Complete = random.Next(1, 100) > 50
-    }));
+        Complete = random.Next(1, 100) > 50,
+        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+    }).ToList();
 
     /// <summary>
     /// 

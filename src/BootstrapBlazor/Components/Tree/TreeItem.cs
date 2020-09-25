@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
         private readonly List<TreeItem> _items = new List<TreeItem>(20);
 
         /// <summary>
-        /// 获得 父级菜单
+        /// 获得 父级节点
         /// </summary>
         private TreeItem? Parent { get; set; }
 
@@ -34,6 +34,17 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示文字
         /// </summary>
         public string? Text { get; set; }
+
+        /// <summary>
+        /// 获得/设置 图标
+        /// </summary>
+        public string? Icon { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否激活
+        /// </summary>
+        /// <value></value>
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// 获得/设置 是否被选中
@@ -70,6 +81,20 @@ namespace BootstrapBlazor.Components
             {
                 item.Checked = isChecked;
                 if (item.Items.Any()) item.CascadeSetCheck(isChecked);
+            }
+        }
+
+        /// <summary>
+        /// 级联设置展开状态方法
+        /// </summary>
+        public void CollapseOtherNodes()
+        {
+            if (Parent != null)
+            {
+                foreach (var node in Parent.Items.Where(p => p.IsExpanded && p != this))
+                {
+                    node.IsExpanded = false;
+                }
             }
         }
     }

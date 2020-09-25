@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 
-<Select TItem="FilterLogic" Items="@Items" Color="@Color.Info" class="is-condition" @bind-Value="Value"></Select>
+<Select Items="@Items" Color="@Color.Info" class="is-condition" @bind-Value="Value"></Select>
 
 @code {
     private FilterLogic _value;
@@ -24,8 +24,5 @@
     [Parameter]
     public EventCallback<FilterLogic> LogicChanged { get; set; }
 
-    private IEnumerable<SelectedItem> Items => new SelectedItem[] {
-        new SelectedItem("And", "并且"),
-        new SelectedItem("Or", "或者")
-    };
+    private IEnumerable<SelectedItem> Items => typeof(FilterLogic).ToSelectList();
 }

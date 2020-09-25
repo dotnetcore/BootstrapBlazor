@@ -32,11 +32,25 @@
     <Tree Items="@Items" ShowCheckbox="true" IsAccordion="true" />
 </Block>
 
-<Block Title="默认展开和默认选中" Introduction="可将 Tree 的某些节点设置为默认展开或默认选中" CodeFile="tree.5.html">
+<Block Title="默认展开和默认选中" Introduction="可将 <code>Tree</code> 的某些节点设置为默认展开或默认选中" CodeFile="tree.5.html">
     <p>
         通过设置 <code>TreeItem</code> 对象的 <code>IsExpanded</code> 属性，来控制此节点是否默认为展开状态，本例中 <b>导航二</b> 与 <b>子菜单二</b> 默认为展开状态，其余节点默认为收缩状态
     </p>
     <Tree Items="@CheckedItems" ShowCheckbox="true" />
+</Block>
+
+<Block Title="显示图标" Introduction="通过设置 <code>ShowIcon</code> 来控制组件是否显示图标" CodeFile="tree.6.html">
+    <p>
+        通过设置 <code>TreeItem</code> 对象的 <code>ShowIcon</code> 属性，来控制此节点是否显示图标
+    </p>
+    <Tree Items="@GetIconItems()" ShowIcon="true" ShowCheckbox="true" />
+</Block>
+
+<Block Title="点击节点展开收缩功能" Introduction="通过设置 <code>ClickToggleNode</code> 来控制点击节点时是否进行展开收缩操作" CodeFile="tree.7.html">
+    <p>
+        通过设置 <code>TreeItem</code> 对象的 <code>ClickToggleNode</code> 属性，来控制此节点是否通过点击来实现展开收缩操作
+    </p>
+    <Tree Items="@Items" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

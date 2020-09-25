@@ -12,8 +12,15 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件样式名称
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("form-control datetime-picker-input")
-            .AddClass(CssClass).AddClass(ValidCss)
+        protected string? ClassString => CssBuilder.Default("datetime-picker")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
+        /// 获得 组件文本框样式名称
+        /// </summary>
+        protected string? InputClassName => CssBuilder.Default("form-control datetime-picker-input")
+            .AddClass(ValidCss)
             .Build();
 
         /// <summary>
@@ -67,7 +74,7 @@ namespace BootstrapBlazor.Components
 #nullable restore
                     v = t;
                 }
-                return v;
+                return ViewModel == DatePickerViewModel.Date ? v.Date : v;
             }
             set
             {
@@ -133,9 +140,9 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender)
             {
-                await JSRuntime.Invoke(Picker, "datetimePicker");
+                await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker");
             }
         }
 
@@ -164,11 +171,9 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task OnClear()
         {
-#nullable disable
-            CurrentValue = default;
-#nullable restore
+            CurrentValue = default!;
             StateHasChanged();
-            if (JSRuntime != null) await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
+            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
         }
 
         /// <summary>
@@ -176,7 +181,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task OnConfirm()
         {
-            if (JSRuntime != null) await JSRuntime.Invoke(Picker, "datetimePicker", "hide");
+            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
         }
     }
 }

@@ -12,12 +12,6 @@ namespace UnitTest.Components
     public class LambdaTest
     {
         [Fact]
-        public void Range_Ok()
-        {
-            int v = 10;
-        }
-
-        [Fact]
         public void TryParse_Ok()
         {
             var exp = Expression.Parameter(typeof(int?));
@@ -43,7 +37,7 @@ namespace UnitTest.Components
 
         public class Dummy
         {
-            public string? Foo { get; set; }
+            public string Foo { get; set; }
         }
     }
 }

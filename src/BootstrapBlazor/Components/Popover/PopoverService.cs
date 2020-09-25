@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -47,11 +48,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// InvokeRun 方法
         /// </summary>
-        public void InvokeRun()
+        public async Task InvokeRun()
         {
-            if (ConfirmBox.HasValue)
+            if (ConfirmBox.HasValue && ConfirmBox.Value.Option.Callback != null)
             {
-                ConfirmBox.Value.Option.Callback?.Invoke();
+                await ConfirmBox.Value.Option.Callback.Invoke();
             }
         }
 

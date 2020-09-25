@@ -1,10 +1,10 @@
 ﻿<div class="form-group col-12 col-sm-6">
     <Select TValue="string" Items="@Items3" 
-        OnSelectedItemChanged="@OnCascadeBindSelectClick">
+            OnSelectedItemChanged="@OnCascadeBindSelectClick">
     </Select>
 </div>
 <div class="form-group col-12 col-sm-6">
-    <Select TValue="string" Items="@Items2">
+    <Select @ref="Select2" TValue="string" Items="@Items2">
     </Select>
 </div>
 
@@ -23,6 +23,8 @@
         new SelectedItem ("Shanghai", "上海"),
         new SelectedItem ("Hangzhou", "杭州")
     };
+
+    private Select<string> Select2;
 
     /// <summary>
     /// 级联绑定菜单
@@ -47,5 +49,7 @@
                 new SelectedItem("2","黄浦区"),
             });
         }
+        Select2?.SetItems(_item2);
+        return Task.CompletedTask;
     }
 }

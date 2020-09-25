@@ -17,11 +17,8 @@ namespace BootstrapBlazor.Shared.Shared
             .AddClass("collapse", collapseNavMenu)
             .Build();
 
-        private readonly List<MenuItem> Items = new List<MenuItem>(100);
+        private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
 
-        private IEnumerable<MenuItem> Menus => Items;
-
-        private string ActiveUrl { get; set; } = "";
         /// <summary>
         /// 
         /// </summary>
@@ -29,7 +26,6 @@ namespace BootstrapBlazor.Shared.Shared
         {
             base.OnInitialized();
 
-            ActiveUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
             InitMenus();
         }
 
@@ -133,11 +129,21 @@ namespace BootstrapBlazor.Shared.Shared
             });
 
             item.IsCollapsed = false;
-            Items.Add(item);
+            Menus.Add(item);
         }
 
         private void AddForm(MenuItem item)
         {
+            item.AddItem(new MenuItem()
+            {
+                Text = "表单组件 EditorForm",
+                Url = "editorforms"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "表单组件 ValidateForm",
+                Url = "forms"
+            });
             item.AddItem(new MenuItem()
             {
                 Text = "自动完成 AutoComplete",
@@ -155,6 +161,26 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "多选框组 CheckboxList",
+                Url = "checkboxlists"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "时间框 DateTimePicker",
+                Url = "datetimepickers"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "下拉框 DropdownList",
+                Url = "dropdownlists"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "富文本框 Editor",
+                Url = "editors"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "输入框 Input",
                 Url = "inputs"
             });
@@ -162,11 +188,6 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "数值框 InputNumber",
                 Url = "inputnumbers"
-            });
-            item.AddItem(new MenuItem()
-            {
-                Text = "富文本框 Editor",
-                Url = "editors"
             });
             item.AddItem(new MenuItem()
             {
@@ -180,18 +201,18 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "评分 Rate",
+                Url = "rates"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "选择器 Select",
                 Url = "selects"
             });
             item.AddItem(new MenuItem()
             {
-                Text = "时间框 DateTimePicker",
-                Url = "datetimepickers"
-            });
-            item.AddItem(new MenuItem()
-            {
-                Text = "评分 Rate",
-                Url = "rates"
+                Text = "多项选择器 MultiSelect",
+                Url = "multi-selects"
             });
             item.AddItem(new MenuItem()
             {
@@ -202,6 +223,11 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "开关 Switch",
                 Url = "switchs"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "多行文本框 Textarea",
+                Url = "textareas"
             });
             item.AddItem(new MenuItem()
             {
@@ -342,7 +368,7 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new MenuItem()
             {
-                Text = "过滤功能",
+                Text = "筛选和排序",
                 Url = "tables/filter"
             });
 
@@ -350,6 +376,18 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "固定表头",
                 Url = "tables/header"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "表头分组",
+                Url = "tables/multi-header"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "固定列",
+                Url = "tables/fix-column"
             });
 
             it.AddItem(new MenuItem()
@@ -368,6 +406,36 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "表单维护",
                 Url = "tables/edit"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "行选中",
+                Url = "tables/selection"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "自动刷新",
+                Url = "tables/autorefresh"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "统计合并",
+                Url = "tables/footer"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "弹窗联动",
+                Url = "tables/dialog"
+            });
+
+            it.AddItem(new MenuItem()
+            {
+                Text = "折行演示",
+                Url = "tables/wrap"
             });
 
             item.AddItem(it);
@@ -426,6 +494,11 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "旋转图标 Spinner",
                 Url = "spinners"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "模态弹窗 SweetAlert",
+                Url = "swals"
             });
             item.AddItem(new MenuItem()
             {
@@ -511,6 +584,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "骨架屏 Skeleton",
+                Url = "skeletons"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "分割面板 Split",
                 Url = "splits"
             });
@@ -522,24 +600,15 @@ namespace BootstrapBlazor.Shared.Shared
         {
             // 计算组件总数
             var count = 0;
-            count = Items.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Items[0].Items.Count());
+            count = Menus.Aggregate(count, (c, item) => { c += item.Items.Count(); return c; }, c => c - Menus[0].Items.Count());
             AddBadge(item, false, count);
-            Items.Insert(1, item);
+            Menus.Insert(1, item);
         }
 
         private void AddBadge(MenuItem item, bool append = true, int? count = null)
         {
             item.Component = CreateBadge(count ?? item.Items.Count());
-
-            var im = item.Items.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && i.Url.Equals(ActiveUrl, System.StringComparison.OrdinalIgnoreCase));
-            if (im != null)
-            {
-                im.IsActive = true;
-                im.IsCollapsed = false;
-
-                MenuItem.CascadingSetActive(im);
-            }
-            if (append) Items.Add(item);
+            if (append) Menus.Add(item);
         }
 
         private DynamicComponent CreateBadge(int count) => DynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]

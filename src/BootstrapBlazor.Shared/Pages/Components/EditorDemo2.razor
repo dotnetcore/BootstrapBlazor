@@ -1,0 +1,31 @@
+﻿<ValidateForm class="form-inline" Model="@DummyModel" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+    <div class="row">
+        <div class="form-group col-12 col-sm-6">
+            <BootstrapInput placeholder="请输入 ..." @bind-Value="@DummyModel.Name">
+            </BootstrapInput>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <BootstrapInputNumber placeholder="请输入 ..." @bind-Value="@DummyModel.Age">
+            </BootstrapInputNumber>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <DateTimePicker placeholder="请输入 ..." @bind-Value="@DummyModel.BirthDay">
+            </DateTimePicker>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <Select Items="@Educations" @bind-Value="@DummyModel.Education">
+                <RequiredValidator />
+            </Select>
+        </div>
+        <div class="form-group col-12">
+            <CheckboxList TModel="SelectedItem" TValue="IEnumerable<string>" @bind-Value="@DummyModel.Hobby" Items="@Hobbys"
+                          ValueField="Value" TextField="Text" CheckedField="Active">
+                <RequiredValidator ErrorMessage="至少选择一种爱好" />
+            </CheckboxList>
+        </div>
+        <div class="form-group col-12">
+            <Button ButtonType="@ButtonType.Submit" Text="提交表单"></Button>
+        </div>
+    </div>
+</ValidateForm>
+<Logger @ref="Trace2" class="mt-3" />

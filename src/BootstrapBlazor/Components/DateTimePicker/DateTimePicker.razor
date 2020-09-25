@@ -6,9 +6,9 @@
 {
     <label class="control-label">@DisplayText</label>
 }
-<div @attributes="@AdditionalAttributes" class="datetime-picker" @ref="Picker" data-placement="@PlacementString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="Picker" data-placement="@PlacementString">
     <div class="datetime-picker-bar">
-        <input readonly="readonly" class="@ClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@DisabledString" />
+        <input readonly="readonly" class="@InputClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@DisabledString" />
         <span class="@DateTimePickerIconClassString">
             <i class="fa fa-calendar"></i>
         </span>
@@ -18,3 +18,4 @@
                     ViewModel="@ViewModel">
     </DatePickerBody>
 </div>
+

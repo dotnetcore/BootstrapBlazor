@@ -47,6 +47,8 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
+
         private IEnumerable<MenuItem> GetItems()
         {
             var ret = new List<MenuItem>
@@ -75,6 +77,8 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
+        private IEnumerable<MenuItem> IconItems { get; set; } = Enumerable.Empty<MenuItem>();
+
         private IEnumerable<MenuItem> GetIconItems()
         {
             var ret = new List<MenuItem>
@@ -90,6 +94,8 @@ namespace BootstrapBlazor.Shared.Pages
 
             return ret;
         }
+
+        private IEnumerable<MenuItem> SideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
         private IEnumerable<MenuItem> GetSideMenuItems()
         {
@@ -123,6 +129,8 @@ namespace BootstrapBlazor.Shared.Pages
 
             return ret;
         }
+
+        private IEnumerable<MenuItem> IconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
         private IEnumerable<MenuItem> GetIconSideMenuItems()
         {
@@ -161,6 +169,8 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
+        private IEnumerable<MenuItem> WidgetIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
+
         private IEnumerable<MenuItem> GetWidgetIconSideMenuItems()
         {
             var ret = new List<MenuItem>
@@ -194,6 +204,8 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
+        private IEnumerable<MenuItem> CollapsedIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
+
         private IEnumerable<MenuItem> GetCollapsedIconSideMenuItems()
         {
             var ret = new List<MenuItem>
@@ -215,6 +227,41 @@ namespace BootstrapBlazor.Shared.Pages
             ret[2].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
 
             return ret;
+        }
+
+        private IEnumerable<MenuItem> DisabledMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
+
+        private IEnumerable<MenuItem> GetDisabledMenuItems()
+        {
+            var ret = new List<MenuItem>
+            {
+                new MenuItem() { Text = "导航一", IsActive = true },
+                new MenuItem() { Text = "导航二", IsDisabled = true },
+                new MenuItem() { Text = "导航三" },
+                new MenuItem() { Text = "导航四", IsDisabled = true },
+            };
+
+            ret[1].AddItem(new MenuItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
+
+            ret[2].AddItem(new MenuItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
+            ret[2].AddItem(new MenuItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw", IsDisabled = true });
+
+            return ret;
+        }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Items = GetItems();
+            IconItems = GetIconItems();
+            SideMenuItems = GetSideMenuItems();
+            IconSideMenuItems = GetIconSideMenuItems();
+            WidgetIconSideMenuItems = GetWidgetIconSideMenuItems();
+            CollapsedIconSideMenuItems = GetCollapsedIconSideMenuItems();
+            DisabledMenuItems = GetDisabledMenuItems();
         }
 
         /// <summary>

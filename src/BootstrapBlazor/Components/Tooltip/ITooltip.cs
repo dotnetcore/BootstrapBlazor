@@ -13,12 +13,12 @@
         /// <summary>
         /// 获得/设置 显示文字
         /// </summary>
-        string Title { get; set; }
+        string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 显示内容
         /// </summary>
-        string Content { get; set; }
+        string? Content { get; set; }
 
         /// <summary>
         /// 获得/设置 内容是否为 Html
@@ -31,8 +31,8 @@
         PopoverType PopoverType { get; set; }
 
         /// <summary>
-        /// 获得/设置 触发方式 可组合 click focus hover 默认为 click
+        /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
         /// </summary>
-        string? Trigger { get; set; }
+        string Trigger { get; set; }
     }
 }

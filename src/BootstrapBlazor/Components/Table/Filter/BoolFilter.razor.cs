@@ -3,7 +3,7 @@
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 布尔类型过滤条件
     /// </summary>
     public partial class BoolFilter
     {
@@ -16,18 +16,32 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (TableFilter != null)
+            {
+                TableFilter.ShowMoreButton = false;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
-        protected override void ResetFilterCondition()
+        public override void Reset()
         {
             Value = "";
+            StateHasChanged();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IEnumerable<FilterKeyValueAction> BuildConditions()
+        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
         {
             var filters = new List<FilterKeyValueAction>();
             if (!string.IsNullOrEmpty(Value)) filters.Add(new FilterKeyValueAction()

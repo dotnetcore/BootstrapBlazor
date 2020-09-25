@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TextareaBase
+
+@if (IsShowLabel)
+{
+    <label class="control-label" for="@Id">@DisplayText</label>
+}
+<textarea @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@DisabledString" value="@BindConverter.FormatValue(CurrentValue)" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)"></textarea>
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
