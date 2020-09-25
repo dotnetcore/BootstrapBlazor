@@ -1,0 +1,56 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BarcodeReaderBase
+@inject IJSRuntime JsRuntime
+
+<div class="modal alert-popup" tabindex="-1" style="display:block" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Edit form for the current item -->
+            <div class="modal-body">
+
+                <button class="btn btn-primary p-2 m-1 w-25" id="startButton">扫码</button>
+                <button class="btn btn-secondary p-2 m-1 w-25" id="resetButton">复位</button>
+                <button type="button" class="btn btn-info p-2 m-1 w-25" id="closeButton">关闭</button>
+
+                <div id="sourceSelectPanel" style="display:none">
+                    <label for="sourceSelect">选择设备:</label><span class="text-dark" id="result"></span>
+                    <select id="sourceSelect" style="max-width:100%" class="form-control">
+                    </select>
+                </div>
+                <div>
+                    <video id="video" style="min-height:150px;max-height:60%; max-width: 100%;border: 1px solid gray"></video>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@Result
+
+
+@code {
+    // To prevent making JavaScript interop calls during prerendering
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        await JsRuntime.InvokeAsync<string>("zxing.start", true, DotNetObjectReference.Create(this));
+    }
+
+    [JSInvokable("invokeFromJS")]
+    public async Task ChangeValue(string val)
+    {
+        Result = val;
+        StateHasChanged();
+        await ScanResult.InvokeAsync(val);
+        //return Task.CompletedTask;
+    }
+
+    [JSInvokable("invokeFromJSClose")]
+    public async Task CloseScan()
+    {
+        await Close.InvokeAsync(null);
+    }
+}
+
+
+

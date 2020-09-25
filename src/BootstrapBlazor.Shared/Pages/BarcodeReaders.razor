@@ -1,0 +1,29 @@
+﻿@page "/barcodereaders"
+
+<h3>条码扫描 BarcodeReader</h3>
+
+<h4>扫描条码/QR码。</h4>
+
+<Block Title="基本用法" Introduction="" CodeFile="barcodereader.html">
+    <button class="btn btn-sm btn-light"
+            type="button"
+            @onclick="(() => ShowScanBarcode = !ShowScanBarcode)">
+        [扫码]
+    </button>
+    <BootstrapInput TValue="string"  placeholder="条码"
+               @bind-Value="BarCode" ></BootstrapInput> 
+    @if (ShowScanBarcode)
+    {
+
+        <BarcodeReader ScanResult="((e) => { BarCode=e; ShowScanBarcode = !ShowScanBarcode; })"
+                       ShowScanBarcode="ShowScanBarcode"
+                       Close="(()=>ShowScanBarcode=!ShowScanBarcode)" />
+
+    }
+
+</Block>
+  
+
+ 
+<EventTable Items="@GetEvents()" />
+ 

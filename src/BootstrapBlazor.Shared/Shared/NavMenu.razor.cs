@@ -91,6 +91,13 @@ namespace BootstrapBlazor.Shared.Shared
 
             item = new MenuItem()
             {
+                Text = "网友投稿",
+                Icon = "fa fa-fw fa-comments"
+            };
+            AddSuperWomen(item);
+
+            item = new MenuItem()
+            {
                 Text = "组件总览",
                 Icon = "fa fa-fw fa-fa",
                 Url = "components"
@@ -499,6 +506,16 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "toasts"
             });
 
+            AddBadge(item);
+        }
+
+        private void AddSuperWomen(MenuItem item)
+        {
+            item.AddItem(new MenuItem()
+            {
+                Text = "条码扫描 BarcodeReader",
+                Url = "barcodereaders"
+            });
             AddBadge(item);
         }
 
