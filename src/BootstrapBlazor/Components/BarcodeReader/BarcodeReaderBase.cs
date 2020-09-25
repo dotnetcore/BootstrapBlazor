@@ -28,5 +28,10 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public string? Result { get; set; }
 
+        /// <summary>
+        /// 显示扫码框
+        /// </summary>
+        [Parameter]
+        public bool ShowScanBarcode { get; set; }
     }
 }
