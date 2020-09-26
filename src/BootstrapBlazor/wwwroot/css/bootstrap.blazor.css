@@ -5438,3 +5438,13 @@ input:disabled,
     margin-bottom: 1rem;
 }
 /*end swal*/
+
+/*scanner*/
+.scanner .scanner-video video {
+    min-height: 100px;
+    max-height: 200px;
+    width: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+/*end scanner*/

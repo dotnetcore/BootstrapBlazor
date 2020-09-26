@@ -1,29 +1,20 @@
 ﻿@page "/barcodereaders"
 
-<h3>条码扫描 BarcodeReader</h3>
+<h3>BarcodeReader 条码扫描</h3>
 
-<h4>扫描条码/QR码。</h4>
+<h4>本组件通过调用摄像头对条码进行扫描，获取到条码内容条码/QR码</h4>
 
-<Block Title="基本用法" Introduction="" CodeFile="barcodereader.html">
-    <button class="btn btn-sm btn-light"
-            type="button"
-            @onclick="(() => ShowScanBarcode = !ShowScanBarcode)">
-        [扫码]
-    </button>
-    <BootstrapInput TValue="string"  placeholder="条码"
-               @bind-Value="BarCode" ></BootstrapInput> 
-    @if (ShowScanBarcode)
-    {
+<p>本组件通过 <code>zxing</code> 脚本调用摄像头，请根据自己项目实际情况添加 <pre style="color: #e83e8c;">&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.js"&gt;&lt;script&gt;</pre> 引用到 <code>_Host.cshtml/index.html</code></p>
 
-        <BarcodeReader ScanResult="((e) => { BarCode=e; ShowScanBarcode = !ShowScanBarcode; })"
-                       ShowScanBarcode="ShowScanBarcode"
-                       Close="(()=>ShowScanBarcode=!ShowScanBarcode)" />
-
-    }
-
+<Block Title="基本用法" Introduction="扫描到条码后自动关闭设备" CodeFile="barcode.1.html">
+    <p>操作步骤：</p>
+    <ul class="ul-demo">
+        <li>点击开始打开摄像头</li>
+        <li>对准条码进行扫描</li>
+        <li>点击关闭按钮关闭摄像头</li>
+    </ul>
+    <BarcodeReader OnInit="@OnInit" OnResult="@OnResult" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" />
+    <Logger @ref="Trace" class="mt-3" />
 </Block>
-  
 
- 
-<EventTable Items="@GetEvents()" />
- 
+<AttributeTable Items="@GetAttributes()" />

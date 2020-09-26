@@ -1776,6 +1776,41 @@
             }, function () {
                 $(this).parent().removeClass('hover');
             });
+        },
+        bb_barcode: function (el, obj, method) {
+            var $el = $(el);
+            var codeReader = new ZXing.BrowserMultiFormatReader();
+            codeReader.getVideoInputDevices().then((videoInputDevices) => {
+                obj.invokeMethodAsync("InitDevices", videoInputDevices);
+            });
+
+            $el.on('click', 'button[data-method]', function () {
+                var data_method = $(this).attr('data-method');
+                if (data_method === 'scan') {
+                    obj.invokeMethodAsync("Start");
+                    var deviceId = $el.find('.dropdown-item.active').attr('data-val');
+                    var video = $el.find('video').attr('id');
+                    codeReader.decodeFromVideoDevice(deviceId, video, (result, err) => {
+                        if (result) {
+                            console.log(result.text);
+                            obj.invokeMethodAsync("GetResult", result.text);
+
+                            var autostop = $el.attr('data-autostop') === 'true';
+                            if (autostop) {
+                                codeReader.reset();
+                            }
+                        }
+                        if (err && !(err instanceof ZXing.NotFoundException)) {
+                            console.error(err)
+                            obj.invokeMethodAsync("GetError", err);
+                        }
+                    });
+                }
+                else if (data_method === 'close') {
+                    codeReader.reset();
+                    obj.invokeMethodAsync("Stop");
+                }
+            });
         }
     });
 

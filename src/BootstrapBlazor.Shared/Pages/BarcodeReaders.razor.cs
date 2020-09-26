@@ -1,7 +1,10 @@
-﻿using BootstrapBlazor.Shared.Common;
+﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
-using Microsoft.AspNetCore.Components.Web;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -15,46 +18,83 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private Logger? Trace { get; set; }
 
-        /// <summary>
-        /// 显示扫码界面
-        /// </summary>
-        bool ShowScanBarcode { get; set; } = false;
-
-        /// <summary>
-        /// 条码
-        /// </summary>
-        public string? BarCode { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        private void DismissClick(MouseEventArgs e)
+        private Task OnInit(IEnumerable<Camera> devices)
         {
-            Trace?.Log($"Alert Dismissed");
+            var cams = string.Join("", devices.Select(i => i.Label));
+            Trace?.Log($"初始化摄像头完成 {cams}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnResult(string barcode)
+        {
+            Trace?.Log($"扫描到条码 {barcode}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnError(string error)
+        {
+            Trace?.Log($"发生错误 {error}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnStart()
+        {
+            Trace?.Log($"打开摄像头");
+            return Task.CompletedTask;
+        }
+
+        private Task OnClose()
+        {
+            Trace?.Log($"关闭摄像头");
+            return Task.CompletedTask;
         }
 
         /// <summary>
-        /// 获得事件方法
+        /// 获得属性
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
-            new EventItem()
+            new AttributeItem()
             {
-                Name = "ScanResult",
-                Description="扫码结果回调方法",
-                Type ="EventCallback<string>"
+                Name = "AutoStop",
+                Description = "扫描到条码后是否自动停止",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
             },
-            new EventItem()
+            new AttributeItem()
             {
-                Name = "Close",
-                Description="关闭扫码框回调方法",
-                Type ="EventCallback"
+                Name = "OnInit",
+                Description = "初始化摄像头回调方法",
+                Type = "Func<IEnumerable<Camera>, Task>",
+                ValueList = " - ",
+                DefaultValue = " - "
+            },
+            new AttributeItem()
+            {
+                Name = "OnResult",
+                Description = "扫描到条码回调方法",
+                Type = "Func<string, Task>",
+                ValueList = " - ",
+                DefaultValue = " - "
+            },
+            new AttributeItem()
+            {
+                Name = "OnClose",
+                Description = "关闭摄像头回调方法",
+                Type = "Func<Task>",
+                ValueList = " - ",
+                DefaultValue = " - "
+            },
+            new AttributeItem()
+            {
+                Name = "OnError",
+                Description = "发生错误回调方法",
+                Type = "Func<string, Task>",
+                ValueList = " - ",
+                DefaultValue = " - "
             }
         };
-
-
     }
 }
