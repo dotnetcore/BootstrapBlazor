@@ -14,6 +14,12 @@
         return Task.CompletedTask;
     }
 
+    private Task OnError(string error)
+    {
+        Trace?.Log($"发生错误 {error}");
+        return Task.CompletedTask;
+    }
+
     private Task OnStart()
     {
         Trace?.Log($"打开摄像头");

@@ -19,6 +19,12 @@ namespace BootstrapBlazor.Components
         private bool Disabled { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 扫描方式 默认 Camera 从摄像头进行条码扫描
+        /// </summary>
+        [Parameter]
+        public ScanType ScanType { get; set; }
+
+        /// <summary>
         /// 获得/设置 初始化摄像头回调方法
         /// </summary>
         [Parameter]

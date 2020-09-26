@@ -13,15 +13,26 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class BarcodeReaders
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private Logger? Trace { get; set; }
+
+        private Logger? Trace2 { get; set; }
 
         private Task OnInit(IEnumerable<Camera> devices)
         {
             var cams = string.Join("", devices.Select(i => i.Label));
             Trace?.Log($"初始化摄像头完成 {cams}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnImageResult(string barcode)
+        {
+            Trace2?.Log($"扫描到条码 {barcode}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnImageError(string err)
+        {
+            Trace2?.Log($"发生错误 {err}");
             return Task.CompletedTask;
         }
 
@@ -76,6 +87,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnResult",
                 Description = "扫描到条码回调方法",
                 Type = "Func<string, Task>",
+                ValueList = " - ",
+                DefaultValue = " - "
+            },
+            new AttributeItem()
+            {
+                Name = "OnStart",
+                Description = "打开摄像头回调方法",
+                Type = "Func<Task>",
                 ValueList = " - ",
                 DefaultValue = " - "
             },
