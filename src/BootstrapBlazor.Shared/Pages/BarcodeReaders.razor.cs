@@ -68,11 +68,59 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem()
             {
+                Name = "ButtonScanText",
+                Description = "扫描按钮文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "扫描"
+            },
+            new AttributeItem()
+            {
+                Name = "ButtonStopText",
+                Description = "关闭按钮文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "关闭"
+            },
+            new AttributeItem()
+            {
+                Name = "AutoStopText",
+                Description = "自动关闭按钮文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "自动关闭"
+            },
+            new AttributeItem()
+            {
+                Name = "DeviceLabel",
+                Description = "设备列表前置标签文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "摄像头"
+            },
+            new AttributeItem()
+            {
+                Name = "InitDevicesString",
+                Description = "初始化设备列表文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "正在识别摄像头"
+            },
+            new AttributeItem()
+            {
                 Name = "AutoStop",
                 Description = "扫描到条码后是否自动停止",
                 Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
+                Name = "ScanType",
+                Description = "扫描方式摄像头或者图片",
+                Type = "ScanType",
+                ValueList = "Camera|Image",
+                DefaultValue = "Camera"
             },
             new AttributeItem()
             {
