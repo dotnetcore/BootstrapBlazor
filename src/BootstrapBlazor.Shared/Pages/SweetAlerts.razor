@@ -82,6 +82,19 @@
     <Button Icon="fa fa-fa" Text="弹窗" Color="Color.Success" OnClick="@ShowComponent" />
 </Block>
 
+<Block Title="模态对话框" Introduction="通过调用 <code>await SwalService.ShowModal</code> 方法弹出模态框，点击弹窗内按钮关闭弹窗后，后续代码继续执行" CodeFile="swal.5.html">
+    <p>本示例代码通过调用 <code>await SwalService.ShowModal</code> 方法弹出模态框，只有关闭弹窗后，后续代码才继续执行</p>
+    <p><code>IsConfirm</code> 参数表示弹窗为确认窗口，自动生成 <code>取消</code> <code>确认</code> 两个按钮</p>
+    <Pre class="no-highlight">var ret = await SwalService.ShowModal(op);
+
+/// ShowModal 返回后下面代码才执行
+Trace?.Log($"模态弹窗返回值为：{ret}");
+</Pre>
+    <Button Icon="fa fa-fa" Text="模态对话框" Color="Color.Success" OnClick="@ShowModal" />
+
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
 <SweetAlert />
 
 <AttributeTable Items="@GetAttributes()" />

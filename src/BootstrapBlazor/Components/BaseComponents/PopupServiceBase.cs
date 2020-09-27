@@ -12,10 +12,13 @@ namespace BootstrapBlazor.Components
     /// <typeparam name="TOption"></typeparam>
     public abstract class PopupServiceBase<TOption>
     {
-        private List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; set; } = new List<(ComponentBase, Func<TOption, Task>)>();
+        /// <summary>
+        /// 获得 回调委托缓存集合
+        /// </summary>
+        protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; private set; } = new List<(ComponentBase, Func<TOption, Task>)>();
 
         /// <summary>
-        /// 回调方法
+        /// 异步回调方法
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>

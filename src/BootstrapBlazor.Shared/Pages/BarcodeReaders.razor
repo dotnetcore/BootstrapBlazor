@@ -4,10 +4,16 @@
 
 <h4>本组件通过调用摄像头对条码进行扫描，获取到条码内容条码/QR码</h4>
 
-<p>本组件通过 <code>zxing</code> 脚本调用摄像头，请根据自己项目实际情况添加 <pre style="color: #e83e8c;">&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.js"&gt;&lt;script&gt;</pre> 引用到 <code>_Host.cshtml/index.html</code></p>
+<p>本组件通过 <code>zxing</code> 脚本调用摄像头，请根据自己项目实际情况添加下面脚本到 <code>_Host.cshtml/index.html</code></p>
+<Pre class="no-highlight">&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.js"&gt;&lt;script&gt;</Pre>
 
 <p><b>特别注意：</b></p>
-<div>移动端 iOS 系统必须使用 <code>Safari</code> 浏览器</div>
+<ul class="ul-demo">
+    <li>站点要启用 <code>https</code>，这是浏览器厂商要求的</li>
+    <li>移动端 iOS 系统必须使用 <code>Safari</code> 浏览器，切换前/后摄像头要点一下关闭功能按钮</li>
+    <li>安卓手机大概率需要原生系统浏览器，<code>Chrome</code> 是必定可以的，某些浏览器可能不兼容摄像头</li>
+    <li>条码识别率与手机像素，条码大小，手机执行效率有关</li>
+</ul>
 
 <Block Title="基本用法" Introduction="通过摄像头进行扫码识别" CodeFile="barcode.1.html">
     <p>操作步骤：</p>

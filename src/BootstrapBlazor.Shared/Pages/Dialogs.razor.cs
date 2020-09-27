@@ -140,13 +140,6 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = " — "
                 },
                 new AttributeItem() {
-                    Name = "KeepChildrenState",
-                    Description = "是否保持弹窗内组件状态",
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
                     Name = "FooterTemplate",
                     Description = "模态底部 ModalFooter 组件",
                     Type = "RenderFragment",
@@ -154,31 +147,38 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = " — "
                 },
                 new AttributeItem() {
+                    Name = "KeepChildrenState",
+                    Description = "是否保持弹窗内组件状态",
+                    Type = "boolean",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
                     Name = "IsCentered",
                     Description = "是否垂直居中",
                     Type = "boolean",
-                    ValueList = " — ",
+                    ValueList = "true|false",
                     DefaultValue = "true"
                 },
                 new AttributeItem() {
                     Name = "IsScrolling",
                     Description = "是否弹窗正文超长时滚动",
                     Type = "boolean",
-                    ValueList = " — ",
+                    ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "ShowCloseButton",
                     Description = "是否显示关闭按钮",
                     Type = "boolean",
-                    ValueList = " — ",
+                    ValueList = "true|false",
                     DefaultValue = "true"
                 },
                 new AttributeItem() {
                     Name = "ShowFooter",
                     Description = "是否显示 Footer",
                     Type = "boolean",
-                    ValueList = " — ",
+                    ValueList = "true|false",
                     DefaultValue = "true"
                 },
                 new AttributeItem() {

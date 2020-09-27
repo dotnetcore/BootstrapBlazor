@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -10,6 +10,18 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class SweetAlertBody
     {
+        /// <summary>
+        /// 获得/设置 关闭按钮文字 默认为 关闭
+        /// </summary>
+        [Parameter]
+        public string? ButtonCloseText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 确认按钮文字 默认为 确认
+        /// </summary>
+        [Parameter]
+        public string ButtonConfirmText { get; set; } = "确认";
+
         /// <summary>
         /// 获得/设置 弹窗类别默认为 Success
         /// </summary>
@@ -35,10 +47,22 @@ namespace BootstrapBlazor.Components
         public bool ShowClose { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否为确认弹窗模式 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsConfirm { get; set; }
+
+        /// <summary>
         /// 获得/设置 关闭按钮回调方法
         /// </summary>
         [Parameter]
         public Action? OnClose { get; set; }
+
+        /// <summary>
+        /// 获得/设置 确认按钮回调方法
+        /// </summary>
+        [Parameter]
+        public Action? OnConfirm { get; set; }
 
         /// <summary>
         /// 获得/设置 显示内容模板
@@ -71,9 +95,38 @@ namespace BootstrapBlazor.Components
             new KeyValuePair<string, object>(nameof(SweetAlertBody.Title) , option.Title),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.Content), option.Content ?? ""),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.ShowClose), option.ShowClose),
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate!),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close()))
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))
         };
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (ButtonCloseText == null)
+            {
+                ButtonCloseText = IsConfirm ? "取消" : "关闭";
+            }
+        }
+
+        private Task OnClickClose()
+        {
+            if (OnClose != null) OnClose.Invoke();
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnClickConfirm()
+        {
+            if (OnConfirm != null) OnConfirm.Invoke();
+
+            return Task.CompletedTask;
+        }
     }
 }
