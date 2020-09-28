@@ -1,4 +1,4 @@
-﻿name: Build-Publish-Deploy
+﻿name: Publish
 
 on:
   push:
@@ -17,19 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.402
-
-    - name: Build
-      run: dotnet build --configuration Release
-
-    - name: Package Blazor
-      run: |
-        dotnet pack src/BootstrapBlazor -c Release -o publish --no-build --no-restore
-
-    - name: Publish to Nuget
-      env: 
-        NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
-      run: |
-        dotnet nuget push publish/*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
 
     - name: Publish wasm
       run: |
@@ -50,18 +37,3 @@ jobs:
         external_repository: ArgoZhang/ArgoZhang.github.io
         publish_branch: master
         publish_dir: ./deploy/wwwroot
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Sync Huawei Clound VM
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-          script: |
-            sh deploy-blazor.sh
-            sh deploy-wasm.sh
