@@ -99,13 +99,13 @@ namespace BootstrapBlazor.Components
                 await Dialog.Toggle();
             }
 
-            if (IsConfirm) ReturnTask.TrySetResult(returnValue);
-
             if (Body != null && Body.OnClose != null)
             {
                 await Task.Delay(500);
                 await Body.OnClose();
             }
+
+            if (IsConfirm) ReturnTask.TrySetResult(returnValue);
         }
     }
 }
