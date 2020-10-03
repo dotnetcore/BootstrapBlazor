@@ -334,6 +334,11 @@ namespace BootstrapBlazor.Shared.Shared
                 Text = "摄像头组件 Camera",
                 Url = "Cameras"
             });
+            item.AddItem(new MenuItem()
+            {
+                Text = "手写签名 HandwrittenPage",
+                Url = "handwrittenPage"
+            });
 
             AddBadge(item);
         }
