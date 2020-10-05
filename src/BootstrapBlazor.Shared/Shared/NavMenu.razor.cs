@@ -329,6 +329,11 @@ namespace BootstrapBlazor.Shared.Shared
                 Text = "条码扫描 BarcodeReader",
                 Url = "barcodereaders"
             });
+            item.AddItem(new MenuItem()
+            {
+                Text = "摄像头组件 Camera",
+                Url = "Cameras"
+            });
 
             AddBadge(item);
         }

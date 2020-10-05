@@ -3,7 +3,7 @@
     /// <summary>
     /// 摄像头信息类
     /// </summary>
-    public class Camera
+    public class DeviceItem
     {
         /// <summary>
         /// 获得/设置 设备 ID

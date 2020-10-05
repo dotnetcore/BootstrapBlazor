@@ -8,33 +8,35 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// BarcodeReader 条码扫描
+    /// 
     /// </summary>
-    public sealed partial class BarcodeReader
+    public sealed partial class Camera
     {
-        private JSInterop<BarcodeReader>? Interop { get; set; }
+        private ElementReference CameraElement { get; set; }
 
-        private string AutoStopString => AutoStop ? "true" : "false";
+        private JSInterop<Camera>? Interop { get; set; }
+
+        private string DeviceId { get; set; } = "";
 
         private bool Disabled { get; set; } = true;
 
-        /// <summary>
-        /// 获得/设置 扫描按钮文字 默认为 扫描
-        /// </summary>
-        [Parameter]
-        public string ButtonScanText { get; set; } = "扫描";
+        private bool CaptureDisabled { get; set; } = true;
+
+        private IEnumerable<SelectedItem> Devices { get; set; } = Enumerable.Empty<SelectedItem>();
+
+        private IEnumerable<SelectedItem> Cameras { get; set; } = new SelectedItem[]
+        {
+            new SelectedItem { Text = "前置", Value = "user", Active = true },
+            new SelectedItem { Text = "后置", Value = "environment" }
+        };
+
+        private SelectedItem? ActiveCamera { get; set; }
 
         /// <summary>
-        /// 获得/设置 关闭按钮文字 默认为 关闭
+        /// 获得/设置 是否显示 照片预览
         /// </summary>
         [Parameter]
-        public string ButtonStopText { get; set; } = "关闭";
-
-        /// <summary>
-        /// 获得/设置 自动关闭文字 默认为 自动关闭
-        /// </summary>
-        [Parameter]
-        public string AutoStopText { get; set; } = "自动关闭";
+        public bool ShowPreview { get; set; }
 
         /// <summary>
         /// 获得/设置 设备列表前置标签文字 默认为 摄像头
@@ -49,28 +51,10 @@ namespace BootstrapBlazor.Components
         public string InitDevicesString { get; set; } = "正在识别摄像头";
 
         /// <summary>
-        /// 获得/设置 扫描方式 默认 Camera 从摄像头进行条码扫描
-        /// </summary>
-        [Parameter]
-        public ScanType ScanType { get; set; }
-
-        /// <summary>
         /// 获得/设置 初始化摄像头回调方法
         /// </summary>
         [Parameter]
         public Func<IEnumerable<DeviceItem>, Task>? OnInit { get; set; }
-
-        /// <summary>
-        /// 获得/设置 扫码结果回调方法
-        /// </summary>
-        [Parameter]
-        public Func<string, Task>? OnResult { get; set; }
-
-        /// <summary>
-        /// 获得/设置 扫描条码后自动关闭
-        /// </summary>
-        [Parameter]
-        public bool AutoStop { get; set; }
 
         /// <summary>
         /// 获得/设置 扫码出错回调方法
@@ -90,11 +74,11 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<Task>? OnClose { get; set; }
 
-        private string DeviceId { get; set; } = "";
-
-        private ElementReference ScannerElement { get; set; }
-
-        private IEnumerable<SelectedItem> Devices { get; set; } = Enumerable.Empty<SelectedItem>();
+        /// <summary>
+        /// 获得/设置 开始扫码回调方法
+        /// </summary>
+        [Parameter]
+        public Func<Task>? OnCapture { get; set; }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -103,10 +87,12 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            await base.OnAfterRenderAsync(firstRender);
+
             if (firstRender && JSRuntime != null)
             {
-                Interop = new JSInterop<BarcodeReader>(JSRuntime);
-                await Interop.Invoke(this, ScannerElement, "bb_barcode", "init");
+                Interop = new JSInterop<Camera>(JSRuntime);
+                await Interop.Invoke(this, CameraElement, "bb_camera", "init");
             }
         }
 
@@ -122,18 +108,12 @@ namespace BootstrapBlazor.Components
             Disabled = !Devices.Any();
 
             if (OnInit != null) await OnInit(devices);
+            if (devices.Any())
+            {
+                Disabled = false;
+                ActiveCamera = Cameras.First();
+            }
             StateHasChanged();
-        }
-
-        /// <summary>
-        /// 扫描完成回调方法
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        [JSInvokable]
-        public async Task GetResult(string val)
-        {
-            if (OnResult != null) await OnResult.Invoke(val);
         }
 
         /// <summary>
@@ -148,23 +128,37 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 开始扫描回调方法
+        /// 开启摄像头回调方法
         /// </summary>
         /// <returns></returns>
         [JSInvokable]
         public async Task Start()
         {
+            CaptureDisabled = false;
             if (OnStart != null) await OnStart.Invoke();
+            StateHasChanged();
         }
 
         /// <summary>
-        /// 停止扫描回调方法
+        /// 停止摄像头回调方法
         /// </summary>
         /// <returns></returns>
         [JSInvokable]
         public async Task Stop()
         {
+            CaptureDisabled = true;
             if (OnClose != null) await OnClose.Invoke();
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// 拍照回调方法
+        /// </summary>
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task Capture()
+        {
+            if (OnCapture != null) await OnCapture.Invoke();
         }
 
         /// <summary>
@@ -175,9 +169,9 @@ namespace BootstrapBlazor.Components
         {
             base.Dispose(disposing);
 
-            if (disposing && Interop != null)
+            if (disposing)
             {
-                Interop.Dispose();
+                Interop?.Dispose();
             }
         }
     }

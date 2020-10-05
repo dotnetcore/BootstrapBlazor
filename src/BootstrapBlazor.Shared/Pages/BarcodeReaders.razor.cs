@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Logger? Trace2 { get; set; }
 
-        private Task OnInit(IEnumerable<Camera> devices)
+        private Task OnInit(IEnumerable<DeviceItem> devices)
         {
             var cams = string.Join("", devices.Select(i => i.Label));
             Trace?.Log($"初始化摄像头完成 {cams}");

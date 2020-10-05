@@ -5441,9 +5441,8 @@ input:disabled,
 
 /*scanner*/
 .scanner .scanner-video video {
-    min-height: 100px;
-    max-height: 200px;
-    width: auto;
+    width: 300px;
+    height: 170px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
@@ -5452,3 +5451,16 @@ input:disabled,
     display: none;
 }
 /*end scanner*/
+
+/*camera*/
+.camera .camera-header {
+    width: 300px;
+    height: 170px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.camera canvas {
+    display: none;
+}
+/*end camera*/

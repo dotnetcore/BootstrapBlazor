@@ -1,5 +1,39 @@
 ﻿(function ($) {
-    // client
+    if (!$.isFunction(Date.prototype.format)) {
+        Date.prototype.format = function (format) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours() % 12 === 0 ? 12 : this.getHours() % 12,
+                "H+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S": this.getMilliseconds()
+            };
+            var week = {
+                0: "日",
+                1: "一",
+                2: "二",
+                3: "三",
+                4: "四",
+                5: "五",
+                6: "六"
+            };
+
+            if (/(y+)/.test(format))
+                format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+
+            if (/(E+)/.test(format))
+                format = format.replace(RegExp.$1, (RegExp.$1.length > 1 ? RegExp.$1.length > 2 ? "星期" : "周" : "") + week[this.getDay()]);
+
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(format))
+                    format = format.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            return format;
+        };
+    }
+
     $.browser = {
         versions: function () {
             var u = navigator.userAgent;
@@ -1843,6 +1877,60 @@
                     codeReader.reset();
                     obj.invokeMethodAsync("Stop");
                 }
+            });
+        },
+        bb_camera: function (el, obj, method) {
+            var $el = $(el);
+            navigator.mediaDevices.enumerateDevices().then(function (videoInputDevices) {
+                var videoInputs = videoInputDevices.filter(function (device) {
+                    return device.kind === 'videoinput';
+                });
+                obj.invokeMethodAsync("InitDevices", videoInputs);
+
+                // handler button click event
+                var video = $el.find('video')[0];
+                var canvas = $el.find('canvas')[0];
+                var context = canvas.getContext('2d');
+                var mediaStreamTrack;
+
+                $el.on('click', 'button[data-method]', function () {
+                    var data_method = $(this).attr('data-method');
+                    if (data_method === 'play') {
+                        var front = $(this).attr('data-camera');
+                        var deviceId = $el.find('.dropdown-item.active').attr('data-val');
+                        navigator.mediaDevices.getUserMedia({ video: { facingMode: front, deviceId: { exact: deviceId } }, audio: false }).then(stream => {
+                            video.srcObject = stream;
+                            video.play();
+                            mediaStreamTrack = stream.getTracks()[0];
+                            obj.invokeMethodAsync("Start");
+                        }).catch(err => {
+                            console.log(err)
+                            obj.invokeMethodAsync("GetError", err.message)
+                        });
+                    }
+                    else if (data_method === 'stop') {
+                        video.pause();
+                        video.srcObject = null;
+                        mediaStreamTrack.stop();
+                        obj.invokeMethodAsync("Stop");
+                    }
+                    else if (data_method === 'capture') {
+                        context.drawImage(video, 0, 0, 300, 200);
+                        var url = canvas.toDataURL();
+                        console.log(url);
+                        obj.invokeMethodAsync("Capture");
+
+                        var $img = $el.find('img');
+                        if ($img.length === 1) {
+                            $img.attr('src', url);
+                        }
+
+                        var link = $el.find('a.download');
+                        link.attr('href', url);
+                        link.attr('download', new Date().format('yyyyMMddHHmmss') + '.png');
+                        link[0].click();
+                    }
+                });
             });
         }
     });
