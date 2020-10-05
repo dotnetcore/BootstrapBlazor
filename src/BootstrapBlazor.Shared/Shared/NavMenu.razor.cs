@@ -329,7 +329,11 @@ namespace BootstrapBlazor.Shared.Shared
                 Text = "条码扫描 BarcodeReader",
                 Url = "barcodereaders"
             });
-
+            item.AddItem(new MenuItem()
+            {
+                Text = "手写签名 HandwrittenPage",
+                Url = "handwrittenPage"
+            });
             AddBadge(item);
         }
 
