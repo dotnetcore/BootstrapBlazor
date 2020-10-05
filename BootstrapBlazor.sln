@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{A627
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{EA765165-0542-41C8-93F2-85787FEDEDFF}"
 	ProjectSection(SolutionItems) = preProject
+		scripts\linux\deploy-blazor.sh = scripts\linux\deploy-blazor.sh
+		scripts\linux\deploy-wasm.sh = scripts\linux\deploy-wasm.sh
 		scripts\linux\publish.sh = scripts\linux\publish.sh
 		scripts\linux\watch-run.sh = scripts\linux\watch-run.sh
 	EndProjectSection
@@ -34,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appveyor", "appveyor", "{1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F0754254-903C-411B-972C-EC91254B4A67}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\auto-ci.yml = .github\workflows\auto-ci.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9437A6C6-CF87-4B75-916B-C1EF558BD8EF}"

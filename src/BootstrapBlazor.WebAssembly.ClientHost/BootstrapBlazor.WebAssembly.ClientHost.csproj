@@ -26,19 +26,4 @@
         <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
     </ItemGroup>
 
-    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-        <ScriptFolder>$(MSBuildThisFileDirectory)..\..\scripts\wasm</ScriptFolder>
-        <SyncCmd>$(ScriptFolder)\sync.cmd</SyncCmd>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(OS)' == 'UNIX'">
-        <ScriptFolder>$(MSBuildThisFileDirectory)../../scripts/wasm</ScriptFolder>
-        <SyncCmd>$(ScriptFolder)/sync.sh</SyncCmd>
-    </PropertyGroup>
-
-    <Target Name="PostPublish" AfterTargets="Publish">
-        <Message Text="Run command: $(TargetDir)" Importance="high" />
-        <Exec Command="$(SyncCmd) $(MSBuildThisFileDirectory) $(TargetDir)publish" />
-    </Target>
-
 </Project>

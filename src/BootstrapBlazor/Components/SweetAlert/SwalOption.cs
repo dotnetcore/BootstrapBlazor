@@ -20,6 +20,11 @@ namespace BootstrapBlazor.Components
         internal ModalDialogBase? Body { get; set; }
 
         /// <summary>
+        /// 获得/设置 模态弹窗返回值任务实例
+        /// </summary>
+        internal TaskCompletionSource<bool> ReturnTask { get; set; } = new TaskCompletionSource<bool>();
+
+        /// <summary>
         /// 获得/设置 提示类型 默认为 Sucess
         /// </summary>
         public SwalCategory Category { get; set; }
@@ -43,6 +48,12 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示关闭按钮 默认为 true 显示
         /// </summary>
         public bool ShowClose { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否为确认弹窗模式 默认为 false
+        /// </summary>
+        /// <remarks>此属性给模态弹窗时使用</remarks>
+        public bool IsConfirm { get; set; }
 
         /// <summary>
         /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
@@ -80,7 +91,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 关闭弹窗方法
         /// </summary>
-        public async Task Close()
+        /// <param name="returnValue">模态弹窗返回值 默认为 true</param>
+        public async Task Close(bool returnValue = true)
         {
             if (Dialog != null)
             {
@@ -92,6 +104,8 @@ namespace BootstrapBlazor.Components
                 await Task.Delay(500);
                 await Body.OnClose();
             }
+
+            if (IsConfirm) ReturnTask.TrySetResult(returnValue);
         }
     }
 }

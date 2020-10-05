@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
@@ -80,6 +81,21 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Logger? Trace { get; set; }
+
+        private async Task ShowModal()
+        {
+            var op = new SwalOption()
+            {
+                Title = "模态对话框示例",
+                Content = "模态对话框内容，不同按钮返回不同值",
+                IsConfirm = true
+            };
+            var ret = await SwalService.ShowModal(op);
+
+            Trace?.Log($"模态弹窗返回值为：{ret}");
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -92,7 +108,7 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "Category",
                     Description = "弹出框类型",
                     Type = "SwalCategory",
-                    ValueList = "Success/Information/Error/Warning",
+                    ValueList = "Success/Error/Information/Warning/Question",
                     DefaultValue = "Success"
                 },
                 new AttributeItem() {
@@ -120,15 +136,50 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "IsAutoHide",
                     Description = "是否自动隐藏",
                     Type = "boolean",
-                    ValueList = "",
+                    ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
-                    Name = "IsHtml",
-                    Description = "内容中是否包含 Html 代码",
+                    Name = "ShowClose",
+                    Description = "是否显示关闭按钮",
                     Type = "boolean",
-                    ValueList = "",
+                    ValueList = "true|false",
+                    DefaultValue = "true"
+                },
+                new AttributeItem() {
+                    Name = "IsConfirm",
+                    Description = "是否为确认弹窗模式",
+                    Type = "boolean",
+                    ValueList = "true|false",
                     DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "KeepChildrenState",
+                    Description = "是否保持弹窗内组件状态",
+                    Type = "boolean",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "BodyContext",
+                    Description = "弹窗传参",
+                    Type = "object",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "BodyTemplate",
+                    Description = "模态主体显示组件",
+                    Type = "RenderFragment",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "ButtonTemplate",
+                    Description = "模态按钮模板",
+                    Type = "RenderFragment",
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 }
             };
         }

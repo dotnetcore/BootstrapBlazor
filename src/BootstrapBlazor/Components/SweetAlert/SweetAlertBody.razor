@@ -43,9 +43,16 @@ else
 <div class="swal2-actions">
     @if (ShowClose)
     {
-        <button type="button" class="btn btn-secondary" @onclick="@OnClose">
+        <button type="button" class="btn btn-secondary" @onclick="@OnClickClose">
             <i class="fa fa-times"></i>
-            <span>关闭</span>
+            <span>@ButtonCloseText</span>
+        </button>
+    }
+    @if (IsConfirm)
+    {
+        <button type="button" class="btn btn-danger ml-3" @onclick="@OnClickConfirm">
+            <i class="fa fa-check"></i>
+            <span>@ButtonConfirmText</span>
         </button>
     }
     @ButtonTemplate
