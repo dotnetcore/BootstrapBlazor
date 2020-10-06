@@ -3,7 +3,8 @@ name: Deploy
 on:
   push:
     branches:
-      - publish
+      - dev
+      - dev-ci
 
 jobs:
   deploy:
@@ -12,11 +13,15 @@ jobs:
     steps:
       - name: Sync Huawei Clound VM
         uses: appleboy/ssh-action@master
+        env:
+          BRANCH_NAME: ${{ env.GITHUB_REF }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
-            sh deploy-blazor.sh
-            sh deploy-wasm.sh
+            cd ~/BootstrapBlazor
+            git checkout dev
+            sh ~/deploy-blazor.sh
+            sh ~/deploy-wasm.sh
