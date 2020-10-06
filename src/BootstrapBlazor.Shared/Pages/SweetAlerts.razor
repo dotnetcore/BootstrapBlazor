@@ -95,6 +95,11 @@ Trace?.Log($"模态弹窗返回值为：{ret}");
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
+<Block Title="显示 Footer 信息" Introduction="通过设置 <code>FooterTemplate</code> 自定义 Footer 模板" CodeFile="swal.6.html">
+    <p>参数 <code>ShowFooter</code> 默认为 <code>false</code> 不显示页脚模板，需要显示设置为 <code>true</code></p>
+    <Button Icon="fa fa-fa" Text="带 Footer 弹窗" Color="Color.Success" OnClick="@ShowFooterComponent" />
+</Block>
+
 <SweetAlert />
 
 <AttributeTable Items="@GetAttributes()" />

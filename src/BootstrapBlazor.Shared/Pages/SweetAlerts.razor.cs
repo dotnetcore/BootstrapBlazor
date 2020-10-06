@@ -81,6 +81,20 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Task ShowFooterComponent()
+        {
+            var op = new SwalOption()
+            {
+                Category = SwalCategory.Error,
+                Title = "Oops...",
+                Content = "Something went wrong!",
+                ShowFooter = true,
+                FooterTemplate = DynamicComponent.CreateComponent<SwalFooter>().Render()
+            };
+            SwalService.Show(op);
+            return Task.CompletedTask;
+        }
+
         private Logger? Trace { get; set; }
 
         private async Task ShowModal()
@@ -147,6 +161,13 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = "true"
                 },
                 new AttributeItem() {
+                    Name = "ShowFooter",
+                    Description = "是否显示页脚模板",
+                    Type = "boolean",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
                     Name = "IsConfirm",
                     Description = "是否为确认弹窗模式",
                     Type = "boolean",
@@ -170,6 +191,13 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem() {
                     Name = "BodyTemplate",
                     Description = "模态主体显示组件",
+                    Type = "RenderFragment",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "FooterTemplate",
+                    Description = "模态主体页脚组件",
                     Type = "RenderFragment",
                     ValueList = " — ",
                     DefaultValue = " — "

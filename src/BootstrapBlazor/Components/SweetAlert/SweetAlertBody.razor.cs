@@ -47,6 +47,12 @@ namespace BootstrapBlazor.Components
         public bool ShowClose { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示 Footer 默认 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowFooter { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为确认弹窗模式 默认为 false
         /// </summary>
         [Parameter]
@@ -69,6 +75,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public RenderFragment? BodyTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Footer 模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? FooterTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮模板
@@ -97,6 +109,8 @@ namespace BootstrapBlazor.Components
             new KeyValuePair<string, object>(nameof(SweetAlertBody.ShowClose), option.ShowClose),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate!),
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate!),
+            new KeyValuePair<string, object>(nameof(SweetAlertBody.ShowFooter), option.ShowFooter!),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
             new KeyValuePair<string, object>(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))

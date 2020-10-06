@@ -45,9 +45,19 @@ namespace BootstrapBlazor.Components
         public RenderFragment? BodyTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 Footer 组件
+        /// </summary>
+        public RenderFragment? FooterTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示关闭按钮 默认为 true 显示
         /// </summary>
         public bool ShowClose { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示 Footer 默认 false 不显示
+        /// </summary>
+        public bool ShowFooter { get; set; }
 
         /// <summary>
         /// 获得/设置 是否为确认弹窗模式 默认为 false
