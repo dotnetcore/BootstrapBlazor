@@ -110,6 +110,14 @@ namespace BootstrapBlazor.Components
             if (OnInit != null) await OnInit(devices);
             if (devices.Any())
             {
+                for (var index = 0; index < devices.Count(); index++)
+                {
+                    var d = devices.ElementAt(index);
+                    if (string.IsNullOrEmpty(d.Label))
+                    {
+                        d.Label = $"Video device {index + 1}";
+                    }
+                }
                 Disabled = false;
                 ActiveCamera = Cameras.First();
             }

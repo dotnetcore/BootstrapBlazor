@@ -1898,7 +1898,11 @@
                     if (data_method === 'play') {
                         var front = $(this).attr('data-camera');
                         var deviceId = $el.find('.dropdown-item.active').attr('data-val');
-                        navigator.mediaDevices.getUserMedia({ video: { facingMode: front, deviceId: { exact: deviceId } }, audio: false }).then(stream => {
+                        var constrains = { video: { facingMode: front }, audio: false };
+                        if (deviceId !== "") {
+                            constrains.video.deviceId = { exact: deviceId };
+                        }
+                        navigator.mediaDevices.getUserMedia(constrains).then(stream => {
                             video.srcObject = stream;
                             video.play();
                             mediaStreamTrack = stream.getTracks()[0];
