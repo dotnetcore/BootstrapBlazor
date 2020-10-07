@@ -77,12 +77,6 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            // 计算开始与结束时间 每个组件显示 6 周数据
-            if (Value == TimeSpan.Zero)
-            {
-                Value = DateTime.Now.Subtract(DateTime.Today);
-            }
-
             CurrentTime = Value;
         }
 

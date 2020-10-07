@@ -1,10 +1,12 @@
 ﻿<TimePickerBody @bind-Value="@SpanValue" />
-<BootstrapInput TItem="TimeSpan" @bind-Value="@SpanValue" style="width: 180px; margin-top: 0.5rem;" />
+<BootstrapInput @bind-Value="@SpanValue" style="width: 180px; margin-top: 0.5rem;" />
 
-<TimePickerBody OnValueChanged="@OnValueChange" />
-<BootstrapInput TItem="string" @bind-Value="@SpanValue2" style="width: 180px; margin-top: 0.5rem;" />
+<TimePickerBody Value="@TimeNow" OnValueChanged="@OnValueChange" />
+<BootstrapInput @bind-Value="@SpanValue2" style="width: 180px; margin-top: 0.5rem;" />
 
 @code{
+    private TimeSpan TimeNow { get; set; } = DateTime.Now - DateTime.Today;
+
     protected TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
 
     /// <summary>

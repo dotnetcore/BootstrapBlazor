@@ -82,6 +82,8 @@ namespace BootstrapBlazor.Shared.Pages
             return ts.ToString("hh\\:mm\\:ss");
         }
 
+        private TimeSpan TimeNow { get; set; } = DateTime.Now - DateTime.Today;
+
         /// <summary>
         /// 
         /// </summary>

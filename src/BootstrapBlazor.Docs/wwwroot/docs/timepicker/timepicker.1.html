@@ -1,6 +1,7 @@
-﻿<TimePickerBody ValueChanged="@TimeValueChanged" />
+﻿<TimePickerBody Value="@TimeNow" ValueChanged="@TimeValueChanged" />
 
 @code {
+    private TimeSpan TimeNow { get; set; } = DateTime.Now - DateTime.Today;
     /// <summary>
     /// 
     /// </summary>
