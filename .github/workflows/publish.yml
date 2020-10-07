@@ -1,4 +1,4 @@
-﻿name: Publish
+﻿name: Deploy To Pages
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - dev
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     
     steps:

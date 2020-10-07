@@ -1,4 +1,4 @@
-name: Pack
+name: Package to Nuget
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - dev
 
 jobs:
-  build:
+  pack:
     runs-on: ubuntu-latest
     
     steps:
