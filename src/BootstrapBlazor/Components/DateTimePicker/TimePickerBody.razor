@@ -9,8 +9,8 @@
             <TimePickerCell @bind-Value="@CurrentTime" ItemHeightCallback="@ItemHeightCallback" ViewModel="TimePickerCellViewModel.Second" />
         </div>
         <div class="time-panel-footer">
-            <button type="button" class="time-panel-btn cancel" @onclick="@OnClickClose">取消</button>
-            <button type="button" class="time-panel-btn confirm" @onclick="@OnClickConfirm">确定</button>
+            <button type="button" class="time-panel-btn cancel" @onclick="@OnClickClose">@CancelText</button>
+            <button type="button" class="time-panel-btn confirm" @onclick="@OnClickConfirm">@ConfirmText</button>
         </div>
     </div>
 </div>

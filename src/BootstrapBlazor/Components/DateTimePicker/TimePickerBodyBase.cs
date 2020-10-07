@@ -42,6 +42,18 @@ namespace BootstrapBlazor.Components
         public EventCallback<TimeSpan> ValueChanged { get; set; }
 
         /// <summary>
+        /// 获得/设置 取消按钮显示文字
+        /// </summary>
+        [Parameter]
+        public string CancelText { get; set; } = "取消";
+
+        /// <summary>
+        /// 获得/设置 确定按钮显示文字
+        /// </summary>
+        [Parameter]
+        public string ConfirmText { get; set; } = "确定";
+
+        /// <summary>
         /// 获得/设置 时间刻度行高
         /// </summary>
         protected Func<double> ItemHeightCallback { get; set; } = () => 36.594d;
