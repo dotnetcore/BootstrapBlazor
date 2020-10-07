@@ -508,7 +508,11 @@ namespace BootstrapBlazor.Shared.Shared
                 Text = "轻量弹窗 Toast",
                 Url = "toasts"
             });
-
+            item.AddItem(new MenuItem()
+            {
+                Text = "计时器 Timer",
+                Url = "timers"
+            });
             AddBadge(item);
         }
 
