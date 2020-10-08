@@ -65,6 +65,18 @@
 
 <p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
 
+<p>注入服务提供三种快捷调用方法</p>
+
+<ul class="ul-demo">
+    <li>Success()</li>
+    <li>Error()</li>
+    <li>Information()</li>
+</ul>
+
+<p>示例如下：</p>
+
+<Pre>ToastService?.Success("保存成功", "保存数据成功，4 秒后自动关闭");</Pre>
+
 <Pre>private void OnInfoClick()
 {
     ToastService.Show(new ToastOption()
