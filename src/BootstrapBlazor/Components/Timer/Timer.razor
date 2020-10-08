@@ -1,0 +1,24 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits CircleBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    @if (Value > TimeSpan.Zero)
+    {
+        <svg class="circle-body" style="@PrevStyleString">
+            <circle r="@CircleR" cy="@CircleDiameter" cx="@CircleDiameter" stroke-width="2" stroke="#EAEFF4" stroke-linejoin="round" stroke-linecap="round" fill="none" />
+            <circle class="@ProgressClassString" r="@CircleR" cy="@CircleDiameter" cx="@CircleDiameter" stroke-dashoffset="@ValueString" stroke-dasharray="@DashString" stroke-width="@StrokeWidth" stroke="#1593FF" stroke-linejoin="round" stroke-linecap="round" fill="none" />
+        </svg>
+        <div class="@TitleClassString">
+            <span class="timer-body">@ValueTitleString</span>
+            <span class="timer-alert"><i class="fa fa-bell"></i>@AlertTime</span>
+        </div>
+        <div class="timer-buttons">
+            <button @onclick="@OnClickCancel" class="btn btn-secondary">取消</button>
+            <button @onclick="@OnClickPause" class="@PauseClassString">@PauseText</button>
+        </div>
+    }
+    else
+    {
+        <TimePickerBody @bind-Value="@Value" OnConfirm="@OnStart" ConfirmText="开始计时" />
+    }
+</div>
