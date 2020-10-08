@@ -44,6 +44,8 @@ namespace BootstrapBlazor.Components
 
         private ManualResetEventSlim? ResetEvent { get; set; } = new ManualResetEventSlim(true);
 
+        private bool Vibrate { get; set; }
+
         /// <summary>
         /// 获得/设置 当前值
         /// </summary>
@@ -73,6 +75,28 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public override int StrokeWidth { get; set; } = 6;
+
+        /// <summary>
+        /// 获得/设置 倒计时结束时设备震动
+        /// </summary>
+        [Parameter]
+        public bool IsVibrate { get; set; } = true;
+
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (Vibrate)
+            {
+                Vibrate = false;
+                await JSRuntime.InvokeVoidAsync("", "bb_timer");
+            }
+        }
 
         private void OnStart()
         {
@@ -108,6 +132,7 @@ namespace BootstrapBlazor.Components
                     Value = TimeSpan.Zero;
                     await InvokeAsync(() =>
                     {
+                        Vibrate = IsVibrate;
                         StateHasChanged();
                         OnTimeout?.Invoke();
                     });

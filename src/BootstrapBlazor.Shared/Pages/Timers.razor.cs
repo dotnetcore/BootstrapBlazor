@@ -32,19 +32,29 @@ namespace BootstrapBlazor.Shared.Pages
         {
             return new AttributeItem[]
             {
-                new AttributeItem(){
+                new AttributeItem()
+                {
                     Name = "Width",
                     Description = "组件宽度",
                     Type = "int",
                     ValueList = " - ",
                     DefaultValue = "300"
                 },
-                new AttributeItem(){
+                new AttributeItem()
+                {
                     Name = "StrokeWidth",
                     Description = "进度条宽度",
                     Type = "int",
                     ValueList = " - ",
                     DefaultValue = "6"
+                },
+                new AttributeItem()
+                {
+                    Name = "IsVibrate",
+                    Description = "倒计时结束时设备震动",
+                    Type = "bool",
+                    ValueList = "true/false",
+                    DefaultValue = "true"
                 },
                 new AttributeItem()
                 {
