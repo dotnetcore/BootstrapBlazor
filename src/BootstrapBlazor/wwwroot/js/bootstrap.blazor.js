@@ -1829,6 +1829,7 @@
                     var video = $el.find('video').attr('id');
                     codeReader.decodeFromVideoDevice(deviceId, video, (result, err) => {
                         if (result) {
+                            $.bb_vibrate();
                             console.log(result.text);
                             obj.invokeMethodAsync("GetResult", result.text);
 
@@ -1859,6 +1860,7 @@
                             $img.attr('src', e.target.result);
                             codeReader.decodeFromImage($img[0]).then((result) => {
                                 if (result) {
+                                    $.bb_vibrate();
                                     console.log(result.text);
                                     obj.invokeMethodAsync("GetResult", result.text);
                                 }
@@ -1937,7 +1939,7 @@
                 });
             });
         },
-        bb_timer: function () {
+        bb_vibrate: function () {
             if ('vibrate' in window.navigator) {
                 window.navigator.vibrate([200, 100, 200]);
                 var handler = window.setTimeout(function () {

@@ -94,7 +94,7 @@ namespace BootstrapBlazor.Components
             if (Vibrate)
             {
                 Vibrate = false;
-                await JSRuntime.InvokeVoidAsync("", "bb_timer");
+                await JSRuntime.InvokeVoidAsync("", "bb_vibrate");
             }
         }
 
