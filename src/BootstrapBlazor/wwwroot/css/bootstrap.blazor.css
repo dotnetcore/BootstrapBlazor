@@ -1335,6 +1335,10 @@ input:disabled,
         border-bottom-left-radius: 4px;
     }
 
+.table-toolbar .dropdown-menu .dropdown-item span {
+    margin-left: 0.5rem;
+}
+
 .table-toolbar .dropdown-item.hover,
 .table-toolbar .dropdown-item:hover {
     color: #fff;

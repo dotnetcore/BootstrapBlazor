@@ -42,13 +42,6 @@
                                                           CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                                           ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
                         }
-                        @if (ShowExportButton)
-                        {
-                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Info" Icon="fa fa-file-excel-o" Text="导出"
-                                                          OnBeforeClick="@ConfirmExport" OnConfirm="@ExportAsync"
-                                                          CloseButtonText="取消" Content="确认要导出当前页吗？"
-                                                          ConfirmButtonText="导出" ConfirmButtonColor="Color.Danger" />
-                        }
                     }
                     @TableToolbarTemplate
                 </TableToolbar>
@@ -62,6 +55,11 @@
                     }
                     @if (ShowColumnList)
                     {
+                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="列显示隐藏控制">
+                            <i class="fa fa-th-list"></i>
+                            <span class="d-none d-sm-inline-block">列</span>
+                            <span class="caret"></span>
+                        </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             @foreach (var item in Columns)
                             {
@@ -73,10 +71,28 @@
                                 </div>
                             }
                         </div>
-                        <button class="btn btn-secondary btn-col" type="button" title="列显示隐藏控制">
-                            <i class="fa fa-th-list"></i>
-                            <span class="d-none d-sm-inline-block">列</span>
+                    }
+                    @if (ShowExportButton)
+                    {
+                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="导出数据">
+                            <i class="fa fa-download"></i>
+                            <span class="d-none d-sm-inline-block">导出数据</span>
+                            <span class="caret"></span>
                         </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item">
+                                <i class="fa fa-file-text-o"></i>
+                                <span>CSV （未实现）</span>
+                            </div>
+                            <div class="dropdown-item" @onclick="@ExportAsync">
+                                <i class="fa fa-file-excel-o"></i>
+                                <span>MS-Excel</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fa fa-file-pdf-o"></i>
+                                <span>PDF（未实现）</span>
+                            </div>
+                        </div>
                     }
                 </div>
             }

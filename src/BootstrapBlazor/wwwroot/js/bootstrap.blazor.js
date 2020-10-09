@@ -1270,7 +1270,7 @@
             if (!btn.hasClass('init')) {
                 btn.addClass('init');
                 btn.on('click', function () {
-                    var $menu = $(this).prev();
+                    var $menu = $(this).next();
                     $menu.toggleClass('show');
                 });
             }
@@ -2078,7 +2078,6 @@
                 })
             }
 
-
             // 处理 MultiSelect 弹窗
             var $select = $target.closest('.multi-select');
             $('.multi-select.show').each(function () {
@@ -2090,7 +2089,7 @@
 
             // 处理 Table ColumnList
             var $btn = $target.closest('.btn-col.init');
-            if (!$btn.hasClass('btn-col init')) {
+            if (!$btn.hasClass('init')) {
                 var $menu = $target.closest('.dropdown-menu.dropdown-menu-right.show');
                 if ($menu.length === 0) {
                     $('.table-toolbar-button .dropdown-menu.show').removeClass('show');
