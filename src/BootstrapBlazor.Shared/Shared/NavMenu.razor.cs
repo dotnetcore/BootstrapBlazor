@@ -423,6 +423,12 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new MenuItem()
             {
+                Text = "导出功能",
+                Url = "tables/export"
+            });
+
+            it.AddItem(new MenuItem()
+            {
                 Text = "行选中",
                 Url = "tables/selection"
             });

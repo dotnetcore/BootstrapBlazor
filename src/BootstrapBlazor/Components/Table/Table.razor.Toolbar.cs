@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +47,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowDeleteButton { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示导出按钮 默认为 false 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowExportButton { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示扩展按钮 默认为 false
@@ -100,6 +108,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteAsync { get; set; }
 
+        /// <summary>
+        /// 获得/设置 导出按钮异步回调方法
+        /// </summary>
+        [Parameter]
+        public Func<IEnumerable<TItem>, Task<bool>>? OnExportAsync { get; set; }
+
 #nullable disable
         /// <summary>
         /// ToastService 服务实例
@@ -112,6 +126,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Inject]
         protected DialogService DialogService { get; set; }
+
+        /// <summary>
+        /// IJSRuntime 实例
+        /// </summary>
+        [Inject]
+        private IJSRuntime JSRuntimes { get; set; }
 
         /// <summary>
         /// 获得/设置 各列是否显示状态集合
@@ -315,6 +335,110 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             }
             Toast.Show(option);
+        }
+
+        /// <summary>
+        /// 确认导出按钮方法
+        /// </summary>
+        protected Task<bool> ConfirmExport()
+        {
+            var ret = false;
+            if (!Items.Any())
+            {
+                var option = new ToastOption
+                {
+                    Category = ToastCategory.Information,
+                    Title = "导出数据"
+                };
+                option.Content = $"没有需要导出的数据, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+                Toast.Show(option);
+            }
+            else
+            {
+                ret = true;
+            }
+            return Task.FromResult(ret);
+        }
+
+        /// <summary>
+        /// 导出数据方法
+        /// </summary>
+        protected async Task ExportAsync()
+        {
+            var ret = false;
+
+            _ = Task.Run(async () =>
+            {
+                if (OnExportAsync != null)
+                {
+                    ret = await OnExportAsync(Items);
+                }
+                else
+                {
+                    using ExcelPackage excelPackage = new ExcelPackage();
+                    var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
+
+                    var y = 1;
+                    foreach (var item in Items)
+                    {
+                        var x = 1;
+                        foreach (var pi in item.GetType().GetProperties())
+                        {
+                            if (!Columns.Any(col => col.GetFieldName() == pi.Name)) continue;
+
+                            if (y == 1)
+                            {
+                                if (pi.Name != null)
+                                {
+                                    var th_value = Items.FirstOrDefault().GetDisplayName(pi.Name);
+
+                                    worksheet.SetValue(1, x, th_value);
+                                }
+                            }
+                            var value = pi.GetValue(item, null);
+                            worksheet.SetValue(y + 1, x, value);
+                            x++;
+                        }
+                        y++;
+                    }
+
+                    byte[] bytes = excelPackage.GetAsByteArray();
+
+                    var fileName = DateTime.Now.Ticks;
+
+                    if (JSRuntimes != null)
+                    {
+                        var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                        var excelName = $"{fileName}.xlsx";
+
+                        var bytesBase64 = Convert.ToBase64String(bytes);
+
+                        await JSRuntimes.InvokeVoidAsync(null, "generatefile", excelName, bytesBase64, contentType);
+                    }
+                    ret = true;
+                }
+
+                var option = new ToastOption()
+                {
+                    Title = "导出数据"
+                };
+                option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
+                option.Content = $"导出数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+
+                Toast.Show(option);
+            });
+
+            var option = new ToastOption()
+            {
+                Title = "导出数据"
+            };
+            option.Category = ToastCategory.Information;
+            option.Content = $"正在导出数据，请稍候, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+
+            Toast.Show(option);
+
+            await Task.CompletedTask;
         }
 
         /// <summary>

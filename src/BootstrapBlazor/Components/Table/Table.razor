@@ -42,6 +42,13 @@
                                                           CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                                           ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
                         }
+                        @if (ShowExportButton)
+                        {
+                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Info" Icon="fa fa-file-excel-o" Text="导出"
+                                                          OnBeforeClick="@ConfirmExport" OnConfirm="@ExportAsync"
+                                                          CloseButtonText="取消" Content="确认要导出当前页吗？"
+                                                          ConfirmButtonText="导出" ConfirmButtonColor="Color.Danger" />
+                        }
                     }
                     @TableToolbarTemplate
                 </TableToolbar>
