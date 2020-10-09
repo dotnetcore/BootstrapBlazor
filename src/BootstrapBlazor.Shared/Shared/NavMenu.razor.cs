@@ -300,6 +300,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "二维码 QRCode",
+                Url = "qrcodes"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "搜索框 Search",
                 Url = "searchs"
             });

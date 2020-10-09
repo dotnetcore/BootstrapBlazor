@@ -5518,3 +5518,17 @@ input:disabled,
             width: 66px;
         }
 /*end timer*/
+
+/*qrcode*/
+.qrcode {
+}
+
+    .qrcode .qrcode-img {
+        width: 128px;
+        height: 128px;
+    }
+
+    .qrcode .qrcode-buttons {
+        margin-top: 1rem;
+    }
+/*end qr*/
