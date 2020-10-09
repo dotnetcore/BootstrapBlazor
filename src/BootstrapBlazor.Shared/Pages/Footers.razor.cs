@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Footers
+    public sealed partial class Footers
     {
 
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

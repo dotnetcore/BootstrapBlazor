@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Drawers
+    public sealed partial class Drawers
     {
         private IEnumerable<SelectedItem> DrawerDirection { get; } = new SelectedItem[] {
             new SelectedItem("left", "从左向右") { Active = true },

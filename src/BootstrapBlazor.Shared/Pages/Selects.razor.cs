@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private Select<string>? Select2 = null;
+        private Select<string>? Select2 { get; set; }
 
         /// <summary>
         /// 级联绑定菜单
@@ -143,7 +143,7 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem() { Text = "Item 3", Value = "3" }
         };
 
-        private int? SelectedIntItem = null;
+        private int? SelectedIntItem { get; set; }
 
         private string GetSelectedIntItemString()
         {
@@ -157,7 +157,7 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem() { Text = "False 值", Value = "false" }
         };
 
-        private bool? SelectedBoolItem = null;
+        private bool? SelectedBoolItem { get; set; }
 
         private string GetSelectedBoolItemString()
         {

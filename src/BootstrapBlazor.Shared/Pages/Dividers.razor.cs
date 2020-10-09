@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// Dividers 组件示例文档
     /// </summary>
-    sealed partial class Dividers
+    public sealed partial class Dividers
     {
         /// <summary>
         /// 获得属性方法

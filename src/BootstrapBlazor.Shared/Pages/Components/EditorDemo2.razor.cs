@@ -1,9 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Components
@@ -17,11 +14,11 @@ namespace BootstrapBlazor.Shared.Pages.Components
         private Logger Trace2 { get; set; }
 #nullable restore
 
-        private Dummy DummyModel = new Dummy();
+        private readonly Dummy DummyModel = new Dummy();
 
         private IEnumerable<SelectedItem>? Educations { get; set; }
 
-        private IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
+        private readonly IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
         {
             new SelectedItem("游泳", "游泳"),
             new SelectedItem("登山", "登山"),

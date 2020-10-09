@@ -1,9 +1,9 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BootstrapBlazor.Shared.Pages.Components;
 
 namespace BootstrapBlazor.Shared.Pages
 {

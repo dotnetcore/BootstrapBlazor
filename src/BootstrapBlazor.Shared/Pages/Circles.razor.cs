@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Circles
+    public sealed partial class Circles
     {
         private int CircleValue = 0;
 

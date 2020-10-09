@@ -14,7 +14,7 @@ namespace System.Linq
         /// <summary>
         /// 通过base.Visit(node)返回的Expression统一node变量
         /// </summary>
-        class ComboExpressionVisitor : ExpressionVisitor
+        private class ComboExpressionVisitor : ExpressionVisitor
         {
             private ParameterExpression exp_p { get; set; }
 
@@ -217,7 +217,7 @@ namespace System.Linq
 
         private static IOrderedQueryable<TItem> _OrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
         {
-            string methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
+            var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
 
             var pi = typeof(TItem).GetProperty(propertyName);
             var mi = typeof(LambdaExtensions).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)
@@ -240,7 +240,7 @@ namespace System.Linq
         #endregion
 
         #region ToString
-        private static ConcurrentDictionary<Type, Func<object, string, string>> FormatLambdaCache = new ConcurrentDictionary<Type, Func<object, string, string>>();
+        private static readonly ConcurrentDictionary<Type, Func<object, string, string>> FormatLambdaCache = new ConcurrentDictionary<Type, Func<object, string, string>>();
         /// <summary>
         /// 任意类型格式化方法
         /// </summary>

@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         {
             get
             {
-                string? placeHolder = "请选择 ...";
+                var placeHolder = "请选择 ...";
                 if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph) && !string.IsNullOrEmpty(Convert.ToString(ph)))
                 {
                     placeHolder = ph.ToString();
@@ -219,7 +219,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected IEnumerable<SelectedItem> GetShownItems()
         {
-            IEnumerable<SelectedItem> ret = GetItems();
+            var ret = GetItems();
 
             // handler SearchText
             if (!string.IsNullOrEmpty(SearchText))

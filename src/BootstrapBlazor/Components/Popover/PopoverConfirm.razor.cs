@@ -5,11 +5,11 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    partial class PopoverConfirm
+    public partial class PopoverConfirm
     {
         /// <summary>
         /// 获得/设置 PopoverConfirm 服务实例
         /// </summary>
-        [Inject] PopoverService? PopoverService { get; set; }
+        [Inject] private PopoverService? PopoverService { get; set; }
     }
 }

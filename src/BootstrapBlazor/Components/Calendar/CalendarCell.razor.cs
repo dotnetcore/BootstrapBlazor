@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// CalendarCell 组件
     /// </summary>
-    sealed partial class CalendarCell
+    public sealed partial class CalendarCell
     {
         private string? TableCellClass => CssBuilder.Default()
             .AddClass("prev", Value.Month < CurrentValue.Month)
@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClickDay()
         {
-            if(OnClick!= null) await OnClick.Invoke(Value);
+            if (OnClick != null) await OnClick.Invoke(Value);
         }
     }
 }

@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    partial class RadioElement
+    public partial class RadioElement
     {
         /// <summary>
         /// OnParametersSet 方法

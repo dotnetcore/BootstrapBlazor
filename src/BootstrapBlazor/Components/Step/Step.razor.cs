@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Step 组件
     /// </summary>
-    sealed partial class Step
+    public sealed partial class Step
     {
         private string? ClassString => CssBuilder.Default("step is-horizontal")
             .AddClass("is-flex", IsLast && !((Steps?.IsCenter ?? false) || IsCenter))

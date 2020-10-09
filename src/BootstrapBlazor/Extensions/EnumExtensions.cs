@@ -66,7 +66,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static bool IsEnum(this Type? type)
         {
-            bool ret = false;
+            var ret = false;
             if (type != null)
             {
                 var t = Nullable.GetUnderlyingType(type) ?? type;

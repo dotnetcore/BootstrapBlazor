@@ -238,13 +238,13 @@ namespace BootstrapBlazor.Components
         /// <returns>True if the value could be parsed; otherwise false.</returns>
         protected virtual bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
         {
-            bool ret = false;
+            var ret = false;
             validationErrorMessage = null;
             try
             {
                 var valueType = typeof(TValue);
                 var isBoolean = valueType == typeof(bool) || valueType == typeof(bool?);
-                object v = isBoolean ? (object)value.Equals("true", StringComparison.CurrentCultureIgnoreCase) : value;
+                var v = isBoolean ? (object)value.Equals("true", StringComparison.CurrentCultureIgnoreCase) : value;
 
                 if (BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out var v1))
                 {

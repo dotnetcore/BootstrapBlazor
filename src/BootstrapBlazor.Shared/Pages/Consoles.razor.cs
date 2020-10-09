@@ -11,12 +11,12 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Consoles : IDisposable
+    public sealed partial class Consoles : IDisposable
     {
         private readonly BlockingCollection<ConsoleMessageItem> _messages = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
         private readonly BlockingCollection<ConsoleMessageItem> _messages2 = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
 
-        private CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
 
         private IEnumerable<ConsoleMessageItem> Messages => _messages;
         private IEnumerable<ConsoleMessageItem> ColorMessages => _messages2;
@@ -69,7 +69,7 @@ namespace BootstrapBlazor.Shared.Pages
             };
         }
 
-        private AutoResetEvent _locker = new AutoResetEvent(true);
+        private readonly AutoResetEvent _locker = new AutoResetEvent(true);
 
         private void OnClear()
         {

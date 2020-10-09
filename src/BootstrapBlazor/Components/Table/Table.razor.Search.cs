@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class Table<TItem>
+    public partial class Table<TItem>
     {
         /// <summary>
         /// 获得 高级搜索样式

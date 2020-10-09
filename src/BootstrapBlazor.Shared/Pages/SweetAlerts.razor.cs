@@ -3,7 +3,6 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class SweetAlerts
+    public sealed partial class SweetAlerts
     {
         private Task OnSwal(SwalCategory cate)
         {

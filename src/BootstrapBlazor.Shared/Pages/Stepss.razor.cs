@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Stepss
+    public sealed partial class Stepss
     {
         private IEnumerable<StepItem> Items { get; set; } = new StepItem[3]
         {

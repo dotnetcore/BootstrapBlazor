@@ -12,7 +12,7 @@ namespace UnitTest.Performance
     /// </summary>
     public class ReflectionTest
     {
-        private ITestOutputHelper Logger;
+        private readonly ITestOutputHelper Logger;
         /// <summary>
         /// 
         /// </summary>
@@ -32,7 +32,7 @@ namespace UnitTest.Performance
 
             var pi = s1.GetType().GetProperty("Name");
             var sw = Stopwatch.StartNew();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 pi.GetValue(s1);
             }
@@ -41,7 +41,7 @@ namespace UnitTest.Performance
 
             var invoker = s1.GetPropertyValueLambda<Dummy, string>("Name").Compile();
             sw = Stopwatch.StartNew();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 invoker(s1);
             }
@@ -60,7 +60,7 @@ namespace UnitTest.Performance
 
             var sw = Stopwatch.StartNew();
             var pi = s1.GetType().GetProperty("Name");
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 if (pi != null && pi.CanWrite)
                 {
@@ -75,7 +75,7 @@ namespace UnitTest.Performance
 
             sw = Stopwatch.StartNew();
             var invoker = s1.SetPropertyValueLambda<Dummy, object>("Name").Compile();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 invoker(s1, "Dummy");
             }
@@ -94,7 +94,7 @@ namespace UnitTest.Performance
             var mi = s1.GetType().GetMethod("Method");
 
             var sw = Stopwatch.StartNew();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 if (mi != null)
                 {
@@ -104,12 +104,12 @@ namespace UnitTest.Performance
             sw.Stop();
             Logger.WriteLine($"Reflection: {sw.Elapsed}");
 
-            ParameterExpression target = Expression.Parameter(typeof(Dummy));
+            var target = Expression.Parameter(typeof(Dummy));
             Expression expression = Expression.Call(target, mi);
             var func = Expression.Lambda<Func<Dummy, string>>(expression, target).Compile();
 
             sw = Stopwatch.StartNew();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 func.Invoke(s1);
             }
@@ -117,7 +117,7 @@ namespace UnitTest.Performance
             Logger.WriteLine($"Expression: {sw.Elapsed}");
         }
 
-        class Dummy
+        private class Dummy
         {
             /// <summary>
             /// 

@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Charts
+    public sealed partial class Charts
     {
         /// <summary>
         /// 
@@ -120,8 +120,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Task<ChartDataSource> OnBubbleInit(int dsCount, int daCount)
         {
-            var ds = new ChartDataSource();
-            ds.Labels = Enumerable.Range(1, daCount).Select(i => i.ToString());
+            var ds = new ChartDataSource
+            {
+                Labels = Enumerable.Range(1, daCount).Select(i => i.ToString())
+            };
 
             for (var index = 0; index < dsCount; index++)
             {

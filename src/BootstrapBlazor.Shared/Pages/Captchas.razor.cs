@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Captchas
+    public sealed partial class Captchas
     {
         /// <summary>
         /// 获得/设置 图床路径 默认值为 images

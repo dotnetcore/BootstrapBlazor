@@ -6,13 +6,13 @@ namespace BootstrapBlazor.Shared
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class App
+    public sealed partial class App
     {
         /// <summary>
         /// 
         /// </summary>
         [Inject]
-        IJSRuntime? JSRuntime { get; set; }
+        private IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
         /// 

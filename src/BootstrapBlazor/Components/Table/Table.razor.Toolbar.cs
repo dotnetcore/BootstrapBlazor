@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
-    partial class Table<TItem>
+    public partial class Table<TItem>
     {
         /// <summary>
         /// 获得/设置 是否显示工具栏 默认 false 不显示
@@ -375,7 +375,7 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-                    using ExcelPackage excelPackage = new ExcelPackage();
+                    using var excelPackage = new ExcelPackage();
                     var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
 
                     var y = 1;
@@ -402,7 +402,7 @@ namespace BootstrapBlazor.Components
                         y++;
                     }
 
-                    byte[] bytes = excelPackage.GetAsByteArray();
+                    var bytes = excelPackage.GetAsByteArray();
 
                     var fileName = DateTime.Now.Ticks;
 

@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
         /// 获得 是否允许多文件上传 默认不允许 IsStack 模式下允许多文件上传
         /// </summary>
         protected string? MultipleString => (IsMultiple || IsStack) ? "multiple" : null;
-        
+
         /// <summary>
         /// 获得 组件是否被禁用属性值
         /// </summary>

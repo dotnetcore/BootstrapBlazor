@@ -121,7 +121,7 @@ namespace BootstrapBlazor.Components
         {
             var pages = PageItemsSource ?? new List<int>() { 20, 40, 80, 100, 200 };
             var ret = new List<SelectedItem>();
-            for (int i = 0; i < pages.Count(); i++)
+            for (var i = 0; i < pages.Count(); i++)
             {
                 var item = new SelectedItem(pages.ElementAt(i).ToString(), $"{pages.ElementAt(i)} 条/页");
                 ret.Add(item);

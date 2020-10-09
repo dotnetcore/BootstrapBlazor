@@ -5,7 +5,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class AttributeTable
+    public sealed partial class AttributeTable
     {
         /// <summary>
         /// 

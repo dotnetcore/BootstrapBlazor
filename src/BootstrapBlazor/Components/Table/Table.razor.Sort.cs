@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -8,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    partial class Table<TItem>
+    public partial class Table<TItem>
     {
         /// <summary>
         /// 获得/设置 排序字段名称

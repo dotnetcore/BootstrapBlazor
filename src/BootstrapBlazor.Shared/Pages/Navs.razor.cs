@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Navs
+    public sealed partial class Navs
     {
         private IEnumerable<NavLink> Items => GetItems();
 

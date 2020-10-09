@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         private Logger Trace { get; set; }
 #nullable restore
 
-        private Foo Model = new Foo();
+        private readonly Foo Model = new Foo();
 
         private class Foo
         {

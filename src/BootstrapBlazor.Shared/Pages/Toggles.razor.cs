@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Toggles
     {
-        class Foo
+        private class Foo
         {
             /// <summary>
             /// 

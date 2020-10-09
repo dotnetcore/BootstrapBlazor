@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Layouts
+    public sealed partial class Layouts
     {
 
         private IEnumerable<MenuItem> GetIconSideMenuItems()

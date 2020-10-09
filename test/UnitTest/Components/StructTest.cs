@@ -12,8 +12,10 @@ namespace UnitTest.Components
         [Fact]
         public void KeyValue_Test()
         {
-            var cache = new List<KeyValuePair<string, object>>();
-            cache.Add(new KeyValuePair<string, object>("1", 12));
+            var cache = new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>("1", 12)
+            };
             var c = cache.FirstOrDefault(i => i.Key == "12");
             Assert.Null(c.Key);
         }
@@ -21,8 +23,10 @@ namespace UnitTest.Components
         [Fact]
         public void Struct_Test()
         {
-            var cache = new List<(string, object)>();
-            cache.Add(("1", 12));
+            var cache = new List<(string, object)>
+            {
+                ("1", 12)
+            };
             var c = cache.FirstOrDefault(i => i.Item1 == "12");
             Assert.Null(c.Item1);
         }

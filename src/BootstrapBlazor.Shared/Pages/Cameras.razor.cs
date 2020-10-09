@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Cameras
+    public sealed partial class Cameras
     {
 #nullable disable
         /// <summary>

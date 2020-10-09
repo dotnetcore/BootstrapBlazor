@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected int GetWeekCount()
         {
-            GregorianCalendar gc = new GregorianCalendar();
+            var gc = new GregorianCalendar();
             return gc.GetWeekOfYear(Value, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
         }
 

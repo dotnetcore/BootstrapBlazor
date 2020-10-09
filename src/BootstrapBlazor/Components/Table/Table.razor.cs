@@ -219,7 +219,7 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                string content = "";
+                var content = "";
                 var val = GetItemValue(col.GetFieldName(), item);
                 if (col.Formatter != null)
                 {

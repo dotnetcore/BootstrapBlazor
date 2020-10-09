@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using Microsoft.AspNetCore.Components;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Components;
 
 namespace BootstrapBlazor.Components
 {
@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Components
                     index++;
                     break;
                 }
-                if(index == 0)
+                if (index == 0)
                 {
                     results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
                 }

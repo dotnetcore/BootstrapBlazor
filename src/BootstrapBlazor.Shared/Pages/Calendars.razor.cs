@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Calendars
+    public sealed partial class Calendars
     {
         /// <summary>
         /// 

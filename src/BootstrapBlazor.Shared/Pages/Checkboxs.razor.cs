@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Checkboxs
     {
-        class Foo
+        private class Foo
         {
             [DisplayName("标签文字")]
             public bool BindValue { get; set; }

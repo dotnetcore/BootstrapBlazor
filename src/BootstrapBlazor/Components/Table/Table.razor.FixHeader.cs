@@ -2,7 +2,7 @@
 
 namespace BootstrapBlazor.Components
 {
-    partial class Table<TItem>
+    public partial class Table<TItem>
     {
         /// <summary>
         /// 获得 wrapper 样式表集合

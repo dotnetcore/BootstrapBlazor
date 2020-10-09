@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Shared.Pages
             Education = EnumEducation.Middel
         };
 
-        private IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
+        private readonly IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
         {
             new SelectedItem("游泳", "游泳"),
             new SelectedItem("登山", "登山"),

@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    sealed partial class Messages
+    public sealed partial class Messages
     {
 #nullable disable
         private Message MessageElement { get; set; }

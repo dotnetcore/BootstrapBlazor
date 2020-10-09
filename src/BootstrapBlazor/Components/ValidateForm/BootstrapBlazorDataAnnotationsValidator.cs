@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 当前编辑数据上下文
         /// </summary>
         [CascadingParameter]
-        EditContext? CurrentEditContext { get; set; }
+        private EditContext? CurrentEditContext { get; set; }
 
         /// <summary>
         /// 获得/设置 当前编辑窗体上下文

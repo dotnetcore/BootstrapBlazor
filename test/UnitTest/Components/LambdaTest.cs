@@ -19,17 +19,19 @@ namespace UnitTest.Components
             var exp_p = Expression.Property(exp, pi);
 
             var func = Expression.Lambda<Func<int?, bool>>(exp_p, exp).Compile();
-            var b = func.Invoke((int)10);
+            var b = func.Invoke(10);
         }
 
         [Fact]
         public void NullContains_Ok()
         {
             var dummy = new Dummy();
-            var filter = new FilterKeyValueAction();
-            filter.FieldKey = "Foo";
-            filter.FilterAction = FilterAction.Contains;
-            filter.FieldValue = "";
+            var filter = new FilterKeyValueAction
+            {
+                FieldKey = "Foo",
+                FilterAction = FilterAction.Contains,
+                FieldValue = ""
+            };
             var invoker = filter.GetFilterLambda<Dummy>().Compile();
             var ret = invoker.Invoke(dummy);
             Assert.False(ret);

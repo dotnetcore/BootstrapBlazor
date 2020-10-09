@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// SweetAlert 组件
     /// </summary>
-    sealed partial class SweetAlert
+    public sealed partial class SweetAlert
     {
 #nullable disable
         /// <summary>

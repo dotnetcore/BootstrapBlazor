@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Components
         {
             get
             {
-                DateTime v = DateTime.Now;
+                var v = DateTime.Now;
                 if (AllowNull)
                 {
                     var t = Value as DateTime?;
