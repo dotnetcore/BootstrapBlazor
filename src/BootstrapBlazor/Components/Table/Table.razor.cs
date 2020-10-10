@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -41,7 +42,55 @@ namespace BootstrapBlazor.Components
             .AddClass(SetRowClassFormatter?.Invoke(item))
             .AddClass("active", CheckActive(item))
             .AddClass("is-master", DetailRowTemplate != null)
+            .AddClass("is-click", ClickToSelect)
+            .AddClass("is-dblclick", DoubleClickToEdit)
             .Build();
+
+        /// <summary>
+        /// 明细行首小图标单元格样式
+        /// </summary>
+        protected string? GetDetailBarClassString(TItem item) => CssBuilder.Default("table-cell is-bar")
+            .AddClass("is-load", DetailRows.Contains(item))
+            .Build();
+
+        /// <summary>
+        /// 获得明细行样式
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetDetailRowClassString(TItem item) => CssBuilder.Default("is-detail")
+            .AddClass("show", ExpandRows.Contains(item))
+            .Build();
+
+        /// <summary>
+        /// 获得明细行小图标样式
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("fa fa-caret-right")
+            .AddClass("fa-rotate-90", ExpandRows.Contains(item))
+            .Build();
+
+        /// <summary>
+        /// 明细行集合用于数据懒加载
+        /// </summary>
+        protected List<TItem> ExpandRows { get; set; } = new List<TItem>();
+
+        /// <summary>
+        /// 明细行功能中切换行状态时调用此方法
+        /// </summary>
+        /// <param name="item"></param>
+        protected EventCallback<MouseEventArgs> ExpandDetailRow(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, () =>
+        {
+            DetailRows.Add(item);
+            if (ExpandRows.Contains(item)) ExpandRows.Remove(item);
+            else ExpandRows.Add(item);
+        });
+
+        /// <summary>
+        /// 明细行集合用于数据懒加载
+        /// </summary>
+        protected List<TItem> DetailRows { get; set; } = new List<TItem>();
 
         /// <summary>
         /// 获得/设置 可过滤表格列集合

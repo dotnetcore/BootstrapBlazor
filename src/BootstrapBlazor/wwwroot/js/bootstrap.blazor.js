@@ -1371,16 +1371,25 @@
                     $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
 
-                // master-detail
-                $ele.on('click', 'tr.is-master .is-bar .fa', function (e) {
+                // click to selet
+                $ele.on('click', 'tr', function (e) {
+                    var $this = $(this);
+                    var $target = $(e.target);
+                    if ($target.hasClass('fa-caret-right')) return;
+                    if ($this.hasClass('is-click')) return;
                     e.stopPropagation();
-                    var $fa = $(this);
-                    $fa.toggleClass('fa-rotate-90');
-                    var $tr = $fa.closest('tr.is-master');
-                    if ($tr.length === 1) {
-                        $detail = $tr.next('tr.is-detail');
-                        $detail.toggleClass('show');
-                    }
+                });
+
+                $ele.on('click', 'th', function (e) {
+                    var $this = $(this);
+                    if ($this.hasClass('sortable')) return;
+                    e.stopPropagation();
+                });
+
+                $ele.on('dblclick', 'tr', function (e) {
+                    var $this = $(this);
+                    if ($this.hasClass('is-dblclick')) return;
+                    e.stopPropagation();
                 });
             }
             else if (method === 'width') {

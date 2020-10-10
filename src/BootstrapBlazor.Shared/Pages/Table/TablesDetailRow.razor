@@ -25,8 +25,7 @@
 </Block>
 
 <Block Title="嵌套 Table 组件应用" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行为子表数据" CodeFile="table.48.html">
-    <p>明细行内嵌套另外一个 <code>Table</code> 组件，由于每行都要关联子表数据，出于性能的考虑，此功能建议采用<code>懒加载</code>模式，即点击展开按钮后，再对嵌套 <code>Table</code> 进行数据填充</p>
-    <p>此例中通过主表数据集合中的 <code>Name</code> 属性值进行对子表查询其关联数据，其<code>懒加载</code>模式并未内置到组件内。由于需求不同加载模式也不相同，所以请使用者自行把控</p>
+    <p>明细行内嵌套另外一个 <code>Table</code> 组件，由于每行都要关联子表数据，出于性能的考虑，此功能采用<code>懒加载</code>模式，即点击展开按钮后，再对嵌套 <code>Table</code> 进行数据填充</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -40,7 +39,18 @@
         </TableColumns>
         <DetailRowTemplate>
             @{
-                var DetailDataSource = GetDetailRowsByName(context.Name ?? "");
+                // 此段代码为提高性能
+                var cacheKey = context.Name ?? "";
+                var DetailDataSource = Enumerable.Empty<DetailRow>();
+                if (Cache.ContainsKey(cacheKey))
+                {
+                    DetailDataSource = Cache[cacheKey];
+                }
+                else
+                {
+                    DetailDataSource = GetDetailRowsByName(context.Name ?? "").ToList();
+                    Cache.Add(cacheKey, DetailDataSource);
+                }
             }
             <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource">
                 <TableColumns Context="Detail">
@@ -56,3 +66,7 @@
         </DetailRowTemplate>
     </Table>
 </Block>
+
+@code {
+    private Dictionary<string, IEnumerable<DetailRow>> Cache { get; } = new Dictionary<string, IEnumerable<DetailRow>>();
+}

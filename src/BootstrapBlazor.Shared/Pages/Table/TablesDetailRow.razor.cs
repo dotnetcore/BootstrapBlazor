@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public sealed partial class TablesDetailRow
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
         private IEnumerable<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
         {
             Id = i,
