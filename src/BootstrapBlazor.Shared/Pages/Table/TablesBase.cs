@@ -250,6 +250,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "DetailRowTemplate",
+                Description = "Table 明细行模板",
+                Type = "RenderFragment<TItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "IsBordered",
                 Description = "边框",
                 Type = "boolean",

@@ -11,7 +11,8 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 表头组件
     /// </summary>
-    public class TableColumn<TItem> : BootstrapComponentBase, ITableColumn
+    /// <typeparam name="TType">绑定字段值类型</typeparam>
+    public class TableColumn<TType> : BootstrapComponentBase, ITableColumn
     {
         /// <summary>
         /// 获得/设置 相关过滤器
@@ -28,14 +29,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据绑定字段值
         /// </summary>
         [Parameter]
-        public TItem Field { get; set; }
+        public TType Field { get; set; }
 #nullable restore
 
         /// <summary>
         /// 获得/设置 ValueExpression 表达式
         /// </summary>
         [Parameter]
-        public Expression<Func<TItem>>? FieldExpression { get; set; }
+        public Expression<Func<TType>>? FieldExpression { get; set; }
 
         /// <summary>
         /// 获得/设置 是否排序 默认 false
@@ -143,7 +144,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示模板
         /// </summary>
         [Parameter]
-        public RenderFragment<TableColumnContext<object, TItem>>? Template { get; set; }
+        public RenderFragment<TableColumnContext<object, TType>>? Template { get; set; }
 
         /// <summary>
         /// 获得/设置 编辑模板
@@ -185,9 +186,9 @@ namespace BootstrapBlazor.Components
             {
                 // 此处 context 为行数据
                 // 将绑定字段值放入上下文中
-                var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => context.GetPropertyValueLambda<object, TItem>(key.FieldName).Compile());
+                var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => context.GetPropertyValueLambda<object, TType>(key.FieldName).Compile());
                 var value = invoker(context);
-                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TItem>() { Row = context, Value = value }));
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>() { Row = context, Value = value }));
             });
         }
 
@@ -200,7 +201,7 @@ namespace BootstrapBlazor.Components
             if (FieldExpression != null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
 
             // 获取模型属性定义类型
-            FieldType = typeof(TItem);
+            FieldType = typeof(TType);
         }
 
         private FieldIdentifier? _fieldIdentifier;
@@ -214,6 +215,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
 
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TItem>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<object, TItem>>();
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TType>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<object, TType>>();
     }
 }

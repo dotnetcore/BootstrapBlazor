@@ -11,13 +11,6 @@ namespace BootstrapBlazor.Components
     public interface ITableColumn : IEditorItem
     {
         /// <summary>
-        /// 获得/设置 用户自定义属性
-        /// </summary>
-        /// <returns></returns>
-        [Parameter(CaptureUnmatchedValues = true)]
-        public IDictionary<string, object>? AdditionalAttributes { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否允许排序 默认为 false
         /// </summary>
         bool Sortable { get; set; }

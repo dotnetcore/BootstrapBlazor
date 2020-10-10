@@ -40,6 +40,7 @@ namespace BootstrapBlazor.Components
         protected string? GetRowClassString(TItem item, string? css = null) => CssBuilder.Default(css)
             .AddClass(SetRowClassFormatter?.Invoke(item))
             .AddClass("active", CheckActive(item))
+            .AddClass("is-master", DetailRowTemplate != null)
             .Build();
 
         /// <summary>
@@ -61,6 +62,12 @@ namespace BootstrapBlazor.Components
         /// 获得 表头集合
         /// </summary>
         public List<ITableColumn> Columns { get; } = new List<ITableColumn>(50);
+
+        /// <summary>
+        /// 获得/设置 明细行模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment<TItem>? DetailRowTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 TableHeader 实例
@@ -171,14 +178,14 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             }
 
-            if (!string.IsNullOrEmpty(methodName))
+            if (!firstRender) IsRendered = true;
+
+            if (!string.IsNullOrEmpty(methodName) && IsRendered)
             {
                 // 固定表头脚本关联
                 await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName);
                 methodName = null;
             }
-
-            if (!firstRender) IsRendered = true;
         }
 
         /// <summary>

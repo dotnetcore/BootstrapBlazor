@@ -174,8 +174,6 @@ namespace BootstrapBlazor.Components
                 SelectedItems.Add(val);
 
                 if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
-
-                StateHasChanged();
             }
 
             if (OnClickRowCallback != null) await OnClickRowCallback(val);

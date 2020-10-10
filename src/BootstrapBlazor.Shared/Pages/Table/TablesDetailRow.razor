@@ -1,0 +1,58 @@
+﻿@inherits TablesBaseEdit
+@page "/tables/detail"
+
+<h3>显示明细行功能</h3>
+
+<h4>用于展示父子关系表数据</h4>
+
+<Block Title="简单应用" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容" CodeFile="table.47.html">
+    <p>明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+        </DetailRowTemplate>
+    </Table>
+</Block>
+
+<Block Title="嵌套 Table 组件应用" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行为子表数据" CodeFile="table.48.html">
+    <p>明细行内嵌套另外一个 <code>Table</code> 组件，由于每行都要关联子表数据，出于性能的考虑，此功能建议采用<code>懒加载</code>模式，即点击展开按钮后，再对嵌套 <code>Table</code> 进行数据填充</p>
+    <p>此例中通过主表数据集合中的 <code>Name</code> 属性值进行对子表查询其关联数据，其<code>懒加载</code>模式并未内置到组件内。由于需求不同加载模式也不相同，所以请使用者自行把控</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            @{
+                var DetailDataSource = GetDetailRowsByName(context.Name ?? "");
+            }
+            <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource">
+                <TableColumns Context="Detail">
+                    <TableColumn @bind-Field="@Detail.Name" />
+                    <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Complete" Width="70">
+                        <Template Context="v">
+                            <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                        </Template>
+                    </TableColumn>
+                </TableColumns>
+            </Table>
+        </DetailRowTemplate>
+    </Table>
+</Block>

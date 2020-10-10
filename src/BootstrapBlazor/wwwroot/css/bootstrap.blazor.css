@@ -1514,6 +1514,38 @@ input:disabled,
 .table-striped.table-fixed-column .table-row.active .fixed {
     background-color: inherit;
 }
+
+.table .is-bar {
+    padding: 0;
+    justify-content: center;
+}
+
+    .table .is-bar .fa-caret-right {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color .3s linear, transform .3s linear;
+    }
+
+        .table .is-bar .fa-caret-right:hover {
+            background-color: #ddd;
+        }
+
+.table .is-detail {
+    display: none;
+}
+
+    .table .is-detail.show {
+        display: table-row;
+    }
+
+.table .table-cell .table-container {
+    flex: 1;
+}
 /*end table*/
 
 /*popover confirm*/

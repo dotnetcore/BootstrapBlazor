@@ -375,6 +375,12 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new MenuItem()
             {
+                Text = "明细行",
+                Url = "tables/detail"
+            });
+
+            it.AddItem(new MenuItem()
+            {
                 Text = "搜索功能",
                 Url = "tables/search"
             });
