@@ -390,6 +390,13 @@ namespace BootstrapBlazor.Components
                             {
                                 if (pi.Name != null)
                                 {
+                                    if (pi.PropertyType == typeof(DateTime) || pi.PropertyType == typeof(DateTime?)
+                                        || pi.PropertyType == typeof(TimeSpan) || pi.PropertyType == typeof(TimeSpan?))
+                                    {
+                                        worksheet.Column(x).Width = 18;
+                                        worksheet.Column(x).Style.Numberformat.Format = "yyyy/m/d h:mm:ss";
+                                    }
+
                                     var th_value = Items.FirstOrDefault().GetDisplayName(pi.Name);
 
                                     worksheet.SetValue(1, x, th_value);
