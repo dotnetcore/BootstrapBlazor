@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -13,6 +14,10 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public virtual string? Id { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IComponentIdGenerator? ComponentIdGenerator { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -20,7 +25,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (string.IsNullOrEmpty(Id)) Id = $"bb_{GetHashCode()}";
+            Id ??= ComponentIdGenerator.Generate(this);
         }
     }
 }
