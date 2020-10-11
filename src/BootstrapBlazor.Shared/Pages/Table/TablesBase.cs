@@ -180,6 +180,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "AutoRefreshInterval",
+                Description = "自动刷新时间间隔",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "2000"
+            },
+            new AttributeItem() {
                 Name = "ExtendButtonColumnWidth",
                 Description = "行操作按钮列宽度",
                 Type = "int",
@@ -287,6 +294,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "IsMultipleSelect",
                 Description = "是否为多选模式，为 true 时第一列自动为复选框列",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsAutoRefresh",
+                Description = "是否自动刷新表格",
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"

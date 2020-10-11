@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -155,6 +156,18 @@ namespace BootstrapBlazor.Components
         public bool IsBordered { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否自动刷新表格 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsAutoRefresh { get; set; }
+
+        /// <summary>
+        /// 获得/设置 自动刷新时间间隔 默认 2000 毫秒
+        /// </summary>
+        [Parameter]
+        public int AutoRefreshInterval { get; set; } = 2000;
+
+        /// <summary>
         /// 获得/设置 单击行回调委托方法
         /// </summary>
         [Parameter]
@@ -200,6 +213,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected bool FirstRender { get; set; } = true;
 
+        private CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
+
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -229,11 +244,29 @@ namespace BootstrapBlazor.Components
 
             if (!firstRender) IsRendered = true;
 
-            if (!string.IsNullOrEmpty(methodName) && IsRendered)
+            if (IsRendered)
             {
-                // 固定表头脚本关联
-                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName);
-                methodName = null;
+                if (!string.IsNullOrEmpty(methodName))
+                {
+                    // 固定表头脚本关联
+                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName);
+                    methodName = null;
+                }
+
+                if (IsAutoRefresh && AutoRefreshInterval > 500 && AutoRefreshCancelTokenSource == null)
+                {
+                    AutoRefreshCancelTokenSource = new CancellationTokenSource();
+
+                    // 自动刷新功能
+                    _ = Task.Run(async () =>
+                    {
+                        while (!AutoRefreshCancelTokenSource.IsCancellationRequested)
+                        {
+                            await InvokeAsync(QueryAsync);
+                            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+                        }
+                    });
+                }
             }
         }
 
@@ -312,5 +345,20 @@ namespace BootstrapBlazor.Components
 
         private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object>>();
         #endregion
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                AutoRefreshCancelTokenSource?.Dispose();
+                AutoRefreshCancelTokenSource = null;
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }
