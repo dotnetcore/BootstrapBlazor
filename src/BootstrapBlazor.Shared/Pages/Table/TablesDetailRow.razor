@@ -67,6 +67,23 @@
     </Table>
 </Block>
 
+<Block Title="固定表头开启明细行功能" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容" CodeFile="table.49.html">
+    <Table TItem="BindItem" Height="200"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+        </DetailRowTemplate>
+    </Table>
+</Block>
+
 @code {
     private Dictionary<string, IEnumerable<DetailRow>> Cache { get; } = new Dictionary<string, IEnumerable<DetailRow>>();
 }
