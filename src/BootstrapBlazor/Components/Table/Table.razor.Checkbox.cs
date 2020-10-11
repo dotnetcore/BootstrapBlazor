@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -97,9 +98,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击选择复选框时触发此方法
         /// </summary>
-        /// <param name="state"></param>
-        /// <param name="val"></param>
-        protected virtual async Task OnCheck(CheckboxState state, TItem val)
+        protected Func<CheckboxState, TItem, Task> OnCheck() => async (state, val) =>
         {
             if (state == CheckboxState.Checked) SelectedItems.Add(val);
             else SelectedItems.Remove(val);
@@ -118,6 +117,6 @@ namespace BootstrapBlazor.Components
 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
             StateHasChanged();
-        }
+        };
     }
 }

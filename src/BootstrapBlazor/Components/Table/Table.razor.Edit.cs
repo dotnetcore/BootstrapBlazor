@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -157,7 +158,7 @@ namespace BootstrapBlazor.Components
         /// 单选模式下选择行时调用此方法
         /// </summary>
         /// <param name="val"></param>
-        protected virtual async Task ClickRow(TItem val)
+        protected Func<Task> ClickRow(TItem val) => async () =>
         {
             if (ClickToSelect)
             {
@@ -177,7 +178,7 @@ namespace BootstrapBlazor.Components
             }
 
             if (OnClickRowCallback != null) await OnClickRowCallback(val);
-        }
+        };
 
         /// <summary>
         /// 检查当前行是否被选中方法
@@ -241,11 +242,7 @@ namespace BootstrapBlazor.Components
 
         private static readonly ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>();
 
-        /// <summary>
-        /// 行尾列编辑按钮点击回调此方法
-        /// </summary>
-        /// <param name="item"></param>
-        protected async Task ClickEditButton(TItem item)
+        private async Task ClickEditButton(TItem item)
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
@@ -255,10 +252,16 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 行尾列编辑按钮点击回调此方法
+        /// </summary>
+        /// <param name="item"></param>
+        protected EventCallback<MouseEventArgs> ClickEditButtonCallback(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, () => ClickEditButton(item));
+
+        /// <summary>
         /// 双击行回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected async Task DoubleClickRow(TItem item)
+        protected Func<Task> DoubleClickRow(TItem item) => async () =>
         {
             if (DoubleClickToEdit)
             {
@@ -266,18 +269,18 @@ namespace BootstrapBlazor.Components
             }
 
             if (OnDoubleClickRowCallback != null) await OnDoubleClickRowCallback(item);
-        }
+        };
 
         /// <summary>
         /// 行尾列按钮点击回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected Task<bool> ClickDeleteButton(TItem item)
+        protected Func<Task<bool>> ClickBeforeDelete(TItem item) => () =>
         {
             SelectedItems.Clear();
             SelectedItems.Add(item);
 
             return Task.FromResult(true);
-        }
+        };
     }
 }

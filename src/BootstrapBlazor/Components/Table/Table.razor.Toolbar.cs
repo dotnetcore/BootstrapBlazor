@@ -310,7 +310,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 删除数据方法
         /// </summary>
-        protected async Task DeleteAsync()
+        protected Func<Task> DeleteAsync() => async () =>
         {
             var ret = false;
             if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
@@ -335,7 +335,7 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             }
             Toast.Show(option);
-        }
+        };
 
         /// <summary>
         /// 确认导出按钮方法

@@ -48,7 +48,7 @@
                 }
                 else
                 {
-                    DetailDataSource = GetDetailRowsByName(context.Name ?? "").ToList();
+                    DetailDataSource = GetDetailRowsByName(cacheKey).ToList();
                     Cache.Add(cacheKey, DetailDataSource);
                 }
             }

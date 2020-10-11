@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,9 +32,9 @@ namespace BootstrapBlazor.Components
         /// 点击 过滤小图标方法
         /// </summary>
         /// <param name="col"></param>
-        protected void OnFilterClick(ITableColumn col)
+        protected EventCallback<MouseEventArgs> OnFilterClick(ITableColumn col) => EventCallback.Factory.Create<MouseEventArgs>(this, () =>
         {
             col.Filter?.Show();
-        }
+        });
     }
 }

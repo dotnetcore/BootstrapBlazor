@@ -38,7 +38,7 @@
                         @if (ShowDeleteButton)
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" Icon="fa fa-remove" Text="删除"
-                                                          OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync"
+                                                          OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync()"
                                                           CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                                           ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
                         }
@@ -154,12 +154,13 @@
                 StarRowIndex = (PageIndex - 1) * PageItems + 1;
                 foreach (var item in Items)
                 {
-                    <div class="@GetRowClassString(item, "table-row")" @onclick="@(e => ClickRow(item))">
+                    <DynamicElement class="@GetRowClassString(item, "table-row")"
+                                    TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="@ClickRow(item)">
                         @if (IsMultipleSelect)
                         {
                             <div class="table-cell">
                                 <label>@CheckboxDisplayText</label>
-                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck"></Checkbox>
+                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck()"></Checkbox>
                             </div>
                         }
                         @if (ShowLineNo)
@@ -189,7 +190,7 @@
                                     {
                                         @if (ShowEditButton)
                                         {
-                                            <Button Size="Size.ExtraSmall" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickEditButton(item)))" Icon="fa fa-edit" Text="编辑" />
+                                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="编辑" />
                                         }
                                         @if (ShowDeleteButton)
                                         {
@@ -197,15 +198,15 @@
                                                               Color="Color.Danger" Icon="fa fa-remove" Text="删除"
                                                               CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                                               ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
-                                                              OnBeforeClick="@(new Func<Task<bool>>(() => ClickDeleteButton(item)))"
-                                                              OnConfirm="@(new Func<Task>(DeleteAsync))" />
+                                                              OnBeforeClick="@ClickBeforeDelete(item)"
+                                                              OnConfirm="@DeleteAsync()" />
                                         }
                                     }
                                     @RowButtonTemplate?.Invoke(item)
                                 </span>
                             </div>
                         }
-                    </div>
+                    </DynamicElement>
                 }
                 @if (ShowFooter)
                 {
@@ -375,19 +376,20 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 {
                     var fieldName = col.GetFieldName();
                     var displayName = col.GetDisplayName();
-                    <th class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 17)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClickHeader(col)))">
+                    <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 17)"
+                                    TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                         <div class="@GetHeaderWrapperClassString(col)">
                             <span class="@GetHeaderTextClassString(col)">@displayName</span>
                             @if (col.Filterable)
                             {
-                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => OnFilterClick(col)))"></i>
+                                <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@OnFilterClick(col)"></i>
                             }
                             @if (col.Sortable)
                             {
                                 <i class="@GetIconClassString(fieldName)"></i>
                             }
                         </div>
-                    </th>
+                    </DynamicElement>
                 }
             }
             @if (ShowExtendButtons)
@@ -407,7 +409,9 @@ RenderFragment<bool> RenderHeader => hasScroll =>
 </thead>;
 
 RenderFragment<TItem> RenderRow => item =>
-@<tr class="@GetRowClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickRow(item)))" @ondblclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => DoubleClickRow(item)))">
+@<DynamicElement class="@GetRowClassString(item)" TagName="tr"
+                 TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="@ClickRow(item)"
+                 TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="@DoubleClickRow(item)">
     @if (DetailRowTemplate != null)
     {
         <td>
@@ -420,7 +424,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td>
             <div class="table-cell">
-                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnCheck))" @onclick:stopPropagation></Checkbox>
+                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck()" @onclick:stopPropagation></Checkbox>
             </div>
         </td>
     }
@@ -450,7 +454,7 @@ RenderFragment<TItem> RenderRow => item =>
                     {
                         @if (ShowEditButton)
                         {
-                            <Button Size="Size.ExtraSmall" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => ClickEditButton(item)))" Icon="fa fa-edit" Text="编辑" />
+                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="编辑" />
                         }
                         @if (ShowDeleteButton)
                         {
@@ -458,8 +462,8 @@ RenderFragment<TItem> RenderRow => item =>
                                               Color="Color.Danger" Icon="fa fa-remove" Text="删除"
                                               CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
                                               ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
-                                              OnBeforeClick="@(new Func<Task<bool>>(() => ClickDeleteButton(item)))"
-                                              OnConfirm="@(new Func<Task>(DeleteAsync))" />
+                                              OnBeforeClick="@ClickBeforeDelete(item)"
+                                              OnConfirm="@DeleteAsync()" />
                         }
                     }
                     @RowButtonTemplate?.Invoke(item)
@@ -467,5 +471,5 @@ RenderFragment<TItem> RenderRow => item =>
             </div>
         </td>
     }
-</tr>;
+</DynamicElement>;
 }

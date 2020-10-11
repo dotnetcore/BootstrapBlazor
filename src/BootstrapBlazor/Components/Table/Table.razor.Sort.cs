@@ -45,19 +45,16 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击列进行排序方法
         /// </summary>
-        protected async Task OnClickHeader(ITableColumn col)
+        protected Func<Task> OnClickHeader(ITableColumn col) => async () =>
         {
-            if (col.Sortable)
-            {
-                if (SortOrder == SortOrder.Unset) SortOrder = SortOrder.Asc;
-                else if (SortOrder == SortOrder.Asc) SortOrder = SortOrder.Desc;
-                else if (SortOrder == SortOrder.Desc) SortOrder = SortOrder.Unset;
-                SortName = col.GetFieldName();
+            if (SortOrder == SortOrder.Unset) SortOrder = SortOrder.Asc;
+            else if (SortOrder == SortOrder.Asc) SortOrder = SortOrder.Desc;
+            else if (SortOrder == SortOrder.Desc) SortOrder = SortOrder.Unset;
+            SortName = col.GetFieldName();
 
-                // 通知 Table 组件刷新数据
-                if (OnSortAsync != null) await OnSortAsync.Invoke();
-            }
-        }
+            // 通知 Table 组件刷新数据
+            if (OnSortAsync != null) await OnSortAsync.Invoke();
+        };
 
         /// <summary>
         /// 获取指定列头样式字符串
