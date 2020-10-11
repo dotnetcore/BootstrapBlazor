@@ -1370,27 +1370,6 @@
                     }
                     $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
-
-                // click to selet
-                $ele.on('click', 'tr', function (e) {
-                    var $this = $(this);
-                    var $target = $(e.target);
-                    if ($target.hasClass('fa-caret-right')) return;
-                    if ($this.hasClass('is-click')) return;
-                    e.stopPropagation();
-                });
-
-                $ele.on('click', 'th', function (e) {
-                    var $this = $(this);
-                    if ($this.hasClass('sortable')) return;
-                    e.stopPropagation();
-                });
-
-                $ele.on('dblclick', 'tr', function (e) {
-                    var $this = $(this);
-                    if ($this.hasClass('is-dblclick')) return;
-                    e.stopPropagation();
-                });
             }
             else if (method === 'width') {
                 var width = 0;
