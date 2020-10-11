@@ -1544,7 +1544,8 @@ input:disabled,
         display: table-row;
     }
 
-.table .table-cell .table-container {
+.table .table-cell .table-container,
+.table .table-cell .tabs {
     flex: 1;
 }
 /*end table*/

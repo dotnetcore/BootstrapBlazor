@@ -67,7 +67,8 @@
     </Table>
 </Block>
 
-<Block Title="固定表头开启明细行功能" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容" CodeFile="table.49.html">
+<Block Title="固定表头开启明细行功能" Introduction="通过设置 <code>Height</code> 固定表头后模板设置明细行内容" CodeFile="table.49.html">
+    <p>本例中固定表头后，再开启明细行功能</p>
     <Table TItem="BindItem" Height="200"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false"
@@ -80,6 +81,55 @@
         </TableColumns>
         <DetailRowTemplate>
             <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+        </DetailRowTemplate>
+    </Table>
+</Block>
+
+<Block Title="明细行中使用 Tab 组件" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容" CodeFile="table.50.html">
+    <p>本例中明细行内使用 <code>Tab</code> 组件再次将数据分割成两个 <code>TabItem</code> 内容，进行再次数据拆分演示</p>
+    <Table TItem="BindItem" IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <Tab>
+                <TabItem Text="明细数据">
+                    @{
+                        // 此段代码为提高性能
+                        var cacheKey = context.Name ?? "";
+                        var DetailDataSource = Enumerable.Empty<DetailRow>();
+                        if (Cache.ContainsKey(cacheKey))
+                        {
+                            DetailDataSource = Cache[cacheKey];
+                        }
+                        else
+                        {
+                            DetailDataSource = GetDetailRowsByName(cacheKey).ToList();
+                            Cache.Add(cacheKey, DetailDataSource);
+                        }
+                    }
+                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource">
+                        <TableColumns Context="Detail">
+                            <TableColumn @bind-Field="@Detail.Name" />
+                            <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
+                            <TableColumn @bind-Field="@context.Complete" Width="70">
+                                <Template Context="v">
+                                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                                </Template>
+                            </TableColumn>
+                        </TableColumns>
+                    </Table>
+                </TabItem>
+                <TabItem Text="关联数据">
+                    <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+                </TabItem>
+            </Tab>
         </DetailRowTemplate>
     </Table>
 </Block>
