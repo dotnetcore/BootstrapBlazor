@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ModalDialogBase
 
-<div class="@ClassName" role="document">
+<div class="@ClassName" role="document" @ref="DialogElement">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">@Title</h5>

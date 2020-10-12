@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -16,13 +17,12 @@ namespace BootstrapBlazor.Components
         [Parameter(CaptureUnmatchedValues = true)]
         public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 IJSRuntime 实例
         /// </summary>
         [Inject]
-        protected IJSRuntime JSRuntime { get; set; }
-#nullable restore
+        [NotNull]
+        protected IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
         /// Dispose 方法

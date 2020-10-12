@@ -1255,9 +1255,26 @@
                         this.removeClass('is-drag');
                     }
                 );
+                $el.on('shown.bs.modal', function () {
+                    $(document).one('keyup', function (e) {
+                        if (e.key === 'Escape') {
+                            var $dialog = $el.find('.modal-dialog');
+                            var method = $dialog.data('bb_dotnet_invoker');
+                            if (method != null) {
+                                method.invokeMethodAsync('Close');
+                            }
+                        }
+                    });
+                });
             }
             else {
                 $el.modal(method);
+            }
+        },
+        bb_dialog: function (el, obj, method) {
+            var $el = $(el);
+            if (method === 'init') {
+                $el.data('bb_dotnet_invoker', obj);
             }
         },
         bb_filter: function (el, obj, method) {
