@@ -1198,6 +1198,9 @@
                 $el.remove();
             }
             else if (method === 'init') {
+                if ($el.closest('.swal').length === 1) {
+                    return;
+                }
                 // move self end of the body
                 $('body').append($el);
 
