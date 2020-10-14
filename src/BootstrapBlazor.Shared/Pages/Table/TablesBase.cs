@@ -166,6 +166,13 @@ namespace BootstrapBlazor.Shared.Pages
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
+                Name = "TableSize",
+                Description = "表格大小",
+                Type = "TableSize",
+                ValueList = "Normal|Compact",
+                DefaultValue = "Normal"
+            },
+            new AttributeItem() {
                 Name = "Height",
                 Description = "固定表头",
                 Type = "int",

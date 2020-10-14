@@ -31,6 +31,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-scroll", !Height.HasValue)
             .AddClass("table-fixed", Height.HasValue)
             .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
+            .AddClass("table-sm", TableSize == TableSize.Compact)
             .Build();
 
         /// <summary>
@@ -136,6 +137,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
+
+        /// <summary>
+        /// 获得/设置 表格组件大小 默认为 Normal 正常模式
+        /// </summary>
+        [Parameter]
+        public TableSize TableSize { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示表脚 默认为 false

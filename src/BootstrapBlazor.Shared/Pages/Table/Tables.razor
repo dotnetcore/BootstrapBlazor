@@ -47,6 +47,17 @@
     </Table>
 </Block>
 
+<Block Title="紧凑型表格" Introduction="通过设置 <code>TableSize</code> 属性，设定表格内间隙变小适合大数据展示" CodeFile="table.52.html">
+    <p><code>TableSize</code> 为表格大小枚举类型，默认值为 <code>Normal</code>，紧奏型值为 <code>Compact</code></p>
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
 <AttributeTable Items="GetAttributes()"></AttributeTable>
 
 <MethodTable Items="GetMethods()"></MethodTable>
