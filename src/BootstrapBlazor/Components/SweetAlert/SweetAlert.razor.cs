@@ -91,6 +91,11 @@ namespace BootstrapBlazor.Components
             // 不保持状态
             parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
             {
+                if (IsAutoHide && DelayToken != null)
+                {
+                    DelayToken.Cancel();
+                    DelayToken = null;
+                }
                 if (!option.KeepChildrenState)
                 {
                     await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
