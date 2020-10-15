@@ -35,3 +35,20 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="宽度可调整" Introduction="固定表头的同时设置 <code>AllowResizing</code> 属性，使列宽可以调整" CodeFile="table.54.html">
+    <p>
+        通过设置 <code>Height</code> 参数固定表头
+        <br />
+        通过设置 <code>AllowResizing</code> 参数允许调整列宽
+    </p>
+    <Table TItem="BindItem" Items="@Items.Take(10)" 
+           IsBordered="true" IsMultipleSelect="true" IsPagination="true" 
+           Height="200" AllowResizing="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+        </TableColumns>
+    </Table>
+</Block>

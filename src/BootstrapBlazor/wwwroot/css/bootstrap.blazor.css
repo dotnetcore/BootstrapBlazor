@@ -1554,6 +1554,24 @@ input:disabled,
     .table .table-cell .tabs .tabs-body {
         padding: 1rem 0 0 0;
     }
+
+.table-resize thead th {
+    position: relative;
+}
+
+    .table-resize thead th .col-resizer {
+        width: .25rem;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        cursor: col-resize;
+    }
+
+.table-resize .border-resize {
+    border-right: 1px solid #409eff;
+}
 /*end table*/
 
 /*popover confirm*/

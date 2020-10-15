@@ -32,6 +32,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-fixed", Height.HasValue)
             .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
             .AddClass("table-sm", TableSize == TableSize.Compact)
+            .AddClass("table-resize", AllowResizing)
             .Build();
 
         /// <summary>
@@ -149,6 +150,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowFooter { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否允许列宽度调整 默认 false 固定表头时此属性生效
+        /// </summary>
+        [Parameter]
+        public bool AllowResizing { get; set; }
 
         /// <summary>
         /// 获得/设置 是否斑马线样式 默认为 false

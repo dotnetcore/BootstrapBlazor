@@ -389,6 +389,10 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                                 <i class="@GetIconClassString(fieldName)"></i>
                             }
                         </div>
+                        @if(AllowResizing)
+                        {
+                            <span class="col-resizer"></span>
+                        }
                     </DynamicElement>
                 }
             }

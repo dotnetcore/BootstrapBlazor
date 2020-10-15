@@ -1283,6 +1283,61 @@
         bb_filter: function (el, obj, method) {
             $(el).data('bb_filter', { obj: obj, method: method });
         },
+        bb_table_resize: function ($ele) {
+            var resizer = $ele.find('.col-resizer');
+            if (resizer.length > 0) {
+                var eff = function (toggle) {
+                    var $span = $(this);
+                    var $th = $span.closest('th');
+                    if (toggle) $th.addClass('border-resize');
+                    else $th.removeClass('border-resize');
+
+                    var index = $th.index();
+                    var $tbody = $th.closest('.table-resize').find('tbody');
+                    var $tds = $tbody.find('tr').each(function () {
+                        var $td = $(this.children[index]);
+                        if (toggle) $td.addClass('border-resize');
+                        else $td.removeClass('border-resize');
+                    });
+                    return index;
+                };
+
+                var colWidth = 0;
+                var tableWidth = 0;
+                var colIndex = 0;
+                var originalX = 0;
+
+                resizer.each(function () {
+                    $(this).drag(
+                        function (e) {
+                            colIndex = eff.call(this, true);
+                            var width = $ele.find('table colgroup col')[colIndex].width;
+                            if (width) {
+                                colWidth = parseInt(width);
+                            }
+                            else {
+                                colWidth = $(this).closest('th').width();
+                            }
+                            tableWidth = $(this).closest('table').width();
+                            originalX = e.clientX;
+                        },
+                        function (e) {
+                            $ele.find('table colgroup').each(function (index, colgroup) {
+                                var col = $(colgroup).find('col')[colIndex];
+                                var marginX = e.clientX - originalX;
+                                col.width = colWidth + marginX;
+
+                                if (index === 0)
+                                    $(colgroup).closest('table').width(tableWidth + marginX);
+                            });
+                        },
+                        function () {
+                            eff.call(this, false);
+                        }
+                    );
+                });
+            }
+        },
         bb_table: function (el, method, args) {
             var $ele = $(el);
 
@@ -1327,6 +1382,10 @@
                         $fs.remove();
                     }
                 }
+
+                // 固定表头的最后一列禁止列宽调整
+                $ele.find('.col-resizer:last').remove();
+                $.bb_table_resize($ele);
             }
             else if (method === 'init') {
                 // sort
@@ -1390,6 +1449,8 @@
                     }
                     $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
+
+                $.bb_table_resize($ele);
             }
             else if (method === 'width') {
                 var width = 0;

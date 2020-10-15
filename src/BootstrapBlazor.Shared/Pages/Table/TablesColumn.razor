@@ -217,3 +217,18 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="允许列调整" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度" CodeFile="table.53.html">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
