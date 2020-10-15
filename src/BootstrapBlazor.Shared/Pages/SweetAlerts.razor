@@ -100,6 +100,15 @@ Trace?.Log($"模态弹窗返回值为：{ret}");
     <Button Icon="fa fa-fa" Text="带 Footer 弹窗" Color="Color.Success" OnClick="@ShowFooterComponent" />
 </Block>
 
+<Block Title="自动关闭功能" Introduction="通过设置 <code>IsAutoHide</code> <code>Delay</code> 属性，自定义自动关闭时间" CodeFile="swal.7.html">
+    <p>
+        参数 <code>IsAutoHide</code> 默认为 <code>false</code> 不启用自动关闭功能
+        <br />
+        参数 <code>Delay</code> 默认为 4000 毫秒
+    </p>
+    <Button Icon="fa fa-fa" Text="自动关闭弹窗" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
+</Block>
+
 <SweetAlert />
 
 <AttributeTable Items="@GetAttributes()" />

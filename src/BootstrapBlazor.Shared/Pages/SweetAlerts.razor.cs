@@ -94,6 +94,22 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Task ShowAutoCloseSwal()
+        {
+            var op = new SwalOption()
+            {
+                Category = SwalCategory.Error,
+                Title = "Oops...",
+                Content = "Something went wrong!",
+                ShowFooter = true,
+                IsAutoHide = true,
+                Delay = 4000,
+                FooterTemplate = DynamicComponent.CreateComponent<SwalFooter>().Render()
+            };
+            SwalService.Show(op);
+            return Task.CompletedTask;
+        }
+
         private Logger? Trace { get; set; }
 
         private async Task ShowModal()

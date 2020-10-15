@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -11,24 +13,32 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class SweetAlert
     {
-#nullable disable
         /// <summary>
         /// 获得/设置 Modal 容器组件实例
         /// </summary>
-        private Modal ModalContainer { get; set; }
+        [NotNull]
+        private Modal? ModalContainer { get; set; }
 
         /// <summary>
         /// 获得/设置 弹出对话框实例
         /// </summary>
-        private ModalDialog ModalDialog { get; set; }
+        [NotNull]
+        private ModalDialog? ModalDialog { get; set; }
 
         /// <summary>
         /// DialogServices 服务实例
         /// </summary>
         [Inject]
-        public SwalService SwalService { get; set; }
-#nullable restore
+        [NotNull]
+        public SwalService? SwalService { get; set; }
+
         private bool IsShowDialog { get; set; }
+
+        private bool IsAutoHide { get; set; }
+
+        private int Delay { get; set; }
+
+        private CancellationTokenSource? DelayToken { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -54,11 +64,26 @@ namespace BootstrapBlazor.Components
             {
                 IsShowDialog = false;
                 await ModalContainer.Toggle();
+
+                if (IsAutoHide && Delay > 0)
+                {
+                    if (DelayToken == null) DelayToken = new CancellationTokenSource();
+                    await Task.Delay(Delay, DelayToken.Token);
+
+                    if (!DelayToken.IsCancellationRequested)
+                    {
+                        // 自动关闭弹窗
+                        await ModalContainer.Toggle();
+                    }
+                }
             }
         }
 
         private async Task Show(SwalOption option)
         {
+            IsAutoHide = option.IsAutoHide;
+            Delay = option.Delay;
+
             option.Dialog = ModalContainer;
             option.Body = ModalDialog;
             var parameters = option.ToAttributes().ToList();
@@ -93,6 +118,8 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
+                DelayToken?.Dispose();
+                DelayToken = null;
                 SwalService.UnRegister(this);
             }
         }
