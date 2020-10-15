@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Diagnostics.CodeAnalysis
+@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
 
 <header class="navbar navbar-expand navbar-dark flex-column flex-md-row">
     <div class="header-img navbar-brand">
@@ -36,3 +38,50 @@
 </header>
 
 @Body
+
+@if (Installable)
+{
+    <div class="install-prompt">
+        <div class="row">
+            <div class="install-prompt-body col-10 col-offset-2 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+                <span class="ml-2">安装小程序</span>
+                <button class="installButton btn btn-primary" @onclick="@(() => InstallClicked())">安装</button>
+                <button class="cancelButton btn btn-danger" @onclick="@(() => Installable = false)">取消</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code
+{
+    static bool Installable = false;
+
+    [NotNull]
+    static Action? OnInstallable { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        OnInstallable = () => InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public static Task PWAInstallable()
+    {
+        Installable = true;
+        OnInstallable.Invoke();
+        return Task.CompletedTask;
+    }
+
+    ValueTask InstallClicked()
+    {
+        Installable = false;
+        return JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
+    }
+}
