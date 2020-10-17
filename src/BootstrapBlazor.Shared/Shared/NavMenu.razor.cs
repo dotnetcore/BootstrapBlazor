@@ -112,6 +112,16 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "全球化",
+                Url = "globalization"
+            });
+            item.AddItem(new MenuItem()
+            {
+                Text = "本地化",
+                Url = "localization"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "服务器端模式 Server",
                 Url = "install-server"
             });

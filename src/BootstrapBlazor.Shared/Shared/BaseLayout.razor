@@ -26,7 +26,8 @@
             </li>
         </ul>
     </div>
-    <ul class="navbar-nav ml-md-auto">
+    <CultureChooser class="ml-md-auto" />
+    <ul class="navbar-nav ml-3">
         <li class="nav-item">
             <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor"><img src="_content/BootstrapBlazor.Shared/images/git.svg" /></a>
         </li>
@@ -45,7 +46,7 @@
         <div class="row">
             <div class="install-prompt-body col-10 col-offset-2 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
                 <span class="ml-2">安装小程序</span>
-                <button class="installButton btn btn-primary" @onclick="@(() => InstallClicked())">安装</button>
+                <button class="installButton btn btn-primary" @onclick="@InstallClicked">安装</button>
                 <button class="cancelButton btn btn-danger" @onclick="@(() => Installable = false)">取消</button>
             </div>
         </div>
@@ -79,9 +80,9 @@
         return Task.CompletedTask;
     }
 
-    ValueTask InstallClicked()
+    private async Task InstallClicked()
     {
         Installable = false;
-        return JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
+        await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
     }
 }

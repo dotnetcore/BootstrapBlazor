@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace BootstrapBlazor.Server
 {
@@ -48,9 +53,20 @@ namespace BootstrapBlazor.Server
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            services.AddBlazorBackgroundTask();
+
             // 增加 BootstrapBlazor 组件
             services.AddBootstrapBlazor();
-            services.AddBlazorBackgroundTask();
+
+            // 增加多语言支持
+            services.AddJsonLocalization();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = Configuration.GetSupportCultures().Select(kv => new CultureInfo(kv.Value)).ToList();
+                options.DefaultRequestCulture = new RequestCulture("zh-CN");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
         }
 
         /// <summary>
@@ -61,6 +77,8 @@ namespace BootstrapBlazor.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
+
             app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.All });
 
             if (env.IsDevelopment())
@@ -76,8 +94,8 @@ namespace BootstrapBlazor.Server
 
             app.UseResponseCompression();
 
+            app.UseRequestLocalization();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

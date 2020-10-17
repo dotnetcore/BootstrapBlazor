@@ -1129,3 +1129,17 @@ section {
         margin-left: 0.3rem;
         width: 4em;
     }
+
+.culture-selector {
+    display: flex;
+    align-items: center;
+}
+
+    .culture-selector label {
+        margin: 0;
+        color: rgba(255,255,255,.5);
+    }
+
+    .culture-selector .form-select {
+        width: 120px;
+    }

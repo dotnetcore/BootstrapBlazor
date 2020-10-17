@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,7 +40,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
         /// </summary>
         [Parameter]
-        public string NoDataTip { get; set; } = "无匹配数据";
+        [NotNull]
+        public string? NoDataTip { get; set; }
 
         private string? _placeholder;
         /// <summary>
@@ -51,7 +54,7 @@ namespace BootstrapBlazor.Components
             {
                 if (string.IsNullOrEmpty(_placeholder))
                 {
-                    _placeholder = "请输入";
+                    _placeholder = Localizer[nameof(PlaceHolder)];
                     if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph) && !string.IsNullOrEmpty(Convert.ToString(ph)))
                     {
                         _placeholder = ph.ToString();
@@ -83,6 +86,13 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<Task<IEnumerable<string>>>? CustomFilter { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<AutoComplete>? Localizer { get; set; }
+
         private string _selectedItem = "";
         /// <summary>
         /// 获得 候选项样式
@@ -92,6 +102,15 @@ namespace BootstrapBlazor.Components
         protected string? ItemClassString(string item) => CssBuilder.Default("dropdown-item")
             .AddClass("active", item == _selectedItem)
             .Build();
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            NoDataTip = Localizer[nameof(NoDataTip)];
+            base.OnInitialized();
+        }
 
         /// <summary>
         /// OnBlur 方法

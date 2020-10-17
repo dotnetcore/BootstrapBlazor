@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.WebConsole.Controllers.Api
+namespace BootstrapBlazor.Server.Controllers.Api
 {
     /// <summary>
     /// 

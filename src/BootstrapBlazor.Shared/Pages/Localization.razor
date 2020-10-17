@@ -1,0 +1,39 @@
+﻿@page "/localization"
+
+<h3>本地化</h3>
+
+<p>
+    本地化是为给定语言和地区定制应用程序的过程。<code>BootstrapBlazor</code> 组件允许您将其 UI 元素转换为所需的语言。这包括按钮、过滤器操作符属性等文本。本文将向您展示如何在应用程序中使用此功能：
+</p>
+
+<Alert ShowBar="true" Color="@Color.Info">阅读以下知识点前请先查看 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1" target="_blank">微软官方文档</a></Alert>
+
+<p><b>本地化在组件中的工作原理</b></p>
+
+<p>
+    <code>BootstrapBlazor</code> 组件使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href="https://www.nuget.org/packages/BootstrapBlazor/" target="_blank">BootstrapBalzor-Nuget</a> 包自带中文（zh-CN）、英语（en-US）两种资源文件。
+</p>
+
+<p><b>开启本地化功能</b></p>
+
+<p><b>Server-Side App</b></p>
+
+<p><b>1. 启用 .NET 核心本地化服务</b></p>
+<Pre CodeFile="install.3.html" />
+
+<p><b>2. 实现 UI 本地化信息存储（例如，cookie）</b></p>
+<Pre CodeFile="install.4.html" />
+
+<p><b>3. 添加允许用户更改本地化的 <code>UI</code></b></p>
+<Pre CodeFile="install.5.html" />
+
+<p><b>4. 添加 <code>Json</code> 资源文件</b></p>
+
+<p>
+    资源文件所在目录为 <code>~/Resources</code>，文件目录结果支持两种类型，以 <code>AutoComplete</code> 组件为例：
+</p>
+
+<ul class="ul-demo">
+    <li>Components.AutoComplete.zh-CN.json</li>
+    <li>Components\AutoComplete\zh-CN.json</li>
+</ul>
