@@ -146,6 +146,21 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync(Id, "bb_select");
+            }
+        }
+
+        /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
         protected async Task OnItemClick(SelectedItem item)

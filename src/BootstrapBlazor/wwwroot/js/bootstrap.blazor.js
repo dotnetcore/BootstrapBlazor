@@ -2060,6 +2060,15 @@
                 });
                 obj.invokeMethodAsync("Generated");
             }
+        },
+        bb_select: function (id) {
+            var $el = $('#' + id);
+            var $search = $el.find('input.search-text');
+            if ($search.length > 0) {
+                $el.on('shown.bs.dropdown', function () {
+                    $search.focus();
+                });
+            }
         }
     });
 
