@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -12,10 +14,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        public EqualToValidator()
-        {
-            ErrorMessage = "你的输入不相同";
-        }
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<EqualToValidator>? Localizer { get; set; }
 
         /// <summary>
         /// 
@@ -28,6 +29,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public EventCallback<string> ValueChanged { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            ErrorMessage = Localizer[nameof(ErrorMessage)];
+        }
 
         /// <summary>
         /// 

@@ -10,15 +10,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public class MinValidator<TValue> : ValidatorComponentBase
+    public class MinValidator<TValue> : ValidatorComponentBase where TValue : struct
     {
-#nullable disable
         /// <summary>
         /// 获得/设置 最小值数值
         /// </summary>
         [Parameter]
         public TValue Value { get; set; }
-#nullable restore
 
         /// <summary>
         /// 

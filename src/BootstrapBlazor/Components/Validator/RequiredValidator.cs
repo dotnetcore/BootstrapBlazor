@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -13,10 +15,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        public RequiredValidator()
-        {
-            ErrorMessage = "这是必填字段";
-        }
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<RequiredValidator>? Localizer { get; set; }
 
         /// <summary>
         /// 获得/设置 是否允许空字符串 默认 false 不允许
@@ -29,6 +30,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool AllowEmptyList { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            ErrorMessage = Localizer[nameof(ErrorMessage)];
+        }
 
         /// <summary>
         /// 
