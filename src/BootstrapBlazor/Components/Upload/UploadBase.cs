@@ -11,13 +11,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class UploadBase : BootstrapComponentBase
     {
-        private JSInterop<UploadBase>? Interop { get; set; }
-
-        /// <summary>
-        /// 获得/设置 Captcha DOM 元素实例
-        /// </summary>
-        protected ElementReference UploaderElement { get; set; }
-
         /// <summary>
         /// 获得 组件样式
         /// </summary>
@@ -65,18 +58,6 @@ namespace BootstrapBlazor.Components
         /// 获得 组件是否被禁用属性值
         /// </summary>
         protected string? DisabledString => IsDisabled ? "disabled" : null;
-
-        /// <summary>
-        /// 获得/设置 上传按钮显示文字
-        /// </summary>
-        [Parameter]
-        public string Text { get; set; } = "点击上传";
-
-        /// <summary>
-        /// 获得/设置 重置按钮显示文字
-        /// </summary>
-        [Parameter]
-        public string ResetText { get; set; } = "重置";
 
         /// <summary>
         /// 获得/设置 上传按钮图标
@@ -193,26 +174,6 @@ namespace BootstrapBlazor.Components
         public Func<IEnumerable<UploadHeader>>? OnSetHeaders { get; set; }
 
         /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
-            {
-                if (Interop == null) Interop = new JSInterop<UploadBase>(JSRuntime);
-                if (Interop != null) await Interop.Invoke(this, UploaderElement, "uploader", nameof(Completed), nameof(CheckFiles), nameof(Removed), nameof(Failed), nameof(SetHeaders));
-            }
-        }
-
-        /// <summary>
-        /// 组件复位方法
-        /// </summary>
-        public async Task Reset() => await JSRuntime.InvokeVoidAsync(UploaderElement, "uploader", nameof(Reset));
-
-        /// <summary>
         /// 文件上传成功后回调此方法
         /// </summary>
         [JSInvokable]
@@ -240,35 +201,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 文件上传前检查文件扩展名时回调此方法
-        /// </summary>
-        /// <returns></returns>
-        [JSInvokable]
-        public object CheckFiles(string fileName, string fileType, long fileSize)
-        {
-            var result = true;
-            string? message = null;
-
-            if (MaxFileLength > 0)
-            {
-                result = MaxFileLength > fileSize;
-                message = result ? null : "文件太大";
-            }
-
-            if (result)
-            {
-                // check file extensions
-                if (AllowFileType?.Contains("image", StringComparison.OrdinalIgnoreCase) ?? false)
-                {
-                    result = fileType.StartsWith("image", StringComparison.OrdinalIgnoreCase);
-                    message = result ? null : "只允许选择图片类型文件";
-                }
-            }
-
-            return new { result, message };
-        }
-
-        /// <summary>
         /// 设置 请求头方法
         /// </summary>
         /// <returns></returns>
@@ -276,16 +208,6 @@ namespace BootstrapBlazor.Components
         public IEnumerable<UploadHeader> SetHeaders()
         {
             return OnSetHeaders?.Invoke() ?? new UploadHeader[0];
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            if (disposing) Interop?.Dispose();
         }
     }
 }

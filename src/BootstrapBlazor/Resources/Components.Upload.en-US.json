@@ -1,0 +1,6 @@
+{
+  "Text": "Upload",
+  "ResetText": "Reset",
+  "AllowFileTypeErrorMessage": "Only allow Images type file",
+  "FileTooLargeText": "File to large"
+}

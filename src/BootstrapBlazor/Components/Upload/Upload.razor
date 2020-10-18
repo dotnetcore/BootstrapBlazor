@@ -11,7 +11,7 @@
             </button>
             @if (ShowReset)
             {
-                <UploadResetButton Text="@ResetText" OnReset="@Reset" IsDisabled="@IsDisabled" />
+                @RenderResetButton
             }
         </div>
     }
@@ -73,9 +73,17 @@
             </button>
             @if (ShowReset)
             {
-                <UploadResetButton Text="@ResetText" OnReset="@Reset" IsDisabled="@IsDisabled" />
+                @RenderResetButton
             }
         </div>
     }
     <input type="file" hidden multiple="@MultipleString" class="upload-input" accept="@AllowFileType">
 </div>
+
+@code {
+  RenderFragment RenderResetButton =>
+  @<button type="button" class="btn btn-primary btn-reset" @onclick="@Reset()" disabled="@DisabledString">
+    <i class="fa fa-repeat"></i>
+    <span>@ResetText</span>
+</button>;
+}

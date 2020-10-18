@@ -11,8 +11,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class StringLengthValidator : ValidatorComponentBase
     {
-        private int _length = 50;
-
         /// <summary>
         /// 
         /// </summary>
@@ -24,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         [Parameter]
-        public int Length { get; set; }
+        public int Length { get; set; } = 50;
 
         /// <summary>
         /// 
@@ -34,9 +32,12 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            ErrorMessage = Localizer[nameof(ErrorMessage), Length];
             var val = propertyValue?.ToString() ?? "";
-            if (val.Length > Length) results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+            if (val.Length > Length)
+            {
+                ErrorMessage = Localizer[nameof(ErrorMessage), Length];
+                results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+            }
         }
     }
 }

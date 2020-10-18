@@ -3336,6 +3336,10 @@ input:disabled,
 .is-file .upload-file-icon {
     display: block;
 }
+
+.upload .btn-reset {
+    margin-left: 0.5rem;
+}
 /*end upload*/
 
 /*divider*/
