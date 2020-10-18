@@ -70,13 +70,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 左侧面板 Header 显示文本
         /// </summary>
         [Parameter]
-        public string LeftPanelText { get; set; } = "列表 1";
+        public string LeftPanelText { get; set; } = "";
 
         /// <summary>
         /// 获得/设置 右侧面板 Header 显示文本
         /// </summary>
         [Parameter]
-        public string RightPanelText { get; set; } = "列表 2";
+        public string RightPanelText { get; set; } = "";
 
         /// <summary>
         /// 获得/设置 左侧按钮显示文本
