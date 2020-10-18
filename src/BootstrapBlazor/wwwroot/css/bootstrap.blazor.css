@@ -5581,6 +5581,8 @@ input:disabled,
             border-radius: 50%;
             height: 66px;
             width: 66px;
+            font-size: 0.75rem !important;
+            padding: 0;
         }
 /*end timer*/
 

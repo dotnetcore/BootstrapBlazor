@@ -13,12 +13,12 @@
             <span class="timer-alert"><i class="fa fa-bell"></i>@AlertTime</span>
         </div>
         <div class="timer-buttons">
-            <button @onclick="@OnClickCancel" class="btn btn-secondary">取消</button>
-            <button @onclick="@OnClickPause" class="@PauseClassString">@PauseText</button>
+            <button @onclick="@OnClickCancel" class="btn btn-secondary">@CancelText</button>
+            <button @onclick="@OnClickPause" class="@PauseClassString">@GetPauseText()</button>
         </div>
     }
     else
     {
-        <TimePickerBody @bind-Value="@Value" OnConfirm="@OnStart" ConfirmText="开始计时" />
+        <TimePickerBody @bind-Value="@Value" OnConfirm="@OnStart" ConfirmText="@StarText" />
     }
 </div>

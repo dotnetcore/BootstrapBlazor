@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,8 +30,6 @@ namespace BootstrapBlazor.Components
         private string? ValueString => $"{Math.Round(((1 - CurrentTimespan.TotalSeconds * 1.0 / Value.TotalSeconds) * CircleLength), 2)}";
 
         private TimeSpan CurrentTimespan { get; set; }
-
-        private string PauseText { get; set; } = "暂停";
 
         private bool IsPause { get; set; }
 
@@ -81,6 +81,51 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsVibrate { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 暂停按钮文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? PauseText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 继续按钮文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? ResumeText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 取消按钮文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CancelText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 取消按钮文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? StarText { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Timer>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            PauseText = Localizer[nameof(PauseText)];
+            ResumeText = Localizer[nameof(ResumeText)];
+            CancelText = Localizer[nameof(CancelText)];
+            StarText = Localizer[nameof(StarText)];
+        }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -143,7 +188,6 @@ namespace BootstrapBlazor.Components
         private Task OnClickPause()
         {
             IsPause = !IsPause;
-            PauseText = IsPause ? "继续" : "暂停";
             if (IsPause)
             {
                 ResetEvent?.Reset();
@@ -155,6 +199,8 @@ namespace BootstrapBlazor.Components
             }
             return Task.CompletedTask;
         }
+
+        private string GetPauseText() => IsPause ? ResumeText : PauseText;
 
         private async Task OnClickCancel()
         {
