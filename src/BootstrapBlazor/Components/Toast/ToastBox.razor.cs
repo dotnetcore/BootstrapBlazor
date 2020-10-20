@@ -57,30 +57,36 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 显示标题 默认为 未设置
         /// </summary>
-        [Parameter] public string Title { get; set; } = "未设置";
+        [Parameter]
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 Toast Body 子组件
         /// </summary>
-        [Parameter] public string? Content { get; set; }
+        [Parameter]
+        public string? Content { get; set; }
 
         /// <summary>
         /// 获得/设置 是否自动隐藏
         /// </summary>
-        [Parameter] public bool IsAutoHide { get; set; } = true;
+        [Parameter]
+        public bool IsAutoHide { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 自动隐藏时间间隔
         /// </summary>
-        [Parameter] public int Delay { get; set; } = 4000;
+        [Parameter]
+        public int Delay { get; set; } = 4000;
 
         /// <summary>
         /// 获得/设置 Toast 实例
         /// </summary>
         /// <value></value>
-        [CascadingParameter] public Toast? Toast { get; set; }
+        [CascadingParameter]
+        public Toast? Toast { get; set; }
 
-        private JSInterop<Toast>? _interop;
+        private JSInterop<Toast>? Interop { get; set; }
+
         /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
@@ -94,8 +100,8 @@ namespace BootstrapBlazor.Components
             {
                 if (Toast != null)
                 {
-                    _interop = new JSInterop<Toast>(JSRuntime);
-                    await _interop.Invoke(Toast, ToastBoxElement, "showToast", nameof(Toast.Clear));
+                    Interop = new JSInterop<Toast>(JSRuntime);
+                    await Interop.Invoke(Toast, ToastBoxElement, "showToast", nameof(Toast.Clear));
                 }
             }
         }
@@ -107,7 +113,11 @@ namespace BootstrapBlazor.Components
         {
             base.Dispose(disposing);
 
-            if (disposing) _interop?.Dispose();
+            if (disposing)
+            {
+                Interop?.Dispose();
+                Interop = null;
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 显示标题
         /// </summary>
-        public string Title { get; set; } = "Toast";
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 组件主体用于指定弹窗组件 默认为空
