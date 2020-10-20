@@ -43,10 +43,16 @@ namespace BootstrapBlazor.Localization.Json
             var typeInfo = resourceSource.GetTypeInfo();
             var assembly = typeInfo.Assembly;
             var assemblyName = resourceSource.Assembly.GetName().Name;
+            var resourcesPath = Path.Combine(PathHelpers.GetApplicationRoot(), GetResourcePath(assembly));
             var typeName = $"{assemblyName}.{typeInfo.Name}" == typeInfo.FullName
                 ? typeInfo.Name
                 : typeInfo.FullName.Substring(assemblyName.Length + 1);
-            var resourcesPath = Path.Combine(PathHelpers.GetApplicationRoot(), GetResourcePath(assembly));
+
+            if (resourceSource.IsGenericType)
+            {
+                var index = typeName.IndexOf('`');
+                typeName = typeName.Substring(0, index);
+            }
 
             typeName = TryFixInnerClassPath(typeName);
 
