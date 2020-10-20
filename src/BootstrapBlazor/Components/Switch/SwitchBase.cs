@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -79,28 +80,18 @@ namespace BootstrapBlazor.Components
         public int Height { get; set; } = 20;
 
         /// <summary>
-        /// 获得/设置 组件 On 时显示文本
-        /// </summary>
-        [Parameter]
-        public override string? OnText { get; set; }
-
-        /// <summary>
-        /// 获得/设置 组件 Off 时显示文本
-        /// </summary>
-        [Parameter]
-        public override string? OffText { get; set; }
-
-        /// <summary>
         /// 获得/设置 组件 On 时内置显示文本
         /// </summary>
         [Parameter]
-        public string OnInnerText { get; set; } = "开";
+        [NotNull]
+        public string? OnInnerText { get; set; }
 
         /// <summary>
         /// 获得/设置 组件 Off 时内置显示文本
         /// </summary>
         [Parameter]
-        public string OffInnerText { get; set; } = "关";
+        [NotNull]
+        public string? OffInnerText { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示内置文字

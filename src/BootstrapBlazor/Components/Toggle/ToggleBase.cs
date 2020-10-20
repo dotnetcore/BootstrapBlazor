@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -41,13 +42,15 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件 On 时显示文本
         /// </summary>
         [Parameter]
-        public virtual string? OnText { get; set; } = "展开";
+        [NotNull]
+        public virtual string? OnText { get; set; }
 
         /// <summary>
         /// 获得/设置 组件 Off 时显示文本
         /// </summary>
         [Parameter]
-        public virtual string? OffText { get; set; } = "收缩";
+        [NotNull]
+        public virtual string? OffText { get; set; }
 
         /// <summary>
         /// 获得/设置 组件颜色 默认为 Success 颜色
