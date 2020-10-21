@@ -32,22 +32,10 @@ namespace BootstrapBlazor.Components
         protected bool IsSorted { get; set; }
 
         /// <summary>
-        /// 高级查询弹窗
-        /// </summary>
-        protected Modal? SearchModal { get; set; }
-
-        /// <summary>
-        /// 获得/设置 搜索框提示文字
-        /// </summary>
-        protected string SearchTooltip { get; set; } = "<div class='search-input-tooltip'>输入任意字符串全局搜索</br><kbd>Enter</kbd> 搜索 <kbd>ESC</kbd> 清除搜索</div>";
-
-#nullable disable
-        /// <summary>
         /// 获得/设置 SearchTemplate 实例
         /// </summary>
         [Parameter]
-        public RenderFragment<TItem> SearchTemplate { get; set; }
-#nullable restore
+        public RenderFragment<TItem>? SearchTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 SearchModel 实例
@@ -72,12 +60,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string SearchText { get; set; } = "";
-
-        /// <summary>
-        /// 获得/设置 搜索关键字改变事件
-        /// </summary>
-        [Parameter]
-        public EventCallback<string> SearchTextChanged { get; set; }
 
         /// <summary>
         /// 重置搜索按钮异步回调方法
@@ -112,7 +94,7 @@ namespace BootstrapBlazor.Components
             // 弹出高级查询弹窗
             DialogOption.IsScrolling = ScrollingDialogContent;
             DialogOption.Size = Size.ExtraLarge;
-            DialogOption.Title = "查询条件";
+            DialogOption.Title = SearchModalTitle;
             DialogOption.ShowCloseButton = false;
             DialogOption.ShowFooter = false;
 
@@ -123,7 +105,7 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Model), SearchModel),
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Columns), columns),
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.ShowLabel), true),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.BodyTemplate), SearchTemplate),
+                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.BodyTemplate), SearchTemplate!),
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.OnResetSearchClick), new Func<Task>(ResetSearchClick)),
                 new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.OnSearchClick), new Func<Task>(SearchClick)),
             };

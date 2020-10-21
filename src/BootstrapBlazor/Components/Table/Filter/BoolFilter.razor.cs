@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -9,11 +12,12 @@ namespace BootstrapBlazor.Components
     {
         private string Value { get; set; } = "";
 
-        private IEnumerable<SelectedItem> Items => new SelectedItem[] {
-            new SelectedItem("", "全部"),
-            new SelectedItem("true", "选中"),
-            new SelectedItem("false", "未选中")
-        };
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -21,6 +25,13 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            Items = new SelectedItem[]
+            {
+                new SelectedItem("", Localizer["BoolFilter.AllText"]),
+                new SelectedItem("true", Localizer["BoolFilter.TrueText"]),
+                new SelectedItem("false", Localizer["BoolFilter.FalseText"])
+            };
 
             if (TableFilter != null)
             {

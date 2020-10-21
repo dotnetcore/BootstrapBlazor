@@ -237,6 +237,8 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
+            OnInitLocalization();
+
             if (firstRender)
             {
                 FirstRender = false;

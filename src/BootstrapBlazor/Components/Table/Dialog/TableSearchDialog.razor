@@ -23,11 +23,11 @@ else
     @<div class="modal-footer table-modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@OnResetSearchClick">
             <i class="fa fa-trash-o"></i>
-            <span>重置</span>
+            <span>@ResetButtonText</span>
         </button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@OnSearchClick">
             <i class="fa fa-search"></i>
-            <span>查询</span>
+            <span>@QueryButtonText</span>
         </button>
     </div>;
 }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -79,12 +79,6 @@ namespace BootstrapBlazor.Components
         public bool ShowColumnList { get; set; }
 
         /// <summary>
-        /// 获得/设置 按钮列 Header 文本 默认为 操作
-        /// </summary>
-        [Parameter]
-        public string ButtonTemplateHeaderText { get; set; } = "操作";
-
-        /// <summary>
         /// 获得/设置 表格 Toolbar 按钮模板
         /// </summary>
         [Parameter]
@@ -114,37 +108,33 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<IEnumerable<TItem>, Task<bool>>? OnExportAsync { get; set; }
 
-#nullable disable
         /// <summary>
         /// ToastService 服务实例
         /// </summary>
         [Inject]
-        protected ToastService Toast { get; set; }
+        [NotNull]
+        protected ToastService? Toast { get; set; }
 
         /// <summary>
         /// DialogService 服务实例
         /// </summary>
         [Inject]
-        protected DialogService DialogService { get; set; }
-
-        /// <summary>
-        /// IJSRuntime 实例
-        /// </summary>
-        [Inject]
-        private IJSRuntime JSRuntimes { get; set; }
+        [NotNull]
+        protected DialogService? DialogService { get; set; }
 
         /// <summary>
         /// 获得/设置 各列是否显示状态集合
         /// </summary>
-        private IEnumerable<ColumnVisibleItem> ColumnVisibles { get; set; }
+        [NotNull]
+        private IEnumerable<ColumnVisibleItem>? ColumnVisibles { get; set; }
 
         private class ColumnVisibleItem
         {
-            public string FieldName { get; set; }
+            [NotNull]
+            public string? FieldName { get; set; }
 
             public bool Visible { get; set; }
         }
-#nullable restore
 
         private IEnumerable<ITableColumn> GetColumns()
         {
@@ -179,8 +169,8 @@ namespace BootstrapBlazor.Components
                 var option = new ToastOption
                 {
                     Category = ToastCategory.Error,
-                    Title = "新建数据",
-                    Content = "未提供保存数据方法，无法新建数据"
+                    Title = AddButtonToastTitle,
+                    Content = AddButtonToastContent
                 };
                 Toast.Show(option);
             }
@@ -205,8 +195,8 @@ namespace BootstrapBlazor.Components
                     var option = new ToastOption
                     {
                         Category = ToastCategory.Information,
-                        Title = "编辑数据",
-                        Content = SelectedItems.Count == 0 ? "请选择要编辑的数据" : "只能选择一项要编辑的数据"
+                        Title = EditButtonToastTitle,
+                        Content = SelectedItems.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent
                     };
                     Toast.Show(option);
                 }
@@ -216,8 +206,8 @@ namespace BootstrapBlazor.Components
                 var option = new ToastOption
                 {
                     Category = ToastCategory.Error,
-                    Title = "编辑数据",
-                    Content = "未提供保存数据方法，无法编辑数据"
+                    Title = EditButtonToastTitle,
+                    Content = EditButtonToastNoSaveMethodContent
                 };
                 Toast.Show(option);
             }
@@ -237,9 +227,9 @@ namespace BootstrapBlazor.Components
                 var option = new ToastOption
                 {
                     Category = valid ? ToastCategory.Success : ToastCategory.Error,
-                    Title = "保存数据"
+                    Title = SaveButtonToastTitle
                 };
-                option.Content = $"保存数据{(valid ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+                option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
                 Toast.Show(option);
                 if (valid)
                 {
@@ -252,8 +242,8 @@ namespace BootstrapBlazor.Components
                 var option = new ToastOption
                 {
                     Category = ToastCategory.Error,
-                    Title = "编辑数据",
-                    Content = "未提供保存数据方法，无法保存数据"
+                    Title = SaveButtonToastTitle,
+                    Content = SaveButtonToastContent
                 };
                 Toast.Show(option);
             }
@@ -269,7 +259,7 @@ namespace BootstrapBlazor.Components
             DialogOption.IsScrolling = ScrollingDialogContent;
             DialogOption.ShowFooter = false;
             DialogOption.Size = Size.ExtraLarge;
-            DialogOption.Title = EditModalTitleString ?? "未设置";
+            DialogOption.Title = EditModalTitleString;
 
             var editorParameters = new List<KeyValuePair<string, object>>
             {
@@ -277,7 +267,7 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Columns), Columns.Where(i => i.Editable)),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(Save)),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.ShowLabel), false),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate)
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate!)
             };
             DialogOption.Component = DynamicComponent.CreateComponent<TableEditorDialog<TItem>>(editorParameters);
 
@@ -295,9 +285,9 @@ namespace BootstrapBlazor.Components
                 var option = new ToastOption
                 {
                     Category = ToastCategory.Information,
-                    Title = "删除数据"
+                    Title = DeleteButtonToastTitle
                 };
-                option.Content = $"请选择要删除的数据, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+                option.Content = string.Format(DeleteButtonToastContent, Math.Ceiling(option.Delay / 1000.0));
                 Toast.Show(option);
             }
             else
@@ -316,10 +306,10 @@ namespace BootstrapBlazor.Components
             if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
             var option = new ToastOption()
             {
-                Title = "删除数据"
+                Title = DeleteButtonToastTitle
             };
             option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
-            option.Content = $"删除数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
+            option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
 
             if (ret)
             {
@@ -410,19 +400,12 @@ namespace BootstrapBlazor.Components
                     }
 
                     var bytes = excelPackage.GetAsByteArray();
-
                     var fileName = DateTime.Now.Ticks;
+                    var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    var excelName = $"{fileName}.xlsx";
+                    var bytesBase64 = Convert.ToBase64String(bytes);
+                    await JSRuntime.InvokeVoidAsync(null, "generatefile", excelName, bytesBase64, contentType);
 
-                    if (JSRuntimes != null)
-                    {
-                        var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
-                        var excelName = $"{fileName}.xlsx";
-
-                        var bytesBase64 = Convert.ToBase64String(bytes);
-
-                        await JSRuntimes.InvokeVoidAsync(null, "generatefile", excelName, bytesBase64, contentType);
-                    }
                     ret = true;
                 }
 

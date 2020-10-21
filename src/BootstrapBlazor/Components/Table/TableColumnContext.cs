@@ -5,7 +5,17 @@
     /// </summary>
     public class TableColumnContext<TModel, TValue>
     {
-#nullable disable
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="value"></param>
+        public TableColumnContext(TModel model, TValue value)
+        {
+            Row = model;
+            Value = value;
+        }
+
         /// <summary>
         /// 获得/设置 行数据实例
         /// </summary>
@@ -15,6 +25,5 @@
         /// 获得/设置 当前绑定字段数据实例
         /// </summary>
         public TValue Value { get; set; }
-#nullable restore
     }
 }

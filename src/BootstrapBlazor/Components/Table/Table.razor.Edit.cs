@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,18 +19,9 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得/设置 删除按钮提示弹框实例
-        /// </summary>
-        protected PopoverConfirm? DeleteConfirm { get; set; }
-
-        /// <summary>
-        /// 获得/设置 删除按钮提示弹框实例
-        /// </summary>
-        protected PopoverConfirm? ButtonDeleteConfirm { get; set; }
-
-        /// <summary>
         /// 获得/设置 编辑弹窗 Title 文字
         /// </summary>
+        [NotNull]
         protected string? EditModalTitleString { get; set; }
 
         /// <summary>
@@ -82,10 +74,7 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public IEnumerable<TItem> SelectedRows
         {
-            get
-            {
-                return SelectedItems;
-            }
+            get => SelectedItems;
             set
             {
                 if (SelectedItems != value) SelectedItems = value.ToList();
@@ -108,39 +97,41 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 编辑数据弹窗 Title
         /// </summary>
         [Parameter]
-        public string EditModalTitle { get; set; } = "编辑数据窗口";
+        [NotNull]
+        public string? EditModalTitle { get; set; }
 
         /// <summary>
         /// 获得/设置 新建数据弹窗 Title
         /// </summary>
         [Parameter]
-        public string AddModalTitle { get; set; } = "新建数据窗口";
+        [NotNull]
+        public string? AddModalTitle { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 EditModel 实例
         /// </summary>
         [Parameter]
-        public TItem EditModel { get; set; }
+        [NotNull]
+        public TItem? EditModel { get; set; }
 
         /// <summary>
         /// 获得/设置 EditTemplate 实例
         /// </summary>
         [Parameter]
-        public RenderFragment<TItem> EditTemplate { get; set; }
+        public RenderFragment<TItem>? EditTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 RowButtonTemplate 实例
         /// </summary>
         [Parameter]
-        public RenderFragment<TItem> RowButtonTemplate { get; set; }
-#nullable restore
+        public RenderFragment<TItem>? RowButtonTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 行内功能按钮列头文本 默认为 操作
         /// </summary>
         [Parameter]
-        public string ColumnButtonTemplateHeaderText { get; set; } = "操作";
+        [NotNull]
+        public string? ColumnButtonTemplateHeaderText { get; set; }
 
         /// <summary>
         /// 获得/设置 点击行即选中本行 默认为 false

@@ -1,0 +1,17 @@
+﻿{
+  "Title": "过滤",
+  "ClearButtonText": "重置",
+  "FilterButtonText": "确认",
+  "BoolFilter.AllText": "全部",
+  "BoolFilter.TrueText": "选中",
+  "BoolFilter.FalseText": "未选中",
+  "GreaterThanOrEqual": "大于等于",
+  "LessThanOrEqual": "小于等于",
+  "GreaterThan": "大于",
+  "LessThan": "小于",
+  "Equal": "等于",
+  "NotEqual": "不等于",
+  "Contains": "包含",
+  "NotContains": "不包含",
+  "EnumFilter.AllText": "全选"
+}

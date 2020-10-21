@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -16,14 +19,30 @@ namespace BootstrapBlazor.Components
 
         private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
 
-        private IEnumerable<SelectedItem> Items => new SelectedItem[] {
-            new SelectedItem("GreaterThanOrEqual", "大于等于"),
-            new SelectedItem("LessThanOrEqual", "小于等于"),
-            new SelectedItem("GreaterThan", "大于"),
-            new SelectedItem("LessThan", "小于"),
-            new SelectedItem("Equal", "等于"),
-            new SelectedItem("NotEqual", "不等于")
-        };
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<TableFilter>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            Items = new SelectedItem[]
+            {
+                new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"]),
+                new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"]),
+                new SelectedItem("GreaterThan", Localizer["GreaterThan"]),
+                new SelectedItem("LessThan", Localizer["LessThan"]),
+                new SelectedItem("Equal", Localizer["Equal"]),
+                new SelectedItem("NotEqual", Localizer["NotEqual"])
+            };
+
+            base.OnInitialized();
+        }
 
         /// <summary>
         /// 

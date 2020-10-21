@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -19,18 +20,17 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public IFilter? Filter { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 绑定列类型
         /// </summary>
-        public Type FieldType { get; set; }
+        [NotNull]
+        public Type? FieldType { get; set; }
 
         /// <summary>
         /// 获得/设置 数据绑定字段值
         /// </summary>
         [Parameter]
-        public TType Field { get; set; }
-#nullable restore
+        public TType? Field { get; set; }
 
         /// <summary>
         /// 获得/设置 ValueExpression 表达式
@@ -188,7 +188,7 @@ namespace BootstrapBlazor.Components
                 // 将绑定字段值放入上下文中
                 var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => context.GetPropertyValueLambda<object, TType>(key.FieldName).Compile());
                 var value = invoker(context);
-                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>() { Row = context, Value = value }));
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
             });
         }
 

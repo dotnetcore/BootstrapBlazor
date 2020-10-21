@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -59,7 +60,9 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示选择框文字 默认为 选择
         /// </summary>
         /// <value></value>
-        [Parameter] public string CheckboxDisplayText { get; set; } = "选择";
+        [Parameter]
+        [NotNull]
+        public string? CheckboxDisplayText { get; set; }
 
         /// <summary>
         /// 点击 Header 选择复选框时触发此方法

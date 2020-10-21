@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,7 +30,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 Header 显示文字
         /// </summary>
-        private string Title { get; set; } = "过滤";
+        [NotNull]
+        private string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 相关 Field 字段名称
@@ -62,10 +65,28 @@ namespace BootstrapBlazor.Components
         public ITableColumn? Column { get; set; }
 
         /// <summary>
+        /// 重置按钮文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? ClearButtonText { get; set; }
+
+        /// <summary>
+        /// 过滤按钮文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? FilterButtonText { get; set; }
+
+        /// <summary>
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]
         protected ITable? Table { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -73,6 +94,10 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            Title = Localizer[nameof(Title)];
+            FilterButtonText = Localizer[nameof(FilterButtonText)];
+            ClearButtonText = Localizer[nameof(ClearButtonText)];
 
             if (Column != null)
             {

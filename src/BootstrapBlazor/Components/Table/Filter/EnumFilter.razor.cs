@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace BootstrapBlazor.Components
@@ -14,18 +16,22 @@ namespace BootstrapBlazor.Components
 
         private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
 
-#nullable disable
         /// <summary>
         /// 内部使用
         /// </summary>
-        private Type EnumType { get; set; }
+        [NotNull]
+        private Type? EnumType { get; set; }
 
         /// <summary>
         /// 获得/设置 相关枚举类型
         /// </summary>
         [Parameter]
-        public Type Type { get; set; }
-#nullable restore
+        [NotNull]
+        public Type? Type { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -39,8 +45,8 @@ namespace BootstrapBlazor.Components
                 TableFilter.ShowMoreButton = false;
             }
 
-            EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
-            Items = EnumType.ToSelectList(new SelectedItem("", "全选"));
+            EnumType = Nullable.GetUnderlyingType(Type) ?? Type ?? throw new InvalidOperationException("the Parameter Type must be set.");
+            Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"]));
         }
 
         /// <summary>

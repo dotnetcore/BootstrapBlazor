@@ -1,0 +1,17 @@
+﻿{
+  "Title": "Filter",
+  "ClearButtonText": "Clear",
+  "FilterButtonText": "Filter",
+  "BoolFilter.AllText": "All",
+  "BoolFilter.TrueText": "True",
+  "BoolFilter.FalseText": "False",
+  "GreaterThanOrEqual": "GreaterThanOrEqual",
+  "LessThanOrEqual": "LessThanOrEqual",
+  "GreaterThan": "GreaterThan",
+  "LessThan": "LessThan",
+  "Equal": "Equal",
+  "NotEqual": "NotEqual",
+  "Contains": "Contains",
+  "NotContains": "NotContains",
+  "EnumFilter.AllText": "All"
+}

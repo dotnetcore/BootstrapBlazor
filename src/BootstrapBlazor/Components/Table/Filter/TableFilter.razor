@@ -51,7 +51,7 @@
                 <Button Color="@Color.None" OnClick="@OnClickMinus" Icon="fa fa-fw fa-minus" IsDisabled="@(Count == 0)"></Button>
             }
         </div>
-        <Button Color="@Color.None" class="is-close" OnClick="@OnClickReset" Text="重置"></Button>
-        <Button Color="@Color.None" class="is-close" OnClick="@OnClickConfirm" Text="确认"></Button>
+        <Button Color="@Color.None" class="is-close" OnClick="@OnClickReset" Text="@ClearButtonText"></Button>
+        <Button Color="@Color.None" class="is-close" OnClick="@OnClickConfirm" Text="@FilterButtonText"></Button>
     </div>
 </div>

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
@@ -15,17 +18,33 @@ namespace BootstrapBlazor.Components
 
         private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<TableFilter>? Localizer { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         protected override FilterLogic Logic { get; set; } = FilterLogic.Or;
 
-        private IEnumerable<SelectedItem> Items => new SelectedItem[] {
-            new SelectedItem("Contains", "包含"),
-            new SelectedItem("Equal", "等于"),
-            new SelectedItem("NotEqual", "不等于"),
-            new SelectedItem("NotContains", "不包含"),
-        };
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Items = new SelectedItem[]
+            {
+                new SelectedItem("Contains", Localizer["Contains"]),
+                new SelectedItem("Equal", Localizer["Equal"]),
+                new SelectedItem("NotEqual", Localizer["NotEqual"]),
+                new SelectedItem("NotContains", Localizer["NotContains"])
+            };
+        }
 
         /// <summary>
         /// 

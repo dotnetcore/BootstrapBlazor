@@ -29,18 +29,19 @@
                     {
                         @if (ShowAddButton)
                         {
-                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="新建" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="@AddButtonText" />
                         }
                         @if (ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@EditAsync" Icon="fa fa-pencil" Text="编辑" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
-                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" Icon="fa fa-remove" Text="删除"
+                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" 
+                                                          Icon="fa fa-remove" Text="@DeleteButtonText"
                                                           OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync()"
-                                                          CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
-                                                          ConfirmButtonText="删除" ConfirmButtonColor="Color.Danger" />
+                                                          CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
+                                                          ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
                         }
                     }
                     @TableToolbarTemplate
@@ -48,16 +49,16 @@
                 <div class="float-right table-toolbar-button btn-group table-column-right">
                     @if (ShowRefresh)
                     {
-                        <button class="btn btn-secondary" type="button" title="刷新" @onclick="@QueryAsync">
+                        <button class="btn btn-secondary" type="button" title="@RefreshButtonText" @onclick="@QueryAsync">
                             <i class="fa fa-refresh"></i>
-                            <span class="d-none d-sm-inline-block">刷新</span>
+                            <span class="d-none d-sm-inline-block">@RefreshButtonText</span>
                         </button>
                     }
                     @if (ShowColumnList)
                     {
-                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="列显示隐藏控制">
+                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="@ColumnButtonTitleText">
                             <i class="fa fa-th-list"></i>
-                            <span class="d-none d-sm-inline-block">列</span>
+                            <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -74,9 +75,9 @@
                     }
                     @if (ShowExportButton)
                     {
-                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="导出数据">
+                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="@ExportButtonText">
                             <i class="fa fa-download"></i>
-                            <span class="d-none d-sm-inline-block">导出数据</span>
+                            <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -100,22 +101,22 @@
             {
                 <div class="float-right table-toolbar-button btn-group">
                     <div class="input-group">
-                        <BootstrapInput class="table-toolbar-search" placeholder="搜索" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
                             <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                         </BootstrapInput>
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" title="搜索" @onclick="@SearchClick">
+                            <button class="btn btn-secondary" type="button" title="@SearchButtonText" @onclick="@SearchClick">
                                 <i class="fa fa-search"></i>
-                                <span class="d-none d-sm-inline-block">搜索</span>
+                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                             </button>
-                            <button class="btn btn-secondary" type="button" title="清空过滤" @onclick="@ClearSearchClick">
+                            <button class="btn btn-secondary" type="button" title="@ResetButtonText" @onclick="@ClearSearchClick">
                                 <i class="fa fa-trash"></i>
-                                <span class="d-none d-sm-inline-block">清空过滤</span>
+                                <span class="d-none d-sm-inline-block">@ResetButtonText</span>
                             </button>
                             @if (ShowAdvancedSearch)
                             {
-                                <Button class="@AdvanceSearchClass" title="高级搜索" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
-                                    <span class="d-none d-sm-inline-block">高级搜索</span>
+                                <Button class="@AdvanceSearchClass" title="@AdvanceButtonText" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
+                                    <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
                                 </Button>
                             }
                         </div>
@@ -190,14 +191,14 @@
                                     {
                                         @if (ShowEditButton)
                                         {
-                                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="编辑" />
+                                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
                                         }
                                         @if (ShowDeleteButton)
                                         {
                                             <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                                              Color="Color.Danger" Icon="fa fa-remove" Text="删除"
-                                                              CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
-                                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
+                                                              Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                                              CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
+                                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
                                                               OnBeforeClick="@ClickBeforeDelete(item)"
                                                               OnConfirm="@DeleteAsync()" />
                                         }
@@ -458,14 +459,14 @@ RenderFragment<TItem> RenderRow => item =>
                     {
                         @if (ShowEditButton)
                         {
-                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="编辑" />
+                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
                             <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                              Color="Color.Danger" Icon="fa fa-remove" Text="删除"
-                                              CloseButtonText="取消" Content="确认要删除选中的所有行吗？"
-                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="删除"
+                                              Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                              CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
+                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
                                               OnBeforeClick="@ClickBeforeDelete(item)"
                                               OnConfirm="@DeleteAsync()" />
                         }
