@@ -45,20 +45,20 @@ else
     {
         <button type="button" class="btn btn-secondary" @onclick="@OnClickClose">
             <i class="fa fa-times"></i>
-            <span>@ButtonCloseText</span>
+            <span>@(IsConfirm ? CancelButtonText : CloseButtonText)</span>
         </button>
     }
     @if (IsConfirm)
     {
         <button type="button" class="btn btn-danger ml-3" @onclick="@OnClickConfirm">
             <i class="fa fa-check"></i>
-            <span>@ButtonConfirmText</span>
+            <span>@ConfirmButtonText</span>
         </button>
     }
     @ButtonTemplate
 </div>
 
-@if(ShowFooter)
+@if (ShowFooter)
 {
     <div class="swal2-footer d-flex">
         @FooterTemplate

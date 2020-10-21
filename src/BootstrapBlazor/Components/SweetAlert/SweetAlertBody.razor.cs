@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -14,13 +16,21 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 关闭按钮文字 默认为 关闭
         /// </summary>
         [Parameter]
-        public string? ButtonCloseText { get; set; }
+        public string? CloseButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 确认按钮文字 默认为 确认
         /// </summary>
         [Parameter]
-        public string ButtonConfirmText { get; set; } = "确认";
+        [NotNull]
+        public string? ConfirmButtonText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 取消按钮文字 默认为 取消
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CancelButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 弹窗类别默认为 Success
@@ -32,13 +42,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示标题
         /// </summary>
         [Parameter]
-        public string Title { get; set; } = "";
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 显示内容
         /// </summary>
         [Parameter]
-        public string Content { get; set; } = "";
+        public string? Content { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示关闭按钮 默认显示
@@ -82,6 +92,10 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public RenderFragment? FooterTemplate { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<SweetAlert>? Localizer { get; set; }
+
         /// <summary>
         /// 获得/设置 按钮模板
         /// </summary>
@@ -123,10 +137,9 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (ButtonCloseText == null)
-            {
-                ButtonCloseText = IsConfirm ? "取消" : "关闭";
-            }
+            CloseButtonText = Localizer[nameof(CloseButtonText)];
+            CancelButtonText = Localizer[nameof(CancelButtonText)];
+            ConfirmButtonText = Localizer[nameof(ConfirmButtonText)];
         }
 
         private Task OnClickClose()
