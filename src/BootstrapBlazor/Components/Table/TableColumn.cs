@@ -30,7 +30,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据绑定字段值
         /// </summary>
         [Parameter]
-        public TType? Field { get; set; }
+        [MaybeNull]
+        public TType Field { get; set; }
 
         /// <summary>
         /// 获得/设置 ValueExpression 表达式

@@ -8,11 +8,13 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class TableDialog<TModel> : ComponentBase
     {
+#nullable disable
         /// <summary>
         /// 获得/设置 EditModel 实例
         /// </summary>
         [Parameter]
-        public TModel? Model { get; set; }
+        public TModel Model { get; set; }
+#nullable restore
 
         /// <summary>
         /// 获得/设置 BodyTemplate 实例
