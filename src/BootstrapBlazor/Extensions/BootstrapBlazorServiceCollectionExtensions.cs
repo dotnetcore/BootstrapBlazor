@@ -22,6 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddScoped<PopoverService>();
             services.TryAddScoped<ToastService>();
             services.TryAddScoped<SwalService>();
+            services.AddJsonLocalization();
             return services;
         }
     }
