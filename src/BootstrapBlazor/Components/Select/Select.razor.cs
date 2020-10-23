@@ -4,6 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
     public sealed partial class Select<TValue>
     {
         [Inject]
