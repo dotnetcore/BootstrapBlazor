@@ -93,8 +93,6 @@ namespace BootstrapBlazor.Server
             }
 
             app.UseResponseCompression();
-
-            app.UseRequestLocalization();
             app.UseStaticFiles();
             app.UseRouting();
 

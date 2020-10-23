@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -20,13 +21,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 搜索按钮图标
         /// </summary>
         [Parameter]
-        public string? SearchButtonIcon { get; set; } = "fa fa-search";
+        public string SearchButtonIcon { get; set; } = "fa fa-search";
 
         /// <summary>
         /// 获得/设置 搜索按钮文字
         /// </summary>
         [Parameter]
-        public string? SearchButtonText { get; set; } = "搜索";
+        [NotNull]
+        public string? SearchButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 点击搜索按钮时回调委托
