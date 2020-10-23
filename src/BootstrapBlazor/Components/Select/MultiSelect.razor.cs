@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,7 +50,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件 PlaceHolder 文字 默认为 点击进行多选 ...
         /// </summary>
         [Parameter]
-        public string PlaceHolder { get; set; } = "点击进行多选 ...";
+        [NotNull]
+        public string? PlaceHolder { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示搜索框 默认为 false 不显示
@@ -93,11 +96,41 @@ namespace BootstrapBlazor.Components
         public Func<IEnumerable<SelectedItem>, Task>? OnSelectedItemsChanged { get; set; }
 
         /// <summary>
+        /// 获得/设置 全选按钮显示文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? SelectAllText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 全选按钮显示文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? ReverseSelectText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 全选按钮显示文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? ClearText { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            PlaceHolder = Localizer[nameof(PlaceHolder)];
+            SelectAllText = Localizer[nameof(SelectAllText)];
+            ReverseSelectText = Localizer[nameof(ReverseSelectText)];
+            ClearText = Localizer[nameof(ClearText)];
 
             // 通过 Value 对集合进行赋值
             if (Value != null)

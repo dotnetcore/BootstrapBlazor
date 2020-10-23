@@ -44,22 +44,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 PlaceHolder 属性
-        /// </summary>
-        protected string? PlaceHolder
-        {
-            get
-            {
-                var placeHolder = "请选择 ...";
-                if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph) && !string.IsNullOrEmpty(Convert.ToString(ph)))
-                {
-                    placeHolder = ph.ToString();
-                }
-                return placeHolder;
-            }
-        }
-
-        /// <summary>
         /// 当前选择项实例
         /// </summary>
         protected SelectedItem? SelectedItem { get; set; }
@@ -95,6 +79,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Color Color { get; set; } = Color.None;
+
+        /// <summary>
+        /// 获得 PlaceHolder 属性
+        /// </summary>
+        [Parameter]
+        public string? PlaceHolder { get; set; }
 
         /// <summary>
         /// 获得/设置 绑定数据集

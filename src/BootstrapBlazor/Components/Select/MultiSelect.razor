@@ -39,9 +39,9 @@
         @if (ShowSelectAllButton)
         {
             <div class="toolbar">
-                <button class="btn" type="button" @onclick="@SelectAll">全选</button>
-                <button class="btn" type="button" @onclick="@InvertSelect">反选</button>
-                <button class="btn" type="button" @onclick="@Clear">清除</button>
+                <button class="btn" type="button" @onclick="@SelectAll">@SelectAllText</button>
+                <button class="btn" type="button" @onclick="@InvertSelect">@ReverseSelectText</button>
+                <button class="btn" type="button" @onclick="@Clear">@ClearText</button>
             </div>
         }
         @foreach (var item in GetData())
