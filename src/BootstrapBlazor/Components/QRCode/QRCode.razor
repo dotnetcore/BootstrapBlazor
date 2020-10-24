@@ -4,10 +4,10 @@
 <div @attributes="@AdditionalAttributes" class="qrcode" @ref="QRCodeElement">
     <div class="qrcode-img"></div>
     <div class="input-group qrcode-buttons">
-        <input type="text" class="form-control qrcode-text" placeholder="请输入内容">
+        <input type="text" class="form-control qrcode-text" placeholder="@PlaceHolder">
         <div class="input-group-append">
-            <Button Icon="fa fa-times" Text="清除" Color="@Color.Secondary" OnClickWithoutRender="@Clear"></Button>
-            <Button Icon="fa fa-qrcode" Text="生成" Color="@Color.Success" OnClickWithoutRender="@Generate"></Button>
+            <Button Icon="fa fa-times" Text="@ClearButtonText" Color="@Color.Secondary" OnClickWithoutRender="@Clear"></Button>
+            <Button Icon="fa fa-qrcode" Text="@GenerateButtonText" Color="@Color.Success" OnClickWithoutRender="@Generate"></Button>
         </div>
     </div>
 </div>

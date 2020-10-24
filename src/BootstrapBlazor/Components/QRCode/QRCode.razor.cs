@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -19,6 +21,43 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<Task>? OnGenerated { get; set; }
+
+        /// <summary>
+        /// 获得/设置 PlaceHolder 文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? PlaceHolder { get; set; }
+
+        /// <summary>
+        /// 获得/设置 清除按钮文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? ClearButtonText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 生成按钮文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? GenerateButtonText { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<QRCode>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            PlaceHolder = Localizer[nameof(PlaceHolder)];
+            ClearButtonText = Localizer[nameof(ClearButtonText)];
+            GenerateButtonText = Localizer[nameof(GenerateButtonText)];
+        }
 
         private async Task Clear()
         {

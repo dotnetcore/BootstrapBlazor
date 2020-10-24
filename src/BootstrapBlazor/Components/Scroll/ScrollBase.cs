@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 是否自动隐藏
         /// </summary>
-        protected string? AutoHideString => IsAutoHide ? "true" : "false";
+        protected string AutoHideString => IsAutoHide ? "true" : "false";
 
         /// <summary>
         /// 获得/设置 子组件

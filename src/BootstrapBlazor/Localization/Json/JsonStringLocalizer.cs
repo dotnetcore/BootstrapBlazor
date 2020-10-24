@@ -194,8 +194,8 @@ namespace BootstrapBlazor.Localization.Json
                 if (File.Exists(_searchedLocation))
                 {
                     var builder = new ConfigurationBuilder()
-                    .SetBasePath(_resourcesPath)
-                    .AddJsonFile(resourceFile, optional: false, reloadOnChange: false);
+                        .SetBasePath(_resourcesPath)
+                        .AddJsonFile(resourceFile, optional: false, reloadOnChange: false);
 
                     var config = builder.Build();
                     value = config.AsEnumerable();
