@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 弹窗标题
         /// </summary>
         [Parameter]
-        public string Title { get; set; } = "未设置";
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 弹窗大小

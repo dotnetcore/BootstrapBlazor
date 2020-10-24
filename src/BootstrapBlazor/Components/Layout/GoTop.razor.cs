@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -15,6 +17,27 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? Target { get; set; }
+
+        /// <summary>
+        /// 获得/设置 鼠标悬停提示文字信息
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? TooltipText { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<GoTop>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            TooltipText ??= Localizer[nameof(TooltipText)];
+        }
 
         /// <summary>
         /// OnAfterRenderAsync 方法

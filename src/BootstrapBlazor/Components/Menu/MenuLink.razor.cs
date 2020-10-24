@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,13 +25,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool DisableNavigation { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 MenuItem 实例 不可为空
         /// </summary>
         [Parameter]
-        public MenuItem Item { get; set; }
-#nullable restore
+        [NotNull]
+        public MenuItem? Item { get; set; }
 
         /// <summary>
         /// 获得/设置 点击菜单回调委托方法
