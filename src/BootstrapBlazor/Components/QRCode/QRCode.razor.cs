@@ -54,9 +54,9 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            PlaceHolder = Localizer[nameof(PlaceHolder)];
-            ClearButtonText = Localizer[nameof(ClearButtonText)];
-            GenerateButtonText = Localizer[nameof(GenerateButtonText)];
+            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+            ClearButtonText ??= Localizer[nameof(ClearButtonText)];
+            GenerateButtonText ??= Localizer[nameof(GenerateButtonText)];
         }
 
         private async Task Clear()

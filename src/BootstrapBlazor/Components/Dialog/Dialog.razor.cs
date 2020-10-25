@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,25 +10,26 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Dialog 对话框组件
     /// </summary>
-    public abstract class DialogBase : BootstrapComponentBase
+    public sealed partial class Dialog
     {
         /// <summary>
         /// 获得/设置 Modal 容器组件实例
         /// </summary>
-        protected Modal? ModalContainer { get; set; }
+        [NotNull]
+        private Modal? ModalContainer { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 弹出对话框实例
         /// </summary>
-        protected ModalDialog ModalDialog { get; set; }
+        [NotNull]
+        private ModalDialog? ModalDialog { get; set; }
 
         /// <summary>
         /// DialogServices 服务实例
         /// </summary>
         [Inject]
-        public DialogService DialogService { get; set; }
-#nullable restore
+        [NotNull]
+        private DialogService? DialogService { get; set; }
 
         private bool IsShowDialog { get; set; }
 

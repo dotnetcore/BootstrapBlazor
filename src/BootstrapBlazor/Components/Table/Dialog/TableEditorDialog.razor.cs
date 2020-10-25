@@ -43,8 +43,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            CloseButtonText = Localizer[nameof(CloseButtonText)];
-            SaveButtonText = Localizer[nameof(SaveButtonText)];
+            CloseButtonText ??= Localizer[nameof(CloseButtonText)];
+            SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         }
     }
 }

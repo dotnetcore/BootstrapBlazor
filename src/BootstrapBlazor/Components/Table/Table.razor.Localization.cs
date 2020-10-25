@@ -229,40 +229,40 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected void OnInitLocalization()
         {
-            AddButtonText = Localizer[nameof(AddButtonText)];
-            EditButtonText = Localizer[nameof(EditButtonText)];
-            DeleteButtonText = Localizer[nameof(DeleteButtonText)];
-            CancelDeleteButtonText = Localizer[nameof(CancelDeleteButtonText)];
-            ConfirmDeleteButtonText = Localizer[nameof(ConfirmDeleteButtonText)];
-            ConfirmDeleteContentText = Localizer[nameof(ConfirmDeleteContentText)];
-            RefreshButtonText = Localizer[nameof(RefreshButtonText)];
-            ColumnButtonTitleText = Localizer[nameof(ColumnButtonTitleText)];
-            ColumnButtonText = Localizer[nameof(ColumnButtonText)];
-            ExportButtonText = Localizer[nameof(ExportButtonText)];
-            SearchPlaceholderText = Localizer[nameof(SearchPlaceholderText)];
-            SearchButtonText = Localizer[nameof(SearchButtonText)];
-            ResetButtonText = Localizer[nameof(ResetButtonText)];
-            AdvanceButtonText = Localizer[nameof(AdvanceButtonText)];
-            CheckboxDisplayText = Localizer[nameof(CheckboxDisplayText)];
-            EditModalTitle = Localizer[nameof(EditModalTitle)];
-            AddModalTitle = Localizer[nameof(AddModalTitle)];
-            ColumnButtonTemplateHeaderText = Localizer[nameof(ColumnButtonTemplateHeaderText)];
-            SearchTooltip = Localizer[nameof(SearchTooltip)];
-            SearchModalTitle = Localizer[nameof(SearchModalTitle)];
-            AddButtonToastTitle = Localizer[nameof(AddButtonToastTitle)];
-            AddButtonToastContent = Localizer[nameof(AddButtonToastContent)];
-            EditButtonToastTitle = Localizer[nameof(EditButtonToastTitle)];
-            EditButtonToastNotSelectContent = Localizer[nameof(EditButtonToastNotSelectContent)];
-            EditButtonToastMoreSelectContent = Localizer[nameof(EditButtonToastMoreSelectContent)];
-            EditButtonToastNoSaveMethodContent = Localizer[nameof(EditButtonToastNoSaveMethodContent)];
-            SaveButtonToastTitle = Localizer[nameof(SaveButtonToastTitle)];
-            SaveButtonToastContent = Localizer[nameof(SaveButtonToastContent)];
-            SaveButtonToastResultContent = Localizer[nameof(SaveButtonToastResultContent)];
-            SuccessText = Localizer[nameof(SuccessText)];
-            FailText = Localizer[nameof(FailText)];
-            DeleteButtonToastTitle = Localizer[nameof(DeleteButtonToastTitle)];
-            DeleteButtonToastContent = Localizer[nameof(DeleteButtonToastContent)];
-            DeleteButtonToastResultContent = Localizer[nameof(DeleteButtonToastResultContent)];
+            AddButtonText ??= Localizer[nameof(AddButtonText)];
+            EditButtonText ??= Localizer[nameof(EditButtonText)];
+            DeleteButtonText ??= Localizer[nameof(DeleteButtonText)];
+            CancelDeleteButtonText ??= Localizer[nameof(CancelDeleteButtonText)];
+            ConfirmDeleteButtonText ??= Localizer[nameof(ConfirmDeleteButtonText)];
+            ConfirmDeleteContentText ??= Localizer[nameof(ConfirmDeleteContentText)];
+            RefreshButtonText ??= Localizer[nameof(RefreshButtonText)];
+            ColumnButtonTitleText ??= Localizer[nameof(ColumnButtonTitleText)];
+            ColumnButtonText ??= Localizer[nameof(ColumnButtonText)];
+            ExportButtonText ??= Localizer[nameof(ExportButtonText)];
+            SearchPlaceholderText ??= Localizer[nameof(SearchPlaceholderText)];
+            SearchButtonText ??= Localizer[nameof(SearchButtonText)];
+            ResetButtonText ??= Localizer[nameof(ResetButtonText)];
+            AdvanceButtonText ??= Localizer[nameof(AdvanceButtonText)];
+            CheckboxDisplayText ??= Localizer[nameof(CheckboxDisplayText)];
+            EditModalTitle ??= Localizer[nameof(EditModalTitle)];
+            AddModalTitle ??= Localizer[nameof(AddModalTitle)];
+            ColumnButtonTemplateHeaderText ??= Localizer[nameof(ColumnButtonTemplateHeaderText)];
+            SearchTooltip ??= Localizer[nameof(SearchTooltip)];
+            SearchModalTitle ??= Localizer[nameof(SearchModalTitle)];
+            AddButtonToastTitle ??= Localizer[nameof(AddButtonToastTitle)];
+            AddButtonToastContent ??= Localizer[nameof(AddButtonToastContent)];
+            EditButtonToastTitle ??= Localizer[nameof(EditButtonToastTitle)];
+            EditButtonToastNotSelectContent ??= Localizer[nameof(EditButtonToastNotSelectContent)];
+            EditButtonToastMoreSelectContent ??= Localizer[nameof(EditButtonToastMoreSelectContent)];
+            EditButtonToastNoSaveMethodContent ??= Localizer[nameof(EditButtonToastNoSaveMethodContent)];
+            SaveButtonToastTitle ??= Localizer[nameof(SaveButtonToastTitle)];
+            SaveButtonToastContent ??= Localizer[nameof(SaveButtonToastContent)];
+            SaveButtonToastResultContent ??= Localizer[nameof(SaveButtonToastResultContent)];
+            SuccessText ??= Localizer[nameof(SuccessText)];
+            FailText ??= Localizer[nameof(FailText)];
+            DeleteButtonToastTitle ??= Localizer[nameof(DeleteButtonToastTitle)];
+            DeleteButtonToastContent ??= Localizer[nameof(DeleteButtonToastContent)];
+            DeleteButtonToastResultContent ??= Localizer[nameof(DeleteButtonToastResultContent)];
         }
     }
 }

@@ -95,9 +95,9 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            Title = Localizer[nameof(Title)];
-            FilterButtonText = Localizer[nameof(FilterButtonText)];
-            ClearButtonText = Localizer[nameof(ClearButtonText)];
+            Title ??= Localizer[nameof(Title)];
+            FilterButtonText ??= Localizer[nameof(FilterButtonText)];
+            ClearButtonText ??= Localizer[nameof(ClearButtonText)];
 
             if (Column != null)
             {

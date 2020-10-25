@@ -51,10 +51,10 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            Text = Localizer[nameof(Text)];
-            ResetText = Localizer[nameof(ResetText)];
-            FileTooLargeText = Localizer[nameof(FileTooLargeText)];
-            AllowFileTypeErrorMessage = Localizer[nameof(AllowFileTypeErrorMessage)];
+            Text ??= Localizer[nameof(Text)];
+            ResetText ??= Localizer[nameof(ResetText)];
+            FileTooLargeText ??= Localizer[nameof(FileTooLargeText)];
+            AllowFileTypeErrorMessage ??= Localizer[nameof(AllowFileTypeErrorMessage)];
         }
 
         /// <summary>

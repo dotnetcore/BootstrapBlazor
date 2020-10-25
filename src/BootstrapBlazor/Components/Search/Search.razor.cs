@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            SearchButtonText = Localizer[nameof(SearchButtonText)];
+            SearchButtonText ??= Localizer[nameof(SearchButtonText)];
         }
     }
 }

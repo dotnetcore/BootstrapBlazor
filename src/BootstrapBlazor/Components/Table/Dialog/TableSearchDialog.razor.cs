@@ -50,8 +50,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            ResetButtonText = Localizer[nameof(ResetButtonText)];
-            QueryButtonText = Localizer[nameof(QueryButtonText)];
+            ResetButtonText ??= Localizer[nameof(ResetButtonText)];
+            QueryButtonText ??= Localizer[nameof(QueryButtonText)];
         }
     }
 }

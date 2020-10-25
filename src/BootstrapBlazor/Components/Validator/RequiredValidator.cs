@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            ErrorMessage = Localizer[nameof(ErrorMessage)];
+            ErrorMessage ??= Localizer[nameof(ErrorMessage)];
         }
 
         /// <summary>

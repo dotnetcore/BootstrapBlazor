@@ -137,9 +137,9 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            CloseButtonText = Localizer[nameof(CloseButtonText)];
-            CancelButtonText = Localizer[nameof(CancelButtonText)];
-            ConfirmButtonText = Localizer[nameof(ConfirmButtonText)];
+            CloseButtonText ??= Localizer[nameof(CloseButtonText)];
+            CancelButtonText ??= Localizer[nameof(CancelButtonText)];
+            ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         }
 
         private Task OnClickClose()

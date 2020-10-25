@@ -127,10 +127,10 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            PlaceHolder = Localizer[nameof(PlaceHolder)];
-            SelectAllText = Localizer[nameof(SelectAllText)];
-            ReverseSelectText = Localizer[nameof(ReverseSelectText)];
-            ClearText = Localizer[nameof(ClearText)];
+            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+            SelectAllText ??= Localizer[nameof(SelectAllText)];
+            ReverseSelectText ??= Localizer[nameof(ReverseSelectText)];
+            ClearText ??= Localizer[nameof(ClearText)];
 
             // 通过 Value 对集合进行赋值
             if (Value != null)

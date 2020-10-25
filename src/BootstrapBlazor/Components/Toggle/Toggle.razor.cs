@@ -20,8 +20,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            OnText = Localizer[nameof(OnText)];
-            OffText = Localizer[nameof(OffText)];
+            OnText ??= Localizer[nameof(OnText)];
+            OffText ??= Localizer[nameof(OffText)];
         }
     }
 }

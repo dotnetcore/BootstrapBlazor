@@ -21,7 +21,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            PlaceHolder = Localizer[nameof(PlaceHolder)];
+            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         }
     }
 }
