@@ -121,10 +121,10 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            PauseText = Localizer[nameof(PauseText)];
-            ResumeText = Localizer[nameof(ResumeText)];
-            CancelText = Localizer[nameof(CancelText)];
-            StarText = Localizer[nameof(StarText)];
+            PauseText ??= Localizer[nameof(PauseText)];
+            ResumeText ??= Localizer[nameof(ResumeText)];
+            CancelText ??= Localizer[nameof(CancelText)];
+            StarText ??= Localizer[nameof(StarText)];
         }
 
         /// <summary>

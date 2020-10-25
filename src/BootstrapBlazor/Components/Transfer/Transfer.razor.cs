@@ -23,8 +23,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            LeftPanelText = Localizer[nameof(LeftPanelText)];
-            RightPanelText = Localizer[nameof(RightPanelText)];
+            LeftPanelText ??= Localizer[nameof(LeftPanelText)];
+            RightPanelText ??= Localizer[nameof(RightPanelText)];
         }
     }
 }
