@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -7,33 +9,33 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// DateTimePicker 组件基类
     /// </summary>
-    public abstract class DateTimePickerBase<TValue> : ValidateBase<TValue>
+    public sealed partial class DateTimePicker<TValue>
     {
         /// <summary>
         /// 获得 组件样式名称
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("datetime-picker")
+        private string? ClassString => CssBuilder.Default("datetime-picker")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
         /// 获得 组件文本框样式名称
         /// </summary>
-        protected string? InputClassName => CssBuilder.Default("form-control datetime-picker-input")
+        private string? InputClassName => CssBuilder.Default("form-control datetime-picker-input")
             .AddClass(ValidCss)
             .Build();
 
         /// <summary>
         /// 获得 组件小图标样式
         /// </summary>
-        protected string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-input-icon")
+        private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-input-icon")
             .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>
         /// 获得 组件弹窗位置
         /// </summary>
-        protected string? PlacementString => CssBuilder.Default()
+        private string? PlacementString => CssBuilder.Default()
             .AddClass("top", Placement == Placement.Top)
             .AddClass("bottom", Placement == Placement.Bottom)
             .AddClass("left", Placement == Placement.Left)
@@ -43,21 +45,21 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Placeholder 显示字符串
         /// </summary>
-        protected string? PlaceholderString => ViewModel switch
+        private string? PlaceholderString => ViewModel switch
         {
-            DatePickerViewModel.DateTime => "请选择日期时间",
-            _ => "请选择日期"
+            DatePickerViewModel.DateTime => DateTimePlaceHolderText,
+            _ => DatePlaceHolderText
         };
 
         /// <summary>
         /// 获得/设置 是否允许为空 默认 false 不允许为空
         /// </summary>
-        protected bool AllowNull { get; set; }
+        private bool AllowNull { get; set; }
 
         /// <summary>
         /// 获得/设置 组件时间
         /// </summary>
-        protected DateTime ComponentValue
+        private DateTime ComponentValue
         {
             get
             {
@@ -85,7 +87,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件 DOM 实例
         /// </summary>
-        protected ElementReference Picker { get; set; }
+        private ElementReference Picker { get; set; }
 
         /// <summary>
         /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
@@ -105,6 +107,25 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public DatePickerViewModel ViewModel { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
+
+        [NotNull]
+        private string? DatePlaceHolderText { get; set; }
+
+        [NotNull]
+        private string? DateTimePlaceHolderText { get; set; }
+
+        [NotNull]
+        private string? GenericTypeErroMessage { get; set; }
+
+        [NotNull]
+        private string? DateTimeFormat { get; set; }
+
+        [NotNull]
+        private string? DateFormat { get; set; }
+
         /// <summary>
         /// OnInitialized
         /// </summary>
@@ -112,9 +133,15 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
+            DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
+            GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+            DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+            DateFormat ??= Localizer[nameof(DateFormat)];
+
             // 判断泛型类型
             var isDateTime = typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?);
-            if (!isDateTime) throw new InvalidOperationException($"DateTimePicker 组件仅支持绑定泛型为 DateTime 或者 DateTime?");
+            if (!isDateTime) throw new InvalidOperationException(GenericTypeErroMessage);
 
             // 泛型设置为可为空
             AllowNull = typeof(TValue) == typeof(DateTime?);
@@ -157,7 +184,7 @@ namespace BootstrapBlazor.Components
                 var format = Format;
                 if (string.IsNullOrEmpty(format))
                 {
-                    format = ViewModel == DatePickerViewModel.DateTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd";
+                    format = ViewModel == DatePickerViewModel.DateTime ? DateTimeFormat : DateFormat;
                 }
 
                 ret = ComponentValue.ToString(format);
@@ -169,7 +196,7 @@ namespace BootstrapBlazor.Components
         /// 清空按钮点击时回调此方法
         /// </summary>
         /// <returns></returns>
-        protected async Task OnClear()
+        private async Task OnClear()
         {
             CurrentValue = default!;
             StateHasChanged();
@@ -179,7 +206,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 确认按钮点击时回调此方法
         /// </summary>
-        protected async Task OnConfirm()
+        private async Task OnConfirm()
         {
             await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
         }

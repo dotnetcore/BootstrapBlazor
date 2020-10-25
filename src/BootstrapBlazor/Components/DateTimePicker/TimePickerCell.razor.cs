@@ -9,12 +9,12 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 时间选择滚轮单元组件
     /// </summary>
-    public partial class TimePickerCell
+    public sealed partial class TimePickerCell
     {
         /// <summary>
         /// 获得 当前样式名称
         /// </summary>
-        protected string? GetClassName(int index) => CssBuilder.Default("time-spinner-item")
+        private string? GetClassName(int index) => CssBuilder.Default("time-spinner-item")
             .AddClass("prev", ViewModel switch
             {
                 TimePickerCellViewModel.Hour => Value.Hours - 1 == index,
@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 滚轮单元数据区间
         /// </summary>
-        protected IEnumerable<int> Range => ViewModel switch
+        private IEnumerable<int> Range => ViewModel switch
         {
             TimePickerCellViewModel.Hour => Enumerable.Range(0, 24),
             _ => Enumerable.Range(0, 60)
@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件单元数据样式
         /// </summary>
-        protected string? StyleName => CssBuilder.Default()
+        private string? StyleName => CssBuilder.Default()
             .AddClass($"transform: translateY({CalcTranslateY()}px);")
             .Build();
 
@@ -77,7 +77,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 上翻页按钮调用此方法
         /// </summary>
-        protected async Task OnClickUp()
+        private async Task OnClickUp()
         {
             var ts = ViewModel switch
             {
@@ -101,7 +101,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 下翻页按钮调用此方法
         /// </summary>
-        protected async Task OnClickDown()
+        private async Task OnClickDown()
         {
             var ts = ViewModel switch
             {

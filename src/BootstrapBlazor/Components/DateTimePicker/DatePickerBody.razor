@@ -1,40 +1,45 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits DatePickerBodyBase
+@inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassName">
     <div class="picker-panel-body-wrapper">
         <div class="picker-panel-body">
             <div class="@DateTimeViewClassName">
                 <span class="date-picker-editor-wrap">
-                    <input type="text" autocomplete="off" readonly placeholder="选择日期" class="input-inner form-control" value="@DateValueString">
+                    <input type="text" autocomplete="off" readonly placeholder="@DatePlaceHolder" class="input-inner form-control" value="@DateValueString">
                 </span>
                 <span class="date-picker-editor-wrap">
-                    <input type="text" autocomplete="off" readonly placeholder="选择时间" class="input-inner form-control" value="@TimeValueString" @onclick="@OnClickTimeInput">
+                    <input type="text" autocomplete="off" readonly placeholder="@TimePlaceHolder" class="input-inner form-control" value="@TimeValueString" @onclick="@OnClickTimeInput">
                     <TimePickerBody @bind-Value="CurrentTime" OnClose="@OnTimePickerClose" OnConfirm="@OnTimePickerClose" />
                 </span>
             </div>
             <div class="date-picker-header">
-                <button type="button" aria-label="前一年" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
+                <button type="button" aria-label="@AiraPrevYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
                     <i class="fa fa-angle-double-left"></i>
                 </button>
-                <button type="button" aria-label="上个月" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
+                <button type="button" aria-label="@AiraPrevMonthLabel" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
                     <i class="fa fa-angle-left"></i>
                 </button>
                 <div class="d-flex align-items-center justify-content-center flex-fill">
                     <span role="button" class="date-picker-header-label" @onclick="e => SwitchView(DatePickerViewModel.Year)">@YearString</span>
-                    <span role="button" class="@CurrentMonthViewClassName" @onclick="e => SwitchView(DatePickerViewModel.Month)">@($"{CurrentDate.Month} 月")</span>
+                    <span role="button" class="@CurrentMonthViewClassName" @onclick="e => SwitchView(DatePickerViewModel.Month)">@MonthString</span>
                 </div>
-                <button type="button" aria-label="下个月" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
+                <button type="button" aria-label="@AiraNextMonthLabel" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
                     <i class="fa fa-angle-right"></i>
                 </button>
-                <button type="button" aria-label="后一年" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
+                <button type="button" aria-label="@AiraNextYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
                     <i class="fa fa-angle-double-right"></i>
                 </button>
             </div>
             <div class="picker-panel-content">
                 <table cellspacing="0" cellpadding="0" class="@DateViewClassName">
                     <tbody>
-                        <tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>
+                        <tr>
+                            @foreach (var w in WeekLists)
+                            {
+                                <th>@w</th>
+                            }
+                        </tr>
                         @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
                         {
                             <tr class="date-table-row">
@@ -92,15 +97,15 @@
             @if (AllowNull)
             {
                 <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickClearButton">
-                    <span>清空</span>
+                    <span>@ClearButtonText</span>
                 </button>
             }
         </div>
         <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
-            <span>此刻</span>
+            <span>@NowButtonText</span>
         </button>
         <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
-            <span>确定</span>
+            <span>@ConfirmButtonText</span>
         </button>
     </div>
 </div>

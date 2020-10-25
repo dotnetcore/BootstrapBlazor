@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TimePickerBodyBase
+@inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassName" @ref="TimePickerElement">
     <div class="time-panel-content has-seconds">
@@ -9,8 +9,8 @@
             <TimePickerCell @bind-Value="@CurrentTime" ItemHeightCallback="@ItemHeightCallback" ViewModel="TimePickerCellViewModel.Second" />
         </div>
         <div class="time-panel-footer">
-            <button type="button" class="time-panel-btn cancel" @onclick="@OnClickClose">@CancelText</button>
-            <button type="button" class="time-panel-btn confirm" @onclick="@OnClickConfirm">@ConfirmText</button>
+            <button type="button" class="time-panel-btn cancel" @onclick="@OnClickClose">@CancelButtonText</button>
+            <button type="button" class="time-panel-btn confirm" @onclick="@OnClickConfirm">@ConfirmButtonText</button>
         </div>
     </div>
 </div>

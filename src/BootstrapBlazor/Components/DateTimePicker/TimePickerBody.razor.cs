@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -7,22 +9,22 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// TimePicker 组件基类
     /// </summary>
-    public abstract class TimePickerBodyBase : BootstrapComponentBase
+    public sealed partial class TimePickerBody
     {
         /// <summary>
         /// 获得 组件客户端 DOM 实例
         /// </summary>
-        protected ElementReference TimePickerElement { get; set; }
+        private ElementReference TimePickerElement { get; set; }
 
         /// <summary>
         /// 获得/设置 当前时间
         /// </summary>
-        protected TimeSpan CurrentTime { get; set; }
+        private TimeSpan CurrentTime { get; set; }
 
         /// <summary>
         /// 获得/设置 样式
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("time-panel")
+        private string? ClassName => CssBuilder.Default("time-panel")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -45,18 +47,20 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 取消按钮显示文字
         /// </summary>
         [Parameter]
-        public string CancelText { get; set; } = "取消";
+        [NotNull]
+        public string? CancelButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 确定按钮显示文字
         /// </summary>
         [Parameter]
-        public string ConfirmText { get; set; } = "确定";
+        [NotNull]
+        public string? ConfirmButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 时间刻度行高
         /// </summary>
-        protected Func<double> ItemHeightCallback { get; set; } = () => 36.594d;
+        private Func<double> ItemHeightCallback { get; set; } = () => 36.594d;
 
         /// <summary>
         /// 获得/设置 取消按钮回调委托
@@ -70,6 +74,10 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Action? OnConfirm { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -78,6 +86,8 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             CurrentTime = Value;
+            CancelButtonText ??= Localizer[nameof(CancelButtonText)];
+            ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         }
 
         /// <summary>
@@ -98,7 +108,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击取消按钮回调此方法
         /// </summary>
-        protected Task OnClickClose()
+        private Task OnClickClose()
         {
             CurrentTime = Value;
             OnClose?.Invoke();
@@ -108,7 +118,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击确认按钮时回调此方法
         /// </summary>
-        protected async Task OnClickConfirm()
+        private async Task OnClickConfirm()
         {
             Value = CurrentTime;
             if (ValueChanged.HasDelegate)
