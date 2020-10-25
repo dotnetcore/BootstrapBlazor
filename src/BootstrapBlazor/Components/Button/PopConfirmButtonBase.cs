@@ -15,6 +15,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 PopoverConfirm 服务实例
         /// </summary>
         [Inject]
+        [NotNull]
         private PopoverService? PopoverService { get; set; }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace BootstrapBlazor.Components
             if (await OnBeforeClick())
             {
                 // 生成客户端弹窗
-                PopoverService?.Show(new PopoverConfirmOption()
+                PopoverService.Show(new PopoverConfirmOption()
                 {
                     ButtonId = Id,
                     Title = Title,

@@ -28,13 +28,15 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 最终候选数据源
         /// </summary>
-        protected List<string> FilterItems { get; private set; } = new List<string>();
+        [NotNull]
+        protected List<string>? FilterItems { get; private set; }
 
         /// <summary>
         /// 获得/设置 通过输入字符串获得匹配数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<string> Items { get; set; } = new string[0];
+        [NotNull]
+        public IEnumerable<string>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
@@ -43,30 +45,12 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public string? NoDataTip { get; set; }
 
-        private string? _placeholder;
         /// <summary>
         /// 获得 PlaceHolder 属性
         /// </summary>
         [Parameter]
-        public string? PlaceHolder
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_placeholder))
-                {
-                    _placeholder = Localizer[nameof(PlaceHolder)];
-                    if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph) && !string.IsNullOrEmpty(Convert.ToString(ph)))
-                    {
-                        _placeholder = ph.ToString();
-                    }
-                }
-                return _placeholder;
-            }
-            set
-            {
-                _placeholder = value;
-            }
-        }
+        [NotNull]
+        public string? PlaceHolder { get; set; }
 
         /// <summary>
         /// 是否开启模糊查询，默认为 false
@@ -108,8 +92,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override void OnInitialized()
         {
-            NoDataTip = Localizer[nameof(NoDataTip)];
             base.OnInitialized();
+
+            NoDataTip ??= Localizer[nameof(NoDataTip)];
+            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+            Items ??= Enumerable.Empty<string>();
+            FilterItems ??= new List<string>();
         }
 
         /// <summary>
