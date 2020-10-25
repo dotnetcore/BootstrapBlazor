@@ -1,0 +1,12 @@
+﻿{
+  "AiraPageLabel": "分页组件",
+  "AiraPrevPageText": "上一页",
+  "AiraFirstPageText": "第一页",
+  "AiraNextPageText": "下一页",
+  "PageInfoText": "显示第 {0} 到第 {1} 条记录",
+  "TotalInfoText": "，总共 {0} 条记录",
+  "PrePageInfoText": "每页显示",
+  "RowInfoText": "条记录",
+  "LabelString": "第 {0} 页",
+  "SelectItemsText": "{0} 条/页"
+}

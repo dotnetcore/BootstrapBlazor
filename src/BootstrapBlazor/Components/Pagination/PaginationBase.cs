@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -111,23 +110,6 @@ namespace BootstrapBlazor.Components
         {
             var pageIndex = PageIndex < PageCount ? Math.Min(PageCount, PageIndex + index) : 1;
             OnPageItemClick(pageIndex);
-        }
-
-        /// <summary>
-        /// 获得页码设置集合
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<SelectedItem> GetPageItems()
-        {
-            var pages = PageItemsSource ?? new List<int>() { 20, 40, 80, 100, 200 };
-            var ret = new List<SelectedItem>();
-            for (var i = 0; i < pages.Count(); i++)
-            {
-                var item = new SelectedItem(pages.ElementAt(i).ToString(), $"{pages.ElementAt(i)} 条/页");
-                ret.Add(item);
-                if (pages.ElementAt(i) >= TotalCount) break;
-            }
-            return ret;
         }
 
         /// <summary>

@@ -1,0 +1,12 @@
+﻿{
+  "AiraPageLabel": "Pagination",
+  "AiraPrevPageText": "Prev",
+  "AiraFirstPageText": "First",
+  "AiraNextPageText": "Next",
+  "PageInfoText": "{0}-{1}",
+  "TotalInfoText": ", Total {0}",
+  "PrePageInfoText": "",
+  "RowInfoText": "",
+  "LabelString": "page {0}",
+  "SelectItemsText": "{0} /page"
+}
