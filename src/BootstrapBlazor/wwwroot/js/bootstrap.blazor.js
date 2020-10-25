@@ -1824,7 +1824,9 @@
                     $split.toggleClass('dragging');
                 });
         },
-        layout: function (refObj, method) {
+        bb_layout: function (refObj, method) {
+            $('.layout-header').find('[data-toggle="tooltip"]').tooltip();
+
             $(window).on('resize', function () {
                 calcWindow();
             });

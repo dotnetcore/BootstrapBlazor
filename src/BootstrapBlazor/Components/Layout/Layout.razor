@@ -38,7 +38,7 @@
             <header class="@HeaderClassString">
                 @if (ShowCollapseBar)
                 {
-                    <a class="@CollapseBarClassString" title="点击展开收缩左侧菜单" @onclick="@CollapseMenu">
+                    <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@CollapseMenu">
                         <i class="fa fa-bars"></i>
                     </a>
                 }
@@ -64,7 +64,7 @@
         <header class="@HeaderClassString">
             @if (ShowCollapseBar)
             {
-                <a class="@CollapseBarClassString" title="点击展开收缩左侧菜单" @onclick="@CollapseMenu">
+                <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@CollapseMenu">
                     <i class="fa fa-bars"></i>
                 </a>
             }
