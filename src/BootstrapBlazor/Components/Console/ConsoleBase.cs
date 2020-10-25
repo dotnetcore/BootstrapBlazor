@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -11,11 +10,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class ConsoleBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得 Console 组件客户端引用实例
-        /// </summary>
-        protected ElementReference ConsoleElement { get; set; }
-
         /// <summary>
         /// 获得 组件样式
         /// </summary>
@@ -67,13 +61,19 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Header 显示文字 默认值为 系统监控
         /// </summary>
         [Parameter]
-        public string HeaderText { get; set; } = "系统监控";
+        public string? HeaderText { get; set; }
 
         /// <summary>
         /// 获得/设置 指示灯 Title 显示文字
         /// </summary>
         [Parameter]
-        public string LightTitle { get; set; } = "通讯指示灯";
+        public string? LightTitle { get; set; }
+
+        /// <summary>
+        /// 获得/设置 自动滚屏显示文字
+        /// </summary>
+        [Parameter]
+        public string? AutoScrollText { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示自动滚屏选项 默认 false
@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 按钮 显示文字 默认值为 清屏
         /// </summary>
         [Parameter]
-        public string ClearButtonText { get; set; } = "清屏";
+        public string? ClearButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮 显示图标 默认值为 fa-times
@@ -116,18 +116,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public int Height { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            await JSRuntime.InvokeVoidAsync(ConsoleElement, "bb_console_log");
-        }
 
         /// <summary>
         /// 
