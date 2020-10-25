@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -7,22 +9,22 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Editor 组件基类
     /// </summary>
-    public abstract class EditorBase : BootstrapComponentBase
+    public sealed partial class Editor
     {
         /// <summary>
         /// 获得/设置 组件 DOM 实例
         /// </summary>
-        protected ElementReference EditorElement { get; set; }
+        private ElementReference EditorElement { get; set; }
 
         /// <summary>
         /// 获得/设置 JSInterop 实例
         /// </summary>
-        protected JSInterop<EditorBase>? Interope { get; set; }
+        private JSInterop<Editor>? Interope { get; set; }
 
         /// <summary>
         /// 获得 Editor 样式
         /// </summary>
-        protected string? EditClassString => CssBuilder.Default("editor-body form-control")
+        private string? EditClassString => CssBuilder.Default("editor-body form-control")
             .AddClass("open", IsEditor)
             .Build();
 
@@ -30,7 +32,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Placeholder 提示消息
         /// </summary>
         [Parameter]
-        public string Placeholder { get; set; } = "点击后进行编辑";
+        [NotNull]
+        public string? PlaceHolder { get; set; }
 
         /// <summary>
         /// 获得/设置 是否直接显示为富文本编辑框
@@ -43,6 +46,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public int Height { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Editor>? Localizer { get; set; }
 
         private string? _value;
         private bool _renderValue;
@@ -70,6 +77,16 @@ namespace BootstrapBlazor.Components
         public EventCallback<string?> ValueChanged { get; set; }
 
         /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        }
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -80,7 +97,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                Interope = new JSInterop<EditorBase>(JSRuntime);
+                Interope = new JSInterop<Editor>(JSRuntime);
                 await Interope.Invoke(this, EditorElement, "editor", nameof(Update), Height, Value ?? "");
             }
             if (_renderValue)
