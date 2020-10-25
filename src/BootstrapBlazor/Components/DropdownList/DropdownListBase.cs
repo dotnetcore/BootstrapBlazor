@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -73,24 +75,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 PlaceHolder 属性
         /// </summary>
-        protected string? PlaceHolder
-        {
-            get
-            {
-                var placeHolder = "请选择 ...";
-                if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph) && !string.IsNullOrEmpty(Convert.ToString(ph)))
-                {
-                    placeHolder = ph.ToString();
-                }
-                return placeHolder;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         [Parameter]
-        public string DefaultText { get; set; } = "请选择 ...";
+        [NotNull]
+        public string? PlaceHolder { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -122,6 +109,10 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public EventCallback<TValue> OnSelectedItemChanged { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<DropdownList<TModel, TValue>>? Localizer { get; set; }
+
         /// <summary>
         /// SetParametersAsync 方法
         /// </summary>
@@ -144,6 +135,16 @@ namespace BootstrapBlazor.Components
             }
 
             await base.SetParametersAsync(ParameterView.Empty);
+        }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         }
 
         /// <summary>
