@@ -1,0 +1,4 @@
+{
+  "ModelInvalidOperationExceptionMessage": "验证表单与 {0} 绑定模型不一致",
+  "PlaceHolderText":"请输入 ..."
+}

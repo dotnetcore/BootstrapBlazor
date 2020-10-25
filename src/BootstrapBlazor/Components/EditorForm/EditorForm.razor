@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TModel
-@inherits EditorFormBase<TModel>
+@inherits BootstrapComponentBase
 
 <CascadingValue Value="@EditorItems" IsFixed="true">
     @FieldItems?.Invoke(Model)

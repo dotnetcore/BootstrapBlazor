@@ -40,19 +40,19 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public TValue Step { get; set; }
+#nullable restore
 
         /// <summary>
         /// 获得/设置 数值增加时回调委托
         /// </summary>
         [Parameter]
-        public Func<TValue, Task> OnIncrement { get; set; }
+        public Func<TValue, Task>? OnIncrement { get; set; }
 
         /// <summary>
         /// 获得/设置 数值减少时回调委托
         /// </summary>
         [Parameter]
-        public Func<TValue, Task> OnDecrement { get; set; }
-#nullable restore
+        public Func<TValue, Task>? OnDecrement { get; set; }
 
         /// <summary>
         /// 获得/设置 最小值

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components
@@ -18,6 +19,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public TValue Field { get; set; }
+#nullable restore
 
         /// <summary>
         /// 获得/设置 绑定字段值变化回调委托
@@ -28,8 +30,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 绑定列类型
         /// </summary>
-        public Type FieldType { get; set; }
-#nullable restore
+        [NotNull]
+        public Type? FieldType { get; set; }
 
         /// <summary>
         /// 获得/设置 ValueExpression 表达式

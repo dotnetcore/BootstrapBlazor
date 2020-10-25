@@ -1,9 +1,11 @@
 ﻿using BootstrapBlazor.Components.EditorForm;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -14,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 编辑表单基类
     /// </summary>
-    public abstract class EditorFormBase<TModel> : BootstrapComponentBase
+    public sealed partial class EditorForm<TModel>
     {
         /// <summary>
         /// 获得/设置 列模板
@@ -54,15 +56,22 @@ namespace BootstrapBlazor.Components
         [CascadingParameter]
         private IEnumerable<IEditorItem> CascadeEditorItems { get; set; } = Enumerable.Empty<IEditorItem>();
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<EditorForm<TModel>>? Localizer { get; set; }
+
         /// <summary>
         /// 获得/设置 配置编辑项目集合
         /// </summary>
-        protected List<IEditorItem> EditorItems { get; set; } = new List<IEditorItem>();
+        private List<IEditorItem> EditorItems { get; set; } = new List<IEditorItem>();
 
         /// <summary>
         /// 获得/设置 渲染的编辑项集合
         /// </summary>
-        protected List<IEditorItem> FormItems { get; set; } = new List<IEditorItem>();
+        private List<IEditorItem> FormItems { get; set; } = new List<IEditorItem>();
+
+        [NotNull]
+        private string? PlaceHolderText { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -73,18 +82,21 @@ namespace BootstrapBlazor.Components
 
             if (CascadedEditContext != null)
             {
-                if (CascadedEditContext.Model.GetType() != typeof(TModel)) throw new InvalidOperationException($"验证表单与 {nameof(EditorForm<TModel>)} 绑定模型不一致");
+                var message = Localizer["ModelInvalidOperationExceptionMessage", nameof(EditorForm<TModel>)];
+                if (CascadedEditContext.Model.GetType() != typeof(TModel)) throw new InvalidOperationException(message);
 
                 Model = (TModel)CascadedEditContext.Model;
             }
 
             if (Model == null) throw new ArgumentNullException(nameof(Model));
+
+            PlaceHolderText ??= Localizer[nameof(PlaceHolderText)];
         }
 
         /// <summary>
         /// 
         /// </summary>
-        protected bool FirstRender { get; set; } = true;
+        private bool FirstRender { get; set; } = true;
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -142,7 +154,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
-        protected RenderFragment AutoGenerateTemplate(IEditorItem col) => builder =>
+        private RenderFragment AutoGenerateTemplate(IEditorItem col) => builder =>
         {
             var fieldType = col.FieldType;
             if (fieldType != null && Model != null)
@@ -193,7 +205,7 @@ namespace BootstrapBlazor.Components
                 switch (type.Name)
                 {
                     case nameof(String):
-                        ret.Add(new KeyValuePair<string, object>("placeholder", "请输入 ..."));
+                        ret.Add(new KeyValuePair<string, object>("placeholder", PlaceHolderText));
                         break;
                     default:
                         break;
@@ -245,7 +257,7 @@ namespace BootstrapBlazor.Components
         /// <param name="model"></param>
         /// <param name="fieldName"></param>
         /// <returns></returns>
-        protected EventCallback<TType> CreateCallback<TType>(TModel model, string fieldName)
+        private EventCallback<TType> CreateCallback<TType>(TModel model, string fieldName)
         {
             return EventCallback.Factory.Create<TType>(this, t =>
             {
