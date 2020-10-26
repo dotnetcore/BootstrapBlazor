@@ -1,0 +1,192 @@
+﻿{
+  "Components.AutoComplete": {
+    "NoDataTip": "No Data",
+    "PlaceHolder": "Please Input"
+  },
+  "Components.Captcha": {
+    "HeaderText": "Captcha",
+    "BarText": "Slide right to fill puzzle",
+    "FailedText": "Load failed",
+    "LoadText": "Loading ...",
+    "TryText": "Try again"
+  },
+  "Components.Console": {
+    "HeaderText": "Monitor",
+    "LightTitle": "Light",
+    "ClearButtonText": "Clear",
+    "AutoScrollText": "AutoScroll"
+  },
+  "Components.DateTimePicker": {
+    "DatePlaceHolder": "Date",
+    "TimePlaceHolder": "Time",
+    "DateTimePlaceHolderText": "Please select ...",
+    "DatePlaceHolderText": "Please select ...",
+    "TimeFormat": "hh\\:mm\\:ss",
+    "DateFormat": "M/d/yyyy",
+    "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss",
+    "AiraPrevYearLabel": "Prev Year",
+    "AiraNextYearLabel": "Next Year",
+    "AiraPrevMonthLabel": "Prev Month",
+    "AiraNextMonthLabel": "Next Month",
+    "ClearButtonText": "Clear",
+    "NowButtonText": "Now",
+    "ConfirmButtonText": "Ok",
+    "CancelButtonText": "Cancel",
+    "YearText": "{0}",
+    "MonthText": "{0}",
+    "YearPeriodText": "{0} - {1}",
+    "Months": "January,February,March,April,May,June,July,August,September,October,November,December",
+    "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+    "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
+    "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>"
+  },
+  "Components.DropdownList": {
+    "PlaceHolder": "Please select ..."
+  },
+  "Components.Editor": {
+    "PlaceHolder": "Click to edit"
+  },
+  "Components.EditorForm": {
+    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL not match {0} MODEL",
+    "PlaceHolderText": "Please input ..."
+  },
+  "Components.EqualToValidator": {
+    "ErrorMessage": "Please enter the same value again"
+  },
+  "Components.GoTop": {
+    "TooltipText": "Go top"
+  },
+  "Components.Layout": {
+    "TooltipText": "Click to Expand/Collapse sidebar"
+  },
+  "Components.MultiSelect": {
+    "PlaceHolder": "Click for select ...",
+    "SelectAllText": "All",
+    "ReverseSelectText": "Reverse",
+    "ClearText": "Clear"
+  },
+  "Components.Pagination": {
+    "AiraPageLabel": "Pagination",
+    "AiraPrevPageText": "Prev",
+    "AiraFirstPageText": "First",
+    "AiraNextPageText": "Next",
+    "PageInfoText": "{0}-{1}",
+    "TotalInfoText": ", Total {0}",
+    "PrePageInfoText": "",
+    "RowInfoText": "",
+    "LabelString": "page {0}",
+    "SelectItemsText": "{0} /page"
+  },
+  "Components.PopConfirmButton": {
+    "CloseButtonText": "Cancel",
+    "ConfirmButtonText": "Ok",
+    "Content": "Are you sure DELETE?"
+  },
+  "Components.QRCode": {
+    "PlaceHolder": "Please input ...",
+    "ClearButtonText": "Clear",
+    "GenerateButtonText": "Generate"
+  },
+  "Components.RequiredValidator": {
+    "ErrorMessage": "This field is required"
+  },
+  "Components.Search": {
+    "SearchButtonText": "Search"
+  },
+  "Components.Select": {
+    "PlaceHolder": "Click for select ..."
+  },
+  "Components.StringLengthValidator": {
+    "ErrorMessage": "Please enter a value less than or equal to {{0}}"
+  },
+  "Components.SweetAlert": {
+    "CloseButtonText": "Close",
+    "CancelButtonText": "Cancel",
+    "ConfirmButtonText": "Confirm"
+  },
+  "Components.Switch": {
+    "OnInnerText": "On",
+    "OffInnerText": "Off"
+  },
+  "Components.Table": {
+    "AddButtonText": "Add",
+    "EditButtonText": "Edit",
+    "DeleteButtonText": "Delete",
+    "CancelDeleteButtonText": "Cancel",
+    "ConfirmDeleteButtonText": "Delete",
+    "ConfirmDeleteContentText": "Are you sure to DELETE all selected rows?",
+    "RefreshButtonText": "Refresh",
+    "ColumnButtonTitleText": "Show/Hide Columns",
+    "ColumnButtonText": "Columns",
+    "ExportButtonText": "Export",
+    "SearchPlaceholderText": "Search",
+    "SearchButtonText": "Search",
+    "ResetButtonText": "Reset",
+    "AdvanceButtonText": "Advance Search",
+    "CheckboxDisplayText": "All",
+    "EditModalTitle": "Edit Data",
+    "AddModalTitle": "New Data",
+    "ColumnButtonTemplateHeaderText": "",
+    "SearchTooltip": "<div class='search-input-tooltip'>Please input ...</br><kbd>Enter</kbd> Search <kbd>ESC</kbd> Clear</div>",
+    "SearchModalTitle": "Searching",
+    "AddButtonToastTitle": "Add Data",
+    "AddButtonToastContent": "Save data failed. Please provider SAVE method",
+    "EditButtonToastTitle": "Add Data",
+    "EditButtonToastNotSelectContent": "Save data failed. Please provider SAVE method",
+    "EditButtonToastMoreSelectContent": "Only one row can be EDIT",
+    "EditButtonToastNoSaveMethodContent": "Can not EDIT data. Please provider SAVE method",
+    "SaveButtonToastTitle": "Save Data",
+    "SaveButtonToastContent": "Save data failed. Please provider SAVE method",
+    "SaveButtonToastResultContent": "Save data {0}, auto close after {1}s",
+    "SuccessText": "Successful",
+    "FailText": "Failed",
+    "DeleteButtonToastTitle": "Delete Data",
+    "DeleteButtonToastContent": "Please select DELETE rows, auto claose after {1}s",
+    "DeleteButtonToastResultContent": "Delete data {0}, auto claose after {1}s"
+  },
+  "Components.TableEditorDialog": {
+    "CloseButtonText": "Close",
+    "SaveButtonText": "Save"
+  },
+  "Components.TableFilter": {
+    "Title": "Filter",
+    "ClearButtonText": "Clear",
+    "FilterButtonText": "Filter",
+    "BoolFilter.AllText": "All",
+    "BoolFilter.TrueText": "True",
+    "BoolFilter.FalseText": "False",
+    "GreaterThanOrEqual": "GreaterThanOrEqual",
+    "LessThanOrEqual": "LessThanOrEqual",
+    "GreaterThan": "GreaterThan",
+    "LessThan": "LessThan",
+    "Equal": "Equal",
+    "NotEqual": "NotEqual",
+    "Contains": "Contains",
+    "NotContains": "NotContains",
+    "EnumFilter.AllText": "All"
+  },
+  "Components.TableSearchDialog": {
+    "ResetButtonText": "Reset",
+    "QueryButtonText": "Query"
+  },
+  "Components.Timer": {
+    "PauseText": "Pause",
+    "ResumeText": "Resume",
+    "CancelText": "Cancel",
+    "StarText": "Star"
+  },
+  "Components.Toggle": {
+    "OnText": "Expand",
+    "OffText": "Collapse"
+  },
+  "Components.Transfer": {
+    "LeftPanelText": "List 1",
+    "RightPanelText": "List 2"
+  },
+  "Components.Upload": {
+    "Text": "Upload",
+    "ResetText": "Reset",
+    "AllowFileTypeErrorMessage": "Only allow Images type file",
+    "FileTooLargeText": "File to large"
+  }
+}

@@ -2,7 +2,9 @@
 using BootstrapBlazor.Shared.Data;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -37,7 +39,28 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             builder.Services.AddSingleton<WeatherForecastService>();
 
-            await builder.Build().RunAsync();
+            builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
+
+            var host = builder.Build();
+
+            await GetCultureAsync(host);
+
+            await host.RunAsync();
+        }
+
+        // based on https://github.com/pranavkm/LocSample
+        private static async Task GetCultureAsync(WebAssemblyHost host)
+        {
+            var jsRuntime = host.Services.GetRequiredService<IJSRuntime>();
+            var cultureName = await jsRuntime.InvokeAsync<string>("$.blazorCulture.get") ?? "zh-CN";
+            var culture = new CultureInfo(cultureName);
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+        }
+
+        internal class DefaultCultureStorage : ICultureStorage
+        {
+            public CultureStorageMode Mode { get; set; } = CultureStorageMode.LocalStorage;
         }
     }
 }

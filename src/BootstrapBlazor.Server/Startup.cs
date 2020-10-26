@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -52,6 +51,7 @@ namespace BootstrapBlazor.Server
             services.AddControllers();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddCultureStorage();
 
             services.AddBlazorBackgroundTask();
 
@@ -62,8 +62,8 @@ namespace BootstrapBlazor.Server
             services.AddJsonLocalization();
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                var supportedCultures = Configuration.GetSupportCultures().Select(kv => new CultureInfo(kv.Value)).ToList();
-                options.DefaultRequestCulture = new RequestCulture("zh-CN");
+                var supportedCultures = Configuration.GetSupportCultures().ToList();
+                options.DefaultRequestCulture = new RequestCulture(CultureInfo.CurrentCulture);
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
@@ -77,6 +77,7 @@ namespace BootstrapBlazor.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // 启用本地化
             app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.All });

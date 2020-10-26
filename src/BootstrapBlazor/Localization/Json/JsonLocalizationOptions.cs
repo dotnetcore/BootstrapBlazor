@@ -12,12 +12,7 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         public JsonLocalizationOptions()
         {
-            ResourcesPath = "Resources";
+            ResourcesPath = "Locales";
         }
-
-        /// <summary>
-        /// 获得/设置 资源定位方式 默认为 TypeBased 基于类型定位 TypeFullName.CultureName.json 格式
-        /// </summary>
-        public ResourcesType ResourcesType { get; set; } = ResourcesType.TypeBased;
     }
 }

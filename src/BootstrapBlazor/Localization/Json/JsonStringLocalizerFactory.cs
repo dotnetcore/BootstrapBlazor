@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.IO;
 using System.Reflection;
 
 namespace BootstrapBlazor.Localization.Json
@@ -13,7 +12,6 @@ namespace BootstrapBlazor.Localization.Json
     internal class JsonStringLocalizerFactory : IStringLocalizerFactory
     {
         private readonly string _resourcesRelativePath;
-        private readonly ResourcesType _resourcesType = ResourcesType.TypeBased;
         private readonly ILoggerFactory _loggerFactory;
 
         /// <summary>
@@ -24,7 +22,6 @@ namespace BootstrapBlazor.Localization.Json
         public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> localizationOptions, ILoggerFactory loggerFactory)
         {
             _resourcesRelativePath = localizationOptions.Value.ResourcesPath;
-            _resourcesType = localizationOptions.Value.ResourcesType;
             _loggerFactory = loggerFactory;
         }
 
@@ -35,15 +32,8 @@ namespace BootstrapBlazor.Localization.Json
         /// <returns></returns>
         public IStringLocalizer Create(Type resourceSource)
         {
-            if (resourceSource.Name == "Controller")
-            {
-                return CreateJsonStringLocalizer(Path.Combine(PathHelpers.GetApplicationRoot(), GetResourcePath(resourceSource.Assembly)), TryFixInnerClassPath("Controller"));
-            }
-
             var typeInfo = resourceSource.GetTypeInfo();
-            var assembly = typeInfo.Assembly;
             var assemblyName = resourceSource.Assembly.GetName().Name;
-            var resourcesPath = Path.Combine(PathHelpers.GetApplicationRoot(), GetResourcePath(assembly));
             var typeName = $"{assemblyName}.{typeInfo.Name}" == typeInfo.FullName
                 ? typeInfo.Name
                 : typeInfo.FullName.Substring(assemblyName.Length + 1);
@@ -56,7 +46,7 @@ namespace BootstrapBlazor.Localization.Json
 
             typeName = TryFixInnerClassPath(typeName);
 
-            return CreateJsonStringLocalizer(resourcesPath, typeName);
+            return CreateJsonStringLocalizer(typeInfo.Assembly, typeName, $"{assemblyName}.{_resourcesRelativePath}");
         }
 
         /// <summary>
@@ -71,50 +61,23 @@ namespace BootstrapBlazor.Localization.Json
 
             var assemblyName = new AssemblyName(location);
             var assembly = Assembly.Load(assemblyName);
-            var resourcesPath = Path.Combine(PathHelpers.GetApplicationRoot(), GetResourcePath(assembly));
             string? resourceName = null;
 
-            if (_resourcesType == ResourcesType.TypeBased)
-            {
-                resourceName = TrimPrefix(baseName, location + ".");
-            }
-
-            return CreateJsonStringLocalizer(resourcesPath, resourceName);
+            return CreateJsonStringLocalizer(assembly, string.Empty, resourceName);
         }
 
         /// <summary>
         /// 创建 IStringLocalizer 实例方法
         /// </summary>
-        /// <param name="resourcesPath"></param>
-        /// <param name="resourcename"></param>
+        /// <param name="assembly"></param>
+        /// <param name="typeName"></param>
+        /// <param name="resourceName"></param>
         /// <returns></returns>
-        protected virtual IStringLocalizer CreateJsonStringLocalizer(string resourcesPath, string? resourcename)
+        protected virtual IStringLocalizer CreateJsonStringLocalizer(Assembly assembly, string typeName, string? resourceName)
         {
             var logger = _loggerFactory.CreateLogger<JsonStringLocalizer>();
 
-            return new JsonStringLocalizer(
-                resourcesPath,
-                _resourcesType == ResourcesType.TypeBased ? resourcename : null,
-                logger);
-        }
-
-        private string GetResourcePath(Assembly assembly)
-        {
-            var resourceLocationAttribute = assembly.GetCustomAttribute<ResourceLocationAttribute>();
-
-            return resourceLocationAttribute == null
-                ? _resourcesRelativePath
-                : resourceLocationAttribute.ResourceLocation;
-        }
-
-        private static string TrimPrefix(string name, string prefix)
-        {
-            if (name.StartsWith(prefix, StringComparison.Ordinal))
-            {
-                return name.Substring(prefix.Length);
-            }
-
-            return name;
+            return new JsonStringLocalizer(assembly, resourceName, typeName, logger);
         }
 
         private string TryFixInnerClassPath(string path)

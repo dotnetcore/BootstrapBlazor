@@ -1,0 +1,192 @@
+﻿{
+  "Components.AutoComplete": {
+    "NoDataTip": "无匹配数据",
+    "PlaceHolder": "请输入"
+  },
+  "Components.Captcha": {
+    "HeaderText": "请完成安全验证",
+    "BarText": "向右滑动填充拼图",
+    "FailedText": "加载失败",
+    "LoadText": "正在加载 ...",
+    "TryText": "再试一次"
+  },
+  "Components.Console": {
+    "HeaderText": "系统监控",
+    "LightTitle": "通讯指示灯",
+    "ClearButtonText": "清屏",
+    "AutoScrollText": "自动滚屏"
+  },
+  "Components.DateTimePicker": {
+    "DatePlaceHolder": "选择日期",
+    "TimePlaceHolder": "选择时间",
+    "DateTimePlaceHolderText": "请选择日期时间",
+    "DatePlaceHolderText": "请选择日期",
+    "TimeFormat": "hh\\:mm\\:ss",
+    "DateFormat": "yyyy-MM-dd",
+    "DateTimeFormat": "yyyy-MM-dd hh\\:mm\\:ss",
+    "AiraPrevYearLabel": "前一年",
+    "AiraNextYearLabel": "后一年",
+    "AiraPrevMonthLabel": "上一月",
+    "AiraNextMonthLabel": "下一月",
+    "ClearButtonText": "清空",
+    "NowButtonText": "此刻",
+    "ConfirmButtonText": "确定",
+    "CancelButtonText": "取消",
+    "YearText": "{0} 年",
+    "MonthText": "{0} 月",
+    "YearPeriodText": "{0} 年 - {1} 年",
+    "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
+    "MonthLists": "一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月",
+    "WeekLists": "日,一,二,三,四,五,六",
+    "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime 或者 DateTime?"
+  },
+  "Components.DropdownList": {
+    "PlaceHolder": "请选择 ..."
+  },
+  "Components.Editor": {
+    "PlaceHolder": "点击后编辑"
+  },
+  "Components.EditorForm": {
+    "ModelInvalidOperationExceptionMessage": "验证表单与 {0} 绑定模型不一致",
+    "PlaceHolderText": "请输入 ..."
+  },
+  "Components.EqualToValidator": {
+    "ErrorMessage": "你的输入不相同"
+  },
+  "Components.GoTop": {
+    "TooltipText": "返回顶端"
+  },
+  "Components.Layout": {
+    "TooltipText": "点击展开收缩左侧菜单"
+  },
+  "Components.MultiSelect": {
+    "PlaceHolder": "点击进行多选 ...",
+    "SelectAllText": "全选",
+    "ReverseSelectText": "反选",
+    "ClearText": "清除"
+  },
+  "Components.Pagination": {
+    "AiraPageLabel": "分页组件",
+    "AiraPrevPageText": "上一页",
+    "AiraFirstPageText": "第一页",
+    "AiraNextPageText": "下一页",
+    "PageInfoText": "显示第 {0} 到第 {1} 条记录",
+    "TotalInfoText": "，总共 {0} 条记录",
+    "PrePageInfoText": "每页显示",
+    "RowInfoText": "条记录",
+    "LabelString": "第 {0} 页",
+    "SelectItemsText": "{0} 条/页"
+  },
+  "Components.PopConfirmButton": {
+    "CloseButtonText": "关闭",
+    "ConfirmButtonText": "确定",
+    "Content": "确认删除吗？"
+  },
+  "Components.QRCode": {
+    "PlaceHolder": "请输入内容",
+    "ClearButtonText": "清除",
+    "GenerateButtonText": "生成"
+  },
+  "Components.RequiredValidator": {
+    "ErrorMessage": "这是必填字段"
+  },
+  "Components.Search": {
+    "SearchButtonText": "搜索"
+  },
+  "Components.Select": {
+    "PlaceHolder": "请选择 ..."
+  },
+  "Components.StringLengthValidator": {
+    "ErrorMessage": "最多可以输入 {{0}} 个字符"
+  },
+  "Components.SweetAlert": {
+    "CloseButtonText": "关闭",
+    "CancelButtonText": "取消",
+    "ConfirmButtonText": "确认"
+  },
+  "Components.Switch": {
+    "OnInnerText": "开",
+    "OffInnerText": "关"
+  },
+  "Components.Table": {
+    "AddButtonText": "新建",
+    "EditButtonText": "编辑",
+    "DeleteButtonText": "删除",
+    "CancelDeleteButtonText": "取消",
+    "ConfirmDeleteButtonText": "删除",
+    "ConfirmDeleteContentText": "确认要删除选中的所有行吗？",
+    "RefreshButtonText": "刷新",
+    "ColumnButtonTitleText": "列显示隐藏控制",
+    "ColumnButtonText": "列",
+    "ExportButtonText": "导出数据",
+    "SearchPlaceholderText": "搜索",
+    "SearchButtonText": "搜索",
+    "ResetButtonText": "清空过滤",
+    "AdvanceButtonText": "高级搜索",
+    "CheckboxDisplayText": "选择",
+    "EditModalTitle": "编辑数据窗口",
+    "AddModalTitle": "新建数据窗口",
+    "ColumnButtonTemplateHeaderText": "操作",
+    "SearchTooltip": "<div class='search-input-tooltip'>输入任意字符串全局搜索</br><kbd>Enter</kbd> 搜索 <kbd>ESC</kbd> 清除搜索</div>",
+    "SearchModalTitle": "搜索条件",
+    "AddButtonToastTitle": "新建数据",
+    "AddButtonToastContent": "未提供保存数据方法，无法新建数据",
+    "EditButtonToastTitle": "编辑数据",
+    "EditButtonToastNotSelectContent": "请选择要编辑的数据",
+    "EditButtonToastMoreSelectContent": "只能选择一项要编辑的数据",
+    "EditButtonToastNoSaveMethodContent": "未提供保存数据方法，无法编辑数据",
+    "SaveButtonToastTitle": "保存数据",
+    "SaveButtonToastContent": "未提供保存数据方法，无法保存数据",
+    "SaveButtonToastResultContent": "保存数据{0}, {1} 秒后自动关闭",
+    "SuccessText": "成功",
+    "FailText": "失败",
+    "DeleteButtonToastTitle": "删除数据",
+    "DeleteButtonToastContent": "请选择要删除的数据, {0} 秒后自动关闭",
+    "DeleteButtonToastResultContent": "删除数据{0}, {1} 秒后自动关闭"
+  },
+  "Components.TableEditorDialog": {
+    "CloseButtonText": "关闭",
+    "SaveButtonText": "保存"
+  },
+  "Components.TableFilter": {
+    "Title": "过滤",
+    "ClearButtonText": "重置",
+    "FilterButtonText": "确认",
+    "BoolFilter.AllText": "全部",
+    "BoolFilter.TrueText": "选中",
+    "BoolFilter.FalseText": "未选中",
+    "GreaterThanOrEqual": "大于等于",
+    "LessThanOrEqual": "小于等于",
+    "GreaterThan": "大于",
+    "LessThan": "小于",
+    "Equal": "等于",
+    "NotEqual": "不等于",
+    "Contains": "包含",
+    "NotContains": "不包含",
+    "EnumFilter.AllText": "全选"
+  },
+  "Components.TableSearchDialog": {
+    "ResetButtonText": "重置",
+    "QueryButtonText": "查询"
+  },
+  "Components.Timer": {
+    "PauseText": "暂停",
+    "ResumeText": "继续",
+    "CancelText": "取消",
+    "StarText": "开始计时"
+  },
+  "Components.Toggle": {
+    "OnText": "展开",
+    "OffText": "收缩"
+  },
+  "Components.Transfer": {
+    "LeftPanelText": "列表 1",
+    "RightPanelText": "列表 2"
+  },
+  "Components.Upload": {
+    "Text": "点击上传",
+    "ResetText": "重置",
+    "AllowFileTypeErrorMessage": "只允许选择图片类型文件",
+    "FileTooLargeText": "文件太大"
+  }
+}

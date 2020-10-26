@@ -55,6 +55,15 @@
         language: (navigator.browserLanguage || navigator.language).toLowerCase()
     };
 
+    $.blazorCulture = {
+        get: () => {
+            return window.localStorage['BlazorCulture'];
+        },
+        set: (value) => {
+            window.localStorage['BlazorCulture'] = value;
+        }
+    };
+
     $.generatefile = (fileName, bytesBase64, contenttype) => {
         var link = document.createElement('a');
         link.download = fileName;

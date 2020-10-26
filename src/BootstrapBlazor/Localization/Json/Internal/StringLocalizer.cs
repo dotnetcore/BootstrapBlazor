@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Localization.Json
 
         public StringLocalizer(IStringLocalizerFactory factory)
         {
-            _localizer = factory.Create(string.Empty, PathHelpers.GetApplicationRoot());
+            _localizer = factory.Create(string.Empty, string.Empty);
         }
 
         public LocalizedString this[string name] => _localizer[name];

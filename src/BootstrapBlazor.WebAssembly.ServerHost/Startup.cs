@@ -34,7 +34,6 @@ namespace BootstrapBlazor.WebAssembly.ServerHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBootstrapBlazor();
-            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +61,6 @@ namespace BootstrapBlazor.WebAssembly.ServerHost
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
                 endpoints.MapFallbackToFile("index.html");
             });
         }

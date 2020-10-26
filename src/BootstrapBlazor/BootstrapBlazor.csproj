@@ -6,9 +6,14 @@
         <RazorLangVersion>3.0</RazorLangVersion>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>3.1.27-beta01</Version>
+        <Version>3.1.27-beta02</Version>
         <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Content Remove="Locales\*.json" />
+      <EmbeddedResource Include="Locales\*.json" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="EPPlus" Version="4.5.3.3" />

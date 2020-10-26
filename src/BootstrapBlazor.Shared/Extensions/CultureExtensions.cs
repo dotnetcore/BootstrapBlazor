@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
-namespace Microsoft.Extensions.Configuration
+namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
     /// Culture 扩展操作类
@@ -13,10 +15,48 @@ namespace Microsoft.Extensions.Configuration
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IEnumerable<KeyValuePair<string, string>> GetSupportCultures(this IConfiguration configuration) => configuration.GetSection("SupportCultures").GetChildren()
-            .SelectMany(c => new KeyValuePair<string, string>[]
+        public static IEnumerable<CultureInfo> GetSupportCultures(this IConfiguration configuration)
+        {
+            var ret = configuration.GetSection("SupportCultures").GetChildren()
+                .Select(c => c.Value);
+
+            if (!ret.Any())
             {
-                new KeyValuePair<string, string>(c.Key, c.Value)
-            });
+                ret = new List<string>()
+                {
+                    "en-US",
+                    "zh-CN"
+                };
+            }
+
+            return ret.Select(c => new CultureInfo(c));
+        }
+    }
+
+    /// <summary>
+    /// ICulture
+    /// </summary>
+    public interface ICultureStorage
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public CultureStorageMode Mode { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum CultureStorageMode
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        Webapi,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        LocalStorage
     }
 }

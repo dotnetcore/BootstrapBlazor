@@ -5,8 +5,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace BootstrapBlazor.Localization.Json
 {
@@ -17,8 +17,9 @@ namespace BootstrapBlazor.Localization.Json
     {
         private readonly ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>> _resourcesCache = new ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>>();
 
-        private readonly string _resourcesPath;
+        private readonly Assembly _assembly;
         private readonly string? _resourceName;
+        private readonly string _typeName;
         private readonly ILogger _logger;
 
         private string _searchedLocation = "";
@@ -26,12 +27,14 @@ namespace BootstrapBlazor.Localization.Json
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="resourcesPath"></param>
+        /// <param name="assembly"></param>
         /// <param name="resourceName"></param>
+        /// <param name="typeName"></param>
         /// <param name="logger"></param>
-        public JsonStringLocalizer(string resourcesPath, string? resourceName, ILogger logger)
+        public JsonStringLocalizer(Assembly assembly, string? resourceName, string typeName, ILogger logger)
         {
-            _resourcesPath = resourcesPath;
+            _assembly = assembly;
+            _typeName = typeName;
             _resourceName = resourceName;
             _logger = logger;
         }
@@ -115,7 +118,7 @@ namespace BootstrapBlazor.Localization.Json
 
             while (culture != culture.Parent)
             {
-                BuildResourcesCache(culture.Name);
+                BuildResourcesCache(culture);
 
                 if (_resourcesCache.TryGetValue(culture.Name, out var resources))
                 {
@@ -158,7 +161,7 @@ namespace BootstrapBlazor.Localization.Json
 
         private IEnumerable<string> GetAllResourceStrings(CultureInfo culture)
         {
-            BuildResourcesCache(culture.Name);
+            BuildResourcesCache(culture);
 
             var ret = Enumerable.Empty<string>();
             if (_resourcesCache.TryGetValue(culture.Name, out var resources))
@@ -168,39 +171,23 @@ namespace BootstrapBlazor.Localization.Json
             return ret;
         }
 
-        private void BuildResourcesCache(string culture)
+        private void BuildResourcesCache(CultureInfo culture)
         {
-            _resourcesCache.GetOrAdd(culture, _ =>
+            _resourcesCache.GetOrAdd(culture.Name, key =>
             {
-                var resourceFile = string.IsNullOrEmpty(_resourceName)
-                    ? $"{culture}.json"
-                    : $"{_resourceName}.{culture}.json";
-
-                _searchedLocation = Path.Combine(_resourcesPath, resourceFile);
-
-                if (!File.Exists(_searchedLocation))
-                {
-                    if (resourceFile.Any(r => r == '.'))
-                    {
-                        var resourceFileWithoutExtension = Path.GetFileNameWithoutExtension(resourceFile);
-                        var resourceFileWithoutCulture = resourceFileWithoutExtension.Substring(0, resourceFileWithoutExtension.LastIndexOf('.'));
-                        resourceFile = $"{resourceFileWithoutCulture.Replace('.', Path.DirectorySeparatorChar)}.{culture}.json";
-                        _searchedLocation = Path.Combine(_resourcesPath, resourceFile);
-                    }
-                }
-
                 var value = Enumerable.Empty<KeyValuePair<string, string>>();
 
-                if (File.Exists(_searchedLocation))
+                _searchedLocation = $"{_resourceName}.{key}.json";
+
+                using var res = _assembly.GetManifestResourceStream(_searchedLocation);
+
+                if (res != null)
                 {
-                    var builder = new ConfigurationBuilder()
-                        .SetBasePath(_resourcesPath)
-                        .AddJsonFile(resourceFile, optional: false, reloadOnChange: false);
-
-                    var config = builder.Build();
-                    value = config.AsEnumerable();
+                    var config = new ConfigurationBuilder()
+                        .AddJsonStream(res)
+                        .Build();
+                    value = config.GetSection(_typeName).GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
                 }
-
                 return value;
             });
         }
