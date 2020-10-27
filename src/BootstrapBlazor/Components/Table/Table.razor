@@ -421,7 +421,9 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td>
             <div class="@GetDetailBarClassString(item)">
-                <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="@ExpandDetailRow(item)"></i>
+                @if (ShowDetailRow == null ? true : ShowDetailRow.Invoke(item)) {
+                        <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="@ExpandDetailRow(item)"></i>
+                }
             </div>
         </td>
     }

@@ -45,5 +45,10 @@ namespace BootstrapBlazor.Shared.Pages.Table
             [DisplayName("是/否")]
             public bool Complete { get; set; }
         }
+
+        private bool ShowDetailRow(BindItem item)
+        {
+            return item.Complete;
+        }
     }
 }

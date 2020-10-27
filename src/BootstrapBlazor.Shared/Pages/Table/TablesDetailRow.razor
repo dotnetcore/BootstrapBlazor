@@ -30,7 +30,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false"
-           OnQueryAsync="@OnQueryAsync">
+           OnQueryAsync="@OnQueryAsync" ShowDetailRow="ShowDetailRow">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
