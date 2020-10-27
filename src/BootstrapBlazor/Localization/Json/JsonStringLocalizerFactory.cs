@@ -34,9 +34,7 @@ namespace BootstrapBlazor.Localization.Json
         {
             var typeInfo = resourceSource.GetTypeInfo();
             var assemblyName = resourceSource.Assembly.GetName().Name;
-            var typeName = $"{assemblyName}.{typeInfo.Name}" == typeInfo.FullName
-                ? typeInfo.Name
-                : typeInfo.FullName.Substring(assemblyName.Length + 1);
+            var typeName = typeInfo.FullName;
 
             if (resourceSource.IsGenericType)
             {

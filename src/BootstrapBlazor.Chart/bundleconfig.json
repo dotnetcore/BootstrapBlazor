@@ -1,0 +1,19 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/bootstrap.blazor.chart.bundle.min.css",
+    "inputFiles": [
+      "wwwroot/css/!(*.min).css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bootstrap.blazor.chart.bundle.min.js",
+    "inputFiles": [
+      "wwwroot/js/!(*.min).js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]

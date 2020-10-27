@@ -1,4 +1,4 @@
-namespace BootstrapBlazor.Components
+﻿namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Chart 图表坐标轴实体类

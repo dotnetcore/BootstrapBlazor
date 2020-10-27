@@ -1,20 +1,35 @@
 ﻿@page "/charts"
+@using Microsoft.Extensions.DependencyInjection
 @implements IDisposable
 @inherits ComponentBase
+@inject NugetVersionService VersionManager
 
 <h3>Chart 图表</h3>
 
 <h4>通过给定数据，绘画各种图表的组件</h4>
 
-<p>本组件依赖于 <a href="https://www.chartjs.org/" target="_blank"><code>Chart.js</code></a>，使用本组件时需要引用其相应对的 <code>javascript</code> 文件，<code>Chart.js</code>为开源图表组件库，请自行引用</p>
+<p>本组件依赖于 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank"><code>BootstrapBlazor.Chart</code></a>，使用本组件时需要引用其组件包</p>
+
+<p><b>Nuget 包安装</b></p>
+
+<p>使用 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank">nuget.org</a> 进行 <code>BootstrapBlazor.Chart</code> 组件的安装</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.Chart --version @Version</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.Chart" Version="@Version" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.Chart -Version @Version</Pre>
 
 <h4>CSS 文件</h4>
 
-<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor/lib/chartjs/Chart.min.css" /&gt;</Pre>
+<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.bundle.min.css" /&gt;</Pre>
 
 <h4>JS 文件</h4>
 
-<Pre>&lt;script src="_content/BootstrapBlazor/lib/chartjs/Chart.bundle.min.js"&gt;&lt;/script&gt;</Pre>
+<Pre>&lt;script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js"&gt;&lt;/script&gt;</Pre>
 
 <p>组件数据在 <code>OnInit</code> 回调委托中进行设置即可</p>
 
@@ -120,4 +135,18 @@
     private int DoughnutDataCount = 5;
 
     private int BubbleDataCount = 7;
+
+    /// <summary>
+    /// 获得/设置 版本号字符串
+    /// </summary>
+    private string Version { get; set; } = "fetching";
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.chart");
+    }
 }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
@@ -6,20 +6,21 @@
         <RazorLangVersion>3.0</RazorLangVersion>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>3.1.27-beta03</Version>
+        <Version>3.1.0-beta01</Version>
         <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Remove="Locales\*.json" />
         <EmbeddedResource Include="Locales\*.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="EPPlus" Version="4.5.3.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.9" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.9" />
-        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="3.1.9" />
+      <Content Remove="Locales\en-US.json" />
+      <Content Remove="Locales\zh-CN.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
     </ItemGroup>
 
     <ItemGroup>

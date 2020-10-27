@@ -16,17 +16,15 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.402
-
-    - name: Build
-      run: dotnet build src/BootstrapBlazor -c Release
-
-    - name: Package Blazor
-      run: |
-        dotnet pack src/BootstrapBlazor -c Release -o publish --no-build --no-restore
+        dotnet-version: 3.1.403
 
     - name: Publish to Nuget
       env: 
         NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
       run: |
+        dotnet build src/BootstrapBlazor -c Release
+        dotnet pack src/BootstrapBlazor -c Release -o publish --no-build --no-restore
+        dotnet nuget push publish/*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        dotnet build src/BootstrapBlazor.Chart -c Release
+        dotnet pack src/BootstrapBlazor.Chart -c Release -o publish --no-build --no-restore
         dotnet nuget push publish/*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate

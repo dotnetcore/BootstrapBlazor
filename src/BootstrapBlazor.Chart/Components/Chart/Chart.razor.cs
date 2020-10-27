@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -8,26 +10,26 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Chart 组件基类
     /// </summary>
-    public abstract class ChartBase : BootstrapComponentBase
+    public sealed partial class Chart : BootstrapComponentBase
     {
-        private JSInterop<ChartBase>? Interop { get; set; }
+        private JSInterop<Chart>? Interop { get; set; }
 
         /// <summary>
         /// 获得/设置 EChart DOM 元素实例
         /// </summary>
-        protected ElementReference Chart { get; set; }
+        private ElementReference ChartElement { get; set; }
 
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("chart is-loading")
+        private string? ClassName => CssBuilder.Default("chart is-loading")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
         /// 获得/设置 组件 Style 字符串
         /// </summary>
-        protected string? StyleString => CssBuilder.Default()
+        private string? StyleString => CssBuilder.Default()
             .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width))
             .Build();
 
@@ -62,6 +64,27 @@ namespace BootstrapBlazor.Components
         public int Angle { get; set; }
 
         /// <summary>
+        /// 获得/设置 正在加载文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? LoadingText { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Chart>? Localizer { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            LoadingText ??= Localizer[nameof(LoadingText)];
+        }
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -73,11 +96,11 @@ namespace BootstrapBlazor.Components
             {
                 if (OnInit == null) throw new InvalidOperationException("OnInit paramenter must be set");
 
-                if (Interop == null) Interop = new JSInterop<ChartBase>(JSRuntime);
+                if (Interop == null) Interop = new JSInterop<Chart>(JSRuntime);
 
                 var ds = await OnInit.Invoke();
 
-                Interop?.Invoke(this, Chart, "chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
+                Interop?.Invoke(this, ChartElement, "chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
             }
         }
 
@@ -104,7 +127,7 @@ namespace BootstrapBlazor.Components
             if (OnInit != null)
             {
                 var ds = await OnInit.Invoke();
-                Interop?.Invoke(this, Chart, "chart", nameof(Completed), ds, method, ChartType.ToDescriptionString(), Angle);
+                Interop?.Invoke(this, ChartElement, "chart", nameof(Completed), ds, method, ChartType.ToDescriptionString(), Angle);
             }
         }
 

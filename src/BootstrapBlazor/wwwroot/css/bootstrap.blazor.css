@@ -3404,24 +3404,6 @@ input:disabled,
     }
 /*end divider*/
 
-/*echart*/
-.chart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-    .chart.is-loading .chart-loading {
-        display: block;
-    }
-
-    .chart .chart-loading {
-        position: absolute;
-        display: none;
-    }
-/*end echart*/
-
 /*accordion*/
 .accordion .card-header {
     padding: 6px;

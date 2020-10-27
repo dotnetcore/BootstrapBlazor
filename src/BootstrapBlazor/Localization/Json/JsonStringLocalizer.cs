@@ -186,7 +186,9 @@ namespace BootstrapBlazor.Localization.Json
                     var config = new ConfigurationBuilder()
                         .AddJsonStream(res)
                         .Build();
-                    value = config.GetSection(_typeName).GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
+                    var v = config.GetChildren().FirstOrDefault(c => _typeName.Contains(c.Key, StringComparison.OrdinalIgnoreCase))?.GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
+
+                    if (v != null) value = v;
                 }
                 return value;
             });

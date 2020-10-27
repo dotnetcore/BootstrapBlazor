@@ -56,19 +56,19 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 获得组件版本号方法
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetVersionAsync()
+        public async Task<string> GetVersionAsync(string packageName = "bootstrapblazor")
         {
-            await FetchVersionAsync();
+            await FetchVersionAsync(packageName);
             return Version;
         }
 
-        private async Task FetchVersionAsync()
+        private async Task FetchVersionAsync(string packageName = "bootstrapblazor")
         {
             if (Version == "latest")
             {
                 try
                 {
-                    var url = "https://azuresearch-usnc.nuget.org/query?q=bootstrapblazor&prerelease=true&semVerLevel=2.0.0";
+                    var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
                     var package = await Client.GetFromJsonAsync<NugetPackage>(url);
                     Version = package.GetVersion();
                 }
