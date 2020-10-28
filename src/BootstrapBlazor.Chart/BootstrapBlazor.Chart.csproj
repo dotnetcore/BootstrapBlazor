@@ -11,12 +11,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Content Remove="Locales\*.json" />
         <EmbeddedResource Include="Locales\*.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="Locales\en-US.json" />
-      <Content Remove="Locales\zh-CN.json" />
     </ItemGroup>
 
     <ItemGroup>
