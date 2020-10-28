@@ -260,9 +260,6 @@
             @RenderHeader.Invoke(false)
         }
         <tbody>
-            @{
-                StarRowIndex = (PageIndex - 1) * PageItems + 1;
-            }
             @foreach (var item in Items)
             {
                 @RenderRow.Invoke(item)
@@ -438,7 +435,7 @@ RenderFragment<TItem> RenderRow => item =>
     @if (ShowLineNo)
     {
         <td>
-            <div class="table-cell">@(StarRowIndex++)</div>
+            <div class="table-cell">@(Items.ToList().IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
         </td>
     }
     @foreach (var col in GetColumns())
