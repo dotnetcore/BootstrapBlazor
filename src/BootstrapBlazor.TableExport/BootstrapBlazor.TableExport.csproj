@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <OutputType>Library</OutputType>
+        <RazorLangVersion>3.0</RazorLangVersion>
+        <IsPackable>true</IsPackable>
+        <PackageIcon>logo.png</PackageIcon>
+        <Version>3.1.0-beta01</Version>
+        <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -75,6 +75,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "test\UnitTest\U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Chart", "src\BootstrapBlazor.Chart\BootstrapBlazor.Chart.csproj", "{FB6352BD-B93D-4BE4-B8B5-BEC75D81D483}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.TableExport", "src\BootstrapBlazor.TableExport\BootstrapBlazor.TableExport.csproj", "{7D8DFDF8-35F7-43A9-8304-1726890B0432}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{FB6352BD-B93D-4BE4-B8B5-BEC75D81D483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB6352BD-B93D-4BE4-B8B5-BEC75D81D483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB6352BD-B93D-4BE4-B8B5-BEC75D81D483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D8DFDF8-35F7-43A9-8304-1726890B0432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8DFDF8-35F7-43A9-8304-1726890B0432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8DFDF8-35F7-43A9-8304-1726890B0432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8DFDF8-35F7-43A9-8304-1726890B0432}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,6 +137,7 @@ Global
 		{C6D0C40F-98F4-4C67-A11E-240571C0B858} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{190F25CF-C6F9-4964-97E9-F6A912D527AE} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{FB6352BD-B93D-4BE4-B8B5-BEC75D81D483} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{7D8DFDF8-35F7-43A9-8304-1726890B0432} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

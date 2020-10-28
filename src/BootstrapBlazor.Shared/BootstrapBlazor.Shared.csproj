@@ -15,6 +15,7 @@
     <ItemGroup>
         <ProjectReference Include="..\BootstrapBlazor.Chart\BootstrapBlazor.Chart.csproj" />
         <ProjectReference Include="..\BootstrapBlazor.Docs\BootstrapBlazor.Docs.csproj" />
+        <ProjectReference Include="..\BootstrapBlazor.TableExport\BootstrapBlazor.TableExport.csproj" />
         <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
     </ItemGroup>
 

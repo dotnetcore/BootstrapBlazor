@@ -28,9 +28,9 @@ namespace Microsoft.Extensions.DependencyInjection
         private static void AddJsonLocalizationServices(IServiceCollection services, Action<JsonLocalizationOptions>? setupAction = null)
         {
             //services.AddSingleton<IHtmlLocalizerFactory, JsonHtmlLocalizerFactory>();
-            services.TryAddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-            services.TryAddScoped(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-            services.TryAddScoped(typeof(IStringLocalizer), typeof(StringLocalizer));
+            services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+            services.AddScoped(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
+            services.AddScoped(typeof(IStringLocalizer), typeof(StringLocalizer));
 
             if (setupAction != null) services.Configure(setupAction);
         }

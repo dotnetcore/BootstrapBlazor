@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -121,6 +120,10 @@ namespace BootstrapBlazor.Components
         [Inject]
         [NotNull]
         protected DialogService? DialogService { get; set; }
+
+        [Inject]
+        [NotNull]
+        private ITableExcelExport? ExcelExport { get; set; }
 
         /// <summary>
         /// 获得/设置 各列是否显示状态集合
@@ -365,48 +368,9 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-                    using var excelPackage = new ExcelPackage();
-                    var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
-
-                    var y = 1;
-                    foreach (var item in Items)
-                    {
-                        var x = 1;
-                        foreach (var pi in item.GetType().GetProperties())
-                        {
-                            if (!Columns.Any(col => col.GetFieldName() == pi.Name)) continue;
-
-                            if (y == 1)
-                            {
-                                if (pi.Name != null)
-                                {
-                                    if (pi.PropertyType == typeof(DateTime) || pi.PropertyType == typeof(DateTime?)
-                                        || pi.PropertyType == typeof(TimeSpan) || pi.PropertyType == typeof(TimeSpan?))
-                                    {
-                                        worksheet.Column(x).Width = 18;
-                                        worksheet.Column(x).Style.Numberformat.Format = "yyyy/m/d h:mm:ss";
-                                    }
-
-                                    var th_value = Items.FirstOrDefault().GetDisplayName(pi.Name);
-
-                                    worksheet.SetValue(1, x, th_value);
-                                }
-                            }
-                            var value = pi.GetValue(item, null);
-                            worksheet.SetValue(y + 1, x, value);
-                            x++;
-                        }
-                        y++;
-                    }
-
-                    var bytes = excelPackage.GetAsByteArray();
-                    var fileName = DateTime.Now.Ticks;
-                    var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    var excelName = $"{fileName}.xlsx";
-                    var bytesBase64 = Convert.ToBase64String(bytes);
-                    await JSRuntime.InvokeVoidAsync(null, "generatefile", excelName, bytesBase64, contentType);
-
-                    ret = true;
+                    // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
+                    // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
+                    ret = await ExcelExport.ExportAsync(Items, Columns, JSRuntime);
                 }
 
                 var option = new ToastOption()

@@ -58,6 +58,9 @@ namespace BootstrapBlazor.Server
             // 增加 BootstrapBlazor 组件
             services.AddBootstrapBlazor();
 
+            // 增加 Table Excel 导出服务
+            services.AddBootstrapBlazorTableExcelExport();
+
             // 增加多语言支持
             services.AddJsonLocalization();
             services.Configure<RequestLocalizationOptions>(options =>

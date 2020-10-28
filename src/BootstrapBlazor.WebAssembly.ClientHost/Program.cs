@@ -37,6 +37,9 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             // 增加 BootstrapBlazor 组件
             builder.Services.AddBootstrapBlazor();
 
+            // 增加 Table Excel 导出服务
+            builder.Services.AddBootstrapBlazorTableExcelExport();
+
             builder.Services.AddSingleton<WeatherForecastService>();
 
             builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();

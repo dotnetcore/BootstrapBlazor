@@ -1,5 +1,4 @@
 ﻿using BootstrapBlazor.Components;
-using BootstrapBlazor.Localization;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -16,12 +15,13 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services)
         {
-            services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
-            services.TryAddScoped<DialogService>();
-            services.TryAddScoped<MessageService>();
-            services.TryAddScoped<PopoverService>();
-            services.TryAddScoped<ToastService>();
-            services.TryAddScoped<SwalService>();
+            services.AddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
+            services.AddSingleton<ITableExcelExport, DefaultExcelExport>();
+            services.AddScoped<DialogService>();
+            services.AddScoped<MessageService>();
+            services.AddScoped<PopoverService>();
+            services.AddScoped<ToastService>();
+            services.AddScoped<SwalService>();
             services.AddJsonLocalization();
             return services;
         }
