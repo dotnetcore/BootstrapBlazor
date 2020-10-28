@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Components
             var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             var excelName = $"{fileName}.xlsx";
             var bytesBase64 = Convert.ToBase64String(bytes);
-            await jsRuntime.InvokeVoidAsync("$.generatefile", excelName, bytesBase64, contentType);
+            await jsRuntime.InvokeVoidAsync(identifier: "$.generatefile", excelName, bytesBase64, contentType);
             return true;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -6,12 +7,12 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Markdown 基类
     /// </summary>
-    public abstract class MarkdownBase : BootstrapComponentBase
+    public sealed partial class Markdown
     {
         /// <summary>
         /// 获得/设置 DOM 元素实例
         /// </summary>
-        protected ElementReference MarkdownElement { get; set; }
+        private ElementReference MarkdownElement { get; set; }
 
         /// <summary>
         /// OnAfterRenderAsync 方法

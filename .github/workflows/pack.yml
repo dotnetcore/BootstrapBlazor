@@ -30,3 +30,6 @@ jobs:
         
         dotnet pack src/BootstrapBlazor.TableExport -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.TableExport.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        
+        dotnet pack src/BootstrapBlazor.Markdown -c Release -o publish
+        dotnet nuget push publish/BootstrapBlazor.Markdown.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate

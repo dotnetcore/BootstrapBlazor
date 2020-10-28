@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// JSRuntime 扩展操作类
     /// </summary>
-    internal static class JSRuntimeExtensions
+    public static class JSRuntimeExtensions
     {
         /// <summary>
         /// 调用 JSInvoke 方法

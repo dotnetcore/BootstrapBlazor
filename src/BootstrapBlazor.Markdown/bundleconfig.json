@@ -1,0 +1,19 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/bootstrap.blazor.markdown.min.css",
+    "inputFiles": [
+      "wwwroot/lib/editor.md/editormd.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bootstrap.blazor.markdown.min.js",
+    "inputFiles": [
+      "wwwroot/lib/editor.md/editormd.min.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]
