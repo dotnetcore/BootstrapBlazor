@@ -1,22 +1,22 @@
 ﻿{
-  "Components.AutoComplete": {
+  "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "No Data",
     "PlaceHolder": "Please Input"
   },
-  "Components.Captcha": {
+  "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
     "BarText": "Slide right to fill puzzle",
     "FailedText": "Load failed",
     "LoadText": "Loading ...",
     "TryText": "Try again"
   },
-  "Components.Console": {
+  "BootstrapBlazor.Components.Console": {
     "HeaderText": "Monitor",
     "LightTitle": "Light",
     "ClearButtonText": "Clear",
     "AutoScrollText": "AutoScroll"
   },
-  "Components.DateTimePicker": {
+  "BootstrapBlazor.Components.DateTimePicker": {
     "DatePlaceHolder": "Date",
     "TimePlaceHolder": "Time",
     "DateTimePlaceHolderText": "Please select ...",
@@ -40,32 +40,32 @@
     "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
     "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>"
   },
-  "Components.DropdownList": {
+  "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Please select ..."
   },
-  "Components.Editor": {
+  "BootstrapBlazor.Components.Editor": {
     "PlaceHolder": "Click to edit"
   },
-  "Components.EditorForm": {
+  "BootstrapBlazor.Components.EditorForm": {
     "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL not match {0} MODEL",
     "PlaceHolderText": "Please input ..."
   },
-  "Components.EqualToValidator": {
+  "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
   },
-  "Components.GoTop": {
+  "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "Go top"
   },
-  "Components.Layout": {
+  "BootstrapBlazor.Components.Layout": {
     "TooltipText": "Click to Expand/Collapse sidebar"
   },
-  "Components.MultiSelect": {
+  "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "Click for select ...",
     "SelectAllText": "All",
     "ReverseSelectText": "Reverse",
     "ClearText": "Clear"
   },
-  "Components.Pagination": {
+  "BootstrapBlazor.Components.Pagination": {
     "AiraPageLabel": "Pagination",
     "AiraPrevPageText": "Prev",
     "AiraFirstPageText": "First",
@@ -77,38 +77,38 @@
     "LabelString": "page {0}",
     "SelectItemsText": "{0} /page"
   },
-  "Components.PopConfirmButton": {
+  "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "Cancel",
     "ConfirmButtonText": "Ok",
     "Content": "Are you sure DELETE?"
   },
-  "Components.QRCode": {
+  "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "Please input ...",
     "ClearButtonText": "Clear",
     "GenerateButtonText": "Generate"
   },
-  "Components.RequiredValidator": {
+  "BootstrapBlazor.Components.RequiredValidator": {
     "ErrorMessage": "This field is required"
   },
-  "Components.Search": {
+  "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Search"
   },
-  "Components.Select": {
+  "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "Click for select ..."
   },
-  "Components.StringLengthValidator": {
+  "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Please enter a value less than or equal to {{0}}"
   },
-  "Components.SweetAlert": {
+  "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Close",
     "CancelButtonText": "Cancel",
     "ConfirmButtonText": "Confirm"
   },
-  "Components.Switch": {
+  "BootstrapBlazor.Components.Switch": {
     "OnInnerText": "On",
     "OffInnerText": "Off"
   },
-  "Components.Table": {
+  "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Add",
     "EditButtonText": "Edit",
     "DeleteButtonText": "Delete",
@@ -144,11 +144,11 @@
     "DeleteButtonToastContent": "Please select DELETE rows, auto claose after {1}s",
     "DeleteButtonToastResultContent": "Delete data {0}, auto claose after {1}s"
   },
-  "Components.TableEditorDialog": {
+  "BootstrapBlazor.Components.TableEditorDialog": {
     "CloseButtonText": "Close",
     "SaveButtonText": "Save"
   },
-  "Components.TableFilter": {
+  "BootstrapBlazor.Components.TableFilter": {
     "Title": "Filter",
     "ClearButtonText": "Clear",
     "FilterButtonText": "Filter",
@@ -165,25 +165,25 @@
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All"
   },
-  "Components.TableSearchDialog": {
+  "BootstrapBlazor.Components.TableSearchDialog": {
     "ResetButtonText": "Reset",
     "QueryButtonText": "Query"
   },
-  "Components.Timer": {
+  "BootstrapBlazor.Components.Timer": {
     "PauseText": "Pause",
     "ResumeText": "Resume",
     "CancelText": "Cancel",
     "StarText": "Star"
   },
-  "Components.Toggle": {
+  "BootstrapBlazor.Components.Toggle": {
     "OnText": "Expand",
     "OffText": "Collapse"
   },
-  "Components.Transfer": {
+  "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "List 1",
     "RightPanelText": "List 2"
   },
-  "Components.Upload": {
+  "BootstrapBlazor.Components.Upload": {
     "Text": "Upload",
     "ResetText": "Reset",
     "AllowFileTypeErrorMessage": "Only allow Images type file",

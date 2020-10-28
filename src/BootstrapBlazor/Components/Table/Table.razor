@@ -37,7 +37,7 @@
                         }
                         @if (ShowDeleteButton)
                         {
-                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger" 
+                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
                                                           Icon="fa fa-remove" Text="@DeleteButtonText"
                                                           OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync()"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
@@ -105,17 +105,17 @@
                             <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                         </BootstrapInput>
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" title="@SearchButtonText" @onclick="@SearchClick">
+                            <button class="btn btn-secondary" type="button" @onclick="@SearchClick">
                                 <i class="fa fa-search"></i>
                                 <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                             </button>
-                            <button class="btn btn-secondary" type="button" title="@ResetButtonText" @onclick="@ClearSearchClick">
+                            <button class="btn btn-secondary" type="button" @onclick="@ClearSearchClick">
                                 <i class="fa fa-trash"></i>
                                 <span class="d-none d-sm-inline-block">@ResetButtonText</span>
                             </button>
                             @if (ShowAdvancedSearch)
                             {
-                                <Button class="@AdvanceSearchClass" title="@AdvanceButtonText" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
+                                <Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
                                     <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
                                 </Button>
                             }
@@ -387,7 +387,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                                 <i class="@GetIconClassString(fieldName)"></i>
                             }
                         </div>
-                        @if(AllowResizing)
+                        @if (AllowResizing)
                         {
                             <span class="col-resizer"></span>
                         }
@@ -418,8 +418,9 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td>
             <div class="@GetDetailBarClassString(item)">
-                @if (ShowDetailRow == null ? true : ShowDetailRow.Invoke(item)) {
-                        <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="@ExpandDetailRow(item)"></i>
+                @if (ShowDetailRow == null ? true : ShowDetailRow.Invoke(item))
+                {
+                    <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="@ExpandDetailRow(item)"></i>
                 }
             </div>
         </td>

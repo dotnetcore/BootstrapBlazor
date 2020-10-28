@@ -11,7 +11,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowLineNo="true" LineNoText="序号"
-           ShowDefaultButtons="false"
+           ShowDefaultButtons="false" ClickToSelect="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

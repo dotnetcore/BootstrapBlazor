@@ -1,22 +1,22 @@
 ﻿{
-  "Components.AutoComplete": {
+  "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "无匹配数据",
     "PlaceHolder": "请输入"
   },
-  "Components.Captcha": {
+  "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "请完成安全验证",
     "BarText": "向右滑动填充拼图",
     "FailedText": "加载失败",
     "LoadText": "正在加载 ...",
     "TryText": "再试一次"
   },
-  "Components.Console": {
+  "BootstrapBlazor.Components.Console": {
     "HeaderText": "系统监控",
     "LightTitle": "通讯指示灯",
     "ClearButtonText": "清屏",
     "AutoScrollText": "自动滚屏"
   },
-  "Components.DateTimePicker": {
+  "BootstrapBlazor.Components.DateTimePicker": {
     "DatePlaceHolder": "选择日期",
     "TimePlaceHolder": "选择时间",
     "DateTimePlaceHolderText": "请选择日期时间",
@@ -40,32 +40,32 @@
     "WeekLists": "日,一,二,三,四,五,六",
     "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime 或者 DateTime?"
   },
-  "Components.DropdownList": {
+  "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "请选择 ..."
   },
-  "Components.Editor": {
+  "BootstrapBlazor.Components.Editor": {
     "PlaceHolder": "点击后编辑"
   },
-  "Components.EditorForm": {
+  "BootstrapBlazor.Components.EditorForm": {
     "ModelInvalidOperationExceptionMessage": "验证表单与 {0} 绑定模型不一致",
     "PlaceHolderText": "请输入 ..."
   },
-  "Components.EqualToValidator": {
+  "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "你的输入不相同"
   },
-  "Components.GoTop": {
+  "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "返回顶端"
   },
-  "Components.Layout": {
+  "BootstrapBlazor.Components.Layout": {
     "TooltipText": "点击展开收缩左侧菜单"
   },
-  "Components.MultiSelect": {
+  "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "点击进行多选 ...",
     "SelectAllText": "全选",
     "ReverseSelectText": "反选",
     "ClearText": "清除"
   },
-  "Components.Pagination": {
+  "BootstrapBlazor.Components.Pagination": {
     "AiraPageLabel": "分页组件",
     "AiraPrevPageText": "上一页",
     "AiraFirstPageText": "第一页",
@@ -77,38 +77,38 @@
     "LabelString": "第 {0} 页",
     "SelectItemsText": "{0} 条/页"
   },
-  "Components.PopConfirmButton": {
+  "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "关闭",
     "ConfirmButtonText": "确定",
     "Content": "确认删除吗？"
   },
-  "Components.QRCode": {
+  "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "请输入内容",
     "ClearButtonText": "清除",
     "GenerateButtonText": "生成"
   },
-  "Components.RequiredValidator": {
+  "BootstrapBlazor.Components.RequiredValidator": {
     "ErrorMessage": "这是必填字段"
   },
-  "Components.Search": {
+  "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "搜索"
   },
-  "Components.Select": {
+  "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "请选择 ..."
   },
-  "Components.StringLengthValidator": {
+  "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "最多可以输入 {{0}} 个字符"
   },
-  "Components.SweetAlert": {
+  "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "关闭",
     "CancelButtonText": "取消",
     "ConfirmButtonText": "确认"
   },
-  "Components.Switch": {
+  "BootstrapBlazor.Components.Switch": {
     "OnInnerText": "开",
     "OffInnerText": "关"
   },
-  "Components.Table": {
+  "BootstrapBlazor.Components.Table": {
     "AddButtonText": "新建",
     "EditButtonText": "编辑",
     "DeleteButtonText": "删除",
@@ -144,11 +144,11 @@
     "DeleteButtonToastContent": "请选择要删除的数据, {0} 秒后自动关闭",
     "DeleteButtonToastResultContent": "删除数据{0}, {1} 秒后自动关闭"
   },
-  "Components.TableEditorDialog": {
+  "BootstrapBlazor.Components.TableEditorDialog": {
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存"
   },
-  "Components.TableFilter": {
+  "BootstrapBlazor.Components.TableFilter": {
     "Title": "过滤",
     "ClearButtonText": "重置",
     "FilterButtonText": "确认",
@@ -165,25 +165,25 @@
     "NotContains": "不包含",
     "EnumFilter.AllText": "全选"
   },
-  "Components.TableSearchDialog": {
+  "BootstrapBlazor.Components.TableSearchDialog": {
     "ResetButtonText": "重置",
     "QueryButtonText": "查询"
   },
-  "Components.Timer": {
+  "BootstrapBlazor.Components.Timer": {
     "PauseText": "暂停",
     "ResumeText": "继续",
     "CancelText": "取消",
     "StarText": "开始计时"
   },
-  "Components.Toggle": {
+  "BootstrapBlazor.Components.Toggle": {
     "OnText": "展开",
     "OffText": "收缩"
   },
-  "Components.Transfer": {
+  "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "列表 1",
     "RightPanelText": "列表 2"
   },
-  "Components.Upload": {
+  "BootstrapBlazor.Components.Upload": {
     "Text": "点击上传",
     "ResetText": "重置",
     "AllowFileTypeErrorMessage": "只允许选择图片类型文件",
