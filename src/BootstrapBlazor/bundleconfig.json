@@ -1,0 +1,27 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/bootstrap.blazor.min.css",
+    "inputFiles": [
+      "wwwroot/css/!(*.min).css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery-3.5.1.js",
+      "wwwroot/lib/bootstrap/js/bootstrap.bundle.js",
+      "wwwroot/lib/summernote/summernote-bs4.min.js",
+      "wwwroot/lib/summernote/summernote-zh-CN.min.js",
+      "wwwroot/lib/slimscroll/jquery.slimscroll.min.js",
+      "wwwroot/lib/barcodereader/qrcode.min.js",
+      "wwwroot/lib/barcodereader/zxing.js",
+      "wwwroot/lib/handwritten/handwritten.js",
+      "wwwroot/js/!(*.min).js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]
