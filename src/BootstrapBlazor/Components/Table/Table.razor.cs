@@ -366,6 +366,24 @@ namespace BootstrapBlazor.Components
         }
 
         private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object>>();
+
+
+        /// <summary>
+        /// 获得 指定单元格鼠标悬停提示方法
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="item"></param> 
+        /// <returns></returns>
+        protected string GetTitleString(ITableColumn col, TItem item)
+        {
+            if (col.ShowTips)
+            {
+                var val = GetItemValue(col.GetFieldName(), item);
+                return val?.ToString() ?? "";
+            }
+            return "";
+        }
+
         #endregion
 
         /// <summary>
