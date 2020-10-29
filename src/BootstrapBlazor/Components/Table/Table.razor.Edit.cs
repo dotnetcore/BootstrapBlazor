@@ -260,6 +260,8 @@ namespace BootstrapBlazor.Components
             }
 
             if (OnDoubleClickRowCallback != null) await OnDoubleClickRowCallback(item);
+
+            StateHasChanged();
         };
 
         /// <summary>
