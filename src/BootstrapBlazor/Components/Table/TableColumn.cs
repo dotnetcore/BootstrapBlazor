@@ -217,5 +217,12 @@ namespace BootstrapBlazor.Components
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
 
         private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TType>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<object, TType>>();
+
+        /// <summary>
+        /// 获得/设置 字段鼠标悬停提示
+        /// </summary>
+        [Parameter]
+        public bool ShowTips { get; set; }
+
     }
 }

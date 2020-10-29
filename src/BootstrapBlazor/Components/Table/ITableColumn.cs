@@ -104,5 +104,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 文字对齐方式 默认为 Alignment.None
         /// </summary>
         Alignment Align { get; set; }
+
+        /// <summary>
+        /// 字段鼠标悬停提示
+        /// </summary>
+        bool ShowTips { get; set; }
     }
 }

@@ -443,7 +443,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         @if (CheckShownWithBreakpoint(col))
         {
-            <td class="@GetFixedCellClassString(col)" style="@GetFixedCellStyleString(col)">
+            <td class="@GetFixedCellClassString(col)" style="@GetFixedCellStyleString(col)" title="@GetTitleString(col, item)">
                 <div class="@GetCellClassString(col)" style="@GetCellStyleString(col)">
                     @GetValue(col, item)
                 </div>
