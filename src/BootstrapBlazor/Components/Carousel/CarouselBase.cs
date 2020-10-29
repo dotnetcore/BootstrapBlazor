@@ -63,28 +63,15 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击 Image 回调委托
         /// </summary>
         [Parameter]
-        public Func<string, Task> OnClick { get; set; } = _ => Task.CompletedTask;
-
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender && !string.IsNullOrEmpty(Id)) await JSRuntime.InvokeVoidAsync(Id, "carousel");
-        }
+        public Func<string, Task>? OnClick { get; set; }
 
         /// <summary>
         /// 点击 Image 是触发此方法
         /// </summary>
         /// <returns></returns>
-        protected Task OnClickImage()
+        protected async Task OnClickImage(string imageUrl)
         {
-            //if (OnClick != null) await OnClick(imageUrl);
-            return Task.CompletedTask;
+            if (OnClick != null) await OnClick(imageUrl);
         }
     }
 }

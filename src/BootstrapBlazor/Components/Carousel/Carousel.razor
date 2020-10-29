@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits CarouselBase
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-ride="carousel">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-ride="carousel" @ref="CarouselElement">
     <ol class="carousel-indicators">
         @for (var index = 0; index < Images.Count(); index++)
         {
@@ -12,7 +12,7 @@
         @for (var index = 0; index < Images.Count(); index++)
         {
             <div class="@CheckActive(index, "carousel-item")">
-                <CarouselImage ImageUrl="@Images.ElementAt(index)" OnClick="@OnClick"></CarouselImage>
+                <CarouselImage ImageUrl="@Images.ElementAt(index)" OnClick="@OnClickImage"></CarouselImage>
             </div>
         }
     </div>

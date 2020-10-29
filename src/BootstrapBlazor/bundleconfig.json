@@ -6,22 +6,34 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/lib/handwritten/handwritten.min.js",
+    "inputFiles": [
+      "wwwroot/lib/handwritten/handwritten.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
+    "inputFiles": [
+      "wwwroot/js/bootstrap.blazor.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
-      "wwwroot/lib/jquery/jquery-3.5.1.js",
-      "wwwroot/lib/bootstrap/js/bootstrap.bundle.js",
+      "wwwroot/lib/jquery/jquery-3.5.1.min.js",
+      "wwwroot/lib/bootstrap/js/bootstrap.bundle.min.js",
       "wwwroot/lib/summernote/summernote-bs4.min.js",
       "wwwroot/lib/summernote/summernote-zh-CN.min.js",
       "wwwroot/lib/slimscroll/jquery.slimscroll.min.js",
       "wwwroot/lib/barcodereader/qrcode.min.js",
-      "wwwroot/lib/barcodereader/zxing.js",
-      "wwwroot/lib/handwritten/handwritten.js",
-      "wwwroot/js/!(*.min).js"
+      "wwwroot/lib/barcodereader/zxing.min.js",
+      "wwwroot/lib/handwritten/handwritten.min.js",
+      "wwwroot/js/bootstrap.blazor.min.js"
     ],
     "minify": {
       "enabled": false,
       "renameLocals": true
     },
-    "sourceMap": true
+    "sourceMap": false
   }
 ]

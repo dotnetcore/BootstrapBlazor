@@ -1,7 +1,7 @@
 ﻿@import url('../lib/bootstrap/css/bootstrap.min.css');
 @import url('../lib/font-awesome/css/font-awesome.min.css');
 @import url('../lib/summernote/summernote-bs4.min.css');
-@import url('sweetalert2.min.css');
+@import url('../lib/swal/sweetalert2.min.css');
 
 html, body, button, .popover {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;

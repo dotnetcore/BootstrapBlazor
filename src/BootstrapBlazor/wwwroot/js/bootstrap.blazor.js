@@ -1036,8 +1036,8 @@
                 }, 500);
             });
         },
-        carousel(id) {
-            var $ele = $('#' + id).carousel();
+        bb_carousel: function (ele) {
+            var $ele = $(ele).carousel();
 
             // focus event
             var leaveHandler = null;
@@ -1873,20 +1873,6 @@
     });
 
     $(function () {
-        // 等待直到出现“重新加载”按钮
-        new MutationObserver((mutations, observer) => {
-            if (document.querySelector('#components-reconnect-modal h5 a')) {
-                // 现在，每隔10秒，查看服务器是否返回，如果返回，则重新加载
-                async function attemptReload() {
-                    await fetch(''); // 检查服务器是否真的返回
-                    location.reload();
-                }
-                observer.disconnect();
-                attemptReload();
-                setInterval(attemptReload, 10000);
-            }
-        }).observe(document.body, { childList: true, subtree: true });
-
         $(document)
             .on('hidden.bs.toast', '.toast', function () {
                 $(this).removeClass('hide');
@@ -2024,3 +2010,19 @@
         });
     });
 })(jQuery);
+
+// 等待直到出现“重新加载”按钮
+new MutationObserver((mutations, observer) => {
+    if (document.querySelector('#components-reconnect-modal h5 a')) {
+        // 现在，每隔10秒，查看服务器是否返回，如果返回，则重新加载
+        // 检查服务器是否真的返回
+        function attemptReload() {
+            fetch('').then(function () {
+                location.reload();
+            });
+        };
+        observer.disconnect();
+        attemptReload();
+        setInterval(attemptReload, 10000);
+    }
+}).observe(document.body, { childList: true, subtree: true });
