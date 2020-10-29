@@ -1413,6 +1413,12 @@
                     $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
                 });
 
+                $ele.find('.is-tips').tooltip({
+                    container: 'body',
+                    title: function() {
+                        return $(this).text();
+                    }
+                });
                 $.bb_table_resize($ele);
             }
             else if (method === 'width') {

@@ -162,6 +162,7 @@ namespace BootstrapBlazor.Components
             .AddClass("justify-content-center", col.Align == Alignment.Center)
             .AddClass("is-wrap", col.AllowTextWrap)
             .AddClass("is-ellips", col.TextEllipsis)
+            .AddClass("is-tips", col.ShowTips)
             .AddClass(col.CssClass)
             .Build();
 
