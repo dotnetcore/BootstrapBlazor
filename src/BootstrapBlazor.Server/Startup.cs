@@ -61,8 +61,7 @@ namespace BootstrapBlazor.Server
             // 增加 Table Excel 导出服务
             services.AddBootstrapBlazorTableExcelExport();
 
-            // 增加多语言支持
-            services.AddJsonLocalization();
+            // 增加多语言支持配置信息
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = Configuration.GetSupportCultures().ToList();

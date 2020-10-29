@@ -3,6 +3,7 @@
 @inherits BootstrapComponentBase
 @inject IConfiguration Configuration
 @inject NavigationManager NavigationManager
+@inject ICultureStorage CultureStorage
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
     <label>请选择语言：</label>
@@ -10,30 +11,46 @@
         <Options>
             @foreach (var kv in Configuration.GetSupportCultures())
             {
-            <SelectOption Text="@kv.Key" Value="@kv.Value" />
+                <SelectOption Text="@kv.Key" Value="@kv.Value" />
             }
         </Options>
     </Select>
 </div>
 
-@code{
+@code {
     private string? ClassString => CssBuilder.Default("culture-selector")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
 
-    private Task SetCulture(SelectedItem item)
+    private async Task SetCulture(SelectedItem item)
     {
-        if (SelectedCulture != item.Value)
+        if (CultureStorage.Mode == CultureStorageMode.Webapi)
         {
-            var culture = item.Value;
-            var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-            var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
+            // 使用 api 方式 适用于 Server-Side 模式
+            if (SelectedCulture != item.Value)
+            {
+                var culture = item.Value;
+                var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+                var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
 
-            // use a path that matches your culture redirect controller from the previous steps
-            NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+                // use a path that matches your culture redirect controller from the previous steps
+                NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+            }
         }
-        return Task.CompletedTask;
+        else
+        {
+            var cultureName = item.Value;
+            if (cultureName != CultureInfo.CurrentCulture.Name)
+            {
+                await JSRuntime.InvokeAsync<string>(identifier: "$.blazorCulture.set", cultureName);
+                var culture = new CultureInfo(cultureName);
+                CultureInfo.CurrentCulture = culture;
+                CultureInfo.CurrentUICulture = culture;
+
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+            }
+        }
     }
 }

@@ -16,8 +16,7 @@
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor();
 
-        // 增加本地化服务
-        services.AddJsonLocalization();
+        // 增加本地化服务配置信息
         services.Configure<RequestLocalizationOptions>(options =>
         {
             var supportedCultures = Configuration.GetSupportCultures().Select(kv => new CultureInfo(kv.Value)).ToList();
