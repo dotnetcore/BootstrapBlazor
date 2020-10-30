@@ -9,14 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BootstrapBlazor.Chart" Version="3.1.0" />
+        <PackageReference Include="BootstrapBlazor.Markdown" Version="3.1.0" />
+        <PackageReference Include="BootstrapBlazor.TableExport" Version="3.1.0" />
         <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BootstrapBlazor.Chart\BootstrapBlazor.Chart.csproj" />
         <ProjectReference Include="..\BootstrapBlazor.Docs\BootstrapBlazor.Docs.csproj" />
-        <ProjectReference Include="..\BootstrapBlazor.Markdown\BootstrapBlazor.Markdown.csproj" />
-        <ProjectReference Include="..\BootstrapBlazor.TableExport\BootstrapBlazor.TableExport.csproj" />
         <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
     </ItemGroup>
 
