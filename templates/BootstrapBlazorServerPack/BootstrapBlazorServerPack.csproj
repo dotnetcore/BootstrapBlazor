@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <PackageType>Template</PackageType>
-        <PackageVersion>1.0</PackageVersion>
+        <PackageVersion>1.0.1</PackageVersion>
         <PackageId>Bootstrap.Blazor.Templates</PackageId>
         <Title>Bootstrap Blazor Templates</Title>
         <Authors>Argo Zhang(argo@163.com)</Authors>
