@@ -126,3 +126,38 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="设置编辑模式" Introduction="通过设置表格的 <code>EditMode</code> 属性，设置组件是弹窗编辑行数据还是行内编辑数据" CodeFile="table.51.html">
+    <p><code>EditMode</code> 为枚举类型其值分别为：<code>Popup</code> <code>Inline</code> <code>InCell</code> 其默认值为 <code>Popup</code> 弹窗编辑行数据</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync" EditMode="EditMode.EditForm"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name">
+                <EditTemplate Context="value">
+                    <div class="form-group col-12 col-sm-6">
+                        <TablesNameDrop Model="@((BindItem)value)" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>

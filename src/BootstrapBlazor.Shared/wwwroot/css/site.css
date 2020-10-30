@@ -184,14 +184,6 @@ section {
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     }
 
-    .content .card-body .form-inline {
-        margin-bottom: -1rem;
-    }
-
-    .content .card-body .modal-body .form-inline {
-        margin-bottom: inherit;
-    }
-
     .content .code-label {
         font-weight: 500;
         color: #333;

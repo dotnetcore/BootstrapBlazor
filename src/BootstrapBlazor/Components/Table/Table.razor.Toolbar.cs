@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -150,6 +151,8 @@ namespace BootstrapBlazor.Components
             return ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
         }
 
+        private bool ShowAddForm { get; set; }
+
         /// <summary>
         /// 新建按钮方法
         /// </summary>
@@ -163,8 +166,19 @@ namespace BootstrapBlazor.Components
                 SelectedItems.Clear();
                 EditModalTitleString = AddModalTitle;
 
-                ShowEditorDialog();
+                if (EditMode == EditMode.Popup)
+                {
+                    ShowEditorDialog();
+                }
+                else if (EditMode == EditMode.EditForm)
+                {
+                    ShowAddForm = true;
+                    ShowEditForm = false;
+                }
+                else if (EditMode == EditMode.InCell)
+                {
 
+                }
                 StateHasChanged();
             }
             else
@@ -179,6 +193,8 @@ namespace BootstrapBlazor.Components
             }
         }
 
+        private bool ShowEditForm { get; set; }
+
         /// <summary>
         /// 编辑按钮方法
         /// </summary>
@@ -191,7 +207,19 @@ namespace BootstrapBlazor.Components
                     EditModel = SelectedItems[0].Clone();
                     EditModalTitleString = EditModalTitle;
 
-                    ShowEditorDialog();
+                    if (EditMode == EditMode.Popup)
+                    {
+                        ShowEditorDialog();
+                    }
+                    else if (EditMode == EditMode.EditForm)
+                    {
+                        ShowEditForm = true;
+                        ShowAddForm = false;
+                    }
+                    else if (EditMode == EditMode.InCell)
+                    {
+
+                    }
                 }
                 else
                 {
@@ -218,6 +246,19 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 取消保存方法
+        /// </summary>
+        /// <returns></returns>
+        protected EventCallback<MouseEventArgs> CancelSave() => EventCallback.Factory.Create<MouseEventArgs>(this, _ =>
+        {
+            if (EditMode == EditMode.EditForm)
+            {
+                ShowAddForm = false;
+                ShowEditForm = false;
+            }
+        });
+
+        /// <summary>
         /// 保存数据
         /// </summary>
         /// <param name="context"></param>
@@ -226,6 +267,12 @@ namespace BootstrapBlazor.Components
             var valid = false;
             if (OnSaveAsync != null)
             {
+                if (EditMode == EditMode.EditForm)
+                {
+                    ShowAddForm = false;
+                    ShowEditForm = false;
+                }
+
                 valid = await OnSaveAsync((TItem)context.Model);
                 var option = new ToastOption
                 {

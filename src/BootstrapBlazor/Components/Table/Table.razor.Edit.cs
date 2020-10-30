@@ -51,6 +51,12 @@ namespace BootstrapBlazor.Components
         public bool UseComponentWidth { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件编辑模式 默认为弹窗编辑行数据 PopupEditForm
+        /// </summary>
+        [Parameter]
+        public EditMode EditMode { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件布局方式 默认为 Auto
         /// </summary>
         [Parameter]

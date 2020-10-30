@@ -1549,7 +1549,8 @@ input:disabled,
     }
 
 .table .table-cell .table-container,
-.table .table-cell .tabs {
+.table .table-cell .tabs,
+.table .table-cell form {
     flex: 1;
 }
 

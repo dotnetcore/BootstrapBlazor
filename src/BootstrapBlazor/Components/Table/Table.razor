@@ -260,6 +260,10 @@
             @RenderHeader.Invoke(false)
         }
         <tbody>
+            @if (EditMode == EditMode.EditForm && ShowAddForm)
+            {
+                @RenderEditForm.Invoke(EditModel)
+            }
             @foreach (var item in Items)
             {
                 @RenderRow.Invoke(item)
@@ -282,6 +286,10 @@
                             </div>
                         </td>
                     </tr>
+                }
+                if (EditMode == EditMode.EditForm && ShowEditForm && SelectedItems.FirstOrDefault() == item)
+                {
+                    @RenderEditForm.Invoke(EditModel)
                 }
             }
         </tbody>
@@ -477,4 +485,38 @@ RenderFragment<TItem> RenderRow => item =>
         </td>
     }
 </DynamicElement>;
+
+RenderFragment<TItem> RenderEditForm => item =>
+@<tr>
+    @{
+        var colspanCount = Columns.Count;
+        if (IsMultipleSelect) colspanCount++;
+        if (ShowLineNo) colspanCount++;
+        if (DetailRowTemplate != null) colspanCount++;
+        if (ShowExtendButtons) colspanCount++;
+    }
+    <td colspan="@colspanCount">
+        <div class="table-cell">
+            @if (EditTemplate != null)
+            {
+                @EditTemplate.Invoke(item)
+            }
+            else
+            {
+                <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(Save))">
+                    <CascadingValue Value="Columns" IsFixed="true">
+                        <EditorForm TModel="TItem">
+                            <Buttons>
+                                <div class="modal-footer table-modal-footer">
+                                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="@CancelSave()" />
+                                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
+                                </div>
+                            </Buttons>
+                        </EditorForm>
+                    </CascadingValue>
+                </ValidateForm>
+            }
+        </div>
+    </td>
+</tr>;
 }

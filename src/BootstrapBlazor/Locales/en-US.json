@@ -112,6 +112,7 @@
     "AddButtonText": "Add",
     "EditButtonText": "Edit",
     "DeleteButtonText": "Delete",
+    "SaveButtonText": "Save",
     "CancelDeleteButtonText": "Cancel",
     "ConfirmDeleteButtonText": "Delete",
     "ConfirmDeleteContentText": "Are you sure to DELETE all selected rows?",

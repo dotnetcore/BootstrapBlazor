@@ -112,6 +112,7 @@
     "AddButtonText": "新建",
     "EditButtonText": "编辑",
     "DeleteButtonText": "删除",
+    "SaveButtonText": "保存",
     "CancelDeleteButtonText": "取消",
     "ConfirmDeleteButtonText": "删除",
     "ConfirmDeleteContentText": "确认要删除选中的所有行吗？",

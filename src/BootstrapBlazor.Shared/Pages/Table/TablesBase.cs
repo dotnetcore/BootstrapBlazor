@@ -222,6 +222,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "EditMode",
+                Description = "设置编辑行数据模式",
+                Type = "EditMode",
+                ValueList = "Popup|Inline|InCell",
+                DefaultValue = "Popup"
+            },
+            new AttributeItem() {
                 Name = "HeaderTemplate",
                 Description = "TableHeader 实例",
                 Type = "RenderFragment<TItem>",

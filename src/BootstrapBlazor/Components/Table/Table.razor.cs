@@ -212,13 +212,6 @@ namespace BootstrapBlazor.Components
                 PageItems = PageItemsSource.FirstOrDefault();
             }
 
-            // 初始化 EditModel
-            if (EditModel == null)
-            {
-                if (OnAddAsync != null) EditModel = await OnAddAsync();
-                else EditModel = new TItem();
-            }
-
             // 设置 OnSort 回调方法
             OnSortAsync = QueryAsync;
 
