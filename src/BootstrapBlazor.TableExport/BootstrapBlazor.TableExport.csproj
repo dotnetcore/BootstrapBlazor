@@ -11,6 +11,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Content Remove="C:\Users\Argo\.nuget\packages\bootstrapblazor\3.1.28-beta01\contentFiles\any\netstandard2.1\bundleconfig.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="EPPlus" Version="4.5.3.3" />
         <PackageReference Include="BootstrapBlazor" Version="3.1.28-beta01" />
     </ItemGroup>
