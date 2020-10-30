@@ -6,8 +6,11 @@
         <RazorLangVersion>3.0</RazorLangVersion>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>3.1.28-beta01</Version>
-        <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
+        <Version>3.1.28-beta02</Version>
+        <PackageReleaseNotes>
+            更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis
+            Table 组件增加行编辑模式 （https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/636）
+        </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
