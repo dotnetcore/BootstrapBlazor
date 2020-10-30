@@ -15,7 +15,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Content Remove="bundleconfig.json" />
         <None Include="bundleconfig.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <None Include="logo.png" Pack="true" PackagePath="" />
     </ItemGroup>
 

@@ -11,18 +11,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Remove="Locales\*.json" />
-        <EmbeddedResource Include="Locales\*.json" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.9" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.9" />
     </ItemGroup>
 
     <ItemGroup>
+        <Content Remove="Locales\*.json" />
+        <EmbeddedResource Include="Locales\*.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Remove="bundleconfig.json" />
         <None Include="bundleconfig.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <None Include="logo.png" Pack="true" PackagePath="" />
     </ItemGroup>
 
