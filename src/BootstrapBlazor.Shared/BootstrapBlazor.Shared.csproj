@@ -9,9 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BootstrapBlazor.Chart" Version="3.1.0" />
-        <PackageReference Include="BootstrapBlazor.Markdown" Version="3.1.0" />
-        <PackageReference Include="BootstrapBlazor.TableExport" Version="3.1.0" />
+        <PackageReference Include="BootstrapBlazor.Chart" Version="3.1.1-beta01" />
+        <PackageReference Include="BootstrapBlazor.Markdown" Version="3.1.1-beta01" />
+        <PackageReference Include="BootstrapBlazor.TableExport" Version="3.1.1-beta01" />
         <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
     </ItemGroup>
 
