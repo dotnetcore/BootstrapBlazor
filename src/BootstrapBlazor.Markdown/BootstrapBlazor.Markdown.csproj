@@ -11,10 +11,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+        <PackageReference Include="BootstrapBlazor" Version="3.1.27" />
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="bundleconfig.json" />
         <None Include="logo.png" Pack="true" PackagePath="" />
     </ItemGroup>
 

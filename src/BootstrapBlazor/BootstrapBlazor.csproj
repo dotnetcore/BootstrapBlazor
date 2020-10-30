@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="bundleconfig.json" />
         <None Include="logo.png" Pack="true" PackagePath="" />
     </ItemGroup>
 
