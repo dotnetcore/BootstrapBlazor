@@ -33,6 +33,3 @@ jobs:
         
         dotnet pack src/BootstrapBlazor.Markdown -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.Markdown.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
-
-        dotnet pack templates/BootstrapBlazorServerPack -c Release -o publish
-        dotnet nuget push publish/Bootstrap.Blazor.Templates.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate

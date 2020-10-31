@@ -49,6 +49,7 @@
         <li>可以拖动窗口大小，窗口过小时 <b>地址</b> 列自动进行省略处理</li>
         <li>通过设置 <code>OverflowEllipsis</code> 来开启文本超长省略功能</li>
         <li><b>注意：</b>推荐使用 <code>Width</code> 对列宽度进行设置，如未设置列宽内部自动使用 200px 宽度</li>
+        <li>单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code></li>
     </ul>
     <Table TItem="BindItem" IsBordered="true" IsStriped="true" Items="@CellItems">
         <TableColumns>

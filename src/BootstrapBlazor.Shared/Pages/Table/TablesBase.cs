@@ -94,6 +94,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowTips",
+                Description = "显示单元格 Tooltips",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "Visible",
                 Description = "是否显示此列",
                 Type = "boolean",
