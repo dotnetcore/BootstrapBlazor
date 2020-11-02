@@ -196,8 +196,9 @@ namespace BootstrapBlazor.Components
                 // 设置数据集合后 SelectedItem 设置默认值
                 if (SelectedItem == null || !items.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text))
                 {
-                    var item = items.FirstOrDefault(i => i.Active);
-                    if (item == null) item = items.FirstOrDefault(i => i.Value == CurrentValueAsString) ?? items.FirstOrDefault();
+                    var item = items.FirstOrDefault(i => i.Value == CurrentValueAsString)
+                            ?? items.FirstOrDefault(i => i.Active)
+                            ?? items.FirstOrDefault();
                     if (item != null)
                     {
                         SelectedItem = item;
