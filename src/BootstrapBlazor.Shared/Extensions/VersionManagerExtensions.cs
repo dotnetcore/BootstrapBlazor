@@ -58,6 +58,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public async Task<string> GetVersionAsync(string packageName = "bootstrapblazor")
         {
+            Version = "latest";
             await FetchVersionAsync(packageName);
             return Version;
         }
