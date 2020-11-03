@@ -112,6 +112,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "项目模板",
+                Url = "template"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "全球化",
                 Url = "globalization"
             });

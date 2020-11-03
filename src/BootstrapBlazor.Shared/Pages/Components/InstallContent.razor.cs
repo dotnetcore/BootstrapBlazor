@@ -14,11 +14,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
         private string Version { get; set; } = "latest";
 
         /// <summary>
-        /// 获得/设置 版本号字符串
-        /// </summary>
-        private string TemplateVersion { get; set; } = "*";
-
-        /// <summary>
         ///
         /// </summary>
         [Parameter]
@@ -37,7 +32,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
         protected override async Task OnInitializedAsync()
         {
             Version = await VersionManager.GetVersionAsync();
-            TemplateVersion = await VersionManager.GetVersionAsync("Bootstrap.Blazor.Templates");
         }
     }
 }
