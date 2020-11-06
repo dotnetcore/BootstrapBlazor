@@ -1,52 +1,150 @@
-﻿# Bootstrap Blazor Component
+﻿<h1 align="center">Bootstrap Blazor Component</h1>
 
-English | <a href="README.zh-CN.md">中文</a>
+<div align="center">
+<h2>A set of enterprise-class UI components based on Bootstrap and Blazor.</h2>
+
+
+[![Github build](https://img.shields.io/github/workflow/status/ArgoZhang/BootstrapBlazor/Package%20to%20Nuget/master?label=master&logo=github&logoColor=green)](https://github.com/ArgoZhang/BootstrapAdmin/actions?query=workflow%3A%22Auto+Build+CI%22+branch%3Amaster)
+[![Nuget](https://img.shields.io/nuget/v/BootstrapBlazor.svg?color=red&logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
+[![Nuget](https://img.shields.io/nuget/dt/BootstrapBlazor.svg?logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
+[![Github](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/master/LICENSE)
+[![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)
+[![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/master.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
+
+</div>
 
 ---
 
-## 项目介绍
-Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
+English | <a href="README.zh-CN.md">中文</a>
 
-- 使用 C# 代替 JavaScript 来创建丰富的交互式 UI。
-- 共享使用 .NET 编写的服务器端和客户端应用逻辑。
-- 将 UI 呈现为 HTML 和 CSS，以支持众多浏览器，其中包括移动浏览器。
+## Features
+- Enterprise-class UI designed for web applications.
+- A set of high-quality Blazor components out of the box.
+- Supports WebAssembly-based client-side and SignalR-based server-side UI event interaction.
+- Supports Progressive Web Applications (PWA).
+- Build with C#, a multi-paradigm static language for an efficient development experience.
+- .NET Standard 2.1 based, with direct reference to the rich .NET ecosystem.
+- Seamless integration with existing ASP.NET Core MVC and Razor Pages projects.
 
-使用 .NET 进行客户端 Web 开发可提供以下优势：
+## Online Examples  
+[![website](https://img.shields.io/badge/China-http://blazor.sdgxgz.com-success.svg?color=red&logo=buzzfeed&logoColor=red)](https://blazor.sdgxgz.com)
+[![website](https://img.shields.io/badge/Github-http://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=green)](https://argozhang.github.io)
 
-- 使用 C# 代替 JavaScript 来编写代码。
-- 利用现有的 .NET 库生态系统。
-- 在服务器和客户端之间共享应用逻辑。
-- 受益于 .NET 的性能、可靠性和安全性。
-- 始终高效支持 Windows、Linux 和 macOS 上的 Visual Studio。
-- 以一组稳定、功能丰富且易用的通用语言、框架和工具为基础来进行生成。
+## Installation Guide
 
-本项目是利用 Bootstrap 样式进行封装的 UI 组件库
+- Install .net core sdk [Offical website](https://dotnet.microsoft.com/download)
+- Install Visual Studio 2019 lastest [Offical website](https://visualstudio.microsoft.com/vs/getting-started/)
 
-## 组件
+## Create a new project from the dotnet new template
 
-Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面、对话框或数据输入窗体。
+1. Install the template
 
-组件是内置到 .NET 程序集的 .NET 类，用来：
-- 定义灵活的 UI 呈现逻辑。
-- 处理用户事件。
-- 可以嵌套和重用。
-- 可以作为 Razor 类库或 NuGet 包共享和分发。
+`dotnet new -i Bootstrap.Blazor.Templates::*`
 
-### 内置组件 
+2. Create the Boilerplate project with the template
 
-内置组件 [传送门](http://blazor.sdgxgz.com/alerts)
+`dotnet new bbapp`
 
-## 分支说明  
+## Import Bootstrap Blazor into an existing project
 
-- master 稳定分支
-- dev 开发功能分支
-- publish 与演示网站同步
-- 其他 均为临时分支
+1. Go to the project folder of the application and install the Nuget package reference
 
-## 演示地址  
-[![website](https://img.shields.io/badge/linux-http://blazor.sdgxgz.com-success.svg?logo=buzzfeed&logoColor=green)](http://blazor.sdgxgz.com)
+`dotnet add package BootstrapBlazor`
 
-## 项目截图
+2.  **Add** the `stylesheet` `javascripts` file to your main index file - `~/Pages/_Host.cshtml`
+
+ **HTML**  
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    . . .
+    <link rel="stylesheet" href="_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.bundle.min.css">
+</head>
+<body>
+    . . .
+    <script src="_framework/blazor.server.js"></script>
+    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+</body>
+</html>
+``` 
+
+3. Open the `~/Startup.cs` file in the and register the `Bootstrap Blazor` service:
+
+ **C#** 
+
+```csharp
+namespace BootstrapBlazorAppName
+{
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            //more code may be present here
+            services.AddBootstrapBlazor(); 
+        }
+
+        //more code may be present here
+    }
+}
+```
+
+## Visual Studio Integration
+
+To create a new `Bootstrap Blazor` UI for Blazor application, use the Create New Project Wizard. The wizard detects all installed versions of `Bootstrap Blazor` for Blazor and lists them in the Version combobox—this enables you to start your project with the desired version. You can also get the latest version to make sure you are up to date.
+
+1. Get the Wizard
+
+To use the Create New Project Wizard, install the `Bootstrap Blazor` UI for Blazor Visual Studio Extensions. You can get it from the:
+
+- Visual Studio Marketplace (for Windows)
+
+2. Start the Wizard
+
+To start the wizard, use either of the following approaches
+
+### Using the Project menu:
+
+- Click File > New > Project.
+- Find and click the C# Blazor Application option (you can use the search, or filter by Blazor templates).
+- Follow the wizard.
+
+## Supported browsers
+
+![chrome](https://img.shields.io/badge/chrome->%3D57-success.svg?logo=google%20chrome&logoColor=red)
+![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=mozilla%20firefox&logoColor=red)
+![edge](https://img.shields.io/badge/edge->%3D16-success.svg?logo=microsoft%20edge&logoColor=blue)
+![ie](https://img.shields.io/badge/ie->%3D11-success.svg?logo=internet%20explorer&logoColor=blue)
+![Safari](https://img.shields.io/badge/safari->%3D14-success.svg?logo=safari&logoColor=blue)
+![Andriod](https://img.shields.io/badge/andriod->%3D4.4-success.svg?logo=android)
+![oper](https://img.shields.io/badge/opera->%3D4.4-success.svg?logo=opera&logoColor=red)
+
+### Mobile devices  
+
+![ios](https://img.shields.io/badge/ios-supported-success.svg?logo=apple&logoColor=white)
+![Andriod](https://img.shields.io/badge/andriod-suported-success.svg?logo=android)
+![windows](https://img.shields.io/badge/windows-suported-success.svg?logo=windows&logoColor=blue)
+
+|                        |  **Chrome**  |  **Firefox**  |  **Safari**  |  **Android Browser & WebView**  |  **Microsoft Edge**  |
+| -------                | ---------    | ---------     | ------       | -------------------------       | --------------       |
+|  **iOS**               | Supported    | Supported     | Supported    | N/A                             | Supported            |
+|  **Android**           | Supported    | Supported     | N/A          | Android v5.0+ supported         | Supported            |
+|  **Windows 10 Mobile** | N/A          | N/A           | N/A          | N/A                             | Supported            |
+
+### Desktop browsers  
+
+![macOS](https://img.shields.io/badge/macOS-supported-success.svg?logo=apple&logoColor=white)
+![linux](https://img.shields.io/badge/linux-suported-success.svg?logo=linux&logoColor=white)
+![windows](https://img.shields.io/badge/windows-suported-success.svg?logo=windows)
+
+|         | Chrome    | Firefox   | Internet Explorer | Microsoft Edge | Opera     | Safari        |
+| ------- | --------- | --------- | ----------------- | -------------- | --------- | ------------- |
+| Mac     | Supported | Supported | N/A               | N/A            | Supported | Supported     |
+| Linux   | Supported | Supported | N/A               | N/A            | N/A       | N/A           |
+| Windows | Supported | Supported | Supported, IE11+  | Supported      | Supported | Not supported |
+
+## Screenshots
 
 ![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
 ![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
@@ -56,26 +154,15 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 ![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
 ![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
 
-## 开源协议
-[![Gitee license](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/LICENSE)
+## Contribution
 
-## 特别鸣谢
+1. Fork
+2. Create Feat_xxx branch
+3. Commit
+4. Create Pull Request
 
-### 上海智通建设发展股份有限公司
+## Donate
 
-特别鸣谢胡总对本项目的鼎力赞助 **10000** 元
-
-<img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Donate@x2.png" width="552px;" />
-
-## 参与贡献
-
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-## 捐助
-
-如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。    
+If this project is helpful to you, please scan the QR code below for a cup of coffee.    
 
 <img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/WeChat/BarCode@2x.png" width="382px;" />
