@@ -419,7 +419,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
 </thead>;
 
 RenderFragment<TItem> RenderRow => item =>
-@<DynamicElement class="@GetRowClassString(item)" TagName="tr"
+@<DynamicElement TagName="tr" class="@GetRowClassString(item)"
                  TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="@ClickRow(item)"
                  TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="@DoubleClickRow(item)">
     @if (DetailRowTemplate != null)
@@ -487,7 +487,7 @@ RenderFragment<TItem> RenderRow => item =>
 </DynamicElement>;
 
 RenderFragment<TItem> RenderEditForm => item =>
-@<tr>
+@<tr class="is-editform">
     @{
         var colspanCount = Columns.Count;
         if (IsMultipleSelect) colspanCount++;

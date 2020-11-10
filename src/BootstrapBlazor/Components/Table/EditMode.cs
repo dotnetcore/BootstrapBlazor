@@ -13,11 +13,6 @@
         /// <summary>
         /// 行内编辑模式
         /// </summary>
-        EditForm,
-
-        /// <summary>
-        /// 单元格内编辑模式
-        /// </summary>
-        InCell
+        EditForm
     }
 }

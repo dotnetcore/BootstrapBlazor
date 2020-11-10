@@ -175,10 +175,6 @@ namespace BootstrapBlazor.Components
                     ShowAddForm = true;
                     ShowEditForm = false;
                 }
-                else if (EditMode == EditMode.InCell)
-                {
-
-                }
                 StateHasChanged();
             }
             else
@@ -215,10 +211,6 @@ namespace BootstrapBlazor.Components
                     {
                         ShowEditForm = true;
                         ShowAddForm = false;
-                    }
-                    else if (EditMode == EditMode.InCell)
-                    {
-
                     }
                 }
                 else

@@ -1310,7 +1310,8 @@ input:disabled,
     background-color: #fafafa;
 }
 
-.table-hover tbody tr.is-detail:hover {
+.table-hover tbody tr.is-detail:hover,
+.table-hover tbody tr.is-editform:hover {
     background-color: unset;
 }
 
