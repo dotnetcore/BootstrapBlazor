@@ -1,0 +1,27 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<CascadingValue Value=this>
+    <nav @attributes="@AdditionalAttributes" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            @foreach (var item in Value)
+            {
+                @RenderItem(item)
+            }
+        </ol>
+    </nav>
+</CascadingValue>
+
+@code {
+    RenderFragment<BreadcrumbItem> RenderItem => item =>
+    @<li class="@GetItemClassName(item)" aria-current="@CurrentPage(item)">
+        @if (!string.IsNullOrEmpty(item.Url))
+        {
+            <a href="@item.Url">@item.Text</a>
+        }
+        else
+        {
+            @item.Text
+        }
+    </li>;
+}

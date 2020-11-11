@@ -557,6 +557,11 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new MenuItem()
             {
+                Text = "面包屑 Breadcrumb",
+                Url = "breadcrumbs"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "菜单 Menu",
                 Url = "menus"
             });
