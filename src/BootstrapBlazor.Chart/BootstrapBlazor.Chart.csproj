@@ -1,17 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <OutputType>Library</OutputType>
-        <RazorLangVersion>3.0</RazorLangVersion>
+        <TargetFramework>net5.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>3.1.2</Version>
+        <Version>5.0.0</Version>
         <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BootstrapBlazor" Version="3.1.29" />
+        <PackageReference Include="BootstrapBlazor" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,7 +19,19 @@
 
     <ItemGroup>
         <Content Remove="bundleconfig.json" />
+        <Content Remove="wwwroot\css\bootstrap.blazor.chart.css" />
+        <Content Remove="wwwroot\css\Chart.*" />
+        <Content Remove="wwwroot\js\bootstrap.blazor.chart.js" />
+        <Content Remove="wwwroot\js\bootstrap.blazor.chart.min.js" />
+        <Content Remove="wwwroot\js\Chart.bundle.js" />
+        <Content Remove="wwwroot\js\Chart.bundle.min.js" />
         <None Include="bundleconfig.json" />
+        <None Include="wwwroot\css\bootstrap.blazor.chart.css" />
+        <None Include="wwwroot\css\Chart.*" />
+        <None Include="wwwroot\js\bootstrap.blazor.chart.js" />
+        <None Include="wwwroot\js\bootstrap.blazor.chart.min.js" />
+        <None Include="wwwroot\js\Chart.bundle.js" />
+        <None Include="wwwroot\js\Chart.bundle.min.js" />
     </ItemGroup>
 
     <ItemGroup>
