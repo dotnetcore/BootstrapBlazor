@@ -6,6 +6,16 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/css/bootstrap.min.css",
+      "wwwroot/lib/font-awesome/css/font-awesome.min.css",
+      "wwwroot/lib/summernote/summernote-bs4.min.css",
+      "wwwroot/lib/swal/sweetalert2.min.css",
+      "wwwroot/css/bootstrap.blazor.min.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/handwritten/handwritten.min.js",
     "inputFiles": [
       "wwwroot/lib/handwritten/handwritten.js"
