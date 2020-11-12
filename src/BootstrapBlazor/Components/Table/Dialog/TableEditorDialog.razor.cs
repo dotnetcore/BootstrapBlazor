@@ -16,7 +16,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 保存回调委托
         /// </summary>
         [Parameter]
-        public Func<EditContext, Task> OnSaveAsync { get; set; } = _ => Task.CompletedTask;
+        [NotNull]
+        public Func<EditContext, Task>? OnSaveAsync { get; set; }
 
         /// <summary>
         /// 重置按钮文本

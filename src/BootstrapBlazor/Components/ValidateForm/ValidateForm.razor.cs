@@ -35,17 +35,5 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
-
-        /// <summary>
-        /// OnInitializedAsync 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override Task OnInitializedAsync()
-        {
-            if (OnSubmit == null) OnSubmit = _ => Task.CompletedTask;
-            if (OnValidSubmit == null) OnValidSubmit = _ => Task.CompletedTask;
-            if (OnInvalidSubmit == null) OnInvalidSubmit = _ => Task.CompletedTask;
-            return base.OnInitializedAsync();
-        }
     }
 }

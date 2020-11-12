@@ -9,8 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EPPlus" Version="4.5.3.3" />
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="BootstrapBlazor" Version="5.0.0" />
+        <PackageReference Include="EPPlus" Version="4.5.3.3" />
     </ItemGroup>
 
     <ItemGroup>

@@ -9,6 +9,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="BootstrapBlazor" Version="5.0.0" />
     </ItemGroup>
 

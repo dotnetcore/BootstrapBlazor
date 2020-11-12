@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - dev
+      - hot-fix
 
 jobs:
   publish:
