@@ -4,7 +4,7 @@
         <TargetFramework>net5.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>5.0.0-beta01</Version>
+        <Version>5.0.0</Version>
         <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
     </PropertyGroup>
 
@@ -25,7 +25,15 @@
 
     <ItemGroup>
         <Content Remove="bundleconfig.json" />
+        <Content Remove="wwwroot\css\bootstrap.blazor.css" />
+        <Content Remove="wwwroot\js\bootstrap.blazor.js" />
+        <Content Remove="wwwroot\js\bootstrap.blazor.min.js" />
+        <Content Remove="wwwroot\lib\**\*.*" />
         <None Include="bundleconfig.json" />
+        <None Include="wwwroot\css\bootstrap.blazor.css" />
+        <None Include="wwwroot\js\bootstrap.blazor.js" />
+        <None Include="wwwroot\js\bootstrap.blazor.min.js" />
+        <None Include="wwwroot\lib\**\*.*" />
     </ItemGroup>
 
     <ItemGroup>
