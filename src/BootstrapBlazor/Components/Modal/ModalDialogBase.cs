@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -89,6 +90,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 关闭弹窗是回调委托
         /// </summary>
         [Parameter]
+        [NotNull]
         public Func<Task>? OnClose { get; set; }
 
         /// <summary>
@@ -103,6 +105,8 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            if (OnClose == null) OnClose = () => Task.CompletedTask;
 
             Modal?.AddDialog(this);
         }

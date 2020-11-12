@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Components
             var v = new TItem();
             foreach (var pi in source.GetType().GetProperties())
             {
-                pi.SetValue(source, v.GetType().GetProperty(pi.Name).GetValue(v));
+                pi.SetValue(source, v.GetType().GetProperty(pi.Name)!.GetValue(v));
             }
         }
 
@@ -149,6 +149,7 @@ namespace BootstrapBlazor.Components
         /// <param name="source"></param>
         /// <returns></returns>
         public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this List<KeyValuePair<TKey, TValue>> source)
+            where TKey : notnull
         {
             return source.ToDictionary(key => key.Key, val => val.Value);
         }

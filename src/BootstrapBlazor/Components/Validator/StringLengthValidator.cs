@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Components
             if (val.Length > Length)
             {
                 ErrorMessage = Localizer[nameof(ErrorMessage), Length];
-                results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+                results.Add(new ValidationResult(ErrorMessage, string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName }));
             }
         }
     }

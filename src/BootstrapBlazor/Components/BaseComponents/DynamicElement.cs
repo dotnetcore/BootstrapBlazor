@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -15,6 +16,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 TagName 属性 默认为 div
         /// </summary>
         [Parameter]
+        [NotNull]
         public string? TagName { get; set; } = "div";
 
         /// <summary>

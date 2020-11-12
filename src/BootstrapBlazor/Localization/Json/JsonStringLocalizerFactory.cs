@@ -33,17 +33,16 @@ namespace BootstrapBlazor.Localization.Json
         public IStringLocalizer Create(Type resourceSource)
         {
             var typeInfo = resourceSource.GetTypeInfo();
-            var assemblyName = resourceSource.Assembly.GetName().Name;
             var typeName = typeInfo.FullName;
+            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(resourceSource)} full name is null.");
+            var assemblyName = resourceSource.Assembly.GetName().Name;
 
             if (resourceSource.IsGenericType)
             {
                 var index = typeName.IndexOf('`');
                 typeName = typeName.Substring(0, index);
             }
-
             typeName = TryFixInnerClassPath(typeName);
-
             return CreateJsonStringLocalizer(typeInfo.Assembly, typeName, $"{assemblyName}.{_resourcesRelativePath}");
         }
 

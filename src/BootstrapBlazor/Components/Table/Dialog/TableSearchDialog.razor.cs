@@ -16,6 +16,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         [Parameter]
+        [NotNull]
         public Func<Task>? OnResetSearchClick { get; set; }
 
         /// <summary>
@@ -23,6 +24,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         [Parameter]
+        [NotNull]
         public Func<Task>? OnSearchClick { get; set; }
 
         /// <summary>
@@ -52,6 +54,9 @@ namespace BootstrapBlazor.Components
 
             ResetButtonText ??= Localizer[nameof(ResetButtonText)];
             QueryButtonText ??= Localizer[nameof(QueryButtonText)];
+
+            if (OnSearchClick == null) OnSearchClick = () => Task.CompletedTask;
+            if (OnResetSearchClick == null) OnResetSearchClick = () => Task.CompletedTask;
         }
     }
 }

@@ -59,7 +59,10 @@ namespace BootstrapBlazor.Shared.Pages.Table
         private Task<bool> OnSaveAsync(Product item)
         {
             var oldItem = Products.FirstOrDefault(i => i.Id == item.Id);
-            oldItem.Sum = item.Sum;
+            if (oldItem != null)
+            {
+                oldItem.Sum = item.Sum;
+            }
             return Task.FromResult(true);
         }
 
@@ -79,7 +82,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             }
             _confirm = false;
 
-            var total = items.Count();
+            var total = items.Count;
             // 内存分页
             items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
             return Task.FromResult(new QueryData<Product>()
@@ -93,7 +96,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             var items = ProductSelectItems;
 
-            var total = items.Count();
+            var total = items.Count;
             // 内存分页
             items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 

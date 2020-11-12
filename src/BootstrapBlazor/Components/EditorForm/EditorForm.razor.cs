@@ -273,7 +273,7 @@ namespace BootstrapBlazor.Components
         {
             var exp_p1 = Expression.Parameter(typeof(TModel));
             var exp_p2 = Expression.Parameter(typeof(string));
-            var method = GetType().GetMethod("CreateCallback", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(fieldType);
+            var method = GetType().GetMethod("CreateCallback", BindingFlags.Instance | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
             var body = Expression.Call(Expression.Constant(this), method, exp_p1, exp_p2);
 
             return Expression.Lambda<Func<TModel, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2);

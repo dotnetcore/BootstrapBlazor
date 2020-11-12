@@ -71,7 +71,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
                     var package = await Client.GetFromJsonAsync<NugetPackage>(url);
-                    Version = package.GetVersion();
+                    if (package != null) Version = package.GetVersion();
                 }
                 catch { }
             }
@@ -82,7 +82,7 @@ namespace Microsoft.Extensions.DependencyInjection
             /// <summary>
             /// Data 数据集合
             /// </summary>
-            public IEnumerable<NugetPackageData> Data { get; set; } = new NugetPackageData[0];
+            public IEnumerable<NugetPackageData> Data { get; set; } = Array.Empty<NugetPackageData>();
 
             /// <summary>
             /// 

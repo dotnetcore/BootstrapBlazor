@@ -128,9 +128,13 @@ namespace BootstrapBlazor.Components
                 var model = context.Model;
                 if (model != null)
                 {
-                    var p = Expression.Property(Expression.Constant(model), typeof(TModel).GetProperty(ValueField));
-                    var tDelegate = typeof(Func<>).MakeGenericType(typeof(TValue));
-                    ValueExpression = Expression.Lambda(tDelegate, p) as Expression<Func<TValue>>;
+                    var pi = typeof(TModel).GetProperty(ValueField);
+                    if (pi != null)
+                    {
+                        var p = Expression.Property(Expression.Constant(model), pi);
+                        var tDelegate = typeof(Func<>).MakeGenericType(typeof(TValue));
+                        ValueExpression = Expression.Lambda(tDelegate, p) as Expression<Func<TValue>>;
+                    }
                 }
             }
 
@@ -214,7 +218,7 @@ namespace BootstrapBlazor.Components
 
         private string GetFieldValue(TModel model, string fieldName)
         {
-            var ret = "";
+            string? ret = null;
             if (model != null)
             {
                 if (typeof(TModel).IsValueType || typeof(TModel) == typeof(string))
@@ -225,10 +229,10 @@ namespace BootstrapBlazor.Components
                 {
                     var invoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => model.GetPropertyValueLambda<TModel, object>(key.FieldName).Compile());
                     var v = invoker.Invoke(model);
-                    ret = v?.ToString() ?? "";
+                    ret = v?.ToString();
                 }
             }
-            return ret;
+            return ret ?? "";
         }
 
         private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<TModel, object>> GetPropertyValueLambdaCache { get; set; } = new ConcurrentDictionary<(Type, string), Func<TModel, object>>();

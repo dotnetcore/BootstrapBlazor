@@ -28,9 +28,9 @@ namespace BootstrapBlazor.Components
 
             Items = new SelectedItem[]
             {
-                new SelectedItem("", Localizer["BoolFilter.AllText"]),
-                new SelectedItem("true", Localizer["BoolFilter.TrueText"]),
-                new SelectedItem("false", Localizer["BoolFilter.FalseText"])
+                new SelectedItem("", Localizer["BoolFilter.AllText"] ?? "All"),
+                new SelectedItem("true", Localizer["BoolFilter.TrueText"] ?? "True"),
+                new SelectedItem("false", Localizer["BoolFilter.FalseText"] ?? "False")
             };
 
             if (TableFilter != null)

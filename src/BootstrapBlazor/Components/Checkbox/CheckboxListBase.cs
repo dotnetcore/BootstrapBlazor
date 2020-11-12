@@ -94,13 +94,15 @@ namespace BootstrapBlazor.Components
                 {
                     var t = typeValue.GenericTypeArguments;
                     var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
-                    var mi = instance.GetType().GetMethod("AddRange");
-                    if (mi != null)
+                    if (instance != null)
                     {
-                        mi.Invoke(instance, new object[] { Value });
+                        var mi = instance.GetType().GetMethod("AddRange");
+                        if (mi != null)
+                        {
+                            mi.Invoke(instance, new object[] { Value });
+                        }
+                        list = instance as IList;
                     }
-
-                    list = instance as IList;
                 }
                 if (list != null)
                 {
@@ -149,14 +151,17 @@ namespace BootstrapBlazor.Components
             else if (typeValue.IsGenericType)
             {
                 var t = typeValue.GenericTypeArguments;
-                var instance = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
+                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t)) as IList;
 
-                foreach (var model in Items.Where(i => GetChecked(i)))
+                if (instance != null)
                 {
-                    var val = GetValue<object>(model);
-                    instance.Add(val);
+                    foreach (var model in Items.Where(i => GetChecked(i)))
+                    {
+                        var val = GetValue<object>(model);
+                        instance.Add(val);
+                    }
+                    CurrentValue = (TValue)instance;
                 }
-                CurrentValue = (TValue)instance;
             }
 
             if (OnSelectedChanged != null) await OnSelectedChanged.Invoke(Items, item, Value);

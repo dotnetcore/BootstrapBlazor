@@ -70,25 +70,25 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 左侧面板 Header 显示文本
         /// </summary>
         [Parameter]
-        public string LeftPanelText { get; set; } = "";
+        public string? LeftPanelText { get; set; }
 
         /// <summary>
         /// 获得/设置 右侧面板 Header 显示文本
         /// </summary>
         [Parameter]
-        public string RightPanelText { get; set; } = "";
+        public string? RightPanelText { get; set; }
 
         /// <summary>
         /// 获得/设置 左侧按钮显示文本
         /// </summary>
         [Parameter]
-        public string LeftButtonText { get; set; } = "";
+        public string? LeftButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 右侧按钮显示文本
         /// </summary>
         [Parameter]
-        public string RightButtonText { get; set; } = "";
+        public string? RightButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示搜索框

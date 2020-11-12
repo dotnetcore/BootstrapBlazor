@@ -130,7 +130,7 @@ namespace BootstrapBlazor.Components
 
                     if (FieldIdentifier != null)
                     {
-                        _parsingValidationMessages?.Add(FieldIdentifier.Value, validationErrorMessage);
+                        _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage);
 
                         // Since we're not writing to CurrentValue, we'll need to notify about modification from here
                         EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
@@ -407,8 +407,8 @@ namespace BootstrapBlazor.Components
             {
                 if (PreviousParsingAttemptFailed)
                 {
-                    // 上一次转化失败
-                    results.Add(new ValidationResult(PreviousErrorMessage, new string[] { context.MemberName }));
+                    var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
+                    results.Add(new ValidationResult(PreviousErrorMessage, memberNames));
                 }
             }
         }

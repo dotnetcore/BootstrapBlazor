@@ -249,7 +249,7 @@ namespace BootstrapBlazor.Components
         {
             var type = typeof(TValue);
             var p = type.GetField("MinValue");
-            var body = Expression.Field(null, p);
+            var body = Expression.Field(null, p!);
             return Expression.Lambda<Func<TValue>>(body);
         }
 
@@ -257,7 +257,7 @@ namespace BootstrapBlazor.Components
         {
             var type = typeof(TValue);
             var p = type.GetField("MaxValue");
-            var body = Expression.Field(null, p);
+            var body = Expression.Field(null, p!);
             return Expression.Lambda<Func<TValue>>(body);
         }
 
@@ -353,7 +353,7 @@ namespace BootstrapBlazor.Components
             var exp_p2 = Expression.Parameter(typeof(TValue));
 
             var method_min = typeof(Math).GetMethod(nameof(Math.Min), new Type[] { typeof(TValue), typeof(TValue) });
-            var body = Expression.Call(method_min, exp_p1, exp_p2);
+            var body = Expression.Call(method_min!, exp_p1, exp_p2);
             return Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_p1, exp_p2);
         }
 
@@ -363,7 +363,7 @@ namespace BootstrapBlazor.Components
             var exp_p2 = Expression.Parameter(typeof(TValue));
 
             var method_min = typeof(Math).GetMethod(nameof(Math.Max), new Type[] { typeof(TValue), typeof(TValue) });
-            var body = Expression.Call(method_min, exp_p1, exp_p2);
+            var body = Expression.Call(method_min!, exp_p1, exp_p2);
             return Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_p1, exp_p2);
         }
 

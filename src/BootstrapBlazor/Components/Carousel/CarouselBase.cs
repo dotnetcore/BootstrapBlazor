@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -45,7 +47,7 @@ namespace BootstrapBlazor.Components
         /// 获得 Images 集合
         /// </summary>
         [Parameter]
-        public IEnumerable<string>? Images { get; set; }
+        public IEnumerable<string> Images { get; set; } = Enumerable.Empty<string>();
 
         /// <summary>
         /// 获得/设置 内部图片的宽度

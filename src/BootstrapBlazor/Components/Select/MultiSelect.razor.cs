@@ -81,6 +81,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]
+        [NotNull]
         public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
@@ -132,6 +133,8 @@ namespace BootstrapBlazor.Components
             ReverseSelectText ??= Localizer[nameof(ReverseSelectText)];
             ClearText ??= Localizer[nameof(ClearText)];
 
+            if (Items == null) Items = Enumerable.Empty<SelectedItem>();
+
             // 通过 Value 对集合进行赋值
             if (Value != null)
             {
@@ -144,7 +147,7 @@ namespace BootstrapBlazor.Components
                 else if (typeValue.IsGenericType)
                 {
                     var t = typeValue.GenericTypeArguments;
-                    var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
+                    var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
                     var mi = instance.GetType().GetMethod("AddRange");
                     if (mi != null)
                     {
@@ -153,7 +156,7 @@ namespace BootstrapBlazor.Components
 
                     list = instance as IList;
                 }
-                if (list != null && Items != null)
+                if (list != null)
                 {
                     foreach (var item in Items)
                     {
@@ -173,7 +176,7 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (OnSearchTextChanged == null && Items != null)
+            if (OnSearchTextChanged == null)
             {
                 OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
             }
@@ -248,7 +251,7 @@ namespace BootstrapBlazor.Components
             else if (typeValue.IsGenericType)
             {
                 var t = typeValue.GenericTypeArguments;
-                var instance = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
+                var instance = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
 
                 foreach (var item in SelectedItems)
                 {
@@ -289,11 +292,11 @@ namespace BootstrapBlazor.Components
         private IEnumerable<SelectedItem> GetData()
         {
             var data = Items;
-            if (ShowSearch && !string.IsNullOrEmpty(SearchText))
+            if (ShowSearch && !string.IsNullOrEmpty(SearchText) && OnSearchTextChanged != null)
             {
-                data = OnSearchTextChanged?.Invoke(SearchText);
+                data = OnSearchTextChanged.Invoke(SearchText);
             }
-            return data ?? Enumerable.Empty<SelectedItem>();
+            return data;
         }
 
         /// <summary>

@@ -171,7 +171,7 @@ namespace System.Linq
         private static Expression Contains(this Expression left, Expression right)
         {
             var method = typeof(LambdaExtensions).GetMethod("NullableContains", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(string), typeof(string) }, null);
-            return Expression.Call(null, method, left, right);
+            return Expression.Call(null, method!, left, right);
         }
 
         private static bool NullableContains(string left, string right)
@@ -197,7 +197,7 @@ namespace System.Linq
             var exp_p2 = Expression.Parameter(typeof(string));
             var exp_p3 = Expression.Parameter(typeof(SortOrder));
 
-            var mi = typeof(LambdaExtensions).GetMethod("Sort").MakeGenericMethod(typeof(TItem));
+            var mi = typeof(LambdaExtensions).GetMethod("Sort")!.MakeGenericMethod(typeof(TItem));
             var body = Expression.Call(mi, exp_p1, exp_p2, exp_p3);
             return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, exp_p1, exp_p2, exp_p3);
         }
@@ -215,15 +215,15 @@ namespace System.Linq
             return sortOrder == SortOrder.Unset ? items : _OrderBy(items, sortName, sortOrder);
         }
 
-        private static IOrderedQueryable<TItem> _OrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
+        private static IEnumerable<TItem> _OrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
         {
             var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
 
             var pi = typeof(TItem).GetProperty(propertyName);
-            var mi = typeof(LambdaExtensions).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)
-                                       .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+            var mi = typeof(LambdaExtensions).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
+                                       .MakeGenericMethod(typeof(TItem), pi!.PropertyType);
 
-            return (IOrderedQueryable<TItem>)mi.Invoke(null, new object[] { query.AsQueryable(), pi });
+            return mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem> ?? query;
         }
 
         private static IOrderedQueryable<TItem> OrderByInternal<TItem, TKey>(IQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.OrderBy(GetPropertyLambda<TItem, TKey>(memberProperty));
@@ -268,13 +268,13 @@ namespace System.Linq
             {
                 // 通过 IFormattable 接口格式化
                 var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
-                body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2, Expression.Constant(null));
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi!, exp_p2, Expression.Constant(null));
             }
             else
             {
                 // 通过 ToString(string format) 方法格式化
                 var mi = type.GetMethod("ToString", new Type[] { typeof(string) });
-                body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2);
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi!, exp_p2);
             }
             return Expression.Lambda<Func<object, string, string>>(body, exp_p1, exp_p2);
         }
@@ -376,7 +376,7 @@ namespace System.Linq
 
             //获取设置属性的值的方法
             var mi = p.GetSetMethod(true);
-            var body = Expression.Call(Expression.Convert(param_p1, t.GetType()), mi, Expression.Convert(param_p2, p.PropertyType));
+            var body = Expression.Call(Expression.Convert(param_p1, t.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
             return Expression.Lambda<Action<TItem, TValue>>(body, param_p1, param_p2);
         }
 
@@ -402,15 +402,14 @@ namespace System.Linq
             var p1 = Expression.Parameter(typeof(string));
             var p2 = Expression.Parameter(t.MakeByRefType());
             var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
-            var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(LambdaExtensions).GetMethod("TryParseEmpty", BindingFlags.NonPublic | BindingFlags.Static).MakeGenericMethod(typeof(TValue)), p1, p2);
+            var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(LambdaExtensions).GetMethod("TryParseEmpty", BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(typeof(TValue)), p1, p2);
             return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
         }
 
         private static bool TryParseEmpty<TValue>(string source, out TValue val)
         {
-#nullable disable
-            val = default;
-#nullable restore
+            // TODO: 代码未完善
+            val = default!;
             return false;
         }
         #endregion

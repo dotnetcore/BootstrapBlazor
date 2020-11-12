@@ -48,7 +48,7 @@ namespace BootstrapBlazor.Components
 
             if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("type", out var t))
             {
-                Type = t.ToString();
+                Type = t.ToString()!;
             }
 
             // 设置 Number 类型

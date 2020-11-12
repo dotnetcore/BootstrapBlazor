@@ -324,7 +324,7 @@ namespace BootstrapBlazor.Components
             else
             {
                 var content = "";
-                var val = GetItemValue(col.GetFieldName(), item);
+                var val = Table<TItem>.GetItemValue(col.GetFieldName(), item);
                 if (col.Formatter != null)
                 {
                     // 格式化回调委托
@@ -347,7 +347,7 @@ namespace BootstrapBlazor.Components
             }
         };
 
-        private object? GetItemValue(string fieldName, TItem item)
+        private static object? GetItemValue(string fieldName, TItem item)
         {
             object? ret = null;
             if (item != null)

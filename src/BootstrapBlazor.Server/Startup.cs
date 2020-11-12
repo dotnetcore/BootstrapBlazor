@@ -80,7 +80,7 @@ namespace BootstrapBlazor.Server
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // 启用本地化
-            app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
+            app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>()!.Value);
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.All });
 

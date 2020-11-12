@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        protected Task<BindItem> OnAddAsync()
+        protected static Task<BindItem> OnAddAsync()
         {
             return Task.FromResult(new BindItem() { DateTime = DateTime.Now });
         }
@@ -68,12 +68,15 @@ namespace BootstrapBlazor.Shared.Pages
             else
             {
                 var oldItem = EditItems.FirstOrDefault(i => i.Id == item.Id);
-                oldItem.Name = item.Name;
-                oldItem.Address = item.Address;
-                oldItem.DateTime = item.DateTime;
-                oldItem.Count = item.Count;
-                oldItem.Complete = item.Complete;
-                oldItem.Education = item.Education;
+                if (oldItem != null)
+                {
+                    oldItem.Name = item.Name;
+                    oldItem.Address = item.Address;
+                    oldItem.DateTime = item.DateTime;
+                    oldItem.Count = item.Count;
+                    oldItem.Complete = item.Complete;
+                    oldItem.Education = item.Education;
+                }
             }
             return Task.FromResult(true);
         }

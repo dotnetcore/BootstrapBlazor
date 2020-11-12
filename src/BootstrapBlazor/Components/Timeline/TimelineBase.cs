@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -23,6 +25,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]
+        [NotNull]
         public IEnumerable<TimelineItem>? Items { get; set; }
 
         /// <summary>
@@ -42,6 +45,20 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsLeft { get; set; }
+
+        /// <summary>
+        /// OnInitializedAsync 方法
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            if (Items == null)
+            {
+                Items = Enumerable.Empty<TimelineItem>();
+            }
+        }
 
         /// <summary>
         /// OnParametersSet 方法

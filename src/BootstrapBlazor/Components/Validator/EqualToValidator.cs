@@ -50,7 +50,10 @@ namespace BootstrapBlazor.Components
         {
             var val = propertyValue?.ToString() ?? "";
             if (val != Value)
-                results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+            {
+                var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
+                results.Add(new ValidationResult(ErrorMessage, memberNames));
+            }
         }
     }
 }

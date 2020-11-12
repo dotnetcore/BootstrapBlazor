@@ -35,7 +35,7 @@ namespace Microsoft.AspNetCore.Components.Forms
             {
                 if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
-                    var displayNameAttribute = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
+                    var displayNameAttribute = propertyInfo!.GetCustomAttribute<DisplayNameAttribute>();
                     if (displayNameAttribute != null)
                     {
                         dn = displayNameAttribute.DisplayName;
@@ -48,7 +48,7 @@ namespace Microsoft.AspNetCore.Components.Forms
             return dn ?? cacheKey.FieldName;
         }
 
-        private static bool TryGetValidatableProperty(Type modelType, string fieldName, out PropertyInfo propertyInfo)
+        private static bool TryGetValidatableProperty(Type modelType, string fieldName, out PropertyInfo? propertyInfo)
         {
             var cacheKey = (ModelType: modelType, FieldName: fieldName);
             if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))

@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 错误描述信息
         /// </summary>
-        string ErrorMessage { get; set; }
+        string? ErrorMessage { get; set; }
 
         /// <summary>
         /// 验证方法

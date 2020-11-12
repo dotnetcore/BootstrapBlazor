@@ -49,16 +49,17 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
+            var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
             if (propertyValue == null)
             {
-                results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+                results.Add(new ValidationResult(ErrorMessage, memberNames));
             }
             else if (propertyValue.GetType() == typeof(string))
             {
                 var val = propertyValue.ToString();
                 if (!AllowEmptyString && val == string.Empty)
                 {
-                    results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+                    results.Add(new ValidationResult(ErrorMessage, memberNames));
                 }
             }
             else if (typeof(IEnumerable).IsAssignableFrom(propertyValue.GetType()))
@@ -72,7 +73,7 @@ namespace BootstrapBlazor.Components
                 }
                 if (index == 0)
                 {
-                    results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+                    results.Add(new ValidationResult(ErrorMessage, memberNames));
                 }
             }
         }

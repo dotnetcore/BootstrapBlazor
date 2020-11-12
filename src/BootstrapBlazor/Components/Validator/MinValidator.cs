@@ -40,7 +40,8 @@ namespace BootstrapBlazor.Components
             {
                 var invoker = GreaterThanOrEqualCache.GetOrAdd(typeof(TValue), key => Value.GetGreaterThanOrEqualLambda().Compile());
                 var ret = invoker(Value, propertyValue);
-                if (ret) results.Add(new ValidationResult(ErrorMessage, new string[] { context.MemberName }));
+                var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
+                if (ret) results.Add(new ValidationResult(ErrorMessage, memberNames));
             }
         }
 

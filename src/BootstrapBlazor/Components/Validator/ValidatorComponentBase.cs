@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 错误描述信息
         /// </summary>
         [Parameter]
-        public string ErrorMessage { get; set; } = "";
+        public string? ErrorMessage { get; set; }
 
         /// <summary>
         /// 获得/设置 IValidateRules 实例

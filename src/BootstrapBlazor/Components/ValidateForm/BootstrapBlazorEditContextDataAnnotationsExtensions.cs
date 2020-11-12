@@ -48,17 +48,17 @@ namespace BootstrapBlazor.Components
 
                 messages.Clear();
 
-                foreach (var validationResult in validationResults)
+                foreach (var validationResult in validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)))
                 {
                     if (!validationResult.MemberNames.Any())
                     {
-                        messages.Add(new FieldIdentifier(editContext.Model, fieldName: string.Empty), validationResult.ErrorMessage);
+                        messages.Add(new FieldIdentifier(editContext.Model, fieldName: string.Empty), validationResult.ErrorMessage!);
                         continue;
                     }
 
                     foreach (var memberName in validationResult.MemberNames)
                     {
-                        messages.Add(editContext.Field(memberName), validationResult.ErrorMessage);
+                        messages.Add(editContext.Field(memberName), validationResult.ErrorMessage!);
                     }
                 }
                 editContext.NotifyValidationStateChanged();
@@ -80,7 +80,7 @@ namespace BootstrapBlazor.Components
             editForm.ValidateProperty(propertyValue, validationContext, results);
 
             messages.Clear(fieldIdentifier);
-            messages.Add(fieldIdentifier, results.Select(result => result.ErrorMessage));
+            messages.Add(fieldIdentifier, results.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
 
             editContext.NotifyValidationStateChanged();
         }

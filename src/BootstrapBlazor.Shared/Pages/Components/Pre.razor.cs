@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Components
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public sealed partial class Pre
     {
-        private ElementReference? PreElement { get; set; }
+        private ElementReference PreElement { get; set; }
 
         /// <summary>
         /// 获得 样式集合
@@ -30,6 +31,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 获得/设置 IJSRuntime 实例
         /// </summary>
         [Inject]
+        [NotNull]
         private IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
@@ -71,9 +73,9 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            JSRuntime.InvokeVoidAsync("$.highlight", PreElement);
+            await JSRuntime.InvokeVoidAsync("$.highlight", PreElement);
         }
 
         private async Task ReloadExampleCodeAsync()

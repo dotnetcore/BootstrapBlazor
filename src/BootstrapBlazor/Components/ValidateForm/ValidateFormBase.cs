@@ -4,7 +4,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -26,28 +25,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
-
-        /// <summary>
-        /// A callback that will be invoked when the form is submitted.
-        /// If using this parameter, you are responsible for triggering any validation
-        /// manually, e.g., by calling <see cref="EditContext.Validate"/>.
-        /// </summary>
-        [Parameter]
-        public Func<EditContext, Task>? OnSubmit { get; set; }
-
-        /// <summary>
-        /// A callback that will be invoked when the form is submitted and the
-        /// <see cref="EditContext"/> is determined to be valid.
-        /// </summary>
-        [Parameter]
-        public Func<EditContext, Task>? OnValidSubmit { get; set; }
-
-        /// <summary>
-        /// A callback that will be invoked when the form is submitted and the
-        /// <see cref="EditContext"/> is determined to be invalid.
-        /// </summary>
-        [Parameter]
-        public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
 
         /// <summary>
         /// 验证组件缓存
@@ -96,7 +73,7 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         internal void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            if (ValidatorCache.TryGetValue((context.ObjectType, context.MemberName), out var validator))
+            if (!string.IsNullOrEmpty(context.MemberName) && ValidatorCache.TryGetValue((context.ObjectType, context.MemberName), out var validator))
             {
                 validator.ValidateProperty(propertyValue, context, results);
                 validator.ToggleMessage(results, true);

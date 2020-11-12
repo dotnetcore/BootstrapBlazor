@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class ToastBox
     {
+        private MarkupString MarkupContent => string.IsNullOrEmpty(Content) ? new MarkupString() : new MarkupString(Content);
         /// <summary>
         /// ToastBox HTML 实例引用
         /// </summary>

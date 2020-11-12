@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Components
         {
             var ret = CheckboxState.Mixed;
             if (Items != null && Items.Any() && Items.All(i => i.Active)) ret = CheckboxState.Checked;
-            else if (!Items.Any(i => i.Active)) ret = CheckboxState.UnChecked;
+            else if (Items != null && !Items.Any(i => i.Active)) ret = CheckboxState.UnChecked;
             return ret;
         }
 
@@ -118,7 +118,7 @@ namespace BootstrapBlazor.Components
         /// 搜索框文本改变时回调此方法
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnSearch(ChangeEventArgs e) => SearchText = e.Value.ToString();
+        protected virtual void OnSearch(ChangeEventArgs e) => SearchText = e.Value?.ToString();
 
         /// <summary>
         /// 搜索文本框按键回调方法

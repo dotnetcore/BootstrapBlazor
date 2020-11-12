@@ -1,6 +1,7 @@
 ﻿using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -12,46 +13,55 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? Modal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? BackdropModal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? SmailModal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? LargeModal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? ExtraLargeModal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? CenterModal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? LongContentModal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? ScrollModal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private Modal? CascadeModal { get; set; }
 
         /// <summary>
@@ -73,7 +83,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
