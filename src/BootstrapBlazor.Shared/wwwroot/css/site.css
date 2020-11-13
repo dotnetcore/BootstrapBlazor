@@ -63,14 +63,6 @@ section {
         font-weight: 400;
     }
 
-.sidebar .nav-link.active {
-    color: #007bff;
-}
-
-.sidebar .nav-link span:first-child {
-    width: 70px;
-}
-
 .sidebar-content {
     padding: 1rem 0;
 }

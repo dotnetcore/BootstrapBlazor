@@ -8,6 +8,7 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
+      "wwwroot/css/import.min.css",
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
       "wwwroot/lib/font-awesome/css/font-awesome.min.css",
       "wwwroot/lib/summernote/summernote-bs4.min.css",
