@@ -42,6 +42,9 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private string? SelectItemsText { get; set; }
 
+        [NotNull]
+        private string? LabelString { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -58,6 +61,7 @@ namespace BootstrapBlazor.Components
             PageInfoText ??= Localizer[nameof(PageInfoText)];
             TotalInfoText ??= Localizer[nameof(TotalInfoText)];
             SelectItemsText ??= Localizer[nameof(SelectItemsText)];
+            LabelString ??= Localizer[nameof(LabelString)];
         }
 
         /// <summary>
@@ -80,5 +84,7 @@ namespace BootstrapBlazor.Components
         private string GetPageInfoText() => string.Format(PageInfoText, StarIndex, EndIndex);
 
         private string GetTotalInfoText() => string.Format(TotalInfoText, TotalCount);
+
+        private string GetLabelString => string.Format(LabelString, PageIndex);
     }
 }

@@ -32,6 +32,15 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 PaginationItem 样式
+        /// </summary>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        protected string? GetPaginationItemClassName(bool active) => CssBuilder.Default("page-item")
+            .AddClass("active", active)
+            .Build();
+
+        /// <summary>
         /// 获得 起始记录索引
         /// </summary>
         protected int StarIndex => (PageIndex - 1) * PageItems + 1;

@@ -20,7 +20,7 @@
         </li>
         @if (PageCount > 5)
         {
-            <PaginationItem PageIndex="1" Active="PageIndex == 1" OnClick="OnPageItemClick" />
+            @RenderPaginationItem(new PaginationItem() { PageIndex = 1, Active = PageIndex == 1 })
             <li class="page-item">
                 <a class="page-link page-link-prev" aria-label="@AiraFirstPageText" href="#" @onclick:preventDefault @onclick="e => MovePrev(5)">
                     <i class="fa fa-ellipsis-h"></i>
@@ -30,7 +30,7 @@
         @for (int i = StartPageIndex; i <= EndPageIndex; i++)
         {
             @if (PageCount > 5 && (i == 1 || i == EndPageIndex)) continue;
-            <PaginationItem PageIndex="@i" Active="PageIndex == i" OnClick="OnPageItemClick" />
+            @RenderPaginationItem(new PaginationItem() { PageIndex = i, Active = PageIndex == i })
         }
         @if (PageCount > 5)
         {
@@ -39,7 +39,7 @@
                     <i class="fa fa-ellipsis-h"></i>
                 </a>
             </li>
-            <PaginationItem PageIndex="@PageCount" Active="PageIndex == PageCount" OnClick="OnPageItemClick" />
+            @RenderPaginationItem(new PaginationItem() { PageIndex = PageCount, Active = PageIndex == PageCount })
         }
         <li class="page-item">
             <a class="page-link" aria-label="@AiraNextPageText" href="#" @onclick:preventDefault @onclick="e => MoveNext(1)">
@@ -48,3 +48,16 @@
         </li>
     </ul>
 </nav>
+
+@code {
+    record PaginationItem
+    {
+        public int PageIndex { get; init; }
+        public bool Active { get; init; }
+    }
+
+    RenderFragment<PaginationItem> RenderPaginationItem => item =>
+    @<li class="@GetPaginationItemClassName(item.Active)">
+        <a class="page-link" aria-label="@GetLabelString" @onclick:preventDefault @onclick="e => OnPageItemClick(item.PageIndex)">@item.PageIndex</a>
+    </li>;
+}
