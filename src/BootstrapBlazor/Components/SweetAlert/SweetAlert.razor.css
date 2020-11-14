@@ -1,0 +1,12 @@
+﻿::deep .modal-header {
+    display: none;
+}
+
+::deep .swal2-icon,
+::deep .swal2-actions {
+    display: flex;
+}
+
+::deep .swal2-actions {
+    margin-bottom: 1rem;
+}

@@ -4,7 +4,7 @@
         <TargetFramework>net5.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>5.0.2</Version>
+        <Version>5.0.2-beta01</Version>
         <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
     </PropertyGroup>
 
@@ -16,6 +16,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.0" />
+        <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +26,7 @@
 
     <ItemGroup>
         <Content Remove="bundleconfig.json" />
+        <Content Remove="wwwroot\css\import.min.css" />
         <Content Remove="wwwroot\css\bootstrap.blazor.css" />
         <Content Remove="wwwroot\css\bootstrap.blazor.min.css" />
         <Content Remove="wwwroot\js\bootstrap.blazor.js" />
@@ -33,6 +35,7 @@
         <Content Include="wwwroot\lib\font-awesome\fonts\*.*" />
         <Content Include="wwwroot\lib\summernote\font\*.*" />
         <None Include="bundleconfig.json" />
+        <None Include="wwwroot\css\import.min.css" />
         <None Include="wwwroot\css\bootstrap.blazor.css" />
         <None Include="wwwroot\css\bootstrap.blazor.min.css" />
         <None Include="wwwroot\js\bootstrap.blazor.js" />
