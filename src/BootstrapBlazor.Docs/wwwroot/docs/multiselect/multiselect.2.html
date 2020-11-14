@@ -1,4 +1,6 @@
 <MultiSelect Items="@Items" @bind-Value="@SelectedItemsValue"></MultiSelect>
+<Button Icon="fa fa-plus" Text="添加" OnClick="@AddItems" class="mr-1"></Button>
+<Button Icon="fa fa-minus" Text="减少" OnClick="@RemoveItems"></Button>
 
 @code {
     /// <summary>
@@ -18,4 +20,14 @@
     };
 
     private string SelectedItemsValue { get; set; } = "Beijing,Chengdu";
+
+    private void AddItems()
+    {
+        SelectedItemsValue = "Beijing,Chengdu,Hangzhou,Lianyungang";
+    }
+
+    private void RemoveItems()
+    {
+        SelectedItemsValue = "Beijing,Chengdu";
+    }
 }

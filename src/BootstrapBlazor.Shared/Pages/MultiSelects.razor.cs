@@ -53,6 +53,26 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string SelectedItemsValue { get; set; } = "Beijing,Chengdu";
 
+        private void AddItems()
+        {
+            SelectedItemsValue = "Beijing,Chengdu,Hangzhou,Lianyungang";
+        }
+
+        private void RemoveItems()
+        {
+            SelectedItemsValue = "Beijing,Chengdu";
+        }
+
+        private void AddListItems()
+        {
+            SelectedArrayValues = "Beijing,Chengdu,Hangzhou,Lianyungang".Split(',');
+        }
+
+        private void RemoveListItems()
+        {
+            SelectedArrayValues = "Beijing,Chengdu".Split(',');
+        }
+
         private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
 
         private IEnumerable<SelectedItem> OnSearch(string searchText)

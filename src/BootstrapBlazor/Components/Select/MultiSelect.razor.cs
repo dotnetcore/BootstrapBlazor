@@ -15,6 +15,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class MultiSelect<TValue>
     {
+        private string? _oldStringValue;
+
         private ElementReference SelectElement { get; set; }
 
         private List<SelectedItem> SelectedItems { get; set; } = new List<SelectedItem>();
@@ -135,14 +137,31 @@ namespace BootstrapBlazor.Components
 
             if (Items == null) Items = Enumerable.Empty<SelectedItem>();
 
+            if (OnSearchTextChanged == null)
+            {
+                OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
+        /// <summary>
+        /// OnParametersSetAsync 方法
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
             // 通过 Value 对集合进行赋值
             if (Value != null)
             {
+                if (_oldStringValue == CurrentValueAsString) return;
+
                 var typeValue = typeof(TValue);
                 IList? list = null;
                 if (typeValue == typeof(string))
                 {
                     list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    _oldStringValue = CurrentValueAsString;
                 }
                 else if (typeValue.IsGenericType)
                 {
@@ -155,9 +174,11 @@ namespace BootstrapBlazor.Components
                     }
 
                     list = instance as IList;
+                    _oldStringValue = string.Join(",", list);
                 }
                 if (list != null)
                 {
+                    SelectedItems.Clear();
                     foreach (var item in Items)
                     {
                         var v = item.Value;
@@ -174,11 +195,6 @@ namespace BootstrapBlazor.Components
                         }
                     }
                 }
-            }
-
-            if (OnSearchTextChanged == null)
-            {
-                OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
             }
         }
 

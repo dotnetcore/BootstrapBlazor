@@ -1,4 +1,6 @@
 <MultiSelect Items="@Items" @bind-Value="@SelectedArrayValues"></MultiSelect>
+<Button Icon="fa fa-plus" Text="添加" OnClick="@AddListItems" class="mr-1"></Button>
+<Button Icon="fa fa-minus" Text="减少" OnClick="@RemoveListItems"></Button>
 
 @code {
     /// <summary>
@@ -18,4 +20,14 @@
     };
     
     private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
+
+    private void AddListItems()
+    {
+        SelectedArrayValues = "Beijing,Chengdu,Hangzhou,Lianyungang".Split(',');
+    }
+
+    private void RemoveListItems()
+    {
+        SelectedArrayValues = "Beijing,Chengdu".Split(',');
+    }
 }
