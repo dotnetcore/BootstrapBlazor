@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -11,16 +10,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class CalendarBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得 当前日历框年月
-        /// </summary>
-        protected string Title => $"{Value.Year} 年 {Value.Month} 月";
-
-        /// <summary>
-        /// 获得 当前日历周文字
-        /// </summary>
-        protected string Week => $"第 {GetWeekCount()} 周";
-
         /// <summary>
         /// 获得/设置 日历框开始时间
         /// </summary>

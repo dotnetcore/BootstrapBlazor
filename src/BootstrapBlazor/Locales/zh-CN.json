@@ -10,6 +10,19 @@
     "LoadText": "正在加载 ...",
     "TryText": "再试一次"
   },
+  "BootstrapBlazor.Components.Calendar": {
+    "PreviousMonth": "上一月",
+    "Today": "今天",
+    "NextMonth": "下一月",
+    "PreviousWeek": "上一周",
+    "WeekText": "本周",
+    "NextWeek": "下一周",
+    "WeekHeaderText": "周",
+    "WeekLists": "日,一,二,三,四,五,六",
+    "WeekNumberText": "第 {0} 周",
+    "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
+    "Title": "{0} 年 {1} 月"
+  },
   "BootstrapBlazor.Components.Console": {
     "HeaderText": "系统监控",
     "LightTitle": "通讯指示灯",

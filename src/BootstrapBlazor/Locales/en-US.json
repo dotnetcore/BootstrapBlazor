@@ -10,6 +10,19 @@
     "LoadText": "Loading ...",
     "TryText": "Try again"
   },
+  "BootstrapBlazor.Components.Calendar": {
+    "PreviousMonth": "Previous Month",
+    "Today": "Today",
+    "NextMonth": "Next Month",
+    "PreviousWeek": "Previous Week",
+    "WeekText": "Week",
+    "NextWeek": "Next Week",
+    "WeekHeaderText": "",
+    "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
+    "WeekNumberText": "{0} Weeks",
+    "Months": "January,February,March,April,May,June,July,August,September,October,November,December",
+    "Title": "{0} {1}"
+  },
   "BootstrapBlazor.Components.Console": {
     "HeaderText": "Monitor",
     "LightTitle": "Light",
