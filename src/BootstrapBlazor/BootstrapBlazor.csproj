@@ -16,7 +16,6 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.0" />
-        <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     </ItemGroup>
 
     <ItemGroup>

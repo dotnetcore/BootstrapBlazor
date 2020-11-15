@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -91,13 +92,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 选中日期时回调此方法
         /// </summary>
-        /// <param name="d"></param>
-        protected async Task OnClickDay(DateTime d)
+        /// <param name="value"></param>
+        protected EventCallback<MouseEventArgs> OnCellClickCallback(DateTime value) => EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
         {
-            Value = d;
+            Value = value;
             if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
             StateHasChanged();
-        }
+        });
 
         /// <summary>
         /// 右侧快捷切换月按钮回调此方法

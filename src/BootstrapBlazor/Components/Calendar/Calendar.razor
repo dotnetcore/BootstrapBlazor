@@ -39,7 +39,7 @@
                         <tr class="calendar-table-row">
                             @for (var index = 0; index < 7; index++)
                             {
-                                <CalendarCell Value="@week.AddDays(index)" CurrentValue="@Value" OnClick="d => OnClickDay(d)" />
+                                @RenderCell(new CalendarCell { Value = week.AddDays(index), CurrentValue = Value })
                             }
                         </tr>
                     }
@@ -120,3 +120,26 @@
         </div>
     }
 </div>
+
+@code {
+    record CalendarCell
+    {
+        public DateTime Value { get; init; }
+        public DateTime CurrentValue { get; init; }
+    }
+
+    private string? GetCalendarCellString(CalendarCell item) => CssBuilder.Default()
+        .AddClass("prev", item.Value.Month < item.CurrentValue.Month)
+        .AddClass("next", item.Value.Month > item.CurrentValue.Month)
+        .AddClass("current", item.Value.Month == item.CurrentValue.Month)
+        .AddClass("is-selected", item.Value.Ticks == item.CurrentValue.Ticks)
+        .AddClass("is-today", item.Value.Ticks == DateTime.Today.Ticks)
+        .Build();
+
+    RenderFragment<CalendarCell> RenderCell => item =>
+    @<td class="@GetCalendarCellString(item)" @onclick="@OnCellClickCallback(item.Value)">
+        <div class="calendar-day">
+            <span>@item.Value.Day</span>
+        </div>
+    </td>;
+}
