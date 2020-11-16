@@ -55,7 +55,7 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
         private static async Task GetCultureAsync(WebAssemblyHost host)
         {
             var jsRuntime = host.Services.GetRequiredService<IJSRuntime>();
-            var cultureName = await jsRuntime.InvokeAsync<string>("$.blazorCulture.get") ?? "zh-CN";
+            var cultureName = await jsRuntime.InvokeAsync<string>("$.blazorCulture.get") ?? CultureInfo.CurrentCulture.Name;
             var culture = new CultureInfo(cultureName);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;

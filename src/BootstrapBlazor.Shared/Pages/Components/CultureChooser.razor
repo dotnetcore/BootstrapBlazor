@@ -12,7 +12,7 @@
         <Options>
             @foreach (var kv in Configuration.GetSupportCultures())
             {
-                <SelectOption Text="@kv.NativeName" Value="@kv.Name" />
+                <SelectOption Text="@GetDisplayName(kv)" Value="@kv.Name" />
             }
         </Options>
     </Select>
@@ -53,5 +53,19 @@
                 NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }
         }
+    }
+
+    private string GetDisplayName(CultureInfo culture)
+    {
+        return CultureStorage.Mode switch
+        {
+            CultureStorageMode.Webapi => culture.NativeName,
+            _ => culture.Name switch
+            {
+                "zh-CN" => "中文（中国）",
+                "en-US" => "English (United States)",
+                _ => ""
+            }
+        };
     }
 }
