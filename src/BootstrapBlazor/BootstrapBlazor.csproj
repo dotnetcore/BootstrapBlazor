@@ -25,7 +25,6 @@
 
     <ItemGroup>
         <Content Remove="bundleconfig.json" />
-        <Content Remove="wwwroot\css\import.min.css" />
         <Content Remove="wwwroot\css\bootstrap.blazor.css" />
         <Content Remove="wwwroot\css\bootstrap.blazor.min.css" />
         <Content Remove="wwwroot\js\bootstrap.blazor.js" />
@@ -34,7 +33,6 @@
         <Content Include="wwwroot\lib\font-awesome\fonts\*.*" />
         <Content Include="wwwroot\lib\summernote\font\*.*" />
         <None Include="bundleconfig.json" />
-        <None Include="wwwroot\css\import.min.css" />
         <None Include="wwwroot\css\bootstrap.blazor.css" />
         <None Include="wwwroot\css\bootstrap.blazor.min.css" />
         <None Include="wwwroot\js\bootstrap.blazor.js" />
