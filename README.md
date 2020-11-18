@@ -27,8 +27,8 @@ English | <a href="README.zh-CN.md">中文</a>
 - Seamless integration with existing ASP.NET Core MVC and Razor Pages projects.
 
 ## Online Examples  
-[![website](https://img.shields.io/badge/China-http://blazor.sdgxgz.com-success.svg?color=red&logo=buzzfeed&logoColor=red)](https://www.blazor.zone)
-[![website](https://img.shields.io/badge/Github-http://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=green)](https://argozhang.github.io)
+[![website](https://img.shields.io/badge/China-https://www.blazor.zone-success.svg?color=red&logo=buzzfeed&logoColor=red)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=green)](https://argozhang.github.io)
 
 ## Installation Guide
 
