@@ -3,6 +3,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -17,9 +18,8 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private Logger? Trace { get; set; }
 
-#nullable disable
-        private Button ButtonDisableDemo { get; set; }
-#nullable restore
+        [NotNull]
+        private Button? ButtonDisableDemo { get; set; }
 
         private bool IsDisable { get; set; }
 
@@ -43,6 +43,15 @@ namespace BootstrapBlazor.Shared.Pages
         private void ButtonClick(MouseEventArgs e)
         {
             Trace?.Log($"Button Clicked");
+        }
+
+        private string ButtonText { get; set; } = "";
+
+        private Task ClickButtonShowText(string text)
+        {
+            ButtonText = text;
+            StateHasChanged();
+            return Task.CompletedTask;
         }
 
         /// <summary>

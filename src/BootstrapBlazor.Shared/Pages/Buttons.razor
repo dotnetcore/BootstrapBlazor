@@ -138,6 +138,22 @@
     </div>
 </Block>
 
+<Block Title="二次封装按钮" Introduction="通过设置 <code>WinButton</code> 组件的 <code>Text</code> 属性对按钮显示文字进行设置，点击按钮是右侧显示被点击按钮的文字" CodeFile="button.8.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-auto">
+                <WinButton Text="按钮一" OnClick="@ClickButtonShowText"></WinButton>
+            </div>
+            <div class="form-group col-auto">
+                <WinButton Text="按钮二" OnClick="@ClickButtonShowText"></WinButton>
+            </div>
+            <div class="form-group col-auto">
+                @ButtonText
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
