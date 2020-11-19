@@ -60,7 +60,7 @@ English | <a href="README.zh-CN.md">中文</a>
 <html lang="en">
 <head>
     . . .
-    <link rel="stylesheet" href="_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.bundle.min.css">
+    <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
 </head>
 <body>
     . . .
