@@ -34,7 +34,7 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ### 内置组件 
 
-内置组件 [传送门](http://blazor.sdgxgz.com/alerts)
+内置组件 [传送门](https://www.balzor.zone/alerts)
 
 ## 分支说明  
 
@@ -45,7 +45,7 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ## 演示地址  
 [![website](https://img.shields.io/badge/linux-https://www.blazor.zone-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
-[![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=green)](https://argozhang.github.io)
+[![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io)
 
 ## 项目截图
 
