@@ -5334,18 +5334,14 @@ input:disabled,
     }
 /*end scroll*/
 
-/*searc*/
-.search {
+/*search*/
+.search .input-group-append {
+    position: relative;
 }
 
-    .search .input-group-append {
-        position: relative;
-    }
-
-    .search .auto-complete .fa-spin {
-        left: -26px;
-    }
-
+.search .auto-complete .fa-spin {
+    left: -26px;
+}
 /*end search*/
 
 /*listview*/

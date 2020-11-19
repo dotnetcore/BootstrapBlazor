@@ -1415,7 +1415,7 @@
 
                 $ele.find('.is-tips').tooltip({
                     container: 'body',
-                    title: function() {
+                    title: function () {
                         return $(this).text();
                     }
                 });
@@ -1647,8 +1647,8 @@
 
             // 移动端不需要修改滚动条
             // 苹果系统不需要修改滚动条
-            var mac = navigator.userAgent.match(/iPhone/i);
-            if (!mac) {
+            var mobile = $(window).width() < 768 || navigator.userAgent.match(/Macintosh/);
+            if (!mobile) {
                 var autoHide = $el.attr('data-hide');
                 var height = $el.attr('data-height');
                 var width = $el.attr('data-width');
