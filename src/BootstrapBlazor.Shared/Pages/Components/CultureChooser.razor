@@ -45,7 +45,7 @@
             var cultureName = item.Value;
             if (cultureName != CultureInfo.CurrentCulture.Name)
             {
-                await JSRuntime.InvokeAsync<string>(identifier: "$.blazorCulture.set", cultureName);
+                await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
                 var culture = new CultureInfo(cultureName);
                 CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;

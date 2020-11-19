@@ -694,7 +694,7 @@ section {
         width: 280px;
     }
 
-.home-footer {
+.footer-body {
     padding: 1rem;
     color: #fff;
     background-color: #5b6e84;
@@ -704,18 +704,18 @@ section {
     justify-content: space-around;
 }
 
-    .home-footer h4 {
+    .footer-body h4 {
         margin: 1rem 0;
     }
 
-    .home-footer ul {
+    .footer-body ul {
         list-style: none;
         padding: 0;
         margin: 0;
         padding-left: 1rem;
     }
 
-    .home-footer .footer-link {
+    .footer-body .footer-link {
         transition: all .3s linear;
         color: rgba(255,255,255,.9);
         text-decoration: none;
@@ -725,13 +725,34 @@ section {
         cursor: pointer;
     }
 
-        .home-footer .footer-link:hover {
+        .footer-body .footer-link:hover {
             color: #40a9ff;
         }
 
-        .home-footer .footer-link:not(:last-child) {
+        .footer-body .footer-link:not(:last-child) {
             margin-top: 1rem;
         }
+
+.footer-info {
+    background-color: #222;
+    padding: 0 20px;
+    line-height: 42px;
+    color: #9d9d9d;
+}
+
+    .footer-info a {
+        color: #9d9d9d;
+    }
+
+    .footer-info .footer-logo {
+        width: 21px;
+        height: 18px;
+    }
+
+    .footer-info .footer-lang {
+        width: 15px;
+        margin-right: 3px;
+    }
 
 @media (min-width: 576px) {
     .intro .card {
@@ -781,7 +802,7 @@ section {
         width: 480px;
     }
 
-    .home-footer {
+    .footer-body {
         padding: 3rem;
         flex-direction: row;
     }
