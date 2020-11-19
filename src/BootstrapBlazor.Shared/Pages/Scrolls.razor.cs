@@ -42,6 +42,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "true",
                 ValueList = "true|false",
                 DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "IsForce",
+                Description = "是否强制使用滚动条",
+                Type = "true",
+                ValueList = "true|false",
+                DefaultValue = "true"
             }
         };
     }

@@ -14,6 +14,12 @@ namespace BootstrapBlazor.Components
         private ElementReference ScrollElement { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否强制使用滚动条 默认为 true
+        /// </summary>
+        [Parameter]
+        public bool IsForce { get; set; } = true;
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -24,7 +30,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync(ScrollElement, "bb_scroll");
+                await JSRuntime.InvokeVoidAsync(ScrollElement, "bb_scroll", IsForce);
             }
         }
     }
