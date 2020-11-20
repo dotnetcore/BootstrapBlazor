@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// <param name="option"></param>
         public override void Show(ToastOption option)
         {
-            if (_option.ToastDelay != 0) option.Delay = _option.ToastDelay;
+            if (!option.ForceDelay && _option.ToastDelay != 0) option.Delay = _option.ToastDelay;
 
             base.Show(option);
         }

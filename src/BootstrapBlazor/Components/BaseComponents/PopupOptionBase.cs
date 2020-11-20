@@ -19,5 +19,10 @@
         /// 获得/设置 自动隐藏时间间隔
         /// </summary>
         public int Delay { get; set; } = 4000;
+
+        /// <summary>
+        /// 获得/设置 是否强制使用本实例的延时时间，防止值被全局配置覆盖 默认 false
+        /// </summary>
+        public bool ForceDelay { get; set; }
     }
 }
