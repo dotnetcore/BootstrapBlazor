@@ -51,7 +51,7 @@ English | <a href="README.zh-CN.md">中文</a>
 
 `dotnet add package BootstrapBlazor`
 
-2.  **Add** the `stylesheet` `javascripts` file to your main index file - `~/Pages/_Host.cshtml`
+2.  **Add** the `stylesheet` `javascripts` file to your main index file - `Pages/_Host.cshtml (Server)` or `wwwroot/index.html (WebAssembly)`
 
  **HTML**  
 

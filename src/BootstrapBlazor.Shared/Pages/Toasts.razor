@@ -99,6 +99,29 @@
 
 <Pre>&lt;Toast /&gt;</Pre>
 
+<Alert ShowBar="true" Color="@Color.Info">特别说明: 可以通过 <code>BootstrapBlazorOptions</code> 全局统一配置参数可以设置整个系统内的 <code>Toast</code> 组件 <code>Delay</code> 参数值</Alert>
+
+<p>通过配置文件 <code>appsetting.json</code> 文件配置，适用于 <code>Server-Side App</code></p>
+
+<Pre>"BootstrapBlazorOptions": {
+    "ToastDelay": 4000,
+    "MessageDelay": 4000,
+    "SwalDelay": 4000
+}
+</Pre>
+
+<p>通过 <code>Startup</code> 文件中的 <code>ConfigureServices</code> 方法配置，适用于 <code>Server-Side App</code> 和 <code>WebAssembly App</code></p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // 统一设置 Toast 组件自动消失时间
+    services.Configure&lt;BootstrapBlazorOptions&gt;(options =>
+    {
+        options.ToastDelay = 4000;
+    });
+}
+</Pre>
+
 <Toast @ref="Toast"></Toast>
 
 <AttributeTable Items="@GetAttributes()" />

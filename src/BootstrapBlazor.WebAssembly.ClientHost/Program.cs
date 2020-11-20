@@ -1,4 +1,5 @@
-﻿using BootstrapBlazor.Shared;
+﻿using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared;
 using BootstrapBlazor.Shared.Data;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +46,8 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             builder.Services.AddSingleton<WebsiteOptions>();
 
             builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
+
+            builder.Services.Configure<BootstrapBlazorOptions>(op => op.ToastDelay = 4000);
 
             var host = builder.Build();
 

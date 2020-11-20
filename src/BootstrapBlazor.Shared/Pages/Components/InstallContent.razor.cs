@@ -23,6 +23,12 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 
         /// </summary>
         [Parameter]
+        public string HostFile { get; set; } = "Pages/_Host.cshtml";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>

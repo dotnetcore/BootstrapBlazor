@@ -20,6 +20,9 @@
         /// </summary>
         public string AdminUrl { get; set; } = "https://admin.blazor.zone";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string ImageLibUrl { get; set; } = "https://imgs.blazor.zone";
     }
 }
