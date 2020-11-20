@@ -1,4 +1,5 @@
-﻿using BootstrapBlazor.Shared.Data;
+﻿using BootstrapBlazor.Shared;
+using BootstrapBlazor.Shared.Data;
 using Longbow.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
             });
             services.AddVersionManager();
             services.AddExampleService();
+            services.AddSingleton<WebsiteOptions>();
             services.AddHostedService<BlazorBackgroundServices>();
             return services;
         }

@@ -42,6 +42,8 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             builder.Services.AddSingleton<WeatherForecastService>();
 
+            builder.Services.AddSingleton<WebsiteOptions>();
+
             builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
 
             var host = builder.Build();

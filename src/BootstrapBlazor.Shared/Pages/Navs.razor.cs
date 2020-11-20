@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Shared.Pages
             var link = new NavLink();
             link.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
             {
-                ["href"] = "http://ba.sdgxgz.com",
+                ["href"] = WebsiteOption.AdminUrl,
                 ["class"] = "nav-link nav-item",
                 ["target"] = "_blank",
                 ["ChildContent"] = new RenderFragment(builder =>

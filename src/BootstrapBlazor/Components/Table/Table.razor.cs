@@ -197,7 +197,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示每行的明细行展开图标
         /// </summary>
         [Parameter]
-        public Func<TItem,bool>? ShowDetailRow { get; set; }
+        public Func<TItem, bool>? ShowDetailRow { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

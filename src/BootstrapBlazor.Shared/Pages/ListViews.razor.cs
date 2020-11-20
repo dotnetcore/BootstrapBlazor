@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Pages
 
             Products = Enumerable.Range(1, 100).Select(i => new Product()
             {
-                ImageUrl = $"https://imgs.sdgxgz.com/images/Pic{i}.jpg",
+                ImageUrl = $"{WebsiteOption.ImageLibUrl}/images/Pic{i}.jpg",
                 Description = $"Pic{i}.jpg",
                 Category = $"Group{(i % 4) + 1}"
             });
