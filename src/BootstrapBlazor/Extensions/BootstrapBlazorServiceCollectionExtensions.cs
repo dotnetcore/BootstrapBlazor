@@ -1,5 +1,6 @@
 ﻿using BootstrapBlazor.Components;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -15,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services)
         {
+            services.AddJsonLocalization();
             services.AddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
             services.AddSingleton<ITableExcelExport, DefaultExcelExport>();
             services.AddScoped<DialogService>();
@@ -22,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<PopoverService>();
             services.AddScoped<ToastService>();
             services.AddScoped<SwalService>();
-            services.AddJsonLocalization();
+            services.AddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             return services;
         }
     }

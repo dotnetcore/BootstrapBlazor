@@ -1,10 +1,37 @@
-﻿namespace BootstrapBlazor.Components
+﻿using Microsoft.Extensions.Options;
+using System;
+
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Toast 弹出窗服务类
     /// </summary>
-    public class ToastService : PopupServiceBase<ToastOption>
+    public class ToastService : PopupServiceBase<ToastOption>, IDisposable
     {
+        private IDisposable? _optionsReloadToken;
+        private BootstrapBlazorOptions _option;
+
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        /// <param name="option"></param>
+        public ToastService(IOptionsMonitor<BootstrapBlazorOptions> option)
+        {
+            _option = option.CurrentValue;
+            _optionsReloadToken = option.OnChange(op => _option = op);
+        }
+
+        /// <summary>
+        /// Show 方法
+        /// </summary>
+        /// <param name="option"></param>
+        public override void Show(ToastOption option)
+        {
+            if (_option.ToastDelay != 0) option.Delay = _option.ToastDelay;
+
+            base.Show(option);
+        }
+
         /// <summary>
         /// Toast 调用成功快捷方法
         /// </summary>
@@ -57,6 +84,28 @@
                 Title = title ?? "",
                 Content = content ?? ""
             });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _optionsReloadToken?.Dispose();
+                _optionsReloadToken = null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

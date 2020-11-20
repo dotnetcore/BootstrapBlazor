@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BootstrapBlazor.Components;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
@@ -60,6 +61,12 @@ namespace BootstrapBlazor.Server
 
             // 增加 Table Excel 导出服务
             services.AddBootstrapBlazorTableExcelExport();
+
+            // 统一设置 Toast 组件自动消失时间
+            services.Configure<BootstrapBlazorOptions>(options =>
+            {
+                options.ToastDelay = 4000;
+            });
 
             // 增加多语言支持配置信息
             services.Configure<RequestLocalizationOptions>(options =>
