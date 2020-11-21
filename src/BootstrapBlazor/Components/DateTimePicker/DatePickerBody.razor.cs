@@ -117,6 +117,10 @@ namespace BootstrapBlazor.Components
             .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Date)
             .Build();
 
+        private string? SidebarClassName => CssBuilder.Default("picker-panel-sidebar collapse")
+            .AddClass("show", ShowSidebar)
+            .Build();
+
         [NotNull]
         private string? YearText { get; set; }
 
@@ -164,6 +168,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public string? DateFormat { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示快捷侧边栏 默认不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSidebar { get; set; }
 
         /// <summary>
         /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
@@ -276,6 +286,15 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private List<string>? WeekLists { get; set; }
 
+        [NotNull]
+        private string? Today { get; set; }
+
+        [NotNull]
+        private string? Yesterday { get; set; }
+
+        [NotNull]
+        private string? Weekago { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -312,6 +331,10 @@ namespace BootstrapBlazor.Components
             MonthLists = Localizer[nameof(MonthLists)].Value.Split(',').ToList();
             Months = Localizer[nameof(Months)].Value.Split(',').ToList();
             WeekLists = Localizer[nameof(WeekLists)].Value.Split(',').ToList();
+
+            Today ??= Localizer[nameof(Today)];
+            Yesterday ??= Localizer[nameof(Yesterday)];
+            Weekago ??= Localizer[nameof(Weekago)];
         }
 
         /// <summary>
@@ -360,6 +383,13 @@ namespace BootstrapBlazor.Components
             CurrentDate = d;
             StateHasChanged();
             return Task.CompletedTask;
+        }
+
+        private async Task OnClickShortLink(DateTime d)
+        {
+            await OnClickDateTime(d);
+
+            await ClickConfirmButton();
         }
 
         /// <summary>

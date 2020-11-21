@@ -2174,6 +2174,23 @@ input:disabled,
     padding: 0 .75rem;
 }
 
+.picker-panel-body-wrapper {
+    display: flex;
+}
+
+.picker-panel-sidebar {
+    width: 110px;
+    border-right: 1px solid #e4e4e4;
+    padding: 6px 0;
+}
+
+    .picker-panel-sidebar .sidebar-item {
+        line-height: 28px;
+        padding: 0 12px;
+        cursor: pointer;
+        transition: color .3s linear;
+    }
+
 .date-picker-time-header {
     position: relative;
     border-bottom: 1px solid #e4e4e4;
@@ -2236,10 +2253,6 @@ input:disabled,
     display: block;
 }
 
-.date-picker {
-    width: 322px;
-}
-
 .picker-panel {
     color: #606266;
     border: 1px solid #ced4da;
@@ -2253,6 +2266,10 @@ input:disabled,
     content: "";
     display: table;
     clear: both;
+}
+
+.picker-panel-body {
+    width: 320px;
 }
 
 .date-picker-header {
@@ -2308,7 +2325,10 @@ input:disabled,
     color: #c0c4cc;
 }
 
-.date-table td:not(.prev-month):not(.next-month):hover, .picker-panel-icon-btn:hover, .date-picker-header-label:hover {
+.date-table td:not(.prev-month):not(.next-month):hover,
+.picker-panel-icon-btn:hover,
+.date-picker-header-label:hover,
+.sidebar-item:hover {
     color: #409eff;
 }
 

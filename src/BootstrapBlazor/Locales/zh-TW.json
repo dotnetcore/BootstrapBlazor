@@ -36,7 +36,7 @@
     "DatePlaceHolderText": "請選擇日期",
     "TimeFormat": "hh\\:mm\\:ss",
     "DateFormat": "yyyy-MM-dd",
-    "DateTimeFormat": "yyyy-MM-dd hh\\:mm\\:ss",
+    "DateTimeFormat": "yyyy-MM-dd HH\\:mm\\:ss",
     "AiraPrevYearLabel": "前一年",
     "AiraNextYearLabel": "後一年",
     "AiraPrevMonthLabel": "上一月",
@@ -51,7 +51,10 @@
     "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
     "MonthLists": "一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月",
     "WeekLists": "日,一,二,三,四,五,六",
-    "GenericTypeErroMessage": "DateTimePicker 組件僅支持綁定泛型為 DateTime 或者 DateTime?"
+    "GenericTypeErroMessage": "DateTimePicker 組件僅支持綁定泛型為 DateTime 或者 DateTime?",
+    "Today": "今天",
+    "Yesterday": "昨天",
+    "Weekago": "一週前"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "請選擇 ..."

@@ -148,6 +148,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
+                Name = "ShowSidebar",
+                Description = "是否显示快捷侧边栏",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "DisplayText",
                 Description = "前置标签显示文本",
                 Type = "string",

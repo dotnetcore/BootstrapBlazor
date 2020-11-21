@@ -3,6 +3,17 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassName">
     <div class="picker-panel-body-wrapper">
+        <div class="@SidebarClassName">
+            <div class="sidebar-item">
+                <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="@(async d => await OnClickShortLink(d))" />
+            </div>
+            <div class="sidebar-item">
+                <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="@(async d => await OnClickShortLink(d))" />
+            </div>
+            <div class="sidebar-item">
+                <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Weekago" OnClick="@(async d => await OnClickShortLink(d))" />
+            </div>
+        </div>
         <div class="picker-panel-body">
             <div class="@DateTimeViewClassName">
                 <span class="date-picker-editor-wrap">
@@ -47,7 +58,7 @@
                                 {
                                     <td class="@GetDayClass(week.AddDays(index))">
                                         <div>
-                                            <DatePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="@(d=> OnClickDateTime(d))" />
+                                            <DatePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="@(d => OnClickDateTime(d))" />
                                         </div>
                                     </td>
                                 }

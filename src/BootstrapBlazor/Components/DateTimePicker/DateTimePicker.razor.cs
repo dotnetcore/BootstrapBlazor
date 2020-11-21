@@ -107,6 +107,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public DatePickerViewModel ViewModel { get; set; }
 
+        /// <summary>
+        /// 获得/设置 是否显示快捷侧边栏 默认不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSidebar { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
