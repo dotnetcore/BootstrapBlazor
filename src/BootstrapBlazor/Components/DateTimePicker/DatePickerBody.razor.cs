@@ -117,10 +117,6 @@ namespace BootstrapBlazor.Components
             .AddClass("d-none", CurrentViewModel != DatePickerViewModel.Date)
             .Build();
 
-        private string? SidebarClassName => CssBuilder.Default("picker-panel-sidebar collapse")
-            .AddClass("show", ShowSidebar)
-            .Build();
-
         [NotNull]
         private string? YearText { get; set; }
 
@@ -174,6 +170,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowSidebar { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示 Footer 区域 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowFooter { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
@@ -377,12 +379,12 @@ namespace BootstrapBlazor.Components
         /// Day 选择时触发此方法
         /// </summary>
         /// <param name="d"></param>
-        private Task OnClickDateTime(DateTime d)
+        private async Task OnClickDateTime(DateTime d)
         {
             ShowTimePicker = false;
             CurrentDate = d;
+            if (!ShowFooter) await ClickConfirmButton();
             StateHasChanged();
-            return Task.CompletedTask;
         }
 
         private async Task OnClickShortLink(DateTime d)
