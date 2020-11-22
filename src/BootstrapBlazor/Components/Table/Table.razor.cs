@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -333,11 +334,15 @@ namespace BootstrapBlazor.Components
                 else if (!string.IsNullOrEmpty(col.FormatString))
                 {
                     // 格式化字符串
-                    content = val?.Format(col.FormatString) ?? "";
+                    content = val?.Format(col.FormatString, CultureInfo.CurrentUICulture.DateTimeFormat) ?? "";
                 }
                 else if (col.FieldType.IsEnum())
                 {
                     content = col.FieldType.ToDescriptionString(val?.ToString());
+                }
+                else if (col.FieldType.IsDateTime())
+                {
+                    content = val?.Format(CultureInfo.CurrentUICulture.DateTimeFormat) ?? "";
                 }
                 else
                 {
