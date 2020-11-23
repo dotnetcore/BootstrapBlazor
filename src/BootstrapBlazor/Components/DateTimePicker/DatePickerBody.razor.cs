@@ -488,15 +488,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 此刻时调用此方法
         /// </summary>
-        private Task ClickNowButton()
+        private async Task ClickNowButton()
         {
-            ShowTimePicker = false;
             Value = ViewModel switch
             {
                 DatePickerViewModel.DateTime => DateTime.Now,
                 _ => DateTime.Today
             };
-            return Task.CompletedTask;
+            await ClickConfirmButton();
         }
 
         /// <summary>
