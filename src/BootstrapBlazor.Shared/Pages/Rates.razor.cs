@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Rates
     {
-        private int BindValue { get; set; } = 0;
+        private int BindValue { get; set; } = 3;
 
         /// <summary>
         /// 
