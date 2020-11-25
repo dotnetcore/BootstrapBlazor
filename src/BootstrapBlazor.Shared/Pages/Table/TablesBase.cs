@@ -502,6 +502,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "fa fa-sort-desc"
             },
             new AttributeItem() {
+                Name = "EditDialogSaveButtonText",
+                Description = "编辑弹窗中保存按钮文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "RenderModel",
                 Description = "Table 组件布局模式设置",
                 Type = "TableRenderModel",
