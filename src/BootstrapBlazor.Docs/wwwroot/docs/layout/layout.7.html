@@ -15,6 +15,15 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         public bool IsCollapsed { get; set; }
 
+        private IEnumerable<MenuItem> Menus { get; set; }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Menus = GetIconSideMenuItems();
+        }
+
         private Task OnCollapsed(bool collapsed)
         {
             IsCollapsed = collapsed;
