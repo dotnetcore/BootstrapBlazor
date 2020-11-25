@@ -18,14 +18,10 @@ namespace BootstrapBlazor.Components
         private ElementReference RateElement { get; set; }
 
         /// <summary>
-        /// 获得/设置 IsDisable旧值,用于判断IsDisable是否变动
-        /// </summary>
-        private bool oldIsDisable ;
-
-        /// <summary>
         /// 获得 样式集合
         /// </summary>
         private string? ClassString => CssBuilder.Default("rate")
+            .AddClass("disabled", IsDisable)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -47,7 +43,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否禁用 默认为 false
         /// </summary>
-        [Parameter] public bool IsDisable { get; set; }
+        [Parameter]
+        public bool IsDisable { get; set; }
 
         /// <summary>
         /// 获得/设置 组件值变化时回调委托
@@ -69,12 +66,10 @@ namespace BootstrapBlazor.Components
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
-            if (firstRender) oldIsDisable = !IsDisable;
-            if (oldIsDisable != IsDisable)
+            if (firstRender)
             {
                 if (Interop == null) Interop = new JSInterop<Rate>(JSRuntime);
-                if (Interop != null) await Interop.Invoke(this, RateElement, "rate", nameof(Clicked), IsDisable);
-                oldIsDisable = IsDisable;
+                if (Interop != null) await Interop.Invoke(this, RateElement, "rate", nameof(Clicked));
             }
         }
 

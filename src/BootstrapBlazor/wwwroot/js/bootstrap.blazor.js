@@ -1566,7 +1566,7 @@
                 });
             }
         },
-        rate: function (el, obj, method, disable) {
+        rate: function (el, obj, method) {
             var $el = $(el);
             $el.val = parseInt($el.attr('aria-valuenow'));
             var reset = function () {
@@ -1576,27 +1576,30 @@
                     else $(this).addClass('is-on');
                 });
             };
-            if (disable) {
-                $el.off('mouseenter mouseleave click');
-            } else {
-                $el.on('mouseenter', '.rate-item', function () {
+
+            $el.on('mouseenter', '.rate-item', function () {
+                if (!$el.hasClass('disabled')) {
                     var $items = $el.find('.rate-item');
                     var index = $items.toArray().indexOf(this);
                     $items.each(function (i) {
                         if (i > index) $(this).removeClass('is-on');
                         else $(this).addClass('is-on');
                     });
-                });
-                $el.on('mouseleave', function () {
+                }
+            });
+            $el.on('mouseleave', function () {
+                if (!$el.hasClass('disabled')) {
                     reset();
-                });
-                $el.on('click', '.rate-item', function () {
+                }
+            });
+            $el.on('click', '.rate-item', function () {
+                if (!$el.hasClass('disabled')) {
                     var $items = $el.find('.rate-item');
                     $el.val = $items.toArray().indexOf(this);
                     $el.attr('aria-valuenow', $el.val + 1);
                     obj.invokeMethodAsync(method, $el.val + 1);
-                });
-            }
+                }
+            });
         },
         footer: function (el, target) {
             var $el = $(el);
@@ -1922,9 +1925,10 @@
     $(function () {
         new MutationObserver((mutations, observer) => {
             if (document.querySelector('#components-reconnect-modal h5 a')) {
-                async function attemptReload() {
-                    await fetch('');
-                    location.reload();
+                function attemptReload() {
+                    fetch('').then(() => {
+                        location.reload();
+                    });
                 }
                 observer.disconnect();
                 attemptReload();
