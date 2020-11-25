@@ -2304,15 +2304,41 @@ input:disabled,
                 cursor: pointer;
             }
 
-            .picker-panel-content table td.today div {
+            .picker-panel-content table td.today .cell {
                 color: #409eff;
                 font-weight: 700;
             }
 
-            .picker-panel-content table td.current:not(.disabled) .cell {
+            .picker-panel-content table td.current:not(.disabled) .cell,
+            .picker-panel-content table td.start:not(.next-month):not(.prev-month):not(.disabled) .cell,
+            .picker-panel-content table td.end:not(.next-month):not(.prev-month):not(.disabled) .cell {
                 color: #fff;
                 background-color: #409eff;
             }
+
+            .picker-panel-content table td.range div {
+                background-color: #f2f6fc;
+            }
+
+            .picker-panel-content table td.range.start div {
+                margin-left: 5px;
+                border-top-left-radius: 15px;
+                border-bottom-left-radius: 15px;
+            }
+
+                .picker-panel-content table td.range.start div .cell {
+                    margin-left: 4px;
+                }
+
+            .picker-panel-content table td.range.end div {
+                margin-right: 5px;
+                border-top-right-radius: 15px;
+                border-bottom-right-radius: 15px;
+            }
+
+                .picker-panel-content table td.range.end div .cell {
+                    margin-right: 4px;
+                }
 
 .date-table th {
     padding: 5px;
@@ -2333,7 +2359,8 @@ input:disabled,
 }
 
 .date-table td div {
-    padding: 7px 0;
+    margin: 4px 0;
+    padding: 3px 0;
 }
 
 .date-table td .cell {
@@ -2597,6 +2624,108 @@ input:disabled,
             color: #409eff;
         }
 /*end time picker*/
+
+/*DateTimeRange*/
+.datetime-range {
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+    display: inline-block;
+    height: 40px;
+    outline: none;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    padding: 3px 10px;
+    position: relative;
+}
+
+    .datetime-range:hover {
+        border-color: #c0c4cc;
+    }
+
+    .datetime-range.active {
+        border-color: #409eff
+    }
+
+.datetime-range-bar {
+    display: inline-flex;
+    align-items: center;
+}
+
+    .datetime-range-bar .datetime-range-input {
+        border: none;
+        outline: none;
+        display: inline-block;
+        line-height: 32px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: #606266;
+        cursor: pointer;
+        width: 80px;
+    }
+
+    .datetime-range-bar .datetime-range-input-icon {
+        cursor: pointer;
+    }
+
+    .datetime-range-bar .range-separator {
+        padding: 0 5px;
+        color: #303133;
+    }
+
+.range-panel-body {
+    display: flex;
+}
+
+    .range-panel-body .picker-panel {
+        box-shadow: none;
+    }
+
+        .range-panel-body .picker-panel:first-child {
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .range-panel-body .picker-panel:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+    .range-panel-body .date-picker-header-label {
+        cursor: unset;
+    }
+
+        .range-panel-body .date-picker-header-label:hover {
+            color: inherit;
+        }
+
+.range-panel-footer {
+    margin: 0.5rem -0.75rem 0 -0.75rem;
+    padding: 0.5rem 12px 0 12px;
+}
+
+.popover-datetime-range {
+    max-width: unset;
+}
+
+.range-clear {
+    border-radius: 50%;
+    border: 1px solid #9d9d9d;
+    padding: 1px;
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+}
+
+.datetime-range:hover .range-clear {
+    display: flex;
+}
+/*End DateTimeRange*/
 
 /*tabs*/
 .tabs {

@@ -28,22 +28,28 @@
                 </span>
             </div>
             <div class="date-picker-header">
-                <button type="button" aria-label="@AiraPrevYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
-                    <i class="fa fa-angle-double-left"></i>
-                </button>
-                <button type="button" aria-label="@AiraPrevMonthLabel" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
-                    <i class="fa fa-angle-left"></i>
-                </button>
+                @if (ShowLeftButtons)
+                {
+                    <button type="button" aria-label="@AiraPrevYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
+                        <i class="fa fa-angle-double-left"></i>
+                    </button>
+                    <button type="button" aria-label="@AiraPrevMonthLabel" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
+                        <i class="fa fa-angle-left"></i>
+                    </button>
+                }
                 <div class="d-flex align-items-center justify-content-center flex-fill">
-                    <span role="button" class="date-picker-header-label" @onclick="e => SwitchView(DatePickerViewModel.Year)">@YearString</span>
-                    <span role="button" class="@CurrentMonthViewClassName" @onclick="e => SwitchView(DatePickerViewModel.Month)">@MonthString</span>
+                    <DynamicElement TagName="span" role="button" class="date-picker-header-label" TriggerClick="@(!IsRange)" OnClick="@(() => SwitchView(DatePickerViewModel.Year))">@YearString</DynamicElement>
+                    <DynamicElement TagName="span" role="button" class="@CurrentMonthViewClassName" TriggerClick="@(!IsRange)" OnClick="@(() => SwitchView(DatePickerViewModel.Month))">@MonthString</DynamicElement>
                 </div>
-                <button type="button" aria-label="@AiraNextMonthLabel" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
-                    <i class="fa fa-angle-right"></i>
-                </button>
-                <button type="button" aria-label="@AiraNextYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
-                    <i class="fa fa-angle-double-right"></i>
-                </button>
+                @if (ShowRightButtons)
+                {
+                    <button type="button" aria-label="@AiraNextMonthLabel" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
+                        <i class="fa fa-angle-right"></i>
+                    </button>
+                    <button type="button" aria-label="@AiraNextYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
+                        <i class="fa fa-angle-double-right"></i>
+                    </button>
+                }
             </div>
             <div class="picker-panel-content">
                 <table cellspacing="0" cellpadding="0" class="@DateViewClassName">

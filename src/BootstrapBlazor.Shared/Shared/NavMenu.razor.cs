@@ -179,6 +179,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new MenuItem()
             {
+                Text = "时间范围框 DateTimeRange",
+                Url = "datetimeranges"
+            });
+            item.AddItem(new MenuItem()
+            {
                 Text = "下拉框 DropdownList",
                 Url = "dropdownlists"
             });

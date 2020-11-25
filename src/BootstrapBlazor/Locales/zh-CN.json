@@ -56,6 +56,14 @@
     "Yesterday": "昨天",
     "Weekago": "一周前"
   },
+  "BootstrapBlazor.Components.DateTimeRange": {
+    "SeparateText": "至",
+    "StartPlaceHolderText": "开始日期",
+    "EndPlaceHolderText": "结束日期",
+    "ClearButtonText": "清空",
+    "ConfirmButtonText": "确定",
+    "DateFormat": "yyyy-MM-dd"
+  },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "请选择 ..."
   },
