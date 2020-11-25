@@ -11,6 +11,8 @@ namespace BootstrapBlazor.Shared.Pages
     {
         private int BindValue { get; set; } = 3;
 
+        private bool IsDisable { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
