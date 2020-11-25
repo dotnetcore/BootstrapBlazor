@@ -20,6 +20,7 @@ namespace BootstrapBlazor.Components
         /// 获得 组件样式名称
         /// </summary>
         private string? ClassString => CssBuilder.Default("datetime-range")
+            .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -151,7 +152,8 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange");
+                if (!IsDisabled)
+                    await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange");
             }
         }
 

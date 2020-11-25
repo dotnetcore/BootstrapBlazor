@@ -2648,6 +2648,11 @@ input:disabled,
         border-color: #409eff
     }
 
+    .datetime-range.disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+
 .datetime-range-bar {
     display: inline-flex;
     align-items: center;
@@ -2674,6 +2679,11 @@ input:disabled,
         padding: 0 5px;
         color: #303133;
     }
+
+.datetime-range.disabled .datetime-range-bar .datetime-range-input,
+.datetime-range.disabled .datetime-range-bar .datetime-range-input-icon {
+    cursor: not-allowed;
+}
 
 .range-panel-body {
     display: flex;
@@ -2722,7 +2732,7 @@ input:disabled,
     top: 12px;
 }
 
-.datetime-range:hover .range-clear {
+.datetime-range:hover:not(.disabled) .range-clear {
     display: flex;
 }
 /*End DateTimeRange*/
