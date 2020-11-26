@@ -25,6 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 ret = new List<string>()
                 {
                     "en-US",
+                    "de-DE",
                     "zh-CN",
                     "zh-TW"
                 };
