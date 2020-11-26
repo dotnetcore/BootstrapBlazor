@@ -1,0 +1,10 @@
+﻿@if (Count > 0)
+{
+    <Badge Color="@BootstrapBlazor.Components.Color.Info" IsPill="true">
+        @Count
+    </Badge>
+}
+@if (IsNew)
+{
+    <img src="_content/BootstrapBlazor.Shared/images/new.svg" class="ml-1" />
+}
