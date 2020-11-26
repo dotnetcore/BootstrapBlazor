@@ -11,6 +11,7 @@ indent_style = space
 indent_size = 4 
 insert_final_newline = true 
 trim_trailing_whitespace = true
+[*.{cs,css,js,json,html,razor}]
 charset = utf-8-bom 
 [*.{json,yml,xml}]
 indent_size = 2

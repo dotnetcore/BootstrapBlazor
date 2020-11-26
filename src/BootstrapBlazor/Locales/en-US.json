@@ -56,6 +56,14 @@
     "Yesterday": "Yesterday",
     "Weekago": "A week ago"
   },
+  "BootstrapBlazor.Components.DateTimeRange": {
+    "SeparateText": "To",
+    "StartPlaceHolderText": "Start date",
+    "EndPlaceHolderText": "End date",
+    "ClearButtonText": "Clear",
+    "ConfirmButtonText": "Ok",
+    "DateFormat": "M/d/yyyy"
+  },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Please select ..."
   },

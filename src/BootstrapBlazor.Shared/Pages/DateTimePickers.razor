@@ -5,8 +5,9 @@
 <h4>用于选择或输入日期</h4>
 
 <Block Title="选择日" Introduction="以「日」为基本单位，基础的日期选择控件" CodeFile="datepicker.1.html">
-    <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" />
-
+    <div style="width: 320px;">
+        <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" ShowFooter="false" />
+    </div>
     <Logger @ref="DateLogger" class="mt-3" />
 </Block>
 
@@ -105,8 +106,18 @@
 <Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" CodeFile="datepicker.8.html">
     <div class="form-inline">
         <div class="row">
-            <div class="form-group col-12">
+            <div class="col-12">
                 <DateTimePicker TValue="DateTime" IsDisabled="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏" CodeFile="datepicker.9.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="col-12">
+                <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewModel="DatePickerViewModel.DateTime"/>
             </div>
         </div>
     </div>

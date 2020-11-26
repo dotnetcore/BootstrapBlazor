@@ -64,7 +64,10 @@ namespace BootstrapBlazor.Components
         private string? GetDayClass(DateTime day) => CssBuilder.Default("")
             .AddClass("prev-month", day.Month < CurrentDate.Month)
             .AddClass("next-month", day.Month > CurrentDate.Month)
-            .AddClass("current", day.Ticks == CurrentDate.Ticks)
+            .AddClass("current", day.Ticks == CurrentDate.Ticks && !IsRange)
+            .AddClass("start", IsRange && day.Ticks == Ranger!.SelectedValue.Start.Ticks)
+            .AddClass("end", IsRange && day.Ticks == Ranger!.SelectedValue!.End.Ticks)
+            .AddClass("range", IsRange && CurrentDate.Month >= Ranger!.SelectedValue.Start.Month && (Ranger!.SelectedValue.Start != DateTime.MinValue) && (Ranger!.SelectedValue.End != DateTime.MinValue) && (day.Ticks >= Ranger!.SelectedValue.Start.Ticks) && (day.Ticks <= Ranger!.SelectedValue.End.Ticks))
             .AddClass("today", day.Ticks == DateTime.Today.Ticks)
             .Build();
 
@@ -147,6 +150,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private string? TimeValueString => CurrentTime.ToString(TimeFormat);
 
+        private bool IsRange { get; set; }
+
         /// <summary>
         /// 获得/设置 组件显示模式 默认为显示年月日模式
         /// </summary>
@@ -164,6 +169,30 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public string? DateFormat { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示快捷侧边栏 默认不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSidebar { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示左侧控制按钮 默认显示
+        /// </summary>
+        [Parameter]
+        public bool ShowLeftButtons { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示右侧控制按钮 默认显示
+        /// </summary>
+        [Parameter]
+        public bool ShowRightButtons { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示 Footer 区域 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowFooter { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
@@ -251,6 +280,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public EventCallback<DateTime> ValueChanged { get; set; }
 
+        /// <summary>
+        /// 获得/设置 是否为 Range 内使用 默认为 false
+        /// </summary>
+        [CascadingParameter]
+        public DateTimeRange? Ranger { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -276,6 +311,15 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private List<string>? WeekLists { get; set; }
 
+        [NotNull]
+        private string? Today { get; set; }
+
+        [NotNull]
+        private string? Yesterday { get; set; }
+
+        [NotNull]
+        private string? Weekago { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -283,8 +327,9 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            CurrentViewModel = ViewModel;
+            IsRange = Ranger != null;
 
+            CurrentViewModel = ViewModel;
 
             // 计算开始与结束时间 每个组件显示 6 周数据
             if (Value == DateTime.MinValue)
@@ -312,6 +357,10 @@ namespace BootstrapBlazor.Components
             MonthLists = Localizer[nameof(MonthLists)].Value.Split(',').ToList();
             Months = Localizer[nameof(Months)].Value.Split(',').ToList();
             WeekLists = Localizer[nameof(WeekLists)].Value.Split(',').ToList();
+
+            Today ??= Localizer[nameof(Today)];
+            Yesterday ??= Localizer[nameof(Yesterday)];
+            Weekago ??= Localizer[nameof(Weekago)];
         }
 
         /// <summary>
@@ -321,6 +370,7 @@ namespace BootstrapBlazor.Components
         {
             ShowTimePicker = false;
             CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(-20) : CurrentDate.AddYears(-1);
+            Ranger?.UpdateStart(CurrentDate);
         }
 
         /// <summary>
@@ -330,6 +380,7 @@ namespace BootstrapBlazor.Components
         {
             ShowTimePicker = false;
             CurrentDate = CurrentDate.AddMonths(-1);
+            Ranger?.UpdateStart(CurrentDate);
         }
 
         /// <summary>
@@ -339,6 +390,7 @@ namespace BootstrapBlazor.Components
         {
             ShowTimePicker = false;
             CurrentDate = CurrentViewModel == DatePickerViewModel.Year ? CurrentDate.AddYears(20) : CurrentDate.AddYears(1);
+            Ranger?.UpdateEnd(CurrentDate);
         }
 
         /// <summary>
@@ -348,28 +400,42 @@ namespace BootstrapBlazor.Components
         {
             ShowTimePicker = false;
             CurrentDate = CurrentDate.AddMonths(1);
+            Ranger?.UpdateEnd(CurrentDate);
         }
 
         /// <summary>
         /// Day 选择时触发此方法
         /// </summary>
         /// <param name="d"></param>
-        private Task OnClickDateTime(DateTime d)
+        private async Task OnClickDateTime(DateTime d)
         {
             ShowTimePicker = false;
             CurrentDate = d;
-            StateHasChanged();
-            return Task.CompletedTask;
+            Ranger?.UpdateValue(d);
+            if (!IsRange)
+            {
+                if (!ShowFooter) await ClickConfirmButton();
+                StateHasChanged();
+            }
+        }
+
+        private async Task OnClickShortLink(DateTime d)
+        {
+            await OnClickDateTime(d);
+
+            if (ShowFooter) await ClickConfirmButton();
         }
 
         /// <summary>
         /// 设置组件显示视图方法
         /// </summary>
         /// <param name="view"></param>
-        private void SwitchView(DatePickerViewModel view)
+        private Task SwitchView(DatePickerViewModel view)
         {
             ShowTimePicker = false;
             CurrentViewModel = view;
+            StateHasChanged();
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -379,10 +445,8 @@ namespace BootstrapBlazor.Components
         /// <param name="d"></param>
         private void SwitchView(DatePickerViewModel view, DateTime d)
         {
-            ShowTimePicker = false;
-            CurrentViewModel = view;
             CurrentDate = d;
-            StateHasChanged();
+            SwitchView(view);
         }
 
         /// <summary>
@@ -439,7 +503,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        private string? GetDayText(int day) => $"{day}";
+        private static string? GetDayText(int day) => $"{day}";
 
         /// <summary>
         /// 获取 月视图下月份单元格显示文字
@@ -456,15 +520,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 此刻时调用此方法
         /// </summary>
-        private Task ClickNowButton()
+        private async Task ClickNowButton()
         {
-            ShowTimePicker = false;
             Value = ViewModel switch
             {
                 DatePickerViewModel.DateTime => DateTime.Now,
                 _ => DateTime.Today
             };
-            return Task.CompletedTask;
+            await ClickConfirmButton();
         }
 
         /// <summary>

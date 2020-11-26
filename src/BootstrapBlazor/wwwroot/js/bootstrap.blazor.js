@@ -1469,6 +1469,44 @@
             }
             else $input.popover(method);
         },
+        bb_datetimeRange: function (el, method) {
+            var $el = $(el);
+            var placement = $el.attr('data-placement') || 'auto';
+            var $input = $el.find('.datetime-range-bar');
+            if (!method) {
+                $input.popover({
+                    toggle: 'datetime-range',
+                    placement: placement,
+                    template: '<div class="popover popover-datetime-range" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+                })
+                    .on('inserted.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            $pop.find('.popover-body').append($el.find('.datetime-range-body').addClass('show'));
+                        }
+                    })
+                    .on('hide.bs.popover', function () {
+                        var pId = this.getAttribute('aria-describedby');
+                        if (pId) {
+                            var $pop = $('#' + pId);
+                            var $picker = $pop.find('.datetime-range-body');
+                            $pop.find('.popover-body').append($picker.clone());
+                            $el.append($picker.removeClass('show'));
+                        }
+                    });
+
+                //$('.datetime-picker-input-icon').on('click', function (e) {
+                //    // handler disabled event
+                //    if ($(this).hasClass('disabled')) return;
+
+                //    e.stopImmediatePropagation();
+                //    var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
+                //    $input.trigger('click');
+                //});
+            }
+            else $input.popover(method);
+        },
         bb_tab: function (el) {
             $(el).tab('active');
         },
@@ -1540,21 +1578,27 @@
             };
 
             $el.on('mouseenter', '.rate-item', function () {
-                var $items = $el.find('.rate-item');
-                var index = $items.toArray().indexOf(this);
-                $items.each(function (i) {
-                    if (i > index) $(this).removeClass('is-on');
-                    else $(this).addClass('is-on');
-                });
+                if (!$el.hasClass('disabled')) {
+                    var $items = $el.find('.rate-item');
+                    var index = $items.toArray().indexOf(this);
+                    $items.each(function (i) {
+                        if (i > index) $(this).removeClass('is-on');
+                        else $(this).addClass('is-on');
+                    });
+                }
             });
             $el.on('mouseleave', function () {
-                reset();
+                if (!$el.hasClass('disabled')) {
+                    reset();
+                }
             });
             $el.on('click', '.rate-item', function () {
-                var $items = $el.find('.rate-item');
-                $el.val = $items.toArray().indexOf(this);
-                $el.attr('aria-valuenow', $el.val + 1);
-                obj.invokeMethodAsync(method, $el.val + 1);
+                if (!$el.hasClass('disabled')) {
+                    var $items = $el.find('.rate-item');
+                    $el.val = $items.toArray().indexOf(this);
+                    $el.attr('aria-valuenow', $el.val + 1);
+                    obj.invokeMethodAsync(method, $el.val + 1);
+                }
             });
         },
         footer: function (el, target) {
@@ -1879,6 +1923,19 @@
     });
 
     $(function () {
+        new MutationObserver((mutations, observer) => {
+            if (document.querySelector('#components-reconnect-modal h5 a')) {
+                function attemptReload() {
+                    fetch('').then(() => {
+                        location.reload();
+                    });
+                }
+                observer.disconnect();
+                attemptReload();
+                setInterval(attemptReload, 10000);
+            }
+        }).observe(document.body, { childList: true, subtree: true });
+
         $(document)
             .on('hidden.bs.toast', '.toast', function () {
                 $(this).removeClass('hide');
@@ -1889,9 +1946,9 @@
 
         // popover confirm
         $.fn.popover.Constructor.prototype.isWithContent = function () {
-            var components = ['', 'confirm', 'datetime-picker'];
+            var components = ['', 'confirm', 'datetime-picker', 'datetime-range'];
             var toggle = this.config.toggle;
-            return components.indexOf(toggle) || Boolean(this.getTitle());
+            return components.indexOf(toggle) || this.getTitle() || this._getContent();
         }
 
         var findConfirmButton = function ($el) {
@@ -1924,19 +1981,14 @@
                     }
                 });
             }
-            else {
-                // 处理点击日事件
-                var $day = $el.parents('.date-table');
-                if ($day.length === 1) {
-                    // 点击的是 Day cell
-                    var $popover = $el.parents('.popover-datetime.show');
-                    var $footer = $popover.find('.picker-panel-footer:visible');
-                    if ($footer.length === 0) {
-                        var pId = $popover.attr('id');
+            if ($el.parents('.popover-datetime-range.show').length === 0) {
+                $('.popover-datetime-range.show').each(function (index, ele) {
+                    var pId = this.getAttribute('id');
+                    if (pId) {
                         var $input = $('[aria-describedby="' + pId + '"]');
-                        if ($el.attr('aria-describedby') !== pId) $input.popover('hide');
+                        if ($el.parents('.datetime-range-bar').attr('aria-describedby') !== pId) $input.popover('hide');
                     }
-                }
+                });
             }
 
             // table filter
@@ -2016,19 +2068,3 @@
         });
     });
 })(jQuery);
-
-// 等待直到出现“重新加载”按钮
-new MutationObserver((mutations, observer) => {
-    if (document.querySelector('#components-reconnect-modal h5 a')) {
-        // 现在，每隔10秒，查看服务器是否返回，如果返回，则重新加载
-        // 检查服务器是否真的返回
-        function attemptReload() {
-            fetch('').then(function () {
-                location.reload();
-            });
-        };
-        observer.disconnect();
-        attemptReload();
-        setInterval(attemptReload, 10000);
-    }
-}).observe(document.body, { childList: true, subtree: true });

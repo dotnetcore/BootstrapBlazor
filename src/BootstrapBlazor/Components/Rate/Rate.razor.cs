@@ -1,26 +1,37 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// Rate 组件基类
+    /// Rate 组件
     /// </summary>
-    public abstract class RateBase : BootstrapComponentBase
+    public sealed partial class Rate
     {
-        private JSInterop<RateBase>? Interop { get; set; }
+        private JSInterop<Rate>? Interop { get; set; }
 
         /// <summary>
         /// 获得/设置 Rate DOM 元素实例
         /// </summary>
-        protected ElementReference RateElement { get; set; }
+        private ElementReference RateElement { get; set; }
 
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected virtual string? ClassString => CssBuilder.Default("rate")
+        private string? ClassString => CssBuilder.Default("rate")
+            .AddClass("disabled", IsDisable)
             .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        private string? GetItemClassString(int i) => CssBuilder.Default("rate-item")
+            .AddClass("is-on", Value >= i)
             .Build();
 
         /// <summary>
@@ -30,10 +41,22 @@ namespace BootstrapBlazor.Components
         public int Value { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否禁用 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisable { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件值变化时回调委托
         /// </summary>
         [Parameter]
         public EventCallback<int> ValueChanged { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件值变化时回调委托
+        /// </summary>
+        [Parameter]
+        public Func<int, Task>? OnValueChanged { get; set; }
 
         /// <summary>
         /// OnAfterRender 方法
@@ -43,10 +66,9 @@ namespace BootstrapBlazor.Components
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
-
             if (firstRender)
             {
-                if (Interop == null) Interop = new JSInterop<RateBase>(JSRuntime);
+                if (Interop == null) Interop = new JSInterop<Rate>(JSRuntime);
                 if (Interop != null) await Interop.Invoke(this, RateElement, "rate", nameof(Clicked));
             }
         }
@@ -59,6 +81,7 @@ namespace BootstrapBlazor.Components
         {
             Value = val;
             if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+            if (OnValueChanged != null) await OnValueChanged(Value);
         }
 
         /// <summary>

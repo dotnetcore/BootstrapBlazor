@@ -9,7 +9,11 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Rates
     {
-        private int BindValue { get; set; } = 0;
+        private int BindValue { get; set; } = 3;
+
+        private int BindValue1 { get; set; } = 2;
+
+        private bool IsDisable { get; set; }
 
         /// <summary>
         /// 
@@ -26,7 +30,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -40,7 +44,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -50,6 +54,14 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = " — ",
                 DefaultValue = " — "
             },
+            new AttributeItem()
+            {
+                Name = "IsDisabled",
+                Description = "是否禁用 默认为 fasle",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            }
         };
     }
 }

@@ -109,6 +109,12 @@ namespace BootstrapBlazor.Components
         public Func<IEnumerable<TItem>, Task<bool>>? OnExportAsync { get; set; }
 
         /// <summary>
+        /// 获得/设置 保存弹窗中的保存按钮显示文本 默认为资源文件中的 保存
+        /// </summary>
+        [Parameter]
+        public string? EditDialogSaveButtonText { get; set; }
+
+        /// <summary>
         /// ToastService 服务实例
         /// </summary>
         [Inject]
@@ -311,8 +317,9 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.ShowLabel), false),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate!)
             };
-            DialogOption.Component = DynamicComponent.CreateComponent<TableEditorDialog<TItem>>(editorParameters);
+            if (!string.IsNullOrEmpty(EditDialogSaveButtonText)) editorParameters.Add(new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.SaveButtonText), EditDialogSaveButtonText));
 
+            DialogOption.Component = DynamicComponent.CreateComponent<TableEditorDialog<TItem>>(editorParameters);
             DialogService.Show(DialogOption);
         }
 
