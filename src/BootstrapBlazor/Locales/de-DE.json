@@ -51,7 +51,18 @@
     "Months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
     "MonthLists": "Jan,Feb,März,Apr,Mai,Juni,Juli,Aug,Sept,Okt,Nov,Dez",
     "WeekLists": "So,Mo,Di,Mi,Do,Fr,Sa",
-    "GenericTypeErroMessage": "DateTimePicker unterstützt nur DateTime oder Nullable<DateTime>"
+    "GenericTypeErroMessage": "DateTimePicker unterstützt nur DateTime oder Nullable<DateTime>",
+    "Today": "Heute",
+    "Yesterday": "Gestern",
+    "Weekago": "Vor einer Woche"
+  },
+  "BootstrapBlazor.Components.DateTimeRange": {
+    "SeparateText": "Zu",
+    "StartPlaceHolderText": "Datum des Beginns",
+    "EndPlaceHolderText": "Datum des Endes",
+    "ClearButtonText": "Klar",
+    "ConfirmButtonText": "Ok",
+    "DateFormat": "M/T/JJJJ"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Bitte auswählen ..."
