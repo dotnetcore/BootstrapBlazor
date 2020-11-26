@@ -175,13 +175,14 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "时间框 DateTimePicker",
-                Url = "datetimepickers"
+                Url = "datetimepickers",
+                IsNew = true
             });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "时间范围框 DateTimeRange",
                 Url = "datetimeranges",
-                IsNew = true
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -656,15 +657,18 @@ namespace BootstrapBlazor.Shared.Shared
             if (append) Menus.Add(item);
         }
 
-        private static DynamicComponent CreateBadge(int count, bool isNew = false) => DynamicComponent.CreateComponent<State>(new KeyValuePair<string, object>[]
+        private static DynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => DynamicComponent.CreateComponent<State>(new KeyValuePair<string, object>[]
         {
             new KeyValuePair<string, object>(nameof(State.Count), count),
-            new KeyValuePair<string, object>(nameof(State.IsNew), isNew)
+            new KeyValuePair<string, object>(nameof(State.IsNew), isNew),
+            new KeyValuePair<string, object>(nameof(State.IsUpdate), isUpdate)
         });
 
         private class DemoMenuItem : MenuItem
         {
             public bool IsNew { get; set; }
+
+            public bool IsUpdate { get; set; }
 
             /// <summary>
             /// 
@@ -675,12 +679,14 @@ namespace BootstrapBlazor.Shared.Shared
                 base.AddItem(item);
 
                 var menu = (DemoMenuItem)item;
-                if (menu.IsNew && menu.Parent != null)
+                if (menu.Parent != null)
                 {
-                    ((DemoMenuItem)menu.Parent).IsNew = true;
+                    var pMenu = ((DemoMenuItem)menu.Parent);
+                    if (menu.IsNew) pMenu.IsNew = true;
+                    if (menu.IsUpdate) pMenu.IsUpdate = true;
                 }
 
-                item.Component = CreateBadge(0, menu.IsNew);
+                item.Component = CreateBadge(0, menu.IsNew, menu.IsUpdate);
             }
         }
     }

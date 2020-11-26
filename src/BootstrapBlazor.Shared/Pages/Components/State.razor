@@ -6,5 +6,13 @@
 }
 @if (IsNew)
 {
-    <img src="_content/BootstrapBlazor.Shared/images/new.svg" class="ml-1" />
+    <span class="badge badge-danger">
+        <span>NEW</span>
+    </span>
+}
+@if (IsUpdate)
+{
+    <span class="badge badge-success">
+        <span>Upd</span>
+    </span>
 }
