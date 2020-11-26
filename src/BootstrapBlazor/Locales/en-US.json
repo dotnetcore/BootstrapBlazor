@@ -30,13 +30,13 @@
     "AutoScrollText": "AutoScroll"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
-    "DatePlaceHolder": "Date",
-    "TimePlaceHolder": "Time",
+    "DatePlaceHolder": "Select date",
+    "TimePlaceHolder": "Select time",
     "DateTimePlaceHolderText": "Please select ...",
     "DatePlaceHolderText": "Please select ...",
     "TimeFormat": "hh\\:mm\\:ss",
     "DateFormat": "M/d/yyyy",
-    "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss",
+    "DateTimeFormat": "M/d/yyyy HH\\:mm\\:ss",
     "AiraPrevYearLabel": "Prev Year",
     "AiraNextYearLabel": "Next Year",
     "AiraPrevMonthLabel": "Prev Month",
@@ -51,7 +51,10 @@
     "Months": "January,February,March,April,May,June,July,August,September,October,November,December",
     "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
-    "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>"
+    "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>",
+    "Today": "Today",
+    "Yesterday": "Yesterday",
+    "Weekago": "A week ago"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Please select ..."
@@ -155,8 +158,8 @@
     "SuccessText": "Successful",
     "FailText": "Failed",
     "DeleteButtonToastTitle": "Delete Data",
-    "DeleteButtonToastContent": "Please select DELETE rows, auto claose after {1}s",
-    "DeleteButtonToastResultContent": "Delete data {0}, auto claose after {1}s"
+    "DeleteButtonToastContent": "Please select DELETE rows, auto close after {1}s",
+    "DeleteButtonToastResultContent": "Delete data {0}, auto close after {1}s"
   },
   "BootstrapBlazor.Components.TableEditorDialog": {
     "CloseButtonText": "Close",
