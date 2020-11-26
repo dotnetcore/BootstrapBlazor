@@ -2340,6 +2340,11 @@ input:disabled,
                     margin-right: 4px;
                 }
 
+            .picker-panel-content table td.disabled .cell {
+                cursor: not-allowed;
+                color: #c0c4cc;
+            }
+
 .date-table th {
     padding: 5px;
     font-weight: 400;
@@ -2691,17 +2696,13 @@ input:disabled,
 
     .range-panel-body .picker-panel {
         box-shadow: none;
+        border: none;
     }
 
         .range-panel-body .picker-panel:first-child {
-            border-right: none;
+            border-right: 1px solid #ced4da;
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
-        }
-
-        .range-panel-body .picker-panel:last-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
         }
 
     .range-panel-body .date-picker-header-label {
@@ -2713,13 +2714,16 @@ input:disabled,
         }
 
 .range-panel-footer {
-    margin: 0.5rem -0.75rem 0 -0.75rem;
-    padding: 0.5rem 12px 0 12px;
+    padding: 0.5rem;
 }
 
 .popover-datetime-range {
     max-width: unset;
 }
+
+    .popover-datetime-range .popover-body {
+        padding: 0;
+    }
 
 .range-clear {
     border-radius: 50%;

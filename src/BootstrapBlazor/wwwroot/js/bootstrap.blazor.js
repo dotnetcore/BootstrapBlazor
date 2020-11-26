@@ -1466,6 +1466,11 @@
                     var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
                     $input.trigger('click');
                 });
+
+                $('.disabled .cell').on('click', function (e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                });
             }
             else $input.popover(method);
         },

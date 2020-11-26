@@ -123,9 +123,12 @@
                     </button>
                 }
             </div>
-            <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
-                <span>@NowButtonText</span>
-            </button>
+            @if (MinValue == null && MaxValue == null)
+            {
+                <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
+                    <span>@NowButtonText</span>
+                </button>
+            }
             <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
             </button>

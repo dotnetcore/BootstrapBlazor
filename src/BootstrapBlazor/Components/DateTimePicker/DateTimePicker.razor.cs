@@ -113,6 +113,18 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool ShowSidebar { get; set; }
 
+        /// <summary>
+        /// 获得/设置 当前日期最大值
+        /// </summary>
+        [Parameter]
+        public DateTime? MaxValue { get; set; }
+
+        /// <summary>
+        /// 获得/设置 当前日期最小值
+        /// </summary>
+        [Parameter]
+        public DateTime? MinValue { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }

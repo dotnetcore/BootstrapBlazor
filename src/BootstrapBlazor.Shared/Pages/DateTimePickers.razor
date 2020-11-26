@@ -117,7 +117,18 @@
     <div class="form-inline">
         <div class="row">
             <div class="col-12">
-                <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewModel="DatePickerViewModel.DateTime"/>
+                <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewModel="DatePickerViewModel.DateTime" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="设置值范围" Introduction="设置 <code>MinValue</code> 属性值与 <code>MaxValue</code> 限制可选值范围" CodeFile="datepicker.10.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="col-12">
+                <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))" 
+                                MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))" MaxValue="@(DateTime.Today.AddDays(14 - DateTime.Today.Day))" />
             </div>
         </div>
     </div>
