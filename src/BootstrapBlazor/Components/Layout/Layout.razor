@@ -29,7 +29,7 @@
             {
                 <div class="layout-menu">
                     <Scroll IsDark="@IsDark">
-                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@OnClickMenu" />
+                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu" />
                     </Scroll>
                 </div>
             }
@@ -76,7 +76,7 @@
                 @if (Menus != null)
                 {
                     <div class="layout-menu">
-                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@OnClickMenu" />
+                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu" />
                     </div>
                 }
             </aside>

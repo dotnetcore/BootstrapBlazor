@@ -163,6 +163,12 @@ namespace BootstrapBlazor.Components
         public bool ShowGotoTop { get; set; }
 
         /// <summary>
+        /// 获得/设置 点击菜单时回调委托方法 默认为 null
+        /// </summary>
+        [Parameter]
+        public Func<MenuItem, Task>? OnClickMenu { get; set; }
+
+        /// <summary>
         /// 获得/设置 收缩展开回调委托
         /// </summary>
         [Parameter]
@@ -197,10 +203,12 @@ namespace BootstrapBlazor.Components
         /// 点击菜单时回调此方法
         /// </summary>
         /// <returns></returns>
-        protected async Task OnClickMenu(MenuItem item)
+        protected async Task ClickMenu(MenuItem item)
         {
             // 小屏幕时生效
             if (IsSmallScreen && !item.Items.Any()) await CollapseMenu();
+
+            if (OnClickMenu != null) await OnClickMenu(item);
         }
 
         /// <summary>

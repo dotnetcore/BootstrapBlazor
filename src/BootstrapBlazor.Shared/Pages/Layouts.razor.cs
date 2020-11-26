@@ -140,6 +140,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "Func<bool, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnClickMenu",
+                Description = "点击菜单项时回调委托",
+                Type = "Func<bool, MenuItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }
