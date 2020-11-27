@@ -115,6 +115,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<DateTimeRangeValue, Task>? OnConfirm { get; set; }
 
+        /// <summary>
+        /// 点击情况按钮回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<DateTimeRangeValue,Task>? OnClearValue { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
@@ -163,7 +169,13 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private async Task ClickClearButton()
         {
-            Value = null;
+            Value = new DateTimeRangeValue();
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+            if (OnClearValue != null) await OnClearValue(Value);
+
             StartValue = DateTime.Today;
             EndValue = DateTime.Today.AddMonths(1);
             SelectedValue.Start = DateTime.MinValue;
