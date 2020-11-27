@@ -137,6 +137,7 @@ namespace BootstrapBlazor.Components
                                 // 设置只读属性与列模板
                                 item.Readonly = el.Readonly;
                                 item.EditTemplate = el.EditTemplate;
+                                item.Text = el.Text;
                             }
                         }
                     }
