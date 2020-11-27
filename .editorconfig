@@ -126,3 +126,6 @@ csharp_preserve_single_line_blocks = true
 [*.vb] 
 # Modifier preferences 
 visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public,Friend,NotOverridable,Overridable,MustOverride,Overloads,Overrides,MustInherit,NotInheritable,Static,Shared,Shadows,ReadOnly,WriteOnly,Dim,Const,WithEvents,Widening,Narrowing,Custom,Async:suggestion 
+[*.cs]
+# Add file header
+file_header_template = **********************************\n框架名称：BootstrapBlazor \n框架作者：Argo Zhang\n开源地址：\nGitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor\nGitHub: https://github.com/ArgoZhang/BootstrapBlazor \n开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)\n**********************************
