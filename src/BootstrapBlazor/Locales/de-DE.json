@@ -71,7 +71,7 @@
     "PlaceHolder": "Zum Bearbeiten klicken"
   },
   "BootstrapBlazor.Components.EditorForm": {
-    "ModelInvalidOperationExceptionMessage": "ValidateFormMODEL stimmt nicht überein {0} MODEL",
+    "ModelInvalidOperationExceptionMessage": "ValidateFormMODEL stimmt nicht überein mit {0} MODEL",
     "PlaceHolderText": "Bitte eingeben ..."
   },
   "BootstrapBlazor.Components.EqualToValidator": {
@@ -152,7 +152,7 @@
     "EditModalTitle": "Daten bearbeiten",
     "AddModalTitle": "Neue Daten",
     "ColumnButtonTemplateHeaderText": "",
-    "SearchTooltip": "<div class='search-input-tooltip'>Please input ...</br><kbd>Enter</kbd> Search <kbd>ESC</kbd> Clear</div>",
+    "SearchTooltip": "<div class='search-input-tooltip'>Bitte eingeben ...</br><kbd>Enter</kbd> Search <kbd>ESC</kbd> Clear</div>",
     "SearchModalTitle": "Suche",
     "AddButtonToastTitle": "Daten hinzufügen",
     "AddButtonToastContent": "Speichern fehlgeschlagen. Bitte geben Sie die SAVE-Methode an",
@@ -180,7 +180,7 @@
     "BoolFilter.AllText": "Alle",
     "BoolFilter.TrueText": "Wahr",
     "BoolFilter.FalseText": "Falsch",
-    "GreaterThanOrEqual": "GrößerAlsOderGleicher",
+    "GreaterThanOrEqual": "GrößerAlsOderGleiche",
     "LessThanOrEqual": "WenigerAlsOderGleich",
     "GreaterThan": "GrößerAls",
     "LessThan": "WenigerAls",
@@ -198,7 +198,7 @@
     "PauseText": "Pause",
     "ResumeText": "Fortfahren",
     "CancelText": "Abbruch",
-    "StarText": "Start"
+    "StarText": "Star"
   },
   "BootstrapBlazor.Components.Toggle": {
     "OnText": "Erweitern",
