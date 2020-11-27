@@ -176,13 +176,13 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "时间框 DateTimePicker",
                 Url = "datetimepickers",
-                IsNew = true
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "时间范围框 DateTimeRange",
                 Url = "datetimeranges",
-                IsUpdate = true
+                IsNew = true
             });
             item.AddItem(new DemoMenuItem()
             {
