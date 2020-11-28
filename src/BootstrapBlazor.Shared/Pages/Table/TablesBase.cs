@@ -117,6 +117,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "true"
             },
             new AttributeItem() {
+                Name = "AutoGenerateColumns",
+                Description = "是否自动生成列",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "Text",
                 Description = "表头显示文字",
                 Type = "string",
@@ -565,6 +572,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [DisplayName("主键")]
+        [AutoGenerateColumn(Ignore = true)]
         public int Id { get; set; }
 
         /// <summary>
@@ -572,12 +580,14 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [DisplayName("姓名")]
         [Required(ErrorMessage = "姓名不能为空")]
+        [AutoGenerateColumn(Order = 10)]
         public string? Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DisplayName("日期")]
+        [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd")]
         public DateTime? DateTime { get; set; }
 
         /// <summary>
@@ -585,18 +595,21 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [DisplayName("地址")]
         [Required(ErrorMessage = "地址不能为空")]
+        [AutoGenerateColumn(Order = 20)]
         public string? Address { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DisplayName("数量")]
+        [AutoGenerateColumn(Order = 40)]
         public int Count { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DisplayName("是/否")]
+        [AutoGenerateColumn(Order = 50)]
         public bool Complete { get; set; }
 
         /// <summary>
@@ -604,6 +617,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [Required(ErrorMessage = "请选择学历")]
         [DisplayName("学历")]
+        [AutoGenerateColumn(Order = 60)]
         public EnumEducation? Education { get; set; }
     }
 

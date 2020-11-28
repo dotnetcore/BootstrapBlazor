@@ -9,7 +9,6 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -118,5 +117,10 @@ namespace BootstrapBlazor.Components
         /// 字段鼠标悬停提示
         /// </summary>
         bool ShowTips { get; set; }
+
+        /// <summary>
+        /// 获得/设置 顺序号
+        /// </summary>
+        int Order { get; set; }
     }
 }

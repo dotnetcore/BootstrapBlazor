@@ -127,6 +127,12 @@ namespace BootstrapBlazor.Components
         public bool Visible { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 字段鼠标悬停提示
+        /// </summary>
+        [Parameter]
+        public bool ShowTips { get; set; }
+
+        /// <summary>
         /// 获得/设置 列 td 自定义样式 默认为 null 未设置
         /// </summary>
         [Parameter]
@@ -136,7 +142,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 文字对齐方式 默认为 Alignment.None
         /// </summary>
         [Parameter]
-        public Alignment Align { get; set; } = Alignment.None;
+        public Alignment Align { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -180,6 +186,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public BreakPoint ShownWithBreakPoint { get; set; }
+
+        /// <summary>
+        /// 获得/设置 显示顺序
+        /// </summary>
+        [Parameter]
+        public int Order { get; set; }
 
         /// <summary>
         /// 获得/设置 Table 实例
@@ -226,12 +238,5 @@ namespace BootstrapBlazor.Components
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
 
         private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TType>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<object, TType>>();
-
-        /// <summary>
-        /// 获得/设置 字段鼠标悬停提示
-        /// </summary>
-        [Parameter]
-        public bool ShowTips { get; set; }
-
     }
 }

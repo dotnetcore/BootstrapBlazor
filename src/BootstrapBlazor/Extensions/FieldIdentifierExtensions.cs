@@ -31,15 +31,22 @@ namespace Microsoft.AspNetCore.Components.Forms
         public static string GetDisplayName(this FieldIdentifier fieldIdentifier) => GetDisplayName(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
         /// <summary>
-        /// 
+        /// 获取显示名称方法
         /// </summary>
-        /// <param name="model"></param>
-        /// <param name="fieldName"></param>
+        /// <param name="model">模型实例</param>
+        /// <param name="fieldName">字段名称</param>
         /// <returns></returns>
-        public static string GetDisplayName(this object model, string fieldName)
-        {
-            var cacheKey = (Type: model.GetType(), FieldName: fieldName);
+        public static string GetDisplayName(this object model, string fieldName) => GetDisplayName(model.GetType(), fieldName);
 
+        /// <summary>
+        /// 获取显示名称方法
+        /// </summary>
+        /// <param name="modelType">模型类型</param>
+        /// <param name="fieldName">字段名称</param>
+        /// <returns></returns>
+        public static string GetDisplayName(this Type modelType, string fieldName)
+        {
+            var cacheKey = (Type: modelType, FieldName: fieldName);
             if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
             {
                 if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))

@@ -161,6 +161,12 @@ namespace BootstrapBlazor.Components
         public bool DoubleClickToEdit { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否自动生成列信息 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool AutoGenerateColumns { get; set; }
+
+        /// <summary>
         /// 单选模式下选择行时调用此方法
         /// </summary>
         /// <param name="val"></param>

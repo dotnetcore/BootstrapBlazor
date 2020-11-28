@@ -73,6 +73,11 @@ namespace BootstrapBlazor.Components
         public RenderFragment<object>? EditTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 显示顺序
+        /// </summary>
+        public int Order { get; set; }
+
+        /// <summary>
         /// 获得/设置 IEditorItem 集合实例
         /// </summary>
         /// <remarks>EditorForm 组件级联传参下来的值</remarks>

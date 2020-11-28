@@ -232,3 +232,28 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="自动生成列" Introduction="通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能" CodeFile="table.55.html">
+    <p>
+        本例中通过设置 <code>AutoGenerateColumns</code> 值为 <code>true</code> 开启自动生成列功能，默认绑定模型实体类所有属性全部生成，实体类可以通过 <code>AutoGenerateColumnAttribute</code> 标签类进行功能设置，如：
+        <ul class="ul-demo">
+            <li><code>Ignore</code> 表示忽略此属性，即不生成</li>
+            <li><code>Readonly</code> 表示只读</li>
+            <li>更多属性详见 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/src/BootstrapBlazor/Components/Table/Attribute/AutoGenerateColumnAttribute.cs" target="_blank">源码</a></li>
+        </ul>
+        本例中通过 <code>[AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd")]</code> 标签格式化 <code>日期</code> 列；通过代码中设置模板列对 <code>Complete</code> 列进行自定义使用 <code>Switch</code> 组件进行渲染；通过 <code>[AutoGenerateColumn(Order = 10)]</code> 标签中的 <code>Order</code> 对显示顺序进行设定
+    </p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>

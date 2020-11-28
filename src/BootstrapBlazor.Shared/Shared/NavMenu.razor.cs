@@ -396,7 +396,8 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "列设置",
-                Url = "tables/column"
+                Url = "tables/column",
+                IsUpdate = true
             });
 
             it.AddItem(new DemoMenuItem()
@@ -663,7 +664,7 @@ namespace BootstrapBlazor.Shared.Shared
 
         private void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
         {
-            item.Component = CreateBadge(count ?? item.Items.Count(), item.IsNew);
+            item.Component = CreateBadge(count ?? item.Items.Count(), item.IsNew, item.IsUpdate);
             if (append) Menus.Add(item);
         }
 

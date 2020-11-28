@@ -216,6 +216,8 @@ namespace BootstrapBlazor.Components
         {
             await base.OnInitializedAsync();
 
+            OnInitLocalization();
+
             // 初始化每页显示数量
             if (IsPagination)
             {
@@ -246,14 +248,18 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            OnInitLocalization();
-
             if (firstRender)
             {
                 FirstRender = false;
                 methodName = Height.HasValue ? "fixTableHeader" : "init";
 
                 ScreenSize = await RetrieveWidth();
+
+                // 初始化列
+                if (AutoGenerateColumns)
+                {
+                    InternalTableColumn.GetProperties<TItem>(Columns);
+                }
 
                 ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
 

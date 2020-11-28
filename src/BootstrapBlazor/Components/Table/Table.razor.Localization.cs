@@ -240,10 +240,7 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private IStringLocalizer<Table<TItem>>? Localizer { get; set; }
 
-        /// <summary>
-        /// 本地化信息初始化方法
-        /// </summary>
-        protected void OnInitLocalization()
+        private void OnInitLocalization()
         {
             AddButtonText ??= Localizer[nameof(AddButtonText)];
             EditButtonText ??= Localizer[nameof(EditButtonText)];

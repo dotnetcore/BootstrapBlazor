@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 表头显示文字
         /// </summary>
-        public string? Text { get; set; }
+        string? Text { get; set; }
 
         /// <summary>
         /// 获得/设置 编辑模板
