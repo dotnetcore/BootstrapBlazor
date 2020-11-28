@@ -24,9 +24,9 @@ jobs:
         dotnet publish -c Release -o deploy src/BootstrapBlazor.WebAssembly.ClientHost
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.6.1
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
-        ACCESS_TOKEN: ${{ secrets.GH_PUSH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_PUSH_TOKEN }}
         BRANCH: gh-pages
         FOLDER: deploy/wwwroot
         CLEAN: true

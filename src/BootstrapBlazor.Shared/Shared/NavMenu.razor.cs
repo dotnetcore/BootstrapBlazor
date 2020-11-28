@@ -154,7 +154,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "表单组件 EditorForm",
-                Url = "editorforms"
+                Url = "editorforms",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {
