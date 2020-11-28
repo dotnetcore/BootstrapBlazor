@@ -71,9 +71,16 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "ShowLabel",
                 Description = "是否显示 Label",
-                Type = "bool?",
-                ValueList = "null/true/false",
-                DefaultValue = "null"
+                Type = "bool",
+                ValueList = "true/false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "AutoGenerateAllItem",
+                Description = "是否生成所有属性",
+                Type = "bool",
+                ValueList = "true/false",
+                DefaultValue = "true"
             }
         };
 

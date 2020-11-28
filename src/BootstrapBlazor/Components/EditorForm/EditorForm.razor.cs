@@ -51,7 +51,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示前置标签 默认为 true 显示标签
         /// </summary>
         [Parameter]
-        public bool? ShowLabel { get; set; } = true;
+        public bool ShowLabel { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否自动生成模型的所有属性 默认为 true 生成所有属性
+        /// </summary>
+        [Parameter]
+        public bool AutoGenerateAllItem { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值
@@ -129,28 +135,35 @@ namespace BootstrapBlazor.Components
                 {
                     // 如果 EditorItems 有值表示 用户自定义列
 
-                    // 获取绑定模型所有属性
-                    var items = Model.GetType().GetProperties().Select(p => new InternalEditorItem<TModel>(Model, p)).ToList();
-
-                    // 通过设定的 FieldItems 模板获取项进行渲染
-                    foreach (var el in EditorItems)
+                    if (AutoGenerateAllItem)
                     {
-                        var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
+                        // 获取绑定模型所有属性
+                        var items = Model.GetType().GetProperties().Select(p => new InternalEditorItem<TModel>(Model, p)).ToList();
 
-                        if (item != null)
+                        // 通过设定的 FieldItems 模板获取项进行渲染
+                        foreach (var el in EditorItems)
                         {
-                            // 过滤掉不编辑的列
-                            if (!el.Editable) items.Remove(item);
-                            else
+                            var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
+
+                            if (item != null)
                             {
-                                // 设置只读属性与列模板
-                                item.Readonly = el.Readonly;
-                                item.EditTemplate = el.EditTemplate;
-                                item.Text = el.Text;
+                                // 过滤掉不编辑的列
+                                if (!el.Editable) items.Remove(item);
+                                else
+                                {
+                                    // 设置只读属性与列模板
+                                    item.Readonly = el.Readonly;
+                                    item.EditTemplate = el.EditTemplate;
+                                    item.Text = el.Text;
+                                }
                             }
                         }
+                        FormItems.AddRange(items.OrderBy(i => GetOrder(i.FieldName)));
                     }
-                    FormItems.AddRange(items.OrderBy(i => GetOrder(i.FieldName)));
+                    else
+                    {
+                        FormItems.AddRange(EditorItems);
+                    }
                 }
                 StateHasChanged();
             }
@@ -222,7 +235,7 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (ShowLabel.HasValue && ShowLabel.Value)
+            if (ShowLabel)
             {
                 ret.Add(new KeyValuePair<string, object>("ShowLabel", true));
             }
