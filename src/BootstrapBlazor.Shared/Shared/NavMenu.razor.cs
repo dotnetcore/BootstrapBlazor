@@ -198,6 +198,7 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "下拉框 DropdownList",
                 Url = "dropdownlists"
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {
