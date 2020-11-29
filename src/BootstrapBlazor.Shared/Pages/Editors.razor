@@ -5,16 +5,7 @@
 
 <h4>将输入的文字转化为 <code>html</code> 代码片段</h4>
 
-<p><code>Editor</code> 组件是依赖 <a href="https://summernote.org/" target="_blank"><code>Summernote.js</code></a> 组件库的，所以使用本组件时需要事先应用相应的 <code>css</code> 与 <code>js</code> 文件</p>
-
-<h4>CSS 文件</h4>
-<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor/lib/summernote/summernote-bs4.min.css"&gt;
-</Pre>
-
-<h4>JS 文件</h4>
-<Pre>&lt;script src="_content/BootstrapBlazor/lib/summernote/summernote-bs4.min.js"&gt;&lt;/script&gt;
-&lt;script src="_content/BootstrapBlazor/lib/summernote/summernote-zh-CN.min.js"&gt;&lt;/script&gt;
-</Pre>
+<p><code>Editor</code> 组件是对 <a href="https://summernote.org/" target="_blank"><code>Summernote 组件</code></a> 的二次封装</p>
 
 <Block Title="基础用法" Introduction="默认呈现为 <code>div</code> 点击后变为富文本编辑框" CodeFile="editor.1.html">
     <p>通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code></p>
@@ -46,68 +37,16 @@
     </div>
 </Block>
 
-<Block Title="带有插件的富文本编辑框" Introduction="通过设置<code>EditorPluginItems</code> 属性配置插件内容， 通过设置 <code>OnPluginClick</code> 属性来设置组件直接显示为富文本编辑框" CodeFile="editor.6.html">
-    <Editor IsEditor="true" OnPluginClick="@PluginClick" EditorPluginItems="@editorPluginItems"></Editor>
+<Block Title="自定义扩展编辑框按钮" Introduction="通过设置 <code>CustomerPluginItems</code> 属性对编辑框工具栏进行自定义扩展， 通过设置 <code>OnClickPluginItem</code> 回调委托做功能" CodeFile="editor.6.html">
+    <p>本例中通过扩展 <code>CustomerPluginItems</code> 属性在工具栏中增加了两个按钮，点击按钮弹出 <code>SweetAlert</code> 模态框，点击模态框确认按钮后文本框中插入一段内容</p>
+    <Editor IsEditor="true" OnClickPluginItem="@PluginClick" CustomerPluginItems="@EditorPluginItems"></Editor>
 </Block>
 
-<Block Title="自定义工具栏的富文本编辑框" Introduction="通过设置<code>ToolbarItems</code> 属性自定义工具栏内容，目前支持的工具栏值请参见Summernote官网" CodeFile="editor.7.html">
+<Block Title="自定义工具栏的富文本编辑框" Introduction="通过设置 <code>ToolbarItems</code> 属性自定义工具栏内容，目前支持的工具栏值请参见 <a href='https://summernote.org/' target='_blank'>Summernote</a> 官网" CodeFile="editor.7.html">
+    <p>本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮</p>
     <Editor IsEditor="true" ToolbarItems="@ToolbarItems"></Editor>
 </Block>
 
 <SweetAlert />
 
 <AttributeTable Items="@GetAttributes()" />
-@code{
-
-    public void SetValue()
-    {
-        EditorValue = "更改后的值";
-    }
-
-    private List<EditorPluginItem> editorPluginItems = new List<EditorPluginItem>()
-    {
-        new EditorPluginItem()
-        {
-            IconClass = "fa fa-pencil",
-            PluginName = "plugin1",
-            Tooltip = "这是plugin1的提示"
-        },
-        new EditorPluginItem()
-        {
-            IconClass = "fa fa-home",
-            PluginName = "plugin2",
-            Tooltip = "这是plugin2提示"
-        }
-    };
-
-    public async Task PluginClick(EditorEventArgs eventArgs)
-    {
-        if (eventArgs.PluginName == "plugin1")
-        {
-            var op = new SwalOption()
-            {
-                Title = "点击plugin1按钮后弹窗",
-                Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
-                IsConfirm = true
-            };
-            var ret = await SwalService.ShowModal(op);
-            eventArgs.ResultValue = "从plugin1返回的数据";
-        }
-        if (eventArgs.PluginName == "plugin2")
-        {
-            var op = new SwalOption()
-            {
-                Title = "点击plugin2按钮后弹窗",
-                Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
-                IsConfirm = true
-            };
-            var ret = await SwalService.ShowModal(op);
-            eventArgs.ResultValue = "从plugin2返回的数据";
-        }
-    }
-
-    private List<object> ToolbarItems = new List<object> {
-        new List<object> {"style", new List<string>() {"style"}},
-        new List<object> {"font", new List<string>() {"bold", "underline", "clear"}}
-    };
-}

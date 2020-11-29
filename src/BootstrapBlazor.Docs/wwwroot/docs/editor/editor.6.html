@@ -1,25 +1,26 @@
-﻿<Editor IsEditor="true" OnPluginClick="@PluginClick" EditorPluginItems="@editorPluginItems"></Editor>
+﻿<Editor IsEditor="true" OnClickPluginItem="@PluginClick" CustomerPluginItems="@EditorPluginItems"></Editor>
 
 @code{
-    private List&lt;EditorPluginItem&gt; editorPluginItems = new List&lt;EditorPluginItem&gt;()
+    private List<EditorPluginItem> EditorPluginItems = new List<EditorPluginItem>()
     {
         new EditorPluginItem()
         {
             IconClass = "fa fa-pencil",
-            PluginName = "plugin1",
-            Tooltip = "这是plugin1的提示"
+            PluginItemName = "plugin1",
+            Tooltip = "这是 plugin1 的提示"
         },
         new EditorPluginItem()
         {
             IconClass = "fa fa-home",
-            PluginName = "plugin2",
-            Tooltip = "这是plugin2提示"
+            PluginItemName = "plugin2",
+            Tooltip = "这是 plugin2 提示"
         }
     };
 
-    public async Task PluginClick(EditorEventArgs eventArgs)
+    private async Task<string> PluginClick(string pluginItemName)
     {
-        if (eventArgs.PluginName == "plugin1")
+        var ret = "";
+        if (pluginItemName == "plugin1")
         {
             var op = new SwalOption()
             {
@@ -27,10 +28,10 @@
                 Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
                 IsConfirm = true
             };
-            var ret = await SwalService.ShowModal(op);
-            eventArgs.ResultValue = "从plugin1返回的数据";
+            await SwalService.ShowModal(op);
+            ret = "从plugin1返回的数据";
         }
-        if (eventArgs.PluginName == "plugin2")
+        if (pluginItemName == "plugin2")
         {
             var op = new SwalOption()
             {
@@ -38,8 +39,9 @@
                 Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
                 IsConfirm = true
             };
-            var ret = await SwalService.ShowModal(op);
-            eventArgs.ResultValue = "从plugin2返回的数据";
+            await SwalService.ShowModal(op);
+            ret = "从plugin2返回的数据";
         }
+        return ret;
     }
 }

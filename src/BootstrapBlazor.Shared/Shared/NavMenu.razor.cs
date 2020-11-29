@@ -202,7 +202,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "富文本框 Editor",
-                Url = "editors"
+                Url = "editors",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {

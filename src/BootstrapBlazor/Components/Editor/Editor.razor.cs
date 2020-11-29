@@ -6,11 +6,13 @@
 // GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
 // 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
 // **********************************
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -57,16 +59,18 @@ namespace BootstrapBlazor.Components
         public int Height { get; set; }
 
         /// <summary>
-        /// 获得/设置 富文本框工具栏工具，若为空，则使用默认值
+        /// 获得/设置 富文本框工具栏工具，默认为空使用默认值
         /// </summary>
         [Parameter]
-        public List<object>? ToolbarItems { get; set; }
+        [NotNull]
+        public IEnumerable<object>? ToolbarItems { get; set; }
 
         /// <summary>
-        /// 获得/设置 插件的信息
+        /// 获得/设置 自定义按钮
         /// </summary>
         [Parameter]
-        public List<EditorPluginItem>? EditorPluginItems { get; set; }
+        [NotNull]
+        public IEnumerable<EditorPluginItem>? CustomerPluginItems { get; set; }
 
         [Inject]
         [NotNull]
@@ -101,7 +105,7 @@ namespace BootstrapBlazor.Components
         /// 获取/设置 插件点击时的回调委托
         /// </summary>
         [Parameter]
-        public EventCallback<EditorEventArgs> OnPluginClick { get; set; }
+        public Func<string, Task<string>>? OnClickPluginItem { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -111,6 +115,19 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+
+            ToolbarItems ??= new List<object>
+            {
+                new List<object> { "style", new List<string>() { "style" } },
+                new List<object> { "font", new List<string>() { "bold", "underline", "clear" } },
+                new List<object> { "fontname", new List<string>() { "fontname"} },
+                new List<object> { "color", new List<string>() { "color"} },
+                new List<object> { "para", new List<string>() { "ul", "ol", "paragraph"} },
+                new List<object> { "table", new List<string>() { "table"} },
+                new List<object> { "insert", new List<string>() { "link", "picture", "video" } },
+                new List<object> { "view", new List<string>() { "fullscreen", "codeview", "help"} }
+            };
+            CustomerPluginItems ??= Enumerable.Empty<EditorPluginItem>();
         }
 
         /// <summary>
@@ -125,16 +142,19 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interope = new JSInterop<Editor>(JSRuntime);
-                if (EditorPluginItems != null && EditorPluginItems.Count > 0)
+                var methodGetPluginAttrs = "";
+                var methodClickPluginItem = "";
+                if (CustomerPluginItems.Any())
                 {
-                    await Interope.Invoke(this, EditorElement, "editor_plugin", nameof(GetPluginAttrs), nameof(PluginClick));
+                    methodGetPluginAttrs = nameof(GetPluginAttrs);
+                    methodClickPluginItem = nameof(ClickPluginItem);
                 }
-                await Interope.Invoke(this, EditorElement, "editor", nameof(Update), Height, Value ?? "");
+                await Interope.Invoke(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
             }
             if (_renderValue)
             {
                 _renderValue = false;
-                await JSRuntime.InvokeVoidAsync(EditorElement, "editor", "code", "", "", Value ?? "");
+                await JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor", "code", "", "", Value ?? "");
             }
         }
 
@@ -151,29 +171,20 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获取编辑器的toolbar
+        /// 获取编辑器的 toolbar
         /// </summary>
         /// <returns>toolbar</returns>
         [JSInvokable]
         public Task<List<object>> GetToolBar()
         {
-            List<object>? list = ToolbarItems;
-            if (list == null || list.Count == 0)
-            {
-                list = DefaultToolBar();
-            }
-            if (EditorPluginItems != null && EditorPluginItems.Count > 0)
-            {
-                var itemList = new List<object>();
-                itemList.Add("custom");
-                var pluginList = new List<string>();
-                foreach (var editorPluginItem in EditorPluginItems)
-                {
-                    pluginList.Add(editorPluginItem.PluginName ?? "");
-                }
-                itemList.Add(pluginList);
-                list.Add(itemList);
-            }
+            var list = new List<object>(50);
+            list.AddRange(ToolbarItems);
+
+            var itemList = new List<object>();
+            itemList.Add("custom");
+            itemList.Add(CustomerPluginItems.Select(p => p.PluginItemName).ToList());
+            list.Add(itemList);
+
             return Task.FromResult(list);
         }
 
@@ -182,48 +193,25 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         [JSInvokable]
-        public Task<List<EditorPluginItem>?> GetPluginAttrs()
+        public Task<IEnumerable<EditorPluginItem>> GetPluginAttrs()
         {
-            return Task.FromResult(EditorPluginItems);
+            return Task.FromResult(CustomerPluginItems);
         }
 
         /// <summary>
         /// 插件点击事件
         /// </summary>
-        /// <param name="pluginName">插件名</param>
+        /// <param name="pluginItemName">插件名</param>
         /// <returns>插件回调的文本</returns>
         [JSInvokable]
-        public async Task<string> PluginClick(string pluginName)
+        public async Task<string> ClickPluginItem(string pluginItemName)
         {
-            
-            if (OnPluginClick.HasDelegate)
+            var ret = "";
+            if (OnClickPluginItem != null)
             {
-                EditorEventArgs eventArgs = new EditorEventArgs();
-                eventArgs.PluginName = pluginName;
-                await OnPluginClick.InvokeAsync(eventArgs);
-                return eventArgs.ResultValue ?? "";
+                ret = await OnClickPluginItem(pluginItemName);
             }
-
-            return "";
-        }
-
-        /// <summary>
-        /// 生成默认的富文本框状态栏
-        /// </summary>
-        /// <returns></returns>
-        private List<object> DefaultToolBar()
-        {
-            return new List<object>
-            {
-                new List<object> {"style", new List<string>() {"style"}},
-                new List<object> {"font", new List<string>() {"bold", "underline", "clear"}},
-                new List<object> {"fontname", new List<string>() {"fontname"}},
-                new List<object> {"color", new List<string>() {"color"}},
-                new List<object> {"para", new List<string>() {"ul", "ol", "paragraph"}},
-                new List<object> {"table", new List<string>() {"table"}},
-                new List<object> {"insert", new List<string>() {"link", "picture", "video"}},
-                new List<object> {"view", new List<string>() {"fullscreen", "codeview", "help"}}
-            };
+            return ret;
         }
 
         /// <summary>

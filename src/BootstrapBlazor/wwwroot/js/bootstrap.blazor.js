@@ -879,8 +879,7 @@
             $this.on('click', op, function (event, args) {
                 var $this = $(this).tooltip('hide');
                 var op = $.extend({ placeholder: $this.attr('placeholder') }, event.data, args || {});
-                var test = op.obj.invokeMethodAsync('GetToolBar');
-                test.then(result => {
+                op.obj.invokeMethodAsync('GetToolBar').then(result => {
                     var $toolbar = $this.toggleClass('open').summernote($.extend({
                         callbacks: {
                             onChange: function (htmlString) {
@@ -905,7 +904,7 @@
                     var $done = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" title="完成" data-placement="bottom"><i class="fa fa-check"></i></button></div>').appendTo($toolbar).find('button').tooltip({ container: 'body' });
                     $('body').find('.note-group-select-from-files [accept="image/*"]').attr('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif');
                 });
-                
+
             }).tooltip({ title: '点击展开编辑' });
 
             if (op.value) $this.html(op.value);
@@ -1620,56 +1619,61 @@
                 tooltip.tooltip('hide');
             });
         },
-        editor: function (el, obj, method, height, value) {
-            var editor = el.getElementsByClassName("editor-body");
+        bb_editor: function (el, obj, attrMethod, callback, method, height, value) {
+            var invoker = function () {
+                var editor = el.getElementsByClassName("editor-body");
 
-            if (obj === 'code') {
-                if ($(editor).hasClass('open')) {
-                    $(editor).summernote('code', value);
+                if (obj === 'code') {
+                    if ($(editor).hasClass('open')) {
+                        $(editor).summernote('code', value);
+                    }
+                    else {
+                        $(editor).html(value);
+                    }
                 }
                 else {
-                    $(editor).html(value);
+                    var option = { obj: obj, method: method, height: height };
+                    if (value) option.value = value;
+
+                    $.html5edit(editor, option);
                 }
+            }
+
+            if (attrMethod !== "") {
+                obj.invokeMethodAsync(attrMethod).then(result => {
+                    for (var i in result) {
+                        (function (plugin, pluginName) {
+                            if (pluginName == null) {
+                                return;
+                            }
+                            pluginObj = {};
+                            pluginObj[pluginName] = function (context) {
+                                var ui = $.summernote.ui;
+                                context.memo('button.' + pluginName,
+                                    function () {
+                                        var button = ui.button({
+                                            contents: '<i class="' + plugin.iconClass + '"></i>',
+                                            container: "body",
+                                            tooltip: plugin.tooltip,
+                                            click: function () {
+                                                obj.invokeMethodAsync(callback, pluginName).then(result => {
+                                                    context.invoke('editor.insertText', result);
+                                                });
+                                            }
+                                        });
+                                        this.$button = button.render();
+                                        return this.$button;
+                                    });
+                            }
+                            $.extend($.summernote.plugins, pluginObj);
+                        })(result[i], result[i].pluginItemName);
+                    }
+                    invoker();
+                });
             }
             else {
-                var option = { obj: obj, method: method, height: height };
-                if (value) option.value = value;
-
-                $.html5edit(editor, option);
+                invoker();
             }
-        },
-        editor_plugin: function(el, obj, attrMethod, callback) {
-            obj.invokeMethodAsync(attrMethod).then(result => {
-                for (var i in result) {
-                    (function (plugin, pluginName) {
-                        if (pluginName == null) {
-                            return;
-                        }
-                        pluginObj = {};
-                        pluginObj[pluginName] = function (context) {
-                            var ui = $.summernote.ui;
-                            context.memo('button.' + pluginName,
-                                function () {
-                                    var button = ui.button({
-                                        contents: plugin.iconClass,
-                                        container: "body",
-                                        tooltip: plugin.tooltip,
-                                        click: function () {
-                                            obj.invokeMethodAsync(callback, pluginName).then(result => {
-                                                context.invoke('editor.insertText', result);
-                                            });
-                                        }
-                                    });
-                                    this.$button = button.render();
-                                    return this.$button;
-                                });
-                        }
-                        $.extend($.summernote.plugins, pluginObj);
-                    })(result[i], result[i].pluginName);
-                    
-                }
-            });
-
         },
         split: function (el) {
             var $split = $(el);
