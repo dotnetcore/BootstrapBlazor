@@ -1,0 +1,8 @@
+﻿<Editor IsEditor="true" ToolbarItems="@ToolbarItems"></Editor>
+
+@code{
+    private List&lt;object&gt; ToolbarItems = new List&lt;object&gt; {
+        new List&lt;object&gt; {"style", new List&lt;string&gt;() {"style"}},
+        new List&lt;object&gt; {"font", new List&lt;string&gt;() {"bold", "underline", "clear"}}
+    };
+}

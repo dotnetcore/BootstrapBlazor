@@ -1,4 +1,5 @@
 ﻿@page "/editors"
+@inject SwalService SwalService
 
 <h3>Editor 富文本框</h3>
 
@@ -44,10 +45,69 @@
         <Button @onclick="SetValue">Reset</Button>
     </div>
 </Block>
+
+<Block Title="带有插件的富文本编辑框" Introduction="通过设置<code>EditorPluginItems</code> 属性配置插件内容， 通过设置 <code>OnPluginClick</code> 属性来设置组件直接显示为富文本编辑框" CodeFile="editor.6.html">
+    <Editor IsEditor="true" OnPluginClick="@PluginClick" EditorPluginItems="@editorPluginItems"></Editor>
+</Block>
+
+<Block Title="自定义工具栏的富文本编辑框" Introduction="通过设置<code>ToolbarItems</code> 属性自定义工具栏内容，目前支持的工具栏值请参见Summernote官网" CodeFile="editor.7.html">
+    <Editor IsEditor="true" ToolbarItems="@ToolbarItems"></Editor>
+</Block>
+
+<SweetAlert />
+
 <AttributeTable Items="@GetAttributes()" />
 @code{
+
     public void SetValue()
     {
         EditorValue = "更改后的值";
     }
+
+    private List<EditorPluginItem> editorPluginItems = new List<EditorPluginItem>()
+    {
+        new EditorPluginItem()
+        {
+            IconClass = "fa fa-pencil",
+            PluginName = "plugin1",
+            Tooltip = "这是plugin1的提示"
+        },
+        new EditorPluginItem()
+        {
+            IconClass = "fa fa-home",
+            PluginName = "plugin2",
+            Tooltip = "这是plugin2提示"
+        }
+    };
+
+    public async Task PluginClick(EditorEventArgs eventArgs)
+    {
+        if (eventArgs.PluginName == "plugin1")
+        {
+            var op = new SwalOption()
+            {
+                Title = "点击plugin1按钮后弹窗",
+                Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
+                IsConfirm = true
+            };
+            var ret = await SwalService.ShowModal(op);
+            eventArgs.ResultValue = "从plugin1返回的数据";
+        }
+        if (eventArgs.PluginName == "plugin2")
+        {
+            var op = new SwalOption()
+            {
+                Title = "点击plugin2按钮后弹窗",
+                Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
+                IsConfirm = true
+            };
+            var ret = await SwalService.ShowModal(op);
+            eventArgs.ResultValue = "从plugin2返回的数据";
+        }
+    }
+
+    private List<object> ToolbarItems = new List<object> {
+        new List<object> {"style", new List<string>() {"style"}},
+        new List<object> {"font", new List<string>() {"bold", "underline", "clear"}}
+    };
 }

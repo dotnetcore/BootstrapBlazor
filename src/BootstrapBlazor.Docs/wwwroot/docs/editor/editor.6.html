@@ -1,0 +1,45 @@
+﻿<Editor IsEditor="true" OnPluginClick="@PluginClick" EditorPluginItems="@editorPluginItems"></Editor>
+
+@code{
+    private List&lt;EditorPluginItem&gt; editorPluginItems = new List&lt;EditorPluginItem&gt;()
+    {
+        new EditorPluginItem()
+        {
+            IconClass = "fa fa-pencil",
+            PluginName = "plugin1",
+            Tooltip = "这是plugin1的提示"
+        },
+        new EditorPluginItem()
+        {
+            IconClass = "fa fa-home",
+            PluginName = "plugin2",
+            Tooltip = "这是plugin2提示"
+        }
+    };
+
+    public async Task PluginClick(EditorEventArgs eventArgs)
+    {
+        if (eventArgs.PluginName == "plugin1")
+        {
+            var op = new SwalOption()
+            {
+                Title = "点击plugin1按钮后弹窗",
+                Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
+                IsConfirm = true
+            };
+            var ret = await SwalService.ShowModal(op);
+            eventArgs.ResultValue = "从plugin1返回的数据";
+        }
+        if (eventArgs.PluginName == "plugin2")
+        {
+            var op = new SwalOption()
+            {
+                Title = "点击plugin2按钮后弹窗",
+                Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
+                IsConfirm = true
+            };
+            var ret = await SwalService.ShowModal(op);
+            eventArgs.ResultValue = "从plugin2返回的数据";
+        }
+    }
+}
