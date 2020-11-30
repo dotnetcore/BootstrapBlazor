@@ -111,6 +111,11 @@
     <Upload IsDisabled="true" IsStack="true" ShowProgress="true" Text="点击选择文件"></Upload>
 </Block>
 
+<Block Title="初始化图片地址" Introduction="通过设置组件 <code>ImageUrl</code> 属性值对组件显示图片进行初始化" CodeFile="upload.14.html">
+    <p>本例通过设置 <code>ImageUrl</code> 设置组件默认显示的已经上传的图片，由于是演示系统，图片可能不存在，所以图片是裂开的</p>
+    <Upload ImageUrl="images/Uploader/UIT.png"></Upload>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

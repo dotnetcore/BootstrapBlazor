@@ -6,6 +6,7 @@
 // GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
 // 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
 // **********************************
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;

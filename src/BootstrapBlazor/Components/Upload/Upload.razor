@@ -16,10 +16,10 @@
         </div>
     }
     <div class="upload-body">
-        <div class="upload-prev" style="@PrevStyleString">
+        <div class="@PreviewClassString" data-file="@ImageUrl" style="@PrevStyleString">
             <i class="fa fa-plus"></i>
             <i class="fa fa-spinner fa-spin fa-2x"></i>
-            <img src="" />
+            <img src="@ImageUrl" />
             <span class="upload-file-icon">
             </span>
             <span class="upload-item-label bg-success">
@@ -81,9 +81,9 @@
 </div>
 
 @code {
-  RenderFragment RenderResetButton =>
-  @<button type="button" class="btn btn-primary btn-reset" @onclick="@Reset()" disabled="@DisabledString">
-    <i class="fa fa-repeat"></i>
-    <span>@ResetText</span>
-</button>;
+    RenderFragment RenderResetButton =>
+    @<button type="button" class="btn btn-primary btn-reset" @onclick="@Reset()" disabled="@DisabledString">
+        <i class="fa fa-repeat"></i>
+        <span>@ResetText</span>
+    </button>;
 }

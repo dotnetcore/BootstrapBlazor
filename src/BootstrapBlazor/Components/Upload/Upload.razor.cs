@@ -32,6 +32,10 @@ namespace BootstrapBlazor.Components
 
         private ElementReference UploaderElement { get; set; }
 
+        private string? PreviewClassString => CssBuilder.Default("upload-prev")
+            .AddClass("is-load is-upload is-valid", !string.IsNullOrEmpty(ImageUrl))
+            .Build();
+
         /// <summary>
         /// 获得/设置 上传按钮显示文字
         /// </summary>
@@ -45,6 +49,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public string? ResetText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 默认初始化图片地址
+        /// </summary>
+        [Parameter]
+        public string? ImageUrl { get; set; }
 
         /// <summary>
         /// 
