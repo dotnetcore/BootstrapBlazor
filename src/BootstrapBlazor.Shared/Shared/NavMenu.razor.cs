@@ -495,7 +495,8 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "折行演示",
-                Url = "tables/wrap"
+                Url = "tables/wrap",
+                IsUpdate = true
             });
 
             item.AddItem(it);

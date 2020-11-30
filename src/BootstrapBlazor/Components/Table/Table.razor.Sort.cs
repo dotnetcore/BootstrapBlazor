@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
-        protected string? GetCellStyleString(ITableColumn col) => col.TextEllipsis ? $"width: {col.Width ?? 200}px" : null;
+        protected string? GetCellStyleString(ITableColumn col) => col.TextEllipsis && !AllowResizing ? $"width: {col.Width ?? 200}px" : null;
 
         /// <summary>
         /// 获得指定列头固定列样式
@@ -172,6 +172,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-wrap", col.AllowTextWrap)
             .AddClass("is-ellips", col.TextEllipsis)
             .AddClass("is-tips", col.ShowTips)
+            .AddClass("is-resizable", AllowResizing)
             .AddClass(col.CssClass)
             .Build();
 

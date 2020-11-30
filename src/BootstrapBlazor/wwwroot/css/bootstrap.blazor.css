@@ -1902,6 +1902,12 @@ input:disabled,
     text-overflow: ellipsis;
 }
 
+    .table-cell.is-ellips.is-resizable {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+    }
+
 .table-loading {
     display: flex;
     justify-content: center;
@@ -2056,7 +2062,8 @@ input:disabled,
         padding: 1rem 0 0 0;
     }
 
-.table-resize thead th {
+.table-resize thead th,
+.table-resize tbody td {
     position: relative;
 }
 
