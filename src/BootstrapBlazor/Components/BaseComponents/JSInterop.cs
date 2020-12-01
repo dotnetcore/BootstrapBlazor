@@ -46,8 +46,8 @@ namespace BootstrapBlazor.Components
             {
                 _objRef
             };
-            if (!string.IsNullOrEmpty(method)) paras.Add(method);
-            if (args != null) paras.AddRange(args);
+            paras.Add(method!);
+            paras.AddRange(args);
             await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
         }
 
