@@ -338,28 +338,23 @@ section {
     position: relative;
 }
 
-    .pre-code .copy-code {
-        display: inline-block;
+    .pre-code .btn-clipboard {
         position: absolute;
-        top: 0;
-        right: 0;
-        padding: 0.25rem 0.45rem;
-        border-bottom-left-radius: 4px;
-        border-top-right-radius: 4px;
-        cursor: pointer;
-        background-color: #f8f9fa;
-        border: solid 1px #eaeefb;
+        top: .65rem;
+        right: .65rem;
+        z-index: 10;
+        display: block;
+        padding: .25rem .5rem;
+        font-size: 65%;
+        color: #007bff;
+        background-color: #fff;
+        border: 1px solid;
+        border-radius: .25rem;
     }
 
-        .pre-code .copy-code svg {
-            transition: transform .3s linear;
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-        }
-
-        .pre-code .copy-code:hover svg {
-            transform: scale(1.2);
+        .pre-code .btn-clipboard:hover {
+            color: #fff;
+            background-color: #007bff;
         }
 
     .pre-code code {
