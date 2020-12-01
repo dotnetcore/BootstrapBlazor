@@ -110,6 +110,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnSelectedItemChanged",
                 Description="下拉框选项改变时触发此事件",
                 Type ="Func<SelectedItem, Task>"
+            },
+            new EventItem()
+            {
+                Name = "OnSearchTextChanged",
+                Description="搜索文本发生变化时回调此方法",
+                Type ="Func<string, IEnumerable<SelectedItem>>"
             }
         };
 
