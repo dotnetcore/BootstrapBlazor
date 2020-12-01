@@ -269,7 +269,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "上传组件 Upload",
-                Url = "uploads"
+                Url = "uploads",
+                IsUpdate = true
             });
 
             AddBadge(item);
