@@ -33,7 +33,6 @@
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
       "wwwroot/lib/bootstrap/js/bootstrap.bundle.min.js",
       "wwwroot/lib/summernote/summernote-bs4.min.js",
-      "wwwroot/lib/summernote/summernote-zh-CN.min.js",
       "wwwroot/lib/slimscroll/jquery.slimscroll.min.js",
       "wwwroot/lib/barcodereader/qrcode.min.js",
       "wwwroot/lib/barcodereader/zxing.min.js",
