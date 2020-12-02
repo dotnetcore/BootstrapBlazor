@@ -100,10 +100,11 @@ namespace BootstrapBlazor.Components
             var props = type.GetProperties();
             foreach (var prop in props)
             {
+                ITableColumn? tc;
                 var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>();
                 if (attr == null)
                 {
-                    cols.Add(new InternalTableColumn(prop.Name, prop.PropertyType, type.GetDisplayName(prop.Name)));
+                    tc = new InternalTableColumn(prop.Name, prop.PropertyType, type.GetDisplayName(prop.Name));
                 }
                 else
                 {
@@ -113,14 +114,16 @@ namespace BootstrapBlazor.Components
                     attr.FieldName = prop.Name;
                     attr.PropertyType = prop.PropertyType;
 
-                    // 替换属性 手写优先
-                    var col = columns.FirstOrDefault(c => c.GetFieldName() == attr.GetFieldName());
-                    if (col != null)
-                    {
-                        CopyValue(col, attr);
-                    }
-                    cols.Add(attr);
+                    tc = attr;
                 }
+
+                // 替换属性 手写优先
+                var col = columns.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
+                if (col != null)
+                {
+                    CopyValue(col, tc);
+                }
+                cols.Add(tc);
             }
 
             columns.Clear();
@@ -132,7 +135,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="source"></param>
         /// <param name="dest"></param>
-        private static void CopyValue(ITableColumn source, AutoGenerateColumnAttribute dest)
+        private static void CopyValue(ITableColumn source, ITableColumn dest)
         {
             if (source.Align != Alignment.None) dest.Align = source.Align;
             if (source.AllowTextWrap) dest.AllowTextWrap = source.AllowTextWrap;
@@ -153,7 +156,11 @@ namespace BootstrapBlazor.Components
             if (source.ShowTips) dest.ShowTips = source.ShowTips;
             if (source.Sortable) dest.Sortable = source.Sortable;
             if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
-            if (source.Template != null) dest.Template = source.Template;
+            if (source.Template != null)
+            {
+                if (dest is InternalTableColumn d) d.Template = source.Template;
+                else if (dest is AutoGenerateColumnAttribute attr) attr.Template = source.Template;
+            }
             if (source.Visible) dest.Visible = source.Visible;
             if (source.Width != null) dest.Width = source.Width;
         }
