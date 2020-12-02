@@ -62,6 +62,12 @@ namespace BootstrapBlazor.Components
         /// 不包含
         /// </summary>
         [Description("不包含")]
-        NotContains
+        NotContains,
+
+        /// <summary>
+        /// 自定义条件
+        /// </summary>
+        [Description("自定义条件")]
+        CustomPredicate
     }
 }
