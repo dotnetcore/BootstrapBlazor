@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components.EditorForm
         /// <summary>
         /// 获得/设置 字段数据类型
         /// </summary>
-        public Type FieldType { get; }
+        public Type PropertyType { get; }
 
         /// <summary>
         /// 获得/设置 绑定字段名称
@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components.EditorForm
         {
             Model = model;
             FieldName = propertyInfo.Name;
-            FieldType = propertyInfo.PropertyType;
+            PropertyType = propertyInfo.PropertyType;
         }
 
         /// <summary>

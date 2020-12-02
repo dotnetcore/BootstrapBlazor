@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
 
         public bool ShowTips { get; set; }
 
-        public Type FieldType { get; }
+        public Type PropertyType { get; }
 
         public bool Editable { get; set; } = true;
 
@@ -85,7 +85,7 @@ namespace BootstrapBlazor.Components
         public InternalTableColumn(string fieldName, Type fieldType, string fieldText)
         {
             FieldName = fieldName;
-            FieldType = fieldType;
+            PropertyType = fieldType;
             Text = fieldText;
         }
 
@@ -111,7 +111,7 @@ namespace BootstrapBlazor.Components
 
                     attr.Text = type.GetDisplayName(prop.Name);
                     attr.FieldName = prop.Name;
-                    attr.FieldType = prop.PropertyType;
+                    attr.PropertyType = prop.PropertyType;
 
                     // 替换属性 手写优先
                     var col = columns.FirstOrDefault(c => c.GetFieldName() == attr.GetFieldName());

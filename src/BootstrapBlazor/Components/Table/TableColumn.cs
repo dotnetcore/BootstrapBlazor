@@ -33,7 +33,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定列类型
         /// </summary>
         [NotNull]
-        public Type? FieldType { get; set; }
+        public Type? PropertyType { get; set; }
 
         /// <summary>
         /// 获得/设置 数据绑定字段值
@@ -223,7 +223,7 @@ namespace BootstrapBlazor.Components
             if (FieldExpression != null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
 
             // 获取模型属性定义类型
-            FieldType = typeof(TType);
+            PropertyType = typeof(TType);
         }
 
         private FieldIdentifier? _fieldIdentifier;

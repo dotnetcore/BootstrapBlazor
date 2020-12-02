@@ -12,13 +12,13 @@
                 {
                     @Column.FilterTemplate;
                 }
-                else if (Column.FieldType.IsEnum())
+                else if (Column.PropertyType.IsEnum())
                 {
-                    <EnumFilter Type="@Column.FieldType"></EnumFilter>
+                    <EnumFilter Type="@Column.PropertyType"></EnumFilter>
                 }
                 else
                 {
-                    var fieldType = Nullable.GetUnderlyingType(Column.FieldType) ?? Column.FieldType;
+                    var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
                     switch (fieldType?.Name)
                     {
                         case nameof(Boolean):

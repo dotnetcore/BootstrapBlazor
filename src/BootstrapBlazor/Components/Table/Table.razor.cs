@@ -351,11 +351,11 @@ namespace BootstrapBlazor.Components
                     // 格式化字符串
                     content = val?.Format(col.FormatString, CultureInfo.CurrentUICulture.DateTimeFormat) ?? "";
                 }
-                else if (col.FieldType.IsEnum())
+                else if (col.PropertyType.IsEnum())
                 {
-                    content = col.FieldType.ToDescriptionString(val?.ToString());
+                    content = col.PropertyType.ToDescriptionString(val?.ToString());
                 }
-                else if (col.FieldType.IsDateTime())
+                else if (col.PropertyType.IsDateTime())
                 {
                     content = val?.Format(CultureInfo.CurrentUICulture.DateTimeFormat) ?? "";
                 }

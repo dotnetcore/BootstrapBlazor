@@ -96,7 +96,7 @@ namespace BootstrapBlazor.Components
         public string? CssClass { get; set; }
 
         /// <summary>
-        /// 显示节点阈值 默认值 BreakPoint.None 未设置
+        /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
         /// </summary>
         public BreakPoint ShownWithBreakPoint { get; set; }
 
@@ -111,7 +111,7 @@ namespace BootstrapBlazor.Components
         public Alignment Align { get; set; }
 
         /// <summary>
-        /// 字段鼠标悬停提示
+        /// 获得/设置 字段鼠标悬停提示
         /// </summary>
         public bool ShowTips { get; set; }
 
@@ -149,7 +149,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         [NotNull]
-        public Type? FieldType { get; set; }
+        public Type? PropertyType { get; internal set; }
 
         /// <summary>
         /// 

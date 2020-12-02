@@ -179,7 +179,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private RenderFragment AutoGenerateTemplate(IEditorItem col) => builder =>
         {
-            var fieldType = col.FieldType;
+            var fieldType = col.PropertyType;
             if (fieldType != null && Model != null)
             {
                 // GetDisplayName
