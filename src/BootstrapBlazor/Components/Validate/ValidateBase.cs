@@ -94,7 +94,7 @@ namespace BootstrapBlazor.Components
                 {
                     Value = value;
                     _ = ValueChanged.InvokeAsync(value);
-                    if (FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+                    if (!SkipValidate && FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
                 }
             }
         }
@@ -185,7 +185,7 @@ namespace BootstrapBlazor.Components
 
         private string? _id;
         /// <summary>
-        /// 获得 当前组件 Id
+        /// 获得/设置 当前组件 Id
         /// </summary>
         [Parameter]
         public override string? Id
@@ -195,10 +195,16 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获得 子组件 RenderFragment 实例
+        /// 获得/设置 子组件 RenderFragment 实例
         /// </summary>
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否不进行验证 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool SkipValidate { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示前置标签 默认值为 false

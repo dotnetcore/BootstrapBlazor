@@ -44,6 +44,17 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem("下棋", "下棋")
         };
 
+        private readonly List<SelectedItem> DummyItems = new List<SelectedItem>()
+        {
+            new SelectedItem("1", "1"),
+            new SelectedItem("2", "2"),
+            new SelectedItem("3", "3"),
+            new SelectedItem("4", "4"),
+            new SelectedItem("5", "5")
+        };
+
+        private int DummyId = 0;
+
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中

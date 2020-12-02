@@ -78,6 +78,37 @@
     </div>
 </Block>
 
+<Block Title="表单组件内的组件绑定与模型无关的字段" Introduction="通过设置属性 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，禁止自动生成属性，通过设置 <code>FieldItems</code> 内部集合来控制显示属性" CodeFile="editorform.4.html">
+    <div class="form-demo">
+        <label class="legend">表单示例</label>
+        <p>在某些情况下表单中有些列的值可能是二级分类等等，需要知道一级分类的信息，这个时候一级分类需要额外的组件来呈现，如果 <code>Select</code>，而这个组件是与当前上下文绑定模型 <code>Model</code> 无关的，这种需求中通过设置 <code>SkipValidate</code> 值为 <code>true</code>，关闭此组件的模型验证功能即可，本例中 <code>Select</code> 组件绑定了与模型无关的 <code>DummyId</code> 私有字段</p>
+        <EditorForm Model="@Model" AutoGenerateAllItem="false">
+            <FieldItems>
+                <EditorItem @bind-Field="@Model.Name" />
+                <EditorItem @bind-Field="@Model.Age" />
+                <EditorItem @bind-Field="@Model.Hobby">
+                    <EditTemplate Context="value">
+                        @{
+                            var model = value as Dummy;
+
+                            // 此处也可以不使用 Context 值，直接使用模型 ValidateModel 即可
+                        }
+                        <div class="form-group col-12">
+                            <Select TValue="int" SkipValidate="true" @bind-Value="@DummyId" Items="@DummyItems" ShowSearch="true" DisplayText="选择明细" />
+                        </div>
+                        <div class="form-group col-12">
+                            <CheckboxList TModel="SelectedItem" TValue="IEnumerable<string>" @bind-Value="@model!.Hobby" Items="@Hobbys"
+                                          ValueField="Value" TextField="Text" CheckedField="Active">
+                                <RequiredValidator ErrorMessage="至少选择一种爱好" />
+                            </CheckboxList>
+                        </div>
+                    </EditTemplate>
+                </EditorItem>
+            </FieldItems>
+        </EditorForm>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Title="EditorItem 属性" Items="@GetEditorItemAttributes()" />
