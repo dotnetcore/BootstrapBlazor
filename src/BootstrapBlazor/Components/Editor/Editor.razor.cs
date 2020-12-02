@@ -103,6 +103,12 @@ namespace BootstrapBlazor.Components
         public EventCallback<string?> ValueChanged { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件值变化后的回调委托
+        /// </summary>
+        [Parameter]
+        public Func<string, Task>? OnValueChanged { get; set; }
+
+        /// <summary>
         /// 获取/设置 插件点击时的回调委托
         /// </summary>
         [Parameter]
@@ -168,6 +174,7 @@ namespace BootstrapBlazor.Components
         {
             Value = value;
             if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+            if (OnValueChanged != null) await OnValueChanged.Invoke(value);
             _renderValue = false;
         }
 
