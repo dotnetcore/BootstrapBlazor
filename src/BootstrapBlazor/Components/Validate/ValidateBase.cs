@@ -231,6 +231,12 @@ namespace BootstrapBlazor.Components
         protected ValidateFormBase? EditForm { get; set; }
 
         /// <summary>
+        /// 获得 父组件 Table
+        /// </summary>
+        [CascadingParameter]
+        protected ITable? Table { get; set; }
+
+        /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
         /// </summary>
         /// <param name="value">The value to format.</param>
@@ -337,7 +343,7 @@ namespace BootstrapBlazor.Components
             }
 
             //显式设置显示标签时一定显示
-            IsShowLabel = ShowLabel || EditForm != null;
+            IsShowLabel = Table != null ? ShowLabel : (ShowLabel || EditForm != null);
         }
 
         /// <summary>
