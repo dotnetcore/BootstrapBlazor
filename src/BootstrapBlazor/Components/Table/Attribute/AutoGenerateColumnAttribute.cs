@@ -68,7 +68,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 列宽
         /// </summary>
-        public int? Width { get; set; }
+        public int Width { get; set; }
+
+        int? ITableColumn.Width
+        {
+            get => Width <= 0 ? null : Width;
+            set => Width = value == null ? 0 : Width;
+        }
 
         /// <summary>
         /// 获得/设置 是否固定本列 默认 false 不固定
