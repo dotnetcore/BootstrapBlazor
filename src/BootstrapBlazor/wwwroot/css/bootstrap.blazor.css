@@ -1685,6 +1685,20 @@ input:disabled,
         text-overflow: ellipsis;
     }
 
+.table-sm .table thead th .table-cell > .fa {
+    right: -5px;
+    top: -5px;
+    bottom: -5px;
+}
+
+.table-sm .table thead th.filterable .table-cell .fa-filter {
+    right: -5px;
+}
+
+.table-sm .table thead th.sortable.filterable .table-cell .fa-filter {
+    right: calc(1.5rem - 5px);
+}
+
 .is-clickable tbody tr,
 .is-clickable .table-row {
     cursor: pointer;

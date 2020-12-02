@@ -51,9 +51,9 @@
     <p><code>TableSize</code> 为表格大小枚举类型，默认值为 <code>Normal</code>，紧奏型值为 <code>Compact</code></p>
     <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
         </TableColumns>
     </Table>
 </Block>
