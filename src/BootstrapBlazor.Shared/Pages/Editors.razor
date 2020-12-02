@@ -39,7 +39,7 @@
 
 <Block Title="自定义扩展编辑框按钮" Introduction="通过设置 <code>CustomerPluginItems</code> 属性对编辑框工具栏进行自定义扩展， 通过设置 <code>OnClickPluginItem</code> 回调委托做功能" CodeFile="editor.6.html">
     <p>本例中通过扩展 <code>CustomerPluginItems</code> 属性在工具栏中增加了两个按钮，点击按钮弹出 <code>SweetAlert</code> 模态框，点击模态框确认按钮后文本框中插入一段内容</p>
-    <Editor IsEditor="true" OnClickPluginItem="@PluginClick" CustomerPluginItems="@EditorPluginItems"></Editor>
+    <Editor IsEditor="true" OnClickButton="@PluginClick" CustomerToolbarButtons="@EditorPluginItems"></Editor>
 </Block>
 
 <Block Title="自定义工具栏的富文本编辑框" Introduction="通过设置 <code>ToolbarItems</code> 属性自定义工具栏内容，目前支持的工具栏值请参见 <a href='https://summernote.org/' target='_blank'>Summernote</a> 官网" CodeFile="editor.7.html">

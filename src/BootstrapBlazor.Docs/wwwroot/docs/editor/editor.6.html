@@ -1,7 +1,7 @@
-﻿<Editor IsEditor="true" OnClickPluginItem="@PluginClick" CustomerPluginItems="@EditorPluginItems"></Editor>
+﻿<Editor IsEditor="true" OnClickButton="@PluginClick" CustomerToolbarButtons="@EditorPluginItems"></Editor>
 
 @code{
-    private List<EditorPluginItem> EditorPluginItems = new List<EditorPluginItem>()
+    private List<EditorToolbarButton> EditorPluginItems = new List<EditorPluginItem>()
     {
         new EditorPluginItem()
         {

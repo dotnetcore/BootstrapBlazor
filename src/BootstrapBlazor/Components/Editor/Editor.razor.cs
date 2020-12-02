@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         [NotNull]
-        public IEnumerable<EditorPluginItem>? CustomerPluginItems { get; set; }
+        public IEnumerable<EditorToolbarButton>? CustomerToolbarButtons { get; set; }
 
         [Inject]
         [NotNull]
@@ -106,7 +106,7 @@ namespace BootstrapBlazor.Components
         /// 获取/设置 插件点击时的回调委托
         /// </summary>
         [Parameter]
-        public Func<string, Task<string>>? OnClickPluginItem { get; set; }
+        public Func<string, Task<string>>? OnClickButton { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -128,7 +128,7 @@ namespace BootstrapBlazor.Components
                 new List<object> { "insert", new List<string>() { "link", "picture", "video" } },
                 new List<object> { "view", new List<string>() { "fullscreen", "codeview", "help"} }
             };
-            CustomerPluginItems ??= Enumerable.Empty<EditorPluginItem>();
+            CustomerToolbarButtons ??= Enumerable.Empty<EditorToolbarButton>();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace BootstrapBlazor.Components
                 Interope = new JSInterop<Editor>(JSRuntime);
                 var methodGetPluginAttrs = "";
                 var methodClickPluginItem = "";
-                if (CustomerPluginItems.Any())
+                if (CustomerToolbarButtons.Any())
                 {
                     methodGetPluginAttrs = nameof(GetPluginAttrs);
                     methodClickPluginItem = nameof(ClickPluginItem);
@@ -183,7 +183,7 @@ namespace BootstrapBlazor.Components
 
             var itemList = new List<object>();
             itemList.Add("custom");
-            itemList.Add(CustomerPluginItems.Select(p => p.PluginItemName).ToList());
+            itemList.Add(CustomerToolbarButtons.Select(p => p.ButtonName).ToList());
             list.Add(itemList);
 
             return Task.FromResult(list);
@@ -194,9 +194,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         [JSInvokable]
-        public Task<IEnumerable<EditorPluginItem>> GetPluginAttrs()
+        public Task<IEnumerable<EditorToolbarButton>> GetPluginAttrs()
         {
-            return Task.FromResult(CustomerPluginItems);
+            return Task.FromResult(CustomerToolbarButtons);
         }
 
         /// <summary>
@@ -208,9 +208,9 @@ namespace BootstrapBlazor.Components
         public async Task<string> ClickPluginItem(string pluginItemName)
         {
             var ret = "";
-            if (OnClickPluginItem != null)
+            if (OnClickButton != null)
             {
-                ret = await OnClickPluginItem(pluginItemName);
+                ret = await OnClickButton(pluginItemName);
             }
             return ret;
         }

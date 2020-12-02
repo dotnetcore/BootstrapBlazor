@@ -26,18 +26,18 @@ namespace BootstrapBlazor.Shared.Pages
             EditorValue = "更改后的值";
         }
 
-        private List<EditorPluginItem> EditorPluginItems = new List<EditorPluginItem>()
+        private List<EditorToolbarButton> EditorPluginItems = new List<EditorToolbarButton>()
         {
-            new EditorPluginItem()
+            new EditorToolbarButton()
             {
                 IconClass = "fa fa-pencil",
-                PluginItemName = "plugin1",
+                ButtonName = "plugin1",
                 Tooltip = "这是 plugin1 的提示"
             },
-            new EditorPluginItem()
+            new EditorToolbarButton()
             {
                 IconClass = "fa fa-home",
-                PluginItemName = "plugin2",
+                ButtonName = "plugin2",
                 Tooltip = "这是 plugin2 提示"
             }
         };
@@ -110,9 +110,9 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem()
             {
-                Name = "CustomerPluginItems",
+                Name = "CustomerToolbarButtons",
                 Description = "自定义按钮",
-                Type = "IEnumerable<EditorPluginItem>",
+                Type = "IEnumerable<EditorToolbarButton>",
                 ValueList = " — ",
                 DefaultValue = " — "
             }
