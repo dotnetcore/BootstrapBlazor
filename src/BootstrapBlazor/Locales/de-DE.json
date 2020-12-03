@@ -10,6 +10,15 @@
     "LoadText": "Laden ...",
     "TryText": "Erneut versuchen"
   },
+  "BootstrapBlazor.Components.Camera": {
+    "DeviceLabel": "Kamera",
+    "InitDevicesString": "Initialisierung ...",
+    "PlayText": "Öffnen",
+    "StopText": "Schließen",
+    "PhotoText": "Foto",
+    "FrontText": "Front",
+    "BackText": "zurück"
+  },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousMonth": "Vorheriger Monat",
     "Today": "Heute",

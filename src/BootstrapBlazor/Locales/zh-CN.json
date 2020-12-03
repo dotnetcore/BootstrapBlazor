@@ -10,6 +10,15 @@
     "LoadText": "正在加载 ...",
     "TryText": "再试一次"
   },
+  "BootstrapBlazor.Components.Camera": {
+    "DeviceLabel": "摄像头",
+    "InitDevicesString": "正在识别摄像头",
+    "PlayText": "开启",
+    "StopText": "关闭",
+    "PhotoText": "拍照",
+    "FrontText": "前置",
+    "BackText": "后置"
+  },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousMonth": "上一月",
     "Today": "今天",

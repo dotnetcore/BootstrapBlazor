@@ -372,7 +372,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "摄像头组件 Camera",
-                Url = "Cameras"
+                Url = "Cameras",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {

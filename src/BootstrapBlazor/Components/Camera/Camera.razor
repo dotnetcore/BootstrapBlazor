@@ -23,9 +23,9 @@
         </div>
         <div class="form-group col-12">
             <div class="btn-group">
-                <Button Text="开启" Color="Color.Success" Icon="fa fa-play-circle" IsDisabled="@Disabled" data-method="play" data-camera="@ActiveCamera?.Value" />
-                <Button Text="关闭" Color="Color.Danger" Icon="fa fa-stop-circle" IsDisabled="@Disabled" data-method="stop" />
-                <Button Text="拍照" Icon="fa fa-camera-retro" IsDisabled="@CaptureDisabled" data-method="capture" />
+                <Button Text="@PlayText" Color="Color.Success" Icon="fa fa-play-circle" IsDisabled="@Disabled" data-method="play" data-camera="@ActiveCamera?.Value" />
+                <Button Text="@StopText" Color="Color.Danger" Icon="fa fa-stop-circle" IsDisabled="@Disabled" data-method="stop" />
+                <Button Text="@PhotoText" Icon="fa fa-camera-retro" IsDisabled="@CaptureDisabled" data-method="capture" />
             </div>
             <a class="d-none download"></a>
         </div>
