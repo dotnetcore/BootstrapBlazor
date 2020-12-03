@@ -74,6 +74,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "AutoStart",
+                Description = "是否直接开启摄像头",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "DeviceLabel",
                 Description = "设备列表前置标签文字",
                 Type = "string",

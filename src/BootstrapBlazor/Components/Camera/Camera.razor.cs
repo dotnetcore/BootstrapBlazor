@@ -41,6 +41,12 @@ namespace BootstrapBlazor.Components
         private SelectedItem? ActiveCamera { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否自动开启摄像头 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool AutoStart { get; set; }
+
+        /// <summary>
         /// 获得/设置 前置摄像头显示文本 默认前置
         /// </summary>
         [Parameter]
@@ -163,7 +169,7 @@ namespace BootstrapBlazor.Components
             if (firstRender && JSRuntime != null)
             {
                 Interop = new JSInterop<Camera>(JSRuntime);
-                await Interop.Invoke(this, CameraElement, "bb_camera", "init");
+                await Interop.Invoke(this, CameraElement, "bb_camera", "init", AutoStart);
             }
         }
 

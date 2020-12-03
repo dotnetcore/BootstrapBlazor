@@ -1867,13 +1867,17 @@
                 }
             });
         },
-        bb_camera: function (el, obj, method) {
+        bb_camera: function (el, obj, method, auto) {
             var $el = $(el);
             navigator.mediaDevices.enumerateDevices().then(function (videoInputDevices) {
                 var videoInputs = videoInputDevices.filter(function (device) {
                     return device.kind === 'videoinput';
                 });
-                obj.invokeMethodAsync("InitDevices", videoInputs);
+                obj.invokeMethodAsync("InitDevices", videoInputs).then(() => {
+                    if (auto && videoInputs.length > 0) {
+                        $el.find('button[data-method="play"]').trigger('click');
+                    }
+                });
 
                 // handler button click event
                 var video = $el.find('video')[0];
