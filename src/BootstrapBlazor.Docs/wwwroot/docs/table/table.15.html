@@ -22,6 +22,8 @@
 </Table>
 
 @code {
+    private static readonly ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<BindItem>, string, SortOrder, IEnumerable<BindItem>>>();
+
     private static readonly Random random = new Random();
 
     public enum EnumEducation
