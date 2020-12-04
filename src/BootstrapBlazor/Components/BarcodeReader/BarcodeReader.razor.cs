@@ -8,9 +8,11 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,31 +33,36 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 扫描按钮文字 默认为 扫描
         /// </summary>
         [Parameter]
-        public string ButtonScanText { get; set; } = "扫描";
+        [NotNull]
+        public string? ButtonScanText { get; set; }
 
         /// <summary>
         /// 获得/设置 关闭按钮文字 默认为 关闭
         /// </summary>
         [Parameter]
-        public string ButtonStopText { get; set; } = "关闭";
+        [NotNull]
+        public string? ButtonStopText { get; set; }
 
         /// <summary>
         /// 获得/设置 自动关闭文字 默认为 自动关闭
         /// </summary>
         [Parameter]
-        public string AutoStopText { get; set; } = "自动关闭";
+        [NotNull]
+        public string? AutoStopText { get; set; }
 
         /// <summary>
         /// 获得/设置 设备列表前置标签文字 默认为 摄像头
         /// </summary>
         [Parameter]
-        public string DeviceLabel { get; set; } = "摄像头";
+        [NotNull]
+        public string? DeviceLabel { get; set; }
 
         /// <summary>
         /// 获得/设置 初始化设备列表文字 默认为 正在识别摄像头
         /// </summary>
         [Parameter]
-        public string InitDevicesString { get; set; } = "正在识别摄像头";
+        [NotNull]
+        public string? InitDevicesString { get; set; }
 
         /// <summary>
         /// 获得/设置 扫描方式 默认 Camera 从摄像头进行条码扫描
@@ -104,6 +111,24 @@ namespace BootstrapBlazor.Components
         private ElementReference ScannerElement { get; set; }
 
         private IEnumerable<SelectedItem> Devices { get; set; } = Enumerable.Empty<SelectedItem>();
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<BarcodeReader>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            ButtonScanText ??= Localizer[nameof(ButtonScanText)];
+            ButtonStopText ??= Localizer[nameof(ButtonStopText)];
+            AutoStopText ??= Localizer[nameof(AutoStopText)];
+            DeviceLabel ??= Localizer[nameof(DeviceLabel)];
+            InitDevicesString ??= Localizer[nameof(InitDevicesString)];
+        }
 
         /// <summary>
         /// OnAfterRenderAsync 方法

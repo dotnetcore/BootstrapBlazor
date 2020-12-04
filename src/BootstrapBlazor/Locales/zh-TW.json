@@ -3,6 +3,13 @@
     "NoDataTip": "無匹配數據",
     "PlaceHolder": "請輸入"
   },
+  "BootstrapBlazor.Components.BarcodeReader": {
+    "ButtonScanText": "掃描",
+    "ButtonStopText": "關閉",
+    "AutoStopText": "自动關閉",
+    "DeviceLabel": "攝像頭",
+    "InitDevicesString": "正在識別攝像頭"
+  },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "請完成安全驗證",
     "BarText": "向右滑動填充拼圖",

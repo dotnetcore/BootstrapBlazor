@@ -3,6 +3,13 @@
     "NoDataTip": "Keine Daten",
     "PlaceHolder": "Bitte eingeben"
   },
+  "BootstrapBlazor.Components.BarcodeReader": {
+    "ButtonScanText": "Scannen",
+    "ButtonStopText": "schließen",
+    "AutoStopText": "AutoSchließen",
+    "DeviceLabel": "Kamera",
+    "InitDevicesString": "Initialisierung ..."
+  },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
     "BarText": "Zum Ausfüllen des Puzzles nach rechts schieben",
