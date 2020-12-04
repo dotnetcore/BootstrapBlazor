@@ -136,6 +136,22 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = " — ",
                 DefaultValue = " — "
             },
+            new AttributeItem()
+            {
+                Name = "InitDevicesString",
+                Description = "初始化设备列表文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "正在识别摄像头"
+            },
+            new AttributeItem()
+            {
+                Name = "NotFoundDevicesString",
+                Description = "未找到视频相关设备文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "未找到视频相关设备"
+            },
             new AttributeItem() {
                 Name = "OnInit",
                 Description = "初始化摄像头回调方法",

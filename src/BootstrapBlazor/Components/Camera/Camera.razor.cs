@@ -131,6 +131,13 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public string? PhotoText { get; set; }
 
+        /// <summary>
+        /// 获得/设置 未找到视频相关设备文字 默认为 未找到视频相关设备
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? NotFoundDevicesString { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<Camera>? Localizer { get; set; }
@@ -147,6 +154,7 @@ namespace BootstrapBlazor.Components
             PhotoText ??= Localizer[nameof(PhotoText)];
             DeviceLabel ??= Localizer[nameof(DeviceLabel)];
             InitDevicesString ??= Localizer[nameof(InitDevicesString)];
+            NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
             FrontText ??= Localizer[nameof(FrontText)];
             BackText ??= Localizer[nameof(BackText)];
 
@@ -198,6 +206,8 @@ namespace BootstrapBlazor.Components
                 Disabled = false;
                 ActiveCamera = Cameras.First();
             }
+
+            if (Disabled) InitDevicesString = NotFoundDevicesString;
             StateHasChanged();
         }
 

@@ -116,6 +116,14 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem()
             {
+                Name = "NotFoundDevicesString",
+                Description = "未找到视频相关设备文字",
+                Type = "string",
+                ValueList = " - ",
+                DefaultValue = "未找到视频相关设备"
+            },
+            new AttributeItem()
+            {
                 Name = "AutoStart",
                 Description = "组件初始化时是否自动开启摄像头",
                 Type = "boolean",
