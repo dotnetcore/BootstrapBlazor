@@ -4,7 +4,7 @@
         <TargetFramework>net5.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <PackageIcon>logo.png</PackageIcon>
-        <Version>5.0.5</Version>
+        <Version>5.0.6-beta01</Version>
         <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
     </PropertyGroup>
 
