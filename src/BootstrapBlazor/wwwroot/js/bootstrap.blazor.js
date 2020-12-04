@@ -1806,8 +1806,8 @@
                     obj.invokeMethodAsync("InitDevices", videoInputDevices).then(() => {
                         if (auto && videoInputDevices.length > 0) {
                             var button = $el.find('button[data-method="scan"]');
-                            var data_method = button.attr('data-method');
-                            if (data_method === 'scanImage') button.trigger('click');
+                            var data_method = $el.attr('data-scan');
+                            if (data_method === 'Camera') button.trigger('click');
                         }
                     });
                 });
