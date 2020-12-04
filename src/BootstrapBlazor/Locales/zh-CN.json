@@ -8,7 +8,8 @@
     "ButtonStopText": "关闭",
     "AutoStopText": "自动关闭",
     "DeviceLabel": "摄像头",
-    "InitDevicesString": "正在识别摄像头"
+    "InitDevicesString": "正在识别摄像头",
+    "NotFoundDevicesString": "未找到视频相关设备"
   },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "请完成安全验证",
@@ -24,7 +25,8 @@
     "StopText": "关闭",
     "PhotoText": "拍照",
     "FrontText": "前置",
-    "BackText": "后置"
+    "BackText": "后置",
+    "NotFoundDevicesString": "未找到视频相关设备"
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousMonth": "上一月",

@@ -116,6 +116,14 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem()
             {
+                Name = "AutoStart",
+                Description = "组件初始化时是否自动开启摄像头",
+                Type = "boolean",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
                 Name = "AutoStop",
                 Description = "扫描到条码后是否自动停止",
                 Type = "boolean",

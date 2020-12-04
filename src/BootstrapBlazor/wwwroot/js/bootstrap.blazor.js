@@ -1797,13 +1797,19 @@
                 $(this).parent().removeClass('hover');
             });
         },
-        bb_barcode: function (el, obj, method) {
+        bb_barcode: function (el, obj, method, auto) {
             var $el = $(el);
             var codeReader = new ZXing.BrowserMultiFormatReader();
 
             if ($el.attr('data-scan') === 'Camera') {
                 codeReader.getVideoInputDevices().then((videoInputDevices) => {
-                    obj.invokeMethodAsync("InitDevices", videoInputDevices);
+                    obj.invokeMethodAsync("InitDevices", videoInputDevices).then(() => {
+                        if (auto && videoInputDevices.length > 0) {
+                            var button = $el.find('button[data-method="scan"]');
+                            var data_method = button.attr('data-method');
+                            if (data_method === 'scanImage') button.trigger('click');
+                        }
+                    });
                 });
             }
 

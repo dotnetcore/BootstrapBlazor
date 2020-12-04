@@ -65,6 +65,13 @@ namespace BootstrapBlazor.Components
         public string? InitDevicesString { get; set; }
 
         /// <summary>
+        /// 获得/设置 未找到视频相关设备文字 默认为 未找到视频相关设备
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? NotFoundDevicesString { get; set; }
+
+        /// <summary>
         /// 获得/设置 扫描方式 默认 Camera 从摄像头进行条码扫描
         /// </summary>
         [Parameter]
@@ -81,6 +88,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<string, Task>? OnResult { get; set; }
+
+        /// <summary>
+        /// 获得/设置 自动开启摄像头 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool AutoStart { get; set; }
 
         /// <summary>
         /// 获得/设置 扫描条码后自动关闭
@@ -128,6 +141,7 @@ namespace BootstrapBlazor.Components
             AutoStopText ??= Localizer[nameof(AutoStopText)];
             DeviceLabel ??= Localizer[nameof(DeviceLabel)];
             InitDevicesString ??= Localizer[nameof(InitDevicesString)];
+            NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
         }
 
         /// <summary>
@@ -140,7 +154,7 @@ namespace BootstrapBlazor.Components
             if (firstRender && JSRuntime != null)
             {
                 Interop = new JSInterop<BarcodeReader>(JSRuntime);
-                await Interop.Invoke(this, ScannerElement, "bb_barcode", "init");
+                await Interop.Invoke(this, ScannerElement, "bb_barcode", "init", AutoStart);
             }
         }
 
@@ -156,6 +170,7 @@ namespace BootstrapBlazor.Components
             Disabled = !Devices.Any();
 
             if (OnInit != null) await OnInit(devices);
+            if (Disabled) InitDevicesString = NotFoundDevicesString;
             StateHasChanged();
         }
 

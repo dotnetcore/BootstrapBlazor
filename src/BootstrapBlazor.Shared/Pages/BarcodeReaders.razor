@@ -37,4 +37,15 @@
     <Logger @ref="Trace2" class="mt-3" />
 </Block>
 
+<Block Title="自动开始" Introduction="通过设置 <code>AutoStart</code> 参数设置自动开启摄像头" CodeFile="barcode.3.html">
+    <p>操作步骤：</p>
+    <ul class="ul-demo">
+        <li>点击扫码弹出选择文件框</li>
+        <li>选取包含条码图片</li>
+        <li>开始识别条码</li>
+    </ul>
+    <BarcodeReader OnResult="@OnImageResult" OnError="@OnImageError" AutoStart="true" />
+    <Logger @ref="Trace2" class="mt-3" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />

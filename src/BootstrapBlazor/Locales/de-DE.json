@@ -8,7 +8,8 @@
     "ButtonStopText": "schließen",
     "AutoStopText": "AutoSchließen",
     "DeviceLabel": "Kamera",
-    "InitDevicesString": "Initialisierung ..."
+    "InitDevicesString": "Initialisierung ...",
+    "NotFoundDevicesString": "Nicht gefunden Videogerät"
   },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
@@ -24,7 +25,8 @@
     "StopText": "Schließen",
     "PhotoText": "Foto",
     "FrontText": "Front",
-    "BackText": "zurück"
+    "BackText": "zurück",
+    "NotFoundDevicesString": "Nicht gefunden Videogerät"
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousMonth": "Vorheriger Monat",
