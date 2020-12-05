@@ -86,6 +86,22 @@ namespace BootstrapBlazor.Components
             .AddClass("fixed-right", col.Fixed && IsTail(col))
             .Build();
 
+        /// <summary>
+        /// 获得扩展按钮列固定列样式
+        /// </summary>
+        /// <returns></returns>
+        protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default()
+            .AddClass("fixed fixed-right", FixedExtendButtonsColumn)
+            .Build();
+
+        /// <summary>
+        /// 获得扩展按钮列固定列样式
+        /// </summary>
+        /// <returns></returns>
+        protected string? GetFixedExtendButtonsColumnStyleString(int margin = 0) => CssBuilder.Default()
+            .AddClass($"right: {(Height.HasValue ? margin : 0)}px;", FixedExtendButtonsColumn)
+            .Build();
+
         private bool IsTail(ITableColumn col)
         {
             var middle = Math.Ceiling(Columns.Count * 1.0 / 2);
@@ -123,6 +139,8 @@ namespace BootstrapBlazor.Components
                     {
                         width += Columns[index++].Width ?? defaultWidth;
                     }
+                    if (ShowExtendButtons && FixedExtendButtonsColumn) width += ExtendButtonColumnWidth;
+
                     // 如果是固定表头时增加滚动条位置
                     if (Height.HasValue && (index + 1) == Columns.Count) width += margin;
                     style.AddClass($"right: {width}px;");

@@ -43,3 +43,41 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="固定按钮操作列" Introduction="设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定" CodeFile="table.56.html">
+    <Table TItem="BindItem" Items="@Items.Take(4)" IsBordered="true" IsStriped="true"
+           ShowExtendButtons="true" FixedExtendButtonsColumn="true"
+           class="table-fixed-column-demo">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+            <TableColumn @bind-Field="@context.Education" Width="100" />
+            <TableColumn @bind-Field="@context.Count" Width="100" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="固定表头与按钮操作列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定" CodeFile="table.57.html">
+    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
+           ShowExtendButtons="true" FixedExtendButtonsColumn="true"
+           Height="200" class="table-fixed-column-demo2">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+            <TableColumn @bind-Field="@context.Education" Width="100" />
+            <TableColumn @bind-Field="@context.Count" Width="100" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>

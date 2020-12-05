@@ -404,7 +404,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             }
             @if (ShowExtendButtons)
             {
-                <th class="@ButtonColumnClass">
+                <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
                     <div class="table-cell is-button-column">
                         @ColumnButtonTemplateHeaderText
                     </div>
@@ -460,7 +460,7 @@ RenderFragment<TItem> RenderRow => item =>
     }
     @if (ShowExtendButtons)
     {
-        <td>
+        <td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
             <div class="table-cell">
                 <div class="btn-group">
                     @if (ShowDefaultButtons)

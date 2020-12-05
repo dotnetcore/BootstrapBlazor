@@ -154,8 +154,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "表单组件 EditorForm",
-                Url = "editorforms",
-                IsUpdate = true
+                Url = "editorforms"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -185,26 +184,22 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "时间框 DateTimePicker",
-                Url = "datetimepickers",
-                IsUpdate = true
+                Url = "datetimepickers"
             });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "时间范围框 DateTimeRange",
-                Url = "datetimeranges",
-                IsNew = true
+                Url = "datetimeranges"
             });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "下拉框 DropdownList",
-                Url = "dropdownlists",
-                IsUpdate = true
+                Url = "dropdownlists"
             });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "富文本框 Editor",
-                Url = "editors",
-                IsUpdate = true
+                Url = "editors"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -269,8 +264,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "上传组件 Upload",
-                Url = "uploads",
-                IsUpdate = true
+                Url = "uploads"
             });
 
             AddBadge(item);
@@ -372,8 +366,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "摄像头组件 Camera",
-                Url = "Cameras",
-                IsUpdate = true
+                Url = "Cameras"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -443,7 +436,8 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "固定列",
-                Url = "tables/fix-column"
+                Url = "tables/fix-column",
+                IsUpdate = true
             });
 
             it.AddItem(new DemoMenuItem()
@@ -497,8 +491,7 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "折行演示",
-                Url = "tables/wrap",
-                IsUpdate = true
+                Url = "tables/wrap"
             });
 
             item.AddItem(it);

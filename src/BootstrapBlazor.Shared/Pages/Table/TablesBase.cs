@@ -448,6 +448,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "FixedExtendButtonsColumn",
+                Description = "是否固定扩展按钮列",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "OnQueryAsync",
                 Description = "异步查询回调方法",
                 Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
