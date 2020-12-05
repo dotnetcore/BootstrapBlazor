@@ -163,7 +163,7 @@
 
     $(function () {
         $(document)
-            .on('click', '.copy-code', function (e) {
+            .on('click', '.btn-clipboard', function (e) {
                 e.preventDefault();
 
                 var $el = $(this);
