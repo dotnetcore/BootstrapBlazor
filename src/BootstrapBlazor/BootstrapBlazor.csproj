@@ -44,7 +44,4 @@
     <ItemGroup>
         <None Include="logo.png" Pack="true" PackagePath="" />
     </ItemGroup>
-
-    <ProjectExtensions><VisualStudio><UserProperties bundleconfig_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
-
 </Project>
