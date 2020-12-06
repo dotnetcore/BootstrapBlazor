@@ -8,7 +8,9 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Components
@@ -24,7 +26,8 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 获得/设置 组件 Title 属性
         /// </summary>
         [Parameter]
-        public string Title { get; set; } = "未设置";
+        [NotNull]
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 组件说明信息
@@ -43,6 +46,24 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// </summary>
         [Parameter]
         public string? CodeFile { get; set; }
+
+        [NotNull]
+        private string? SubTitle { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Block>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Title ??= Localizer[nameof(Title)];
+            SubTitle ??= Localizer[nameof(SubTitle)];
+        }
 
         /// <summary>
         /// OnAfterRenderAsync
