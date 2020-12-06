@@ -1,0 +1,25 @@
+﻿{
+  "BootstrapBlazor.Shared.Pages.Components.Block": {
+    "Title": "",
+    "SubTitle": "Demo"
+  },
+  "BootstrapBlazor.Shared.Pages.Alerts": {
+    "Title": "Alert",
+    "SubTitle": "Displays important alert messages.",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "Alert components are non-overlay elements in the page that does not disappear automatically.",
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertSecondaryText": "A simple secondary alert—check it out!",
+    "AlertSuccessText": "A simple success alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertDarkText": "A simple dark alert—check it out!",
+    "CloseButtonUsageText": "Close button",
+    "IntroText2": "Customize the close button as texts or other symbols.",
+    "WithIconUsageText": "With Icon",
+    "IntroText3": "Displaying an icon improves readability.",
+    "ShowBarUsageText": "With Bar",
+    "IntroText4": "Show <code>Tip</code>"
+  }
+}

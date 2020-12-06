@@ -7,36 +7,58 @@
 // 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
 // **********************************
 
-//namespace BootstrapBlazor.Localization.Json
-//{
-//    public class JsonHtmlLocalizerFactory : IHtmlLocalizerFactory
-//    {
-//        private readonly IStringLocalizerFactory _stringLocalizerFactory;
+using Microsoft.Extensions.Localization;
+using System;
 
-//        public JsonHtmlLocalizerFactory(IStringLocalizerFactory stringLocalizerFactory)
-//        {
-//            _stringLocalizerFactory = stringLocalizerFactory;
-//        }
+namespace BootstrapBlazor.Localization.Json
+{
+    /// <summary>
+    /// An <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizerFactory" /> that creates instances of <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the
+    /// registered <see cref="T:BootstrapBlazor.Localization.Json.IStringLocalizerFactory" />.
+    /// </summary>
+    public class JsonHtmlLocalizerFactory : IHtmlLocalizerFactory
+    {
+        private readonly IStringLocalizerFactory _stringLocalizerFactory;
 
-//        public IHtmlLocalizer Create(Type resourceSource)
-//            => new JsonHtmlLocalizer(_stringLocalizerFactory.Create(resourceSource));
+        /// <summary>
+        /// Creates a new <see cref="T:BootstrapBlazor.Localization.Json.JsonHtmlLocalizerFactory" />.
+        /// </summary>
+        /// <param name="stringLocalizerFactory"></param>
+        public JsonHtmlLocalizerFactory(IStringLocalizerFactory stringLocalizerFactory)
+        {
+            _stringLocalizerFactory = stringLocalizerFactory;
+        }
 
-//        public IHtmlLocalizer Create(string baseName, string location)
-//        {
-//            var index = 0;
-//            if (baseName.StartsWith(location, StringComparison.OrdinalIgnoreCase))
-//            {
-//                index = location.Length;
-//            }
+        /// <summary>
+        /// Creates an <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the specified <see cref="T:System.Type" />.
+        /// </summary>
+        /// <param name="resourceSource"></param>
+        /// <returns></returns>
+        public IHtmlLocalizer Create(Type resourceSource)
+            => new HtmlLocalizer(_stringLocalizerFactory.Create(resourceSource));
 
-//            if (baseName.Length > index && baseName[index] == '.')
-//            {
-//                index += 1;
-//            }
+        /// <summary>
+        /// Creates an <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" /> using the specified base name and location.
+        /// </summary>
+        /// <param name="baseName">The base name of the resource to load strings from.</param>
+        /// <param name="location">The location to load resources from.</param>
+        /// <returns>The <see cref="T:BootstrapBlazor.Localization.Json.IHtmlLocalizer" />.</returns>
+        public IHtmlLocalizer Create(string baseName, string location)
+        {
+            var index = 0;
+            if (baseName.StartsWith(location, StringComparison.OrdinalIgnoreCase))
+            {
+                index = location.Length;
+            }
 
-//            var relativeName = baseName.Substring(index);
+            if (baseName.Length > index && baseName[index] == '.')
+            {
+                index += 1;
+            }
 
-//            return new JsonHtmlLocalizer(_stringLocalizerFactory.Create(baseName, location));
-//        }
-//    }
-//}
+            var relativeName = baseName.Substring(index);
+
+            return new HtmlLocalizer(_stringLocalizerFactory.Create(baseName, location));
+        }
+    }
+}
