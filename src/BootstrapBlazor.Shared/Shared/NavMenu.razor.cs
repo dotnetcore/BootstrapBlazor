@@ -189,7 +189,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "时间范围框 DateTimeRange",
-                Url = "datetimeranges"
+                Url = "datetimeranges",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -455,7 +456,8 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "表单维护",
-                Url = "tables/edit"
+                Url = "tables/edit",
+                IsUpdate = true
             });
 
             it.AddItem(new DemoMenuItem()

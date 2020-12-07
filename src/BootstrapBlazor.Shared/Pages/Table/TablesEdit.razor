@@ -162,3 +162,45 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="使用注入数据服务" Introduction="通过设置表格的 <code>UseInjectDataService</code> 属性，使用数据服务进行对数据的增删改查" CodeFile="table.58.html">
+    <p>
+        通过 <code>UseInjectDataService="true"</code> 开启使用数据服务进行增、删、改、查的数据库操作，而无需对以下回调委托进行赋值，优先级别为有回调方法优先调用回调方法，如无则调用注入服务进行数据操作
+        <ul class="ul-demo">
+            <li><code>OnAddAsync</code></li>
+            <li><code>OnDeleteAsync</code></li>
+            <li><code>OnSaveAsync</code></li>
+            <li><code>OnQueryAsync</code></li>
+        </ul>
+        <div>Startup 文件注入数据服务 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977" target="_blank">实现原理与用法介绍</a></div>
+    </p>
+    <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" UseInjectDataService="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name">
+                <EditTemplate Context="value">
+                    <div class="form-group col-12 col-sm-6">
+                        <TablesNameDrop Model="@((BindItem)value)" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>

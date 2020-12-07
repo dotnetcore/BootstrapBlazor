@@ -176,6 +176,12 @@ namespace BootstrapBlazor.Components
         public bool AutoGenerateColumns { get; set; }
 
         /// <summary>
+        /// 获得/设置 注入数据服务
+        /// </summary>
+        [Inject]
+        public IDataService<TItem>? DataService { get; set; }
+
+        /// <summary>
         /// 单选模式下选择行时调用此方法
         /// </summary>
         /// <param name="val"></param>
@@ -227,6 +233,19 @@ namespace BootstrapBlazor.Components
             if (OnQueryAsync != null)
             {
                 queryData = await OnQueryAsync(new QueryPageOptions()
+                {
+                    PageIndex = PageIndex,
+                    PageItems = PageItems,
+                    SearchText = SearchText,
+                    SortOrder = SortOrder,
+                    SortName = SortName,
+                    Filters = Filters.Values,
+                    SearchModel = SearchModel
+                });
+            }
+            else if (UseInjectDataService && DataService != null)
+            {
+                queryData = await DataService.QueryAsync(new QueryPageOptions()
                 {
                     PageIndex = PageIndex,
                     PageItems = PageItems,

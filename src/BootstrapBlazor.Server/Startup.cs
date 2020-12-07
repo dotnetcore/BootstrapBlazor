@@ -71,6 +71,9 @@ namespace BootstrapBlazor.Server
             // 增加 Table Excel 导出服务
             services.AddBootstrapBlazorTableExcelExport();
 
+            // 增加 Table 数据服务操作类
+            services.AddTableDemoDataService();
+
             // 统一设置 Toast 组件自动消失时间
             services.Configure<BootstrapBlazorOptions>(options =>
             {

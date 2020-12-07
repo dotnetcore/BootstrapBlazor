@@ -503,7 +503,7 @@ RenderFragment<TItem> RenderEditForm => item =>
             }
             else
             {
-                <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(Save))">
+                <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(SaveAsync))">
                     <CascadingValue Value="Columns" IsFixed="true">
                         <EditorForm TModel="TItem">
                             <Buttons>

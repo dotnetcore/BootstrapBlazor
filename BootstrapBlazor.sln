@@ -81,6 +81,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Markdown", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "extensions", "extensions", "{22328011-53B3-447A-B781-AC3C196B2847}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.DataAcces.PetaPoco", "src\BootstrapBlazor.DataAcces.PetaPoco\BootstrapBlazor.DataAcces.PetaPoco.csproj", "{0D81BCD6-6533-49DA-82A3-0A410B87CF56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{B37DA844-38E1-4F39-9562-41F84F3F6C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B37DA844-38E1-4F39-9562-41F84F3F6C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B37DA844-38E1-4F39-9562-41F84F3F6C68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D81BCD6-6533-49DA-82A3-0A410B87CF56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D81BCD6-6533-49DA-82A3-0A410B87CF56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D81BCD6-6533-49DA-82A3-0A410B87CF56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D81BCD6-6533-49DA-82A3-0A410B87CF56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +153,7 @@ Global
 		{FB6352BD-B93D-4BE4-B8B5-BEC75D81D483} = {22328011-53B3-447A-B781-AC3C196B2847}
 		{7D8DFDF8-35F7-43A9-8304-1726890B0432} = {22328011-53B3-447A-B781-AC3C196B2847}
 		{B37DA844-38E1-4F39-9562-41F84F3F6C68} = {22328011-53B3-447A-B781-AC3C196B2847}
+		{0D81BCD6-6533-49DA-82A3-0A410B87CF56} = {22328011-53B3-447A-B781-AC3C196B2847}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

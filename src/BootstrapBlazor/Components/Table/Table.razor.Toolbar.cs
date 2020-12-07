@@ -179,9 +179,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task AddAsync()
         {
-            if (OnSaveAsync != null)
+            if ((UseInjectDataService && DataService != null) || OnSaveAsync != null)
             {
                 if (OnAddAsync != null) EditModel = await OnAddAsync();
+                else if (DataService != null)
+                {
+                    EditModel = new TItem();
+                    await DataService.Config(EditModel);
+                }
                 else EditModel = new TItem();
 
                 SelectedItems.Clear();
@@ -217,7 +222,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public Task EditAsync()
         {
-            if (OnSaveAsync != null)
+            if ((UseInjectDataService && DataService != null) || OnSaveAsync != null)
             {
                 if (SelectedItems.Count == 1)
                 {
@@ -275,10 +280,10 @@ namespace BootstrapBlazor.Components
         /// 保存数据
         /// </summary>
         /// <param name="context"></param>
-        protected async Task Save(EditContext context)
+        protected async Task SaveAsync(EditContext context)
         {
             var valid = false;
-            if (OnSaveAsync != null)
+            if (DataService != null || OnSaveAsync != null)
             {
                 if (EditMode == EditMode.EditForm)
                 {
@@ -286,7 +291,8 @@ namespace BootstrapBlazor.Components
                     ShowEditForm = false;
                 }
 
-                valid = await OnSaveAsync((TItem)context.Model);
+                if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
+                else if (DataService != null) valid = await DataService.SaveAsync((TItem)context.Model);
                 var option = new ToastOption
                 {
                     Category = valid ? ToastCategory.Success : ToastCategory.Error,
@@ -328,7 +334,7 @@ namespace BootstrapBlazor.Components
             {
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Model), EditModel),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Columns), Columns.Where(i => i.Editable)),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(Save)),
+                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(SaveAsync)),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.ShowLabel), false),
                 new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate!)
             };
@@ -368,6 +374,7 @@ namespace BootstrapBlazor.Components
         {
             var ret = false;
             if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
+            else if (UseInjectDataService && DataService != null) ret = await DataService.DeleteAsync(SelectedItems);
             var option = new ToastOption()
             {
                 Title = DeleteButtonToastTitle

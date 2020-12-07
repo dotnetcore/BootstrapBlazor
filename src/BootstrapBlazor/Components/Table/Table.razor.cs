@@ -126,6 +126,12 @@ namespace BootstrapBlazor.Components
         public List<ITableColumn> Columns { get; } = new List<ITableColumn>(50);
 
         /// <summary>
+        /// 获得/设置 是否使用注入的数据服务
+        /// </summary>
+        [Parameter]
+        public bool UseInjectDataService { get; set; }
+
+        /// <summary>
         /// 获得/设置 明细行模板
         /// </summary>
         [Parameter]

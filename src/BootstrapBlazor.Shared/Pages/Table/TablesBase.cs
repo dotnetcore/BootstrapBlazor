@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        protected static List<BindItem> GenerateItems() => Enumerable.Range(1, 80).Select(i => new BindItem()
+        internal static List<BindItem> GenerateItems() => Enumerable.Range(1, 80).Select(i => new BindItem()
         {
             Id = i,
             Name = $"张三 {i:d4}",
