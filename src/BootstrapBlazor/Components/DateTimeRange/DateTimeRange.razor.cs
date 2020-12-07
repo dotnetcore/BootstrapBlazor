@@ -189,7 +189,6 @@ namespace BootstrapBlazor.Components
             EndValue = DateTime.Today.AddMonths(1);
             SelectedValue.Start = DateTime.MinValue;
             SelectedValue.End = DateTime.MinValue;
-            await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
         }
 
         /// <summary>

@@ -1505,14 +1505,9 @@
                         }
                     });
 
-                //$('.datetime-picker-input-icon').on('click', function (e) {
-                //    // handler disabled event
-                //    if ($(this).hasClass('disabled')) return;
-
-                //    e.stopImmediatePropagation();
-                //    var $input = $(this).parents('.datetime-picker-bar').find('.datetime-picker-input');
-                //    $input.trigger('click');
-                //});
+                $el.find('.is-clear').on('click', function () {
+                    $input.popover('hide');
+                });
             }
             else $input.popover(method);
         },
