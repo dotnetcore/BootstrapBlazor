@@ -6,9 +6,11 @@
     "url": "https://github.com/ArgoZhang/BootstrapBlazor.git"
   },
   "scripts": {
-    "css": "npm-run-all --parallel css-compile* css-minify*",
+    "css": "npm-run-all css-compile* css-minify*",
     "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 8 wwwroot/scss/bootstrap.blazor.scss wwwroot/css/bootstrap.blazor.css",
+    "css-compile-bundle": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 8 wwwroot/scss/bootstrap.blazor.bundle.scss wwwroot/css/bootstrap.blazor.bundle.css",
     "css-minify": "cleancss --level 2 --format breaksWith=lf --source-map --source-map-inline-sources --output wwwroot/css/bootstrap.blazor.min.css wwwroot/css/bootstrap.blazor.css",
+    "css-minify-bundle": "cleancss --level 2 --format breaksWith=lf --source-map --source-map-inline-sources --output wwwroot/css/bootstrap.blazor.bundle.min.css wwwroot/css/bootstrap.blazor.bundle.css",    
     "watch-css": "nodemon --ignore dist/ --ignore css/ -e scss -x \"npm run css\""
   },
   "devDependencies": {
@@ -34,6 +36,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-unicorn": "^23.0.0",
     "find-unused-sass-variables": "^3.0.0",
+    "font-awesome": "^4.7.0",
     "foreach-cli": "^1.8.1",
     "hammer-simulator": "0.0.1",
     "jquery": "^3.5.1",
@@ -62,7 +65,9 @@
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0"
+    "stylelint-scss": "^3.18.0",
+    "summernote": "^0.8.18",
+    "sweetalert2": "^10.12.0"
   },
   "engines": {
     "node": ">= 10",
