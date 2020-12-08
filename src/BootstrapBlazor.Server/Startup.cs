@@ -19,7 +19,7 @@ using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Linq;
 using PetaPoco;
-using PetaPoco.Providers;
+using PetaPoco.Providers; 
 
 namespace BootstrapBlazor.Server
 {
@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Server
             services.AddBootstrapBlazorTableExcelExport();
 
             // 增加 Table 数据服务操作类
-            services.AddTableDemoDataService();
+            //services.AddTableDemoDataService();
 
             // 增加 PetaPoco ORM 数据服务操作类
             // 需要时打开下面代码
@@ -85,6 +85,20 @@ namespace BootstrapBlazor.Server
             //    option.UsingProvider<SQLiteDatabaseProvider>()
             //          .UsingConnectionString(Configuration.GetConnectionString("bb"));
             //});
+
+            // 增加 FreeSql ORM 数据服务操作类
+            // 需要时打开下面代码
+            services.AddFreeSql(option =>
+            {
+                // 配置数据信息.
+                //TODO:使用配置文件
+                string connstr = $"data source=test.db;Pooling=true;Max Pool Size=10";
+
+                option.UseConnectionString(FreeSql.DataType.Sqlite, connstr,
+                    typeof(FreeSql.Sqlite.SqliteProvider<>))
+                    .UseAutoSyncStructure(true)
+                    .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText));
+            });
 
             // 统一设置 Toast 组件自动消失时间
             services.Configure<BootstrapBlazorOptions>(options =>

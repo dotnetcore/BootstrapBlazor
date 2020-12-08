@@ -47,7 +47,24 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// <returns></returns>
         public override Task<bool> SaveAsync(TModel model)
         {
-            _db.InsertOrUpdate<TModel>();
+
+            // 插入或更新数据，此功能依赖数据库特性（低版本可能不支持），参考如下：<para></para>
+            // MySql 5.6+: on duplicate key update<para></para>
+            // PostgreSQL 9.4+: on conflict do update<para></para>
+            // SqlServer 2008+: merge into<para></para>
+            // Oracle 11+: merge into<para></para>
+            // Sqlite: replace into<para></para>
+            // Firebird: merge into<para></para>
+            // 达梦: merge into<para></para>
+            // 人大金仓：on conflict do update<para></para>
+            // 神通：merge into<para></para>
+            // MsAccess：不支持<para></para>
+            // 注意区别：FreeSql.Repository 仓储也有 InsertOrUpdate 方法（不依赖数据库特性）
+
+            //_db.InsertOrUpdate<TModel>();
+
+            //兼容旧版sql保险的方式
+            _db.GetRepository<TModel>().InsertOrUpdate(model);
             return Task.FromResult(true);
         }
 
@@ -58,8 +75,9 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// <returns></returns>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            // TODO: 未做分页处理
-            // var items = _db.Select<TModel>().toli
+            var items = _db.Select<TModel>()
+                .Page(option.PageIndex, option.PageItems)
+                .ToList();
             var ret = new QueryData<TModel>()
             {
                 TotalCount = items.Count,

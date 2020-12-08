@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\BootstrapBlazor.DataAcces.FreeSql\BootstrapBlazor.DataAcces.FreeSql.csproj" />
         <ProjectReference Include="..\BootstrapBlazor.DataAcces.PetaPoco\BootstrapBlazor.DataAcces.PetaPoco.csproj" />
         <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
     </ItemGroup>

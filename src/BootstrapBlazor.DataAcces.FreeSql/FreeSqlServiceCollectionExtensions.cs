@@ -25,14 +25,26 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="optionsAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddPetaPoco(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction)
+        public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction)
         {
-            services.AddSingleton<IFreeSql>(sp =>
-            {
-                var builder = new FreeSqlBuilder();
-                optionsAction(builder);
-                return builder.Build();
-            });
+
+            string connstr = $"data source=test.db;Pooling=true;Max Pool Size=10";
+
+            IFreeSql fsql  = new FreeSql.FreeSqlBuilder()
+            .UseConnectionString(FreeSql.DataType.Sqlite, connstr,
+            typeof(FreeSql.Sqlite.SqliteProvider<>))
+            .UseAutoSyncStructure(true)
+            .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+            .UseNoneCommandParameter(true)
+            .Build();
+            services.AddSingleton<IFreeSql>(fsql);
+
+            //services.AddSingleton<IFreeSql>(sp =>
+            //{
+            //    var builder = new FreeSqlBuilder();
+            //    optionsAction(builder);
+            //    return builder.Build();
+            //});
 
             services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
