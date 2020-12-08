@@ -36,7 +36,7 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         {
             // 通过模型获取主键列数据
             // 支持批量删除
-            _db.Delete<TModel>(models);
+            _db.Delete<TModel>(models).ExecuteAffrows();
             return Task.FromResult(true);
         }
 
@@ -64,6 +64,8 @@ namespace BootstrapBlazor.DataAcces.FreeSql
             //_db.InsertOrUpdate<TModel>();
 
             //兼容旧版sql保险的方式
+            var temp = typeof(TModel);
+
             _db.GetRepository<TModel>().InsertOrUpdate(model);
             return Task.FromResult(true);
         }

@@ -10,7 +10,9 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.FreeSql;
 using FreeSql;
+using PetaPoco;
 using System;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -31,12 +33,29 @@ namespace Microsoft.Extensions.DependencyInjection
             string connstr = $"data source=test.db;Pooling=true;Max Pool Size=10";
 
             IFreeSql fsql  = new FreeSql.FreeSqlBuilder()
-            .UseConnectionString(FreeSql.DataType.Sqlite, connstr,
-            typeof(FreeSql.Sqlite.SqliteProvider<>))
-            .UseAutoSyncStructure(true)
-            .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
-            .UseNoneCommandParameter(true)
-            .Build();
+                .UseConnectionString(FreeSql.DataType.Sqlite, connstr,
+                typeof(FreeSql.Sqlite.SqliteProvider<>))
+                .UseAutoSyncStructure(true)
+                .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+                .UseNoneCommandParameter(true)
+                .Build();
+
+            fsql.Aop.ConfigEntity += (s, e) => {
+                var attr = e.EntityType.GetCustomAttributes(typeof(TableNameAttribute), false).FirstOrDefault() as TableNameAttribute;
+                if (attr != null)
+                    e.ModifyResult.Name = attr.Value; //表名
+            };
+            fsql.Aop.ConfigEntityProperty += (s, e) => {
+                var attr = e.Property.DeclaringType.GetCustomAttributes(typeof(PrimaryKeyAttribute), false).FirstOrDefault() as PrimaryKeyAttribute;
+                if (attr != null && attr.Value == e.Property.Name)
+                {
+                    e.ModifyResult.IsPrimary = true;
+                    if (attr.AutoIncrement)
+                        e.ModifyResult.IsIdentity = attr.AutoIncrement;
+                }
+            };
+
+ 
             services.AddSingleton<IFreeSql>(fsql);
 
             //services.AddSingleton<IFreeSql>(sp =>
