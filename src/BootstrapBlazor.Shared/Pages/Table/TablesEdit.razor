@@ -177,20 +177,9 @@
     <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" UseInjectDataService="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name">
-                <EditTemplate Context="value">
-                    <div class="form-group col-12 col-sm-6">
-                        <TablesNameDrop Model="@((BindItem)value)" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Complete">
                 <Template Context="v">
                     <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />

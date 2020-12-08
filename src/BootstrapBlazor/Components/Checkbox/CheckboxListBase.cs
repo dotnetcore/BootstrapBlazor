@@ -160,9 +160,8 @@ namespace BootstrapBlazor.Components
             else if (typeValue.IsGenericType)
             {
                 var t = typeValue.GenericTypeArguments;
-                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t)) as IList;
 
-                if (instance != null)
+                if (Activator.CreateInstance(typeof(List<>).MakeGenericType(t)) is IList instance)
                 {
                     foreach (var model in Items.Where(i => GetChecked(i)))
                     {

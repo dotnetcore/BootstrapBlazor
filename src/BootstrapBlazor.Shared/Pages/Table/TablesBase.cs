@@ -10,6 +10,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
+using PetaPoco;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,7 +59,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
+        protected static IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "Sortable",
@@ -185,7 +186,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        protected static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -544,7 +545,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        protected static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
         {
             new MethodItem()
             {
@@ -573,6 +574,8 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
+    [TableName("Test")]
+    [PrimaryKey("Id", AutoIncrement = true)]
     public class BindItem
     {
         /// <summary>
@@ -594,7 +597,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [DisplayName("日期")]
-        [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd")]
+        [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
         public DateTime? DateTime { get; set; }
 
         /// <summary>
@@ -625,6 +628,7 @@ namespace BootstrapBlazor.Shared.Pages
         [Required(ErrorMessage = "请选择学历")]
         [DisplayName("学历")]
         [AutoGenerateColumn(Order = 60)]
+        [EnumConverter(typeof(EnumEducation))]
         public EnumEducation? Education { get; set; }
     }
 

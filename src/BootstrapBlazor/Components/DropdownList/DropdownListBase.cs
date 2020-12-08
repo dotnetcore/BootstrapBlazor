@@ -225,7 +225,7 @@ namespace BootstrapBlazor.Components
         protected string GetText(TModel model) => GetFieldValue(model, TextField);
 #nullable restore
 
-        private string GetFieldValue(TModel model, string fieldName)
+        private static string GetFieldValue(TModel model, string fieldName)
         {
             string? ret = null;
             if (model != null)

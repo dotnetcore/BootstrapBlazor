@@ -9,6 +9,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.PetaPoco;
+using PetaPoco;
+using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -21,9 +23,16 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 增加 PetaPoco 数据库操作服务
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="optionsAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddPetaPoco(this IServiceCollection services)
+        public static IServiceCollection AddPetaPoco(this IServiceCollection services, Action<IDatabaseBuildConfiguration> optionsAction)
         {
+            services.AddTransient<IDatabase>(sp =>
+            {
+                var builder = DatabaseConfiguration.Build();
+                optionsAction(builder);
+                return new Database(builder);
+            });
             services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
         }
