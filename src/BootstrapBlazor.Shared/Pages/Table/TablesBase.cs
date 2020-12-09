@@ -575,7 +575,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     //[TableName("Test")]
     //[PrimaryKey("Id", AutoIncrement = true)]
-    //[FreeSql.DataAnnotations.Table(Name = "Test")]
+    [FreeSql.DataAnnotations.Table(Name = "Test")]
     public class BindItem
     {
         /// <summary>
@@ -583,7 +583,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [DisplayName("主键")]
         [AutoGenerateColumn(Ignore = true)]
-        //[FreeSql.DataAnnotations.Column(IsPrimary = true)]
+        [FreeSql.DataAnnotations.Column(IsPrimary = true)]
         public int Id { get; set; }
 
         /// <summary>

@@ -86,7 +86,7 @@ namespace BootstrapBlazor.Server
 
             // 增加 FreeSql ORM 数据服务操作类
             // 需要时打开下面代码
-            //services.AddFreeSql(option => option.UseConnectionString(FreeSql.DataType.Sqlite, Configuration.GetConnectionString("bb")));
+            services.AddFreeSql(option => option.UseConnectionString(FreeSql.DataType.Sqlite, Configuration.GetConnectionString("bb")));
 
             // 统一设置 Toast 组件自动消失时间
             services.Configure<BootstrapBlazorOptions>(options =>
