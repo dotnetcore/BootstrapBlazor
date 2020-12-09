@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// BootstrapBlazor 服务扩展类
     /// </summary>
-    public static class EFServiceCollectionExtensions
+    public static class EFCoreServiceCollectionExtensions
     {
         /// <summary>
         /// 增加 Entity Framework 数据库操作服务
@@ -25,15 +25,18 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="optionsAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddEntityFramework(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction)
+        public static IServiceCollection AddEntityFrameworkCore<TContext>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) where TContext : DbContext
         {
-            services.AddTransient<DbContext>(sp =>
+            services.AddDbContext<TContext>(optionsAction);
+            services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
+            services.AddScoped(provider =>
             {
-                var builder = new DbContextOptionsBuilder();
-                optionsAction(builder);
-                return new DbContext(builder.Options);
+                DbContext DbContextResolve()
+                {
+                    return provider.GetRequiredService<TContext>();
+                }
+                return (Func<DbContext>)DbContextResolve;
             });
-            services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
         }
     }

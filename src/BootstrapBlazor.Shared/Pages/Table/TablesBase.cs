@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -576,6 +577,7 @@ namespace BootstrapBlazor.Shared.Pages
     //[TableName("Test")]
     //[PrimaryKey("Id", AutoIncrement = true)]
     //[FreeSql.DataAnnotations.Table(Name = "Test")]
+    [Table("Test")]
     public class BindItem
     {
         /// <summary>
@@ -650,4 +652,36 @@ namespace BootstrapBlazor.Shared.Pages
         [Description("中学")]
         Middel
     }
+
+    ///// <summary>
+    ///// BindItemContext 上下文操作类
+    ///// </summary>
+    //public class BindItemDbContext : DbContext
+    //{
+    //    /// <summary>
+    //    /// 构造函数
+    //    /// </summary>
+    //    /// <param name="options"></param>
+    //    public BindItemDbContext(DbContextOptions<BindItemDbContext> options) : base(options)
+    //    {
+
+    //    }
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    public DbSet<BindItem>? BindItems { get; set; }
+
+    //    /// <summary>
+    //    /// OnModelCreating 方法
+    //    /// </summary>
+    //    /// <param name="modelBuilder"></param>
+    //    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //    {
+    //        modelBuilder.Entity(delegate (EntityTypeBuilder<BindItem> entity)
+    //        {
+    //            entity.HasKey(e => e.Id);
+    //        });
+    //    }
+    //}
 }

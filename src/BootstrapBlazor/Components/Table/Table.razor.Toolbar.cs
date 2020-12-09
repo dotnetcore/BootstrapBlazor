@@ -292,7 +292,7 @@ namespace BootstrapBlazor.Components
                 }
 
                 if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
-                else if (DataService != null) valid = await DataService.SaveAsync((TItem)context.Model);
+                else if (UseInjectDataService && DataService != null) valid = await DataService.SaveAsync((TItem)context.Model);
                 var option = new ToastOption
                 {
                     Category = valid ? ToastCategory.Success : ToastCategory.Error,

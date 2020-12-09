@@ -8,10 +8,11 @@
 // **********************************
 
 using BootstrapBlazor.Components;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace BootstrapBlazor.DataAcces.EntityFramework
 {
@@ -24,9 +25,9 @@ namespace BootstrapBlazor.DataAcces.EntityFramework
         /// <summary>
         /// 构造函数
         /// </summary>
-        public DefaultDataService(DbContext db)
+        public DefaultDataService(Func<DbContext> dbContextResolve)
         {
-            _db = db;
+            _db = dbContextResolve();
         }
 
         /// <summary>
@@ -34,10 +35,11 @@ namespace BootstrapBlazor.DataAcces.EntityFramework
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public override Task<bool> DeleteAsync(IEnumerable<TModel> models)
+        public override async Task<bool> DeleteAsync(IEnumerable<TModel> models)
         {
             _db.RemoveRange(models);
-            return Task.FromResult(true);
+            await _db.SaveChangesAsync();
+            return true;
         }
 
         /// <summary>
@@ -45,10 +47,12 @@ namespace BootstrapBlazor.DataAcces.EntityFramework
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public override Task<bool> SaveAsync(TModel model)
+        public override async Task<bool> SaveAsync(TModel model)
         {
-            _db.SaveChanges();
-            return Task.FromResult(true);
+            // 由于 Table 组件内部编辑时是 Clone 一份 EditContext 用于取消时不破坏原有数据，所以这里 model 并不在 _db.Set 中
+            // 需要判断主键是否是插入还是更新操作，然后调用 SaveChanges 方法
+            await _db.SaveChangesAsync();
+            return true;
         }
 
         /// <summary>
@@ -62,7 +66,7 @@ namespace BootstrapBlazor.DataAcces.EntityFramework
 
             // TODO: 未做搜索处理
             query = query.Where(option.Filters.GetFilterLambda<TModel>());
-            
+
             // TODO: 未做排序处理
             var items = query.Skip((option.PageIndex - 1) * option.PageItems).Take(option.PageItems).ToList();
             var ret = new QueryData<TModel>()

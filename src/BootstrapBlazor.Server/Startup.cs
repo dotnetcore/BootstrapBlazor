@@ -80,13 +80,24 @@ namespace BootstrapBlazor.Server
             //{
             //    // 配置数据信息
             //    // 使用 SQLite 数据以及从配置文件中获取数据库连接字符串
+            //    // 需要引用 Microsoft.Data.Sqlite 包，操作 SQLite 数据库
+            //    // 需要引用 PetaPoco.Extensions 包，PetaPoco 包扩展批量插入与删除
             //    option.UsingProvider<SQLiteDatabaseProvider>()
             //          .UsingConnectionString(Configuration.GetConnectionString("bb"));
             //});
 
             // 增加 FreeSql ORM 数据服务操作类
             // 需要时打开下面代码
+            // 需要引入 FreeSql 对 SQLite 的扩展包 FreeSql.Provider.Sqlite
             //services.AddFreeSql(option => option.UseConnectionString(FreeSql.DataType.Sqlite, Configuration.GetConnectionString("bb")));
+
+            // 增加 EFCore ORM 数据服务操作类
+            // 需要时打开下面代码
+            //services.AddEntityFrameworkCore<Shared.Pages.BindItemDbContext>(option =>
+            //{
+            //    // 需要引用 Microsoft.EntityFrameworkCore.Sqlite 包，操作 SQLite 数据库
+            //    option.UseSqlite(Configuration.GetConnectionString("bb"));
+            //});
 
             // 统一设置 Toast 组件自动消失时间
             services.Configure<BootstrapBlazorOptions>(options =>
