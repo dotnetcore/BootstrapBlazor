@@ -354,6 +354,3 @@ src/**/*.xml
 # Coverage 
 coverage*.xml
 tools/
-
-# NodeJS
-package-lock.json
