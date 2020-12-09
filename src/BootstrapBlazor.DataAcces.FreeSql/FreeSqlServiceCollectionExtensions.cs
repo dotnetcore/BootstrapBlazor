@@ -9,6 +9,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.FreeSql;
+using FreeSql;
+using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -18,12 +20,20 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class FreeSqlServiceCollectionExtensions
     {
         /// <summary>
-        /// 增加 PetaPoco 数据库操作服务
+        /// 增加 FreeSql 数据库操作服务
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="optionsAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddPetaPoco(this IServiceCollection services)
+        public static IServiceCollection AddPetaPoco(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction)
         {
+            services.AddSingleton<IFreeSql>(sp =>
+            {
+                var builder = new FreeSqlBuilder();
+                optionsAction(builder);
+                return builder.Build();
+            });
+
             services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
         }

@@ -18,12 +18,13 @@ namespace BootstrapBlazor.DataAcces.FreeSql
     /// </summary>
     internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
     {
+        private readonly IFreeSql _db;
         /// <summary>
         /// 构造函数
         /// </summary>
-        public DefaultDataService()
+        public DefaultDataService(IFreeSql db)
         {
-
+            _db = db;
         }
 
         /// <summary>
@@ -35,6 +36,7 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         {
             // 通过模型获取主键列数据
             // 支持批量删除
+            _db.Delete<TModel>(models);
             return Task.FromResult(true);
         }
 
@@ -45,6 +47,7 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// <returns></returns>
         public override Task<bool> SaveAsync(TModel model)
         {
+            _db.InsertOrUpdate<TModel>();
             return Task.FromResult(true);
         }
 
@@ -56,7 +59,7 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
             // TODO: 未做分页处理
-            var items = new List<TModel>();
+            // var items = _db.Select<TModel>().toli
             var ret = new QueryData<TModel>()
             {
                 TotalCount = items.Count,
