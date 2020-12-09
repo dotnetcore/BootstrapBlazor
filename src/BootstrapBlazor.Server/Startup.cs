@@ -18,8 +18,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Linq;
-using PetaPoco;
-using PetaPoco.Providers;
 
 namespace BootstrapBlazor.Server
 {
@@ -74,7 +72,7 @@ namespace BootstrapBlazor.Server
             services.AddBootstrapBlazorTableExcelExport();
 
             // 增加 Table 数据服务操作类
-            services.AddTableDemoDataService();
+            //services.AddTableDemoDataService();
 
             // 增加 PetaPoco ORM 数据服务操作类
             // 需要时打开下面代码
@@ -85,6 +83,10 @@ namespace BootstrapBlazor.Server
             //    option.UsingProvider<SQLiteDatabaseProvider>()
             //          .UsingConnectionString(Configuration.GetConnectionString("bb"));
             //});
+
+            // 增加 FreeSql ORM 数据服务操作类
+            // 需要时打开下面代码
+            //services.AddFreeSql(option => option.UseConnectionString(FreeSql.DataType.Sqlite, Configuration.GetConnectionString("bb")));
 
             // 统一设置 Toast 组件自动消失时间
             services.Configure<BootstrapBlazorOptions>(options =>

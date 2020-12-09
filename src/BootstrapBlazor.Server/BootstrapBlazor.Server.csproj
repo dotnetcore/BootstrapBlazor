@@ -11,11 +11,9 @@
 
     <ItemGroup>
         <PackageReference Include="Longbow.Tasks" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BootstrapBlazor.DataAcces.PetaPoco\BootstrapBlazor.DataAcces.PetaPoco.csproj" />
         <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
     </ItemGroup>
 
