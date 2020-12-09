@@ -15,7 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// BootstrapBlazor 服务扩展类
     /// </summary>
-    public static class PetaPocoServiceCollectionExtensions
+    public static class FreeSqlServiceCollectionExtensions
     {
         /// <summary>
         /// 增加 PetaPoco 数据库操作服务
