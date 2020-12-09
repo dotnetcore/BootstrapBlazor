@@ -8,6 +8,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FreeSql" Version="2.0.105" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
     </ItemGroup>
 
