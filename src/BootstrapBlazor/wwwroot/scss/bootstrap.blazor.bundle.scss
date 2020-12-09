@@ -46,6 +46,19 @@
 @import "bootstrapblazor";
 
 /* Import files to Bundle */
+
+$sni-font-path: "../lib/summernote/font";
 @import "../../node_modules/summernote/src/styles/summernote-bs4.scss";
+/* Workaround for summernote -> In summernode-icons.scss there is a path variable ($sni-font-path) but it's not used in official version */
+@font-face {
+    font-family: "summernote";
+    font-style: normal;
+    font-weight: 400;
+    font-display: auto;
+    src: url("#{$sni-font-path}/summernote.eot");
+    src: url("#{$sni-font-path}/summernote.eot?#iefix") format("embedded-opentype"), url("#{$sni-font-path}/summernote.woff2") format("woff2"), url("#{$sni-font-path}/summernote.woff") format("woff"), url("#{$sni-font-path}/summernote.ttf") format("truetype");}
+
 @import "../../node_modules/sweetalert2/src/sweetalert2.scss";
+
+$fa-font-path: "../lib/font-awesome/fonts";
 @import "../../node_modules/font-awesome/scss/font-awesome.scss";
