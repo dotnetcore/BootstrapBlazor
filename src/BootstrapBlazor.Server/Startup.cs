@@ -72,7 +72,7 @@ namespace BootstrapBlazor.Server
             services.AddBootstrapBlazorTableExcelExport();
 
             // 增加 Table 数据服务操作类
-            //services.AddTableDemoDataService();
+            services.AddTableDemoDataService();
 
             // 增加 PetaPoco ORM 数据服务操作类
             // 需要时打开下面代码
