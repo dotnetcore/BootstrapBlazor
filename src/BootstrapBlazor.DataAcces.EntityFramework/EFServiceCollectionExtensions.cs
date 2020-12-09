@@ -20,13 +20,19 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class EFServiceCollectionExtensions
     {
         /// <summary>
-        /// 增加 PetaPoco 数据库操作服务
+        /// 增加 Entity Framework 数据库操作服务
         /// </summary>
         /// <param name="services"></param>
         /// <param name="optionsAction"></param>
         /// <returns></returns>
         public static IServiceCollection AddEntityFramework(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction)
         {
+            services.AddTransient<DbContext>(sp =>
+            {
+                var builder = new DbContextOptionsBuilder();
+                optionsAction(builder);
+                return new DbContext(builder.Options);
+            });
             services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
         }

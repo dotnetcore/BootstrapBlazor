@@ -9,21 +9,24 @@
 
 using BootstrapBlazor.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BootstrapBlazor.DataAcces.EntityFramework
 {
     /// <summary>
-    /// PetaPoco ORM 的 IDataService 接口实现
+    /// Entity Framework ORM 的 IDataService 接口实现
     /// </summary>
     internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
     {
+        private readonly DbContext _db;
         /// <summary>
         /// 构造函数
         /// </summary>
-        public DefaultDataService()
+        public DefaultDataService(DbContext db)
         {
-
+            _db = db;
         }
 
         /// <summary>
@@ -33,6 +36,7 @@ namespace BootstrapBlazor.DataAcces.EntityFramework
         /// <returns></returns>
         public override Task<bool> DeleteAsync(IEnumerable<TModel> models)
         {
+            _db.RemoveRange(models);
             return Task.FromResult(true);
         }
 
@@ -43,6 +47,7 @@ namespace BootstrapBlazor.DataAcces.EntityFramework
         /// <returns></returns>
         public override Task<bool> SaveAsync(TModel model)
         {
+            _db.SaveChanges();
             return Task.FromResult(true);
         }
 
@@ -53,8 +58,13 @@ namespace BootstrapBlazor.DataAcces.EntityFramework
         /// <returns></returns>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            // TODO: 未做分页处理
-            var items = new List<TModel>(); //await _db.FetchAsync<TModel>();
+            var query = _db.Set<TModel>().AsQueryable();
+
+            // TODO: 未做搜索处理
+            query = query.Where(option.Filters.GetFilterLambda<TModel>());
+            
+            // TODO: 未做排序处理
+            var items = query.Skip((option.PageIndex - 1) * option.PageItems).Take(option.PageItems).ToList();
             var ret = new QueryData<TModel>()
             {
                 TotalCount = items.Count,
