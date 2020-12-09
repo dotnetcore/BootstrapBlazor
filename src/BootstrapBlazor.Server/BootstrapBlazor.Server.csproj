@@ -10,13 +10,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="FreeSql.Provider.Sqlite" Version="2.0.105" />
         <PackageReference Include="Longbow.Tasks" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BootstrapBlazor.DataAcces.FreeSql\BootstrapBlazor.DataAcces.FreeSql.csproj" />
-        <ProjectReference Include="..\BootstrapBlazor.DataAcces.PetaPoco\BootstrapBlazor.DataAcces.PetaPoco.csproj" />
         <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
     </ItemGroup>
 

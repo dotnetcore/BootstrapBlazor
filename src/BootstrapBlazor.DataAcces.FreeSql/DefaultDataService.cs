@@ -32,12 +32,12 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public override Task<bool> DeleteAsync(IEnumerable<TModel> models)
+        public override async Task<bool> DeleteAsync(IEnumerable<TModel> models)
         {
             // 通过模型获取主键列数据
             // 支持批量删除
-            _db.Delete<TModel>(models).ExecuteAffrows();
-            return Task.FromResult(true);
+            await _db.Delete<TModel>(models).ExecuteAffrowsAsync();
+            return true;
         }
 
         /// <summary>
@@ -45,29 +45,10 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public override Task<bool> SaveAsync(TModel model)
+        public override async Task<bool> SaveAsync(TModel model)
         {
-
-            // 插入或更新数据，此功能依赖数据库特性（低版本可能不支持），参考如下：<para></para>
-            // MySql 5.6+: on duplicate key update<para></para>
-            // PostgreSQL 9.4+: on conflict do update<para></para>
-            // SqlServer 2008+: merge into<para></para>
-            // Oracle 11+: merge into<para></para>
-            // Sqlite: replace into<para></para>
-            // Firebird: merge into<para></para>
-            // 达梦: merge into<para></para>
-            // 人大金仓：on conflict do update<para></para>
-            // 神通：merge into<para></para>
-            // MsAccess：不支持<para></para>
-            // 注意区别：FreeSql.Repository 仓储也有 InsertOrUpdate 方法（不依赖数据库特性）
-
-            //_db.InsertOrUpdate<TModel>();
-
-            //兼容旧版sql保险的方式
-            var temp = typeof(TModel);
-
-            _db.GetRepository<TModel>().InsertOrUpdate(model);
-            return Task.FromResult(true);
+            await _db.InsertOrUpdate<TModel>().ExecuteAffrowsAsync();
+            return true;
         }
 
         /// <summary>
@@ -77,12 +58,14 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// <returns></returns>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
+            //TODO: 是否能够通过参数判断是否进行分页
             var items = _db.Select<TModel>()
+                .Count(out var count)
                 .Page(option.PageIndex, option.PageItems)
                 .ToList();
             var ret = new QueryData<TModel>()
             {
-                TotalCount = items.Count,
+                TotalCount = (int)count,
                 Items = items
             };
             return Task.FromResult(ret);

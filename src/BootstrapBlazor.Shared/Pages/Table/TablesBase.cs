@@ -10,7 +10,6 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
-using PetaPoco;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -574,8 +573,9 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    [TableName("Test")]
-    [PrimaryKey("Id", AutoIncrement = true)]
+    //[TableName("Test")]
+    //[PrimaryKey("Id", AutoIncrement = true)]
+    [FreeSql.DataAnnotations.Table(Name = "Test")]
     public class BindItem
     {
         /// <summary>
@@ -583,6 +583,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [DisplayName("主键")]
         [AutoGenerateColumn(Ignore = true)]
+        [FreeSql.DataAnnotations.Column(IsPrimary = true)]
         public int Id { get; set; }
 
         /// <summary>
@@ -628,7 +629,7 @@ namespace BootstrapBlazor.Shared.Pages
         [Required(ErrorMessage = "请选择学历")]
         [DisplayName("学历")]
         [AutoGenerateColumn(Order = 60)]
-        [EnumConverter(typeof(EnumEducation))]
+        //[EnumConverter(typeof(EnumEducation))]
         public EnumEducation? Education { get; set; }
     }
 

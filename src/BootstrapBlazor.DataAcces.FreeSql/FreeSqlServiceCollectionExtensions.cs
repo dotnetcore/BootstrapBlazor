@@ -10,9 +10,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.FreeSql;
 using FreeSql;
-using PetaPoco;
 using System;
-using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -26,44 +24,18 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <param name="optionsAction"></param>
+        /// <param name="configureAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction)
+        public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction, Action<IFreeSql>? configureAction = null)
         {
-
-            string connstr = $"data source=test.db;Pooling=true;Max Pool Size=10";
-
-            IFreeSql fsql  = new FreeSql.FreeSqlBuilder()
-                .UseConnectionString(FreeSql.DataType.Sqlite, connstr,
-                typeof(FreeSql.Sqlite.SqliteProvider<>))
-                .UseAutoSyncStructure(true)
-                .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
-                .UseNoneCommandParameter(true)
-                .Build();
-
-            fsql.Aop.ConfigEntity += (s, e) => {
-                var attr = e.EntityType.GetCustomAttributes(typeof(TableNameAttribute), false).FirstOrDefault() as TableNameAttribute;
-                if (attr != null)
-                    e.ModifyResult.Name = attr.Value; //表名
-            };
-            fsql.Aop.ConfigEntityProperty += (s, e) => {
-                var attr = e.Property.DeclaringType.GetCustomAttributes(typeof(PrimaryKeyAttribute), false).FirstOrDefault() as PrimaryKeyAttribute;
-                if (attr != null && attr.Value == e.Property.Name)
-                {
-                    e.ModifyResult.IsPrimary = true;
-                    if (attr.AutoIncrement)
-                        e.ModifyResult.IsIdentity = attr.AutoIncrement;
-                }
-            };
-
- 
-            services.AddSingleton<IFreeSql>(fsql);
-
-            //services.AddSingleton<IFreeSql>(sp =>
-            //{
-            //    var builder = new FreeSqlBuilder();
-            //    optionsAction(builder);
-            //    return builder.Build();
-            //});
+            services.AddSingleton<IFreeSql>(sp =>
+            {
+                var builder = new FreeSqlBuilder();
+                optionsAction(builder);
+                var instance = builder.Build();
+                configureAction?.Invoke(instance);
+                return instance;
+            });
 
             services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
