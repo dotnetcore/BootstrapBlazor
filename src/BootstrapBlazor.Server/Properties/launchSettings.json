@@ -23,15 +23,6 @@
       },
       "applicationUrl": "http://localhost:50853/"
     },
-    "BootstrapBlazor.WebConsole.AlexDev": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:50853/tables/edit",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:50853/"
-    },
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,

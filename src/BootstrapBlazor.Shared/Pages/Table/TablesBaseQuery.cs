@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected IEnumerable<int> PageItemsSource => new int[] { 12, 4, 10, 20 };
+        protected IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
 
         /// <summary>
         /// 
