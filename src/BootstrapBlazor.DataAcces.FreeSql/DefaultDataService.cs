@@ -47,7 +47,7 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// <returns></returns>
         public override async Task<bool> SaveAsync(TModel model)
         {
-            await _db.InsertOrUpdate<TModel>().ExecuteAffrowsAsync();
+            await _db.GetRepository<TModel>().InsertOrUpdateAsync(model);
             return true;
         }
 

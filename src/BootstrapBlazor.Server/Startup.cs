@@ -89,7 +89,17 @@ namespace BootstrapBlazor.Server
             // 增加 FreeSql ORM 数据服务操作类
             // 需要时打开下面代码
             // 需要引入 FreeSql 对 SQLite 的扩展包 FreeSql.Provider.Sqlite
-            //services.AddFreeSql(option => option.UseConnectionString(FreeSql.DataType.Sqlite, Configuration.GetConnectionString("bb")));
+            //services.AddFreeSql(option =>
+            //{
+            //    option.UseConnectionString(FreeSql.DataType.Sqlite, Configuration.GetConnectionString("bb"))
+#if DEBUG
+            //         //开发环境:自动同步实体
+            //         .UseAutoSyncStructure(true)
+            //         //调试sql语句输出
+            //         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+#endif
+            //        ;
+            //});
 
             // 增加 EFCore ORM 数据服务操作类
             // 需要时打开下面代码
