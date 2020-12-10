@@ -175,11 +175,27 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool AutoGenerateColumns { get; set; }
 
+        [NotNull]
+        private string? DataServiceInvalidOperationText { get; set; }
+
         /// <summary>
         /// 获得/设置 注入数据服务
         /// </summary>
         [Inject]
-        public IDataService<TItem>? DataService { get; set; }
+        [NotNull]
+        private IEnumerable<IDataService<TItem>>? DataServices { get; set; }
+
+        private IDataService<TItem> GetDataService()
+        {
+            if (DataServices.Any())
+            {
+                return DataServices.Last();
+            }
+            else
+            {
+                throw new InvalidOperationException(DataServiceInvalidOperationText);
+            }
+        }
 
         /// <summary>
         /// 单选模式下选择行时调用此方法
@@ -243,9 +259,9 @@ namespace BootstrapBlazor.Components
                     SearchModel = SearchModel
                 });
             }
-            else if (UseInjectDataService && DataService != null)
+            else if (UseInjectDataService)
             {
-                queryData = await DataService.QueryAsync(new QueryPageOptions()
+                queryData = await GetDataService().QueryAsync(new QueryPageOptions()
                 {
                     PageIndex = PageIndex,
                     PageItems = PageItems,

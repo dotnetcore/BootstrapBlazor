@@ -179,15 +179,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task AddAsync()
         {
-            if ((UseInjectDataService && DataService != null) || OnSaveAsync != null)
+            if (UseInjectDataService || OnSaveAsync != null)
             {
                 if (OnAddAsync != null) EditModel = await OnAddAsync();
-                else if (DataService != null)
+                else 
                 {
                     EditModel = new TItem();
-                    await DataService.Config(EditModel);
+                    await GetDataService().Config(EditModel);
                 }
-                else EditModel = new TItem();
 
                 SelectedItems.Clear();
                 EditModalTitleString = AddModalTitle;
@@ -222,7 +221,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public Task EditAsync()
         {
-            if ((UseInjectDataService && DataService != null) || OnSaveAsync != null)
+            if (UseInjectDataService || OnSaveAsync != null)
             {
                 if (SelectedItems.Count == 1)
                 {
@@ -283,7 +282,7 @@ namespace BootstrapBlazor.Components
         protected async Task SaveAsync(EditContext context)
         {
             var valid = false;
-            if (DataService != null || OnSaveAsync != null)
+            if (UseInjectDataService || OnSaveAsync != null)
             {
                 if (EditMode == EditMode.EditForm)
                 {
@@ -292,7 +291,7 @@ namespace BootstrapBlazor.Components
                 }
 
                 if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
-                else if (UseInjectDataService && DataService != null) valid = await DataService.SaveAsync((TItem)context.Model);
+                else valid = await GetDataService().SaveAsync((TItem)context.Model);
                 var option = new ToastOption
                 {
                     Category = valid ? ToastCategory.Success : ToastCategory.Error,
@@ -374,7 +373,7 @@ namespace BootstrapBlazor.Components
         {
             var ret = false;
             if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
-            else if (UseInjectDataService && DataService != null) ret = await DataService.DeleteAsync(SelectedItems);
+            else if (UseInjectDataService) ret = await GetDataService().DeleteAsync(SelectedItems);
             var option = new ToastOption()
             {
                 Title = DeleteButtonToastTitle
