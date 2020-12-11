@@ -8,8 +8,8 @@
 // **********************************
 
 using BootstrapBlazor.Components;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -34,6 +34,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ToastService>();
             services.AddScoped<SwalService>();
             services.AddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
+
+            // fix(#I2925C): https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2925C
+            if (CultureInfo.CurrentUICulture.Name == "en") CultureInfo.CurrentUICulture = new CultureInfo("en-US");
             return services;
         }
     }
