@@ -122,6 +122,19 @@
 }
 </Pre>
 
+<div class="mb-3">或者，仅适用于 <code>Server-Side App</code></div>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // 增加 BootstrapBlazor 组件
+    services.AddBootstrapBlazor(options =>
+    {
+        // 统一设置 Toast 组件自动消失时间
+        options.ToastDelay = 4000;
+    });
+}
+</Pre>
+
 <Toast @ref="Toast"></Toast>
 
 <AttributeTable Items="@GetAttributes()" />
