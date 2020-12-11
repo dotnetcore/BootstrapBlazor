@@ -8,6 +8,7 @@
 // **********************************
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Options;
 using System;
 using System.Globalization;
@@ -24,10 +25,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <param name="configureOptions"></param>
+        /// <param name="setupAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
+        public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? setupAction = null)
         {
-            services.AddJsonLocalization();
+            services.AddJsonLocalization(setupAction);
             services.AddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
             services.AddSingleton<ITableExcelExport, DefaultExcelExport>();
             services.AddScoped<DialogService>();
