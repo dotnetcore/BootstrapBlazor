@@ -66,7 +66,11 @@ namespace BootstrapBlazor.Server
             services.AddBlazorBackgroundTask();
 
             // 增加 BootstrapBlazor 组件
-            services.AddBootstrapBlazor();
+            services.AddBootstrapBlazor(options =>
+            {
+                // 统一设置 Toast 组件自动消失时间
+                options.ToastDelay = 4000;
+            });
 
             // 增加 Table Excel 导出服务
             services.AddBootstrapBlazorTableExcelExport();
@@ -108,12 +112,6 @@ namespace BootstrapBlazor.Server
             //    // 需要引用 Microsoft.EntityFrameworkCore.Sqlite 包，操作 SQLite 数据库
             //    option.UseSqlite(Configuration.GetConnectionString("bb"));
             //});
-
-            // 统一设置 Toast 组件自动消失时间
-            services.Configure<BootstrapBlazorOptions>(options =>
-            {
-                options.ToastDelay = 4000;
-            });
 
             // 增加多语言支持配置信息
             services.Configure<RequestLocalizationOptions>(options =>

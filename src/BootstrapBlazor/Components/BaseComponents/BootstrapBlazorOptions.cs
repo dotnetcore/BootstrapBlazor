@@ -28,5 +28,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Swal 组件 Delay 默认值 默认为 0
         /// </summary>
         public int SwalDelay { get; set; }
+
+        /// <summary>
+        /// 获得/设置 默认 UI 文化信息 默认为 null 未设置采用系统设置
+        /// </summary>
+        public string? DefaultUICultureInfoName { get; set; }
     }
 }
