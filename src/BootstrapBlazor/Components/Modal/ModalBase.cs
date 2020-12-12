@@ -62,10 +62,30 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 弹窗状态切换方法
         /// </summary>
-        public async Task Toggle()
+        public async ValueTask Toggle()
         {
             Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
             await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "toggle");
+        }
+
+        /// <summary>
+        /// 显示弹窗方法
+        /// </summary>
+        /// <returns></returns>
+        public async ValueTask Show()
+        {
+            Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
+            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "show");
+        }
+
+        /// <summary>
+        /// 关闭弹窗方法
+        /// </summary>
+        /// <returns></returns>
+        public async ValueTask Close()
+        {
+            Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
+            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "hide");
         }
 
         /// <summary>
