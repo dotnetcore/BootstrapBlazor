@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace Microsoft.AspNetCore.Components.Forms
@@ -51,11 +52,22 @@ namespace Microsoft.AspNetCore.Components.Forms
             {
                 if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
-                    var displayNameAttribute = propertyInfo!.GetCustomAttribute<DisplayNameAttribute>();
+                    var displayNameAttribute = propertyInfo!.GetCustomAttribute<DisplayAttribute>();
                     if (displayNameAttribute != null)
                     {
-                        dn = displayNameAttribute.DisplayName;
+                        dn = displayNameAttribute.Name;
+                    }
+                    else
+                    {
+                        var displayAttribute = propertyInfo!.GetCustomAttribute<DisplayNameAttribute>();
+                        if (displayAttribute != null)
+                        {
+                            dn = displayAttribute.DisplayName;
+                        }
+                    }
 
+                    if (!string.IsNullOrEmpty(dn))
+                    {
                         // add display name into cache
                         DisplayNameCache.GetOrAdd(cacheKey, key => dn);
                     }
