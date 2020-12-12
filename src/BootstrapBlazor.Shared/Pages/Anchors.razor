@@ -1,0 +1,26 @@
+﻿@page "/anchors"
+
+<h3>@Title</h3>
+
+<h4>@SubTitle</h4>
+
+<Block Title="@BaseUsageText" Introduction="@IntroText1" CodeFile="anchor.1.html">
+    <p>@IntroText2</p>
+    <ul class="demo-ul">
+        <li><Anchor Target="anchor1" Offset="50">Anchor1</Anchor></li>
+        <li><Anchor Target="anchor2" Offset="50">Anchor2</Anchor></li>
+        <li><Anchor Target="anchor3" Offset="50">Anchor3</Anchor></li>
+        <li><Anchor Target="anchor4" Offset="50">Anchor4</Anchor></li>
+    </ul>
+
+    <h4 id="anchor1">Archor1</h4>
+    <div>@ContentText1</div>
+    <h4 id="anchor2">Archor2</h4>
+    <div>@ContentText1</div>
+    <h4 id="anchor3">Archor3</h4>
+    <div>@ContentText1</div>
+    <h4 id="anchor4">Archor4</h4>
+    <div>@ContentText1</div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

@@ -575,6 +575,12 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
+                Text = "锚点 Anchor",
+                Url = "anchors",
+                IsNew = true
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "面包屑 Breadcrumb",
                 Url = "breadcrumbs"
             });
