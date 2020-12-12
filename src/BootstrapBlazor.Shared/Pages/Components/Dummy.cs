@@ -26,6 +26,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Required(ErrorMessage = "{0}不可以为空")]
         [Display(Name = "姓名")]
         [EditorOrder(1)]
+        [PlaceHolder("请输入姓名")]
         public string? Name { get; set; }
 
         /// <summary>
