@@ -21,6 +21,25 @@ namespace BootstrapBlazor.Components
     public abstract class SearchBase : AutoCompleteBase
     {
         /// <summary>
+        /// Clear button color
+        /// </summary>
+        [Parameter]
+        public Color ClearButtonColor { get; set; } = Color.Secondary;
+
+        /// <summary>
+        /// Clear button icon
+        /// </summary>
+        [Parameter]
+        public string ClearButtonIcon { get; set; } = "fa fa-trash";
+
+        /// <summary>
+        /// Clear button text
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? ClearButtonText { get; set; }
+
+        /// <summary>
         /// 获得/设置 搜索按钮颜色
         /// </summary>
         [Parameter]
@@ -46,12 +65,27 @@ namespace BootstrapBlazor.Components
         public Func<string, Task>? OnSearch { get; set; }
 
         /// <summary>
+        /// 获得/设置 点击搜索按钮时回调委托
+        /// </summary>
+        [Parameter]
+        public Func<string, Task>? OnClear { get; set; }
+
+        /// <summary>
         /// 点击搜索按钮时触发此方法
         /// </summary>
         /// <returns></returns>
-        protected async Task OnClick()
+        protected async Task OnSearchClick()
         {
             if (OnSearch != null) await OnSearch(CurrentValueAsString);
+        }
+
+        /// <summary>
+        /// 点击搜索按钮时触发此方法
+        /// </summary>
+        /// <returns></returns>
+        protected async Task OnClearClick()
+        {
+            if (OnClear != null) await OnClear(CurrentValueAsString);
         }
 
         /// <summary>
@@ -65,7 +99,7 @@ namespace BootstrapBlazor.Components
 
             if (!string.IsNullOrEmpty(CurrentValueAsString) && args.Key == "Enter")
             {
-                await OnClick();
+                await OnSearchClick();
             }
         }
     }
