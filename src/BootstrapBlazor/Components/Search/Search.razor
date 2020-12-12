@@ -7,7 +7,11 @@
             <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="@OnBlur" @onkeyup="@OnKeyUp" />
             <div class="input-group-append">
                 <i class="fa fa-spinner fa-spin fa-fw"></i>
-                <Button Color="@SearchButtonColor" Text="@SearchButtonText" Icon="@SearchButtonIcon" OnClick="@OnClick" />
+                <Button Color="@ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="@OnClearClick" />
+            </div>
+            <div class="input-group-append">
+                <i class="fa fa-spinner fa-spin fa-fw"></i>
+                <Button Color="@SearchButtonColor" Text="@SearchButtonText" Icon="@SearchButtonIcon" OnClick="@OnSearchClick" />
             </div>
         </div>
         <div class="select-dropdown">
