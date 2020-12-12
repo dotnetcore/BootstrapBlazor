@@ -516,7 +516,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "对话框 Dialog",
-                Url = "dialogs"
+                Url = "dialogs",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {

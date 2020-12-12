@@ -11,8 +11,10 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -34,6 +36,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Inject]
+        [NotNull]
         private DialogService? DialogService { get; set; }
 
         private Task OnStateChanged(CheckboxState state, SelectedItem item)
@@ -50,7 +53,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <returns></returns>
         private Task OnClick()
         {
-            DialogService?.Show(new DialogOption()
+            DialogService.Show(new DialogOption()
             {
                 Title = "我是服务创建的弹出框",
                 BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
@@ -62,13 +65,30 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Task Show()
+        {
+            var option = new DialogOption()
+            {
+                Title = "利用代码关闭弹出框",
+            };
+            option.BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            {
+                new KeyValuePair<string, object>(nameof(Button.Text), "点击关闭弹窗"),
+                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, () => {
+                    option.Dialog?.Close();
+                }))
+            }).Render();
+            DialogService.Show(option);
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         private Task OnClickCounter()
         {
-            DialogService?.Show(new DialogOption()
+            DialogService.Show(new DialogOption()
             {
                 Title = "自带的 Counter 组件",
                 KeepChildrenState = KeepState,
@@ -83,7 +103,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <returns></returns>
         private Task OnClickParameter()
         {
-            DialogService?.Show(new DialogOption()
+            DialogService.Show(new DialogOption()
             {
                 Title = "自带的 Counter 组件",
                 BodyContext = "我是传参",
