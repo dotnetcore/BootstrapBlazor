@@ -19,15 +19,52 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
     /// <summary>
     /// Entity Framework ORM 的 IDataService 接口实现
     /// </summary>
-    internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFrameworkCoreDataServiceFlag where TModel : class, new()
+    internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFrameworkCoreDataService where TModel : class, new()
     {
         private readonly DbContext _db;
+        private TModel? Model { get; set; }
+
         /// <summary>
         /// 构造函数
         /// </summary>
-        public DefaultDataService(Func<IDataService<TModel>, DbContext> dbContextResolve)
+        public DefaultDataService(Func<IEntityFrameworkCoreDataService, DbContext> dbContextResolve)
         {
             _db = dbContextResolve(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override Task<bool> AddAsync(TModel model)
+        {
+            Model = model;
+            return base.AddAsync(model);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Task CancelAsync()
+        {
+            if (Model != null)
+            {
+                if (_db.Entry(Model).IsKeySet) _db.Entry(Model).State = EntityState.Unchanged;
+                else _db.Entry(Model).State = EntityState.Detached;
+            }
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Task EditAsync(object model)
+        {
+            Model = model as TModel;
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -49,8 +86,8 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         /// <returns></returns>
         public override async Task<bool> SaveAsync(TModel model)
         {
-            // 由于 Table 组件内部编辑时是 Clone 一份 EditContext 用于取消时不破坏原有数据，所以这里 model 并不在 _db.Set 中
-            // 需要判断主键是否是插入还是更新操作，然后调用 SaveChanges 方法
+            if (_db.Entry(model).IsKeySet) _db.Update(model);
+            else await _db.AddAsync(model);
             await _db.SaveChangesAsync();
             return true;
         }
@@ -68,10 +105,10 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
             query = query.Where(option.Filters.GetFilterLambda<TModel>());
 
             // TODO: 未做排序处理
-            var items = query.Skip((option.PageIndex - 1) * option.PageItems).Take(option.PageItems).ToList();
+            var items = query.Skip((option.PageIndex - 1) * option.PageItems).Take(option.PageItems);
             var ret = new QueryData<TModel>()
             {
-                TotalCount = items.Count,
+                TotalCount = query.Count(),
                 Items = items
             };
             return Task.FromResult(ret);

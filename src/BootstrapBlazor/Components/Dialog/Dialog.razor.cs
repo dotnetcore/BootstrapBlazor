@@ -88,9 +88,12 @@ namespace BootstrapBlazor.Components
                 parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.FooterTemplate), option.FooterTemplate));
             }
 
-            // 不保持状态
             parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
             {
+                // 回调 OnClose 方法
+                if (option.OnCloseAsync != null) await option.OnCloseAsync();
+
+                // 不保持状态
                 if (!option.KeepChildrenState)
                 {
                     await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()

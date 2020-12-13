@@ -585,6 +585,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [Display(Name = "主键")]
         [AutoGenerateColumn(Ignore = true)]
+        //[Key]
         //[FreeSql.DataAnnotations.Column(IsIdentity = true)]
         public int Id { get; set; }
 

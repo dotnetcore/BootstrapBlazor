@@ -31,11 +31,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
             services.AddScoped(provider =>
             {
-                DbContext DbContextResolve(IEntityFrameworkCoreDataServiceFlag server)
+                DbContext DbContextResolve(IEntityFrameworkCoreDataService server)
                 {
                     return provider.GetRequiredService<TContext>();
                 }
-                return (Func<IEntityFrameworkCoreDataServiceFlag, DbContext>)DbContextResolve;
+                return (Func<IEntityFrameworkCoreDataService, DbContext>)DbContextResolve;
             });
             return services;
         }

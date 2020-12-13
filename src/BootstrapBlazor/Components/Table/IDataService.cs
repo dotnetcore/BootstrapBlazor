@@ -18,17 +18,11 @@ namespace BootstrapBlazor.Components
     public interface IDataService<TModel> where TModel : class, new()
     {
         /// <summary>
-        /// 创建新数据实体类回调方法
+        /// 新建数据方法
         /// </summary>
+        /// <param name="model"></param>
         /// <returns></returns>
-        Task Config(in TModel model);
-
-        /// <summary>
-        /// 删除数据方法
-        /// </summary>
-        /// <param name="models">要删除的数据集合</param>
-        /// <returns>成功返回真，失败返回假</returns>
-        Task<bool> DeleteAsync(IEnumerable<TModel> models);
+        Task<bool> AddAsync(TModel model);
 
         /// <summary>
         /// 保存数据方法
@@ -36,6 +30,13 @@ namespace BootstrapBlazor.Components
         /// <param name="model">保存实体类实例</param>
         /// <returns></returns>
         Task<bool> SaveAsync(TModel model);
+
+        /// <summary>
+        /// 删除数据方法
+        /// </summary>
+        /// <param name="models">要删除的数据集合</param>
+        /// <returns>成功返回真，失败返回假</returns>
+        Task<bool> DeleteAsync(IEnumerable<TModel> models);
 
         /// <summary>
         /// 查询数据方法
