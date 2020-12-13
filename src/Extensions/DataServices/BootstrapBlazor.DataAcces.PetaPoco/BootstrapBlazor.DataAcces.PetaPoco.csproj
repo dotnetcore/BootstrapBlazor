@@ -12,13 +12,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BootstrapBlazor" Version="5.0.6-beta05" />
         <PackageReference Include="Longbow.PetaPoco" Version="5.0.1" />
         <PackageReference Include="PetaPoco.Extensions" Version="5.0.1" />
     </ItemGroup>
 
     <ItemGroup>
         <None Include="logo.png" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
     </ItemGroup>
 
 </Project>

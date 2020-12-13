@@ -13,12 +13,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+        <ProjectReference Include="..\..\Shared\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="..\BootstrapBlazor.Server\wwwroot\favicon.ico" Link="wwwroot\favicon.ico" />
-        <Content Include="..\BootstrapBlazor.Server\wwwroot\favicon.png" Link="wwwroot\favicon.png" />
+        <Content Include="..\Server\BootstrapBlazor.Server\wwwroot\favicon.ico" Link="wwwroot\favicon.ico" />
+        <Content Include="..\Server\BootstrapBlazor.Server\wwwroot\favicon.png" Link="wwwroot\favicon.png" />
     </ItemGroup>
 
     <ItemGroup>

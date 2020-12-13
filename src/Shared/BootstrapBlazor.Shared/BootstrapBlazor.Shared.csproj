@@ -23,8 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
         <ProjectReference Include="..\BootstrapBlazor.Docs\BootstrapBlazor.Docs.csproj" />
-        <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
     </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ jobs:
 
     - name: Publish wasm
       run: |
-        dotnet publish -c Release -o deploy src/BootstrapBlazor.WebAssembly.ClientHost
+        dotnet publish -c Release -o deploy src/Wasm/BootstrapBlazor.WebAssembly.ClientHost
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
