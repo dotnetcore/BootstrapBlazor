@@ -27,7 +27,7 @@
 <p><b>2. 实现 UI 本地化信息存储（例如，cookie）</b></p>
 <Pre CodeFile="install.4.html" />
 
-<p><b>3. 添加允许用户更改本地化的 <code>UI</code></b></p>
+<p><b>3. 添加允许用户更改本地化的 UI</b></p>
 <Pre CodeFile="install.5.html" />
 
 <p><b>4. 添加 <code>Json</code> 资源文件</b></p>
@@ -57,7 +57,8 @@
     // 增加 BootstrapBlazor 组件
     services.AddBootstrapBlazor(options =>
     {
-        // 统一设置 Toast 组件自动消失时间
+        // 设置默认语言
+        // 组件内部已开启自动判断系统语言信息设置默认文化信息，未设置 DefaultUICultureInforName 时自动判断
         options.DefaultUICultureInfoName = "zh-CN";
     });
 }
