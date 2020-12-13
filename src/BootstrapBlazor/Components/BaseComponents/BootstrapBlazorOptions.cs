@@ -7,6 +7,8 @@
 // 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
 // **********************************
 
+using System.Collections.Generic;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -33,5 +35,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 默认 UI 文化信息 默认为 null 未设置采用系统设置
         /// </summary>
         public string? DefaultUICultureInfoName { get; set; }
+
+        /// <summary>
+        /// 获得 组件内置本地化语言列表
+        /// </summary>
+        public IEnumerable<string> SupportedCultures { get; } = new string[] { "zh-CN", "en-US" };
     }
 }

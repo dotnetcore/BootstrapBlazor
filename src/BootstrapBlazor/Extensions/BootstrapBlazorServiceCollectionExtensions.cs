@@ -12,6 +12,7 @@ using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Options;
 using System;
 using System.Globalization;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -43,7 +44,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 configureOptions?.Invoke(options);
 
                 // fix(#I2925C): https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2925C
-                if (CultureInfo.CurrentUICulture.Name == "en")
+                if (CultureInfo.CurrentUICulture.Name == "en" || !options.SupportedCultures.Any(c => c.Equals(CultureInfo.CurrentUICulture.Name, StringComparison.OrdinalIgnoreCase)))
                 {
                     CultureInfo.CurrentUICulture = new CultureInfo(options.DefaultUICultureInfoName ?? "en-US");
                 }
