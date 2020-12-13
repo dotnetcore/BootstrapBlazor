@@ -8,7 +8,7 @@
 // **********************************
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.DataAcces.EntityFramework;
+using BootstrapBlazor.DataAcces.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -31,11 +31,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
             services.AddScoped(provider =>
             {
-                DbContext DbContextResolve()
+                DbContext DbContextResolve(IEntityFrameworkCoreDataServiceFlag server)
                 {
                     return provider.GetRequiredService<TContext>();
                 }
-                return (Func<DbContext>)DbContextResolve;
+                return (Func<IEntityFrameworkCoreDataServiceFlag, DbContext>)DbContextResolve;
             });
             return services;
         }

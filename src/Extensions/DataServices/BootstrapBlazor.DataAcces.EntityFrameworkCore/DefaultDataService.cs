@@ -14,20 +14,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.DataAcces.EntityFramework
+namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
 {
     /// <summary>
     /// Entity Framework ORM 的 IDataService 接口实现
     /// </summary>
-    internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
+    internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFrameworkCoreDataServiceFlag where TModel : class, new()
     {
         private readonly DbContext _db;
         /// <summary>
         /// 构造函数
         /// </summary>
-        public DefaultDataService(Func<DbContext> dbContextResolve)
+        public DefaultDataService(Func<IDataService<TModel>, DbContext> dbContextResolve)
         {
-            _db = dbContextResolve();
+            _db = dbContextResolve(this);
         }
 
         /// <summary>
