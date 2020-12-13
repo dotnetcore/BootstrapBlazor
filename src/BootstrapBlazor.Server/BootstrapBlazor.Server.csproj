@@ -13,4 +13,8 @@
         <PackageReference Include="Longbow.Tasks" Version="5.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
