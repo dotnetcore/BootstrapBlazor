@@ -185,7 +185,8 @@
     "FailText": "Failed",
     "DeleteButtonToastTitle": "Delete Data",
     "DeleteButtonToastContent": "Please select DELETE rows, auto close after {1}s",
-    "DeleteButtonToastResultContent": "Delete data {0}, auto close after {1}s"
+    "DeleteButtonToastResultContent": "Delete data {0}, auto close after {1}s",
+    "DataServiceInvalidOperationText": "Cannot provide a value for property 'DataService' on type 'BootstrapBlazor.Components.Table`1[[{0}]]'. There is no registered service of type 'BootstrapBlazor.Components.IDataService`1[{0}]'."
   },
   "BootstrapBlazor.Components.TableEditorDialog": {
     "CloseButtonText": "Close",

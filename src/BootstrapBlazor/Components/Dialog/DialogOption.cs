@@ -8,7 +8,9 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -76,6 +78,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 自定义组件
         /// </summary>
         public DynamicComponent? Component { get; set; }
+
+        /// <summary>
+        /// 获得/设置 关闭弹窗回调方法
+        /// </summary>
+        public Func<Task>? OnCloseAsync { get; set; }
 
         /// <summary>
         /// 将参数转换为组件属性方法

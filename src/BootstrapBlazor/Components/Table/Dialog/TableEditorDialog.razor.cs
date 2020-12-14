@@ -42,6 +42,13 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public string? SaveButtonText { get; set; }
 
+        /// <summary>
+        /// 关闭弹窗回调方法
+        /// </summary>
+        [Parameter]
+        public Func<Task>? OnCloseAsync { get; set; }
+
+
         [Inject]
         [NotNull]
         private IStringLocalizer<TableEditorDialog<TModel>>? Localizer { get; set; }
@@ -55,6 +62,11 @@ namespace BootstrapBlazor.Components
 
             CloseButtonText ??= Localizer[nameof(CloseButtonText)];
             SaveButtonText ??= Localizer[nameof(SaveButtonText)];
+        }
+
+        private async Task OnClose()
+        {
+            if (OnCloseAsync != null) await OnCloseAsync();
         }
     }
 }

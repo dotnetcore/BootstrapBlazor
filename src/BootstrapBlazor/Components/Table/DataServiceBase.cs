@@ -18,11 +18,11 @@ namespace BootstrapBlazor.Components
     public abstract class DataServiceBase<TModel> : IDataService<TModel> where TModel : class, new()
     {
         /// <summary>
-        /// 新建实体类配置方法
+        /// 新建数据操作方法
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public virtual Task Config(in TModel model) => Task.CompletedTask;
+        public virtual Task<bool> AddAsync(TModel model) => Task.FromResult(true);
 
         /// <summary>
         /// 删除数据操作方法

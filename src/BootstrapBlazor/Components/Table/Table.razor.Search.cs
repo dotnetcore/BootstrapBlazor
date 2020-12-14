@@ -106,6 +106,7 @@ namespace BootstrapBlazor.Components
             DialogOption.Title = SearchModalTitle;
             DialogOption.ShowCloseButton = false;
             DialogOption.ShowFooter = false;
+            DialogOption.OnCloseAsync = null;
 
             var columns = Columns.Where(i => i.Searchable).ToList();
             columns.ForEach(i => i.EditTemplate = i.SearchTemplate);

@@ -93,9 +93,11 @@
 }
 </Pre>
 
-<p>
-    需要在使用本组件的页面中内置 <code>Toast</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下
-</p>
+<Tips class="mt-3">
+    <p>
+        需要在使用本组件的页面中内置 <code>Toast</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+    </p>
+</Tips>
 
 <Pre>&lt;Toast /&gt;</Pre>
 
@@ -117,6 +119,19 @@
     // 统一设置 Toast 组件自动消失时间
     services.Configure&lt;BootstrapBlazorOptions&gt;(options =>
     {
+        options.ToastDelay = 4000;
+    });
+}
+</Pre>
+
+<div class="mb-3">或者，仅适用于 <code>Server-Side App</code></div>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // 增加 BootstrapBlazor 组件
+    services.AddBootstrapBlazor(options =>
+    {
+        // 统一设置 Toast 组件自动消失时间
         options.ToastDelay = 4000;
     });
 }

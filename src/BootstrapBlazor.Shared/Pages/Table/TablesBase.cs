@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -581,7 +582,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("主键")]
+        [Display(Name = "主键")]
         [AutoGenerateColumn(Ignore = true)]
         [FreeSql.DataAnnotations.Column(IsIdentity = true)]
         public int Id { get; set; }
@@ -589,45 +590,45 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("姓名")]
-        [Required(ErrorMessage = "姓名不能为空")]
+        [Display(Name = "姓名")]
+        [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 10)]
         public string? Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("日期")]
+        [Display(Name = "日期")]
         [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
         public DateTime? DateTime { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("地址")]
-        [Required(ErrorMessage = "地址不能为空")]
+        [Display(Name = "地址")]
+        [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 20)]
         public string? Address { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("数量")]
+        [Display(Name = "数量")]
         [AutoGenerateColumn(Order = 40)]
         public int Count { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("是/否")]
+        [Display(Name = "是/否")]
         [AutoGenerateColumn(Order = 50)]
         public bool Complete { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Required(ErrorMessage = "请选择学历")]
-        [DisplayName("学历")]
+        [Required(ErrorMessage = "请选择{0}")]
+        [Display(Name = "学历")]
         [AutoGenerateColumn(Order = 60)]
         //[EnumConverter(typeof(EnumEducation))]
         public EnumEducation? Education { get; set; }
@@ -650,4 +651,36 @@ namespace BootstrapBlazor.Shared.Pages
         [Description("中学")]
         Middel
     }
+
+    ///// <summary>
+    ///// BindItemContext 上下文操作类
+    ///// </summary>
+    //public class BindItemDbContext : DbContext
+    //{
+    //    /// <summary>
+    //    /// 构造函数
+    //    /// </summary>
+    //    /// <param name="options"></param>
+    //    public BindItemDbContext(DbContextOptions<BindItemDbContext> options) : base(options)
+    //    {
+
+    //    }
+
+    //    /// <summary>
+    //    /// 
+    //    /// </summary>
+    //    public DbSet<BindItem>? BindItems { get; set; }
+
+    //    /// <summary>
+    //    /// OnModelCreating 方法
+    //    /// </summary>
+    //    /// <param name="modelBuilder"></param>
+    //    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //    {
+    //        modelBuilder.Entity(delegate (EntityTypeBuilder<BindItem> entity)
+    //        {
+    //            entity.HasKey(e => e.Id);
+    //        });
+    //    }
+    //}
 }

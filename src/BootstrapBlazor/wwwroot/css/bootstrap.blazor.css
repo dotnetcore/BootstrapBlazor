@@ -5329,71 +5329,75 @@ input:disabled,
 /*end message*/
 
 /*tree*/
-.tree .tree-root {
-    padding: 0;
-    margin: 0;
+.tree {
+    position: relative;
 }
 
-.tree .tree-ul {
-    padding: 0 0 0 20px;
-    margin: 0;
-    display: none;
-}
-
-    .tree .tree-ul.show {
-        display: block;
+    .tree .tree-root {
+        padding: 0;
+        margin: 0;
     }
 
-.tree .tree-item {
-    list-style: none;
-    cursor: pointer;
-    margin: 1px 0;
-}
-
-    .tree .tree-item:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 29px;
-        transition: background-color .3s linear;
+    .tree .tree-ul {
+        padding: 0 0 0 20px;
+        margin: 0;
+        display: none;
     }
 
-    .tree .tree-item.hover:before {
-        background-color: #66a2e0a1;
+        .tree .tree-ul.show {
+            display: block;
+        }
+
+    .tree .tree-item {
+        list-style: none;
+        cursor: pointer;
+        margin: 1px 0;
     }
 
-    .tree .tree-item.active:before {
-        background-color: #409effa1;
-    }
+        .tree .tree-item:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 29px;
+            transition: background-color .3s linear;
+        }
 
-    .tree .tree-item .tree-content {
-        position: relative;
-        display: flex;
-        padding: 0.25rem 0;
-        align-items: center;
-    }
+        .tree .tree-item.hover:before {
+            background-color: #66a2e0a1;
+        }
 
-        .tree .tree-item .tree-content .fa-caret-right {
-            width: 18px;
-            height: 18px;
-            transition: transform .3s linear;
+        .tree .tree-item.active:before {
+            background-color: #409effa1;
+        }
+
+        .tree .tree-item .tree-content {
+            position: relative;
             display: flex;
+            padding: 0.25rem 0;
             align-items: center;
-            justify-content: center;
         }
 
-        .tree .tree-item .tree-content .show .fa-caret-right {
-            transform: rotate(90deg);
-        }
+            .tree .tree-item .tree-content .fa-caret-right {
+                width: 18px;
+                height: 18px;
+                transition: transform .3s linear;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-.tree .tree-node {
-    flex: 1;
-}
+            .tree .tree-item .tree-content .show .fa-caret-right {
+                transform: rotate(90deg);
+            }
 
-.tree .form-checkbox {
-    margin: 0 4px;
-}
+    .tree .tree-node {
+        flex: 1;
+    }
+
+    .tree .form-checkbox {
+        margin: 0 4px;
+    }
 
 .tree-icon {
     width: 18px;

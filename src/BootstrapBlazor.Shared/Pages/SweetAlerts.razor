@@ -109,6 +109,14 @@ Trace?.Log($"模态弹窗返回值为：{ret}");
     <Button Icon="fa fa-fa" Text="自动关闭弹窗" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
 </Block>
 
+<Tips class="mt-3">
+    <p>
+        需要在使用本组件的页面中内置 <code>SweetAlert</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+    </p>
+</Tips>
+
+<Pre>&lt;SweetAlert /&gt;</Pre>
+
 <SweetAlert />
 
 <AttributeTable Items="@GetAttributes()" />

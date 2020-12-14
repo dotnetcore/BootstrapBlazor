@@ -6,7 +6,10 @@
     本地化是为给定语言和地区定制应用程序的过程。<code>BootstrapBlazor</code> 组件允许您将其 UI 元素转换为所需的语言。这包括按钮、过滤器操作符属性等文本。组件内部默认使用当前系统 <code>UI</code> 文化语言，本文将向您展示如何在应用程序中使用此功能：
 </p>
 
-<Alert ShowBar="true" Color="@Color.Info">阅读以下知识点前请先查看 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1" target="_blank">微软官方文档</a></Alert>
+<Alert ShowBar="true" Color="@Color.Info">
+    阅读以下知识点前请先查看 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1" target="_blank">微软官方文档</a>
+    <div>由于 <code>wasm</code> 模式无法获取系统语言文化信息，默认文化信息为 <code>en</code>，<Anchor Target="lang">请查阅文章最后更改默认语言章节</Anchor></div>
+</Alert>
 
 <p><b>本地化在组件中的工作原理</b></p>
 
@@ -24,7 +27,7 @@
 <p><b>2. 实现 UI 本地化信息存储（例如，cookie）</b></p>
 <Pre CodeFile="install.4.html" />
 
-<p><b>3. 添加允许用户更改本地化的 <code>UI</code></b></p>
+<p><b>3. 添加允许用户更改本地化的 UI</b></p>
 <Pre CodeFile="install.5.html" />
 
 <p><b>4. 添加 <code>Json</code> 资源文件</b></p>
@@ -46,3 +49,17 @@
 <p><b>2. 实现 UI 本地化信息存储（例如，localStorage）</b></p>
 
 <p>与 Server-Side 一致</p>
+
+<p id="lang"><b>更改默认语言设置</b></p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // 增加 BootstrapBlazor 组件
+    services.AddBootstrapBlazor(options =>
+    {
+        // 设置默认语言
+        // 组件内部已开启自动判断系统语言信息设置默认文化信息，未设置 DefaultUICultureInforName 时自动判断
+        options.DefaultUICultureInfoName = "zh-CN";
+    });
+}
+</Pre>

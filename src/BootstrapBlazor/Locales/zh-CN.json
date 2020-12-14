@@ -185,7 +185,8 @@
     "FailText": "失败",
     "DeleteButtonToastTitle": "删除数据",
     "DeleteButtonToastContent": "请选择要删除的数据, {0} 秒后自动关闭",
-    "DeleteButtonToastResultContent": "删除数据{0}, {1} 秒后自动关闭"
+    "DeleteButtonToastResultContent": "删除数据{0}, {1} 秒后自动关闭",
+    "DataServiceInvalidOperationText": "未注册 'BootstrapBlazor.Components.IDataService`1[{0}]' 服务"
   },
   "BootstrapBlazor.Components.TableEditorDialog": {
     "CloseButtonText": "关闭",

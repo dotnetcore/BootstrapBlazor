@@ -516,7 +516,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "对话框 Dialog",
-                Url = "dialogs"
+                Url = "dialogs",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -573,6 +574,12 @@ namespace BootstrapBlazor.Shared.Shared
 
         private void AddNavigation(DemoMenuItem item)
         {
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = "锚点 Anchor",
+                Url = "anchors",
+                IsNew = true
+            });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "面包屑 Breadcrumb",

@@ -8,7 +8,6 @@
 // **********************************
 
 using BootstrapBlazor.Localization.Json;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
 using System;
 

@@ -15,6 +15,10 @@
 
 <Block Title="基础用法" Introduction="通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单" CodeFile="editorform.1.html">
     <p>直接绑定模型 <code>Model</code>，设置 <b>爱好</b> 字段不显示</p>
+    <Tips>
+        <p>自动绑定列如果是使用 <code>input</code> 呈现，绑定模型 <code>Model</code> 可使用 <code>PlaceHolderAttribute</code> 标签进行设置</p>
+    </Tips>
+    <div style="height: 0.75rem"></div>
     <div class="form-demo">
         <label class="legend">表单示例</label>
         <EditorForm Model="@Model">

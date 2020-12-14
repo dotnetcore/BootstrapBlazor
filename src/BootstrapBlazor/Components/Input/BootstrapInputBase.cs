@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 input 类型 text password number
         /// </summary>
-        protected string Type { get; set; } = "text";
+        protected string? Type { get; set; }
 
         /// <summary>
         /// 获得/设置 是否为 Input-Group 组合
@@ -55,9 +55,12 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("type", out var t))
+            if (AdditionalAttributes != null)
             {
-                Type = t.ToString()!;
+                if (AdditionalAttributes.TryGetValue("type", out var t))
+                {
+                    Type = t?.ToString();
+                }
             }
 
             // 设置 Number 类型

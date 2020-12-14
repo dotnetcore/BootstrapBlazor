@@ -232,6 +232,14 @@ section {
         padding-bottom: 0.5rem;
     }
 
+    .content .alert h4 {
+        margin-top: 0;
+    }
+
+    .content .alert-info .fa-lightbulb-o {
+        color: #17a2b8
+    }
+
 .table-demo {
     border-collapse: collapse;
     width: 100%;
@@ -362,7 +370,7 @@ section {
         font-size: 0.75rem;
         border: 1px solid #eaeefb;
         border-radius: 4px;
-        padding: 10px 16px;
+        padding: 10px 65px 10px 16px;
         -webkit-font-smoothing: auto;
         display: block;
         white-space: pre-wrap;

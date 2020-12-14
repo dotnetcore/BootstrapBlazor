@@ -57,13 +57,17 @@
     </div>
 </Block>
 
-<h4>特别注意</h4>
+<Block Title="代码关闭弹窗" Introduction="本例讲解如何通过代码打开与关闭弹窗" CodeFile="dialog.5.html">
+    <p>利用弹窗参数 <code>DialogOption</code> 实例，弹窗弹出后实例中的 <code>Dialog</code> 属性值即为当前弹窗句柄，通过调用其 <code>Toggle/Close</code> 方法即可关闭弹窗</p>
 
-<p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
+    <Button @onclick="@Show">Dialog</Button>
+</Block>
 
-<p>
-    需要在使用本组件的页面中内置 <code>Dialog</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下
-</p>
+<Tips class="mt-3">
+    <p>
+        本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>Dialog</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+    </p>
+</Tips>
 
 <Pre>&lt;Dialog /&gt;</Pre>
 
