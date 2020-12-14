@@ -1,7 +1,7 @@
 ﻿@inherits BootstrapComponentBase
 
 <Alert AdditionalAttributes="@AdditionalAttributes" ShowBar="true" Color="@Color">
-    <h4><i class="fa fa-lightbulb-o"></i>@Title</h4>
+    <h4><i class="@Icon"></i>@Title</h4>
     @ChildContent
 </Alert>
 
@@ -11,6 +11,12 @@
     /// </summary>
     [Parameter]
     public string Title { get; set; } = "小技巧";
+
+    /// <summary>
+    /// 获得/设置 图标
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; } = "fa fa-lightbulb-o";
 
     /// <summary>
     /// 获得/设置 颜色 默认为 Info

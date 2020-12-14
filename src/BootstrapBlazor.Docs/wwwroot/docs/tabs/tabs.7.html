@@ -45,7 +45,7 @@
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
-            [nameof(TabItem.ChildContent)] = text == "计数器" ? DynamicComponent.CreateComponent<Counter>() : DynamicComponent.CreateComponent<FetchData>()
+            [nameof(TabItem.ChildContent)] = text == "计数器" ? DynamicComponent.CreateComponent<Counter>().Render() : DynamicComponent.CreateComponent<FetchData>().Render
         };
         var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
         if (TabSetMenu != null) await TabSetMenu.Add(item);

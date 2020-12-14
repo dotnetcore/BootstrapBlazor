@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 所属 Tab 实例
         /// </summary>
         [CascadingParameter]
-        protected TabBase? TabSet { get; set; }
+        protected Tab? TabSet { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

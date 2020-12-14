@@ -1,10 +1,17 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TabBase
+@inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" @ref="TabElement">
     <div class="tabs-header">
-        <div class="tabs-nav-wrap">
-            <span class="tabs-nav-prev" @onclick="@ClickPrevTab"><i class="fa fa-angle-left"></i></span>
+        <div class="@WrapClassString">
+            @if (ShouldShowExtendButtons())
+            {
+                <div class="nav-link-bar left" @onclick="ClickPrevTab"><i class="fa fa-chevron-left"></i></div>
+            }
+            else
+            {
+                <div class="tabs-nav-prev" @onclick="@ClickPrevTab"><i class="fa fa-angle-left"></i></div>
+            }
             <div class="tabs-nav-scroll">
                 <div role="tablist" class="tabs-nav">
                     @if (!IsCard && !IsBorderCard)
@@ -41,7 +48,22 @@
                     </RenderTemplate>
                 </div>
             </div>
-            <span class="tabs-nav-next" @onclick="@ClickNextTab"><i class="fa fa-angle-right"></i></span>
+            @if (ShouldShowExtendButtons())
+            {
+                <div class="nav-link-bar right" @onclick="ClickNextTab"><i class="fa fa-chevron-right"></i></div>
+                <div class="dropdown nav-link-bar dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="nav-link-close"><i class="fa fa-chevron-down"></i></div>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="关闭标签下拉菜单">
+                    <div class="dropdown-item" @onclick="CloseCurrentTab"><span>关闭当前标签</span></div>
+                    <div class="dropdown-item" @onclick="CloseOtherTab"><span>关闭其他标签</span></div>
+                    <div class="dropdown-item" @onclick="CloseAllTab"><span>关闭所有标签</span></div>
+                </div>
+            }
+            else
+            {
+                <div class="tabs-nav-next" @onclick="@ClickNextTab"><i class="fa fa-angle-right"></i></div>
+            }
         </div>
     </div>
     <div class="tabs-body">

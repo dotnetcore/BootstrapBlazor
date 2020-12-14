@@ -11,6 +11,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,42 +22,40 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Tabs
     {
+        [NotNull]
         private Tab? TabSet { get; set; }
 
-        private async Task AddTab()
+        [NotNull]
+        private Tab? TabSet2 { get; set; }
+
+        private async Task AddTab(Tab tabset)
         {
-            if (TabSet != null)
+            var text = $"Tab {tabset.Items.Count() + 1}";
+            var item = new TabItem();
+            var parameters = new Dictionary<string, object>
             {
-                var text = $"Tab {TabSet.Items.Count() + 1}";
-                var item = new TabItem();
-                var parameters = new Dictionary<string, object>
+                [nameof(TabItem.Text)] = text,
+                [nameof(TabItem.IsActive)] = true,
+                [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
                 {
-                    [nameof(TabItem.Text)] = text,
-                    [nameof(TabItem.IsActive)] = true,
-                    [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
-                    {
-                        var index = 0;
-                        builder.OpenElement(index++, "div");
-                        builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
-                        builder.CloseElement();
-                    })
-                };
-                var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-                await TabSet.Add(item);
-            }
+                    var index = 0;
+                    builder.OpenElement(index++, "div");
+                    builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
+                    builder.CloseElement();
+                })
+            };
+            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
+            await tabset.Add(item);
         }
 
         private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
 
-        private async Task RemoveTab()
+        private async Task RemoveTab(Tab tabset)
         {
-            if (TabSet != null)
+            if (tabset.Items.Count() > 4)
             {
-                if (TabSet.Items.Count() > 4)
-                {
-                    var item = TabSet.Items.Last();
-                    await TabSet.Remove(item);
-                }
+                var item = tabset.Items.Last();
+                await tabset.Remove(item);
             }
         }
 
@@ -76,17 +75,15 @@ namespace BootstrapBlazor.Shared.Pages
             };
         }
 
+        [NotNull]
         private Tab? TabSetMenu { get; set; }
 
         private async Task OnClickMenuItem(MenuItem item)
         {
-            if (TabSetMenu != null)
-            {
-                var text = item.Text;
-                var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
-                if (tabItem == null) await AddTabItem(text ?? "");
-                else await TabSetMenu.ActiveTab(tabItem);
-            }
+            var text = item.Text;
+            var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
+            if (tabItem == null) await AddTabItem(text ?? "");
+            else await TabSetMenu.ActiveTab(tabItem);
         }
 
         private async Task AddTabItem(string text)
@@ -99,7 +96,7 @@ namespace BootstrapBlazor.Shared.Pages
                 [nameof(TabItem.ChildContent)] = text == "计数器" ? DynamicComponent.CreateComponent<Counter>().Render() : DynamicComponent.CreateComponent<FetchData>().Render()
             };
             var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-            if (TabSetMenu != null) await TabSetMenu.Add(item);
+            await TabSetMenu.Add(item);
         }
 
         /// <summary>
@@ -140,6 +137,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "ShowClose",
                 Description = "是否显示关闭按钮",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowExtendButtons",
+                Description = "是否显示扩展按钮",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"

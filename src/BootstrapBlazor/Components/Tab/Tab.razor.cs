@@ -18,20 +18,24 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Tab 组件基类
     /// </summary>
-    public abstract class TabBase : BootstrapComponentBase
+    public sealed partial class Tab
     {
         /// <summary>
         /// 
         /// </summary>
-        protected bool FirstRender { get; private set; } = true;
+        private bool FirstRender { get; set; } = true;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
+        private string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
             .AddClass("d-none", !item.IsActive)
+            .Build();
+
+        private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
+            .AddClass("extend", ShouldShowExtendButtons())
             .Build();
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="active"></param>
         /// <returns></returns>
-        protected string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
+        private string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
             .AddClass("is-active", active)
             .AddClass("is-closeable", ShowClose)
             .Build();
@@ -49,19 +53,19 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="icon"></param>
         /// <returns></returns>
-        protected string? GetIconClassString(string icon) => CssBuilder.Default("fa fa-fw")
+        private string? GetIconClassString(string icon) => CssBuilder.Default("fa fa-fw")
             .AddClass(icon)
             .Build();
 
         /// <summary>
         /// 获得/设置 Tab 组件 DOM 实例
         /// </summary>
-        protected ElementReference TabElement { get; set; }
+        private ElementReference TabElement { get; set; }
 
         /// <summary>
         /// 获得 Tab 组件样式
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("tabs")
+        private string? ClassString => CssBuilder.Default("tabs")
             .AddClass("tabs-card", IsCard)
             .AddClass("tabs-border-card", IsBorderCard)
             .AddClass($"tabs-{Placement.ToDescriptionString()}", Placement == Placement.Top || Placement == Placement.Right || Placement == Placement.Bottom || Placement == Placement.Left)
@@ -71,7 +75,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Tab 组件 Style
         /// </summary>
-        protected string? StyleString => CssBuilder.Default()
+        private string? StyleString => CssBuilder.Default()
             .AddClass($"height: {Height}px;", Height > 0)
             .Build();
 
@@ -113,6 +117,12 @@ namespace BootstrapBlazor.Components
         public bool ShowClose { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示扩展功能按钮 默认为 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowExtendButtons { get; set; }
+
+        /// <summary>
         /// 获得/设置 TabItems 模板
         /// </summary>
         [Parameter]
@@ -123,6 +133,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<TabItem, Task>? OnClickTab { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (ShowExtendButtons) IsBorderCard = true;
+        }
 
         /// <summary>
         /// OnAfterRender 方法
@@ -137,10 +157,12 @@ namespace BootstrapBlazor.Components
             await JSRuntime.InvokeVoidAsync(TabElement, "bb_tab");
         }
 
+        private bool ShouldShowExtendButtons() => ShowExtendButtons && (Placement == Placement.Top || Placement == Placement.Bottom);
+
         /// <summary>
         /// 点击 TabItem 时回调此方法
         /// </summary>
-        protected virtual async Task OnClickTabItem(TabItem item)
+        private async Task OnClickTabItem(TabItem item)
         {
             Items.ToList().ForEach(i => i.SetActive(false));
             item.SetActive(true);
@@ -150,7 +172,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击上一个标签页时回调此方法
         /// </summary>
-        protected virtual void ClickPrevTab()
+        private void ClickPrevTab()
         {
             var item = Items.FirstOrDefault(i => i.IsActive);
             if (item != null)
@@ -170,7 +192,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击下一个标签页时回调此方法
         /// </summary>
-        protected virtual void ClickNextTab()
+        private void ClickNextTab()
         {
             var item = Items.FirstOrDefault(i => i.IsActive);
             if (item != null)
@@ -188,6 +210,31 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 关闭所有标签页方法
+        /// </summary>
+        private void CloseAllTab()
+        {
+            _items.Clear();
+        }
+
+        /// <summary>
+        /// 关闭当前标签页方法
+        /// </summary>
+        private async Task CloseCurrentTab()
+        {
+            var tab = _items.FirstOrDefault(t => t.IsActive);
+            if (tab != null) await Remove(tab);
+        }
+
+        /// <summary>
+        /// 关闭其他标签页方法
+        /// </summary>
+        private void CloseOtherTab()
+        {
+            _items.RemoveAll(t => !t.IsActive);
+        }
+
+        /// <summary>
         /// 添加 TabItem 方法 由 TabItem 方法加载时调用
         /// </summary>
         /// <param name="item">TabItemBase 实例</param>
@@ -197,7 +244,7 @@ namespace BootstrapBlazor.Components
         /// 添加 TabItem 方法
         /// </summary>
         /// <param name="item"></param>
-        public virtual Task Add(TabItem item)
+        public Task Add(TabItem item)
         {
             var check = _items.Contains(item);
             if (item.IsActive || !check) _items.ForEach(i => i.SetActive(false));
@@ -214,7 +261,7 @@ namespace BootstrapBlazor.Components
         /// 移除 TabItem 方法
         /// </summary>
         /// <param name="item"></param>
-        public virtual Task Remove(TabItem item)
+        public Task Remove(TabItem item)
         {
             var index = _items.IndexOf(item);
             _items.Remove(item);
@@ -241,7 +288,7 @@ namespace BootstrapBlazor.Components
         /// 设置指定 TabItem 为激活状态
         /// </summary>
         /// <param name="item"></param>
-        public virtual Task ActiveTab(TabItem item)
+        public Task ActiveTab(TabItem item)
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
