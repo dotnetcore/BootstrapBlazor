@@ -618,7 +618,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "标签页 Tab",
-                Url = "tabs"
+                Url = "tabs",
+                IsUpdate = true
             });
 
             AddBadge(item);
