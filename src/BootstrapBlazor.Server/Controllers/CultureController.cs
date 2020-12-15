@@ -4,7 +4,7 @@
 // 开源地址：
 // Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
 // GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
+// 开源协议：Apache-2.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
 // **********************************
 
 using Microsoft.AspNetCore.Localization;
