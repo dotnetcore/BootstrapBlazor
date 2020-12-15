@@ -15,4 +15,8 @@
         <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="logo.png" Pack="true" PackagePath="" />
+    </ItemGroup>
+
 </Project>
