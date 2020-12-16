@@ -182,6 +182,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowSkeleton",
+                Description = "是否显示加载骨架屏",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "OnTreeItemClick",
                 Description = "树形控件节点点击时回调委托",
                 Type = "Func<TreeItem, Task>",

@@ -240,7 +240,7 @@ namespace BootstrapBlazor.Components
         private string? methodName;
 
         /// <summary>
-        /// 获得/设置 是否我第一次 Render
+        /// 获得/设置 是否为第一次 Render
         /// </summary>
         protected bool FirstRender { get; set; } = true;
 
