@@ -16,19 +16,19 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// Tree 组件基类
+    /// Tree 组件
     /// </summary>
-    public abstract class TreeBase : BootstrapComponentBase
+    public sealed partial class Tree
     {
         /// <summary>
         /// 获得/设置 Tree 组件实例引用
         /// </summary>
-        protected ElementReference TreeElement { get; set; }
+        private ElementReference TreeElement { get; set; }
 
         /// <summary>
         /// 获得 按钮样式集合
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("tree")
+        private string? ClassString => CssBuilder.Default("tree")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetIconClassString(TreeItem item) => CssBuilder.Default("tree-icon")
+        private string? GetIconClassString(TreeItem item) => CssBuilder.Default("tree-icon")
             .AddClass(item.Icon)
             .Build();
 
@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa fa-caret-right")
+        private string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa fa-caret-right")
             .AddClass("invisible", !item.Items.Any())
             .AddClass("fa-rotate-90", item.IsExpanded)
             .Build();
@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetItemClassString(TreeItem item) => CssBuilder.Default("tree-item")
+        private string? GetItemClassString(TreeItem item) => CssBuilder.Default("tree-item")
             .AddClass("active", ActiveItem == item)
             .Build();
 
@@ -65,14 +65,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected string? GetTreeNodeClassString(TreeItem item) => CssBuilder.Default("tree-ul")
+        private string? GetTreeNodeClassString(TreeItem item) => CssBuilder.Default("tree-ul")
             .AddClass("show", item.IsExpanded)
             .Build();
 
         /// <summary>
         /// 获得/设置 当前激活的节点实例
         /// </summary>
-        protected TreeItem? ActiveItem { get; set; }
+        private TreeItem? ActiveItem { get; set; }
 
         /// <summary>
         /// 获得/设置 是否为手风琴效果 默认为 false
@@ -85,6 +85,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ClickToggleNode { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示加载骨架屏 默认 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSkeleton { get; set; }
 
         /// <summary>
         /// 获得/设置 菜单数据集合
@@ -135,7 +141,7 @@ namespace BootstrapBlazor.Components
         /// 选中节点时触发此方法
         /// </summary>
         /// <returns></returns>
-        protected async Task OnClick(TreeItem item)
+        private async Task OnClick(TreeItem item)
         {
             ActiveItem = item;
             if (ClickToggleNode) OnExpandRow(item);
@@ -146,7 +152,7 @@ namespace BootstrapBlazor.Components
         /// 更改节点是否展开方法
         /// </summary>
         /// <param name="item"></param>
-        protected void OnExpandRow(TreeItem item)
+        private void OnExpandRow(TreeItem item)
         {
             if (IsAccordion)
             {
@@ -168,7 +174,7 @@ namespace BootstrapBlazor.Components
         /// <param name="state"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected async Task OnStateChanged(CheckboxState state, TreeItem item)
+        private async Task OnStateChanged(CheckboxState state, TreeItem item)
         {
             // 向下级联操作
             item.CascadeSetCheck(item.Checked);
