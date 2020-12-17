@@ -17,8 +17,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="..\Server\BootstrapBlazor.Server\wwwroot\favicon.ico" Link="wwwroot\favicon.ico" />
-        <Content Include="..\Server\BootstrapBlazor.Server\wwwroot\favicon.png" Link="wwwroot\favicon.png" />
+      <Content Include="..\..\BootstrapBlazor.Server\wwwroot\favicon.ico" Link="wwwroot\favicon.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="..\..\BootstrapBlazor.Server\wwwroot\favicon.png" Link="wwwroot\favicon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
