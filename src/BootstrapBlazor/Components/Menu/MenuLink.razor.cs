@@ -8,6 +8,7 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace BootstrapBlazor.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        private string? GetHrefString => (DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url?.TrimStart('/'));
+        private string? GetHrefString => (DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url);
 
         /// <summary>
         /// 获得/设置 是否禁止导航 默认为 false 允许导航
@@ -51,5 +52,7 @@ namespace BootstrapBlazor.Components
         {
             if (OnClick != null) await OnClick(Item);
         }
+
+        private NavLinkMatch GetMatch() => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : NavLinkMatch.Prefix;
     }
 }

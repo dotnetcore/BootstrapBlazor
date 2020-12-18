@@ -8,8 +8,10 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -64,15 +66,18 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 菜单项点击回调委托
         /// </summary>
         [Parameter]
-        public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
+        public Func<MenuItem, Task>? OnClick { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 NavigationManager 实例
         /// </summary>
         [Inject]
-        private NavigationManager Navigator { get; set; }
-#nullable restore
+        [NotNull]
+        private NavigationManager? Navigator { get; set; }
+
+        [Inject]
+        [NotNull]
+        private MenuTabBoundleOptions? Options { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -82,7 +87,15 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             var item = FindMenuItem(Items, Navigator.ToBaseRelativePath(Navigator.Uri));
-            CascadingSetActive(item);
+
+            if (DisableNavigation)
+            {
+                CascadingSetActive(item);
+            }
+            else
+            {
+                Options.TabItemText = item?.Text;
+            }
         }
 
         /// <summary>
@@ -122,9 +135,11 @@ namespace BootstrapBlazor.Components
         {
             if (!item.IsDisabled)
             {
+                Options.TabItemText = item.Text;
+
                 // 回调委托
-                await OnClick(item);
-                if (!item.Items.Any())
+                if (OnClick != null) await OnClick(item);
+                if (DisableNavigation)
                 {
                     CascadingSetActive(item);
                     StateHasChanged();

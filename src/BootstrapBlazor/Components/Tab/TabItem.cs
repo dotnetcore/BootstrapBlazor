@@ -24,6 +24,12 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 请求地址
+        /// </summary>
+        [Parameter]
+        public string? Url { get; set; }
+
+        /// <summary>
         /// 获得/设置 当前状态是否激活
         /// </summary>
         [Parameter]

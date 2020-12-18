@@ -3076,6 +3076,7 @@ input:disabled,
     cursor: pointer;
     align-items: center;
     position: relative;
+    transition: color .3s linear, background-color .3s linear;
 }
 
     .tabs-item:hover {
@@ -3202,8 +3203,15 @@ input:disabled,
 
         .tabs-border-card .tabs-header .tabs-item {
             border: 1px solid transparent;
-            color: #909399;
         }
+
+            .tabs-border-card .tabs-header .tabs-item:not(:hover):not(.is-active) {
+                color: #909399;
+            }
+
+            .tabs-border-card .tabs-header .tabs-item:hover {
+                background-color: #e9ecef;
+            }
 
     .tabs-border-card.tabs-top .tabs-header {
         border-bottom: 1px solid #e4e7ed;
@@ -3266,6 +3274,16 @@ input:disabled,
 .tabs-card .tabs-item.is-closeable .tabs-item-text, .tabs-border-card .tabs-item.is-closeable .tabs-item-text {
     margin-right: 1rem;
     margin-left: 0rem;
+}
+
+.layout-main > .tabs.tabs-top.tabs-border-card {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: none;
+    overflow: auto;
 }
 /*end tabs*/
 

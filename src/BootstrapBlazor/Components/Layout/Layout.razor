@@ -8,7 +8,16 @@
             @Header
         </header>
         <main class="@MainClassString">
-            @Main
+            @if (UseTabSet)
+            {
+                <CascadingValue Value="this" IsFixed="true">
+                    <Tab ClickTabToNavigator="true" ShowExtendButtons="true"></Tab>
+                </CascadingValue>
+            }
+            else
+            {
+                @Main
+            }
         </main>
         @if (ShowFooter)
         {
@@ -45,7 +54,16 @@
                 @Header
             </header>
             <main class="@MainClassString">
-                @Main
+                @if (UseTabSet)
+                {
+                    <CascadingValue Value="this" IsFixed="true">
+                        <Tab ClickTabToNavigator="true" ShowExtendButtons="true"></Tab>
+                    </CascadingValue>
+                }
+                else
+                {
+                    @Main
+                }
             </main>
             @if (ShowFooter)
             {
@@ -81,7 +99,16 @@
                 }
             </aside>
             <main class="@MainClassString">
-                @Main
+                @if (UseTabSet)
+                {
+                    <CascadingValue Value="this" IsFixed="true">
+                        <Tab ClickTabToNavigator="true" ShowExtendButtons="true"></Tab>
+                    </CascadingValue>
+                }
+                else
+                {
+                    @Main
+                }
             </main>
         </section>
         @if (ShowFooter)

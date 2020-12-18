@@ -31,7 +31,7 @@
                         }
                         @foreach (var item in Items)
                         {
-                            <div role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" @onclick="@(e =>OnClickTabItem(item))">
+                            <div role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" @onclick="@(e => OnClickTabItem(item))">
                                 @if (!string.IsNullOrEmpty(item.Icon))
                                 {
                                     <i class="@GetIconClassString(item.Icon)"></i>

@@ -142,6 +142,12 @@ namespace BootstrapBlazor.Components
         public IEnumerable<MenuItem>? Menus { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否右侧使用 Tab 组件 默认为 false 不使用
+        /// </summary>
+        [Parameter]
+        public bool UseTabSet { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否固定 Footer 组件
         /// </summary>
         [Parameter]

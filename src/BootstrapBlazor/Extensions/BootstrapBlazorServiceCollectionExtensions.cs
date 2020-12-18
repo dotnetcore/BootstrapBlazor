@@ -38,6 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<PopoverService>();
             services.AddScoped<ToastService>();
             services.AddScoped<SwalService>();
+            services.AddScoped<MenuTabBoundleOptions>();
             services.AddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {
