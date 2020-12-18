@@ -533,6 +533,20 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "AddModalTitle",
+                Description = "新建数据弹窗 Title",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "EditModalTitle",
+                Description = "编辑数据弹窗 Title",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "RenderModel",
                 Description = "Table 组件布局模式设置",
                 Type = "TableRenderModel",
