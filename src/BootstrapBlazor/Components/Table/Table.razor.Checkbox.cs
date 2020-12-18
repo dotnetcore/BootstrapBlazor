@@ -125,8 +125,6 @@ namespace BootstrapBlazor.Components
                 await HeaderCheckbox.SetState(headerCheckboxState);
             }
 
-            if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
-
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
             StateHasChanged();
         };
