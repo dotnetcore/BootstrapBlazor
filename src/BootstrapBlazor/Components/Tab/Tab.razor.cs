@@ -258,6 +258,17 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 添加 TabItem 方法
+        /// </summary>
+        /// <param name="parameters"></param>
+        public void AddTab(Dictionary<string, object> parameters)
+        {
+            var item = TabItem.Create(parameters);
+            _items.Add(item);
+            StateHasChanged();
+        }
+
+        /// <summary>
         /// 移除 TabItem 方法
         /// </summary>
         /// <param name="item"></param>

@@ -8,6 +8,7 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
 {
@@ -67,5 +68,17 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="active"></param>
         public virtual void SetActive(bool active) => IsActive = active;
+
+        /// <summary>
+        /// 通过指定参数集合获取 TabItem 实例
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static TabItem Create(Dictionary<string, object> parameters)
+        {
+            var item = new TabItem();
+            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
+            return item;
+        }
     }
 }
