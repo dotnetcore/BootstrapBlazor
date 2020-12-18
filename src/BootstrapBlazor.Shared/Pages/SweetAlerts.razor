@@ -87,7 +87,7 @@
     <p><code>IsConfirm</code> 参数表示弹窗为确认窗口，自动生成 <code>取消</code> <code>确认</code> 两个按钮</p>
     <Pre class="no-highlight">var ret = await SwalService.ShowModal(op);
 
-/// ShowModal 返回后下面代码才执行
+// ShowModal 返回后下面代码才执行
 Trace?.Log($"模态弹窗返回值为：{ret}");
 </Pre>
     <Button Icon="fa fa-fa" Text="模态对话框" Color="Color.Success" OnClick="@ShowModal" />
