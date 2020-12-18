@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
             {
                 var t = Nullable.GetUnderlyingType(type) ?? type;
                 var attributes = t.GetField(fieldName)?.GetCustomAttribute<DescriptionAttribute>();
-                ret = attributes?.Description ?? string.Empty;
+                ret = attributes?.Description ?? fieldName;
             }
             return ret;
         }
