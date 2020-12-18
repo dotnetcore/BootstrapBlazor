@@ -37,7 +37,7 @@
                                     <i class="@GetIconClassString(item.Icon)"></i>
                                 }
                                 <span class="tabs-item-text">@item.Text</span>
-                                @if (ShowClose)
+                                @if (ShowClose && item.Closable)
                                 {
                                     <span class="tabs-item-close" @onclick:stopPropagation @onclick="@(e => Remove(item))">
                                         <i class="fa fa-fw fa-close"></i>

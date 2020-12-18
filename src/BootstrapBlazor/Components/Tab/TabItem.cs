@@ -36,6 +36,12 @@ namespace BootstrapBlazor.Components
         public bool IsActive { get; set; }
 
         /// <summary>
+        /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
+        /// </summary>
+        [Parameter]
+        public bool Closable { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 图标字符串 如 "fa fa"
         /// </summary>
         [Parameter]

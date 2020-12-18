@@ -329,7 +329,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private void CloseAllTab()
         {
-            _items.Clear();
+            _items.RemoveAll(t => t.Closable);
         }
 
         /// <summary>
@@ -338,7 +338,7 @@ namespace BootstrapBlazor.Components
         private async Task CloseCurrentTab()
         {
             var tab = _items.FirstOrDefault(t => t.IsActive);
-            if (tab != null) await Remove(tab);
+            if (tab != null && tab.Closable) await Remove(tab);
         }
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private void CloseOtherTab()
         {
-            _items.RemoveAll(t => !t.IsActive);
+            _items.RemoveAll(t => t.Closable && !t.IsActive);
         }
 
         /// <summary>
