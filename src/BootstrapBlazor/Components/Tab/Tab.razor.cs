@@ -199,27 +199,27 @@ namespace BootstrapBlazor.Components
             CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
             CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
 
-            await InitRouteTable();
+            if (ClickTabToNavigation)
+            {
+                await InitRouteTable();
+            }
         }
 
         private Task InitRouteTable() => Task.Run(() =>
         {
-            if (ClickTabToNavigation)
+            var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly()! } : new[] { Assembly.GetEntryAssembly()! }.Concat(AdditionalAssemblies);
+            var componentTypes = apps.SelectMany(a => a.ExportedTypes.Where(t => typeof(IComponent).IsAssignableFrom(t)));
+            foreach (var componentType in componentTypes)
             {
-                var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly()! } : new[] { Assembly.GetEntryAssembly()! }.Concat(AdditionalAssemblies);
-                var componentTypes = apps.SelectMany(a => a.ExportedTypes.Where(t => typeof(IComponent).IsAssignableFrom(t)));
-                foreach (var componentType in componentTypes)
+                var routeAttributes = componentType.GetCustomAttributes<RouteAttribute>(false);
+                foreach (var template in routeAttributes.Select(t => t.Template))
                 {
-                    var routeAttributes = componentType.GetCustomAttributes<RouteAttribute>(false);
-                    foreach (var template in routeAttributes.Select(t => t.Template))
-                    {
-                        RouteTable.TryAdd(template.Trim('/'), componentType);
-                    }
+                    RouteTable.TryAdd(template.Trim('/'), componentType);
                 }
-                Navigator.LocationChanged += Navigator_LocationChanged;
-
-                InvokeAsync(() => AddTabByUrl(Navigator.ToBaseRelativePath(Navigator.Uri)));
             }
+            Navigator.LocationChanged += Navigator_LocationChanged;
+
+            InvokeAsync(() => AddTabByUrl(Navigator.ToBaseRelativePath(Navigator.Uri)));
         });
 
         private void Navigator_LocationChanged(object? sender, LocationChangedEventArgs e)
@@ -280,14 +280,7 @@ namespace BootstrapBlazor.Components
         {
             Items.ToList().ForEach(i => i.SetActive(false));
             if (OnClickTab != null) await OnClickTab(item);
-            if (ClickTabToNavigation)
-            {
-                Navigator.NavigateTo(item.Url ?? "");
-            }
-            else
-            {
-                item.SetActive(true);
-            }
+            if (!ClickTabToNavigation) item.SetActive(true);
         }
 
         /// <summary>

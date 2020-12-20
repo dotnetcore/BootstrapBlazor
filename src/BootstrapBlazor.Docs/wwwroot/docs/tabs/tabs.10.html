@@ -31,11 +31,10 @@
     [NotNull]
     private Tab? TabSet2 { get; set; }
 
-    private async Task AddTab(Tab tabset)
+    private void AddTab(Tab tabset)
     {
         var text = $"Tab {tabset.Items.Count() + 1}";
-        var item = new TabItem();
-        var parameters = new Dictionary<string, object>
+        tabset.Add(new Dictionary<string, object>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
@@ -46,9 +45,7 @@
                 builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
                 builder.CloseElement();
             })
-        };
-        var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-        await tabset.Add(item);
+        });
     }
 
     private async Task RemoveTab(Tab tabset)

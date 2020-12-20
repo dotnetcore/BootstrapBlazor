@@ -48,11 +48,10 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        private async Task AddTab(Tab tabset)
+        private void AddTab(Tab tabset)
         {
             var text = $"Tab {tabset.Items.Count() + 1}";
-            var item = new TabItem();
-            var parameters = new Dictionary<string, object>
+            tabset.Add(new Dictionary<string, object>
             {
                 [nameof(TabItem.Text)] = text,
                 [nameof(TabItem.IsActive)] = true,
@@ -63,9 +62,7 @@ namespace BootstrapBlazor.Shared.Pages
                     builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
                     builder.CloseElement();
                 })
-            };
-            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-            await tabset.Add(item);
+            });
         }
 
         private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
@@ -105,22 +102,16 @@ namespace BootstrapBlazor.Shared.Pages
         {
             var text = item.Text;
             var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
-            if (tabItem == null) await AddTabItem(text ?? "");
+            if (tabItem == null) AddTabItem(text ?? "");
             else await TabSetMenu.ActiveTab(tabItem);
         }
 
-        private async Task AddTabItem(string text)
+        private void AddTabItem(string text) => TabSetMenu.Add(new Dictionary<string, object>
         {
-            var item = new TabItem();
-            var parameters = new Dictionary<string, object>
-            {
-                [nameof(TabItem.Text)] = text,
-                [nameof(TabItem.IsActive)] = true,
-                [nameof(TabItem.ChildContent)] = text == "计数器" ? DynamicComponent.CreateComponent<Counter>().Render() : DynamicComponent.CreateComponent<FetchData>().Render()
-            };
-            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-            await TabSetMenu.Add(item);
-        }
+            [nameof(TabItem.Text)] = text,
+            [nameof(TabItem.IsActive)] = true,
+            [nameof(TabItem.ChildContent)] = text == "计数器" ? DynamicComponent.CreateComponent<Counter>().Render() : DynamicComponent.CreateComponent<FetchData>().Render()
+        });
 
         /// <summary>
         /// 获得属性方法

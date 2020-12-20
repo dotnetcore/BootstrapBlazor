@@ -31,7 +31,7 @@
                         }
                         @foreach (var item in Items)
                         {
-                            <div role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" @onclick="@(e => OnClickTabItem(item))">
+                            <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" @onclick:preventDefault="@(!ClickTabToNavigation)" @onclick="@(e => OnClickTabItem(item))">
                                 @if (!string.IsNullOrEmpty(item.Icon))
                                 {
                                     <i class="@GetIconClassString(item.Icon)"></i>
@@ -43,7 +43,7 @@
                                         <i class="fa fa-fw fa-close"></i>
                                     </span>
                                 }
-                            </div>
+                            </a>
                         }
                     </RenderTemplate>
                 </div>

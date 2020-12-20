@@ -31,38 +31,29 @@
 @code {
     private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
 
-    private async Task AddTab()
+    private void AddTab()
     {
-        if (TabSet != null)
+        var text = $"Tab {TabSet.Items.Count() + 1}";
+        tabset.Add(new Dictionary<string, object>
         {
-            var text = $"Tab {TabSet.Items.Count() + 1}";
-            var item = new TabItem();
-            var parameters = new Dictionary<string, object>
+            [nameof(TabItem.Text)] = text,
+            [nameof(TabItem.IsActive)] = true,
+            [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
             {
-                ["Text"] = text,
-                ["IsActive"] = true,
-                ["ChildContent"] = new RenderFragment(builder =>
-                {
-                    var index = 0;
-                    builder.OpenElement(index++, "div");
-                    builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
-                    builder.CloseElement();
-                })
-            };
-            item.SetParametersAsync(ParameterView.FromDictionary(parameters));
-            await TabSet.Add(item);
-        }
+                var index = 0;
+                builder.OpenElement(index++, "div");
+                builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
+                builder.CloseElement();
+            })
+        });
     }
 
     private async Task RemoveTab()
     {
-        if (TabSet != null)
+        if (TabSet.Items.Count() > 4)
         {
-            if (TabSet.Items.Count() > 4)
-            {
-                var item = TabSet.Items.Last();
-                await TabSet.Remove(item);
-            }
+            var item = TabSet.Items.Last();
+            await TabSet.Remove(item);
         }
     }
 }
