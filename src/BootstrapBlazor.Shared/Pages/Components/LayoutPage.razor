@@ -2,7 +2,14 @@
 
     <h4>整页面级别组件</h4>
 
-    <Tips class="mt-3">通过内置组件 <code>Layout</code> 进行整页面布局，可通过 <code>dotnet new bbapp</code> 或者安装 <code>Visual Studio 2019</code> 项目插件选择 <code>Bootstrap Blazor 项目模板</code> 即可自动生成，详细文档请点击 <a href="template" target="_blank">[传送门]</a></Tips>
+    <Tips class="mt-3">
+        <p>通过内置组件 <code>Layout</code> 进行整页面布局，可通过 <code>dotnet new bbapp</code> 或者安装 <code>Visual Studio 2019</code> 项目插件选择 <code>Bootstrap Blazor 项目模板</code> 即可自动生成，详细文档请点击 <a href="template" target="_blank">[传送门]</a></p>
+        <div>
+            <b>特别注意：</b>
+            <br />
+            <code>Layout</code> 组件开启<code>多标签</code>模式后，如果有 <code>Razor 组件</code> 在额外的程序集中时，请正确设置 <code>AdditionalAssemblies</code> 属性值，以便标签组件内路由正确解析，相关文档 <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-3.1#route-to-components-from-multiple-assemblies" target="_blank">[传送门]</a>
+        </div>
+    </Tips>
 
     <div class="page-layout-demo-option">
         <p>布局调整</p>

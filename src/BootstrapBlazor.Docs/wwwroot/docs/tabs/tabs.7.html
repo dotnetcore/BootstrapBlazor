@@ -27,15 +27,13 @@
         };
     }
 
-    private async Task OnClickMenuItem(MenuItem item)
+    private Task OnClickMenuItem(MenuItem item)
     {
-        if (TabSetMenu != null)
-        {
-            var text = item.Text;
-            var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
-            if (tabItem == null) await AddTabItem(text ?? "");
-            else await TabSetMenu.ActiveTab(tabItem);
-        }
+        var text = item.Text;
+        var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
+        if (tabItem == null) AddTabItem(text ?? "");
+        else TabSetMenu.ActiveTab(tabItem);
+        return Task.CompletedTask;
     }
 
     private void AddTabItem(string text) => TabSetMenu.Add(new Dictionary<string, object>

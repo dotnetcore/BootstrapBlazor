@@ -98,12 +98,13 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private Menu? TabMenu { get; set; }
 
-        private async Task OnClickMenuItem(MenuItem item)
+        private Task OnClickMenuItem(MenuItem item)
         {
             var text = item.Text;
             var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
             if (tabItem == null) AddTabItem(text ?? "");
-            else await TabSetMenu.ActiveTab(tabItem);
+            else TabSetMenu.ActiveTab(tabItem);
+            return Task.CompletedTask;
         }
 
         private void AddTabItem(string text) => TabSetMenu.Add(new Dictionary<string, object>
@@ -185,7 +186,7 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "AdditionalAssemblies",
-                Description = "额外程序集合",
+                Description = "额外程序集合，用于初始化路由",
                 Type = "IEnumerable<Assembly>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -222,7 +223,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "ActiveTab",
                 Description = "设置指定 TabItem 为激活状态",
                 Parameters = "TabItem",
-                ReturnValue = "Task"
+                ReturnValue = " — "
             }
         };
     }

@@ -144,6 +144,20 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "UseTabSet",
+                Description = "是否开启多标签模式",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "AdditionalAssemblies",
+                Description = "额外程序集合，传递给 Tab 组件使用",
+                Type = "IEnumerable<Assembly>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "OnCollapsed",
                 Description = "收缩展开回调委托",
                 Type = "Func<bool, Task>",

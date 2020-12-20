@@ -62,10 +62,8 @@
             CultureStorageMode.Webapi => culture.NativeName,
             _ => culture.Name switch
             {
-                "zh-CN" => "中文(中国)",
-                "zh-TW" => "中文(台灣)",
+                "zh-CN" => "中文（中国）",
                 "en-US" => "English (United States)",
-                "de-DE" => "Deutsch (Deutschland)",
                 _ => ""
             }
         };
