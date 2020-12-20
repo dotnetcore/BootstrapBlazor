@@ -144,6 +144,12 @@ namespace BootstrapBlazor.Shared.Shared
                 Text = "客户端模式 wasm",
                 Url = "install-wasm"
             });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = "后台模板模拟器",
+                Url = "layout-page",
+                IsNew = true
+            });
 
             item.IsCollapsed = false;
             Menus.Add(item);
@@ -635,7 +641,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "布局组件 Layout",
-                Url = "layouts"
+                Url = "layouts",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {

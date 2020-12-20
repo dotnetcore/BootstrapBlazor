@@ -12,6 +12,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -148,6 +149,12 @@ namespace BootstrapBlazor.Components
         public bool UseTabSet { get; set; }
 
         /// <summary>
+        /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
+        /// </summary>
+        [Parameter]
+        public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否固定 Footer 组件
         /// </summary>
         [Parameter]
@@ -218,13 +225,13 @@ namespace BootstrapBlazor.Components
         /// 点击菜单时回调此方法
         /// </summary>
         /// <returns></returns>
-        protected async Task ClickMenu(MenuItem item)
+        protected Func<MenuItem, Task> ClickMenu() => async item =>
         {
             // 小屏幕时生效
             if (IsSmallScreen && !item.Items.Any()) await CollapseMenu();
 
             if (OnClickMenu != null) await OnClickMenu(item);
-        }
+        };
 
         /// <summary>
         /// 设置 请求头方法

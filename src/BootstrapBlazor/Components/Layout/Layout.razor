@@ -4,30 +4,11 @@
 <section @attributes="AdditionalAttributes" class="@ClassString">
     @if (Side == null)
     {
-        <header class="@HeaderClassString">
-            @Header
-        </header>
-        <main class="@MainClassString">
-            @if (UseTabSet)
-            {
-                <CascadingValue Value="this" IsFixed="true">
-                    <Tab ClickTabToNavigator="true" ShowExtendButtons="true" ShowClose="true"></Tab>
-                </CascadingValue>
-            }
-            else
-            {
-                @Main
-            }
-        </main>
+        @RenderHeader.Invoke(false)
+        @RenderMain
         @if (ShowFooter)
         {
-            <footer class="@FooterClassString">
-                @Footer
-                @if (ShowGotoTop)
-                {
-                    <GoTop />
-                }
-            </footer>
+            @RenderFooter
         }
     }
     else if (IsFullSide)
@@ -36,90 +17,85 @@
             @Side
             @if (Menus != null)
             {
-                <div class="layout-menu">
-                    <Scroll IsDark="@IsDark">
-                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu" />
-                    </Scroll>
-                </div>
+                @RenderMenu.Invoke(IsFullSide)
             }
         </aside>
         <section class="layout-right">
-            <header class="@HeaderClassString">
-                @if (ShowCollapseBar)
-                {
-                    <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@CollapseMenu">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                }
-                @Header
-            </header>
-            <main class="@MainClassString">
-                @if (UseTabSet)
-                {
-                    <CascadingValue Value="this" IsFixed="true">
-                        <Tab ClickTabToNavigator="true" ShowExtendButtons="true" ShowClose="true"></Tab>
-                    </CascadingValue>
-                }
-                else
-                {
-                    @Main
-                }
-            </main>
+            @RenderHeader.Invoke(ShowCollapseBar)
+            @RenderMain
             @if (ShowFooter)
             {
-                <footer class="@FooterClassString">
-                    @Footer
-                    @if (ShowGotoTop)
-                    {
-                        <GoTop />
-                    }
-                </footer>
+                @RenderFooter
             }
         </section>
     }
     else
     {
-        <header class="@HeaderClassString">
-            @if (ShowCollapseBar)
-            {
-                <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@CollapseMenu">
-                    <i class="fa fa-bars"></i>
-                </a>
-            }
-            @Header
-        </header>
+        @RenderHeader.Invoke(ShowCollapseBar);
         <section class="has-sidebar">
             <aside class="@SideClassString" style="@SideStyleString">
                 @Side
                 @if (Menus != null)
                 {
-                    <div class="layout-menu">
-                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu" />
-                    </div>
+                    @RenderMenu.Invoke(IsFullSide)
                 }
             </aside>
-            <main class="@MainClassString">
-                @if (UseTabSet)
-                {
-                    <CascadingValue Value="this" IsFixed="true">
-                        <Tab ClickTabToNavigator="true" ShowExtendButtons="true" ShowClose="true"></Tab>
-                    </CascadingValue>
-                }
-                else
-                {
-                    @Main
-                }
-            </main>
+            @RenderMain
         </section>
         @if (ShowFooter)
         {
-            <footer class="@FooterClassString">
-                @Footer
-                @if (ShowGotoTop)
-                {
-                    <GoTop />
-                }
-            </footer>
+            @RenderFooter
         }
     }
 </section>
+
+@code {
+    RenderFragment<bool> RenderHeader => collapse =>
+    @<header class="@HeaderClassString">
+        @if (collapse)
+        {
+            <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => CollapseMenu()))">
+                <i class="fa fa-bars"></i>
+            </a>
+        }
+        @Header
+    </header>;
+
+RenderFragment<bool> RenderMenu => hasScroll =>
+@<div class="layout-menu">
+    @if (hasScroll)
+    {
+        <Scroll>
+            <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu()" />
+        </Scroll>
+    }
+    else
+    {
+        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu()" />
+    }
+</div>;
+
+RenderFragment RenderMain =>
+@<main class="@MainClassString">
+    @if (UseTabSet)
+    {
+        <CascadingValue Value="this" IsFixed="true">
+            <Tab ClickTabToNavigator="true" ShowExtendButtons="true" ShowClose="true"
+                 AdditionalAssemblies="@AdditionalAssemblies"></Tab>
+        </CascadingValue>
+    }
+    else
+    {
+        @Main
+    }
+</main>;
+
+RenderFragment RenderFooter =>
+@<footer class="@FooterClassString">
+    @Footer
+    @if (ShowGotoTop)
+    {
+        <GoTop />
+    }
+</footer>;
+}
