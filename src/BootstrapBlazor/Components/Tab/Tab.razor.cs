@@ -9,6 +9,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -152,6 +153,31 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<TabItem, Task>? OnClickTab { get; set; }
 
+        /// <summary>
+        /// 获得/设置 关闭当前 TabItem 菜单文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CloseCurrentTabText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 关闭所有 TabItem 菜单文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CloseAllTabsText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 关闭其他 TabItem 菜单文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CloseOtherTabsText { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Tab>? Localizer { get; set; }
+
         [Inject]
         [NotNull]
         private NavigationManager? Navigator { get; set; }
@@ -168,6 +194,10 @@ namespace BootstrapBlazor.Components
             await base.OnInitializedAsync();
 
             if (ShowExtendButtons) IsBorderCard = true;
+
+            CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
+            CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
+            CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
 
             await InitRouteTable();
         }
@@ -320,7 +350,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 关闭所有标签页方法
         /// </summary>
-        private void CloseAllTab()
+        private void CloseAllTabs()
         {
             _items.RemoveAll(t => t.Closable);
         }
@@ -337,7 +367,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 关闭其他标签页方法
         /// </summary>
-        private void CloseOtherTab()
+        private void CloseOtherTabs()
         {
             _items.RemoveAll(t => t.Closable && !t.IsActive);
         }

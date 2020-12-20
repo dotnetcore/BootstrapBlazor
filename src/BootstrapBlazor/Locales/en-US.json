@@ -150,6 +150,11 @@
     "OnInnerText": "On",
     "OffInnerText": "Off"
   },
+  "BootstrapBlazor.Components.Tab": {
+    "CloseCurrentTabText": "Close",
+    "CloseOtherTabsText": "Close Other",
+    "CloseAllTabsText": "Close All"
+  },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Add",
     "EditButtonText": "Edit",
