@@ -305,6 +305,13 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
+                    Name = "DisableNavigation",
+                    Description = "是否禁止地址栏导航",
+                    Type = "bool",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
                     Name = "OnClick",
                     Description = "菜单项被点击时回调此方法",
                     Type = "Func<MenuItem, Task>",

@@ -28,6 +28,26 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private Tab? TabSet2 { get; set; }
 
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                var menuItem = TabMenu?.Items.FirstOrDefault();
+                if (menuItem != null)
+                {
+                    await InvokeAsync(() =>
+                    {
+                        var _ = TabMenu?.OnClick?.Invoke(menuItem);
+                    });
+                }
+            }
+        }
+
         private async Task AddTab(Tab tabset)
         {
             var text = $"Tab {tabset.Items.Count() + 1}";
@@ -50,12 +70,12 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
 
-        private async Task RemoveTab(Tab tabset)
+        private void RemoveTab(Tab tabset)
         {
             if (tabset.Items.Count() > 4)
             {
                 var item = tabset.Items.Last();
-                await tabset.Remove(item);
+                tabset.Remove(item);
             }
         }
 
@@ -77,6 +97,9 @@ namespace BootstrapBlazor.Shared.Pages
 
         [NotNull]
         private Tab? TabSetMenu { get; set; }
+
+        [NotNull]
+        private Menu? TabMenu { get; set; }
 
         private async Task OnClickMenuItem(MenuItem item)
         {
@@ -110,21 +133,21 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "IsBorderCard",
                 Description = "是否为带边框卡片样式",
                 Type = "boolean",
-                ValueList = " — ",
+                ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsCard",
                 Description = "是否为卡片样式",
                 Type = "boolean",
-                ValueList = " — ",
+                ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowClose",
                 Description = "是否显示关闭按钮",
                 Type = "boolean",
-                ValueList = " — ",
+                ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
@@ -132,6 +155,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "是否显示扩展按钮",
                 Type = "boolean",
                 ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ClickTabToNavigation",
+                Description = "点击标题时是否导航",
+                Type = "boolean",
+                ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
@@ -161,6 +191,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "AdditionalAssemblies",
+                Description = "额外程序集合",
+                Type = "IEnumerable<Assembly>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnClickTab",
+                Description = "点击 TabItem 标题时回调委托方法",
+                Type = "Func<TabItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
 
@@ -184,10 +228,10 @@ namespace BootstrapBlazor.Shared.Pages
                 ReturnValue = " — "
             },
             new MethodItem() {
-                Name = "ReActiveTab",
-                Description = "切换后回调此方法",
-                Parameters = " — ",
-                ReturnValue = " — "
+                Name = "ActiveTab",
+                Description = "设置指定 TabItem 为激活状态",
+                Parameters = "TabItem",
+                ReturnValue = "Task"
             }
         };
     }

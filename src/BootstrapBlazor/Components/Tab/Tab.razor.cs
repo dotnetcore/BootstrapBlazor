@@ -111,13 +111,6 @@ namespace BootstrapBlazor.Components
         public int Height { get; set; }
 
         /// <summary>
-        /// 获得/设置 默认首页 Tab 显示文本 默认为 Index
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public string? DefaultIndexText { get; set; } = "Index";
-
-        /// <summary>
         /// 获得/设置 组件标签显示位置 默认显示在 Top 位置
         /// </summary>
         [Parameter]
@@ -139,7 +132,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击 TabItem 时是否自动导航 默认为 false 不导航
         /// </summary>
         [Parameter]
-        public bool ClickTabToNavigator { get; set; }
+        public bool ClickTabToNavigation { get; set; }
 
         /// <summary>
         /// 获得/设置 TabItems 模板
@@ -181,7 +174,7 @@ namespace BootstrapBlazor.Components
 
         private Task InitRouteTable() => Task.Run(() =>
         {
-            if (ClickTabToNavigator)
+            if (ClickTabToNavigation)
             {
                 var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly()! } : new[] { Assembly.GetEntryAssembly()! }.Concat(AdditionalAssemblies);
                 var componentTypes = apps.SelectMany(a => a.ExportedTypes.Where(t => typeof(IComponent).IsAssignableFrom(t)));
@@ -257,7 +250,7 @@ namespace BootstrapBlazor.Components
         {
             Items.ToList().ForEach(i => i.SetActive(false));
             if (OnClickTab != null) await OnClickTab(item);
-            if (ClickTabToNavigator)
+            if (ClickTabToNavigation)
             {
                 Navigator.NavigateTo(item.Url ?? "");
             }
@@ -280,10 +273,10 @@ namespace BootstrapBlazor.Components
                 {
                     index--;
                     if (index < 0) index = _items.Count - 1;
-                    if (!ClickTabToNavigator) item.SetActive(false);
+                    if (!ClickTabToNavigation) item.SetActive(false);
 
                     item = Items.ElementAt(index);
-                    if (ClickTabToNavigator)
+                    if (ClickTabToNavigation)
                     {
                         Navigator.NavigateTo(item.Url!);
                     }
@@ -306,13 +299,13 @@ namespace BootstrapBlazor.Components
                 var index = _items.IndexOf(item);
                 if (index < _items.Count)
                 {
-                    if (!ClickTabToNavigator) item.SetActive(false);
+                    if (!ClickTabToNavigation) item.SetActive(false);
 
                     index++;
                     if (index + 1 > _items.Count) index = 0;
                     item = Items.ElementAt(index);
 
-                    if (ClickTabToNavigator)
+                    if (ClickTabToNavigation)
                     {
                         Navigator.NavigateTo(item.Url!);
                     }
@@ -335,10 +328,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 关闭当前标签页方法
         /// </summary>
-        private async Task CloseCurrentTab()
+        private void CloseCurrentTab()
         {
             var tab = _items.FirstOrDefault(t => t.IsActive);
-            if (tab != null && tab.Closable) await Remove(tab);
+            if (tab != null && tab.Closable) Remove(tab);
         }
 
         /// <summary>
@@ -376,7 +369,7 @@ namespace BootstrapBlazor.Components
         /// 添加 TabItem 方法
         /// </summary>
         /// <param name="parameters"></param>
-        public void AddTab(Dictionary<string, object> parameters)
+        public void Add(Dictionary<string, object> parameters)
         {
             var item = TabItem.Create(parameters);
             _items.Add(item);
@@ -387,7 +380,7 @@ namespace BootstrapBlazor.Components
         /// 移除 TabItem 方法
         /// </summary>
         /// <param name="item"></param>
-        public Task Remove(TabItem item)
+        public void Remove(TabItem item)
         {
             var index = _items.IndexOf(item);
             _items.Remove(item);
@@ -407,7 +400,6 @@ namespace BootstrapBlazor.Components
                 }
                 if (activeItem != null) activeItem.SetActive(true);
             }
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -431,7 +423,7 @@ namespace BootstrapBlazor.Components
         {
             if (disposing)
             {
-                if (ClickTabToNavigator) Navigator.LocationChanged -= Navigator_LocationChanged;
+                if (ClickTabToNavigation) Navigator.LocationChanged -= Navigator_LocationChanged;
             }
 
             base.Dispose(disposing);

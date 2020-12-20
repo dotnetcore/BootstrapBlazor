@@ -6,7 +6,17 @@
 
 <p>Tab 组件从设计上采用模板的设计形式，使用本组件时通过将 <code>TabItem</code> 子组件添加到 <code>TabItems</code> 模板中即可</p>
 
-<p>本组件会根据宽度高度等进行自适应适配，适当的时候可以出现左右或者上下的滚动箭头</p>
+<Tips>
+    <p>
+        <code>Tab</code> 组件一般有两种用法：
+        <ul class="ul-demo">
+            <li>作为数据分割</li>
+            <li>页面导航</li>
+        </ul>
+        <div>本组件默认行为为数据分割，点击 <code>TabItem</code> 标题时并不会进行导航行为，如果需要进行地址栏导航时请设置 <code>ClickTabToNavigation</code> 属性为 <code>true</code>，此时点击 <code>TabItem</code> 标题时地址栏将会重定向导航，多用于后台管理系统与 <code>Menu</code> 组件进行联动使用，实战可参考 <a href="layout-page" target="_blank">后台模板模拟器</a> 中的 <code>多标签</code> 模式</div>
+    </p>
+    <p>本组件会根据宽度高度等进行自适应适配，适当的时候可以出现左右或者上下的滚动箭头</p>
+</Tips>
 
 <Block Title="基础用法" Introduction="基础的、简洁的标签页。" CodeFile="tabs.1.html">
     <Tab>
@@ -223,7 +233,7 @@
         </Header>
         <Side>
             <div style="border-right: 1px solid #e6e6e6; height: 100%; overflow: auto; padding: 1rem 0; background-color: #f8f9fa;">
-                <Menu Items="@GetSideMenuItems()" IsVertical="true" OnClick="@OnClickMenuItem" />
+                <Menu Items="@GetSideMenuItems()" IsVertical="true" OnClick="@OnClickMenuItem" @ref="TabMenu" />
             </div>
         </Side>
         <Main>
@@ -242,7 +252,7 @@
             <i class="fa fa-plus-circle"></i>
             <span>添加</span>
         </button>
-        <button type="button" class="btn btn-outline-danger" disabled="@RemoveEndableString" @onclick="@(e => RemoveTab(TabSet2))">
+        <button type="button" class="btn btn-outline-danger" disabled="@((TabSet2?.Items.Count() > 4) ? null : "true")" @onclick="@(e => RemoveTab(TabSet2!))">
             <i class="fa fa-minus-circle"></i>
             <span>移除</span>
         </button>
