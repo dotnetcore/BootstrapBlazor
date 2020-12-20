@@ -396,6 +396,7 @@ namespace BootstrapBlazor.Components
         public void Add(Dictionary<string, object> parameters)
         {
             var item = TabItem.Create(parameters);
+            if (item.IsActive) _items.ForEach(i => i.SetActive(false));
             _items.Add(item);
             StateHasChanged();
         }
