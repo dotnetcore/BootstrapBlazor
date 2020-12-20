@@ -205,7 +205,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private Task InitRouteTable() => Task.Run(() =>
+        private async Task InitRouteTable()
         {
             var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly() } : new[] { Assembly.GetEntryAssembly() }.Concat(AdditionalAssemblies).Where(a => a != null);
             var componentTypes = apps.SelectMany(a => a!.ExportedTypes.Where(t => typeof(IComponent).IsAssignableFrom(t)));
@@ -220,8 +220,8 @@ namespace BootstrapBlazor.Components
             }
             Navigator.LocationChanged += Navigator_LocationChanged;
 
-            InvokeAsync(() => AddTabByUrl(Navigator.ToBaseRelativePath(Navigator.Uri)));
-        });
+            await InvokeAsync(() => AddTabByUrl(Navigator.ToBaseRelativePath(Navigator.Uri)));
+        }
 
         private void Navigator_LocationChanged(object? sender, LocationChangedEventArgs e)
         {
@@ -376,7 +376,7 @@ namespace BootstrapBlazor.Components
         /// 添加 TabItem 方法
         /// </summary>
         /// <param name="item"></param>
-        public Task Add(TabItem item)
+        public void Add(TabItem item)
         {
             var check = _items.Contains(item);
             if (item.IsActive || !check) _items.ForEach(i => i.SetActive(false));
@@ -386,7 +386,6 @@ namespace BootstrapBlazor.Components
                 item.SetActive(true);
             }
             StateHasChanged();
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -423,7 +422,11 @@ namespace BootstrapBlazor.Components
                     // 查找前面的 Tab
                     activeItem = _items.LastOrDefault();
                 }
-                if (activeItem != null) activeItem.SetActive(true);
+                if (activeItem != null)
+                {
+                    if (ClickTabToNavigation) Navigator.NavigateTo(activeItem.Url!);
+                    else activeItem.SetActive(true);
+                }
             }
         }
 
@@ -431,13 +434,12 @@ namespace BootstrapBlazor.Components
         /// 设置指定 TabItem 为激活状态
         /// </summary>
         /// <param name="item"></param>
-        public Task ActiveTab(TabItem item)
+        public void ActiveTab(TabItem item)
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
 
             StateHasChanged();
-            return Task.CompletedTask;
         }
 
         /// <summary>
