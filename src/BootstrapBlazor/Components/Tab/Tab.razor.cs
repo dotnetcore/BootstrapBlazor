@@ -207,8 +207,9 @@ namespace BootstrapBlazor.Components
 
         private Task InitRouteTable() => Task.Run(() =>
         {
-            var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly()! } : new[] { Assembly.GetEntryAssembly()! }.Concat(AdditionalAssemblies);
-            var componentTypes = apps.SelectMany(a => a.ExportedTypes.Where(t => typeof(IComponent).IsAssignableFrom(t)));
+            var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly() } : new[] { Assembly.GetEntryAssembly() }.Concat(AdditionalAssemblies).Where(a => a != null);
+            var componentTypes = apps.SelectMany(a => a!.ExportedTypes.Where(t => typeof(IComponent).IsAssignableFrom(t)));
+
             foreach (var componentType in componentTypes)
             {
                 var routeAttributes = componentType.GetCustomAttributes<RouteAttribute>(false);
