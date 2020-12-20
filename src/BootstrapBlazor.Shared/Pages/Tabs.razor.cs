@@ -121,20 +121,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "Placement",
-                Description = "设置标签位置",
-                Type = "Placement",
-                ValueList = "Top|Right|Bottom|Left",
-                DefaultValue = "Top"
-            },
-            new AttributeItem() {
-                Name = "Height",
-                Description = "设置标签高度",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "0"
-            },
-            new AttributeItem() {
                 Name = "ShowClose",
                 Description = "是否显示关闭按钮",
                 Type = "boolean",
@@ -147,6 +133,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Placement",
+                Description = "设置标签位置",
+                Type = "Placement",
+                ValueList = "Top|Right|Bottom|Left",
+                DefaultValue = "Top"
+            },
+            new AttributeItem() {
+                Name = "Height",
+                Description = "设置标签高度",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Items",

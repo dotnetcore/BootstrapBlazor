@@ -21,35 +21,15 @@
     <code>Footer</code>：底部布局，自带默认样式，其下可嵌套任何元素
 </p>
 
-<Alert ShowBar="true" Color="Color.Info">
+<Tips>
     <p>
         以上组件采用了 flex 布局，使用前请确定目标浏览器是否兼容。此外，<code>Layout</code> 的子元素只能是后四者，后四者的父元素也只能是 <code>Layout</code>
     </p>
-</Alert>
 
-<h4>注意事项</h4>
+    <b>注意事项</b>
 
-<Alert ShowBar="true" Color="Color.Info">
-    <p>
-        坊间传闻 <code>Layout</code> 布局组件不好用，其实很大的原因是组件采用了 flex 布局，自身受到父类容器的诸多限制，比如新建 blazor 工程你新建一个页面使用 <code>Layout</code> 组件时其实它本身处于一个 <code>App</code> 节点下的 <code>main</code> 样式下的 <code>content</code> 样式下，这里受到了诸多样式的干扰，请按照自己的需求正确的调整父级容器的样式后 <code>Layout</code> 组件才能正确的工作，本组件只能对自身内部的组件进行限制
-    </p>
-</Alert>
-
-<p>可以尝试设置 <code>App</code> 组件如下样式进行修正，此段样式请放置到您项目工程中的 <code>wwwroot\css\site.css</code> 文件结尾处</p>
-
-<Pre>app {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    overflow: auto;
-}
-</Pre>
-
-<Alert ShowBar="true" Color="Color.Success">
     <p>为了方便大家利用这套组件快速搭建项目，作者制作了 <b>项目模板（<code>Project Templates</code>）</b>，使用 <code>dotnet new</code> 命令行，与 <code>Bootstrap Blazor App Extension 扩展插件</code> 通过 <code>Visual Studio 2019</code> 新建项目创建，具体使用方法与步骤请点击 <a href="template" target="_blank">传送门</a></p>
-</Alert>
+</Tips>
 
 <h4>常见页面布局</h4>
 
@@ -135,9 +115,9 @@
     <p>
         本例点击左侧菜单展开后出现滚动条
     </p>
-    <Alert ShowBar="true">
+    <Tips>
         右侧面板中可用区域默认为全部，适用于带 <code>Tab</code> 组件的布局，本例中为了美观 <code>Main</code> 模板中内置了一个 <code>div</code> 并且设置样式为 <code>style="padding: 1rem;"</code>
-    </Alert>
+    </Tips>
     <div style="width: 100%; height: 300px; border: 1px solid rgba(0,0,0,.125);">
         <Layout ShowFooter="true" SideWidth="160px">
             <Header>
@@ -183,7 +163,7 @@
 </Block>
 
 <Block Title="整页面级别的组件" Introduction="">
-    <Alert ShowBar="true">通过设置 <code>IsPage</code> 属性设置 <code>Layout</code> 组件是否掌控正页面级别的布局方式，设置为 <code>true</code> 后，本组件采用整屏布局</Alert>
+    <Tips>通过设置 <code>IsPage</code> 属性设置 <code>Layout</code> 组件是否掌控正页面级别的布局方式，设置为 <code>true</code> 后，本组件采用整屏布局</Tips>
 
     <ul class="page-layout-demo-list">
         <li><a href="layout-page" target="_blank">整页面组件生成器</a></li>
