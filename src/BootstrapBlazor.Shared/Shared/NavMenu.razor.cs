@@ -528,7 +528,8 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "抽屉 Drawer",
-                Url = "drawers"
+                Url = "drawers",
+                IsUpdate = true
             });
             item.AddItem(new DemoMenuItem()
             {

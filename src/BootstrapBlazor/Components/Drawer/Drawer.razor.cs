@@ -9,26 +9,28 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Drawer 组件基类
     /// </summary>
-    public abstract class DrawerBase : BootstrapComponentBase
+    public sealed partial class Drawer
     {
+        private ElementReference DrawerElement { get; set; }
+
         /// <summary>
         /// 获得 组件样式
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("drawer-wrapper")
-            .AddClass("is-open", IsOpen)
+        private string? ClassString => CssBuilder.Default("drawer-wrapper")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
         /// 获得 抽屉 Style 字符串
         /// </summary>
-        protected string? DrawerStyleString => CssBuilder.Default()
+        private string? DrawerStyleString => CssBuilder.Default()
             .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
             .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
             .Build();
@@ -36,7 +38,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 抽屉样式
         /// </summary>
-        protected string? DrawerClassString => CssBuilder.Default("drawer")
+        private string? DrawerClassString => CssBuilder.Default("drawer")
             .AddClass("left", Placement != Placement.Right && Placement != Placement.Top && Placement != Placement.Bottom)
             .AddClass("top", Placement == Placement.Top)
             .AddClass("right", Placement == Placement.Right)
@@ -92,6 +94,21 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (!firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync(DrawerElement, "bb_drawer", IsOpen);
+            }
+        }
+
+        /// <summary>
         /// 点击背景遮罩方法
         /// </summary>
         public void OnContainerClick()
@@ -99,7 +116,6 @@ namespace BootstrapBlazor.Components
             if (IsBackdrop)
             {
                 IsOpen = false;
-                if (IsOpenChanged.HasDelegate) IsOpenChanged.InvokeAsync(IsOpen);
                 OnClickBackdrop?.Invoke();
             }
         }

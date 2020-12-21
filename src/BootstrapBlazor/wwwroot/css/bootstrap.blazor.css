@@ -5281,10 +5281,6 @@ input:disabled,
     z-index: 2020;
 }
 
-    .drawer-wrapper.is-open {
-        transform: translateX(0);
-    }
-
 .drawer-container {
     position: relative;
     left: 0;
@@ -5334,9 +5330,31 @@ input:disabled,
         transform: translateY(100%);
     }
 
-.is-open .drawer {
+.is-open .drawer,
+.is-open.drawer-wrapper,
+.is-close.drawer-wrapper {
     transform: translateX(0);
 }
+
+.is-close .drawer {
+    transform: translateX(0);
+}
+
+.is-close .drawer {
+    transform: translateX(-100%);
+}
+
+    .is-close .drawer.right {
+        transform: translateX(100%);
+    }
+
+    .is-close .drawer.top {
+        transform: translateY(-100%);
+    }
+
+    .is-close .drawer.bottom {
+        transform: translateY(100%);
+    }
 /*end drawer*/
 
 /*message*/
