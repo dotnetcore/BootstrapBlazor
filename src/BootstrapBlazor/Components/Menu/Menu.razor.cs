@@ -87,12 +87,9 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             var item = FindMenuItem(Items, Navigator.ToBaseRelativePath(Navigator.Uri));
+            CascadingSetActive(item);
 
-            if (DisableNavigation)
-            {
-                CascadingSetActive(item);
-            }
-            else
+            if (!DisableNavigation)
             {
                 Options.TabItemText = item?.Text;
             }
