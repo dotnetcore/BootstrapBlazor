@@ -146,13 +146,13 @@ To start the wizard, use either of the following approaches
 
 ## Screenshots
 
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload.png "Upload.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload2.png "Upload2.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Bar.png "Bar.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
+![Toggle](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Toggle.png "Toggle.png")
+![Toast](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Toast.png "Toast.png")
+![Upload](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Upload.png "Upload.png")
+![Upload2](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Upload2.png "Upload2.png")
+![Bar](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Bar.png "Bar.png")
+![Pei](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Pie.png "Pei.png")
+![Doughnut](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
 
 ## Contribution
 
@@ -165,4 +165,4 @@ To start the wizard, use either of the following approaches
 
 If this project is helpful to you, please scan the QR code below for a cup of coffee.    
 
-<img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/WeChat/BarCode@2x.png" width="382px;" />
+<img src="https://raw.githubusercontent.com/ArgoZhang/Images/master/Donate/BarCode%402x.png" width="382px;" />
