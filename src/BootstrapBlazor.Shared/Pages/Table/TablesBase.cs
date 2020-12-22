@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Sortable",
                 Description = "是否排序",
-                Type = "string",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
