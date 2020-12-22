@@ -181,11 +181,18 @@ namespace BootstrapBlazor.Components
         {
             if (UseInjectDataService || OnSaveAsync != null)
             {
-                if (OnAddAsync != null) EditModel = await OnAddAsync();
-                else
+                if (OnAddAsync != null)
+                {
+                    EditModel = await OnAddAsync();
+                }
+                else if (UseInjectDataService)
                 {
                     EditModel = new TItem();
                     await GetDataService().AddAsync(EditModel);
+                }
+                else
+                {
+                    EditModel = new TItem();
                 }
 
                 SelectedItems.Clear();
