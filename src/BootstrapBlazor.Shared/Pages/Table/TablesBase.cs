@@ -498,6 +498,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "OnClickRowCallback",
+                Description = "点击行回调委托方法",
+                Type = "Func<TItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "OnDoubleClickRowCallback",
                 Description = "双击行回调委托方法",
                 Type = "Func<TItem, Task>",
