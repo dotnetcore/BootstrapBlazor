@@ -9,7 +9,10 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Shared
 {
@@ -18,6 +21,8 @@ namespace BootstrapBlazor.Shared.Shared
     /// </summary>
     public sealed partial class PageLayout
     {
+        private bool IsOpen { get; set; }
+
         /// <summary>
         /// 获得/设置 是否固定页头
         /// </summary>
@@ -42,7 +47,30 @@ namespace BootstrapBlazor.Shared.Shared
         [Parameter]
         public bool ShowFooter { get; set; } = true;
 
-        private bool UseTabSet { get; set; }
+        /// <summary>
+        /// 获得/设置 是否开启多标签模式
+        /// </summary>
+        [Parameter]
+        public bool UseTabSet { get; set; } = true;
+
+        [Inject]
+        [NotNull]
+        private IJSRuntime? JSRuntime { get; set; }
+
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("$.tooltip");
+            }
+        }
 
         /// <summary>
         /// 更新组件方法
@@ -55,5 +83,10 @@ namespace BootstrapBlazor.Shared.Shared
             new MenuItem() { Text = "布局网页", Icon = "fa fa-fw fa-desktop", Url = "layout-page" },
             new MenuItem() { Text = "示例网页", Icon = "fa fa-fw fa-laptop", Url = "layout-demo" }
         };
+
+        private void ToggleDrawer()
+        {
+            IsOpen = !IsOpen;
+        }
     }
 }

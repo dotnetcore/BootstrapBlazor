@@ -1151,3 +1151,102 @@ section {
     .culture-selector .form-select {
         width: 210px;
     }
+
+.layout-drawer {
+    padding: 13px;
+    margin-right: -1rem;
+    cursor: pointer;
+}
+
+    .layout-drawer:hover {
+        background-color: #1893a7;
+    }
+
+.layout-drawer-body {
+    padding: 1rem;
+}
+
+.layout-item {
+    cursor: pointer;
+    border: 2px solid #e9ecef;
+    padding: 4px;
+    border-radius: 4px;
+    height: 80px;
+    width: 120px;
+    transition: border .3s linear;
+}
+
+    .layout-item:hover,
+    .layout-item.active {
+        border: 2px solid #28a745;
+    }
+
+    .layout-item .layout-left {
+        width: 30%;
+    }
+
+        .layout-item .layout-left .layout-left-header {
+            height: 16px;
+            background-color: #367fa9;
+        }
+
+        .layout-item .layout-left .layout-left-body,
+        .layout-item .layout-body .layout-left {
+            background-color: #2f4050;
+        }
+
+    .layout-item .layout-right .layout-right-header,
+    .layout-item .layout-top {
+        background-color: #17a2b8;
+        height: 16px;
+    }
+
+    .layout-item .layout-right .layout-right-footer,
+    .layout-item .layout-footer {
+        background-color: #5b6e84;
+        height: 12px;
+    }
+
+    .layout-item .layout-top,
+    .layout-item .layout-body,
+    .layout-item .layout-footer {
+        width: 100%;
+    }
+
+.color {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: block;
+    cursor: pointer;
+    border: 2px solid #e9ecef;
+    border-radius: 4px;
+    transition: border .3s linear;
+}
+
+    .color:hover {
+        border: 2px solid #28a745;
+    }
+
+.color1 {
+    background-color: #409eff;
+}
+
+.color2 {
+    background-color: #28a745;
+}
+
+.color3 {
+    background-color: #e83e8c;
+}
+
+.color4 {
+    background-color: #ffe484;
+}
+
+.color5 {
+    background-color: #17a2b8;
+}
+
+.color6 {
+    background-color: #4a3275;
+}
