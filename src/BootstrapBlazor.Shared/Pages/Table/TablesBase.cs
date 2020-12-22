@@ -601,6 +601,8 @@ namespace BootstrapBlazor.Shared.Pages
     [Table("Test")]
     public class BindItem
     {
+        // 列头信息支持 ColumnName Display DisplayName 三种标签
+
         /// <summary>
         /// 
         /// </summary>
@@ -613,22 +615,22 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "姓名")]
         [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 10)]
+        [ColumnName(Name = "姓名", ResourceName = "Name", ResourceType = typeof(BindItem))]
         public string? Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "日期")]
         [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
+        [ColumnName(Name = "日期", ResourceName = "DateTime", ResourceType = typeof(BindItem))]
         public DateTime? DateTime { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "地址")]
+        [ColumnName(Name = "地址", ResourceName = "Address", ResourceType = typeof(BindItem))]
         [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 20)]
         public string? Address { get; set; }
@@ -636,14 +638,14 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "数量")]
+        [ColumnName(Name = "数量", ResourceName = "Count", ResourceType = typeof(BindItem))]
         [AutoGenerateColumn(Order = 40)]
         public int Count { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "是/否")]
+        [ColumnName(Name = "是/否", ResourceName = "Complete", ResourceType = typeof(BindItem))]
         [AutoGenerateColumn(Order = 50)]
         public bool Complete { get; set; }
 
@@ -651,7 +653,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Required(ErrorMessage = "请选择{0}")]
-        [Display(Name = "学历")]
+        [ColumnName(Name = "学历", ResourceName = "Education", ResourceType = typeof(BindItem))]
         [AutoGenerateColumn(Order = 60)]
         //[EnumConverter(typeof(EnumEducation))]
         public EnumEducation? Education { get; set; }

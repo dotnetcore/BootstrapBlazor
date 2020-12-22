@@ -12,6 +12,8 @@ using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
 
 namespace Microsoft.AspNetCore.Components.Forms
@@ -21,7 +23,7 @@ namespace Microsoft.AspNetCore.Components.Forms
     /// </summary>
     public static class FieldIdentifierExtensions
     {
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(Type, string), string>();
+        private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(string, Type, string), string>();
         private static ConcurrentDictionary<(Type ModelType, string FieldName), string> PlaceHolderCache { get; } = new ConcurrentDictionary<(Type, string), string>();
 
         private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> PropertyInfoCache { get; } = new ConcurrentDictionary<(Type, string), PropertyInfo>();
@@ -49,19 +51,27 @@ namespace Microsoft.AspNetCore.Components.Forms
         /// <returns></returns>
         public static string GetDisplayName(this Type modelType, string fieldName)
         {
-            var cacheKey = (Type: modelType, FieldName: fieldName);
+            var cacheKey = (CultureInfoName: CultureInfo.CurrentUICulture.Name, Type: modelType, FieldName: fieldName);
             if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
             {
                 if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
-                    var displayNameAttribute = propertyInfo!.GetCustomAttribute<DisplayAttribute>();
-                    if (displayNameAttribute != null)
+                    var colNameAttribute = propertyInfo.GetCustomAttribute<ColumnNameAttribute>();
+                    if (colNameAttribute != null)
                     {
-                        dn = displayNameAttribute.Name;
+                        dn = colNameAttribute.GetName();
                     }
-                    else
+                    if (string.IsNullOrEmpty(dn))
                     {
-                        var displayAttribute = propertyInfo!.GetCustomAttribute<DisplayNameAttribute>();
+                        var displayNameAttribute = propertyInfo.GetCustomAttribute<DisplayAttribute>();
+                        if (displayNameAttribute != null)
+                        {
+                            dn = displayNameAttribute.Name;
+                        }
+                    }
+                    if (string.IsNullOrEmpty(dn))
+                    {
+                        var displayAttribute = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
                         if (displayAttribute != null)
                         {
                             dn = displayAttribute.DisplayName;
@@ -106,7 +116,7 @@ namespace Microsoft.AspNetCore.Components.Forms
             {
                 if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
-                    var placeHolderAttribute = propertyInfo!.GetCustomAttribute<PlaceHolderAttribute>();
+                    var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>();
                     if (placeHolderAttribute != null)
                     {
                         dn = placeHolderAttribute.Text;
@@ -121,7 +131,7 @@ namespace Microsoft.AspNetCore.Components.Forms
             return dn;
         }
 
-        private static bool TryGetValidatableProperty(Type modelType, string fieldName, out PropertyInfo? propertyInfo)
+        private static bool TryGetValidatableProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
         {
             var cacheKey = (ModelType: modelType, FieldName: fieldName);
             if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))

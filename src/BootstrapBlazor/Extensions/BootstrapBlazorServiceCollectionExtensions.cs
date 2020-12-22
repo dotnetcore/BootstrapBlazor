@@ -51,6 +51,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
             });
 
+            ServiceProviderHelper.RegisterService(services);
+
             return services;
         }
     }
