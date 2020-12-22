@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "ValueChanged",
                 Description="获取选择改变的值",
                 Type ="EventCallback<bool>"
-            },
+            }
         };
 
         /// <summary>
@@ -127,6 +127,13 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = " — ",
                 DefaultValue = " — "
             },
+            new AttributeItem() {
+                Name = "OnValueChanged",
+                Description = "值发生改变时回调委托方法",
+                Type = "Func<bool, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
         };
     }
 }

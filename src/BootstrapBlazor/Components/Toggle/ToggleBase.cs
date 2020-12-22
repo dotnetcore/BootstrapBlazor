@@ -8,6 +8,7 @@
 // **********************************
 
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -68,6 +69,12 @@ namespace BootstrapBlazor.Components
         public Color Color { get; set; } = Color.Success;
 
         /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        public Func<bool, Task>? OnValueChanged { get; set; }
+
+        /// <summary>
         /// 点击控件时触发此方法
         /// </summary>
         protected virtual async Task OnClick()
@@ -76,6 +83,7 @@ namespace BootstrapBlazor.Components
             {
                 Value = !Value;
                 if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+                OnValueChanged?.Invoke(Value);
             }
         }
     }
