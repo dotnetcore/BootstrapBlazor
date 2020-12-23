@@ -129,6 +129,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnSelectedItemChanged",
+                Description = "下拉框选择项改变时回调此委托",
+                Type = "Func<TValue, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }
