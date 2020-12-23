@@ -13,7 +13,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 [*.{cs,css,js,json,html,razor}]
 charset = utf-8-bom 
-[*.{json,yml,xml}]
+[*.{json,yml,xml,csproj}]
 indent_size = 2
 ############################### 
 # .NET Coding Conventions     # 

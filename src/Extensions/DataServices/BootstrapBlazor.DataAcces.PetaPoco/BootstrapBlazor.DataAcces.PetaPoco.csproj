@@ -1,27 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <IsPackable>true</IsPackable>
-        <PackageIcon>logo.png</PackageIcon>
-        <Version>5.0.0-beta01</Version>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>5.0.1</Version>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <SupportedPlatform Include="browser" />
-    </ItemGroup>
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Longbow.PetaPoco" Version="5.0.1" />
-        <PackageReference Include="PetaPoco.Extensions" Version="5.0.1" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="5.0.7" />
+    <PackageReference Include="Longbow.PetaPoco" Version="5.0.1" />
+    <PackageReference Include="PetaPoco.Extensions" Version="5.0.1" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <None Include="logo.png" Pack="true" PackagePath="" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
 
 </Project>
