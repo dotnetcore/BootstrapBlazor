@@ -297,7 +297,7 @@ namespace BootstrapBlazor.Components
                     // 自动刷新功能
                     _ = Task.Run(async () =>
                     {
-                        while (!AutoRefreshCancelTokenSource.IsCancellationRequested)
+                        while (!(AutoRefreshCancelTokenSource?.IsCancellationRequested ?? true))
                         {
                             await InvokeAsync(QueryAsync);
                             await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
@@ -395,6 +395,7 @@ namespace BootstrapBlazor.Components
         {
             if (disposing)
             {
+                AutoRefreshCancelTokenSource?.Cancel();
                 AutoRefreshCancelTokenSource?.Dispose();
                 AutoRefreshCancelTokenSource = null;
             }
