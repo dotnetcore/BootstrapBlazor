@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击背景遮罩时回调委托方法
         /// </summary>
         [Parameter]
-        public Action? OnClickBackdrop { get; set; }
+        public Func<Task>? OnClickBackdrop { get; set; }
 
         /// <summary>
         /// 获得/设置 点击遮罩是否关闭抽屉
@@ -111,12 +111,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击背景遮罩方法
         /// </summary>
-        public void OnContainerClick()
+        public async Task OnContainerClick()
         {
             if (IsBackdrop)
             {
                 IsOpen = false;
-                OnClickBackdrop?.Invoke();
+                if (IsOpenChanged.HasDelegate) await IsOpenChanged.InvokeAsync(IsOpen);
+                if (OnClickBackdrop != null) await OnClickBackdrop.Invoke();
             }
         }
     }
