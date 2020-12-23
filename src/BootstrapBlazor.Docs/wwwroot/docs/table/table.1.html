@@ -27,4 +27,82 @@
     /// 
     /// </summary>
     protected static IEnumerable<BindItem> Items { get; } = GenerateItems();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class BindItem
+    {
+        // 列头信息支持 ColumnName Display DisplayName 三种标签
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Display(Name = "主键")]
+        [AutoGenerateColumn(Ignore = true)]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required(ErrorMessage = "{0}不能为空")]
+        [AutoGenerateColumn(Order = 10)]
+        [ColumnName(Name = "姓名", ResourceName = "Name", ResourceType = typeof(BindItem))]
+        public string? Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
+        [ColumnName(Name = "日期", ResourceName = "DateTime", ResourceType = typeof(BindItem))]
+        public DateTime? DateTime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ColumnName(Name = "地址", ResourceName = "Address", ResourceType = typeof(BindItem))]
+        [Required(ErrorMessage = "{0}不能为空")]
+        [AutoGenerateColumn(Order = 20)]
+        public string? Address { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ColumnName(Name = "数量", ResourceName = "Count", ResourceType = typeof(BindItem))]
+        [AutoGenerateColumn(Order = 40)]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ColumnName(Name = "是/否", ResourceName = "Complete", ResourceType = typeof(BindItem))]
+        [AutoGenerateColumn(Order = 50)]
+        public bool Complete { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required(ErrorMessage = "请选择{0}")]
+        [ColumnName(Name = "学历", ResourceName = "Education", ResourceType = typeof(BindItem))]
+        [AutoGenerateColumn(Order = 60)]
+        public EnumEducation? Education { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum EnumEducation
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("小学")]
+        Primary,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("中学")]
+        Middel
+    }
 }

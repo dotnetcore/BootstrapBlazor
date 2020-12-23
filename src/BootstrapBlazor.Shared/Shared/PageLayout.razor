@@ -35,8 +35,9 @@
             </div>
         </Footer>
     </Layout>
-    <Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen">
+    <Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen" IsBackdrop="true">
         <div class="layout-drawer-body">
+            <div class="btn btn-info w-100" @onclick="@(e => IsOpen = false)">点击关闭</div>
             <div class="page-layout-demo-option">
                 <p>布局调整</p>
                 <div class="row">
@@ -90,7 +91,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6 d-flex align-items-center">
-                        <Switch @bind-Value="@ShowFooter" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
+                        <Switch @bind-Value="@ShowFooter" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
                     </div>
                     <div class="col-6 text-right">
                         <span>显示页脚</span>

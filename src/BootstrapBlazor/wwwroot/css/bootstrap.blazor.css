@@ -4911,6 +4911,7 @@ input:disabled,
         flex: 1 1 auto;
         opacity: 1;
         transition: opacity .3s linear;
+        color: #e9ecef;
     }
 
     .layout.is-page .is-collapsed .layout-title {

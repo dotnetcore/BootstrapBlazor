@@ -48,7 +48,7 @@ namespace BootstrapBlazor.Components
         public string Width { get; set; } = "auto";
 
         /// <summary>
-        /// 获得/设置 是否自动隐藏
+        /// 获得/设置 是否自动隐藏 默认为 true
         /// </summary>
         [Parameter]
         public bool IsAutoHide { get; set; } = true;
