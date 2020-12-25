@@ -5364,7 +5364,7 @@ input:disabled,
     position: fixed;
     left: 1rem;
     right: 1rem;
-    z-index: 1040;
+    z-index: 1055;
     pointer-events: none;
 }
 
