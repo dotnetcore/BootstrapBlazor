@@ -356,28 +356,28 @@ input:disabled,
 }
 
 .alert.is-bar.alert-info {
-    border-left: 5px solid #50bfff;
+    border-left: 4px solid #50bfff;
     background-color: #ecf8ff;
 }
 
 .alert.is-bar.alert-success {
-    border-left: 5px solid #28a745;
-    background-color: #ecf8ff;
+    border-left: 4px solid #28a745;
+    background-color: #c3e6cb;
 }
 
 .alert.is-bar.alert-primary {
-    border-left: 5px solid #007bff;
-    background-color: #ecf8ff;
+    border-left: 4px solid #007bff;
+    background-color: #daeafc;
 }
 
 .alert.is-bar.alert-warning {
-    border-left: 5px solid #ffc107;
-    background-color: #ecf8ff;
+    border-left: 4px solid #ffc107;
+    background-color: #fffcf2;
 }
 
 .alert.is-bar.alert-danger {
-    border-left: 5px solid #dc3545;
-    background-color: #ecf8ff;
+    border-left: 4px solid #dc3545;
+    background-color: #faeaec;
 }
 /*end alert*/
 
