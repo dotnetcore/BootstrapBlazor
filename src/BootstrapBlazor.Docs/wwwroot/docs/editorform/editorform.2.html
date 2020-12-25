@@ -1,8 +1,8 @@
-﻿<ValidateForm Model="@ValidateModel">
+<ValidateForm Model="@ValidateModel">
     <EditorForm TModel="Dummy">
         <FieldItems>
-            <EditorItem @bind-Field="@Model.BirthDay" Readonly="true" />
-            <EditorItem @bind-Field="@Model.Hobby">
+            <EditorItem @bind-Field="@ValidateModel.BirthDay" Readonly="true" />
+            <EditorItem @bind-Field="@ValidateModel.Hobby">
                 <EditTemplate Context="value">
                     @{
                         var model = value as Dummy;
