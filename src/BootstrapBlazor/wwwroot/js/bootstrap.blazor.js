@@ -1391,8 +1391,7 @@
                 var marginTop = 0;
                 if ($toolbar.length > 0) marginTop = $toolbar.height();
 
-                // 点击 filter 小按钮时计算弹出位置
-                $ele.find('.filterable .fa-filter').on('click', function () {
+                var calcPosition = function () {
                     // position
                     var position = $(this).position();
                     var field = $(this).attr('data-field');
@@ -1415,6 +1414,11 @@
                         $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
                     }
                     $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
+                };
+
+                // 点击 filter 小按钮时计算弹出位置
+                $ele.find('.filterable .fa-filter').on('click', function () {
+                    calcPosition.call(this);
                 });
 
                 $ele.find('.is-tips').tooltip({
@@ -1423,6 +1427,15 @@
                         return $(this).text();
                     }
                 });
+
+                $ele.children('.table-scroll').scroll(function () {
+                    $ele.find('.table-filter-item.show').each(function () {
+                        var fieldName = $(this).attr('data-field');
+                        var filter = $ele.find('.fa-filter[data-field="' + fieldName + '"]')[0];
+                        calcPosition.call(filter);
+                    });
+                });
+
                 $.bb_table_resize($ele);
             }
             else if (method === 'width') {
