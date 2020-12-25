@@ -1,4 +1,4 @@
-﻿html, body, button, .popover {
+html, body, button, .popover {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 
@@ -1021,7 +1021,7 @@ input:disabled,
 /*toast*/
 .toast-container {
     position: fixed;
-    z-index: 1040;
+    z-index: 1055;
 }
 
 .toast {
