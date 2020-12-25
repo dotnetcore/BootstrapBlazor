@@ -6,6 +6,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/lib/swal/sweetalert2.min.css",
+    "inputFiles": [
+      "wwwroot/lib/swal/sweetalert2.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
