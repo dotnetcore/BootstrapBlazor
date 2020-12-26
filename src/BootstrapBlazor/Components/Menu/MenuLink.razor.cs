@@ -53,6 +53,6 @@ namespace BootstrapBlazor.Components
             if (OnClick != null) await OnClick(Item);
         }
 
-        private NavLinkMatch GetMatch() => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : NavLinkMatch.Prefix;
+        private NavLinkMatch GetMatch() => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
     }
 }

@@ -7,6 +7,7 @@
 // 开源协议：Apache-2.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
 // **********************************
 
+using Microsoft.AspNetCore.Components.Routing;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -62,6 +63,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 图标字符串
         /// </summary>
         public string? Icon { get; set; }
+
+        /// <summary>
+        /// 获得/设置 匹配方式 默认 NavLinkMatch.Prefix
+        /// </summary>
+        public NavLinkMatch Match { get; set; }
 
         /// <summary>
         /// 获得/设置 菜单内子组件
