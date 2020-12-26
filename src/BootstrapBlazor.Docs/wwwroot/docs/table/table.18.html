@@ -1,8 +1,8 @@
-﻿    <Table TItem="BindItem"
+    <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" IsMultipleSelect="true"
-           ShowNewButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           ShowAddButton="false" ShowEditButton="false" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
