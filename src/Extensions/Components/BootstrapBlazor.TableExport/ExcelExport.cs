@@ -50,7 +50,9 @@ namespace BootstrapBlazor.Components
                                 worksheet.Column(x).Style.Numberformat.Format = "yyyy/m/d h:mm:ss";
                             }
 
-                            var th_value = items.FirstOrDefault()?.GetDisplayName(pi.Name);
+                            var th_value = cols.FirstOrDefault(x => x.GetFieldName() == pi.Name)?.Text
+                                ?? items.FirstOrDefault()?.GetDisplayName(pi.Name)
+                                ?? "未设置";
 
                             worksheet.SetValue(1, x, th_value);
                         }
