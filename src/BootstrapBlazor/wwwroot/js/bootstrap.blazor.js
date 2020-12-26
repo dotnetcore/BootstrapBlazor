@@ -1308,6 +1308,15 @@
         bb_table: function (el, method, args) {
             var $ele = $(el);
 
+            var tooltip = function () {
+                $ele.find('.is-tips').tooltip({
+                    container: 'body',
+                    title: function () {
+                        return $(this).text();
+                    }
+                });
+            }
+
             var btn = $ele.find('.btn-col');
             if (!btn.hasClass('init')) {
                 btn.addClass('init');
@@ -1421,12 +1430,7 @@
                     calcPosition.call(this);
                 });
 
-                $ele.find('.is-tips').tooltip({
-                    container: 'body',
-                    title: function () {
-                        return $(this).text();
-                    }
-                });
+                tooltip();
 
                 $ele.children('.table-scroll').scroll(function () {
                     $ele.find('.table-filter-item.show').each(function () {
@@ -1443,6 +1447,9 @@
                 if (args) width = $ele.outerWidth(true);
                 else width = $(window).outerWidth(true);
                 return width;
+            }
+            else if (method === 'tooltip') {
+                tooltip();
             }
         },
         timePicker: function (el) {
