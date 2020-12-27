@@ -1250,3 +1250,35 @@ section {
 .color6 {
     background-color: #4a3275;
 }
+
+.widget .dropdown-body h3 {
+    color: #666666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.widget .dropdown-body h4 {
+    color: #444444;
+    font-size: 15px;
+    margin: 0;
+}
+
+.widget .dropdown-body small {
+    color: #999999;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.widget .dropdown-item > div:not(.progress):last-child {
+    width: calc(100% - 40px);
+}
+
+.widget .dropdown-item {
+    padding: 0.5rem 1rem;
+}
+
+.widget .progress {
+    height: 7px;
+}
