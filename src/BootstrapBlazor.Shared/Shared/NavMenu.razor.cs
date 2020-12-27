@@ -189,6 +189,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "时间范围框 DateTimeRange",
                 Url = "datetimeranges"
             });

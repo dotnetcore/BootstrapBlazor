@@ -80,7 +80,11 @@
     "EndPlaceHolderText": "结束日期",
     "ClearButtonText": "清空",
     "ConfirmButtonText": "确定",
-    "DateFormat": "yyyy-MM-dd"
+    "DateFormat": "yyyy-MM-dd",
+    "Last7Days": "最近 7 天",
+    "Last30Days": "最近 30 天",
+    "ThisMonth": "这个月",
+    "LastMonth": "上个月"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "请选择 ..."

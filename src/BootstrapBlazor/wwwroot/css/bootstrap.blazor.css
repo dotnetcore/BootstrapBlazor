@@ -2207,6 +2207,7 @@ input:disabled,
     width: 110px;
     border-right: 1px solid #e4e4e4;
     padding: 6px 0;
+    overflow: auto;
 }
 
     .picker-panel-sidebar .sidebar-item {

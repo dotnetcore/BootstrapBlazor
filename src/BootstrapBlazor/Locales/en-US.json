@@ -80,7 +80,11 @@
     "EndPlaceHolderText": "End date",
     "ClearButtonText": "Clear",
     "ConfirmButtonText": "Ok",
-    "DateFormat": "M/d/yyyy"
+    "DateFormat": "M/d/yyyy",
+    "Last7Days": "Last 7 Days",
+    "Last30Days": "Last 30 Days",
+    "ThisMonth": "This Month",
+    "LastMonth": "Last Month"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Please select ..."

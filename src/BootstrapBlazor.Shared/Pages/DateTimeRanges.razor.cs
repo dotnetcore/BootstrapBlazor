@@ -26,6 +26,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private DateTimeRangeValue DateTimeRangeValue3 { get; set; } = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(3) };
 
+        private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
+
         private Task OnConfirm(DateTimeRangeValue value)
         {
             DateLogger?.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
@@ -62,6 +64,14 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem()
             {
+                Name = "ShowSidebar",
+                Description = "是否显示快捷侧边栏 默认为 fasle",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
                 Name = "Placement",
                 Description = "设置弹窗出现位置",
                 Type = "Placement",
@@ -86,6 +96,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Value",
                 Description = "包含开始时间结束时间的自定义类",
                 Type = "DateTimeRangeValue",
+                ValueList = "",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "SidebarItems",
+                Description = "侧边栏快捷选项集合",
+                Type = "IEnumerable<DateTimeRangeSidebarItem>",
                 ValueList = "",
                 DefaultValue = " — "
             }
