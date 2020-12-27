@@ -10,4 +10,9 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
+<Block Title="显示清空按钮" Introduction="通过设置 <code>ShowClearButton</code> 参数控制是否显示清空按钮" CodeFile="search.2.html">
+    <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" ShowClearButton="true" Items="@Items" OnSearch="@OnSearch2" OnClear="@OnClear"></Search>
+    <Logger @ref="Trace2" class="mt-3" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />

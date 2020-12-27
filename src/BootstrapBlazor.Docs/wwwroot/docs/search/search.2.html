@@ -1,0 +1,15 @@
+﻿<Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" ShowClearButton="true" Items="@Items" OnSearch="@OnSearch2" OnClear="@OnClear"></Search>
+
+@code {
+    private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+
+    private Task OnSearch2(string searchText)
+    {
+        return Task.CompletedTask;
+    }
+    
+    private Task OnClear(string searchText)
+    {
+        return Task.CompletedTask;
+    }
+}

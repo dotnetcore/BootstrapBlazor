@@ -190,8 +190,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "时间范围框 DateTimeRange",
-                Url = "datetimeranges",
-                IsUpdate = true
+                Url = "datetimeranges"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -336,6 +335,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "搜索框 Search",
                 Url = "searchs"
             });
@@ -395,8 +395,7 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "列设置",
-                Url = "tables/column",
-                IsUpdate = true
+                Url = "tables/column"
             });
 
             it.AddItem(new DemoMenuItem()
@@ -438,8 +437,7 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "固定列",
-                Url = "tables/fix-column",
-                IsUpdate = true
+                Url = "tables/fix-column"
             });
 
             it.AddItem(new DemoMenuItem()
@@ -457,8 +455,7 @@ namespace BootstrapBlazor.Shared.Shared
             it.AddItem(new DemoMenuItem()
             {
                 Text = "表单维护",
-                Url = "tables/edit",
-                IsUpdate = true
+                Url = "tables/edit"
             });
 
             it.AddItem(new DemoMenuItem()
@@ -517,14 +514,12 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "对话框 Dialog",
-                Url = "dialogs",
-                IsUpdate = true
+                Url = "dialogs"
             });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "抽屉 Drawer",
-                Url = "drawers",
-                IsUpdate = true
+                Url = "drawers"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -579,8 +574,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "锚点 Anchor",
-                Url = "anchors",
-                IsNew = true
+                Url = "anchors"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -620,8 +614,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "标签页 Tab",
-                Url = "tabs",
-                IsUpdate = true
+                Url = "tabs"
             });
 
             AddBadge(item);
@@ -637,8 +630,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "布局组件 Layout",
-                Url = "layouts",
-                IsUpdate = true
+                Url = "layouts"
             });
             item.AddItem(new DemoMenuItem()
             {

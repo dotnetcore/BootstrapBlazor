@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -16,18 +17,27 @@ namespace BootstrapBlazor.Shared.Pages
     {
         private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
         private Logger? Trace { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="searchText"></param>
+        [NotNull]
+        private Logger? Trace2 { get; set; }
+
         private Task OnSearch(string searchText)
         {
-            Trace?.Log($"SearchText: {searchText}");
+            Trace.Log($"SearchText: {searchText}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnSearch2(string searchText)
+        {
+            Trace2.Log($"SearchText: {searchText}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnClear(string searchText)
+        {
+            Trace2.Log($"OnClear: {searchText}");
             return Task.CompletedTask;
         }
 
@@ -60,6 +70,34 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "无匹配数据"
             },
             new AttributeItem() {
+                Name = "ClearButtonIcon",
+                Description = "清空按钮图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-trash"
+            },
+            new AttributeItem() {
+                Name = "ClearButtonText",
+                Description = "清空按钮文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ClearButtonColor",
+                Description = "清空按钮颜色",
+                Type = "Color",
+                ValueList = " — ",
+                DefaultValue = "Secondary"
+            },
+            new AttributeItem() {
+                Name = "SearchButtonColor",
+                Description = "搜索按钮颜色",
+                Type = "Color",
+                ValueList = " — ",
+                DefaultValue = "Primary"
+            },
+            new AttributeItem() {
                 Name = "IsLikeMatch",
                 Description = "是否开启模糊匹配",
                 Type = "bool",
@@ -76,8 +114,24 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem()
             {
+                Name = "ShowClearButton",
+                Description = "是否显示清除按钮",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
                 Name="OnSearch",
                 Description = "点击搜索时回调此委托",
+                Type = "Func<string, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem()
+            {
+                Name="OnClear",
+                Description = "点击清空时回调此委托",
                 Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
