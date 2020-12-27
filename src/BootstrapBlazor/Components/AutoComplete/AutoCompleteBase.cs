@@ -155,12 +155,20 @@ namespace BootstrapBlazor.Components
                 // 键盘向上选择
                 if (args.Key == "ArrowUp")
                 {
-                    var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) - 1));
+                    var index = source.IndexOf(_selectedItem) - 1;
+                    if (index < 0)
+                    {
+                        index = source.Count - 1;
+                    }
                     _selectedItem = source[index];
                 }
                 else if (args.Key == "ArrowDown")
                 {
-                    var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) + 1));
+                    var index = source.IndexOf(_selectedItem) + 1;
+                    if (index > source.Count - 1)
+                    {
+                        index = 0;
+                    }
                     _selectedItem = source[index];
                 }
                 else if (args.Key == "Escape")
