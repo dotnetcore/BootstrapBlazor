@@ -293,12 +293,6 @@ namespace BootstrapBlazor.Components
             var valid = false;
             if (UseInjectDataService || OnSaveAsync != null)
             {
-                if (EditMode == EditMode.EditForm)
-                {
-                    ShowAddForm = false;
-                    ShowEditForm = false;
-                }
-
                 if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
                 else valid = await GetDataService().SaveAsync((TItem)context.Model);
                 var option = new ToastOption
@@ -308,10 +302,19 @@ namespace BootstrapBlazor.Components
                 };
                 option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
                 Toast.Show(option);
-                if (valid && DialogOption.Dialog != null)
+                if (valid)
                 {
-                    await DialogOption.Dialog.Close();
-                    await QueryAsync();
+                    if (DialogOption.Dialog != null)
+                    {
+                        await DialogOption.Dialog.Close();
+                        await QueryAsync();
+                    }
+                    else if (EditMode == EditMode.EditForm)
+                    {
+                        ShowAddForm = false;
+                        ShowEditForm = false;
+                        StateHasChanged();
+                    }
                 }
             }
             else
