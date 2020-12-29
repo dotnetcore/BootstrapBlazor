@@ -48,8 +48,10 @@ namespace BootstrapBlazor.Shared.Pages
                     Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
                     IsConfirm = true
                 };
-                await SwalService.ShowModal(op);
-                ret = "从plugin1返回的数据";
+                if (await SwalService.ShowModal(op))
+                {
+                    ret = "<div class='text-danger'>从plugin1返回的数据</div>";
+                }
             }
             if (pluginItemName == "plugin2")
             {
@@ -59,8 +61,10 @@ namespace BootstrapBlazor.Shared.Pages
                     Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
                     IsConfirm = true
                 };
-                await SwalService.ShowModal(op);
-                ret = "从plugin2返回的数据";
+                if (await SwalService.ShowModal(op))
+                {
+                    ret = "从plugin2返回的数据";
+                }
             }
             return ret;
         }

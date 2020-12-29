@@ -1693,7 +1693,7 @@
                                             tooltip: plugin.tooltip,
                                             click: function () {
                                                 obj.invokeMethodAsync(callback, pluginName).then(result => {
-                                                    context.invoke('editor.insertText', result);
+                                                    context.invoke('editor.pasteHTML', result);
                                                 });
                                             }
                                         });
