@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 查询弹窗组件
     /// </summary>
-    public partial class TableSearchDialog<TModel>
+    public partial class TableSearchDialog<TModel> where TModel : class
     {
         /// <summary>
-        /// 
+        /// 获得/设置 重置回调委托
         /// </summary>
         /// <returns></returns>
         [Parameter]
@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Components
         public Func<Task>? OnResetSearchClick { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 搜索回调委托
         /// </summary>
         /// <returns></returns>
         [Parameter]
@@ -32,14 +32,14 @@ namespace BootstrapBlazor.Components
         public Func<Task>? OnSearchClick { get; set; }
 
         /// <summary>
-        /// 重置按钮文本
+        /// 获得/设置 重置按钮文本
         /// </summary>
         [Parameter]
         [NotNull]
         public string? ResetButtonText { get; set; }
 
         /// <summary>
-        /// 查询按钮文本
+        /// 获得/设置 查询按钮文本
         /// </summary>
         [Parameter]
         [NotNull]

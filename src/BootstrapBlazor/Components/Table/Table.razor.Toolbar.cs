@@ -350,16 +350,16 @@ namespace BootstrapBlazor.Components
             };
             var editorParameters = new List<KeyValuePair<string, object>>
             {
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Model), EditModel),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Columns), Columns.Where(i => i.Editable)),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnCloseAsync), new Func<Task>(DialogOption.OnCloseAsync)),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(SaveAsync)),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.ShowLabel), false),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate!)
+                new KeyValuePair<string, object>(nameof(TableEditDialog<TItem>.Model), EditModel),
+                new KeyValuePair<string, object>(nameof(TableEditDialog<TItem>.Columns), Columns.Where(i => i.Editable)),
+                new KeyValuePair<string, object>(nameof(TableEditDialog<TItem>.OnCloseAsync), new Func<Task>(DialogOption.OnCloseAsync)),
+                new KeyValuePair<string, object>(nameof(TableEditDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(SaveAsync)),
+                new KeyValuePair<string, object>(nameof(TableEditDialog<TItem>.ShowLabel), false),
+                new KeyValuePair<string, object>(nameof(TableEditDialog<TItem>.BodyTemplate), EditTemplate!)
             };
-            if (!string.IsNullOrEmpty(EditDialogSaveButtonText)) editorParameters.Add(new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.SaveButtonText), EditDialogSaveButtonText));
+            if (!string.IsNullOrEmpty(EditDialogSaveButtonText)) editorParameters.Add(new KeyValuePair<string, object>(nameof(TableEditDialog<TItem>.SaveButtonText), EditDialogSaveButtonText));
 
-            DialogOption.Component = DynamicComponent.CreateComponent<TableEditorDialog<TItem>>(editorParameters);
+            DialogOption.Component = DynamicComponent.CreateComponent<TableEditDialog<TItem>>(editorParameters);
 
             DialogService.Show(DialogOption);
         }

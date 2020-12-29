@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// 编辑弹窗组件
     /// </summary>
-    public partial class TableEditorDialog<TModel>
+    public partial class TableEditDialog<TModel> where TModel : class
     {
         /// <summary>
         /// 获得/设置 保存回调委托
@@ -24,29 +24,28 @@ namespace BootstrapBlazor.Components
         public Func<EditContext, Task>? OnSaveAsync { get; set; }
 
         /// <summary>
-        /// 重置按钮文本
+        /// 获得/设置 获得/设置 重置按钮文本
         /// </summary>
         [Parameter]
         [NotNull]
         public string? CloseButtonText { get; set; }
 
         /// <summary>
-        /// 查询按钮文本
+        /// 获得/设置 查询按钮文本
         /// </summary>
         [Parameter]
         [NotNull]
         public string? SaveButtonText { get; set; }
 
         /// <summary>
-        /// 关闭弹窗回调方法
+        /// 获得/设置 关闭弹窗回调方法
         /// </summary>
         [Parameter]
         public Func<Task>? OnCloseAsync { get; set; }
 
-
         [Inject]
         [NotNull]
-        private IStringLocalizer<TableEditorDialog<TModel>>? Localizer { get; set; }
+        private IStringLocalizer<TableEditDialog<TModel>>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

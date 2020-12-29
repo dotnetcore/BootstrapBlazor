@@ -3,22 +3,23 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    public abstract class TableDialog<TModel> : ComponentBase
+    public abstract class TableDialog<TModel> : ComponentBase where TModel : class
     {
-#nullable disable
         /// <summary>
         /// 获得/设置 EditModel 实例
         /// </summary>
         [Parameter]
-        public TModel Model { get; set; }
-#nullable restore
+        [NotNull]
+        public TModel? Model { get; set; }
 
         /// <summary>
         /// 获得/设置 BodyTemplate 实例
@@ -37,5 +38,18 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowLabel { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if(Model == null)
+            {
+                throw new InvalidOperationException("Model value not set to null");
+            }
+        }
     }
 }
