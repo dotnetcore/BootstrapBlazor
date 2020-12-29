@@ -1702,7 +1702,7 @@
                                     });
                             }
                             $.extend($.summernote.plugins, pluginObj);
-                        })(result[i], result[i].pluginItemName);
+                        })(result[i], result[i].buttonName);
                     }
                     invoker();
                 });
