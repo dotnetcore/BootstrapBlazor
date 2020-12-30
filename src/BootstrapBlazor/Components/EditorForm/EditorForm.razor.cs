@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 级联上下文绑定字段信息集合
         /// </summary>
         [CascadingParameter]
-        private IEnumerable<IEditorItem> CascadeEditorItems { get; set; } = Enumerable.Empty<IEditorItem>();
+        private IEnumerable<IEditorItem>? CascadeEditorItems { get; set; }
 
         [Inject]
         [NotNull]
@@ -121,7 +121,7 @@ namespace BootstrapBlazor.Components
             {
                 FirstRender = false;
 
-                if (CascadeEditorItems.Any())
+                if (CascadeEditorItems?.Any() ?? false)
                 {
                     // 通过级联参数渲染组件
                     FormItems.AddRange(CascadeEditorItems);
