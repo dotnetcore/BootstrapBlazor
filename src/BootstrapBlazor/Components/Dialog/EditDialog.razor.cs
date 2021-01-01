@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 编辑弹窗组件
     /// </summary>
-    public partial class TableEditDialog<TModel> where TModel : class
+    public partial class EditDialog<TModel>
     {
         /// <summary>
         /// 获得/设置 保存回调委托
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<TableEditDialog<TModel>>? Localizer { get; set; }
+        private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

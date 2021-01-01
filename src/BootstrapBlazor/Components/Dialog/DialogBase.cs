@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public abstract class TableDialog<TModel> : ComponentBase where TModel : class
+    public abstract class DialogBase<TModel> : ComponentBase
     {
         /// <summary>
         /// 获得/设置 EditModel 实例
@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Components
         /// 获得 表头集合
         /// </summary>
         [Parameter]
-        public IEnumerable<ITableColumn>? Columns { get; set; }
+        public IEnumerable<IEditorItem>? Columns { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示标签
@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if(Model == null)
+            if (Model == null)
             {
                 throw new InvalidOperationException("Model value not set to null");
             }

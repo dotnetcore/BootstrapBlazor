@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 查询弹窗组件
     /// </summary>
-    public partial class TableSearchDialog<TModel> where TModel : class
+    public partial class SearchDialog<TModel>
     {
         /// <summary>
         /// 获得/设置 重置回调委托
@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<TableSearchDialog<TModel>>? Localizer { get; set; }
+        private IStringLocalizer<SearchDialog<TModel>>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

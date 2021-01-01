@@ -200,6 +200,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "富文本框 Editor",
                 Url = "editors"
             });
@@ -327,6 +328,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "编辑弹窗 EditDialog",
+                Url = "editdialogs"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "列表组件 ListView",
                 Url = "listviews"
             });
@@ -345,6 +352,12 @@ namespace BootstrapBlazor.Shared.Shared
                 IsUpdate = true,
                 Text = "搜索框 Search",
                 Url = "searchs"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "搜索弹窗 SearchDialog",
+                Url = "searchdialogs"
             });
             AddTableItem(item);
             item.AddItem(new DemoMenuItem()

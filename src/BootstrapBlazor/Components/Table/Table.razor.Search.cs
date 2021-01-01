@@ -93,32 +93,23 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 高级查询按钮点击时调用此方法
         /// </summary>
-        protected Task ShowSearchDialog()
+        protected async Task ShowSearchDialog()
         {
-            // 弹出高级查询弹窗
-            DialogOption.IsScrolling = ScrollingDialogContent;
-            DialogOption.Size = Size.ExtraLarge;
-            DialogOption.Title = SearchModalTitle;
-            DialogOption.ShowCloseButton = false;
-            DialogOption.ShowFooter = false;
-            DialogOption.OnCloseAsync = null;
+            var option = new SearchDialogOption<TItem>()
+            {
+                IsScrolling = ScrollingDialogContent,
+                Title = SearchModalTitle,
+                Model = SearchModel,
+                DialogBodyTemplate = SearchTemplate,
+                OnResetSearchClick = ResetSearchClick,
+                OnSearchClick = SearchClick
+            };
 
             var columns = Columns.Where(i => i.Searchable).ToList();
-            columns.ForEach(i => i.EditTemplate = i.SearchTemplate);
-            var editorParameters = new List<KeyValuePair<string, object>>
-            {
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Model), SearchModel),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Columns), columns),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.ShowLabel), true),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.BodyTemplate), SearchTemplate!),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.OnResetSearchClick), new Func<Task>(ResetSearchClick)),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.OnSearchClick), new Func<Task>(SearchClick)),
-            };
-            DialogOption.Component = DynamicComponent.CreateComponent<TableSearchDialog<TItem>>(editorParameters);
+            columns.ForEach(col => col.EditTemplate = col.SearchTemplate);
+            option.Columns = columns;
 
-            DialogService.Show(DialogOption);
-
-            return Task.CompletedTask;
+            await DialogService.ShowSearchDialog(option);
         }
 
         /// <summary>

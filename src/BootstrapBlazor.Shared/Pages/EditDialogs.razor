@@ -1,0 +1,14 @@
+﻿@page "/editdialogs"
+
+<h3>EditDialog 编辑弹窗</h3>
+
+<h4>通过绑定数据模型自动呈现编辑弹窗</h4>
+
+<p><code>EditDialog</code> 组件是 <code>Dialog</code> 组件的扩展，适用于数据弹出窗编辑。</p>
+
+<Block Title="基础用法" Introduction="通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单" CodeFile="editdialog.1.html">
+    <Button Text="点击弹出表单编辑弹窗" OnClickWithoutRender="@ShowDialog" />
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Dialog></Dialog>

@@ -46,21 +46,17 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private Task OnClick()
+        private Task OnClick() => DialogService.Show(new DialogOption()
         {
-            DialogService.Show(new DialogOption()
+            Title = "我是服务创建的弹出框",
+            BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
             {
-                Title = "我是服务创建的弹出框",
-                BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
-                {
-                    new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
-                })
-                .Render()
-            });
-            return Task.CompletedTask;
-        }
+                new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
+            })
+            .Render()
+        });
 
-        private Task Show()
+        private async Task Show()
         {
             var option = new DialogOption()
             {
@@ -69,52 +65,41 @@ namespace BootstrapBlazor.Shared.Pages
             option.BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
             {
                 new KeyValuePair<string, object>(nameof(Button.Text), "点击关闭弹窗"),
-                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, () => {
-                    option.Dialog?.Close();
-                }))
+                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog!.Close()))
             }).Render();
-            DialogService.Show(option);
-            return Task.CompletedTask;
+            await DialogService.Show(option);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        private Task OnClickCounter()
+        private Task OnClickCounter() => DialogService.Show(new DialogOption()
         {
-            DialogService.Show(new DialogOption()
-            {
-                Title = "自带的 Counter 组件",
-                KeepChildrenState = KeepState,
-                Component = DynamicComponent.CreateComponent<Counter>()
-            });
-            return Task.CompletedTask;
-        }
+            Title = "自带的 Counter 组件",
+            KeepChildrenState = KeepState,
+            Component = DynamicComponent.CreateComponent<Counter>()
+        });
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        private Task OnClickParameter()
+        private Task OnClickParameter() => DialogService.Show(new DialogOption()
         {
-            DialogService.Show(new DialogOption()
+            Title = "自带的 Counter 组件",
+            BodyContext = "我是传参",
+            BodyTemplate = builder =>
             {
-                Title = "自带的 Counter 组件",
-                BodyContext = "我是传参",
-                BodyTemplate = builder =>
-                {
-                    var index = 0;
-                    builder.OpenComponent<DemoComponent>(index++);
-                    builder.CloseComponent();
-                }
-            });
-            return Task.CompletedTask;
-        }
+                var index = 0;
+                builder.OpenComponent<DemoComponent>(index++);
+                builder.CloseComponent();
+            }
+        });
 
         private int DataPrimaryId { get; set; }
 
-        private Task OnClickShowDataById()
+        private async Task OnClickShowDataById()
         {
             var op = new DialogOption()
             {
@@ -124,21 +109,17 @@ namespace BootstrapBlazor.Shared.Pages
             };
             op.BodyTemplate = DynamicComponent.CreateComponent<DataDialogComponent>(new List<KeyValuePair<string, object>>
             {
-                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(() =>
-                {
-                    op.Dialog?.Toggle();
-                }))
+                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog!.Toggle()))
             }).Render();
 
-            DialogService?.Show(op);
-            return Task.CompletedTask;
+            await DialogService.Show(op);
         }
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {

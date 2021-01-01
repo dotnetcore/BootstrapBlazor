@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TModel
-@inherits TableDialog<TModel>
+@inherits DialogBase<TModel>
 
 <ValidateForm Model="@Model" OnValidSubmit="@OnSaveAsync">
     @if (BodyTemplate != null)

@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        public virtual void Show(TOption option)
+        public virtual async Task Show(TOption option)
         {
             Func<TOption, Task>? cb = null;
             if (typeof(IPopupHost).IsAssignableFrom(typeof(TOption)))
@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
             {
                 cb = Cache.FirstOrDefault().Callback;
             }
-            cb?.Invoke(option);
+            await cb.Invoke(option);
         }
 
         /// <summary>

@@ -197,7 +197,7 @@
     "DeleteButtonToastResultContent": "Delete data {0}, auto close after {1}s",
     "DataServiceInvalidOperationText": "Cannot provide a value for property 'DataService' on type 'BootstrapBlazor.Components.Table`1[[{0}]]'. There is no registered service of type 'BootstrapBlazor.Components.IDataService`1[{0}]'."
   },
-  "BootstrapBlazor.Components.TableEditorDialog": {
+  "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",
     "SaveButtonText": "Save"
   },
@@ -218,7 +218,7 @@
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All"
   },
-  "BootstrapBlazor.Components.TableSearchDialog": {
+  "BootstrapBlazor.Components.SearchDialog": {
     "ResetButtonText": "Reset",
     "QueryButtonText": "Query"
   },

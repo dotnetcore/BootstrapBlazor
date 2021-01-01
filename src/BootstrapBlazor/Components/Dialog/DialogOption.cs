@@ -80,6 +80,11 @@ namespace BootstrapBlazor.Components
         public Func<Task>? OnCloseAsync { get; set; }
 
         /// <summary>
+        /// 获得/设置 重置 Dialog BodyTemplate 回调委托
+        /// </summary>
+        internal Func<Task>? ResetBodyTemplate { get; set; }
+
+        /// <summary>
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>

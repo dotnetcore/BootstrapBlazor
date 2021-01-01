@@ -34,13 +34,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public RenderFragment? Buttons { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 绑定模型
         /// </summary>
         [Parameter]
-        public TModel Model { get; set; }
-#nullable restore
+        [NotNull]
+        public TModel? Model { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示前置标签 默认为 true 显示标签
@@ -195,7 +194,7 @@ namespace BootstrapBlazor.Components
                 var valueExpression = Expression.Lambda(tDelegate, body);
 
                 var index = 0;
-                var componentType = GenerateComponent(fieldType);
+                var componentType = EditorForm<TModel>.GenerateComponent(fieldType);
                 builder.OpenComponent(index++, componentType);
                 builder.AddAttribute(index++, "DisplayText", displayName);
                 builder.AddAttribute(index++, "Value", fieldValue);
@@ -238,7 +237,7 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private Type GenerateComponent(Type fieldType)
+        private static Type GenerateComponent(Type fieldType)
         {
             Type? ret = null;
             var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
