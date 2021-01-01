@@ -2,8 +2,6 @@
 <Logger @ref="Trace" class="mt-3" />
 
 @code {
-    private BindItem SearchModel { get; set; } = new BindItem();
-
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
@@ -11,12 +9,12 @@
     [NotNull]
     private Logger? Trace { get; set; }
 
-    private Task ShowDialog()
+    private async Task ShowDialog()
     {
         var option = new SearchDialogOption<BindItem>()
         {
             Title = "搜索弹出框",
-            Model = SearchModel,
+            Model = new BindItem(),
             OnCloseAsync = () =>
             {
                 Trace.Log("关闭按钮被点击");
@@ -34,7 +32,6 @@
             }
         };
 
-        DialogService.ShowSearchDialog(option);
-        return Task.CompletedTask;
+        await DialogService.ShowSearchDialog(option);
     }
 }

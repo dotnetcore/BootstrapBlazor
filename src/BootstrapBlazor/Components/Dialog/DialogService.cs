@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.ShowLabel), option.ShowLabel),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.ResetButtonText), option.ResetButtonText!),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.QueryButtonText), option.QueryButtonText!),
-                new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.Columns), option.Columns!),
+                new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.Items), option.Items!),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.BodyTemplate), option.DialogBodyTemplate!),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.OnResetSearchClick), new Func<Task>(async () =>
                 {
@@ -85,7 +85,7 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.ShowLabel), option.ShowLabel),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText!),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText!),
-                new KeyValuePair<string, object>(nameof(EditDialog<TModel>.Columns), option.Columns!),
+                new KeyValuePair<string, object>(nameof(EditDialog<TModel>.Items), option.Items!),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate!),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.OnCloseAsync), new Func<Task>(async () =>
                 {

@@ -17,13 +17,11 @@ namespace BootstrapBlazor.Components
     /// <remarks>用于 EditorForm 的 FieldItems 模板内</remarks>
     public class EditorItem<TValue> : ComponentBase, IEditorItem
     {
-#nullable disable
         /// <summary>
         /// 获得/设置 绑定字段值
         /// </summary>
         [Parameter]
-        public TValue Field { get; set; }
-#nullable restore
+        public TValue? Field { get; set; }
 
         /// <summary>
         /// 获得/设置 绑定字段值变化回调委托

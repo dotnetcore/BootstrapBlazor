@@ -28,10 +28,10 @@ namespace BootstrapBlazor.Components
         public RenderFragment<TModel>? BodyTemplate { get; set; }
 
         /// <summary>
-        /// 获得 表头集合
+        /// 获得 数据项集合
         /// </summary>
         [Parameter]
-        public IEnumerable<IEditorItem>? Columns { get; set; }
+        public IEnumerable<IEditorItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示标签

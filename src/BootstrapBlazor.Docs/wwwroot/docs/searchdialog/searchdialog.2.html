@@ -1,0 +1,19 @@
+﻿<Button Text="点击弹出搜索弹窗" OnClickWithoutRender="@ShowColumnsDialog" />
+
+@code {
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    private async Task ShowColumnsDialog()
+    {
+        var model = new BindItem();
+        var option = new SearchDialogOption<BindItem>()
+        {
+            Title = "搜索弹出框",
+            Model = model,
+            Columns = model.GenerateColumns(p => p.Name == nameof(BindItem.Name) || p.Name == nameof(BindItem.Address))
+        };
+        await DialogService.ShowSearchDialog(option);
+    }
+}

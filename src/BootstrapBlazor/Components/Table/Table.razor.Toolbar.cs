@@ -195,7 +195,7 @@ namespace BootstrapBlazor.Components
 
                 if (EditMode == EditMode.Popup)
                 {
-                    await ShowEditorDialog();
+                    await ShowEditDialog();
                 }
                 else if (EditMode == EditMode.EditForm)
                 {
@@ -240,7 +240,7 @@ namespace BootstrapBlazor.Components
 
                     if (EditMode == EditMode.Popup)
                     {
-                        await ShowEditorDialog();
+                        await ShowEditDialog();
                     }
                     else if (EditMode == EditMode.EditForm)
                     {
@@ -345,12 +345,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected Task ShowEditorDialog() => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
+        protected Task ShowEditDialog() => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
         {
             IsScrolling = ScrollingDialogContent,
             Title = EditModalTitleString,
             Model = EditModel,
-            Columns = Columns.Where(i => i.Editable),
+            Items = Columns.Where(i => i.Editable),
             SaveButtonText = EditDialogSaveButtonText,
             DialogBodyTemplate = EditTemplate,
             OnCloseAsync = async () =>

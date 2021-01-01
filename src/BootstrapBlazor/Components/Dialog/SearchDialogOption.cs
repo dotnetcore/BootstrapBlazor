@@ -37,12 +37,12 @@ namespace BootstrapBlazor.Components
         public TModel? Model { get; set; }
 
         /// <summary>
-        /// 获得 表头集合
+        /// 获得 搜索条件集合
         /// </summary>
-        public IEnumerable<IEditorItem>? Columns { get; set; }
+        public IEnumerable<IEditorItem>? Items { get; set; }
 
         /// <summary>
-        /// 获得/设置 EditDialog Body 模板
+        /// 获得/设置 SearchDialog Body 模板
         /// </summary>
         public RenderFragment<TModel>? DialogBodyTemplate { get; set; }
 

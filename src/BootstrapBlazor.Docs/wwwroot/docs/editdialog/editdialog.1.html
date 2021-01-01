@@ -15,7 +15,7 @@
     [NotNull]
     private Logger? Trace { get; set; }
 
-    private Task ShowDialog()
+    private async Task ShowDialog()
     {
         var option = new EditDialogOption<BindItem>()
         {
@@ -33,7 +33,6 @@
             }
         };
 
-        DialogService.ShowEditDialog(option);
-        return Task.CompletedTask;
+        await DialogService.ShowEditDialog(option);
     }
 }

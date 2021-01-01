@@ -38,9 +38,9 @@ namespace BootstrapBlazor.Components
         public TModel? Model { get; set; }
 
         /// <summary>
-        /// 获得 表头集合
+        /// 获得 编辑项集合
         /// </summary>
-        public IEnumerable<IEditorItem>? Columns { get; set; }
+        public IEnumerable<IEditorItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 EditDialog Body 模板
@@ -53,7 +53,7 @@ namespace BootstrapBlazor.Components
         public Func<EditContext, Task<bool>>? OnSaveAsync { get; set; }
 
         /// <summary>
-        /// 获得/设置 获得/设置 重置按钮文本
+        /// 获得/设置 关闭按钮文本
         /// </summary>
         public string? CloseButtonText { get; set; }
 

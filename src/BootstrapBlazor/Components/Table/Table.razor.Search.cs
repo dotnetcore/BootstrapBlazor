@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Components
 
             var columns = Columns.Where(i => i.Searchable).ToList();
             columns.ForEach(col => col.EditTemplate = col.SearchTemplate);
-            option.Columns = columns;
+            option.Items = columns;
 
             await DialogService.ShowSearchDialog(option);
         }
