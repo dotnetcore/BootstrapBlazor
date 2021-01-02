@@ -278,6 +278,13 @@ namespace BootstrapBlazor.Components
 
             if (IsRendered)
             {
+                // fix: https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2AYEH
+                // PR: https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/818
+                if (Columns.Any(col => col.ShowTips) && string.IsNullOrEmpty(methodName))
+                {
+                    methodName = "tooltip";
+                }
+
                 if (!string.IsNullOrEmpty(methodName))
                 {
                     // 固定表头脚本关联
