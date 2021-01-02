@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.2</Version>
+    <Version>5.0.3</Version>
     <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="5.0.8" />
+    <PackageReference Include="BootstrapBlazor" Version="5.0.9" />
   </ItemGroup>
 
   <ItemGroup>
