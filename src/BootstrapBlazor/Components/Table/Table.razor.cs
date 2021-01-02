@@ -278,11 +278,6 @@ namespace BootstrapBlazor.Components
 
             if (IsRendered)
             {
-                if (Columns.Any(col => col.ShowTips))
-                {
-                    methodName = "tooltip";
-                }
-
                 if (!string.IsNullOrEmpty(methodName))
                 {
                     // 固定表头脚本关联

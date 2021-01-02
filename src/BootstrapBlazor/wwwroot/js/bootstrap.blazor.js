@@ -1448,9 +1448,6 @@
                 else width = $(window).outerWidth(true);
                 return width;
             }
-            else if (method === 'tooltip') {
-                tooltip();
-            }
         },
         timePicker: function (el) {
             return $(el).find('.time-spinner-item').height();
