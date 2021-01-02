@@ -610,7 +610,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [Required(ErrorMessage = "{0}不能为空")]
+        [Required(ErrorMessage = "姓名不能为空")]
         [AutoGenerateColumn(Order = 10)]
         [ColumnName(Name = "姓名", ResourceName = "Name", ResourceType = typeof(BindItem))]
         public string? Name { get; set; }
@@ -626,7 +626,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [ColumnName(Name = "地址", ResourceName = "Address", ResourceType = typeof(BindItem))]
-        [Required(ErrorMessage = "{0}不能为空")]
+        [Required(ErrorMessage = "地址不能为空")]
         [AutoGenerateColumn(Order = 20)]
         public string? Address { get; set; }
 
@@ -647,7 +647,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [Required(ErrorMessage = "请选择{0}")]
+        [Required(ErrorMessage = "请选择学历")]
         [ColumnName(Name = "学历", ResourceName = "Education", ResourceType = typeof(BindItem))]
         [AutoGenerateColumn(Order = 60)]
         //[EnumConverter(typeof(EnumEducation))]
