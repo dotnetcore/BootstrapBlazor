@@ -1391,6 +1391,11 @@ section {
     background-color: #4b0cb3;
 }
 
+.layout.is-page .layout-right,
+.layout-is-page .layout-main {
+    background-color: #fff;
+}
+
 .widget .dropdown-body h3 {
     color: #666666;
     font-size: 14px;
@@ -1421,4 +1426,13 @@ section {
 
 .widget .progress {
     height: 7px;
+}
+
+.widget .dropdown-item.active,
+.widget .dropdown-item:active {
+    color: inherit;
+}
+
+.widget .dropdown-item:not(:nth-of-type(odd)):active {
+    background-color: inherit;
 }
