@@ -156,7 +156,7 @@ namespace BootstrapBlazor.Components
             if (_renderValue)
             {
                 _renderValue = false;
-                await JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor", "code", "", "", Value ?? "");
+                await JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor", "code", "", "", "", "", Value ?? "");
             }
         }
 
