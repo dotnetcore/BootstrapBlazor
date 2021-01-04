@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -15,6 +15,14 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="5.0.9" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\**\*.*" />
+    <Content Include="wwwroot\js\export.min.js" />
+    <None Include="bundleconfig.json" />
+    <None Include="wwwroot\**\*.*" />
   </ItemGroup>
 
   <ItemGroup>
