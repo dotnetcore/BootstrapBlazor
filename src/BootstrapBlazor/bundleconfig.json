@@ -28,6 +28,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/lib/drag/longbow.drag.min.js",
+    "inputFiles": [
+      "wwwroot/lib/drag/longbow.drag.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/tab/longbow.tab.min.js",
     "inputFiles": [
       "wwwroot/lib/tab/longbow.tab.js"
@@ -61,6 +67,7 @@
       "wwwroot/lib/barcodereader/qrcode.min.js",
       "wwwroot/lib/barcodereader/zxing.min.js",
       "wwwroot/lib/handwritten/handwritten.min.js",
+      "wwwroot/lib/drag/longbow.drag.min.js",
       "wwwroot/lib/captcha/longbow.captcha.min.js",
       "wwwroot/lib/upload/longbow.upload.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
