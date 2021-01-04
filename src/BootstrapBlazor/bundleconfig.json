@@ -22,6 +22,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/lib/captcha/longbow.captcha.min.js",
+    "inputFiles": [
+      "wwwroot/lib/captcha/longbow.captcha.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/handwritten/handwritten.min.js",
     "inputFiles": [
       "wwwroot/lib/handwritten/handwritten.js"
@@ -43,6 +49,7 @@
       "wwwroot/lib/barcodereader/qrcode.min.js",
       "wwwroot/lib/barcodereader/zxing.min.js",
       "wwwroot/lib/handwritten/handwritten.min.js",
+      "wwwroot/lib/captcha/longbow.captcha.min.js",
       "wwwroot/js/bootstrap.blazor.min.js"
     ],
     "minify": {
