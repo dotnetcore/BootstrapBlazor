@@ -302,7 +302,7 @@ namespace BootstrapBlazor.Components
                         while (!(AutoRefreshCancelTokenSource?.IsCancellationRequested ?? true))
                         {
                             await InvokeAsync(QueryAsync);
-                            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+                            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource?.Token ?? new CancellationToken(true));
                         }
                     });
                 }
