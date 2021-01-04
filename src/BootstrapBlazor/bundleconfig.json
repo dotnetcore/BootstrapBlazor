@@ -28,6 +28,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/lib/tab/longbow.tab.min.js",
+    "inputFiles": [
+      "wwwroot/lib/tab/longbow.tab.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/upload/longbow.upload.min.js",
     "inputFiles": [
       "wwwroot/lib/upload/longbow.upload.js"
@@ -57,6 +63,7 @@
       "wwwroot/lib/handwritten/handwritten.min.js",
       "wwwroot/lib/captcha/longbow.captcha.min.js",
       "wwwroot/lib/upload/longbow.upload.min.js",
+      "wwwroot/lib/tab/longbow.tab.min.js",
       "wwwroot/js/bootstrap.blazor.min.js"
     ],
     "minify": {
