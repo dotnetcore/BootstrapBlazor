@@ -1,4 +1,13 @@
 ﻿(function ($) {
+    $.blazorCulture = {
+        get: () => {
+            return window.localStorage['BlazorCulture'];
+        },
+        set: (value) => {
+            window.localStorage['BlazorCulture'] = value;
+        }
+    };
+
     $.extend({
         _showToast: function () {
             var $toast = $('.row .toast').toast('show');

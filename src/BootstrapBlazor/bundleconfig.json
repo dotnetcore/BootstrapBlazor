@@ -22,15 +22,15 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/lib/captcha/longbow.captcha.min.js",
+    "outputFileName": "wwwroot/lib/extensions/longbow.extensions.min.js",
     "inputFiles": [
-      "wwwroot/lib/captcha/longbow.captcha.js"
+      "wwwroot/lib/extensions/longbow.extensions.js"
     ]
   },
   {
-    "outputFileName": "wwwroot/lib/drag/longbow.drag.min.js",
+    "outputFileName": "wwwroot/lib/captcha/longbow.captcha.min.js",
     "inputFiles": [
-      "wwwroot/lib/drag/longbow.drag.js"
+      "wwwroot/lib/captcha/longbow.captcha.js"
     ]
   },
   {
@@ -67,7 +67,7 @@
       "wwwroot/lib/barcodereader/qrcode.min.js",
       "wwwroot/lib/barcodereader/zxing.min.js",
       "wwwroot/lib/handwritten/handwritten.min.js",
-      "wwwroot/lib/drag/longbow.drag.min.js",
+      "wwwroot/lib/extensions/longbow.extensions.min.js",
       "wwwroot/lib/captcha/longbow.captcha.min.js",
       "wwwroot/lib/upload/longbow.upload.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
