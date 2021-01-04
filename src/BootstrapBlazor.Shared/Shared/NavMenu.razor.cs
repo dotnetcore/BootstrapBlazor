@@ -267,6 +267,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
                 Text = "上传组件 Upload",
                 Url = "uploads"
             });

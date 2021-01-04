@@ -63,6 +63,7 @@ namespace BootstrapBlazor.Shared.Pages
             // 增加数据演示代码
             if (item.Id == 0)
             {
+                // 演示代码，生产中请根据实际情况考虑是否加锁操作
                 lock (_objectLock)
                 {
                     item.Id = EditItems.Max(i => i.Id) + 1;

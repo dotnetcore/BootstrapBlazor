@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,10 +26,16 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private Task OnRemoved(string fileName)
+        private Task<string> OnFileChange(InputFileChangeEventArgs args)
+        {
+            Trace?.Log($"{args.File.Name} 上传成功");
+            return Task.FromResult("");
+        }
+
+        private Task<bool> OnFileDelete(string fileName)
         {
             Trace?.Log($"{fileName} 成功移除");
-            return Task.CompletedTask;
+            return Task.FromResult(true);
         }
 
         private Logger? PreviewUpload { get; set; }

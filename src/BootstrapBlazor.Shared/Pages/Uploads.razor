@@ -9,17 +9,31 @@
     <br>出于服务器安全考虑，以下组件示例中上传文件均限制为文件类型必须为 <code>image/*</code> ，文件大小被限制为不能超过 <code>20 MB</code>
 </p>
 
-<p>
-    上传组件需要设置上传接收的接口，如果未设置时上传默认使用 <code>api/Upload</code> 的 <code>Post</code> 方法，删除使用 <code>Delete</code> 方法
-</p>
+<Tips>
+    <p>本组件正在开发中，此页面为测试功能时使用</p>
+</Tips>
 
-<Block Title="直接上传" Introduction="通过点击上传框弹出文件选择框，选择文件后上传，上传成功后右上角出现绿色小对勾" CodeFile="upload.1.html">
-    <p>仅允许上传 <code>images/*</code> 格式文件，文件大小不能超过 <code>20 MB</code></p>
-    <Upload AllowFileType="@AllowFiles" MaxFileLength="20971520" OnUploaded="@OnUpload" OnRemoved="@OnRemoved"></Upload>
-    <Logger @ref="Trace" class="mt-3" />
+<Block Title="基本用法" Introduction="与其他表单组件一起使用，显示文件名称，点击 <b>浏览</b> 按钮后选择文件并上传；通过设置 <code>ShowRemoveButton</code> 参数，显示 <b>删除</b> 按钮，点击删除按钮时回调 <code>OnDelete</code> 委托方法" CodeFile="upload.1.html">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <label for="text1" class="control-label">姓名:</label>
+                <input id="text1" class="form-control">
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <label for="text2" class="control-label">地址:</label>
+                <input id="text2" class="form-control">
+            </div>
+            <div class="form-group col-12">
+                <label for="text3" class="control-label">照片:</label>
+                <Upload Id="text3" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></Upload>
+            </div>
+        </div>
+    </div>
+    <Logger @ref="Trace" />
 </Block>
 
-<Block Title="预览后上传" Introduction="通过设置 <code>ShowPreview</code> 属性开启本地预览，点击上传按钮开始上传" CodeFile="upload.2.html">
+<!--<Block Title="预览后上传" Introduction="通过设置 <code>ShowPreview</code> 属性开启本地预览，点击上传按钮开始上传" CodeFile="upload.2.html">
     <p>仅允许上传 <code>images/*</code> 格式文件，文件大小不能超过 <code>20 MB</code></p>
     <Upload AllowFileType="@AllowFiles" MaxFileLength="20971520" ShowPreview="true" OnUploaded="@OnPreviewUpload"></Upload>
     <Logger @ref="PreviewUpload" class="mt-3" />
@@ -43,8 +57,9 @@
                         </span>
                         <svg class="upload-item-circle" style="width: 100px; height: 100px;">
                             <circle r="48" cy="50" cx="50" stroke-width="2" stroke="#EAEFF4" stroke-linejoin="round" stroke-linecap="round" fill="none"></circle>
-                            <circle class="upload-item-circle-progress" r="48" cy="50" cx="50" data-dash="314.16" stroke-dashoffset="0" stroke-dasharray="314.16,314.16" stroke-width="2" stroke="#1593FF" stroke-linejoin="round" stroke-linecap="round" fill="none"></circle><!--!-->
-                        </svg>
+                            <circle class="upload-item-circle-progress" r="48" cy="50" cx="50" data-dash="314.16" stroke-dashoffset="0" stroke-dasharray="314.16,314.16" stroke-width="2" stroke="#1593FF" stroke-linejoin="round" stroke-linecap="round" fill="none"></circle>-->
+<!--!-->
+<!--</svg>
                     </div>
                 </div>
             </div>
@@ -120,4 +135,4 @@
 
 <EventTable Items="@GetEvents()" />
 
-<MethodTable Items="@GetMethods()" />
+<MethodTable Items="@GetMethods()" />-->

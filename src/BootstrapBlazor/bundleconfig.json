@@ -52,6 +52,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Upload/Upload.razor.min.js",
+    "inputFiles": [
+      "Components/Upload/Upload.razor.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/js/bootstrap.blazor.js"
@@ -71,7 +77,8 @@
       "wwwroot/lib/captcha/longbow.captcha.min.js",
       "wwwroot/lib/upload/longbow.upload.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
-      "wwwroot/js/bootstrap.blazor.min.js"
+      "wwwroot/js/bootstrap.blazor.min.js",
+      "Components/Upload/Upload.razor.js"
     ],
     "minify": {
       "enabled": false,

@@ -69,6 +69,32 @@
         }
     };
 
+    $.extend({
+        format: function (source, params) {
+            if (params === undefined || params === null) {
+                return null;
+            }
+            if (arguments.length > 2 && params.constructor !== Array) {
+                params = $.makeArray(arguments).slice(1);
+            }
+            if (params.constructor !== Array) {
+                params = [params];
+            }
+            $.each(params, function (i, n) {
+                source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function () {
+                    return n;
+                });
+            });
+            return source;
+        },
+        getUID: function (prefix) {
+            if (!prefix) prefix = 'b';
+            do prefix += ~~(Math.random() * 1000000);
+            while (document.getElementById(prefix));
+            return prefix;
+        }
+    });
+
     $.fn.extend({
         drag: function (star, move, end) {
             var $this = $(this);
