@@ -4,15 +4,6 @@
 
 <h4>通过点击或者拖拽上传文件</h4>
 
-<p>
-    由于上传组件上传文件的大小受后台程序、反向代理等诸多因素影响，相关文章请参阅 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Upload%20%E7%BB%84%E4%BB%B6%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9?sort_id=2166580" target="_blank">Upload 组件注意事项</a>
-    <br>出于服务器安全考虑，以下组件示例中上传文件均限制为文件类型必须为 <code>image/*</code> ，文件大小被限制为不能超过 <code>20 MB</code>
-</p>
-
-<Tips>
-    <p>本组件正在开发中，此页面为测试功能时使用</p>
-</Tips>
-
 <Block Title="基本用法" Introduction="与其他表单组件一起使用，显示文件名称，点击 <b>浏览</b> 按钮后选择文件并上传；通过设置 <code>ShowRemoveButton</code> 参数，显示 <b>删除</b> 按钮，点击删除按钮时回调 <code>OnDelete</code> 委托方法" CodeFile="upload.1.html">
     <div class="form-inline">
         <div class="row">
@@ -33,6 +24,35 @@
     <Logger @ref="Trace" />
 </Block>
 
+<Block Title="点击上传" Introduction="经典款式，用户点击按钮弹出文件选择框。" CodeFile="upload.2.html">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Upload Style="UploadStyle.ClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+</Block>
+
+<Block Title="已上传文件列表" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容" CodeFile="upload.3.html">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            @{
+                var DefaultFileList = new List<UploadFile>();
+                DefaultFileList.AddRange(new[]
+                {
+                    new UploadFile()
+                    {
+                        FileName = "default1.jpg"
+                    },
+                    new UploadFile()
+                    {
+                        FileName = "default2.jpg"
+                    }
+                });
+            }
+            <Upload Style="UploadStyle.ClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFileList"></Upload>
+        </div>
+    </div>
+</Block>
 <!--<Block Title="预览后上传" Introduction="通过设置 <code>ShowPreview</code> 属性开启本地预览，点击上传按钮开始上传" CodeFile="upload.2.html">
     <p>仅允许上传 <code>images/*</code> 格式文件，文件大小不能超过 <code>20 MB</code></p>
     <Upload AllowFileType="@AllowFiles" MaxFileLength="20971520" ShowPreview="true" OnUploaded="@OnPreviewUpload"></Upload>

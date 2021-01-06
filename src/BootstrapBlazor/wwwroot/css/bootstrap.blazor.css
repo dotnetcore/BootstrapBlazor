@@ -3640,9 +3640,52 @@ input:disabled,
 /*end calendar*/
 
 /*upload*/
-.form-inline .upload {
-    width: calc(100% - 104px);
+@media (min-width: 576px) {
+    .form-inline .upload {
+        width: 100%;
+    }
 }
+
+@media (min-width: 768px) {
+    .form-inline .upload {
+        width: calc(100% - 104px);
+    }
+}
+
+.upload .upload-body {
+    margin-top: 10px;
+}
+
+    .upload .upload-body .upload-item {
+        display: flex;
+        align-items: center;
+        padding: 3px 5px;
+        border-radius: 3px;
+        transition: background-color .3s linear;
+        cursor: pointer;
+    }
+
+        .upload .upload-body .upload-item:not(:last-child) {
+            margin-bottom: 2px;
+        }
+
+        .upload .upload-body .upload-item:hover {
+            background-color: #ebeef5;
+        }
+
+            .upload .upload-body .upload-item:hover .fa-trash-o {
+                display: inline-block;
+            }
+
+        .upload .upload-body .upload-item span {
+            flex: 1;
+            padding: 0 5px;
+        }
+
+        .upload .upload-body .upload-item .fa-trash-o,
+        .upload .upload-body .upload-item:hover .fa-check-circle-o {
+            display: none;
+        }
 /*end upload*/
 
 /*divider*/

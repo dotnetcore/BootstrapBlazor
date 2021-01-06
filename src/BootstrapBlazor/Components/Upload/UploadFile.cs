@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Forms;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -38,5 +40,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 错误信息
         /// </summary>
         public string? Error { get; set; }
+
+        /// <summary>
+        /// 获得/设置 上传文件实例
+        /// </summary>
+        internal IBrowserFile? File { get; set; }
     }
 }

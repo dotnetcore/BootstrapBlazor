@@ -1,1 +1,15 @@
-﻿<Upload IsCircle="true"></Upload>
+﻿@{
+    var DefaultFileList = new List<UploadFile>();
+    DefaultFileList.AddRange(new[]
+    {
+        new UploadFile()
+        {
+            FileName = "default1.jpg"
+        },
+        new UploadFile()
+        {
+            FileName = "default2.jpg"
+        }
+    });
+}
+<Upload Style="UploadStyle.ClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFileList"></Upload>

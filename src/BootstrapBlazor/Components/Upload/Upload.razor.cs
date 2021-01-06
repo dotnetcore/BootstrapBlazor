@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -57,6 +58,15 @@ namespace BootstrapBlazor.Components
             .AddClass($"height: {Width}px;", !IsStack && IsCircle)
             .Build();
 
+        private string? GetUploadItemClassString(UploadFile item) => CssBuilder.Default("upload-item")
+            .AddClass("is-valid", item.Code == 0)
+            .AddClass("is-invalid", item.Code != 0)
+            .Build();
+
+        private string? GetFileIcon(UploadFile item) => CssBuilder.Default("fa")
+            .AddClass("fa-file-text-o", true)
+            .Build();
+
         /// <summary>
         /// 获得/设置 圆形进度半径
         /// </summary>
@@ -94,7 +104,10 @@ namespace BootstrapBlazor.Components
             .AddClass(BrowserButtonClass)
             .Build();
 
-        private bool IsDeleteButtonDisabled => IsDisabled || string.IsNullOrEmpty(FileName);
+        private bool IsDeleteButtonDisabled => IsDisabled || !UploadFiles.Any();
+
+        [NotNull]
+        private List<UploadFile>? UploadFiles { get; set; }
 
         /// <summary>
         /// 获得/设置 上传组件模式 默认为 Normal 正常模式多用于表单中
@@ -157,10 +170,11 @@ namespace BootstrapBlazor.Components
         public string Icon { get; set; } = "fa fa-cloud-upload";
 
         /// <summary>
-        /// 获得/设置 上传文件名
+        /// 获得/设置 已上传文件集合
         /// </summary>
         [Parameter]
-        public string? FileName { get; set; }
+        [NotNull]
+        public List<UploadFile>? DefaultFileList { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示预览 默认不预览
@@ -306,6 +320,15 @@ namespace BootstrapBlazor.Components
             ResetText ??= Localizer[nameof(ResetText)];
             FileTooLargeText ??= Localizer[nameof(FileTooLargeText)];
             AllowFileTypeErrorMessage ??= Localizer[nameof(AllowFileTypeErrorMessage)];
+
+            if (Style != UploadStyle.Normal)
+            {
+                UploadFiles ??= new List<UploadFile>();
+            }
+
+            UploadFiles ??= new List<UploadFile>();
+
+            if (DefaultFileList != null) UploadFiles.AddRange(DefaultFileList);
         }
 
         /// <summary>
@@ -322,42 +345,45 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private async Task OnFileDelete()
+        private async Task OnFileDelete(UploadFile? item)
         {
-            if (OnDelete != null && !string.IsNullOrEmpty(FileName))
+            if (OnDelete != null && item != null)
             {
-                var ret = await OnDelete(FileName);
+                var ret = await OnDelete(item.File?.Name ?? item.FileName);
                 if (ret)
                 {
-                    FileName = null;
+                    UploadFiles.Remove(item);
                 }
             }
         }
 
         private Task OnFileBrowser()
         {
-            FileName = "";
+            // 单文件模式
+            UploadFiles.Clear();
             return Task.CompletedTask;
         }
 
         private async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            FileName = args.File.Name;
-
-            if (OnChange == null)
+            var file = new UploadFile()
             {
-                var format = args.File.ContentType;
-                var imageFile = await args.File.RequestImageFileAsync(format, 640, 480);
+                FileName = args.File.Name,
+                Size = args.File.Size,
+                File = args.File
+            };
+            UploadFiles.Add(file);
 
-                using var fileStream = imageFile.OpenReadStream();
-                using var memoryStream = new MemoryStream();
-                await fileStream.CopyToAsync(memoryStream);
-
-                ImageUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+            if (Style == UploadStyle.Normal)
+            {
+                if (OnChange != null)
+                {
+                    ImageUrl = await OnChange(args);
+                }
             }
-            else
+            else if (Style == UploadStyle.ClickToUpload)
             {
-                ImageUrl = await OnChange(args);
+
             }
         }
 

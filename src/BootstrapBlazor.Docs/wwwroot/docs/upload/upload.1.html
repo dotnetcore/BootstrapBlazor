@@ -1,1 +1,15 @@
-﻿<Upload />
+﻿<Upload ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></Upload>
+
+@code {
+    private Task<string> OnFileChange(InputFileChangeEventArgs args)
+    {
+        Trace?.Log($"{args.File.Name} 上传成功");
+        return Task.FromResult("");
+    }
+
+    private Task<bool> OnFileDelete(string fileName)
+    {
+        Trace?.Log($"{fileName} 成功移除");
+        return Task.FromResult(true);
+    }
+}

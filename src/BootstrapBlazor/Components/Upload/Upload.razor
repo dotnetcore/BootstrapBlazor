@@ -5,16 +5,32 @@
     @if (Style == UploadStyle.Normal)
     {
         <div class="input-group">
-            <input type="text" class="form-control" id="@Id" readonly placeholder="@PlaceHolder" value="@FileName" />
+            <input type="text" class="form-control" id="@Id" readonly placeholder="@PlaceHolder" value="@(UploadFiles.FirstOrDefault()?.FileName)" />
             <div class="input-group-append">
                 @if (ShowDeleteButton)
                 {
-                    <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@OnFileDelete" />
+                    <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@(e => OnFileDelete(UploadFiles.FirstOrDefault()))" />
                 }
-                @*<Button class="@UploadButtonClassString" IsDisabled="@IsDisabled" Icon="@UploadButtonIcon" Text="@UploadButtonText" />*@
                 <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" OnClick="@OnFileBrowser" />
             </div>
         </div>
+        <InputFile hidden accept="@AllowFileType" OnChange="OnFileChange" />
+    }
+    else if (Style == UploadStyle.ClickToUpload)
+    {
+        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+        <div class="upload-body">
+            @foreach (var item in UploadFiles)
+            {
+                <div class="@GetUploadItemClassString(item)">
+                    <i class="@GetFileIcon(item)"></i>
+                    <span>@item.FileName</span>
+                    <i class="fa fa-check-circle-o text-success"></i>
+                    <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                </div>
+            }
+        </div>
+        <InputFile hidden multiple="@MultipleString" accept="@AllowFileType" OnChange="OnFileChange" />
     }
     @*<div class="upload-item">
             <div class="@PreviewClassString" style="@PrevStyleString">
@@ -35,5 +51,4 @@
                 </div>
             </div>
         </div>*@
-    <InputFile hidden multiple="@MultipleString" accept="@AllowFileType" OnChange="OnFileChange" />
 </div>
