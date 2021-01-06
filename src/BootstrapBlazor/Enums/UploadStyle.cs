@@ -22,6 +22,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 上传文件夹模式
         /// </summary>
-        UploadFolder
+        UploadFolder,
+
+        /// <summary>
+        /// 上传头像模式
+        /// </summary>
+        Avatar
     }
 }

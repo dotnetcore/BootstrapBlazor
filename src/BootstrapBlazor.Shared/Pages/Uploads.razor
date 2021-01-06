@@ -62,6 +62,21 @@
     </div>
 </Block>
 
+<Block Title="用户头像上传" Introduction="使用 <code>BeforeUpload</code> 限制用户上传的图片格式和大小。" CodeFile="upload.5.html">
+    <p>卡片形式头像框</p>
+    <div class="row">
+        <div class="col-12">
+            <Upload Style="UploadStyle.Avatar" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+    <p>圆形头像框</p>
+    <div class="row mt-3">
+        <div class="col-12">
+            <Upload Style="UploadStyle.Avatar" IsCircle="true" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+</Block>
+
 <!--<Block Title="预览后上传" Introduction="通过设置 <code>ShowPreview</code> 属性开启本地预览，点击上传按钮开始上传" CodeFile="upload.2.html">
     <p>仅允许上传 <code>images/*</code> 格式文件，文件大小不能超过 <code>20 MB</code></p>
     <Upload AllowFileType="@AllowFiles" MaxFileLength="20971520" ShowPreview="true" OnUploaded="@OnPreviewUpload"></Upload>

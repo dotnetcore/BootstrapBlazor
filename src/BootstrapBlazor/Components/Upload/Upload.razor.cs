@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
         private ElementReference UploaderElement { get; set; }
 
         private string? PreviewClassString => CssBuilder.Default("upload-prev")
-            .AddClass("is-load is-upload is-valid", !string.IsNullOrEmpty(ImageUrl))
+            .AddClass("is-valid", !string.IsNullOrEmpty(ImageUrl))
             .Build();
 
         /// <summary>
@@ -53,14 +53,19 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 预览框 Style 属性
         /// </summary>
         private string? PrevStyleString => CssBuilder.Default()
-            .AddClass($"width: {Width}px;", !IsStack && Width > 0)
-            .AddClass($"height: {Height}px;", !IsStack && Height > 0 && !IsCircle)
-            .AddClass($"height: {Width}px;", !IsStack && IsCircle)
+            .AddClass($"width: {Width}px;", Width > 0)
+            .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
+            .AddClass($"height: {Width}px;", IsCircle)
             .Build();
 
         private string? GetUploadItemClassString(UploadFile item) => CssBuilder.Default("upload-item")
             .AddClass("is-valid", item.Code == 0)
             .AddClass("is-invalid", item.Code != 0)
+            .AddClass("is-circle", IsCircle)
+            .Build();
+
+        private string? GetUploadItemClassString() => CssBuilder.Default("upload-item")
+            .AddClass("is-circle", IsCircle)
             .Build();
 
         private string? GetFileIcon(UploadFile item) => CssBuilder.Default("fa")
@@ -175,6 +180,18 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public List<UploadFile>? DefaultFileList { get; set; }
+
+        /// <summary>
+        /// 获得/设置 上传前回调委托方法，可用于限制用户上传文件的格式与大小
+        /// </summary>
+        [Parameter]
+        public Func<InputFileChangeEventArgs, Task<bool>>? BeforeUpload { get; set; }
+
+        /// <summary>
+        /// 获得/设置 最大上传文件数量 默认为 100
+        /// </summary>
+        [Parameter]
+        public int MaxFileCount { get; set; } = 10;
 
         /// <summary>
         /// 获得/设置 允许上传文件类型
@@ -372,13 +389,25 @@ namespace BootstrapBlazor.Components
 
         private async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            var file = new UploadFile()
+            if (IsMultiple)
             {
-                FileName = args.File.Name,
-                Size = args.File.Size,
-                File = args.File
-            };
-            UploadFiles.Add(file);
+                UploadFiles.AddRange(args.GetMultipleFiles(MaxFileCount).Select(f => new UploadFile()
+                {
+                    FileName = f.Name,
+                    Size = f.Size,
+                    File = f
+                }));
+            }
+            else
+            {
+                var file = new UploadFile()
+                {
+                    FileName = args.File.Name,
+                    Size = args.File.Size,
+                    File = args.File
+                };
+                UploadFiles.Add(file);
+            }
 
             if (Style == UploadStyle.Normal)
             {

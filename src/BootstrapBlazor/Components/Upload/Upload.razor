@@ -14,7 +14,6 @@
                 <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" OnClick="@OnFileBrowser" />
             </div>
         </div>
-        <InputFile hidden accept="@AllowFileType" OnChange="OnFileChange" />
     }
     else if (Style == UploadStyle.ClickToUpload)
     {
@@ -24,23 +23,7 @@
             {
                 <div class="@GetUploadItemClassString(item)">
                     <i class="@GetFileIcon(item)"></i>
-                    <span>@item.FileName</span>
-                    <i class="fa fa-check-circle-o text-success"></i>
-                    <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
-                </div>
-            }
-        </div>
-        <InputFile hidden multiple="@MultipleString" accept="@AllowFileType" OnChange="OnFileChange" />
-    }
-    else if (Style == UploadStyle.ClickToUpload)
-    {
-        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
-        <div class="upload-body">
-            @foreach (var item in UploadFiles)
-            {
-                <div class="@GetUploadItemClassString(item)">
-                    <i class="@GetFileIcon(item)"></i>
-                    <span>@item.FileName</span>
+                    <span class="fn">@item.FileName</span>
                     <i class="fa fa-check-circle-o text-success"></i>
                     <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                 </div>
@@ -50,6 +33,30 @@
     else if (Style == UploadStyle.UploadFolder)
     {
         <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+    }
+    else if (Style == UploadStyle.Avatar)
+    {
+        <div class="upload-body is-avatar">
+            @foreach (var item in UploadFiles)
+            {
+                <div class="@GetUploadItemClassString(item)" style="@PrevStyleString">
+                    <Avatar Url="@item.PrevUrl" />
+                    <div class="upload-item-actions">
+                        <span class="upload-item-delete">
+                            <i class="fa fa-trash-o"></i>
+                        </span>
+                    </div>
+                </div>
+            }
+            <div class="@GetUploadItemClassString()" style="@PrevStyleString">
+                <Avatar />
+                <div class="upload-item-actions">
+                    <span class="upload-item-plus">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
     }
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
     @*<div class="upload-item">

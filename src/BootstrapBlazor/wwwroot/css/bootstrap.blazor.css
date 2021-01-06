@@ -3677,7 +3677,7 @@ input:disabled,
                 display: inline-block;
             }
 
-        .upload .upload-body .upload-item span {
+        .upload .upload-body .upload-item .fn {
             flex: 1;
             padding: 0 5px;
         }
@@ -3686,6 +3686,60 @@ input:disabled,
         .upload .upload-body .upload-item:hover .fa-check-circle-o {
             display: none;
         }
+
+    .upload .upload-body.is-avatar {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .upload .upload-body.is-avatar .upload-item {
+            padding: 0;
+            position: relative;
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+            .upload .upload-body.is-avatar .upload-item.is-circle {
+                border-radius: 50%;
+            }
+
+            .upload .upload-body.is-avatar .upload-item:hover {
+                border-color: #409eff;
+            }
+
+            .upload .upload-body.is-avatar .upload-item .avatar {
+                width: 100%;
+                height: 100%;
+                background-color: #fff;
+                display: block;
+            }
+
+            .upload .upload-body.is-avatar .upload-item .upload-item-actions {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .upload .upload-body.is-avatar .upload-item .upload-item-actions .fa {
+                    font-size: 1rem;
+                }
+
+                .upload .upload-body.is-avatar .upload-item .upload-item-actions .upload-item-delete {
+                    display: none;
+                }
+
+            .upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete {
+                display: block;
+            }
 /*end upload*/
 
 /*divider*/
