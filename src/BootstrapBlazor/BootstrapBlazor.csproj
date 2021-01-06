@@ -44,6 +44,6 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="dotnet bundle" />
+    <Exec Command="dotnet bundle --no-color" />
   </Target>
 </Project>
