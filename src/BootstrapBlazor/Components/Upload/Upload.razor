@@ -32,6 +32,26 @@
         </div>
         <InputFile hidden multiple="@MultipleString" accept="@AllowFileType" OnChange="OnFileChange" />
     }
+    else if (Style == UploadStyle.ClickToUpload)
+    {
+        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+        <div class="upload-body">
+            @foreach (var item in UploadFiles)
+            {
+                <div class="@GetUploadItemClassString(item)">
+                    <i class="@GetFileIcon(item)"></i>
+                    <span>@item.FileName</span>
+                    <i class="fa fa-check-circle-o text-success"></i>
+                    <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                </div>
+            }
+        </div>
+    }
+    else if (Style == UploadStyle.UploadFolder)
+    {
+        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+    }
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
     @*<div class="upload-item">
             <div class="@PreviewClassString" style="@PrevStyleString">
                 <div class="upload-prev-body">

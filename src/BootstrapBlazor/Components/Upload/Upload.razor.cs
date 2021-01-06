@@ -177,6 +177,12 @@ namespace BootstrapBlazor.Components
         public List<UploadFile>? DefaultFileList { get; set; }
 
         /// <summary>
+        /// 获得/设置 允许上传文件类型
+        /// </summary>
+        [Parameter]
+        public string? Accept { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示预览 默认不预览
         /// </summary>
         [Parameter]
@@ -385,6 +391,20 @@ namespace BootstrapBlazor.Components
             {
 
             }
+        }
+
+        private IDictionary<string, object> GetUploadAdditionalAttributes()
+        {
+            var ret = new Dictionary<string, object>();
+            ret.Add("hidden", "hidden");
+
+            if (IsMultiple) ret.Add("multiple", "multiple");
+            if (Style == UploadStyle.UploadFolder)
+            {
+                ret.Add("directory", "dicrectory");
+                ret.Add("webkitdirectory", "webkitdirectory");
+            }
+            return ret;
         }
 
         /// <summary>

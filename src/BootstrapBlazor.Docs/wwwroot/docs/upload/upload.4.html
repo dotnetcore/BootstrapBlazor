@@ -1,1 +1,1 @@
-﻿<Upload AllowFileType=".jpg,.png" MaxFileLength="500000"></Upload>
+﻿<Upload Style="UploadStyle.UploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></Upload>

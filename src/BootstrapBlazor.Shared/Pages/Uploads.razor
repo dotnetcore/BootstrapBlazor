@@ -53,6 +53,15 @@
         </div>
     </div>
 </Block>
+
+<Block Title="上传文件夹" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容" CodeFile="upload.4.html">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Upload Style="UploadStyle.UploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+</Block>
+
 <!--<Block Title="预览后上传" Introduction="通过设置 <code>ShowPreview</code> 属性开启本地预览，点击上传按钮开始上传" CodeFile="upload.2.html">
     <p>仅允许上传 <code>images/*</code> 格式文件，文件大小不能超过 <code>20 MB</code></p>
     <Upload AllowFileType="@AllowFiles" MaxFileLength="20971520" ShowPreview="true" OnUploaded="@OnPreviewUpload"></Upload>

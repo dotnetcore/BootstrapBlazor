@@ -18,5 +18,10 @@ namespace BootstrapBlazor.Components
         /// 点击上传
         /// </summary>
         ClickToUpload,
+
+        /// <summary>
+        /// 上传文件夹模式
+        /// </summary>
+        UploadFolder
     }
 }
