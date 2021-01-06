@@ -27,6 +27,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 上传头像模式
         /// </summary>
-        Avatar
+        Avatar,
+
+        /// <summary>
+        /// 预览卡片模式
+        /// </summary>
+        Card
     }
 }

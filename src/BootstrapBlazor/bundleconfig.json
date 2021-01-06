@@ -2,7 +2,13 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.min.css",
     "inputFiles": [
-      "wwwroot/css/!(*.min).css"
+      "wwwroot/css/bootstrap.blazor.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Upload/Upload.min.css",
+    "inputFiles": [
+      "Components/Upload/Upload.css"
     ]
   },
   {
@@ -18,7 +24,8 @@
       "wwwroot/lib/font-awesome/css/font-awesome.min.css",
       "wwwroot/lib/summernote/summernote-bs4.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
-      "wwwroot/css/bootstrap.blazor.min.css"
+      "wwwroot/css/bootstrap.blazor.min.css",
+      "Components/Upload/Upload.min.css"
     ]
   },
   {
@@ -52,9 +59,9 @@
     ]
   },
   {
-    "outputFileName": "Components/Upload/Upload.razor.min.js",
+    "outputFileName": "Components/Upload/Upload.min.js",
     "inputFiles": [
-      "Components/Upload/Upload.razor.js"
+      "Components/Upload/Upload.js"
     ]
   },
   {
@@ -78,7 +85,7 @@
       "wwwroot/lib/upload/longbow.upload.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
       "wwwroot/js/bootstrap.blazor.min.js",
-      "Components/Upload/Upload.razor.js"
+      "Components/Upload/Upload.min.js"
     ],
     "minify": {
       "enabled": false,
