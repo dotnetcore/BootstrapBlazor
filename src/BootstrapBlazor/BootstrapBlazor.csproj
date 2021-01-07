@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.10-beta06</Version>
+    <Version>5.0.10</Version>
     <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -44,6 +44,6 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="dotnet bundle --no-color" />
+    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="dotnet bundle --no-color" />
   </Target>
 </Project>

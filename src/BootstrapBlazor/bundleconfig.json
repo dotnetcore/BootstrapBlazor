@@ -76,7 +76,6 @@
       "wwwroot/lib/handwritten/handwritten.min.js",
       "wwwroot/lib/extensions/longbow.extensions.min.js",
       "wwwroot/lib/captcha/longbow.captcha.min.js",
-      "wwwroot/lib/upload/longbow.upload.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
       "wwwroot/js/bootstrap.blazor.min.js",
       "Components/Upload/Upload.razor.cs.min.js"
