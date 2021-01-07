@@ -237,12 +237,7 @@
     "RightPanelText": "List 2"
   },
   "BootstrapBlazor.Components.Upload": {
-    "Text": "Upload",
-    "ResetText": "Reset",
-    "AllowFileTypeErrorMessage": "Only allow Images type file",
-    "FileTooLargeText": "File to large",
     "DeleteButtonText": "Delete",
-    "UploadButtonText": "Upload",
     "BrowserButtonText": "Browser"
   }
 }

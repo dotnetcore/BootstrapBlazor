@@ -1,12 +1,52 @@
 ﻿<p>卡片形式头像框</p>
 <div class="row">
     <div class="col-12">
-        <Upload Style="UploadStyle.Avatar" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        <Upload Style="UploadStyle.Avatar" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
     </div>
 </div>
 <p>圆形头像框</p>
 <div class="row mt-3">
     <div class="col-12">
-        <Upload Style="UploadStyle.Avatar" IsCircle="true" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        <Upload Style="UploadStyle.Avatar" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
     </div>
 </div>
+
+@code {
+    private CancellationTokenSource? ReadAvatarToken { get; set; }
+    private async Task OnAvatarUpload(IEnumerable<UploadFile> files)
+    {
+        // 示例代码，使用 base64 格式
+        var file = files.FirstOrDefault();
+        if (file != null && file.File != null)
+        {
+            var format = file.File.ContentType;
+            if (CheckValidAvatarFormat(format))
+            {
+                ReadAvatarToken ??= new CancellationTokenSource();
+                if (ReadAvatarToken.IsCancellationRequested)
+                {
+                    ReadAvatarToken.Dispose();
+                    ReadAvatarToken = new CancellationTokenSource();
+                }
+
+                await file.RequestBase64ImageFileAsync(format, 640, 480, 20 * 1024 * 1024, ReadAvatarToken.Token);
+            }
+            else
+            {
+                file.Code = 1;
+                file.Error = "文件格式不正确";
+            }
+
+            if (file.Code != 0)
+            {
+                await ToastService.Error("头像上传", $"{file.Error} {format}");
+            }
+        }
+    }
+
+
+    private bool CheckValidAvatarFormat(string format)
+    {
+        return "jpg;png;bmp;gif;jpeg".Split(';').Any(f => format.Contains(f, StringComparison.OrdinalIgnoreCase));
+    }
+}

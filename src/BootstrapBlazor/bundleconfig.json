@@ -6,9 +6,9 @@
     ]
   },
   {
-    "outputFileName": "Components/Upload/Upload.min.css",
+    "outputFileName": "Components/Upload/Upload.razor.cs.min.css",
     "inputFiles": [
-      "Components/Upload/Upload.css"
+      "Components/Upload/Upload.razor.cs.css"
     ]
   },
   {
@@ -25,7 +25,7 @@
       "wwwroot/lib/summernote/summernote-bs4.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
       "wwwroot/css/bootstrap.blazor.min.css",
-      "Components/Upload/Upload.min.css"
+      "Components/Upload/Upload.razor.cs.min.css"
     ]
   },
   {
@@ -47,21 +47,15 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/lib/upload/longbow.upload.min.js",
-    "inputFiles": [
-      "wwwroot/lib/upload/longbow.upload.js"
-    ]
-  },
-  {
     "outputFileName": "wwwroot/lib/handwritten/handwritten.min.js",
     "inputFiles": [
       "wwwroot/lib/handwritten/handwritten.js"
     ]
   },
   {
-    "outputFileName": "Components/Upload/Upload.min.js",
+    "outputFileName": "Components/Upload/Upload.razor.cs.min.js",
     "inputFiles": [
-      "Components/Upload/Upload.js"
+      "Components/Upload/Upload.razor.cs.js"
     ]
   },
   {
@@ -85,7 +79,7 @@
       "wwwroot/lib/upload/longbow.upload.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
       "wwwroot/js/bootstrap.blazor.min.js",
-      "Components/Upload/Upload.min.js"
+      "Components/Upload/Upload.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,

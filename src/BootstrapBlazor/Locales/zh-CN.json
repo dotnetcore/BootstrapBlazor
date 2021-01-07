@@ -237,12 +237,7 @@
     "RightPanelText": "列表 2"
   },
   "BootstrapBlazor.Components.Upload": {
-    "Text": "点击上传",
-    "ResetText": "重置",
-    "AllowFileTypeErrorMessage": "只允许选择图片类型文件",
-    "FileTooLargeText": "文件太大",
     "DeleteButtonText": "删除",
-    "UploadButtonText": "上传",
     "BrowserButtonText": "浏览"
   }
 }

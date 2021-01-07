@@ -1,1 +1,30 @@
-﻿<Upload Style="UploadStyle.Card" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+﻿<Upload Style="UploadStyle.Card" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+
+@code {
+    private CancellationTokenSource? ReadCardToken { get; set; }
+    private async Task OnCardUpload(IEnumerable<UploadFile> files)
+    {
+        // 示例代码，使用 IWebHostEnviroment 注入获取硬盘文件夹 示例
+        var file = files.FirstOrDefault();
+        if (file != null && file.File != null)
+        {
+            // 生成写入文件名称
+            var uploaderFolder = Path.Combine(WebHost.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+            var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+            ReadCardToken ??= new CancellationTokenSource();
+            var ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadCardToken.Token);
+
+            if (ret)
+            {
+                // 保存成功
+                file.PrevUrl = $"images/uploader/{file.FileName}";
+            }
+            else
+            {
+                await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+            }
+        }
+    }
+}

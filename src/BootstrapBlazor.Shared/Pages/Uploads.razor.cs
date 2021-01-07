@@ -5,8 +5,14 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
-using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -14,22 +20,102 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Uploads
+    public sealed partial class Uploads : IDisposable
     {
+        private static readonly Random random = new Random();
+
+        [Inject]
+        [NotNull]
+        private IWebHostEnvironment? WebHost { get; set; }
+
+        [Inject]
+        [NotNull]
+        private ToastService? ToastService { get; set; }
+
         private Logger? Trace { get; set; }
 
-        private string AllowFiles => "image/*";
-
-        private Task OnUpload(string fileName, string prevUrl)
+        private Task OnFileChange(IEnumerable<UploadFile> files)
         {
-            Trace?.Log($"{fileName} 成功上传 {prevUrl}");
+            // 未真正保存文件
+            // files.First().SaveToFile()
+            Trace?.Log($"{files.First().File!.Name} 上传成功");
+            return Task.FromResult("");
+        }
+
+        private static Task OnClickToUpload(IEnumerable<UploadFile> files)
+        {
+            // 示例代码，模拟 80% 几率保存成功
+            var error = random.Next(1, 100) > 80;
+            if (error)
+            {
+                files.First().Code = 1;
+                files.First().Error = "模拟上传失败";
+            }
             return Task.CompletedTask;
         }
 
-        private Task<string> OnFileChange(InputFileChangeEventArgs args)
+        private CancellationTokenSource? ReadAvatarToken { get; set; }
+        private async Task OnAvatarUpload(IEnumerable<UploadFile> files)
         {
-            Trace?.Log($"{args.File.Name} 上传成功");
-            return Task.FromResult("");
+            // 示例代码，使用 base64 格式
+            var file = files.FirstOrDefault();
+            if (file != null && file.File != null)
+            {
+                var format = file.File.ContentType;
+                if (CheckValidAvatarFormat(format))
+                {
+                    ReadAvatarToken ??= new CancellationTokenSource();
+                    if (ReadAvatarToken.IsCancellationRequested)
+                    {
+                        ReadAvatarToken.Dispose();
+                        ReadAvatarToken = new CancellationTokenSource();
+                    }
+
+                    await file.RequestBase64ImageFileAsync(format, 640, 480, 20 * 1024 * 1024, ReadAvatarToken.Token);
+                }
+                else
+                {
+                    file.Code = 1;
+                    file.Error = "文件格式不正确";
+                }
+
+                if (file.Code != 0)
+                {
+                    await ToastService.Error("头像上传", $"{file.Error} {format}");
+                }
+            }
+        }
+
+        private CancellationTokenSource? ReadCardToken { get; set; }
+        private async Task OnCardUpload(IEnumerable<UploadFile> files)
+        {
+            // 示例代码，使用 IWebHostEnviroment 注入获取硬盘文件夹 示例
+            var file = files.FirstOrDefault();
+            if (file != null && file.File != null)
+            {
+                // 生成写入文件名称
+                var uploaderFolder = Path.Combine(WebHost.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+                file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+                var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+                ReadCardToken ??= new CancellationTokenSource();
+                var ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadCardToken.Token);
+
+                if (ret)
+                {
+                    // 保存成功
+                    file.PrevUrl = $"images/uploader/{file.FileName}";
+                }
+                else
+                {
+                    await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+                }
+            }
+        }
+
+        private static bool CheckValidAvatarFormat(string format)
+        {
+            return "jpg;png;bmp;gif;jpeg".Split(';').Any(f => format.Contains(f, StringComparison.OrdinalIgnoreCase));
         }
 
         private Task<bool> OnFileDelete(string fileName)
@@ -38,83 +124,80 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.FromResult(true);
         }
 
-        private Logger? PreviewUpload { get; set; }
-
-        private Task OnPreviewUpload(string fileName, string prevUrl)
-        {
-            PreviewUpload?.Log($"{fileName} 成功上传 {prevUrl}");
-            return Task.CompletedTask;
-        }
-
-        private IEnumerable<UploadHeader> OnSetHeaders()
-        {
-            return new UploadHeader[]
-            {
-                new UploadHeader("Authentication", "Bearer 12345")
-            };
-        }
-
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
-            // TODO: 移动到数据库中
             new AttributeItem() {
-                Name = "UploadUrl",
-                Description = "组件上传接收地址",
-                Type = "string",
+                Name = "Style",
+                Description = "组件风格",
+                Type = "UploadStyle",
                 ValueList = "—",
-                DefaultValue = "api/Upload"
+                DefaultValue = "Normal"
             },
             new AttributeItem() {
-                Name = "Text",
-                Description = "上传按钮显示文字",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = "上传文件"
-            },
-            new AttributeItem() {
-                Name = "Icon",
-                Description = "上传按钮显示图标",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = "fa fa-cloud-upload"
-            },
-            new AttributeItem() {
-                Name = "TipText",
-                Description = "上传组件提示文字",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
-            },
-            new AttributeItem() {
-                Name = "ShowPreview",
-                Description = "是否显示预览",
-                Type = "bool",
+                Name = "ShowDeleteButton",
+                Description = "是否显示删除按钮",
+                Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "ShowProgress",
-                Description = "是否显示上传进度",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
+                Name = "PlaceHolder",
+                Description = "占位字符串",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "ShowReset",
-                Description = "是否显示重置",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
+                Name = "DeleteButtonClass",
+                Description = "删除按钮样式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "btn-danger"
+            },
+            new AttributeItem() {
+                Name = "BrowserButtonClass",
+                Description = "上传按钮样式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "btn-primary"
+            },
+            new AttributeItem() {
+                Name = "DeleteButtonIcon",
+                Description = "删除按钮图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-trash-o"
+            },
+            new AttributeItem() {
+                Name = "BrowserButtonIcon",
+                Description = "浏览按钮图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-folder-open-o"
+            },
+            new AttributeItem() {
+                Name = "DefaultFileList",
+                Description = "已上传文件集合",
+                Type = "List<UploadFile>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "MaxFileCount",
+                Description = "最大上传文件数量",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "10"
             },
             new AttributeItem() {
                 Name = "Width",
                 Description = "预览框宽度",
                 Type = "int",
-                ValueList = "—",
+                ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
@@ -123,13 +206,6 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "int",
                 ValueList = "—",
                 DefaultValue = "0"
-            },
-            new AttributeItem() {
-                Name = "IsCard",
-                Description = "是否为卡片式预览效果",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsCircle",
@@ -141,13 +217,6 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "IsMultiple",
                 Description = "是否允许多文件上传",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsPhotoWall",
-                Description = "是否为照片墙效果",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -167,13 +236,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "AllowFileType",
-                Description = "设置允许上传文件扩展名 设置 file 控件的 accept 属性",
-                Type = "string",
-                ValueList = "—",
-                DefaultValue = "—"
-            },
-            new AttributeItem() {
                 Name = "MaxFileLength",
                 Description = "设置上传文件最大值",
                 Type = "long",
@@ -186,43 +248,30 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
-                Name = "OnUploaded",
-                Description="文件成功上传后回调此委托",
-                Type ="Func<string, string, Task>"
+                Name = "OnChange",
+                Description="上传文件回调委托方法",
+                Type ="Func<IEnumerable<UploadFile>, Task>"
             },
             new EventItem()
             {
-                Name = "OnRemoved",
-                Description="文件成功删除后回调此委托",
-                Type ="Func<string, Task>"
-            },
-            new EventItem()
-            {
-                Name = "OnFailed",
-                Description="文件上传失败后回调此委托",
-                Type ="Func<string, Task>"
-            },
-            new EventItem()
-            {
-                Name = "OnSetHeaders",
-                Description="客户端上传文件前设置请求头回调此委托",
-                Type ="Func<IEnumerable<UploadHeader>>"
+                Name = "OnDelete",
+                Description="删除文件回调委托方法",
+                Type ="Func<string, Task<bool>>"
             }
         };
 
-        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
         {
-            new MethodItem()
-            {
-                Name = "Reset",
-                Description = "重置组件",
-                Parameters = " - ",
-                ReturnValue = "Task"
-            }
-        };
+            ReadAvatarToken?.Cancel();
+            ReadCardToken?.Cancel();
+            GC.SuppressFinalize(this);
+        }
     }
 }

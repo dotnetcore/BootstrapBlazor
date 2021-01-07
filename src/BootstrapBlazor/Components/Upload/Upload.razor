@@ -5,7 +5,7 @@
     @if (Style == UploadStyle.Normal)
     {
         <div class="input-group">
-            <input type="text" class="form-control" id="@Id" readonly placeholder="@PlaceHolder" value="@(UploadFiles.FirstOrDefault()?.FileName)" />
+            <input type="text" class="form-control" id="@Id" readonly placeholder="@PlaceHolder" value="@(UploadFiles.FirstOrDefault()?.OriginFileName)" />
             <div class="input-group-append">
                 @if (ShowDeleteButton)
                 {
@@ -15,7 +15,7 @@
             </div>
         </div>
     }
-    else if (Style == UploadStyle.ClickToUpload)
+    else if (Style == UploadStyle.ClickToUpload || Style == UploadStyle.UploadFolder)
     {
         <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
         <div class="upload-body is-list">
@@ -23,16 +23,19 @@
             {
                 <div class="@GetUploadItemClassString(item)">
                     <i class="@GetFileIcon(item)"></i>
-                    <span class="fn">@item.FileName</span>
-                    <i class="fa fa-check-circle-o text-success"></i>
-                    <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                    <span class="fn">@item.OriginFileName</span>
+                    @if (item.Code == 0)
+                    {
+                        <i class="fa fa-check-circle-o text-success"></i>
+                        <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-times-circle-o"></i>
+                    }
                 </div>
             }
         </div>
-    }
-    else if (Style == UploadStyle.UploadFolder)
-    {
-        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
     }
     else if (Style == UploadStyle.Avatar)
     {
@@ -42,14 +45,21 @@
                 <div class="@GetUploadItemClassString(item)" style="@PrevStyleString">
                     <Avatar Url="@item.PrevUrl" />
                     <div class="upload-item-actions">
-                        <span class="upload-item-delete">
+                        <span class="upload-item-delete p-3" @onclick="@(e => OnFileDelete(item))">
                             <i class="fa fa-trash-o"></i>
                         </span>
                     </div>
+                    @if (!IsCircle)
+                    {
+                        <span class="upload-item-label">
+                            <i class="fa fa-check"></i>
+                            <i class="fa fa-times"></i>
+                        </span>
+                    }
                 </div>
             }
             <div class="@GetUploadItemClassString()" style="@PrevStyleString">
-                <div class="upload-item-actions">
+                <div class="upload-item-actions btn-browser">
                     <span class="upload-item-plus">
                         <i class="fa fa-plus"></i>
                     </span>
@@ -62,20 +72,24 @@
         <div class="upload-body is-card">
             @foreach (var item in UploadFiles)
             {
-                <div class="@GetUploadItemClassString(item)">
+                <div class="@GetUploadCardItemClassString(item)">
                     <div class="upload-item-body">
-                        <img src="images/uploader/left.png" />
+                        <img src="@item.PrevUrl" />
                     </div>
-                    <div class="upload-item-size">@item.Size</div>
+                    <div class="upload-item-size">(@GetFileSize(item.Size))</div>
                     <div class="upload-item-actions">
-                        <button class="btn btn-sm btn-outline-secondary">
+                        <button class="btn btn-sm btn-outline-secondary" disabled="@GetDiabledString(item)">
                             <i class="fa fa-search-plus"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-danger">
+                        <button class="btn btn-sm btn-outline-danger" disabled="@GetDiabledString(item)" @onclick="@(e => OnFileDelete(item))">
                             <i class="fa fa-trash-o"></i>
                         </button>
                     </div>
-                    <span class="upload-item-label bg-success"><i class="fa fa-check"></i></span>
+                    <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" />
+                    <span class="upload-item-label">
+                        <i class="fa fa-check"></i>
+                        <i class="fa fa-times"></i>
+                    </span>
                 </div>
             }
             <div class="@GetUploadItemClassString()">
