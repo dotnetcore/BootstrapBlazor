@@ -1,9 +1,9 @@
 ﻿<Upload ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></Upload>
 
 @code {
-    private Task<string> OnFileChange(InputFileChangeEventArgs args)
+    private Task<string> OnFileChange(IEnumerable<UploadFile> files)
     {
-        Trace?.Log($"{args.File.Name} 上传成功");
+        Trace?.Log($"{files.First().File!.Name} 上传成功");
         return Task.FromResult("");
     }
 

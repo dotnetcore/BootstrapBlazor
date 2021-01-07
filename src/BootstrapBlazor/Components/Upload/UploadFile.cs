@@ -85,6 +85,7 @@ namespace BootstrapBlazor.Components
                     using var memoryStream = new MemoryStream();
                     await fileStream.CopyToAsync(memoryStream, token);
                     PrevUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+                    Uploaded = true;
                 }
                 catch (Exception ex)
                 {

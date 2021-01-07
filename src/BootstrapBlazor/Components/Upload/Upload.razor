@@ -15,9 +15,9 @@
             </div>
         </div>
     }
-    else if (Style == UploadStyle.ClickToUpload || Style == UploadStyle.UploadFolder)
+    else if (Style == UploadStyle.ClickToUpload)
     {
-        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+        <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
         <div class="upload-body is-list">
             @foreach (var item in UploadFiles)
             {
@@ -32,6 +32,10 @@
                     else
                     {
                         <i class="fa fa-times-circle-o"></i>
+                    }
+                    @if (ShowProgress)
+                    {
+                        <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
                     }
                 </div>
             }
@@ -48,6 +52,12 @@
                         <span class="upload-item-delete p-3" @onclick="@(e => OnFileDelete(item))">
                             <i class="fa fa-trash-o"></i>
                         </span>
+                        @if (ShowProgress)
+                        {
+                            <span class="upload-item-spin">
+                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                            </span>
+                        }
                     </div>
                     @if (!IsCircle)
                     {
@@ -58,13 +68,16 @@
                     }
                 </div>
             }
-            <div class="@GetUploadItemClassString()" style="@PrevStyleString">
-                <div class="upload-item-actions btn-browser">
-                    <span class="upload-item-plus">
-                        <i class="fa fa-plus"></i>
-                    </span>
+            @if (!IsSingle || (IsSingle && !UploadFiles.Any()))
+            {
+                <div class="@GetUploadItemClassString()" style="@PrevStyleString">
+                    <div class="upload-item-actions btn-browser">
+                        <span class="upload-item-plus">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     }
     else if (Style == UploadStyle.Card)
@@ -72,7 +85,7 @@
         <div class="upload-body is-card">
             @foreach (var item in UploadFiles)
             {
-                <div class="@GetUploadCardItemClassString(item)">
+                <div class="@GetUploadItemClassString(item)">
                     <div class="upload-item-body">
                         <img src="@item.PrevUrl" />
                     </div>
@@ -85,20 +98,26 @@
                             <i class="fa fa-trash-o"></i>
                         </button>
                     </div>
-                    <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" />
+                    @if (ShowProgress)
+                    {
+                        <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" />
+                    }
                     <span class="upload-item-label">
                         <i class="fa fa-check"></i>
                         <i class="fa fa-times"></i>
                     </span>
                 </div>
             }
-            <div class="@GetUploadItemClassString()">
-                <div class="upload-item-actions btn-browser">
-                    <span class="upload-item-plus">
-                        <i class="fa fa-plus"></i>
-                    </span>
+            @if (!IsSingle || (IsSingle && !UploadFiles.Any()))
+            {
+                <div class="@GetUploadItemClassString()">
+                    <div class="upload-item-actions btn-browser">
+                        <span class="upload-item-plus">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     }
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />

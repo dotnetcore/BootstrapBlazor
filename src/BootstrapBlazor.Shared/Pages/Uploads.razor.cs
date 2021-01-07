@@ -42,7 +42,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.FromResult("");
         }
 
-        private static Task OnClickToUpload(IEnumerable<UploadFile> files)
+        private async Task OnClickToUpload(IEnumerable<UploadFile> files)
         {
             // 示例代码，模拟 80% 几率保存成功
             var error = random.Next(1, 100) > 80;
@@ -51,7 +51,19 @@ namespace BootstrapBlazor.Shared.Pages
                 files.First().Code = 1;
                 files.First().Error = "模拟上传失败";
             }
-            return Task.CompletedTask;
+            else
+            {
+                await SaveToFile(files.First());
+            }
+        }
+
+        private CancellationTokenSource? UploadFolderToken { get; set; }
+        private async Task OnUploadFolder(IEnumerable<UploadFile> files)
+        {
+            foreach (var file in files)
+            {
+                await SaveToFile(file);
+            }
         }
 
         private CancellationTokenSource? ReadAvatarToken { get; set; }
@@ -86,31 +98,38 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        private CancellationTokenSource? ReadCardToken { get; set; }
+        private CancellationTokenSource? ReadToken { get; set; }
         private async Task OnCardUpload(IEnumerable<UploadFile> files)
         {
             // 示例代码，使用 IWebHostEnviroment 注入获取硬盘文件夹 示例
             var file = files.FirstOrDefault();
             if (file != null && file.File != null)
             {
-                // 生成写入文件名称
-                var uploaderFolder = Path.Combine(WebHost.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
-                file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
-                var fileName = Path.Combine(uploaderFolder, file.FileName);
-
-                ReadCardToken ??= new CancellationTokenSource();
-                var ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadCardToken.Token);
-
-                if (ret)
-                {
-                    // 保存成功
-                    file.PrevUrl = $"images/uploader/{file.FileName}";
-                }
-                else
-                {
-                    await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
-                }
+                await SaveToFile(file);
             }
+        }
+
+        private async Task<bool> SaveToFile(UploadFile file)
+        {
+            // 生成写入文件名称
+            var uploaderFolder = Path.Combine(WebHost.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+            var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+            ReadToken ??= new CancellationTokenSource();
+            var ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadToken.Token);
+
+            if (ret)
+            {
+                // 保存成功
+                file.PrevUrl = $"images/uploader/{file.FileName}";
+            }
+            else
+            {
+                await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+            }
+
+            return ret;
         }
 
         private static bool CheckValidAvatarFormat(string format)
@@ -215,15 +234,15 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "IsMultiple",
-                Description = "是否允许多文件上传",
+                Name = "IsDirectory",
+                Description = "是否上传整个目录",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "IsStack",
-                Description = "是否为堆砌效果",
+                Name = "IsMultiple",
+                Description = "是否允许多文件上传",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -233,6 +252,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "是否禁用",
                 Type = "boolean",
                 ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowProgress",
+                Description = "是否显示上传进度",
+                Type = "bool",
+                ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
@@ -269,8 +295,9 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         public void Dispose()
         {
+            UploadFolderToken?.Dispose();
             ReadAvatarToken?.Cancel();
-            ReadCardToken?.Cancel();
+            ReadToken?.Cancel();
             GC.SuppressFinalize(this);
         }
     }

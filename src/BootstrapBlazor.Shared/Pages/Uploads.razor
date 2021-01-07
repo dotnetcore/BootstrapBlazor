@@ -27,7 +27,13 @@
 <Block Title="点击上传" Introduction="经典款式，用户点击按钮弹出文件选择框。" CodeFile="upload.2.html">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Upload Style="UploadStyle.ClickToUpload" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+            <Upload Style="UploadStyle.ClickToUpload" ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+    <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
+    <div class="row mt-3">
+        <div class="col-12 col-sm-6">
+            <Upload Style="UploadStyle.ClickToUpload" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
         </div>
     </div>
 </Block>
@@ -59,31 +65,43 @@
     <p>上传整个文件夹功能请设置 <code>MaxFileCount</code> 参数，默认值为 10</p>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Upload Style="UploadStyle.UploadFolder" MaxFileCount="100" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+            <Upload Style="UploadStyle.ClickToUpload" IsDirectory="true" MaxFileCount="100" OnChange="@OnUploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
         </div>
     </div>
 </Block>
 
 <Block Title="用户头像上传" Introduction="使用 <code>OnChange</code> 限制用户上传的图片格式和大小。本例中仅允许上传 <code>jpg/png/bmp/jpeg/gif</code> 五种图片格式" CodeFile="upload.5.html">
-    <p>卡片形式头像框</p>
     <div class="row">
         <div class="col-12">
+            <p>卡片形式头像框</p>
             <Upload Style="UploadStyle.Avatar" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
         </div>
     </div>
-    <p>圆形头像框</p>
     <div class="row mt-3">
         <div class="col-12">
-            <Upload Style="UploadStyle.Avatar" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+            <p>圆形头像框</p>
+            <Upload Style="UploadStyle.Avatar" ShowProgress="true" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
+            <Upload Style="UploadStyle.Avatar" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
         </div>
     </div>
 </Block>
 
 <Block Title="预览卡片式" Introduction="设置参数为 <code>UploadStyle.Card</code> 时，组件呈现为卡片式带预览模式" CodeFile="upload.6.html">
-    <p>本例中使用 <code>IWebHostEnviroment</code> 注入服务获取到 <code>wwwwroot</code> 目录，保存文件到 <code>images\uploader</code> 中，此功能无需 <b>MVC</b> 的控制器辅助进行文件的保存，直接调用 <code>SaveToFile</code> 方法即可</p>
     <div class="row">
         <div class="col-12">
-            <Upload Style="UploadStyle.Card" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+            <p>本例中使用 <code>IWebHostEnviroment</code> 注入服务获取到 <code>wwwwroot</code> 目录，保存文件到 <code>images\uploader</code> 中，此功能无需 <b>MVC</b> 的控制器辅助进行文件的保存，直接调用 <code>SaveToFile</code> 方法即可</p>
+            <Upload Style="UploadStyle.Card" ShowProgress="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件，本例中未设置 <code>ShowProgress</code> 使用其默认值，不显示上传进度条</p>
+            <Upload Style="UploadStyle.Card" IsSingle="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
         </div>
     </div>
 </Block>

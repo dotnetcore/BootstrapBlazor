@@ -1,1 +1,52 @@
-﻿<Upload Style="UploadStyle.ClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+﻿<div class="row">
+    <div class="col-12 col-sm-6">
+        <Upload Style="UploadStyle.ClickToUpload" ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+    </div>
+</div>
+<p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
+<div class="row mt-3">
+    <div class="col-12 col-sm-6">
+        <Upload Style="UploadStyle.ClickToUpload" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+    </div>
+</div>
+
+@code {
+    private async Task OnClickToUpload(IEnumerable<UploadFile> files)
+    {
+        // 示例代码，模拟 80% 几率保存成功
+        var error = random.Next(1, 100) > 80;
+        if (error)
+        {
+            files.First().Code = 1;
+            files.First().Error = "模拟上传失败";
+        }
+        else
+        {
+            await SaveToFile(files.First());
+        }
+    }
+
+    private CancellationTokenSource? ReadToken { get; set; }
+    private async Task<bool> SaveToFile(UploadFile file)
+    {
+        // 生成写入文件名称
+        var uploaderFolder = Path.Combine(WebHost.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+        file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+        var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+        ReadCardToken ??= new CancellationTokenSource();
+        var ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadCardToken.Token);
+
+        if (ret)
+        {
+            // 保存成功
+            file.PrevUrl = $"images/uploader/{file.FileName}";
+        }
+        else
+        {
+            await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+        }
+
+        return ret;
+    }
+}

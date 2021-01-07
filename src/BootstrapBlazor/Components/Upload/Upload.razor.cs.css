@@ -14,6 +14,7 @@
             border-radius: 3px;
             transition: background-color .3s linear;
             cursor: pointer;
+            position: relative;
         }
 
             .upload .upload-body.is-list .upload-item.is-invalid {
@@ -39,9 +40,11 @@
 
             .upload .upload-body.is-list .upload-item .fa-trash-o,
             .upload .upload-body.is-list .upload-item:hover .fa-check-circle-o,
-            .upload .upload-body.is-avatar .upload-item .upload-item-actions .upload-item-delete,
-            .upload .upload-item.is-invalid .upload-item-label .fa-check,
-            .upload .upload-item.is-valid .upload-item-label .fa-times {
+            .upload .upload-body.is-avatar .upload-item .upload-item-delete,
+            .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
+            .upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,
+            .upload .upload-item.is-invalid .fa-check,
+            .upload .upload-item.is-valid .fa-times {
                 display: none;
             }
 
@@ -65,6 +68,7 @@
 
             .upload .upload-body.is-avatar .upload-item.is-invalid {
                 border-color: #dc3545;
+                border-style: solid;
             }
 
             .upload .upload-body.is-avatar .upload-item.is-circle {
@@ -179,13 +183,19 @@
 
 .upload .progress {
     position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.upload .upload-body.is-card .progress {
     left: 1rem;
     right: 1rem;
     bottom: 56px;
 }
 
-.upload .upload-body.is-card .upload-item.is-valid .progress,
-.upload .upload-body.is-card .upload-item.is-invalid .progress {
+.upload .upload-item.is-valid .progress,
+.upload .upload-item.is-invalid .progress {
     display: none;
 }
 

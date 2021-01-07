@@ -1,4 +1,15 @@
-﻿<Upload Style="UploadStyle.Card" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+﻿    <div class="row">
+        <div class="col-12">
+            <p>本例中使用 <code>IWebHostEnviroment</code> 注入服务获取到 <code>wwwwroot</code> 目录，保存文件到 <code>images\uploader</code> 中，此功能无需 <b>MVC</b> 的控制器辅助进行文件的保存，直接调用 <code>SaveToFile</code> 方法即可</p>
+            <Upload Style="UploadStyle.Card" ShowProgress="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件，本例中未设置 <code>ShowProgress</code> 使用其默认值，不显示上传进度条</p>
+            <Upload Style="UploadStyle.Card" IsSingle="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        </div>
+    </div>
 
 @code {
     private CancellationTokenSource? ReadCardToken { get; set; }

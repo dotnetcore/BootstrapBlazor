@@ -37,18 +37,13 @@ namespace BootstrapBlazor.Components
             .Build();
 
         private string? GetUploadItemClassString(UploadFile item) => CssBuilder.Default("upload-item")
-            .AddClass("is-valid", item.Code == 0)
-            .AddClass("is-invalid", item.Code != 0)
-            .AddClass("is-circle", IsCircle)
-            .Build();
-
-        private static string? GetUploadCardItemClassString(UploadFile item) => CssBuilder.Default("upload-item")
             .AddClass("is-valid", item.Code == 0 && item.Uploaded)
-            .AddClass("is-invalid", item.Code != 0 && item.Uploaded)
+            .AddClass("is-invalid", item.Code != 0)
+            .AddClass("is-circle", IsCircle && Style == UploadStyle.Avatar)
             .Build();
 
         private string? GetUploadItemClassString() => CssBuilder.Default("upload-item")
-            .AddClass("is-circle", IsCircle)
+            .AddClass("is-circle", IsCircle && Style == UploadStyle.Avatar)
             .Build();
 
         private static string? GetFileIcon(UploadFile item) => CssBuilder.Default("fa")
@@ -66,6 +61,8 @@ namespace BootstrapBlazor.Components
             .Build();
 
         private bool IsDeleteButtonDisabled => IsDisabled || !UploadFiles.Any();
+
+        private bool IsUploadButtonDisabled => IsSingle && UploadFiles.Any();
 
         [NotNull]
         private List<UploadFile>? UploadFiles { get; set; }
@@ -138,22 +135,40 @@ namespace BootstrapBlazor.Components
         public int Height { get; set; } = 100;
 
         /// <summary>
-        /// 获得/设置 是否允许多文件上传 默认不允许
+        /// 获得/设置 是否允许多文件上传 默认 false 不允许
         /// </summary>
         [Parameter]
         public bool IsMultiple { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否圆形图片框 默认为 false
+        /// 获得/设置 是否仅上传一次 默认 false
+        /// </summary>
+        [Parameter]
+        public bool IsSingle { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否圆形图片框 Avatar 模式时生效 默认为 false
         /// </summary>
         [Parameter]
         public bool IsCircle { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否上传整个目录 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDirectory { get; set; }
 
         /// <summary>
         /// 获得/设置 是否禁用 默认为 false
         /// </summary>
         [Parameter]
         public bool IsDisabled { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示上传进度 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowProgress { get; set; }
 
         /// <summary>
         /// 获得/设置 上传失败后回调委托
@@ -203,6 +218,9 @@ namespace BootstrapBlazor.Components
             UploadFiles ??= new List<UploadFile>();
 
             if (DefaultFileList != null) UploadFiles.AddRange(DefaultFileList);
+
+            // 上传文件夹时 开启 Multiple 属性
+            if (IsDirectory) IsMultiple = true;
         }
 
         /// <summary>
@@ -233,7 +251,6 @@ namespace BootstrapBlazor.Components
 
         private Task OnFileBrowser()
         {
-            // 单文件模式
             UploadFiles.Clear();
             return Task.CompletedTask;
         }
@@ -241,7 +258,7 @@ namespace BootstrapBlazor.Components
         private async Task OnFileChange(InputFileChangeEventArgs args)
         {
             var files = new List<UploadFile>();
-            if (IsMultiple || Style == UploadStyle.UploadFolder)
+            if (IsMultiple)
             {
                 files.AddRange(args.GetMultipleFiles(MaxFileCount).Select(f => new UploadFile()
                 {
@@ -273,7 +290,10 @@ namespace BootstrapBlazor.Components
 
         private void Update(UploadFile file)
         {
-            StateHasChanged();
+            if (ShowProgress)
+            {
+                StateHasChanged();
+            }
         }
 
         private static string GetFileSize(long fileSize) => fileSize switch
@@ -291,8 +311,8 @@ namespace BootstrapBlazor.Components
                 { "hidden", "hidden" }
             };
 
-            if (IsMultiple || Style == UploadStyle.UploadFolder) ret.Add("multiple", "multiple");
-            if (Style == UploadStyle.UploadFolder)
+            if (IsMultiple) ret.Add("multiple", "multiple");
+            if (IsDirectory)
             {
                 ret.Add("directory", "dicrectory");
                 ret.Add("webkitdirectory", "webkitdirectory");
