@@ -65,11 +65,6 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FooterTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
-        /// </summary>
-        public bool KeepChildrenState { get; set; }
-
-        /// <summary>
         /// 获得/设置 自定义组件
         /// </summary>
         public DynamicComponent? Component { get; set; }
@@ -78,11 +73,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 关闭弹窗回调方法
         /// </summary>
         public Func<Task>? OnCloseAsync { get; set; }
-
-        /// <summary>
-        /// 获得/设置 重置 Dialog BodyTemplate 回调委托
-        /// </summary>
-        internal Func<Task>? ResetBodyTemplate { get; set; }
 
         /// <summary>
         /// 将参数转换为组件属性方法

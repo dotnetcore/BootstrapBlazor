@@ -66,18 +66,6 @@ namespace BootstrapBlazor.Components
 
         private async Task Show(DialogOption option)
         {
-            option.ResetBodyTemplate = async () =>
-            {
-                if (!option.KeepChildrenState)
-                {
-                    await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
-                    {
-                        [nameof(ModalDialogBase.BodyContext)] = null!,
-                        [nameof(ModalDialogBase.BodyTemplate)] = null!
-                    }));
-                }
-            };
-
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes().ToList();
 
@@ -99,8 +87,6 @@ namespace BootstrapBlazor.Components
             {
                 // 回调 OnClose 方法
                 if (option.OnCloseAsync != null) await option.OnCloseAsync();
-
-                await option.ResetBodyTemplate();
             })));
 
             await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));

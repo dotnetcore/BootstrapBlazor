@@ -53,8 +53,6 @@ namespace BootstrapBlazor.Components
                     {
                         await option.OnResetSearchClick();
                     }
-
-                    if(option.ResetBodyTemplate != null) await option.ResetBodyTemplate();
                 })),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.OnSearchClick), new Func<Task>(async () =>
                 {
@@ -62,8 +60,6 @@ namespace BootstrapBlazor.Components
                     {
                         await option.OnSearchClick();
                     }
-
-                    if(option.ResetBodyTemplate != null) await option.ResetBodyTemplate();
                 }))
             });
 
@@ -93,8 +89,6 @@ namespace BootstrapBlazor.Components
                     {
                         await option.OnCloseAsync();
                     }
-
-                    if(option.ResetBodyTemplate != null) await option.ResetBodyTemplate();
                 })),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.OnSaveAsync), new Func<EditContext, Task>(async context =>
                 {
@@ -106,8 +100,6 @@ namespace BootstrapBlazor.Components
                             await option.Dialog!.Close();
                         }
                     }
-
-                    if(option.ResetBodyTemplate != null) await option.ResetBodyTemplate();
                 }))
             });
 
