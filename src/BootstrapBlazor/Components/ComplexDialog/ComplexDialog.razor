@@ -1,0 +1,37 @@
+﻿@namespace BootstrapBlazor.Components
+
+@typeparam TCom
+
+@inherits BootstrapComponentBase
+
+@if (BodyFragment != null)
+{
+    <CascadingValue Value="this" IsFixed="true">
+        @BodyFragment
+    </CascadingValue>
+}
+@if (ShowFooterButtons)
+{
+    <div class="modal-footer table-modal-footer">
+        @if (ShowYesButton)
+        {
+            <Button Color="YesButtonColor" OnClick="() => ButtonClick(DialogResult.Yes)">
+                <i class="@YesButtonIcon"></i>
+                <span>@YesButtonText</span>
+            </Button>
+        }
+        @if (ShowNoButton)
+        {
+            <Button Color="NoButtonColor" OnClick="() => ButtonClick(DialogResult.No)" Icon="@NoButtonIcon" Text="@NoButtonText">
+            </Button>
+        }
+        @if (ShowCloseButton)
+        {
+            <Button type="button" Color="CloseButtonColor" OnClick="() => ButtonClick(DialogResult.Close)">
+                <i class="@CloseButtonIcon"></i>
+                <span>@CloseButtonText</span>
+            </Button>
+        }
+    </div>
+}
+

@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
+using System;
 using System.ComponentModel;
 
 namespace BootstrapBlazor.Shared.Common
@@ -11,6 +13,42 @@ namespace BootstrapBlazor.Shared.Common
     /// </summary>
     public class AttributeItem
     {
+        /// <summary>
+        /// 默认构造，什么都不做
+        /// </summary>
+        public AttributeItem(){}
+
+        /// <summary>
+        /// 根据默认值自动生成部分内容
+        /// </summary>
+        /// <param name="defaultValue"></param>
+        public AttributeItem(object defaultValue)
+        {
+            switch (defaultValue)
+            {
+                case string str:
+                    Type = " string ";
+                    ValueList = " — ";
+                    DefaultValue = $" {str} ";
+                    break;
+                case bool b:
+                    Type = " boolean ";
+                    ValueList = " true|false ";
+                    DefaultValue = $" {b} ";
+                    break;
+                case Color color:
+                    Type = " Color ";
+                    ValueList = " None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link ";
+                    DefaultValue = $" {color} ";
+                    break;
+                case Size size:
+                    Type = "Size";
+                    ValueList = " None / ExtraSmall / Small / Medium / Large / ExtraLarge ";
+                    DefaultValue = size.ToString();
+                    break;
+            }
+        }
+
         /// <summary>
         /// 获得/设置 参数
         /// </summary>

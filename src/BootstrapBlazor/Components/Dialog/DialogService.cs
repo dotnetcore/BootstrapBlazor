@@ -105,5 +105,37 @@ namespace BootstrapBlazor.Components
 
             await base.Show(option);
         }
+
+        /// <summary>
+        /// 显示复杂对话框
+        /// </summary>
+        /// <param name="option">对话框参数</param>
+        /// <typeparam name="TCom">内容组件类型</typeparam>
+        /// <returns></returns>
+        public async Task<(DialogResult dialogResult, TCom? component)> ShowDialog<TCom>(ComplexDialogOption<TCom> option) where TCom : ComplexDialogBase
+        {
+            option.Component = DynamicComponent.CreateComponent<ComplexDialog<TCom>>(new KeyValuePair<string, object>[]
+            {
+                new(nameof(ComplexDialog<TCom>.ShowFooterButtons), option.ShowButtons),
+                new(nameof(ComplexDialog<TCom>.ShowCloseButton), option.ShowCloseButton),
+                new(nameof(ComplexDialog<TCom>.ShowNoButton), option.ShowNoButton),
+                new(nameof(ComplexDialog<TCom>.ShowYesButton), option.ShowYesButton),
+                new(nameof(ComplexDialog<TCom>.CloseButtonColor), option.CloseButtonColor),
+                new(nameof(ComplexDialog<TCom>.CloseButtonIcon), option.CloseButtonIcon),
+                new(nameof(ComplexDialog<TCom>.CloseButtonText), option.CloseButtonText),
+                new(nameof(ComplexDialog<TCom>.YesButtonColor), option.YesButtonColor),
+                new(nameof(ComplexDialog<TCom>.YesButtonIcon), option.YesButtonIcon),
+                new(nameof(ComplexDialog<TCom>.YesButtonText), option.YesButtonText),
+                new(nameof(ComplexDialog<TCom>.NoButtonColor), option.NoButtonColor),
+                new(nameof(ComplexDialog<TCom>.NoButtonIcon), option.NoButtonIcon),
+                new(nameof(ComplexDialog<TCom>.NoButtonText), option.NoButtonText),
+                new(nameof(ComplexDialog<TCom>.OnCloseDialog), new Action<DialogResult, TCom?>(async (dialogResult, component) =>
+                {
+                    await option.Close(dialogResult, component);
+                }))
+            });
+            await base.Show(option);
+            return await option.ReturnTask.Task;
+        }
     }
 }

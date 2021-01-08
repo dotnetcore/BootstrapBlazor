@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Shared
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class NavMenu
     {
@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Shared
         private List<MenuItem> Menus { get; set; } = new List<MenuItem>(100);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         protected override void OnInitialized()
         {
@@ -333,6 +333,12 @@ namespace BootstrapBlazor.Shared.Shared
                 IsNew = true,
                 Text = "编辑弹窗 EditDialog",
                 Url = "editdialogs"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "复杂对话框 ComplexDialog",
+                Url = "complexdialog"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -707,7 +713,7 @@ namespace BootstrapBlazor.Shared.Shared
             public bool IsUpdate { get; set; }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             /// <param name="item"></param>
             public override void AddItem(MenuItem item)
