@@ -91,14 +91,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 被选中的数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<TItem> SelectedRows
-        {
-            get => SelectedItems;
-            set
-            {
-                if (SelectedItems != value) SelectedItems = value.ToList();
-            }
-        }
+        public IEnumerable<TItem>? SelectedRows { get; set; }
 
         /// <summary>
         /// 获得/设置 被选中的数据集合回调委托
@@ -200,23 +193,35 @@ namespace BootstrapBlazor.Components
         {
             if (ClickToSelect)
             {
-                // 反转选择
+                // 多选模式清空
                 if (!IsMultipleSelect)
                 {
                     SelectedItems.Clear();
                 }
-                else if (SelectedItems.Contains(val))
+
+                if (SelectedItems.Contains(val))
                 {
                     SelectedItems.Remove(val);
                 }
+                else
+                {
+                    SelectedItems.Add(val);
+                }
 
-                SelectedItems.Add(val);
-
-                if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
+                await OnSelectedRowsChanged();
             }
 
             if (OnClickRowCallback != null) await OnClickRowCallback(val);
         };
+
+        private async Task OnSelectedRowsChanged()
+        {
+            if (SelectedRowsChanged.HasDelegate)
+            {
+                SelectedRows = SelectedItems;
+                await SelectedRowsChanged.InvokeAsync(SelectedRows);
+            }
+        }
 
         /// <summary>
         /// 检查当前行是否被选中方法
@@ -293,6 +298,11 @@ namespace BootstrapBlazor.Components
                     var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => Items.GetSortLambda().Compile());
                     Items = invoker(Items, SortName, SortOrder);
                 }
+            }
+
+            if (!IsRendered && SelectedRows != null)
+            {
+                SelectedItems.AddRange(Items.Where(i => SelectedRows.Contains(i)));
             }
         }
 

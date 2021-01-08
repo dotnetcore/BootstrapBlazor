@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="state"></param>
         /// <param name="val"></param>
-        protected virtual Task OnHeaderCheck(CheckboxState state, TItem val)
+        protected virtual async Task OnHeaderCheck(CheckboxState state, TItem val)
         {
             switch (state)
             {
@@ -83,8 +83,7 @@ namespace BootstrapBlazor.Components
                     SelectedItems.AddRange(Items);
 
                     // callback
-                    if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
-
+                    await OnSelectedRowsChanged();
                     StateHasChanged();
                     break;
                 case CheckboxState.UnChecked:
@@ -92,14 +91,12 @@ namespace BootstrapBlazor.Components
                     SelectedItems.Clear();
 
                     // callback
-                    if (SelectedRowsChanged.HasDelegate) SelectedRowsChanged.InvokeAsync(SelectedRows);
-
+                    await OnSelectedRowsChanged();
                     StateHasChanged();
                     break;
                 default:
                     break;
             }
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -110,7 +107,7 @@ namespace BootstrapBlazor.Components
             if (state == CheckboxState.Checked) SelectedItems.Add(val);
             else SelectedItems.Remove(val);
 
-            if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
+            await OnSelectedRowsChanged();
 
             if (HeaderCheckbox != null)
             {
