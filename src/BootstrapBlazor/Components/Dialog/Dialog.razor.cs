@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -77,6 +78,10 @@ namespace BootstrapBlazor.Components
             {
                 parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.Component.Render()));
             }
+            else
+            {
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<Empty>().Render()));
+            }
 
             if (option.FooterTemplate != null)
             {
@@ -92,6 +97,11 @@ namespace BootstrapBlazor.Components
             await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
             IsShowDialog = true;
             StateHasChanged();
+        }
+
+        private class Empty : ComponentBase
+        {
+            protected override void BuildRenderTree(RenderTreeBuilder builder) => builder.AddContent(0, string.Empty);
         }
 
         /// <summary>

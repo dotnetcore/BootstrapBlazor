@@ -1,7 +1,7 @@
 ﻿<Button Icon="fa fa-fa" Text="带 Footer 弹窗" Color="Color.Success" OnClick="@ShowFooterComponent" />
 
 @code {
-    private Task ShowFooterComponent()
+    private async Task ShowFooterComponent()
     {
         var op = new SwalOption()
         {
@@ -11,7 +11,7 @@
             ShowFooter = true,
             FooterTemplate = DynamicComponent.CreateComponent<SwalFooter>().Render()
         };
-        SwalService.Show(op);
+        await SwalService.Show(op);
         return Task.CompletedTask;
     }
 }

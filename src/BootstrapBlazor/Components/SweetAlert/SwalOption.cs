@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 模态弹窗返回值任务实例
         /// </summary>
-        internal TaskCompletionSource<bool> ReturnTask { get; set; } = new TaskCompletionSource<bool>();
+        internal TaskCompletionSource<bool> ReturnTask { get; } = new TaskCompletionSource<bool>();
 
         /// <summary>
         /// 获得/设置 提示类型 默认为 Sucess

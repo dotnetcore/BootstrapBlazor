@@ -10,19 +10,18 @@
 </div>
 
 @code {
-    private Task ShowTitle()
+    private async Task ShowTitle()
     {
-        SwalService.Show(new SwalOption()
+        await SwalService.Show(new SwalOption()
         {
             Category = SwalCategory.Success,
             Title = "我是 Title"
         });
-        return Task.CompletedTask;
     }
 
-    private Task ShowContent()
+    private async Task ShowContent()
     {
-        SwalService.Show(new SwalOption()
+        await SwalService.Show(new SwalOption()
         {
             Category = SwalCategory.Success,
             Content = "我是 Content"

@@ -1,7 +1,7 @@
 ﻿<Button Icon="fa fa-fa" Text="弹窗" Color="Color.Success" OnClick="@ShowButtons" />
 
 @code {
-    private Task ShowButtons()
+    private async Task ShowButtons()
     {
         var op = new SwalOption()
         {
@@ -17,7 +17,6 @@
             builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await op.Close()));
             builder.CloseComponent();
         });
-        SwalService.Show(op);
-        return Task.CompletedTask;
+        await SwalService.Show(op);
     }
 }

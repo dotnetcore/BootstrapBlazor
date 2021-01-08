@@ -63,6 +63,40 @@
     <Button @onclick="@Show">Dialog</Button>
 </Block>
 
+<Block Title="模态对话框" Introduction="通过 <code>ShowModal</code> 方法弹出线程阻塞模式的对话框" CodeFile="dialog.6.html">
+    <p>功能介绍</p>
+    <ul class="ul-demo">
+        <li>点击按钮弹出模态弹窗</li>
+        <li>更改模态弹窗内数值点击 <code>确认</code> 按钮时数值 <b>更新</b></li>
+        <li>更改模态弹窗内数值点击 <code>取消</code> 或者 <code>关闭</code> 按钮时数值 <b>不更新</b></li>
+        <li>再次点击弹出模态弹窗时，数值保持一致</li>
+    </ul>
+    <Button @onclick="@OnResultDialogClick">点击打开 Dialog</Button>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="实战演练" Introduction="模拟一个邮件应用，弹窗选择收件人后填入下方的收件人框。" CodeFile="dialog.7.html">
+    <p>功能介绍</p>
+    <ul class="ul-demo">
+        <li>点击按钮弹出模态弹窗</li>
+        <li>通过级联传参 <code>BodyContext</code> 传递 <b>10</b> 到弹窗中初始化数据</li>
+        <li>选中 <code>Table</code> 组件中的行数据，通过双向绑定对 <code>SelectedRows</code> 数据进行 <b>更新</b></li>
+        <li>点击 <b>选中</b> 按钮通过双向绑定对 <code>Emails</code> 数据进行 <b>更新</b></li>
+        <li>点击 <code>取消</code> 或者 <code>关闭</code> 按钮时 <code>Emails</code> 值 <b>不更新</b></li>
+        <li>再次点击弹出模态弹窗时，组件内行选中状态保持一致</li>
+        <li>弹窗中未选择用户时禁止关闭弹窗</li>
+    </ul>
+    <div class="form-inline">
+        <label class="control-label">收件人：</label>
+        <div class="input-group">
+            <BootstrapInput placeholder="请输入 ..." Value="@InputValue"></BootstrapInput>
+            <div class="input-group-append">
+                <Button Icon="fa fa-vcard-o" OnClick="@OnEmailButtonClick"></Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
 <Tips class="mt-3">
     <p>
         本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>Dialog</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：

@@ -1,7 +1,7 @@
 ﻿<Button Icon="fa fa-fa" Text="弹窗" Color="Color.Success" OnClick="@ShowComponent" />
 
 @code {
-    private Task ShowComponent()
+    private async Task ShowComponent()
     {
         var op = new SwalOption()
         {
@@ -14,7 +14,6 @@
                 builder.CloseElement();
             })
         };
-        SwalService.Show(op);
-        return Task.CompletedTask;
+        await SwalService.Show(op);
     }
 }

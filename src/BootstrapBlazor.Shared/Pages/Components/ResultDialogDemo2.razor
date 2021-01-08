@@ -1,0 +1,9 @@
+﻿<Table TItem="Foo" Items="@Items.Take(10)" ClickToSelect="true" IsMultipleSelect="true" @bind-SelectedRows="@SelectedRows">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Id" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Email" />
+    </TableColumns>
+</Table>
+
+<Message />

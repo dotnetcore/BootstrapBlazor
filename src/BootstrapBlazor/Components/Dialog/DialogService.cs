@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System;
@@ -19,15 +20,22 @@ namespace BootstrapBlazor.Components
 
         private IStringLocalizer<SearchDialog<DialogOption>> SearchDialogLocalizer { get; set; }
 
+        private IStringLocalizer<ResultDialogOption> ResultDialogLocalizer { get; set; }
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="editLocalizer"></param>
         /// <param name="seachLocalizer"></param>
-        public DialogService(IStringLocalizer<EditDialog<DialogOption>> editLocalizer, IStringLocalizer<SearchDialog<DialogOption>> seachLocalizer)
+        /// <param name="resultDialogLocalizer"></param>
+        public DialogService(
+            IStringLocalizer<EditDialog<DialogOption>> editLocalizer,
+            IStringLocalizer<SearchDialog<DialogOption>> seachLocalizer,
+            IStringLocalizer<ResultDialogOption> resultDialogLocalizer)
         {
             EditDialogLocalizer = editLocalizer;
             SearchDialogLocalizer = seachLocalizer;
+            ResultDialogLocalizer = resultDialogLocalizer;
         }
 
         /// <summary>
@@ -104,6 +112,71 @@ namespace BootstrapBlazor.Components
             });
 
             await base.Show(option);
+        }
+
+        /// <summary>
+        /// 弹出带结果的对话框
+        /// </summary>
+        /// <param name="option">对话框参数</param>
+        /// <returns></returns>
+        public async Task<DialogResult> ShowModal<TDialog>(ResultDialogOption option)
+            where TDialog : IComponent, IResultDialog
+        {
+            IResultDialog? dialog = null;
+            var result = DialogResult.Close;
+
+            option.BodyTemplate = builder =>
+            {
+                builder.OpenComponent(0, typeof(TDialog));
+                builder.AddMultipleAttributes(2, option.ComponentParamters);
+                builder.AddComponentReferenceCapture(1, com => dialog = (IResultDialog)com);
+                builder.SetKey(Guid.NewGuid());
+                builder.CloseComponent();
+            };
+
+            option.FooterTemplate = DynamicComponent.CreateComponent<ResultDialogFooter>(new KeyValuePair<string, object>[]
+            {
+                new(nameof(ResultDialogFooter.ShowCloseButton), option.ShowCloseButton),
+                new(nameof(ResultDialogFooter.ButtonCloseColor), option.ButtonCloseColor),
+                new(nameof(ResultDialogFooter.ButtonCloseIcon), option.ButtonCloseIcon),
+                new(nameof(ResultDialogFooter.ButtonCloseText), option.ButtonCloseText ?? ResultDialogLocalizer[nameof(option.ButtonCloseText)] ?? ""),
+                new(nameof(ResultDialogFooter.OnClickClose), new Func<Task>(async () => {
+                    result = DialogResult.Close;
+                    await option.OnCloseAsync!();
+                })),
+
+                new(nameof(ResultDialogFooter.ShowYesButton), option.ShowYesButton),
+                new(nameof(ResultDialogFooter.ButtonYesColor), option.ButtonYesColor),
+                new(nameof(ResultDialogFooter.ButtonYesIcon), option.ButtonYesIcon),
+                new(nameof(ResultDialogFooter.ButtonYesText), option.ButtonYesText ?? ResultDialogLocalizer[nameof(option.ButtonYesText)] ?? ""),
+                new(nameof(ResultDialogFooter.OnClickYes), new Func<Task>(async () => {
+                    result = DialogResult.Yes;
+                    await option.OnCloseAsync!();
+                })),
+
+                new(nameof(ResultDialogFooter.ShowNoButton), option.ShowNoButton),
+                new(nameof(ResultDialogFooter.ButtonNoColor), option.ButtonNoColor),
+                new(nameof(ResultDialogFooter.ButtonNoIcon), option.ButtonNoIcon),
+                new(nameof(ResultDialogFooter.ButtonNoText), option.ButtonNoText?? ResultDialogLocalizer[nameof(option.ButtonNoText)] ?? ""),
+                new(nameof(ResultDialogFooter.OnClickNo), new Func<Task>(async () => {
+                    result = DialogResult.No;
+                    await option.OnCloseAsync!();
+                }))
+            }).Render();
+
+            var closeCallback = option.OnCloseAsync;
+            option.OnCloseAsync = async () =>
+            {
+                if (await dialog!.OnClosing())
+                {
+                    await dialog!.OnClose(result);
+                    if (closeCallback != null) await closeCallback();
+                    await option.Dialog!.Close();
+                    option.ReturnTask.SetResult(result);
+                }
+            };
+            await base.Show(option);
+            return await option.ReturnTask.Task;
         }
     }
 }

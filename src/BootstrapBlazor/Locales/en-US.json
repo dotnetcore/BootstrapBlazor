@@ -86,6 +86,11 @@
     "ThisMonth": "This Month",
     "LastMonth": "Last Month"
   },
+  "BootstrapBlazor.Components.ResultDialogOption": {
+    "ButtonYesText": "Yes",
+    "ButtonNoText": "No",
+    "ButtonCloseText": "Close"
+  },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Please select ..."
   },

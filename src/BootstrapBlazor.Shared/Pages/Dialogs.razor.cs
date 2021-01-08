@@ -22,10 +22,13 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        public IEnumerable<SelectedItem> RadioItems { get; private set; } = new SelectedItem[] {
+        private IEnumerable<SelectedItem> RadioItems { get; set; } = new SelectedItem[] {
             new SelectedItem("false", "不保持状态") { Active = true },
             new SelectedItem("true", "保持状态")
         };
+
+        [NotNull]
+        private Logger? Trace { get; set; }
 
         /// <summary>
         /// 
@@ -112,6 +115,47 @@ namespace BootstrapBlazor.Shared.Pages
             }).Render();
 
             await DialogService.Show(op);
+        }
+
+        private int DemoValue1 { get; set; } = 1;
+        private async Task OnResultDialogClick()
+        {
+            var result = await DialogService.ShowModal<ResultDialogDemo>(new ResultDialogOption()
+            {
+                Title = "带返回值模态弹出框",
+                ComponentParamters = new KeyValuePair<string, object>[]
+                {
+                    new(nameof(ResultDialogDemo.Value), DemoValue1),
+                    new(nameof(ResultDialogDemo.ValueChanged), EventCallback.Factory.Create<int>(this, v => DemoValue1 = v))
+                }
+            });
+
+            Trace.Log($"弹窗返回值为: {result} 组件返回值为: {DemoValue1}");
+        }
+
+        private string? InputValue { get; set; }
+        private IEnumerable<string> Emails { get; set; } = Array.Empty<string>();
+
+        private async Task OnEmailButtonClick()
+        {
+            var result = await DialogService.ShowModal<ResultDialogDemo2>(new ResultDialogOption()
+            {
+                Title = "选择收件人",
+                BodyContext = 10,
+                ButtonYesText = "选择",
+                ButtonYesIcon = "fa fa-search",
+                ComponentParamters = new KeyValuePair<string, object>[]
+                {
+                    // 用于初始化已选择的用户邮件
+                    new(nameof(ResultDialogDemo2.Emails), Emails),
+                    new(nameof(ResultDialogDemo2.EmailsChanged), EventCallback.Factory.Create<IEnumerable<string>>(this, v => Emails = v))
+                }
+            });
+
+            if (result == DialogResult.Yes)
+            {
+                InputValue = string.Join(";", Emails);
+            }
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿<Button Icon="fa fa-fa" Text="自动关闭弹窗" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
 
 @code {
-    private Task ShowAutoCloseSwal()
+    private async Task ShowAutoCloseSwal()
     {
         var op = new SwalOption()
         {
@@ -13,7 +13,6 @@
             Delay = 4000,
             FooterTemplate = DynamicComponent.CreateComponent<SwalFooter>().Render()
         };
-        SwalService.Show(op);
-        return Task.CompletedTask;
+        await SwalService.Show(op);
     }
 }

@@ -86,6 +86,11 @@
     "ThisMonth": "这个月",
     "LastMonth": "上个月"
   },
+  "BootstrapBlazor.Components.ResultDialogOption": {
+    "ButtonYesText": "确认",
+    "ButtonNoText": "取消",
+    "ButtonCloseText": "关闭"
+  },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "请选择 ..."
   },
