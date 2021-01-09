@@ -1,19 +1,22 @@
 ﻿<div class="row">
     <div class="col-12">
         <p>卡片形式头像框</p>
-        <Upload Style="UploadStyle.Avatar" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        <Upload Style="UploadStyle.Avatar" Accept="image/*" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
     </div>
 </div>
 <div class="row mt-3">
     <div class="col-12">
         <p>圆形头像框</p>
-        <Upload Style="UploadStyle.Avatar" ShowProgress="true" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        <Upload Style="UploadStyle.Avatar" Accept="image/*" ShowProgress="true" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
     </div>
 </div>
 <div class="row mt-3">
     <div class="col-12">
         <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
-        <Upload Style="UploadStyle.Avatar" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+        <p>
+            <div>组件提供了 <code>Accept</code> 属性用于设置上传文件过滤功能，本例中圆形头像框接受 GIF 和 JPEG 两种图像，设置 <code>Accept="image/gif, image/jpeg"</code></div>
+        </p>
+        <Upload Style="UploadStyle.Avatar" Accept="image/gif, image/jpeg" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
     </div>
 </div>
 

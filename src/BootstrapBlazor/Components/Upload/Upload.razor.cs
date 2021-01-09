@@ -86,6 +86,12 @@ namespace BootstrapBlazor.Components
         public string? PlaceHolder { get; set; }
 
         /// <summary>
+        /// 获得/设置 上传接收的文件格式 默认为 null 接收任意格式
+        /// </summary>
+        [Parameter]
+        public string? Accept { get; set; }
+
+        /// <summary>
         /// 获得/设置 删除按钮样式 默认 btn-danger
         /// </summary>
         [Parameter]
@@ -311,6 +317,7 @@ namespace BootstrapBlazor.Components
                 { "hidden", "hidden" }
             };
 
+            if (!string.IsNullOrEmpty(Accept)) ret.Add("accept", Accept);
             if (IsMultiple) ret.Add("multiple", "multiple");
             if (IsDirectory)
             {

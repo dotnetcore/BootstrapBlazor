@@ -215,6 +215,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "Accept",
+                Description = "已上传文件集合",
+                Type = "List<UploadFile>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "MaxFileCount",
                 Description = "最大上传文件数量",
                 Type = "int",
