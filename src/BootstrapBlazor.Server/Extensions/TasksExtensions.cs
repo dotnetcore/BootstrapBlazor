@@ -29,11 +29,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<WeatherForecastService>();
             services.AddTaskServices();
             services.AddHttpClient();
-            services.AddTransient(sp =>
-            {
-                var factory = sp.GetRequiredService<IHttpClientFactory>();
-                return factory.CreateClient();
-            });
             services.AddVersionManager();
             services.AddExampleService();
             services.AddSingleton<WebsiteOptions>();
@@ -53,9 +48,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 
         /// </summary>
         /// <param name="env"></param>
-        public BlazorBackgroundServices(IWebHostEnvironment env)
+        /// <param name="websiteOption"></param>
+        public BlazorBackgroundServices(IWebHostEnvironment env, WebsiteOptions websiteOption)
         {
             _env = env;
+            websiteOption.WebRootPath = env.WebRootPath;
         }
 
         /// <summary>
@@ -63,7 +60,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="stoppingToken"></param>
         /// <returns></returns>
-        protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.Run(() =>
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             TaskServicesManager.GetOrAdd("Clear Upload Files", token =>
             {
@@ -87,6 +84,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 return Task.CompletedTask;
             }, TriggerBuilder.Build(Cron.Minutely(10)));
-        });
+
+            return Task.CompletedTask;
+        }
     }
 }

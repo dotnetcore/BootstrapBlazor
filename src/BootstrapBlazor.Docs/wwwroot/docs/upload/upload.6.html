@@ -12,20 +12,39 @@
     </div>
 
 @code {
-    private CancellationTokenSource? ReadCardToken { get; set; }
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private WebsiteOptions? SiteOptions { get; set; }
+
+    private CancellationTokenSource? ReadToken { get; set; }
     private async Task OnCardUpload(IEnumerable<UploadFile> files)
     {
         // 示例代码，使用 IWebHostEnviroment 注入获取硬盘文件夹 示例
         var file = files.FirstOrDefault();
         if (file != null && file.File != null)
         {
-            // 生成写入文件名称
-            var uploaderFolder = Path.Combine(WebHost.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            await SaveToFile(file);
+        }
+    }
+
+    private async Task<bool> SaveToFile(UploadFile file)
+    {
+        // Server Side 使用
+        // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
+        // 生成写入文件名称
+        var ret = false;
+        if (!string.IsNullOrEmpty(SiteOptions.WebRootPath))
+        {
+            var uploaderFolder = Path.Combine(SiteOptions.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
             file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
             var fileName = Path.Combine(uploaderFolder, file.FileName);
 
-            ReadCardToken ??= new CancellationTokenSource();
-            var ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadCardToken.Token);
+            ReadToken ??= new CancellationTokenSource();
+            ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadToken.Token);
 
             if (ret)
             {
@@ -37,5 +56,10 @@
                 await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
             }
         }
+        else
+        {
+            await ToastService.Information("保存文件", "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中");
+        }
+        return ret;
     }
 }

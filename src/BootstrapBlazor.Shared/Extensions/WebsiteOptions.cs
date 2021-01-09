@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace BootstrapBlazor.Shared
 {
     /// <summary>
@@ -28,5 +30,11 @@ namespace BootstrapBlazor.Shared
         /// 
         /// </summary>
         public string ImageLibUrl { get; set; } = "https://imgs.blazor.zone";
+
+        /// <summary>
+        /// 获得/设置 系统 wwwroot 文件夹路径 Server Side 模式下 Upload 使用
+        /// </summary>
+        [NotNull]
+        public string? WebRootPath { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -26,11 +26,11 @@ namespace BootstrapBlazor.Shared.Pages
 
         [Inject]
         [NotNull]
-        private IWebHostEnvironment? WebHost { get; set; }
+        private ToastService? ToastService { get; set; }
 
         [Inject]
         [NotNull]
-        private ToastService? ToastService { get; set; }
+        private WebsiteOptions? SiteOptions { get; set; }
 
         private Logger? Trace { get; set; }
 
@@ -111,24 +111,33 @@ namespace BootstrapBlazor.Shared.Pages
 
         private async Task<bool> SaveToFile(UploadFile file)
         {
+            // Server Side 使用
+            // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
             // 生成写入文件名称
-            var uploaderFolder = Path.Combine(WebHost.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
-            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
-            var fileName = Path.Combine(uploaderFolder, file.FileName);
-
-            ReadToken ??= new CancellationTokenSource();
-            var ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadToken.Token);
-
-            if (ret)
+            var ret = false;
+            if (!string.IsNullOrEmpty(SiteOptions.WebRootPath))
             {
-                // 保存成功
-                file.PrevUrl = $"images/uploader/{file.FileName}";
+                var uploaderFolder = Path.Combine(SiteOptions.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+                file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+                var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+                ReadToken ??= new CancellationTokenSource();
+                ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadToken.Token);
+
+                if (ret)
+                {
+                    // 保存成功
+                    file.PrevUrl = $"images/uploader/{file.FileName}";
+                }
+                else
+                {
+                    await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+                }
             }
             else
             {
-                await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+                await ToastService.Information("保存文件", "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中");
             }
-
             return ret;
         }
 
