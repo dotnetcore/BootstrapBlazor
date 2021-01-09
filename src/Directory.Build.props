@@ -1,16 +1,16 @@
 ﻿<Project>
 
-    <Import Project="..\Directory.Build.props" />
+  <Import Project="..\Directory.Build.props" />
 
-    <PropertyGroup>
-        <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
-        <PackageProjectUrl>https://argozhang.github.io</PackageProjectUrl>
-        <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
-        <Description>Bootstrap UI components for Blazor and Razor Components</Description>
-        <RepositoryType>github</RepositoryType>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <Nullable>enable</Nullable>
-        <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
-    </PropertyGroup>
+  <PropertyGroup>
+    <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
+    <PackageProjectUrl>https://argozhang.github.io</PackageProjectUrl>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
+    <Description>Bootstrap UI components for Blazor and Razor Components</Description>
+    <RepositoryType>github</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Nullable>enable</Nullable>
+    <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
 
 </Project>
