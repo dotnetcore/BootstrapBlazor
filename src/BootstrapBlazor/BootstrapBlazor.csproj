@@ -43,7 +43,7 @@
     <None Include="logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="dotnet bundle --no-color" />
+  <Target Condition="$(USERNAME) == 'Argo' or $(USER) == 'Argo'" Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet bundle --no-color" />
   </Target>
 </Project>

@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Components
             {
                 await cb.Invoke(option);
             }
-            return option.IsConfirm == true ? await option.ReturnTask.Task : true;
+            return option.IsConfirm != true || await option.ReturnTask.Task;
         }
     }
 }
