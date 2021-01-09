@@ -18,12 +18,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 文件名
         /// </summary>
-        public string FileName { get; set; } = "";
+        public string? FileName { get; set; }
 
         /// <summary>
         /// 获得/设置 原始文件名
         /// </summary>
-        public string OriginFileName { get; set; } = "";
+        public string? OriginFileName { get; internal set; }
 
         /// <summary>
         /// 获得/设置 文件大小
@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 文件是否上传完毕
         /// </summary>
-        internal bool Uploaded { get; set; }
+        internal bool Uploaded { get; set; } = true;
 
         /// <summary>
         /// 获取 base64 格式图片字符串

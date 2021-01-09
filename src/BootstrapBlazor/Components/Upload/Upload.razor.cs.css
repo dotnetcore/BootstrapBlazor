@@ -36,7 +36,18 @@
             .upload .upload-body.is-list .upload-item .fn {
                 flex: 1;
                 padding: 0 5px;
+                display: flex;
+                overflow: hidden;
             }
+
+                .upload .upload-body.is-list .upload-item .fn span:first-child {
+                    max-width: calc(100% - 4rem);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: block;
+                    white-space: nowrap;
+                    padding-right: 0.25rem;
+                }
 
             .upload .upload-body.is-list .upload-item .fa-trash-o,
             .upload .upload-body.is-list .upload-item:hover .fa-check-circle-o,
@@ -126,28 +137,6 @@
             overflow: hidden;
         }
 
-            .upload .upload-body.is-card .upload-item .upload-item-body {
-                border-radius: 4px;
-                height: 168px;
-                border: 1px solid #d9d9d9;
-                margin: 0 auto;
-                display: flex;
-                align-items: center;
-                overflow: hidden;
-            }
-
-                .upload .upload-body.is-card .upload-item .upload-item-body img {
-                    width: 100%;
-                    object-fit: cover;
-                    display: none;
-                }
-
-            .upload .upload-body.is-card .upload-item .upload-item-size {
-                margin: 1rem auto;
-                text-align: center;
-                font-size: 0.625rem;
-            }
-
             .upload .upload-body.is-card .upload-item .upload-item-actions {
                 display: flex;
                 justify-content: space-between;
@@ -157,6 +146,48 @@
             .upload .upload-body .upload-item.is-valid .upload-item-label,
             .upload .upload-body .upload-item.is-invalid .upload-item-label {
                 display: block;
+            }
+
+        .upload .upload-body.is-card .is-invalid .upload-item-body {
+            border-color: #dc3545;
+        }
+
+        .upload .upload-body.is-card .upload-item-body {
+            border-radius: 4px;
+            height: 168px;
+            border: 1px solid #d9d9d9;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+            .upload .upload-body.is-card .upload-item-body img {
+                width: 100%;
+                object-fit: cover;
+                display: none;
+            }
+
+            .upload .upload-body.is-card .upload-item-body .fa {
+                font-size: 1.5rem;
+            }
+
+        .upload .upload-body.is-card .upload-item-size {
+            margin: 1rem auto;
+            text-align: center;
+            font-size: 0.625rem;
+            display: flex;
+            justify-content: center;
+        }
+
+            .upload .upload-body.is-card .upload-item-size span {
+                max-width: calc(100% - 4.5rem);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+                white-space: nowrap;
+                padding-right: 0.25rem;
             }
 
 .upload .upload-item .upload-item-label {

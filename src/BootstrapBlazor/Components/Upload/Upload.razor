@@ -5,7 +5,7 @@
     @if (Style == UploadStyle.Normal)
     {
         <div class="input-group">
-            <input type="text" class="form-control" id="@Id" readonly placeholder="@PlaceHolder" value="@(UploadFiles.FirstOrDefault()?.OriginFileName)" />
+            <input type="text" class="form-control" id="@Id" readonly placeholder="@PlaceHolder" value="@GetFileName()" />
             <div class="input-group-append">
                 @if (ShowDeleteButton)
                 {
@@ -22,8 +22,11 @@
             @foreach (var item in UploadFiles)
             {
                 <div class="@GetUploadItemClassString(item)">
-                    <i class="@GetFileIcon(item)"></i>
-                    <span class="fn">@item.OriginFileName</span>
+                    <i class="@GetFileFormatClassString(item)"></i>
+                    <div class="fn">
+                        <span>@GetFileName(item)</span>
+                        <span>(@GetFileSize(item.Size))</span>
+                    </div>
                     @if (item.Code == 0)
                     {
                         <i class="fa fa-check-circle-o text-success"></i>
@@ -87,14 +90,21 @@
             {
                 <div class="@GetUploadItemClassString(item)">
                     <div class="upload-item-body">
-                        <img src="@item.PrevUrl" />
+                        @if (IsImage(item))
+                        {
+                            <img src="@item.PrevUrl" />
+                        }
+                        else
+                        {
+                            <i class="@GetFileFormatClassString(item)"></i>
+                        }
                     </div>
-                    <div class="upload-item-size">(@GetFileSize(item.Size))</div>
+                    <div class="upload-item-size"><span>@GetFileName(item)</span> (@GetFileSize(item.Size))</div>
                     <div class="upload-item-actions">
                         <button class="btn btn-sm btn-outline-secondary" disabled="@GetDiabledString(item)">
                             <i class="fa fa-search-plus"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-danger" disabled="@GetDiabledString(item)" @onclick="@(e => OnFileDelete(item))">
+                        <button class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)" @onclick="@(e => OnFileDelete(item))">
                             <i class="fa fa-trash-o"></i>
                         </button>
                     </div>

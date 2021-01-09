@@ -34,6 +34,20 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Logger? Trace { get; set; }
 
+        private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
+        {
+            new UploadFile { FileName = "Test.xls" },
+            new UploadFile { FileName = "Test.doc" },
+            new UploadFile { FileName = "Test.ppt" },
+            new UploadFile { FileName = "Test.mp3" },
+            new UploadFile { FileName = "Test.mp4" },
+            new UploadFile { FileName = "Test.pdf" },
+            new UploadFile { FileName = "Test.cs" },
+            new UploadFile { FileName = "Test.zip" },
+            new UploadFile { FileName = "Test.txt" },
+            new UploadFile { FileName = "Test.dat" }
+        };
+
         private Task OnFileChange(IEnumerable<UploadFile> files)
         {
             // 未真正保存文件
@@ -101,11 +115,20 @@ namespace BootstrapBlazor.Shared.Pages
         private CancellationTokenSource? ReadToken { get; set; }
         private async Task OnCardUpload(IEnumerable<UploadFile> files)
         {
-            // 示例代码，使用 IWebHostEnviroment 注入获取硬盘文件夹 示例
             var file = files.FirstOrDefault();
             if (file != null && file.File != null)
             {
-                await SaveToFile(file);
+                // 服务器端验证当文件大于 2MB 时提示文件太大信息
+                if (file.Size > 2 * 1024 * 1024)
+                {
+                    await ToastService.Information("上传文件", $"文件大小超过 2MB");
+                    file.Code = 1;
+                    file.Error = "文件大小超过 2MB";
+                }
+                else
+                {
+                    await SaveToFile(file);
+                }
             }
         }
 

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,15 +43,45 @@ namespace BootstrapBlazor.Components
             .AddClass("is-circle", IsCircle && Style == UploadStyle.Avatar)
             .Build();
 
+        private static bool IsImage(UploadFile item)
+        {
+            return item.File?.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase)
+                ?? Path.GetExtension(item.OriginFileName ?? item.FileName)?.ToLowerInvariant() switch
+                {
+                    ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => true,
+                    _ => false
+                };
+        }
+
+        private string? GetFileFormatClassString(UploadFile item)
+        {
+            var builder = CssBuilder.Default("fa");
+            var fileExtension = Path.GetExtension(item.OriginFileName ?? item.FileName)?.ToLowerInvariant() ?? "";
+            string icon = OnGetFileFormat?.Invoke(fileExtension) ?? fileExtension switch
+            {
+                ".csv" or ".xls" or ".xlsx" => "fa-file-excel-o",
+                ".doc" or ".docx" or ".dot" or ".dotx" => "fa-file-word-o",
+                ".ppt" or ".pptx" => "fa-file-powerpoint-o",
+                ".wav" or ".mp3" => "fa-file-audio-o",
+                ".mp4" or ".mov" or ".mkv" => "fa-file-video-o",
+                ".cs" or ".html" or ".vb" => "fa-file-code-o",
+                ".pdf" => "fa-file-pdf-o",
+                ".zip" or ".rar" or ".iso" => "fa-file-archive-o",
+                ".txt" or ".log" or ".iso" => "fa-file-text-o",
+                ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => "fa-file-image-o",
+                _ => "fa-file-o"
+            };
+            builder.AddClass(icon);
+            return builder.Build();
+        }
+
         private string? GetUploadItemClassString() => CssBuilder.Default("upload-item")
             .AddClass("is-circle", IsCircle && Style == UploadStyle.Avatar)
             .Build();
 
-        private static string? GetFileIcon(UploadFile item) => CssBuilder.Default("fa")
-            .AddClass("fa-file-text-o", true)
-            .Build();
-
         private static string? GetDiabledString(UploadFile item) => (item.Uploaded && item.Code == 0) ? null : "disabled";
+
+        private static string? GetDeleteButtonDiabledString(UploadFile item) => (item.Uploaded) ? null : "disabled";
 
         private string? RemoveButtonClassString => CssBuilder.Default("btn")
             .AddClass(DeleteButtonClass)
@@ -64,8 +95,20 @@ namespace BootstrapBlazor.Components
 
         private bool IsUploadButtonDisabled => IsSingle && UploadFiles.Any();
 
+        private string? GetFileName(UploadFile? item = null)
+        {
+            var file = item ?? UploadFiles.FirstOrDefault();
+            return file?.OriginFileName ?? file?.FileName;
+        }
+
         [NotNull]
         private List<UploadFile>? UploadFiles { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置文件格式图标回调委托
+        /// </summary>
+        [Parameter]
+        public Func<string, string>? OnGetFileFormat { get; set; }
 
         /// <summary>
         /// 获得/设置 上传组件模式 默认为 Normal 正常模式多用于表单中
@@ -247,10 +290,14 @@ namespace BootstrapBlazor.Components
         {
             if (OnDelete != null && item != null)
             {
-                var ret = await OnDelete(item.File?.Name ?? item.FileName);
-                if (ret)
+                var fileName = item.OriginFileName ?? item.FileName;
+                if (!string.IsNullOrEmpty(fileName))
                 {
-                    UploadFiles.Remove(item);
+                    var ret = await OnDelete(fileName);
+                    if (ret)
+                    {
+                        UploadFiles.Remove(item);
+                    }
                 }
             }
         }
@@ -271,6 +318,7 @@ namespace BootstrapBlazor.Components
                     OriginFileName = f.Name,
                     Size = f.Size,
                     File = f,
+                    Uploaded = false,
                     UpdateCallback = Update
                 }));
             }
@@ -281,6 +329,7 @@ namespace BootstrapBlazor.Components
                     OriginFileName = args.File.Name,
                     Size = args.File.Size,
                     File = args.File,
+                    Uploaded = false,
                     UpdateCallback = Update
                 };
                 files.Add(file);
@@ -292,6 +341,8 @@ namespace BootstrapBlazor.Components
             {
                 await OnChange(files);
             }
+
+            files.ForEach(f => f.Uploaded = true);
         }
 
         private void Update(UploadFile file)

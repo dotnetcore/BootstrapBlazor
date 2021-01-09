@@ -32,6 +32,11 @@ namespace BootstrapBlazor.Shared
         public string ImageLibUrl { get; set; } = "https://imgs.blazor.zone";
 
         /// <summary>
+        /// 
+        /// </summary>
+        public string VideoLibUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624";
+
+        /// <summary>
         /// 获得/设置 系统 wwwroot 文件夹路径 Server Side 模式下 Upload 使用
         /// </summary>
         [NotNull]
