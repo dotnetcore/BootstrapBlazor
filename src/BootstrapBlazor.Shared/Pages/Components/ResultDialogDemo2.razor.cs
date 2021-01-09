@@ -60,10 +60,10 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> OnClosing()
+        public async Task<bool> OnClosing(DialogResult result)
         {
             var ret = true;
-            if (!SelectedRows.Any())
+            if (result == DialogResult.Yes && !SelectedRows.Any())
             {
                 await MessageService.Show(new MessageOption()
                 {

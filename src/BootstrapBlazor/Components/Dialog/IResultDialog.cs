@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<bool> OnClosing() => Task.FromResult(true);
+        Task<bool> OnClosing(DialogResult result) => Task.FromResult(true);
 
         /// <summary>
         /// 

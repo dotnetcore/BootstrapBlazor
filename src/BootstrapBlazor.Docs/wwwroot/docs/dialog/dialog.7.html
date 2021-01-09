@@ -9,19 +9,25 @@
 </div>
 
 @code {
-    private string? InputValue { get; set; }
-    private IEnumerable<string> Emails { get; set; } = Array.Empty<string>();
+    // 源码地址 https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/src/BootstrapBlazor.Shared/Pages/Components/ResultDialogDemo2.razor.cs
 
-    private async Task OnEmailButtonClick()
-    {
-        var result = await DialogService.ShowModal<ResultDialogDemo2>(new ResultDialogOption()
+    private string? InputValue { get; set; }
+    private IEnumerable<string>
+    Emails { get; set; } = Array.Empty<string>
+        ();
+
+        private async Task OnEmailButtonClick()
         {
+        var result = await DialogService.ShowModal<ResultDialogDemo2>
+            (new ResultDialogOption()
+            {
             Title = "选择收件人",
             BodyContext = 10,
             ButtonYesText = "选择",
             ButtonYesIcon = "fa fa-search",
-            ComponentParamters = new KeyValuePair<string, object>[]
-            {
+            ComponentParamters = new KeyValuePair<string, object>
+                []
+                {
                 // 用于初始化已选择的用户邮件
                 new(nameof(ResultDialogDemo2.Emails), Emails),
                 new(nameof(ResultDialogDemo2.EmailsChanged), EventCallback.Factory.Create<IEnumerable<string>>(this, v => Emails = v))

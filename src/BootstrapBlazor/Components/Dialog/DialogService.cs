@@ -167,7 +167,7 @@ namespace BootstrapBlazor.Components
             var closeCallback = option.OnCloseAsync;
             option.OnCloseAsync = async () =>
             {
-                if (await dialog!.OnClosing())
+                if (await dialog!.OnClosing(result))
                 {
                     await dialog!.OnClose(result);
                     if (closeCallback != null) await closeCallback();

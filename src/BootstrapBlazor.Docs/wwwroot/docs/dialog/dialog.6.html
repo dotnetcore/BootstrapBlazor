@@ -8,13 +8,17 @@
 <Button @onclick="@OnResultDialogClick">点击打开 Dialog</Button>
 
 @code {
-    var result = await DialogService.ShowModal<ResultDialogDemo>(new ResultDialogOption()
+    // 源码地址 https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/src/BootstrapBlazor.Shared/Pages/Components/ResultDialogDemo.razor.cs
+    var result = await DialogService.ShowModal<ResultDialogDemo>
+    (new ResultDialogOption()
     {
-        Title = "带返回值模态弹出框",
-        ComponentParamters = new KeyValuePair<string, object>[]
+    Title = "带返回值模态弹出框",
+    ComponentParamters = new KeyValuePair<string, object>
+        []
         {
-            new(nameof(ResultDialogDemo.Value), DemoValue1),
-            new(nameof(ResultDialogDemo.ValueChanged), EventCallback.Factory.Create<int>(this, v => DemoValue1 = v))
-        }
-    });
-}
+        new(nameof(ResultDialogDemo.Value), DemoValue1),
+        new(nameof(ResultDialogDemo.ValueChanged), EventCallback.Factory.Create<int>
+            (this, v => DemoValue1 = v))
+            }
+            });
+            }
