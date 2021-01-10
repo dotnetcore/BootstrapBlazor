@@ -1,0 +1,9 @@
+﻿<Project>
+
+  <Import Project="..\Directory.Build.props" />
+
+  <Target Condition="$(USERNAME) == 'Argo' or $(USER) == 'Argo'" Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet bundle --no-color" />
+  </Target>
+
+</Project>
