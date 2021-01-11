@@ -1,4 +1,4 @@
-﻿# Bootstrap Blazor Component
+# Bootstrap Blazor Component
 
 <a href="README.md">English</a> | <span>中文</span>
 
@@ -34,7 +34,7 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ### 内置组件 
 
-内置组件 [传送门](https://www.balzor.zone/alerts)
+内置组件 [传送门](https://www.blazor.zone/alerts)
 
 ## 分支说明  
 
