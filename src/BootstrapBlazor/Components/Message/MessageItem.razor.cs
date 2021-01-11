@@ -46,9 +46,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Message 实例
         /// </summary>
         /// <value></value>
-        [CascadingParameter] public MessageBase? Message { get; set; }
+        [CascadingParameter]
+        public Message? Message { get; set; }
 
-        private JSInterop<MessageBase>? _interop;
+        private JSInterop<Message>? _interop;
 
         /// <summary>
         /// OnAfterRender 方法
@@ -60,8 +61,8 @@ namespace BootstrapBlazor.Components
 
             if (firstRender && Message != null)
             {
-                _interop = new JSInterop<MessageBase>(JSRuntime);
-                await _interop.Invoke(Message, MessageItemElement, "showMessage", nameof(MessageBase.Clear));
+                _interop = new JSInterop<Message>(JSRuntime);
+                await _interop.Invoke(Message, MessageItemElement, "showMessage", nameof(Message.Clear));
             }
         }
     }

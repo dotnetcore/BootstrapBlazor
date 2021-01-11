@@ -3,8 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -15,31 +14,6 @@ namespace BootstrapBlazor.Components
     public abstract class MessageBase : BootstrapComponentBase
     {
         /// <summary>
-        /// 获得 组件样式
-        /// </summary>
-        protected string? ClassString => CssBuilder.Default("message")
-            .AddClass("is-bottom", Placement != Placement.Top)
-            .Build();
-
-        /// <summary>
-        /// 获得 Toast 组件样式设置
-        /// </summary>
-        protected string? StyleName => CssBuilder.Default()
-            .AddClass("top: 1rem;", Placement != Placement.Bottom)
-            .AddClass("bottom: 1rem;", Placement == Placement.Bottom)
-            .Build();
-
-        /// <summary>
-        /// 获得 弹出窗集合
-        /// </summary>
-        private List<MessageOption> _messages { get; set; } = new List<MessageOption>();
-
-        /// <summary>
-        /// 获得 弹出窗集合
-        /// </summary>
-        protected IEnumerable<MessageOption> Messages => _messages;
-
-        /// <summary>
         /// 获得/设置 显示位置 默认为 Top
         /// </summary>
         [Parameter]
@@ -49,6 +23,7 @@ namespace BootstrapBlazor.Components
         /// ToastServices 服务实例
         /// </summary>
         [Inject]
+        [NotNull]
         public MessageService? MessageService { get; set; }
 
         /// <summary>
@@ -59,24 +34,15 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 注册 Toast 弹窗事件
-            MessageService?.Register(this, Show);
-        }
-
-        private async Task Show(MessageOption option)
-        {
-            _messages.Add(option);
-            await InvokeAsync(StateHasChanged);
+            MessageService.Register(this, Show);
         }
 
         /// <summary>
-        /// 清除 ToastBox 方法
+        /// 
         /// </summary>
-        [JSInvokable]
-        public void Clear()
-        {
-            _messages.Clear();
-            InvokeAsync(StateHasChanged).ConfigureAwait(false);
-        }
+        /// <param name="option"></param>
+        /// <returns></returns>
+        protected abstract Task Show(MessageOption option);
 
         /// <summary>
         /// 设置 Toast 容器位置方法
@@ -98,7 +64,7 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
-                MessageService?.UnRegister(this);
+                MessageService.UnRegister(this);
             }
         }
     }
