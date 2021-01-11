@@ -12,6 +12,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Editor/Editor.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Editor/Editor.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/swal/sweetalert2.min.css",
     "inputFiles": [
       "wwwroot/lib/swal/sweetalert2.css"
@@ -25,7 +31,8 @@
       "wwwroot/lib/summernote/summernote-bs4.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
       "wwwroot/css/bootstrap.blazor.min.css",
-      "Components/Upload/Upload.razor.cs.min.css"
+      "Components/Upload/Upload.razor.cs.min.css",
+      "Components/Editor/Editor.razor.cs.min.css"
     ]
   },
   {
@@ -59,6 +66,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Editor/Editor.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Editor/Editor.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/js/bootstrap.blazor.js"
@@ -78,7 +91,8 @@
       "wwwroot/lib/captcha/longbow.captcha.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
       "wwwroot/js/bootstrap.blazor.min.js",
-      "Components/Upload/Upload.razor.cs.min.js"
+      "Components/Upload/Upload.razor.cs.min.js",
+      "Components/Editor/Editor.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,

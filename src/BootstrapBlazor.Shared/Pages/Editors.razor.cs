@@ -16,6 +16,12 @@ namespace BootstrapBlazor.Shared.Pages
     {
         private string EditorValue { get; set; } = "初始值 <b>Test</b>";
 
+        private Task OnValueChanged(string val)
+        {
+            EditorValue = val;
+            return Task.CompletedTask;
+        }
+
         private void SetValue()
         {
             EditorValue = "更改后的值";
