@@ -15,6 +15,37 @@ namespace BootstrapBlazor.Components
         private ElementReference CarouselElement { get; set; }
 
         /// <summary>
+        /// 获得 class 样式集合
+        /// </summary>
+        private string? ClassName => CssBuilder.Default("carousel slide")
+            .AddClass("carousel-fade", IsFade)
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
+        /// 获得 data-target 属性值
+        /// </summary>
+        /// <value></value>
+        private string? TargetId => $"#{Id}";
+
+        /// <summary>
+        /// 获得 Style 样式
+        /// </summary>
+        private string? StyleName => CssBuilder.Default()
+            .AddClass($"width: {Width}px;", Width.HasValue)
+            .Build();
+
+        /// <summary>
+        /// 检查是否 active
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="css"></param>
+        /// <returns></returns>
+        private string? CheckActive(int index, string? css = null) => CssBuilder.Default(css)
+            .AddClass("active", index == 0)
+            .Build();
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>

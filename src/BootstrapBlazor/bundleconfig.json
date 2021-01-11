@@ -30,6 +30,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Carousel/Carousel.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Carousel/Carousel.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/swal/sweetalert2.min.css",
     "inputFiles": [
       "wwwroot/lib/swal/sweetalert2.css"
@@ -46,7 +52,8 @@
       "Components/Upload/Upload.razor.cs.min.css",
       "Components/Editor/Editor.razor.cs.min.css",
       "Components/Message/Message.razor.cs.min.css",
-      "Components/Toast/Toast.razor.cs.min.css"
+      "Components/Toast/Toast.razor.cs.min.css",
+      "Components/Carousel/Carousel.razor.cs.min.css"
     ]
   },
   {
@@ -98,6 +105,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Carousel/Carousel.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Carousel/Carousel.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/js/bootstrap.blazor.js"
@@ -120,7 +133,8 @@
       "Components/Upload/Upload.razor.cs.min.js",
       "Components/Editor/Editor.razor.cs.min.js",
       "Components/Message/Message.razor.cs.min.js",
-      "Components/Toast/Toast.razor.cs.min.js"
+      "Components/Toast/Toast.razor.cs.min.js",
+      "Components/Carousel/Carousel.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
