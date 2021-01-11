@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        showMessage: function (el, obj, method) {
+        bb_message: function (el, obj, method) {
             if (!window.Messages) window.Messages = [];
             Messages.push(el);
 

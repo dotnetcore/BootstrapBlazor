@@ -102,7 +102,7 @@ namespace BootstrapBlazor.Components
         {
             if (additionalAttributes != null && additionalAttributes.TryGetValue("class", out var c))
             {
-                var classList = c.ToString() ?? "";
+                var classList = c?.ToString();
                 AddClass(classList);
             }
             return this;
@@ -118,7 +118,7 @@ namespace BootstrapBlazor.Components
         {
             if (additionalAttributes != null && additionalAttributes.TryGetValue("style", out var c))
             {
-                var styleList = c.ToString() ?? "";
+                var styleList = c?.ToString();
                 AddClass(styleList);
             }
             return this;

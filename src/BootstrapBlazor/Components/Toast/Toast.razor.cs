@@ -28,12 +28,14 @@ namespace BootstrapBlazor.Components
             .AddClass("bottom: 1rem; right: 1rem;", Placement == Placement.BottomEnd)
             .Build();
 
+        private string? ToastBoxClassString => CssBuilder.Default()
+            .AddClass("left", Placement == Placement.TopStart || Placement == Placement.BottomStart)
+            .Build();
+
         /// <summary>
         /// 获得 弹出窗集合
         /// </summary>
-        private Dictionary<ToastOption, RenderFragment> Toasts { get; set; } = new Dictionary<ToastOption, RenderFragment>();
-
-        private bool IsLeft() => Placement == Placement.TopStart || Placement == Placement.BottomStart;
+        private List<ToastOption> Toasts { get; } = new List<ToastOption>();
 
         /// <summary>
         /// 获得/设置 显示文字
@@ -59,18 +61,7 @@ namespace BootstrapBlazor.Components
 
         private async Task Show(ToastOption option)
         {
-            Toasts.Add(option, new RenderFragment(builder =>
-            {
-                var index = 0;
-                builder.OpenComponent<ToastBox>(index++);
-                builder.AddAttribute(index++, "class", IsLeft() ? "left" : "");
-                builder.AddAttribute(index++, nameof(ToastBox.Category), option.Category);
-                builder.AddAttribute(index++, nameof(ToastBox.Title), option.Title);
-                builder.AddAttribute(index++, nameof(ToastBox.Content), option.Content);
-                builder.AddAttribute(index++, nameof(ToastBox.IsAutoHide), option.IsAutoHide);
-                builder.AddAttribute(index++, nameof(ToastBox.Delay), option.Delay);
-                builder.CloseComponent();
-            }));
+            Toasts.Add(option);
             await InvokeAsync(StateHasChanged);
         }
 

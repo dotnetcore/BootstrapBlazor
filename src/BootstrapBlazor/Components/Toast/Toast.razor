@@ -4,9 +4,9 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
     <CascadingValue Value="this" IsFixed="true">
-        @foreach (var toast in Toasts.Values)
+        @foreach (var toast in Toasts)
         {
-            @toast
+            <ToastBox @key="@toast" class="@ToastBoxClassString" Category="@toast.Category" Title="@toast.Title" IsAutoHide="@toast.IsAutoHide" Delay="@toast.Delay" Content="@toast.Content" />
         }
     </CascadingValue>
 </div>
