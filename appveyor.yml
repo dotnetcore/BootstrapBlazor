@@ -1,4 +1,4 @@
-﻿version: 3.1.{build}
+﻿version: 5.0.{build}
 branches:
   only:
   - master
@@ -10,7 +10,7 @@ init:
 environment:
   CI: true
   Appveyor: true
-  COVERALLS_REPO_TOKEN: 
+  COVERALLS_REPO_TOKEN:
     secure: 5L1b6XqSNTOfU1iZrARo5eUOi1HOleVO3VDCW0pr6yaspgkC5jxL+gBDK0OEY8EI
   COVERALLS_REPO_TOKEN_GITLAB:
     secure: yPxFQv4kSWtZ7Vvs70bIXDx9IOEEJ9utI3UyZsJGU7rt63gZnHOry0kt9DBMWcwV
@@ -27,7 +27,7 @@ artifacts:
 deploy:
 - provider: NuGet
   api_key:
-    secure: oRAxWkjeC6lJi4Kks6kacqXxOlIpxFatk9I32HQEFDlA8gy4x4xI7tA905S3ne54
+    secure: 4GiuikUCa11fxasu2UCmU8bd3exMf46F49wnMlYWjSuWTBXbPpPN5YxRvLwtNcii
   username:
     secure: RiKaoizWFqvYLGs9oUSI8g==
   skip_symbols: true
