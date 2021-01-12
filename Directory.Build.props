@@ -1,14 +1,14 @@
-﻿<Project>
-    <PropertyGroup>
-        <Copyright>Longbow</Copyright>
-        <Authors>Argo Zhang(argo@163.com)</Authors>
-        <Company>Longbow</Company>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\keys\Longbow.Utility.snk</AssemblyOriginatorKeyFile>
-    </PropertyGroup>
+<Project>
+  <PropertyGroup>
+    <Copyright>Argo Zhang</Copyright>
+    <Authors>Argo Zhang(argo@163.com)</Authors>
+    <Company>Longbow</Company>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\keys\Longbow.Utility.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
 
 </Project>
