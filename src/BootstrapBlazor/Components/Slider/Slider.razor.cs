@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
+    /// <summary>
+    /// Silder 组件
+    /// </summary>
     public sealed partial class Slider
     {
         /// <summary>
