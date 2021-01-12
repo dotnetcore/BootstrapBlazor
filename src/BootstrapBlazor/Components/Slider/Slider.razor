@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits SliderBase
 
-<div @attributes="@AdditionalAttributes" role="slider" class="@ClassName" aria-valuemin="0" aria-valuemax="100" aria-valuetext="@Value" aria-disabled="@Disabled" aria-orientation="horizontal" aria-label="slider between 0 and 100" @ref="Slider">
+<div @attributes="@AdditionalAttributes" role="slider" class="@ClassName" aria-valuemin="0" aria-valuemax="100" aria-valuetext="@Value" aria-disabled="@Disabled" aria-orientation="horizontal" aria-label="slider between 0 and 100" @ref="SliderElement">
     <div class="@SliderClassName">
         <div class="slider-bar" style="@BarStyle"></div>
         <div tabindex="0" class="slider-button-wrapper" style="@ButtonStyle">
