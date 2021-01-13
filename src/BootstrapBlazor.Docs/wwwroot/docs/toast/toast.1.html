@@ -11,12 +11,17 @@
     /// <summary>
     /// 
     /// </summary>
-    [Inject] public ToastService? ToastService { get; set; }
-    private Toast? Toast { get; set; }
-    protected void OnSuccessClick()
+    [Inject]
+    [NotNull]
+    public ToastService ToastService { get; set; }
+
+    [NotNull]
+    private Toast Toast { get; set; }
+
+    protected async Task OnSuccessClick()
     {
-        Toast?.SetPlacement(Placement.BottomEnd);
-        ToastService?.Show(new ToastOption()
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Success,
             Title = "保存成功",
@@ -24,10 +29,10 @@
         });
     }
 
-    protected void OnErrorClick()
+    protected async Task OnErrorClick()
     {
-        Toast?.SetPlacement(Placement.BottomEnd);
-        ToastService?.Show(new ToastOption()
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Error,
             Title = "保存失败",
@@ -35,10 +40,10 @@
         });
     }
 
-    protected void OnInfoClick()
+    protected async Task OnInfoClick()
     {
-        Toast?.SetPlacement(Placement.BottomEnd);
-        ToastService?.Show(new ToastOption()
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Information,
             Title = "消息通知",

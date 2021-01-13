@@ -9,12 +9,17 @@
     /// <summary>
     /// 
     /// </summary>
-    [Inject] public ToastService? ToastService { get; set; }
-    private Toast? Toast { get; set; }
-    protected void OnPlacementClick(Placement placement)
+    [Inject]
+    [NotNull]
+    public ToastService? ToastService { get; set; }
+
+    [NotNll]
+    private Toast Toast { get; set; }
+
+    protected async Task OnPlacementClick(Placement placement)
     {
-        Toast?.SetPlacement(placement);
-        ToastService?.Show(new ToastOption()
+        Toast.SetPlacement(placement);
+        await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Information,
             Title = "消息通知",

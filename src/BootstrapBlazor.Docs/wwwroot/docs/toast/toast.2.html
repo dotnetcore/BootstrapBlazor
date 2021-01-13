@@ -6,12 +6,17 @@
     /// <summary>
     /// 
     /// </summary>
-    [Inject] public ToastService? ToastService { get; set; }
+    [Inject]
+    [NotNull]
+    public ToastService? ToastService { get; set; }
+
+    [NotNull]
     private Toast? Toast { get; set; }
-    protected void OnNotAutoHideClick()
+
+    protected async Task OnNotAutoHideClick()
     {
-        Toast?.SetPlacement(Placement.BottomEnd);
-        ToastService?.Show(new ToastOption()
+        Toast.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
         {
             Category = ToastCategory.Information,
             IsAutoHide = false,
