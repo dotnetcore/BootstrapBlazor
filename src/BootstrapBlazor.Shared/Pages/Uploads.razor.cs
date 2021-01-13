@@ -97,7 +97,7 @@ namespace BootstrapBlazor.Shared.Pages
                         ReadAvatarToken = new CancellationTokenSource();
                     }
 
-                    await file.RequestBase64ImageFileAsync(format, 640, 480, 20 * 1024 * 1024, ReadAvatarToken.Token);
+                    await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, ReadAvatarToken.Token);
                 }
                 else
                 {
@@ -113,17 +113,20 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         private CancellationTokenSource? ReadToken { get; set; }
+
+        private long MaxFileLength => 200 * 1024 * 1024;
+
         private async Task OnCardUpload(IEnumerable<UploadFile> files)
         {
             var file = files.FirstOrDefault();
             if (file != null && file.File != null)
             {
                 // 服务器端验证当文件大于 2MB 时提示文件太大信息
-                if (file.Size > 2 * 1024 * 1024)
+                if (file.Size > MaxFileLength)
                 {
-                    await ToastService.Information("上传文件", $"文件大小超过 2MB");
+                    await ToastService.Information("上传文件", $"文件大小超过 200MB");
                     file.Code = 1;
-                    file.Error = "文件大小超过 2MB";
+                    file.Error = "文件大小超过 200MB";
                 }
                 else
                 {
@@ -145,7 +148,7 @@ namespace BootstrapBlazor.Shared.Pages
                 var fileName = Path.Combine(uploaderFolder, file.FileName);
 
                 ReadToken ??= new CancellationTokenSource();
-                ret = await file.SaveToFile(fileName, 20 * 1024 * 1024, ReadToken.Token);
+                ret = await file.SaveToFile(fileName, MaxFileLength, ReadToken.Token);
 
                 if (ret)
                 {
@@ -299,13 +302,6 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "MaxFileLength",
-                Description = "设置上传文件最大值",
-                Type = "long",
-                ValueList = "—",
-                DefaultValue = "0"
             }
         };
 

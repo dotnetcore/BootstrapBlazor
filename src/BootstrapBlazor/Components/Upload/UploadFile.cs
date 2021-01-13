@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Components
         internal int ProgressPercent { get; set; }
 
         /// <summary>
-        /// 获得/设置 文件是否上传完毕
+        /// 获得/设置 文件是否上传处理完毕
         /// </summary>
         internal bool Uploaded { get; set; } = true;
 

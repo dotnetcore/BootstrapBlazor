@@ -21,7 +21,7 @@
         <div class="upload-body is-list">
             @foreach (var item in UploadFiles)
             {
-                <div class="@GetUploadItemClassString(item)">
+                <div @key="item" class="@GetUploadItemClassString(item)">
                     <i class="@GetFileFormatClassString(item)"></i>
                     <div class="fn">
                         <span>@GetFileName(item)</span>
@@ -49,7 +49,7 @@
         <div class="upload-body is-avatar">
             @foreach (var item in UploadFiles)
             {
-                <div class="@GetUploadItemClassString(item)" style="@PrevStyleString">
+                <div @key="item" class="@GetUploadItemClassString(item)" style="@PrevStyleString">
                     <Avatar Url="@item.PrevUrl" />
                     <div class="upload-item-actions">
                         <span class="upload-item-delete p-3" @onclick="@(e => OnFileDelete(item))">
@@ -88,7 +88,7 @@
         <div class="upload-body is-card">
             @foreach (var item in UploadFiles)
             {
-                <div class="@GetUploadItemClassString(item)">
+                <div @key="@item" class="@GetUploadItemClassString(item)">
                     <div class="upload-item-body">
                         @if (IsImage(item))
                         {
