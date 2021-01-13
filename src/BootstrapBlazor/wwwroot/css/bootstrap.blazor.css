@@ -644,17 +644,6 @@ input:disabled,
 }
 /*end pagination*/
 
-/*qrcode*/
-.qrcode .qrcode-img {
-    width: 128px;
-    height: 128px;
-}
-
-.qrcode .qrcode-buttons {
-    margin-top: 1rem;
-}
-/*end qr*/
-
 /*multi-select*/
 .multi-select {
     width: 100%;
