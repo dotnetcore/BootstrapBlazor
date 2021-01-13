@@ -150,6 +150,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Anchor/Anchor.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Anchor/Anchor.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/js/bootstrap.blazor.js"
@@ -176,7 +182,8 @@
       "Components/Carousel/Carousel.razor.cs.min.js",
       "Components/Slider/Slider.razor.cs.min.js",
       "Components/Rate/Rate.razor.cs.min.js",
-      "Components/Collapse/Collapse.razor.cs.min.js"
+      "Components/Collapse/Collapse.razor.cs.min.js",
+      "Components/Anchor/Anchor.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,

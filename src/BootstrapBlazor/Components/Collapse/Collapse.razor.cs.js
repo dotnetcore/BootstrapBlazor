@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        collapse: function (el) {
+        bb_collapse: function (el) {
             var $el = $(el);
             var parent = null;
             // check accordion
@@ -14,7 +14,9 @@
                 if (!id) {
                     id = $.getUID();
                     $item.attr('id', id);
-                    if (parent != null) $item.attr('data-parent', parent);
+                    if (parent != null) {
+                        $item.attr('data-parent', parent);
+                    }
 
                     var $button = $item.prev().find('[data-toggle="collapse"]');
                     $button.attr('data-target', '#' + id).attr('aria-controls', id);
@@ -27,16 +29,17 @@
             });
 
             // support menu component
-            if ($el.parent().hasClass("menu")) {
+            if ($el.parent().hasClass('menu')) {
                 $el.on('click', '.nav-link:not(.collapse)', function () {
                     var $this = $(this);
                     $el.find('.active').removeClass('active');
-                    $this.addClass("active");
+                    $this.addClass('active');
 
                     // parent
                     var $card = $this.closest('.card');
                     while ($card.length > 0) {
-                        $card.children('.card-header').children('.card-header-wrapper').find('.nav-link').addClass('active');
+                        $card.children('.card-header').children('.card-header-wrapper')
+                            .find('.nav-link').addClass('active');
                         $card = $card.parent().closest('.card');
                     }
                 });
