@@ -66,6 +66,12 @@
     ]
   },
   {
+    "outputFileName": "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
+    "inputFiles": [
+      "Components/BarcodeReader/BarcodeReader.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -81,7 +87,8 @@
       "Components/Slider/Slider.razor.cs.min.css",
       "Components/Rate/Rate.razor.cs.min.css",
       "Components/Collapse/Collapse.razor.cs.min.css",
-      "Components/Split/Split.razor.cs.min.css"
+      "Components/Split/Split.razor.cs.min.css",
+      "Components/BarcodeReader/BarcodeReader.razor.cs.min.css"
     ]
   },
   {
@@ -169,6 +176,12 @@
     ]
   },
   {
+    "outputFileName": "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
+    "inputFiles": [
+      "Components/BarcodeReader/BarcodeReader.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/js/bootstrap.blazor.js"
@@ -197,7 +210,8 @@
       "Components/Rate/Rate.razor.cs.min.js",
       "Components/Collapse/Collapse.razor.cs.min.js",
       "Components/Split/Split.razor.cs.min.js",
-      "Components/Anchor/Anchor.razor.cs.min.js"
+      "Components/Anchor/Anchor.razor.cs.min.js",
+      "Components/BarcodeReader/BarcodeReader.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
