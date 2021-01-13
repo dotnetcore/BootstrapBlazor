@@ -54,6 +54,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Rate/Rate.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Split/Split.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/lib/swal/sweetalert2.min.css",
     "inputFiles": [
       "wwwroot/lib/swal/sweetalert2.css"
@@ -74,7 +80,8 @@
       "Components/Carousel/Carousel.razor.cs.min.css",
       "Components/Slider/Slider.razor.cs.min.css",
       "Components/Rate/Rate.razor.cs.min.css",
-      "Components/Collapse/Collapse.razor.cs.min.css"
+      "Components/Collapse/Collapse.razor.cs.min.css",
+      "Components/Split/Split.razor.cs.min.css"
     ]
   },
   {
@@ -156,6 +163,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Split/Split.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Split/Split.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/js/bootstrap.blazor.js"
@@ -183,6 +196,7 @@
       "Components/Slider/Slider.razor.cs.min.js",
       "Components/Rate/Rate.razor.cs.min.js",
       "Components/Collapse/Collapse.razor.cs.min.js",
+      "Components/Split/Split.razor.cs.min.js",
       "Components/Anchor/Anchor.razor.cs.min.js"
     ],
     "minify": {
