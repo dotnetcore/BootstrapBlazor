@@ -1,5 +1,14 @@
 ﻿(function ($) {
     $.extend({
+        bb_vibrate: function () {
+            if ('vibrate' in window.navigator) {
+                window.navigator.vibrate([200, 100, 200]);
+                var handler = window.setTimeout(function () {
+                    window.clearTimeout(handler);
+                    window.navigator.vibrate([]);
+                }, 1000);
+            }
+        },
         bb_barcode: function (el, obj, method, auto) {
             var $el = $(el);
             var codeReader = new ZXing.BrowserMultiFormatReader();

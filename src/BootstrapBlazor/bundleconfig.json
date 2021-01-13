@@ -72,6 +72,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Camera/Camera.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Camera/Camera.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -88,7 +94,8 @@
       "Components/Rate/Rate.razor.cs.min.css",
       "Components/Collapse/Collapse.razor.cs.min.css",
       "Components/Split/Split.razor.cs.min.css",
-      "Components/BarcodeReader/BarcodeReader.razor.cs.min.css"
+      "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
+      "Components/Camera/Camera.razor.cs.min.css"
     ]
   },
   {
@@ -188,6 +195,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Camera/Camera.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Camera/Camera.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -211,7 +224,8 @@
       "Components/Collapse/Collapse.razor.cs.min.js",
       "Components/Split/Split.razor.cs.min.js",
       "Components/Anchor/Anchor.razor.cs.min.js",
-      "Components/BarcodeReader/BarcodeReader.razor.cs.min.js"
+      "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
+      "Components/Camera/Camera.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
