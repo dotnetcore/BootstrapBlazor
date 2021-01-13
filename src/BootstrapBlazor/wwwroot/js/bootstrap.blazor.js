@@ -433,10 +433,6 @@
         bb_tab: function (el) {
             $(el).tab('active');
         },
-        captcha: function (el, obj, method, options) {
-            options.remoteObj = { obj, method };
-            $(el).sliderCaptcha(options);
-        },
         collapse: function (el) {
             var $el = $(el);
             var parent = null;

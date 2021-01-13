@@ -179,4 +179,11 @@
 
     $.fn.sliderCaptcha = CaptchaPlugin;
     $.fn.sliderCaptcha.Constructor = SliderCaptcha;
+
+    $.extend({
+        captcha: function (el, obj, method, options) {
+            options.remoteObj = { obj, method };
+            $(el).sliderCaptcha(options);
+        }
+    });
 })(jQuery);
