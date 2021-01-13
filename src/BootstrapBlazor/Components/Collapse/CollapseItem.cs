@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 所属 Collapse 实例
         /// </summary>
         [CascadingParameter]
-        protected CollapseBase? Collpase { get; set; }
+        protected Collapse? Collpase { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

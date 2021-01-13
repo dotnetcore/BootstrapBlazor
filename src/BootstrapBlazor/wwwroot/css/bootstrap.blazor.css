@@ -1351,11 +1351,6 @@ input:disabled,
 }
 /*end dropdown*/
 
-/*collapse*/
-.collapse-group .collapse, .collapse-group .collapsing {
-    margin-top: 1rem;
-}
-
 .close {
     display: flex;
 }

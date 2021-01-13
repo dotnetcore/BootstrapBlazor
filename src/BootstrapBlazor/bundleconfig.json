@@ -36,6 +36,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Collapse/Collapse.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Collapse/Collapse.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Slider/Slider.razor.cs.min.css",
     "inputFiles": [
       "Components/Slider/Slider.razor.cs.css"
@@ -67,7 +73,8 @@
       "Components/Toast/Toast.razor.cs.min.css",
       "Components/Carousel/Carousel.razor.cs.min.css",
       "Components/Slider/Slider.razor.cs.min.css",
-      "Components/Rate/Rate.razor.cs.min.css"
+      "Components/Rate/Rate.razor.cs.min.css",
+      "Components/Collapse/Collapse.razor.cs.min.css"
     ]
   },
   {
@@ -125,6 +132,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Collapse/Collapse.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Collapse/Collapse.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "Components/Slider/Slider.razor.cs.min.js",
     "inputFiles": [
       "Components/Slider/Slider.razor.cs.js"
@@ -162,7 +175,8 @@
       "Components/Toast/Toast.razor.cs.min.js",
       "Components/Carousel/Carousel.razor.cs.min.js",
       "Components/Slider/Slider.razor.cs.min.js",
-      "Components/Rate/Rate.razor.cs.min.js"
+      "Components/Rate/Rate.razor.cs.min.js",
+      "Components/Collapse/Collapse.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
