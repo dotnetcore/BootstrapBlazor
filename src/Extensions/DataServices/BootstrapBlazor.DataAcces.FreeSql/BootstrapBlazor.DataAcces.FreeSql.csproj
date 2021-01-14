@@ -4,11 +4,11 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.3</Version>
+    <Version>5.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="5.0.10" />
+    <PackageReference Include="BootstrapBlazor" Version="5.0.11" />
     <PackageReference Include="FreeSql.Repository" Version="2.0.105" />
   </ItemGroup>
 
