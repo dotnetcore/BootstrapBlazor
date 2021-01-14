@@ -80,7 +80,8 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnClickCounter() => DialogService.Show(new DialogOption()
         {
             Title = "自带的 Counter 组件",
-            Component = DynamicComponent.CreateComponent<Counter>(KeepState)
+            KeepChildrenState = KeepState,
+            Component = DynamicComponent.CreateComponent<Counter>()
         });
 
         /// <summary>

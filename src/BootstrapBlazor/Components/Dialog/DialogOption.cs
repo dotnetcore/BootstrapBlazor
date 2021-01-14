@@ -50,6 +50,11 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
+        /// </summary>
+        public bool KeepChildrenState { get; set; }
+
+        /// <summary>
         /// 获得/设置 相关连数据，多用于传值使用
         /// </summary>
         public object? BodyContext { get; set; }

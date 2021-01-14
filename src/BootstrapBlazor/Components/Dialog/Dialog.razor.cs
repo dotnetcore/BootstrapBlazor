@@ -70,17 +70,16 @@ namespace BootstrapBlazor.Components
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes().ToList();
 
-            if (option.BodyTemplate != null)
+            var content = option.BodyTemplate ?? option.Component?.Render();
+            if (content != null)
             {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.BodyTemplate));
-            }
-            else if (option.Component != null)
-            {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.Component.Render()));
-            }
-            else
-            {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<Empty>().Render()));
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.KeepChildrenState ? content : new RenderFragment(builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.SetKey(option);
+                    builder.AddContent(1, content);
+                    builder.CloseElement();
+                })));
             }
 
             if (option.FooterTemplate != null)
@@ -97,11 +96,6 @@ namespace BootstrapBlazor.Components
             await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
             IsShowDialog = true;
             StateHasChanged();
-        }
-
-        private class Empty : ComponentBase
-        {
-            protected override void BuildRenderTree(RenderTreeBuilder builder) => builder.AddContent(0, string.Empty);
         }
 
         /// <summary>
