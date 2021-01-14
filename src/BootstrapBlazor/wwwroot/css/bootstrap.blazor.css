@@ -4729,17 +4729,6 @@ input:disabled,
 }
 /*end tree*/
 
-/*scroll*/
-.scroll {
-    height: 100%;
-    width: 100%;
-}
-
-    .scroll.is-phone {
-        overflow: auto;
-    }
-/*end scroll*/
-
 /*search*/
 .search .input-group-append {
     position: relative;

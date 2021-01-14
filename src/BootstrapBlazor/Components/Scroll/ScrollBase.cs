@@ -13,18 +13,6 @@ namespace BootstrapBlazor.Components
     public abstract class ScrollBase : BootstrapComponentBase
     {
         /// <summary>
-        /// 获得 组件样式
-        /// </summary>
-        protected string? ClassString => CssBuilder.Default("scroll")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
-
-        /// <summary>
-        /// 获得 是否自动隐藏
-        /// </summary>
-        protected string AutoHideString => IsAutoHide ? "true" : "false";
-
-        /// <summary>
         /// 获得/设置 子组件
         /// </summary>
         [Parameter]

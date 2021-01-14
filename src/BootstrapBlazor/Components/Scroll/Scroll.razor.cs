@@ -13,6 +13,18 @@ namespace BootstrapBlazor.Components
     public sealed partial class Scroll
     {
         /// <summary>
+        /// 获得 组件样式
+        /// </summary>
+        private string? ClassString => CssBuilder.Default("scroll")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
+        /// 获得 是否自动隐藏
+        /// </summary>
+        private string AutoHideString => IsAutoHide ? "true" : "false";
+
+        /// <summary>
         /// Scroll 组件 DOM 实例
         /// </summary>
         private ElementReference ScrollElement { get; set; }
