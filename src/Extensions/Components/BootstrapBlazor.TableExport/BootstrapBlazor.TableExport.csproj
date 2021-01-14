@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="5.0.9" />
+    <PackageReference Include="BootstrapBlazor" Version="5.0.10" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
   </ItemGroup>
 

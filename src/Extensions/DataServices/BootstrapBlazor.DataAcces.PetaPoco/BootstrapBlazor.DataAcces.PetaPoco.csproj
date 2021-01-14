@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="5.0.9" />
+    <PackageReference Include="BootstrapBlazor" Version="5.0.10" />
     <PackageReference Include="Longbow.PetaPoco" Version="5.0.1" />
     <PackageReference Include="PetaPoco.Extensions" Version="5.0.1" />
   </ItemGroup>
