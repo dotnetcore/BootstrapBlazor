@@ -9,29 +9,29 @@
         cursor: not-allowed;
     }
 
-.rate-item {
-    width: 18px;
-    height: 100%;
-    margin-right: 6px;
-}
-
-    .rate-item:last-child {
-        margin-right: 0;
+    .rate .rate-item {
+        width: 18px;
+        height: 100%;
+        margin-right: 6px;
     }
 
-    .rate-item i {
-        color: #c6d1de;
-        transition: .3s;
-    }
-
-    .rate-item.is-on i {
-        color: #c6d1de;
-    }
-
-        .rate-item.is-on i:before {
-            content: "\f005";
+        .rate .rate-item:last-child {
+            margin-right: 0;
         }
 
-.rate:not(.disabled) .rate-item.is-on i {
-    color: #f7ba2a;
-}
+        .rate .rate-item i {
+            color: #c6d1de;
+            transition: .3s;
+        }
+
+        .rate .rate-item.is-on i {
+            color: #c6d1de;
+        }
+
+            .rate .rate-item.is-on i:before {
+                content: "\f005";
+            }
+
+    .rate:not(.disabled) .rate-item.is-on i {
+        color: #f7ba2a;
+    }

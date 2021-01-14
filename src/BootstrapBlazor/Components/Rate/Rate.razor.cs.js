@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        rate: function (el, obj, method) {
+        bb_rate: function (el, obj, method) {
             var $el = $(el);
             $el.val = parseInt($el.attr('aria-valuenow'));
             var reset = function () {

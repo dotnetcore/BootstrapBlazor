@@ -54,7 +54,7 @@
     ]
   },
   {
-    "outputFileName": "Components/Rate/Rate.razor.cs.min.css",
+    "outputFileName": "Components/Split/Split.razor.cs.min.css",
     "inputFiles": [
       "Components/Split/Split.razor.cs.css"
     ]
@@ -75,12 +75,6 @@
     "outputFileName": "Components/Camera/Camera.razor.cs.min.css",
     "inputFiles": [
       "Components/Camera/Camera.razor.cs.css"
-    ]
-  },
-  {
-    "outputFileName": "Components/Split/Split.razor.cs.min.css",
-    "inputFiles": [
-      "Components/Split/Split.razor.cs.css"
     ]
   },
   {

@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 if (Interop == null) Interop = new JSInterop<Rate>(JSRuntime);
-                if (Interop != null) await Interop.Invoke(this, RateElement, "rate", nameof(Clicked));
+                if (Interop != null) await Interop.Invoke(this, RateElement, "bb_rate", nameof(Clicked));
             }
         }
 
