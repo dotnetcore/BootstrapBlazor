@@ -158,6 +158,7 @@ namespace BootstrapBlazor.Components
             }
             if (source.Visible) dest.Visible = source.Visible;
             if (source.Width != null) dest.Width = source.Width;
+            if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
         }
     }
 }
