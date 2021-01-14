@@ -222,7 +222,7 @@ namespace BootstrapBlazor.Components
         {
             var requestUrl = Navigator.ToBaseRelativePath(e.Location);
 
-            var tab = Items.FirstOrDefault(tab => tab.Url == requestUrl);
+            var tab = Items.FirstOrDefault(tab => tab.Url?.Equals(requestUrl, StringComparison.OrdinalIgnoreCase) ?? false);
             if (tab != null)
             {
                 ActiveTab(tab);
