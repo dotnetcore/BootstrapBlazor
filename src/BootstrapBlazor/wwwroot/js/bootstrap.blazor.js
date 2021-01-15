@@ -64,9 +64,6 @@
                 $el.data('bb_dotnet_invoker', obj);
             }
         },
-        bb_filter: function (el, obj, method) {
-            $(el).data('bb_filter', { obj: obj, method: method });
-        },
         timePicker: function (el) {
             return $(el).find('.time-spinner-item').height();
         },
@@ -293,43 +290,14 @@
                 });
             }
 
-            // table filter
-            // 处理 Filter 中的 DateTimePicker 点击
-            var $target = $(e.target);
-            var $pd = $target.closest('.popover-datetime');
-            if ($pd.length == 1) {
-                var pid = $pd.attr('id');
-                var $el = $('[aria-describedby="' + pid + '"]');
-                if ($el.closest('.datetime-picker').hasClass('is-filter')) {
-                    return;
-                }
-            }
-
-            var $filter = $target.closest('.table-filter-item');
-            if ($filter.length == 0) {
-                $('.table-filter-item.show').each(function (index) {
-                    var filter = $(this).data('bb_filter');
-                    filter.obj.invokeMethodAsync(filter.method);
-                })
-            }
-
             // 处理 MultiSelect 弹窗
-            var $select = $target.closest('.multi-select');
+            var $select = $el.closest('.multi-select');
             $('.multi-select.show').each(function () {
                 if ($select.length === 0 || this != $select[0]) {
                     var select = $(this).data('bb_multi_select');
                     select.obj.invokeMethodAsync(select.method);
                 }
             });
-
-            // 处理 Table ColumnList
-            var $btn = $target.closest('.btn-col.init');
-            if (!$btn.hasClass('init')) {
-                var $menu = $target.closest('.dropdown-menu.dropdown-menu-right.show');
-                if ($menu.length === 0) {
-                    $('.table-toolbar-button .dropdown-menu.show').removeClass('show');
-                }
-            }
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {
@@ -349,23 +317,6 @@
                     ? $ele.find('.popover-confirm-buttons .btn:first')
                     : $ele.find('.popover-confirm-buttons .btn:last');
                 $button.trigger('click');
-            }
-        });
-
-        $(document).on('keyup', function (e) {
-            if (e.key === 'Enter') {
-                // 关闭 TableFilter 过滤面板
-                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
-                if (bb) {
-                    bb.obj.invokeMethodAsync('ConfirmByKey');
-                }
-            }
-            else if (e.key === 'Escape') {
-                // 关闭 TableFilter 过滤面板
-                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
-                if (bb) {
-                    bb.obj.invokeMethodAsync('EscByKey');
-                }
             }
         });
     });

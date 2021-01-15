@@ -253,6 +253,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Table/Filter/TableFilter.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Table/Filter/TableFilter.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -281,7 +287,8 @@
       "Components/QRCode/QRCode.razor.cs.min.js",
       "Components/Scroll/Scroll.razor.cs.min.js",
       "Components/Modal/Modal.razor.cs.min.js",
-      "Components/Table/Table.razor.cs.min.js"
+      "Components/Table/Table.razor.cs.min.js",
+      "Components/Table/Filter/TableFilter.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
