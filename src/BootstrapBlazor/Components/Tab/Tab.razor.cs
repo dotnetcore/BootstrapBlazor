@@ -169,6 +169,12 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public string? CloseOtherTabsText { get; set; }
 
+        /// <summary>
+        /// 获得/设置 设置 Tab 标签显示文本回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<string, string>? OnSetTabText { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<Tab>? Localizer { get; set; }
@@ -240,7 +246,7 @@ namespace BootstrapBlazor.Components
                 var item = new TabItem();
                 var parameters = new Dictionary<string, object>
                 {
-                    [nameof(TabItem.Text)] = Options.TabItemText ?? string.Empty,
+                    [nameof(TabItem.Text)] = Options.TabItemText ?? OnSetTabText?.Invoke(url) ?? string.Empty,
                     [nameof(TabItem.Url)] = url,
                     [nameof(TabItem.IsActive)] = true,
                     [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>

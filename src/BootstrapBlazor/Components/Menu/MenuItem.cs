@@ -108,5 +108,13 @@ namespace BootstrapBlazor.Components
                 if (item.Items.Any()) CascadingCancelActive(item.Items);
             }
         }
+
+        /// <summary>
+        /// 获得 所有子项集合
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<MenuItem> GetAllSubItems() => Items.Concat(GetSubItems(Items));
+
+        private static IEnumerable<MenuItem> GetSubItems(IEnumerable<MenuItem> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
     }
 }

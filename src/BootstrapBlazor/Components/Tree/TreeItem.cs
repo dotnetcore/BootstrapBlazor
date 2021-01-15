@@ -67,7 +67,7 @@ namespace BootstrapBlazor.Components
         public bool IsExpanded { get; set; }
 
         /// <summary>
-        /// 添加 Menutem 方法 由 MenuItem 方法加载时调用
+        /// 添加 TreeItem 方法 由 TreeItem 方法加载时调用
         /// </summary>
         /// <param name="item">Menutem 实例</param>
         public void AddItem(TreeItem item)
@@ -75,6 +75,14 @@ namespace BootstrapBlazor.Components
             item.Parent = this;
             _items.Add(item);
         }
+
+        /// <summary>
+        /// 获得 所有子项集合
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TreeItem> GetAllSubItems() => Items.Concat(GetSubItems(Items));
+
+        private static IEnumerable<TreeItem> GetSubItems(IEnumerable<TreeItem> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
 
         /// <summary>
         /// 级联设置复选状态
