@@ -259,8 +259,8 @@
                 color: #409eff;
             }
 
-.table-striped tbody tr:not(:hover):not(.active):nth-of-type(odd),
-.table-striped .table-row:not(.active):nth-of-type(odd) {
+.table-striped tbody tr:not(:hover):not(.active):not(.highlight):nth-of-type(odd),
+.table-striped .table-row:not(.active):not(.highlight):nth-of-type(odd) {
     background-color: #fafafa;
 }
 
