@@ -65,5 +65,10 @@ namespace BootstrapBlazor.Components
                 await _interop.Invoke(Message, MessageItemElement, "bb_message", nameof(Message.Clear));
             }
         }
+
+        private async Task OnClick()
+        {
+            if (OnDismiss != null) await OnDismiss();
+        }
     }
 }

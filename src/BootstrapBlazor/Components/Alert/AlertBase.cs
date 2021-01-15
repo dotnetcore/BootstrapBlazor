@@ -4,6 +4,8 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -56,6 +58,6 @@ namespace BootstrapBlazor.Components
         /// 关闭警告框回调方法
         /// </summary>
         [Parameter]
-        public EventCallback<MouseEventArgs> OnDismiss { get; set; }
+        public Func<Task>? OnDismiss { get; set; }
     }
 }

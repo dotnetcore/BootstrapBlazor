@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -109,10 +110,10 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e"></param>
-        private void DismissClick(MouseEventArgs e)
+        private Task DismissClick()
         {
             Trace?.Log($"Alert Dismissed");
+            return Task.CompletedTask;
         }
 
         /// <summary>
