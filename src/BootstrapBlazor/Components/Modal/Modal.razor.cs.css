@@ -1,0 +1,7 @@
+﻿.is-draggable .modal-header {
+    cursor: pointer;
+}
+
+.modal-header.is-drag {
+    cursor: move;
+}

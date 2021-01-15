@@ -4812,16 +4812,6 @@ input:disabled,
 }
 /*end InputNumber*/
 
-/*Modal*/
-.is-draggable .modal-header {
-    cursor: pointer;
-}
-
-.modal-header.is-drag {
-    cursor: move;
-}
-/*End Modal*/
-
 /*Textarea*/
 @media (min-width: 576px) {
     .form-inline .form-group {
