@@ -96,6 +96,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Table/Table.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Table/Table.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -116,7 +122,8 @@
       "Components/Camera/Camera.razor.cs.min.css",
       "Components/QRCode/QRCode.razor.cs.min.css",
       "Components/Scroll/Scroll.razor.cs.min.css",
-      "Components/Modal/Modal.razor.cs.min.css"
+      "Components/Modal/Modal.razor.cs.min.css",
+      "Components/Table/Table.razor.cs.min.css"
     ]
   },
   {
@@ -240,6 +247,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Table/Table.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Table/Table.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -267,7 +280,8 @@
       "Components/Camera/Camera.razor.cs.min.js",
       "Components/QRCode/QRCode.razor.cs.min.js",
       "Components/Scroll/Scroll.razor.cs.min.js",
-      "Components/Modal/Modal.razor.cs.min.js"
+      "Components/Modal/Modal.razor.cs.min.js",
+      "Components/Table/Table.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
