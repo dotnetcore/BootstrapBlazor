@@ -405,6 +405,7 @@ namespace BootstrapBlazor.Shared.Shared
         {
             var it = new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "表格 Table"
             };
 
@@ -482,6 +483,7 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "导出功能",
                 Url = "tables/export"
             });
