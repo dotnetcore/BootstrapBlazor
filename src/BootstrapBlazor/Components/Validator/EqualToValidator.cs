@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 值相等验证组件
     /// </summary>
-    public class EqualToValidator : ValidatorComponentBase, IValidator
+    public class EqualToValidator : ValidatorComponentBase
     {
         /// <summary>
         /// 
