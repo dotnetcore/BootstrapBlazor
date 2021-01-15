@@ -210,7 +210,7 @@ namespace BootstrapBlazor.Components
                 var routeAttributes = componentType.GetCustomAttributes<RouteAttribute>(false);
                 foreach (var template in routeAttributes.Select(t => t.Template))
                 {
-                    RouteTable.TryAdd(template.Trim('/'), componentType);
+                    RouteTable.TryAdd(template.Trim('/').ToLowerInvariant(), componentType);
                 }
             }
             Navigator.LocationChanged += Navigator_LocationChanged;
@@ -235,7 +235,7 @@ namespace BootstrapBlazor.Components
 
         private void AddTabByUrl(string url)
         {
-            if (RouteTable.TryGetValue(url, out var comp))
+            if (RouteTable.TryGetValue(url.ToLowerInvariant(), out var comp))
             {
                 var item = new TabItem();
                 var parameters = new Dictionary<string, object>
