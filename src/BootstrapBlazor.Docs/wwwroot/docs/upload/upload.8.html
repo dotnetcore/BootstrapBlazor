@@ -1,0 +1,34 @@
+﻿<ValidateForm Model="Foo" OnValidSubmit="OnSubmit" class="form-inline">
+    <div class="row">
+        <div class="form-group col-12">
+            <BootstrapInput @bind-Value="@Foo.Name" />
+        </div>
+        <div class="form-group col-12">
+            <label class="control-label">文件上传：</label><Upload @bind-Value="@Foo.Picture" />
+        </div>
+        <div class="form-group col-12">
+            <Button ButtonType="@ButtonType.Submit" Text="提交"></Button>
+        </div>
+    </div>
+</ValidateForm>
+
+@code {
+    [NotNull]
+    private Person? Foo { get; set; } = new Person();
+
+    private Task OnSubmit(EditContext context)
+    {
+        return Task.CompletedTask;
+    }
+
+    private class Person
+    {
+        [Required]
+        [StringLength(20, MinimumLength = 2)]
+        public string Name { get; set; } = "Blazor";
+
+        [Required]
+        [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
+        public IBrowserFile? Picture { get; set; }
+    }
+}

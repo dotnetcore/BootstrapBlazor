@@ -6,9 +6,11 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -176,6 +178,25 @@ namespace BootstrapBlazor.Shared.Pages
         {
             Trace?.Log($"{fileName} 成功移除");
             return Task.FromResult(true);
+        }
+
+        [NotNull]
+        private Person? Foo { get; set; } = new Person();
+
+        private Task OnSubmit(EditContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        private class Person
+        {
+            [Required]
+            [StringLength(20, MinimumLength = 2)]
+            public string Name { get; set; } = "Blazor";
+
+            [Required]
+            [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
+            public IBrowserFile? Picture { get; set; }
         }
 
         /// <summary>

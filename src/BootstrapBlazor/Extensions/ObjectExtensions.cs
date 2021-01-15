@@ -173,5 +173,18 @@ namespace BootstrapBlazor.Components
             if (predicate == null) predicate = p => true;
             return source.GetType().GetProperties().Where(predicate).Select(p => new InternalEditorItem<TModel>(source, p)).ToList();
         }
+
+        /// <summary>
+        /// 格式化为 文件大小与单位格式 字符串
+        /// </summary>
+        /// <param name="fileSize"></param>
+        /// <returns></returns>
+        internal static string ToFileSizeString(this long fileSize) => fileSize switch
+        {
+            >= 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
+            >= 1024 * 1024 and < 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} MB",
+            >= 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
+            _ => $"{fileSize} B"
+        };
     }
 }

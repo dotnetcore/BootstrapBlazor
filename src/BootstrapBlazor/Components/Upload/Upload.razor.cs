@@ -79,6 +79,10 @@ namespace BootstrapBlazor.Components
             .AddClass("is-circle", IsCircle && Style == UploadStyle.Avatar)
             .Build();
 
+        private string? InputValueClassString => CssBuilder.Default("form-control")
+            .AddClass(CssClass).AddClass(ValidCss)
+            .Build();
+
         private static string? GetDiabledString(UploadFile item) => (item.Uploaded && item.Code == 0) ? null : "disabled";
 
         private static string? GetDeleteButtonDiabledString(UploadFile item) => (item.Uploaded) ? null : "disabled";
@@ -208,12 +212,6 @@ namespace BootstrapBlazor.Components
         public bool IsDirectory { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否禁用 默认为 false
-        /// </summary>
-        [Parameter]
-        public bool IsDisabled { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否显示上传进度 默认为 false
         /// </summary>
         [Parameter]
@@ -310,6 +308,8 @@ namespace BootstrapBlazor.Components
 
         private async Task OnFileChange(InputFileChangeEventArgs args)
         {
+            CurrentValue = args.File;
+
             var files = new List<UploadFile>();
             if (IsMultiple)
             {
@@ -352,14 +352,6 @@ namespace BootstrapBlazor.Components
                 StateHasChanged();
             }
         }
-
-        private static string GetFileSize(long fileSize) => fileSize switch
-        {
-            > 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
-            > 1024 * 1024 and < 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} MB",
-            > 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
-            _ => $"{fileSize} B"
-        };
 
         private IDictionary<string, object> GetUploadAdditionalAttributes()
         {

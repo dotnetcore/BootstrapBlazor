@@ -1,11 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits IdComponentBase
+@inherits ValidateBase<IBrowserFile>
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     @if (Style == UploadStyle.Normal)
     {
         <div class="input-group">
-            <input type="text" class="form-control" id="@Id" readonly placeholder="@PlaceHolder" value="@GetFileName()" />
+            <input type="text" class="@InputValueClassString" id="@Id" readonly placeholder="@PlaceHolder" value="@GetFileName()" />
             <div class="input-group-append">
                 @if (ShowDeleteButton)
                 {
@@ -25,7 +25,7 @@
                     <i class="@GetFileFormatClassString(item)"></i>
                     <div class="fn">
                         <span>@GetFileName(item)</span>
-                        <span>(@GetFileSize(item.Size))</span>
+                        <span>(@item.Size.ToFileSizeString())</span>
                     </div>
                     @if (item.Code == 0)
                     {
@@ -99,7 +99,7 @@
                             <i class="@GetFileFormatClassString(item)"></i>
                         }
                     </div>
-                    <div class="upload-item-size"><span>@GetFileName(item)</span> (@GetFileSize(item.Size))</div>
+                    <div class="upload-item-size"><span>@GetFileName(item)</span> (@item.Size.ToFileSizeString())</div>
                     <div class="upload-item-actions">
                         <button class="btn btn-sm btn-outline-secondary" disabled="@GetDiabledString(item)">
                             <i class="fa fa-search-plus"></i>

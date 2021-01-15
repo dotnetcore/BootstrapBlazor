@@ -27,7 +27,10 @@
                 if ($ele.data('bs.tooltip')) $ele.tooltip(method);
             }
             else {
-                if (!$ele.data('bs.tooltip')) $ele.tooltip(op);
+                if ($ele.data('bs.tooltip')) {
+                    $ele.tooltip('dispose');
+                }
+                $ele.tooltip(op);
                 $ele.tooltip(method);
             }
         },
