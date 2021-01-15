@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<ModalDialog>(JSRuntime);
-                await Interop.Invoke(this, DialogElement, "bb_dialog", "init");
+                await Interop.Invoke(this, DialogElement, "bb_modal_dialog");
             }
         }
 

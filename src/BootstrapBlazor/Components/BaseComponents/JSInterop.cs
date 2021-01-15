@@ -32,16 +32,14 @@ namespace BootstrapBlazor.Components
         /// <param name="value"></param>
         /// <param name="el"></param>
         /// <param name="func"></param>
-        /// <param name="method"></param>
         /// <param name="args"></param>
-        public async ValueTask Invoke(TValue value, object? el, string func, string? method, params object[] args)
+        public async ValueTask Invoke(TValue value, object? el, string func, params object[] args)
         {
             _objRef = DotNetObjectReference.Create(value);
             var paras = new List<object>()
             {
                 _objRef
             };
-            paras.Add(method!);
             paras.AddRange(args);
             await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
         }

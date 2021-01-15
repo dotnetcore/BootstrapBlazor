@@ -58,12 +58,6 @@
             });
             $button.popover('show');
         },
-        bb_dialog: function (el, obj, method) {
-            var $el = $(el);
-            if (method === 'init') {
-                $el.data('bb_dotnet_invoker', obj);
-            }
-        },
         timePicker: function (el) {
             return $(el).find('.time-spinner-item').height();
         },

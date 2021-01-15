@@ -1,5 +1,9 @@
 ﻿(function ($) {
     $.extend({
+        bb_modal_dialog: function (el, obj) {
+            var $el = $(el);
+            $el.data('bb_dotnet_invoker', obj);
+        },
         bb_modal: function (el, method) {
             var $el = $(el);
 
