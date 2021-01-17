@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected Task OnResetSearchAsync(BindItem item)
+        protected static Task OnResetSearchAsync(BindItem item)
         {
             item.Name = "";
             item.Address = "";
@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+        protected static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
 
         /// <summary>
         /// 

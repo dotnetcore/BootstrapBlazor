@@ -187,8 +187,8 @@ namespace System.Linq
 
         private static Expression Contains(this Expression left, Expression right)
         {
-            Expression<Func<string, string, bool>> expression = (l, r) => l != null && r != null && l.Contains(r);
-            return Expression.Invoke(expression, left, right);
+            var method = typeof(LambdaExtensions).GetMethod("NullableContains", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(string), typeof(string) }, null);
+            return Expression.Call(null, method!, left, right);
         }
 
         private static bool NullableContains(string left, string right)
