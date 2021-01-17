@@ -1,7 +1,7 @@
-﻿<Upload Style="UploadStyle.ClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></Upload>
+﻿<ButtonUpload OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></ButtonUpload>
 
 @code {
-    private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
+    private IEnumerable<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
     {
         new UploadFile { FileName = "Test.xls" },
         new UploadFile { FileName = "Test.doc" },

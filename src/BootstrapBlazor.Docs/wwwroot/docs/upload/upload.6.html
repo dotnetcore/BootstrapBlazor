@@ -1,15 +1,15 @@
-﻿    <div class="row">
-        <div class="col-12">
-            <p>本例中使用 <code>IWebHostEnviroment</code> 注入服务获取到 <code>wwwwroot</code> 目录，保存文件到 <code>images\uploader</code> 中，此功能无需 <b>MVC</b> 的控制器辅助进行文件的保存，直接调用 <code>SaveToFile</code> 方法即可</p>
-            <Upload Style="UploadStyle.Card" ShowProgress="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
-        </div>
+﻿<div class="row">
+    <div class="col-12">
+        <p>本例中设置 <code>ShowProgress=true</code> 显示上传进度条</p>
+        <CardUpload ShowProgress="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
     </div>
-    <div class="row mt-3">
-        <div class="col-12">
-            <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件，本例中未设置 <code>ShowProgress</code> 使用其默认值，不显示上传进度条</p>
-            <Upload Style="UploadStyle.Card" IsSingle="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
-        </div>
+</div>
+<div class="row mt-3">
+    <div class="col-12">
+        <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
+        <CardUpload IsSingle="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
     </div>
+</div>
 
 @code {
     [Inject]
@@ -21,13 +21,21 @@
     private WebsiteOptions? SiteOptions { get; set; }
 
     private CancellationTokenSource? ReadToken { get; set; }
-    private async Task OnCardUpload(IEnumerable<UploadFile> files)
+    private async Task OnCardUpload(UploadFile file)
     {
-        // 示例代码，使用 IWebHostEnviroment 注入获取硬盘文件夹 示例
-        var file = files.FirstOrDefault();
         if (file != null && file.File != null)
         {
-            await SaveToFile(file);
+            // 服务器端验证当文件大于 2MB 时提示文件太大信息
+            if (file.Size > MaxFileLength)
+            {
+                await ToastService.Information("上传文件", $"文件大小超过 200MB");
+                file.Code = 1;
+                file.Error = "文件大小超过 200MB";
+            }
+            else
+            {
+                await SaveToFile(file);
+            }
         }
     }
 

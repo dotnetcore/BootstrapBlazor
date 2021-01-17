@@ -1,7 +1,7 @@
-﻿<Upload Style="UploadStyle.Card" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+﻿<CardUpload DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
 
 @code {
-    private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
+    private IEnumerable<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
     {
         new UploadFile { FileName = "Test.xls" },
         new UploadFile { FileName = "Test.doc" },
@@ -16,22 +16,53 @@
     };
 
     private CancellationTokenSource? ReadToken { get; set; }
-    private async Task OnCardUpload(IEnumerable<UploadFile> files)
+    private async Task OnCardUpload(UploadFile file)
     {
-        var file = files.FirstOrDefault();
         if (file != null && file.File != null)
         {
             // 服务器端验证当文件大于 2MB 时提示文件太大信息
-            if (file.Size > 2 * 1024 * 1024)
+            if (file.Size > MaxFileLength)
             {
-                await ToastService.Information("上传文件", $"文件大小超过 2MB");
+                await ToastService.Information("上传文件", $"文件大小超过 200MB");
                 file.Code = 1;
-                file.Error = "文件大小超过 2MB";
+                file.Error = "文件大小超过 200MB";
             }
             else
             {
                 await SaveToFile(file);
             }
         }
+    }
+
+    private async Task<bool> SaveToFile(UploadFile file)
+    {
+        // Server Side 使用
+        // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
+        // 生成写入文件名称
+        var ret = false;
+        if (!string.IsNullOrEmpty(SiteOptions.WebRootPath))
+        {
+            var uploaderFolder = Path.Combine(SiteOptions.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+            var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+            ReadToken ??= new CancellationTokenSource();
+            ret = await file.SaveToFile(fileName, MaxFileLength, ReadToken.Token);
+
+            if (ret)
+            {
+                // 保存成功
+                file.PrevUrl = $"images/uploader/{file.FileName}";
+            }
+            else
+            {
+                await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+            }
+        }
+        else
+        {
+            await ToastService.Information("保存文件", "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中");
+        }
+        return ret;
     }
 }

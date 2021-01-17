@@ -1,0 +1,50 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ButtonUploadBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
+    <div class="upload-body is-card">
+        @foreach (var item in UploadFiles)
+        {
+            <div @key="@item" class="@GetItemClassString(item)">
+                <div class="upload-item-body">
+                    @if (IsImage(item))
+                    {
+                        <img src="@item.PrevUrl" />
+                    }
+                    else
+                    {
+                        <i class="@GetFileFormatClassString(item)"></i>
+                    }
+                </div>
+                <div class="upload-item-size"><span>@GetFileName(item)</span> (@item.Size.ToFileSizeString())</div>
+                <div class="upload-item-actions">
+                    <button class="btn btn-sm btn-outline-secondary" disabled="@GetDiabledString(item)">
+                        <i class="fa fa-search-plus"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)" @onclick="@(e => OnFileDelete(item))">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </div>
+                @if (GetShowProgress(item))
+                {
+                    <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" />
+                }
+                <span class="upload-item-label">
+                    <i class="fa fa-check"></i>
+                    <i class="fa fa-times"></i>
+                </span>
+            </div>
+        }
+        @if (!IsSingle || (IsSingle && !UploadFiles.Any()))
+        {
+            <div class="upload-item">
+                <div class="upload-item-actions btn-browser">
+                    <span class="upload-item-plus">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+</div>

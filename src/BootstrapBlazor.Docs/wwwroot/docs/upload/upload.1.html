@@ -1,9 +1,11 @@
-﻿<Upload ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></Upload>
+﻿<InputUpload Id="text3" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
 
 @code {
-    private Task<string> OnFileChange(IEnumerable<UploadFile> files)
+    private Task OnFileChange(UploadFile file)
     {
-        Trace?.Log($"{files.First().File!.Name} 上传成功");
+        // 未真正保存文件
+        // file.SaveToFile()
+        Trace?.Log($"{file.File!.Name} 上传成功");
         return Task.FromResult("");
     }
 

@@ -1,1 +1,9 @@
-﻿<Upload Style="UploadStyle.ClickToUpload" IsDirectory="true" MaxFileCount="100" OnDelete="@(fileName => Task.FromResult(true))"></Upload>
+﻿<ButtonUpload IsDirectory="true" OnChange="@OnUploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+
+@code {
+    private async Task OnUploadFolder(UploadFile file)
+    {
+        // 上传文件夹时会多次回调此方法
+        await SaveToFile(file);
+    }
+}

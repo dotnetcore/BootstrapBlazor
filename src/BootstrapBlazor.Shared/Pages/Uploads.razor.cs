@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Logger? Trace { get; set; }
 
-        private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
+        private IEnumerable<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
         {
             new UploadFile { FileName = "Test.xls" },
             new UploadFile { FileName = "Test.doc" },
@@ -50,43 +50,40 @@ namespace BootstrapBlazor.Shared.Pages
             new UploadFile { FileName = "Test.dat" }
         };
 
-        private Task OnFileChange(IEnumerable<UploadFile> files)
+        private Task OnFileChange(UploadFile file)
         {
             // 未真正保存文件
-            // files.First().SaveToFile()
-            Trace?.Log($"{files.First().File!.Name} 上传成功");
+            // file.SaveToFile()
+            Trace?.Log($"{file.File!.Name} 上传成功");
             return Task.FromResult("");
         }
 
-        private async Task OnClickToUpload(IEnumerable<UploadFile> files)
+        private async Task OnClickToUpload(UploadFile file)
         {
             // 示例代码，模拟 80% 几率保存成功
             var error = random.Next(1, 100) > 80;
             if (error)
             {
-                files.First().Code = 1;
-                files.First().Error = "模拟上传失败";
+                file.Code = 1;
+                file.Error = "模拟上传失败";
             }
             else
-            {
-                await SaveToFile(files.First());
-            }
-        }
-
-        private CancellationTokenSource? UploadFolderToken { get; set; }
-        private async Task OnUploadFolder(IEnumerable<UploadFile> files)
-        {
-            foreach (var file in files)
             {
                 await SaveToFile(file);
             }
         }
 
+        private CancellationTokenSource? UploadFolderToken { get; set; }
+        private async Task OnUploadFolder(UploadFile file)
+        {
+            // 上传文件夹时会多次回调此方法
+            await SaveToFile(file);
+        }
+
         private CancellationTokenSource? ReadAvatarToken { get; set; }
-        private async Task OnAvatarUpload(IEnumerable<UploadFile> files)
+        private async Task OnAvatarUpload(UploadFile file)
         {
             // 示例代码，使用 base64 格式
-            var file = files.FirstOrDefault();
             if (file != null && file.File != null)
             {
                 var format = file.File.ContentType;
@@ -116,11 +113,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private CancellationTokenSource? ReadToken { get; set; }
 
-        private long MaxFileLength => 200 * 1024 * 1024;
+        private static long MaxFileLength => 200 * 1024 * 1024;
 
-        private async Task OnCardUpload(IEnumerable<UploadFile> files)
+        private async Task OnCardUpload(UploadFile file)
         {
-            var file = files.FirstOrDefault();
             if (file != null && file.File != null)
             {
                 // 服务器端验证当文件大于 2MB 时提示文件太大信息
@@ -183,17 +179,19 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private Person? Foo { get; set; } = new Person();
 
-        private Task OnSubmit(EditContext context)
+        private static Task OnSubmit(EditContext context)
         {
             return Task.CompletedTask;
         }
 
         private class Person
         {
+            [Display(Name = "姓名")]
             [Required]
             [StringLength(20, MinimumLength = 2)]
             public string Name { get; set; } = "Blazor";
 
+            [Display(Name = "上传文件")]
             [Required]
             [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
             public IBrowserFile? Picture { get; set; }
@@ -203,61 +201,26 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
         {
-            new AttributeItem() {
-                Name = "Style",
-                Description = "组件风格",
-                Type = "UploadStyle",
-                ValueList = "—",
-                DefaultValue = "Normal"
-            },
             new AttributeItem() {
                 Name = "ShowDeleteButton",
                 Description = "是否显示删除按钮",
-                Type = "boolean",
+                Type = "bool",
                 ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsDisabled",
+                Description = "是否禁用",
+                Type = "boolean",
+                ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "PlaceHolder",
                 Description = "占位字符串",
                 Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "DeleteButtonClass",
-                Description = "删除按钮样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "btn-danger"
-            },
-            new AttributeItem() {
-                Name = "BrowserButtonClass",
-                Description = "上传按钮样式",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "btn-primary"
-            },
-            new AttributeItem() {
-                Name = "DeleteButtonIcon",
-                Description = "删除按钮图标",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "fa fa-trash-o"
-            },
-            new AttributeItem() {
-                Name = "BrowserButtonIcon",
-                Description = "浏览按钮图标",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "fa fa-folder-open-o"
-            },
-            new AttributeItem() {
-                Name = "DefaultFileList",
-                Description = "已上传文件集合",
-                Type = "List<UploadFile>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
@@ -269,12 +232,153 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " - "
             },
             new AttributeItem() {
-                Name = "MaxFileCount",
-                Description = "最大上传文件数量",
-                Type = "int",
+                Name = "BrowserButtonClass",
+                Description = "上传按钮样式",
+                Type = "string",
                 ValueList = " — ",
-                DefaultValue = "10"
+                DefaultValue = "btn-primary"
             },
+            new AttributeItem() {
+                Name = "BrowserButtonIcon",
+                Description = "浏览按钮图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-folder-open-o"
+            },
+            new AttributeItem() {
+                Name = "BrowserButtonText",
+                Description = "浏览按钮显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = ""
+            },
+            new AttributeItem() {
+                Name = "DeleteButtonClass",
+                Description = "删除按钮样式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "btn-danger"
+            },
+            new AttributeItem() {
+                Name = "DeleteButtonIcon",
+                Description = "删除按钮图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-trash-o"
+            },
+            new AttributeItem() {
+                Name = "DeleteButtonText",
+                Description = "删除按钮文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "删除"
+            },
+            new AttributeItem() {
+                Name = "OnDelete",
+                Description = "点击删除按钮时回调此方法",
+                Type = "Func<string, Task<bool>>",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
+            new AttributeItem() {
+                Name = "OnChange",
+                Description = "点击浏览按钮时回调此方法",
+                Type = "Func<UploadFile, Task>",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
+        };
+
+        private static IEnumerable<AttributeItem> GetButtonAttributes() => new AttributeItem[]
+        {
+            new AttributeItem() {
+                Name = "IsDirectory",
+                Description = "是否上传整个目录",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsMultiple",
+                Description = "是否允许多文件上传",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsSingle",
+                Description = "是否仅上传一次",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowProgress",
+                Description = "是否显示上传进度",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "Accept",
+                Description = "上传接收的文件格式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
+            new AttributeItem() {
+                Name = "BrowserButtonClass",
+                Description = "上传按钮样式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "btn-primary"
+            },
+            new AttributeItem() {
+                Name = "BrowserButtonIcon",
+                Description = "浏览按钮图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-folder-open-o"
+            },
+            new AttributeItem() {
+                Name = "BrowserButtonText",
+                Description = "浏览按钮显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = ""
+            },
+            new AttributeItem() {
+                Name = "DefaultFileList",
+                Description = "已上传文件集合",
+                Type = "List<UploadFile>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnGetFileFormat",
+                Description = "设置文件格式图标回调委托",
+                Type = "Func<string, string>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnDelete",
+                Description = "点击删除按钮时回调此方法",
+                Type = "Func<string, Task<bool>>",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
+            new AttributeItem() {
+                Name = "OnChange",
+                Description = "点击浏览按钮时回调此方法",
+                Type = "Func<UploadFile, Task>",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
+        };
+
+        private static IEnumerable<AttributeItem> GetAvatarAttributes() => new AttributeItem[]
+        {
             new AttributeItem() {
                 Name = "Width",
                 Description = "预览框宽度",
@@ -297,24 +401,10 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "IsDirectory",
-                Description = "是否上传整个目录",
+                Name = "IsSingle",
+                Description = "是否仅上传一次",
                 Type = "bool",
                 ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsMultiple",
-                Description = "是否允许多文件上传",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "IsDisabled",
-                Description = "是否禁用",
-                Type = "boolean",
-                ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
@@ -323,27 +413,35 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
-            }
-        };
-
-        /// <summary>
-        /// 获得事件方法
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-        {
-            new EventItem()
-            {
-                Name = "OnChange",
-                Description="上传文件回调委托方法",
-                Type ="Func<IEnumerable<UploadFile>, Task>"
             },
-            new EventItem()
-            {
+            new AttributeItem() {
+                Name = "Accept",
+                Description = "上传接收的文件格式",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
+            new AttributeItem() {
+                Name = "DefaultFileList",
+                Description = "已上传文件集合",
+                Type = "List<UploadFile>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "OnDelete",
-                Description="删除文件回调委托方法",
-                Type ="Func<string, Task<bool>>"
-            }
+                Description = "点击删除按钮时回调此方法",
+                Type = "Func<string, Task<bool>>",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
+            new AttributeItem() {
+                Name = "OnChange",
+                Description = "点击浏览按钮时回调此方法",
+                Type = "Func<UploadFile, Task>",
+                ValueList = " — ",
+                DefaultValue = " - "
+            },
         };
 
         /// <summary>
