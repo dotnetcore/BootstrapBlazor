@@ -187,18 +187,10 @@ namespace System.Linq
 
         private static Expression Contains(this Expression left, Expression right)
         {
-            var method = typeof(LambdaExtensions).GetMethod("NullableContains", BindingFlags.Static | BindingFlags.NonPublic, null, new[] { typeof(string), typeof(string) }, null);
-            return Expression.Call(null, method!, left, right);
-        }
-
-        private static bool NullableContains(string left, string right)
-        {
-            var ret = false;
-            if (left != null && right != null)
-            {
-                ret = left.Contains(right);
-            }
-            return ret;
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2DIR4
+            // 兼容 EFCore 与普通逻辑 EFCore 内自动处理空问题
+            MethodInfo method = typeof(string).GetMethod("Contains", new Type[1] { typeof(string) })!;
+            return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));
         }
 
         #region Sort

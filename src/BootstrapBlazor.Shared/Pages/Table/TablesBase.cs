@@ -603,7 +603,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [Display(Name = "主键")]
         [AutoGenerateColumn(Ignore = true)]
-        //[Key]
+        [Key]
         //[FreeSql.DataAnnotations.Column(IsIdentity = true)]
         public int Id { get; set; }
 
@@ -611,7 +611,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Required(ErrorMessage = "姓名不能为空")]
-        [AutoGenerateColumn(Order = 10)]
+        [AutoGenerateColumn(Order = 10, Filterable = true)]
         [ColumnName(Name = "姓名", ResourceName = "Name", ResourceType = typeof(BindItem))]
         public string? Name { get; set; }
 
@@ -627,7 +627,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [ColumnName(Name = "地址", ResourceName = "Address", ResourceType = typeof(BindItem))]
         [Required(ErrorMessage = "地址不能为空")]
-        [AutoGenerateColumn(Order = 20)]
+        [AutoGenerateColumn(Order = 20, Filterable = true)]
         public string? Address { get; set; }
 
         /// <summary>
@@ -675,13 +675,13 @@ namespace BootstrapBlazor.Shared.Pages
     ///// <summary>
     ///// BindItemContext 上下文操作类
     ///// </summary>
-    //public class BindItemDbContext : DbContext
+    //public class BindItemDbContext : Microsoft.EntityFrameworkCore.DbContext
     //{
     //    /// <summary>
     //    /// 构造函数
     //    /// </summary>
     //    /// <param name="options"></param>
-    //    public BindItemDbContext(DbContextOptions<BindItemDbContext> options) : base(options)
+    //    public BindItemDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<BindItemDbContext> options) : base(options)
     //    {
 
     //    }
@@ -689,18 +689,6 @@ namespace BootstrapBlazor.Shared.Pages
     //    /// <summary>
     //    /// 
     //    /// </summary>
-    //    public DbSet<BindItem>? BindItems { get; set; }
-
-    //    /// <summary>
-    //    /// OnModelCreating 方法
-    //    /// </summary>
-    //    /// <param name="modelBuilder"></param>
-    //    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //    {
-    //        modelBuilder.Entity(delegate (EntityTypeBuilder<BindItem> entity)
-    //        {
-    //            entity.HasKey(e => e.Id);
-    //        });
-    //    }
+    //    public Microsoft.EntityFrameworkCore.DbSet<BindItem>? BindItems { get; set; }
     //}
 }
