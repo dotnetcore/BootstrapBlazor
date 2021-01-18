@@ -70,7 +70,7 @@
         <RenderTemplate>
             @foreach (var item in Items)
             {
-                <div class="@GetContentClassString(item)">
+                <div @key="@item" class="@GetContentClassString(item)">
                     @item.ChildContent
                 </div>
             }
