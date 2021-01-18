@@ -58,8 +58,13 @@ namespace BootstrapBlazor.Shared.Pages
             //TODO: 此处代码后期精简
             if (!string.IsNullOrEmpty(SearchModel.Name)) items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
             if (!string.IsNullOrEmpty(SearchModel.Address)) items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (!string.IsNullOrEmpty(options.SearchText)) items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
-                 || (item.Address?.Contains(options.SearchText) ?? false));
+
+            if (options.Searchs.Any())
+            {
+                // 针对 SearchText 进行模糊查询
+                // 内部逻辑为 通过设置 Searchable = true 的列进行 Contains 匹配数据
+                items = items.Where(options.Searchs.GetFilterFunc<BindItem>(FilterLogic.Or));
+            }
 
             // 过滤
             var isFiltered = false;

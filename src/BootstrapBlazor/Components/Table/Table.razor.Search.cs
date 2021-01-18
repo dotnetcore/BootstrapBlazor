@@ -60,10 +60,10 @@ namespace BootstrapBlazor.Components
         public bool ShowAdvancedSearch { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 搜索关键字
+        /// 获得/设置 搜索关键字 通过列设置的 Searchable 自动生成搜索拉姆达表达式
         /// </summary>
         [Parameter]
-        public string SearchText { get; set; } = "";
+        public string? SearchText { get; set; }
 
         /// <summary>
         /// 重置搜索按钮异步回调方法
@@ -113,11 +113,26 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<IFilterAction> GetSearchs()
+        {
+            var columns = Columns.Where(col => col.Searchable);
+            var searchs = new List<InternalSearchAction>();
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                searchs.AddRange(columns.Select(col => new InternalSearchAction() { FieldKey = col.GetFieldName(), Value = SearchText }));
+            }
+            return searchs;
+        }
+
+        /// <summary>
         /// 重置搜索按钮调用此方法
         /// </summary>
         protected async Task ClearSearchClick()
         {
-            SearchText = "";
+            SearchText = null;
             await ResetSearchClick();
         }
 

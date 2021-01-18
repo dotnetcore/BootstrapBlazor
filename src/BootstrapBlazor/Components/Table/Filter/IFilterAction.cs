@@ -20,6 +20,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 重置过滤条件方法
         /// </summary>
-        void Reset();
+        void Reset() { }
     }
 }

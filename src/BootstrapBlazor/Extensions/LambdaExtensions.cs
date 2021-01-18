@@ -77,8 +77,9 @@ namespace System.Linq
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="expressions"></param>
+        /// <param name="logic"></param>
         /// <returns></returns>
-        private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions)
+        private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions, FilterLogic logic = FilterLogic.And)
         {
             Expression<Func<TItem, bool>>? ret = null;
             var exp_p = Expression.Parameter(typeof(TItem));
@@ -94,7 +95,9 @@ namespace System.Linq
 
                 var left = visitor.Visit(ret.Body);
                 var right = visitor.Visit(exp.Body);
-                ret = Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p);
+                ret = logic == FilterLogic.And
+                    ? Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p)
+                    : Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p);
             }
             return ret ?? (r => true);
         }
@@ -104,10 +107,11 @@ namespace System.Linq
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
+        /// <param name="logic"></param>
         /// <returns></returns>
-        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters)
+        public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And)
         {
-            return filters.GetFilterLambda<TItem>().Compile();
+            return filters.GetFilterLambda<TItem>(logic).Compile();
         }
 
         /// <summary>
@@ -115,11 +119,12 @@ namespace System.Linq
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="filters"></param>
+        /// <param name="logic"></param>
         /// <returns></returns>
-        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters)
+        public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And)
         {
             var exps = filters.Select(f => f.GetFilterConditions().GetFilterLambda<TItem>());
-            return exps.ExpressionAndLambda();
+            return exps.ExpressionAndLambda(logic);
         }
 
         /// <summary>

@@ -251,32 +251,26 @@ namespace BootstrapBlazor.Components
             SelectedItems.Clear();
 
             QueryData<TItem>? queryData = null;
+            var queryOption = new QueryPageOptions()
+            {
+                PageIndex = PageIndex,
+                PageItems = PageItems,
+                SearchText = SearchText,
+                SortOrder = SortOrder,
+                SortName = SortName,
+                Filters = Filters.Values,
+                Searchs = GetSearchs(),
+                SearchModel = SearchModel
+            };
             if (OnQueryAsync != null)
             {
-                queryData = await OnQueryAsync(new QueryPageOptions()
-                {
-                    PageIndex = PageIndex,
-                    PageItems = PageItems,
-                    SearchText = SearchText,
-                    SortOrder = SortOrder,
-                    SortName = SortName,
-                    Filters = Filters.Values,
-                    SearchModel = SearchModel
-                });
+                queryData = await OnQueryAsync(queryOption);
             }
             else if (UseInjectDataService)
             {
-                queryData = await GetDataService().QueryAsync(new QueryPageOptions()
-                {
-                    PageIndex = PageIndex,
-                    PageItems = PageItems,
-                    SearchText = SearchText,
-                    SortOrder = SortOrder,
-                    SortName = SortName,
-                    Filters = Filters.Values,
-                    SearchModel = SearchModel
-                });
+                queryData = await GetDataService().QueryAsync(queryOption);
             }
+
             if (queryData != null)
             {
                 Items = queryData.Items;

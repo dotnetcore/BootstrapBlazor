@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
+        private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
             .AddClass("d-none", !item.IsActive)
             .Build();
 
@@ -54,7 +54,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="icon"></param>
         /// <returns></returns>
-        private string? GetIconClassString(string icon) => CssBuilder.Default("fa fa-fw")
+        private static string? GetIconClassString(string icon) => CssBuilder.Default("fa fa-fw")
             .AddClass(icon)
             .Build();
 
