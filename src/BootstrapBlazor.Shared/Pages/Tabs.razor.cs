@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Shared.Pages
         private void AddTab(Tab tabset)
         {
             var text = $"Tab {tabset.Items.Count() + 1}";
-            tabset.Add(new Dictionary<string, object>
+            tabset.AddTab(new Dictionary<string, object>
             {
                 [nameof(TabItem.Text)] = text,
                 [nameof(TabItem.IsActive)] = true,
@@ -67,7 +67,7 @@ namespace BootstrapBlazor.Shared.Pages
             if (tabset.Items.Count() > 4)
             {
                 var item = tabset.Items.Last();
-                tabset.Remove(item);
+                tabset.RemoveTab(item);
             }
         }
 
@@ -102,7 +102,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private void AddTabItem(string text) => TabSetMenu.Add(new Dictionary<string, object>
+        private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
@@ -203,13 +203,13 @@ namespace BootstrapBlazor.Shared.Pages
         {
             // TODO: 移动到数据库中
             new MethodItem() {
-                Name = "Add",
+                Name = "AddTab",
                 Description = "添加 TabItem 到 Tab 中",
                 Parameters = "TabItem",
                 ReturnValue = " — "
             },
             new MethodItem() {
-                Name = "Remove",
+                Name = "RemoveTab",
                 Description = "移除 TabItem",
                 Parameters = "TabItem",
                 ReturnValue = " — "
@@ -219,7 +219,37 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "设置指定 TabItem 为激活状态",
                 Parameters = "TabItem",
                 ReturnValue = " — "
-            }
+            },
+            new MethodItem() {
+                Name = "ClickPrevTab",
+                Description = "切换到上一个标签方法",
+                Parameters = "",
+                ReturnValue = "Task"
+            },
+            new MethodItem() {
+                Name = "ClickNextTab",
+                Description = "切换到下一个标签方法",
+                Parameters = "",
+                ReturnValue = "Task"
+            },
+            new MethodItem() {
+                Name = "CloseCurrentTab",
+                Description = "关闭当前标签页方法",
+                Parameters = "",
+                ReturnValue = "Task"
+            },
+            new MethodItem() {
+                Name = "CloseOtherTabs",
+                Description = "关闭其他标签页方法",
+                Parameters = "",
+                ReturnValue = "Task"
+            },
+            new MethodItem() {
+                Name = "CloseAllTabs",
+                Description = "关闭所有标签页方法",
+                Parameters = "",
+                ReturnValue = "Task"
+            },
         };
     }
 }

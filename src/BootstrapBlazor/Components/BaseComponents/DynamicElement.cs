@@ -30,6 +30,12 @@ namespace BootstrapBlazor.Components
         public bool TriggerClick { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否阻止默认行为 默认 false
+        /// </summary>
+        [Parameter]
+        public bool PreventDefault { get; set; }
+
+        /// <summary>
         /// 获得/设置 Click 回调委托
         /// </summary>
         [Parameter]
@@ -63,7 +69,8 @@ namespace BootstrapBlazor.Components
             if (AdditionalAttributes != null) builder.AddMultipleAttributes(1, AdditionalAttributes);
             if (TriggerClick && OnClick != null) builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick()));
             if (TriggerDoubleClick && OnDoubleClick != null) builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnDoubleClick()));
-            builder.AddContent(4, ChildContent);
+            builder.AddEventPreventDefaultAttribute(4, "onclick", PreventDefault);
+            builder.AddContent(5, ChildContent);
             builder.CloseElement();
         }
     }

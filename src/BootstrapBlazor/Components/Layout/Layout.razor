@@ -79,10 +79,10 @@ RenderFragment RenderMain =>
 @<main class="@MainClassString">
     @if (UseTabSet)
     {
-        <CascadingValue Value="this" IsFixed="true">
+        <RenderTemplate>
             <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
-                 AdditionalAssemblies="@AdditionalAssemblies"></Tab>
-        </CascadingValue>
+                 AdditionalAssemblies="@AdditionalAssemblies" @ref="TabSet"></Tab>
+        </RenderTemplate>
     }
     else
     {

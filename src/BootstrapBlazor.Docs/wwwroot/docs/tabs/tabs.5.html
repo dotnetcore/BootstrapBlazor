@@ -34,7 +34,7 @@
     private void AddTab()
     {
         var text = $"Tab {TabSet.Items.Count() + 1}";
-        tabset.Add(new Dictionary<string, object>
+        tabset.AddTab(new Dictionary<string, object>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
@@ -53,7 +53,7 @@
         if (TabSet.Items.Count() > 4)
         {
             var item = TabSet.Items.Last();
-            await TabSet.Remove(item);
+            await TabSet.RemoveTab(item);
         }
     }
 }

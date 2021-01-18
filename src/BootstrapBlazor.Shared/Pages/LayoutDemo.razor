@@ -1,0 +1,22 @@
+﻿@page "/layout-demo"
+@layout PageLayout
+
+<div>
+    精彩从这里开始
+</div>
+
+@code {
+    [CascadingParameter]
+    private Tab? TabSet { get; set; }
+
+    [CascadingParameter]
+    private Layout? Layout { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}

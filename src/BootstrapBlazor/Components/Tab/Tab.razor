@@ -6,11 +6,11 @@
         <div class="@WrapClassString">
             @if (ShouldShowExtendButtons())
             {
-                <div class="nav-link-bar left" @onclick="ClickPrevTab"><i class="fa fa-chevron-left"></i></div>
+                <DynamicElement class="nav-link-bar left" OnClick="@ClickPrevTab"><i class="fa fa-chevron-left"></i></DynamicElement>
             }
             else
             {
-                <div class="tabs-nav-prev" @onclick="@ClickPrevTab"><i class="fa fa-angle-left"></i></div>
+                <DynamicElement class="tabs-nav-prev" OnClick="@ClickPrevTab"><i class="fa fa-angle-left"></i></DynamicElement>
             }
             <div class="tabs-nav-scroll">
                 <div role="tablist" class="tabs-nav">
@@ -31,7 +31,7 @@
                         }
                         @foreach (var item in Items)
                         {
-                            <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" @onclick:preventDefault="@(!ClickTabToNavigation)" @onclick="@(e => OnClickTabItem(item))">
+                            <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" TagName="a" TriggerClick="!ClickTabToNavigation" PreventDefault="@(!ClickTabToNavigation)" OnClick="@(() => OnClickTabItem(item))">
                                 @if (!string.IsNullOrEmpty(item.Icon))
                                 {
                                     <i class="@GetIconClassString(item.Icon)"></i>
@@ -39,41 +39,41 @@
                                 <span class="tabs-item-text">@item.Text</span>
                                 @if (ShowClose && item.Closable)
                                 {
-                                    <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => Remove(item))">
+                                    <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => RemoveTab(item))">
                                         <i class="fa fa-fw fa-close"></i>
                                     </span>
                                 }
-                            </a>
+                            </DynamicElement>
                         }
                     </RenderTemplate>
                 </div>
             </div>
             @if (ShouldShowExtendButtons())
             {
-                <div class="nav-link-bar right" @onclick="ClickNextTab"><i class="fa fa-chevron-right"></i></div>
+                <DynamicElement class="nav-link-bar right" OnClick="@ClickNextTab"><i class="fa fa-chevron-right"></i></DynamicElement>
                 <div class="dropdown nav-link-bar dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="nav-link-close"><i class="fa fa-chevron-down"></i></div>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-item" @onclick="CloseCurrentTab"><span>@CloseCurrentTabText</span></div>
-                    <div class="dropdown-item" @onclick="CloseOtherTabs"><span>@CloseOtherTabsText</span></div>
-                    <div class="dropdown-item" @onclick="CloseAllTabs"><span>@CloseAllTabsText</span></div>
+                    <DynamicElement class="dropdown-item" OnClick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></DynamicElement>
+                    <div class="dropdown-item" @onclick="@CloseOtherTabs"><span>@CloseOtherTabsText</span></div>
+                    <div class="dropdown-item" @onclick="@CloseAllTabs"><span>@CloseAllTabsText</span></div>
                 </div>
             }
             else
             {
-                <div class="tabs-nav-next" @onclick="@ClickNextTab"><i class="fa fa-angle-right"></i></div>
+                <DynamicElement class="tabs-nav-next" OnClick="@ClickNextTab"><i class="fa fa-angle-right"></i></DynamicElement>
             }
         </div>
     </div>
     <div class="tabs-body">
-        <RenderTemplate>
+        <CascadingValue Value="this" IsFixed="true">
             @foreach (var item in Items)
             {
                 <div @key="@item" class="@GetContentClassString(item)">
                     @item.ChildContent
                 </div>
             }
-        </RenderTemplate>
+        </CascadingValue>
     </div>
 </div>

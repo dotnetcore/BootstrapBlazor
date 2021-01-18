@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 菜单与标签捆绑配置类
     /// </summary>
-    internal class MenuTabBoundleOptions
+    internal class TabItemTextOptions
     {
         /// <summary>
         /// 获得/设置 Tab 标签文本

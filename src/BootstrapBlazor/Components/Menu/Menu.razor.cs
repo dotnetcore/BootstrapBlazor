@@ -72,7 +72,7 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private MenuTabBoundleOptions? Options { get; set; }
+        private TabItemTextOptions? Options { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

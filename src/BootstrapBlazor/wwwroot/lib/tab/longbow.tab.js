@@ -61,7 +61,7 @@
         this.resize();
 
         var $bar = this.$element.find('.tabs-active-bar');
-        var $activeTab = this.$element.find('.tabs-item.is-active');
+        var $activeTab = this.$element.find('.tabs-item.active');
         if ($activeTab.length === 0) return;
 
         if (this.vertical) {

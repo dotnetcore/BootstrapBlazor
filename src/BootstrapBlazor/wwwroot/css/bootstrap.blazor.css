@@ -2292,7 +2292,7 @@ input:disabled,
     list-style: none;
 }
 
-.tabs-item.is-active {
+.tabs-item.active {
     color: #409eff;
 }
 
@@ -2354,7 +2354,7 @@ input:disabled,
     border-bottom: 1px solid #e4e7ed;
 }
 
-.tabs-card .tabs-header .tabs-item.is-active {
+.tabs-card .tabs-header .tabs-item.active {
     border-bottom-color: #fff;
 }
 
@@ -2366,15 +2366,15 @@ input:disabled,
     border-left: 1px solid #e4e7ed;
 }
 
-.tabs-card.tabs-bottom .tabs-header .tabs-item.is-active {
+.tabs-card.tabs-bottom .tabs-header .tabs-item.active {
     border-top-color: #fff;
 }
 
-.tabs-card.tabs-left .tabs-header .tabs-item.is-active {
+.tabs-card.tabs-left .tabs-header .tabs-item.active {
     border-right-color: #fff;
 }
 
-.tabs-card.tabs-right .tabs-header .tabs-item.is-active {
+.tabs-card.tabs-right .tabs-header .tabs-item.active {
     border-left-color: #fff;
 }
 
@@ -2426,7 +2426,7 @@ input:disabled,
         margin: 0;
     }
 
-        .tabs-border-card > .tabs-header .tabs-item.is-active {
+        .tabs-border-card > .tabs-header .tabs-item.active {
             color: #409eff;
             background-color: #fff;
             border-right-color: #dcdfe6;
@@ -2437,11 +2437,11 @@ input:disabled,
             border: 1px solid transparent;
         }
 
-            .tabs-border-card > .tabs-header .tabs-item:not(:hover):not(.is-active) {
+            .tabs-border-card > .tabs-header .tabs-item:not(:hover):not(.active) {
                 color: #909399;
             }
 
-            .tabs-border-card > .tabs-header .tabs-item:hover {
+            .tabs-border-card > .tabs-header .tabs-item:not(.active):hover {
                 background-color: #e9ecef;
             }
 
@@ -2470,7 +2470,7 @@ input:disabled,
         margin-left: -1px;
     }
 
-    .tabs-border-card.tabs-left .tabs-item.is-active, .tabs-border-card.tabs-right .tabs-item.is-active {
+    .tabs-border-card.tabs-left .tabs-item.active, .tabs-border-card.tabs-right .tabs-item.active {
         border-top-color: #dcdfe6;
         border-bottom-color: #dcdfe6;
     }
@@ -2483,11 +2483,11 @@ input:disabled,
         border-right: none;
     }
 
-    .tabs-border-card.tabs-left .tabs-item.is-active {
+    .tabs-border-card.tabs-left .tabs-item.active {
         border-right-color: #fff;
     }
 
-    .tabs-border-card.tabs-right .tabs-item.is-active {
+    .tabs-border-card.tabs-right .tabs-item.active {
         border-left-color: #fff;
     }
 
