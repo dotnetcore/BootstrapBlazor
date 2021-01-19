@@ -2508,14 +2508,11 @@ input:disabled,
     margin-left: 0rem;
 }
 
-.layout-main > .tabs.tabs-top.tabs-border-card {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+.is-page .layout-main > .tabs {
+    margin: -1rem;
     border: none;
-    overflow: auto;
+    border-radius: unset;
+    min-height: calc(100% + 2rem);
 }
 /*end tabs*/
 
