@@ -29,3 +29,7 @@
     border-color: #28a4c9;
     color: #fff;
 }
+
+.editor .dropdown-menu {
+    overflow: unset;
+}
