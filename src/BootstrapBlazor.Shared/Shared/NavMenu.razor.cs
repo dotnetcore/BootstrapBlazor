@@ -330,12 +330,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
-                Text = "编辑弹窗 EditDialog",
-                Url = "editdialogs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
                 Text = "列表组件 ListView",
                 Url = "listviews"
             });
@@ -354,12 +348,6 @@ namespace BootstrapBlazor.Shared.Shared
                 IsUpdate = true,
                 Text = "搜索框 Search",
                 Url = "searchs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                IsNew = true,
-                Text = "搜索弹窗 SearchDialog",
-                Url = "searchdialogs"
             });
             AddTableItem(item);
             item.AddItem(new DemoMenuItem()
@@ -548,6 +536,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "编辑弹窗 EditDialog",
+                Url = "editdialogs"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "消息框 Message",
                 Url = "messages"
             });
@@ -580,6 +574,12 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "模态弹窗 SweetAlert",
                 Url = "swals"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "搜索弹窗 SearchDialog",
+                Url = "searchdialogs"
             });
             item.AddItem(new DemoMenuItem()
             {

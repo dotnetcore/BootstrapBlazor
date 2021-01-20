@@ -259,7 +259,8 @@ namespace BootstrapBlazor.Components
                 // 初始化列
                 if (AutoGenerateColumns)
                 {
-                    InternalTableColumn.GetProperties<TItem>(Columns);
+                    Columns.Clear();
+                    Columns.AddRange(InternalTableColumn.GetProperties<TItem>());
                 }
 
                 ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();

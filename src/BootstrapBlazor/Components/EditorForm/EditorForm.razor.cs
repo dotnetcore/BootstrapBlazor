@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components.EditorForm;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
@@ -132,13 +131,12 @@ namespace BootstrapBlazor.Components
                     if (AutoGenerateAllItem)
                     {
                         // 获取绑定模型所有属性
-                        var items = Model.GetType().GetProperties().Select(p => new InternalEditorItem<TModel>(Model, p)).ToList();
+                        var items = InternalTableColumn.GetProperties<TModel>().ToList();
 
                         // 通过设定的 FieldItems 模板获取项进行渲染
                         foreach (var el in EditorItems)
                         {
                             var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
-
                             if (item != null)
                             {
                                 // 过滤掉不编辑的列
@@ -152,7 +150,7 @@ namespace BootstrapBlazor.Components
                                 }
                             }
                         }
-                        FormItems.AddRange(items.OrderBy(i => GetOrder(i.FieldName)));
+                        FormItems.AddRange(items);
                     }
                     else
                     {

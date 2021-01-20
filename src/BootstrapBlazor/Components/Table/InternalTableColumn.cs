@@ -88,7 +88,7 @@ namespace BootstrapBlazor.Components
 
         public string GetFieldName() => FieldName;
 
-        public static void GetProperties<TModel>(List<ITableColumn> columns)
+        public static IEnumerable<ITableColumn> GetProperties<TModel>(IEnumerable<ITableColumn>? source = null)
         {
             var cols = new List<ITableColumn>(50);
             var type = typeof(TModel);
@@ -113,7 +113,7 @@ namespace BootstrapBlazor.Components
                 }
 
                 // 替换属性 手写优先
-                var col = columns.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
+                var col = source?.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
                 if (col != null)
                 {
                     CopyValue(col, tc);
@@ -121,8 +121,7 @@ namespace BootstrapBlazor.Components
                 cols.Add(tc);
             }
 
-            columns.Clear();
-            columns.AddRange(cols.OrderBy(c => c.Order));
+            return cols.OrderBy(c => c.Order);
         }
 
         /// <summary>

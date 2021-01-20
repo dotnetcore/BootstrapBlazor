@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components.EditorForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -166,12 +165,11 @@ namespace BootstrapBlazor.Components
         /// <param name="source"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(this TModel source, Func<PropertyInfo, bool>? predicate = null)
+        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(this TModel source, Func<IEditorItem, bool>? predicate = null)
             where TModel : class
         {
-            var ret = new List<IEditorItem>(20);
             if (predicate == null) predicate = p => true;
-            return source.GetType().GetProperties().Where(predicate).Select(p => new InternalEditorItem<TModel>(source, p)).ToList();
+            return InternalTableColumn.GetProperties<TModel>().Where(predicate);
         }
 
         /// <summary>
