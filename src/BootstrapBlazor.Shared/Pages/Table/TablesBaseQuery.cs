@@ -65,6 +65,12 @@ namespace BootstrapBlazor.Shared.Pages
                 // 内部逻辑为 通过设置 Searchable = true 的列进行 Contains 匹配数据
                 items = items.Where(options.Searchs.GetFilterFunc<BindItem>(FilterLogic.Or));
             }
+            else
+            {
+                if (!string.IsNullOrEmpty(options.SearchText))
+                    items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
+                                 || (item.Address?.Contains(options.SearchText) ?? false));
+            }
 
             // 过滤
             var isFiltered = false;

@@ -1,5 +1,8 @@
 ﻿(function () {
     $.extend({
+        bb_table_search: function (el, obj, searchMethod, clearSearchMethod) {
+            $(el).data('bb_table_search', { obj: obj, searchMethod, clearSearchMethod });
+        },
         bb_table_resize: function ($ele) {
             var resizer = $ele.find('.col-resizer');
             if (resizer.length > 0) {
@@ -202,5 +205,24 @@
                 tooltip();
             }
         }
+    });
+
+    $(function () {
+        $(document).on('keyup', function (e) {
+            if (e.key === 'Enter') {
+                var $table = $(e.target).closest('.table-container');
+                var bb = $table.data('bb_table_search');
+                if (bb) {
+                    bb.obj.invokeMethodAsync(bb.searchMethod);
+                }
+            }
+            else if (e.key === 'Escape') {
+                var $table = $(e.target).closest('.table-container');
+                var bb = $table.data('bb_table_search');
+                if (bb) {
+                    bb.obj.invokeMethodAsync(bb.clearSearchMethod);
+                }
+            }
+        });
     });
 })(jQuery);

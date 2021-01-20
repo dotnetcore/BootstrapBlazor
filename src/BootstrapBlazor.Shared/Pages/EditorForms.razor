@@ -89,11 +89,11 @@
                             // 此处也可以不使用 Context 值，直接使用模型 ValidateModel 即可
                         }
                         <div class="form-group col-12">
-                            <Select TValue="int" SkipValidate="true" @bind-Value="@DummyId" Items="@DummyItems" ShowSearch="true" DisplayText="选择明细" />
+                            <Select TValue="int" SkipValidate="true" @bind-Value="@DummyId" Items="@DummyItems" ShowSearch="true" ShowLabel="true" DisplayText="选择明细" />
                         </div>
                         <div class="form-group col-12">
                             <CheckboxList TModel="SelectedItem" TValue="IEnumerable<string>" @bind-Value="@model!.Hobby" Items="@Hobbys"
-                                          ValueField="Value" TextField="Text" CheckedField="Active" DisplayText="爱好">
+                                          ValueField="Value" TextField="Text" CheckedField="Active" ShowLabel="true" DisplayText="爱好">
                                 <RequiredValidator ErrorMessage="至少选择一种爱好" />
                             </CheckboxList>
                         </div>

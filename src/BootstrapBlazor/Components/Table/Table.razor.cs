@@ -19,6 +19,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Table<TItem> : BootstrapComponentBase, ITable where TItem : class, new()
     {
+        private JSInterop<Table<TItem>>? Interop { get; set; }
+
         /// <summary>
         /// 获得 Table 组件样式表
         /// </summary>
@@ -251,6 +253,13 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
+                if (ShowSearch)
+                {
+                    // 注册 SeachBox 回调事件
+                    Interop = new JSInterop<Table<TItem>>(JSRuntime);
+                    await Interop.Invoke(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
+                }
+
                 FirstRender = false;
                 methodName = Height.HasValue ? "fixTableHeader" : "init";
 
@@ -288,7 +297,6 @@ namespace BootstrapBlazor.Components
 
                 if (!string.IsNullOrEmpty(methodName))
                 {
-                    // 固定表头脚本关联
                     await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName);
                     methodName = null;
                 }
@@ -398,6 +406,8 @@ namespace BootstrapBlazor.Components
         {
             if (disposing)
             {
+                Interop?.Dispose();
+
                 AutoRefreshCancelTokenSource?.Cancel();
                 AutoRefreshCancelTokenSource?.Dispose();
                 AutoRefreshCancelTokenSource = null;

@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -137,20 +138,17 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 搜索文本框按键回调方法
+        /// 客户端 SearchTextbox 文本框内按回车时调用此方法
         /// </summary>
-        /// <param name="e"></param>
-        protected async Task OnKeyUp(KeyboardEventArgs e)
-        {
-            // Enter Escape
-            if (e.Key == "Enter")
-            {
-                await SearchClick();
-            }
-            else if (e.Key == "Escape")
-            {
-                await ClearSearchClick();
-            }
-        }
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task OnSearch() => await SearchClick();
+
+        /// <summary>
+        /// 客户端 SearchTextbox 文本框内按 ESC 时调用此方法
+        /// </summary>
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task OnClearSearch() => await ClearSearchClick();
     }
 }
