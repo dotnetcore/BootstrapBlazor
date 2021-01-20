@@ -18,27 +18,22 @@
     <Tips>
         <p>自动绑定列如果是使用 <code>input</code> 呈现，绑定模型 <code>Model</code> 可使用 <code>PlaceHolderAttribute</code> 标签进行设置</p>
     </Tips>
-    <div style="height: 0.75rem"></div>
-    <div class="form-demo">
-        <label class="legend">表单示例</label>
+    <GroupBox Title="表单示例" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
             <FieldItems>
                 <EditorItem @bind-Field="@Model.Hobby" Editable="false" />
             </FieldItems>
             <Buttons>
-                <div class="d-flex mt-3">
-                    <Button Icon="fa fa-save" Text="提交" />
-                </div>
+                <Button Icon="fa fa-save" Text="提交" />
             </Buttons>
         </EditorForm>
-    </div>
+    </GroupBox>
 </Block>
 
 <Block Title="开启数据验证" Introduction="通过嵌套 <code>ValidateForm</code> 组件实现数据合规检查功能" CodeFile="editorform.2.html">
     <p>组件内置到 <code>ValidateForm</code> 内开启数据合规检查功能，<b>爱好</b> 字段使用 <code>EditTemplate</code> 模板自定义组件呈现数据</p>
     <p>通过设置 <code>Readonly</code> 属性，使 <code>生日</code> 字段为只读</p>
-    <div class="form-demo">
-        <label class="legend">表单示例</label>
+    <GroupBox Title="表单示例" style="margin-top: 1.5rem;">
         <ValidateForm Model="@ValidateModel">
             <EditorForm TModel="Dummy">
                 <FieldItems>
@@ -60,18 +55,15 @@
                     </EditorItem>
                 </FieldItems>
                 <Buttons>
-                    <div class="d-flex mt-3">
-                        <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
-                    </div>
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
                 </Buttons>
             </EditorForm>
         </ValidateForm>
-    </div>
+    </GroupBox>
 </Block>
 
 <Block Title="默认不自动生成" Introduction="通过设置属性 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，禁止自动生成属性，通过设置 <code>FieldItems</code> 内部集合来控制显示属性" CodeFile="editorform.3.html">
-    <div class="form-demo">
-        <label class="legend">表单示例</label>
+    <GroupBox Title="表单示例">
         <p>本例中通过设置 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，关闭自动生成功能，通过手动增加两个 <code>EditorItem</code> 编辑项来呈现表单编辑</p>
         <EditorForm Model="@Model" AutoGenerateAllItem="false">
             <FieldItems>
@@ -79,12 +71,11 @@
                 <EditorItem @bind-Field="@Model.Age" />
             </FieldItems>
         </EditorForm>
-    </div>
+    </GroupBox>
 </Block>
 
 <Block Title="表单组件内的组件绑定与模型无关的字段" Introduction="通过设置属性 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，禁止自动生成属性，通过设置 <code>FieldItems</code> 内部集合来控制显示属性" CodeFile="editorform.4.html">
-    <div class="form-demo">
-        <label class="legend">表单示例</label>
+    <GroupBox Title="表单示例">
         <p>在某些情况下表单中有些列的值可能是二级分类等等，需要知道一级分类的信息，这个时候一级分类需要额外的组件来呈现，如果 <code>Select</code>，而这个组件是与当前上下文绑定模型 <code>Model</code> 无关的，这种需求中通过设置 <code>SkipValidate</code> 值为 <code>true</code>，关闭此组件的模型验证功能即可，本例中 <code>Select</code> 组件绑定了与模型无关的 <code>DummyId</code> 私有字段</p>
         <EditorForm Model="@Model" AutoGenerateAllItem="false">
             <FieldItems>
@@ -102,7 +93,7 @@
                         </div>
                         <div class="form-group col-12">
                             <CheckboxList TModel="SelectedItem" TValue="IEnumerable<string>" @bind-Value="@model!.Hobby" Items="@Hobbys"
-                                          ValueField="Value" TextField="Text" CheckedField="Active">
+                                          ValueField="Value" TextField="Text" CheckedField="Active" DisplayText="爱好">
                                 <RequiredValidator ErrorMessage="至少选择一种爱好" />
                             </CheckboxList>
                         </div>
@@ -110,7 +101,7 @@
                 </EditorItem>
             </FieldItems>
         </EditorForm>
-    </div>
+    </GroupBox>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -1035,22 +1035,6 @@ section {
     margin-bottom: 0.25rem;
 }
 
-.form-demo {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 4px;
-    position: relative;
-    padding-top: 1.5rem;
-}
-
-    .form-demo .legend {
-        position: absolute;
-        top: -10px;
-        left: 30px;
-        background-color: #fff;
-        padding: 0 0.5rem;
-    }
-
 .footer-demo tfoot tr,
 .footer-demo .table-row.table-footer .table-cell {
     color: #409eff;

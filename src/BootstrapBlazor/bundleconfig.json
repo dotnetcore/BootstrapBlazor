@@ -108,6 +108,12 @@
     ]
   },
   {
+    "outputFileName": "Components/GroupBox/GroupBox.razor.cs.min.css",
+    "inputFiles": [
+      "Components/GroupBox/GroupBox.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -130,7 +136,8 @@
       "Components/Scroll/Scroll.razor.cs.min.css",
       "Components/Modal/Modal.razor.cs.min.css",
       "Components/Table/Table.razor.cs.min.css",
-      "Components/Drawer/Drawer.razor.cs.min.css"
+      "Components/Drawer/Drawer.razor.cs.min.css",
+      "Components/GroupBox/GroupBox.razor.cs.min.css"
     ]
   },
   {

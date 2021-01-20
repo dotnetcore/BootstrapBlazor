@@ -330,6 +330,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "集合 GroupBox",
+                Url = "groupboxs"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "列表组件 ListView",
                 Url = "listviews"
             });
