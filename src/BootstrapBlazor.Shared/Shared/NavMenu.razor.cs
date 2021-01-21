@@ -326,7 +326,7 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 IsNew = true,
                 Text = "挂架 DropdownWidget",
-                Url = "widgets"
+                Url = "dropdownwidgets"
             });
             item.AddItem(new DemoMenuItem()
             {

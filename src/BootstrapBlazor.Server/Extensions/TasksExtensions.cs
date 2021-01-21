@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Data;
 using Longbow.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -31,7 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpClient();
             services.AddVersionManager();
             services.AddExampleService();
-            services.AddSingleton<WebsiteOptions>();
+            services.AddSingleton<IConfigureOptions<WebsiteOptions>, ConfigureOptions<WebsiteOptions>>();
             services.AddHostedService<BlazorBackgroundServices>();
             return services;
         }
@@ -49,10 +50,10 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="env"></param>
         /// <param name="websiteOption"></param>
-        public BlazorBackgroundServices(IWebHostEnvironment env, WebsiteOptions websiteOption)
+        public BlazorBackgroundServices(IWebHostEnvironment env, IOptions<WebsiteOptions> websiteOption)
         {
             _env = env;
-            websiteOption.WebRootPath = env.WebRootPath;
+            websiteOption.Value.WebRootPath = env.WebRootPath;
         }
 
         /// <summary>

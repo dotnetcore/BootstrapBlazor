@@ -1,9 +1,0 @@
-﻿<Table TItem="BindItem" Items="@Items.Take(10)"
-       IsBordered="true" IsMultipleSelect="true" IsPagination="true"
-       Height="200" AllowResizing="true">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" Width="100" />
-        <TableColumn @bind-Field="@context.Address" Width="900" />
-    </TableColumns>
-</Table>

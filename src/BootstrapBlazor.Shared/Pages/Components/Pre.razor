@@ -1,4 +1,14 @@
 ﻿<div class="pre-code" @ref="PreElement">
-    <pre @attributes="@AdditionalAttributes" class="@ClassName"><code>@ChildContent</code></pre>
-    <button type="button" class="btn-clipboard" data-toggle="tooltip" title="点击复制代码">Copy</button>
+    @if (!Loaded)
+    {
+        <p>正在加载 ...</p>
+    }
+    else
+    {
+        <pre @attributes="@AdditionalAttributes" class="@ClassName"><code>@ChildContent</code></pre>
+        @if (CanCopy)
+        {
+            <button type="button" class="btn-clipboard" data-toggle="tooltip" title="点击复制代码">Copy</button>
+        }
+    }
 </div>

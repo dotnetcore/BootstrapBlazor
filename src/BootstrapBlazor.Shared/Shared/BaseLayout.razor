@@ -1,11 +1,10 @@
-﻿@using System.Diagnostics.CodeAnalysis
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
-@inject WebsiteOptions WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <header class="navbar navbar-expand navbar-dark flex-column flex-md-row">
     <div class="header-img navbar-brand">
-        <img src="_content/BootstrapBlazor.Shared/images/brand.png" />
+        <img src="_content/BootstrapBlazor.Shared/images/logo.png" />
         <span>Bootstrap Blazor</span>
     </div>
     <div class="navbar-nav-scroll">
@@ -20,10 +19,10 @@
                 <a class="nav-link" href="components">组件</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@WebsiteOption.ServerUrl" title="Server">server</a>
+                <a class="nav-link" href="@WebsiteOption.Value.ServerUrl" title="Server">server</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@WebsiteOption.WasmUrl" title="WebAssembly Client">wasm</a>
+                <a class="nav-link" href="@WebsiteOption.Value.WasmUrl" title="WebAssembly Client">wasm</a>
             </li>
         </ul>
     </div>

@@ -81,7 +81,7 @@ namespace BootstrapBlazor.Localization.Json
             return new JsonStringLocalizer(assembly, resourceName, typeName, logger);
         }
 
-        private string TryFixInnerClassPath(string path)
+        private static string TryFixInnerClassPath(string path)
         {
             const char innerClassSeparator = '+';
             var fixedPath = path;

@@ -23,8 +23,7 @@ namespace Microsoft.Extensions.Localization
             this IStringLocalizer stringLocalizer,
             Expression<Func<TResource, string>> propertyExpression)
         {
-            var member = propertyExpression.Body as MemberExpression;
-            if (member == null) throw new InvalidOperationException($"{nameof(propertyExpression)}'s Body property must be a instance of {nameof(MemberExpression)}");
+            if (propertyExpression.Body is not MemberExpression member) throw new InvalidOperationException($"{nameof(propertyExpression)}'s Body property must be a instance of {nameof(MemberExpression)}");
             return stringLocalizer[member.Member.Name];
         }
     }

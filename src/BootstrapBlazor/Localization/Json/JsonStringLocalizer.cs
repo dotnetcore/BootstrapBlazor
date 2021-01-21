@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Localization.Json
     /// </summary>
     internal class JsonStringLocalizer : IStringLocalizer
     {
-        private readonly ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>> _resourcesCache = new ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>>();
+        private readonly ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>> _resourcesCache = new();
 
         private readonly Assembly _assembly;
         private readonly string? _resourceName;
