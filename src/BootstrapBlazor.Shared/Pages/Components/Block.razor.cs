@@ -15,8 +15,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public sealed partial class Block
     {
-        private ElementReference BlockElement { get; set; }
-
         /// <summary>
         /// 获得/设置 组件 Title 属性
         /// </summary>
@@ -36,12 +34,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
 
-        /// <summary>
-        /// 获得/设置 组件示例代码文件名
-        /// </summary>
-        [Parameter]
-        public string? CodeFile { get; set; }
-
         [NotNull]
         private string? SubTitle { get; set; }
 
@@ -58,21 +50,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
 
             Title ??= Localizer[nameof(Title)];
             SubTitle ??= Localizer[nameof(SubTitle)];
-        }
-
-        /// <summary>
-        /// OnAfterRenderAsync
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender && JSRuntime != null)
-            {
-                await JSRuntime.InvokeVoidAsync("$.block", BlockElement);
-            }
         }
     }
 }

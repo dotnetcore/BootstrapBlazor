@@ -8,6 +8,7 @@ using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -32,7 +33,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         [Inject]
         [NotNull]
-        private WebsiteOptions? SiteOptions { get; set; }
+        private IOptions<WebsiteOptions>? SiteOptions { get; set; }
 
         private Logger? Trace { get; set; }
 
@@ -139,9 +140,9 @@ namespace BootstrapBlazor.Shared.Pages
             // Web Assembly 模式下必须使用 webapi 方式去保存文件到服务器或者数据库中
             // 生成写入文件名称
             var ret = false;
-            if (!string.IsNullOrEmpty(SiteOptions.WebRootPath))
+            if (!string.IsNullOrEmpty(SiteOptions.Value.WebRootPath))
             {
-                var uploaderFolder = Path.Combine(SiteOptions.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+                var uploaderFolder = Path.Combine(SiteOptions.Value.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
                 file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
                 var fileName = Path.Combine(uploaderFolder, file.FileName);
 

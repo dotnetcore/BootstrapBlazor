@@ -6,11 +6,13 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using BootstrapBlazor.Shared.Data;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
-using System;
 using System.Globalization;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.WebAssembly.ClientHost
@@ -31,7 +33,7 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddTransient(sp => new HttpClient());
 
             // 版本号服务
             builder.Services.AddVersionManager();
@@ -47,7 +49,12 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             builder.Services.AddSingleton<WeatherForecastService>();
 
-            builder.Services.AddSingleton<WebsiteOptions>();
+            builder.Services.AddSingleton<IConfigureOptions<WebsiteOptions>, Microsoft.Extensions.DependencyInjection.ConfigureOptions<WebsiteOptions>>();
+
+            builder.Services.Configure<WebsiteOptions>(options =>
+            {
+                options.RepositoryUrl = "https://www.blazor.zone/api/docs/";
+            });
 
             builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
 
@@ -73,6 +80,21 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
         internal class DefaultCultureStorage : ICultureStorage
         {
             public CultureStorageMode Mode { get; set; } = CultureStorageMode.LocalStorage;
+        }
+
+        internal class CorsMessageHandler : HttpClientHandler
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="request"></param>
+            /// <param name="cancellationToken"></param>
+            /// <returns></returns>
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                request.SetBrowserRequestMode(BrowserRequestMode.Cors);
+                return base.SendAsync(request, cancellationToken);
+            }
         }
     }
 }

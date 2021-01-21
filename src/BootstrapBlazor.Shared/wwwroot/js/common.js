@@ -16,7 +16,10 @@
         highlight: function (el) {
             var $el = $(el);
             $el.find('[data-toggle="tooltip"]').tooltip();
-            hljs.highlightBlock($el.find('code')[0]);
+            var code = $el.find('code')[0];
+            if (code) {
+                hljs.highlightBlock(code);
+            }
         },
         copyText: function (ele) {
             if (navigator.clipboard) {
@@ -144,14 +147,6 @@
             });
 
             $('.welcome-footer [data-toggle="tooltip"]').tooltip();
-        },
-        block: function (el) {
-            var $el = $(el);
-            var id = $.getUID();
-            var $footer = $el.children('.card-footer-code');
-            var $footerBar = $el.children('.card-footer-control');
-            $footer.attr('id', id);
-            $footerBar.attr('href', '#' + id);
         },
         table_wrap: function () {
             var handler = window.setInterval(function () {

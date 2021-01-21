@@ -97,8 +97,12 @@ namespace BootstrapBlazor.Shared.Pages.Components
                         builder.AddContent(0, code);
                     };
                 }
+                Loaded = true;
             }
-            Loaded = true;
+            else
+            {
+                Loaded = true;
+            }
         }
     }
 }
