@@ -38,6 +38,22 @@
   },
   "video": {
     "tables": "BV11y4y1e7Sr",
-    "row": "BV1jh41127U6"
+    "autorefresh": "BV1jA411H7NZ",
+    "column": "BV1hp4y1B79r",
+    "detail": "BV1jh41127U6",
+    "dialog": "BV1Et4y1r7qr",
+    "edit": "BV1Et4y1r7qr",
+    "export": "BV1Et4y1r7qr",
+    "filter": "BV1df4y1C7ud",
+    "fix-column": "BV15o4y1f7eN",
+    "header": "BV15o4y1f7eN",
+    "footer": "BV15o4y1f7eN",
+    "multi-header": "BV15o4y1f7eN",
+    "pages": "BV1Et4y1r7qr",
+    "row": "BV1jh41127U6",
+    "search": "BV1df4y1C7ud",
+    "selection": "BV1jh41127U6",
+    "toolbar": "BV1Et4y1r7qr",
+    "wrap": "BV1ry4y127Fm"
   }
 }
