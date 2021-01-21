@@ -56,11 +56,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var content = "";
             try
             {
-                var folder = CodeFile.Split('.').FirstOrDefault();
-                if (!string.IsNullOrEmpty(folder))
-                {
-                    content = await Client.GetStringAsync(CodeFile);
-                }
+                content = await Client.GetStringAsync(CodeFile);
             }
             catch (Exception) { }
             return content;

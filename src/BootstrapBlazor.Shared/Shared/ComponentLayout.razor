@@ -27,53 +27,6 @@
         <Pre @key="@CsharpFileName" CodeFile="@CsharpFileName"></Pre>
     </TabItem>
     <TabItem Text="相关视频" Icon="fa fa-file-video-o">
-        <Pre @key="@VideoFileName" CodeFile="@VideoFileName"></Pre>
+        <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
     </TabItem>
 </Tab>
-
-@code {
-    [NotNull]
-    private string? RazorFileName { get; set; }
-
-    [NotNull]
-    private string? CsharpFileName { get; set; }
-
-    [NotNull]
-    private string? VideoFileName { get; set; }
-
-    private List<KeyValuePair<string, string>> Dictionarys = new();
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        LoadDictionary();
-    }
-
-    private void LoadDictionary()
-    {
-        using var res = GetType().Assembly.GetManifestResourceStream($"{GetType().Assembly.GetName().Name}.Pages.Samples.docs.json");
-
-        var config = new ConfigurationBuilder()
-            .AddJsonStream(res)
-            .Build();
-        Dictionarys.AddRange(config.GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) }));
-    }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        var page = Navigator.ToBaseRelativePath(Navigator.Uri);
-        var comName = page.Split("/").LastOrDefault() ?? string.Empty;
-        if (!string.IsNullOrEmpty(comName))
-        {
-            RazorFileName = Dictionarys.FirstOrDefault(i => i.Key.Contains(comName, StringComparison.OrdinalIgnoreCase)).Value
-                ?? CultureInfo.CurrentCulture.TextInfo.ToTitleCase(comName);
-
-            RazorFileName = $"{RazorFileName}.razor";
-            CsharpFileName = $"{RazorFileName}.cs";
-            VideoFileName = "";
-        }
-    }
-}

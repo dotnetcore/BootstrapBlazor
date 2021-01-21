@@ -2,7 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace BootstrapBlazor.Shared
 {
@@ -46,5 +49,36 @@ namespace BootstrapBlazor.Shared
         /// </summary>
         [NotNull]
         public string? WebRootPath { get; set; }
+
+        /// <summary>
+        /// 获得/设置 视频地址
+        /// </summary>
+        public string VideoUrl { get; set; } = "https://www.bilibili.com/video/";
+
+        /// <summary>
+        /// 获得/设置 资源配置集合
+        /// </summary>
+        [NotNull]
+        public Dictionary<string, string> SourceCodes { get; set; }
+
+        /// <summary>
+        /// 获得/设置 资源配置集合
+        /// </summary>
+        [NotNull]
+        public Dictionary<string, string>? Videos { get; set; }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public WebsiteOptions()
+        {
+            using var res = GetType().Assembly.GetManifestResourceStream($"{GetType().Assembly.GetName().Name}.docs.json");
+
+            var config = new ConfigurationBuilder()
+                .AddJsonStream(res)
+                .Build();
+            SourceCodes = config.GetSection("src").GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) }).ToDictionary(item => item.Key, item => item.Value);
+            Videos = config.GetSection("video").GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) }).ToDictionary(item => item.Key, item => item.Value);
+        }
     }
 }

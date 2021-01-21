@@ -13,8 +13,8 @@
   <ItemGroup>
     <Content Remove="Locales\*.json" />
     <EmbeddedResource Include="Locales\*.json" />
-    <Content Remove="**\Samples\*.json" />
-    <EmbeddedResource Include="**\Samples\*.json" />
+    <Content Remove="docs.json" />
+    <EmbeddedResource Include="docs.json" />
   </ItemGroup>
 
   <ItemGroup>

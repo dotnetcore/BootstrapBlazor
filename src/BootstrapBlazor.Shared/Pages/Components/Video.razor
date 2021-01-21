@@ -1,0 +1,25 @@
+﻿@inject IOptions<WebsiteOptions> Options
+<div style="margin: -1rem;">
+    <iframe frameborder="0" src="@VideoUrl" style="min-height:565px; width:100%;"></iframe>
+</div>
+
+@code {
+    [NotNull]
+    private string? VideoUrl { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (!string.IsNullOrEmpty(Name) && Options.Value.Videos.TryGetValue(Name, out var url))
+        {
+            VideoUrl = $"{Options.Value.VideoUrl}{url}";
+        }
+    }
+}

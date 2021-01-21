@@ -1,0 +1,43 @@
+﻿{
+  "src": {
+    "autocompletes": "AutoCompletes",
+    "barcodereaders": "BarcodeReaders",
+    "checkboxlists": "CheckboxLists",
+    "datetimepickers": "DateTimePickers",
+    "datetimeranges": "DateTimeRanges",
+    "dropdownlists": "DropdownLists",
+    "dropdownwidgets": "DropdownWidgets",
+    "editdialogs": "EditDialogs",
+    "editorforms": "EditorForms",
+    "groupboxs": "GroupBoxs",
+    "inputnumbers": "InputNumbers",
+    "listviews": "ListViews",
+    "multi-selects": "MultiSelect",
+    "popconfirms": "PopoverConfirms",
+    "qrcodes": "QRCodes",
+    "searchdialogs": "SearchDialogs",
+    "swals": "SweetAlerts",
+    "tables": "Table/Tables",
+    "autorefresh": "Table/TablesAutoRefresh",
+    "column": "Table/TablesColumn",
+    "detail": "Table/TablesDetailRow",
+    "dialog": "Table/TablesDialog",
+    "edit": "Table/TablesEdit",
+    "export": "Table/TablesExport",
+    "filter": "Table/TablesFilter",
+    "fix-column": "Table/TablesFixedColumn",
+    "header": "Table/TablesFixedHeader",
+    "footer": "Table/TablesFooter",
+    "multi-header": "Table/TablesHeader",
+    "pages": "Table/TablesPages",
+    "row": "Table/TablesRow",
+    "search": "Table/TablesSearch",
+    "selection": "Table/TablesSelection",
+    "toolbar": "Table/TablesToolbar",
+    "wrap": "Table/TablesWrap"
+  },
+  "video": {
+    "tables": "BV11y4y1e7Sr",
+    "row": "BV1jh41127U6"
+  }
+}

@@ -112,7 +112,7 @@ namespace BootstrapBlazor.Components
 
             parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
 
-            await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary()));
+            await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(item => item.Key, item => item.Value)));
             IsShowDialog = true;
             StateHasChanged();
         }

@@ -147,19 +147,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 增加扩展方法 List 转化为 字典集合
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this List<KeyValuePair<TKey, TValue>> source)
-            where TKey : notnull
-        {
-            return source.ToDictionary(key => key.Key, val => val.Value);
-        }
-
-        /// <summary>
         /// 通过指定 Model 获得 IEditorItem 集合方法
         /// </summary>
         /// <param name="source"></param>
