@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Globalization;
@@ -26,13 +27,13 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? setupAction = null)
         {
             services.AddJsonLocalization(setupAction);
-            services.AddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
-            services.AddSingleton<ITableExcelExport, DefaultExcelExport>();
-            services.AddScoped<DialogService>();
-            services.AddScoped<MessageService>();
-            services.AddScoped<PopoverService>();
-            services.AddScoped<ToastService>();
-            services.AddScoped<SwalService>();
+            services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
+            services.TryAddSingleton<ITableExcelExport, DefaultExcelExport>();
+            services.TryAddScoped<DialogService>();
+            services.TryAddScoped<MessageService>();
+            services.TryAddScoped<PopoverService>();
+            services.TryAddScoped<ToastService>();
+            services.TryAddScoped<SwalService>();
             services.AddScoped<TabItemTextOptions>();
             services.AddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>

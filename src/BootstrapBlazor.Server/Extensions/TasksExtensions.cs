@@ -10,7 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using Task = System.Threading.Tasks.Task;
 

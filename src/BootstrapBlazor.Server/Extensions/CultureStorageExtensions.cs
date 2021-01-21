@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         public static IServiceCollection AddCultureStorage(this IServiceCollection services)
         {
-            services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
+            services.TryAddSingleton<ICultureStorage, DefaultCultureStorage>();
             return services;
         }
 
