@@ -69,7 +69,16 @@ namespace BootstrapBlazor.Shared.Pages.Components
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            await ReloadExampleCodeAsync();
+
+            if (ChildContent == null)
+            {
+                await ReloadExampleCodeAsync();
+            }
+            else
+            {
+                Loaded = true;
+                CanCopy = true;
+            }
         }
 
         /// <summary>
