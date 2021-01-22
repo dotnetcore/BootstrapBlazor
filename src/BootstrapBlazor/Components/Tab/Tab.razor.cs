@@ -366,35 +366,31 @@ namespace BootstrapBlazor.Components
         internal void AddItem(TabItem item) => _items.Add(item);
 
         /// <summary>
-        /// 添加 TabItem 方法
-        /// </summary>
-        /// <param name="parameters"></param>
-        public void AddTab(Dictionary<string, object> parameters)
-        {
-            AddTabItem(parameters);
-            StateHasChanged();
-        }
-
-        /// <summary>
         /// 通过 Url 添加 TabItem 标签方法
         /// </summary>
         /// <param name="url"></param>
         /// <param name="text"></param>
-        public void AddTab(string url, string? text = null)
+        /// <param name="icon"></param>
+        /// <param name="active"></param>
+        /// <param name="closable"></param>
+        public void AddTab(string url, string text, string? icon = null, bool active = true, bool closable = true)
         {
-            AddTabItem(url, text);
+            AddTabItem(url, text, icon, active, closable);
             StateHasChanged();
         }
 
-        private void AddTabItem(string url, string? text = null)
+        private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = true, bool closable = true)
         {
-            if (RouteTable.TryGetValue(url.ToLowerInvariant(), out var comp))
+            url = url.TrimStart('/').ToLowerInvariant();
+            if (RouteTable.TryGetValue(url, out var comp))
             {
                 AddTabItem(new Dictionary<string, object>
                 {
-                    [nameof(TabItem.Text)] = text ?? Options.TabItemText ?? string.Empty,
+                    [nameof(TabItem.Text)] = text ?? Options.Text ?? string.Empty,
                     [nameof(TabItem.Url)] = url,
-                    [nameof(TabItem.IsActive)] = true,
+                    [nameof(TabItem.Icon)] = icon ?? Options.Icon ?? string.Empty,
+                    [nameof(TabItem.Closable)] = closable,
+                    [nameof(TabItem.IsActive)] = active ?? Options.IsActive ?? true,
                     [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
                     {
                         builder.OpenComponent(0, comp);
@@ -403,6 +399,16 @@ namespace BootstrapBlazor.Components
                     })
                 });
             }
+        }
+
+        /// <summary>
+        /// 添加 TabItem 方法
+        /// </summary>
+        /// <param name="parameters"></param>
+        public void AddTab(Dictionary<string, object> parameters)
+        {
+            AddTabItem(parameters);
+            StateHasChanged();
         }
 
         private void AddTabItem(Dictionary<string, object> parameters)
