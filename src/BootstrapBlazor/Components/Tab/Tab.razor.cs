@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Concurrent;
@@ -196,6 +197,32 @@ namespace BootstrapBlazor.Components
             if (ClickTabToNavigation)
             {
                 InitRouteTable();
+
+                AddTabByUrl();
+
+                Navigator.LocationChanged += Navigator_LocationChanged;
+            }
+        }
+
+        private void Navigator_LocationChanged(object? sender, LocationChangedEventArgs e)
+        {
+            AddTabByUrl();
+
+            StateHasChanged();
+        }
+
+        private void AddTabByUrl()
+        {
+            var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
+
+            var tab = Items.FirstOrDefault(tab => tab.Url?.Equals(requestUrl, StringComparison.OrdinalIgnoreCase) ?? false);
+            if (tab != null)
+            {
+                ActiveTabItem(tab);
+            }
+            else
+            {
+                AddTabItem(requestUrl);
             }
         }
 
@@ -210,29 +237,6 @@ namespace BootstrapBlazor.Components
                 foreach (var template in routeAttributes.Select(t => t.Template))
                 {
                     RouteTable.TryAdd(template.Trim('/').ToLowerInvariant(), componentType);
-                }
-            }
-        }
-
-        /// <summary>
-        /// OnParametersSet 方法
-        /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-
-            if (ClickTabToNavigation)
-            {
-                var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
-
-                var tab = Items.FirstOrDefault(tab => tab.Url?.Equals(requestUrl, StringComparison.OrdinalIgnoreCase) ?? false);
-                if (tab != null)
-                {
-                    ActiveTabItem(tab);
-                }
-                else
-                {
-                    AddTabItem(requestUrl);
                 }
             }
         }
@@ -376,10 +380,11 @@ namespace BootstrapBlazor.Components
         public void AddTab(string url, string text, string? icon = null, bool active = true, bool closable = true)
         {
             AddTabItem(url, text, icon, active, closable);
+
             StateHasChanged();
         }
 
-        private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = true, bool closable = true)
+        private void AddTabItem(string url, string? text = null, string? icon = null, bool active = true, bool closable = true)
         {
             url = url.TrimStart('/').ToLowerInvariant();
             if (RouteTable.TryGetValue(url, out var comp))
@@ -390,7 +395,7 @@ namespace BootstrapBlazor.Components
                     [nameof(TabItem.Url)] = url,
                     [nameof(TabItem.Icon)] = icon ?? Options.Icon ?? string.Empty,
                     [nameof(TabItem.Closable)] = closable,
-                    [nameof(TabItem.IsActive)] = active ?? Options.IsActive ?? true,
+                    [nameof(TabItem.IsActive)] = active,
                     [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
                     {
                         builder.OpenComponent(0, comp);
@@ -463,6 +468,16 @@ namespace BootstrapBlazor.Components
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            Navigator.LocationChanged -= Navigator_LocationChanged;
+            base.Dispose(disposing);
         }
     }
 }
