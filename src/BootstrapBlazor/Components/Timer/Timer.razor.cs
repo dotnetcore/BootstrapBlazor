@@ -153,38 +153,43 @@ namespace BootstrapBlazor.Components
             CurrentTimespan = Value;
             AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm");
 
-            if (CancelTokenSource != null)
-            {
-                CancelTokenSource.Dispose();
-            }
-
-            CancelTokenSource = new CancellationTokenSource();
-
             StateHasChanged();
 
             Task.Run(async () =>
             {
+                if (CancelTokenSource != null)
+                {
+                    CancelTokenSource.Dispose();
+                }
+
+                CancelTokenSource = new CancellationTokenSource();
+
                 do
                 {
-                    await Task.Delay(1000, CancelTokenSource.Token);
+                    await Task.Delay(1000, CancelTokenSource?.Token ?? new CancellationToken(true));
 
-                    ResetEvent?.Wait();
-
-                    CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
-                    await InvokeAsync(StateHasChanged);
+                    if (!(CancelTokenSource?.IsCancellationRequested ?? true))
+                    {
+                        ResetEvent?.Wait();
+                        CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
+                        await InvokeAsync(StateHasChanged);
+                    }
                 }
-                while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero);
+                while (!(CancelTokenSource?.IsCancellationRequested ?? true) && CurrentTimespan > TimeSpan.Zero);
 
                 if (CurrentTimespan == TimeSpan.Zero)
                 {
-                    await Task.Delay(1000);
-                    Value = TimeSpan.Zero;
-                    await InvokeAsync(() =>
+                    await Task.Delay(500, CancelTokenSource?.Token ?? new CancellationToken(true));
+                    if (!(CancelTokenSource?.IsCancellationRequested ?? true))
                     {
-                        Vibrate = IsVibrate;
-                        StateHasChanged();
-                        OnTimeout?.Invoke();
-                    });
+                        Value = TimeSpan.Zero;
+                        await InvokeAsync(() =>
+                        {
+                            Vibrate = IsVibrate;
+                            StateHasChanged();
+                            OnTimeout?.Invoke();
+                        });
+                    }
                 }
             });
         }
@@ -222,6 +227,8 @@ namespace BootstrapBlazor.Components
             if (disposing)
             {
                 CancelTokenSource?.Dispose();
+                CancelTokenSource = null;
+
                 ResetEvent?.Dispose();
                 ResetEvent = null;
             }
