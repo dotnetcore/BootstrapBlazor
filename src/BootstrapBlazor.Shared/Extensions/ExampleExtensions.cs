@@ -35,16 +35,24 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         private HttpClient Client { get; set; }
 
+        private bool IsWebAssembly { get; set; }
+
+        private string ServerUrl { get; set; }
+
         /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="client"></param>
         /// <param name="options"></param>
-        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options)
+        /// <param name="storage"></param>
+        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options, ICultureStorage storage)
         {
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);
             Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
+
+            ServerUrl = options.Value.ServerUrl;
+            IsWebAssembly = storage.Mode == CultureStorageMode.LocalStorage;
         }
 
         /// <summary>
@@ -56,7 +64,15 @@ namespace Microsoft.Extensions.DependencyInjection
             var content = "";
             try
             {
-                content = await Client.GetStringAsync(CodeFile);
+                if (IsWebAssembly)
+                {
+                    Client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                    content = await Client.GetStringAsync($"Code?fileName={CodeFile}");
+                }
+                else
+                {
+                    content = await Client.GetStringAsync(CodeFile);
+                }
             }
             catch (Exception) { }
             return content;

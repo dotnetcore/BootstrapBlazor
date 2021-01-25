@@ -14,6 +14,17 @@ namespace BootstrapBlazor.Shared
     /// </summary>
     public class WebsiteOptions
     {
+#if DEBUG
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ServerUrl { get; set; } = "http://localhost:50853";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WasmUrl { get; set; } = "http://localhost:50855";
+#else
         /// <summary>
         /// 
         /// </summary>
@@ -23,6 +34,7 @@ namespace BootstrapBlazor.Shared
         /// 
         /// </summary>
         public string WasmUrl { get; set; } = "https://wasm.blazor.zone";
+#endif
 
         /// <summary>
         /// 
