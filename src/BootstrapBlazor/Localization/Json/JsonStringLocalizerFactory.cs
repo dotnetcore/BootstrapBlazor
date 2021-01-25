@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Localization.Json
     /// </summary>
     internal class JsonStringLocalizerFactory : IStringLocalizerFactory
     {
-        private readonly string _resourcesRelativePath;
+        private readonly JsonLocalizationOptions _jsonOptions;
         private readonly ILoggerFactory _loggerFactory;
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Localization.Json
         /// <param name="loggerFactory"></param>
         public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> localizationOptions, ILoggerFactory loggerFactory)
         {
-            _resourcesRelativePath = localizationOptions.Value.ResourcesPath;
+            _jsonOptions = localizationOptions.Value;
             _loggerFactory = loggerFactory;
         }
 
@@ -38,8 +38,7 @@ namespace BootstrapBlazor.Localization.Json
         {
             var typeInfo = resourceSource.GetTypeInfo();
             var typeName = typeInfo.FullName;
-            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(resourceSource)} full name is null.");
-            var assemblyName = resourceSource.Assembly.GetName().Name;
+            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(resourceSource)} full name is null or String.Empty.");
 
             if (resourceSource.IsGenericType)
             {
@@ -47,7 +46,7 @@ namespace BootstrapBlazor.Localization.Json
                 typeName = typeName.Substring(0, index);
             }
             typeName = TryFixInnerClassPath(typeName);
-            return CreateJsonStringLocalizer(typeInfo.Assembly, typeName, $"{assemblyName}.{_resourcesRelativePath}");
+            return CreateJsonStringLocalizer(typeInfo.Assembly, typeName);
         }
 
         /// <summary>
@@ -60,11 +59,18 @@ namespace BootstrapBlazor.Localization.Json
         {
             baseName = TryFixInnerClassPath(baseName);
 
-            var assemblyName = new AssemblyName(location);
-            var assembly = Assembly.Load(assemblyName);
-            string? resourceName = null;
+            Assembly? assembly;
+            if (!string.IsNullOrEmpty(location))
+            {
+                var assemblyName = new AssemblyName(location);
+                assembly = Assembly.Load(assemblyName);
+            }
+            else
+            {
+                assembly = GetType().Assembly;
+            }
 
-            return CreateJsonStringLocalizer(assembly, string.Empty, resourceName);
+            return CreateJsonStringLocalizer(assembly, string.Empty);
         }
 
         /// <summary>
@@ -72,13 +78,11 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="typeName"></param>
-        /// <param name="resourceName"></param>
         /// <returns></returns>
-        protected virtual IStringLocalizer CreateJsonStringLocalizer(Assembly assembly, string typeName, string? resourceName)
+        protected virtual IStringLocalizer CreateJsonStringLocalizer(Assembly assembly, string typeName)
         {
             var logger = _loggerFactory.CreateLogger<JsonStringLocalizer>();
-
-            return new JsonStringLocalizer(assembly, resourceName, typeName, logger);
+            return new JsonStringLocalizer(assembly, typeName, logger, _jsonOptions);
         }
 
         private static string TryFixInnerClassPath(string path)
