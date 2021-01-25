@@ -158,8 +158,9 @@ namespace BootstrapBlazor.Components
 
         private IEnumerable<ITableColumn> GetColumns()
         {
-            var items = ColumnVisibles.Where(i => i.Visible);
-            return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2LBM8
+            var items = ColumnVisibles?.Where(i => i.Visible);
+            return Columns.Where(i => items?.Any(v => v.FieldName == i.GetFieldName()) ?? true);
         }
 
         private bool GetColumnsListState(ITableColumn col)
