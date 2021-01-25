@@ -447,8 +447,20 @@ namespace BootstrapBlazor.Components
                 }
                 if (activeItem != null)
                 {
-                    if (ClickTabToNavigation) Navigator.NavigateTo(activeItem.Url!);
-                    else activeItem.SetActive(true);
+                    if (ClickTabToNavigation)
+                    {
+                        Navigator.NavigateTo(activeItem.Url!);
+                    }
+                    else
+                    {
+                        activeItem.SetActive(true);
+                        StateHasChanged();
+                    }
+                }
+                else
+                {
+                    // 无标签
+                    StateHasChanged();
                 }
             }
         }

@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        private void AddTab(Tab tabset)
+        private Task AddTab(Tab tabset)
         {
             var text = $"Tab {tabset.Items.Count() + 1}";
             tabset.AddTab(new Dictionary<string, object>
@@ -59,17 +59,19 @@ namespace BootstrapBlazor.Shared.Pages
                     builder.CloseElement();
                 })
             });
+            return Task.CompletedTask;
         }
 
-        private string? RemoveEndableString => (TabSet?.Items.Count() > 4) ? null : "true";
+        private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
 
-        private void RemoveTab(Tab tabset)
+        private Task RemoveTab(Tab tabset)
         {
             if (tabset.Items.Count() > 4)
             {
                 var item = tabset.Items.Last();
                 tabset.RemoveTab(item);
             }
+            return Task.CompletedTask;
         }
 
         private Placement BindPlacement = Placement.Top;

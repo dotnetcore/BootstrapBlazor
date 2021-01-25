@@ -181,14 +181,10 @@
 
 <Block Title="自定义增加标签页触发器" Introduction="通过调用组件 api 动态添加/删除 <code>TabItem</code>" CodeFile="tabs.5.html">
     <p>
-        <button type="button" class="btn btn-outline-primary" @onclick="@(e => AddTab(TabSet))">
-            <i class="fa fa-plus-circle"></i>
-            <span>添加</span>
-        </button>
-        <button type="button" class="btn btn-outline-danger" disabled="@RemoveEndableString" @onclick="@(e => RemoveTab(TabSet))">
-            <i class="fa fa-minus-circle"></i>
-            <span>移除</span>
-        </button>
+        <Button Icon="fa fa-plus-circle" OnClickWithoutRender="@(() => AddTab(TabSet))" Text="添加">
+        </Button>
+        <Button Color="Color.Danger" Icon="fa fa-minus-circle" IsDisabled="@RemoveEndable" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="移除">
+        </Button>
     </p>
     <Tab IsBorderCard="true" @ref="TabSet">
         <TabItem Text="用户管理">
