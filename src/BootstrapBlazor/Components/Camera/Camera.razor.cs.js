@@ -2,6 +2,22 @@
     $.extend({
         bb_camera: function (el, obj, method, auto) {
             var $el = $(el);
+
+            var stop = function (video, track) {
+                video.pause();
+                video.srcObject = null;
+                track.stop();
+            };
+
+            if (method === 'stop') {
+                var video = $el.find('video')[0];
+                var track = $el.data('bb_video_track');
+                if (track) {
+                    stop(video, track);
+                }
+                return;
+            }
+
             navigator.mediaDevices.enumerateDevices().then(function (videoInputDevices) {
                 var videoInputs = videoInputDevices.filter(function (device) {
                     return device.kind === 'videoinput';
@@ -31,6 +47,7 @@
                             video.srcObject = stream;
                             video.play();
                             mediaStreamTrack = stream.getTracks()[0];
+                            $el.data('bb_video_track', mediaStreamTrack);
                             obj.invokeMethodAsync("Start");
                         }).catch(err => {
                             console.log(err)
@@ -38,9 +55,7 @@
                         });
                     }
                     else if (data_method === 'stop') {
-                        video.pause();
-                        video.srcObject = null;
-                        mediaStreamTrack.stop();
+                        stop(video, mediaStreamTrack);
                         obj.invokeMethodAsync("Stop");
                     }
                     else if (data_method === 'capture') {

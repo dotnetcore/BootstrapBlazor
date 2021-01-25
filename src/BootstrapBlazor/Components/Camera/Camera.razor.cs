@@ -261,7 +261,9 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
+                var _ = JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop");
                 Interop?.Dispose();
+                Interop = null;
             }
         }
     }
