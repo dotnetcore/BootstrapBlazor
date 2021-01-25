@@ -311,10 +311,7 @@ namespace BootstrapBlazor.Components
                         while (!(AutoRefreshCancelTokenSource?.IsCancellationRequested ?? true))
                         {
                             await InvokeAsync(QueryAsync);
-                            if (!(AutoRefreshCancelTokenSource?.IsCancellationRequested ?? true))
-                            {
-                                await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource?.Token ?? new CancellationToken(true));
-                            }
+                            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource?.Token ?? new CancellationToken(true));
                         }
                     });
                 }
@@ -411,7 +408,7 @@ namespace BootstrapBlazor.Components
             {
                 Interop?.Dispose();
 
-                //AutoRefreshCancelTokenSource?.Cancel();
+                AutoRefreshCancelTokenSource?.Cancel();
                 AutoRefreshCancelTokenSource?.Dispose();
                 AutoRefreshCancelTokenSource = null;
             }
