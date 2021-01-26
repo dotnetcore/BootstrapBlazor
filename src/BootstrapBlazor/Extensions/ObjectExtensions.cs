@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -28,10 +28,11 @@ namespace BootstrapBlazor.Components
                 var type = item.GetType();
                 if (typeof(ICloneable).IsAssignableFrom(type))
                 {
-                    var clv = type.GetMethod("Clone")?.Invoke(type, null);
+                    var clv = type.GetMethod("Clone")?.Invoke(item, null);
                     if (clv != null)
                     {
                         ret = (TItem)clv;
+                        return ret;
                     }
                 }
                 if (type.IsClass)
