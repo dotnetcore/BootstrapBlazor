@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
@@ -28,8 +29,11 @@ namespace BootstrapBlazor.Shared.Shared
         [NotNull]
         private IOptions<WebsiteOptions>? SiteOptions { get; set; }
 
+        [NotNull]
+        private Tab? TabSet { get; set; }
+
         /// <summary>
-        /// 
+        /// OnParametersSet 方法
         /// </summary>
         protected override void OnParametersSet()
         {
@@ -50,6 +54,17 @@ namespace BootstrapBlazor.Shared.Shared
             RazorFileName = $"{RazorFileName}.razor";
             CsharpFileName = $"{RazorFileName}.cs";
             VideoFileName = comName;
+        }
+
+        /// <summary>
+        /// OnAfterRender 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            TabSet.ActiveTab(TabSet.Items.First());
         }
     }
 }

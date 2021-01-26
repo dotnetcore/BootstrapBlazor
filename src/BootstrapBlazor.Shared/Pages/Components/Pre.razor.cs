@@ -100,12 +100,12 @@ namespace BootstrapBlazor.Shared.Pages.Components
                 var code = await Example.GetCodeAsync(CodeFile);
                 if (!string.IsNullOrEmpty(code))
                 {
-                    CanCopy = true;
                     ChildContent = builder =>
                     {
                         builder.AddContent(0, code);
                     };
                 }
+                CanCopy = !string.IsNullOrEmpty(code) && code != "无";
                 Loaded = true;
             }
             else

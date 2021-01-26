@@ -74,6 +74,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     content = await Client.GetStringAsync(CodeFile);
                 }
             }
+            catch (HttpRequestException) { content = "无"; }
             catch (Exception) { }
             return content;
         }
