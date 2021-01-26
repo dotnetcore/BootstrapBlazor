@@ -231,7 +231,11 @@ namespace BootstrapBlazor.Components
             OnSortAsync = QueryAsync;
 
             // 设置 OnFilter 回调方法
-            OnFilterAsync = QueryAsync;
+            OnFilterAsync = async () =>
+            {
+                PageIndex = 1;
+                await QueryAsync();
+            };
         }
 
         private string? methodName;
