@@ -81,6 +81,12 @@ namespace BootstrapBlazor.Components
         public bool UseTabSet { get; set; }
 
         /// <summary>
+        /// 获得/设置 排除地址支持通配符
+        /// </summary>
+        [Parameter]
+        public IEnumerable<string>? ExcludeUrls { get; set; }
+
+        /// <summary>
         /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
         /// </summary>
         [Parameter]

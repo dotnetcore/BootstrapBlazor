@@ -83,7 +83,8 @@ RenderFragment RenderMain =>
     {
         <RenderTemplate>
             <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
-                 AdditionalAssemblies="@AdditionalAssemblies" @ref="TabSet"></Tab>
+                 AdditionalAssemblies="@AdditionalAssemblies" ExcludeUrls="@ExcludeUrls" Body="@(Main!)" @ref="TabSet">
+            </Tab>
         </RenderTemplate>
     }
     else

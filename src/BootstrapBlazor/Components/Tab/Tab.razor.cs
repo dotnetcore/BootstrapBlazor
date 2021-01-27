@@ -89,6 +89,11 @@ namespace BootstrapBlazor.Components
         public IEnumerable<TabItem> Items => _items;
 
         /// <summary>
+        /// 获得/设置 是否为排除地址 默认为 false
+        /// </summary>
+        private bool Excluded { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为卡片样式
         /// </summary>
         [Parameter]
@@ -137,10 +142,23 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
+        /// 获得/设置 TabItems 模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? Body { get; set; }
+
+        /// <summary>
         /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
         /// </summary>
         [Parameter]
         public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+
+        /// <summary>
+        /// 获得/设置 排除地址支持通配符
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public IEnumerable<string>? ExcludeUrls { get; set; }
 
         /// <summary>
         /// 获得/设置 点击 TabItem 时回调方法
@@ -188,6 +206,8 @@ namespace BootstrapBlazor.Components
         {
             await base.OnInitializedAsync();
 
+            ExcludeUrls ??= Enumerable.Empty<string>();
+
             if (ShowExtendButtons) IsBorderCard = true;
 
             CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
@@ -198,7 +218,7 @@ namespace BootstrapBlazor.Components
             {
                 InitRouteTable();
 
-                AddTabByUrl();
+                AddTabByUrl(Navigator.Uri);
 
                 Navigator.LocationChanged += Navigator_LocationChanged;
             }
@@ -206,23 +226,56 @@ namespace BootstrapBlazor.Components
 
         private void Navigator_LocationChanged(object? sender, LocationChangedEventArgs e)
         {
-            AddTabByUrl();
-
+            AddTabByUrl(e.Location);
             StateHasChanged();
         }
 
-        private void AddTabByUrl()
+        private bool CheckUrl(string url)
         {
-            var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
-
-            var tab = Items.FirstOrDefault(tab => tab.Url?.Equals(requestUrl, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (tab != null)
+            var ret = false;
+            foreach (var rule in ExcludeUrls)
             {
-                ActiveTabItem(tab);
+                var checkUrl = rule;
+                var startIndex = rule.IndexOf("/*");
+                if (startIndex > 0)
+                {
+                    checkUrl = rule.Substring(0, startIndex).Trim();
+                    if (url.StartsWith(checkUrl, StringComparison.OrdinalIgnoreCase))
+                    {
+                        ret = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (url.Equals(checkUrl, StringComparison.OrdinalIgnoreCase))
+                    {
+                        ret = true;
+                        break;
+                    }
+                }
             }
-            else
+            return ret;
+        }
+
+        private void AddTabByUrl(string url)
+        {
+            var requestUrl = Navigator.ToBaseRelativePath(url);
+
+            // 判断是否排除
+            Excluded = CheckUrl(requestUrl);
+
+            if (!Excluded)
             {
-                AddTabItem(requestUrl);
+                var tab = Items.FirstOrDefault(tab => tab.Url?.Equals(requestUrl, StringComparison.OrdinalIgnoreCase) ?? false);
+                if (tab != null)
+                {
+                    ActiveTabItem(tab);
+                }
+                else
+                {
+                    AddTabItem(requestUrl);
+                }
             }
         }
 
