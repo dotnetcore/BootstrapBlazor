@@ -183,28 +183,28 @@ namespace BootstrapBlazor.Localization.Json
         {
             _resourcesCache.GetOrAdd(culture.Name, key =>
             {
-                var value = Enumerable.Empty<KeyValuePair<string, string>>();
+                var builder = new ConfigurationBuilder();
 
                 _searchedLocation = $"{_assembly.GetName().Name}.Locales.{key}.json";
-
                 using var res = _assembly.GetManifestResourceStream(_searchedLocation);
 
                 if (res != null)
                 {
-                    var builder = new ConfigurationBuilder().AddJsonStream(res);
-                    if (_options.JsonLocalizationStreams?.Any() ?? false)
-                    {
-                        foreach (var r in _options.JsonLocalizationStreams)
-                        {
-                            builder.AddJsonStream(r);
-                        }
-                    }
-                    var config = builder.Build();
-                    var v = config.GetChildren().FirstOrDefault(c => _typeName.Equals(c.Key, StringComparison.OrdinalIgnoreCase))?.GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
-
-                    if (v != null) value = v;
+                    builder.AddJsonStream(res);
                 }
-                return value;
+
+                if (_options.LocalizerConfigurationFactory != null)
+                {
+                    var c = _options.LocalizerConfigurationFactory(key);
+                    builder.AddConfiguration(c);
+                }
+
+                var config = builder.Build();
+                var v = config.GetChildren().FirstOrDefault(c => _typeName.Equals(c.Key, StringComparison.OrdinalIgnoreCase))?
+                    .GetChildren()
+                    .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
+
+                return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
             });
         }
     }
