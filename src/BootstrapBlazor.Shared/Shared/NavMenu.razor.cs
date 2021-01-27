@@ -238,7 +238,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "多项选择器 MultiSelect",
-                Url = "multi-selects"
+                Url = "multiselects"
             });
             item.AddItem(new DemoMenuItem()
             {

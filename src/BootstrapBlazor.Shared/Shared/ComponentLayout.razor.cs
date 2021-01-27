@@ -44,15 +44,24 @@ namespace BootstrapBlazor.Shared.Shared
 
             if (!string.IsNullOrEmpty(comName) && SiteOptions.Value.SourceCodes.TryGetValue(comName, out var fileName))
             {
-                RazorFileName = fileName;
+                if (fileName.Contains(";"))
+                {
+                    var segs = fileName.Split(';', System.StringSplitOptions.RemoveEmptyEntries);
+                    RazorFileName = $"{segs[0]}.razor";
+                    CsharpFileName = $"{segs[1]}.cs";
+                }
+                else
+                {
+                    RazorFileName = $"{fileName}.razor";
+                    CsharpFileName = $"{RazorFileName}.cs";
+                }
             }
             else
             {
                 RazorFileName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(comName);
+                CsharpFileName = $"{RazorFileName}.cs";
             }
 
-            RazorFileName = $"{RazorFileName}.razor";
-            CsharpFileName = $"{RazorFileName}.cs";
             VideoFileName = comName;
         }
 
