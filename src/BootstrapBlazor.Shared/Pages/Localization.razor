@@ -32,7 +32,7 @@
         // 增加本地化服务配置信息
         services.Configure&lt;RequestLocalizationOptions&gt;(options =>
         {
-            var supportedCultures = Configuration.GetSupportCultures().Select(kv => new CultureInfo(kv.Value)).ToList();
+            var supportedCultures = Configuration.GetSupportCultures().ToList();
             options.DefaultRequestCulture = new RequestCulture("zh-CN");
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
@@ -142,7 +142,40 @@ public class CultureController : Controller
 <p><b>Web Assembly</b></p>
 
 <p><b>1. 启用 .NET 核心本地化服务</b></p>
-<Pre CodeFile="install.6.html"></Pre>
+<Pre>public static async Task Main(string[] args)
+{
+    var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+    builder.RootComponents.Add&lt;App&gt;("app");
+
+    builder.Services.AddTransient(sp =&gt; new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+    // 增加 BootstrapBlazor 组件
+    builder.Services.AddBootstrapBlazor();
+
+    builder.Services.AddSingleton&lt;ICultureStorage, DefaultCultureStorage&gt;();
+
+    var host = builder.Build();
+
+    await GetCultureAsync(host);
+
+    await host.RunAsync();
+}
+
+private static async Task GetCultureAsync(WebAssemblyHost host)
+{
+    var jsRuntime = host.Services.GetRequiredService&lt;IJSRuntime&gt;();
+    var cultureName = await jsRuntime.InvokeAsync&lt;string&gt;("$.blazorCulture.get") ?? "zh-CN";
+    var culture = new CultureInfo(cultureName);
+    CultureInfo.DefaultThreadCurrentCulture = culture;
+    CultureInfo.DefaultThreadCurrentUICulture = culture;
+}
+
+internal class DefaultCultureStorage : ICultureStorage
+{
+    public CultureStorageMode Mode { get; set; } = CultureStorageMode.LocalStorage;
+}
+</Pre>
 
 <p><b>2. 实现 UI 本地化信息存储（例如，localStorage）</b></p>
 
