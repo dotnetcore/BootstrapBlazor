@@ -4,7 +4,7 @@
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
     @{
-        var items = GetShownItems();
+        var items = GetItems();
     }
     <button type="button" class="@ButtonClassName" data-toggle="@DropdownToggle" aria-haspopup="true" aria-expanded="false">@SelectedItem?.Text</button>
     @if (ShowSplit)

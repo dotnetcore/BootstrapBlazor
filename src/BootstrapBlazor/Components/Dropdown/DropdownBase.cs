@@ -12,49 +12,6 @@ namespace BootstrapBlazor.Components
     public abstract class DropdownBase<TItem> : SelectBase<TItem>
     {
         /// <summary>
-        /// 获得 按钮弹出方向集合
-        /// </summary>
-        /// <returns></returns>
-        protected string? DirectionClassName => CssBuilder.Default()
-            .AddClass($"btn-group", DropdownType == DropdownType.ButtonGroup)
-            .AddClass($"{Direction.ToDescriptionString()}", DropdownType == DropdownType.DropdownMenu)
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
-
-        /// <summary>
-        /// 获得 按钮样式集合
-        /// </summary>
-        /// <returns></returns>
-        protected string? ButtonClassName => CssBuilder.Default("btn")
-            .AddClass("dropdown-toggle", !ShowSplit)
-            .AddClass($"btn-primary", Color == Color.None)
-            .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
-            .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-            .Build();
-
-        /// <summary>
-        /// 获得 按钮样式集合
-        /// </summary>
-        /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("btn dropdown-toggle")
-          .AddClass("dropdown-toggle-split")
-          .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
-          .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-          .Build();
-
-        /// <summary>
-        /// 获得 是否分裂式按钮
-        /// </summary>
-        protected string? DropdownToggle => !ShowSplit ? "dropdown" : null;
-
-        /// <summary>
-        /// 菜单对齐方式样式
-        /// </summary>
-        protected string? MenuAlignmentClass => CssBuilder.Default("dropdown-menu")
-            .AddClass($"dropdown-menu-{MenuAlignment.ToDescriptionString()}", MenuAlignment == Alignment.Right)
-            .Build();
-
-        /// <summary>
         /// 是否开启分裂式
         /// </summary>
         [Parameter]

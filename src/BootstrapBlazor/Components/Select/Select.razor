@@ -6,7 +6,7 @@
 {
     <label class="control-label" for="@InputId">@DisplayText</label>
 }
-<div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
+<div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName" @ref="SelectElement">
     <CascadingValue Value="this" IsFixed="true">
         @Options
     </CascadingValue>
