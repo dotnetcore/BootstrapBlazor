@@ -59,6 +59,7 @@ namespace BootstrapBlazor.Shared.Shared
             else
             {
                 RazorFileName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(comName);
+                RazorFileName = $"{RazorFileName}.razor";
                 CsharpFileName = $"{RazorFileName}.cs";
             }
 
