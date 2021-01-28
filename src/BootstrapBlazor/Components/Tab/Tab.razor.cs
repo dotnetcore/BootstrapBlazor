@@ -157,7 +157,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 排除地址支持通配符
         /// </summary>
         [Parameter]
-        [NotNull]
         public IEnumerable<string>? ExcludeUrls { get; set; }
 
         /// <summary>
@@ -206,8 +205,6 @@ namespace BootstrapBlazor.Components
         {
             await base.OnInitializedAsync();
 
-            ExcludeUrls ??= Enumerable.Empty<string>();
-
             if (ShowExtendButtons) IsBorderCard = true;
 
             CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
@@ -233,7 +230,7 @@ namespace BootstrapBlazor.Components
         private bool CheckUrl(string url)
         {
             var ret = false;
-            foreach (var rule in ExcludeUrls)
+            foreach (var rule in ExcludeUrls ?? Enumerable.Empty<string>())
             {
                 var checkUrl = rule;
                 var startIndex = rule.IndexOf("/*");
