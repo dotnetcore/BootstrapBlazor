@@ -104,7 +104,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                var height = await JSRuntime.InvokeAsync<double>(TimePickerElement, "timePicker");
+                var height = await JSRuntime.InvokeAsync<double>(TimePickerElement, "bb_timePicker");
                 ItemHeightCallback = () => height;
             }
         }

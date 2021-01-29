@@ -61,9 +61,6 @@
             });
             $button.popover('show');
         },
-        timePicker: function (el) {
-            return $(el).find('.time-spinner-item').height();
-        },
         bb_datetimeRange: function (el, method) {
             var $el = $(el);
             var placement = $el.attr('data-placement') || 'auto';
