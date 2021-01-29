@@ -8,7 +8,7 @@
 
 <p><code>Steps</code> 组件支持通过设置 <code>Items</code> 属性或者直接内嵌 <code>Step</code> 组件两种方式进行 UI 呈现</p>
 
-<Block Title="基础用法" Introduction="简单的步骤条，通过直接绑定数据源 <code>Items</code> 即可" CodeFile="step.1.html">
+<Block Title="基础用法" Introduction="简单的步骤条，通过直接绑定数据源 <code>Items</code> 即可">
     <Steps Items="@Items" OnStatusChanged="@OnStatusChanged" />
     <div class="mt-1">
         <Button OnClick="@NextStep" IsOutline="true">下一步</Button>
@@ -17,7 +17,7 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="基础用法" Introduction="简单的步骤条，组件内部直接使用 <code>Step</code> 组件设置步骤" CodeFile="step.2.html">
+<Block Title="基础用法" Introduction="简单的步骤条，组件内部直接使用 <code>Step</code> 组件设置步骤">
     <Steps>
         <Step Title="步骤一" Space="25%" Status="StepStatus.Success"></Step>
         <Step Title="步骤二" Space="25%" Status="StepStatus.Process" StepIndex="1"></Step>
@@ -27,7 +27,7 @@
     </Steps>
 </Block>
 
-<Block Title="有描述的步骤条" Introduction="每个步骤有其对应的步骤状态描述" CodeFile="step.3.html">
+<Block Title="有描述的步骤条" Introduction="每个步骤有其对应的步骤状态描述">
     <Steps>
         <Step Title="步骤一" Space="33.33%" Status="StepStatus.Finish" Description="这是一段很长很长很长的描述性文字"></Step>
         <Step Title="步骤二" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="这是一段很长很长很长的描述性文字"></Step>
@@ -36,7 +36,7 @@
     </Steps>
 </Block>
 
-<Block Title="居中的步骤条" Introduction="标题和描述都将居中" CodeFile="step.4.html">
+<Block Title="居中的步骤条" Introduction="标题和描述都将居中">
     <Steps IsCenter="true">
         <Step Title="步骤一" Space="33.33%" Status="StepStatus.Finish" StepIndex="0" Description="这是一段很长很长很长的描述性文字"></Step>
         <Step Title="步骤二" Space="33.33%" Status="StepStatus.Success" StepIndex="1" Description="这是一段很长很长很长的描述性文字"></Step>
@@ -45,7 +45,7 @@
     </Steps>
 </Block>
 
-<Block Title="带图标的步骤条" Introduction="步骤条内可以启用各种自定义的图标" CodeFile="step.5.html">
+<Block Title="带图标的步骤条" Introduction="步骤条内可以启用各种自定义的图标">
     <Steps IsCenter="true">
         <Step Title="步骤一" Space="33.33%" IsIcon="true" Icon="fa fa-user" Status="StepStatus.Success" Description="这是一段很长很长很长的描述性文字"></Step>
         <Step Title="步骤二" Space="33.33%" IsIcon="true" Icon="fa fa-user-plus" Status="StepStatus.Process" StepIndex="1" Description="这是一段很长很长很长的描述性文字"></Step>

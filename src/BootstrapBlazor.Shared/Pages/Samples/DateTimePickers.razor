@@ -4,20 +4,20 @@
 
 <h4>用于选择或输入日期</h4>
 
-<Block Title="选择日" Introduction="以「日」为基本单位，基础的日期选择控件" CodeFile="datepicker.1.html">
+<Block Title="选择日" Introduction="以「日」为基本单位，基础的日期选择控件">
     <div style="width: 320px;">
         <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" ShowFooter="false" />
     </div>
     <Logger @ref="DateLogger" class="mt-3" />
 </Block>
 
-<Block Title="选择任意时间点" Introduction="可以选择任意时间" CodeFile="timepicker.1.html">
+<Block Title="选择任意时间点" Introduction="可以选择任意时间">
     <TimePickerBody Value="@TimeNow" ValueChanged="@TimeValueChanged" />
 
     <Logger @ref="TimeLogger" class="mt-3" />
 </Block>
 
-<Block Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致" CodeFile="timepicker.2.html">
+<Block Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
@@ -38,7 +38,7 @@
     </div>
 </Block>
 
-<Block Title="点击弹出日期框" Introduction="以「日」为基本单位，基础的日期选择控件" CodeFile="datepicker.3.html">
+<Block Title="点击弹出日期框" Introduction="以「日」为基本单位，基础的日期选择控件">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-sm-4">
@@ -50,7 +50,7 @@
     <Logger @ref="DateTimeLogger" class="mt-3" />
 </Block>
 
-<Block Title="数据双向绑定" Introduction="日期组件时间改变时文本框内的数值也跟着改变" CodeFile="datepicker.4.html">
+<Block Title="数据双向绑定" Introduction="日期组件时间改变时文本框内的数值也跟着改变">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-sm-6">
@@ -66,7 +66,7 @@
     </div>
 </Block>
 
-<Block Title="带时间的选择器" Introduction="在同一个选择器里选择日期和时间，点击确认按钮后关闭弹窗" CodeFile="datepicker.5.html">
+<Block Title="带时间的选择器" Introduction="在同一个选择器里选择日期和时间，点击确认按钮后关闭弹窗">
     <p>设置 <code>ViewModel</code> 属性值为 <code>DatePickerViewModel.DateTime</code></p>
     <div class="form-inline">
         <div class="row">
@@ -77,7 +77,7 @@
     </div>
 </Block>
 
-<Block Title="允许空时间" Introduction="多用于条件选择" CodeFile="datepicker.6.html">
+<Block Title="允许空时间" Introduction="多用于条件选择">
     <p>绑定值为可为空类型 <code>DateTime?</code> 时自动出现 <b>清空</b> 按钮</p>
     <div class="form-inline">
         <div class="row">
@@ -91,7 +91,7 @@
     </div>
 </Block>
 
-<Block Title="显示标签" Introduction="作为表单组件时，显示组件前方标签" CodeFile="datepicker.7.html">
+<Block Title="显示标签" Introduction="作为表单组件时，显示组件前方标签">
     <p>设置 <code>DisplayText</code> 属性值为 <code>选择时间</code></p>
     <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
     <div class="form-inline">
@@ -103,7 +103,7 @@
     </div>
 </Block>
 
-<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" CodeFile="datepicker.8.html">
+<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
     <div class="form-inline">
         <div class="row">
             <div class="col-12">
@@ -113,7 +113,7 @@
     </div>
 </Block>
 
-<Block Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏" CodeFile="datepicker.9.html">
+<Block Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏">
     <div class="form-inline">
         <div class="row">
             <div class="col-12">
@@ -123,7 +123,7 @@
     </div>
 </Block>
 
-<Block Title="设置值范围" Introduction="设置 <code>MinValue</code> 属性值与 <code>MaxValue</code> 限制可选值范围" CodeFile="datepicker.10.html">
+<Block Title="设置值范围" Introduction="设置 <code>MinValue</code> 属性值与 <code>MaxValue</code> 限制可选值范围">
     <div class="form-inline">
         <div class="row">
             <div class="col-12">

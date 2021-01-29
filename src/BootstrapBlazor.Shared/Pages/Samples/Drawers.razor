@@ -4,7 +4,7 @@
 
 <h4>有些时候, Dialog 组件并不满足我们的需求, 比如你的表单很长, 亦或是你需要临时展示一些文档, Drawer 拥有和 Dialog 几乎相同的 API, 在 UI 上带来不一样的体验</h4>
 
-<Block Title="基本用法" Introduction="呼出一个临时的侧边栏, 可以从多个方向呼出" CodeFile="drawer.1.html">
+<Block Title="基本用法" Introduction="呼出一个临时的侧边栏, 可以从多个方向呼出">
     <p class="d-flex flex-wrap drawer-demo">
         <Radio Items="@DrawerDirection" OnStateChanged="@OnStateChanged" />
     </p>
@@ -19,7 +19,7 @@
     </Drawer>
 </Block>
 
-<Block Title="点击遮罩关闭" Introduction="通过设置 <code>IsBackdrop</code> 属性为 <code>true</code>，点击遮罩部分时自动关闭抽屉" CodeFile="drawer.2.html">
+<Block Title="点击遮罩关闭" Introduction="通过设置 <code>IsBackdrop</code> 属性为 <code>true</code>，点击遮罩部分时自动关闭抽屉">
     <p>
         <button type="button" class="btn btn-primary" @onclick="@OpenDrawer">点我打开</button>
     </p>

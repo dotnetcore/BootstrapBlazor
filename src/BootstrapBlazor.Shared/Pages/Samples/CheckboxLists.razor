@@ -4,7 +4,7 @@
 
 <h4>控件用于创建多选的复选框组</h4>
 
-<Block Title="基础用法" Introduction="通过数据绑定展现复选框组" CodeFile="checkboxlist.1.html">
+<Block Title="基础用法" Introduction="通过数据绑定展现复选框组">
     <p>使用说明：</p>
     <ul class="ul-demo">
         <li>通过 <code>bind-Value</code> 设置双向绑定数据值</li>
@@ -20,7 +20,7 @@
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="客户端验证" Introduction="内置于 ValidateForm 中使用" CodeFile="checkboxlist.2.html">
+<Block Title="客户端验证" Introduction="内置于 ValidateForm 中使用">
     <p>可以通过改变窗口大小，体验自适应布局</p>
     <p>本例中绑定模型 <code>FooModel</code> 的 <code>Value</code> 字段，通过勾选项自动更改模型数据</p>
     <p>由于内置于 <code>ValidateForm</code> 表单内，本例中增加了 <code>RequiredValidator</code> 必选要求验证，当取消所有选项后提示验证结果</p>
@@ -46,7 +46,7 @@
     </ValidateForm>
 </Block>
 
-<Block Title="双向绑定集合" Introduction="绑定值为集合" CodeFile="checkboxlist.3.html">
+<Block Title="双向绑定集合" Introduction="绑定值为集合">
     <p>TValue 设置为 <code>IEnumerable&lt;int&gt;</code> 泛型集合，绑定集合的 <code>ValueField</code> 指定字段必须与泛型类型一致</p>
     <CheckboxList TModel="Foo" TValue="IEnumerable<int>" Items="@Items3" @bind-Value="@Value2"
                   ValueField="Value" TextField="Text" CheckedField="Checked"></CheckboxList>

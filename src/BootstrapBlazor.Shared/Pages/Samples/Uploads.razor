@@ -4,7 +4,7 @@
 
 <h4>通过点击或者拖拽上传文件</h4>
 
-<Block Title="基本用法" Introduction="<code>InputUpload</code> 组件与其他表单组件一起使用，显示文件名称，点击 <b>浏览</b> 按钮后选择文件并上传；通过设置 <code>ShowRemoveButton</code> 参数，显示 <b>删除</b> 按钮，点击删除按钮时回调 <code>OnDelete</code> 委托方法" CodeFile="upload.1.html">
+<Block Title="基本用法" Introduction="<code>InputUpload</code> 组件与其他表单组件一起使用，显示文件名称，点击 <b>浏览</b> 按钮后选择文件并上传；通过设置 <code>ShowRemoveButton</code> 参数，显示 <b>删除</b> 按钮，点击删除按钮时回调 <code>OnDelete</code> 委托方法">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
@@ -24,7 +24,7 @@
     <Logger @ref="Trace" />
 </Block>
 
-<Block Title="表单应用" Introduction="在表单内使用文件上传组件对文件格式进行约束" CodeFile="upload.8.html">
+<Block Title="表单应用" Introduction="在表单内使用文件上传组件对文件格式进行约束">
     <ul class="ul-demo">
         <li>使用 <code>ValidateForm</code> 表单组件，通过设置模型属性的 <code>FileValidation</code> 标签设置自定义验证，支持文件 <b>扩展名</b> <b>大小</b> 验证，本例中设置扩展名为 <code>.png .jpg .jpeg</code>，文件大小限制为 <code>50K</code></li>
         <li>选择文件后并未开始上传文件，点击 <code>提交</code> 按钮数据验证合法后，再 <code>OnSubmit</code> 回调委托中进行上传文件操作，注意 <b>Picture</b> 属性类型为 <code>IBrowserFile</code></li>
@@ -44,7 +44,7 @@
     </ValidateForm>
 </Block>
 
-<Block Title="点击上传" Introduction="<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。" CodeFile="upload.2.html">
+<Block Title="点击上传" Introduction="<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。">
     <div class="row">
         <div class="col-12 col-sm-6">
             <ButtonUpload ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
@@ -58,7 +58,7 @@
     </div>
 </Block>
 
-<Block Title="已上传文件列表" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容" CodeFile="upload.3.html">
+<Block Title="已上传文件列表" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容">
     <div class="row">
         <div class="col-12 col-sm-6">
             <ButtonUpload OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></ButtonUpload>
@@ -66,7 +66,7 @@
     </div>
 </Block>
 
-<Block Title="上传文件夹" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容" CodeFile="upload.4.html">
+<Block Title="上传文件夹" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容">
     <div class="row">
         <div class="col-12 col-sm-6">
             <ButtonUpload IsDirectory="true" OnChange="@OnUploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
@@ -74,7 +74,7 @@
     </div>
 </Block>
 
-<Block Title="用户头像上传" Introduction="<code>AvatarUpload</code> 组件，使用 <code>OnChange</code> 限制用户上传的图片格式和大小。本例中仅允许上传 <code>jpg/png/bmp/jpeg/gif</code> 五种图片格式" CodeFile="upload.5.html">
+<Block Title="用户头像上传" Introduction="<code>AvatarUpload</code> 组件，使用 <code>OnChange</code> 限制用户上传的图片格式和大小。本例中仅允许上传 <code>jpg/png/bmp/jpeg/gif</code> 五种图片格式">
     <div class="row">
         <div class="col-12">
             <p>卡片形式头像框</p>
@@ -100,7 +100,7 @@
     </div>
 </Block>
 
-<Block Title="预览卡片式" Introduction="<code>CardUpload</code> 组件，呈现为卡片式带预览模式" CodeFile="upload.6.html">
+<Block Title="预览卡片式" Introduction="<code>CardUpload</code> 组件，呈现为卡片式带预览模式">
     <p>
         <div><code>Server Side</code> 模式中可以使用 <code>IWebHostEnviroment</code> 注入服务获取到 <code>wwwwroot</code> 目录，保存文件到 <code>images\uploader</code> 中，此功能无需 <b>MVC</b> 的控制器辅助进行文件的保存，直接调用 <code>SaveToFile</code> 方法即可</div>
         <div><code>wasm</code> 模式中无法使用 <code>IWebHostEnviroment</code> 需要调用 <code>webapi</code> 接口等形式将文件保存到服务器端</div>
@@ -121,7 +121,7 @@
     </div>
 </Block>
 
-<Block Title="文件图标" Introduction="不同文件格式显示的图标不同" CodeFile="upload.7.html">
+<Block Title="文件图标" Introduction="不同文件格式显示的图标不同">
     <CardUpload DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
 </Block>
 

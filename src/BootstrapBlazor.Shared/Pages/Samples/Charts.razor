@@ -33,7 +33,7 @@
 
 <p>组件数据在 <code>OnInit</code> 回调委托中进行设置即可</p>
 
-<Block Title="Line 图" Introduction="使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作" CodeFile="chart.1.html">
+<Block Title="Line 图" Introduction="使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作">
     <Chart OnInit="@(() => OnInit(LineDatasetCount, LineDataCount))" @ref="LineChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
@@ -46,7 +46,7 @@
     </div>
 </Block>
 
-<Block Title="Bar 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bar</code> 图" CodeFile="chart.2.html">
+<Block Title="Bar 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bar</code> 图">
     <Chart ChartType="ChartType.Bar" OnInit="@(() => OnInit(BarDatasetCount, BarDataCount))" @ref="BarChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
@@ -71,7 +71,7 @@
     </div>
 </Block>
 
-<Block Title="Pie 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>pie</code> 图" CodeFile="chart.3.html">
+<Block Title="Pie 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>pie</code> 图">
     <Chart ChartType="ChartType.Pie" OnInit="@(() => OnPieInit(PieDatasetCount, PieDataCount))" @ref="PieChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
@@ -84,7 +84,7 @@
     </div>
 </Block>
 
-<Block Title="Doughnut 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>doughnut</code> 图" CodeFile="chart.4.html">
+<Block Title="Doughnut 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>doughnut</code> 图">
     <Chart ChartType="ChartType.Doughnut" OnInit="@(() => OnPieInit(DoughnutDatasetCount, DoughnutDataCount))" @ref="DoughnutChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
@@ -98,7 +98,7 @@
     </div>
 </Block>
 
-<Block Title="Bubble 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图" CodeFile="chart.5.html">
+<Block Title="Bubble 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图">
     <Chart ChartType="ChartType.Bubble" OnInit="@(() => OnBubbleInit(BubbleDatasetCount, BubbleDataCount))" @ref="BubbleChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">

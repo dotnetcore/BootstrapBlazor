@@ -5,7 +5,7 @@
 
 <h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
 
-<Block Title="自定义列名" Introduction="通过设置 <code>Text</code> 增加列头显示名称" CodeFile="table.23.html">
+<Block Title="自定义列名" Introduction="通过设置 <code>Text</code> 增加列头显示名称">
     <p>
         表格组件 <code>TableColumns</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性
     </p>
@@ -18,7 +18,7 @@
     </Table>
 </Block>
 
-<Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列" CodeFile="table.4.html">
+<Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列">
     <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -28,7 +28,7 @@
     </Table>
 </Block>
 
-<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>" CodeFile="table.5.html">
+<Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>">
     <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -38,7 +38,7 @@
     </Table>
 </Block>
 
-<Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定" CodeFile="table.6.html">
+<Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定">
     <Table TItem="BindItem" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -52,7 +52,7 @@
     </Table>
 </Block>
 
-<Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制" CodeFile="table.14.html">
+<Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制">
     <p>本例中继续上一个例子，实现了自定义四个功能按钮，并且扩展到行内，点击各个按钮时均有相对应的回调委托方法，<code>TableToolbarButton</code> 采用的是 <code>Delegate</code> 方式完成数据交换，点击工具栏按钮时设置 <code>OnClickCallback</code> 委托方法即可获取表内选中的行数据集合</p>
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -80,7 +80,7 @@
     </Table>
 </Block>
 
-<Block Title="自定义列数据模板" Introduction="自定义 <code>TableColumn</code> 列的 <code>Template</code> 模板来实现任意 UI" CodeFile="table.16.html">
+<Block Title="自定义列数据模板" Introduction="自定义 <code>TableColumn</code> 列的 <code>Template</code> 模板来实现任意 UI">
     <p>
         本例中列 <code>DateTime</code> 值根据 <code>Complete</code> 值是否为 <code>true</code> 显示不同颜色
     </p>
@@ -121,7 +121,7 @@
     </Table>
 </Block>
 
-<Block Title="自定义列数据格式" Introduction="列绑定时通过指定 <code>FormatString</code> 或者 <code>Formatter</code> 回调委托来实现单元格数值格式化" CodeFile="table.17.html">
+<Block Title="自定义列数据格式" Introduction="列绑定时通过指定 <code>FormatString</code> 或者 <code>Formatter</code> 回调委托来实现单元格数值格式化">
     <p>
         本例中列 <code>DateTime</code> 值根据 <code>FormatString</code> 将值格式化为 <code>yyyy-MM-dd</code> 年月日格式
     </p>
@@ -142,7 +142,7 @@
     </Table>
 </Block>
 
-<Block Title="列数据对齐方式" Introduction="列绑定时通过指定 <code>Align</code> 属性设置对齐方式" CodeFile="table.30.html">
+<Block Title="列数据对齐方式" Introduction="列绑定时通过指定 <code>Align</code> 属性设置对齐方式">
     <p>
         本例中列 <code>DateTime</code> 列设置为居中对齐 <code>Alignment.Center</code>
     </p>
@@ -163,7 +163,7 @@
     </Table>
 </Block>
 
-<Block Title="根据屏幕宽度自动显示/隐藏列" Introduction="通过指定 <code>ShownWithBreakPoint</code> 属性设置在不同宽度下是否显示" CodeFile="table.36.html">
+<Block Title="根据屏幕宽度自动显示/隐藏列" Introduction="通过指定 <code>ShownWithBreakPoint</code> 属性设置在不同宽度下是否显示">
     <p>
         <code>ShownWithBreakPoint</code> 枚举值为：
     </p>
@@ -193,7 +193,7 @@
     </Table>
 </Block>
 
-<Block Title="自定义显示/隐藏列" Introduction="通过指定 <code>ShowColumnList</code> 属性设置列是否显示" CodeFile="table.44.html">
+<Block Title="自定义显示/隐藏列" Introduction="通过指定 <code>ShowColumnList</code> 属性设置列是否显示">
     <p><code>ShowColumnList</code> 默认值为 false，显式指定为 true 后工具栏出现相应列调整按钮</p>
     <p><code>TableColumn</code> 增加 <code>Visiable</code> 属性，其默认值为 true，显示设置为 false 时不显示此列</p>
     <p>此例中 <b>数量</b> 列通过设置 <code>Visible</code> 未显示，可以通过列控制按钮进行显示设置</p>
@@ -218,7 +218,7 @@
     </Table>
 </Block>
 
-<Block Title="允许列调整" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度" CodeFile="table.53.html">
+<Block Title="允许列调整" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度">
     <Table TItem="BindItem"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
            IsStriped="true" IsBordered="true"
@@ -233,7 +233,7 @@
     </Table>
 </Block>
 
-<Block Title="自动生成列" Introduction="通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能" CodeFile="table.55.html">
+<Block Title="自动生成列" Introduction="通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能">
     <p>
         本例中通过设置 <code>AutoGenerateColumns</code> 值为 <code>true</code> 开启自动生成列功能，默认绑定模型实体类所有属性全部生成，实体类可以通过 <code>AutoGenerateColumnAttribute</code> 标签类进行功能设置，如：
         <ul class="ul-demo">
