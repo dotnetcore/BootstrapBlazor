@@ -124,15 +124,11 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private Task OnShowDialog()
+        private Task OnShowDialog() => Dialog.Show(new DialogOption()
         {
-            Dialog.Show(new DialogOption()
-            {
-                Title = "弹窗中使用级联下拉框",
-                Component = DynamicComponent.CreateComponent<CustomerSelectDialog>()
-            });
-            return Task.CompletedTask;
-        }
+            Title = "弹窗中使用级联下拉框",
+            Component = DynamicComponent.CreateComponent<CustomerSelectDialog>()
+        });
 
         private readonly List<SelectedItem> _item2 = new List<SelectedItem>();
 
@@ -174,7 +170,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -188,7 +184,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

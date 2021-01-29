@@ -75,9 +75,7 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-#nullable disable
                     var t = (DateTime)(object)Value;
-#nullable restore
                     v = t;
                 }
                 return ViewModel == DatePickerViewModel.Date ? v.Date : v;
@@ -191,7 +189,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker");
+                await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker");
             }
         }
 
@@ -221,8 +219,8 @@ namespace BootstrapBlazor.Components
         private async Task OnClear()
         {
             CurrentValue = default!;
+            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
             StateHasChanged();
-            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
         }
 
         /// <summary>
@@ -230,7 +228,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private async Task OnConfirm()
         {
-            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
+            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
         }
     }
 }
