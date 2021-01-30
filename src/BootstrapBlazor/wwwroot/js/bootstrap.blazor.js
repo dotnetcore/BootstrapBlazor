@@ -61,9 +61,6 @@
             });
             $button.popover('show');
         },
-        bb_tab: function (el) {
-            $(el).tab('active');
-        },
         footer: function (el, target) {
             var $el = $(el);
             var tooltip = $el.tooltip();
