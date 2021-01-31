@@ -144,6 +144,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Layout/Layout.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Layout/Layout.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -172,7 +178,8 @@
       "Components/DateTimePicker/DateTimePicker.razor.cs.min.css",
       "Components/DateTimePicker/TimePickerBody.razor.cs.min.css",
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
-      "Components/Tab/Tab.razor.cs.min.css"
+      "Components/Tab/Tab.razor.cs.min.css",
+      "Components/Layout/Layout.razor.cs.min.css"
     ]
   },
   {
@@ -344,6 +351,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Layout/Layout.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Layout/Layout.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -379,7 +392,8 @@
       "Components/DateTimePicker/DateTimePicker.razor.cs.min.js",
       "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
-      "Components/Tab/Tab.razor.cs.min.js"
+      "Components/Tab/Tab.razor.cs.min.js",
+      "Components/Layout/Layout.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,

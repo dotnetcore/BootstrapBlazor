@@ -113,7 +113,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 设置 请求头方法
+        /// 设置侧边栏收缩方法 客户端监控 window.onresize 事件回调此方法
         /// </summary>
         /// <returns></returns>
         [JSInvokable]

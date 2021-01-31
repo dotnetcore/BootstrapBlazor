@@ -70,20 +70,6 @@
                 tooltip.tooltip('hide');
             });
         },
-        bb_layout: function (refObj, method) {
-            $('.layout-header').find('[data-toggle="tooltip"]').tooltip();
-
-            $(window).on('resize', function () {
-                calcWindow();
-            });
-
-            var calcWindow = function () {
-                var width = $(window).width();
-                refObj.invokeMethodAsync(method, width);
-            }
-
-            calcWindow();
-        },
         markdown: function (el, method) {
             var key = 'bb_editor';
             var $el = $(el);
