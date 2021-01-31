@@ -4,11 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.14-beta01</Version>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Version>5.0.14-beta03</Version>
     <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -22,7 +18,6 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
