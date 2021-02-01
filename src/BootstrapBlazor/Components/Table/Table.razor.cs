@@ -245,6 +245,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected bool FirstRender { get; set; } = true;
 
+        /// <summary>
+        /// 获得/设置 是否正在加载数据 默认为 false
+        /// </summary>
+        protected bool IsLoading { get; set; }
+
         private CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
         /// <summary>
@@ -286,7 +291,12 @@ namespace BootstrapBlazor.Components
                     SortName = col.GetFieldName();
                     SortOrder = col.DefaultSortOrder;
                 }
-                await QueryAsync();
+
+                await InvokeAsync(async () =>
+                {
+                    await QueryData();
+                    StateHasChanged();
+                });
             }
 
             if (!firstRender) IsRendered = true;

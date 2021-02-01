@@ -6,7 +6,7 @@
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
-    @if (FirstRender)
+    @if (FirstRender || IsLoading)
     {
         if (ShowSkeleton)
         {

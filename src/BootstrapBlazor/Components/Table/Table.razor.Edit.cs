@@ -236,8 +236,15 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async Task QueryAsync()
         {
-            await QueryData();
+            IsLoading = true;
             StateHasChanged();
+
+            await InvokeAsync(async () =>
+            {
+                await QueryData();
+                IsLoading = false;
+                StateHasChanged();
+            });
         }
 
         /// <summary>
