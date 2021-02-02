@@ -22,6 +22,14 @@ a {
         outline: none;
     }
 
+.form-control.is-invalid,
+.was-validated .form-control:invalid,
+.form-control.is-valid,
+.was-validated .form-control:valid,
+.form-control.valid.modified:not([type=checkbox]) {
+    outline: none;
+}
+
 input:disabled,
 .btn:disabled,
 .datetime-picker-input-icon.disabled,

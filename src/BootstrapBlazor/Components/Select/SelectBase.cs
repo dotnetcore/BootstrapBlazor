@@ -106,15 +106,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 客户端检查完成时调用此方法
-        /// </summary>
-        /// <param name="valid"></param>
-        protected override void OnValidate(bool valid)
-        {
-            Color = valid ? Color.Success : Color.Danger;
-        }
-
-        /// <summary>
         /// 获得 数据源
         /// </summary>
         /// <returns></returns>
