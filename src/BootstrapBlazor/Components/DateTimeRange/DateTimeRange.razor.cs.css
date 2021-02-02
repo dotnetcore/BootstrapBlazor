@@ -20,9 +20,9 @@
         border-color: #409eff
     }
 
-    .datetime-range.disabled {
+    .datetime-range.disabled,
+    .datetime-range.disabled input {
         background-color: #e9ecef;
-        cursor: not-allowed;
     }
 
 .datetime-range-bar {
@@ -52,6 +52,7 @@
         color: #303133;
     }
 
+.datetime-range.disabled,
 .datetime-range.disabled .datetime-range-bar .datetime-range-input,
 .datetime-range.disabled .datetime-range-bar .datetime-range-input-icon {
     cursor: not-allowed;
