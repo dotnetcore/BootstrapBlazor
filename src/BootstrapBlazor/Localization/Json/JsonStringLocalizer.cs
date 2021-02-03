@@ -210,7 +210,12 @@ namespace BootstrapBlazor.Localization.Json
 
                 if (_options.AdditionalJsonFiles != null)
                 {
-                    foreach (var file in _options.AdditionalJsonFiles)
+                    var file = _options.AdditionalJsonFiles.FirstOrDefault(f =>
+                    {
+                        var fileName = Path.GetFileNameWithoutExtension(f);
+                        return fileName.Equals(key, StringComparison.OrdinalIgnoreCase);
+                    });
+                    if (!string.IsNullOrEmpty(file))
                     {
                         builder.AddJsonFile(file, true, true);
                     }
