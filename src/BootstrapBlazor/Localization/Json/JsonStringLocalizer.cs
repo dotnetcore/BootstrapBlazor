@@ -208,6 +208,14 @@ namespace BootstrapBlazor.Localization.Json
                     }
                 }
 
+                if (_options.AdditionalJsonFiles != null)
+                {
+                    foreach (var file in _options.AdditionalJsonFiles)
+                    {
+                        builder.AddJsonFile(file, true, true);
+                    }
+                }
+
                 var config = builder.Build();
                 var v = config.GetChildren().FirstOrDefault(c => _typeName.Equals(c.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()

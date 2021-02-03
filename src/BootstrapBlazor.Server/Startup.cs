@@ -67,13 +67,6 @@ namespace BootstrapBlazor.Server
             {
                 // 统一设置 Toast 组件自动消失时间
                 options.ToastDelay = 4000;
-            }, options =>
-            {
-                // 设置自己的 RESX 多语言文化资源文件 如 Program.{CultureName}.resx
-                options.StringLocalizer = JsonLocalizationOptions.CreateStringLocalizer<Program>();
-
-                // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
-                options.AdditionalAssemblies = new Assembly[] { GetType().Assembly };
             });
 
             // 增加 Table Excel 导出服务

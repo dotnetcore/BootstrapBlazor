@@ -23,9 +23,14 @@ namespace BootstrapBlazor.Localization.Json
         public IStringLocalizer? StringLocalizer { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 外置资源文件程序集集合
         /// </summary>
         public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+
+        /// <summary>
+        /// 获得/设置 外置资源文件路径集合
+        /// </summary>
+        public IEnumerable<string>? AdditionalJsonFiles { get; set; }
 
         /// <summary>
         /// 构造方法
