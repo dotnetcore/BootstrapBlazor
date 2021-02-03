@@ -185,7 +185,7 @@ namespace BootstrapBlazor.Localization.Json
             {
                 var builder = new ConfigurationBuilder();
 
-                _searchedLocation = $"{_assembly.GetName().Name}.Locales.{key}.json";
+                _searchedLocation = $"{_assembly.GetName().Name}.{_options.ResourcesPath}.{key}.json";
                 using var res = _assembly.GetManifestResourceStream(_searchedLocation);
 
                 if (res != null)
@@ -193,10 +193,19 @@ namespace BootstrapBlazor.Localization.Json
                     builder.AddJsonStream(res);
                 }
 
-                if (_options.LocalizerConfigurationFactory != null)
+                var langHandler = new List<Stream>();
+                if (_options.AdditionalAssemblies != null)
                 {
-                    var c = _options.LocalizerConfigurationFactory(key);
-                    builder.AddConfiguration(c);
+                    foreach (var assembly in _options.AdditionalAssemblies)
+                    {
+                        var fileName = $"{assembly.GetName().Name}.{_options.ResourcesPath}.{key}.json";
+                        var lang = assembly.GetManifestResourceStream(fileName);
+                        if (lang != null)
+                        {
+                            langHandler.Add(lang);
+                            builder.AddJsonStream(lang);
+                        }
+                    }
                 }
 
                 var config = builder.Build();
@@ -204,6 +213,11 @@ namespace BootstrapBlazor.Localization.Json
                     .GetChildren()
                     .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
 
+                // dispose json stream
+                foreach (var h in langHandler)
+                {
+                    h.Dispose();
+                }
                 return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
             });
         }

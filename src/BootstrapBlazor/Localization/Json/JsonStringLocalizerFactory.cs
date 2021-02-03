@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -96,6 +98,25 @@ namespace BootstrapBlazor.Localization.Json
             }
 
             return fixedPath;
+        }
+
+        /// <summary>
+        /// 通过指定类型创建 IStringLocalizer 实例
+        /// </summary>
+        /// <typeparam name="TType"></typeparam>
+        /// <returns></returns>
+        public static IStringLocalizer CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
+
+        /// <summary>
+        /// 通过指定类型创建 IStringLocalizer 实例
+        /// </summary>
+        /// <returns></returns>
+        public static IStringLocalizer CreateLocalizer(Type type)
+        {
+            var options = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            var loggerFactory = ServiceProviderHelper.ServiceProvider.GetRequiredService<ILoggerFactory>();
+            var factory = new JsonStringLocalizerFactory(options, loggerFactory);
+            return factory.Create(type);
         }
     }
 }

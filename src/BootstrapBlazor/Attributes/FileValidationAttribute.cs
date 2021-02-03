@@ -4,10 +4,7 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -26,10 +23,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public FileValidationAttribute()
         {
-            var options = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-            var loggerFactory = ServiceProviderHelper.ServiceProvider.GetRequiredService<ILoggerFactory>();
-            var factory = new JsonStringLocalizerFactory(options, loggerFactory);
-            Localizer = factory.Create(ResourceType);
+            Localizer = JsonStringLocalizerFactory.CreateLocalizer<Upload>();
         }
 
         private IStringLocalizer Localizer { get; }
@@ -43,11 +37,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 文件大小 默认为 0 未限制
         /// </summary>
         public long FileSize { get; set; }
-
-        /// <summary>
-        /// 获得/设置 资源文件所在程序集 默认使用当前程序集 BootstrapBlazor
-        /// </summary>
-        public Type ResourceType { get; set; } = typeof(Upload);
 
         /// <summary>
         /// 是否合规判断方法

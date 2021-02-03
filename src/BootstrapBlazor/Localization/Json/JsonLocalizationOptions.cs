@@ -3,14 +3,12 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Reflection;
 
 namespace BootstrapBlazor.Localization.Json
 {
@@ -20,39 +18,34 @@ namespace BootstrapBlazor.Localization.Json
     public class JsonLocalizationOptions : LocalizationOptions
     {
         /// <summary>
-        /// 获得/设置 本地化资源文件流集合 默认为空
-        /// </summary>
-        public IEnumerable<Stream>? JsonLocalizationStreams { get; set; }
-
-        /// <summary>
         /// 获得/设置 自定义 IStringLocalizer 接口 默认为空
         /// </summary>
         public IStringLocalizer? StringLocalizer { get; set; }
 
         /// <summary>
-        /// 获得/设置 自定义 Json 格式资源流集合
+        /// 
         /// </summary>
-        public Func<string, IConfiguration>? LocalizerConfigurationFactory { get; set; }
-
-        /// <summary>
-        /// 获得/设置 LoggerFactory 实例
-        /// </summary>
-        public ILoggerFactory LoggerFactory { get; set; }
+        public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
         /// <summary>
         /// 构造方法
         /// </summary>
         public JsonLocalizationOptions()
         {
-            ResourcesPath = "Resources";
-            LoggerFactory = ServiceProviderHelper.ServiceProvider.GetRequiredService<ILoggerFactory>();
+            ResourcesPath = "Locales";
         }
 
         /// <summary>
-        /// 创建 IOptions 示例方法
+        /// 创建 IStringLocalizer 实例方法
         /// </summary>
-        /// <param name="resourcesPath"></param>
+        /// <param name="resourcesPath">resx 资源文件路径 默认为 Resources</param>
+        /// <typeparam name="TType"></typeparam>
         /// <returns></returns>
-        public IOptions<LocalizationOptions> CreateOptions(string? resourcesPath = null) => Options.Create(new LocalizationOptions() { ResourcesPath = resourcesPath ?? ResourcesPath });
+        public static IStringLocalizer CreateStringLocalizer<TType>(string resourcesPath = "Resources")
+        {
+            var options = Options.Create(new LocalizationOptions() { ResourcesPath = resourcesPath });
+            var loggerFactory = ServiceProviderHelper.ServiceProvider.GetRequiredService<ILoggerFactory>();
+            return new ResourceManagerStringLocalizerFactory(options, loggerFactory).Create(typeof(TType));
+        }
     }
 }

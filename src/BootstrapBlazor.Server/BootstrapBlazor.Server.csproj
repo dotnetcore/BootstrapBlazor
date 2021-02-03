@@ -1,9 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <IsWebProject>true</IsWebProject>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Remove="Locales\*.json" />
+    <EmbeddedResource Include="Locales\*.json" />
+  </ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

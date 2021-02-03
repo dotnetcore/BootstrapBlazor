@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Localization.Json;
 using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -72,9 +73,15 @@ namespace Microsoft.AspNetCore.Components.Forms
                             dn = displayAttribute.DisplayName;
                         }
                     }
-
                     if (!string.IsNullOrEmpty(dn))
                     {
+                        var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
+                        var stringLocalizer = localizer[dn];
+                        if (!stringLocalizer.ResourceNotFound)
+                        {
+                            dn = stringLocalizer.Value;
+                        }
+
                         // add display name into cache
                         DisplayNameCache.GetOrAdd(cacheKey, key => dn);
                     }
