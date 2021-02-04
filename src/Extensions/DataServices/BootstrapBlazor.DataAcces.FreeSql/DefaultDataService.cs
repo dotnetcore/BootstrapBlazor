@@ -84,6 +84,34 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         }
 
         /// <summary>
+        /// 缓存记录总数
+        /// </summary>
+        long? TotalCount { get; set; }
+
+        /// <summary>
+        /// 缓存记录
+        /// </summary>
+        List<TModel> Items { get; set; }
+
+        /// <summary>
+        /// 缓存查询条件
+        /// </summary>
+        QueryPageOptions Options { get; set; }
+        void initTestDatas()
+        {
+            if (_db.Select<TModel>().Count() < 200)
+            {
+                var sql = "";
+                for (int i = 0; i < 200; i++)
+                {
+                    sql += @$"INSERT INTO ""Test""(""Name"", ""DateTime"", ""Address"", ""Count"", ""Complete"", ""Education"") VALUES('周星星{i}', '2021-02-01 00:00:00', '星光大道 , {i}A', {i}, 0, 1);";
+                }
+                _db.Ado.ExecuteScalar(sql);
+            }
+
+        }
+
+        /// <summary>
         /// 查询方法
         /// </summary>
         /// <param name="option"></param>
