@@ -1,20 +1,40 @@
-﻿# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
+# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
 ############################### 
 # Core EditorConfig Options   # 
 ############################### 
-root=true
+root = true
+
 # All files 
 [*] 
-indent_style = space 
+indent_style = space
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
 # Code files 
 [*.{cs,csx,vb,vbx}] 
-indent_size = 4 
-insert_final_newline = true 
-trim_trailing_whitespace = true
-[*.{cs,css,js,json,html,razor}]
-charset = utf-8-bom 
-[*.{json,yml,xml}]
+indent_size = 4
+
+[*.{cs,css,js,json,*html,razor,txt,log}]
+charset = utf-8-bom
+
+[*.{xml,config,*proj,nuspec,props,resx,targets,yml,tasks}]
 indent_size = 2
+
+# Xml config files
+[*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[*.{ps1,psm1}]
+indent_size = 4
+
+[*.sh]
+indent_size = 4
+end_of_line = lf
+
 ############################### 
 # .NET Coding Conventions     # 
 ############################### 
@@ -128,4 +148,4 @@ csharp_preserve_single_line_blocks = true
 visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public,Friend,NotOverridable,Overridable,MustOverride,Overloads,Overrides,MustInherit,NotInheritable,Static,Shared,Shadows,ReadOnly,WriteOnly,Dim,Const,WithEvents,Widening,Narrowing,Custom,Async:suggestion 
 [*.cs]
 # Add file header
-file_header_template = **********************************\n框架名称：BootstrapBlazor \n框架作者：Argo Zhang\n开源地址：\nGitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor\nGitHub: https://github.com/ArgoZhang/BootstrapBlazor \n开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)\n**********************************
+file_header_template = Copyright (c) Argo Zhang (argo@163.com). All rights reserved.\nLicensed under the Apache License, Version 2.0. See License.txt in the project root for license information.\nWebsite: https://www.blazor.zone or https://argozhang.github.io/

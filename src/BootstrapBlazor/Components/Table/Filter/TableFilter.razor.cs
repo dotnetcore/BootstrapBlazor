@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -161,11 +156,11 @@ namespace BootstrapBlazor.Components
         /// 客户端 JS 回车按键事件调用
         /// </summary>
         [JSInvokable]
-        public void ConfirmByKey()
+        public async Task ConfirmByKey()
         {
             if (IsShow)
             {
-                OnClickConfirm();
+                await OnClickConfirm();
             }
         }
 
@@ -173,11 +168,11 @@ namespace BootstrapBlazor.Components
         /// 客户端 JS ESC 按键事件调用
         /// </summary>
         [JSInvokable]
-        public void EscByKey()
+        public async Task EscByKey()
         {
             if (IsShow)
             {
-                OnClickReset();
+                await OnClickReset();
             }
         }
 
@@ -185,16 +180,19 @@ namespace BootstrapBlazor.Components
         /// 点击重置按钮时回调此方法
         /// </summary>
         /// <returns></returns>
-        private void OnClickReset()
+        private async Task OnClickReset()
         {
             if (IsShow)
             {
                 IsShow = false;
                 Count = 0;
 
-                Table?.Filters.Remove(FieldKey);
-                FilterAction?.Reset();
-                Table?.OnFilterAsync?.Invoke();
+                if (Table != null)
+                {
+                    Table.Filters.Remove(FieldKey);
+                    FilterAction?.Reset();
+                    if (Table.OnFilterAsync != null) await Table.OnFilterAsync();
+                }
             }
         }
 
@@ -202,7 +200,7 @@ namespace BootstrapBlazor.Components
         /// 点击确认时回调此方法
         /// </summary>
         /// <returns></returns>
-        private void OnClickConfirm()
+        private async Task OnClickConfirm()
         {
             if (IsShow)
             {
@@ -211,7 +209,10 @@ namespace BootstrapBlazor.Components
                 if (Table != null && (FilterAction?.GetFilterConditions().Any() ?? false))
                 {
                     Table.Filters[FieldKey] = FilterAction;
-                    Table.OnFilterAsync?.Invoke();
+                    if (Table.OnFilterAsync != null)
+                    {
+                        await Table.OnFilterAsync();
+                    }
                 }
             }
         }

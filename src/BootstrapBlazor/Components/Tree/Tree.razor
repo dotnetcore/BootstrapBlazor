@@ -1,14 +1,30 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TreeBase
+@inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
-    <ul class="tree-root" role="tree">
-        @foreach (var item in Items)
-        {
-            @RenderTreeItem(item)
-        }
-    </ul>
-</div>
+@if (Items == null)
+{
+    if (ShowSkeleton)
+    {
+        <SkeletonTable></SkeletonTable>
+    }
+    else
+    {
+        <div class="table-loading">
+            <Spinner Color="Color.Primary" />
+        </div>
+    }
+}
+else
+{
+    <div @attributes="@AdditionalAttributes" tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
+        <ul class="tree-root" role="tree">
+            @foreach (var item in Items)
+            {
+                @RenderTreeItem(item)
+            }
+        </ul>
+    </div>
+}
 
 @code {
     private RenderFragment<TreeItem> RenderTreeNode => item =>

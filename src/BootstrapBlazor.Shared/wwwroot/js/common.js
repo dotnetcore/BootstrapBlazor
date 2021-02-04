@@ -1,4 +1,13 @@
 ﻿(function ($) {
+    $.blazorCulture = {
+        get: () => {
+            return window.localStorage['BlazorCulture'];
+        },
+        set: (value) => {
+            window.localStorage['BlazorCulture'] = value;
+        }
+    };
+
     $.extend({
         _showToast: function () {
             var $toast = $('.row .toast').toast('show');
@@ -7,7 +16,10 @@
         highlight: function (el) {
             var $el = $(el);
             $el.find('[data-toggle="tooltip"]').tooltip();
-            hljs.highlightBlock($el.find('code')[0]);
+            var code = $el.find('code')[0];
+            if (code) {
+                hljs.highlightBlock(code);
+            }
         },
         copyText: function (ele) {
             if (navigator.clipboard) {
@@ -136,14 +148,6 @@
 
             $('.welcome-footer [data-toggle="tooltip"]').tooltip();
         },
-        block: function (el) {
-            var $el = $(el);
-            var id = $.getUID();
-            var $footer = $el.children('.card-footer-code');
-            var $footerBar = $el.children('.card-footer-control');
-            $footer.attr('id', id);
-            $footerBar.attr('href', '#' + id);
-        },
         table_wrap: function () {
             var handler = window.setInterval(function () {
                 var spans = $('body').find('.table-wrap-header-demo th .table-cell span');
@@ -158,6 +162,18 @@
                     });
                 });
             }, 500);
+        },
+        tooltip: function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        },
+        table_test: function (el, obj, method) {
+            var $el = $(el);
+            $el.on('click', 'tbody tr', function () {
+                $el.find('.active').removeClass('active');
+                var index = $(this).addClass('active').data('index');
+
+                obj.invokeMethodAsync(method, index);
+            });
         }
     });
 

@@ -1,0 +1,85 @@
+﻿@inherits TablesBaseQuery
+@page "/tables/toolbar"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="带 Toolbar 的表格" Introduction="设置 <code>ShowToolbar</code> 显示工具条组件">
+    <Table TItem="BindItem"
+           IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsMultipleSelect="true" ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带查询的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件">
+    <Table TItem="BindItem"
+           IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+           ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义扩展按钮" Introduction="设置 <code>TableToolbarTemplate</code> 模板添加自定义扩展按钮">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton TItem="BindItem" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@DownloadAsync" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义显示功能按钮" Introduction="通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
+@code {
+    private Task DownloadAsync(IEnumerable<BindItem> items)
+    {
+        var cate = ToastCategory.Information;
+        var title = "自定义下载示例";
+        var content = "请先选择数据，然后点击下载按钮";
+        if (items.Any())
+        {
+            cate = ToastCategory.Success;
+            content = $"开始下载选中的 {items.Count()} 条数据";
+        }
+        ToastService?.Show(new ToastOption()
+        {
+            Category = cate,
+            Title = title,
+            Content = content
+        });
+        return Task.CompletedTask;
+    }
+}

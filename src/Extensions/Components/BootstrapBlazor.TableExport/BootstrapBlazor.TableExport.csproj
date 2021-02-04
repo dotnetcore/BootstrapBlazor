@@ -1,24 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <IsPackable>true</IsPackable>
-        <PackageIcon>logo.png</PackageIcon>
-        <Version>5.0.0</Version>
-        <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>5.0.5</Version>
+    <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <SupportedPlatform Include="browser" />
-    </ItemGroup>
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="BootstrapBlazor" Version="5.0.0" />
-        <PackageReference Include="EPPlus" Version="4.5.3.3" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="5.0.13" />
+    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <None Include="logo.png" Pack="true" PackagePath="" />
-    </ItemGroup>
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\**\*.*" />
+    <Content Include="wwwroot\js\export.min.js" />
+    <None Include="bundleconfig.json" />
+    <None Include="wwwroot\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
 
 </Project>

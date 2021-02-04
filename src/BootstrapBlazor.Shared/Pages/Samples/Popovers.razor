@@ -1,0 +1,43 @@
+﻿@page "/popovers"
+
+<h3>Popover 弹出窗组件</h3>
+
+<h4>点击/鼠标移入元素，弹出气泡式的卡片浮层</h4>
+
+<Block Title="基础用法" Introduction=" 点击文本输入框弹出 Popover 弹出框，<code>Placement</code> 设置弹出框的位置 二次点击时关闭弹出框">
+    <div class="d-flex flex-column w-100 popover-demo">
+        <div class="d-flex justify-content-center">
+            <BootstrapInput Value="@ValueString">
+                <Popover Placement="Placement.Bottom" Title="@Title" Content="@Content" IsHtml="true" />
+            </BootstrapInput>
+        </div>
+        <div class="d-flex justify-content-between align-items-center flex-fill">
+            <BootstrapInput Value="@ValueString">
+                <Popover Placement="Placement.Right" Title="@Title" Content="@Content" IsHtml="true" />
+            </BootstrapInput>
+            <BootstrapInput Value="@ValueString">
+                <Popover Placement="Placement.Left" Title="@Title" Content="@Content" IsHtml="true" />
+            </BootstrapInput>
+        </div>
+        <div class="d-flex justify-content-center">
+            <BootstrapInput Value="@ValueString">
+                <Popover Placement="Placement.Top" Title="@Title" Content="@Content" IsHtml="true" />
+            </BootstrapInput>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Popover 按钮激活弹出框" Introduction="点击按钮后弹出 Popover 弹出框">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    <span>Click 激活/关闭</span>
+                    <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" />
+                </Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

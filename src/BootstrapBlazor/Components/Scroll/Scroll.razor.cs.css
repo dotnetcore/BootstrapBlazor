@@ -1,0 +1,8 @@
+﻿.scroll {
+    height: 100%;
+    width: 100%;
+}
+
+    .scroll.is-phone {
+        overflow: auto;
+    }

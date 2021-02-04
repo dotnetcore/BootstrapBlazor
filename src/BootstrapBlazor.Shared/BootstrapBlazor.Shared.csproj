@@ -1,26 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <IsPackable>true</IsPackable>
-        <Version>5.0.0</Version>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <Version>5.0.0</Version>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <SupportedPlatform Include="browser" />
-    </ItemGroup>
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Content Remove="Locales\*.json" />
-        <EmbeddedResource Include="Locales\*.json" />
-    </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Locales\*.json" />
+    <EmbeddedResource Include="Locales\*.json" />
+    <Content Remove="docs.json" />
+    <EmbeddedResource Include="docs.json" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="BootstrapBlazor.Chart" Version="5.0.0" />
-        <PackageReference Include="BootstrapBlazor.Markdown" Version="5.0.0" />
-        <PackageReference Include="BootstrapBlazor.TableExport" Version="5.0.0" />
-        <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.Chart" Version="5.0.5" />
+    <PackageReference Include="BootstrapBlazor.Markdown" Version="5.0.5" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="5.0.5" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\BootstrapBlazor.DataAcces.FreeSql\BootstrapBlazor.DataAcces.FreeSql.csproj" />

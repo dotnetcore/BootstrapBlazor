@@ -1,0 +1,143 @@
+﻿@page "/toasts"
+@inject ToastService ToastService
+@inject IJSRuntime JSRuntime
+
+<h3>Toast 轻量弹窗</h3>
+
+<h4>提供轻量级 Toast 弹窗</h4>
+
+<Block Title="基础用法" Introduction="用户操作时，右下角给予适当的提示信息">
+    <div class="form-inline">
+        <div class="row overflow-hidden">
+            <div class="form-group col-12 col-lg-4">
+                <ToastBox class="d-block" Title="保存数据" IsAutoHide="false" Content="保存数据成功，4 秒后自动关闭"></ToastBox>
+            </div>
+            <div class="form-group col-12 col-lg-4">
+                <ToastBox class="d-block" Category="ToastCategory.Error" Title="保存数据" IsAutoHide="false" Content="保存数据失败，4 秒后自动关闭"></ToastBox>
+            </div>
+            <div class="form-group col-12 col-lg-4">
+                <ToastBox class="d-block" Category="ToastCategory.Information" Title="提示信息" IsAutoHide="false" Content="信息提示弹窗，4 秒后自动关闭"></ToastBox>
+            </div>
+            <div class="form-group col-12 col-sm-4">
+                <Button Color="Color.Success" OnClick="@OnSuccessClick">成功通知</Button>
+            </div>
+            <div class="form-group col-12 col-sm-4">
+                <Button Color="Color.Danger" OnClick="@OnErrorClick">失败通知</Button>
+            </div>
+            <div class="form-group col-12 col-sm-4">
+                <Button Color="Color.Info" OnClick="@OnInfoClick">信息通知</Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Toast 手动关闭" Introduction="不会自动关闭，需要人工点击关闭按钮">
+    <div class="form-inline">
+        <div class="row">
+            <div class="col-12">
+                <Button OnClick="@OnNotAutoHideClick">成功通知</Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置">
+    <p>通过设置 <code>Toast</code> 组件的 <code>Placement</code> 值来设置弹窗出现的位置，默认值为 <code>BottomEnd</code> 除此之外的值均为右上角</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-md-3">
+                <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
+            </div>
+            <div class="form-group col-6 col-md-3">
+                <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
+            </div>
+            <div class="form-group col-6 col-md-3">
+                <Button OnClick="e => OnPlacementClick(Placement.TopStart)">左上角</Button>
+            </div>
+            <div class="form-group col-6 col-md-3">
+                <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">左下角</Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<h4>特别注意</h4>
+
+<p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
+
+<p>注入服务提供三种快捷调用方法</p>
+
+<ul class="ul-demo">
+    <li>Success()</li>
+    <li>Error()</li>
+    <li>Information()</li>
+</ul>
+
+<p>示例如下：</p>
+
+<Pre>ToastService?.Success("保存成功", "保存数据成功，4 秒后自动关闭");</Pre>
+
+<Pre>private void OnInfoClick()
+{
+    ToastService.Show(new ToastOption()
+    {
+        // 通知类别
+        Category = ToastCategory.Information,
+
+        // 通知框 Title 值
+        Title = "消息通知",
+
+        // 通知正文内容
+        Content = "系统增加新组件啦，4 秒后自动关闭"
+    });
+}
+</Pre>
+
+<Tips class="mt-3">
+    <p>
+        需要在使用本组件的页面中内置 <code>Toast</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+    </p>
+</Tips>
+
+<Pre>&lt;Toast /&gt;</Pre>
+
+<Tips>特别说明: 可以通过 <code>BootstrapBlazorOptions</code> 全局统一配置参数可以设置整个系统内的 <code>Toast</code> 组件 <code>Delay</code> 参数值</Tips>
+
+<p>通过配置文件 <code>appsetting.json</code> 文件配置，适用于 <code>Server-Side App</code></p>
+
+<Pre>"BootstrapBlazorOptions": {
+    "ToastDelay": 4000,
+    "MessageDelay": 4000,
+    "SwalDelay": 4000
+}
+</Pre>
+
+<p>通过 <code>Startup</code> 文件中的 <code>ConfigureServices</code> 方法配置，适用于 <code>Server-Side App</code> 和 <code>WebAssembly App</code></p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // 统一设置 Toast 组件自动消失时间
+    services.Configure&lt;BootstrapBlazorOptions&gt;(options =>
+    {
+        options.ToastDelay = 4000;
+    });
+}
+</Pre>
+
+<div class="mb-3">或者，仅适用于 <code>Server-Side App</code></div>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // 增加 BootstrapBlazor 组件
+    services.AddBootstrapBlazor(options =>
+    {
+        // 统一设置 Toast 组件自动消失时间
+        options.ToastDelay = 4000;
+    });
+}
+</Pre>
+
+<Toast @ref="Toast"></Toast>
+
+<AttributeTable Items="@GetAttributes()" />
+

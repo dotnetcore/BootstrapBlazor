@@ -1,0 +1,33 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TModel
+@inherits DialogBase<TModel>
+
+@if (BodyTemplate != null)
+{
+    @BodyTemplate?.Invoke(Model)
+    @RenderFooter
+}
+else
+{
+    <CascadingValue Value="Items" IsFixed="true">
+        <EditorForm TModel="TModel" Model="Model">
+            <Buttons>
+                @RenderFooter
+            </Buttons>
+        </EditorForm>
+    </CascadingValue>
+}
+
+@code {
+    RenderFragment RenderFooter =>
+    @<div class="modal-footer table-modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal" @onclick="@OnResetSearchClick">
+            <i class="fa fa-trash-o"></i>
+            <span>@ResetButtonText</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="@OnSearchClick">
+            <i class="fa fa-search"></i>
+            <span>@QueryButtonText</span>
+        </button>
+    </div>;
+}

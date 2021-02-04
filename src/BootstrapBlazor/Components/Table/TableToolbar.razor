@@ -38,16 +38,18 @@
                 <div class="dropdown-menu">
                     @foreach (var button in Buttons)
                     {
-                        <div class="dropdown-item">
-                            @if (button is TableToolbarButton<TItem> b)
-                            {
-                                <i class="@b.Icon" @onclick="@(e => OnToolbarButtonClick(b))"></i>
-                            }
-                            else if (button is TableToolbarPopconfirmButton<TItem> pb)
-                            {
-                                <i class="@pb.Icon" @onclick="@pb.OnConfirm"></i>
-                            }
-                        </div>
+                        @if (button is TableToolbarButton<TItem> b)
+                        {
+                            <div class="dropdown-item" @onclick="@(e => OnToolbarButtonClick(b))">
+                                <i class="@b.Icon"></i>
+                            </div>
+                        }
+                        else if (button is TableToolbarPopconfirmButton<TItem> pb)
+                        {
+                            <div class="dropdown-item" @onclick="@pb.OnConfirm">
+                                <i class="@pb.Icon"></i>
+                            </div>
+                        }
                     }
                 </div>
             </div>

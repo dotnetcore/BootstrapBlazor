@@ -1,0 +1,32 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ButtonUploadBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
+    <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+    <div class="upload-body is-list">
+        @foreach (var item in UploadFiles)
+        {
+            <div @key="item" class="@GetItemClassString(item)">
+                <i class="@GetFileFormatClassString(item)"></i>
+                <div class="fn">
+                    <span>@GetFileName(item)</span>
+                    <span>(@item.Size.ToFileSizeString())</span>
+                </div>
+                @if (item.Code == 0)
+                {
+                    <i class="fa fa-check-circle-o text-success"></i>
+                    <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                }
+                else
+                {
+                    <i class="fa fa-times-circle-o" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                }
+                @if (GetShowProgress(item))
+                {
+                    <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
+                }
+            </div>
+        }
+    </div>
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+</div>

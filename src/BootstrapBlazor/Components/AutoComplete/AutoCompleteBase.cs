@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -160,12 +155,20 @@ namespace BootstrapBlazor.Components
                 // 键盘向上选择
                 if (args.Key == "ArrowUp")
                 {
-                    var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) - 1));
+                    var index = source.IndexOf(_selectedItem) - 1;
+                    if (index < 0)
+                    {
+                        index = source.Count - 1;
+                    }
                     _selectedItem = source[index];
                 }
                 else if (args.Key == "ArrowDown")
                 {
-                    var index = Math.Max(0, Math.Min(source.Count - 1, source.IndexOf(_selectedItem) + 1));
+                    var index = source.IndexOf(_selectedItem) + 1;
+                    if (index > source.Count - 1)
+                    {
+                        index = 0;
+                    }
                     _selectedItem = source[index];
                 }
                 else if (args.Key == "Escape")

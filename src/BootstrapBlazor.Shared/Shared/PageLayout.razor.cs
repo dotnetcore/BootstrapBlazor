@@ -1,15 +1,13 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Shared
 {
@@ -18,6 +16,10 @@ namespace BootstrapBlazor.Shared.Shared
     /// </summary>
     public sealed partial class PageLayout
     {
+        private bool IsOpen { get; set; }
+
+        private string Theme { get; set; } = "";
+
         /// <summary>
         /// 获得/设置 是否固定页头
         /// </summary>
@@ -43,46 +45,45 @@ namespace BootstrapBlazor.Shared.Shared
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否开启多标签模式
+        /// </summary>
+        [Parameter]
+        public bool UseTabSet { get; set; } = true;
+
+        [Inject]
+        [NotNull]
+        private IJSRuntime? JSRuntime { get; set; }
+
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("$.tooltip");
+            }
+        }
+
+        /// <summary>
         /// 更新组件方法
         /// </summary>
         public void Update() => StateHasChanged();
 
-        private IEnumerable<MenuItem> GetIconSideMenuItems()
+        private IEnumerable<MenuItem> GetIconSideMenuItems() => new List<MenuItem>
         {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "layouts" },
-                new MenuItem() { Text = "布局网页", Icon = "fa fa-fw fa-desktop", Url = "layout-page" },
-                new MenuItem() { Text = "示例网页", Icon = "fa fa-fw fa-laptop", Url = "layout-demo" },
-                new MenuItem() { Text = "系统设置", Icon = "fa fa-fw fa-gears" },
-                new MenuItem() { Text = "权限设置", Icon = "fa fa-fw fa-users" },
-                new MenuItem() { Text = "日志设置", Icon = "fa fa-fw fa-database" }
-            };
+            new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "layouts" },
+            new MenuItem() { Text = "布局网页", Icon = "fa fa-fw fa-desktop", Url = "layout-page" },
+            new MenuItem() { Text = "示例网页", Icon = "fa fa-fw fa-laptop", Url = "Layout-demo" }
+        };
 
-            ret[3].AddItem(new MenuItem() { Text = "网站设置", Icon = "fa fa-fw fa-fa" });
-            ret[3].AddItem(new MenuItem() { Text = "任务设置", Icon = "fa fa-fw fa-tasks" });
-            ret[3].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
-            ret[3].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
-            ret[3].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
-            ret[3].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
-            ret[3].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
-            ret[3].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
-
-            ret[4].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
-            ret[4].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
-            ret[4].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
-            ret[4].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
-            ret[4].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
-            ret[4].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
-
-            ret[5].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
-            ret[5].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
-            ret[5].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
-            ret[5].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
-            ret[5].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
-            ret[5].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
-
-            return ret;
+        private void ToggleDrawer()
+        {
+            IsOpen = !IsOpen;
         }
     }
 }

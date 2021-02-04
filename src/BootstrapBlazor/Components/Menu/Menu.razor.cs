@@ -1,15 +1,12 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -64,15 +61,18 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 菜单项点击回调委托
         /// </summary>
         [Parameter]
-        public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
+        public Func<MenuItem, Task>? OnClick { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 NavigationManager 实例
         /// </summary>
         [Inject]
-        private NavigationManager Navigator { get; set; }
-#nullable restore
+        [NotNull]
+        private NavigationManager? Navigator { get; set; }
+
+        [Inject]
+        [NotNull]
+        private TabItemTextOptions? Options { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -83,6 +83,13 @@ namespace BootstrapBlazor.Components
 
             var item = FindMenuItem(Items, Navigator.ToBaseRelativePath(Navigator.Uri));
             CascadingSetActive(item);
+
+            if (!DisableNavigation)
+            {
+                Options.Text = item?.Text;
+                Options.Icon = item?.Icon;
+                Options.IsActive = true;
+            }
         }
 
         /// <summary>
@@ -123,11 +130,17 @@ namespace BootstrapBlazor.Components
             if (!item.IsDisabled)
             {
                 // 回调委托
-                await OnClick(item);
-                if (!item.Items.Any())
+                if (OnClick != null) await OnClick(item);
+                if (DisableNavigation)
                 {
                     CascadingSetActive(item);
                     StateHasChanged();
+                }
+                else
+                {
+                    Options.Text = item.Text;
+                    Options.Icon = item.Icon;
+                    Options.IsActive = true;
                 }
             }
         }

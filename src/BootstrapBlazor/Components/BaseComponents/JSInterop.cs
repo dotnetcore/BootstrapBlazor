@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.JSInterop;
 using System;
@@ -37,16 +32,14 @@ namespace BootstrapBlazor.Components
         /// <param name="value"></param>
         /// <param name="el"></param>
         /// <param name="func"></param>
-        /// <param name="method"></param>
         /// <param name="args"></param>
-        public async ValueTask Invoke(TValue value, object? el, string func, string? method, params object[] args)
+        public async ValueTask Invoke(TValue value, object? el, string func, params object[] args)
         {
             _objRef = DotNetObjectReference.Create(value);
             var paras = new List<object>()
             {
                 _objRef
             };
-            paras.Add(method!);
             paras.AddRange(args);
             await _jsRuntime.InvokeVoidAsync(el, func, paras.ToArray());
         }

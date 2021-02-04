@@ -1,0 +1,71 @@
+﻿@page "/layout-page"
+@layout PageLayout
+
+<div style="@StyleString">
+
+    <h4>整页面级别组件</h4>
+
+    <Tips class="mt-3">
+        <p>通过内置组件 <code>Layout</code> 进行整页面布局，可通过 <code>dotnet new bbapp</code> 或者安装 <code>Visual Studio 2019</code> 项目插件选择 <code>Bootstrap Blazor 项目模板</code> 即可自动生成，详细文档请点击 <a href="template" target="_blank">[传送门]</a></p>
+        <div>
+            <b>特别注意：</b>
+            <br />
+            <code>Layout</code> 组件开启 <code>多标签</code> 模式后，如果有 <code>Razor 组件</code> 在额外的程序集中时，请正确设置 <code>AdditionalAssemblies</code> 属性值，以便标签组件内路由正确解析，相关文档 <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-3.1#route-to-components-from-multiple-assemblies" target="_blank">[传送门]</a>
+        </div>
+    </Tips>
+
+    <div class="page-layout-demo-option">
+        <p>布局调整</p>
+        <div class="row">
+            <div class="col-12">
+                <Radio Items="@SideBarItems" OnStateChanged="@OnSideChanged" />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <Checkbox @bind-Value="ShowFooter" OnStateChanged="OnFooterChanged" ShowAfterLabel="true" DisplayText="显示页脚" />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <Switch @bind-Value="@UseTabSet" OnText="多标签" OffText="单页" OnColor="@Color.Success" OffColor="@Color.Secondary" style="width: 120px;" OnValueChanged="OnUseTabSetChanged"></Switch>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-layout-demo-option">
+        <p>固定调整</p>
+        <Checkbox @bind-Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" ShowAfterLabel="true" DisplayText="固定页头" class="mr-3" />
+        <Checkbox @bind-Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" ShowAfterLabel="true" DisplayText="固定页脚" />
+    </div>
+
+    <div class="page-layout-demo-option">
+        <p>收缩调整</p>
+        <div>请点击 <code>Header</code> 中的绿色小按钮</div>
+    </div>
+
+    <div class="page-layout-demo-option">
+        <p>高度调整</p>
+        <div class="page-layout-demo-option-height">
+            <span>视图高度</span>
+            <Slider @bind-Value="@Height" style="margin: 0 1rem;" />
+            <BootstrapInput Value="@(Height * 100)" readonly style="width: 80px;" />
+        </div>
+    </div>
+
+    <div class="page-layout-demo-option">
+        <p>布局代码</p>
+        <Tab>
+            <TabItem Text="组件文件(PageLayout.razor)">
+                <Pre></Pre>
+            </TabItem>
+            <TabItem Text="后台文件(PageLayout.razor.cs)">
+                <Pre></Pre>
+            </TabItem>
+            <TabItem Text="页面文件(Demo.razor)">
+                <Tips>请注意：开发过程中设置 <code>layout</code> 即可继承上面设置的布局，功能页面中仅实现自己功能即可</Tips>
+                <Pre></Pre>
+            </TabItem>
+        </Tab>
+    </div>
+</div>

@@ -80,7 +80,16 @@
     "EndPlaceHolderText": "结束日期",
     "ClearButtonText": "清空",
     "ConfirmButtonText": "确定",
-    "DateFormat": "yyyy-MM-dd"
+    "DateFormat": "yyyy-MM-dd",
+    "Last7Days": "最近 7 天",
+    "Last30Days": "最近 30 天",
+    "ThisMonth": "这个月",
+    "LastMonth": "上个月"
+  },
+  "BootstrapBlazor.Components.ResultDialogOption": {
+    "ButtonYesText": "确认",
+    "ButtonNoText": "取消",
+    "ButtonCloseText": "关闭"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "请选择 ..."
@@ -105,7 +114,9 @@
     "PlaceHolder": "点击进行多选 ...",
     "SelectAllText": "全选",
     "ReverseSelectText": "反选",
-    "ClearText": "清除"
+    "ClearText": "清除",
+    "MinErrorMessage": "最少请选择 {0} 项",
+    "MaxErrorMessage": "最多可以选择 {0} 项"
   },
   "BootstrapBlazor.Components.Pagination": {
     "AiraPageLabel": "分页组件",
@@ -150,6 +161,11 @@
     "OnInnerText": "开",
     "OffInnerText": "关"
   },
+  "BootstrapBlazor.Components.Tab": {
+    "CloseCurrentTabText": "关闭当前标签",
+    "CloseOtherTabsText": "关闭其他标签",
+    "CloseAllTabsText": "关闭所有标签"
+  },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "新建",
     "EditButtonText": "编辑",
@@ -188,7 +204,7 @@
     "DeleteButtonToastResultContent": "删除数据{0}, {1} 秒后自动关闭",
     "DataServiceInvalidOperationText": "未注册 'BootstrapBlazor.Components.IDataService`1[{0}]' 服务"
   },
-  "BootstrapBlazor.Components.TableEditorDialog": {
+  "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存"
   },
@@ -209,7 +225,7 @@
     "NotContains": "不包含",
     "EnumFilter.AllText": "全选"
   },
-  "BootstrapBlazor.Components.TableSearchDialog": {
+  "BootstrapBlazor.Components.SearchDialog": {
     "ResetButtonText": "重置",
     "QueryButtonText": "查询"
   },
@@ -228,9 +244,9 @@
     "RightPanelText": "列表 2"
   },
   "BootstrapBlazor.Components.Upload": {
-    "Text": "点击上传",
-    "ResetText": "重置",
-    "AllowFileTypeErrorMessage": "只允许选择图片类型文件",
-    "FileTooLargeText": "文件太大"
+    "DeleteButtonText": "删除",
+    "BrowserButtonText": "浏览",
+    "FileExtensions": "文件扩展名必须为以下几种格式: {0}",
+    "FileSizeValidation": "文件太大，文件限制大小为 {0}"
   }
 }

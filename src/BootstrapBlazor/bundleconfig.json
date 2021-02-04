@@ -2,7 +2,163 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.min.css",
     "inputFiles": [
-      "wwwroot/css/!(*.min).css"
+      "wwwroot/css/bootstrap.blazor.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Upload/Upload.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Upload/Upload.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Editor/Editor.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Editor/Editor.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Message/Message.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Message/Message.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Toast/Toast.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Toast/Toast.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Carousel/Carousel.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Carousel/Carousel.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Collapse/Collapse.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Collapse/Collapse.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Slider/Slider.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Slider/Slider.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Rate/Rate.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Rate/Rate.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Split/Split.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Split/Split.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/swal/sweetalert2.min.css",
+    "inputFiles": [
+      "wwwroot/lib/swal/sweetalert2.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
+    "inputFiles": [
+      "Components/BarcodeReader/BarcodeReader.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Camera/Camera.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Camera/Camera.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/QRCode/QRCode.razor.cs.min.css",
+    "inputFiles": [
+      "Components/QRCode/QRCode.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Scroll/Scroll.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Scroll/Scroll.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Modal/Modal.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Modal/Modal.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Table/Table.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Table/Table.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Drawer/Drawer.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Drawer/Drawer.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/GroupBox/GroupBox.razor.cs.min.css",
+    "inputFiles": [
+      "Components/GroupBox/GroupBox.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Select/Select.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Select/Select.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/DateTimePicker/DateTimePicker.razor.cs.min.css",
+    "inputFiles": [
+      "Components/DateTimePicker/DateTimePicker.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/DateTimePicker/TimePickerBody.razor.cs.min.css",
+    "inputFiles": [
+      "Components/DateTimePicker/TimePickerBody.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
+    "inputFiles": [
+      "Components/DateTimeRange/DateTimeRange.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Tab/Tab.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Tab/Tab.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Layout/Layout.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Layout/Layout.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/GoTop/GoTop.razor.cs.min.css",
+    "inputFiles": [
+      "Components/GoTop/GoTop.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Select/MultiSelect.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Select/MultiSelect.razor.cs.css"
     ]
   },
   {
@@ -12,7 +168,50 @@
       "wwwroot/lib/font-awesome/css/font-awesome.min.css",
       "wwwroot/lib/summernote/summernote-bs4.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
-      "wwwroot/css/bootstrap.blazor.min.css"
+      "wwwroot/css/bootstrap.blazor.min.css",
+      "Components/Upload/Upload.razor.cs.min.css",
+      "Components/Editor/Editor.razor.cs.min.css",
+      "Components/Message/Message.razor.cs.min.css",
+      "Components/Toast/Toast.razor.cs.min.css",
+      "Components/Carousel/Carousel.razor.cs.min.css",
+      "Components/Slider/Slider.razor.cs.min.css",
+      "Components/Rate/Rate.razor.cs.min.css",
+      "Components/Collapse/Collapse.razor.cs.min.css",
+      "Components/Split/Split.razor.cs.min.css",
+      "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
+      "Components/Camera/Camera.razor.cs.min.css",
+      "Components/QRCode/QRCode.razor.cs.min.css",
+      "Components/Scroll/Scroll.razor.cs.min.css",
+      "Components/Modal/Modal.razor.cs.min.css",
+      "Components/Table/Table.razor.cs.min.css",
+      "Components/Drawer/Drawer.razor.cs.min.css",
+      "Components/GroupBox/GroupBox.razor.cs.min.css",
+      "Components/Select/Select.razor.cs.min.css",
+      "Components/DateTimePicker/DateTimePicker.razor.cs.min.css",
+      "Components/DateTimePicker/TimePickerBody.razor.cs.min.css",
+      "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
+      "Components/Tab/Tab.razor.cs.min.css",
+      "Components/Layout/Layout.razor.cs.min.css",
+      "Components/GoTop/GoTop.razor.cs.min.css",
+      "Components/Select/MultiSelect.razor.cs.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/extensions/longbow.extensions.min.js",
+    "inputFiles": [
+      "wwwroot/lib/extensions/longbow.extensions.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/captcha/longbow.captcha.min.js",
+    "inputFiles": [
+      "wwwroot/lib/captcha/longbow.captcha.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/tab/longbow.tab.min.js",
+    "inputFiles": [
+      "wwwroot/lib/tab/longbow.tab.js"
     ]
   },
   {
@@ -22,9 +221,159 @@
     ]
   },
   {
+    "outputFileName": "Components/Upload/Upload.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Upload/Upload.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Editor/Editor.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Editor/Editor.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Message/Message.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Message/Message.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Toast/Toast.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Toast/Toast.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Carousel/Carousel.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Carousel/Carousel.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Collapse/Collapse.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Collapse/Collapse.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Slider/Slider.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Slider/Slider.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Rate/Rate.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Rate/Rate.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Anchor/Anchor.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Anchor/Anchor.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Split/Split.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Split/Split.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
+    "inputFiles": [
+      "Components/BarcodeReader/BarcodeReader.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
     "inputFiles": [
       "wwwroot/js/bootstrap.blazor.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Camera/Camera.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Camera/Camera.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/QRCode/QRCode.razor.cs.min.js",
+    "inputFiles": [
+      "Components/QRCode/QRCode.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Scroll/Scroll.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Scroll/Scroll.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Modal/Modal.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Modal/Modal.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Table/Table.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Table/Table.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Table/Filter/TableFilter.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Table/Filter/TableFilter.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Drawer/Drawer.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Drawer/Drawer.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Select/Select.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Select/Select.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/DateTimePicker/DateTimePicker.razor.cs.min.js",
+    "inputFiles": [
+      "Components/DateTimePicker/DateTimePicker.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
+    "inputFiles": [
+      "Components/DateTimePicker/TimePickerBody.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
+    "inputFiles": [
+      "Components/DateTimeRange/DateTimeRange.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Tab/Tab.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Tab/Tab.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Layout/Layout.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Layout/Layout.razor.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/GoTop/GoTop.razor.cs.min.js",
+    "inputFiles": [
+      "Components/GoTop/GoTop.razor.cs.js"
     ]
   },
   {
@@ -37,7 +386,35 @@
       "wwwroot/lib/barcodereader/qrcode.min.js",
       "wwwroot/lib/barcodereader/zxing.min.js",
       "wwwroot/lib/handwritten/handwritten.min.js",
-      "wwwroot/js/bootstrap.blazor.min.js"
+      "wwwroot/lib/extensions/longbow.extensions.min.js",
+      "wwwroot/lib/captcha/longbow.captcha.min.js",
+      "wwwroot/lib/tab/longbow.tab.min.js",
+      "wwwroot/js/bootstrap.blazor.min.js",
+      "Components/Upload/Upload.razor.cs.min.js",
+      "Components/Editor/Editor.razor.cs.min.js",
+      "Components/Message/Message.razor.cs.min.js",
+      "Components/Toast/Toast.razor.cs.min.js",
+      "Components/Carousel/Carousel.razor.cs.min.js",
+      "Components/Slider/Slider.razor.cs.min.js",
+      "Components/Rate/Rate.razor.cs.min.js",
+      "Components/Collapse/Collapse.razor.cs.min.js",
+      "Components/Split/Split.razor.cs.min.js",
+      "Components/Anchor/Anchor.razor.cs.min.js",
+      "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
+      "Components/Camera/Camera.razor.cs.min.js",
+      "Components/QRCode/QRCode.razor.cs.min.js",
+      "Components/Scroll/Scroll.razor.cs.min.js",
+      "Components/Modal/Modal.razor.cs.min.js",
+      "Components/Table/Table.razor.cs.min.js",
+      "Components/Table/Filter/TableFilter.razor.cs.min.js",
+      "Components/Drawer/Drawer.razor.cs.min.js",
+      "Components/Select/Select.razor.cs.min.js",
+      "Components/DateTimePicker/DateTimePicker.razor.cs.min.js",
+      "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
+      "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
+      "Components/Tab/Tab.razor.cs.min.js",
+      "Components/Layout/Layout.razor.cs.min.js",
+      "Components/GoTop/GoTop.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,

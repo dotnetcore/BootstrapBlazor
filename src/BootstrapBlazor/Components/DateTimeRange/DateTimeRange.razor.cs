@@ -1,15 +1,11 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -119,6 +115,19 @@ namespace BootstrapBlazor.Components
         public bool AllowNull { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示快捷侧边栏 默认不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowSidebar { get; set; }
+
+        /// <summary>
+        /// 获得/设置 侧边栏快捷选项集合
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public IEnumerable<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
+
+        /// <summary>
         /// 点击确认按钮回调委托方法
         /// </summary>
         [Parameter]
@@ -128,7 +137,7 @@ namespace BootstrapBlazor.Components
         /// 点击情况按钮回调委托方法
         /// </summary>
         [Parameter]
-        public Func<DateTimeRangeValue,Task>? OnClearValue { get; set; }
+        public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
 
         [Inject]
         [NotNull]
@@ -155,6 +164,17 @@ namespace BootstrapBlazor.Components
             ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
 
             DateFormat ??= Localizer[nameof(DateFormat)];
+
+            if (SidebarItems == null)
+            {
+                SidebarItems = new DateTimeRangeSidebarItem[]
+                {
+                    new DateTimeRangeSidebarItem{ Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
+                    new DateTimeRangeSidebarItem{ Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
+                    new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
+                    new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
+                };
+            }
         }
 
         /// <summary>
@@ -172,6 +192,15 @@ namespace BootstrapBlazor.Components
             }
         }
 
+        private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
+        {
+            SelectedValue.Start = item.StartDateTime;
+            SelectedValue.End = item.EndDateTime;
+            StartValue = item.StartDateTime;
+            EndValue = StartValue.AddMonths(1);
+            await ClickConfirmButton();
+        }
+
         /// <summary>
         /// 点击 清除按钮调用此方法
         /// </summary>
@@ -186,7 +215,7 @@ namespace BootstrapBlazor.Components
             if (OnClearValue != null) await OnClearValue(Value);
 
             StartValue = DateTime.Today;
-            EndValue = DateTime.Today.AddMonths(1);
+            EndValue = StartValue.AddMonths(1);
             SelectedValue.Start = DateTime.MinValue;
             SelectedValue.End = DateTime.MinValue;
         }

@@ -1,14 +1,10 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Options;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -34,11 +30,11 @@ namespace BootstrapBlazor.Components
         /// Show 方法
         /// </summary>
         /// <param name="option"></param>
-        public override void Show(ToastOption option)
+        public override async Task Show(ToastOption option)
         {
             if (!option.ForceDelay && _option.ToastDelay != 0) option.Delay = _option.ToastDelay;
 
-            base.Show(option);
+            await base.Show(option);
         }
 
         /// <summary>
@@ -48,16 +44,13 @@ namespace BootstrapBlazor.Components
         /// <param name="content">Content 属性</param>
         /// <param name="autoHide">自动隐藏属性默认为 true</param>
         /// <returns></returns>
-        public void Success(string? title = null, string? content = null, bool autoHide = true)
+        public Task Success(string? title = null, string? content = null, bool autoHide = true) => Show(new ToastOption()
         {
-            Show(new ToastOption()
-            {
-                Category = ToastCategory.Success,
-                IsAutoHide = autoHide,
-                Title = title ?? "",
-                Content = content ?? ""
-            });
-        }
+            Category = ToastCategory.Success,
+            IsAutoHide = autoHide,
+            Title = title ?? "",
+            Content = content ?? ""
+        });
 
         /// <summary>
         /// Toast 调用错误快捷方法
@@ -66,16 +59,13 @@ namespace BootstrapBlazor.Components
         /// <param name="content"></param>
         /// <param name="autoHide"></param>
         /// <returns></returns>
-        public void Error(string? title = null, string? content = null, bool autoHide = true)
+        public Task Error(string? title = null, string? content = null, bool autoHide = true) => Show(new ToastOption()
         {
-            Show(new ToastOption()
-            {
-                Category = ToastCategory.Error,
-                IsAutoHide = autoHide,
-                Title = title ?? "",
-                Content = content ?? ""
-            });
-        }
+            Category = ToastCategory.Error,
+            IsAutoHide = autoHide,
+            Title = title ?? "",
+            Content = content ?? ""
+        });
 
         /// <summary>
         /// Toast 调用提示信息快捷方法
@@ -84,16 +74,13 @@ namespace BootstrapBlazor.Components
         /// <param name="content"></param>
         /// <param name="autoHide"></param>
         /// <returns></returns>
-        public void Information(string? title = null, string? content = null, bool autoHide = true)
+        public Task Information(string? title = null, string? content = null, bool autoHide = true) => Show(new ToastOption()
         {
-            Show(new ToastOption()
-            {
-                Category = ToastCategory.Information,
-                IsAutoHide = autoHide,
-                Title = title ?? "",
-                Content = content ?? ""
-            });
-        }
+            Category = ToastCategory.Information,
+            IsAutoHide = autoHide,
+            Title = title ?? "",
+            Content = content ?? ""
+        });
 
         /// <summary>
         /// 

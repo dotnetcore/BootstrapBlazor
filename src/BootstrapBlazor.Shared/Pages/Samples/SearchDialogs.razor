@@ -1,0 +1,24 @@
+﻿@page "/searchdialogs"
+
+<h3>SearchDialog 搜索弹窗</h3>
+
+<h4>通过绑定数据模型自动呈现搜索弹窗</h4>
+
+<p><code>SearchDialog</code> 组件是 <code>Dialog</code> 组件的扩展，适用于数据弹出窗设置搜索条件。</p>
+
+<Tips>
+    <p>通过调用注入服务 <code>DialogService</code> 的 <code>ShowSearchDialog</code> 方法直接弹出搜索条件弹窗，大大减少代码量。<code>SearchDialogOption</code> 配置类继承 <code>DialogOption</code>，更多参数设置请点击 <a href="dialogs" target="_blank">[传送门]</a></p>
+</Tips>
+
+<Block Title="基础用法" Introduction="通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的搜索表单">
+    <Button Text="点击弹出搜索弹窗" OnClickWithoutRender="@ShowDialog" />
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="自定义搜索弹窗内显示的条件字段" Introduction="通过设定 <code>Columns</code> 参数显式设置显示的搜索字段">
+    <Button Text="点击弹出搜索弹窗" OnClickWithoutRender="@ShowColumnsDialog" />
+</Block>
+
+<Dialog></Dialog>
+
+<AttributeTable Items="@GetAttributes()" Title="SearchDialogOption 属性" />

@@ -4,7 +4,7 @@
 
 [issuetracker "Gitee-Issue"]
   regex = "#(.+?)\\)"
-  url = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/$1?from=project-issue"
+  url = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/$1"
 
 [issuetracker "Gitee-Url"]
   regex = "([a-zA-z]+://[^\\s]*)"

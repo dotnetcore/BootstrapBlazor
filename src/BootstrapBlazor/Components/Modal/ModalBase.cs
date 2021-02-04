@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -19,23 +14,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class ModalBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 获得/设置 DOM 元素实例
-        /// </summary>
-        protected ElementReference ModalElement { get; set; }
-
-        /// <summary>
-        /// 获得 样式字符串
-        /// </summary>
-        protected string? ClassString => CssBuilder.Default("modal")
-            .AddClass("fade", IsFade)
-            .Build();
-
-        /// <summary>
-        /// 获得 后台关闭弹窗设置
-        /// </summary>
-        protected string? Backdrop => IsBackdrop ? null : "static";
-
         /// <summary>
         /// 获得 ModalDialog 集合
         /// </summary>
@@ -62,31 +40,19 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 弹窗状态切换方法
         /// </summary>
-        public async ValueTask Toggle()
-        {
-            Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
-            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "toggle");
-        }
+        public abstract ValueTask Toggle();
 
         /// <summary>
         /// 显示弹窗方法
         /// </summary>
         /// <returns></returns>
-        public async ValueTask Show()
-        {
-            Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
-            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "show");
-        }
+        public abstract ValueTask Show();
 
         /// <summary>
         /// 关闭弹窗方法
         /// </summary>
         /// <returns></returns>
-        public async ValueTask Close()
-        {
-            Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
-            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "hide");
-        }
+        public abstract ValueTask Close();
 
         /// <summary>
         /// 添加对话窗方法

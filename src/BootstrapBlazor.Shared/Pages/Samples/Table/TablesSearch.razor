@@ -1,0 +1,101 @@
+﻿@inherits TablesBaseEdit
+@page "/tables/search"
+
+<h3>Table 表格</h3>
+
+<h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
+
+<Block Title="具有搜索功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件，通过设置 <code>SearchTemplate</code> 模板自定义搜索 UI">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           SearchModel="@SearchModel"
+           OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+        <SearchTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="姓名" />
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="地址" />
+                    </div>
+                </div>
+            </div>
+        </SearchTemplate>
+    </Table>
+</Block>
+
+<Block Title="自动生成搜索功能的表格" Introduction="当设置了 <code>ShowSearch</code> 时，如果未设置 <code>SearchTemplate</code> 编辑模板时，组件会尝试自动生成搜索条件 UI">
+    <p>列信息绑定时通过设置 <code>Searchable</code> 属性，设置搜索条件自动构建 UI</p>
+    <Tips>
+        <p>自动构建搜索弹窗时，由于各列设置 <code>Searchable</code> 此时组件会通过 <code>SearchText</code> 与设置 <code>Searchable</code> 值为 <code>true</code> 的各列自动构建搜索拉姆达表达式，通过 <code>QueryPageOptions</code> 的属性 <code>Searchs</code> 获得</p>
+
+    </Tips>
+    <Pre>if (options.Searchs.Any())
+{
+    // 逻辑关系使用 FilterLogic.Or
+    items = items.Where(options.Searchs.GetFilterFunc&lt;BindItem&gt;(FilterLogic.Or));
+}</Pre>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义列搜索模板" Introduction="当设置了 <code>SearchTemplate</code> 时，组件自动生成搜索 UI 时使用此模板作为呈现 UI">
+    <p>通过设置姓名列的 <code>SearchTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
+    <p>由于是搜索条件，本例中姓名搜索列下拉框增加了 请选择... 项</p>
+    <p>生成列搜索模板是查找顺序为 SearchTemplate -> AutoGenerate 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true">
+                <SearchTemplate Context="value">
+                    @{
+                        var model = value as BindItem;
+                        if (model != null)
+                        {
+                            var items = new List<SelectedItem>()
+                            {
+                                new SelectedItem { Text = "请选择 ...", Value = "" },
+                                new SelectedItem { Text = "姓名1", Value = "姓名1" },
+                                new SelectedItem { Text = "姓名2", Value = "姓名2" },
+                            };
+                            <div class="form-group col-12 col-sm-6">
+                                <Select Items="items" @bind-Value="@model.Name" ShowLabel="true" DisplayText="姓名" />
+                            </div>
+                        }
+                    }
+                </SearchTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</Block>

@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -18,24 +13,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public abstract class CollapseBase : BootstrapComponentBase
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="collapsed"></param>
-        /// <returns></returns>
-        protected string? GetButtonClassString(bool collapsed) => CssBuilder.Default("btn btn-link")
-            .AddClass("collapsed", collapsed)
-            .Build();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="collpased"></param>
-        /// <returns></returns>
-        protected string? GetClassString(bool collpased) => CssBuilder.Default("collapse-item")
-            .AddClass("collapse", collpased)
-            .AddClass("collapse show", !collpased)
-            .Build();
 
         /// <summary>
         /// 获得 按钮样式集合
@@ -89,7 +66,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) await JSRuntime.InvokeVoidAsync(CollapseElement, "collapse");
+            if (firstRender) await JSRuntime.InvokeVoidAsync(CollapseElement, "bb_collapse");
         }
 
         /// <summary>

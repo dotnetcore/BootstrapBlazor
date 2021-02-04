@@ -1,15 +1,11 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components
 {
@@ -32,10 +28,11 @@ namespace BootstrapBlazor.Components
                 var type = item.GetType();
                 if (typeof(ICloneable).IsAssignableFrom(type))
                 {
-                    var clv = type.GetMethod("Clone")?.Invoke(type, null);
+                    var clv = type.GetMethod("Clone")?.Invoke(item, null);
                     if (clv != null)
                     {
                         ret = (TItem)clv;
+                        return ret;
                     }
                 }
                 if (type.IsClass)
@@ -151,16 +148,29 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 增加扩展方法 List 转化为 字典集合
+        /// 通过指定 Model 获得 IEditorItem 集合方法
         /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
         /// <param name="source"></param>
+        /// <param name="predicate"></param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this List<KeyValuePair<TKey, TValue>> source)
-            where TKey : notnull
+        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(this TModel source, Func<IEditorItem, bool>? predicate = null)
+            where TModel : class
         {
-            return source.ToDictionary(key => key.Key, val => val.Value);
+            if (predicate == null) predicate = p => true;
+            return InternalTableColumn.GetProperties<TModel>().Where(predicate);
         }
+
+        /// <summary>
+        /// 格式化为 文件大小与单位格式 字符串
+        /// </summary>
+        /// <param name="fileSize"></param>
+        /// <returns></returns>
+        internal static string ToFileSizeString(this long fileSize) => fileSize switch
+        {
+            >= 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
+            >= 1024 * 1024 and < 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} MB",
+            >= 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
+            _ => $"{fileSize} B"
+        };
     }
 }

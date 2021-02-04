@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -21,10 +16,10 @@ namespace BootstrapBlazor.Components
     public abstract class SearchBase : AutoCompleteBase
     {
         /// <summary>
-        /// Clear button color
+        /// 获得/设置 是否显示清除按钮 默认为 false 不显示
         /// </summary>
         [Parameter]
-        public Color ClearButtonColor { get; set; } = Color.Secondary;
+        public bool ShowClearButton { get; set; }
 
         /// <summary>
         /// Clear button icon
@@ -36,8 +31,13 @@ namespace BootstrapBlazor.Components
         /// Clear button text
         /// </summary>
         [Parameter]
-        [NotNull]
         public string? ClearButtonText { get; set; }
+
+        /// <summary>
+        /// Clear button color
+        /// </summary>
+        [Parameter]
+        public Color ClearButtonColor { get; set; } = Color.Secondary;
 
         /// <summary>
         /// 获得/设置 搜索按钮颜色
@@ -65,7 +65,7 @@ namespace BootstrapBlazor.Components
         public Func<string, Task>? OnSearch { get; set; }
 
         /// <summary>
-        /// 获得/设置 点击搜索按钮时回调委托
+        /// 获得/设置 点击清空按钮时回调委托
         /// </summary>
         [Parameter]
         public Func<string, Task>? OnClear { get; set; }
@@ -86,20 +86,28 @@ namespace BootstrapBlazor.Components
         protected async Task OnClearClick()
         {
             if (OnClear != null) await OnClear(CurrentValueAsString);
+            CurrentValueAsString = "";
         }
 
         /// <summary>
-        /// 
+        /// OnKeyUp 方法
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
         protected override async Task OnKeyUp(KeyboardEventArgs args)
         {
             await base.OnKeyUp(args);
-
-            if (!string.IsNullOrEmpty(CurrentValueAsString) && args.Key == "Enter")
+            if (!string.IsNullOrEmpty(CurrentValueAsString))
             {
-                await OnSearchClick();
+                if (args.Key == "Enter")
+                {
+                    await OnSearchClick();
+                }
+
+                if (args.Key == "Escape")
+                {
+                    await OnClearClick();
+                }
             }
         }
     }

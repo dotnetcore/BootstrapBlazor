@@ -14,7 +14,7 @@
                 <i class="fa fa-fw fa-minus-circle"></i>
             </button>
         </div>
-        <input @attributes="AdditionalAttributes" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" @onblur="@OnBlur" />
+        <input @attributes="AdditionalAttributes" step="@Step" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" @onblur="@OnBlur" />
         <div class="input-group-append">
             <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@DisabledString">
                 <i class="fa fa-fw fa-plus-circle"></i>
@@ -24,7 +24,7 @@
 }
 else
 {
-    <input @attributes="AdditionalAttributes" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" @onblur="@OnBlur" />
+    <input @attributes="AdditionalAttributes" step="@Step" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" @onblur="@OnBlur" />
 }
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent

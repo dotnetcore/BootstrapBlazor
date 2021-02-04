@@ -1,14 +1,10 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,10 +61,10 @@ namespace BootstrapBlazor.Components
         public bool ShowAdvancedSearch { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 搜索关键字
+        /// 获得/设置 搜索关键字 通过列设置的 Searchable 自动生成搜索拉姆达表达式
         /// </summary>
         [Parameter]
-        public string SearchText { get; set; } = "";
+        public string? SearchText { get; set; }
 
         /// <summary>
         /// 重置搜索按钮异步回调方法
@@ -98,32 +94,38 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 高级查询按钮点击时调用此方法
         /// </summary>
-        protected Task ShowSearchDialog()
+        protected async Task ShowSearchDialog()
         {
-            // 弹出高级查询弹窗
-            DialogOption.IsScrolling = ScrollingDialogContent;
-            DialogOption.Size = Size.ExtraLarge;
-            DialogOption.Title = SearchModalTitle;
-            DialogOption.ShowCloseButton = false;
-            DialogOption.ShowFooter = false;
-            DialogOption.OnCloseAsync = null;
+            var option = new SearchDialogOption<TItem>()
+            {
+                IsScrolling = ScrollingDialogContent,
+                Title = SearchModalTitle,
+                Model = SearchModel,
+                DialogBodyTemplate = SearchTemplate,
+                OnResetSearchClick = ResetSearchClick,
+                OnSearchClick = SearchClick
+            };
 
             var columns = Columns.Where(i => i.Searchable).ToList();
-            columns.ForEach(i => i.EditTemplate = i.SearchTemplate);
-            var editorParameters = new List<KeyValuePair<string, object>>
+            columns.ForEach(col => col.EditTemplate = col.SearchTemplate);
+            option.Items = columns;
+
+            await DialogService.ShowSearchDialog(option);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<IFilterAction> GetSearchs()
+        {
+            var columns = Columns.Where(col => col.Searchable);
+            var searchs = new List<InternalSearchAction>();
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Model), SearchModel),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.Columns), columns),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.ShowLabel), true),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.BodyTemplate), SearchTemplate!),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.OnResetSearchClick), new Func<Task>(ResetSearchClick)),
-                new KeyValuePair<string, object>(nameof(TableSearchDialog<TItem>.OnSearchClick), new Func<Task>(SearchClick)),
-            };
-            DialogOption.Component = DynamicComponent.CreateComponent<TableSearchDialog<TItem>>(editorParameters);
-
-            DialogService.Show(DialogOption);
-
-            return Task.CompletedTask;
+                searchs.AddRange(columns.Select(col => new InternalSearchAction() { FieldKey = col.GetFieldName(), Value = SearchText }));
+            }
+            return searchs;
         }
 
         /// <summary>
@@ -131,25 +133,22 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task ClearSearchClick()
         {
-            SearchText = "";
+            SearchText = null;
             await ResetSearchClick();
         }
 
         /// <summary>
-        /// 搜索文本框按键回调方法
+        /// 客户端 SearchTextbox 文本框内按回车时调用此方法
         /// </summary>
-        /// <param name="e"></param>
-        protected async Task OnKeyUp(KeyboardEventArgs e)
-        {
-            // Enter Escape
-            if (e.Key == "Enter")
-            {
-                await SearchClick();
-            }
-            else if (e.Key == "Escape")
-            {
-                await ClearSearchClick();
-            }
-        }
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task OnSearch() => await SearchClick();
+
+        /// <summary>
+        /// 客户端 SearchTextbox 文本框内按 ESC 时调用此方法
+        /// </summary>
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task OnClearSearch() => await ClearSearchClick();
     }
 }

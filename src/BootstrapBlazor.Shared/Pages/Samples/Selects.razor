@@ -1,0 +1,263 @@
+﻿@page "/selects"
+@inject DialogService Dialog
+
+<h3>Select 选择器</h3>
+
+<h4>当选项过多时，使用下拉菜单展示并选择内容</h4>
+
+<Block Title="Select 下拉选择框" Introduction="提供各种颜色的下拉选择框">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Primary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Success" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Danger" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Warning" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Info" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Secondary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Dark" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Select>
+            </div>
+        </div>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="Select 禁用下拉框" Introduction="选择器不可用状态">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Success" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Danger" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Warning" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Info" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Secondary" Items="@Items" IsDisabled="true"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Color="Color.Dark" Items="@Items" IsDisabled="true"></Select>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Select 双向绑定" Introduction="通过 <code>Select</code> 组件绑定 <code>Model.Name</code> 属性，改变下拉框选项时，文本框内的数值随之改变。">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name"></Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput readonly @bind-Value="@Model.Name" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Select 级联绑定" Introduction="通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items3" OnSelectedItemChanged="@OnCascadeBindSelectClick" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select @ref="Select2" TValue="string" Items="@Items2" />
+            </div>
+            <div class="form-group col-12">
+                <Button Text="弹窗中级联示例" OnClickWithoutRender="@OnShowDialog" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Select 客户端验证" Introduction="下拉框未选择时，点击提交按钮时拦截。">
+    <ValidateForm class="form-inline" Model="@BindModel">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select @bind-Value="@BindModel.Name">
+                    <Options>
+                        <SelectOption Text="请选择 ..." Value="" />
+                        <SelectOption Text="北京" Value="1" />
+                        <SelectOption Text="上海" Value="2" />
+                        <SelectOption Text="广州" Value="3" />
+                    </Options>
+                    <ChildContent>
+                        <RequiredValidator ErrorMessage="请选择一个城市" />
+                    </ChildContent>
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6 align-items-end">
+                <Button ButtonType="ButtonType.Submit">提交</Button>
+            </div>
+        </div>
+    </ValidateForm>
+</Block>
+
+<Block Title="分组" Introduction="备选项进行分组展示">
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <Select TValue="string" Color="Color.Primary" Items="@GroupItems">
+            </Select>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定泛型为 Guid 结构" Introduction="组件绑定值为 Guid 结构体示例">
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <Select Color="Color.Primary" Items="@GuidItems" @bind-Value="@CurrentGuid" />
+        </div>
+        <div class="form-group col-12 col-sm-9">
+            <div class="form-control">@CurrentGuid</div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
+    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
+    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12">
+                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name" />
+            </div>
+        </div>
+    </div>
+    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Select Color="Color.Primary" Items="@Items" @bind-Value="@Model.Name" DisplayText="自定义城市" ShowLabel="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="静态数据" Introduction="直接在 <code>Select</code> 组件内部进行硬编码书写，适用于静态数据下拉框">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string">
+                    <Options>
+                        <SelectOption Text="北京" Value="1" />
+                        <SelectOption Text="上海" Value="2" Active="true" />
+                        <SelectOption Text="广州" Value="3" />
+                    </Options>
+                </Select>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="枚举数据" Introduction="<code>Select</code> 组件绑定枚举类型示例">
+    <p>本次展现的是通过 <code>Select</code> 组件绑定枚举类型 <code>SortOrder</code>，通过选项的更改绑定数据</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@EnumItems" @bind-Value="@SelectedEnumItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="form-control">@SelectedEnumItem</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定可为空类型" Introduction="<code>Select</code> 组件绑定 <code>int?</code> 类型示例">
+    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@NullableIntItems" @bind-Value="@SelectedIntItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="form-control">@GetSelectedIntItemString()</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定可为空布尔类型" Introduction="<code>Select</code> 组件绑定 <code>bool?</code> 类型示例">
+    <p>可为空布尔类型多用于条件搜索框中</p>
+    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@NullableBoolItems" @bind-Value="@SelectedBoolItem">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="form-control">@GetSelectedBoolItemString()</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="自定义选项模板" Introduction="通过设置 <code>ItemTemplate</code> 可以自定义选项渲染样式">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items">
+                    <ItemTemplate>
+                        <div class="dropdown-item-demo">
+                            <i class="fa fa-fa"></i>
+                            <span>@context.Text</span>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </ItemTemplate>
+                </Select>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="带搜索框的下拉框" Introduction="通过设置 <code>ShowSearchBox</code> 属性控制是否显示搜索框，默认为 false 不显示搜索框">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items" ShowSearch="true" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@StringItems" ShowSearch="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

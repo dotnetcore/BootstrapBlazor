@@ -1,89 +1,19 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits UploadBase
+@inherits ButtonUploadBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement" data-url="@UploadUrl">
-    @if (IsStack)
-    {
-        <div tabindex="0" class="upload-button">
-            <button type="button" class="btn btn-primary btn-upload" disabled="@DisabledString">
-                <i class="@Icon"></i>
-                <span>@Text</span>
-            </button>
-            @if (ShowReset)
-            {
-                @RenderResetButton
-            }
-        </div>
-    }
-    <div class="upload-body">
-        <div class="@PreviewClassString" data-file="@ImageUrl" style="@PrevStyleString">
-            <i class="fa fa-plus"></i>
-            <i class="fa fa-spinner fa-spin fa-2x"></i>
-            <img src="@ImageUrl" />
-            <span class="upload-file-icon">
-            </span>
-            <span class="upload-item-label bg-success">
-                <i class="fa fa-check"></i>
-            </span>
-            @if (IsCircle)
-            {
-                <svg class="upload-item-circle d-none" style="@PrevStyleString">
-                    <circle r="@CircleR" cy="@CircleDiameter" cx="@CircleDiameter" stroke-width="2" stroke="#EAEFF4" stroke-linejoin="round" stroke-linecap="round" fill="none" />
-                    <circle class="upload-item-circle-progress" r="@CircleR" cy="@CircleDiameter" cx="@CircleDiameter" stroke-dashoffset="@CircleLength" stroke-dasharray="@CircleLength"
-                            stroke-width="2" stroke="#1593FF" stroke-linejoin="round" stroke-linecap="round" fill="none" />
-                </svg>
-            }
-            <span class="upload-item-actions">
-                <span class="upload-item-delete">
-                    <i class="fa fa-trash-o"></i>
-                </span>
-            </span>
-            <div class="upload-prev-info">
-                <div class="upload-list-item-size"></div>
-                <div class="upload-footer-toolbar">
-                    <div class="upload-footer-actions">
-                        <button class="btn btn-sm btn-outline-secondary"><i class="fa fa-search-plus"></i></button>
-                    </div>
-                    <div class="upload-footer-buttons">
-                        <button class="btn btn-sm btn-outline-danger btn-delete"><i class="fa fa-trash-o"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="upload-prev-progress">
-                <div class="upload-prev-progress-info">
-                    <div class="upload-list-item-text flex-fill d-none d-sm-block"></div>
-                    <div class="upload-list-item-rate ml-sm-2 mr-sm-2 d-none d-sm-block"></div>
-                    <div class="upload-list-item-size"></div>
-                </div>
-                <span class="upload-prev-progress-text">0 %</span>
-                <div class="upload-prev-progress-cur bg-success"></div>
-            </div>
-            <div class="upload-prev-invalid-file">
-                <div class="file-name d-none d-sm-block"></div>
-                <div class="file-error flex-fill text-right"></div>
-            </div>
-        </div>
-    </div>
-    @if (ShowPreview && !IsStack)
-    {
-        <div tabindex="0" class="upload-button">
-            <button type="button" class="btn btn-primary btn-upload" disabled="@DisabledString">
-                <i class="@Icon"></i>
-                <span>@Text</span>
-            </button>
-            @if (ShowReset)
-            {
-                @RenderResetButton
-            }
-        </div>
-    }
-    <input type="file" hidden multiple="@MultipleString" class="upload-input" accept="@AllowFileType">
-</div>
-
-@code {
-    RenderFragment RenderResetButton =>
-    @<button type="button" class="btn btn-primary btn-reset" @onclick="@Reset()" disabled="@DisabledString">
-        <i class="fa fa-repeat"></i>
-        <span>@ResetText</span>
-    </button>;
+@if (Style == UploadStyle.Avatar)
+{
+    <AvatarUpload AdditionalAttributes="@AdditionalAttributes" Accept="@Accept" DefaultFileList="@DefaultFileList" DisplayText="@DisplayText" IsDisabled="@IsDisabled" IsCircle="@IsCircle" ShowLabel="@ShowLabel" ShowProgress="@ShowProgress"  />
+}
+else if (Style == UploadStyle.ClickToUpload)
+{
+    <ButtonUpload />
+}
+else if (Style == UploadStyle.Card)
+{
+    <CardUpload />
+}
+else
+{
+    <InputUpload DisplayText="@DisplayText" />
 }

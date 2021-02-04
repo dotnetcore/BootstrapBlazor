@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits DrawerBase
+@inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" tabindex="-1" class="@ClassString">
+<div @attributes="@AdditionalAttributes" tabindex="-1" class="@ClassString" @ref="DrawerElement">
     <div role="document" tabindex="-1" class="drawer-container" @onclick="@OnContainerClick">
         <div aria-modal="true" aria-labelledby="drawer-title" role="dialog" tabindex="-1" class="@DrawerClassString" style="@DrawerStyleString" @onclick:stopPropagation>
             @ChildContent

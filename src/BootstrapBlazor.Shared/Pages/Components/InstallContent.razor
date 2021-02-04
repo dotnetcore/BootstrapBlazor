@@ -14,21 +14,21 @@
 
 <p>将 Bootstrap 的 CSS 文件以 <code>&lt;link&gt;</code> 标签的形式添加到 <code>@HostFile</code> 文件 <code>&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前。</p>
 
-<Pre CodeFile="install.1.html"></Pre>
+<Pre>&lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;</Pre>
 
-<Alert ShowBar="true" Color="Color.Danger">
-    <b>特别注意：</b>
-    <p class="mt-1">如果是使用 <code>Blazozr App</code> 模板创建的工程请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" /&gt;</code></p>
-</Alert>
+<Tips>
+    <p>如果是使用 <code>Blazozr App</code> 模板创建的工程请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" /&gt;</code></p>
+</Tips>
 
 <h4>JS 文件</h4>
 
-<p>Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code>&lt;script&gt;</code> 标签放到 <code>>@HostFile</code> 文件尾部且在 <code>&lt;/body&gt;</code> 标签之前即可起作用。</p>
-<Pre CodeFile="install.2.html"></Pre>
+<p>Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code>&lt;script&gt;</code> 标签放到 <code>@HostFile</code> 文件尾部且在 <code>&lt;/body&gt;</code> 标签之前即可起作用。</p>
+<Pre>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;
+</Pre>
 
 <h4>添加命名空间到 <code>_Imports.razor</code> 文件</h4>
 
-<Pre class="no-highlight">@@using BootstrapBlazor.Components</Pre>
+<Pre>@@using BootstrapBlazor.Components</Pre>
 
 <h4>注册服务</h4>
 

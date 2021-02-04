@@ -1,12 +1,9 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -20,7 +17,7 @@ namespace BootstrapBlazor.Localization.Json
     /// </summary>
     internal class JsonStringLocalizerFactory : IStringLocalizerFactory
     {
-        private readonly string _resourcesRelativePath;
+        private readonly JsonLocalizationOptions _jsonOptions;
         private readonly ILoggerFactory _loggerFactory;
 
         /// <summary>
@@ -30,7 +27,7 @@ namespace BootstrapBlazor.Localization.Json
         /// <param name="loggerFactory"></param>
         public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> localizationOptions, ILoggerFactory loggerFactory)
         {
-            _resourcesRelativePath = localizationOptions.Value.ResourcesPath;
+            _jsonOptions = localizationOptions.Value;
             _loggerFactory = loggerFactory;
         }
 
@@ -43,8 +40,7 @@ namespace BootstrapBlazor.Localization.Json
         {
             var typeInfo = resourceSource.GetTypeInfo();
             var typeName = typeInfo.FullName;
-            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(resourceSource)} full name is null.");
-            var assemblyName = resourceSource.Assembly.GetName().Name;
+            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(resourceSource)} full name is null or String.Empty.");
 
             if (resourceSource.IsGenericType)
             {
@@ -52,7 +48,7 @@ namespace BootstrapBlazor.Localization.Json
                 typeName = typeName.Substring(0, index);
             }
             typeName = TryFixInnerClassPath(typeName);
-            return CreateJsonStringLocalizer(typeInfo.Assembly, typeName, $"{assemblyName}.{_resourcesRelativePath}");
+            return CreateJsonStringLocalizer(typeInfo.Assembly, typeName);
         }
 
         /// <summary>
@@ -65,11 +61,18 @@ namespace BootstrapBlazor.Localization.Json
         {
             baseName = TryFixInnerClassPath(baseName);
 
-            var assemblyName = new AssemblyName(location);
-            var assembly = Assembly.Load(assemblyName);
-            string? resourceName = null;
+            Assembly? assembly;
+            if (!string.IsNullOrEmpty(location))
+            {
+                var assemblyName = new AssemblyName(location);
+                assembly = Assembly.Load(assemblyName);
+            }
+            else
+            {
+                assembly = GetType().Assembly;
+            }
 
-            return CreateJsonStringLocalizer(assembly, string.Empty, resourceName);
+            return CreateJsonStringLocalizer(assembly, string.Empty);
         }
 
         /// <summary>
@@ -77,16 +80,14 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="typeName"></param>
-        /// <param name="resourceName"></param>
         /// <returns></returns>
-        protected virtual IStringLocalizer CreateJsonStringLocalizer(Assembly assembly, string typeName, string? resourceName)
+        protected virtual IStringLocalizer CreateJsonStringLocalizer(Assembly assembly, string typeName)
         {
             var logger = _loggerFactory.CreateLogger<JsonStringLocalizer>();
-
-            return new JsonStringLocalizer(assembly, resourceName, typeName, logger);
+            return new JsonStringLocalizer(assembly, typeName, logger, _jsonOptions);
         }
 
-        private string TryFixInnerClassPath(string path)
+        private static string TryFixInnerClassPath(string path)
         {
             const char innerClassSeparator = '+';
             var fixedPath = path;
@@ -97,6 +98,25 @@ namespace BootstrapBlazor.Localization.Json
             }
 
             return fixedPath;
+        }
+
+        /// <summary>
+        /// 通过指定类型创建 IStringLocalizer 实例
+        /// </summary>
+        /// <typeparam name="TType"></typeparam>
+        /// <returns></returns>
+        public static IStringLocalizer CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
+
+        /// <summary>
+        /// 通过指定类型创建 IStringLocalizer 实例
+        /// </summary>
+        /// <returns></returns>
+        public static IStringLocalizer CreateLocalizer(Type type)
+        {
+            var options = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            var loggerFactory = ServiceProviderHelper.ServiceProvider.GetRequiredService<ILoggerFactory>();
+            var factory = new JsonStringLocalizerFactory(options, loggerFactory);
+            return factory.Create(type);
         }
     }
 }

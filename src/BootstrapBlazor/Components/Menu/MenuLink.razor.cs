@@ -1,13 +1,9 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -21,12 +17,12 @@ namespace BootstrapBlazor.Components
     public sealed partial class MenuLink
     {
         private string? ClassString => CssBuilder.Default()
-            .AddClass("active", Item.IsActive && !Item.IsDisabled)
+            .AddClass("active", DisableNavigation && Item.IsActive && !Item.IsDisabled)
             .AddClass("disabled", Item.IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        private string? GetHrefString => (DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url?.TrimStart('/'));
+        private string? GetHrefString => (DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url);
 
         /// <summary>
         /// 获得/设置 是否禁止导航 默认为 false 允许导航
@@ -51,5 +47,7 @@ namespace BootstrapBlazor.Components
         {
             if (OnClick != null) await OnClick(Item);
         }
+
+        private NavLinkMatch GetMatch() => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
     }
 }

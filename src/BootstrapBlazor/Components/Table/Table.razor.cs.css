@@ -1,0 +1,547 @@
+﻿.table-container {
+    position: relative;
+}
+
+.table-bordered {
+    border-radius: 4px;
+}
+
+    .table-bordered th:first-child,
+    .table-bordered td:first-child,
+    .table-bordered th.fixed-scroll {
+        border-left-width: 0;
+    }
+
+    .table-bordered th:last-child,
+    .table-bordered td:last-child,
+    .table-bordered .table-fixed-header th:nth-last-of-type(2) {
+        border-right-width: 0;
+    }
+
+    .table-bordered tr:last-child td {
+        border-bottom-width: 0;
+    }
+
+    .table-bordered .table-fixed-body td:last-child {
+        border-right-width: 1px;
+    }
+
+.table-th-checkbox {
+    width: 36px;
+}
+
+    .table-th-checkbox.show-text {
+        width: 80px;
+    }
+
+.table-th-button {
+    width: 130px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+    .table thead th, .table tbody td {
+        border-top: none;
+    }
+
+    .table thead th {
+        white-space: nowrap;
+    }
+
+        .table thead th.sortable:hover,
+        .table thead th.filterable:hover {
+            background-color: #e9ecef;
+        }
+
+            .table thead th.sortable:hover > .fa {
+                color: #999;
+            }
+
+        .table thead th .table-cell {
+            justify-content: space-between;
+            position: relative;
+        }
+
+            .table thead th .table-cell .table-text {
+                flex: 1;
+            }
+
+            .table thead th .table-cell > .fa {
+                content: "";
+                position: absolute;
+                right: -12px;
+                top: -12px;
+                bottom: -12px;
+                width: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ddd;
+            }
+
+                .table thead th .table-cell > .fa:hover {
+                    background-color: #ddd;
+                    color: #606266;
+                }
+
+            .table thead th .table-cell .fa-filter {
+                cursor: pointer;
+            }
+
+                .table thead th .table-cell .fa-filter.active {
+                    color: #409eff;
+                }
+
+        .table thead th.sortable .fa-sort-asc,
+        .table thead th.sortable .fa-sort-desc {
+            color: inherit;
+        }
+
+        .table thead th.sortable .table-cell .table-text,
+        .table thead th.filterable .table-cell .table-text {
+            padding-right: 1rem;
+        }
+
+        .table thead th.filterable .table-cell .fa-filter {
+            right: -12px;
+        }
+
+        .table thead th.sortable.filterable .table-cell .fa-filter {
+            right: calc(1.5rem - 12px);
+        }
+
+        .table thead th.sortable.filterable .table-cell .table-text {
+            padding-right: 2.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    .table tfoot {
+        font-weight: bold;
+        border-top: 2px solid #dee2e6;
+    }
+
+    .table td, .table th {
+        min-width: 0;
+        text-overflow: ellipsis;
+    }
+
+    .table .is-editform .table-cell {
+        overflow: hidden;
+    }
+
+.table-sm .table thead th .table-cell > .fa {
+    right: -5px;
+    top: -5px;
+    bottom: -5px;
+}
+
+.table-sm .table thead th.filterable .table-cell .fa-filter {
+    right: -5px;
+}
+
+.table-sm .table thead th.sortable.filterable .table-cell .fa-filter {
+    right: calc(1.5rem - 5px);
+}
+
+.is-clickable tbody tr,
+.is-clickable .table-row {
+    cursor: pointer;
+}
+
+.table-cell {
+    display: flex;
+    align-items: center;
+    word-break: break-all;
+}
+
+    .table-cell.is-sort {
+        cursor: pointer;
+    }
+
+        .table-cell.is-sort .fa-sort {
+            color: #ddd;
+        }
+
+    .table-cell .btn-group .btn {
+        white-space: nowrap;
+    }
+
+.table-filter {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+    .table-filter .table-filter-item {
+        min-width: 220px;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.125);
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.125);
+        position: absolute;
+        display: none;
+    }
+
+        .table-filter .table-filter-item.show {
+            display: block;
+        }
+
+    .table-filter .card-header {
+        padding: 0.5rem 1rem;
+    }
+
+    .table-filter .card-arrow {
+        position: absolute;
+        display: block;
+        width: 1rem;
+        height: .5rem;
+        margin: 0;
+        top: calc((.5rem + 1px) * -1);
+        left: calc(50% - 0.5rem);
+    }
+
+        .table-filter .card-arrow:before,
+        .table-filter .card-arrow:after {
+            position: absolute;
+            display: block;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+
+        .table-filter .card-arrow:before {
+            border-bottom-color: #ced4da;
+            top: 0;
+            border-width: 0 .5rem .5rem .5rem;
+        }
+
+        .table-filter .card-arrow:after {
+            top: 1px;
+            border-width: 0 .5rem .5rem .5rem;
+            border-bottom-color: #f7f7f7;
+        }
+
+    .table-filter .card-body {
+        padding: 1rem;
+    }
+
+        .table-filter .card-body .is-condition {
+            max-width: 10rem;
+        }
+
+        .table-filter .card-body > *:not(:first-child) {
+            margin-top: 0.5rem;
+        }
+
+    .table-filter .card-footer {
+        padding: 0.5rem;
+        display: flex;
+        white-space: nowrap;
+    }
+
+        .table-filter .card-footer .btn:not(:first-child) {
+            margin-left: 0.5rem;
+        }
+
+        .table-filter .card-footer .btn {
+            padding: 7px 15px;
+            font-size: 0.875rem;
+            border-radius: 3px;
+            line-height: 12px;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            transition: border-color .3s linear, color .3s linear;
+        }
+
+            .table-filter .card-footer .btn:not(.is-disabled):not(:disabled):hover {
+                border-color: #409eff;
+                color: #409eff;
+            }
+
+.table-striped tbody tr:not(:hover):not(.active):not(.highlight):nth-of-type(odd),
+.table-striped .table-row:not(.active):not(.highlight):nth-of-type(odd) {
+    background-color: #fafafa;
+}
+
+.table-hover tbody tr.is-detail:hover,
+.table-hover tbody tr.is-editform:hover {
+    background-color: unset;
+}
+
+.table tbody tr.is-master td:first-child {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.table-toolbar:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.table-toolbar .table-toolbar-button {
+    margin-bottom: 0.5rem;
+}
+
+    .table-toolbar .table-toolbar-button .table-toolbar-search {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+.table-toolbar .dropdown-menu .dropdown-item span {
+    margin-left: 0.5rem;
+}
+
+.table-toolbar .dropdown-item.hover,
+.table-toolbar .dropdown-item:hover {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.table-pagination {
+    margin-top: 0.5rem;
+}
+
+.btn-gear .dropdown-menu {
+    min-width: initial;
+    padding: 0;
+}
+
+    .btn-gear .dropdown-menu .dropdown-item {
+        padding: 6px 12px;
+        display: table-cell;
+        color: #504d4d;
+    }
+
+        .btn-gear .dropdown-menu .dropdown-item:not(:first-child) {
+            border-left: solid 1px #aeb2b7;
+        }
+
+.table-column-right {
+    margin-left: 0.3125rem;
+}
+
+.search-input-tooltip {
+    font-size: 0.75rem;
+}
+
+    .search-input-tooltip kbd {
+        display: inline-block;
+        background: #17a2b8;
+        padding: 1px 6px;
+    }
+
+.table-fixed .table {
+    table-layout: fixed;
+}
+
+.table-fixed-header {
+    overflow: hidden;
+}
+
+.table-fixed-body {
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+
+.table-scroll {
+    overflow: auto;
+}
+
+    .table-scroll .table tbody td .table-cell:not(.is-wrap) {
+        white-space: nowrap;
+    }
+
+.table-cell.is-ellips {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    .table-cell.is-ellips.is-resizable {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+    }
+
+.table-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2rem;
+    flex: 1;
+}
+
+.table-modal-footer {
+    margin: 0 -1rem -1rem -1rem;
+}
+
+.table tbody tr.active,
+.table tbody tr.active:hover td,
+.table-row.active {
+    background-color: #9ec6ef;
+}
+
+.table-row {
+    padding: 0.75rem;
+}
+
+    .table-row:not(:last-child) {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table-row:first-child {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    .table-row:last-child {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .table-row .table-cell:not(:last-child) {
+        padding-bottom: 0.5rem;
+    }
+
+    .table-row .table-cell label:not(.form-checkbox) {
+        font-weight: bold;
+        width: 30%;
+        margin-bottom: 0;
+        color: #212529;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .table-row.table-footer {
+        display: flex;
+    }
+
+        .table-row.table-footer .table-cell {
+            padding-bottom: 0;
+        }
+
+            .table-row.table-footer .table-cell:first-child {
+                font-weight: bold;
+                width: 30%;
+                margin-bottom: 0;
+                color: #212529;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+.table-fixed-column .table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    .table-fixed-column .table tr:not(:hover) .fixed {
+        background-color: #fff;
+    }
+
+    .table-fixed-column .table tr .fixed {
+        position: sticky;
+        z-index: 2;
+    }
+
+    .table-fixed-column .table th,
+    .table-fixed-column .table td {
+        border-left-width: 0;
+        border-top-width: 0;
+    }
+
+    .table-fixed-column .table tbody tr:hover .fixed {
+        background-color: #e4e7ed;
+    }
+
+.table-striped.table-fixed-column tbody tr:nth-of-type(odd):not(:hover) .fixed,
+.table-striped.table-fixed-column .table-row:not(.active):nth-of-type(odd) .fixed {
+    background-color: #fafafa;
+}
+
+.table-fixed-column .table .fixed {
+    border-right: 1px solid #409eff;
+}
+
+.table-fixed-column .table .fixed-right {
+    border-right: inherit;
+    border-left: 1px solid #409eff;
+}
+
+.table-fixed-column .fixed-scroll {
+    position: sticky;
+    right: 0;
+    background-color: #fff;
+}
+
+.table-striped.table-fixed-column tbody tr.active .fixed,
+.table-striped.table-fixed-column .table-row.active .fixed {
+    background-color: inherit;
+}
+
+.table .is-bar {
+    padding: 0;
+    justify-content: center;
+}
+
+    .table .is-bar .fa-caret-right {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color .3s linear, transform .3s linear;
+    }
+
+        .table .is-bar .fa-caret-right:hover {
+            background-color: #ddd;
+        }
+
+.table .is-detail {
+    display: none;
+}
+
+    .table .is-detail.show {
+        display: table-row;
+    }
+
+.table .table-cell .table-container,
+.table .table-cell .tabs,
+.table .table-cell form {
+    flex: 1;
+}
+
+    .table .table-cell .tabs .tabs-body {
+        padding: 1rem 0 0 0;
+    }
+
+.table-resize thead th,
+.table-resize tbody td {
+    position: relative;
+}
+
+    .table-resize thead th .col-resizer {
+        width: .25rem;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        cursor: col-resize;
+    }
+
+.table-resize .border-resize {
+    border-right: 1px solid #409eff;
+}

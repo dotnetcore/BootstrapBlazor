@@ -1,0 +1,195 @@
+﻿@inherits TablesBaseEdit
+@page "/tables/edit"
+
+<h3>Table 表格</h3>
+
+<h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
+
+<Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+        <EditTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <DateTimePicker @bind-Value="@context.DateTime">
+                            <RequiredValidator />
+                        </DateTimePicker>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <Select Items="@Educations" @bind-Value="@context.Education">
+                            <RequiredValidator />
+                        </Select>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Count" />
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="@context.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </div>
+            </div>
+        </EditTemplate>
+    </Table>
+</Block>
+
+<Block Title="自动生成单表维护功能的表格" Introduction="当设置了 <code>OnAddAsync</code> 或者 <code>OnSaveAsync</code> 回调委托方法时，如果未设置 <code>EditTemplate</code> 编辑模板时，组件会尝试自动生成表单维护 UI">
+    <p>通过设置 <code>TItem</code> 泛型约束的类实例 <code>BindItem</code> 属性的 <code>[Required]</code> 等验证标签即可实现客户端验证</p>
+    <p>数据绑定类型为可为空类型时自动允许为空，如日期绑定列为 <code>DateTime?</code> 类型</p>
+    <p>数据绑定类型为数值类型时如，如数量绑定列为 <code>int</code> 类型，自动进行数值验证</p>
+    <p>表格呈现的有些数据列是计算得到的结果，此种类型的列是无法参与编辑的，通过设置 <code>Editable=false</code> 自动生成编辑 UI 时就不会生成此列编辑组件，如本示例中 <code>Count</code> 列在编辑弹窗中是不出现的</p>
+    <p>通过设置 <code>Readonly=true</code> 自动生成编辑 UI 会将此字段进行只读处理</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Readonly="true" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" Editable="false" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义列编辑模板" Introduction="当设置列的 <code>EditTemplate</code> 时，组件自动生成表单维护 UI 时使用此模板作为呈现 UI">
+    <p>通过设置姓名列的 <code>EditTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           OnQueryAsync="@OnEditQueryAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name">
+                <EditTemplate Context="value">
+                    <div class="form-group col-12 col-sm-6">
+                        <TablesNameDrop Model="@((BindItem)value)" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="设置编辑模式" Introduction="通过设置表格的 <code>EditMode</code> 属性，设置组件是弹窗编辑行数据还是行内编辑数据">
+    <p><code>EditMode</code> 为枚举类型其值分别为：<code>Popup</code> <code>EditForm</code> 其默认值为 <code>Popup</code> 弹窗编辑行数据</p>
+    <p><code>EditForm</code> 模式示例</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnEditQueryAsync" EditMode="EditMode.EditForm"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name">
+                <EditTemplate Context="value">
+                    <div class="form-group col-12 col-sm-6">
+                        <TablesNameDrop Model="@((BindItem)value)" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="使用注入数据服务" Introduction="通过设置表格的 <code>UseInjectDataService</code> 属性，使用数据服务进行对数据的增删改查">
+    <p>
+        通过 <code>UseInjectDataService="true"</code> 开启使用数据服务进行增、删、改、查的数据库操作，而无需对以下回调委托进行赋值，优先级别为有回调方法优先调用回调方法，如无则调用注入服务进行数据操作
+        <ul class="ul-demo">
+            <li><code>OnAddAsync</code></li>
+            <li><code>OnDeleteAsync</code></li>
+            <li><code>OnSaveAsync</code></li>
+            <li><code>OnQueryAsync</code></li>
+        </ul>
+        <div>Startup 文件注入数据服务 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977" target="_blank">实现原理与用法介绍</a></div>
+    </p>
+    <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" UseInjectDataService="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>

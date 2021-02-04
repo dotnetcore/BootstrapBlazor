@@ -1,57 +1,86 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TabBase
+@inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" @ref="TabElement">
-    <div class="tabs-header">
-        <div class="tabs-nav-wrap">
-            <span class="tabs-nav-prev" @onclick="@ClickPrevTab"><i class="fa fa-angle-left"></i></span>
-            <div class="tabs-nav-scroll">
-                <div role="tablist" class="tabs-nav">
-                    @if (!IsCard && !IsBorderCard)
-                    {
-                        <div class="tabs-active-bar"></div>
-                    }
-                    <CascadingValue Value="this" IsFixed="true">
-                        @ChildContent
-                    </CascadingValue>
-                    <RenderTemplate>
-                        @if (FirstRender)
+@if (Excluded)
+{
+    @Body
+}
+else
+{
+    <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" @ref="TabElement">
+        <div class="tabs-header">
+            <div class="@WrapClassString">
+                @if (ShouldShowExtendButtons())
+                {
+                    <DynamicElement class="nav-link-bar left" OnClick="@ClickPrevTab"><i class="fa fa-chevron-left"></i></DynamicElement>
+                }
+                else
+                {
+                    <DynamicElement class="tabs-nav-prev" OnClick="@ClickPrevTab"><i class="fa fa-angle-left"></i></DynamicElement>
+                }
+                <div class="tabs-nav-scroll">
+                    <div role="tablist" class="tabs-nav">
+                        @if (!IsCard && !IsBorderCard)
                         {
-                            if (!Items.Any(t => t.IsActive))
+                            <div class="tabs-active-bar"></div>
+                        }
+                        <CascadingValue Value="this" IsFixed="true">
+                            @ChildContent
+                        </CascadingValue>
+                        <RenderTemplate>
+                            @if (FirstRender)
                             {
-                                Items.FirstOrDefault()?.SetActive(true);
+                                if (!Items.Any(t => t.IsActive))
+                                {
+                                    Items.FirstOrDefault()?.SetActive(true);
+                                }
                             }
-                        }
-                        @foreach (var item in Items)
-                        {
-                            <div role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" @onclick="@(e =>OnClickTabItem(item))">
-                                @if (!string.IsNullOrEmpty(item.Icon))
-                                {
-                                    <i class="@GetIconClassString(item.Icon)"></i>
-                                }
-                                <span class="tabs-item-text">@item.Text</span>
-                                @if (ShowClose)
-                                {
-                                    <span class="tabs-item-close" @onclick:stopPropagation @onclick="@(e => Remove(item))">
-                                        <i class="fa fa-fw fa-close"></i>
-                                    </span>
-                                }
-                            </div>
-                        }
-                    </RenderTemplate>
+                            @foreach (var item in Items)
+                            {
+                                <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item.IsActive)" TagName="a" TriggerClick="!ClickTabToNavigation" PreventDefault="@(!ClickTabToNavigation)" OnClick="@(() => OnClickTabItem(item))">
+                                    @if (!string.IsNullOrEmpty(item.Icon))
+                                    {
+                                        <i class="@GetIconClassString(item.Icon)"></i>
+                                    }
+                                    <span class="tabs-item-text">@item.Text</span>
+                                    @if (ShowClose && item.Closable)
+                                    {
+                                        <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="@(e => RemoveTab(item))">
+                                            <i class="fa fa-fw fa-close"></i>
+                                        </span>
+                                    }
+                                </DynamicElement>
+                            }
+                        </RenderTemplate>
+                    </div>
                 </div>
+                @if (ShouldShowExtendButtons())
+                {
+                    <DynamicElement class="nav-link-bar right" OnClick="@ClickNextTab"><i class="fa fa-chevron-right"></i></DynamicElement>
+                    <div class="dropdown nav-link-bar dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="nav-link-close"><i class="fa fa-chevron-down"></i></div>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <DynamicElement class="dropdown-item" OnClick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></DynamicElement>
+                        <div class="dropdown-item" @onclick="@CloseOtherTabs"><span>@CloseOtherTabsText</span></div>
+                        <div class="dropdown-item" @onclick="@CloseAllTabs"><span>@CloseAllTabsText</span></div>
+                    </div>
+                }
+                else
+                {
+                    <DynamicElement class="tabs-nav-next" OnClick="@ClickNextTab"><i class="fa fa-angle-right"></i></DynamicElement>
+                }
             </div>
-            <span class="tabs-nav-next" @onclick="@ClickNextTab"><i class="fa fa-angle-right"></i></span>
+        </div>
+        <div class="tabs-body">
+            <CascadingValue Value="this" IsFixed="true">
+                @foreach (var item in Items)
+                {
+                    <div @key="@item" class="@GetContentClassString(item)">
+                        @item.ChildContent
+                    </div>
+                }
+            </CascadingValue>
         </div>
     </div>
-    <div class="tabs-body">
-        <RenderTemplate>
-            @foreach (var item in Items)
-            {
-                <div class="@GetContentClassString(item)">
-                    @item.ChildContent
-                </div>
-            }
-        </RenderTemplate>
-    </div>
-</div>
+}

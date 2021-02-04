@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using System;
@@ -55,6 +50,11 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
+        /// </summary>
+        public bool KeepChildrenState { get; set; }
+
+        /// <summary>
         /// 获得/设置 相关连数据，多用于传值使用
         /// </summary>
         public object? BodyContext { get; set; }
@@ -68,11 +68,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 ModalFooter 组件
         /// </summary>
         public RenderFragment? FooterTemplate { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否保持弹窗内组件状态 默认为 false 不保持
-        /// </summary>
-        public bool KeepChildrenState { get; set; }
 
         /// <summary>
         /// 获得/设置 自定义组件

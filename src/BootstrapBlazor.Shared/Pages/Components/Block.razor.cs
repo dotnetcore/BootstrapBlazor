@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -20,8 +15,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public sealed partial class Block
     {
-        private ElementReference BlockElement { get; set; }
-
         /// <summary>
         /// 获得/设置 组件 Title 属性
         /// </summary>
@@ -41,12 +34,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
 
-        /// <summary>
-        /// 获得/设置 组件示例代码文件名
-        /// </summary>
-        [Parameter]
-        public string? CodeFile { get; set; }
-
         [NotNull]
         private string? SubTitle { get; set; }
 
@@ -63,21 +50,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
 
             Title ??= Localizer[nameof(Title)];
             SubTitle ??= Localizer[nameof(SubTitle)];
-        }
-
-        /// <summary>
-        /// OnAfterRenderAsync
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender && JSRuntime != null)
-            {
-                await JSRuntime.InvokeVoidAsync("$.block", BlockElement);
-            }
         }
     }
 }

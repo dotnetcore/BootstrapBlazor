@@ -1,0 +1,35 @@
+﻿.editor .editor-body {
+    cursor: pointer;
+    min-height: 50px;
+    height: auto;
+}
+
+    .editor .editor-body:focus:before {
+        content: none;
+    }
+
+    .editor .editor-body:empty:before {
+        content: attr(placeholder);
+    }
+
+.editor .note-editor {
+    background-color: #fff;
+}
+
+    .editor .note-editor .note-right {
+        float: right;
+    }
+
+.editor .note-btn-close {
+    background-image: -webkit-linear-gradient(top, #5bc0de 0%, #2aabd2 100%);
+    background-image: -o-linear-gradient(top, #5bc0de 0%, #2aabd2 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#5bc0de), to(#2aabd2));
+    background-image: linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%);
+    background-repeat: repeat-x;
+    border-color: #28a4c9;
+    color: #fff;
+}
+
+.editor .dropdown-menu {
+    overflow: unset;
+}

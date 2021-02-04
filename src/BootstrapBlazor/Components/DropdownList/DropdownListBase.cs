@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -116,7 +111,7 @@ namespace BootstrapBlazor.Components
         /// SelectedItemChanged 方法
         /// </summary>
         [Parameter]
-        public EventCallback<TValue> OnSelectedItemChanged { get; set; }
+        public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
 
         [Inject]
         [NotNull]
@@ -147,6 +142,8 @@ namespace BootstrapBlazor.Components
                 }
             }
 
+            if (Data != null) Data = Data.ToList();
+
             await base.SetParametersAsync(ParameterView.Empty);
         }
 
@@ -163,9 +160,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
-        protected override void OnParametersSet()
+        protected override async Task OnParametersSetAsync()
         {
-            base.OnParametersSet();
+            await base.OnParametersSetAsync();
 
             // 双向绑定其他组件更改了数据源值时
             if (Data != null && CurrentItem != null && CurrentItem.ToString() != CurrentValueAsString)
@@ -193,20 +190,20 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (CurrentItem != null && OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(Value);
+            if (CurrentItem != null && OnSelectedItemChanged != null) await OnSelectedItemChanged(Value);
         }
 
         /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
-        protected void OnItemClick(TModel item)
+        protected async Task OnItemClick(TModel item)
         {
             CurrentItem = item;
 
             // ValueChanged
             CurrentValueAsString = GetValue(item);
 
-            if (OnSelectedItemChanged.HasDelegate) OnSelectedItemChanged.InvokeAsync(Value);
+            if (OnSelectedItemChanged != null) await OnSelectedItemChanged(Value);
         }
 
 #nullable disable

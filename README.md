@@ -24,9 +24,10 @@ English | <a href="README.zh-CN.md">中文</a>
 - Supports Progressive Web Applications (PWA).
 - Build with C#, a multi-paradigm static language for an efficient development experience.
 - .NET Standard 2.1 based, with direct reference to the rich .NET ecosystem.
+- Supports NET5. (Server-Side, WASM)
 - Seamless integration with existing ASP.NET Core MVC and Razor Pages projects.
 
-## Online Examples  
+## Online Examples
 [![website](https://img.shields.io/badge/China-https://www.blazor.zone-success.svg?color=red&logo=buzzfeed&logoColor=red)](https://www.blazor.zone)
 [![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=green)](https://argozhang.github.io)
 
@@ -45,6 +46,14 @@ English | <a href="README.zh-CN.md">中文</a>
 
 `dotnet new bbapp`
 
+## Install Bootstrap Blazor Project Template
+
+1. Download Project Template
+
+Microsoft Market [link](https://marketplace.visualstudio.com/items?itemName=Longbow.BootstrapBlazorUITemplate)
+
+2. Double Click **BootstrapBlazor.UITemplate.vsix**
+
 ## Import Bootstrap Blazor into an existing project
 
 1. Go to the project folder of the application and install the Nuget package reference
@@ -53,7 +62,7 @@ English | <a href="README.zh-CN.md">中文</a>
 
 2.  **Add** the `stylesheet` `javascripts` file to your main index file - `Pages/_Host.cshtml (Server)` or `wwwroot/index.html (WebAssembly)`
 
- **HTML**  
+ **HTML**
 
 ```HTML
 <!DOCTYPE html>
@@ -68,11 +77,11 @@ English | <a href="README.zh-CN.md">中文</a>
     <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
 </body>
 </html>
-``` 
+```
 
 3. Open the `~/Startup.cs` file in the and register the `Bootstrap Blazor` service:
 
- **C#** 
+ **C#**
 
 ```csharp
 namespace BootstrapBlazorAppName
@@ -82,7 +91,7 @@ namespace BootstrapBlazorAppName
         public void ConfigureServices(IServiceCollection services)
         {
             //more code may be present here
-            services.AddBootstrapBlazor(); 
+            services.AddBootstrapBlazor();
         }
 
         //more code may be present here
@@ -120,7 +129,7 @@ To start the wizard, use either of the following approaches
 ![Andriod](https://img.shields.io/badge/andriod->%3D4.4-success.svg?logo=android)
 ![oper](https://img.shields.io/badge/opera->%3D4.4-success.svg?logo=opera&logoColor=red)
 
-### Mobile devices  
+### Mobile devices
 
 ![ios](https://img.shields.io/badge/ios-supported-success.svg?logo=apple&logoColor=white)
 ![Andriod](https://img.shields.io/badge/andriod-suported-success.svg?logo=android)
@@ -132,7 +141,7 @@ To start the wizard, use either of the following approaches
 |  **Android**           | Supported    | Supported     | N/A          | Android v5.0+ supported         | Supported            |
 |  **Windows 10 Mobile** | N/A          | N/A           | N/A          | N/A                             | Supported            |
 
-### Desktop browsers  
+### Desktop browsers
 
 ![macOS](https://img.shields.io/badge/macOS-supported-success.svg?logo=apple&logoColor=white)
 ![linux](https://img.shields.io/badge/linux-suported-success.svg?logo=linux&logoColor=white)
@@ -146,13 +155,13 @@ To start the wizard, use either of the following approaches
 
 ## Screenshots
 
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toggle.png "Toggle.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Toast.png "Toast.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload.png "Upload.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Upload2.png "Upload2.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Bar.png "Bar.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Pie.png "Pei.png")
-![登录可查看](https://gitee.com/LongbowEnterprise/Pictures/raw/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
+![Toggle](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Toggle.png "Toggle.png")
+![Toast](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Toast.png "Toast.png")
+![Upload](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Upload.png "Upload.png")
+![Upload2](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Upload2.png "Upload2.png")
+![Bar](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Bar.png "Bar.png")
+![Pei](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Pie.png "Pei.png")
+![Doughnut](https://raw.githubusercontent.com/ArgoZhang/Images/master/BootstrapBlazor/Doughnut.png "Doughnut.png")
 
 ## Contribution
 
@@ -163,6 +172,6 @@ To start the wizard, use either of the following approaches
 
 ## Donate
 
-If this project is helpful to you, please scan the QR code below for a cup of coffee.    
+If this project is helpful to you, please scan the QR code below for a cup of coffee.
 
-<img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/WeChat/BarCode@2x.png" width="382px;" />
+<img src="https://raw.githubusercontent.com/ArgoZhang/Images/master/Donate/BarCode%402x.png" width="382px;" />

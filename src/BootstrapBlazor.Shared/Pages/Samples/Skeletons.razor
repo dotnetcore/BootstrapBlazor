@@ -1,0 +1,44 @@
+﻿@page "/skeletons"
+
+<h3>Skeleton 骨架屏</h3>
+
+<h4>在需要等待加载内容的位置提供一个占位图形组合</h4>
+
+<p><b>何时使用</b></p>
+
+<ul class="ul-demo">
+    <li>网络较慢，需要长时间等待加载处理的情况下</li>
+    <li>图文信息内容较多的列表/卡片中</li>
+    <li>只在第一次加载数据的时候使用</li>
+    <li>可以被 Spin 完全代替，但是在可用的场景下可以比 Spin 提供更好的视觉效果和用户体验</li>
+</ul>
+
+<Block Title="图片骨架屏" Introduction="适用于头像、图片等类型加载时显示">
+    <p>通过设置 <code>Circle</code> 属性可以设置为圆形显示</p>
+    <div class="form-inline">
+        <div class="form-row skeleton-demo">
+            <div class="form-group col-4">
+                <SkeletonAvatar Round="false" />
+            </div>
+            <div class="form-group col-4">
+                <SkeletonAvatar />
+            </div>
+            <div class="form-group col-4">
+                <SkeletonAvatar Circle="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="段落骨架屏" Introduction="适用于大段文字等类型加载时显示">
+    <p>默认段落骨架屏仅显示三行，如果需要多行占位，请放置多个 <code>SkeletonParagraph</code> 即可</p>
+    <SkeletonParagraph />
+</Block>
+
+<Block Title="表单骨架屏" Introduction="适用于编辑表单加载时显示">
+    <SkeletonEditor />
+</Block>
+
+<Block Title="表格骨架屏" Introduction="适用于编辑表格加载时显示">
+    <SkeletonTable />
+</Block>

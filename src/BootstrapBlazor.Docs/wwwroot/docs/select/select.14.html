@@ -1,9 +1,0 @@
-﻿<Select TValue="string" Items="@Items" ShowSearch="true" />
-
-@code {
-    protected IEnumerable<SelectedItem> Items = new SelectedItem[]
-    {
-        new SelectedItem ("Beijing", "北京"),
-        new SelectedItem ("Shanghai", "上海") { Active = true }
-    };
-}

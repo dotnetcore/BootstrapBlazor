@@ -1,12 +1,8 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Routing;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -64,6 +60,11 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// 获得/设置 匹配方式 默认 NavLinkMatch.Prefix
+        /// </summary>
+        public NavLinkMatch Match { get; set; }
+
+        /// <summary>
         /// 获得/设置 菜单内子组件
         /// </summary>
         public DynamicComponent? Component { get; set; }
@@ -107,5 +108,13 @@ namespace BootstrapBlazor.Components
                 if (item.Items.Any()) CascadingCancelActive(item.Items);
             }
         }
+
+        /// <summary>
+        /// 获得 所有子项集合
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<MenuItem> GetAllSubItems() => Items.Concat(GetSubItems(Items));
+
+        private static IEnumerable<MenuItem> GetSubItems(IEnumerable<MenuItem> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
     }
 }

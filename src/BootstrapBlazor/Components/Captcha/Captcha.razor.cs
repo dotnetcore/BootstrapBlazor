@@ -1,15 +1,16 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -18,12 +19,31 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class Captcha
     {
-        private JSInterop<CaptchaBase>? Interop { get; set; }
+        private static Random ImageRandomer { get; set; } = new Random();
+
+        private int OriginX { get; set; }
+
+        private JSInterop<Captcha>? Interop { get; set; }
 
         /// <summary>
         /// 获得/设置 Captcha DOM 元素实例
         /// </summary>
         private ElementReference CaptchaElement { get; set; }
+
+        /// <summary>
+        /// 获得 组件宽度
+        /// </summary>
+        private string? StyleString => CssBuilder.Default()
+            .AddClass($"width: {Width + 42}px;", Width > 0)
+            .Build();
+
+        /// <summary>
+        /// 获得 加载图片失败样式
+        /// </summary>
+        private string? FailedStyle => CssBuilder.Default()
+            .AddClass($"width: {Width}px;", Width > 0)
+            .AddClass($"height: {Height}px;", Height > 0)
+            .Build();
 
         /// <summary>
         /// 获得/设置 Header 显示文本
@@ -78,6 +98,65 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 清除 ToastBox 方法
+        /// </summary>
+        [JSInvokable]
+        public Task<bool> Verify(int offset, IEnumerable<int> trails)
+        {
+            var ret = Math.Abs(offset - OriginX) < Offset && CalcStddev(trails);
+            OnValid?.Invoke(ret);
+            return Task.FromResult(ret);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private CaptchaOption GetCaptchaOption()
+        {
+            var option = new CaptchaOption()
+            {
+                Width = Width,
+                Height = Height
+            };
+            option.BarWidth = option.SideLength + option.Diameter * 2 + 6; // 滑块实际边长
+            var start = option.BarWidth + 10;
+            var end = option.Width - start;
+            option.OffsetX = Convert.ToInt32(Math.Ceiling(ImageRandomer.Next(0, 100) / 100.0 * (end - start) + start));
+            OriginX = option.OffsetX;
+
+            start = 10 + option.Diameter * 2;
+            end = option.Height - option.SideLength - 10;
+            option.OffsetY = Convert.ToInt32(Math.Ceiling(ImageRandomer.Next(0, 100) / 100.0 * (end - start) + start));
+
+            if (GetImageName == null)
+            {
+                var index = Convert.ToInt32(ImageRandomer.Next(0, 8) / 1.0);
+                var imageName = Path.GetFileNameWithoutExtension(ImagesName);
+                var extendName = Path.GetExtension(ImagesName);
+                var fileName = $"{imageName}{index}{extendName}";
+                option.ImageUrl = Path.Combine(ImagesPath, fileName);
+            }
+            else
+                option.ImageUrl = GetImageName();
+
+            return option;
+        }
+
+        private bool CalcStddev(IEnumerable<int> trails)
+        {
+            var ret = false;
+            if (trails.Any())
+            {
+                var average = trails.Sum() * 1.0 / trails.Count();
+                var dev = trails.Select(t => t - average);
+                var stddev = Math.Sqrt(dev.Sum() * 1.0 / dev.Count());
+                ret = stddev != 0;
+            }
+            return ret;
+        }
+
+        /// <summary>
         /// Dispose 方法
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -93,7 +172,7 @@ namespace BootstrapBlazor.Components
         protected override void Reset()
         {
             var option = GetCaptchaOption();
-            if (Interop == null) Interop = new JSInterop<CaptchaBase>(JSRuntime);
+            if (Interop == null) Interop = new JSInterop<Captcha>(JSRuntime);
             Interop?.Invoke(this, CaptchaElement, "captcha", nameof(Verify), option);
         }
     }

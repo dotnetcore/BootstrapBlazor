@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
 using System.Collections.Generic;
@@ -107,7 +102,7 @@ namespace BootstrapBlazor.Components
         {
             if (additionalAttributes != null && additionalAttributes.TryGetValue("class", out var c))
             {
-                var classList = c.ToString() ?? "";
+                var classList = c?.ToString();
                 AddClass(classList);
             }
             return this;
@@ -123,7 +118,7 @@ namespace BootstrapBlazor.Components
         {
             if (additionalAttributes != null && additionalAttributes.TryGetValue("style", out var c))
             {
-                var styleList = c.ToString() ?? "";
+                var styleList = c?.ToString();
                 AddClass(styleList);
             }
             return this;

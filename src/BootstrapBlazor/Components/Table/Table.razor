@@ -6,7 +6,7 @@
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
-    @if (FirstRender)
+    @if (FirstRender || IsLoading)
     {
         if (ShowSkeleton)
         {
@@ -101,7 +101,7 @@
             {
                 <div class="float-right table-toolbar-button btn-group">
                     <div class="input-group">
-                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" @onkeyup="@OnKeyUp">
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
                             <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                         </BootstrapInput>
                         <div class="input-group-append">
@@ -197,8 +197,10 @@
                                         {
                                             <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
                                                               Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
-                                                              CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
-                                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
+                                                              CloseButtonText="@CancelDeleteButtonText"
+                                                              Content="@ConfirmDeleteContentText"
+                                                              ConfirmButtonColor="Color.Danger"
+                                                              ConfirmButtonText="@ConfirmDeleteButtonText"
                                                               OnBeforeClick="@ClickBeforeDelete(item)"
                                                               OnConfirm="@DeleteAsync()" />
                                         }

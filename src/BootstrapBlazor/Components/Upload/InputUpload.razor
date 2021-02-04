@@ -1,0 +1,20 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits UploadBase
+
+@if (IsShowLabel)
+{
+    <label class="control-label" for="@Id">@DisplayText</label>
+}
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
+    <div class="input-group">
+        <input type="text" class="@InputValueClassString" id="@Id" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
+        <div class="input-group-append">
+            @if (ShowDeleteButton)
+            {
+                <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@OnDeleteFile" />
+            }
+            <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" OnClick="@OnFileBrowser" />
+        </div>
+    </div>
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+</div>

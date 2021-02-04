@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +21,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 查询关键字
         /// </summary>
         public string? SearchText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 过滤条件集合
+        /// </summary>
+        public IEnumerable<IFilterAction> Searchs { get; set; } = Enumerable.Empty<IFilterAction>();
 
         /// <summary>
         /// 获得/设置 排序字段名称

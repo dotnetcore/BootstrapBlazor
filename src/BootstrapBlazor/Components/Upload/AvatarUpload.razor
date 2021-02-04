@@ -1,0 +1,43 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits MultipleUploadBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
+    <div class="upload-body is-avatar">
+        @foreach (var item in UploadFiles)
+        {
+            <div class="@GetItemClassString(item)" style="@PrevStyleString">
+                <Avatar Url="@item.PrevUrl" />
+                <div class="upload-item-actions">
+                    <span class="upload-item-delete p-3" @onclick="@(e => OnFileDelete(item))">
+                        <i class="fa fa-trash-o"></i>
+                    </span>
+                    @if (GetShowProgress(item))
+                    {
+                        <span class="upload-item-spin">
+                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        </span>
+                    }
+                </div>
+                @if (!IsCircle)
+                {
+                    <span class="upload-item-label">
+                        <i class="fa fa-check"></i>
+                        <i class="fa fa-times"></i>
+                    </span>
+                }
+            </div>
+        }
+        @if (!IsSingle || (IsSingle && !UploadFiles.Any()))
+        {
+            <div class="@ItemClassString" style="@PrevStyleString">
+                <div class="upload-item-actions btn-browser">
+                    <span class="upload-item-plus">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+</div>
+

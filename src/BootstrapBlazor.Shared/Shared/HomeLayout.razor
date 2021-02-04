@@ -1,11 +1,9 @@
-﻿@using Microsoft.Extensions.DependencyInjection
-@using Microsoft.Extensions.Configuration
-@using System.Globalization
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @layout BaseLayout
 @inject ICultureStorage CultureStorage
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
+
 @Body
 
 <footer>
@@ -31,7 +29,7 @@
             <h4>友情链接</h4>
             <ul>
                 <li>
-                    <a class="footer-link" href="https://gitee.com/monksoul/Fur" target="_blank">Fur</a>
+                    <a class="footer-link" href="https://gitee.com/monksoul/Furion" target="_blank">Furion</a>
                 </li>
                 <li>
                     <a class="footer-link" href="https://ant-design-blazor.github.io/" target="_blank">Ant design of blazor</a>
@@ -82,8 +80,6 @@
         <div>
             <img alt="global" class="footer-lang" src="_content/BootstrapBlazor.Shared/images/global.svg" />
             <a @onclick:preventDefault @onclick="@(e => SetLang("zh-CN"))">简 体</a>
-            /
-            <a @onclick:preventDefault @onclick="@(e => SetLang("zh-TW"))">繁 體</a>
             /
             <a @onclick:preventDefault @onclick="@(e => SetLang("en-US"))">English</a>
         </div>

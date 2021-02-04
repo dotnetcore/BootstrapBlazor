@@ -1,13 +1,7 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components.EditorForm;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
@@ -39,13 +33,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public RenderFragment? Buttons { get; set; }
 
-#nullable disable
         /// <summary>
         /// 获得/设置 绑定模型
         /// </summary>
         [Parameter]
-        public TModel Model { get; set; }
-#nullable restore
+        [NotNull]
+        public TModel? Model { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示前置标签 默认为 true 显示标签
@@ -69,7 +62,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 级联上下文绑定字段信息集合
         /// </summary>
         [CascadingParameter]
-        private IEnumerable<IEditorItem> CascadeEditorItems { get; set; } = Enumerable.Empty<IEditorItem>();
+        private IEnumerable<IEditorItem>? CascadeEditorItems { get; set; }
 
         [Inject]
         [NotNull]
@@ -126,7 +119,7 @@ namespace BootstrapBlazor.Components
             {
                 FirstRender = false;
 
-                if (CascadeEditorItems.Any())
+                if (CascadeEditorItems?.Any() ?? false)
                 {
                     // 通过级联参数渲染组件
                     FormItems.AddRange(CascadeEditorItems);
@@ -138,13 +131,12 @@ namespace BootstrapBlazor.Components
                     if (AutoGenerateAllItem)
                     {
                         // 获取绑定模型所有属性
-                        var items = Model.GetType().GetProperties().Select(p => new InternalEditorItem<TModel>(Model, p)).ToList();
+                        var items = InternalTableColumn.GetProperties<TModel>().ToList();
 
                         // 通过设定的 FieldItems 模板获取项进行渲染
                         foreach (var el in EditorItems)
                         {
                             var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
-
                             if (item != null)
                             {
                                 // 过滤掉不编辑的列
@@ -158,7 +150,7 @@ namespace BootstrapBlazor.Components
                                 }
                             }
                         }
-                        FormItems.AddRange(items.OrderBy(i => GetOrder(i.FieldName)));
+                        FormItems.AddRange(items);
                     }
                     else
                     {
@@ -200,7 +192,7 @@ namespace BootstrapBlazor.Components
                 var valueExpression = Expression.Lambda(tDelegate, body);
 
                 var index = 0;
-                var componentType = GenerateComponent(fieldType);
+                var componentType = EditorForm<TModel>.GenerateComponent(fieldType);
                 builder.OpenComponent(index++, componentType);
                 builder.AddAttribute(index++, "DisplayText", displayName);
                 builder.AddAttribute(index++, "Value", fieldValue);
@@ -243,7 +235,7 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private Type GenerateComponent(Type fieldType)
+        private static Type GenerateComponent(Type fieldType)
         {
             Type? ret = null;
             var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);

@@ -1,0 +1,152 @@
+﻿@page "/charts"
+@using Microsoft.Extensions.DependencyInjection
+@implements IDisposable
+@inherits ComponentBase
+@inject NugetVersionService VersionManager
+
+<h3>Chart 图表</h3>
+
+<h4>通过给定数据，绘画各种图表的组件</h4>
+
+<p>本组件依赖于 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank"><code>BootstrapBlazor.Chart</code></a>，使用本组件时需要引用其组件包</p>
+
+<p><b>Nuget 包安装</b></p>
+
+<p>使用 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank">nuget.org</a> 进行 <code>BootstrapBlazor.Chart</code> 组件的安装</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.Chart --version @Version</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.Chart" Version="@Version" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.Chart -Version @Version</Pre>
+
+<h4>CSS 文件</h4>
+
+<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.bundle.min.css" /&gt;</Pre>
+
+<h4>JS 文件</h4>
+
+<Pre>&lt;script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js"&gt;&lt;/script&gt;</Pre>
+
+<p>组件数据在 <code>OnInit</code> 回调委托中进行设置即可</p>
+
+<Block Title="Line 图" Introduction="使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作">
+    <Chart OnInit="@(() => OnInit(LineDatasetCount, LineDataCount))" @ref="LineChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => RandomData(LineChart)"><i class="fa fa-line-chart"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => AddDataSet(LineChart, ref LineDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveDataSet(LineChart, ref LineDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => AddData(LineChart, ref LineDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveData(LineChart, ref LineDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Bar 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bar</code> 图">
+    <Chart ChartType="ChartType.Bar" OnInit="@(() => OnInit(BarDatasetCount, BarDataCount))" @ref="BarChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-info" data-method="play" @onclick="@OnPlayChart">
+                <i class="fa fa-play-circle"></i>
+                <span>开启动画</span>
+            </button>
+            <button class="btn btn-info" data-method="stop" @onclick="@OnStopChart">
+                <i class="fa fa-stop-circle"></i>
+                <span>关闭动画</span>
+            </button>
+        </div>
+    </div>
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => RandomData(BarChart)"><i class="fa fa-bar-chart"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => AddData(BarChart, ref BarDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveData(BarChart, ref BarDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Pie 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>pie</code> 图">
+    <Chart ChartType="ChartType.Pie" OnInit="@(() => OnPieInit(PieDatasetCount, PieDataCount))" @ref="PieChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => RandomData(PieChart)"><i class="fa fa-pie-chart"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => AddDataSet(PieChart, ref PieDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveDataSet(PieChart, ref PieDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => AddData(PieChart, ref PieDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveData(PieChart, ref PieDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Doughnut 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>doughnut</code> 图">
+    <Chart ChartType="ChartType.Doughnut" OnInit="@(() => OnPieInit(DoughnutDatasetCount, DoughnutDataCount))" @ref="DoughnutChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => RandomData(DoughnutChart)"><i class="fa fa-slack"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => AddDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => AddData(DoughnutChart, ref DoughnutDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveData(DoughnutChart, ref DoughnutDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="@ToggleCircle"><i class="fa fa-circle-o-notch"></i><span>半圆/全圆</span></button>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Bubble 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图">
+    <Chart ChartType="ChartType.Bubble" OnInit="@(() => OnBubbleInit(BubbleDatasetCount, BubbleDataCount))" @ref="BubbleChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => RandomData(BubbleChart)"><i class="fa fa-snowflake-o"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => AddDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => AddData(BubbleChart, ref BubbleDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />
+
+@code {
+    private int LineDatasetCount = 2;
+
+    private int BarDatasetCount = 2;
+
+    private int PieDatasetCount = 1;
+
+    private int DoughnutDatasetCount = 1;
+
+    private int BubbleDatasetCount = 2;
+
+    private int LineDataCount = 7;
+
+    private int BarDataCount = 7;
+
+    private int PieDataCount = 5;
+
+    private int DoughnutDataCount = 5;
+
+    private int BubbleDataCount = 7;
+
+    /// <summary>
+    /// 获得/设置 版本号字符串
+    /// </summary>
+    private string Version { get; set; } = "fetching";
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.chart");
+    }
+}

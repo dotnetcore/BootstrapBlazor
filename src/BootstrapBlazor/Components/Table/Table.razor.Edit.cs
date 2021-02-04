@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -96,14 +91,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 被选中的数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<TItem> SelectedRows
-        {
-            get => SelectedItems;
-            set
-            {
-                if (SelectedItems != value) SelectedItems = value.ToList();
-            }
-        }
+        public IEnumerable<TItem>? SelectedRows { get; set; }
 
         /// <summary>
         /// 获得/设置 被选中的数据集合回调委托
@@ -205,23 +193,35 @@ namespace BootstrapBlazor.Components
         {
             if (ClickToSelect)
             {
-                // 反转选择
+                // 多选模式清空
                 if (!IsMultipleSelect)
                 {
                     SelectedItems.Clear();
                 }
-                else if (SelectedItems.Contains(val))
+
+                if (SelectedItems.Contains(val))
                 {
                     SelectedItems.Remove(val);
                 }
+                else
+                {
+                    SelectedItems.Add(val);
+                }
 
-                SelectedItems.Add(val);
-
-                if (SelectedRowsChanged.HasDelegate) await SelectedRowsChanged.InvokeAsync(SelectedRows);
+                await OnSelectedRowsChanged();
             }
 
             if (OnClickRowCallback != null) await OnClickRowCallback(val);
         };
+
+        private async Task OnSelectedRowsChanged()
+        {
+            if (SelectedRowsChanged.HasDelegate)
+            {
+                SelectedRows = SelectedItems;
+                await SelectedRowsChanged.InvokeAsync(SelectedRows);
+            }
+        }
 
         /// <summary>
         /// 检查当前行是否被选中方法
@@ -236,8 +236,15 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async Task QueryAsync()
         {
-            await QueryData();
+            IsLoading = true;
             StateHasChanged();
+
+            await InvokeAsync(async () =>
+            {
+                await QueryData();
+                IsLoading = false;
+                StateHasChanged();
+            });
         }
 
         /// <summary>
@@ -245,33 +252,32 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task QueryData()
         {
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I29YK1
+            // TODO: 选中行目前不支持跨页
+            // 原因是选中行实例无法在翻页后保持
+            SelectedItems.Clear();
+
             QueryData<TItem>? queryData = null;
+            var queryOption = new QueryPageOptions()
+            {
+                PageIndex = PageIndex,
+                PageItems = PageItems,
+                SearchText = SearchText,
+                SortOrder = SortOrder,
+                SortName = SortName,
+                Filters = Filters.Values,
+                Searchs = GetSearchs(),
+                SearchModel = SearchModel
+            };
             if (OnQueryAsync != null)
             {
-                queryData = await OnQueryAsync(new QueryPageOptions()
-                {
-                    PageIndex = PageIndex,
-                    PageItems = PageItems,
-                    SearchText = SearchText,
-                    SortOrder = SortOrder,
-                    SortName = SortName,
-                    Filters = Filters.Values,
-                    SearchModel = SearchModel
-                });
+                queryData = await OnQueryAsync(queryOption);
             }
             else if (UseInjectDataService)
             {
-                queryData = await GetDataService().QueryAsync(new QueryPageOptions()
-                {
-                    PageIndex = PageIndex,
-                    PageItems = PageItems,
-                    SearchText = SearchText,
-                    SortOrder = SortOrder,
-                    SortName = SortName,
-                    Filters = Filters.Values,
-                    SearchModel = SearchModel
-                });
+                queryData = await GetDataService().QueryAsync(queryOption);
             }
+
             if (queryData != null)
             {
                 Items = queryData.Items;
@@ -293,6 +299,11 @@ namespace BootstrapBlazor.Components
                     var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => Items.GetSortLambda().Compile());
                     Items = invoker(Items, SortName, SortOrder);
                 }
+            }
+
+            if (!IsRendered && SelectedRows != null)
+            {
+                SelectedItems.AddRange(Items.Where(i => SelectedRows.Contains(i)));
             }
         }
 

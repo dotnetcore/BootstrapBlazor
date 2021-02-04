@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -13,6 +8,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,15 +30,12 @@ namespace BootstrapBlazor.Components
 
         private string? ClassString => CssBuilder.Default("multi-select")
             .AddClass("show", IsShow)
-            .Build();
-
-        private string? MenuClassString => CssBuilder.Default("multi-select-menu fade")
-            .AddClass("show", IsShow)
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         private string? ToggleClassString => CssBuilder.Default("multi-select-toggle")
-            .AddClass("is-disabled", IsDisabled)
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .AddClass("selected", SelectedItems.Any())
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
@@ -128,6 +121,32 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public string? ClearText { get; set; }
 
+        /// <summary>
+        /// 获得/设置 选项最大数 默认为 0 不限制
+        /// </summary>
+        [Parameter]
+        public int Max { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置最大值时错误消息文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? MaxErrorMessage { get; set; }
+
+        /// <summary>
+        /// 获得/设置 选项最小数 默认为 0 不限制
+        /// </summary>
+        [Parameter]
+        public int Min { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置最小值时错误消息文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? MinErrorMessage { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
@@ -143,12 +162,23 @@ namespace BootstrapBlazor.Components
             SelectAllText ??= Localizer[nameof(SelectAllText)];
             ReverseSelectText ??= Localizer[nameof(ReverseSelectText)];
             ClearText ??= Localizer[nameof(ClearText)];
+            MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
+            MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
             if (Items == null) Items = Enumerable.Empty<SelectedItem>();
 
             if (OnSearchTextChanged == null)
             {
                 OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (Min > 0)
+            {
+                Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
+            }
+            if (Max > 0)
+            {
+                Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
             }
         }
 
@@ -242,7 +272,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private void ToggleRow(SelectedItem item)
+        private Task ToggleRow(SelectedItem item, bool force = false)
         {
             if (!IsDisabled)
             {
@@ -257,8 +287,24 @@ namespace BootstrapBlazor.Components
 
                 SetValue();
 
+                if (Min > 0 || Max > 0)
+                {
+                    var validationContext = new ValidationContext(Value) { MemberName = FieldIdentifier?.FieldName };
+                    var validationResults = new List<ValidationResult>();
+
+                    ValidateProperty(SelectedItems.Count, validationContext, validationResults);
+                    ToggleMessage(validationResults, true);
+                }
+
                 _ = TriggerSelectedItemChanged();
+
+                if (force)
+                {
+                    StateHasChanged();
+                }
             }
+
+            return Task.CompletedTask;
         }
 
         private async Task TriggerSelectedItemChanged()
@@ -311,6 +357,26 @@ namespace BootstrapBlazor.Components
         }
 
         private bool GetCheckedState(SelectedItem item) => SelectedItems.Contains(item);
+
+        private bool CheckCanTrigger(SelectedItem item)
+        {
+            var ret = true;
+            if (Max > 0)
+            {
+                ret = SelectedItems.Count < Max || GetCheckedState(item);
+            }
+            return ret;
+        }
+
+        private bool CheckCanSelect(SelectedItem item)
+        {
+            var ret = GetCheckedState(item);
+            if (!ret)
+            {
+                ret = CheckCanTrigger(item);
+            }
+            return !ret;
+        }
 
         private string SearchText { get; set; } = "";
 

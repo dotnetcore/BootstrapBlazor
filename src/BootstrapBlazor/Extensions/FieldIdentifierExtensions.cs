@@ -1,17 +1,15 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Localization.Json;
 using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
 
 namespace Microsoft.AspNetCore.Components.Forms
@@ -21,7 +19,7 @@ namespace Microsoft.AspNetCore.Components.Forms
     /// </summary>
     public static class FieldIdentifierExtensions
     {
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(Type, string), string>();
+        private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(string, Type, string), string>();
         private static ConcurrentDictionary<(Type ModelType, string FieldName), string> PlaceHolderCache { get; } = new ConcurrentDictionary<(Type, string), string>();
 
         private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> PropertyInfoCache { get; } = new ConcurrentDictionary<(Type, string), PropertyInfo>();
@@ -49,27 +47,41 @@ namespace Microsoft.AspNetCore.Components.Forms
         /// <returns></returns>
         public static string GetDisplayName(this Type modelType, string fieldName)
         {
-            var cacheKey = (Type: modelType, FieldName: fieldName);
+            var cacheKey = (CultureInfoName: CultureInfo.CurrentUICulture.Name, Type: modelType, FieldName: fieldName);
             if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
             {
                 if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
-                    var displayNameAttribute = propertyInfo!.GetCustomAttribute<DisplayAttribute>();
-                    if (displayNameAttribute != null)
+                    var colNameAttribute = propertyInfo.GetCustomAttribute<ColumnNameAttribute>();
+                    if (colNameAttribute != null)
                     {
-                        dn = displayNameAttribute.Name;
+                        dn = colNameAttribute.GetName();
                     }
-                    else
+                    if (string.IsNullOrEmpty(dn))
                     {
-                        var displayAttribute = propertyInfo!.GetCustomAttribute<DisplayNameAttribute>();
+                        var displayNameAttribute = propertyInfo.GetCustomAttribute<DisplayAttribute>();
+                        if (displayNameAttribute != null)
+                        {
+                            dn = displayNameAttribute.Name;
+                        }
+                    }
+                    if (string.IsNullOrEmpty(dn))
+                    {
+                        var displayAttribute = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
                         if (displayAttribute != null)
                         {
                             dn = displayAttribute.DisplayName;
                         }
                     }
-
                     if (!string.IsNullOrEmpty(dn))
                     {
+                        var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
+                        var stringLocalizer = localizer[dn];
+                        if (!stringLocalizer.ResourceNotFound)
+                        {
+                            dn = stringLocalizer.Value;
+                        }
+
                         // add display name into cache
                         DisplayNameCache.GetOrAdd(cacheKey, key => dn);
                     }
@@ -106,7 +118,7 @@ namespace Microsoft.AspNetCore.Components.Forms
             {
                 if (TryGetValidatableProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
-                    var placeHolderAttribute = propertyInfo!.GetCustomAttribute<PlaceHolderAttribute>();
+                    var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>();
                     if (placeHolderAttribute != null)
                     {
                         dn = placeHolderAttribute.Text;
@@ -121,7 +133,7 @@ namespace Microsoft.AspNetCore.Components.Forms
             return dn;
         }
 
-        private static bool TryGetValidatableProperty(Type modelType, string fieldName, out PropertyInfo? propertyInfo)
+        private static bool TryGetValidatableProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
         {
             var cacheKey = (ModelType: modelType, FieldName: fieldName);
             if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))

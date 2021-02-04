@@ -1,0 +1,63 @@
+﻿@page "/autocompletes"
+
+<h3>AutoComplete 自动完成</h3>
+
+<h4>输入框自动完成功能</h4>
+
+<Block Title="基础用法" Introduction="通过设置 <code>Items</code> 数据集合当用户键入信息是自动显示提示信息">
+    <p>本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化</p>
+    <div style="width: 200px;">
+        <AutoComplete Items="@StaticItems" />
+    </div>
+</Block>
+
+<Block Title="模糊查询并忽略大小写" Introduction="通过设置 <code>IsLikeMatch</code> 值设置是否开启集合的模糊匹配，通过设置 <code>IgnoreCase</code> 来控制是否忽略大小写">
+    <p>本例中请键入 abc 字符串显示查看效果，会将集合中所有包含 abc 且大小写相同的匹配出来供选择</p>
+    <div style="width: 200px;">
+        <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
+    </div>
+</Block>
+
+<Block Title="自定义提示消息" Introduction="通过设置 <code>NoDataTip</code> 值设置自动完成数据未找到时显示的自定义提示消息">
+    <p>本例中请键入 567 字符串由于自动完成信息中心无数据显示自定义提示信息 - <code>没有找到你想要的数据</code></p>
+    <div style="width: 200px;">
+        <AutoComplete Items="@StaticItems" NoDataTip="没有找到你想要的数据" />
+    </div>
+</Block>
+
+<Block Title="自定义候选项" Introduction="通过设置 <code>ValueChanged</code> 回调方法根据用户输入的数据进行重组数据集合再进行提示信息">
+    <p>本例中请键入任意字符串显示查看效果，自动完成组件根据键入的字符串从新获取提示信息数据集动态变化</p>
+    <div style="width: 200px;">
+        <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" />
+    </div>
+</Block>
+
+<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
+    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
+    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12">
+                <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="true" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="false" />
+            </div>
+        </div>
+    </div>
+    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" DisplayText="自定义城市" ShowLabel="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

@@ -1,47 +1,47 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <IsPackable>true</IsPackable>
-        <PackageIcon>logo.png</PackageIcon>
-        <Version>5.0.7-beta01</Version>
-        <PackageReleaseNotes>更新日志：https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>5.0.15-beta01</Version>
+    <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <SupportedPlatform Include="browser" />
-    </ItemGroup>
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.1" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.1" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Content Remove="Locales\*.json" />
-        <EmbeddedResource Include="Locales\*.json" />
-    </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.449" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Content Remove="bundleconfig.json" />
-        <Content Remove="wwwroot\css\bootstrap.blazor.css" />
-        <Content Remove="wwwroot\css\bootstrap.blazor.min.css" />
-        <Content Remove="wwwroot\js\bootstrap.blazor.js" />
-        <Content Remove="wwwroot\js\bootstrap.blazor.min.js" />
-        <Content Remove="wwwroot\lib\**\*.*" />
-        <Content Include="wwwroot\lib\font-awesome\fonts\*.*" />
-        <Content Include="wwwroot\lib\summernote\font\*.*" />
-        <None Include="bundleconfig.json" />
-        <None Include="wwwroot\css\bootstrap.blazor.css" />
-        <None Include="wwwroot\css\bootstrap.blazor.min.css" />
-        <None Include="wwwroot\js\bootstrap.blazor.js" />
-        <None Include="wwwroot\js\bootstrap.blazor.min.js" />
-        <None Include="wwwroot\lib\**\*.*" />
-    </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Locales\*.json" />
+    <EmbeddedResource Include="Locales\*.json" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <None Include="logo.png" Pack="true" PackagePath="" />
-    </ItemGroup>
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\**\*.*" />
+    <Content Include="wwwroot\css\bootstrap.blazor.bundle.min.css" />
+    <Content Include="wwwroot\js\bootstrap.blazor.bundle.min.js" />
+    <Content Include="wwwroot\lib\font-awesome\fonts\*.*" />
+    <Content Include="wwwroot\lib\summernote\font\*.*" />
+    <None Include="bundleconfig.json" />
+    <None Include="wwwroot\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
 </Project>

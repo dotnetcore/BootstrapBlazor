@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -163,8 +158,9 @@ namespace BootstrapBlazor.Components
 
         private IEnumerable<ITableColumn> GetColumns()
         {
-            var items = ColumnVisibles.Where(i => i.Visible);
-            return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2LBM8
+            var items = ColumnVisibles?.Where(i => i.Visible);
+            return Columns.Where(i => items?.Any(v => v.FieldName == i.GetFieldName()) ?? true);
         }
 
         private bool GetColumnsListState(ITableColumn col)
@@ -181,11 +177,18 @@ namespace BootstrapBlazor.Components
         {
             if (UseInjectDataService || OnSaveAsync != null)
             {
-                if (OnAddAsync != null) EditModel = await OnAddAsync();
-                else
+                if (OnAddAsync != null)
+                {
+                    EditModel = await OnAddAsync();
+                }
+                else if (UseInjectDataService)
                 {
                     EditModel = new TItem();
                     await GetDataService().AddAsync(EditModel);
+                }
+                else
+                {
+                    EditModel = new TItem();
                 }
 
                 SelectedItems.Clear();
@@ -193,7 +196,7 @@ namespace BootstrapBlazor.Components
 
                 if (EditMode == EditMode.Popup)
                 {
-                    ShowEditorDialog();
+                    await ShowEditDialog();
                 }
                 else if (EditMode == EditMode.EditForm)
                 {
@@ -210,7 +213,7 @@ namespace BootstrapBlazor.Components
                     Title = AddButtonToastTitle,
                     Content = AddButtonToastContent
                 };
-                Toast.Show(option);
+                await Toast.Show(option);
             }
         }
 
@@ -238,7 +241,7 @@ namespace BootstrapBlazor.Components
 
                     if (EditMode == EditMode.Popup)
                     {
-                        ShowEditorDialog();
+                        await ShowEditDialog();
                     }
                     else if (EditMode == EditMode.EditForm)
                     {
@@ -254,7 +257,7 @@ namespace BootstrapBlazor.Components
                         Title = EditButtonToastTitle,
                         Content = SelectedItems.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent
                     };
-                    Toast.Show(option);
+                    await Toast.Show(option);
                 }
             }
             else
@@ -265,7 +268,7 @@ namespace BootstrapBlazor.Components
                     Title = EditButtonToastTitle,
                     Content = EditButtonToastNoSaveMethodContent
                 };
-                Toast.Show(option);
+                await Toast.Show(option);
             }
         }
 
@@ -283,33 +286,47 @@ namespace BootstrapBlazor.Components
         });
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        protected async Task<bool> SaveModelAsync(EditContext context)
+        {
+            var valid = false;
+            if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
+            else valid = await GetDataService().SaveAsync((TItem)context.Model);
+
+            var option = new ToastOption
+            {
+                Category = valid ? ToastCategory.Success : ToastCategory.Error,
+                Title = SaveButtonToastTitle
+            };
+            option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
+            await Toast.Show(option);
+
+            return valid;
+        }
+
+        /// <summary>
         /// 保存数据
         /// </summary>
         /// <param name="context"></param>
         protected async Task SaveAsync(EditContext context)
         {
-            var valid = false;
             if (UseInjectDataService || OnSaveAsync != null)
             {
-                if (EditMode == EditMode.EditForm)
+                if (await SaveModelAsync(context))
                 {
-                    ShowAddForm = false;
-                    ShowEditForm = false;
-                }
-
-                if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
-                else valid = await GetDataService().SaveAsync((TItem)context.Model);
-                var option = new ToastOption
-                {
-                    Category = valid ? ToastCategory.Success : ToastCategory.Error,
-                    Title = SaveButtonToastTitle
-                };
-                option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
-                Toast.Show(option);
-                if (valid && DialogOption.Dialog != null)
-                {
-                    await DialogOption.Dialog.Close();
-                    await QueryAsync();
+                    if (EditMode == EditMode.Popup)
+                    {
+                        await QueryAsync();
+                    }
+                    else if (EditMode == EditMode.EditForm)
+                    {
+                        ShowAddForm = false;
+                        ShowEditForm = false;
+                        StateHasChanged();
+                    }
                 }
             }
             else
@@ -320,7 +337,7 @@ namespace BootstrapBlazor.Components
                     Title = SaveButtonToastTitle,
                     Content = SaveButtonToastContent
                 };
-                Toast.Show(option);
+                await Toast.Show(option);
             }
         }
 
@@ -329,40 +346,37 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected void ShowEditorDialog()
+        protected Task ShowEditDialog() => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
         {
-            DialogOption.IsScrolling = ScrollingDialogContent;
-            DialogOption.ShowFooter = false;
-            DialogOption.Size = Size.ExtraLarge;
-            DialogOption.Title = EditModalTitleString;
-            DialogOption.OnCloseAsync = async () =>
+            IsScrolling = ScrollingDialogContent,
+            Title = EditModalTitleString,
+            Model = EditModel,
+            Items = Columns.Where(i => i.Editable),
+            SaveButtonText = EditDialogSaveButtonText,
+            DialogBodyTemplate = EditTemplate,
+            OnCloseAsync = async () =>
             {
                 if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
                 {
                     // EFCore
                     await ef.CancelAsync();
                 }
-            };
-            var editorParameters = new List<KeyValuePair<string, object>>
+            },
+            OnSaveAsync = async context =>
             {
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Model), EditModel),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.Columns), Columns.Where(i => i.Editable)),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnCloseAsync), new Func<Task>(DialogOption.OnCloseAsync)),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.OnSaveAsync), new Func<EditContext, Task>(SaveAsync)),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.ShowLabel), false),
-                new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.BodyTemplate), EditTemplate!)
-            };
-            if (!string.IsNullOrEmpty(EditDialogSaveButtonText)) editorParameters.Add(new KeyValuePair<string, object>(nameof(TableEditorDialog<TItem>.SaveButtonText), EditDialogSaveButtonText));
-
-            DialogOption.Component = DynamicComponent.CreateComponent<TableEditorDialog<TItem>>(editorParameters);
-
-            DialogService.Show(DialogOption);
-        }
+                var valid = await SaveModelAsync(context);
+                if (valid)
+                {
+                    await QueryAsync();
+                }
+                return valid;
+            }
+        });
 
         /// <summary>
         /// 确认删除按钮方法
         /// </summary>
-        protected Task<bool> ConfirmDelete()
+        protected async Task<bool> ConfirmDelete()
         {
             var ret = false;
             if (SelectedItems.Count == 0)
@@ -373,13 +387,13 @@ namespace BootstrapBlazor.Components
                     Title = DeleteButtonToastTitle
                 };
                 option.Content = string.Format(DeleteButtonToastContent, Math.Ceiling(option.Delay / 1000.0));
-                Toast.Show(option);
+                await Toast.Show(option);
             }
             else
             {
                 ret = true;
             }
-            return Task.FromResult(ret);
+            return ret;
         }
 
         /// <summary>
@@ -410,13 +424,13 @@ namespace BootstrapBlazor.Components
                 SelectedItems.Clear();
                 await QueryAsync();
             }
-            Toast.Show(option);
+            await Toast.Show(option);
         };
 
         /// <summary>
         /// 确认导出按钮方法
         /// </summary>
-        protected Task<bool> ConfirmExport()
+        protected async Task<bool> ConfirmExport()
         {
             var ret = false;
             if (!Items.Any())
@@ -427,13 +441,13 @@ namespace BootstrapBlazor.Components
                     Title = "导出数据"
                 };
                 option.Content = $"没有需要导出的数据, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
-                Toast.Show(option);
+                await Toast.Show(option);
             }
             else
             {
                 ret = true;
             }
-            return Task.FromResult(ret);
+            return ret;
         }
 
         /// <summary>
@@ -463,7 +477,7 @@ namespace BootstrapBlazor.Components
                 option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
                 option.Content = $"导出数据{(ret ? "成功" : "失败")}, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
 
-                Toast.Show(option);
+                await Toast.Show(option);
             });
 
             var option = new ToastOption()
@@ -473,7 +487,7 @@ namespace BootstrapBlazor.Components
             option.Category = ToastCategory.Information;
             option.Content = $"正在导出数据，请稍候, {Math.Ceiling(option.Delay / 1000.0)} 秒后自动关闭";
 
-            Toast.Show(option);
+            await Toast.Show(option);
 
             await Task.CompletedTask;
         }

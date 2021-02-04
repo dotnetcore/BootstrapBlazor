@@ -1,35 +1,139 @@
 ﻿@inherits LayoutComponentBase
 
-<Layout SideWidth="0" IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter"
-        ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" Menus="@GetIconSideMenuItems()">
-    <Header>
-        <span class="ml-3 flex-fill">Bootstrap of Blazor</span>
-        <img src="_content/BootstrapBlazor.Shared/images/Argo.png" class="layout-avatar-right" />
-        <span class="ml-3 d-none d-sm-block">超级管理员</span>
-    </Header>
-    <Side>
-        <div class="layout-banner">
-            <img class="layout-logo" src="_content/BootstrapBlazor.Shared/images/brand.png" />
-            <div class="layout-title">
-                <span>演示系统</span>
+<CascadingValue Value="this" IsFixed="true">
+    <Layout SideWidth="0" IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter"
+            ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" Menus="@GetIconSideMenuItems()"
+            UseTabSet="@UseTabSet" AdditionalAssemblies="new[] { GetType().Assembly }" class="@Theme">
+        <Header>
+            <span class="ml-3 flex-fill">Bootstrap of Blazor</span>
+            <Widget></Widget>
+            <img src="_content/BootstrapBlazor.Shared/images/Argo.png" class="layout-avatar-right" />
+            <span class="mx-3 d-none d-sm-block">超级管理员</span>
+            <div class="layout-drawer" @onclick="@ToggleDrawer"><i class="fa fa-gears"></i></div>
+        </Header>
+        <Side>
+            <div class="layout-banner">
+                <img class="layout-logo" src="_content/BootstrapBlazor.Shared/images/brand.png" />
+                <div class="layout-title">
+                    <span>后台管理</span>
+                </div>
             </div>
-        </div>
-        <div class="layout-user">
-            <img class="layout-avatar" src="_content/BootstrapBlazor.Shared/images/Argo-C.png">
-            <div class="layout-title">
-                <span>管理员</span>
+            <div class="layout-user">
+                <img class="layout-avatar" src="_content/BootstrapBlazor.Shared/images/Argo-C.png">
+                <div class="layout-title">
+                    <span>管理员</span>
+                </div>
+                <div class="layout-user-state"></div>
             </div>
-            <div class="layout-user-state"></div>
-        </div>
-    </Side>
-    <Main>
-        <CascadingValue Value="this" IsFixed="true">
+        </Side>
+        <Main>
             @Body
-        </CascadingValue>
-    </Main>
-    <Footer>
-        <div class="text-center flex-fill">
-            <a class="page-layout-demo-footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">Bootstrap Admin</a>
+        </Main>
+        <Footer>
+            <div class="text-center flex-fill">
+                <a class="page-layout-demo-footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">Bootstrap Admin</a>
+            </div>
+        </Footer>
+    </Layout>
+    <Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen" IsBackdrop="true">
+        <div class="layout-drawer-body">
+            <div class="btn btn-info w-100" @onclick="@(e => IsOpen = false)">点击关闭</div>
+            <div class="page-layout-demo-option">
+                <p>布局调整</p>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="layout-item @(IsFullSide ? "active d-flex" : "d-flex")" @onclick="@(e => IsFullSide = true)" data-toggle="tooltip" title="左右结构">
+                            <div class="layout-left d-flex flex-column">
+                                <div class="layout-left-header"></div>
+                                <div class="layout-left-body flex-fill"></div>
+                            </div>
+                            <div class="layout-right d-flex flex-column flex-fill">
+                                <div class="layout-right-header"></div>
+                                <div class="layout-right-body flex-fill"></div>
+                                <div class="layout-right-footer"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="layout-item flex-column @(IsFullSide ? "d-flex" : "active d-flex")" @onclick="@(e => IsFullSide = false)" data-toggle="tooltip" title="上下结构">
+                            <div class="layout-top">
+                            </div>
+                            <div class="layout-body d-flex flex-fill">
+                                <div class="layout-left">
+                                </div>
+                                <div class="layout-right flex-fill">
+                                </div>
+                            </div>
+                            <div class="layout-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-layout-demo-option">
+                <p>固定调整</p>
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <Switch @bind-Value="@IsFixedHeader" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span>固定页头</span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6 d-flex align-items-center">
+                        <Switch @bind-Value="@IsFixedFooter" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span>固定页脚</span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6 d-flex align-items-center">
+                        <Switch @bind-Value="@ShowFooter" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span>显示页脚</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-layout-demo-option">
+                <p>主题配色</p>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="color color1" @onclick="@(e => Theme = "color1")"></span>
+                    </div>
+                    <div class="col-2">
+                        <span class="color color2" @onclick="@(e => Theme = "color2")"></span>
+                    </div>
+                    <div class="col-2">
+                        <span class="color color3" @onclick="@(e => Theme = "color3")"></span>
+                    </div>
+                    <div class="col-2">
+                        <span class="color color4" @onclick="@(e => Theme = "color4")"></span>
+                    </div>
+                    <div class="col-2">
+                        <span class="color color5" @onclick="@(e => Theme = "color5")"></span>
+                    </div>
+                    <div class="col-2">
+                        <span class="color color6" @onclick="@(e => Theme = "color6")"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-layout-demo-option">
+                <p>更多设置</p>
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                        <Switch @bind-Value="@UseTabSet" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span>@(UseTabSet ? "多标签" : "单页")</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </Footer>
-</Layout>
+    </Drawer>
+</CascadingValue>

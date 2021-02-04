@@ -1,0 +1,83 @@
+﻿@inherits TablesBaseQuery
+@page "/tables/fix-column"
+
+<h3>固定列功能</h3>
+
+<h4>对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据</h4>
+
+<p>
+    固定列用法请尽可能的设置固定列宽度，未设置时按照 <code>200</code> 默认值设置
+</p>
+
+<Block Title="固定列头与列尾" Introduction="设置 <code>Fixed</code> 属性固定表头">
+    <p>本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动</p>
+    <Table TItem="BindItem" Items="@Items.Take(4)" IsBordered="true" IsStriped="true" class="table-fixed-column-demo">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+            <TableColumn @bind-Field="@context.Education" Width="100" />
+            <TableColumn @bind-Field="@context.Count" Width="100" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="固定表头与列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>Fixed</code> 对列进行固定">
+    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200" class="table-fixed-column-demo2">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+            <TableColumn @bind-Field="@context.Education" Width="100" />
+            <TableColumn @bind-Field="@context.Count" Width="100" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="固定按钮操作列" Introduction="设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定">
+    <Table TItem="BindItem" Items="@Items.Take(4)" IsBordered="true" IsStriped="true"
+           ShowExtendButtons="true" FixedExtendButtonsColumn="true"
+           class="table-fixed-column-demo">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+            <TableColumn @bind-Field="@context.Education" Width="100" />
+            <TableColumn @bind-Field="@context.Count" Width="100" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="固定表头与按钮操作列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定">
+    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
+           ShowExtendButtons="true" FixedExtendButtonsColumn="true"
+           Height="200" class="table-fixed-column-demo2">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+            <TableColumn @bind-Field="@context.Education" Width="100" />
+            <TableColumn @bind-Field="@context.Count" Width="100" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>

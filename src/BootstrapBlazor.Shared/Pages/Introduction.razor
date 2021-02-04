@@ -1,9 +1,9 @@
 ﻿@page "/docs"
 @page "/introduction"
-@inject WebsiteOptions WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 <h3>简介</h3>
 
-<p>BootstrapBlazor 是一套 Bootstrap 风格的 Blazor UI 企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。</p>
+<p>BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。</p>
 
 <p>由于 Bootstrap UI 框架目前版本对 jQuery 有依赖，所以我们的 BootstrapBlazor 对 jQuery 也是有依赖</p>
 
@@ -15,7 +15,7 @@
 
 <p>国内最大代码托管协作开发平台 <b><a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor" target="_blank">码云</a></b> C# 板块最高星 <a href='https://gitee.com/LongbowEnterprise/BootstrapAdmin/stargazers'><img src='https://gitee.com/LongbowEnterprise/BootstrapAdmin/badge/star.svg?theme=gvp' alt='star' style="margin-bottom: 1px;" /></a> 作品 <b><a href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能</p>
 
-<p>演示网站：<a href="@($"{WebsiteOption.AdminUrl}/Pages")" target="_blank">@WebsiteOption.AdminUrl</a></p>
+<p>演示网站：<a href="@($"{WebsiteOption.Value.AdminUrl}/Pages")" target="_blank">@WebsiteOption.Value.AdminUrl</a></p>
 
 <h4>快速上手</h4>
 

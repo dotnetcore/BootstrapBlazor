@@ -1,0 +1,45 @@
+﻿@page "/forms"
+
+<h3>ValidateForm 表单组件</h3>
+
+<h4>可供数据合规检查的表单组件</h4>
+
+<Block Title="基础用法" Introduction="放置到 <code>ValidateForm</code> 中的组件提交时自动进行数据合规检查">
+    <p>组件说明：</p>
+    <ul class="ul-demo">
+        <li>表单事件为 <code>OnSubmit</code> <code>OnValidSubmit</code> <code>OnInvalidSubmit</code></li>
+        <li>当使用 <code>OnSubmit</code> 时其他两种不可以同时使用</li>
+        <li>本例中使用了 <code>OnSubmit</code> 回调委托无论客户端验证是否通过均显示结果</li>
+        <li><code>Model</code> 参数为必填项不允许为空</li>
+        <li>表单内可以放置多个按钮，通过设置 <code>ButtonType="ButtonType.Submit"</code> 参数是否提交表单</li>
+        <li>客户端验证机制支持模型的 <code>Required</code> 标签，通过设置 <code>ErrorMessage</code> 参数设置提示信息，未设置时使用默认的英文提示信息</li>
+    </ul>
+    <p>注意事项：</p>
+    <ul class="ul-demo">
+        <li>表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code> 方法被调用，即其所在组件或者页面进行刷新重新渲染</li>
+    </ul>
+    <div class="form-demo">
+        <label class="legend">表单示例</label>
+        <p>数据合规检查默认查找绑定模型字段的验证标签如 <code>Required</code> 本例中未设置 <code>ErrorMessage</code> 所以提示消息为默认的英文信息</p>
+        <EditorDemo1></EditorDemo1>
+    </div>
+</Block>
+
+<Block Title="内置组件" Introduction="放置支持表单组件到 <code>ValidateForm</code> 中">
+    <div class="form-demo">
+        <label class="legend">支持表单验证的组件示例</label>
+        <p>示例说明</p>
+        <ul>
+            <li>姓名为字符串类型</li>
+            <li>年龄为整数类型</li>
+            <li>生日为时间类型</li>
+            <li>教育为枚举类型</li>
+            <li>爱好为集合类型</li>
+        </ul>
+        <EditorDemo2></EditorDemo2>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<MethodTable Items="@GetMethods()" />

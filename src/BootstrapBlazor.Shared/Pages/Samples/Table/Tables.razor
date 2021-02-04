@@ -1,0 +1,65 @@
+﻿@inherits TablesBase
+@page "/tables"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<p><code>Table</code> 组件已经支持移动端适配，当屏幕小于 <code>RenderModelResponsiveWidth</code> 设定值时，组件渲染成卡片式方便查看数据，其默认值为 <code>768</code></p>
+
+<p><code>Table</code> 组件有一个 <code>RenderModel</code> 属性，其默认值为 <code>Auto</code> 其他值定义如下</p>
+
+<ul class="ul-demo">
+    <li><code>Auto</code>: 当屏幕小于 768px 时使用 <code>CardView</code> 模式，否则使用 <code>Table</code> 模式</li>
+    <li><code>Table</code>: 表格渲染模式，使用 <code>table</code> 元素进行数据渲染，适合宽屏幕下查看数据</li>
+    <li><code>CardView</code>：卡片式渲染模式，使用 <code>div</code> 元素进行数据渲染，适合窄屏幕下查看数据</li>
+</ul>
+
+<p><code>Table</code> 组件有一个 <code>UseComponentWidth</code> 属性，其默认值为 <code>false</code>，表示使用 <code>window</code> 宽度来进行判断，当设置值为 <code>true</code> 时，表示使用组件自身宽度进行判断</p>
+
+<Block Title="基础表格" Introduction="基础的表格展示用法。">
+    <Table TItem="BindItem" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsStriped="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果">
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="紧凑型表格" Introduction="通过设置 <code>TableSize</code> 属性，设定表格内间隙变小适合大数据展示">
+    <p><code>TableSize</code> 为表格大小枚举类型，默认值为 <code>Normal</code>，紧奏型值为 <code>Compact</code></p>
+    <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<AttributeTable Items="GetAttributes()"></AttributeTable>
+
+<MethodTable Items="GetMethods()"></MethodTable>
+
+<AttributeTable Items="GetTableColumnAttributes()" Title="TableColumn 属性" />

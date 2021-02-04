@@ -1,0 +1,26 @@
+﻿@page "/cameras"
+
+<h3>Camera 摄像头拍照组件</h3>
+
+<h4>本组件通过调用摄像头进行拍照操作</h4>
+
+<Block Title="基本用法" Introduction="通过摄像头进行拍照">
+    <p>操作步骤：</p>
+    <ul class="ul-demo">
+        <li>点击开始打开摄像头</li>
+        <li>点击拍照按钮</li>
+        <li>点击关闭按钮关闭摄像头</li>
+    </ul>
+    <Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" />
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="显示预览" Introduction="通过设置 <code>ShowPreview</code> 属性控制是否显示照片预览">
+    <Camera ShowPreview="true" />
+</Block>
+
+<Block Title="自动开始" Introduction="通过设置 <code>AutoStart</code> 属性控制是否组件运行时直接开启摄像头">
+    <Camera AutoStart="true" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

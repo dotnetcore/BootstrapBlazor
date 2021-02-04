@@ -1,0 +1,68 @@
+﻿@page "/tooltips"
+
+<h3>Tooltip 提示工具条</h3>
+
+<h4>提供鼠标悬停或者获得焦点后显示提示框</h4>
+
+<Block Title="基础用法" Introduction="常用于展示鼠标 hover 时的提示信息">
+    <div class="d-flex flex-column w-100 tooltip-demo">
+        <div class="d-flex justify-content-center">
+            <BootstrapInput Value="@BottomString">
+                <Tooltip Placement="Placement.Bottom" Title="Tootip" />
+            </BootstrapInput>
+        </div>
+        <div class="d-flex justify-content-between align-items-center flex-fill">
+            <BootstrapInput Value="@RightString">
+                <Tooltip Placement="Placement.Right" Title="Tootip" />
+            </BootstrapInput>
+            <BootstrapInput Value="@LeftString">
+                <Tooltip Placement="Placement.Left" Title="Tootip" />
+            </BootstrapInput>
+        </div>
+        <div class="d-flex justify-content-center">
+            <BootstrapInput Value="@TopString">
+                <Tooltip Placement="Placement.Top" Title="Tootip" />
+            </BootstrapInput>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Button 组件提示框" Introduction="提供鼠标悬停或者获得焦点后显示提示框">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @TopString
+                    <Tooltip Placement="Placement.Top" Title="Tootip" />
+                </Button>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @LeftString<Tooltip Placement="Placement.Left" Title="Tootip" />
+                </Button>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @BottomString<Tooltip Placement="Placement.Bottom" Title="Tootip" />
+                </Button>
+            </div>
+            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
+                <Button>
+                    @RightString<Tooltip Placement="Placement.Right" Title="Tootip" />
+                </Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+@code {
+    private string TopString => "在上方";
+
+    private string LeftString => "在左方";
+
+    private string RightString => "在右方";
+
+    private string BottomString => "在下方";
+}

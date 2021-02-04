@@ -1,0 +1,94 @@
+﻿@page "/tables/export"
+@inherits TablesBaseEdit
+@using Microsoft.Extensions.DependencyInjection
+@inject NugetVersionService VersionManager
+
+<h3>Table 表格</h3>
+
+<h4>通过设置 <code>ShowExportButton</code> 设置显示导出按钮，组件内置导出Excel功能</h4>
+
+<p>导出功能提供了导出回调方法 <code>OnExportAsync</code> 使用时可以通过提供自定义的导出方法进行数据导出，如果未提供数据导出方法，组件会根据注入的导出服务进行数据导出</p>
+
+<p><b>注意事项：</b></p>
+
+<p><a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank"><code>BootstrapBlazor.TableExport</code></a>，组件包使用 <code>EPPlus</code> 组件提供了导出到 <code>Excel</code> 功能，如果需要可以引用其组件包</p>
+
+<p><b>Nuget 包安装</b></p>
+
+<p>使用 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.TableExport" target="_blank">nuget.org</a> 进行 <code>BootstrapBlazor.TableExport</code> 组件的安装</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.TableExport --version @Version</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.TableExport" Version="@Version" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.TableExport -Version @Version</Pre>
+
+<p><b>注入服务：</b></p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // 增加 BootstrapBlazor 组件
+    services.AddBootstrapBlazor();
+
+    // 增加 Table Excel 导出服务
+    services.AddBootstrapBlazorTableExcelExport();
+}</Pre>
+
+<h4>JS 文件</h4>
+
+<Pre>&lt;script src="_content/BootstrapBlazor.TableExport/js/export.min.js"&gt;&lt;/script&gt;</Pre>
+
+
+<Block Title="表格导出功能" Introduction="通过设置 <code>ShowExportButton</code> 属性是否显示导出按钮，默认为<code>false</code>">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义导出方法" Introduction="通过设置 <code>OnExportAsync</code> 回调委托方法可自定义导出方法，不设置将使用组件内置导出函数">
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+           OnExportAsync="ExportAsync" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
+@code{
+    public Task<bool> ExportAsync(IEnumerable<BindItem> Items)
+    {
+        return Task.FromResult(true);
+    }
+
+    /// <summary>
+    /// 获得/设置 版本号字符串
+    /// </summary>
+    private string Version { get; set; } = "fetching";
+
+    /// <summary>
+    /// OnInitializedAsync 方法
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync("bootstrapblazor.tableexport");
+    }
+}

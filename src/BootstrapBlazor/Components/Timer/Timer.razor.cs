@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -158,39 +153,48 @@ namespace BootstrapBlazor.Components
             CurrentTimespan = Value;
             AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm");
 
-            if (CancelTokenSource != null)
-            {
-                CancelTokenSource.Dispose();
-            }
-
-            CancelTokenSource = new CancellationTokenSource();
-
             StateHasChanged();
 
             Task.Run(async () =>
             {
-                do
+                if (CancelTokenSource != null)
                 {
-                    await Task.Delay(1000, CancelTokenSource.Token);
-
-                    ResetEvent?.Wait();
-
-                    CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
-                    await InvokeAsync(StateHasChanged);
+                    CancelTokenSource.Dispose();
                 }
-                while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero);
 
-                if (CurrentTimespan == TimeSpan.Zero)
+                CancelTokenSource = new CancellationTokenSource();
+
+                try
                 {
-                    await Task.Delay(1000);
-                    Value = TimeSpan.Zero;
-                    await InvokeAsync(() =>
+                    do
                     {
-                        Vibrate = IsVibrate;
-                        StateHasChanged();
-                        OnTimeout?.Invoke();
-                    });
+                        await Task.Delay(1000, CancelTokenSource?.Token ?? new CancellationToken(true));
+
+                        if (!(CancelTokenSource?.IsCancellationRequested ?? true))
+                        {
+                            ResetEvent?.Wait();
+                            CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
+                            await InvokeAsync(StateHasChanged);
+                        }
+                    }
+                    while (!(CancelTokenSource?.IsCancellationRequested ?? true) && CurrentTimespan > TimeSpan.Zero);
+
+                    if (CurrentTimespan == TimeSpan.Zero)
+                    {
+                        await Task.Delay(500, CancelTokenSource?.Token ?? new CancellationToken(true));
+                        if (!(CancelTokenSource?.IsCancellationRequested ?? true))
+                        {
+                            Value = TimeSpan.Zero;
+                            await InvokeAsync(() =>
+                            {
+                                Vibrate = IsVibrate;
+                                StateHasChanged();
+                                OnTimeout?.Invoke();
+                            });
+                        }
+                    }
                 }
+                catch (TaskCanceledException) { }
             });
         }
 
@@ -227,6 +231,8 @@ namespace BootstrapBlazor.Components
             if (disposing)
             {
                 CancelTokenSource?.Dispose();
+                CancelTokenSource = null;
+
                 ResetEvent?.Dispose();
                 ResetEvent = null;
             }

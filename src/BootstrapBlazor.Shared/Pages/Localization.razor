@@ -22,13 +22,111 @@
 <p><b>Server-Side App</b></p>
 
 <p><b>1. 启用 .NET 核心本地化服务</b></p>
-<Pre CodeFile="install.3.html" />
+<Pre>public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // 增加 BootstrapBlazor 组件
+        services.AddBootstrapBlazor();
+
+        // 增加本地化服务配置信息
+        services.Configure&lt;RequestLocalizationOptions&gt;(options =>
+        {
+            var supportedCultures = Configuration.GetSupportCultures().ToList();
+            options.DefaultRequestCulture = new RequestCulture("zh-CN");
+            options.SupportedCultures = supportedCultures;
+            options.SupportedUICultures = supportedCultures;
+        });
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        // 启用本地化
+        app.UseRequestLocalization(app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;().Value);
+    }
+}</Pre>
 
 <p><b>2. 实现 UI 本地化信息存储（例如，cookie）</b></p>
-<Pre CodeFile="install.4.html" />
+<Pre>[Route("[controller]/[action]")]
+public class CultureController : Controller
+{
+    public IActionResult SetCulture(string culture, string redirectUri)
+    {
+        if (culture != null)
+        {
+            HttpContext.Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture, culture)));
+        }
+
+        return LocalRedirect(redirectUri);
+    }
+
+    public IActionResult ResetCulture(string redirectUri)
+    {
+        HttpContext.Response.Cookies.Delete(CookieRequestCultureProvider.DefaultCookieName);
+
+        return LocalRedirect(redirectUri);
+    }
+}</Pre>
 
 <p><b>3. 添加允许用户更改本地化的 UI</b></p>
-<Pre CodeFile="install.5.html" />
+<Pre>@@using Microsoft.Extensions.Configuration
+@@using System.Globalization
+@@inherits BootstrapComponentBase
+@@inject IConfiguration Configuration
+@@inject NavigationManager NavigationManager
+@@inject ICultureStorage CultureStorage
+
+&lt;div @@attributes="@@AdditionalAttributes" class="@@ClassString"&gt;
+    &lt;label&gt;请选择语言：&lt;/label&gt;
+    &lt;Select Value="@@SelectedCulture" OnSelectedItemChanged="@@SetCulture"&gt;
+        &lt;Options&gt;
+            @@foreach (var kv in Configuration.GetSupportCultures())
+            {
+                &lt;SelectOption Text="@@kv.Key" Value="@@kv.Value" /&gt;
+            }
+        &lt;/Options&gt;
+    &lt;/Select&gt;
+&lt;/div&gt;
+
+@@code {
+    private string? ClassString =&gt; CssBuilder.Default("culture-selector")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
+
+    private async Task SetCulture(SelectedItem item)
+    {
+        if (CultureStorage.Mode == CultureStorageMode.Webapi)
+        {
+            // 使用 api 方式 适用于 Server-Side 模式
+            if (SelectedCulture != item.Value)
+            {
+                var culture = item.Value;
+                var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+                var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
+
+                // use a path that matches your culture redirect controller from the previous steps
+                NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+            }
+        }
+        else
+        {
+            var cultureName = item.Value;
+            if (cultureName != CultureInfo.CurrentCulture.Name)
+            {
+                await JSRuntime.InvokeAsync&lt;string&gt;(identifier: "$.blazorCulture.set", cultureName);
+                var culture = new CultureInfo(cultureName);
+                CultureInfo.CurrentCulture = culture;
+                CultureInfo.CurrentUICulture = culture;
+
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+            }
+        }
+    }
+}</Pre>
 
 <p><b>4. 添加 <code>Json</code> 资源文件</b></p>
 
@@ -44,7 +142,40 @@
 <p><b>Web Assembly</b></p>
 
 <p><b>1. 启用 .NET 核心本地化服务</b></p>
-<Pre CodeFile="install.6.html"></Pre>
+<Pre>public static async Task Main(string[] args)
+{
+    var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+    builder.RootComponents.Add&lt;App&gt;("app");
+
+    builder.Services.AddTransient(sp =&gt; new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+    // 增加 BootstrapBlazor 组件
+    builder.Services.AddBootstrapBlazor();
+
+    builder.Services.AddSingleton&lt;ICultureStorage, DefaultCultureStorage&gt;();
+
+    var host = builder.Build();
+
+    await GetCultureAsync(host);
+
+    await host.RunAsync();
+}
+
+private static async Task GetCultureAsync(WebAssemblyHost host)
+{
+    var jsRuntime = host.Services.GetRequiredService&lt;IJSRuntime&gt;();
+    var cultureName = await jsRuntime.InvokeAsync&lt;string&gt;("$.blazorCulture.get") ?? "zh-CN";
+    var culture = new CultureInfo(cultureName);
+    CultureInfo.DefaultThreadCurrentCulture = culture;
+    CultureInfo.DefaultThreadCurrentUICulture = culture;
+}
+
+internal class DefaultCultureStorage : ICultureStorage
+{
+    public CultureStorageMode Mode { get; set; } = CultureStorageMode.LocalStorage;
+}
+</Pre>
 
 <p><b>2. 实现 UI 本地化信息存储（例如，localStorage）</b></p>
 

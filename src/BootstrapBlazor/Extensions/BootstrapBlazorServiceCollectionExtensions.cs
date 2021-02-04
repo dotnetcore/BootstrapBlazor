@@ -1,14 +1,10 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Globalization;
@@ -31,13 +27,14 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? setupAction = null)
         {
             services.AddJsonLocalization(setupAction);
-            services.AddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
-            services.AddSingleton<ITableExcelExport, DefaultExcelExport>();
-            services.AddScoped<DialogService>();
-            services.AddScoped<MessageService>();
-            services.AddScoped<PopoverService>();
-            services.AddScoped<ToastService>();
-            services.AddScoped<SwalService>();
+            services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
+            services.TryAddSingleton<ITableExcelExport, DefaultExcelExport>();
+            services.TryAddScoped<DialogService>();
+            services.TryAddScoped<MessageService>();
+            services.TryAddScoped<PopoverService>();
+            services.TryAddScoped<ToastService>();
+            services.TryAddScoped<SwalService>();
+            services.AddScoped<TabItemTextOptions>();
             services.AddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {
@@ -49,6 +46,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     CultureInfo.CurrentUICulture = new CultureInfo(options.DefaultUICultureInfoName ?? "en-US");
                 }
             });
+
+            ServiceProviderHelper.RegisterService(services);
 
             return services;
         }

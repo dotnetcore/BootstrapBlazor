@@ -1,0 +1,26 @@
+﻿@inherits TablesBase
+@page "/tables/multi-header"
+
+<h3>表头分组功能</h3>
+
+<h4>数据结构比较复杂的时候，可使用多级表头来展现数据的层次关系</h4>
+
+<Block Title="基础用法" Introduction="设置 <code>MultiHeaderTemplate</code> 模板即可">
+    <Table TItem="BindItem" Items="@Items.Take(4)" IsBordered="true" IsStriped="true">
+        <MultiHeaderTemplate>
+            <tr>
+                <th rowspan="2"><div class="table-cell" style="height: 94px; justify-content: center;">时间</div></th>
+                <th colspan="2"><div class="table-cell" style="justify-content: center">个人信息</div></th>
+            </tr>
+            <tr>
+                <th><div class="table-cell">姓名</div></th>
+                <th><div class="table-cell">地址</div></th>
+            </tr>
+        </MultiHeaderTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>

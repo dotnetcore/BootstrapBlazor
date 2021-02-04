@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -80,9 +75,7 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-#nullable disable
                     var t = (DateTime)(object)Value;
-#nullable restore
                     v = t;
                 }
                 return ViewModel == DatePickerViewModel.Date ? v.Date : v;
@@ -196,7 +189,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker");
+                await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker");
             }
         }
 
@@ -226,8 +219,8 @@ namespace BootstrapBlazor.Components
         private async Task OnClear()
         {
             CurrentValue = default!;
+            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
             StateHasChanged();
-            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
         }
 
         /// <summary>
@@ -235,7 +228,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private async Task OnConfirm()
         {
-            await JSRuntime.InvokeVoidAsync(Picker, "datetimePicker", "hide");
+            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
         }
     }
 }

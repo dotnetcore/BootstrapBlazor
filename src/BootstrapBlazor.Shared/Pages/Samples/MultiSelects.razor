@@ -1,0 +1,176 @@
+﻿@page "/multiselects"
+
+<h3>MultiSelect 多项选择器</h3>
+
+<h4>当进行多项选项时，使用下拉菜单展示并提供搜索多项选择内容</h4>
+
+<Block Title="颜色" Introduction="提供各种颜色的多选下拉框">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Items="@Items"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Color="Color.Primary" Items="@Items"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Color="Color.Success" Items="@Items"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Color="Color.Danger" Items="@Items"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Color="Color.Warning" Items="@Items"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Color="Color.Info" Items="@Items"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Color="Color.Secondary" Items="@Items"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" Color="Color.Dark" Items="@Items"></MultiSelect>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="双向绑定值字符串" Introduction="绑定一个逗号字符串分割的字符串">
+    <p>本例中通过双向绑定 <code>SelectedItemsValue</code> 变量，通过下拉框选择更改其值</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect Items="@Items" @bind-Value="@SelectedItemsValue"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Button Icon="fa fa-plus" Text="添加" OnClick="@AddItems" class="mr-1"></Button>
+                <Button Icon="fa fa-minus" Text="减少" OnClick="@RemoveItems"></Button>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">@SelectedItemsValue</div>
+</Block>
+
+<Block Title="双向绑定值集合" Introduction="绑定一个泛型 <code>IEnumerable<T></code> 集合">
+    <p>本例中通过双向绑定 <code>SelectedArrayValues</code> 集合变量，通过下拉框选择更改其值</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect Items="@Items" @bind-Value="@SelectedArrayValues"></MultiSelect>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Button Icon="fa fa-plus" Text="添加" OnClick="@AddListItems" class="mr-1"></Button>
+                <Button Icon="fa fa-minus" Text="减少" OnClick="@RemoveListItems"></Button>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">@(string.Join(",", SelectedArrayValues))</div>
+</Block>
+
+<Block Title="搜索功能" Introduction="通过设置 <code>ShowSearch</code> 值开启搜索功能">
+    <p>本例中设置搜索回调委托方法 <code>OnSearchTextChanged</code> 进行自定义搜索结果，如果未设置时内部使用显示文本进行模糊匹配</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect Items="@Items" @bind-Value="@SelectedItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch"></MultiSelect>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">@SelectedItemsValue</div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="禁用功能" Introduction="通过设置 <code>IsDisabled</code> 值设置组件禁用状态">
+    <p>禁用状态时组件无任何响应</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect Items="@Items" @bind-Value="@SelectedItemsValue" IsDisabled="true" />
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">@SelectedItemsValue</div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="选项改变时事件" Introduction="通过设置 <code>IsDisabled</code> 值设置组件禁用状态">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect Items="@Items" @bind-Value="@SelectedItemsValue" OnSelectedItemsChanged="@OnSelectedItemsChanged" />
+            </div>
+        </div>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="客户端验证" Introduction="下拉框未选择时，点击提交按钮时拦截。">
+    <p>内置到 <code>ValidateForm</code> 组件时，自动开启客户端验证功能</p>
+    <p>绑定模型拥有 <code>Required</code> 标签或者添加 <code>IValidator</code> 接口实现类组件时，使用其规则进行验证</p>
+    <p>自定义扩展验证功能时，必须继承 <code>IValidator</code> 接口，请看示例代码 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/src/BootstrapBlazor/Components/Validator/RequiredValidator.cs" target="_blank">[传送门]</a></p>
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect @bind-Value="@Model.Education" />
+            </div>
+            <div class="form-group col-12 col-sm-6 align-items-end">
+                <Button ButtonType="ButtonType.Submit">提交</Button>
+            </div>
+        </div>
+    </ValidateForm>
+</Block>
+
+<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
+    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
+    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm class="form-inline" Model="@Foo">
+        <div class="row">
+            <div class="form-group col-12">
+                <MultiSelect Color="Color.Primary" Items="@Items" @bind-Value="@Foo.Name" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <MultiSelect Color="Color.Primary" Items="@Items" @bind-Value="@Foo.Name" />
+            </div>
+        </div>
+    </div>
+    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <MultiSelect Color="Color.Primary" Items="@Items" @bind-Value="@Foo.Name" DisplayText="自定义姓名" ShowLabel="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="选项超长文字" Introduction="候选项文字特别长">
+    <div style="max-width: 400px">
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedLongItemsValue" DisplayText="超长文字" ShowLabel="true"></MultiSelect>
+    </div>
+</Block>
+
+<Block Title="全选与反选按钮" Introduction="通过设置 <code>ShowSelectAllButton</code> 值设置组件显示全选与反选按钮">
+    <div style="max-width: 400px">
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedLongItemsValue" ShowSelectAllButton="true" ShowSearch="true"></MultiSelect>
+    </div>
+</Block>
+
+<Block Title="设置选项最大数与最小数" Introduction="通过设置 <code>Max</code> <code>Min</code> 值设置组件可选项数量限制">
+    <div style="max-width: 300px">
+        <p>最多可选择两个选项</p>
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedMaxItemsValue" Max="2"></MultiSelect>
+    </div>
+    <div style="max-width: 300px" class="mt-3">
+        <p>最少选择两个选项</p>
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedMinItemsValue" Min="2"></MultiSelect>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

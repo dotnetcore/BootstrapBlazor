@@ -1,5 +1,5 @@
 ﻿{
-  "Components.Chart": {
+  "BootstrapBlazor.Components.Chart": {
     "LoadingText": "正在加载中 ..."
   }
 }

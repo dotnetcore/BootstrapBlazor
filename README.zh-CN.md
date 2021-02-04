@@ -1,4 +1,4 @@
-﻿# Bootstrap Blazor Component
+# Bootstrap Blazor Component
 
 <a href="README.md">English</a> | <span>中文</span>
 
@@ -18,9 +18,23 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 - 在服务器和客户端之间共享应用逻辑。
 - 受益于 .NET 的性能、可靠性和安全性。
 - 始终高效支持 Windows、Linux 和 macOS 上的 Visual Studio。
+- 支持 Net5
 - 以一组稳定、功能丰富且易用的通用语言、框架和工具为基础来进行生成。
 
 本项目是利用 Bootstrap 样式进行封装的 UI 组件库
+
+## 开发环境搭建
+1. 安装 .net core sdk 最新版 [官方网址](http://www.microsoft.com/net/download)
+2. 安装 Visual Studio 2019 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
+3. 获取本项目代码 [BootstrapBlazor](https://gitee.com/LongbowEnterprise/BootstrapBlazor)
+
+## QQ交流群
+
+[![QQ](https://img.shields.io/badge/QQ-795206915-green.svg?logo=tencent%20qq&logoColor=red)](https://shang.qq.com/wpa/qunwpa?idkey=d381355e50ff91db410c3da3eadb081ba859f64c2877e86343f4709b171f28b8)
+
+## 视频教程
+
+B 站视频集锦 [传送门](https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624)
 
 ## 组件
 
@@ -32,20 +46,23 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 - 可以嵌套和重用。
 - 可以作为 Razor 类库或 NuGet 包共享和分发。
 
-### 内置组件 
+### 内置组件
 
-内置组件 [传送门](https://www.balzor.zone/alerts)
+内置组件 [传送门](https://www.blazor.zone/alerts)
 
-## 分支说明  
+## 分支说明
 
 - master 稳定分支
 - dev 开发功能分支
 - publish 与演示网站同步
 - 其他 均为临时分支
 
-## 演示地址  
-[![website](https://img.shields.io/badge/linux-https://www.blazor.zone-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+## 演示地址
 [![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io)
+[![website](https://img.shields.io/badge/linux-https://www.blazor.zone-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+
+## GVP 奖杯
+![项目奖杯](https://images.gitee.com/uploads/images/2021/0112/120620_e596ac3c_554725.png "GVP.png")
 
 ## 项目截图
 
@@ -77,6 +94,6 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ## 捐助
 
-如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。    
+如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。
 
 <img src="https://gitee.com/LongbowEnterprise/Pictures/raw/master/WeChat/BarCode@2x.png" width="382px;" />

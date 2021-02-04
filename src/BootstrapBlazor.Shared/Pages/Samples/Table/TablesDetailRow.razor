@@ -1,0 +1,139 @@
+﻿@inherits TablesBaseEdit
+@page "/tables/detail"
+
+<h3>显示明细行功能</h3>
+
+<h4>用于展示父子关系表数据</h4>
+
+<Block Title="简单应用" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容">
+    <p>明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+        </DetailRowTemplate>
+    </Table>
+</Block>
+
+<Block Title="嵌套 Table 组件应用" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行为子表数据">
+    <p>明细行内嵌套另外一个 <code>Table</code> 组件，由于每行都要关联子表数据，出于性能的考虑，此功能采用 <code>懒加载</code> 模式，即点击展开按钮后，再对嵌套 <code>Table</code> 进行数据填充，通过 <code>ShowDetailRow</code> 回调委托可以控制每一行是否显示明细行，本例中通过 <code>Complete</code> 属性来控制是否显示明细行，可通过翻页来测试本功能</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync" ShowDetailRow="ShowDetailRow">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            @{
+                // 此段代码为提高性能
+                var cacheKey = context.Name ?? "";
+                var DetailDataSource = Enumerable.Empty<DetailRow>();
+                if (Cache.ContainsKey(cacheKey))
+                {
+                    DetailDataSource = Cache[cacheKey];
+                }
+                else
+                {
+                    DetailDataSource = GetDetailRowsByName(cacheKey).ToList();
+                    Cache.Add(cacheKey, DetailDataSource);
+                }
+            }
+            <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource">
+                <TableColumns Context="Detail">
+                    <TableColumn @bind-Field="@Detail.Name" />
+                    <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Complete" Width="70">
+                        <Template Context="v">
+                            <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                        </Template>
+                    </TableColumn>
+                </TableColumns>
+            </Table>
+        </DetailRowTemplate>
+    </Table>
+</Block>
+
+<Block Title="固定表头开启明细行功能" Introduction="通过设置 <code>Height</code> 固定表头后模板设置明细行内容">
+    <p>本例中固定表头后，再开启明细行功能</p>
+    <Table TItem="BindItem" Height="200"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+        </DetailRowTemplate>
+    </Table>
+</Block>
+
+<Block Title="明细行中使用 Tab 组件" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容">
+    <p>本例中明细行内使用 <code>Tab</code> 组件再次将数据分割成两个 <code>TabItem</code> 内容，进行再次数据拆分演示</p>
+    <Table TItem="BindItem" IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <Tab>
+                <TabItem Text="明细数据">
+                    @{
+                        // 此段代码为提高性能
+                        var cacheKey = context.Name ?? "";
+                        var DetailDataSource = Enumerable.Empty<DetailRow>();
+                        if (Cache.ContainsKey(cacheKey))
+                        {
+                            DetailDataSource = Cache[cacheKey];
+                        }
+                        else
+                        {
+                            DetailDataSource = GetDetailRowsByName(cacheKey).ToList();
+                            Cache.Add(cacheKey, DetailDataSource);
+                        }
+                    }
+                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource">
+                        <TableColumns Context="Detail">
+                            <TableColumn @bind-Field="@Detail.Name" />
+                            <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
+                            <TableColumn @bind-Field="@context.Complete" Width="70">
+                                <Template Context="v">
+                                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                                </Template>
+                            </TableColumn>
+                        </TableColumns>
+                    </Table>
+                </TabItem>
+                <TabItem Text="关联数据">
+                    <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+                </TabItem>
+            </Tab>
+        </DetailRowTemplate>
+    </Table>
+</Block>
+
+@code {
+    private Dictionary<string, IEnumerable<DetailRow>> Cache { get; } = new Dictionary<string, IEnumerable<DetailRow>>();
+}

@@ -1,0 +1,222 @@
+﻿@page "/inputnumbers"
+
+<h3>InputNumber 组件</h3>
+
+<h4>仅允许输入标准的数字值，支持自定义范围及其他高级功能</h4>
+
+<Block Title="基础用法" Introduction="<code>Number</code> 数值类型显示文本框，移动端自动弹出数字键盘">
+    <div class="demo-inputnumber">
+        <BootstrapInputNumber Value="@BindValue" />
+    </div>
+</Block>
+
+<Block Title="区间限制用法" Introduction="设置 <code>Max</code> <code>Min</code> 来控制数值区间范围">
+    <div class="demo-inputnumber">
+        <BootstrapInputNumber Value="@BindValue" Max="100" Min="1" />
+    </div>
+</Block>
+
+<Block Title="控制按钮" Introduction="设置 <code>ShowButton</code> 参数来控制是否显示增加或减少的按钮">
+    <p>本例设置了最大值 10 最小值 0</p>
+    <div class="demo-inputnumber">
+        <BootstrapInputNumber ShowButton="true" Value="@BindValue" Max="10" Min="0" />
+    </div>
+</Block>
+
+<Block Title="自定义步长" Introduction="设置 <code>Step</code> 参数来控制增加或减少的步长">
+    <div class="demo-inputnumber">
+        <p>步长默认为 1</p>
+        <BootstrapInputNumber ShowButton="true" Value="5" Color="Color.Danger" />
+    </div>
+    <div class="demo-inputnumber mt-3">
+        <p>步长设置为 10</p>
+        <BootstrapInputNumber ShowButton="true" Value="10" Step="10" Color="Color.Success" />
+    </div>
+    <div class="demo-inputnumber mt-3">
+        <p>步长设置为 0.1</p>
+        <BootstrapInputNumber ShowButton="true" Value="0.5" Step="0.1" Formatter="@Formatter" Color="Color.Warning" />
+    </div>
+</Block>
+
+<Block Title="颜色" Introduction="设置 <code>Color</code> 参数来自定义按钮颜色">
+    <p>显示按钮</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.None" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Primary" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Success" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Info" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Warning" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Danger" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Dark" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Secondary" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="mt-3">无按钮</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.None" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.Primary" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.Success" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.Info" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.Warning" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.Danger" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.Dark" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="10" Color="Color.Secondary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="数据类型" Introduction="本组件采用泛型支持 <code>sbyte byte int short long float double decimal</code> 基础数据类型">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindSByteValue" DisplayText="SByte" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindByteValue" DisplayText="Byte(0/255)" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindShortValue" DisplayText="Short" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindLongValue" DisplayText="Long" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindFloatValue" DisplayText="Float" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindValue" DisplayText="Int" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindDoubleValue" DisplayText="Double" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <div class="demo-inputnumber">
+                    <BootstrapInputNumber Value="@BindDecimalValue" DisplayText="Decimal" ShowLabel="true" ShowButton="true" />
+                </div>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInputNumber Value="10" IsDisabled="true" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInputNumber Value="20" IsDisabled="true" ShowButton="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
+    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
+    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12">
+                <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="true" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="false" />
+            </div>
+        </div>
+    </div>
+    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="true" DisplayText="自定义" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

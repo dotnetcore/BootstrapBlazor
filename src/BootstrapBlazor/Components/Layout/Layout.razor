@@ -1,98 +1,104 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits LayoutBase
 
-<section @attributes="AdditionalAttributes" class="@ClassString">
-    @if (Side == null)
-    {
-        <header class="@HeaderClassString">
-            @Header
-        </header>
-        <main class="@MainClassString">
-            @Main
-        </main>
-        @if (ShowFooter)
+<CascadingValue Value="this" IsFixed="true">
+    <section @attributes="AdditionalAttributes" class="@ClassString">
+        @if (Side == null)
         {
-            <footer class="@FooterClassString">
-                @Footer
-                @if (ShowGotoTop)
-                {
-                    <GoTop />
-                }
-            </footer>
-        }
-    }
-    else if (IsFullSide)
-    {
-        <aside class="@SideClassString" style="@SideStyleString">
-            @Side
-            @if (Menus != null)
-            {
-                <div class="layout-menu">
-                    <Scroll IsDark="@IsDark">
-                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu" />
-                    </Scroll>
-                </div>
-            }
-        </aside>
-        <section class="layout-right">
-            <header class="@HeaderClassString">
-                @if (ShowCollapseBar)
-                {
-                    <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@CollapseMenu">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                }
-                @Header
-            </header>
-            <main class="@MainClassString">
-                @Main
-            </main>
+            @RenderHeader.Invoke(false)
+            @RenderMain
             @if (ShowFooter)
             {
-                <footer class="@FooterClassString">
-                    @Footer
-                    @if (ShowGotoTop)
-                    {
-                        <GoTop />
-                    }
-                </footer>
+                @RenderFooter
             }
-        </section>
-    }
-    else
-    {
-        <header class="@HeaderClassString">
-            @if (ShowCollapseBar)
-            {
-                <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@CollapseMenu">
-                    <i class="fa fa-bars"></i>
-                </a>
-            }
-            @Header
-        </header>
-        <section class="has-sidebar">
+        }
+        else if (IsFullSide)
+        {
             <aside class="@SideClassString" style="@SideStyleString">
                 @Side
                 @if (Menus != null)
                 {
-                    <div class="layout-menu">
-                        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu" />
-                    </div>
+                    @RenderMenu.Invoke(IsFullSide)
                 }
             </aside>
-            <main class="@MainClassString">
-                @Main
-            </main>
-        </section>
-        @if (ShowFooter)
-        {
-            <footer class="@FooterClassString">
-                @Footer
-                @if (ShowGotoTop)
+            <section class="layout-right">
+                @RenderHeader.Invoke(ShowCollapseBar)
+                @RenderMain
+                @if (ShowFooter)
                 {
-                    <GoTop />
+                    @RenderFooter
                 }
-            </footer>
+            </section>
         }
+        else
+        {
+            @RenderHeader.Invoke(ShowCollapseBar);
+            <section class="has-sidebar">
+                <aside class="@SideClassString" style="@SideStyleString">
+                    @Side
+                    @if (Menus != null)
+                    {
+                        @RenderMenu.Invoke(IsFullSide)
+                    }
+                </aside>
+                @RenderMain
+            </section>
+            @if (ShowFooter)
+            {
+                @RenderFooter
+            }
+        }
+    </section>
+</CascadingValue>
+
+@code {
+    RenderFragment<bool> RenderHeader => collapse =>
+    @<header class="@HeaderClassString">
+        @if (collapse)
+        {
+            <a title="" data-toggle="tooltip" data-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => CollapseMenu()))">
+                <i class="fa fa-bars"></i>
+            </a>
+        }
+        @Header
+    </header>;
+
+RenderFragment<bool> RenderMenu => hasScroll =>
+@<div class="layout-menu">
+    @if (hasScroll)
+    {
+        <Scroll>
+            <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu()" />
+        </Scroll>
     }
-</section>
+    else
+    {
+        <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" OnClick="@ClickMenu()" />
+    }
+</div>;
+
+RenderFragment RenderMain =>
+@<main class="@MainClassString">
+    @if (UseTabSet)
+    {
+        <RenderTemplate>
+            <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
+                 AdditionalAssemblies="@AdditionalAssemblies" ExcludeUrls="@ExcludeUrls" Body="@(Main!)" @ref="TabSet">
+            </Tab>
+        </RenderTemplate>
+    }
+    else
+    {
+        @Main
+    }
+</main>;
+
+RenderFragment RenderFooter =>
+@<footer class="@FooterClassString">
+    @Footer
+    @if (ShowGotoTop)
+    {
+        <GoTop />
+    }
+</footer>;
+}

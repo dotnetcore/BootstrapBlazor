@@ -1,0 +1,36 @@
+﻿@inject IOptions<WebsiteOptions> Options
+
+<p>B 站相关视频链接 </p>
+
+@if (string.IsNullOrEmpty(VideoUrl))
+{
+    <div class="mb-3">暂无</div>
+}
+else
+{
+    <a class="fa fa-link mb-3" href="@VideoUrl" target="_blank"> [传送门]</a>
+}
+
+<p>交流群</p>
+ QQ群：<a class="fa fa-link" target="_blank" href="https://jq.qq.com/?_wv=1027&k=OUJVYPpX"> BootstrapAdmin & Blazor</a>（795206915）欢迎加群讨论
+
+@code {
+    [NotNull]
+    private string? VideoUrl { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (!string.IsNullOrEmpty(Name) && Options.Value.Videos.TryGetValue(Name, out var url))
+        {
+            VideoUrl = $"{Options.Value.VideoUrl}{url}";
+        }
+    }
+}

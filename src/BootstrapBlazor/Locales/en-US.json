@@ -80,7 +80,16 @@
     "EndPlaceHolderText": "End date",
     "ClearButtonText": "Clear",
     "ConfirmButtonText": "Ok",
-    "DateFormat": "M/d/yyyy"
+    "DateFormat": "M/d/yyyy",
+    "Last7Days": "Last 7 Days",
+    "Last30Days": "Last 30 Days",
+    "ThisMonth": "This Month",
+    "LastMonth": "Last Month"
+  },
+  "BootstrapBlazor.Components.ResultDialogOption": {
+    "ButtonYesText": "Yes",
+    "ButtonNoText": "No",
+    "ButtonCloseText": "Close"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Please select ..."
@@ -105,7 +114,9 @@
     "PlaceHolder": "Click for select ...",
     "SelectAllText": "All",
     "ReverseSelectText": "Reverse",
-    "ClearText": "Clear"
+    "ClearText": "Clear",
+    "MinErrorMessage": "Select at least {0} items",
+    "MaxErrorMessage": "At most {0} items can be selected"
   },
   "BootstrapBlazor.Components.Pagination": {
     "AiraPageLabel": "Pagination",
@@ -150,6 +161,11 @@
     "OnInnerText": "On",
     "OffInnerText": "Off"
   },
+  "BootstrapBlazor.Components.Tab": {
+    "CloseCurrentTabText": "Close",
+    "CloseOtherTabsText": "Close Other",
+    "CloseAllTabsText": "Close All"
+  },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Add",
     "EditButtonText": "Edit",
@@ -188,7 +204,7 @@
     "DeleteButtonToastResultContent": "Delete data {0}, auto close after {1}s",
     "DataServiceInvalidOperationText": "Cannot provide a value for property 'DataService' on type 'BootstrapBlazor.Components.Table`1[[{0}]]'. There is no registered service of type 'BootstrapBlazor.Components.IDataService`1[{0}]'."
   },
-  "BootstrapBlazor.Components.TableEditorDialog": {
+  "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",
     "SaveButtonText": "Save"
   },
@@ -209,7 +225,7 @@
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All"
   },
-  "BootstrapBlazor.Components.TableSearchDialog": {
+  "BootstrapBlazor.Components.SearchDialog": {
     "ResetButtonText": "Reset",
     "QueryButtonText": "Query"
   },
@@ -228,9 +244,9 @@
     "RightPanelText": "List 2"
   },
   "BootstrapBlazor.Components.Upload": {
-    "Text": "Upload",
-    "ResetText": "Reset",
-    "AllowFileTypeErrorMessage": "Only allow Images type file",
-    "FileTooLargeText": "File to large"
+    "DeleteButtonText": "Delete",
+    "BrowserButtonText": "Browser",
+    "FileExtensions": "File must have one of the following extensions: {0}",
+    "FileSizeValidation": "File size must less {0}"
   }
 }

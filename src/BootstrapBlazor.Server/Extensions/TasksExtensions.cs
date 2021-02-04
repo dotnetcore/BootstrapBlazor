@@ -1,20 +1,15 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
 using BootstrapBlazor.Shared.Data;
 using Longbow.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using Task = System.Threading.Tasks.Task;
 
@@ -34,14 +29,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<WeatherForecastService>();
             services.AddTaskServices();
             services.AddHttpClient();
-            services.AddTransient(sp =>
-            {
-                var factory = sp.GetRequiredService<IHttpClientFactory>();
-                return factory.CreateClient();
-            });
             services.AddVersionManager();
             services.AddExampleService();
-            services.AddSingleton<WebsiteOptions>();
+            services.AddSingleton<IConfigureOptions<WebsiteOptions>, ConfigureOptions<WebsiteOptions>>();
             services.AddHostedService<BlazorBackgroundServices>();
             return services;
         }
@@ -58,9 +48,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 
         /// </summary>
         /// <param name="env"></param>
-        public BlazorBackgroundServices(IWebHostEnvironment env)
+        /// <param name="websiteOption"></param>
+        public BlazorBackgroundServices(IWebHostEnvironment env, IOptions<WebsiteOptions> websiteOption)
         {
             _env = env;
+            websiteOption.Value.WebRootPath = env.WebRootPath;
         }
 
         /// <summary>
@@ -68,7 +60,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="stoppingToken"></param>
         /// <returns></returns>
-        protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.Run(() =>
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             TaskServicesManager.GetOrAdd("Clear Upload Files", token =>
             {
@@ -92,6 +84,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 return Task.CompletedTask;
             }, TriggerBuilder.Build(Cron.Minutely(10)));
-        });
+
+            return Task.CompletedTask;
+        }
     }
 }

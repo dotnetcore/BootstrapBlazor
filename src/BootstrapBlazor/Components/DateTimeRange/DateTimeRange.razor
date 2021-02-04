@@ -24,6 +24,17 @@
     }
     <div class="@BodyClassString">
         <div class="range-panel-body">
+            @if (ShowSidebar)
+            {
+                <div class="picker-panel-sidebar">
+                    @foreach (var item in SidebarItems)
+                    {
+                        <div class="sidebar-item">
+                            <div @onclick="@(e => OnClickSidebarItem(item))">@item.Text</div>
+                        </div>
+                    }
+                </div>
+            }
             <CascadingValue Value="this" IsFixed="true">
                 <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" IsShown="true"
                                 ViewModel="DatePickerViewModel.Date" ShowFooter="false" ShowRightButtons="false">

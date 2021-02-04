@@ -1,0 +1,30 @@
+﻿@page "/scrolls"
+
+<h3>Scroll 滚动条</h3>
+
+<h4>给高度或者宽度超标的组件增加滚动条</h4>
+
+<p>由于滚动条组件内部屏蔽了系统的滚动条，设置了 <code>overflow: hidden</code> 所以自身或者其父元素必须拥有固定高度时才可呈现滚动条，可以通过外套元素设置其 <code>height</code> 或者直接设置 <code>Scroll</code> 组件的高度 <code>Height</code> 属性</p>
+
+<p>特别注意：</p>
+<p>本组件是使用 <code>slimscroll</code> 脚本来实现滚动条美化的，由于移动端与苹果系统无需滚动条美化，所以增加了 <code>IsForce</code> 属性，</p>
+<ul class="ul-demo">
+    <li><b>True</b>: 默认值；为真时不判断是否为移动端或者苹果系统一律利用 <code>slimscroll</code> 进行美化</li>
+    <li><b>False</b>: 为假时脚本内部自行判断为移动端或者苹果系统时不进行美化使用原生样式</li>
+</ul>
+
+<Block Title="普通用法" Introduction="给组件增加滚动条，通过设置 <code>Height</code> 高度值为 200px 使内部子元素高度为 400px 时出现滚动条">
+    <Scroll class="scroll-demo" IsAutoHide="false" Height="200px">
+        <div style="height: 400px;">请滚动右侧滚动条</div>
+        <div>我是最底端</div>
+    </Scroll>
+</Block>
+
+<Block Title="自动隐藏" Introduction="鼠标 <code>hover</code> 状态下自动显示滚动条，移开鼠标后滚动条自动隐藏">
+    <Scroll class="scroll-demo" Height="200px">
+        <div style="height: 400px;">鼠标悬停右侧出现滚动条</div>
+        <div>我是最底端</div>
+    </Scroll>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

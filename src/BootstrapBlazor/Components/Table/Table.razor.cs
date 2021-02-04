@@ -1,11 +1,6 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -24,6 +19,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Table<TItem> : BootstrapComponentBase, ITable where TItem : class, new()
     {
+        private JSInterop<Table<TItem>>? Interop { get; set; }
+
         /// <summary>
         /// 获得 Table 组件样式表
         /// </summary>
@@ -234,15 +231,24 @@ namespace BootstrapBlazor.Components
             OnSortAsync = QueryAsync;
 
             // 设置 OnFilter 回调方法
-            OnFilterAsync = QueryAsync;
+            OnFilterAsync = async () =>
+            {
+                PageIndex = 1;
+                await QueryAsync();
+            };
         }
 
         private string? methodName;
 
         /// <summary>
-        /// 获得/设置 是否我第一次 Render
+        /// 获得/设置 是否为第一次 Render
         /// </summary>
         protected bool FirstRender { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否正在加载数据 默认为 false
+        /// </summary>
+        protected bool IsLoading { get; set; }
 
         private CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
@@ -256,6 +262,13 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
+                if (ShowSearch)
+                {
+                    // 注册 SeachBox 回调事件
+                    Interop = new JSInterop<Table<TItem>>(JSRuntime);
+                    await Interop.Invoke(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
+                }
+
                 FirstRender = false;
                 methodName = Height.HasValue ? "fixTableHeader" : "init";
 
@@ -264,7 +277,9 @@ namespace BootstrapBlazor.Components
                 // 初始化列
                 if (AutoGenerateColumns)
                 {
-                    InternalTableColumn.GetProperties<TItem>(Columns);
+                    var cols = InternalTableColumn.GetProperties<TItem>(Columns);
+                    Columns.Clear();
+                    Columns.AddRange(cols);
                 }
 
                 ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
@@ -276,16 +291,27 @@ namespace BootstrapBlazor.Components
                     SortName = col.GetFieldName();
                     SortOrder = col.DefaultSortOrder;
                 }
-                await QueryAsync();
+
+                await InvokeAsync(async () =>
+                {
+                    await QueryData();
+                    StateHasChanged();
+                });
             }
 
             if (!firstRender) IsRendered = true;
 
             if (IsRendered)
             {
+                // fix: https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2AYEH
+                // PR: https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/818
+                if (Columns.Any(col => col.ShowTips) && string.IsNullOrEmpty(methodName))
+                {
+                    methodName = "tooltip";
+                }
+
                 if (!string.IsNullOrEmpty(methodName))
                 {
-                    // 固定表头脚本关联
                     await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName);
                     methodName = null;
                 }
@@ -297,11 +323,15 @@ namespace BootstrapBlazor.Components
                     // 自动刷新功能
                     _ = Task.Run(async () =>
                     {
-                        while (!AutoRefreshCancelTokenSource.IsCancellationRequested)
+                        try
                         {
-                            await InvokeAsync(QueryAsync);
-                            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+                            while (!(AutoRefreshCancelTokenSource?.IsCancellationRequested ?? true))
+                            {
+                                await InvokeAsync(QueryAsync);
+                                await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource?.Token ?? new CancellationToken(true));
+                            }
                         }
+                        catch (TaskCanceledException) { }
                     });
                 }
             }
@@ -395,6 +425,9 @@ namespace BootstrapBlazor.Components
         {
             if (disposing)
             {
+                Interop?.Dispose();
+
+                AutoRefreshCancelTokenSource?.Cancel();
                 AutoRefreshCancelTokenSource?.Dispose();
                 AutoRefreshCancelTokenSource = null;
             }

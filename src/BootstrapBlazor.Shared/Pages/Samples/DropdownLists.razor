@@ -1,0 +1,103 @@
+﻿@page "/dropdownlists"
+
+<h3>DropdownList 下拉框</h3>
+
+<h4>当选项过多时，使用下拉菜单展示并选择内容</h4>
+
+<Alert ShowBar="true" Color="Color.Danger" class="mt-3">
+    <b>特别注意：</b>
+    本组件是模仿 <code>WebForm</code> 做的实验性组件，个人认为并不好用，也很麻烦，后续版本非常大的可能移除掉这个组件，请使用功能更加强大的 <code>Select</code> 组件
+</Alert>
+
+<Block Title="基础用法" Introduction="通过设置 <code>Data</code> 绑定数据源，通过 <code>ValueField</code> 与 <code>TextField</code> 对数据源的字段进行显示，通过设置 <code>bind-Value</code> 对数据进行双向绑定">
+    <p>组件数据源为 <code>IEnumerable&lt;TModel&gt;</code> 类型，可以绑定任意集合，<code>TextField</code> 设置数据源模型中显示为文本的字段名称，<code>ValueField</code> 设置数据源模型中选中值得字段名称，通过 <code>@@bind-Value</code> 属性设置组件与变量值 <code>TValue</code> 之间双向绑定。</p>
+    <p>绑定值为 <code>int</code> 类型，组件自动将 <code>ValueField</code> 绑定值转换到 <code>int</code> 数据类型</p>
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <DropdownList Data="@Items"
+                          @bind-Value="@SelectedItem"
+                          TextField="Text"
+                          ValueField="Value">
+            </DropdownList>
+        </div>
+        <div class="form-group col-12 col-sm-3">
+            <div class="form-control">@SelectedItem</div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定枚举类型" Introduction="绑定 <code>SortOrder</code> 枚举类型，赋值给 <code>int</code> 类型变量">
+    <p>无需设置 <code>ValueField</code> 与 <code>TextField</code></p>
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <DropdownList Data="@EnumItems"
+                          @bind-Value="@SelectedEnumItem">
+            </DropdownList>
+        </div>
+        <div class="form-group col-12 col-sm-3">
+            <div class="form-control">@SelectedEnumItem</div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="绑定实体类集合" Introduction="绑定 <code>Foo</code> 实体类集合，赋值给 <code>string</code> 类型变量">
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <DropdownList Data="@Foos"
+                          @bind-Value="@SelectedFooName"
+                          TextField="Name"
+                          ValueField="Name">
+            </DropdownList>
+        </div>
+        <div class="form-group col-12 col-sm-3">
+            <div class="form-control">@SelectedFooName</div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
+    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
+    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12">
+                <DropdownList Data="@Foos"
+                              @bind-Value="@SelectedFooName"
+                              TextField="Name"
+                              ValueField="Name">
+                </DropdownList>
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <DropdownList Data="@Foos"
+                              @bind-Value="@SelectedFooName"
+                              Color="Color.Success"
+                              TextField="Name"
+                              ValueField="Name">
+                </DropdownList>
+            </div>
+        </div>
+    </div>
+    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <DropdownList Data="@Foos" IsDisabled="true"
+                              @bind-Value="@SelectedFooName"
+                              TextField="Name"
+                              ValueField="Name"
+                              DisplayText="自定义标签"
+                              ShowLabel="true">
+                </DropdownList>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

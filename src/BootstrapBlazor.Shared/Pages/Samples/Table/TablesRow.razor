@@ -1,0 +1,153 @@
+﻿@inherits TablesBaseEdit
+@page "/tables/row"
+
+<h3>Table 表格</h3>
+
+<h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
+
+<Block Title="显示行号" Introduction="通过设置 <code>ShowLineNo</code> 属性为 <code>true</code> 时表格显示行号了，默认值为 <code>false</code>">
+    <p>设置 <code>LineNoText</code> 属性值来设置行号列头显示文本，默认为 <code>行号</code></p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowLineNo="true" LineNoText="序号"
+           ShowDefaultButtons="false" ClickToSelect="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="点击单元格选中整行效果" Introduction="通过设置 <code>ClickToSelect</code> 属性值可以实现点击任意单元格选中整行效果，选中行样式被设置为 <code>active</code>">
+    <p>可以设置 <code>OnClickRowCallback</code> 回调委托方法对点击行做相应处理，点击表格中任意一行后在下方显示选中行绑定数据的 <code>Name</code> 值</p>
+    <p>注意：此回调委托内部不进行 UI 渲染，需要 UI 数据更新操作时，请手动显式调用 <code>StateHasChanged</code> 方法</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" ClickToSelect="true" OnClickRowCallback="@ClickRow"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+    <p>当前选中行：@(CurrentItem?.Name ?? "无")</p>
+</Block>
+
+<Block Title="双击单元格编辑本行效果" Introduction="通过设置 <code>DoubleClickToEdit</code> 属性值可以实现双击任意单元格编辑本行效果，此功能前提是 <code>Edit</code> 功能可用">
+    <p>移动端（CardView）模式暂时不支持双击编辑当前行功能</p>
+    <p>多选模式下同样支持双击编辑功能，如果设置 <code>ClickToSelect</code> 点击选择效果后，双击编辑功能会导致行选中状态交替选中，请自行设置 <code>ClickToSelect=false</code> 关闭此功能</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDeleteButton="false"
+           ClickToSelect="true" DoubleClickToEdit="true"
+           OnQueryAsync="@OnEditQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <EditTemplate>
+            <div class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
+                            <RequiredValidator />
+                            <StringLengthValidator Length="50" />
+                        </BootstrapInput>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <DateTimePicker @bind-Value="@context.DateTime">
+                            <RequiredValidator />
+                        </DateTimePicker>
+                    </div>
+                    <div class="form-group col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Count">
+                            <RequiredValidator />
+                        </BootstrapInput>
+                    </div>
+                </div>
+            </div>
+        </EditTemplate>
+    </Table>
+</Block>
+
+<Block Title="自定义行双击事件" Introduction="本功能仅限 <code>Table</code> 组件单选模式下生效，通过设置 <code>DoubleClickRowCallback</code> 属性值可以实现双击任意单元格自定义回调委托方法，实现自己的需求功能">
+    <p>移动端（CardView）模式暂时不支持双击编辑当前行功能</p>
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="自定义行高亮" Introduction="通过设置 <code>SetRowClassFormatter</code> 属性值可以实现通过行数据逻辑对行样式进行设置,实现自己高亮需求功能">
+    <p>本例中 <code>SetRowClassFormatter</code> 方法通过判断绑定数据的 <code>Count > 60</code> 时行高亮显示</p>
+    <Table TItem="BindItem" SetRowClassFormatter="@SetRowClassFormatter"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
+@code {
+
+    private Task DoubleClickRowCallback(BindItem item)
+    {
+        var cate = ToastCategory.Success;
+        var title = "双击行回调委托示例";
+        var content = $"选中行数据为名称 {item.Name} 的数据";
+        ToastService?.Show(new ToastOption()
+        {
+            Category = cate,
+            Title = title,
+            Content = content
+        });
+        return Task.CompletedTask;
+    }
+
+    private string? SetRowClassFormatter(BindItem item)
+    {
+        return item.Count > 60 ? "highlight" : null;
+    }
+
+    private BindItem? CurrentItem { get; set; }
+
+    private Task ClickRow(BindItem item)
+    {
+        CurrentItem = item;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}

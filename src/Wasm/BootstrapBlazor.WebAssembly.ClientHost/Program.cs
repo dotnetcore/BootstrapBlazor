@@ -1,21 +1,18 @@
-﻿// **********************************
-// 框架名称：BootstrapBlazor 
-// 框架作者：Argo Zhang
-// 开源地址：
-// Gitee : https://gitee.com/LongbowEnterprise/BootstrapBlazor
-// GitHub: https://github.com/ArgoZhang/BootstrapBlazor 
-// 开源协议：LGPL-3.0 (https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/LICENSE)
-// **********************************
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using BootstrapBlazor.Shared.Data;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
-using System;
 using System.Globalization;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.WebAssembly.ClientHost
@@ -36,7 +33,7 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddTransient(sp => new HttpClient());
 
             // 版本号服务
             builder.Services.AddVersionManager();
@@ -52,7 +49,12 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             builder.Services.AddSingleton<WeatherForecastService>();
 
-            builder.Services.AddSingleton<WebsiteOptions>();
+            builder.Services.AddSingleton<IConfigureOptions<WebsiteOptions>, Microsoft.Extensions.DependencyInjection.ConfigureOptions<WebsiteOptions>>();
+
+            builder.Services.Configure<WebsiteOptions>(options =>
+            {
+                options.RepositoryUrl = "https://www.blazor.zone/api/docs/";
+            });
 
             builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
 
@@ -78,6 +80,21 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
         internal class DefaultCultureStorage : ICultureStorage
         {
             public CultureStorageMode Mode { get; set; } = CultureStorageMode.LocalStorage;
+        }
+
+        internal class CorsMessageHandler : HttpClientHandler
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="request"></param>
+            /// <param name="cancellationToken"></param>
+            /// <returns></returns>
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                request.SetBrowserRequestMode(BrowserRequestMode.Cors);
+                return base.SendAsync(request, cancellationToken);
+            }
         }
     }
 }
