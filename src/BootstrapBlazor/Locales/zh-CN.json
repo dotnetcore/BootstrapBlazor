@@ -114,7 +114,9 @@
     "PlaceHolder": "点击进行多选 ...",
     "SelectAllText": "全选",
     "ReverseSelectText": "反选",
-    "ClearText": "清除"
+    "ClearText": "清除",
+    "MinErrorMessage": "最少请选择 {0} 项",
+    "MaxErrorMessage": "最多可以选择 {0} 项"
   },
   "BootstrapBlazor.Components.Pagination": {
     "AiraPageLabel": "分页组件",

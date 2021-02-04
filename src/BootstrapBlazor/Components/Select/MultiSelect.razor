@@ -28,7 +28,8 @@
             }
         </div>
     </div>
-    <div class="@MenuClassString">
+    <div class="multi-select-menu-arrow"></div>
+    <div class="multi-select-menu">
         @if (ShowSearch)
         {
             <div class="search">
@@ -46,10 +47,10 @@
         }
         @foreach (var item in GetData())
         {
-            <div class="@GetItemClassString(item)" @onclick="@(e => ToggleRow(item))">
-                <Checkbox TValue="bool" Value="@GetCheckedState(item)"></Checkbox>
+            <DynamicElement OnClick="() => ToggleRow(item, true)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+                <Checkbox TValue="bool" Value="GetCheckedState(item)" IsDisabled="@CheckCanSelect(item)"></Checkbox>
                 <span>@item.Text</span>
-            </div>
+            </DynamicElement>
         }
     </div>
 </div>

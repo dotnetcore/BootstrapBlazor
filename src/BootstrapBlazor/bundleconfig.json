@@ -156,6 +156,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Select/MultiSelect.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Select/MultiSelect.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -186,7 +192,8 @@
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
       "Components/Tab/Tab.razor.cs.min.css",
       "Components/Layout/Layout.razor.cs.min.css",
-      "Components/GoTop/GoTop.razor.cs.min.css"
+      "Components/GoTop/GoTop.razor.cs.min.css",
+      "Components/Select/MultiSelect.razor.cs.min.css"
     ]
   },
   {
