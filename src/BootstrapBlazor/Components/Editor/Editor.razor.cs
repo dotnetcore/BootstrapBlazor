@@ -153,10 +153,10 @@ namespace BootstrapBlazor.Components
                 }
                 await Interope.Invoke(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
             }
-            if (_renderValue)
+            else if (_renderValue)
             {
                 _renderValue = false;
-                await JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor", "code", "", "", "", "", Value ?? "");
+                await JSRuntime.InvokeVoidAsync(EditorElement, "bb_editor", "code", "", "", "", Height, Value ?? "");
             }
         }
 
