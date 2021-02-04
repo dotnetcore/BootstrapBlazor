@@ -93,6 +93,7 @@ namespace BootstrapBlazor.Server
                 option.UseConnectionString(FreeSql.DataType.Sqlite, Configuration.GetConnectionString("bb"))
                 //开发环境:自动同步实体
                 .UseAutoSyncStructure(true)
+                .UseNoneCommandParameter(true)
                 //调试sql语句输出
                 .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
                 ;

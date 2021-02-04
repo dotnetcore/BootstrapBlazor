@@ -607,14 +607,14 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Required(ErrorMessage = "姓名不能为空")]
-        [AutoGenerateColumn(Order = 10, Filterable = true)]
+        [AutoGenerateColumn(Order = 10, Filterable = true, Sortable = true)]
         [ColumnName(Name = "姓名", ResourceName = "Name", ResourceType = typeof(BindItem))]
         public string? Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
+        [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180, Sortable = true)]
         [ColumnName(Name = "日期", ResourceName = "DateTime", ResourceType = typeof(BindItem))]
         public DateTime? DateTime { get; set; }
 
@@ -623,21 +623,21 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [ColumnName(Name = "地址", ResourceName = "Address", ResourceType = typeof(BindItem))]
         [Required(ErrorMessage = "地址不能为空")]
-        [AutoGenerateColumn(Order = 20, Filterable = true)]
+        [AutoGenerateColumn(Order = 20, Filterable = true, Sortable = true)]
         public string? Address { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [ColumnName(Name = "数量", ResourceName = "Count", ResourceType = typeof(BindItem))]
-        [AutoGenerateColumn(Order = 40)]
+        [AutoGenerateColumn(Order = 40, Sortable = true)]
         public int Count { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [ColumnName(Name = "是/否", ResourceName = "Complete", ResourceType = typeof(BindItem))]
-        [AutoGenerateColumn(Order = 50)]
+        [AutoGenerateColumn(Order = 50, Sortable = true)]
         public bool Complete { get; set; }
 
         /// <summary>
@@ -645,7 +645,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [Required(ErrorMessage = "请选择学历")]
         [ColumnName(Name = "学历", ResourceName = "Education", ResourceType = typeof(BindItem))]
-        [AutoGenerateColumn(Order = 60)]
+        [AutoGenerateColumn(Order = 60, Sortable = true)]
         public EnumEducation? Education { get; set; }
     }
 

@@ -193,3 +193,26 @@
         </TableColumns>
     </Table>
 </Block>
+
+
+<Block Title="使用注入数据服务(全功能)" Introduction="通过设置表格的 <code>UseInjectDataService</code> 属性，使用数据服务进行对数据的增删改查">
+
+    <Table TItem="BindItem"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true" ShowSearch="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" UseInjectDataService="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Complete">
+                <Template Context="v">
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12 col-sm-6">
+                        <Switch @bind-Value="(v as BindItem)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+ 
+</Block>
