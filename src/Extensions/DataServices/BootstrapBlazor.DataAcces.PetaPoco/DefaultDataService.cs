@@ -6,6 +6,7 @@ using BootstrapBlazor.Components;
 using PetaPoco;
 using PetaPoco.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.DataAcces.PetaPoco
@@ -56,8 +57,7 @@ namespace BootstrapBlazor.DataAcces.PetaPoco
         /// <returns></returns>
         public override async Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            // TODO: 未做分页处理
-            var items = await _db.FetchAsync<TModel>();
+            var items = await _db.FetchAsync<TModel>(option.Filters.Concat(option.Searchs));
             var ret = new QueryData<TModel>()
             {
                 TotalCount = items.Count,
