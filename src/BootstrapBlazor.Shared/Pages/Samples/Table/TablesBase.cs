@@ -590,8 +590,6 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    //[TableName("Test")]
-    //[PrimaryKey("Id", AutoIncrement = true)]
     [FreeSql.DataAnnotations.Table(Name = "Test")]
     public class BindItem
     {
@@ -648,7 +646,6 @@ namespace BootstrapBlazor.Shared.Pages
         [Required(ErrorMessage = "请选择学历")]
         [ColumnName(Name = "学历", ResourceName = "Education", ResourceType = typeof(BindItem))]
         [AutoGenerateColumn(Order = 60)]
-        //[EnumConverter(typeof(EnumEducation))]
         public EnumEducation? Education { get; set; }
     }
 
@@ -669,24 +666,4 @@ namespace BootstrapBlazor.Shared.Pages
         [Description("中学")]
         Middel
     }
-
-    ///// <summary>
-    ///// BindItemContext 上下文操作类
-    ///// </summary>
-    //public class BindItemDbContext : Microsoft.EntityFrameworkCore.DbContext
-    //{
-    //    /// <summary>
-    //    /// 构造函数
-    //    /// </summary>
-    //    /// <param name="options"></param>
-    //    public BindItemDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<BindItemDbContext> options) : base(options)
-    //    {
-
-    //    }
-
-    //    /// <summary>
-    //    /// 
-    //    /// </summary>
-    //    public Microsoft.EntityFrameworkCore.DbSet<BindItem>? BindItems { get; set; }
-    //}
 }
