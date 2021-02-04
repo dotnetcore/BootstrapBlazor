@@ -50,7 +50,7 @@ namespace BootstrapBlazor.DataAcces.FreeSql
             TotalCount = null;
             return true;
         }
-         
+
         /// <summary>
         /// 缓存记录总数
         /// </summary>
@@ -65,16 +65,27 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// 缓存查询条件
         /// </summary>
         QueryPageOptions Options { get; set; }
+
+        /// <summary>
+        /// 添加测试数据
+        /// </summary>
         void initTestDatas()
         {
-            if (_db.Select<TModel>().Count() < 200)
+            try
             {
-                var sql = "";
-                for (int i = 0; i < 200; i++)
+                if (_db.Select<TModel>().Count() < 200)
                 {
-                    sql += @$"INSERT INTO ""Test""(""Name"", ""DateTime"", ""Address"", ""Count"", ""Complete"", ""Education"") VALUES('周星星{i}', '2021-02-01 00:00:00', '星光大道 , {i}A', {i}, 0, 1);";
+                    var sql = "";
+                    for (int i = 0; i < 200; i++)
+                    {
+                        sql += @$"INSERT INTO ""Test""(""Name"", ""DateTime"", ""Address"", ""Count"", ""Complete"", ""Education"") VALUES('周星星{i}', '2021-02-01 00:00:00', '星光大道 , {i}A', {i}, 0, 1);";
+                    }
+                    _db.Ado.ExecuteScalar(sql);
                 }
-                _db.Ado.ExecuteScalar(sql);
+
+            }
+            catch
+            {
             }
 
         }
@@ -99,8 +110,9 @@ namespace BootstrapBlazor.DataAcces.FreeSql
 
         private void FetchAsync(QueryPageOptions option)
         {
+#if DEBUG
             initTestDatas();
-
+#endif
             var dynamicFilterInfo = MakeDynamicFilterInfo(option, out var isSerach);
 
             if (TotalCount != null && !isSerach && option.PageItems != Options.PageItems && TotalCount <= Options.PageItems)

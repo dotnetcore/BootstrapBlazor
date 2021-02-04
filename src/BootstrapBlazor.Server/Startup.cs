@@ -94,8 +94,10 @@ namespace BootstrapBlazor.Server
                 //开发环境:自动同步实体
                 .UseAutoSyncStructure(true)
                 .UseNoneCommandParameter(true)
+#if DEBUG
                 //调试sql语句输出
                 .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
+#endif
                 ;
             });
 
