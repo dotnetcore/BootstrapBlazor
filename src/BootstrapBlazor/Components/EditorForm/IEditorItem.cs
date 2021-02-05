@@ -33,6 +33,11 @@ namespace BootstrapBlazor.Components
         string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 步长 默认为 null
+        /// </summary>
+        object? Step { get; set; }
+
+        /// <summary>
         /// 获得/设置 编辑模板
         /// </summary>
         RenderFragment<object>? EditTemplate { get; set; }

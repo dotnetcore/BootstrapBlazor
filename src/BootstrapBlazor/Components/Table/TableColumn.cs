@@ -68,6 +68,12 @@ namespace BootstrapBlazor.Components
         public bool TextEllipsis { get; set; }
 
         /// <summary>
+        /// 获得/设置 步长 默认为 null
+        /// </summary>
+        [Parameter]
+        public object? Step { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
         /// </summary>
         [Parameter]

@@ -167,16 +167,16 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="col"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
-        private RenderFragment AutoGenerateTemplate(IEditorItem col) => builder =>
+        private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
         {
-            var fieldType = col.PropertyType;
+            var fieldType = item.PropertyType;
             if (fieldType != null && Model != null)
             {
                 // GetDisplayName
-                var displayName = col.GetDisplayName();
-                var fieldName = col.GetFieldName();
+                var displayName = item.GetDisplayName();
+                var fieldName = item.GetFieldName();
 
                 // FieldValue
                 var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => Model.GetPropertyValueLambda<TModel, object?>(key.FieldName).Compile());
@@ -198,13 +198,13 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(index++, "Value", fieldValue);
                 builder.AddAttribute(index++, "ValueChanged", fieldValueChanged);
                 builder.AddAttribute(index++, "ValueExpression", valueExpression);
-                builder.AddAttribute(index++, "IsDisabled", col.Readonly);
-                builder.AddMultipleAttributes(index++, CreateMultipleAttributes(fieldType, fieldName));
+                builder.AddAttribute(index++, "IsDisabled", item.Readonly);
+                builder.AddMultipleAttributes(index++, CreateMultipleAttributes(fieldType, fieldName, item));
                 builder.CloseComponent();
             }
         };
 
-        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, string fieldName)
+        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, string fieldName, IEditorItem item)
         {
             var ret = new List<KeyValuePair<string, object>>();
             var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
@@ -222,6 +222,11 @@ namespace BootstrapBlazor.Components
                     case nameof(String):
                         var placeHolder = Model.GetPlaceHolder(fieldName);
                         ret.Add(new KeyValuePair<string, object>("placeholder", placeHolder ?? PlaceHolderText));
+                        break;
+                    case nameof(Int32):
+                    case nameof(Double):
+                    case nameof(Decimal):
+                        ret.Add(new KeyValuePair<string, object>("Step", item.Step!));
                         break;
                     default:
                         break;

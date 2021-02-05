@@ -142,6 +142,11 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FilterTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 步长 默认为 1
+        /// </summary>
+        public object? Step { get; set; }
+
+        /// <summary>
         /// 获得/设置 列过滤器
         /// </summary>
         public IFilter? Filter { get; set; }

@@ -60,6 +60,12 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 步长
+        /// </summary>
+        [Parameter]
+        public object? Step { get; set; }
+
+        /// <summary>
         /// 获得/设置 编辑模板
         /// </summary>
         [Parameter]
