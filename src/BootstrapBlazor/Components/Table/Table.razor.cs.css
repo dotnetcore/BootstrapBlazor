@@ -275,7 +275,8 @@
         right: 12px;
     }
 
-.table-loading {
+.table-loading,
+.table-loader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -284,6 +285,22 @@
     padding: 2rem;
     flex: 1;
 }
+
+.table-loader {
+    display: none;
+    opacity: 0.8;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #f8f9fa;
+    z-index: 4;
+}
+
+    .table-loader.show {
+        display: flex;
+    }
 
 .table-modal-footer {
     margin: 0 -1rem -1rem -1rem;

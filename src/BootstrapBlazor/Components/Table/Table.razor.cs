@@ -245,11 +245,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected bool FirstRender { get; set; } = true;
 
-        /// <summary>
-        /// 获得/设置 是否正在加载数据 默认为 false
-        /// </summary>
-        protected bool IsLoading { get; set; }
-
         private CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
         /// <summary>
@@ -291,18 +286,19 @@ namespace BootstrapBlazor.Components
                     SortName = col.GetFieldName();
                     SortOrder = col.DefaultSortOrder;
                 }
-
-                await InvokeAsync(async () =>
-                {
-                    await QueryData();
-                    StateHasChanged();
-                });
+                await QueryAsync();
             }
 
             if (!firstRender) IsRendered = true;
 
             if (IsRendered)
             {
+                if(IsLoading)
+                {
+                    IsLoading = false;
+                    var _ = JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", "hide");
+                }
+
                 // fix: https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2AYEH
                 // PR: https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/818
                 if (Columns.Any(col => col.ShowTips) && string.IsNullOrEmpty(methodName))
