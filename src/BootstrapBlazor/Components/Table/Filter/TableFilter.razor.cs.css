@@ -68,7 +68,7 @@
         }
 
         .table-filter .card-body .form-select {
-            width: 100%;
+            display: block;
         }
 
     .table-filter .card-footer {
