@@ -39,12 +39,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure<BootstrapBlazorOptions>(options =>
             {
                 configureOptions?.Invoke(options);
-
-                // fix(#I2925C): https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2925C
-                if (CultureInfo.CurrentUICulture.Name == "en" || !options.SupportedCultures.Any(c => c.Equals(CultureInfo.CurrentUICulture.Name, StringComparison.OrdinalIgnoreCase)))
-                {
-                    CultureInfo.CurrentUICulture = new CultureInfo(options.DefaultUICultureInfoName ?? "en-US");
-                }
             });
 
             ServiceProviderHelper.RegisterService(services);

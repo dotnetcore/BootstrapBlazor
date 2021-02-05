@@ -1,8 +1,5 @@
-﻿@using Microsoft.Extensions.DependencyInjection
-@using Microsoft.Extensions.Configuration
-@using System.Globalization
-@inherits BootstrapComponentBase
-@inject IConfiguration Configuration
+﻿@inherits BootstrapComponentBase
+@inject IOptions<BootstrapBlazorOptions> BootstrapOptions
 @inject NavigationManager NavigationManager
 @inject ICultureStorage CultureStorage
 
@@ -10,7 +7,7 @@
     <label>请选择语言：</label>
     <Select Value="@SelectedCulture" OnSelectedItemChanged="@SetCulture">
         <Options>
-            @foreach (var kv in Configuration.GetSupportCultures())
+            @foreach (var kv in BootstrapOptions.Value.GetSupportedCultures())
             {
                 <SelectOption Text="@GetDisplayName(kv)" Value="@kv.Name" />
             }

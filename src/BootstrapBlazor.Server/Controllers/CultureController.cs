@@ -21,7 +21,11 @@ namespace BootstrapBlazor.Server.Controllers
         /// <returns></returns>
         public IActionResult SetCulture(string culture, string redirectUri)
         {
-            if (culture != null)
+            if (string.IsNullOrEmpty(culture))
+            {
+                HttpContext.Response.Cookies.Delete(CookieRequestCultureProvider.DefaultCookieName);
+            }
+            else
             {
                 HttpContext.Response.Cookies.Append(
                     CookieRequestCultureProvider.DefaultCookieName,

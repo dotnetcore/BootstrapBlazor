@@ -33,6 +33,11 @@ namespace BootstrapBlazor.Localization.Json
         public IEnumerable<string>? AdditionalJsonFiles { get; set; }
 
         /// <summary>
+        /// 获得/设置 回落默认文化
+        /// </summary>
+        internal string? FallbackCulture { get; set; }
+
+        /// <summary>
         /// 构造方法
         /// </summary>
         public JsonLocalizationOptions()

@@ -24,10 +24,12 @@ namespace BootstrapBlazor.Localization.Json
         /// 构造函数
         /// </summary>
         /// <param name="localizationOptions"></param>
+        /// <param name="options"></param>
         /// <param name="loggerFactory"></param>
-        public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> localizationOptions, ILoggerFactory loggerFactory)
+        public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> localizationOptions, IOptions<BootstrapBlazorOptions> options, ILoggerFactory loggerFactory)
         {
             _jsonOptions = localizationOptions.Value;
+            _jsonOptions.FallbackCulture = options.Value.FallbackCultureName;
             _loggerFactory = loggerFactory;
         }
 
@@ -113,9 +115,10 @@ namespace BootstrapBlazor.Localization.Json
         /// <returns></returns>
         public static IStringLocalizer CreateLocalizer(Type type)
         {
-            var options = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            var localizerOption = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            var blazorOption = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
             var loggerFactory = ServiceProviderHelper.ServiceProvider.GetRequiredService<ILoggerFactory>();
-            var factory = new JsonStringLocalizerFactory(options, loggerFactory);
+            var factory = new JsonStringLocalizerFactory(localizerOption, blazorOption, loggerFactory);
             return factory.Create(type);
         }
     }

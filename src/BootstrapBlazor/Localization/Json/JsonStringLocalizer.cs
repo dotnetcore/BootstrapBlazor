@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Localization.Json
             {
                 var value = GetStringSafely(name);
 
-                return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: _searchedLocation);
+                return new LocalizedString(name, value, resourceNotFound: value == null, searchedLocation: _searchedLocation);
             }
         }
 
@@ -70,7 +70,7 @@ namespace BootstrapBlazor.Localization.Json
             get
             {
                 var format = GetStringSafely(name);
-                var value = string.Format(format ?? name, arguments);
+                var value = string.Format(format, arguments);
 
                 return new LocalizedString(name, value, resourceNotFound: format == null, searchedLocation: _searchedLocation);
             }
@@ -99,7 +99,7 @@ namespace BootstrapBlazor.Localization.Json
             foreach (var name in resourceNames)
             {
                 var value = GetStringSafely(name);
-                yield return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: _searchedLocation);
+                yield return new LocalizedString(name, value, resourceNotFound: value == null, searchedLocation: _searchedLocation);
             }
         }
 
@@ -108,7 +108,7 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        protected virtual string? GetStringSafely(string name)
+        protected virtual string GetStringSafely(string name)
         {
             string? value = null;
             if (_options.StringLocalizer != null)
@@ -122,26 +122,35 @@ namespace BootstrapBlazor.Localization.Json
 
             if (string.IsNullOrEmpty(value))
             {
-                var culture = CultureInfo.CurrentUICulture;
-
-                while (culture != culture.Parent)
+                value = GetStringByCulture(CultureInfo.CurrentUICulture, name);
+                if (string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(_options.FallbackCulture))
                 {
-                    BuildResourcesCache(culture);
+                    value = GetStringByCulture(new CultureInfo(_options.FallbackCulture), name);
+                }
+            }
+            return value ?? name;
+        }
 
-                    if (_resourcesCache.TryGetValue(culture.Name, out var resources))
+        private string? GetStringByCulture(CultureInfo culture, string name)
+        {
+            string? value = null;
+            while (culture != culture.Parent)
+            {
+                BuildResourcesCache(culture);
+
+                if (_resourcesCache.TryGetValue(culture.Name, out var resources))
+                {
+                    var resource = resources?.SingleOrDefault(s => s.Key == name);
+
+                    value = resource?.Value ?? null;
+                    _logger.LogDebug($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}'.");
+
+                    if (value != null)
                     {
-                        var resource = resources?.SingleOrDefault(s => s.Key == name);
-
-                        value = resource?.Value ?? null;
-                        _logger.LogDebug($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}'.");
-
-                        if (value != null)
-                        {
-                            break;
-                        }
-
-                        culture = culture.Parent;
+                        break;
                     }
+
+                    culture = culture.Parent;
                 }
             }
             return value;
