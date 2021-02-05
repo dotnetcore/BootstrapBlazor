@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F07542
 		.github\workflows\deploy.yml = .github\workflows\deploy.yml
 		.github\workflows\pack.yml = .github\workflows\pack.yml
 		.github\workflows\publish.yml = .github\workflows\publish.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9437A6C6-CF87-4B75-916B-C1EF558BD8EF}"
