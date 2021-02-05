@@ -123,7 +123,9 @@ namespace BootstrapBlazor.Components
                 cols.Add(tc);
             }
 
-            return cols.OrderBy(c => c.Order);
+            return cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
+                .Concat(cols.Where(a => a.Order == 0))
+                .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
         }
 
         /// <summary>
