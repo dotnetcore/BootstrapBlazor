@@ -67,6 +67,9 @@ namespace BootstrapBlazor.Server
             {
                 // 统一设置 Toast 组件自动消失时间
                 options.ToastDelay = 4000;
+            }, options =>
+            {
+                options.AdditionalAssemblies = new[] { typeof(BootstrapBlazor.Shared.App).Assembly };
             });
 
             // 增加 Table Excel 导出服务

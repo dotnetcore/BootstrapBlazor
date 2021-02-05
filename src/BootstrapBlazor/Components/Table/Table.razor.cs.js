@@ -59,7 +59,6 @@
             }
         },
         bb_table_load: function (el, method) {
-            console.log(el);
             var $el = $(el);
             var $loader = $el.find('.table-loader');
             if (method === 'show')
