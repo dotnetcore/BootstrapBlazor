@@ -134,7 +134,7 @@ namespace BootstrapBlazor.Components
         public Func<DateTimeRangeValue, Task>? OnConfirm { get; set; }
 
         /// <summary>
-        /// 点击情况按钮回调委托方法
+        /// 点击清空按钮回调委托方法
         /// </summary>
         [Parameter]
         public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }

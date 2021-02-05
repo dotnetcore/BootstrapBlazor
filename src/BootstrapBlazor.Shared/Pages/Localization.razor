@@ -3,25 +3,45 @@
 <h3>本地化</h3>
 
 <p>
-    本地化是为给定语言和地区定制应用程序的过程。<code>BootstrapBlazor</code> 组件允许您将其 UI 元素转换为所需的语言。这包括按钮、过滤器操作符属性等文本。组件内部默认使用当前系统 <code>UI</code> 文化语言，本文将向您展示如何在应用程序中使用此功能：
+    本地化是为给定语言和地区定制应用程序的过程。<code>BootstrapBlazor</code> 组件允许您将其 UI 元素转换为所需的语言。这包括按钮、过滤器操作符属性等文本。组件内部默认使用当前请求 <code>UI</code> 文化语言，本文将向您展示如何在应用程序中使用此功能：
 </p>
 
-<Alert ShowBar="true" Color="@Color.Info">
-    阅读以下知识点前请先查看 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1" target="_blank">微软官方文档</a>
+<Tips>
+    阅读以下知识点前请先查看 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization" target="_blank">微软官方文档</a>
     <div>由于 <code>wasm</code> 模式无法获取系统语言文化信息，默认文化信息为 <code>en</code>，<Anchor Target="lang">请查阅文章最后更改默认语言章节</Anchor></div>
-</Alert>
+</Tips>
 
 <p><b>本地化在组件中的工作原理</b></p>
 
 <p>
-    <code>BootstrapBlazor</code> 组件使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href="https://www.nuget.org/packages/BootstrapBlazor/" target="_blank">BootstrapBalzor-Nuget</a> 包自带中文（zh-CN）、英语（en-US）两种资源文件。
+    <div>
+        <code>BootstrapBlazor</code> 组件额外支持使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href="https://www.nuget.org/packages/BootstrapBlazor/" target="_blank">BootstrapBalzor</a> 包自带中文（zh）、英语（en）两种资源文件。组件内置本地化语言回退机制，如请求文化为 <code>zh-CN</code> 时，如未提供相对应的文化资源文件时，内置逻辑通过父级文化进行尝试本地化，以 <code>zh-CN</code> 为例回退机制如下：
+    </div>
+    <div>
+        <code>zh-CN</code> -> <code>zh-Hans</code> -> <code>zh</code>
+    </div>
 </p>
 
 <p><b>开启本地化功能</b></p>
 
 <p><b>Server-Side App</b></p>
 
-<p><b>1. 启用 .NET 核心本地化服务</b></p>
+<p><b>1. 配置文件</b></p>
+
+<p>通过 <code>FallbackCultureName</code> 设置回退文化信息，即未找到当前请求的文化信息时使用此配置文化，通过 <code>SupportedCultures</code> 设置支持的文化集合</p>
+
+<Pre>{
+  "BootstrapBlazorOptions": {
+    "FallbackCultureName": "en-US",
+    "SupportedCultures": [
+      "zh-CN",
+      "en-US"
+    ]
+  }
+}
+</Pre>
+
+<p><b>2. 启用 .NET 核心本地化服务</b></p>
 <Pre>public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
@@ -30,29 +50,29 @@
         services.AddBootstrapBlazor();
 
         // 增加本地化服务配置信息
-        services.Configure&lt;RequestLocalizationOptions&gt;(options =>
+        services.AddRequestLocalization&lt;IOptions&lt;BootstrapBlazorOptions&gt;&gt;((localizerOption, blazorOption) =>
         {
-            var supportedCultures = Configuration.GetSupportCultures().ToList();
-            options.DefaultRequestCulture = new RequestCulture("zh-CN");
-            options.SupportedCultures = supportedCultures;
-            options.SupportedUICultures = supportedCultures;
+            var supportedCultures = blazorOption.Value.GetSupportedCultures();
+
+            localizerOption.SupportedCultures = supportedCultures;
+            localizerOption.SupportedUICultures = supportedCultures;
         });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        // 启用本地化
-        app.UseRequestLocalization(app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;().Value);
+        // 启用本地化中间件并设置支持的文化信息
+        app.UseRequestLocalization(app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;()!.Value);
     }
 }</Pre>
 
-<p><b>2. 实现 UI 本地化信息存储（例如，cookie）</b></p>
+<p><b>3. 实现 UI 本地化信息存储（例如，cookie）</b></p>
 <Pre>[Route("[controller]/[action]")]
 public class CultureController : Controller
 {
     public IActionResult SetCulture(string culture, string redirectUri)
     {
-        if (culture != null)
+        if (!string.IsNullOrEmpty(culture))
         {
             HttpContext.Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -71,10 +91,8 @@ public class CultureController : Controller
 }</Pre>
 
 <p><b>3. 添加允许用户更改本地化的 UI</b></p>
-<Pre>@@using Microsoft.Extensions.Configuration
-@@using System.Globalization
-@@inherits BootstrapComponentBase
-@@inject IConfiguration Configuration
+<Pre>@@inherits BootstrapComponentBase
+@@inject IOptions&lt;BootstrapBlazorOptions&gt; BootstrapOptions
 @@inject NavigationManager NavigationManager
 @@inject ICultureStorage CultureStorage
 
@@ -128,16 +146,42 @@ public class CultureController : Controller
     }
 }</Pre>
 
-<p><b>4. 添加 <code>Json</code> 资源文件</b></p>
+<p><b>4. 附加 <code>Json</code> 资源文件</b></p>
 
 <p>
-    资源文件所在目录为 <code>~/Locales</code>，文件夹内为以文化开头的 <code>Json</code> 文件
+    <code>BootstrapBlazor</code> 组件库即支持微软默认的 <code>resx</code> 格式资源，也支持嵌入式 <code>json</code> 格式资源，以及特定物理 <code>json</code> 文件
 </p>
 
-<ul class="ul-demo">
-    <li>zh-CN.json</li>
-    <li>en-US.json</li>
-</ul>
+<p>
+    <div>资源文件为合并关系，寻址规则优先级为</div>
+
+    <ul class="ul-demo mt-3">
+        <li>微软 resx 嵌入式资源文件</li>
+        <li>外置 json 物理文件</li>
+        <li>json 嵌入式资源文件</li>
+        <li>内置 json 资源文件</li>
+    </ul>
+</p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    services.AddBootstrapBlazor(setupAction: options =>
+    {
+        // 设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx
+        options.StringLocalizer = JsonLocalizationOptions.CreateStringLocalizer&lt;Program&gt;();
+
+        // 设置 Json 格式嵌入式资源文件
+        options.AdditionalAssemblies = new[] { typeof(BootstrapBlazor.Shared.App).Assembly };
+
+        // 设置 Json 物理路径文件
+        options.AdditionalJsonFiles = new string[]
+        {
+            @@"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-TW.json",
+            @@"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-CN.json"
+        };
+    });
+}
+</Pre>
 
 <p><b>Web Assembly</b></p>
 
@@ -154,6 +198,13 @@ public class CultureController : Controller
     builder.Services.AddBootstrapBlazor();
 
     builder.Services.AddSingleton&lt;ICultureStorage, DefaultCultureStorage&gt;();
+
+    // 增加本地化
+    builder.Services.Configure&lt;BootstrapBlazorOptions&gt;(op =>
+    {
+        op.ToastDelay = 4000;
+        op.SupportedCultures.AddRange(new string[] { "zh-CN", "en-US" });
+    });
 
     var host = builder.Build();
 
@@ -183,14 +234,18 @@ internal class DefaultCultureStorage : ICultureStorage
 
 <p id="lang"><b>更改默认语言设置</b></p>
 
-<Pre>public void ConfigureServices(IServiceCollection services)
+<Pre>public static async Task Main(string[] args)
 {
-    // 增加 BootstrapBlazor 组件
-    services.AddBootstrapBlazor(options =>
-    {
-        // 设置默认语言
-        // 组件内部已开启自动判断系统语言信息设置默认文化信息，未设置 DefaultUICultureInforName 时自动判断
-        options.DefaultUICultureInfoName = "zh-CN";
-    });
+    // 设置默认文化为 zh-CN
+    CultureInfo.CurrentCulture = new CultureInfo("zh-CN");
+    CultureInfo.CurrentUICulture = new CultureInfo("zh-CN");
+
+    // ...
+
+    var host = builder.Build();
+
+    await GetCultureAsync(host);
+
+    await host.RunAsync();
 }
 </Pre>
