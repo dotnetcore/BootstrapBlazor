@@ -102,6 +102,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Table/Filter/TableFilter.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Table/Filter/TableFilter.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Drawer/Drawer.razor.cs.min.css",
     "inputFiles": [
       "Components/Drawer/Drawer.razor.cs.css"
@@ -184,6 +190,7 @@
       "Components/Scroll/Scroll.razor.cs.min.css",
       "Components/Modal/Modal.razor.cs.min.css",
       "Components/Table/Table.razor.cs.min.css",
+      "Components/Table/Filter/TableFilter.razor.cs.min.css",
       "Components/Drawer/Drawer.razor.cs.min.css",
       "Components/GroupBox/GroupBox.razor.cs.min.css",
       "Components/Select/Select.razor.cs.min.css",
