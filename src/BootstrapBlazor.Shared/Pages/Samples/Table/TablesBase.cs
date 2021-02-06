@@ -610,7 +610,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [Required(ErrorMessage = "姓名不能为空")]
+        [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 10, Filterable = true)]
         [Display(Name = "姓名")]
         public string? Name { get; set; }
@@ -626,7 +626,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Display(Name = "地址")]
-        [Required(ErrorMessage = "地址不能为空")]
+        [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 20, Filterable = true)]
         public string? Address { get; set; }
 
