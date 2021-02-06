@@ -3,6 +3,21 @@
     "Title": "未设置",
     "SubTitle": "示例"
   },
+  "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
+    "Title": "Attributes 属性"
+  },
+  "BootstrapBlazor.Shared.Common.AttributeItem": {
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型",
+    "ValueList": "可选值",
+    "DefaultValue": "默认值"
+  },
+  "BootstrapBlazor.Shared.Shared.ComponentLayout": {
+    "Title": "基于 Bootstrap 和 Blazor 的企业级组件库",
+    "Example": "示例",
+    "Video": "相关视频"
+  },
   "BootstrapBlazor.Shared.Pages.Alerts": {
     "Title": "Alert 警告",
     "SubTitle": "用于页面中展示重要的提示信息。",

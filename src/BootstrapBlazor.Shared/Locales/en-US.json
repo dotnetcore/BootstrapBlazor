@@ -3,6 +3,21 @@
     "Title": "",
     "SubTitle": "Demo"
   },
+  "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
+    "Title": "Attributes"
+  },
+  "BootstrapBlazor.Shared.Common.AttributeItem": {
+    "Name": "Parameter",
+    "Description": "Description",
+    "Type": "Type",
+    "ValueList": "List of values",
+    "DefaultValue": "Default value"
+  },
+  "BootstrapBlazor.Shared.Shared.ComponentLayout": {
+    "Title": "Enterprise-level component library based on Bootstrap and Blazor",
+    "Example": "Example",
+    "Video": "Video"
+  },
   "BootstrapBlazor.Shared.Pages.Alerts": {
     "Title": "Alert",
     "SubTitle": "Displays important alert messages.",
