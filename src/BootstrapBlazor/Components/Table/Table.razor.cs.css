@@ -337,11 +337,13 @@
     .table-row .table-cell label:not(.form-checkbox) {
         font-weight: bold;
         width: 30%;
+        min-width: 30%;
         margin-bottom: 0;
         color: #212529;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        margin-right:6px;
     }
 
     .table-row.table-footer {

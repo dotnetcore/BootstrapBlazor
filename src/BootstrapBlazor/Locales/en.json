@@ -79,6 +79,7 @@
     "StartPlaceHolderText": "Start date",
     "EndPlaceHolderText": "End date",
     "ClearButtonText": "Clear",
+    "TodayButtonText": "Today",
     "ConfirmButtonText": "Ok",
     "DateFormat": "M/d/yyyy",
     "Last7Days": "Last 7 Days",

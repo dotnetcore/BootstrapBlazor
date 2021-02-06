@@ -45,7 +45,7 @@
             </CascadingValue>
         </div>
         <div class="range-panel-footer picker-panel-footer">
-            <div class="flex-fill">
+            <div class="flex-fill mr-3">
                 @if (AllowNull)
                 {
                     <button type="button" class="btn picker-panel-link-btn is-confirm is-clear" @onclick="@ClickClearButton">
@@ -53,6 +53,12 @@
                     </button>
                 }
             </div>
+            @if (ShowToday)
+            {
+                <button type="button" class="btn picker-panel-link-btn is-confirm mr-3" @onclick="@ClickTodayButton">
+                    <span>@TodayButtonText</span>
+                </button>
+            }
             <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
             </button>

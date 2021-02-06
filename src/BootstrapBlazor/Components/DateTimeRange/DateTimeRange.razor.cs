@@ -90,6 +90,13 @@ namespace BootstrapBlazor.Components
         public string? ClearButtonText { get; set; }
 
         /// <summary>
+        /// 获得/设置 今天按钮文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? TodayButtonText { get; set; }
+
+        /// <summary>
         /// 获得/设置 确定按钮文字
         /// </summary>
         [Parameter]
@@ -113,6 +120,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool AllowNull { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示今天按钮 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowToday { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示快捷侧边栏 默认不显示
@@ -162,6 +175,7 @@ namespace BootstrapBlazor.Components
 
             ClearButtonText ??= Localizer[nameof(ClearButtonText)];
             ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
+            TodayButtonText ??= Localizer[nameof(TodayButtonText)];
 
             DateFormat ??= Localizer[nameof(DateFormat)];
 
@@ -223,9 +237,25 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击 确认时调用此方法
         /// </summary>
+        private async Task ClickTodayButton()
+        {
+            SelectedValue.Start = DateTime.Today;
+            SelectedValue.End = DateTime.Today;
+            StartValue = DateTime.Today;
+            EndValue = StartValue.AddMonths(1);
+            await ClickConfirmButton();
+        }
+
+        /// <summary>
+        /// 点击 确认时调用此方法
+        /// </summary>
         private async Task ClickConfirmButton()
         {
             Value = SelectedValue;
+            if (Value.End.Hour == 0)
+            {
+                Value.End = Value.End.AddDays(1).AddSeconds(-1);
+            }
             if (ValueChanged.HasDelegate)
             {
                 await ValueChanged.InvokeAsync(Value);

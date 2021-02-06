@@ -79,6 +79,7 @@
     "StartPlaceHolderText": "开始日期",
     "EndPlaceHolderText": "结束日期",
     "ClearButtonText": "清空",
+    "TodayButtonText": "今天",
     "ConfirmButtonText": "确定",
     "DateFormat": "yyyy-MM-dd",
     "Last7Days": "最近 7 天",

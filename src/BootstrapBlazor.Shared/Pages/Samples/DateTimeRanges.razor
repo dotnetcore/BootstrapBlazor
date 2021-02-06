@@ -52,4 +52,15 @@
     </div>
 </Block>
 
+<Block Title="显示今天按钮" Introduction="设置 <code>ShowToday</code> 属性值为 <code>true</code> 时，组件下方显示今天快捷按钮">
+    <p>点击 <code>今天</code> 按钮时，时间范围为 <code>yyyy-MM-dd 00:00:00 到 yyyy-MM-dd 23:59:59</code></p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="col-12">
+                <DateTimeRange Value="@DateTimeRangeValue4" ShowToday="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />

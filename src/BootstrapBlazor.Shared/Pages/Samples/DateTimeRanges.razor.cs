@@ -54,6 +54,13 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
+            new AttributeItem() {
+                Name = "ShowToday",
+                Description = "是否显示今天快捷按钮",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
             new AttributeItem()
             {
                 Name = "IsDisabled",

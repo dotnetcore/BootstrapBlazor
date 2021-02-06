@@ -1,13 +1,13 @@
 ﻿<div class="table-attr">
     <h4>@Title</h4>
 
-    <Table TItem="BootstrapBlazor.Shared.Common.AttributeItem" Items="Items" class="table-demo">
+    <Table TItem="BootstrapBlazor.Shared.Common.AttributeItem" Items="Items">
         <TableColumns>
-            <TableColumn TItem="string" @bind-Field="@context.Name" />
-            <TableColumn TItem="string" @bind-Field="@context.Description" AllowTextWrap="true" />
-            <TableColumn TItem="string" @bind-Field="@context.Type" />
-            <TableColumn TItem="string" @bind-Field="@context.ValueList" AllowTextWrap="true" />
-            <TableColumn TItem="string" @bind-Field="@context.DefaultValue" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Description" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.Type" />
+            <TableColumn @bind-Field="@context.ValueList" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.DefaultValue" />
         </TableColumns>
     </Table>
 </div>
