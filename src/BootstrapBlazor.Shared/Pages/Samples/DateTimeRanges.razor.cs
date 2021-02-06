@@ -35,6 +35,26 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnConfirm",
+                Description="确认按钮回调委托",
+                Type ="Action"
+            },
+            new EventItem()
+            {
+                Name = "OnClearValue",
+                Description="清空按钮回调委托",
+                Type ="Action"
+            } 
+        };
+
+        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
