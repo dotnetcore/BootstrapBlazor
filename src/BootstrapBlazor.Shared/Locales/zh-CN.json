@@ -22,6 +22,14 @@
     "ShowBarUsageText": "显示左侧 Bar",
     "IntroText4": "作为 <code>Tip</code> 使用"
   },
+  "BootstrapBlazor.Shared.Pages.QRCodes": {
+    "Title": "QRCode 二维码",
+    "SubTitle": "用于二维码生成",
+    "BaseUsageText": "基本用法",
+    "IntroText1": "点击生成按钮，生成特定的 <code>QRCode</code>",
+    "SuccessText": "二维码生成成功",
+    "CallbackDescription": "二维码生成后回调委托"
+  },
   "BootstrapBlazor.Shared.Pages.Anchors": {
     "Title": "Anchor 锚点",
     "SubTitle": "用于跳转到页面指定位置",

@@ -22,6 +22,14 @@
     "ShowBarUsageText": "With Bar",
     "IntroText4": "Show <code>Tip</code>"
   },
+  "BootstrapBlazor.Shared.Pages.QRCodes": {
+    "Title": "QRCode",
+    "SubTitle": "Generate QR code",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "Click the Generate button to generate a <code>QRCode</code>",
+    "SuccessText": "QR code generated successfully",
+    "CallbackDescription": "Call back after QR code generation"
+  },
   "BootstrapBlazor.Shared.Pages.Anchors": {
     "Title": "Anchor",
     "SubTitle": "Hyperlinks to scroll on one page.",
