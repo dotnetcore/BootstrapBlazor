@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -18,10 +18,8 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Tab 组件基类
     /// </summary>
-    public sealed partial class Tab
+    public sealed partial class Tab : BootstrapComponentBase
     {
-        static ConcurrentDictionary<string, Type> RouteTable { get; set; } = new ConcurrentDictionary<string, Type>();
-
         /// <summary>
         /// 
         /// </summary>
@@ -173,6 +171,13 @@ namespace BootstrapBlazor.Components
         public string? CloseCurrentTabText { get; set; }
 
         /// <summary>
+        /// 获得/设置 空白 Tab 显示文字
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? NullTabText { get; set; }
+
+        /// <summary>
         /// 获得/设置 关闭所有 TabItem 菜单文本
         /// </summary>
         [Parameter]
@@ -213,8 +218,6 @@ namespace BootstrapBlazor.Components
 
             if (ClickTabToNavigation)
             {
-                InitRouteTable();
-
                 AddTabByUrl(Navigator.Uri);
 
                 Navigator.LocationChanged += Navigator_LocationChanged;
@@ -272,21 +275,6 @@ namespace BootstrapBlazor.Components
                 else
                 {
                     AddTabItem(requestUrl);
-                }
-            }
-        }
-
-        private void InitRouteTable()
-        {
-            var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly() } : new[] { Assembly.GetEntryAssembly() }.Concat(AdditionalAssemblies).Distinct();
-            var componentTypes = apps.SelectMany(a => a?.ExportedTypes.Where(t => typeof(IComponent).IsAssignableFrom(t)) ?? Array.Empty<Type>());
-
-            foreach (var componentType in componentTypes)
-            {
-                var routeAttributes = componentType.GetCustomAttributes<RouteAttribute>(false);
-                foreach (var template in routeAttributes.Select(t => t.Template))
-                {
-                    RouteTable.TryAdd(template.Trim('/').ToLowerInvariant(), componentType);
                 }
             }
         }
@@ -436,24 +424,43 @@ namespace BootstrapBlazor.Components
 
         private void AddTabItem(string url, string? text = null, string? icon = null, bool active = true, bool closable = true)
         {
-            url = url.TrimStart('/').ToLowerInvariant();
-            if (RouteTable.TryGetValue(url, out var comp))
+            var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly() } : new[] { Assembly.GetEntryAssembly() }.Concat(AdditionalAssemblies).Distinct();
+            var context = RouteTableFactory.Create(apps!, url);
+
+            if (context.Handler != null)
             {
                 AddTabItem(new Dictionary<string, object>
                 {
-                    [nameof(TabItem.Text)] = text ?? Options.Text ?? string.Empty,
+                    [nameof(TabItem.Text)] = GetTabText(text, context.Segments),
                     [nameof(TabItem.Url)] = url,
                     [nameof(TabItem.Icon)] = icon ?? Options.Icon ?? string.Empty,
                     [nameof(TabItem.Closable)] = closable,
                     [nameof(TabItem.IsActive)] = active,
                     [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
                     {
-                        builder.OpenComponent(0, comp);
+                        builder.OpenComponent(0, context.Handler);
                         builder.SetKey(url);
+                        foreach (var kv in (context.Parameters ?? new ReadOnlyDictionary<string, object>(new Dictionary<string, object>())))
+                        {
+                            builder.AddAttribute(1, kv.Key, kv.Value);
+                        }
                         builder.CloseComponent();
                     })
                 });
             }
+        }
+
+        private string GetTabText(string? text, string[]? segments)
+        {
+            if (NullTabText == null)
+            {
+                var t = Localizer[nameof(NullTabText)];
+                if (!t.ResourceNotFound)
+                {
+                    NullTabText = t.Value;
+                }
+            }
+            return text ?? Options.Text ?? NullTabText ?? segments?.FirstOrDefault() ?? "";
         }
 
         /// <summary>

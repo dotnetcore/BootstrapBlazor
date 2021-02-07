@@ -1,9 +1,12 @@
-﻿@page "/layout-demo"
+﻿@page "/layout-demo/{text?}"
 @layout PageLayout
+
+<p>已支持路由参数: @Text</p>
 
 <div>
     精彩从这里开始
 </div>
+
 
 @code {
     [CascadingParameter]
@@ -11,6 +14,9 @@
 
     [CascadingParameter]
     private Layout? Layout { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
 
     /// <summary>
     ///
