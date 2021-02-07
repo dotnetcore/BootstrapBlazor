@@ -35,7 +35,6 @@ namespace BootstrapBlazor.DataAcces.FreeSql
             // 通过模型获取主键列数据
             // 支持批量删除
             await _db.Delete<TModel>(models).ExecuteAffrowsAsync();
-            TotalCount = null;
             return true;
         }
 
@@ -47,47 +46,7 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         public override async Task<bool> SaveAsync(TModel model)
         {
             await _db.GetRepository<TModel>().InsertOrUpdateAsync(model);
-            TotalCount = null;
             return true;
-        }
-
-        /// <summary>
-        /// 缓存记录总数
-        /// </summary>
-        long? TotalCount { get; set; }
-
-        /// <summary>
-        /// 缓存记录
-        /// </summary>
-        List<TModel> Items { get; set; }
-
-        /// <summary>
-        /// 缓存查询条件
-        /// </summary>
-        QueryPageOptions Options { get; set; }
-
-        /// <summary>
-        /// 添加测试数据
-        /// </summary>
-        void initTestDatas()
-        {
-            try
-            {
-                if (_db.Select<TModel>().Count() < 200)
-                {
-                    var sql = "";
-                    for (int i = 0; i < 200; i++)
-                    {
-                        sql += @$"INSERT INTO ""Test""(""Name"", ""DateTime"", ""Address"", ""Count"", ""Complete"", ""Education"") VALUES('周星星{i}', '2021-02-01 00:00:00', '星光大道 , {i}A', {i}, 0, 1);";
-                    }
-                    _db.Ado.ExecuteScalar(sql);
-                }
-
-            }
-            catch
-            {
-            }
-
         }
 
         /// <summary>
@@ -97,47 +56,25 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// <returns></returns>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            FetchAsync(option);
-
+            var Items = FetchAsync(option, out var count);
             var ret = new QueryData<TModel>()
             {
-                TotalCount = (int)(TotalCount ?? 0),
+                TotalCount = (int)count,
                 Items = Items
             };
-            Options = option;
             return Task.FromResult(ret);
         }
 
-        private void FetchAsync(QueryPageOptions option)
+        private List<TModel> FetchAsync(QueryPageOptions option, out long count)
         {
-#if DEBUG
-            initTestDatas();
-#endif
             var dynamicFilterInfo = MakeDynamicFilterInfo(option, out var isSerach);
+            var fsql_select = _db.Select<TModel>();
+            if (isSerach) fsql_select = fsql_select.WhereDynamicFilter(dynamicFilterInfo);
+            return fsql_select
+                .OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName, option.SortOrder == SortOrder.Asc)
+                .Count(out count)
+                .Page(option.PageIndex, option.PageItems).ToList();
 
-            if (TotalCount != null && !isSerach && option.PageItems != Options.PageItems && TotalCount <= Options.PageItems)
-            {
-                //当选择的每页显示数量大于总数时，强制认为是一页
-                //无搜索,并且总数<=分页总数直接使用内存排序和搜索
-            }
-            else
-            {
-                var fsql_select = _db.Select<TModel>();
-
-                if (isSerach)
-                    fsql_select = fsql_select.WhereDynamicFilter(dynamicFilterInfo);
-
-                fsql_select = fsql_select.OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName, option.SortOrder == SortOrder.Asc);
-
-                //分页==1才获取记录总数量,省点性能
-                long count = 0;
-                if (option.PageIndex == 1) fsql_select = fsql_select.Count(out count);
-
-                Items = fsql_select.Page(option.PageIndex, option.PageItems).ToList();
-
-                TotalCount = option.PageIndex == 1 ? count : TotalCount;
-
-            }
         }
 
 
