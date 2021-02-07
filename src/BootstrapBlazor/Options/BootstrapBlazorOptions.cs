@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Components
         public int SwalDelay { get; set; }
 
         /// <summary>
-        /// 获得/设置 回落默认语言文化 默认为 en 中文
+        /// 获得/设置 回落默认语言文化 默认为 en 英文
         /// </summary>
         public string FallbackCultureName { get; set; } = "en";
 

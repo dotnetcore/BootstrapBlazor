@@ -61,11 +61,9 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             builder.Services.Configure<BootstrapBlazorOptions>(op =>
             {
                 op.ToastDelay = 4000;
+                op.FallbackCultureName = "zh";
                 op.SupportedCultures.AddRange(new string[] { "zh-CN", "en-US" });
             });
-
-            CultureInfo.CurrentCulture = new CultureInfo("zh-CN");
-            CultureInfo.CurrentUICulture = new CultureInfo("zh-CN");
 
             var host = builder.Build();
 
@@ -78,10 +76,10 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
         private static async Task GetCultureAsync(WebAssemblyHost host)
         {
             var jsRuntime = host.Services.GetRequiredService<IJSRuntime>();
-            var cultureName = await jsRuntime.InvokeAsync<string>("$.blazorCulture.get") ?? CultureInfo.CurrentCulture.Name;
+            var cultureName = await jsRuntime.InvokeAsync<string>("$.blazorCulture.get") ?? "zh";
             var culture = new CultureInfo(cultureName);
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
         }
 
         internal class DefaultCultureStorage : ICultureStorage

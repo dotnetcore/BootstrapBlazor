@@ -168,7 +168,7 @@ public class CultureController : Controller
     services.AddBootstrapBlazor(setupAction: options =>
     {
         // 设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx
-        options.StringLocalizer = JsonLocalizationOptions.CreateStringLocalizer&lt;Program&gt;();
+        options.ResourceManagerStringLocalizerType = typeof(Program);
 
         // 设置 Json 格式嵌入式资源文件
         options.AdditionalAssemblies = new[] { typeof(BootstrapBlazor.Shared.App).Assembly };
