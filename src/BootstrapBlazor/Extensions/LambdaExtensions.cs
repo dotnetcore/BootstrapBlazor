@@ -226,10 +226,23 @@ namespace System.Linq
         /// <returns></returns>
         public static IEnumerable<TItem> Sort<TItem>(this IEnumerable<TItem> items, string sortName, SortOrder sortOrder)
         {
-            return sortOrder == SortOrder.Unset ? items : _OrderBy(items, sortName, sortOrder);
+            return sortOrder == SortOrder.Unset ? items : EnumerableOrderBy(items, sortName, sortOrder);
         }
 
-        private static IEnumerable<TItem> _OrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="items"></param>
+        /// <param name="sortName"></param>
+        /// <param name="sortOrder"></param>
+        /// <returns></returns>
+        public static IQueryable<TItem> Sort<TItem>(this IQueryable<TItem> items, string sortName, SortOrder sortOrder)
+        {
+            return sortOrder == SortOrder.Unset ? items : QueryableOrderBy(items, sortName, sortOrder);
+        }
+
+        private static IEnumerable<TItem> EnumerableOrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
         {
             var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
 
@@ -238,6 +251,17 @@ namespace System.Linq
                                        .MakeGenericMethod(typeof(TItem), pi!.PropertyType);
 
             return mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem> ?? query;
+        }
+
+        private static IQueryable<TItem> QueryableOrderBy<TItem>(IQueryable<TItem> query, string propertyName, SortOrder sortOrder)
+        {
+            var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
+
+            var pi = typeof(TItem).GetProperty(propertyName);
+            var mi = typeof(LambdaExtensions).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
+                                       .MakeGenericMethod(typeof(TItem), pi!.PropertyType);
+
+            return mi?.Invoke(null, new object[] { query, pi }) as IOrderedQueryable<TItem> ?? query;
         }
 
         private static IOrderedQueryable<TItem> OrderByInternal<TItem, TKey>(IQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.OrderBy(GetPropertyLambda<TItem, TKey>(memberProperty));
