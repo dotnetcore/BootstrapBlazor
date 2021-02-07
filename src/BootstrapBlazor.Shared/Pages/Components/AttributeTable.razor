@@ -3,11 +3,11 @@
 
     <Table TItem="BootstrapBlazor.Shared.Common.AttributeItem" Items="Items">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Text="@context.GetDisplayName("Name")" />
-            <TableColumn @bind-Field="@context.Description" Text="@context.GetDisplayName("Description")" AllowTextWrap="true" />
-            <TableColumn @bind-Field="@context.Type" Text="@context.GetDisplayName("Type")" />
-            <TableColumn @bind-Field="@context.ValueList" Text="@context.GetDisplayName("ValueList")" AllowTextWrap="true" />
-            <TableColumn @bind-Field="@context.DefaultValue" Text="@context.GetDisplayName("DefaultValue")" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Description" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.Type" />
+            <TableColumn @bind-Field="@context.ValueList" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.DefaultValue" />
         </TableColumns>
     </Table>
 </div>
