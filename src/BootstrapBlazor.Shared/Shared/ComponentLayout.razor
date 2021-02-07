@@ -2,7 +2,7 @@
 @layout MainLayout
 @inject NavigationManager Navigator
 
-<div class="bb-title"><img class="bb-icon" src="_content/BootstrapBlazor.Shared/images/logo.png" /><span>基于 Bootstrap 和 Blazor 的企业级组件库</span></div>
+<div class="bb-title"><img class="bb-icon" src="_content/BootstrapBlazor.Shared/images/logo.png" /><span>@Title</span></div>
 
 <p class="text-center">
     <img alt="star" src="https://gitee.com/LongbowEnterprise/BootstrapBlazor/badge/star.svg?theme=gvp" style="margin-bottom: -1px;" />
@@ -17,7 +17,7 @@
 </p>
 
 <Tab IsBorderCard="true" @ref="TabSet">
-    <TabItem Text="示例" Icon="fa fa-desktop">
+    <TabItem Text="@Example" Icon="fa fa-desktop">
         @Body
     </TabItem>
     <TabItem Text="Razor" Icon="fa fa-html5">
@@ -26,7 +26,7 @@
     <TabItem Text="C#" Icon="fa fa-file-code-o">
         <Pre @key="@CsharpFileName" CodeFile="@CsharpFileName"></Pre>
     </TabItem>
-    <TabItem Text="相关视频" Icon="fa fa-file-video-o">
+    <TabItem Text="@Video" Icon="fa fa-file-video-o">
         <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
     </TabItem>
 </Tab>

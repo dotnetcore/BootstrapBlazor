@@ -3,6 +3,37 @@
     "Title": "未设置",
     "SubTitle": "示例"
   },
+  "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
+    "Title": "Attributes 属性"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.MethodTable": {
+    "Title": "Methods 方法"
+  },
+  "BootstrapBlazor.Shared.Common.AttributeItem": {
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型",
+    "ValueList": "可选值",
+    "DefaultValue": "默认值"
+  },
+  "BootstrapBlazor.Shared.Common.EventItem": {
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型"
+  },
+  "BootstrapBlazor.Shared.Common.MethodItem": {
+    "Title": "Methods 方法",
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型",
+    "Parameters": "参数",
+    "ReturnValue": "返回值"
+  },
+  "BootstrapBlazor.Shared.Shared.ComponentLayout": {
+    "Title": "基于 Bootstrap 和 Blazor 的企业级组件库",
+    "Example": "示例",
+    "Video": "相关视频"
+  },
   "BootstrapBlazor.Shared.Pages.Alerts": {
     "Title": "Alert 警告",
     "SubTitle": "用于页面中展示重要的提示信息。",
@@ -21,6 +52,14 @@
     "IntroText3": "表示某种状态时提升可读性。",
     "ShowBarUsageText": "显示左侧 Bar",
     "IntroText4": "作为 <code>Tip</code> 使用"
+  },
+  "BootstrapBlazor.Shared.Pages.QRCodes": {
+    "Title": "QRCode 二维码",
+    "SubTitle": "用于二维码生成",
+    "BaseUsageText": "基本用法",
+    "IntroText1": "点击生成按钮，生成特定的 <code>QRCode</code>",
+    "SuccessText": "二维码生成成功",
+    "CallbackDescription": "二维码生成后回调委托"
   },
   "BootstrapBlazor.Shared.Pages.Anchors": {
     "Title": "Anchor 锚点",

@@ -3,6 +3,37 @@
     "Title": "",
     "SubTitle": "Demo"
   },
+  "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
+    "Title": "Attributes"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.MethodTable": {
+    "Title": "Methods"
+  },
+  "BootstrapBlazor.Shared.Common.AttributeItem": {
+    "Name": "Parameter",
+    "Description": "Description",
+    "Type": "Type",
+    "ValueList": "ValueList",
+    "DefaultValue": "DefaultValue"
+  },
+  "BootstrapBlazor.Shared.Common.EventItem": {
+    "Name": "Parameter",
+    "Description": "Description",
+    "Type": "Type"
+  },
+  "BootstrapBlazor.Shared.Common.MethodItem": {
+    "Title": "Methods",
+    "Name": "Parameter",
+    "Description": "Description",
+    "Type": "Type",
+    "Parameters": "Parameters",
+    "ReturnValue": "ReturnValue"
+  },
+  "BootstrapBlazor.Shared.Shared.ComponentLayout": {
+    "Title": "Enterprise-level component library based on Bootstrap and Blazor",
+    "Example": "Example",
+    "Video": "Video"
+  },
   "BootstrapBlazor.Shared.Pages.Alerts": {
     "Title": "Alert",
     "SubTitle": "Displays important alert messages.",
@@ -21,6 +52,14 @@
     "IntroText3": "Displaying an icon improves readability.",
     "ShowBarUsageText": "With Bar",
     "IntroText4": "Show <code>Tip</code>"
+  },
+  "BootstrapBlazor.Shared.Pages.QRCodes": {
+    "Title": "QRCode",
+    "SubTitle": "Generate QR code",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "Click the Generate button to generate a <code>QRCode</code>",
+    "SuccessText": "QR code generated successfully",
+    "CallbackDescription": "Call back after QR code generation"
   },
   "BootstrapBlazor.Shared.Pages.Anchors": {
     "Title": "Anchor",
