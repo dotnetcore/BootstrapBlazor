@@ -58,7 +58,14 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
 
-            builder.Services.Configure<BootstrapBlazorOptions>(op => op.ToastDelay = 4000);
+            builder.Services.Configure<BootstrapBlazorOptions>(op =>
+            {
+                op.ToastDelay = 4000;
+                op.SupportedCultures.AddRange(new string[] { "zh-CN", "en-US" });
+            });
+
+            CultureInfo.CurrentCulture = new CultureInfo("zh-CN");
+            CultureInfo.CurrentUICulture = new CultureInfo("zh-CN");
 
             var host = builder.Build();
 

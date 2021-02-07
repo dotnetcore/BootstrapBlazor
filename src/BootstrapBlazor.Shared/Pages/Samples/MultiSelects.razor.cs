@@ -54,6 +54,8 @@ namespace BootstrapBlazor.Shared.Pages
         };
 
         private string SelectedLongItemsValue { get; set; } = "";
+        private string SelectedMaxItemsValue { get; set; } = "";
+        private string SelectedMinItemsValue { get; set; } = "";
 
         private string SelectedItemsValue { get; set; } = "Beijing,Chengdu";
 

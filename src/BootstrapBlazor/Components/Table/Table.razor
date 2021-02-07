@@ -6,7 +6,7 @@
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
-    @if (FirstRender || IsLoading)
+    @if (FirstRender)
     {
         if (ShowSkeleton)
         {
@@ -246,6 +246,9 @@
                 <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
         }
+        <div class="table-loader">
+            <Spinner Color="Color.Primary" />
+        </div>
     }
 </div>
 

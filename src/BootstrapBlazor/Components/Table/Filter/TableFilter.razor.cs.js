@@ -29,15 +29,19 @@
         $(document).on('keyup', function (e) {
             if (e.key === 'Enter') {
                 // 关闭 TableFilter 过滤面板
-                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
+                var $filter = $('.table-filter .table-filter-item.show:first');
+                var bb = $filter.data('bb_filter');
                 if (bb) {
+                    $filter.removeClass('show');
                     bb.obj.invokeMethodAsync('ConfirmByKey');
                 }
             }
             else if (e.key === 'Escape') {
                 // 关闭 TableFilter 过滤面板
-                var bb = $('.table-filter .table-filter-item.show:first').data('bb_filter');
+                var $filter = $('.table-filter .table-filter-item.show:first');
+                var bb = $filter.data('bb_filter');
                 if (bb) {
+                    $filter.removeClass('show');
                     bb.obj.invokeMethodAsync('EscByKey');
                 }
             }

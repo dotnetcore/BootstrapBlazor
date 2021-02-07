@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - dev
 
 jobs:
   pack:
@@ -23,21 +24,3 @@ jobs:
       run: |
         dotnet pack src/BootstrapBlazor -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
-        
-        dotnet pack src/Extensions/Components/BootstrapBlazor.Chart -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.Chart.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
-        
-        dotnet pack src/Extensions/Components/BootstrapBlazor.TableExport -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.TableExport.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
-        
-        dotnet pack src/Extensions/Components/BootstrapBlazor.Markdown -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.Markdown.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
-        
-        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAcces.PetaPoco -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.DataAcces.PetaPoco.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
-        
-        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAcces.EntityFrameworkCore -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.DataAcces.EntityFrameworkCore.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
-        
-        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAcces.FreeSql -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.DataAcces.FreeSql.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate

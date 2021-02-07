@@ -2,18 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Localization.Json;
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
-using System.Globalization;
-using System.Linq;
 using System.Reflection;
 
 namespace BootstrapBlazor.Server
@@ -67,6 +64,10 @@ namespace BootstrapBlazor.Server
             {
                 // 统一设置 Toast 组件自动消失时间
                 options.ToastDelay = 4000;
+            }, options =>
+            {
+                // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
+                options.AdditionalJsonAssemblies = new Assembly[] { typeof(BootstrapBlazor.Shared.App).Assembly };
             });
 
             // 增加 Table Excel 导出服务
@@ -111,12 +112,12 @@ namespace BootstrapBlazor.Server
             //});
 
             // 增加多语言支持配置信息
-            services.Configure<RequestLocalizationOptions>(options =>
+            services.AddRequestLocalization<IOptions<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
             {
-                var supportedCultures = Configuration.GetSupportCultures().ToList();
-                options.DefaultRequestCulture = new RequestCulture(CultureInfo.CurrentCulture);
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
+                var supportedCultures = blazorOption.Value.GetSupportedCultures();
+
+                localizerOption.SupportedCultures = supportedCultures;
+                localizerOption.SupportedUICultures = supportedCultures;
             });
         }
 

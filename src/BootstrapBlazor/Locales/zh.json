@@ -79,6 +79,7 @@
     "StartPlaceHolderText": "开始日期",
     "EndPlaceHolderText": "结束日期",
     "ClearButtonText": "清空",
+    "TodayButtonText": "今天",
     "ConfirmButtonText": "确定",
     "DateFormat": "yyyy-MM-dd",
     "Last7Days": "最近 7 天",
@@ -114,7 +115,9 @@
     "PlaceHolder": "点击进行多选 ...",
     "SelectAllText": "全选",
     "ReverseSelectText": "反选",
-    "ClearText": "清除"
+    "ClearText": "清除",
+    "MinErrorMessage": "最少请选择 {0} 项",
+    "MaxErrorMessage": "最多可以选择 {0} 项"
   },
   "BootstrapBlazor.Components.Pagination": {
     "AiraPageLabel": "分页组件",

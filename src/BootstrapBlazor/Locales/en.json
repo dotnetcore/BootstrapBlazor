@@ -79,6 +79,7 @@
     "StartPlaceHolderText": "Start date",
     "EndPlaceHolderText": "End date",
     "ClearButtonText": "Clear",
+    "TodayButtonText": "Today",
     "ConfirmButtonText": "Ok",
     "DateFormat": "M/d/yyyy",
     "Last7Days": "Last 7 Days",
@@ -114,7 +115,9 @@
     "PlaceHolder": "Click for select ...",
     "SelectAllText": "All",
     "ReverseSelectText": "Reverse",
-    "ClearText": "Clear"
+    "ClearText": "Clear",
+    "MinErrorMessage": "Select at least {0} items",
+    "MaxErrorMessage": "At most {0} items can be selected"
   },
   "BootstrapBlazor.Components.Pagination": {
     "AiraPageLabel": "Pagination",

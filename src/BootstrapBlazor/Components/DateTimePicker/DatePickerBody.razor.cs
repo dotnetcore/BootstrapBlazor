@@ -70,7 +70,7 @@ namespace BootstrapBlazor.Components
             .AddClass("next-month", day.Month > CurrentDate.Month)
             .AddClass("current", day == CurrentDate && !IsRange)
             .AddClass("start", IsRange && day == Ranger!.SelectedValue.Start)
-            .AddClass("end", IsRange && day == Ranger!.SelectedValue!.End)
+            .AddClass("end", IsRange && day == Ranger!.SelectedValue!.End.Date)
             .AddClass("range", IsRange && CurrentDate.Month >= Ranger!.SelectedValue.Start.Month && (Ranger!.SelectedValue.Start != DateTime.MinValue) && (Ranger!.SelectedValue.End != DateTime.MinValue) && (day.Ticks >= Ranger!.SelectedValue.Start.Ticks) && (day.Ticks <= Ranger!.SelectedValue.End.Ticks))
             .AddClass("today", day == DateTime.Today)
             .AddClass("disabled", (MinValue != null && MaxValue != null) && (day < MinValue || day > MaxValue))

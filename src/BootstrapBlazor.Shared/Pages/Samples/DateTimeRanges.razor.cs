@@ -35,6 +35,26 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         /// <summary>
+        /// 获得事件方法
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        {
+            new EventItem()
+            {
+                Name = "OnConfirm",
+                Description="确认按钮回调委托",
+                Type ="Action"
+            },
+            new EventItem()
+            {
+                Name = "OnClearValue",
+                Description="清空按钮回调委托",
+                Type ="Action"
+            } 
+        };
+
+        /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
@@ -50,6 +70,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "ShowSidebar",
                 Description = "是否显示快捷侧边栏",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowToday",
+                Description = "是否显示今天快捷按钮",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

@@ -58,6 +58,14 @@
                 });
             }
         },
+        bb_table_load: function (el, method) {
+            var $el = $(el);
+            var $loader = $el.find('.table-loader');
+            if (method === 'show')
+                $loader.addClass('show');
+            else
+                $loader.removeClass('show');
+        },
         bb_table: function (el, method, args) {
             var $ele = $(el);
 

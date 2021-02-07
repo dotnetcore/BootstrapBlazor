@@ -1,16 +1,13 @@
 ﻿<div class="table-attr">
-    <h4>方法 Methods</h4>
+    <h4>@Title</h4>
 
     <Table TItem="BootstrapBlazor.Shared.Common.MethodItem" Items="Items">
         <TableColumns>
-            <TableColumn TItem="string" @bind-Field="@context.Name" />
-            <TableColumn TItem="string" @bind-Field="@context.Description" AllowTextWrap="true" />
-            <TableColumn TItem="string" @bind-Field="@context.Parameters" />
-            <TableColumn TItem="string" @bind-Field="@context.ReturnValue" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Description" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.Parameters" />
+            <TableColumn @bind-Field="@context.ReturnValue" />
         </TableColumns>
     </Table>
 </div>
 
-@code {
-    [Parameter] public IEnumerable<MethodItem>? Items { get; set; }
-}

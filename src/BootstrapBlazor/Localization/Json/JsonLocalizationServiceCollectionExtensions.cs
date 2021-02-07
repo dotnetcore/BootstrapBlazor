@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
 using System;
 
@@ -31,13 +30,14 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static void AddJsonLocalizationServices(IServiceCollection services, Action<JsonLocalizationOptions>? setupAction = null)
         {
-            services.TryAddSingleton<IHtmlLocalizerFactory, JsonHtmlLocalizerFactory>();
-            services.TryAddScoped(typeof(IHtmlLocalizer<>), typeof(HtmlLocalizer<>));
-            services.TryAddScoped(typeof(IHtmlLocalizer), typeof(HtmlLocalizer));
+            // 防止被 AddLocalization 覆盖掉
+            services.AddSingleton<IHtmlLocalizerFactory, JsonHtmlLocalizerFactory>();
+            services.AddTransient(typeof(IHtmlLocalizer<>), typeof(HtmlLocalizer<>));
+            services.AddTransient(typeof(IHtmlLocalizer), typeof(HtmlLocalizer));
 
-            services.TryAddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-            services.TryAddScoped(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-            services.TryAddScoped(typeof(IStringLocalizer), typeof(StringLocalizer));
+            services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+            services.AddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
+            services.AddTransient(typeof(IStringLocalizer), typeof(StringLocalizer));
 
             if (setupAction != null) services.Configure(setupAction);
         }

@@ -1,11 +1,11 @@
 ﻿<div class="table-attr">
     <h4>事件 Events</h4>
 
-    <Table TItem="BootstrapBlazor.Shared.Common.EventItem" Items="Items" class="table-demo">
+    <Table TItem="BootstrapBlazor.Shared.Common.EventItem" Items="Items">
         <TableColumns>
-            <TableColumn TItem="string" @bind-Field="@context.Name" />
-            <TableColumn TItem="string" @bind-Field="@context.Description" AllowTextWrap="true" />
-            <TableColumn TItem="string" @bind-Field="@context.Type" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Description" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.Type" />
         </TableColumns>
     </Table>
 </div>

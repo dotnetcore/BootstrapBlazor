@@ -13,11 +13,11 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class AttributeTable
+    public sealed partial class MethodTable
     {
         [Inject]
         [NotNull]
-        private IStringLocalizer<AttributeTable>? Localizer { get; set; }
+        private IStringLocalizer<MethodTable>? Localizer { get; set; }
 
         /// <summary>
         /// 
@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// <summary>
         /// 
         /// </summary>
-        [Parameter] public IEnumerable<AttributeItem>? Items { get; set; }
+        [Parameter] public IEnumerable<MethodItem>? Items { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
