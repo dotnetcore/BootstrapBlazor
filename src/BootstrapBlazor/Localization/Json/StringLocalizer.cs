@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Localization.Json
@@ -14,9 +15,9 @@ namespace BootstrapBlazor.Localization.Json
     {
         private readonly IStringLocalizer _localizer;
 
-        public StringLocalizer(IStringLocalizerFactory factory)
+        public StringLocalizer(IStringLocalizerFactory factory, IOptions<JsonLocalizationOptions> options)
         {
-            _localizer = factory.Create(string.Empty, string.Empty);
+            _localizer = factory.Create(options.Value.ResourceManagerStringLocalizerType!);
         }
 
         public LocalizedString this[string name] => _localizer[name];

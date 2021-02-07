@@ -15,91 +15,73 @@ namespace BootstrapBlazor.Localization.Json
     /// <summary>
     /// IStringLocalizerFactory 实现类
     /// </summary>
-    internal class JsonStringLocalizerFactory : IStringLocalizerFactory
+    internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactory
     {
         private readonly JsonLocalizationOptions _jsonOptions;
         private readonly ILoggerFactory _loggerFactory;
+        private string? _typeName;
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="localizationOptions"></param>
+        /// <param name="jsonOptions"></param>
+        /// <param name="resxOptions"></param>
         /// <param name="options"></param>
         /// <param name="loggerFactory"></param>
-        public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> localizationOptions, IOptions<BootstrapBlazorOptions> options, ILoggerFactory loggerFactory)
+        public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> jsonOptions, IOptions<LocalizationOptions> resxOptions, IOptions<BootstrapBlazorOptions> options, ILoggerFactory loggerFactory) : base(resxOptions, loggerFactory)
         {
-            _jsonOptions = localizationOptions.Value;
+            _jsonOptions = jsonOptions.Value;
             _jsonOptions.FallbackCulture = options.Value.FallbackCultureName;
             _loggerFactory = loggerFactory;
         }
 
-        /// <summary>
-        /// 通过资源类型创建 IStringLocalizer 方法
-        /// </summary>
-        /// <param name="resourceSource"></param>
-        /// <returns></returns>
-        public IStringLocalizer Create(Type resourceSource)
+        protected override string GetResourcePrefix(TypeInfo typeInfo)
         {
-            var typeInfo = resourceSource.GetTypeInfo();
             var typeName = typeInfo.FullName;
-            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(resourceSource)} full name is null or String.Empty.");
+            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(typeInfo)} full name is null or String.Empty.");
 
-            if (resourceSource.IsGenericType)
+            if (typeInfo.IsGenericType)
             {
                 var index = typeName.IndexOf('`');
                 typeName = typeName.Substring(0, index);
             }
-            typeName = TryFixInnerClassPath(typeName);
-            return CreateJsonStringLocalizer(typeInfo.Assembly, typeName);
+            _typeName = TryFixInnerClassPath(typeName);
+
+            return base.GetResourcePrefix(typeInfo);
         }
 
-        /// <summary>
-        /// 通过 baseName 与 location 创建 IStringLocalizer 方法
-        /// </summary>
-        /// <param name="baseName"></param>
-        /// <param name="location"></param>
-        /// <returns></returns>
-        public IStringLocalizer Create(string baseName, string location)
-        {
-            baseName = TryFixInnerClassPath(baseName);
-
-            Assembly? assembly;
-            if (!string.IsNullOrEmpty(location))
-            {
-                var assemblyName = new AssemblyName(location);
-                assembly = Assembly.Load(assemblyName);
-            }
-            else
-            {
-                assembly = GetType().Assembly;
-            }
-
-            return CreateJsonStringLocalizer(assembly, string.Empty);
-        }
-
-        /// <summary>
-        /// 创建 IStringLocalizer 实例方法
-        /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="typeName"></param>
-        /// <returns></returns>
-        protected virtual IStringLocalizer CreateJsonStringLocalizer(Assembly assembly, string typeName)
-        {
-            var logger = _loggerFactory.CreateLogger<JsonStringLocalizer>();
-            return new JsonStringLocalizer(assembly, typeName, logger, _jsonOptions);
-        }
-
+        private const char InnerClassSeparator = '+';
         private static string TryFixInnerClassPath(string path)
         {
-            const char innerClassSeparator = '+';
             var fixedPath = path;
 
-            if (path.Contains(innerClassSeparator.ToString()))
+            if (path.Contains(InnerClassSeparator.ToString()))
             {
-                fixedPath = path.Replace(innerClassSeparator, '.');
+                fixedPath = path.Replace(InnerClassSeparator, '.');
             }
 
             return fixedPath;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="baseName"></param>
+        /// <returns></returns>
+        protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName)
+        {
+            return new JsonStringLocalizer(this, assembly, _typeName ?? "", baseName, _loggerFactory.CreateLogger<JsonStringLocalizer>(), _jsonOptions);
+        }
+
+        /// <summary>
+        /// 获得 IResourceNamesCache 实例
+        /// </summary>
+        /// <returns></returns>
+        public IResourceNamesCache? GetCache()
+        {
+            var field = this.GetType().BaseType?.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
+            return field?.GetValue(this) as IResourceNamesCache;
         }
 
         /// <summary>
@@ -112,14 +94,8 @@ namespace BootstrapBlazor.Localization.Json
         /// <summary>
         /// 通过指定类型创建 IStringLocalizer 实例
         /// </summary>
+        /// <param name="resourceSource"></param>
         /// <returns></returns>
-        public static IStringLocalizer CreateLocalizer(Type type)
-        {
-            var localizerOption = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-            var blazorOption = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-            var loggerFactory = ServiceProviderHelper.ServiceProvider.GetRequiredService<ILoggerFactory>();
-            var factory = new JsonStringLocalizerFactory(localizerOption, blazorOption, loggerFactory);
-            return factory.Create(type);
-        }
+        public static IStringLocalizer CreateLocalizer(Type resourceSource) => ServiceProviderHelper.ServiceProvider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
     }
 }
