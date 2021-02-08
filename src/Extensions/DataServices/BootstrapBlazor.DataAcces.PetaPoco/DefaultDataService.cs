@@ -57,11 +57,14 @@ namespace BootstrapBlazor.DataAcces.PetaPoco
         /// <returns></returns>
         public override async Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            var items = await _db.FetchAsync<TModel>(option.Filters.Concat(option.Searchs));
+            var items = await _db.FetchAsync<TModel>(option.Filters.Concat(option.Searchs), option.SortName, option.SortOrder);
             var ret = new QueryData<TModel>()
             {
                 TotalCount = items.Count,
-                Items = items
+                Items = items,
+                IsSorted = true,
+                IsFiltered = true,
+                IsSearch = true
             };
             return ret;
         }
