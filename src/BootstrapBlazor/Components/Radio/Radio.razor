@@ -4,6 +4,15 @@
 <div class="form-radio-group">
     @foreach (var item in DataItems)
     {
-        <RadioElement Value="@item" DisplayText="@item.Text" IsDisabled="@IsDisabled" OnStateChanged="@OnChanged" />
+        @if (RadioGroup)
+        {
+            <div class="@RadioGroupClassString">
+                <RadioElement Value="@item" DisplayText="@item.Text" IsDisabled="@IsDisabled" OnStateChanged="@OnChanged" />
+            </div>
+        }
+        else
+        {
+            <RadioElement Value="@item" DisplayText="@item.Text" IsDisabled="@IsDisabled" OnStateChanged="@OnChanged" />
+        }
     }
 </div>
