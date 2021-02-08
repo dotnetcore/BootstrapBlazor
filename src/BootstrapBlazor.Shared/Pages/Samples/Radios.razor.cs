@@ -100,6 +100,13 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
+                    Name = "IsVertical",
+                    Description = "是否垂直分布",
+                    Type = "boolean",
+                    ValueList = "true / false",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
                     Name = "Items",
                     Description = "绑定数据源",
                     Type = "IEnumerable<TItem>",

@@ -1,18 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits RadioBase<SelectedItem>
 
-<div class="form-radio-group">
+<div class="@RadioClassString">
     @foreach (var item in DataItems)
     {
-        @if (RadioGroup)
-        {
-            <div class="@RadioGroupClassString">
-                <RadioElement Value="@item" DisplayText="@item.Text" IsDisabled="@IsDisabled" OnStateChanged="@OnChanged" />
-            </div>
-        }
-        else
-        {
-            <RadioElement Value="@item" DisplayText="@item.Text" IsDisabled="@IsDisabled" OnStateChanged="@OnChanged" />
-        }
+        <RadioElement Value="@item" DisplayText="@item.Text" IsDisabled="@IsDisabled" OnStateChanged="@OnChanged" />
     }
 </div>

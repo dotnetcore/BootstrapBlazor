@@ -20,23 +20,10 @@ namespace BootstrapBlazor.Components
         public IEnumerable<TItem>? Items { get; set; }
 
         /// <summary>
-        /// 获得/设置 竖向
+        /// 获得/设置 是否为竖向排列 默认为 false
         /// </summary>
         [Parameter]
-        public  bool RadioGroup { get; set; }
-
-        /// <summary>
-        /// 获得 组件竖向样式
-        /// </summary>
-        protected string? RadioGroupClassString => CssBuilder.Default("m-2")
-            .AddClass(RadioGroupClass)
-            .Build();
-
-        /// <summary>
-        /// 获得/设置 竖向布局样式
-        /// </summary>
-        [Parameter]
-        public string? RadioGroupClass { get; set; }
+        public bool IsVertical { get; set; }
 
         /// <summary>
         /// 点击选择框方法

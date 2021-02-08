@@ -168,6 +168,18 @@
     ]
   },
   {
+    "outputFileName": "Components/Checkbox/Checkbox.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Checkbox/Checkbox.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Radio/Radio.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Radio/Radio.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -200,7 +212,9 @@
       "Components/Tab/Tab.razor.cs.min.css",
       "Components/Layout/Layout.razor.cs.min.css",
       "Components/GoTop/GoTop.razor.cs.min.css",
-      "Components/Select/MultiSelect.razor.cs.min.css"
+      "Components/Select/MultiSelect.razor.cs.min.css",
+      "Components/Checkbox/Checkbox.razor.cs.min.css",
+      "Components/Radio/Radio.razor.cs.min.css"
     ]
   },
   {

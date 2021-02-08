@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 判断双向绑定类型是否为 boolean 类型
         /// </summary>
-        protected bool isBoolean { get; set; }
+        private bool isBoolean { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false

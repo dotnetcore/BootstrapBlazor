@@ -52,15 +52,8 @@
     <Logger @ref="BinderLog" class="mt-3" />
 </Block>
 
-<Block Title="竖向排列" Introduction="组件内部竖向排列">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-4">
-                <Radio Items="@DemoRadioGroupValues" OnStateChanged="@OnStateChanged" RadioGroup="true"></Radio>
-            </div>
-        </div>
-    </div>
-    <Logger @ref="Trace" class="mt-3" />
+<Block Title="竖向排列" Introduction="通过设置 <code>IsVertical</code> 使组件内部竖向排列">
+    <Radio Items="@DemoRadioGroupValues" OnStateChanged="@OnStateChanged" IsVertical="true"></Radio>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

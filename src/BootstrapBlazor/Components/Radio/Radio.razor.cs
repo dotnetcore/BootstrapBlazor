@@ -12,6 +12,10 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Radio
     {
+        private string? RadioClassString => CssBuilder.Default("form-radio-group")
+            .AddClass("is-vertical", IsVertical)
+            .Build();
+
         private IEnumerable<SelectedItem> DataItems => Items ?? new SelectedItem[1] {
             new SelectedItem("", DisplayText ?? "")
             {
