@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.DataAcces.FreeSql
 {
     /// <summary>
-    /// PetaPoco ORM 的 IDataService 接口实现
+    /// FreeSql ORM 的 IDataService 接口实现
     /// </summary>
     internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
     {
@@ -53,15 +53,18 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// <returns></returns>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            //TODO: 是否能够通过参数判断是否进行分页
-            var items = _db.Select<TModel>()
+            var Items = _db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
+                .OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName, option.SortOrder == SortOrder.Asc)
                 .Count(out var count)
-                .Page(option.PageIndex, option.PageItems)
-                .ToList();
+                .Page(option.PageIndex, option.PageItems).ToList();
+
             var ret = new QueryData<TModel>()
             {
                 TotalCount = (int)count,
-                Items = items
+                Items = Items,
+                IsFiltered = true,
+                IsSearch = true,
+                IsSorted = true
             };
             return Task.FromResult(ret);
         }
