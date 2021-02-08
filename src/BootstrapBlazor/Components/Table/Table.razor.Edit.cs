@@ -257,8 +257,7 @@ namespace BootstrapBlazor.Components
         protected async Task QueryData()
         {
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I29YK1
-            // TODO: 选中行目前不支持跨页
-            // 原因是选中行实例无法在翻页后保持
+            // 选中行目前不支持跨页 原因是选中行实例无法在翻页后保持
             SelectedItems.Clear();
 
             QueryData<TItem>? queryData = null;

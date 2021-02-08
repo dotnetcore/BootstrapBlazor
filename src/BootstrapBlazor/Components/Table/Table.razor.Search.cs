@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -119,12 +118,16 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected IEnumerable<IFilterAction> GetSearchs()
         {
-            var columns = Columns.Where(col => col.Searchable);
+            var columns = Columns.Where(col => col.Filterable);
+
+            // 处理 SearchText
             var searchs = new List<InternalSearchAction>();
             if (!string.IsNullOrEmpty(SearchText))
             {
                 searchs.AddRange(columns.Select(col => new InternalSearchAction() { FieldKey = col.GetFieldName(), Value = SearchText }));
             }
+
+            // 未处理高级搜索弹窗内条件
             return searchs;
         }
 

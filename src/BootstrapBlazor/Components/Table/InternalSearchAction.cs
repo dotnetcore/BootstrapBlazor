@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 搜索值
         /// </summary>
-        public string? Value { get; set; }
+        public object? Value { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索属性名称
@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Components
         public IEnumerable<FilterKeyValueAction> GetFilterConditions()
         {
             var filters = new List<FilterKeyValueAction>();
-            if (!string.IsNullOrEmpty(Value)) filters.Add(new FilterKeyValueAction()
+            if (Value != null) filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value,
