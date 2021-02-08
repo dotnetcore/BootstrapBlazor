@@ -211,7 +211,7 @@ namespace System.Linq
             var exp_p2 = Expression.Parameter(typeof(string));
             var exp_p3 = Expression.Parameter(typeof(SortOrder));
 
-            var mi = typeof(LambdaExtensions).GetMethod("Sort")!.MakeGenericMethod(typeof(TItem));
+            var mi = typeof(LambdaExtensions).GetMethods().Where(m => m.Name == "Sort" && m.ReturnType.Name == typeof(IEnumerable<>).Name).First().MakeGenericMethod(typeof(TItem));
             var body = Expression.Call(mi, exp_p1, exp_p2, exp_p3);
             return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, exp_p1, exp_p2, exp_p3);
         }

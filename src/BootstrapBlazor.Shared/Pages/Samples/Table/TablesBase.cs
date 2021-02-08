@@ -634,7 +634,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Display(Name = "数量")]
-        [AutoGenerateColumn(Order = 40)]
+        [AutoGenerateColumn(Order = 40, Sortable = true)]
         public int Count { get; set; }
 
         /// <summary>
