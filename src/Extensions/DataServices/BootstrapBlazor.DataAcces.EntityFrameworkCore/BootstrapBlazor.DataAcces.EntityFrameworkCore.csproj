@@ -4,11 +4,11 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.5</Version>
+    <Version>5.0.6-beta01</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="5.0.13" />
+    <PackageReference Include="BootstrapBlazor" Version="5.0.15-beta08" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
   </ItemGroup>
 
