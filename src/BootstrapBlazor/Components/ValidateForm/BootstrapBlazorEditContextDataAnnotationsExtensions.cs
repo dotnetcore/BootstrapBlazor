@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -136,25 +138,25 @@ namespace BootstrapBlazor.Components
                 {
                     if (!rule.IsValid(value))
                     {
-                        if (!string.IsNullOrEmpty(displayName) && TryGetLocalizer(context.ObjectType, displayName, out var d))
-                        {
-                            displayName = d;
-                        }
-                        else if (TryGetLocalizer(context.ObjectType, $"{memberName}.Display", out var dn))
-                        {
-                            displayName = dn;
-                        }
+                        // 查找 resx 资源文件中的 ErrorMessage
                         var ruleNameSpan = rule.GetType().Name.AsSpan();
                         var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
                         var ruleName = rule.GetType().Name.AsSpan().Slice(0, index);
-                        if (!string.IsNullOrEmpty(rule.ErrorMessage) && TryGetLocalizer(context.ObjectType, rule.ErrorMessage, out var resx))
+                        var isResx = false;
+                        if (!string.IsNullOrEmpty(rule.ErrorMessage))
                         {
-                            rule.ErrorMessage = resx;
+                            var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value.ResourceManagerStringLocalizerType;
+                            if (resxType != null && TryGetLocalizer(resxType, rule.ErrorMessage, out var resx))
+                            {
+                                rule.ErrorMessage = resx;
+                                isResx = true;
+                            }
                         }
-                        else if (TryGetLocalizer(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out var msg))
+                        if (!isResx && TryGetLocalizer(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out var msg))
                         {
                             rule.ErrorMessage = msg;
                         }
+
                         var errorMessage = rule.FormatErrorMessage(displayName ?? memberName);
                         results.Add(new ValidationResult(errorMessage, new string[] { memberName }));
                     }

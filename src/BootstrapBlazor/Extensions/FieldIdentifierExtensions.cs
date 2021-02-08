@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -86,13 +88,16 @@ namespace Microsoft.AspNetCore.Components.Forms
                     // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
                     if (!string.IsNullOrEmpty(dn))
                     {
-                        var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                        var stringLocalizer = localizer[dn];
-                        if (!stringLocalizer.ResourceNotFound)
+                        var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+                        if (resxType.Value.ResourceManagerStringLocalizerType != null)
                         {
-                            dn = stringLocalizer.Value;
+                            var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
+                            var stringLocalizer = localizer[dn];
+                            if (!stringLocalizer.ResourceNotFound)
+                            {
+                                dn = stringLocalizer.Value;
+                            }
                         }
-
                         // add display name into cache
                         DisplayNameCache.GetOrAdd(cacheKey, key => dn);
                     }
