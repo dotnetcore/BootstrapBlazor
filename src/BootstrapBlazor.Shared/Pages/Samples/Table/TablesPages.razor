@@ -15,3 +15,14 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="显示在顶端" Introduction="设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件">
+    <Table TItem="BindItem"
+           IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</Block>
