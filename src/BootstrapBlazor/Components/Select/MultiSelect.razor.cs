@@ -70,10 +70,22 @@ namespace BootstrapBlazor.Components
         public bool ShowCloseButton { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否显示全选功能按钮 默认为 false 不显示
+        /// 获得/设置 是否显示功能按钮 默认为 false 不显示
         /// </summary>
         [Parameter]
-        public bool ShowSelectAllButton { get; set; }
+        public bool ShowToolbar { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示默认功能按钮 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowDefaultButtons { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 扩展按钮模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? ButtonTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 按钮颜色
@@ -289,7 +301,7 @@ namespace BootstrapBlazor.Components
 
                 if (Min > 0 || Max > 0)
                 {
-                    var validationContext = new ValidationContext(Value) { MemberName = FieldIdentifier?.FieldName };
+                    var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
                     var validationResults = new List<ValidationResult>();
 
                     ValidateProperty(SelectedItems.Count, validationContext, validationResults);

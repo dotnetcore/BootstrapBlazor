@@ -96,11 +96,16 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Foo Foo { get; set; } = new Foo();
 
+        private void OnClickButton()
+        {
+
+        }
+
         /// <summary>
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -120,7 +125,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -133,6 +138,20 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "ShowCloseButton",
                 Description = "是否显示前置标签关闭按钮",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowToolbar",
+                Description = "是否显示功能按钮",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowDefaultButtons",
+                Description = "是否显示默认功能按钮",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
@@ -176,6 +195,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Items",
                 Description = "数据集合",
                 Type = "IEnumerable<SelectedItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ButtonTemplate",
+                Description = "扩展按钮模板",
+                Type = "RenderFragment<IEnumerable<SelectedItem>>",
                 ValueList = " — ",
                 DefaultValue = " — "
             }

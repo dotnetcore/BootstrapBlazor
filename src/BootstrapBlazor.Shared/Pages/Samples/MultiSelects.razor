@@ -156,7 +156,7 @@
 
 <Block Title="全选与反选按钮" Introduction="通过设置 <code>ShowSelectAllButton</code> 值设置组件显示全选与反选按钮">
     <div style="max-width: 400px">
-        <MultiSelect Items="@LongItems" @bind-Value="@SelectedLongItemsValue" ShowSelectAllButton="true" ShowSearch="true"></MultiSelect>
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedLongItemsValue" ShowToolbar="true" ShowSearch="true"></MultiSelect>
     </div>
 </Block>
 
@@ -168,6 +168,16 @@
     <div style="max-width: 300px" class="mt-3">
         <p>最少选择两个选项</p>
         <MultiSelect Items="@LongItems" @bind-Value="@SelectedMinItemsValue" Min="2"></MultiSelect>
+    </div>
+</Block>
+
+<Block Title="扩展工具栏按钮" Introduction="通过设置 <code>ButtonTemplate</code> 自定义工具栏按钮实现自定义功能">
+    <div style="max-width: 300px">
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedLongItemsValue" ShowToolbar="true" ShowDefaultButtons="false">
+            <ButtonTemplate>
+                <button class="btn" @onclick="@OnClickButton">测试</button>
+            </ButtonTemplate>
+        </MultiSelect>
     </div>
 </Block>
 

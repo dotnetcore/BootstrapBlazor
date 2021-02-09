@@ -37,12 +37,16 @@
                 <i class="fa fa-search"></i>
             </div>
         }
-        @if (ShowSelectAllButton)
+        @if (ShowToolbar)
         {
             <div class="toolbar">
-                <button class="btn" type="button" @onclick="@SelectAll">@SelectAllText</button>
-                <button class="btn" type="button" @onclick="@InvertSelect">@ReverseSelectText</button>
-                <button class="btn" type="button" @onclick="@Clear">@ClearText</button>
+                @if (ShowDefaultButtons)
+                {
+                    <button class="btn" type="button" @onclick="@SelectAll">@SelectAllText</button>
+                    <button class="btn" type="button" @onclick="@InvertSelect">@ReverseSelectText</button>
+                    <button class="btn" type="button" @onclick="@Clear">@ClearText</button>
+                }
+                @ButtonTemplate
             </div>
         }
         @foreach (var item in GetData())

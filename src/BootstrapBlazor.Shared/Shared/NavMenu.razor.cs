@@ -142,8 +142,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "后台模板模拟器",
-                Url = "layout-page",
-                IsNew = true
+                Url = "layout-page"
             });
 
             item.IsCollapsed = false;
@@ -189,7 +188,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "时间范围框 DateTimeRange",
                 Url = "datetimeranges"
             });
@@ -200,7 +198,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "富文本框 Editor",
                 Url = "editors"
             });
@@ -211,7 +208,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "数值框 InputNumber",
                 Url = "inputnumbers"
             });
@@ -237,6 +233,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "多项选择器 MultiSelect",
                 Url = "multiselects"
             });
@@ -267,7 +264,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "上传组件 Upload",
                 Url = "uploads"
             });
@@ -324,13 +320,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "挂件 DropdownWidget",
                 Url = "dropdownwidgets"
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "集合 GroupBox",
                 Url = "groupboxs"
             });
@@ -351,7 +345,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "搜索框 Search",
                 Url = "searchs"
             });
@@ -399,7 +392,6 @@ namespace BootstrapBlazor.Shared.Shared
         {
             var it = new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "表格 Table"
             };
 
@@ -477,7 +469,6 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "导出功能",
                 Url = "tables/export"
             });
@@ -531,7 +522,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "对话框 Dialog",
                 Url = "dialogs"
             });
@@ -542,7 +532,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "编辑弹窗 EditDialog",
                 Url = "editdialogs"
             });
@@ -583,7 +572,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "搜索弹窗 SearchDialog",
                 Url = "searchdialogs"
             });
