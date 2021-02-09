@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -19,6 +20,8 @@ namespace BootstrapBlazor.Components
     public sealed partial class Select<TValue>
     {
         private ElementReference SelectElement { get; set; }
+
+        private JSInterop<Select<TValue>>? Interop { get; set; }
 
         /// <summary>
         /// 获得 样式集合
@@ -88,8 +91,25 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync(SelectElement, "bb_select");
+                if (Interop == null)
+                {
+                    Interop = new JSInterop<Select<TValue>>(JSRuntime);
+                }
+                await Interop.Invoke(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task ConfirmSelectedItem(int index)
+        {
+            var item = GetShownItems().ElementAt(index);
+            await OnItemClick(item);
+            StateHasChanged();
         }
 
         /// <summary>
