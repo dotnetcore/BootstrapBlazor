@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.FreeSql;
 using FreeSql;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -23,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction, Action<IFreeSql>? configureAction = null)
         {
-            services.AddSingleton<IFreeSql>(sp =>
+            services.TryAddSingleton<IFreeSql>(sp =>
             {
                 var builder = new FreeSqlBuilder();
                 optionsAction(builder);
@@ -32,7 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 return instance;
             });
 
-            services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
+            services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
         }
     }

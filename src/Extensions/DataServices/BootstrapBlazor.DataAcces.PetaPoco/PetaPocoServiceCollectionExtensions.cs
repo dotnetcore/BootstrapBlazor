@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.PetaPoco;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using PetaPoco;
 using System;
 
@@ -28,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 optionsAction(builder);
                 return new Database(builder);
             });
-            services.AddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
+            services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
             return services;
         }
     }

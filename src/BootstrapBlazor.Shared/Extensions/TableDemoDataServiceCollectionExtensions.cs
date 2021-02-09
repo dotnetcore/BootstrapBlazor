@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddTableDemoDataService(this IServiceCollection services)
         {
-            services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+            services.TryAddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
             return services;
         }
     }
