@@ -34,5 +34,28 @@ namespace Microsoft.Extensions.DependencyInjection
             });
             return services;
         }
+
+        /// <summary>
+        /// 增加配置 DBContext 生命周期参数
+        /// </summary>
+        /// <typeparam name="TContext"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="optionsAction"></param>
+        /// <param name="serviceLifetime"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddEntityFrameworkCore<TContext>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction, ServiceLifetime serviceLifetime = default) where TContext : DbContext
+        {
+            services.AddDbContext<TContext>(optionsAction, serviceLifetime);
+            services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
+            services.AddScoped(provider =>
+            {
+                DbContext DbContextResolve(IEntityFrameworkCoreDataService server)
+                {
+                    return provider.GetRequiredService<TContext>();
+                }
+                return (Func<IEntityFrameworkCoreDataService, DbContext>)DbContextResolve;
+            });
+            return services;
+        }
     }
 }
