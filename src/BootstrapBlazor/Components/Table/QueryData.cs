@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 数据集合总数
         /// </summary>
-        public int TotalCount { get; set; }
+        public long TotalCount { get; set; }
 
         /// <summary>
         /// 获得/设置 数据是否被过滤 默认为 false 未被过滤

@@ -56,5 +56,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 每页条目数量
         /// </summary>
         public int PageItems { get; set; } = DefaultPageItems;
+
+        /// <summary>
+        /// 获得/设置 是否是分页查询 默认为 false
+        /// </summary>
+        public bool IsPage { get; set; }
     }
 }

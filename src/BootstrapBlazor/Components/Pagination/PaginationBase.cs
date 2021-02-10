@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 结尾记录索引
         /// </summary>
-        protected int EndIndex => Math.Min(PageIndex * PageItems, TotalCount);
+        protected long EndIndex => Math.Min(PageIndex * PageItems, TotalCount);
 
         /// <summary>
         /// 获得/设置 开始页码
@@ -68,7 +68,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据总数
         /// </summary>
         [Parameter]
-        public int TotalCount { get; set; }
+        public long TotalCount { get; set; }
 
         /// <summary>
         /// 获得/设置 当前页码

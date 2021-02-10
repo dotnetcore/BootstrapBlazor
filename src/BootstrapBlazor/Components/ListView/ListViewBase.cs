@@ -78,7 +78,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 数据总条目
         /// </summary>
-        protected int TotalCount { get; set; }
+        protected long TotalCount { get; set; }
 
         /// <summary>
         /// 获得/设置 当前页码

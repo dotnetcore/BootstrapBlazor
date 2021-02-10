@@ -263,6 +263,7 @@ namespace BootstrapBlazor.Components
             QueryData<TItem>? queryData = null;
             var queryOption = new QueryPageOptions()
             {
+                IsPage = IsPagination,
                 PageIndex = PageIndex,
                 PageItems = PageItems,
                 SearchText = SearchText,
