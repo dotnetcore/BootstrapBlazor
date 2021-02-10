@@ -10,68 +10,50 @@ using System.Linq.Expressions;
 namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
 {
     /// <summary>
-    /// 
+    /// IQueryable 扩展方法
     /// </summary>
     public static class IQueryableExtensions
     {
-
         /// <summary>
-        /// 
+        /// 条件
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="condition"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IQueryable<T> WhereIf<T>(this IQueryable<T> queryable, bool condition, Expression<Func<T, bool>> predicate)
-        {
-            if (queryable == null)
-            {
-                throw new ArgumentNullException($"{nameof(queryable)}不可为空!");
-            }
-            return condition ? queryable.Where(predicate) : queryable;
-        }
+        public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition = true) => condition ? queryable.Where(predicate) : queryable;
 
         /// <summary>
-        /// 
+        /// 排序
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
+        /// <param name="sortName"></param>
+        /// <param name="sortOrder"></param>
         /// <param name="condition"></param>
-        /// <param name="option"></param>
         /// <returns></returns>
-        public static IQueryable<T> SortIf<T>(this IQueryable<T> queryable, bool condition, QueryPageOptions option)
-        {
-            if (queryable == null)
-            {
-                throw new ArgumentNullException($"{nameof(queryable)}不可为空!");
-            }
-            return condition ? queryable.Sort(option.SortName!, option.SortOrder) : queryable;
-        }
+        public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition = true) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
 
         /// <summary>
-        /// 
+        /// 分页
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
         /// <param name="skipCount"></param>
         /// <param name="maxResultCount"></param>
         /// <returns></returns>
-        public static IQueryable<T> PageBy<T>(this IQueryable<T> queryable, int skipCount, int maxResultCount)
-        {
-            if (queryable == null)
-            {
-                throw new ArgumentNullException($"{nameof(queryable)}不可为空!");
-            }
-            return queryable.Skip(skipCount).Take(maxResultCount);
-        }
+        public static IQueryable<T> Page<T>(this IQueryable<T> queryable, int skipCount, int maxResultCount) => queryable.Skip(skipCount).Take(maxResultCount);
 
+        /// <summary>
+        /// 总数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <param name="totalCount"></param>
+        /// <returns></returns>
         public static IQueryable<T> Count<T>(this IQueryable<T> queryable, out int totalCount)
         {
-            if (queryable == null)
-            {
-                throw new ArgumentNullException($"{nameof(queryable)}不可为空!");
-            }
             totalCount = queryable.Count();
             return queryable;
         }

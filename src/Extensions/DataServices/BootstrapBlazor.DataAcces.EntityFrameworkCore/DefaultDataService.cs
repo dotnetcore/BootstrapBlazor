@@ -97,9 +97,9 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
             // 处理过滤与高级搜索
             var query = _db.Set<TModel>()
                 .Count(out var count)
-                .WhereIf(option.Searchs.Any(), option.Filters.Concat(option.Searchs).GetFilterLambda<TModel>())
-                .SortIf(!string.IsNullOrEmpty(option.SortName), option)
-                .PageBy((option.PageIndex - 1) * option.PageItems, option.PageItems);
+                .Where(option.Filters.Concat(option.Searchs).GetFilterLambda<TModel>(), option.Searchs.Any())
+                .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
+                .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
 
             var ret = new QueryData<TModel>()
             {
