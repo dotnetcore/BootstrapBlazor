@@ -422,11 +422,10 @@ namespace BootstrapBlazor.Components
             StateHasChanged();
         }
 
+        private readonly HashSet<Assembly> _assemblies = new HashSet<Assembly>();
         private void AddTabItem(string url, string? text = null, string? icon = null, bool active = true, bool closable = true)
         {
-            var apps = AdditionalAssemblies == null ? new[] { Assembly.GetEntryAssembly() } : new[] { Assembly.GetEntryAssembly() }.Concat(AdditionalAssemblies).Distinct();
-            var context = RouteTableFactory.Create(apps!, url);
-
+            var context = RouteTableFactory.Create(AdditionalAssemblies!, url);
             if (context.Handler != null)
             {
                 AddTabItem(new Dictionary<string, object>
