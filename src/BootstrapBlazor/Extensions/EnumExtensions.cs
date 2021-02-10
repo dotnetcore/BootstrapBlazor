@@ -2,9 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components
@@ -14,6 +20,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public static class EnumExtensions
     {
+        private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(string, Type, string), string>();
+
         /// <summary>
         /// 获取 DescriptionAttribute 标签方法
         /// </summary>
@@ -29,14 +37,53 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static string ToDescriptionString(this Type? type, string? fieldName)
         {
-            var ret = string.Empty;
+            string? dn = null;
             if (type != null && !string.IsNullOrEmpty(fieldName))
             {
                 var t = Nullable.GetUnderlyingType(type) ?? type;
-                var attributes = t.GetField(fieldName)?.GetCustomAttribute<DescriptionAttribute>();
-                ret = attributes?.Description ?? fieldName;
+
+                var cacheKey = (CultureInfoName: CultureInfo.CurrentUICulture.Name, Type: t, FieldName: fieldName);
+                if (!DisplayNameCache.TryGetValue(cacheKey, out dn))
+                {
+                    // search in Localization
+                    var localizer = JsonStringLocalizerFactory.CreateLocalizer(t);
+                    var stringLocalizer = localizer[fieldName];
+                    if (!stringLocalizer.ResourceNotFound)
+                    {
+                        dn = stringLocalizer.Value;
+                    }
+                    else
+                    {
+                        var field = t.GetField(fieldName);
+                        dn = field?.GetCustomAttribute<DisplayAttribute>()?.Name
+                            ?? field?.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName
+                            ?? field?.GetCustomAttribute<DescriptionAttribute>()?.Description;
+
+                        // search in Localization again
+                        if (!string.IsNullOrEmpty(dn))
+                        {
+                            var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+                            if (resxType.Value.ResourceManagerStringLocalizerType != null)
+                            {
+                                localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
+                                stringLocalizer = localizer[dn];
+                                if (!stringLocalizer.ResourceNotFound)
+                                {
+                                    dn = stringLocalizer.Value;
+                                }
+                            }
+                        }
+                    }
+
+                    // add display name into cache
+                    // add display name into cache
+                    if (!string.IsNullOrEmpty(dn))
+                    {
+                        DisplayNameCache.GetOrAdd(cacheKey, key => dn);
+                    }
+                }
             }
-            return ret;
+            return dn ?? fieldName ?? string.Empty;
         }
 
         /// <summary>
