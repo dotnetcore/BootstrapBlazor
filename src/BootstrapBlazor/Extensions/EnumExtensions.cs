@@ -56,7 +56,6 @@ namespace BootstrapBlazor.Components
                     {
                         var field = t.GetField(fieldName);
                         dn = field?.GetCustomAttribute<DisplayAttribute>()?.Name
-                            ?? field?.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName
                             ?? field?.GetCustomAttribute<DescriptionAttribute>()?.Description;
 
                         // search in Localization again

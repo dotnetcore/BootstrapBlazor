@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -38,33 +39,39 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public List<string> SupportedCultures { get; set; } = new List<string>() { "zh", "en" };
 
+        private Lazy<IList<CultureInfo>>? _cultures;
         /// <summary>
         /// 获得支持多语言集合
         /// </summary>
         /// <returns></returns>
         public IList<CultureInfo> GetSupportedCultures()
         {
-            // 循环过滤掉上级文化
-            var ret = new List<CultureInfo>();
-            foreach (var name in SupportedCultures)
+            _cultures ??= new Lazy<IList<CultureInfo>>(() =>
             {
-                var culture = new CultureInfo(name);
-                if (!ret.Any(c => c.Name == culture.Name))
+                // 循环过滤掉上级文化
+                var ret = new List<CultureInfo>();
+                foreach (var name in SupportedCultures)
                 {
-                    ret.Add(culture);
-                }
-
-                while (culture != culture.Parent)
-                {
-                    culture = culture.Parent;
-                    var p = ret.FirstOrDefault(c => c.Name == culture.Name);
-                    if (p != null)
+                    var culture = new CultureInfo(name);
+                    if (!ret.Any(c => c.Name == culture.Name))
                     {
-                        ret.Remove(p);
+                        ret.Add(culture);
+                    }
+
+                    while (culture != culture.Parent)
+                    {
+                        culture = culture.Parent;
+                        var p = ret.FirstOrDefault(c => c.Name == culture.Name);
+                        if (p != null)
+                        {
+                            ret.Remove(p);
+                        }
                     }
                 }
-            }
-            return ret;
+                return ret;
+            });
+
+            return _cultures.Value;
         }
     }
 }
