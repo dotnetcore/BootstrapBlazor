@@ -6,9 +6,16 @@
     ]
   },
   {
+    "outputFileName": "Components/Markdown/Markdown.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Markdown/Markdown.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.markdown.min.js",
     "inputFiles": [
-      "wwwroot/lib/editor.md/editormd.min.js"
+      "wwwroot/lib/editor.md/editormd.min.js",
+      "Components/Markdown/Markdown.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,

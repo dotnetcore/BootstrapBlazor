@@ -27,19 +27,19 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) await JSRuntime.InvokeVoidAsync("$.markdown", MarkdownElement);
+            if (firstRender) await JSRuntime.InvokeVoidAsync("$.bb_markdown", MarkdownElement);
         }
 
         /// <summary>
         /// 获得 Markdown 编辑器源码
         /// </summary>
         /// <returns></returns>
-        public async ValueTask<string> GetMarkdownString() => await JSRuntime.InvokeAsync<string>("$.markdown", MarkdownElement, "getMarkdown");
+        public async ValueTask<string> GetMarkdownString() => await JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, "getMarkdown");
 
         /// <summary>
         /// 获得 Markdown 编辑器 HTML 源码
         /// </summary>
         /// <returns></returns>
-        public async ValueTask<string> GetMarkdownHtmlString() => await JSRuntime.InvokeAsync<string>("$.markdown", MarkdownElement, "getHTML");
+        public async ValueTask<string> GetMarkdownHtmlString() => await JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, "getHTML");
     }
 }
