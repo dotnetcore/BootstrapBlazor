@@ -78,15 +78,6 @@
                 });
             }
 
-            var btn = $ele.find('.btn-col');
-            if (!btn.hasClass('init')) {
-                btn.addClass('init');
-                btn.on('click', function () {
-                    var $menu = $(this).next();
-                    $menu.toggleClass('show');
-                });
-            }
-
             if (method === 'fixTableHeader') {
                 var $thead = $ele.find('.table-fixed-header');
                 var $body = $ele.find('.table-fixed-body');

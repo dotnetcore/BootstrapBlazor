@@ -56,42 +56,46 @@
                     }
                     @if (ShowColumnList)
                     {
-                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="@ColumnButtonTitleText">
-                            <i class="fa fa-th-list"></i>
-                            <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
-                            <span class="caret"></span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            @foreach (var item in Columns)
-                            {
-                                var poco = ColumnVisibles.FirstOrDefault(i => i.FieldName == item.GetFieldName());
-                                <div class="dropdown-item">
-                                    <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                              DisplayText="@item.GetDisplayName()" @bind-Value="@poco!.Visible">
-                                    </Checkbox>
-                                </div>
-                            }
+                        <div class="btn-group btn-col" role="group">
+                            <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
+                                <i class="fa fa-th-list"></i>
+                                <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                @foreach (var item in Columns)
+                                {
+                                    var poco = ColumnVisibles.First(i => i.FieldName == item.GetFieldName());
+                                    <div class="dropdown-item">
+                                        <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
+                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
+                                        </Checkbox>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     }
                     @if (ShowExportButton)
                     {
-                        <button class="btn btn-secondary btn-col dropdown-toggle" type="button" title="@ExportButtonText">
-                            <i class="fa fa-download"></i>
-                            <span class="d-none d-sm-inline-block">@ExportButtonText</span>
-                            <span class="caret"></span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <div class="dropdown-item">
-                                <i class="fa fa-file-text-o"></i>
-                                <span>CSV （未实现）</span>
-                            </div>
-                            <div class="dropdown-item" @onclick="@ExportAsync">
-                                <i class="fa fa-file-excel-o"></i>
-                                <span>MS-Excel</span>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="fa fa-file-pdf-o"></i>
-                                <span>PDF（未实现）</span>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" type="button" title="@ExportButtonText">
+                                <i class="fa fa-download"></i>
+                                <span class="d-none d-sm-inline-block">@ExportButtonText</span>
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-item">
+                                    <i class="fa fa-file-text-o"></i>
+                                    <span>CSV （未实现）</span>
+                                </div>
+                                <div class="dropdown-item" @onclick="@ExportAsync">
+                                    <i class="fa fa-file-excel-o"></i>
+                                    <span>MS-Excel</span>
+                                </div>
+                                <div class="dropdown-item">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                    <span>PDF（未实现）</span>
+                                </div>
                             </div>
                         </div>
                     }

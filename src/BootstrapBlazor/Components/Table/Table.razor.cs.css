@@ -343,7 +343,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin-right:6px;
+        margin-right: 6px;
     }
 
     .table-row.table-footer {
@@ -470,3 +470,11 @@
 .table-resize .border-resize {
     border-right: 1px solid #409eff;
 }
+
+.table-container .table-toolbar .btn-col .dropdown-item {
+    padding: .25rem 0;
+}
+
+    .table-container .table-toolbar .btn-col .dropdown-item .form-checkbox {
+        display: block;
+    }
