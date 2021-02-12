@@ -398,6 +398,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Select/MultiSelect.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Select/MultiSelect.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -435,7 +441,8 @@
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
       "Components/Tab/Tab.razor.cs.min.js",
       "Components/Layout/Layout.razor.cs.min.js",
-      "Components/GoTop/GoTop.razor.cs.min.js"
+      "Components/GoTop/GoTop.razor.cs.min.js",
+      "Components/Select/MultiSelect.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,

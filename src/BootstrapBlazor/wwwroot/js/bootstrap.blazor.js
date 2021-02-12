@@ -90,9 +90,6 @@
                 $body.scrollTop($win.height());
             }
         },
-        bb_multi_select: function (el, obj, method) {
-            $(el).data('bb_multi_select', { obj: obj, method: method });
-        },
         bb_tree: function (el) {
             var $el = $(el);
             $el.find('.tree-content').hover(function () {
@@ -145,15 +142,6 @@
                     }
                 });
             }
-
-            // 处理 MultiSelect 弹窗
-            var $select = $el.closest('.multi-select');
-            $('.multi-select.show').each(function () {
-                if ($select.length === 0 || this != $select[0]) {
-                    var select = $(this).data('bb_multi_select');
-                    select.obj.invokeMethodAsync(select.method);
-                }
-            });
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {
