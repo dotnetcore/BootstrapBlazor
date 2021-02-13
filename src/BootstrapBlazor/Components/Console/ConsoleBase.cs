@@ -15,47 +15,6 @@ namespace BootstrapBlazor.Components
     public abstract class ConsoleBase : BootstrapComponentBase
     {
         /// <summary>
-        /// 获得 组件样式
-        /// </summary>
-        protected string? ClassString => CssBuilder.Default("card console")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
-
-        /// <summary>
-        /// 获得 Console Body Style 字符串
-        /// </summary>
-        protected string? BodyStyleString => CssBuilder.Default()
-            .AddClass($"height: {Height}px;", Height > 0)
-            .Build();
-
-        /// <summary>
-        /// 获得 Footer 样式
-        /// </summary>
-        protected string? FooterClassString => CssBuilder.Default("card-footer text-right")
-            .AddClass("d-none", OnClear == null && !ShowAutoScroll)
-            .Build();
-
-        /// <summary>
-        /// 获得 按钮样式
-        /// </summary>
-        protected string? ClearButtonClassString => CssBuilder.Default("btn btn-secondary")
-            .AddClass($"btn-{ClearButtonColor.ToDescriptionString()}", ClearButtonColor != Color.None)
-            .Build();
-
-        /// <summary>
-        /// 获得 客户端是否自动滚屏样式字符串
-        /// </summary>
-        protected string? AutoScrollClassString => CssBuilder.Default("fa text-left")
-            .AddClass("fa-check-square-o", IsAutoScroll)
-            .AddClass("fa-square-o", !IsAutoScroll)
-            .Build();
-
-        /// <summary>
-        /// 获得 客户端是否自动滚屏标识
-        /// </summary>
-        protected string? AutoScrollString => (IsAutoScroll && ShowAutoScroll) ? "auto" : null;
-
-        /// <summary>
         /// 获得/设置 组件绑定数据源
         /// </summary>
         [Parameter]
@@ -120,33 +79,5 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public int Height { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected void ClickAutoScroll()
-        {
-            IsAutoScroll = !IsAutoScroll;
-        }
-
-        /// <summary>
-        /// 获取消息样式
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected virtual string? GetClassString(ConsoleMessageItem item)
-        {
-            return CssBuilder.Default()
-                .AddClass($"text-{item.Color.ToDescriptionString()}", item.Color != Color.None)
-                .Build();
-        }
-
-        /// <summary>
-        /// 清空控制台消息方法
-        /// </summary>
-        public void ClearConsole()
-        {
-            OnClear?.Invoke();
-        }
     }
 }

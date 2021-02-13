@@ -1859,15 +1859,6 @@ input:disabled,
 }
 /*end circle*/
 
-/*console*/
-.console-body {
-    padding: 1rem;
-    background-color: #174482;
-    color: #fff;
-    overflow: auto;
-}
-/*end console*/
-
 /*auto complete*/
 .auto-complete {
     position: relative;

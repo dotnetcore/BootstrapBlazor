@@ -60,14 +60,6 @@
                 content: $ele.find('.popover-body').html()
             });
             $button.popover('show');
-        },
-        bb_console_log: function (el) {
-            var $el = $(el);
-            var $body = $el.find('[data-scroll="auto"]');
-            if ($body.length > 0) {
-                var $win = $body.find('.console-window');
-                $body.scrollTop($win.height());
-            }
         }
     });
 
