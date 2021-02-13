@@ -11,8 +11,6 @@ namespace BootstrapBlazor.Components
 {
     internal static class RouteTableFactory
     {
-        static readonly char[] _queryOrHashStartChar = new[] { '?', '#' };
-
         [NotNull]
         private static Routing.IRouteTable? Routes { get; set; }
         private static readonly HashSet<Assembly> _assemblies = new HashSet<Assembly>();
@@ -50,6 +48,8 @@ namespace BootstrapBlazor.Components
 
 #if SSR
         #region SSR 模式可用
+        static readonly char[] _queryOrHashStartChar = new[] { '?', '#' };
+
         public static RouteContext Create(IEnumerable<Assembly> assemblies, string url)
         {
             var routerAssembly = typeof(Microsoft.AspNetCore.Components.Routing.Router).Assembly;

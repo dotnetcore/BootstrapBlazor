@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Shared.Common
 {
@@ -14,7 +15,8 @@ namespace BootstrapBlazor.Shared.Common
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("城市名称")]
+        [Display(Name = "城市名称")]
+        [Required(ErrorMessage = "请选择一个城市")]
         public string Name { get; set; } = "Shanghai";
     }
 }

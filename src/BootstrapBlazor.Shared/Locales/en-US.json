@@ -89,5 +89,13 @@
     "Age.Required": "{0} is required.",
     "Hobby.Required": "{0} is required.",
     "Education.Required": "{0} is required."
+  },
+  "BootstrapBlazor.Shared.Common.Foo": {
+    "Name": "City",
+    "Name.Required": "{0} is required."
+  },
+  "BootstrapBlazor.Shared.Pages.Inputs.FooModel": {
+    "Name": "Name",
+    "Name.Required": "{0} is required."
   }
 }

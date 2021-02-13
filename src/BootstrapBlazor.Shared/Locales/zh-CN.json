@@ -89,5 +89,13 @@
     "Age.Required": "{0}不可为空",
     "Hobby.Required": "请选择一种{0}",
     "Education.Required": "请选择{0}"
+  },
+  "BootstrapBlazor.Shared.Common.Foo": {
+    "Name": "城市名称",
+    "Name.Required": "请选择一个城市"
+  },
+  "BootstrapBlazor.Shared.Pages.Inputs.FooModel": {
+    "Name": "姓名",
+    "Name.Required": "{0}不可为空"
   }
 }

@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private class FooModel
         {
-            [System.ComponentModel.DisplayName("姓名")]
+            [Display(Name = "姓名")]
+            [Required(ErrorMessage = "姓名不可为空")]
             public string Name { get; set; } = "张三";
         }
 
