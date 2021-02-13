@@ -4,6 +4,7 @@
 
 using Microsoft.Extensions.Localization;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Localization.Json
 {
@@ -54,6 +55,21 @@ namespace BootstrapBlazor.Localization.Json
             var relativeName = baseName.Substring(index);
 
             return new HtmlLocalizer(_stringLocalizerFactory.Create(baseName, location));
+        }
+
+        /// <summary>
+        /// 获取指定 Type 的资源文件
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="key"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool TryGetLocalizerString(Type type, string key, [MaybeNullWhen(false)] out string? text)
+        {
+            var localizer = JsonStringLocalizerFactory.CreateLocalizer(type);
+            var l = localizer[key];
+            text = !l.ResourceNotFound ? l.Value : null;
+            return !l.ResourceNotFound;
         }
     }
 }

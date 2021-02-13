@@ -10,7 +10,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -146,13 +145,13 @@ namespace BootstrapBlazor.Components
                         if (!string.IsNullOrEmpty(rule.ErrorMessage))
                         {
                             var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value.ResourceManagerStringLocalizerType;
-                            if (resxType != null && TryGetLocalizer(resxType, rule.ErrorMessage, out var resx))
+                            if (resxType != null && JsonHtmlLocalizerFactory.TryGetLocalizerString(resxType, rule.ErrorMessage, out var resx))
                             {
                                 rule.ErrorMessage = resx;
                                 isResx = true;
                             }
                         }
-                        if (!isResx && TryGetLocalizer(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out var msg))
+                        if (!isResx && JsonHtmlLocalizerFactory.TryGetLocalizerString(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out var msg))
                         {
                             rule.ErrorMessage = msg;
                         }
@@ -162,14 +161,6 @@ namespace BootstrapBlazor.Components
                     }
                 }
             }
-        }
-
-        private static bool TryGetLocalizer(Type type, string key, [MaybeNullWhen(false)] out string? text)
-        {
-            var localizer = JsonStringLocalizerFactory.CreateLocalizer(type);
-            var l = localizer[key];
-            text = !l.ResourceNotFound ? l.Value : null;
-            return !l.ResourceNotFound;
         }
     }
 }

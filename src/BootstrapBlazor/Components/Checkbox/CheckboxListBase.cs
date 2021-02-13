@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -7,7 +7,9 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -85,6 +87,25 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            InitValue();
+
+            // 处理 Required 标签
+            if (EditContext != null && FieldIdentifier != null)
+            {
+                var pi = FieldIdentifier.Value.Model.GetType().GetProperty(FieldIdentifier.Value.FieldName);
+                if (pi != null)
+                {
+                    var required = pi.GetCustomAttribute<RequiredAttribute>();
+                    if (required != null)
+                    {
+                        Rules.Add(new RequiredValidator() { ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
+                    }
+                }
+            }
+        }
+
+        private void InitValue()
+        {
             // 通过 Value 对集合进行赋值
             if (Value != null)
             {
