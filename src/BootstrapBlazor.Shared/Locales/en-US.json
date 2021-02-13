@@ -77,7 +77,8 @@
     "Complete": "Complete",
     "Education": "Education",
     "Name.Required": "{0} is required.",
-    "Address.Required": "{0} is required."
+    "Address.Required": "{0} is required.",
+    "Education.Required": "{0} is required."
   },
   "BootstrapBlazor.Shared.Pages.Components.Dummy": {
     "Name": "Name",

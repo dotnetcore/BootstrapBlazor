@@ -77,7 +77,8 @@
     "Complete": "是/否",
     "Education": "学历",
     "Name.Required": "{0}是必填项",
-    "Address.Required": "{0}是必填项"
+    "Address.Required": "{0}是必填项",
+    "Education.Required": "{0}是必选项"
   },
   "BootstrapBlazor.Shared.Pages.Components.Dummy": {
     "Name": "姓名",

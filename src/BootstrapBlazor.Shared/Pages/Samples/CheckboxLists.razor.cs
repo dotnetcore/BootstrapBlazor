@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -90,6 +91,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private class Model
         {
+            [Required]
             public string Value { get; set; } = "5,8";
         }
 

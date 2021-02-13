@@ -1,0 +1,112 @@
+﻿.transfer {
+    font-size: 14px;
+}
+
+.transfer-panel {
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+    max-height: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+    .transfer-panel .transfer-panel-header {
+        height: 40px;
+        line-height: 40px;
+        background: #f5f7fa;
+        margin: 0;
+        padding-left: 15px;
+        border-bottom: 1px solid #ebeef5;
+        color: #000;
+    }
+
+.transfer-panel-body {
+    height: 246px;
+}
+
+.transfer-panel-list {
+    margin: 0;
+    padding: 6px 0;
+    list-style: none;
+    height: 246px;
+}
+
+    .transfer-panel-list:not(.disabled) {
+        overflow: auto;
+    }
+
+.transfer-panel-item {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 15px;
+    display: block;
+}
+
+.transfer-buttons {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 30px;
+}
+
+    .transfer-buttons .btn {
+        white-space: nowrap;
+    }
+
+        .transfer-buttons .btn:not(:first-child) {
+            margin-left: 10px;
+        }
+
+    .transfer-buttons .is-disabled, .transfer-buttons .is-disabled:active, .transfer-buttons .is-disabled:focus, .transfer-buttons .is-disabled:hover, .transfer-buttons [disabled] {
+        color: #fff;
+        background-color: #a0cfff;
+        border-color: #a0cfff;
+    }
+
+.transfer-panel-filter {
+    text-align: center;
+    margin: 15px;
+    display: block;
+    width: auto;
+    position: relative;
+}
+
+    .transfer-panel-filter .input-inner {
+        height: 32px;
+        line-height: 32px;
+        width: 100%;
+        display: inline-block;
+        border-radius: 16px;
+        padding-right: 10px;
+        padding-left: 30px;
+        border: 1px solid #dcdfe6;
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        color: #606266;
+    }
+
+        .transfer-panel-filter .input-inner:focus {
+            outline: none;
+            border-color: #409eff;
+        }
+
+    .transfer-panel-filter .input-prefix {
+        height: 100%;
+        width: 30px;
+        transition: all .3s;
+        position: absolute;
+        left: 4px;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c0c4cc;
+    }
+
+        .transfer-panel-filter .input-prefix:hover i:before, .transfer-panel-filter .input-prefix.is-on i:before {
+            cursor: pointer;
+            content: "\f057";
+        }

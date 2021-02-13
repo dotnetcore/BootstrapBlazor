@@ -141,9 +141,6 @@
     "ClearButtonText": "清除",
     "GenerateButtonText": "生成"
   },
-  "BootstrapBlazor.Components.RequiredValidator": {
-    "ErrorMessage": "这是必填字段"
-  },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "搜索"
   },

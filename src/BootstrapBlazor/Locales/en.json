@@ -141,9 +141,6 @@
     "ClearButtonText": "Clear",
     "GenerateButtonText": "Generate"
   },
-  "BootstrapBlazor.Components.RequiredValidator": {
-    "ErrorMessage": "This field is required"
-  },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Search"
   },
