@@ -86,7 +86,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获取指定枚举类型的枚举值集合，默认通过 Description 标签显示 DisplayName 未设置 Description 标签时显示字段名称
+        /// 获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
         /// </summary>
         /// <param name="type"></param>
         /// <param name="addtionalItem"></param>

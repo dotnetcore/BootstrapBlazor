@@ -180,11 +180,11 @@ namespace BootstrapBlazor.Components
             if (Items == null)
             {
                 Type? innerType = null;
-                if (typeof(IEnumerable).IsAssignableFrom( typeof(TValue)))
+                if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
                 {
                     innerType = typeof(TValue).GetGenericArguments()[0];
                 }
-                if(innerType != null && innerType.IsEnum)
+                if (innerType != null && innerType.IsEnum)
                 {
                     Items = innerType.ToSelectList();
                 }

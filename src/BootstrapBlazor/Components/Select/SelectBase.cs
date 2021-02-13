@@ -111,7 +111,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected IEnumerable<SelectedItem> GetItems()
         {
-            if(Items.Count() == 0 && typeof(TValue).IsEnum())
+            if (!Items.Any() && typeof(TValue).IsEnum())
             {
                 Items = typeof(TValue).ToSelectList();
             }

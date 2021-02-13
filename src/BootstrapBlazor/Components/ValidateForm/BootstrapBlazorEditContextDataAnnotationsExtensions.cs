@@ -145,13 +145,13 @@ namespace BootstrapBlazor.Components
                         if (!string.IsNullOrEmpty(rule.ErrorMessage))
                         {
                             var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value.ResourceManagerStringLocalizerType;
-                            if (resxType != null && JsonHtmlLocalizerFactory.TryGetLocalizerString(resxType, rule.ErrorMessage, out var resx))
+                            if (resxType != null && JsonStringLocalizerFactory.TryGetLocalizerString(resxType, rule.ErrorMessage, out var resx))
                             {
                                 rule.ErrorMessage = resx;
                                 isResx = true;
                             }
                         }
-                        if (!isResx && JsonHtmlLocalizerFactory.TryGetLocalizerString(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out var msg))
+                        if (!isResx && JsonStringLocalizerFactory.TryGetLocalizerString(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out var msg))
                         {
                             rule.ErrorMessage = msg;
                         }
