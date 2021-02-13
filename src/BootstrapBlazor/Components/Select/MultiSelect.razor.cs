@@ -177,7 +177,22 @@ namespace BootstrapBlazor.Components
             MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
             MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
-            if (Items == null) Items = Enumerable.Empty<SelectedItem>();
+            if (Items == null)
+            {
+                Type? innerType = null;
+                if (typeof(IEnumerable).IsAssignableFrom( typeof(TValue)))
+                {
+                    innerType = typeof(TValue).GetGenericArguments()[0];
+                }
+                if(innerType != null && innerType.IsEnum)
+                {
+                    Items = innerType.ToSelectList();
+                }
+                else
+                {
+                    Items = Enumerable.Empty<SelectedItem>();
+                }
+            }
 
             if (OnSearchTextChanged == null)
             {
@@ -339,7 +354,14 @@ namespace BootstrapBlazor.Components
                 foreach (var item in SelectedItems)
                 {
                     var val = item.Value;
-                    instance.Add(val);
+                    if (t[0].IsEnum)
+                    {
+                        instance.Add(Enum.Parse(t[0], val));
+                    }
+                    else
+                    {
+                        instance.Add(val);
+                    }
                 }
                 CurrentValue = (TValue)instance;
             }
