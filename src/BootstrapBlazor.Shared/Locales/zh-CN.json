@@ -75,6 +75,19 @@
     "Address": "地址",
     "Count": "数量",
     "Complete": "是/否",
-    "Education": "学历"
+    "Education": "学历",
+    "Name.Required": "{0}是必填项",
+    "Address.Required": "{0}是必填项"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Dummy": {
+    "Name": "姓名",
+    "Age": "年龄",
+    "BirthDay": "生日",
+    "Hobby": "爱好",
+    "Education": "学历",
+    "Name.Required": "{0}不可为空",
+    "Age.Required": "{0}不可为空",
+    "Hobby.Required": "请选择一种{0}",
+    "Education.Required": "请选择{0}"
   }
 }

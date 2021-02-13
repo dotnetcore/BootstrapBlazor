@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Components
@@ -14,9 +15,8 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public partial class EditorDemo2
     {
-#nullable disable
-        private Logger Trace2 { get; set; }
-#nullable restore
+        [NotNull]
+        private Logger? Trace2 { get; set; }
 
         private readonly Dummy DummyModel = new Dummy();
 

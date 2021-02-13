@@ -75,6 +75,19 @@
     "Address": "Address",
     "Count": "Count",
     "Complete": "Complete",
-    "Education": "Education"
+    "Education": "Education",
+    "Name.Required": "{0} is required.",
+    "Address.Required": "{0} is required."
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Dummy": {
+    "Name": "Name",
+    "Age": "Age",
+    "BirthDay": "BirthDay",
+    "Hobby": "Hobby",
+    "Education": "Education",
+    "Name.Required": "{0} is required.",
+    "Age.Required": "{0} is required.",
+    "Hobby.Required": "{0} is required.",
+    "Education.Required": "{0} is required."
   }
 }
