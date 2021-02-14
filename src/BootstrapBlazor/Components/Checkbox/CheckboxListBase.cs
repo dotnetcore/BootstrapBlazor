@@ -87,6 +87,24 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            if (Items == null)
+            {
+                Type? innerType = null;
+                if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
+                {
+                    innerType = typeof(TValue).GetGenericArguments()[0];
+                }
+                if (innerType != null && innerType.IsEnum)
+                {
+                    Items = innerType.ToSelectList().Cast<TModel>();
+                }
+                else
+                {
+                    Items = Enumerable.Empty<SelectedItem>().Cast<TModel>();
+                }
+            }
+
+
             InitValue();
 
             // 处理 Required 标签
@@ -183,7 +201,15 @@ namespace BootstrapBlazor.Components
                     foreach (var model in Items.Where(i => GetChecked(i)))
                     {
                         var val = GetValue<object>(model);
-                        instance.Add(val);
+                        if (t[0].IsEnum && val != null)
+                        {
+                            instance.Add(Enum.Parse(t[0], val.ToString()));
+                        }
+                        else
+                        {
+                            instance.Add(val);
+                        }
+
                     }
                     CurrentValue = (TValue)instance;
                 }
@@ -252,4 +278,40 @@ namespace BootstrapBlazor.Components
         private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<TModel, object>> GetPropertyValueLambdaCache { get; set; } = new ConcurrentDictionary<(Type, string), Func<TModel, object>>();
         #endregion
     }
+
+    /// <summary>
+    /// 固定使用SelectedItem作为数据源的CheckboxList
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    public abstract class CheckboxListSimpleBase<TValue> : CheckboxListBase<SelectedItem, TValue>
+    {
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            TextField = "Text";
+            ValueField = "Value";
+            CheckedField = "Active";
+
+                Type? innerType = null;
+                if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
+                {
+                    innerType = typeof(TValue).GetGenericArguments()[0];
+                }
+                if (innerType != null && innerType.IsEnum)
+                {
+                    Items = innerType.ToSelectList();
+                }
+                else
+                {
+                    Items = Enumerable.Empty<SelectedItem>();
+                }
+
+            base.OnInitialized();
+        }
+
+    }
+
 }

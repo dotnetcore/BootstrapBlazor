@@ -28,7 +28,7 @@
         <div class="form-inline">
             <div class="row">
                 <div class="form-group col-12">
-                    <CheckboxList TModel="Foo" TValue="string" @bind-Value="@FooModel.Value" Items="@Items2"
+                    <CheckboxList @bind-Value="@FooModel.Value" Items="@Items2"
                                   ValueField="Value" TextField="Text" CheckedField="Checked">
                     </CheckboxList>
                 </div>
@@ -69,6 +69,21 @@
         </div>
     </div>
 </Block>
+
+<Block Title="双向绑定枚举" Introduction="绑定值为枚举">
+    <p>CheckboxListSimple是一个简化的，专门使用SelectedItem为数据源的组件。使用CheckboxListSimple不需要指定<code>TextField,ValueField,CheckedField</code> ，因为它使用自带的SelectedItem类</p>
+    <p>当CheckboxListSimple绑定一个枚举集合时，Items也不需要指定，Items会被自动设置成枚举里面所有的值。</p>
+    <CheckboxListSimple  @bind-Value="@SelectedEnumValues" ></CheckboxListSimple>
+    <div class="form-inline mt-3">
+        <div class="row">
+            <div class="form-group col-12">
+                <div class="control-label">绑定值：</div>
+                <div class="form-control">@(string.Join(",", SelectedEnumValues))</div>
+            </div>
+        </div>
+    </div>
+</Block>
+
 
 <AttributeTable Items="@GetAttributes()" />
 

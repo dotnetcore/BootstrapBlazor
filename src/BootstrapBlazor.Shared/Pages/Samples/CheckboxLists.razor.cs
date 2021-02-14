@@ -33,6 +33,9 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<Foo> Items4 { get; set; } = Enumerable.Empty<Foo>();
 
+        private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+
+
         private string Value1 { get; set; } = "1,3";
 
         private IEnumerable<int> Value2 { get; set; } = new int[] { 9, 10 };

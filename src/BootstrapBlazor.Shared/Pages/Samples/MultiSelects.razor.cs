@@ -81,7 +81,7 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
-        private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = Enumerable.Empty<EnumEducation>();
+        private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
 
         private IEnumerable<SelectedItem> OnSearch(string searchText)
         {
