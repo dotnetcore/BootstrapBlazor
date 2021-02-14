@@ -27,7 +27,7 @@
     <p>
         所有列均设置宽度，当屏幕过小时会自动出现横向滚动条
     </p>
-    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" IsPagination="true" Height="200">
+    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsMultipleSelect="true" Height="200">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
