@@ -95,16 +95,6 @@
             var $confirm = findConfirmButton($el);
             if ($confirm != null) hide = false;
             if (hide) $('[data-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
-
-            if ($el.parents('.popover-datetime-range.show').length === 0) {
-                $('.popover-datetime-range.show').each(function (index, ele) {
-                    var pId = this.getAttribute('id');
-                    if (pId) {
-                        var $input = $('[aria-describedby="' + pId + '"]');
-                        if ($el.parents('.datetime-range-bar').attr('aria-describedby') !== pId) $input.popover('hide');
-                    }
-                });
-            }
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {

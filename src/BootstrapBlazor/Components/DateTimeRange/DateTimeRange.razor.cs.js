@@ -34,4 +34,20 @@
             else $input.popover(method);
         }
     });
+
+    $(function () {
+        $(document).on('click', function (e) {
+            var $el = $(e.target);
+
+            if ($el.parents('.popover-datetime-range.show').length === 0) {
+                $('.popover-datetime-range.show').each(function (index, ele) {
+                    var pId = this.getAttribute('id');
+                    if (pId) {
+                        var $input = $('[aria-describedby="' + pId + '"]');
+                        if ($el.parents('.datetime-range-bar').attr('aria-describedby') !== pId) $input.popover('hide');
+                    }
+                });
+            }
+        });
+    });
 })(jQuery);
