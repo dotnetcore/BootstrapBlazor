@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Foo = BootstrapBlazor.Shared.Pages.Components.Foo;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -27,10 +28,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private async Task ShowDialog()
         {
-            var option = new SearchDialogOption<BindItem>()
+            var option = new SearchDialogOption<Foo>()
             {
                 Title = "搜索弹出框",
-                Model = new BindItem(),
+                Model = new Foo(),
                 OnCloseAsync = () =>
                 {
                     Trace.Log("关闭按钮被点击");
@@ -53,12 +54,12 @@ namespace BootstrapBlazor.Shared.Pages
 
         private async Task ShowColumnsDialog()
         {
-            var model = new BindItem();
-            var option = new SearchDialogOption<BindItem>()
+            var model = new Foo();
+            var option = new SearchDialogOption<Foo>()
             {
                 Title = "搜索弹出框",
                 Model = model,
-                Items = model.GenerateColumns(p => p.GetFieldName() == nameof(BindItem.Name) || p.GetFieldName() == nameof(BindItem.Address))
+                Items = model.GenerateColumns(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
             };
             await DialogService.ShowSearchDialog(option);
         }

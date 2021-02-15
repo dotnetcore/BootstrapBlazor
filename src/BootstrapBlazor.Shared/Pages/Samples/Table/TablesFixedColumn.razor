@@ -11,7 +11,7 @@
 
 <Block Title="固定列头与列尾" Introduction="设置 <code>Fixed</code> 属性固定表头">
     <p>本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动</p>
-    <Table TItem="BindItem" Items="@Items.Take(4)" IsBordered="true" IsStriped="true" class="table-fixed-column-demo">
+    <Table TItem="Foo" Items="@Items.Take(4)" IsBordered="true" IsStriped="true" class="table-fixed-column-demo">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" />
@@ -28,7 +28,7 @@
 </Block>
 
 <Block Title="固定表头与列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>Fixed</code> 对列进行固定">
-    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200" class="table-fixed-column-demo2">
+    <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true" Height="200" class="table-fixed-column-demo2">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -45,7 +45,7 @@
 </Block>
 
 <Block Title="固定按钮操作列" Introduction="设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定">
-    <Table TItem="BindItem" Items="@Items.Take(4)" IsBordered="true" IsStriped="true"
+    <Table TItem="Foo" Items="@Items.Take(4)" IsBordered="true" IsStriped="true"
            ShowExtendButtons="true" FixedExtendButtonsColumn="true"
            class="table-fixed-column-demo">
         <TableColumns>
@@ -64,7 +64,7 @@
 </Block>
 
 <Block Title="固定表头与按钮操作列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定">
-    <Table TItem="BindItem" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
+    <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
            ShowExtendButtons="true" FixedExtendButtonsColumn="true"
            Height="200" class="table-fixed-column-demo2">
         <TableColumns>

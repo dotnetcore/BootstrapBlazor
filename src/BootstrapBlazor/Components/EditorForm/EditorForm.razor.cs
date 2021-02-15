@@ -164,19 +164,14 @@ namespace BootstrapBlazor.Components
         private int GetOrder(string fieldName) => Model.GetType().GetProperty(fieldName)?.GetCustomAttribute<EditorOrderAttribute>()?.Order ?? 0;
 
         #region AutoEdit
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
         private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
         {
             var fieldType = item.PropertyType;
             if (fieldType != null && Model != null)
             {
                 // GetDisplayName
-                var displayName = item.GetDisplayName();
                 var fieldName = item.GetFieldName();
+                var displayName = typeof(TModel).GetDisplayName(fieldName);
 
                 // FieldValue
                 var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => Model.GetPropertyValueLambda<TModel, object?>(key.FieldName).Compile());

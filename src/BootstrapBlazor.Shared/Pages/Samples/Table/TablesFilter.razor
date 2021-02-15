@@ -24,7 +24,7 @@
         本示例分别为 <code>DateTime、string、bool、enum、int</code> 类型，弹出筛选框也分别不同
     </div>
     <Alert ShowBar="true" Color="Color.Info" class="mt-3">开启筛选功能仅需要设置 <code>TableColumn</code> 的 <code>Filterable</code> 值为 <code>true</code>，无需额外任何代码</Alert>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowSkeleton="true"
@@ -54,7 +54,7 @@
         <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>
         <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/src/BootstrapBlazor.Shared/Pages/Table/CustomerFilter.razor" target="_blank">[传送门] CustomerFilter 组件源码</a>
     </p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowSkeleton="true"
@@ -83,7 +83,7 @@
         <li>设置 <code>DefaultSortOrder</code> 值，设置默认排序规则</li>
     </ul>
     <p>本例中默认排序为最后一列倒序排序</p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowSkeleton="true"

@@ -1,6 +1,7 @@
 ﻿@page "/tables/export"
 @inherits TablesBaseEdit
 @using Microsoft.Extensions.DependencyInjection
+@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
 @inject NugetVersionService VersionManager
 
 <h3>Table 表格</h3>
@@ -43,7 +44,7 @@
 
 
 <Block Title="表格导出功能" Introduction="通过设置 <code>ShowExportButton</code> 属性是否显示导出按钮，默认为<code>false</code>">
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
@@ -58,7 +59,7 @@
 </Block>
 
 <Block Title="自定义导出方法" Introduction="通过设置 <code>OnExportAsync</code> 回调委托方法可自定义导出方法，不设置将使用组件内置导出函数">
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
@@ -73,7 +74,7 @@
 </Block>
 
 @code{
-    public Task<bool> ExportAsync(IEnumerable<BindItem> Items)
+    public Task<bool> ExportAsync(IEnumerable<Foo> Items)
     {
         return Task.FromResult(true);
     }

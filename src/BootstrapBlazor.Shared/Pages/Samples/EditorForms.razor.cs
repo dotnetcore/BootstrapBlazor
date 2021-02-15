@@ -11,23 +11,24 @@ using System.Collections.Generic;
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class EditorForms
     {
-        private Dummy Model { get; set; } = new Dummy()
+        private Foo Model { get; set; } = new Foo()
         {
             Name = "张三",
-            Age = 23,
-            BirthDay = new DateTime(1997, 12, 05),
+            Count = 23,
+            Address = "测试地址",
+            DateTime = new DateTime(1997, 12, 05),
             Education = EnumEducation.Middel
         };
 
-        private Dummy ValidateModel { get; set; } = new Dummy()
+        private Foo ValidateModel { get; set; } = new Foo()
         {
             Name = "张三",
-            Age = 23,
-            BirthDay = new DateTime(1997, 12, 05),
+            Count = 23,
+            DateTime = new DateTime(1997, 12, 05),
             Education = EnumEducation.Middel
         };
 
@@ -48,9 +49,7 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem("5", "5")
         };
 
-        private int DummyId = 0;
-
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -90,7 +89,7 @@ namespace BootstrapBlazor.Shared.Pages
             }
         };
 
-        private IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

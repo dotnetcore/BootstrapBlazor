@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [NotNull]
         private Logger? Trace2 { get; set; }
 
-        private readonly Dummy DummyModel = new Dummy();
+        private readonly Foo Model = new Foo();
 
         private IEnumerable<SelectedItem>? Educations { get; set; }
 

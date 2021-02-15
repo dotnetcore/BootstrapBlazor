@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class Dropdowns
     {
@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private List<SelectedItem> EmptyList => new List<SelectedItem> { };
 
-        private List<SelectedItem> BindItems { get; set; } = new List<SelectedItem>
+        private List<SelectedItem> Foos { get; set; } = new List<SelectedItem>
         {
             new SelectedItem{ Text="北京",Value="0"},
             new SelectedItem{ Text="上海",Value="1"},
@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void AddItem()
         {
-            BindItems.Add(new SelectedItem($"{BindItems.Count()}", $"城市 {BindItems.Count()}"));
+            Foos.Add(new SelectedItem($"{Foos.Count()}", $"城市 {Foos.Count()}"));
         }
 
         private Task OnRadioItemChanged(CheckboxState state, SelectedItem item)

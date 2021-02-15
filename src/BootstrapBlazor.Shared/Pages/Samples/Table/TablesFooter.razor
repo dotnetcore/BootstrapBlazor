@@ -9,7 +9,7 @@
     <p><code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code></p>
     <p><code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据</p>
     <p><code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示</p>
-    <Table TItem="BindItem" ShowFooter="true" class="footer-demo"
+    <Table TItem="Foo" ShowFooter="true" class="footer-demo"
            IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

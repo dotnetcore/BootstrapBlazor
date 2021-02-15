@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,19 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public abstract class TablesBaseEdit : TablesBaseQuery
     {
         private static readonly object _objectLock = new object();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        protected List<BindItem> EditItems { get; set; } = GenerateItems();
+        protected List<Foo> EditItems { get; set; } = GenerateItems();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         protected IEnumerable<SelectedItem>? Educations { get; set; }
 
@@ -38,27 +39,27 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        protected Task<QueryData<BindItem>> OnEditQueryAsync(QueryPageOptions options) => BindItemQueryAsync(EditItems, options);
+        protected Task<QueryData<Foo>> OnEditQueryAsync(QueryPageOptions options) => FooQueryAsync(EditItems, options);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
-        protected static Task<BindItem> OnAddAsync()
+        protected static Task<Foo> OnAddAsync()
         {
-            return Task.FromResult(new BindItem() { DateTime = DateTime.Now });
+            return Task.FromResult(new Foo() { DateTime = DateTime.Now });
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected Task<bool> OnSaveAsync(BindItem item)
+        protected Task<bool> OnSaveAsync(Foo item)
         {
             // 增加数据演示代码
             if (item.Id == 0)
@@ -87,11 +88,11 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        protected Task<bool> OnDeleteAsync(IEnumerable<BindItem> items)
+        protected Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
         {
             items.ToList().ForEach(i => EditItems.Remove(i));
             return Task.FromResult(true);

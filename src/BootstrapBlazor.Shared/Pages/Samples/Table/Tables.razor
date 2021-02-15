@@ -18,7 +18,7 @@
 <p><code>Table</code> 组件有一个 <code>UseComponentWidth</code> 属性，其默认值为 <code>false</code>，表示使用 <code>window</code> 宽度来进行判断，当设置值为 <code>true</code> 时，表示使用组件自身宽度进行判断</p>
 
 <Block Title="基础表格" Introduction="基础的表格展示用法。">
-    <Table TItem="BindItem" Items="@Items.Take(3)">
+    <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -28,7 +28,7 @@
 </Block>
 
 <Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可">
-    <Table TItem="BindItem" Items="@Items.Take(3)" IsStriped="true">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -38,7 +38,7 @@
 </Block>
 
 <Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果">
-    <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -49,7 +49,7 @@
 
 <Block Title="紧凑型表格" Introduction="通过设置 <code>TableSize</code> 属性，设定表格内间隙变小适合大数据展示">
     <p><code>TableSize</code> 为表格大小枚举类型，默认值为 <code>Normal</code>，紧奏型值为 <code>Compact</code></p>
-    <Table TItem="BindItem" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
             <TableColumn @bind-Field="@context.Name" Filterable="true" />

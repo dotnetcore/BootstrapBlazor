@@ -1,4 +1,5 @@
-﻿@inherits TablesBaseColumn
+﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
+@inherits TablesBaseColumn
 @page "/tables/column"
 
 <h3>Table 表格</h3>
@@ -9,7 +10,7 @@
     <p>
         表格组件 <code>TableColumns</code> 模板中的字段采用的是根据绑定模型的 <code>DisplayName</code> 标签值来自动显示的，如果要自定义显示名称请设置 <code>Text</code> 属性
     </p>
-    <Table TItem="BindItem" Items="@Items.Take(3)">
+    <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" Width="180" />
             <TableColumn @bind-Field="@context.Name" Text="自定义列名2" />
@@ -19,7 +20,7 @@
 </Block>
 
 <Block Title="带选择列表格" Introduction="通过设置 <code>IsMultipleSelect=true</code> 增加表格第一列为选择列">
-    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -29,7 +30,7 @@
 </Block>
 
 <Block Title="带显示文字的选择列表格" Introduction="通过设置 <code>ShowCheckboxText=true</code> 表格第一列显示文字为 <b>选择</b>">
-    <Table TItem="BindItem" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true" ShowCheckboxText="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -39,7 +40,7 @@
 </Block>
 
 <Block Title="选择框列" Introduction="<code>RowTemplate</code> 内部组件 <code>TableCell</code> 设置 <code>Checkbox</code> 并设置相关数据绑定即可，本示例中通过数据绑定将选择框组件与值进行绑定">
-    <Table TItem="BindItem" Items="@Items.Take(3)">
+    <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -54,17 +55,17 @@
 
 <Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制">
     <p>本例中继续上一个例子，实现了自定义四个功能按钮，并且扩展到行内，点击各个按钮时均有相对应的回调委托方法，<code>TableToolbarButton</code> 采用的是 <code>Delegate</code> 方式完成数据交换，点击工具栏按钮时设置 <code>OnClickCallback</code> 委托方法即可获取表内选中的行数据集合</p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="BindItem" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="明细" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="BindItem" Color="Color.Success" Icon="fa fa-fw fa-edit" Text="编辑" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="BindItem" Color="Color.Warning" Icon="fa fa-fw fa-edit" Text="权限" OnClickCallback="@CustomerButton" />
-            <TableToolbarButton TItem="BindItem" Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="明细" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Success" Icon="fa fa-fw fa-edit" Text="编辑" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Warning" Icon="fa fa-fw fa-edit" Text="权限" OnClickCallback="@CustomerButton" />
+            <TableToolbarButton TItem="Foo" Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@CustomerButton" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -72,10 +73,10 @@
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
         <RowButtonTemplate>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="明细" OnClickCallback="@OnRowButtonClick" />
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="编辑" OnClickCallback="@OnRowButtonClick" />
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="权限" OnClickCallback="@OnRowButtonClick" />
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="BindItem" Item="@context" Icon="fa fa-edit" Text="审批" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="明细" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="编辑" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="权限" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="审批" OnClickCallback="@OnRowButtonClick" />
         </RowButtonTemplate>
     </Table>
 </Block>
@@ -92,7 +93,7 @@
         <li><code>Value</code> 为当前绑定列的数据值</li>
         <li><code>Row</code> 为当前绑定列所在行的数据值</li>
     </ul>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
@@ -100,7 +101,7 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180">
                 <Template Context="value">
-                    @if (((BindItem)value.Row).Complete)
+                    @if (((Foo)value.Row).Complete)
                     {
                         <div class="text-success">@value.Value</div>
                     }
@@ -128,7 +129,7 @@
     <p>
         本例中列 <code>Count</code> 值根据 <code>Formatter</code> 将值格式化为 <code>0.00</code> 保留两位小数格式
     </p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
@@ -149,7 +150,7 @@
     <p>
         本例中列 <code>Count</code> 列设置为右侧对齐 <code>Alignment.Right</code>
     </p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
@@ -179,7 +180,7 @@
     </p>
     <p>注意：</p>
     <p>由于 <code>Table</code> 组件默认是支持移动端适配，所以小屏幕时采用的是卡片式模式，本例中显式设置使用 <code>RenderModel="TableRenderModel.Table"</code> 模式</p>
-    <Table TItem="BindItem" RenderModel="TableRenderModel.Table"
+    <Table TItem="Foo" RenderModel="TableRenderModel.Table"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
@@ -197,7 +198,7 @@
     <p><code>ShowColumnList</code> 默认值为 false，显式指定为 true 后工具栏出现相应列调整按钮</p>
     <p><code>TableColumn</code> 增加 <code>Visiable</code> 属性，其默认值为 true，显示设置为 false 时不显示此列</p>
     <p>此例中 <b>数量</b> 列通过设置 <code>Visible</code> 未显示，可以通过列控制按钮进行显示设置</p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
@@ -219,7 +220,7 @@
 </Block>
 
 <Block Title="允许列调整" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度">
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
@@ -243,7 +244,7 @@
         </ul>
         本例中通过 <code>[AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd")]</code> 标签格式化 <code>日期</code> 列；通过代码中设置模板列对 <code>Complete</code> 列进行自定义使用 <code>Switch</code> 组件进行渲染；通过 <code>[AutoGenerateColumn(Order = 10)]</code> 标签中的 <code>Order</code> 对显示顺序进行设定
     </p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"

@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <param name="items"></param>
-        protected Task CustomerButton(IEnumerable<BindItem> items)
+        protected Task CustomerButton(IEnumerable<Foo> items)
         {
             var cate = ToastCategory.Information;
             var title = "自定义按钮处理方法";
@@ -47,7 +48,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <param name="item"></param>
-        protected Task OnRowButtonClick(BindItem item)
+        protected Task OnRowButtonClick(Foo item)
         {
             var cate = ToastCategory.Success;
             var title = "行内按钮处理方法";

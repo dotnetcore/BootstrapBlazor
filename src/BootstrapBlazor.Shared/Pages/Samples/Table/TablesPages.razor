@@ -6,7 +6,7 @@
 <h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
 
 <Block Title="分页表格" Introduction="设置 <code>IsPagination</code> 显示分页组件">
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -17,7 +17,7 @@
 </Block>
 
 <Block Title="显示在顶端" Introduction="设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件">
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

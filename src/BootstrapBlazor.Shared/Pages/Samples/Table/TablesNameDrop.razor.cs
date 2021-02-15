@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
@@ -13,13 +14,11 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class TablesNameDrop
     {
-#nullable disable
         /// <summary>
         /// 
         /// </summary>
         [Parameter]
-        public BindItem Model { get; set; }
-#nullable restore
+        public Foo? Model { get; set; }
 
         private readonly List<SelectedItem> items = new List<SelectedItem>()
         {

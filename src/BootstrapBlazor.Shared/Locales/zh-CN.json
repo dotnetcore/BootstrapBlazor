@@ -1,4 +1,5 @@
-﻿{
+﻿
+{
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",
     "SubTitle": "示例"
@@ -69,34 +70,17 @@
     "IntroText2": "点击下面 <code>Anchor</code> 项目，页面滚动到相对应的章节",
     "ContentText1": "<p>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</p><p>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</p><p>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</p><p>简化流程：设计简洁直观的操作流程；</p><p>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</p><p>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</p>"
   },
-  "BootstrapBlazor.Shared.Pages.BindItem": {
+  "BootstrapBlazor.Shared.Pages.Components.Foo": {
     "Name": "姓名",
     "DateTime": "日期",
     "Address": "地址",
     "Count": "数量",
     "Complete": "是/否",
     "Education": "学历",
+    "Hobby": "爱好",
     "Name.Required": "{0}是必填项",
     "Address.Required": "{0}是必填项",
-    "Education.Required": "{0}是必选项"
-  },
-  "BootstrapBlazor.Shared.Pages.Components.Dummy": {
-    "Name": "姓名",
-    "Age": "年龄",
-    "BirthDay": "生日",
-    "Hobby": "爱好",
-    "Education": "学历",
-    "Name.Required": "{0}不可为空",
-    "Age.Required": "{0}不可为空",
-    "Hobby.Required": "请选择一种{0}",
-    "Education.Required": "请选择{0}"
-  },
-  "BootstrapBlazor.Shared.Common.Foo": {
-    "Name": "城市名称",
-    "Name.Required": "请选择一个城市"
-  },
-  "BootstrapBlazor.Shared.Pages.Inputs.FooModel": {
-    "Name": "姓名",
-    "Name.Required": "{0}不可为空"
+    "Education.Required": "{0}是必选项",
+    "Hobby.Required": "请选择一种{0}"
   }
 }

@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public partial class TablesAutoRefresh
     {
-        private List<BindItem> AutoItems { get; set; } = new List<BindItem>();
+        private List<Foo> AutoItems { get; set; } = new List<Foo>();
 
         /// <summary>
         /// 
@@ -27,12 +28,12 @@ namespace BootstrapBlazor.Shared.Pages.Table
             AutoItems = Items.Take(2).ToList();
         }
 
-        private Task<QueryData<BindItem>> OnRefreshQueryAsync(QueryPageOptions options)
+        private Task<QueryData<Foo>> OnRefreshQueryAsync(QueryPageOptions options)
         {
             // 设置记录总数
             var total = AutoItems.Count();
 
-            AutoItems.Insert(0, new BindItem()
+            AutoItems.Insert(0, new Foo()
             {
                 Id = total++,
                 Name = $"张三 {total:d4}",
@@ -52,7 +53,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             // 内存分页
             var items = AutoItems.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
-            return Task.FromResult(new QueryData<BindItem>()
+            return Task.FromResult(new QueryData<Foo>()
             {
                 Items = items,
                 TotalCount = total

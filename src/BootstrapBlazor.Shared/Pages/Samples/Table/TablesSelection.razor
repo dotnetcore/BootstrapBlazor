@@ -1,4 +1,5 @@
-﻿@inherits TablesBaseEdit
+﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
+@inherits TablesBaseEdit
 @page "/tables/selection"
 
 <h3>Table 表格</h3>
@@ -6,7 +7,7 @@
 <h4>通过设置 <code>SelectedRows</code> 设置表格行状态，通过选中样式可以设置高亮</h4>
 
 <Block Title="设置选中行功能" Introduction="通过设置 <code>SelectedRows</code> 属性集合初始化表格时默认为选中状态">
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" @bind-SelectedRows="@SelectedRows"
@@ -30,7 +31,7 @@
 </ul>
 
 @code {
-    private IEnumerable<BindItem> SelectedRows = new List<BindItem>();
+    private IEnumerable<Foo> SelectedRows = new List<Foo>();
 
     /// <summary>
     ///

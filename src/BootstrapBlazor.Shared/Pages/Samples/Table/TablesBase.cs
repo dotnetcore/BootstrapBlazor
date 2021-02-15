@@ -4,13 +4,12 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Foo = BootstrapBlazor.Shared.Pages.Components.Foo;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -34,7 +33,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        internal static List<BindItem> GenerateItems() => Enumerable.Range(1, 80).Select(i => new BindItem()
+        internal static List<Foo> GenerateItems() => Enumerable.Range(1, 80).Select(i => new Foo()
         {
             Id = i,
             Name = $"张三 {i:d4}",
@@ -48,7 +47,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected static List<BindItem> Items { get; } = GenerateItems();
+        protected static List<Foo> Items { get; } = GenerateItems();
 
         /// <summary>
         /// 
@@ -586,109 +585,4 @@ namespace BootstrapBlazor.Shared.Pages
             },
         };
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    //[TableName("Test")]
-    //[PrimaryKey("Id", AutoIncrement = true)]
-    //[FreeSql.DataAnnotations.Table(Name = "Test")]
-    [Table("Test")]
-    public class BindItem
-    {
-        // 列头信息支持 Display DisplayName 两种标签
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Display(Name = "主键")]
-        [AutoGenerateColumn(Ignore = true, Searchable = false, Editable = false)]
-        [Key]
-        //[FreeSql.DataAnnotations.Column(IsIdentity = true)]
-        public int Id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required(ErrorMessage = "{0}不能为空")]
-        [AutoGenerateColumn(Order = 10, Filterable = true)]
-        [Display(Name = "姓名")]
-        public string? Name { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
-        [Display(Name = "日期")]
-        public DateTime? DateTime { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Display(Name = "地址")]
-        [Required(ErrorMessage = "{0}不能为空")]
-        [AutoGenerateColumn(Order = 20, Filterable = true)]
-        public string? Address { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Display(Name = "数量")]
-        [AutoGenerateColumn(Order = 40, Sortable = true)]
-        public int Count { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Display(Name = "是/否")]
-        [AutoGenerateColumn(Order = 50)]
-        public bool Complete { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required(ErrorMessage = "请选择学历")]
-        [Display(Name = "学历")]
-        [AutoGenerateColumn(Order = 60)]
-        //[EnumConverter(typeof(EnumEducation))]
-        public EnumEducation? Education { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum EnumEducation
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        [Description("小学")]
-        Primary,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Description("中学")]
-        Middel
-    }
-
-    ///// <summary>
-    ///// BindItemContext 上下文操作类
-    ///// </summary>
-    //public class BindItemDbContext : Microsoft.EntityFrameworkCore.DbContext
-    //{
-    //    /// <summary>
-    //    /// 构造函数
-    //    /// </summary>
-    //    /// <param name="options"></param>
-    //    public BindItemDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<BindItemDbContext> options) : base(options)
-    //    {
-
-    //    }
-
-    //    /// <summary>
-    //    /// 
-    //    /// </summary>
-    //    public Microsoft.EntityFrameworkCore.DbSet<BindItem>? BindItems { get; set; }
-    //}
 }

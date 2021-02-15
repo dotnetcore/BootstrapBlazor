@@ -9,13 +9,13 @@
 @if (Model != null)
 {
     <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmit">
-        <EditorForm TModel="BindItem">
+        <EditorForm TModel="Foo">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Id" Editable="false" />
                 <EditorItem @bind-Field="@context.Complete">
                     <EditTemplate Context="value">
                         <div class="form-group col-12 col-sm-6">
-                            <Switch @bind-Value="@(((BindItem)value).Complete)" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                            <Switch @bind-Value="@(((Foo)value).Complete)" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
                         </div>
                     </EditTemplate>
                 </EditorItem>
@@ -40,10 +40,10 @@
     [CascadingParameter(Name = "BodyContext")]
     private object? DataPrimaryId { get; set; }
 
-    private BindItem? Model { get; set; }
+    private Foo? Model { get; set; }
 
     [System.Diagnostics.CodeAnalysis.NotNull]
-    private List<BindItem>? Items { get; set; }
+    private List<Foo>? Items { get; set; }
 
     private static readonly Random random = new Random();
 
@@ -51,7 +51,7 @@
     ///
     /// </summary>
     /// <returns></returns>
-    protected List<BindItem> GenerateItems() => Enumerable.Range(1, 10).Select(i => new BindItem()
+    protected List<Foo> GenerateItems() => Enumerable.Range(1, 10).Select(i => new Foo()
     {
         Id = i,
         Name = $"张三 {i:d4}",

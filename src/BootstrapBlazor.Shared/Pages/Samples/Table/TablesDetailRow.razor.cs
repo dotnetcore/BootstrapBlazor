@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,7 +50,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             public bool Complete { get; set; }
         }
 
-        private bool ShowDetailRow(BindItem item)
+        private bool ShowDetailRow(Foo item)
         {
             return item.Complete;
         }

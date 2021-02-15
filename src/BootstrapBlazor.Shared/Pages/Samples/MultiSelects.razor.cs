@@ -8,11 +8,12 @@ using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Foo = BootstrapBlazor.Shared.Pages.Components.Foo;
 
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class MultiSelects
     {
@@ -93,7 +94,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private BindItem Model { get; set; } = new BindItem();
+        private Foo Model { get; set; } = new Foo();
 
         private Foo Foo { get; set; } = new Foo();
 

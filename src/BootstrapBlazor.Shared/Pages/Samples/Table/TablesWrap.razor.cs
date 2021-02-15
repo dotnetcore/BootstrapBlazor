@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private List<BindItem> GenerateCellItems() => Enumerable.Range(1, 4).Select(i => new BindItem()
+        private List<Foo> GenerateCellItems() => Enumerable.Range(1, 4).Select(i => new Foo()
         {
             Id = i,
             Name = $"张三 {i:d4}",
@@ -45,6 +46,6 @@ namespace BootstrapBlazor.Shared.Pages
             Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
         }).ToList();
 
-        private IEnumerable<BindItem> CellItems => GenerateCellItems();
+        private IEnumerable<Foo> CellItems => GenerateCellItems();
     }
 }

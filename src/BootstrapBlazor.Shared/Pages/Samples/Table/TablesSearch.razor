@@ -1,4 +1,5 @@
-﻿@inherits TablesBaseEdit
+﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
+@inherits TablesBaseEdit
 @page "/tables/search"
 
 <h3>Table 表格</h3>
@@ -6,7 +7,7 @@
 <h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
 
 <Block Title="具有搜索功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件，通过设置 <code>SearchTemplate</code> 模板自定义搜索 UI">
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
@@ -44,9 +45,9 @@
     <Pre>if (options.Searchs.Any())
 {
     // 逻辑关系使用 FilterLogic.Or
-    items = items.Where(options.Searchs.GetFilterFunc&lt;BindItem&gt;(FilterLogic.Or));
+    items = items.Where(options.Searchs.GetFilterFunc&lt;Foo&gt;(FilterLogic.Or));
 }</Pre>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
@@ -66,7 +67,7 @@
     <p>通过设置姓名列的 <code>SearchTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
     <p>由于是搜索条件，本例中姓名搜索列下拉框增加了 请选择... 项</p>
     <p>生成列搜索模板是查找顺序为 SearchTemplate -> AutoGenerate 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成</p>
-    <Table TItem="BindItem"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
@@ -78,7 +79,7 @@
             <TableColumn @bind-Field="@context.Name" Searchable="true">
                 <SearchTemplate Context="value">
                     @{
-                        var model = value as BindItem;
+                        var model = value as Foo;
                         if (model != null)
                         {
                             var items = new List<SelectedItem>()

@@ -17,12 +17,12 @@ namespace BootstrapBlazor.Shared.Pages
     public sealed partial class Selects
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Foo Model { get; set; } = new Foo();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Foo BindModel { get; set; } = new Foo() { Name = "" };
 

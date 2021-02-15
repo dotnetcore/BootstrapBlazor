@@ -101,7 +101,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>
-        public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? "";
+        public string GetDisplayName() => _fieldIdentifier?.GetDisplayName() ?? Text ?? "";
 
         /// <summary>
         /// 获取绑定字段信息方法

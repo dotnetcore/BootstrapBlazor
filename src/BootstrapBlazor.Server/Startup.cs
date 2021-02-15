@@ -105,7 +105,7 @@ namespace BootstrapBlazor.Server
 
             // 增加 EFCore ORM 数据服务操作类
             // 需要时打开下面代码
-            //services.AddEntityFrameworkCore<Shared.Pages.BindItemDbContext>(option =>
+            //services.AddEntityFrameworkCore<Shared.Pages.FooDbContext>(option =>
             //{
             //    // 需要引用 Microsoft.EntityFrameworkCore.Sqlite 包，操作 SQLite 数据库
             //    option.UseSqlite(Configuration.GetConnectionString("bb"));

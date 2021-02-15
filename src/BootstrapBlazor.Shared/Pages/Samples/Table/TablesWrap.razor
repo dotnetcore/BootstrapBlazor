@@ -12,7 +12,7 @@
 <Block Title="表头超长示例" Introduction="在某种特殊情况下可能表头比较长，需要将表头控制在一个固定宽度内，鼠标移动到表头上时显示 <code>Tooltip</code> 来显示完整表头信息">
     <p>可以拖动窗口大小，窗口过小时自动出现横向滚动条</p>
     <div class="table-wrap-header-demo">
-        <Table TItem="BindItem" IsBordered="true" IsStriped="true" Items="@Items.Take(4)">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@Items.Take(4)">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" Text="我是超级长的时间表头" />
                 <TableColumn @bind-Field="@context.Name" Text="我是超级长的姓名表头" />
@@ -28,7 +28,7 @@
         <li>通过设置 <code>AllowTextWrap</code> 来开启自动换行功能</li>
         <li><b>注意：</b>推荐使用 <code>Width</code> 对列宽度进行设置</li>
     </ul>
-    <Table TItem="BindItem" IsBordered="true" IsStriped="true" Items="@CellItems">
+    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
             <TableColumn @bind-Field="@context.Name" Text="姓名" />
@@ -52,7 +52,7 @@
         <li>单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code></li>
         <li>拖动地址列，单元格显示内容自动增加与减少</li>
     </ul>
-    <Table TItem="BindItem" IsBordered="true" IsStriped="true" Items="@CellItems" AllowResizing="true">
+    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" AllowResizing="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
             <TableColumn @bind-Field="@context.Name" Text="姓名" />
