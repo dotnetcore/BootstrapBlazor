@@ -33,14 +33,14 @@ namespace BootstrapBlazor.Components
             .AddClass("disabled", IsDisabled)
             .Build();
 
-        private string? ToggleClassString => CssBuilder.Default("multi-select-toggle")
+        private string? ToggleClassString => CssBuilder.Default("dropdown-menu-toggle")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .AddClass("disabled", IsDisabled)
             .AddClass("selected", SelectedItems.Any())
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
-        private string? GetItemClassString(SelectedItem item) => CssBuilder.Default("multi-select-menu-item")
+        private string? GetItemClassString(SelectedItem item) => CssBuilder.Default("dropdown-item")
             .AddClass("active", GetCheckedState(item))
             .Build();
 
