@@ -13,23 +13,23 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public sealed partial class ComponentCard
     {
-        private string ImageUrl => $"_content/BootstrapBlazor.Shared/images/{ImageName}";
+        private string ImageUrl => $"_content/BootstrapBlazor.Shared/images/{Image}";
 
         private string? ClassString => CssBuilder.Default("form-group col-12 col-sm-6 col-md-4 col-lg-3")
-            .AddClass("d-none", !string.IsNullOrEmpty(SearchText) && !HeaderText.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase))
+            .AddClass("d-none", !string.IsNullOrEmpty(SearchText) && !Text.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase))
             .Build();
 
         /// <summary>
         /// 获得/设置 Header 文字
         /// </summary>
         [Parameter]
-        public string HeaderText { get; set; } = "未设置";
+        public string Text { get; set; } = "未设置";
 
         /// <summary>
         /// 获得/设置 组件图片
         /// </summary>
         [Parameter]
-        public string ImageName { get; set; } = "Divider.svg";
+        public string Image { get; set; } = "Divider.svg";
 
         /// <summary>
         /// 获得/设置 链接地址
@@ -37,15 +37,12 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Parameter]
         public string? Url { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [CascadingParameter]
         private List<string>? ComponentNames { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [CascadingParameter]
+        private ComponentCategory? Parent { get; set; }
+
         [CascadingParameter]
         private string? SearchText { get; set; }
 
@@ -56,7 +53,8 @@ namespace BootstrapBlazor.Shared.Pages.Components
         {
             base.OnInitialized();
 
-            ComponentNames?.Add(HeaderText);
+            ComponentNames?.Add(Text);
+            Parent?.Add(this);
         }
     }
 }

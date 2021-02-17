@@ -193,11 +193,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "下拉框 DropdownList",
-                Url = "dropdownlists"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
                 Text = "富文本框 Editor",
                 Url = "editors"
             });

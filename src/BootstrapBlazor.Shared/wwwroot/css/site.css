@@ -938,14 +938,10 @@ section {
         margin-top: 1rem;
     }
 
-    .coms-cate h3 {
-        display: inline-block;
-    }
-
     .coms-cate .badge {
         position: absolute;
         top: 0;
-        margin-left: 0.5rem;
+        margin-left: 7rem;
     }
 
 .coms-demo {

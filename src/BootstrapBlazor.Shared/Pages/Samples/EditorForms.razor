@@ -1,5 +1,5 @@
 ﻿@page "/editorforms"
-@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
+@inject IStringLocalizer<Foo> Localizer
 
 <h3>EditorForm 表单组件</h3>
 
@@ -16,9 +16,6 @@
 
 <Block Title="基础用法" Introduction="通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单">
     <p>直接绑定模型 <code>Model</code>，设置 <b>Education</b> 字段不显示</p>
-    <Tips>
-        <p>自动绑定列如果是使用 <code>input</code> 呈现，绑定模型 <code>Model</code> 可使用 <code>PlaceHolderAttribute</code> 标签进行设置</p>
-    </Tips>
     <GroupBox Title="表单示例" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
             <FieldItems>
@@ -28,14 +25,9 @@
                     <EditTemplate Context="value">
                         @{
                             var model = value as Foo;
-
-                            // 此处也可以不使用 Context 值，直接使用模型 Model 即可
                         }
                         <div class="form-group col-12">
-                            <CheckboxList TModel="SelectedItem" TValue="IEnumerable<string>" @bind-Value="@model!.Hobby"
-                                          Items="@Hobbys" ValueField="Value" TextField="Text" CheckedField="Active"
-                                          ShowLabel="true" DisplayText="爱好">
-                            </CheckboxList>
+                            <CheckboxList TValue="IEnumerable<string>" @bind-Value="@model!.Hobby" Items="@Hobbys" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Hobby)]" />
                         </div>
                     </EditTemplate>
                 </EditorItem>
@@ -118,13 +110,9 @@
                         <EditTemplate Context="value">
                             @{
                                 var model = value as Foo;
-
-                                // 此处也可以不使用 Context 值，直接使用模型 Model 即可
                             }
                             <div class="form-group col-12">
-                                <CheckboxList TModel="SelectedItem" TValue="IEnumerable<string>" @bind-Value="@model!.Hobby"
-                                              Items="@Hobbys" ValueField="Value" TextField="Text" CheckedField="Active">
-                                </CheckboxList>
+                                <CheckboxList TValue="IEnumerable<string>" @bind-Value="@model!.Hobby" Items="@Hobbys" />
                             </div>
                         </EditTemplate>
                     </EditorItem>
