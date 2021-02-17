@@ -114,7 +114,7 @@
                 background-color: #ddd;
             }
 
-    .multi-select .multi-select .dropdown-menu {
+    .multi-select .dropdown-menu {
         margin-top: 10px;
         padding: 0.25rem 0;
         width: 100%;
@@ -180,6 +180,11 @@
         .multi-select .dropdown-item .checkbox-label {
             display: none;
         }
+
+    .multi-select.show .dropdown-menu,
+    .multi-select.show .dropdown-menu-arrow {
+        display: block;
+    }
 
 @media (min-width: 576px) {
     .form-inline .multi-select {
