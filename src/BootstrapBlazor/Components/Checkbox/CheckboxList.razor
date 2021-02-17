@@ -1,7 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@typeparam TModel
 @typeparam TValue
-@inherits CheckboxListBase<TModel, TValue>
+@inherits ValidateBase<TValue>
 
 @if (IsShowLabel)
 {
@@ -11,7 +10,7 @@
     @foreach (var item in Items)
     {
         <div class="@CheckboxItemClassString">
-            <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@GetDisplayText(item)" Value="@GetChecked(item)" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
+            <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@item.Text" Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
         </div>
     }
 </div>

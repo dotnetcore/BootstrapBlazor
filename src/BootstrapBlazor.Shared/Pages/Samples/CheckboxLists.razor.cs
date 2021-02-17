@@ -2,10 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,98 +17,84 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class CheckboxLists
     {
-        private class Foo
-        {
-            public string Text { get; set; } = "";
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items1 { get; set; }
 
-            public int Value { get; set; }
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items2 { get; set; }
 
-            public bool Checked { get; set; }
-        }
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items3 { get; set; }
 
-        private IEnumerable<Foo> Items1 { get; set; } = Enumerable.Empty<Foo>();
-
-        private IEnumerable<Foo> Items2 { get; set; } = Enumerable.Empty<Foo>();
-
-        private IEnumerable<Foo> Items3 { get; set; } = Enumerable.Empty<Foo>();
-
-        private IEnumerable<Foo> Items4 { get; set; } = Enumerable.Empty<Foo>();
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items4 { get; set; }
 
         private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
-
 
         private string Value1 { get; set; } = "1,3";
 
         private IEnumerable<int> Value2 { get; set; } = new int[] { 9, 10 };
 
-        private IEnumerable<string> Value3 { get; set; } = new string[] { "Item 13", "Item 15" };
+        private IEnumerable<string> Value3 { get; set; } = new string[] { "13", "15" };
 
         private Logger? Trace { get; set; }
 
         /// <summary>
-        /// 
+        /// OnInitialized 方法
         /// </summary>
         /// <returns></returns>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            Items1 = new List<Foo>(new List<Foo> {
-                new Foo { Text = "Item 1", Value = 1, Checked = false },
-                new Foo { Text = "Item 2", Value = 2, Checked = false },
-                new Foo { Text = "Item 3", Value = 3, Checked = false },
-                new Foo { Text = "Item 4", Value = 4, Checked = false },
+            Items1 = new List<SelectedItem>(new List<SelectedItem> {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" },
+                new SelectedItem { Text = "Item 3", Value = "3" },
+                new SelectedItem { Text = "Item 4", Value = "4" },
             });
 
-            Items2 = new List<Foo>(new List<Foo>
+            Items2 = new List<SelectedItem>(new List<SelectedItem>
             {
-                new Foo { Text = "Item 5", Value = 5, Checked = false },
-                new Foo { Text = "Item 6", Value = 6, Checked = false },
-                new Foo { Text = "Item 7", Value = 7, Checked = false },
-                new Foo { Text = "Item 8", Value = 8, Checked = false },
+                new SelectedItem { Text = "张三", Value = "张三" },
+                new SelectedItem { Text = "李四", Value = "李四" },
+                new SelectedItem { Text = "王五", Value = "王五" },
+                new SelectedItem { Text = "赵六", Value = "赵六" },
             });
 
-            Items3 = new List<Foo>(new List<Foo>
+            Items3 = new List<SelectedItem>(new List<SelectedItem>
             {
-                new Foo { Text = "Item 9", Value = 9, Checked = false },
-                new Foo { Text = "Item 10", Value = 10, Checked = false },
-                new Foo { Text = "Item 11", Value = 11, Checked = false },
-                new Foo { Text = "Item 12", Value = 12, Checked = false },
+                new SelectedItem { Text = "Item 9", Value = "9" },
+                new SelectedItem { Text = "Item 10", Value = "10" },
+                new SelectedItem { Text = "Item 11", Value = "11" },
+                new SelectedItem { Text = "Item 12", Value = "12" },
             });
 
-            Items4 = new List<Foo>(new List<Foo>
+            Items4 = new List<SelectedItem>(new List<SelectedItem>
             {
-                new Foo { Text = "Item 13", Value = 13, Checked = false },
-                new Foo { Text = "Item 14", Value = 14, Checked = false },
-                new Foo { Text = "Item 15", Value = 15, Checked = false },
-                new Foo { Text = "Item 16", Value = 16, Checked = false },
+                new SelectedItem { Text = "Item 13", Value = "13" },
+                new SelectedItem { Text = "Item 14", Value = "14" },
+                new SelectedItem { Text = "Item 15", Value = "15" },
+                new SelectedItem { Text = "Item 16", Value = "16" },
             });
         }
 
-        private Task OnSelectedChanged(IEnumerable<Foo> items, Foo foo, string value)
+        private Task OnSelectedChanged(IEnumerable<SelectedItem> items, string value)
         {
-            Trace?.Log($"{foo.Text} - {foo.Checked} Value: {foo.Value} 共 {items.Where(i => i.Checked).Count()} 项被选中 组件绑定值 value：{value}");
-            Trace?.Log($"组件绑定值 Value1：{Value1}");
-
+            Trace?.Log($"共 {items.Where(i => i.Active).Count()} 项被选中 组件绑定值 value：{value}");
             return Task.CompletedTask;
         }
 
-        private class Model
-        {
-            [Required]
-            public string Value { get; set; } = "5,8";
-        }
+        private Foo Dummy { get; set; } = new Foo() { Name = "张三,李四" };
 
-        private Model FooModel { get; set; } = new Model();
-
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
                 new AttributeItem() {
                     Name = "Items",
                     Description = "数据源",
-                    Type = "IEnumerable<TModel>",
+                    Type = "IEnumerable<SelectedItem>",
                     ValueList = " — ",
                     DefaultValue = " — "
                 },
@@ -115,27 +102,6 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "Value",
                     Description = "组件值用于双向绑定",
                     Type = "TValue",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem() {
-                    Name = "TextField",
-                    Description = "显示列字段名称",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem() {
-                    Name = "ValueField",
-                    Description = "值字段名称",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem(){
-                    Name = "CheckedField",
-                    Description = "是否选中列字段名称",
-                    Type = "string",
                     ValueList = " — ",
                     DefaultValue = " — "
                 }
@@ -146,13 +112,13 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnSelectedChanged",
                 Description="复选框状态改变时回调此方法",
-                Type ="EventCallback<IEnumerable<TModel>, TModel, TValue, Task>"
+                Type ="EventCallback<IEnumerable<SelectedItem>, TValue, Task>"
             }
         };
     }
