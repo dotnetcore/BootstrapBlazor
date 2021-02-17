@@ -94,14 +94,23 @@ namespace BootstrapBlazor.Components
         {
             var cols = new List<ITableColumn>(50);
             var type = typeof(TModel);
+            var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>();
             var props = type.GetProperties();
             foreach (var prop in props)
             {
                 ITableColumn? tc;
                 var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>();
+
+                // Issue: 增加定义设置标签 AutoGenerateClassAttribute
+                // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
                 if (attr == null)
                 {
                     tc = new InternalTableColumn(prop.Name, prop.PropertyType, type.GetDisplayName(prop.Name));
+
+                    if (attrModel != null)
+                    {
+                        InheritValue(attrModel, tc);
+                    }
                 }
                 else
                 {
@@ -111,6 +120,10 @@ namespace BootstrapBlazor.Components
                     attr.FieldName = prop.Name;
                     attr.PropertyType = prop.PropertyType;
 
+                    if (attrModel != null)
+                    {
+                        InheritValue(attrModel, attr);
+                    }
                     tc = attr;
                 }
 
@@ -126,6 +139,19 @@ namespace BootstrapBlazor.Components
             return cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
                 .Concat(cols.Where(a => a.Order == 0))
                 .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
+        }
+
+        private static void InheritValue(AutoGenerateClassAttribute source, ITableColumn dest)
+        {
+            if (source.Align != Alignment.None) dest.Align = source.Align;
+            if (source.AllowTextWrap) dest.AllowTextWrap = source.AllowTextWrap;
+            if (source.Editable) dest.Editable = source.Editable;
+            if (source.Filterable) dest.Filterable = source.Filterable;
+            if (source.Readonly) dest.Readonly = source.Readonly;
+            if (source.Searchable) dest.Searchable = source.Searchable;
+            if (source.ShowTips) dest.ShowTips = source.ShowTips;
+            if (source.Sortable) dest.Sortable = source.Sortable;
+            if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
         }
 
         /// <summary>

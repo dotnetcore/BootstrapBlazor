@@ -21,7 +21,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         ///
         /// </summary>
         [Display(Name = "主键")]
-        [AutoGenerateColumn(Ignore = true, Searchable = false, Editable = false)]
+        [AutoGenerateColumn(Ignore = true)]
         public int Id { get; set; }
 
         /// <summary>
@@ -75,6 +75,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Required(ErrorMessage = "请选择一种{0}")]
         [Display(Name = "爱好")]
         [EditorOrder(5)]
+        [AutoGenerateColumn(Ignore = true)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
     }
 
