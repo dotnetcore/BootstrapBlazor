@@ -37,8 +37,7 @@
         left: -6px;
     }
 
-.show .dropdown-menu-arrow,
-.show .dropdown-menu {
+.form-select.show .dropdown-menu-arrow {
     display: block;
 }
 
