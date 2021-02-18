@@ -123,6 +123,7 @@ namespace BootstrapBlazor.Components
                         list = instance as IEnumerable;
                         foreach (var item in Items)
                         {
+                            item.Active = false;
                             foreach (var v in list!)
                             {
                                 item.Active = item.Value.Equals(v!.ToString(), StringComparison.OrdinalIgnoreCase);
