@@ -1,5 +1,5 @@
 ﻿@page "/validateforms"
-
+ 
 <h3>ValidateForm 表单组件</h3>
 
 <h4>可供数据合规检查的表单组件</h4>
@@ -22,7 +22,7 @@
         <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1">
             <div class="row">
                 <div class="form-group col-12">
-                    <BootstrapInput @bind-Value="@Model.Name" />
+                    <BootstrapInput placeholder="@(LocalizerFoo["Name.PlaceHolder"])" @bind-Value="@Model.Name" />
                 </div>
                 <div class="form-group col-12">
                     <Button ButtonType="ButtonType.Submit" Text="提交表单" />
@@ -47,7 +47,7 @@
         <ValidateForm class="form-inline" Model="@Model" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
             <div class="row">
                 <div class="form-group col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@Model.Name" />
+                    <BootstrapInput placeholder="@(LocalizerFoo["Name.PlaceHolder"])" @bind-Value="@Model.Name" />
                 </div>
                 <div class="form-group col-12 col-sm-6">
                     <BootstrapInputNumber @bind-Value="@Model.Count" />

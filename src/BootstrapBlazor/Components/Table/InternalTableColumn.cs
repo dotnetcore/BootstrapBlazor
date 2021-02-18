@@ -103,9 +103,10 @@ namespace BootstrapBlazor.Components
 
                 // Issue: 增加定义设置标签 AutoGenerateClassAttribute
                 // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
+                var displayName = Utility.GetDisplayName(type, prop.Name);
                 if (attr == null)
                 {
-                    tc = new InternalTableColumn(prop.Name, prop.PropertyType, type.GetDisplayName(prop.Name));
+                    tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
 
                     if (attrModel != null)
                     {
@@ -116,7 +117,7 @@ namespace BootstrapBlazor.Components
                 {
                     if (attr.Ignore) continue;
 
-                    attr.Text = type.GetDisplayName(prop.Name);
+                    attr.Text = displayName;
                     attr.FieldName = prop.Name;
                     attr.PropertyType = prop.PropertyType;
 

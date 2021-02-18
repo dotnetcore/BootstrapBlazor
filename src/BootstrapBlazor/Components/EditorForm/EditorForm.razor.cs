@@ -171,7 +171,7 @@ namespace BootstrapBlazor.Components
             {
                 // GetDisplayName
                 var fieldName = item.GetFieldName();
-                var displayName = typeof(TModel).GetDisplayName(fieldName);
+                var displayName = Utility.GetDisplayName(Model, fieldName);
 
                 // FieldValue
                 var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => Model.GetPropertyValueLambda<TModel, object?>(key.FieldName).Compile());
@@ -215,8 +215,7 @@ namespace BootstrapBlazor.Components
                 switch (type.Name)
                 {
                     case nameof(String):
-                        var placeHolder = Model.GetPlaceHolder(fieldName);
-                        ret.Add(new KeyValuePair<string, object>("placeholder", placeHolder ?? PlaceHolderText));
+                        ret.Add(new KeyValuePair<string, object>("placeholder", Utility.GetPlaceHolder(Model, fieldName) ?? PlaceHolderText));
                         break;
                     case nameof(Int32):
                     case nameof(Double):

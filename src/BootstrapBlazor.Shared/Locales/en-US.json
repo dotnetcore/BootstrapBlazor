@@ -80,7 +80,8 @@
     "Name.Required": "{0} is required.",
     "Address.Required": "{0} is required.",
     "Education.Required": "{0} is required.",
-    "Hobby.Required": "{0} is required."
+    "Hobby.Required": "{0} is required.",
+    "Name.PlaceHolder": "required"
   },
   "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
     "PlaceHolder": "Click to select ...",

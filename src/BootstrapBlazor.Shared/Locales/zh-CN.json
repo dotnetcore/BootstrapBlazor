@@ -80,7 +80,8 @@
     "Name.Required": "{0}是必填项",
     "Address.Required": "{0}是必填项",
     "Education.Required": "{0}是必选项",
-    "Hobby.Required": "请选择一种{0}"
+    "Hobby.Required": "请选择一种{0}",
+    "Name.PlaceHolder": "不可为空"
   },
   "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
     "PlaceHolder": "请选择 ...",
