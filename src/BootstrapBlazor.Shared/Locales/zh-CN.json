@@ -1,5 +1,4 @@
-﻿
-{
+﻿{
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",
     "SubTitle": "示例"
@@ -82,5 +81,10 @@
     "Address.Required": "{0}是必填项",
     "Education.Required": "{0}是必选项",
     "Hobby.Required": "请选择一种{0}"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
+    "PlaceHolder": "请选择 ...",
+    "Primary": "小学",
+    "Middel": "中学"
   }
 }

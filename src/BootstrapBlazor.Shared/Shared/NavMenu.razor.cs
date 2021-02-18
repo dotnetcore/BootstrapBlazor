@@ -159,7 +159,7 @@ namespace BootstrapBlazor.Shared.Shared
             item.AddItem(new DemoMenuItem()
             {
                 Text = "表单组件 ValidateForm",
-                Url = "forms"
+                Url = "validateforms"
             });
             item.AddItem(new DemoMenuItem()
             {

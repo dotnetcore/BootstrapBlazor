@@ -70,11 +70,17 @@ namespace BootstrapBlazor.Server
                 options.AdditionalJsonAssemblies = new Assembly[] { typeof(BootstrapBlazor.Shared.App).Assembly };
             });
 
+            // 增加多语言支持配置信息
+            services.AddRequestLocalization<IOptions<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
+            {
+                var supportedCultures = blazorOption.Value.GetSupportedCultures();
+
+                localizerOption.SupportedCultures = supportedCultures;
+                localizerOption.SupportedUICultures = supportedCultures;
+            });
+
             // 增加 Table Excel 导出服务
             services.AddBootstrapBlazorTableExcelExport();
-
-            // 增加 Table 数据服务操作类
-            services.AddTableDemoDataService();
 
             // 增加 PetaPoco ORM 数据服务操作类
             // 需要时打开下面代码
@@ -111,14 +117,8 @@ namespace BootstrapBlazor.Server
             //    option.UseSqlite(Configuration.GetConnectionString("bb"));
             //});
 
-            // 增加多语言支持配置信息
-            services.AddRequestLocalization<IOptions<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
-            {
-                var supportedCultures = blazorOption.Value.GetSupportedCultures();
-
-                localizerOption.SupportedCultures = supportedCultures;
-                localizerOption.SupportedUICultures = supportedCultures;
-            });
+            // 增加 Table 数据服务操作类
+            services.AddTableDemoDataService();
         }
 
         /// <summary>

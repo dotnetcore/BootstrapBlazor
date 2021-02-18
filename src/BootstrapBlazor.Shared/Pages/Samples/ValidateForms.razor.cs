@@ -2,18 +2,76 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class Forms
+    public partial class ValidateForms
     {
+        [NotNull]
+        private Logger? Trace { get; set; }
+
+        [NotNull]
+        private Logger? Trace2 { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<EnumEducation>? Localizer { get; set; }
+
+        private readonly Foo Model = new Foo();
+
+        private IEnumerable<SelectedItem>? Educations { get; set; }
+
+        private readonly IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
+        {
+            new SelectedItem("游泳", "游泳"),
+            new SelectedItem("登山", "登山"),
+            new SelectedItem("打球", "打球"),
+            new SelectedItem("下棋", "下棋")
+        };
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            // 初始化参数
+            Educations = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["PlaceHolder"] ?? "请选择 ..."));
+        }
+
+        private Task OnInvalidSubmit1(EditContext context)
+        {
+            Trace.Log("OnInvalidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
+        private Task OnValidSubmit(EditContext context)
+        {
+            Trace2.Log("OnValidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
+        private Task OnInvalidSubmit(EditContext context)
+        {
+            Trace2.Log("OnInvalidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
         #region 参数说明
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -57,7 +115,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
         {
             new MethodItem()
             {

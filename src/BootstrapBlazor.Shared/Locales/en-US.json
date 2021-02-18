@@ -81,5 +81,10 @@
     "Address.Required": "{0} is required.",
     "Education.Required": "{0} is required.",
     "Hobby.Required": "{0} is required."
+  },
+  "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
+    "PlaceHolder": "Click to select ...",
+    "Primary": "Primary",
+    "Middel": "Middel"
   }
 }

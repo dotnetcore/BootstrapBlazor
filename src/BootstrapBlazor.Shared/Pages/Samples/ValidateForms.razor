@@ -1,4 +1,4 @@
-﻿@page "/forms"
+﻿@page "/validateforms"
 
 <h3>ValidateForm 表单组件</h3>
 
@@ -19,9 +19,17 @@
         <li>表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code> 方法被调用，即其所在组件或者页面进行刷新重新渲染</li>
     </ul>
     <div class="form-demo">
-        <label class="legend">表单示例</label>
-        <p>数据合规检查默认查找绑定模型字段的验证标签如 <code>Required</code> 本例中未设置 <code>ErrorMessage</code> 所以提示消息为默认的英文信息</p>
-        <EditorDemo1></EditorDemo1>
+        <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1">
+            <div class="row">
+                <div class="form-group col-12">
+                    <BootstrapInput @bind-Value="@Model.Name" />
+                </div>
+                <div class="form-group col-12">
+                    <Button ButtonType="ButtonType.Submit" Text="提交表单" />
+                </div>
+            </div>
+        </ValidateForm>
+        <Logger @ref="Trace" />
     </div>
 </Block>
 
@@ -36,7 +44,29 @@
             <li>教育为枚举类型</li>
             <li>爱好为集合类型</li>
         </ul>
-        <EditorDemo2></EditorDemo2>
+        <ValidateForm class="form-inline" Model="@Model" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+            <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@Model.Name" />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <BootstrapInputNumber @bind-Value="@Model.Count" />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <DateTimePicker @bind-Value="@Model.DateTime" />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <Select Items="@Educations" @bind-Value="@Model.Education" />
+                </div>
+                <div class="form-group col-12">
+                    <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
+                </div>
+                <div class="form-group col-12">
+                    <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+                </div>
+            </div>
+        </ValidateForm>
+        <Logger @ref="Trace2" class="mt-3" />
     </div>
 </Block>
 
