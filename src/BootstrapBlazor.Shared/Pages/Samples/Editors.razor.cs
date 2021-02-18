@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Shared.Pages
             EditorValue = "更改后的值";
         }
 
-        private List<EditorToolbarButton> EditorPluginItems = new List<EditorToolbarButton>()
+        private List<EditorToolbarButton> EditorPluginItems { get; } = new List<EditorToolbarButton>()
         {
             new EditorToolbarButton()
             {
@@ -75,7 +75,7 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
-        private List<object> ToolbarItems = new List<object>
+        private List<object> ToolbarItems { get; } = new List<object>
         {
             new List<object> {"style", new List<string>() {"style"}},
             new List<object> {"font", new List<string>() {"bold", "underline", "clear"}}

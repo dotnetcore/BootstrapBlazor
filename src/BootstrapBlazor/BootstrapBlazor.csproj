@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.449" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="Locales\*.json" />
     <EmbeddedResource Include="Locales\*.json" />
   </ItemGroup>

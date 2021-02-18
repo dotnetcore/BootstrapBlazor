@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class EditorForms
     {
-        private Foo Model { get; set; } = new Foo()
+        private Foo Model { get; } = new Foo()
         {
             Name = "张三",
             Count = 23,
@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Pages
             Education = EnumEducation.Middel
         };
 
-        private Foo ValidateModel { get; set; } = new Foo()
+        private Foo ValidateModel { get; } = new Foo()
         {
             Name = "张三",
             Count = 23,
@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Shared.Pages
             Education = EnumEducation.Middel
         };
 
-        private readonly IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
+        private IEnumerable<SelectedItem> Hobbys { get; } = new List<SelectedItem>()
         {
             new SelectedItem("游泳", "游泳"),
             new SelectedItem("登山", "登山"),
@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem("下棋", "下棋")
         };
 
-        private readonly List<SelectedItem> DummyItems = new List<SelectedItem>()
+        private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
         {
             new SelectedItem("1", "1"),
             new SelectedItem("2", "2"),
