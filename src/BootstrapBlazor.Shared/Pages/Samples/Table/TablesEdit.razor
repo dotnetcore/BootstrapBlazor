@@ -1,6 +1,6 @@
-﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
+﻿@page "/tables/edit"
 @inherits TablesBaseEdit
-@page "/tables/edit"
+@inject IStringLocalizer<Foo> Localizer
 
 <h3>Table 表格</h3>
 
@@ -182,6 +182,16 @@
                 <EditTemplate Context="v">
                     <div class="form-group col-12 col-sm-6">
                         <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Hobby">
+                <Template Context="v">
+                    <span>@(string.Join(",", v.Value))</span>
+                </Template>
+                <EditTemplate Context="v">
+                    <div class="form-group col-12">
+                        <CheckboxList @bind-Value="(v as Foo)!.Hobby" Items="@Hobbys" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Hobby)]" />
                     </div>
                 </EditTemplate>
             </TableColumn>

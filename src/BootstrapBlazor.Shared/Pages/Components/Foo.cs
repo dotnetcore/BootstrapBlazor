@@ -75,7 +75,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Required(ErrorMessage = "请选择一种{0}")]
         [Display(Name = "爱好")]
         [EditorOrder(5)]
-        [AutoGenerateColumn(Ignore = true)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
     }
 

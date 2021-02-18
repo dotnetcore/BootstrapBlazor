@@ -4,7 +4,9 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages;
+using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,6 +34,8 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     internal class TableDemoDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
     {
+        private List<TModel>? Items { get; set; }
+
         /// <summary>
         /// 查询操作方法
         /// </summary>
@@ -40,19 +44,72 @@ namespace Microsoft.Extensions.DependencyInjection
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions options)
         {
             // 此处代码实战中不可用，仅仅为演示而写
+            if (Items == null || Items.Count == 0) Items = TablesBase.GenerateItems().Cast<TModel>().ToList();
 
-            var items = TablesBase.GenerateItems().Cast<TModel>();
-
-            var total = items.Count();
-
-            // 内存分页
-            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+            var total = Items.Count;
 
             return Task.FromResult(new QueryData<TModel>()
             {
-                Items = items,
+                Items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList(),
                 TotalCount = total
             });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override Task<bool> SaveAsync(TModel model)
+        {
+            var ret = false;
+            if (model is Foo foo)
+            {
+                var item = Items?.FirstOrDefault(item =>
+                {
+                    var f = item as Foo;
+                    return f?.Id == foo.Id;
+                });
+                if (item == null)
+                {
+                    var id = Items!.Count + 1;
+                    while (Items.FirstOrDefault(item => (item as Foo)!.Id == id) != null)
+                    {
+                        id++;
+                    }
+                    item = new Foo()
+                    {
+                        Id = id,
+                        Name = foo.Name,
+                        Address = foo.Address,
+                        Complete = foo.Complete,
+                        Count = foo.Count,
+                        DateTime = foo.DateTime,
+                        Education = foo.Education,
+                        Hobby = foo.Hobby
+                    } as TModel;
+                    Items?.Add(item!);
+                }
+                else
+                {
+                    var f = item as Foo;
+                    f!.Name = foo.Name;
+                    f!.Address = foo.Address;
+                    f!.Complete = foo.Complete;
+                    f!.Count = foo.Count;
+                    f!.DateTime = foo.DateTime;
+                    f!.Education = foo.Education;
+                    f!.Hobby = foo.Hobby;
+                }
+                ret = true;
+            }
+            return Task.FromResult(ret);
+        }
+
+        public override Task<bool> DeleteAsync(IEnumerable<TModel> models)
+        {
+            foreach (var model in models) Items?.Remove(model);
+            return base.DeleteAsync(models);
         }
     }
 }

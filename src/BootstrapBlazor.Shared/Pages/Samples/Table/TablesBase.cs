@@ -52,6 +52,17 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
+        protected IEnumerable<SelectedItem> Hobbys { get; } = new List<SelectedItem>()
+        {
+            new SelectedItem("游泳", "游泳"),
+            new SelectedItem("登山", "登山"),
+            new SelectedItem("打球", "打球"),
+            new SelectedItem("下棋", "下棋")
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         protected static IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
         {

@@ -293,7 +293,7 @@ namespace BootstrapBlazor.Components
 
             if (IsRendered)
             {
-                if(IsLoading)
+                if (IsLoading)
                 {
                     IsLoading = false;
                     var _ = JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", "hide");
@@ -381,7 +381,7 @@ namespace BootstrapBlazor.Components
                 else if (!string.IsNullOrEmpty(col.FormatString))
                 {
                     // 格式化字符串
-                    content = val?.Format(col.FormatString, CultureInfo.CurrentUICulture.DateTimeFormat) ?? "";
+                    content = val?.Format(col.FormatString) ?? "";
                 }
                 else if (col.PropertyType.IsEnum())
                 {
@@ -390,6 +390,10 @@ namespace BootstrapBlazor.Components
                 else if (col.PropertyType.IsDateTime())
                 {
                     content = val?.Format(CultureInfo.CurrentUICulture.DateTimeFormat) ?? "";
+                }
+                else if (val is IEnumerable<object> v)
+                {
+                    content = string.Join(",", v);
                 }
                 else
                 {
