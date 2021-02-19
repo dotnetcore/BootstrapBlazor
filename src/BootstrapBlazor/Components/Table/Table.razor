@@ -363,7 +363,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
 </colgroup>;
 
 RenderFragment<bool> RenderHeader => hasScroll =>
-@<thead>
+@<thead class="@THeadClass">
     @if (MultiHeaderTemplate != null)
     {
         @MultiHeaderTemplate

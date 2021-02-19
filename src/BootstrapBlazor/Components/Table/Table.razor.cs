@@ -195,6 +195,12 @@ namespace BootstrapBlazor.Components
         public int AutoRefreshInterval { get; set; } = 2000;
 
         /// <summary>
+        /// 获取/设置 表格thead样式 <see cref="Components.THeadStyle"/>， 默认为浅色<see cref="THeadStyle.Light"/>
+        /// </summary>
+        [Parameter]
+        public THeadStyle THeadStyle { get; set; } = THeadStyle.Light;
+
+        /// <summary>
         /// 获得/设置 单击行回调委托方法
         /// </summary>
         [Parameter]
