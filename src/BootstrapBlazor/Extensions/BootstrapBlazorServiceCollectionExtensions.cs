@@ -7,8 +7,6 @@ using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
-using System.Globalization;
-using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

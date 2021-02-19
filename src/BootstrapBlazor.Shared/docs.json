@@ -35,7 +35,8 @@
     "search": "Table/TablesSearch;Table/TablesBaseEdit",
     "selection": "Table/TablesSelection;Table/TablesBaseEdit",
     "toolbar": "Table/TablesToolbar;Table/TablesBaseQuery",
-    "wrap": "Table/TablesWrap"
+    "wrap": "Table/TablesWrap",
+    "validateforms": "ValidateForms"
   },
   "video": {
     "tables": "BV11y4y1e7Sr",
@@ -55,6 +56,15 @@
     "search": "BV1df4y1C7ud",
     "selection": "BV1jh41127U6",
     "toolbar": "BV1Et4y1r7qr",
-    "wrap": "BV1ry4y127Fm"
+    "wrap": "BV1ry4y127Fm",
+    "dialogs": "BV1bT4y1N78e?p=1",
+    "messages": "BV1bT4y1N78e?p=3",
+    "modals": "BV1bT4y1N78e?p=4",
+    "popconfirms": "BV1bT4y1N78e?p=5",
+    "toasts": "BV1bT4y1N78e?p=6",
+    "drawers": "BV1bT4y1N78e?p=7",
+    "swals": "BV1bT4y1N78e?p=8",
+    "searchdialogs": "BV1bT4y1N78e?p=9",
+    "editdialogs": "BV1bT4y1N78e?p=10"
   }
 }

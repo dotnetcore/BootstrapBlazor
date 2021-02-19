@@ -87,5 +87,8 @@
     "PlaceHolder": "请选择 ...",
     "Primary": "小学",
     "Middel": "中学"
+  },
+  "BootstrapBlazor.Shared.Pages.Inputs": {
+    "PlaceHolder": "请输入 ..."
   }
 }

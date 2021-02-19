@@ -29,10 +29,6 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<EnumEducation>? Localizer { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
-
         private readonly Foo Model = new Foo();
 
         private IEnumerable<SelectedItem>? Educations { get; set; }

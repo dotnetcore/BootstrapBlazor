@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// InputNumber 组件
     /// </summary>
-    public abstract class BootstrapInputNumberBase<TValue> : BootstrapInput<TValue>
+    public partial class BootstrapInputNumber<TValue>
     {
         private object? MinValue { get; set; }
 

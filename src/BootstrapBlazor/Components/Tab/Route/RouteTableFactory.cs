@@ -4,11 +4,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
 using IComponent = Microsoft.AspNetCore.Components.IComponent;
 
 namespace BootstrapBlazor.Components.Routing

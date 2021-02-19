@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BootstrapBlazor.Components
@@ -11,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// BootstrapInputTextBase 组件
     /// </summary>
-    public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
+    public partial class BootstrapInput<TValue>
     {
         /// <summary>
         /// 获得 class 样式集合
@@ -24,6 +25,16 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 input 类型 text password number
         /// </summary>
         protected string? Type { get; set; }
+
+        /// <summary>
+        /// 获得/设置 input 类型 number 时的 step 属性默认为 null
+        /// </summary>
+        protected string? Step { get; set; }
+
+        /// <summary>
+        /// 获得/设置 input 类型 placeholder 属性
+        /// </summary>
+        protected string? PlaceHolder { get; set; }
 
         /// <summary>
         /// 获得/设置 是否为 Input-Group 组合
@@ -50,16 +61,29 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (AdditionalAttributes != null)
+            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("type", out var t))
             {
-                if (AdditionalAttributes.TryGetValue("type", out var t))
-                {
-                    Type = t?.ToString();
-                }
+                Type = t?.ToString();
+            }
+
+            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph))
+            {
+                PlaceHolder = ph?.ToString();
+            }
+            if (string.IsNullOrEmpty(PlaceHolder) && FieldIdentifier.HasValue)
+            {
+                PlaceHolder = FieldIdentifier.Value.GetPlaceHolder();
             }
 
             // 设置 Number 类型
-            if (typeof(TValue).IsNumber()) Type = "number";
+            if (typeof(TValue).IsNumber())
+            {
+                Type = "number";
+                if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("step", out var step))
+                {
+                    Step = step?.ToString();
+                }
+            }
         }
 
         /// <summary>

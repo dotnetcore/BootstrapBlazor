@@ -87,5 +87,8 @@
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
     "Middel": "Middel"
+  },
+  "BootstrapBlazor.Shared.Pages.Inputs": {
+    "PlaceHolder": "please input ..."
   }
 }

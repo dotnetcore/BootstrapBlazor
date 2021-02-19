@@ -6,13 +6,11 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using BootstrapBlazor.Shared.Data;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System.Globalization;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.WebAssembly.ClientHost

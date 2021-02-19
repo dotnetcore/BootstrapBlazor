@@ -5,7 +5,6 @@
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.Options;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 

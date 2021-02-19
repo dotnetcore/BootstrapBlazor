@@ -3,12 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -17,29 +14,27 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class Inputs
     {
+        private string? PlaceHolderText { get; set; }
+
         private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
 
-        private string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+        private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
 
-        private string InputValue => "数据值";
+        private Foo Model { get; set; } = new Foo() { Name = "张三" };
 
-        [System.ComponentModel.DisplayName("标签值")]
-        private string BindValue { get; set; } = "绑定值";
+        private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
 
-        private double BindDoubleValue { get; set; } = 1.0;
-
-        private FooModel Model { get; set; } = new FooModel();
-
-        private string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
-
-        private class FooModel
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void OnInitialized()
         {
-            [Display(Name = "姓名")]
-            [Required(ErrorMessage = "姓名不可为空")]
-            public string Name { get; set; } = "张三";
+            base.OnInitialized();
+
+            PlaceHolderText = Localizer["PlaceHolder"];
         }
 
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {

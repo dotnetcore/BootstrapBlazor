@@ -4,10 +4,8 @@
 #nullable disable warnings
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace BootstrapBlazor.Components.Routing
 {

@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// AutoComplete 组件基类
     /// </summary>
-    public abstract class AutoCompleteBase : BootstrapInputBase<string>
+    public partial class AutoComplete
     {
         private bool _isLoading;
         private bool _isShown;
