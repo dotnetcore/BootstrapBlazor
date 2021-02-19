@@ -202,6 +202,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "Normal"
             },
             new AttributeItem() {
+                Name = "HeaderStyle",
+                Description = "表格 Header 样式",
+                Type = "TableHeaderStyle",
+                ValueList = "None|Light|Dark",
+                DefaultValue = "None"
+            },
+            new AttributeItem() {
                 Name = "Height",
                 Description = "固定表头",
                 Type = "int",

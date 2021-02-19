@@ -7,20 +7,24 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 表格thead 样式枚举
+    /// 表格 thead 样式枚举
     /// </summary>
-    public enum THeadStyle
+    public enum TableHeaderStyle
     {
+        /// <summary>
+        /// 未设置
+        /// </summary>
+        None,
         /// <summary>
         /// 浅色
         /// </summary>
-        [Description("light")]
+        [Description("thead-light")]
         Light,
 
         /// <summary>
         /// 深色
         /// </summary>
-        [Description("dark")]
+        [Description("thead-dark")]
         Dark
     }
 }

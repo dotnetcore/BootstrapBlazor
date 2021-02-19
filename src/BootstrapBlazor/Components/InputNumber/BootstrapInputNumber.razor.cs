@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数值步进步长
         /// </summary>
         [Parameter]
-        public TValue Step { get; set; }
+        public new TValue Step { get; set; }
 #nullable restore
 
         /// <summary>

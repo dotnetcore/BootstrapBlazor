@@ -50,13 +50,6 @@ namespace BootstrapBlazor.Components
         public string? NoDataTip { get; set; }
 
         /// <summary>
-        /// 获得 PlaceHolder 属性
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public string? PlaceHolder { get; set; }
-
-        /// <summary>
         /// 是否开启模糊查询，默认为 false
         /// </summary>
         [Parameter]

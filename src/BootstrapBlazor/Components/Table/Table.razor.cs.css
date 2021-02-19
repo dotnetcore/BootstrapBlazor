@@ -59,64 +59,82 @@
                 color: #999;
             }
 
-        .table thead th .table-cell {
-            justify-content: space-between;
-            position: relative;
+    .table thead.thead-dark th.sortable:hover,
+    .table thead.thead-dark th.filterable:hover {
+        background-color: #343a40;
+    }
+
+    .table thead th .table-cell {
+        justify-content: space-between;
+        position: relative;
+    }
+
+        .table thead th .table-cell .table-text {
+            flex: 1;
         }
 
-            .table thead th .table-cell .table-text {
-                flex: 1;
-            }
-
-            .table thead th .table-cell > .fa {
-                content: "";
-                position: absolute;
-                right: -12px;
-                top: -12px;
-                bottom: -12px;
-                width: 1.5rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #ddd;
-            }
-
-                .table thead th .table-cell > .fa:hover {
-                    background-color: #ddd;
-                    color: #606266;
-                }
-
-            .table thead th .table-cell .fa-filter {
-                cursor: pointer;
-            }
-
-                .table thead th .table-cell .fa-filter.active {
-                    color: #409eff;
-                }
-
-        .table thead th.sortable .fa-sort-asc,
-        .table thead th.sortable .fa-sort-desc {
-            color: inherit;
-        }
-
-        .table thead th.sortable .table-cell .table-text,
-        .table thead th.filterable .table-cell .table-text {
-            padding-right: 1rem;
-        }
-
-        .table thead th.filterable .table-cell .fa-filter {
+        .table thead th .table-cell > .fa {
+            content: "";
+            position: absolute;
             right: -12px;
+            top: -12px;
+            bottom: -12px;
+            width: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ddd;
         }
 
-        .table thead th.sortable.filterable .table-cell .fa-filter {
-            right: calc(1.5rem - 12px);
+            .table thead th .table-cell > .fa:hover {
+                background-color: #ddd;
+                color: #606266;
+            }
+
+        .table thead th .table-cell .fa-filter {
+            cursor: pointer;
         }
 
-        .table thead th.sortable.filterable .table-cell .table-text {
-            padding-right: 2.5rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            .table thead th .table-cell .fa-filter.active {
+                color: #409eff;
+            }
+
+    .table thead.thead-dark th .table-cell > .fa:hover {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .table thead.thead-light th .table-cell > .fa {
+        color: #c0c4cc;
+    }
+
+        .table thead.thead-light th .table-cell > .fa:hover {
+            color: #495057;
         }
+
+    .table thead th.sortable .fa-sort-asc,
+    .table thead th.sortable .fa-sort-desc {
+        color: inherit;
+    }
+
+    .table thead th.sortable .table-cell .table-text,
+    .table thead th.filterable .table-cell .table-text {
+        padding-right: 1rem;
+    }
+
+    .table thead th.filterable .table-cell .fa-filter {
+        right: -12px;
+    }
+
+    .table thead th.sortable.filterable .table-cell .fa-filter {
+        right: calc(1.5rem - 12px);
+    }
+
+    .table thead th.sortable.filterable .table-cell .table-text {
+        padding-right: 2.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
     .table tfoot {
         font-weight: bold;

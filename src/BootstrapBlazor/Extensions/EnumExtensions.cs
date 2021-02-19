@@ -37,6 +37,24 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static string ToDescriptionString(this Type? type, string? fieldName)
         {
+            var ret = string.Empty;
+            if (type != null && !string.IsNullOrEmpty(fieldName))
+            {
+                var t = Nullable.GetUnderlyingType(type) ?? type;
+                var attributes = t.GetField(fieldName)?.GetCustomAttribute<DescriptionAttribute>();
+                ret = attributes?.Description ?? fieldName;
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 通过字段名称获取 DescriptionAttribute 标签值
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        private static string ToDescriptionLocalizerString(this Type? type, string? fieldName)
+        {
             string? dn = null;
             if (type != null && !string.IsNullOrEmpty(fieldName))
             {
@@ -75,7 +93,6 @@ namespace BootstrapBlazor.Components
                     }
 
                     // add display name into cache
-                    // add display name into cache
                     if (!string.IsNullOrEmpty(dn))
                     {
                         DisplayNameCache.GetOrAdd(cacheKey, key => dn);
@@ -101,7 +118,7 @@ namespace BootstrapBlazor.Components
                 var t = Nullable.GetUnderlyingType(type) ?? type;
                 foreach (var field in Enum.GetNames(t))
                 {
-                    var desc = t.ToDescriptionString(field);
+                    var desc = t.ToDescriptionLocalizerString(field);
                     if (string.IsNullOrEmpty(desc)) desc = field;
                     ret.Add(new SelectedItem(field, desc));
                 }

@@ -28,8 +28,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 thead 样式表集合
         /// </summary>
-        protected string? THeadClass => CssBuilder.Default()
-            .AddClass(THeadStyle == THeadStyle.Light ? "thead-light" : "thead-dark")
+        protected string? HeaderClass => CssBuilder.Default()
+            .AddClass(HeaderStyle.ToDescriptionString(), HeaderStyle != TableHeaderStyle.None)
             .Build();
 
         /// <summary>
