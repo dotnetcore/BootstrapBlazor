@@ -21,15 +21,9 @@ namespace BootstrapBlazor.Components
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
-        /// <summary>
-        /// 获得/设置 input 类型 text password number
-        /// </summary>
-        protected string? Type { get; set; }
+        private string? Type { get; set; }
 
-        /// <summary>
-        /// 获得/设置 input 类型 number 时的 step 属性默认为 null
-        /// </summary>
-        protected string? Step { get; set; }
+        private string? Step { get; set; }
 
         /// <summary>
         /// 获得/设置 input 类型 placeholder 属性
@@ -83,6 +77,10 @@ namespace BootstrapBlazor.Components
                 {
                     Step = step?.ToString();
                 }
+                else
+                {
+                    Step = "any";
+                }
             }
         }
 
@@ -91,7 +89,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override string? FormatValueAsString(TValue value)
+        protected override string? FormatValueAsString(TValue? value)
         {
             return Formatter != null
                 ? Formatter.Invoke(Value)

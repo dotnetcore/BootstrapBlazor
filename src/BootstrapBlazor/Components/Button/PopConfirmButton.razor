@@ -2,6 +2,12 @@
 @inherits PopConfirmButtonBase
 
 <button @attributes="@AdditionalAttributes" data-toggle="confirm" data-placement="@Placement.ToDescriptionString()" @onclick="@OnClick" Id="@Id" type="button" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@Disabled" tabindex="@Tab">
-    <i class="@Icon"></i>
-    <span>@Text</span>
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+        <i class="@Icon"></i>
+    }
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
+    }
 </button>

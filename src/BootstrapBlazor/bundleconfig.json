@@ -12,6 +12,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Button/Button.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Button/Button.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Editor/Editor.razor.cs.min.css",
     "inputFiles": [
       "Components/Editor/Editor.razor.cs.css"
@@ -235,7 +241,8 @@
       "Components/Radio/Radio.razor.cs.min.css",
       "Components/Tree/Tree.razor.cs.min.css",
       "Components/Transfer/Transfer.razor.cs.min.css",
-      "Components/Console/Console.razor.cs.min.css"
+      "Components/Console/Console.razor.cs.min.css",
+      "Components/Button/Button.razor.cs.min.css"
     ]
   },
   {

@@ -3,24 +3,20 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// InputNumber 组件
+    /// An input component for editing numeric values.
+    /// Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.
     /// </summary>
     public partial class BootstrapInputNumber<TValue>
     {
-        private object? MinValue { get; set; }
-
-        private object? MaxValue { get; set; }
-
         /// <summary>
         /// 获得 按钮样式
         /// </summary>
@@ -37,14 +33,6 @@ namespace BootstrapBlazor.Components
             .AddClass("input-number-fix", ShowButton)
             .AddClass($"border-{Color.ToDescriptionString()} shadow-{Color.ToDescriptionString()}", Color != Color.None)
             .Build();
-
-#nullable disable
-        /// <summary>
-        /// 获得/设置 数值步进步长
-        /// </summary>
-        [Parameter]
-        public new TValue Step { get; set; }
-#nullable restore
 
         /// <summary>
         /// 获得/设置 数值增加时回调委托
@@ -71,6 +59,12 @@ namespace BootstrapBlazor.Components
         public string? Max { get; set; }
 
         /// <summary>
+        /// 获得/设置 步长 默认为 null
+        /// </summary>
+        [Parameter]
+        public string? Step { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示加减按钮
         /// </summary>
         [Parameter]
@@ -82,30 +76,87 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Color Color { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
+
+        static BootstrapInputNumber()
+        {
+            // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
+            // of it for us. We will only get asked to parse the T for nonempty inputs.
+            var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+            if (!typeof(TValue).IsNumber())
+            {
+                throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
+            }
+        }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
-            if (!typeof(TValue).IsNumber()) throw new InvalidOperationException($"The type '{typeof(TValue)}' is not a supported numeric type.");
-
             base.OnInitialized();
 
-            // 本组件接受的类型均不可为空
-            SetStep();
+            ParsingErrorMessage = Localizer[nameof(ParsingErrorMessage)]!;
+            Step ??= "1";
+        }
 
-            // 设置最大值与最小值区间
-            SetRange();
-
-            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>(100);
-
-            if (MaxValue != null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="result"></param>
+        /// <param name="validationErrorMessage"></param>
+        /// <returns></returns>
+        protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+        {
+            var ret = false;
+            validationErrorMessage = null;
+            if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
             {
-                AdditionalAttributes["max"] = MaxValue;
+                ret = true;
             }
-            if (MinValue != null)
+            else
             {
-                AdditionalAttributes["min"] = MinValue;
+                validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+        /// </summary>
+        /// <param name="value">The value to format.</param>
+        /// <returns>A string representation of the value.</returns>
+        protected override string? FormatValueAsString(TValue? value)
+        {
+            // Avoiding a cast to IFormattable to avoid boxing.
+            switch (value)
+            {
+                case null:
+                    return null;
+
+                case int @int:
+                    return BindConverter.FormatValue(@int, CultureInfo.InvariantCulture);
+
+                case long @long:
+                    return BindConverter.FormatValue(@long, CultureInfo.InvariantCulture);
+
+                case short @short:
+                    return BindConverter.FormatValue(@short, CultureInfo.InvariantCulture);
+
+                case float @float:
+                    return BindConverter.FormatValue(@float, CultureInfo.InvariantCulture);
+
+                case double @double:
+                    return BindConverter.FormatValue(@double, CultureInfo.InvariantCulture);
+
+                case decimal @decimal:
+                    return BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture);
+
+                default:
+                    throw new InvalidOperationException($"Unsupported type {value!.GetType()}");
             }
         }
 
@@ -113,28 +164,33 @@ namespace BootstrapBlazor.Components
         /// 点击减少按钮式时回调此方法
         /// </summary>
         /// <returns></returns>
-        protected async Task OnClickDec()
+        private void OnClickDec()
         {
-#nullable disable
-            if (typeof(TValue) == typeof(sbyte))
+            if (!string.IsNullOrEmpty(Step))
             {
-                var v = (sbyte)(object)Value;
-                var s = (sbyte)(object)Step;
-
-                CurrentValueAsString = (v - s).ToString();
-            }
-            else if (typeof(TValue) == typeof(byte))
-            {
-                var v = (byte)(object)Value;
-                var s = (byte)(object)Step;
-
-                CurrentValueAsString = (v - s).ToString();
-            }
-#nullable restore
-            else
-            {
-                Range(Subtract(CurrentValue, Step));
-                if (OnDecrement != null) await OnDecrement(CurrentValue);
+                TValue val = CurrentValue;
+                switch (val)
+                {
+                    case int @int:
+                        val = (TValue)(object)(@int - int.Parse(Step));
+                        break;
+                    case long @long:
+                        val = (TValue)(object)(@long - long.Parse(Step));
+                        break;
+                    case short @short:
+                        val = (TValue)(object)(short)(@short - short.Parse(Step));
+                        break;
+                    case float @float:
+                        val = (TValue)(object)(@float - float.Parse(Step));
+                        break;
+                    case double @double:
+                        val = (TValue)(object)(@double - double.Parse(Step));
+                        break;
+                    case decimal @decimal:
+                        val = (TValue)(object)(@decimal - decimal.Parse(Step));
+                        break;
+                }
+                CurrentValue = SetMax(SetMin(val));
             }
         }
 
@@ -142,28 +198,33 @@ namespace BootstrapBlazor.Components
         /// 点击增加按钮式时回调此方法
         /// </summary>
         /// <returns></returns>
-        protected async Task OnClickInc()
+        private void OnClickInc()
         {
-#nullable disable
-            if (typeof(TValue) == typeof(sbyte))
+            if (!string.IsNullOrEmpty(Step))
             {
-                var v = (sbyte)(object)Value;
-                var s = (sbyte)(object)Step;
-
-                CurrentValueAsString = (v + s).ToString();
-            }
-            else if (typeof(TValue) == typeof(byte))
-            {
-                var v = (byte)(object)Value;
-                var s = (byte)(object)Step;
-
-                CurrentValueAsString = (v + s).ToString();
-            }
-#nullable restore
-            else
-            {
-                Range(Add(CurrentValue, Step));
-                if (OnIncrement != null) await OnIncrement(CurrentValue);
+                TValue val = CurrentValue;
+                switch (val)
+                {
+                    case int @int:
+                        val = (TValue)(object)(@int + int.Parse(Step));
+                        break;
+                    case long @long:
+                        val = (TValue)(object)(@long + long.Parse(Step));
+                        break;
+                    case short @short:
+                        val = (TValue)(object)(short)(@short + short.Parse(Step));
+                        break;
+                    case float @float:
+                        val = (TValue)(object)(@float + float.Parse(Step));
+                        break;
+                    case double @double:
+                        val = (TValue)(object)(@double + double.Parse(Step));
+                        break;
+                    case decimal @decimal:
+                        val = (TValue)(object)(@decimal + decimal.Parse(Step));
+                        break;
+                }
+                CurrentValue = SetMax(SetMin(val));
             }
         }
 
@@ -171,221 +232,70 @@ namespace BootstrapBlazor.Components
         /// 失去焦点是触发此方法
         /// </summary>
         /// <returns></returns>
-        protected void OnBlur()
+        private void OnBlur()
         {
-            if (MinValue != null || MaxValue != null)
+            if (!PreviousParsingAttemptFailed)
             {
-                Range(Value);
+                CurrentValue = SetMax(SetMin(Value));
             }
         }
 
-        /// <summary>
-        /// 通过 MinValue 与 MaxValue 区间判断当前值方法
-        /// </summary>
-        /// <returns></returns>
-        private void Range(TValue val)
+        private TValue SetMin(TValue val)
         {
-            if (MinValue != null)
+            if (!string.IsNullOrEmpty(Min))
             {
-                val = MathMax(val, (TValue)MinValue);
-            }
-            if (MaxValue != null)
-            {
-                val = MathMin(val, (TValue)MaxValue);
-            }
-            CurrentValue = val;
-        }
-
-        /// <summary>
-        /// 设置默认步长方法
-        /// </summary>
-        private void SetStep()
-        {
-            if (TryParse("0", out var step0) && LessThanOrEqual(Step, step0) && TryParse("1", out var step1))
-            {
-                Step = step1;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void SetRange()
-        {
-            if (!string.IsNullOrEmpty(Min) && TryParse(Min, out var min))
-            {
-                MinValue = min;
-            }
-            if (!string.IsNullOrEmpty(Max) && TryParse(Max, out var max))
-            {
-                MaxValue = max;
-            }
-
-            if (typeof(TValue) == typeof(sbyte)
-                || typeof(TValue) == typeof(byte)
-                || typeof(TValue) == typeof(short)
-                || typeof(TValue) == typeof(int))
-            {
-                if (MaxValue == null)
+                switch (val)
                 {
-                    MaxValue = MaxValueCache.GetOrAdd(typeof(TValue), key =>
-                    {
-                        var invoker = GetMaxValue().Compile();
-                        return invoker();
-                    });
-                }
-                if (MinValue == null)
-                {
-                    MinValue = MinValueCache.GetOrAdd(typeof(TValue), key =>
-                    {
-                        var invoker = GetMinValue().Compile();
-                        return invoker();
-                    });
+                    case int @int:
+                        val = (TValue)(object)Math.Max(@int, int.Parse(Min));
+                        break;
+                    case long @long:
+                        val = (TValue)(object)Math.Max(@long, long.Parse(Min));
+                        break;
+                    case short @short:
+                        val = (TValue)(object)Math.Max(@short, short.Parse(Min));
+                        break;
+                    case float @float:
+                        val = (TValue)(object)Math.Max(@float, float.Parse(Min));
+                        break;
+                    case double @double:
+                        val = (TValue)(object)Math.Max(@double, double.Parse(Min));
+                        break;
+                    case decimal @decimal:
+                        val = (TValue)(object)Math.Max(@decimal, decimal.Parse(Min));
+                        break;
                 }
             }
+            return val;
         }
 
-        private static ConcurrentDictionary<Type, TValue> MinValueCache { get; } = new ConcurrentDictionary<Type, TValue>();
-
-        private static ConcurrentDictionary<Type, TValue> MaxValueCache { get; } = new ConcurrentDictionary<Type, TValue>();
-
-        private static Expression<Func<TValue>> GetMinValue()
+        private TValue SetMax(TValue val)
         {
-            var type = typeof(TValue);
-            var p = type.GetField("MinValue");
-            var body = Expression.Field(null, p!);
-            return Expression.Lambda<Func<TValue>>(body);
+            if (!string.IsNullOrEmpty(Max))
+            {
+                switch (val)
+                {
+                    case int @int:
+                        val = (TValue)(object)Math.Min(@int, int.Parse(Max));
+                        break;
+                    case long @long:
+                        val = (TValue)(object)Math.Min(@long, long.Parse(Max));
+                        break;
+                    case short @short:
+                        val = (TValue)(object)Math.Min(@short, short.Parse(Max));
+                        break;
+                    case float @float:
+                        val = (TValue)(object)Math.Min(@float, float.Parse(Max));
+                        break;
+                    case double @double:
+                        val = (TValue)(object)Math.Min(@double, double.Parse(Max));
+                        break;
+                    case decimal @decimal:
+                        val = (TValue)(object)Math.Min(@decimal, decimal.Parse(Max));
+                        break;
+                }
+            }
+            return val;
         }
-
-        private static Expression<Func<TValue>> GetMaxValue()
-        {
-            var type = typeof(TValue);
-            var p = type.GetField("MaxValue");
-            var body = Expression.Field(null, p!);
-            return Expression.Lambda<Func<TValue>>(body);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal static ConcurrentDictionary<Type, LambdaExtensions.FuncEx<string, TValue, bool>> TryParseCache { get; set; } = new ConcurrentDictionary<Type, LambdaExtensions.FuncEx<string, TValue, bool>>();
-
-        /// <summary>
-        /// TryParse 泛型方法
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected bool TryParse(string source, out TValue item)
-        {
-            var invoker = TryParseCache.GetOrAdd(typeof(TValue), key => LambdaExtensions.TryParse<TValue>().Compile());
-            return invoker(source, out item);
-        }
-
-        #region LessThan
-        /// <summary>
-        /// 泛型中的大于逻辑判断
-        /// </summary>
-        /// <returns></returns>
-        private static Expression<Func<TValue, TValue, bool>> LessThan()
-        {
-            var p1 = Expression.Parameter(typeof(TValue));
-            var p2 = Expression.Parameter(typeof(TValue));
-            var body = Expression.LessThanOrEqual(p1, p2);
-            return Expression.Lambda<Func<TValue, TValue, bool>>(body, p1, p2);
-        }
-
-        /// <summary>
-        /// 小于判断方法 v1 &lt; v2
-        /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        private static bool LessThanOrEqual(TValue v1, TValue v2)
-        {
-            var invoker = LessThanOrEqualCache.GetOrAdd(typeof(TValue), key => LessThan().Compile());
-            return invoker(v1, v2);
-        }
-
-        private static readonly ConcurrentDictionary<Type, Func<TValue, TValue, bool>> LessThanOrEqualCache = new ConcurrentDictionary<Type, Func<TValue, TValue, bool>>();
-        #endregion
-
-        #region Operation
-        /// <summary>
-        /// V++
-        /// </summary>
-        /// <returns></returns>
-        private static Expression<Func<TValue, TValue, TValue>> Add()
-        {
-            var exp_p1 = Expression.Parameter(typeof(TValue));
-            var exp_p2 = Expression.Parameter(typeof(TValue));
-            return Expression.Lambda<Func<TValue, TValue, TValue>>(Expression.AddChecked(exp_p1, exp_p2), exp_p1, exp_p2);
-        }
-
-        private static TValue Add(TValue v1, TValue v2)
-        {
-            var invoker = AddCache.GetOrAdd(typeof(TValue), key => Add().Compile());
-            return invoker(v1, v2);
-        }
-
-        /// <summary>
-        /// V--
-        /// </summary>
-        /// <returns></returns>
-        private static Expression<Func<TValue, TValue, TValue>> Subtract()
-        {
-            var exp_p1 = Expression.Parameter(typeof(TValue));
-            var exp_p2 = Expression.Parameter(typeof(TValue));
-            return Expression.Lambda<Func<TValue, TValue, TValue>>(Expression.SubtractChecked(exp_p1, exp_p2), exp_p1, exp_p2);
-        }
-
-        private static TValue Subtract(TValue v1, TValue v2)
-        {
-            var invoker = SubtractCache.GetOrAdd(typeof(TValue), key => Subtract().Compile());
-            return invoker(v1, v2);
-        }
-
-        private static readonly ConcurrentDictionary<Type, Func<TValue, TValue, TValue>> AddCache = new ConcurrentDictionary<Type, Func<TValue, TValue, TValue>>();
-
-        private static readonly ConcurrentDictionary<Type, Func<TValue, TValue, TValue>> SubtractCache = new ConcurrentDictionary<Type, Func<TValue, TValue, TValue>>();
-        #endregion
-
-        #region Math
-        private static Expression<Func<TValue, TValue, TValue>> MathMin()
-        {
-            var exp_p1 = Expression.Parameter(typeof(TValue));
-            var exp_p2 = Expression.Parameter(typeof(TValue));
-
-            var method_min = typeof(Math).GetMethod(nameof(Math.Min), new Type[] { typeof(TValue), typeof(TValue) });
-            var body = Expression.Call(method_min!, exp_p1, exp_p2);
-            return Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_p1, exp_p2);
-        }
-
-        private static Expression<Func<TValue, TValue, TValue>> MathMax()
-        {
-            var exp_p1 = Expression.Parameter(typeof(TValue));
-            var exp_p2 = Expression.Parameter(typeof(TValue));
-
-            var method_min = typeof(Math).GetMethod(nameof(Math.Max), new Type[] { typeof(TValue), typeof(TValue) });
-            var body = Expression.Call(method_min!, exp_p1, exp_p2);
-            return Expression.Lambda<Func<TValue, TValue, TValue>>(body, exp_p1, exp_p2);
-        }
-
-        private static TValue MathMin(TValue v1, TValue v2)
-        {
-            var invoker = MinCache.GetOrAdd(typeof(TValue), key => MathMin().Compile());
-            return invoker(v1, v2);
-        }
-
-        private static TValue MathMax(TValue v1, TValue v2)
-        {
-            var invoker = MaxCache.GetOrAdd(typeof(TValue), key => MathMax().Compile());
-            return invoker(v1, v2);
-        }
-
-        private static readonly ConcurrentDictionary<Type, Func<TValue, TValue, TValue>> MinCache = new ConcurrentDictionary<Type, Func<TValue, TValue, TValue>>();
-
-        private static readonly ConcurrentDictionary<Type, Func<TValue, TValue, TValue>> MaxCache = new ConcurrentDictionary<Type, Func<TValue, TValue, TValue>>();
-        #endregion
     }
 }

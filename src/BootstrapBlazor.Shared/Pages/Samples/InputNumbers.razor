@@ -10,9 +10,9 @@
     </div>
 </Block>
 
-<Block Title="区间限制用法" Introduction="设置 <code>Max</code> <code>Min</code> 来控制数值区间范围">
+<Block Title="区间限制用法" Introduction="设置 <code>Max</code> <code>Min</code> 来控制数值区间范围 1-10">
     <div class="demo-inputnumber">
-        <BootstrapInputNumber Value="@BindValue" Max="100" Min="1" />
+        <BootstrapInputNumber Value="@BindValue" Max="10" Min="1" />
     </div>
 </Block>
 
@@ -131,19 +131,9 @@
     </div>
 </Block>
 
-<Block Title="数据类型" Introduction="本组件采用泛型支持 <code>sbyte byte int short long float double decimal</code> 基础数据类型">
+<Block Title="数据类型" Introduction="本组件采用泛型支持 <code>int short long float double decimal</code> 基础数据类型">
     <div class="form-inline">
         <div class="row">
-            <div class="form-group col-12 col-sm-6">
-                <div class="demo-inputnumber">
-                    <BootstrapInputNumber Value="@BindSByteValue" DisplayText="SByte" ShowLabel="true" ShowButton="true" />
-                </div>
-            </div>
-            <div class="form-group col-12 col-sm-6">
-                <div class="demo-inputnumber">
-                    <BootstrapInputNumber Value="@BindByteValue" DisplayText="Byte(0/255)" ShowLabel="true" ShowButton="true" />
-                </div>
-            </div>
             <div class="form-group col-12 col-sm-6">
                 <div class="demo-inputnumber">
                     <BootstrapInputNumber Value="@BindShortValue" DisplayText="Short" ShowLabel="true" ShowButton="true" />

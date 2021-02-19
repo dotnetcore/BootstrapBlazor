@@ -196,7 +196,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 格式化数值方法
         /// </summary>
-        protected override string FormatValueAsString(TValue value)
+        protected override string FormatValueAsString(TValue? value)
         {
             var ret = "";
             if (Value != null)

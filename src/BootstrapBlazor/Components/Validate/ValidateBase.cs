@@ -236,7 +236,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="value">The value to format.</param>
         /// <returns>A string representation of the value.</returns>
-        protected virtual string? FormatValueAsString(TValue value) => value?.ToString();
+        protected virtual string? FormatValueAsString(TValue? value) => value?.ToString();
 
         /// <summary>
         /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
@@ -274,7 +274,7 @@ namespace BootstrapBlazor.Components
 
             if (!ret && validationErrorMessage == null)
             {
-                var fieldName = FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : "";
+                var fieldName = FieldIdentifier?.GetDisplayName() ?? "";
                 var typeName = typeof(TValue).GetTypeDesc();
                 validationErrorMessage = string.Format(ParsingErrorMessage, fieldName, typeName);
             }

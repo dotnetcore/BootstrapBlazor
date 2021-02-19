@@ -87,6 +87,9 @@
     "ThisMonth": "这个月",
     "LastMonth": "上个月"
   },
+  "BootstrapBlazor.Components.BootstrapInputNumber": {
+    "ParsingErrorMessage": "{0}字段值必须为 Number 类型"
+  },
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "确认",
     "ButtonNoText": "取消",
