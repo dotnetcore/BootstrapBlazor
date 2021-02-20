@@ -16,10 +16,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 泛型 Clone 方法
         /// </summary>
-        /// <typeparam name="TItem"></typeparam>
+        /// <typeparam name="TModel"></typeparam>
         /// <param name="item"></param>
         /// <returns></returns>
-        public static TItem Clone<TItem>(this TItem item)
+        public static TModel Clone<TModel>(this TModel item)
         {
             var ret = item;
             if (item != null)
@@ -30,13 +30,13 @@ namespace BootstrapBlazor.Components
                     var clv = type.GetMethod("Clone")?.Invoke(item, null);
                     if (clv != null)
                     {
-                        ret = (TItem)clv;
+                        ret = (TModel)clv;
                         return ret;
                     }
                 }
                 if (type.IsClass)
                 {
-                    ret = Activator.CreateInstance<TItem>();
+                    ret = Activator.CreateInstance<TModel>();
                     var valType = ret?.GetType();
                     if (valType != null)
                     {
@@ -63,10 +63,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 重置对象属性值到默认值方法
         /// </summary>
-        /// <typeparam name="TItem"></typeparam>
-        public static void Reset<TItem>(this TItem source) where TItem : class, new()
+        /// <typeparam name="TModel"></typeparam>
+        public static void Reset<TModel>(this TModel source) where TModel : class, new()
         {
-            var v = new TItem();
+            var v = new TModel();
             foreach (var pi in source.GetType().GetProperties())
             {
                 pi.SetValue(source, v.GetType().GetProperty(pi.Name)!.GetValue(v));
@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Components
         public static bool IsNumber(this Type t)
         {
             var targetType = Nullable.GetUnderlyingType(t) ?? t;
-            var check = 
+            var check =
                 targetType == typeof(int) ||
                 targetType == typeof(long) ||
                 targetType == typeof(short) ||
@@ -148,11 +148,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 通过指定 Model 获得 IEditorItem 集合方法
         /// </summary>
-        /// <param name="source"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(this TModel source, Func<IEditorItem, bool>? predicate = null)
-            where TModel : class
+        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(Func<IEditorItem, bool>? predicate = null) where TModel : class
         {
             if (predicate == null) predicate = p => true;
             return InternalTableColumn.GetProperties<TModel>().Where(predicate);

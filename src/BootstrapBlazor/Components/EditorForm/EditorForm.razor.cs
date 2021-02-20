@@ -174,7 +174,7 @@ namespace BootstrapBlazor.Components
                 var displayName = Utility.GetDisplayName(Model, fieldName);
 
                 // FieldValue
-                var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => Model.GetPropertyValueLambda<TModel, object?>(key.FieldName).Compile());
+                var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TModel, object?>(Model, key.FieldName).Compile());
                 var fieldValue = valueInvoker.Invoke(Model);
 
                 // ValueChanged
@@ -278,7 +278,7 @@ namespace BootstrapBlazor.Components
             {
                 if (model != null)
                 {
-                    var invoker = SetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => model.SetPropertyValueLambda<TModel, object?>(key.FieldName).Compile());
+                    var invoker = SetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => LambdaExtensions.SetPropertyValueLambda<TModel, object?>(model, key.FieldName).Compile());
                     invoker.Invoke(model, t);
                 }
             });

@@ -43,7 +43,7 @@ namespace UnitTest.Performance
             sw.Stop();
             Logger.WriteLine($"Reflection: {sw.Elapsed}");
 
-            var invoker = s1.GetPropertyValueLambda<Dummy, string>("Name").Compile();
+            var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(s1, "Name").Compile();
             sw = Stopwatch.StartNew();
             for (var i = 0; i < count; i++)
             {
@@ -78,7 +78,7 @@ namespace UnitTest.Performance
             Logger.WriteLine($"Reflection: {sw.Elapsed}");
 
             sw = Stopwatch.StartNew();
-            var invoker = s1.SetPropertyValueLambda<Dummy, object>("Name").Compile();
+            var invoker = LambdaExtensions.SetPropertyValueLambda<Dummy, object>(s1, "Name").Compile();
             for (var i = 0; i < count; i++)
             {
                 invoker(s1, "Dummy");

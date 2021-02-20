@@ -289,7 +289,7 @@ namespace System.Linq
         /// <returns></returns>
         public static string Format(this object source, string format, IFormatProvider? provider = null)
         {
-            var invoker = FormatLambdaCache.GetOrAdd(source.GetType(), key => source.GetFormatLambda().Compile());
+            var invoker = FormatLambdaCache.GetOrAdd(source.GetType(), key => GetFormatLambda(source).Compile());
             return invoker(source, format, provider);
         }
 
@@ -298,7 +298,7 @@ namespace System.Linq
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(this object source)
+        private static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(object source)
         {
             var type = source.GetType();
             var exp_p1 = Expression.Parameter(typeof(object));
@@ -330,7 +330,7 @@ namespace System.Linq
         /// <returns></returns>
         public static string Format(this object source, IFormatProvider provider)
         {
-            var invoker = FormatProviderLambdaCache.GetOrAdd(source.GetType(), key => source.GetFormatProviderLambda().Compile());
+            var invoker = FormatProviderLambdaCache.GetOrAdd(source.GetType(), key => GetFormatProviderLambda(source).Compile());
             return invoker(source, provider);
         }
 
@@ -339,7 +339,7 @@ namespace System.Linq
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(this object source)
+        private static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(object source)
         {
             var type = source.GetType();
             var exp_p1 = Expression.Parameter(typeof(object));
@@ -368,7 +368,7 @@ namespace System.Linq
         /// <typeparam name="TValue"></typeparam>
         /// <param name="v"></param>
         /// <returns></returns>
-        public static Expression<Func<TValue, object, bool>> GetGreaterThanOrEqualLambda<TValue>(this TValue v)
+        private static Expression<Func<TValue, object, bool>> GetGreaterThanOrEqualLambda<TValue>(TValue v)
         {
             if (v == null) throw new ArgumentNullException(nameof(v));
 
@@ -384,24 +384,10 @@ namespace System.Linq
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <returns></returns>
-        public static bool GreaterThanOrEqual<TValue>(this TValue v1, object v2)
+        public static bool GreaterThanOrEqual<TValue>(TValue v1, object v2)
         {
-            var invoker = v1.GetGreaterThanOrEqualLambda().Compile();
+            var invoker = GetGreaterThanOrEqualLambda(v1).Compile();
             return invoker(v1, v2);
-        }
-
-        /// <summary>
-        /// 通过属性名称获取其实例值
-        /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="t"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static TResult GetPropertyValue<TModel, TResult>(this TModel t, string name)
-        {
-            var invoker = t.GetPropertyValueLambda<TModel, TResult>(name).Compile();
-            return invoker(t);
         }
 
         /// <summary>
@@ -412,7 +398,7 @@ namespace System.Linq
         /// <param name="item"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(this TModel item, string name)
+        public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel item, string name)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
 
@@ -425,41 +411,27 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// 根据属性名称设置属性的值
+        /// 给指定模型属性赋值 Lambda 表达式
         /// </summary>
-        /// <typeparam name="TItem">对象类型</typeparam>
+        /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TValue"></typeparam>
-        /// <param name="t">对象</param>
-        /// <param name="name">属性名</param>
-        /// <param name="value">属性的值</param>
-        public static void SetPropertyValue<TItem, TValue>(this TItem t, string name, TValue value)
-        {
-            var invoker = t.SetPropertyValueLambda<TItem, TValue>(name).Compile();
-            invoker(t, value);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TItem"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="t"></param>
+        /// <param name="model"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static Expression<Action<TItem, TValue>> SetPropertyValueLambda<TItem, TValue>(this TItem t, string name)
+        public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string name)
         {
-            if (t == null) throw new ArgumentNullException(nameof(t));
+            if (model == null) throw new ArgumentNullException(nameof(model));
 
-            var p = t.GetType().GetProperty(name);
-            if (p == null) throw new InvalidOperationException($"类型 {typeof(TItem).Name} 未找到 {name} 属性，无法设置其值");
+            var p = model.GetType().GetProperty(name);
+            if (p == null) throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {name} 属性，无法设置其值");
 
-            var param_p1 = Expression.Parameter(typeof(TItem));
+            var param_p1 = Expression.Parameter(typeof(TModel));
             var param_p2 = Expression.Parameter(typeof(TValue));
 
             //获取设置属性的值的方法
             var mi = p.GetSetMethod(true);
-            var body = Expression.Call(Expression.Convert(param_p1, t.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
-            return Expression.Lambda<Action<TItem, TValue>>(body, param_p1, param_p2);
+            var body = Expression.Call(Expression.Convert(param_p1, model.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
+            return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
         }
 
         #region TryParse

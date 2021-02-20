@@ -6,6 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -58,7 +59,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Title = "搜索弹出框",
                 Model = model,
-                Items = model.GenerateColumns(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
+                Items = ObjectExtensions.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
             };
             await DialogService.ShowSearchDialog(option);
         }

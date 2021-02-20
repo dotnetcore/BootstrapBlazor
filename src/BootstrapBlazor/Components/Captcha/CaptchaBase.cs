@@ -73,6 +73,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 重置组件方法
         /// </summary>
-        protected abstract void Reset();
+        public abstract void Reset();
     }
 }

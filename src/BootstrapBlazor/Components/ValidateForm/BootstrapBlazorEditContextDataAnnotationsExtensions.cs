@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Components
         {
             var cacheKey = (fieldIdentifier.Model.GetType(), fieldIdentifier.FieldName);
             var model = fieldIdentifier.Model;
-            var invoker = PropertyValueInvokerCache.GetOrAdd(cacheKey, key => model.GetPropertyValueLambda<object, object>(key.FieldName).Compile());
+            var invoker = PropertyValueInvokerCache.GetOrAdd(cacheKey, key => LambdaExtensions.GetPropertyValueLambda<object, object>(model, key.FieldName).Compile());
 
             return invoker.Invoke(model);
         }

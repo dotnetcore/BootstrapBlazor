@@ -169,11 +169,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 重置组件方法
         /// </summary>
-        protected override void Reset()
+        public override void Reset()
         {
             var option = GetCaptchaOption();
             if (Interop == null) Interop = new JSInterop<Captcha>(JSRuntime);
-            Interop?.Invoke(this, CaptchaElement, "captcha", nameof(Verify), option);
+            var _ = Interop?.Invoke(this, CaptchaElement, "captcha", nameof(Verify), option);
         }
     }
 }

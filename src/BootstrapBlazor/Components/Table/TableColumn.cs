@@ -209,7 +209,7 @@ namespace BootstrapBlazor.Components
             {
                 // 此处 context 为行数据
                 // 将绑定字段值放入上下文中
-                var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => context.GetPropertyValueLambda<object, TType>(key.FieldName).Compile());
+                var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => LambdaExtensions.GetPropertyValueLambda<object, TType>(context, key.FieldName).Compile());
                 var value = invoker(context);
                 builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
             });
