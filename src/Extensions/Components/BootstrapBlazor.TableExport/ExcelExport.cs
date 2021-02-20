@@ -45,8 +45,7 @@ namespace BootstrapBlazor.Components
                             }
 
                             var th_value = cols.FirstOrDefault(x => x.GetFieldName() == pi.Name)?.Text
-                                ?? items.FirstOrDefault()?.GetDisplayName(pi.Name)
-                                ?? pi.Name;
+                                ?? Utility.GetDisplayName(items.First(), pi.Name);
 
                             worksheet.SetValue(1, x, th_value);
                         }
