@@ -450,6 +450,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Popover/Popover.cs.min.js",
+    "inputFiles": [
+      "Components/Popover/Popover.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -491,7 +497,8 @@
       "Components/Select/MultiSelect.razor.cs.min.js",
       "Components/Tree/Tree.razor.cs.min.js",
       "Components/Console/Console.razor.cs.min.js",
-      "Components/Button/PopConfirmButton.razor.cs.min.js"
+      "Components/Button/PopConfirmButton.razor.cs.min.js",
+      "Components/Popover/Popover.cs.min.js"
     ],
     "minify": {
       "enabled": false,
