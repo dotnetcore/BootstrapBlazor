@@ -7,10 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components
@@ -136,5 +139,171 @@ namespace BootstrapBlazor.Components
             }
             return propertyInfo != null;
         }
+
+        /// <summary>
+        /// 重置对象属性值到默认值方法
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        public static void Reset<TModel>(TModel source) where TModel : class, new()
+        {
+            var v = new TModel();
+            foreach (var pi in source.GetType().GetProperties())
+            {
+                pi.SetValue(source, v.GetType().GetProperty(pi.Name)!.GetValue(v));
+            }
+        }
+
+        /// <summary>
+        /// 泛型 Clone 方法
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static TModel Clone<TModel>(TModel item)
+        {
+            var ret = item;
+            if (item != null)
+            {
+                var type = item.GetType();
+                if (typeof(ICloneable).IsAssignableFrom(type))
+                {
+                    var clv = type.GetMethod("Clone")?.Invoke(item, null);
+                    if (clv != null)
+                    {
+                        ret = (TModel)clv;
+                        return ret;
+                    }
+                }
+                if (type.IsClass)
+                {
+                    ret = Activator.CreateInstance<TModel>();
+                    var valType = ret?.GetType();
+                    if (valType != null)
+                    {
+                        // 20200608 tian_teng@outlook.com 支持字段和只读属性
+                        type.GetFields().ToList().ForEach(f =>
+                        {
+                            var v = f.GetValue(item);
+                            valType.GetField(f.Name)?.SetValue(ret, v);
+                        });
+                        type.GetProperties().ToList().ForEach(p =>
+                        {
+                            if (p.CanWrite)
+                            {
+                                var v = p.GetValue(item);
+                                valType.GetProperty(p.Name)?.SetValue(ret, v);
+                            }
+                        });
+                    }
+                }
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 通过指定 Model 获得 IEditorItem 集合方法
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(Func<IEditorItem, bool>? predicate = null) where TModel : class
+        {
+            if (predicate == null) predicate = p => true;
+            return InternalTableColumn.GetProperties<TModel>().Where(predicate);
+        }
+
+        #region Format
+        private static readonly ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>> FormatLambdaCache = new ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>>();
+
+        /// <summary>
+        /// 任意类型格式化方法
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public static string Format(object? source, string format, IFormatProvider? provider = null)
+        {
+            var ret = string.Empty;
+            if (source != null)
+            {
+                var invoker = FormatLambdaCache.GetOrAdd(source.GetType(), key => GetFormatLambda(source).Compile());
+                ret = invoker(source, format, provider);
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 获取 Format 方法的 Lambda 表达式
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(object source)
+        {
+            var type = source.GetType();
+            var exp_p1 = Expression.Parameter(typeof(object));
+            var exp_p2 = Expression.Parameter(typeof(string));
+            var exp_p3 = Expression.Parameter(typeof(IFormatProvider));
+            Expression? body;
+            if (type.IsSubclassOf(typeof(IFormattable)))
+            {
+                // 通过 IFormattable 接口格式化
+                var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi!, exp_p2, exp_p3);
+            }
+            else
+            {
+                // 通过 ToString(string format) 方法格式化
+                var mi = type.GetMethod("ToString", new Type[] { typeof(string) });
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi!, exp_p2);
+            }
+            return Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
+        }
+
+        private static readonly ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>> FormatProviderLambdaCache = new ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>>();
+
+        /// <summary>
+        /// 任意类型格式化方法
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public static string Format(object? source, IFormatProvider provider)
+        {
+            string ret = string.Empty;
+            if (source != null)
+            {
+                var invoker = FormatProviderLambdaCache.GetOrAdd(source.GetType(), key => GetFormatProviderLambda(source).Compile());
+                ret = invoker(source, provider);
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 获取 Format 方法的 Lambda 表达式
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(object source)
+        {
+            var type = source.GetType();
+            var exp_p1 = Expression.Parameter(typeof(object));
+            var exp_p2 = Expression.Parameter(typeof(IFormatProvider));
+            Expression? body;
+
+            var mi = type.GetMethod("ToString", new Type[] { typeof(IFormatProvider) });
+            if (mi != null)
+            {
+                // 通过 ToString(IFormatProvider? provider) 接口格式化
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2);
+            }
+            else
+            {
+                // 通过 ToString() 方法格式化
+                mi = type.GetMethod("ToString", new Type[] { typeof(string) });
+                body = Expression.Call(Expression.Convert(exp_p1, type), mi!);
+            }
+            return Expression.Lambda<Func<object, IFormatProvider?, string>>(body, exp_p1, exp_p2);
+        }
+        #endregion
     }
 }

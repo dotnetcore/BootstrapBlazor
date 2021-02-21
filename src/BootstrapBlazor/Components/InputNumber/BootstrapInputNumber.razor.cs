@@ -7,6 +7,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -129,36 +130,21 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="value">The value to format.</param>
         /// <returns>A string representation of the value.</returns>
-        protected override string? FormatValueAsString(TValue? value)
-        {
-            // Avoiding a cast to IFormattable to avoid boxing.
-            switch (value)
-            {
-                case null:
-                    return null;
-
-                case int @int:
-                    return BindConverter.FormatValue(@int, CultureInfo.InvariantCulture);
-
-                case long @long:
-                    return BindConverter.FormatValue(@long, CultureInfo.InvariantCulture);
-
-                case short @short:
-                    return BindConverter.FormatValue(@short, CultureInfo.InvariantCulture);
-
-                case float @float:
-                    return BindConverter.FormatValue(@float, CultureInfo.InvariantCulture);
-
-                case double @double:
-                    return BindConverter.FormatValue(@double, CultureInfo.InvariantCulture);
-
-                case decimal @decimal:
-                    return BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture);
-
-                default:
-                    throw new InvalidOperationException($"Unsupported type {value!.GetType()}");
-            }
-        }
+        protected override string? FormatValueAsString(TValue? value) => Formatter != null
+            ? Formatter.Invoke(value)
+            : (!string.IsNullOrEmpty(FormatString) && value != null
+                ? Utility.Format((object)value, FormatString)
+                : value switch
+                {
+                    null => null,
+                    int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
+                    long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
+                    short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
+                    float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
+                    double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
+                    decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
+                    _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
+                });
 
         /// <summary>
         /// 点击减少按钮式时回调此方法

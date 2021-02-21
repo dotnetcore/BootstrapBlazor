@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Title = "搜索弹出框",
                 Model = model,
-                Items = ObjectExtensions.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
+                Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
             };
             await DialogService.ShowSearchDialog(option);
         }

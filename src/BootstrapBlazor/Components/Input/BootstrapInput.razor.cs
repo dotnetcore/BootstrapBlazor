@@ -89,13 +89,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override string? FormatValueAsString(TValue? value)
-        {
-            return Formatter != null
-                ? Formatter.Invoke(Value)
-                : (!string.IsNullOrEmpty(FormatString) && value != null
-                    ? ((object)value).Format(FormatString)
-                    : base.FormatValueAsString(value));
-        }
+        protected override string? FormatValueAsString(TValue? value) => Formatter != null
+            ? Formatter.Invoke(Value)
+            : (!string.IsNullOrEmpty(FormatString) && value != null
+                ? Utility.Format((object)value, FormatString)
+                : base.FormatValueAsString(value));
     }
 }

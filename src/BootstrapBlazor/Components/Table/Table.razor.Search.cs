@@ -77,7 +77,7 @@ namespace BootstrapBlazor.Components
         protected async Task ResetSearchClick()
         {
             if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
-            else if (SearchTemplate == null) ObjectExtensions.Reset(SearchModel);
+            else if (SearchTemplate == null) Utility.Reset(SearchModel);
             await SearchClick();
         }
 

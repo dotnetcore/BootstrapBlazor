@@ -387,7 +387,7 @@ namespace BootstrapBlazor.Components
                 else if (!string.IsNullOrEmpty(col.FormatString))
                 {
                     // 格式化字符串
-                    content = val?.Format(col.FormatString) ?? "";
+                    content = Utility.Format(val, col.FormatString);
                 }
                 else if (col.PropertyType.IsEnum())
                 {
@@ -395,7 +395,7 @@ namespace BootstrapBlazor.Components
                 }
                 else if (col.PropertyType.IsDateTime())
                 {
-                    content = val?.Format(CultureInfo.CurrentUICulture.DateTimeFormat) ?? "";
+                    content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
                 }
                 else if (val is IEnumerable<object> v)
                 {

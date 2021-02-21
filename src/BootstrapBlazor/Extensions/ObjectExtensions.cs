@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -13,66 +11,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public static class ObjectExtensions
     {
-        /// <summary>
-        /// 泛型 Clone 方法
-        /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public static TModel Clone<TModel>(this TModel item)
-        {
-            var ret = item;
-            if (item != null)
-            {
-                var type = item.GetType();
-                if (typeof(ICloneable).IsAssignableFrom(type))
-                {
-                    var clv = type.GetMethod("Clone")?.Invoke(item, null);
-                    if (clv != null)
-                    {
-                        ret = (TModel)clv;
-                        return ret;
-                    }
-                }
-                if (type.IsClass)
-                {
-                    ret = Activator.CreateInstance<TModel>();
-                    var valType = ret?.GetType();
-                    if (valType != null)
-                    {
-                        // 20200608 tian_teng@outlook.com 支持字段和只读属性
-                        type.GetFields().ToList().ForEach(f =>
-                        {
-                            var v = f.GetValue(item);
-                            valType.GetField(f.Name)?.SetValue(ret, v);
-                        });
-                        type.GetProperties().ToList().ForEach(p =>
-                        {
-                            if (p.CanWrite)
-                            {
-                                var v = p.GetValue(item);
-                                valType.GetProperty(p.Name)?.SetValue(ret, v);
-                            }
-                        });
-                    }
-                }
-            }
-            return ret;
-        }
-
-        /// <summary>
-        /// 重置对象属性值到默认值方法
-        /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        public static void Reset<TModel>(this TModel source) where TModel : class, new()
-        {
-            var v = new TModel();
-            foreach (var pi in source.GetType().GetProperties())
-            {
-                pi.SetValue(source, v.GetType().GetProperty(pi.Name)!.GetValue(v));
-            }
-        }
-
         /// <summary>
         /// 转化为带单位的字符串 [% px] => [% px] [int] => [int]px
         /// </summary>
@@ -143,17 +81,6 @@ namespace BootstrapBlazor.Components
             else if (t.IsDateTime()) ret = "日期";
             else ret = "字符串";
             return ret;
-        }
-
-        /// <summary>
-        /// 通过指定 Model 获得 IEditorItem 集合方法
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(Func<IEditorItem, bool>? predicate = null) where TModel : class
-        {
-            if (predicate == null) predicate = p => true;
-            return InternalTableColumn.GetProperties<TModel>().Where(predicate);
         }
 
         /// <summary>

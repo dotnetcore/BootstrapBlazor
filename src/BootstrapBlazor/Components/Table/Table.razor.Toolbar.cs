@@ -235,7 +235,7 @@ namespace BootstrapBlazor.Components
                     }
                     else
                     {
-                        EditModel = SelectedItems[0].Clone();
+                        EditModel = Utility.Clone(SelectedItems[0]);
                     }
                     EditModalTitleString = EditModalTitle;
 
