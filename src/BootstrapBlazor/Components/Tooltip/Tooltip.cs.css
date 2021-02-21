@@ -1,0 +1,27 @@
+﻿.tooltip-inner {
+    max-width: 768px;
+}
+
+.is-invalid .tooltip-inner {
+    background-color: #dc3545;
+}
+
+.is-invalid.bs-tooltip-auto[x-placement^=top] .arrow::before,
+.is-invalid.bs-tooltip-top .arrow::before {
+    border-top-color: #dc3545;
+}
+
+.is-invalid.bs-tooltip-auto[x-placement^=bottom] .arrow::before,
+.is-invalid.bs-tooltip-bottom .arrow::before {
+    border-bottom-color: #dc3545;
+}
+
+.is-invalid.bs-tooltip-auto[x-placement^=left] .arrow::before,
+.is-invalid.bs-tooltip-left .arrow::before {
+    border-left-color: #dc3545;
+}
+
+.is-invalid.bs-tooltip-auto[x-placement^=right] .arrow::before,
+.is-invalid.bs-tooltip-right .arrow::before {
+    border-right-color: #dc3545;
+}

@@ -204,6 +204,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Tooltip/Tooltip.cs.min.css",
+    "inputFiles": [
+      "Components/Tooltip/Tooltip.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -242,7 +248,8 @@
       "Components/Tree/Tree.razor.cs.min.css",
       "Components/Transfer/Transfer.razor.cs.min.css",
       "Components/Console/Console.razor.cs.min.css",
-      "Components/Button/Button.razor.cs.min.css"
+      "Components/Button/Button.razor.cs.min.css",
+      "Components/Tooltip/Tooltip.cs.min.css"
     ]
   },
   {
@@ -333,12 +340,6 @@
     "outputFileName": "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
     "inputFiles": [
       "Components/BarcodeReader/BarcodeReader.razor.cs.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/js/bootstrap.blazor.min.js",
-    "inputFiles": [
-      "wwwroot/js/bootstrap.blazor.js"
     ]
   },
   {
@@ -456,6 +457,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Tooltip/Tooltip.cs.min.js",
+    "inputFiles": [
+      "Components/Tooltip/Tooltip.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -468,7 +475,6 @@
       "wwwroot/lib/extensions/longbow.extensions.min.js",
       "wwwroot/lib/captcha/longbow.captcha.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
-      "wwwroot/js/bootstrap.blazor.min.js",
       "Components/Upload/Upload.razor.cs.min.js",
       "Components/Editor/Editor.razor.cs.min.js",
       "Components/Message/Message.razor.cs.min.js",
@@ -498,7 +504,8 @@
       "Components/Tree/Tree.razor.cs.min.js",
       "Components/Console/Console.razor.cs.min.js",
       "Components/Button/PopConfirmButton.razor.cs.min.js",
-      "Components/Popover/Popover.cs.min.js"
+      "Components/Popover/Popover.cs.min.js",
+      "Components/Tooltip/Tooltip.cs.min.js"
     ],
     "minify": {
       "enabled": false,
