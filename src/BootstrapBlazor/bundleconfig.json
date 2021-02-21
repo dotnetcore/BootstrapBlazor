@@ -210,6 +210,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Alert/Alert.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Alert/Alert.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -249,7 +255,8 @@
       "Components/Transfer/Transfer.razor.cs.min.css",
       "Components/Console/Console.razor.cs.min.css",
       "Components/Button/Button.razor.cs.min.css",
-      "Components/Tooltip/Tooltip.cs.min.css"
+      "Components/Tooltip/Tooltip.cs.min.css",
+      "Components/Alert/Alert.razor.cs.min.css"
     ]
   },
   {
