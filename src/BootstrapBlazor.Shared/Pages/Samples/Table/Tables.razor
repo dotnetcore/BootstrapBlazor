@@ -18,10 +18,10 @@
 <p><code>Table</code> 组件有一个 <code>UseComponentWidth</code> 属性，其默认值为 <code>false</code>，表示使用 <code>window</code> 宽度来进行判断，当设置值为 <code>true</code> 时，表示使用组件自身宽度进行判断</p>
 
 <Block Title="基础表格" Introduction="基础的表格展示用法。">
-    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light">
+    <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
     </Table>
@@ -59,14 +59,25 @@
 </Block>
 
 <Block Title="表头样式" Introduction="通过设置 <code>HeaderStyle</code> 属性，">
-    <p><code>HeaderStyle</code> 为表格表头样式，默认值为 <code>None</code>，本例中值设置为 <code>TableHeaderStyle.Dark</code></p>
-    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-        </TableColumns>
-    </Table>
+    <p><code>HeaderStyle</code> 为表格表头样式，默认值为 <code>None</code></p>
+    <GroupBox Title="TableHeaderStyle.Light">
+        <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" />
+            </TableColumns>
+        </Table>
+    </GroupBox>
+    <GroupBox Title="TableHeaderStyle.Dark" class="mt-3">
+        <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" />
+            </TableColumns>
+        </Table>
+    </GroupBox>
 </Block>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>
