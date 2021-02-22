@@ -18,6 +18,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Light/Light.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Light/Light.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Editor/Editor.razor.cs.min.css",
     "inputFiles": [
       "Components/Editor/Editor.razor.cs.css"
@@ -256,7 +262,8 @@
       "Components/Console/Console.razor.cs.min.css",
       "Components/Button/Button.razor.cs.min.css",
       "Components/Tooltip/Tooltip.cs.min.css",
-      "Components/Alert/Alert.razor.cs.min.css"
+      "Components/Alert/Alert.razor.cs.min.css",
+      "Components/Light/Light.razor.cs.min.css"
     ]
   },
   {

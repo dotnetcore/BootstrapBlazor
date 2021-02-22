@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// Light 组件基类
+    /// 
     /// </summary>
-    public abstract class LightBase : BootstrapComponentBase
+    public partial class Light
     {
         /// <summary>
         /// 获得 组件样式
