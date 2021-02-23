@@ -222,6 +222,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Popover/PopoverConfirmBox.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Popover/PopoverConfirmBox.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
@@ -263,7 +269,8 @@
       "Components/Button/Button.razor.cs.min.css",
       "Components/Tooltip/Tooltip.cs.min.css",
       "Components/Alert/Alert.razor.cs.min.css",
-      "Components/Light/Light.razor.cs.min.css"
+      "Components/Light/Light.razor.cs.min.css",
+      "Components/Popover/PopoverConfirmBox.razor.cs.min.css"
     ]
   },
   {
@@ -465,15 +472,15 @@
     ]
   },
   {
-    "outputFileName": "Components/Popover/Popover.cs.min.js",
-    "inputFiles": [
-      "Components/Popover/Popover.cs.js"
-    ]
-  },
-  {
     "outputFileName": "Components/Tooltip/Tooltip.cs.min.js",
     "inputFiles": [
       "Components/Tooltip/Tooltip.cs.js"
+    ]
+  },
+  {
+    "outputFileName": "Components/Popover/PopoverConfirmBox.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Popover/PopoverConfirmBox.razor.cs.js"
     ]
   },
   {
@@ -518,7 +525,7 @@
       "Components/Tree/Tree.razor.cs.min.js",
       "Components/Console/Console.razor.cs.min.js",
       "Components/Button/PopConfirmButton.razor.cs.min.js",
-      "Components/Popover/Popover.cs.min.js",
+      "Components/Popover/PopoverConfirmBox.razor.cs.min.js",
       "Components/Tooltip/Tooltip.cs.min.js"
     ],
     "minify": {

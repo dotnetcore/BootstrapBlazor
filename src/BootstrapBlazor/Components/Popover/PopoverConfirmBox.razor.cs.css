@@ -1,0 +1,30 @@
+﻿.popover {
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    min-width: 240px;
+    border-radius: 4px;
+    border: 1px solid #ebeef5;
+    border: 1px solid #dcdfe6
+}
+
+.popover-confirm-body {
+    margin: 14px 0;
+}
+
+    .popover-confirm-body .fa + span {
+        margin-left: 0.25rem;
+    }
+
+.popover-confirm-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 4px;
+}
+
+    .popover-confirm-buttons .btn {
+        padding: 7px 15px;
+        line-height: 12px;
+    }
+
+        .popover-confirm-buttons .btn:last-child {
+            margin-left: 0.5rem;
+        }
