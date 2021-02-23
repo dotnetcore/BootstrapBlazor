@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
@@ -162,6 +163,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public RenderFragment<TableColumnContext<object, TType>>? Template { get; set; }
+
+        /// <summary>
+        /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
+        /// </summary>
+        [Parameter]
+        public IEnumerable<SelectedItem>? Data { get; set; }
 
         /// <summary>
         /// 获得/设置 编辑模板

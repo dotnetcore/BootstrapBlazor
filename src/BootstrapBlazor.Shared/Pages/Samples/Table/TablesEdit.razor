@@ -185,16 +185,7 @@
                     </div>
                 </EditTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Hobby">
-                <Template Context="v">
-                    <span>@(string.Join(",", v.Value))</span>
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12">
-                        <CheckboxList @bind-Value="(v as Foo)!.Hobby" Items="@Hobbys" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Hobby)]" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Hobby" Data="@Hobbys" />
         </TableColumns>
     </Table>
 </Block>

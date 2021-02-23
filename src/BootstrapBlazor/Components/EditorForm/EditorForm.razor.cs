@@ -21,6 +21,10 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class EditorForm<TModel>
     {
+        private string? GetCssString(IEditorItem item) => CssBuilder.Default("form-group col-12")
+            .AddClass("col-sm-6", item.Data == null)
+            .Build();
+
         /// <summary>
         /// 获得/设置 列模板
         /// </summary>
@@ -186,15 +190,18 @@ namespace BootstrapBlazor.Components
                 var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
                 var valueExpression = Expression.Lambda(tDelegate, body);
 
-                var index = 0;
                 var componentType = EditorForm<TModel>.GenerateComponent(fieldType);
-                builder.OpenComponent(index++, componentType);
-                builder.AddAttribute(index++, "DisplayText", displayName);
-                builder.AddAttribute(index++, "Value", fieldValue);
-                builder.AddAttribute(index++, "ValueChanged", fieldValueChanged);
-                builder.AddAttribute(index++, "ValueExpression", valueExpression);
-                builder.AddAttribute(index++, "IsDisabled", item.Readonly);
-                builder.AddMultipleAttributes(index++, CreateMultipleAttributes(fieldType, fieldName, item));
+                builder.OpenComponent(0, componentType);
+                builder.AddAttribute(1, "DisplayText", displayName);
+                builder.AddAttribute(2, "Value", fieldValue);
+                builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
+                builder.AddAttribute(4, "ValueExpression", valueExpression);
+                builder.AddAttribute(5, "IsDisabled", item.Readonly);
+                if (IsCheckboxList(fieldType))
+                {
+                    builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
+                }
+                builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, fieldName, item));
                 builder.CloseComponent();
             }
         };
@@ -242,6 +249,10 @@ namespace BootstrapBlazor.Components
             {
                 ret = typeof(Select<>).MakeGenericType(fieldType);
             }
+            else if (IsCheckboxList(type))
+            {
+                ret = typeof(CheckboxList<IEnumerable<string>>);
+            }
             else
             {
                 switch (type.Name)
@@ -263,6 +274,12 @@ namespace BootstrapBlazor.Components
                 }
             }
             return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
+        }
+
+        private static bool IsCheckboxList(Type fieldType)
+        {
+            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
+            return type.IsAssignableTo(typeof(IEnumerable<string>));
         }
 
         /// <summary>

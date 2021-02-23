@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -40,6 +41,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
         /// </summary>
         public SortOrder DefaultSortOrder { get; set; }
+
+        /// <summary>
+        /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
+        /// </summary>
+        public IEnumerable<SelectedItem>? Data { get; set; }
 
         /// <summary>
         /// 获得/设置 列宽

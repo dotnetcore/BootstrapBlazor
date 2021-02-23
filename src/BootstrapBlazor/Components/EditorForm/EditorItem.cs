@@ -77,6 +77,12 @@ namespace BootstrapBlazor.Components
         public int Order { get; set; }
 
         /// <summary>
+        /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
+        /// </summary>
+        [Parameter]
+        public IEnumerable<SelectedItem>? Data { get; set; }
+
+        /// <summary>
         /// 获得/设置 IEditorItem 集合实例
         /// </summary>
         /// <remarks>EditorForm 组件级联传参下来的值</remarks>
