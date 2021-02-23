@@ -3,9 +3,12 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,19 +19,27 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public sealed partial class TablesDialog
     {
-#nullable disable
-        private Modal Modal { get; set; }
+        private static readonly Random random = new Random();
 
-        private Table<Product> ProductTable { get; set; }
-#nullable restore
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
 
-        private List<Product> Products { get; set; } = new List<Product>();
+        [NotNull]
+        private Modal? Modal { get; set; }
 
-        private List<Product> ProductSelectItems { get; set; } = new List<Product>();
+        [NotNull]
+        private Table<Foo>? ProductTable { get; set; }
+
+        [NotNull]
+        private List<Foo>? Products { get; set; }
+
+        [NotNull]
+        private List<Foo>? ProductSelectItems { get; set; }
 
         private bool _confirm;
 
-        private IEnumerable<Product> SelectedRows { get; set; } = Enumerable.Empty<Product>();
+        private IEnumerable<Foo> SelectedRows { get; set; } = Enumerable.Empty<Foo>();
 
         /// <summary>
         /// 
@@ -37,18 +48,22 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
-            ProductSelectItems = Enumerable.Range(1, 5).Select(i => new Product()
+            Products = new List<Foo>();
+
+            ProductSelectItems = Enumerable.Range(1, 5).Select(i => new Foo()
             {
                 Id = i,
-                Name = $"项目 {i:d4}",
-                Type = $"商品 {random.Next(1000, 2000)} 类",
-                Counter = random.Next(1, 100),
-                Price = random.Next(100, 1000),
-                DateTime = DateTime.Now.AddDays(i - 1)
+                Name = Localizer["Foo.Name", $"{i:d4}"],
+                DateTime = DateTime.Now.AddDays(i - 1),
+                Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+                Count = random.Next(1, 100),
+                Complete = random.Next(1, 100) > 50,
+                Education = EnumEducation.Primary,
+                Hobby = new string[] { "1" }
             }).ToList();
         }
 
-        private async Task ShowDialog(IEnumerable<Product> items)
+        private async Task ShowDialog(IEnumerable<Foo> items)
         {
             await Modal.Toggle();
         }
@@ -60,23 +75,23 @@ namespace BootstrapBlazor.Shared.Pages.Table
             await ProductTable.QueryAsync();
         }
 
-        private Task<bool> OnSaveAsync(Product item)
+        private Task<bool> OnSaveAsync(Foo item)
         {
             var oldItem = Products.FirstOrDefault(i => i.Id == item.Id);
             if (oldItem != null)
             {
-                oldItem.Sum = item.Sum;
+                oldItem.Count = item.Count;
             }
             return Task.FromResult(true);
         }
 
-        private Task<bool> OnDeleteAsync(IEnumerable<Product> items)
+        private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
         {
             Products.RemoveAll(p => items.Contains(p));
             return Task.FromResult(true);
         }
 
-        private Task<QueryData<Product>> OnQueryEditAsync(QueryPageOptions options)
+        private Task<QueryData<Foo>> OnQueryEditAsync(QueryPageOptions options)
         {
             var items = Products;
             if (_confirm)
@@ -89,14 +104,17 @@ namespace BootstrapBlazor.Shared.Pages.Table
             var total = items.Count;
             // 内存分页
             items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-            return Task.FromResult(new QueryData<Product>()
+            return Task.FromResult(new QueryData<Foo>()
             {
                 Items = items,
-                TotalCount = total
+                TotalCount = total,
+                IsFiltered = true,
+                IsSearch = true,
+                IsSorted = true
             });
         }
 
-        private Task<QueryData<Product>> OnQueryProductAsync(QueryPageOptions options)
+        private Task<QueryData<Foo>> OnQueryProductAsync(QueryPageOptions options)
         {
             var items = ProductSelectItems;
 
@@ -104,35 +122,11 @@ namespace BootstrapBlazor.Shared.Pages.Table
             // 内存分页
             items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
-            return Task.FromResult(new QueryData<Product>()
+            return Task.FromResult(new QueryData<Foo>()
             {
                 Items = items,
                 TotalCount = total,
             });
-        }
-
-        private class Product
-        {
-            [DisplayName("编号")]
-            public int Id { get; set; }
-
-            [DisplayName("类别")]
-            public string? Type { get; set; }
-
-            [DisplayName("项目")]
-            public string? Name { get; set; }
-
-            [DisplayName("价格")]
-            public int Price { get; set; } = 1;
-
-            [DisplayName("数量")]
-            public int Counter { get; set; }
-
-            [DisplayName("日期")]
-            public DateTime? DateTime { get; set; }
-
-            [DisplayName("金额")]
-            public int Sum { get; set; }
         }
     }
 }

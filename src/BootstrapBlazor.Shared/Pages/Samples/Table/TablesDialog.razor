@@ -1,5 +1,4 @@
-﻿@inherits TablesBase
-@page "/tables/dialog"
+﻿@page "/tables/dialog"
 
 <h3>Table 表格在弹窗内使用</h3>
 
@@ -10,20 +9,19 @@
     <ul class="ul-demo">
         <li>点击 <code>选择</code> 按钮弹出对话框选择产品 <code>Product</code></li>
         <li>弹窗中选择产品后点击 <code>确定</code> 按钮关闭弹窗</li>
-        <li>点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>金额</code> 字段</li>
+        <li>点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段</li>
     </ul>
-    <Table TItem="Product" @ref="ProductTable"
+    <Table TItem="Foo" @ref="ProductTable"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="true" ShowAddButton="false" IsMultipleSelect="true" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Product" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="选择" OnClickCallback="@ShowDialog" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="选择" OnClickCallback="@ShowDialog" />
         </TableToolbarTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.Type" Readonly="true" />
+            <TableColumn @bind-Field="@context.DateTime" Readonly="true" />
             <TableColumn @bind-Field="@context.Name" Readonly="true" />
-            <TableColumn @bind-Field="@context.Counter" Readonly="true" Width="80" />
-            <TableColumn @bind-Field="@context.Sum" Width="80" />
+            <TableColumn @bind-Field="@context.Count" Width="80" />
         </TableColumns>
     </Table>
 </Block>
@@ -31,13 +29,13 @@
 <Modal @ref="Modal">
     <ModalDialog Title="选择项目" IsCentered="true">
         <BodyTemplate>
-            <Table TItem="Product" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
+            <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
                    ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
-                   OnQueryAsync="@OnQueryProductAsync">
+                   OnQueryAsync="@OnQueryProductAsync" HeaderStyle="TableHeaderStyle.Light">
                 <TableColumns>
-                    <TableColumn @bind-Field="@context.Type" />
+                    <TableColumn @bind-Field="@context.DateTime" />
                     <TableColumn @bind-Field="@context.Name" />
-                    <TableColumn @bind-Field="@context.Price" />
+                    <TableColumn @bind-Field="@context.Count" />
                 </TableColumns>
             </Table>
         </BodyTemplate>
