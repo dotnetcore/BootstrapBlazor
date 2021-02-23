@@ -6,7 +6,6 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -16,40 +15,45 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Pages.Table
 {
     /// <summary>
-    /// 折行演示示例代码
+    /// 
     /// </summary>
-    public sealed partial class TablesWrap
+    public sealed partial class TablesFooter
     {
-        [NotNull]
-        private IEnumerable<Foo>? CellItems { get; set; }
-
         [Inject]
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
 
+        private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+
+        [NotNull]
+        private IEnumerable<Foo>? Items { get; set; }
+
         /// <summary>
-        /// OnInitialized 方法
+        /// 
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            CellItems = FooExtensions.GenerateWrapFoo(Localizer);
+            Items = FooExtensions.GenerateFoo(Localizer);
         }
 
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
         {
-            await base.OnAfterRenderAsync(firstRender);
+            // 设置记录总数
+            var total = Items.Count();
 
-            if (firstRender)
+            // 内存分页
+            var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+            return Task.FromResult(new QueryData<Foo>()
             {
-                await JSRuntime.InvokeVoidAsync("$.table_wrap");
-            }
+                Items = items,
+                TotalCount = total,
+                IsSorted = true,
+                IsFiltered = true,
+                IsSearch = true
+            });
         }
     }
 }

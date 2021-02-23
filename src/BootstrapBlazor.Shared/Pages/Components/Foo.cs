@@ -3,13 +3,14 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace BootstrapBlazor.Shared.Pages.Components
 {
-
     /// <summary>
     ///
     /// </summary>
@@ -95,5 +96,43 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// </summary>
         [Display(Name = "中学")]
         Middel
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class FooExtensions
+    {
+        private static readonly Random random = new Random();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Foo> GenerateFoo(IStringLocalizer<Foo> localizer) => Enumerable.Range(1, 80).Select(i => new Foo()
+        {
+            Id = i,
+            Name = localizer["Foo.Name", $"{i:d4}"],
+            DateTime = DateTime.Now.AddDays(i - 1),
+            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        }).ToList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Foo> GenerateWrapFoo(IStringLocalizer<Foo> localizer) => Enumerable.Range(1, 4).Select(i => new Foo()
+        {
+            Id = i,
+            Name = localizer["Foo.Name", $"{i:d4}"],
+            DateTime = DateTime.Now.AddDays(i - 1),
+            Address = localizer["Foo.Address2", $"{random.Next(1000, 2000)}"],
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        }).ToList();
     }
 }
