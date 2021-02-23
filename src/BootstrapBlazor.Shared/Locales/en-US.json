@@ -81,7 +81,10 @@
     "Address.Required": "{0} is required.",
     "Education.Required": "{0} is required.",
     "Hobby.Required": "{0} is required.",
-    "Name.PlaceHolder": "required"
+    "Name.PlaceHolder": "required",
+    "Hobbys": "Swimming,Climb,Shoot,Chess",
+    "Foo.Name": "Zhangsan {0}",
+    "Foo.Address": "Earth, China, Lane {0} of Jinshajiang Road, Putuo District, Shanghai. Here is an example of super long cell"
   },
   "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
     "PlaceHolder": "Click to select ...",
