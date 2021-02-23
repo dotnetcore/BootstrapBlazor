@@ -1,7 +1,6 @@
-﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
-@inherits TablesBaseQuery
-@page "/tables/toolbar"
-
+﻿@page "/tables/toolbar"
+@inject ToastService ToastService
+ 
 <h3>Table 表格</h3>
 
 <h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
@@ -23,7 +22,7 @@
     <Table TItem="Foo"
            IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
-           OnQueryAsync="@OnQueryAsync">
+           OnQueryAsync="@OnSearchQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -54,7 +53,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowExtendButtons="true"
-           OnQueryAsync="@OnQueryAsync">
+           OnQueryAsync="@OnQueryAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -63,24 +62,3 @@
         </TableColumns>
     </Table>
 </Block>
-
-@code {
-    private Task DownloadAsync(IEnumerable<Foo> items)
-    {
-        var cate = ToastCategory.Information;
-        var title = "自定义下载示例";
-        var content = "请先选择数据，然后点击下载按钮";
-        if (items.Any())
-        {
-            cate = ToastCategory.Success;
-            content = $"开始下载选中的 {items.Count()} 条数据";
-        }
-        ToastService?.Show(new ToastOption()
-        {
-            Category = cate,
-            Title = title,
-            Content = content
-        });
-        return Task.CompletedTask;
-    }
-}

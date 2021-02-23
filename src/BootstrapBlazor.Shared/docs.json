@@ -34,7 +34,7 @@
     "row": "Table/TablesRow;Table/TablesBaseEdit",
     "search": "Table/TablesSearch;Table/TablesBaseEdit",
     "selection": "Table/TablesSelection;Table/TablesBaseEdit",
-    "toolbar": "Table/TablesToolbar;Table/TablesBaseQuery",
+    "toolbar": "Table/TablesToolbar",
     "wrap": "Table/TablesWrap",
     "validateforms": "ValidateForms"
   },
