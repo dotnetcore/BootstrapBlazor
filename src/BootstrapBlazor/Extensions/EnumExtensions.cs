@@ -48,12 +48,12 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 通过字段名称获取 DescriptionAttribute 标签值
+        /// 通过字段名称获取 DisplayAttribute/DescriptionAttribute 标签值
         /// </summary>
         /// <param name="type"></param>
         /// <param name="fieldName"></param>
         /// <returns></returns>
-        private static string ToDescriptionLocalizerString(this Type? type, string? fieldName)
+        internal static string ToEnumDisplayName(this Type? type, string? fieldName)
         {
             string? dn = null;
             if (type != null && !string.IsNullOrEmpty(fieldName))
@@ -118,7 +118,7 @@ namespace BootstrapBlazor.Components
                 var t = Nullable.GetUnderlyingType(type) ?? type;
                 foreach (var field in Enum.GetNames(t))
                 {
-                    var desc = t.ToDescriptionLocalizerString(field);
+                    var desc = t.ToEnumDisplayName(field);
                     if (string.IsNullOrEmpty(desc)) desc = field;
                     ret.Add(new SelectedItem(field, desc));
                 }

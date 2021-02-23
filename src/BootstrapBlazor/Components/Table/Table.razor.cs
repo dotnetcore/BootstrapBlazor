@@ -416,6 +416,11 @@ namespace BootstrapBlazor.Components
             {
                 var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.Item2).Compile());
                 ret = invoker(item);
+
+                if (ret.GetType().IsEnum)
+                {
+                    ret = ret.GetType().ToEnumDisplayName(ret.ToString());
+                }
             }
             return ret;
         }
