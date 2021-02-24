@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
         public bool Closable { get; set; } = true;
 
         /// <summary>
-        /// 点击组件时回调此委托方法 默认为空 返回真时进行跳转 返回假时终止跳转
+        /// 点击组件时回调此委托方法 默认为空
         /// </summary>
         [Parameter]
         public Func<Task>? OnClick { get; set; }
