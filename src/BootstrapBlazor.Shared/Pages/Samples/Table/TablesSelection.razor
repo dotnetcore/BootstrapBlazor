@@ -1,6 +1,4 @@
-﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
-@inherits TablesBaseEdit
-@page "/tables/selection"
+﻿@page "/tables/selection"
 
 <h3>Table 表格</h3>
 
@@ -29,17 +27,3 @@
         <li>@item.Name</li>
     }
 </ul>
-
-@code {
-    private IEnumerable<Foo> SelectedRows = new List<Foo>();
-
-    /// <summary>
-    ///
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        SelectedRows = Items.Take(2);
-    }
-}

@@ -21,7 +21,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class EditorForm<TModel>
     {
-        private string? GetCssString(IEditorItem item) => CssBuilder.Default("form-group col-12")
+        private static string? GetCssString(IEditorItem item) => CssBuilder.Default("form-group col-12")
             .AddClass("col-sm-6", item.Data == null)
             .Build();
 

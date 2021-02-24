@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
         {
             // 设置记录总数
-            var total = Items.Count();
+            var total = Items.Count;
 
             // 内存分页
             var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
