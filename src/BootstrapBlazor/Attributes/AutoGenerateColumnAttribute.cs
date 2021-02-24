@@ -139,7 +139,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        public string GetDisplayName() => Text ?? "";
+        public string? GetDisplayName() => Text;
 
         /// <summary>
         /// 

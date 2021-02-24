@@ -173,10 +173,10 @@ namespace BootstrapBlazor.Components
             var fieldType = item.PropertyType;
             if (fieldType != null && Model != null)
             {
-                // GetDisplayName
                 var fieldName = item.GetFieldName();
-                var displayName = item.Text;
-                if (string.IsNullOrEmpty(displayName)) displayName = Utility.GetDisplayName(Model, fieldName);
+                // GetDisplayName
+                // 先取 Text 属性值，然后取资源文件中的值
+                var displayName = item.GetDisplayName() ?? Utility.GetDisplayName(Model, fieldName);
 
                 // FieldValue
                 var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd((typeof(TModel), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TModel, object?>(Model, key.FieldName).Compile());

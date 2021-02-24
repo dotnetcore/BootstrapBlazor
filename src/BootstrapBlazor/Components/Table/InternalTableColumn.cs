@@ -106,7 +106,7 @@ namespace BootstrapBlazor.Components
 
                 // Issue: 增加定义设置标签 AutoGenerateClassAttribute
                 // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
-                var displayName = Utility.GetDisplayName(type, prop.Name);
+                var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
                 if (attr == null)
                 {
                     tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
@@ -145,6 +145,11 @@ namespace BootstrapBlazor.Components
                 .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
         }
 
+        /// <summary>
+        /// 集成 class 标签中设置的参数值
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="dest"></param>
         private static void InheritValue(AutoGenerateClassAttribute source, ITableColumn dest)
         {
             if (source.Align != Alignment.None) dest.Align = source.Align;

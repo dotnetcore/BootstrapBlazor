@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Components
         private static ConcurrentDictionary<(Type ModelType, string FieldName), string> PlaceHolderCache { get; } = new ConcurrentDictionary<(Type, string), string>();
 
         /// <summary>
-        /// 获取显示名称方法
+        /// 获取资源文件中 DisplayAttribute/DisplayNameAttribute 标签名称方法
         /// </summary>
         /// <param name="model">模型实例</param>
         /// <param name="fieldName">字段名称</param>
