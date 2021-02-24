@@ -97,7 +97,10 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             EditorItems?.Add(this);
-            if (FieldExpression != null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+            if (FieldExpression != null)
+            {
+                _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+            }
 
             // 获取模型属性定义类型
             PropertyType = typeof(TValue);
@@ -107,11 +110,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>
-        public string GetDisplayName() => _fieldIdentifier?.GetDisplayName() ?? Text ?? "";
+        public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? string.Empty;
 
         /// <summary>
         /// 获取绑定字段信息方法
         /// </summary>
-        public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
+        public string GetFieldName() => _fieldIdentifier?.FieldName ?? string.Empty;
     }
 }
