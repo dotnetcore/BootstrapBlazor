@@ -16,10 +16,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        public static ServiceProvider ServiceProvider { get { return _lazy.Value; } }
+        public static ServiceProvider ServiceProvider => _lazy.Value;
 
         [NotNull]
-        private static Lazy<ServiceProvider>? _lazy;
+        private static Lazy<ServiceProvider>? _lazy = null;
 
         /// <summary>
         /// 
