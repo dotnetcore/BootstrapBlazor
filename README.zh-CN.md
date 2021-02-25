@@ -57,7 +57,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 - 其他 均为临时分支
 
 ## 演示地址
-[![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io) [![website](https://img.shields.io/badge/linux-https://blazor.zylweb.cn-success.svg?logo=buzzfeed&logoColor=green)](https://blazor.zylweb.cn) [![website](https://img.shields.io/badge/linux-https://www.blazor.zone-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/Github-海外-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io) [![website](https://img.shields.io/badge/linux-备站-success.svg?logo=buzzfeed&logoColor=green)](https://blazor.zylweb.cn) [![website](https://img.shields.io/badge/linux-主站-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
 
 ## GVP 奖杯
 ![项目奖杯](https://images.gitee.com/uploads/images/2021/0112/120620_e596ac3c_554725.png "GVP.png")

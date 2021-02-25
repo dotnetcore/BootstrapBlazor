@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -194,18 +193,17 @@ namespace System.Linq
         {
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2DIR4
             // 兼容 EFCore 与普通逻辑 EFCore 内自动处理空问题
-            MethodInfo method = typeof(string).GetMethod("Contains", new Type[1] { typeof(string) })!;
+            var method = typeof(string).GetMethod("Contains", new Type[1] { typeof(string) })!;
             return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));
         }
 
         #region Sort
         /// <summary>
-        /// 
+        /// 获得排序 Expression 表达式
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
-        /// <param name="items"></param>
         /// <returns></returns>
-        public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>(this IEnumerable<TItem> items)
+        public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>()
         {
             var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
             var exp_p2 = Expression.Parameter(typeof(string));
@@ -270,7 +268,10 @@ namespace System.Linq
 
         private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
         {
-            if (pi.PropertyType != typeof(TKey)) throw new InvalidOperationException();
+            if (pi.PropertyType != typeof(TKey))
+            {
+                throw new InvalidOperationException();
+            }
 
             var exp_p1 = Expression.Parameter(typeof(TItem));
             return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
@@ -285,7 +286,10 @@ namespace System.Linq
         /// <returns></returns>
         private static Expression<Func<TValue, object, bool>> GetGreaterThanOrEqualLambda<TValue>(TValue v)
         {
-            if (v == null) throw new ArgumentNullException(nameof(v));
+            if (v == null)
+            {
+                throw new ArgumentNullException(nameof(v));
+            }
 
             var left = Expression.Parameter(v.GetType());
             var right = Expression.Parameter(typeof(object));
@@ -315,10 +319,16 @@ namespace System.Linq
         /// <returns></returns>
         public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel item, string name)
         {
-            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
 
             var p = item.GetType().GetProperty(name);
-            if (p == null) throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {name} 属性，无法获取其值");
+            if (p == null)
+            {
+                throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {name} 属性，无法获取其值");
+            }
 
             var param_p1 = Expression.Parameter(typeof(TModel));
             var body = Expression.Property(Expression.Convert(param_p1, item.GetType()), p);
@@ -335,10 +345,16 @@ namespace System.Linq
         /// <returns></returns>
         public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string name)
         {
-            if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
 
             var p = model.GetType().GetProperty(name);
-            if (p == null) throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {name} 属性，无法设置其值");
+            if (p == null)
+            {
+                throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {name} 属性，无法设置其值");
+            }
 
             var param_p1 = Expression.Parameter(typeof(TModel));
             var param_p2 = Expression.Parameter(typeof(TValue));

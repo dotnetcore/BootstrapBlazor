@@ -300,7 +300,7 @@ namespace BootstrapBlazor.Components
                 // 外部未处理排序，内部自行排序
                 if (!IsSorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
                 {
-                    var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => Items.GetSortLambda().Compile());
+                    var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => LambdaExtensions.GetSortLambda<TItem>().Compile());
                     Items = invoker(Items, SortName, SortOrder);
                 }
             }

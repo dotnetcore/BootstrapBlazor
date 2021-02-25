@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public abstract class TablesBaseQuery : TablesBase
     {
-        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>>> SortLambdaCache = new ConcurrentDictionary<Type, Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>>>();
+        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>>> SortLambdaCache = new();
 
         /// <summary>
         ///
@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Shared.Pages
             if (!string.IsNullOrEmpty(options.SortName))
             {
                 // 外部未进行排序，内部自动进行排序处理
-                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => items.GetSortLambda().Compile());
+                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => LambdaExtensions.GetSortLambda<Foo>().Compile());
                 items = invoker(items, options.SortName, options.SortOrder);
                 isSorted = true;
             }
