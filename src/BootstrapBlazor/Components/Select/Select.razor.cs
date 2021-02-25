@@ -74,10 +74,7 @@ namespace BootstrapBlazor.Components
 
             PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
-            if (OnSearchTextChanged == null)
-            {
-                OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
-            }
+
         }
 
         /// <summary>
@@ -91,14 +88,22 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
+                if (OnSearchTextChanged == null)
+                {
+                    OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+                }
                 if (Interop == null)
                 {
                     Interop = new JSInterop<Select<TValue>>(JSRuntime);
                 }
                 await Interop.Invoke(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
+                if (Initialized&&SelectedItem!=null&&OnSelectedItemChanged!=null)
+                {
+                    await OnSelectedItemChanged.Invoke(SelectedItem);
+                }
             }
-        }
 
+        }
         /// <summary>
         /// 
         /// </summary>

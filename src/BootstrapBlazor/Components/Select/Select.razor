@@ -52,7 +52,6 @@
         @if (!Initialized && SelectedItem != null && OnSelectedItemChanged != null)
         {
             Initialized = true;
-            OnSelectedItemChanged.Invoke(SelectedItem);
         }
     </RenderTemplate>
 </div>
