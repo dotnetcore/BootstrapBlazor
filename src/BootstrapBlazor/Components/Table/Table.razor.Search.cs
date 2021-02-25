@@ -113,12 +113,12 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// 通过列集合中的 Searchable 列与 SearchText 拼装 IFilterAction 集合 
         /// </summary>
         /// <returns></returns>
         protected IEnumerable<IFilterAction> GetSearchs()
         {
-            var columns = Columns.Where(col => col.Filterable);
+            var columns = Columns.Where(col => col.Searchable);
 
             // 处理 SearchText
             var searchs = new List<InternalSearchAction>();
@@ -126,8 +126,6 @@ namespace BootstrapBlazor.Components
             {
                 searchs.AddRange(columns.Where(col => col.PropertyType == typeof(string)).Select(col => new InternalSearchAction() { FieldKey = col.GetFieldName(), Value = SearchText }));
             }
-
-            //TODO: 未处理高级搜索弹窗内条件
             return searchs;
         }
 
