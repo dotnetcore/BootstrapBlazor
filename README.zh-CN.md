@@ -34,11 +34,11 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 
 ## 视频教程
 
-B 站视频集锦 [传送门](https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624)
+B 站视频集锦 [传送门](https://space.bilibili.com/660853738/channel/index)
 
 ## 组件
 
-Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面、对话框或数据输入窗体。
+Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面、对话框或数据输入窗体。
 
 组件是内置到 .NET 程序集的 .NET 类，用来：
 - 定义灵活的 UI 呈现逻辑。
@@ -48,18 +48,16 @@ Blazor应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ### 内置组件
 
-内置组件 [传送门](https://www.blazor.zone/alerts)
+内置组件 [传送门](https://www.blazor.zone/components)
 
 ## 分支说明
 
 - master 稳定分支
 - dev 开发功能分支
-- publish 与演示网站同步
 - 其他 均为临时分支
 
 ## 演示地址
-[![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io)
-[![website](https://img.shields.io/badge/linux-https://www.blazor.zone-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io) [![website](https://img.shields.io/badge/linux-https://blazor.zylweb.cn-success.svg?logo=buzzfeed&logoColor=green)](https://blazor.zylweb.cn) [![website](https://img.shields.io/badge/linux-https://www.blazor.zone-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
 
 ## GVP 奖杯
 ![项目奖杯](https://images.gitee.com/uploads/images/2021/0112/120620_e596ac3c_554725.png "GVP.png")
