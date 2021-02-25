@@ -1,4 +1,5 @@
-﻿@page "/layout-page"
+﻿
+@page "/layout-page"
 @layout PageLayout
 
 <div style="@StyleString">
@@ -58,6 +59,8 @@
         <div class="page-layout-demo-option">
             <p>Tab 测试</p>
             <div>点击 <b><TabLink Text="测试" Url="layout-page1" Icon="fa fa-fa">测试</TabLink></b> 按钮后，会增加一个新的标签页</div>
+            <br />
+            <div>以代码的形式导航到新标签页 <Button Text="导航" Icon="fa fa-fa" OnClickWithoutRender="OnNavigation" /></div>
         </div>
     }
 </div>

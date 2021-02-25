@@ -20,14 +20,22 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否激活
+        /// 获得/设置 是否激活 默认为 null
         /// </summary>
         /// <value></value>
-        public bool? IsActive { get; set; } = true;
+        public bool? IsActive { get; set; }
 
         /// <summary>
-        /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
+        /// 获得/设置 当前 TabItem 是否可关闭 默认为 null
         /// </summary>
-        public bool Closable { get; set; } = true;
+        public bool? Closable { get; set; }
+
+        public void Reset()
+        {
+            Text = null;
+            Icon = null;
+            IsActive = null;
+            Closable = null;
+        }
     }
 }

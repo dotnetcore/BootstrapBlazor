@@ -19,11 +19,14 @@ namespace BootstrapBlazor.Components
         /// <param name="url"></param>
         /// <param name="text"></param>
         /// <param name="icon"></param>
-        public static void NavigateTo(this NavigationManager navigation, string url, string text, string? icon = null)
+        /// <param name="closable"></param>
+        public static void NavigateTo(this NavigationManager navigation, string url, string text, string? icon = null, bool? closable = null)
         {
             var option = ServiceProviderHelper.ServiceProvider.GetRequiredService<TabItemTextOptions>();
             option.Text = text;
             option.Icon = icon;
+            option.IsActive = true;
+            option.Closable = closable ?? true;
             navigation.NavigateTo(url);
         }
     }

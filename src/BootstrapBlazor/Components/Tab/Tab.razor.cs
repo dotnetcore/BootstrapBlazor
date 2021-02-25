@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -199,10 +200,6 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private NavigationManager? Navigator { get; set; }
 
-        [Inject]
-        [NotNull]
-        private TabItemTextOptions? Options { get; set; }
-
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
@@ -210,7 +207,10 @@ namespace BootstrapBlazor.Components
         {
             await base.OnInitializedAsync();
 
-            if (ShowExtendButtons) IsBorderCard = true;
+            if (ShowExtendButtons)
+            {
+                IsBorderCard = true;
+            }
 
             CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
             CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
@@ -303,7 +303,11 @@ namespace BootstrapBlazor.Components
         private async Task OnClickTabItem(TabItem item)
         {
             Items.ToList().ForEach(i => i.SetActive(false));
-            if (OnClickTab != null) await OnClickTab(item);
+            if (OnClickTab != null)
+            {
+                await OnClickTab(item);
+            }
+
             if (!ClickTabToNavigation)
             {
                 item.SetActive(true);
@@ -323,8 +327,15 @@ namespace BootstrapBlazor.Components
                 if (index > -1)
                 {
                     index--;
-                    if (index < 0) index = _items.Count - 1;
-                    if (!ClickTabToNavigation) item.SetActive(false);
+                    if (index < 0)
+                    {
+                        index = _items.Count - 1;
+                    }
+
+                    if (!ClickTabToNavigation)
+                    {
+                        item.SetActive(false);
+                    }
 
                     item = Items.ElementAt(index);
                     if (ClickTabToNavigation)
@@ -352,10 +363,17 @@ namespace BootstrapBlazor.Components
                 var index = _items.IndexOf(item);
                 if (index < _items.Count)
                 {
-                    if (!ClickTabToNavigation) item.SetActive(false);
+                    if (!ClickTabToNavigation)
+                    {
+                        item.SetActive(false);
+                    }
 
                     index++;
-                    if (index + 1 > _items.Count) index = 0;
+                    if (index + 1 > _items.Count)
+                    {
+                        index = 0;
+                    }
+
                     item = Items.ElementAt(index);
 
                     if (ClickTabToNavigation)
@@ -423,16 +441,23 @@ namespace BootstrapBlazor.Components
         }
 
         private readonly HashSet<Assembly> _assemblies = new HashSet<Assembly>();
-        private void AddTabItem(string url, string? text = null, string? icon = null, bool active = true, bool closable = true)
+        private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = null, bool? closable = null)
         {
             var context = RouteTableFactory.Create(AdditionalAssemblies!, url);
             if (context.Handler != null)
             {
+                var option = ServiceProviderHelper.ServiceProvider.GetRequiredService<TabItemTextOptions>();
+                text ??= option.Text;
+                icon ??= option.Icon ?? string.Empty;
+                active ??= option.IsActive ?? true;
+                closable ??= option.Closable ?? true;
+                option.Reset();
+
                 AddTabItem(new Dictionary<string, object>
                 {
                     [nameof(TabItem.Text)] = GetTabText(text, context.Segments),
                     [nameof(TabItem.Url)] = url,
-                    [nameof(TabItem.Icon)] = icon ?? Options.Icon ?? string.Empty,
+                    [nameof(TabItem.Icon)] = icon,
                     [nameof(TabItem.Closable)] = closable,
                     [nameof(TabItem.IsActive)] = active,
                     [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
@@ -459,7 +484,7 @@ namespace BootstrapBlazor.Components
                     NullTabText = t.Value;
                 }
             }
-            return text ?? Options.Text ?? NullTabText ?? segments?.FirstOrDefault() ?? "";
+            return text ?? NullTabText ?? segments?.FirstOrDefault() ?? "";
         }
 
         /// <summary>
@@ -475,7 +500,11 @@ namespace BootstrapBlazor.Components
         private void AddTabItem(Dictionary<string, object> parameters)
         {
             var item = TabItem.Create(parameters);
-            if (item.IsActive) _items.ForEach(i => i.SetActive(false));
+            if (item.IsActive)
+            {
+                _items.ForEach(i => i.SetActive(false));
+            }
+
             _items.Add(item);
         }
 
@@ -536,6 +565,25 @@ namespace BootstrapBlazor.Components
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
+        }
+
+        /// <summary>
+        /// 导航到标签页
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="url"></param>
+        /// <param name="icon"></param>
+        /// <param name="closeable"></param>
+        public static void NavigationTo(string text, string url, string? icon = null, bool closeable = true)
+        {
+            var option = ServiceProviderHelper.ServiceProvider.GetRequiredService<TabItemTextOptions>();
+            var nav = ServiceProviderHelper.ServiceProvider.GetRequiredService<NavigationManager>();
+            option.Text = text;
+            option.Icon = icon;
+            option.IsActive = true;
+            option.Closable = closeable;
+
+            nav.NavigateTo(url);
         }
 
         /// <summary>

@@ -58,6 +58,10 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private PageLayout? RootPage { get; set; }
 
+        [Inject]
+        [NotNull]
+        private NavigationManager? Navigator { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -105,6 +109,12 @@ namespace BootstrapBlazor.Shared.Pages
 
             // 获得 Razor 示例代码
             RootPage.Update();
+        }
+
+        private Task OnNavigation()
+        {
+            Navigator.NavigateTo( "layout-page1", "代码导航");
+            return Task.CompletedTask;
         }
     }
 }

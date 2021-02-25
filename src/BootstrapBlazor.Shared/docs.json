@@ -32,7 +32,7 @@
     "multi-header": "Table/TablesHeader;Table/TablesBase",
     "pages": "Table/TablesPages;Table/TablesBaseQuery",
     "row": "Table/TablesRow;Table/TablesBaseEdit",
-    "search": "Table/TablesSearch;Table/TablesBaseEdit",
+    "search": "Table/TablesSearch",
     "selection": "Table/TablesSelection",
     "toolbar": "Table/TablesToolbar",
     "wrap": "Table/TablesWrap",
