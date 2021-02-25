@@ -29,7 +29,7 @@
             {
                 foreach (var item in items)
                 {
-                    <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">
+                    <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">
                         @ItemTemplate.Invoke(item)
                     </div>
                 }
@@ -49,10 +49,6 @@
                 }
             }
         </div>
-        @if (!Initialized && SelectedItem != null && OnSelectedItemChanged != null)
-        {
-            Initialized = true;
-        }
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">

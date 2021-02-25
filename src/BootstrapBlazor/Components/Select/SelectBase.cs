@@ -31,11 +31,6 @@ namespace BootstrapBlazor.Components
         protected string CurrentTextAsString => SelectedItem?.Text ?? "";
 
         /// <summary>
-        /// 获得/设置 是否初始化完成 默认为 false
-        /// </summary>
-        protected bool Initialized { get; set; }
-
-        /// <summary>
         /// 获得/设置 搜索文字
         /// </summary>
         protected string SearchText { get; set; } = "";
@@ -83,7 +78,7 @@ namespace BootstrapBlazor.Components
         public RenderFragment? Options { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得 input 组件 Id 方法
         /// </summary>
         /// <returns></returns>
         protected override string? RetrieveId() => InputId;
@@ -129,7 +124,7 @@ namespace BootstrapBlazor.Components
                 // 设置数据集合后 SelectedItem 设置默认值
                 if (SelectedItem == null || !items.Any(i => i.Value == SelectedItem.Value && i.Text == SelectedItem.Text))
                 {
-                    var item = items.FirstOrDefault(i => i.Value == CurrentValueAsString)
+                    var item = items.FirstOrDefault(i => !string.IsNullOrEmpty(i.Value) && i.Value == CurrentValueAsString)
                             ?? items.FirstOrDefault(i => i.Active)
                             ?? items.FirstOrDefault();
                     if (item != null)
@@ -159,7 +154,6 @@ namespace BootstrapBlazor.Components
         public void SetItems(IEnumerable<SelectedItem> items)
         {
             Items = items;
-            SelectedItem = GetItems().FirstOrDefault(i => i.Active);
             StateHasChanged();
         }
 
