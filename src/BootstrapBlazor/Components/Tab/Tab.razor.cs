@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -21,16 +20,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class Tab : BootstrapComponentBase
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private bool FirstRender { get; set; } = true;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
         private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
             .AddClass("d-none", !item.IsActive)
             .Build();
@@ -39,33 +30,17 @@ namespace BootstrapBlazor.Components
             .AddClass("extend", ShouldShowExtendButtons())
             .Build();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="active"></param>
-        /// <returns></returns>
         private string? GetClassString(bool active) => CssBuilder.Default("tabs-item")
             .AddClass("active", active)
             .AddClass("is-closeable", ShowClose)
             .Build();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="icon"></param>
-        /// <returns></returns>
         private static string? GetIconClassString(string icon) => CssBuilder.Default("fa fa-fw")
             .AddClass(icon)
             .Build();
 
-        /// <summary>
-        /// 获得/设置 Tab 组件 DOM 实例
-        /// </summary>
         private ElementReference TabElement { get; set; }
 
-        /// <summary>
-        /// 获得 Tab 组件样式
-        /// </summary>
         private string? ClassString => CssBuilder.Default("tabs")
             .AddClass("tabs-card", IsCard)
             .AddClass("tabs-border-card", IsBorderCard)
@@ -73,9 +48,6 @@ namespace BootstrapBlazor.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        /// <summary>
-        /// 获得 Tab 组件 Style
-        /// </summary>
         private string? StyleString => CssBuilder.Default()
             .AddClass($"height: {Height}px;", Height > 0)
             .Build();
@@ -141,6 +113,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
+        /// 获得/设置 NotAuthorized 模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? NotAuthorized { get; set; }
+
+        /// <summary>
         /// 获得/设置 TabItems 模板
         /// </summary>
         [Parameter]
@@ -192,6 +170,12 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public string? CloseOtherTabsText { get; set; }
 
+        /// <summary>
+        /// The resource to which access is being controlled.
+        /// </summary>
+        [Parameter]
+        public object? Resource { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<Tab>? Localizer { get; set; }
@@ -199,6 +183,10 @@ namespace BootstrapBlazor.Components
         [Inject]
         [NotNull]
         private NavigationManager? Navigator { get; set; }
+
+        [Inject]
+        [NotNull]
+        private TabItemTextOptions? Options { get; set; }
 
         /// <summary>
         /// OnInitializedAsync 方法
@@ -440,18 +428,18 @@ namespace BootstrapBlazor.Components
             StateHasChanged();
         }
 
-        private readonly HashSet<Assembly> _assemblies = new HashSet<Assembly>();
+        private readonly HashSet<Assembly> _assemblies = new();
         private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = null, bool? closable = null)
         {
             var context = RouteTableFactory.Create(AdditionalAssemblies!, url);
             if (context.Handler != null)
             {
                 var option = ServiceProviderHelper.ServiceProvider.GetRequiredService<TabItemTextOptions>();
-                text ??= option.Text;
-                icon ??= option.Icon ?? string.Empty;
-                active ??= option.IsActive ?? true;
-                closable ??= option.Closable ?? true;
-                option.Reset();
+                text ??= Options.Text ?? option.Text;
+                icon ??= Options.Icon ?? option.Icon ?? string.Empty;
+                active ??= Options.IsActive ?? option.IsActive ?? true;
+                closable ??= Options.Closable ?? option.Closable ?? true;
+                Options.Reset();
 
                 AddTabItem(new Dictionary<string, object>
                 {
@@ -462,12 +450,9 @@ namespace BootstrapBlazor.Components
                     [nameof(TabItem.IsActive)] = active,
                     [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
                     {
-                        builder.OpenComponent(0, context.Handler);
-                        builder.SetKey(url);
-                        foreach (var kv in (context.Parameters ?? new ReadOnlyDictionary<string, object>(new Dictionary<string, object>())))
-                        {
-                            builder.AddAttribute(1, kv.Key, kv.Value);
-                        }
+                        builder.OpenComponent<TabAuthorizeView>(0);
+                        builder.AddAttribute(1, nameof(TabAuthorizeView.RouteContext), context);
+                        builder.AddAttribute(2, nameof(TabAuthorizeView.NotAuthorized), NotAuthorized);
                         builder.CloseComponent();
                     })
                 });
@@ -565,25 +550,6 @@ namespace BootstrapBlazor.Components
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
-        }
-
-        /// <summary>
-        /// 导航到标签页
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="url"></param>
-        /// <param name="icon"></param>
-        /// <param name="closeable"></param>
-        public static void NavigationTo(string text, string url, string? icon = null, bool closeable = true)
-        {
-            var option = ServiceProviderHelper.ServiceProvider.GetRequiredService<TabItemTextOptions>();
-            var nav = ServiceProviderHelper.ServiceProvider.GetRequiredService<NavigationManager>();
-            option.Text = text;
-            option.Icon = icon;
-            option.IsActive = true;
-            option.Closable = closeable;
-
-            nav.NavigateTo(url);
         }
 
         /// <summary>

@@ -84,6 +84,9 @@ RenderFragment RenderMain =>
         <RenderTemplate>
             <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
                  AdditionalAssemblies="@AdditionalAssemblies" ExcludeUrls="@ExcludeUrls" Body="@(Main!)" @ref="TabSet">
+                 <NotAuthorized>
+                     @NotAuthorized
+                 </NotAuthorized>
             </Tab>
         </RenderTemplate>
     }
