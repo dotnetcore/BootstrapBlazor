@@ -83,11 +83,6 @@ namespace BootstrapBlazor.Components
         private IStringLocalizer<Layout>? Localizer { get; set; }
 
         /// <summary>
-        /// 获得 Tab 组件实例
-        /// </summary>
-        public Tab? TabSet { get; private set; }
-
-        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()

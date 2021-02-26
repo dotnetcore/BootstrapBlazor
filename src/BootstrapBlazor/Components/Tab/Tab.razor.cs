@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-closeable", ShowClose)
             .Build();
 
-        private static string? GetIconClassString(string icon) => CssBuilder.Default("fa fa-fw")
+        private static string? GetIconClassString(string icon) => CssBuilder.Default()
             .AddClass(icon)
             .Build();
 
@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components
             .AddClass($"height: {Height}px;", Height > 0)
             .Build();
 
-        private readonly List<TabItem> _items = new List<TabItem>(50);
+        private readonly List<TabItem> _items = new(50);
 
         /// <summary>
         /// 获得/设置 TabItem 集合
@@ -203,19 +203,18 @@ namespace BootstrapBlazor.Components
             CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
             CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
             CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
+        }
 
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        /// <returns></returns>
+        protected override void OnParametersSet()
+        {
             if (ClickTabToNavigation)
             {
                 AddTabByUrl(Navigator.Uri);
-
-                Navigator.LocationChanged += Navigator_LocationChanged;
             }
-        }
-
-        private void Navigator_LocationChanged(object? sender, LocationChangedEventArgs e)
-        {
-            AddTabByUrl(e.Location);
-            StateHasChanged();
         }
 
         private bool CheckUrl(string url)
@@ -550,16 +549,6 @@ namespace BootstrapBlazor.Components
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
-        {
-            Navigator.LocationChanged -= Navigator_LocationChanged;
-            base.Dispose(disposing);
         }
     }
 }
