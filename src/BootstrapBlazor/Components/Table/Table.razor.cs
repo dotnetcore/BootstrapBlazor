@@ -417,7 +417,7 @@ namespace BootstrapBlazor.Components
                 var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.Item2).Compile());
                 ret = invoker(item);
 
-                if (ret.GetType().IsEnum)
+                if (ret?.GetType().IsEnum ?? false)
                 {
                     ret = ret.GetType().ToEnumDisplayName(ret.ToString());
                 }
@@ -425,7 +425,7 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object>>();
+        private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object?>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object?>>();
         #endregion
 
         /// <summary>
