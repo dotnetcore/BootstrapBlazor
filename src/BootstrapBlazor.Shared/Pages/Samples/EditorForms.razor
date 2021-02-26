@@ -122,6 +122,22 @@
     </GroupBox>
 </Block>
 
+<Block Title="设置每行显示控件数量" Introduction="通过设置 <code>ItemsPerRow</code> 属性值来控制布局">
+    <p>本示例设置 <code>ItemsPerRow=3</code> 每行显示 3 个组件</p>
+    <GroupBox Title="布局示例" style="margin-top: 1.5rem;">
+        <ValidateForm Model="@Model">
+            <EditorForm Model="@Model" ItemsPerRow="3">
+                <FieldItems>
+                    <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+                </FieldItems>
+                <Buttons>
+                    <Button Icon="fa fa-save" Text="提交" />
+                </Buttons>
+            </EditorForm>
+        </ValidateForm>
+    </GroupBox>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Title="EditorItem 属性" Items="@GetEditorItemAttributes()" />

@@ -21,9 +21,21 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class EditorForm<TModel>
     {
-        private static string? GetCssString(IEditorItem item) => CssBuilder.Default("form-group col-12")
-            .AddClass("col-sm-6", item.Data == null)
+        /// <summary>
+        /// 支持每行多少个控件功能
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private string? GetCssString(IEditorItem item) => CssBuilder.Default("form-group col-12")
+            .AddClass("col-sm-6", item.Data == null && ItemsPerRow == null)
+            .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Data == null && ItemsPerRow != null)
             .Build();
+
+        /// <summary>
+        /// 获得/设置 每行显示组件数量 默认为 null
+        /// </summary>
+        [Parameter]
+        public int? ItemsPerRow { get; set; }
 
         /// <summary>
         /// 获得/设置 列模板
