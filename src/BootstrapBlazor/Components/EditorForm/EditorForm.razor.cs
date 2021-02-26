@@ -159,6 +159,7 @@ namespace BootstrapBlazor.Components
                                     item.Readonly = el.Readonly;
                                     item.EditTemplate = el.EditTemplate;
                                     item.Text = el.Text;
+                                    item.Data = el.Data;
                                 }
                             }
                         }
