@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using BootstrapBlazor.Shared.Data;
 using Longbow.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -74,7 +73,11 @@ namespace Microsoft.Extensions.DependencyInjection
                         {
                             try
                             {
-                                if (token.IsCancellationRequested) return;
+                                if (token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
+
                                 File.Delete(file);
                             }
                             catch { }

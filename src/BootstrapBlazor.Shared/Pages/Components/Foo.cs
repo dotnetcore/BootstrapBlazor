@@ -76,7 +76,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// </summary>
         [Required(ErrorMessage = "请选择一种{0}")]
         [Display(Name = "爱好")]
-        [EditorOrder(5)]
+        [AutoGenerateColumn(Order = 70)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
     }
 
@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public static class FooExtensions
     {
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
 
         /// <summary>
         /// 
@@ -134,5 +134,17 @@ namespace BootstrapBlazor.Shared.Pages.Components
             Complete = random.Next(1, 100) > 50,
             Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
         }).ToList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<SelectedItem> GenerateHobbys() => new List<SelectedItem>()
+        {
+            new SelectedItem("游泳", "游泳"),
+            new SelectedItem("登山", "登山"),
+            new SelectedItem("打球", "打球"),
+            new SelectedItem("下棋", "下棋")
+        };
     }
 }

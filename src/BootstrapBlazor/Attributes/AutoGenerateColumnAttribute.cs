@@ -42,10 +42,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public SortOrder DefaultSortOrder { get; set; }
 
-        /// <summary>
-        /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
-        /// </summary>
-        public IEnumerable<SelectedItem>? Data { get; set; }
+        IEnumerable<SelectedItem>? IEditorItem.Data { get; set; }
 
         /// <summary>
         /// 获得/设置 列宽

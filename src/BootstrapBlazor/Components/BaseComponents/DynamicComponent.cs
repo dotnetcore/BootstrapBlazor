@@ -41,10 +41,7 @@ namespace BootstrapBlazor.Components
         /// <typeparam name="TCom"></typeparam>
         /// <param name="parameters">TCom 组件所需要的参数集合</param>
         /// <returns></returns>
-        public static DynamicComponent CreateComponent<TCom>(IEnumerable<KeyValuePair<string, object>> parameters) where TCom : IComponent
-        {
-            return new DynamicComponent(typeof(TCom), parameters);
-        }
+        public static DynamicComponent CreateComponent<TCom>(IEnumerable<KeyValuePair<string, object>> parameters) where TCom : IComponent => new DynamicComponent(typeof(TCom), parameters);
 
         /// <summary>
         /// 创建自定义组件方法

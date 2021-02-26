@@ -29,19 +29,13 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<EnumEducation>? Localizer { get; set; }
 
-        private readonly Foo Model = new Foo();
+        private readonly Foo Model = new();
 
         private IEnumerable<SelectedItem>? Educations { get; set; }
 
-        private readonly IEnumerable<SelectedItem> Hobbys = new List<SelectedItem>()
-        {
-            new SelectedItem("游泳", "游泳"),
-            new SelectedItem("登山", "登山"),
-            new SelectedItem("打球", "打球"),
-            new SelectedItem("下棋", "下棋")
-        };
+        private IEnumerable<SelectedItem> Hobbys { get; } = FooExtensions.GenerateHobbys();
 
-        /// <summary>
+        /// <summary>baise
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace BootstrapBlazor.Shared.Data
+namespace BootstrapBlazor.Shared
 {
     /// <summary>
     /// 

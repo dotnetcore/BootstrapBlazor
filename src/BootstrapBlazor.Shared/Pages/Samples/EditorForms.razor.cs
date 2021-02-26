@@ -32,13 +32,7 @@ namespace BootstrapBlazor.Shared.Pages
             Education = EnumEducation.Middel
         };
 
-        private IEnumerable<SelectedItem> Hobbys { get; } = new List<SelectedItem>()
-        {
-            new SelectedItem("游泳", "游泳"),
-            new SelectedItem("登山", "登山"),
-            new SelectedItem("打球", "打球"),
-            new SelectedItem("下棋", "下棋")
-        };
+        private IEnumerable<SelectedItem> Hobbys { get; } = FooExtensions.GenerateHobbys();
 
         private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
         {

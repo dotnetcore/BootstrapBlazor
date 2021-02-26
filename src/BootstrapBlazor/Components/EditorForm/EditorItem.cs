@@ -116,5 +116,11 @@ namespace BootstrapBlazor.Components
         /// 获取绑定字段信息方法
         /// </summary>
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? string.Empty;
+
+        /// <summary>
+        /// 获得指定泛型的 IEditorItem 集合
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<IEditorItem> GenerateEditorItems() => InternalTableColumn.GetProperties<TValue>();
     }
 }

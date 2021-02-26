@@ -95,12 +95,18 @@ namespace BootstrapBlazor.Components
             if (CascadedEditContext != null)
             {
                 var message = Localizer["ModelInvalidOperationExceptionMessage", nameof(EditorForm<TModel>)];
-                if (CascadedEditContext.Model.GetType() != typeof(TModel)) throw new InvalidOperationException(message);
+                if (CascadedEditContext.Model.GetType() != typeof(TModel))
+                {
+                    throw new InvalidOperationException(message);
+                }
 
                 Model = (TModel)CascadedEditContext.Model;
             }
 
-            if (Model == null) throw new ArgumentNullException(nameof(Model));
+            if (Model == null)
+            {
+                throw new ArgumentNullException(nameof(Model));
+            }
 
             PlaceHolderText ??= Localizer[nameof(PlaceHolderText)];
         }
@@ -131,7 +137,6 @@ namespace BootstrapBlazor.Components
                 else
                 {
                     // 如果 EditorItems 有值表示 用户自定义列
-
                     if (AutoGenerateAllItem)
                     {
                         // 获取绑定模型所有属性
@@ -144,7 +149,10 @@ namespace BootstrapBlazor.Components
                             if (item != null)
                             {
                                 // 过滤掉不编辑的列
-                                if (!el.Editable) items.Remove(item);
+                                if (!el.Editable)
+                                {
+                                    items.Remove(item);
+                                }
                                 else
                                 {
                                     // 设置只读属性与列模板
@@ -165,7 +173,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private int GetOrder(string fieldName) => Model.GetType().GetProperty(fieldName)?.GetCustomAttribute<EditorOrderAttribute>()?.Order ?? 0;
+        private int GetOrder(string fieldName) => Model.GetType().GetProperty(fieldName)?.GetCustomAttribute<AutoGenerateColumnAttribute>()?.Order ?? 0;
 
         #region AutoEdit
         private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
@@ -198,7 +206,7 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
                 builder.AddAttribute(4, "ValueExpression", valueExpression);
                 builder.AddAttribute(5, "IsDisabled", item.Readonly);
-                if (IsCheckboxList(fieldType))
+                if (IsCheckboxList(fieldType) && item.Data != null)
                 {
                     builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
                 }
@@ -216,7 +224,10 @@ namespace BootstrapBlazor.Components
                 // 枚举类型
                 // 通过字符串转化为枚举类实例
                 var items = type.ToSelectList();
-                if (items != null) ret.Add(new KeyValuePair<string, object>("Items", items));
+                if (items != null)
+                {
+                    ret.Add(new KeyValuePair<string, object>("Items", items));
+                }
             }
             else
             {

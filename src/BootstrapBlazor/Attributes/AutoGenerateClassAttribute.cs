@@ -13,6 +13,5 @@ namespace BootstrapBlazor.Components
     public class AutoGenerateClassAttribute : AutoGenerateBaseAttribute
     {
 
-
     }
 }
