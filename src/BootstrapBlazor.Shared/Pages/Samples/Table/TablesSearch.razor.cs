@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
-            Items = FooExtensions.GenerateFoo(Localizer);
+            Items = Foo.GenerateFoo(Localizer);
         }
 
         private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });

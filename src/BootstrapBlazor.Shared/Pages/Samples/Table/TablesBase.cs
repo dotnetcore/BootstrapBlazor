@@ -6,8 +6,10 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Foo = BootstrapBlazor.Shared.Pages.Components.Foo;
 
@@ -24,10 +26,14 @@ namespace BootstrapBlazor.Shared.Pages
         [Inject]
         protected ToastService? ToastService { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        protected static readonly Random random = new Random();
+        protected static readonly Random random = new();
 
         /// <summary>
         /// 
@@ -52,7 +58,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        protected IEnumerable<SelectedItem> Hobbys { get; } = FooExtensions.GenerateHobbys();
+        protected IEnumerable<SelectedItem> Hobbys => Foo.GenerateHobbys(Localizer);
 
         /// <summary>
         /// 

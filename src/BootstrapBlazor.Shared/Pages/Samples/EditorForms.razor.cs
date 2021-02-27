@@ -5,8 +5,11 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -15,6 +18,10 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class EditorForms
     {
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
+
         private Foo Model { get; } = new Foo()
         {
             Name = "张三",
@@ -32,7 +39,7 @@ namespace BootstrapBlazor.Shared.Pages
             Education = EnumEducation.Middel
         };
 
-        private IEnumerable<SelectedItem> Hobbys { get; } = FooExtensions.GenerateHobbys();
+        private IEnumerable<SelectedItem> Hobbys => Foo.GenerateHobbys(Localizer);
 
         private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
         {

@@ -6,6 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -28,6 +29,10 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private DialogService? DialogService { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
+
         [NotNull]
         private Logger? Trace { get; set; }
 
@@ -35,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             var items = EditorItem<Foo>.GenerateEditorItems();
             var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-            item.Data = FooExtensions.GenerateHobbys();
+            item.Data = Foo.GenerateHobbys(Localizer);
 
             var option = new EditDialogOption<Foo>()
             {

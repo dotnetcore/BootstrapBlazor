@@ -29,11 +29,15 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<EnumEducation>? Localizer { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
         private readonly Foo Model = new();
 
         private IEnumerable<SelectedItem>? Educations { get; set; }
 
-        private IEnumerable<SelectedItem> Hobbys { get; } = FooExtensions.GenerateHobbys();
+        private IEnumerable<SelectedItem> Hobbys => Foo.GenerateHobbys(LocalizerFoo);
 
         /// <summary>baise
         /// OnInitialized 方法

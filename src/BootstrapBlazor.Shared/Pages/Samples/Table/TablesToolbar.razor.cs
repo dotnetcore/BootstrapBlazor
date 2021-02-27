@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
-            Items = FooExtensions.GenerateFoo(Localizer);
+            Items = Foo.GenerateFoo(Localizer);
         }
 
         private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)

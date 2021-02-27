@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
-            Items = FooExtensions.GenerateFoo(Localizer);
+            Items = Foo.GenerateFoo(Localizer);
             SelectedRows = Items.Take(4);
         }
 

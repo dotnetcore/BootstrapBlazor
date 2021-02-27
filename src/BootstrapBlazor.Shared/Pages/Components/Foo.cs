@@ -78,6 +78,44 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Display(Name = "爱好")]
         [AutoGenerateColumn(Order = 70)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
+
+        private static readonly Random random = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Foo> GenerateFoo(IStringLocalizer<Foo> localizer) => Enumerable.Range(1, 80).Select(i => new Foo()
+        {
+            Id = i,
+            Name = localizer["Foo.Name", $"{i:d4}"],
+            DateTime = System.DateTime.Now.AddDays(i - 1),
+            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        }).ToList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Foo> GenerateWrapFoo(IStringLocalizer<Foo> localizer) => Enumerable.Range(1, 4).Select(i => new Foo()
+        {
+            Id = i,
+            Name = localizer["Foo.Name", $"{i:d4}"],
+            DateTime = System.DateTime.Now.AddDays(i - 1),
+            Address = localizer["Foo.Address2", $"{random.Next(1000, 2000)}"],
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        }).ToList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<Foo> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i));
     }
 
     /// <summary>
@@ -96,55 +134,5 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// </summary>
         [Display(Name = "中学")]
         Middel
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class FooExtensions
-    {
-        private static readonly Random random = new();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static List<Foo> GenerateFoo(IStringLocalizer<Foo> localizer) => Enumerable.Range(1, 80).Select(i => new Foo()
-        {
-            Id = i,
-            Name = localizer["Foo.Name", $"{i:d4}"],
-            DateTime = DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
-        }).ToList();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static List<Foo> GenerateWrapFoo(IStringLocalizer<Foo> localizer) => Enumerable.Range(1, 4).Select(i => new Foo()
-        {
-            Id = i,
-            Name = localizer["Foo.Name", $"{i:d4}"],
-            DateTime = DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address2", $"{random.Next(1000, 2000)}"],
-            Count = random.Next(1, 100),
-            Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
-        }).ToList();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<SelectedItem> GenerateHobbys() => new List<SelectedItem>()
-        {
-            new SelectedItem("游泳", "游泳"),
-            new SelectedItem("登山", "登山"),
-            new SelectedItem("打球", "打球"),
-            new SelectedItem("下棋", "下棋")
-        };
     }
 }
