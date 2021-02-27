@@ -5,7 +5,10 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +22,12 @@ namespace BootstrapBlazor.Shared.Pages
         private Logger? Trace { get; set; }
 
         private Logger? TraceChecked { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
+
+        private Foo Model => Foo.Generate(Localizer);
 
         private static IEnumerable<TreeItem> GetItems()
         {

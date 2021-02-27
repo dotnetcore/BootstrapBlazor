@@ -84,6 +84,22 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="localizer"></param>
+        /// <returns></returns>
+        public static Foo Generate(IStringLocalizer<Foo> localizer) => new()
+        {
+            Id = 1,
+            Name = localizer["Foo.Name", "1000"],
+            DateTime = System.DateTime.Now,
+            Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
+            Count = random.Next(1, 100),
+            Complete = random.Next(1, 100) > 50,
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public static List<Foo> GenerateFoo(IStringLocalizer<Foo> localizer) => Enumerable.Range(1, 80).Select(i => new Foo()
         {

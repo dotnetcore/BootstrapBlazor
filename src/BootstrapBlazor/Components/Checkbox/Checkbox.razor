@@ -10,7 +10,7 @@
     <span class="checkbox-input">
         <span class="checkbox-inner"></span>
     </span>
-    @if (ShowAfterLabel)
+    @if (ShowAfterLabel && !string.IsNullOrEmpty(DisplayText))
     {
         <span class="checkbox-label">@DisplayText</span>
     }

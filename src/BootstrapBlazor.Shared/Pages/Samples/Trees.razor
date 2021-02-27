@@ -53,6 +53,15 @@
     <Tree Items="@Items" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true" />
 </Block>
 
+<Block Title="Tree 组件内置到验证表单中" Introduction="<code>Tree</code> 组件内部可开启 <code>Checkbox</code> 内置到验证表单时会显示 <code>DisplayName</code> 此功能在树状组件内需要禁止">
+    <p>
+        通过设置 <code>ShowCheckbox</code> 属性显示 <code>Checkbox</code> 内置到验证组件 <code>ValidateForm</code> 中不显示 <code>DisplayName</code>
+    </p>
+    <ValidateForm Model="@Model">
+        <Tree Items="@Items" OnTreeItemClick="@OnTreeItemClick" ShowCheckbox="true" />
+    </ValidateForm>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Items="@GetTreeItemAttributes()" Title="TreeItem 属性" />
