@@ -23,8 +23,6 @@ namespace BootstrapBlazor.Components
 
         private string? Type { get; set; }
 
-        private string? Step { get; set; }
-
         /// <summary>
         /// 获得/设置 input 类型 placeholder 属性
         /// </summary>
@@ -67,20 +65,6 @@ namespace BootstrapBlazor.Components
             if (string.IsNullOrEmpty(PlaceHolder) && FieldIdentifier.HasValue)
             {
                 PlaceHolder = FieldIdentifier.Value.GetPlaceHolder();
-            }
-
-            // 设置 Number 类型
-            if (typeof(TValue).IsNumber())
-            {
-                Type = "number";
-                if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("step", out var step))
-                {
-                    Step = step?.ToString();
-                }
-                else
-                {
-                    Step = "any";
-                }
             }
         }
 

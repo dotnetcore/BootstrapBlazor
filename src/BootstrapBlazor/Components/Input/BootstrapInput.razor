@@ -6,7 +6,7 @@
 {
     <label class="control-label" for="@Id">@DisplayText</label>
 }
-<input @attributes="AdditionalAttributes" type="@Type" step="@Step" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
+<input @attributes="AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>

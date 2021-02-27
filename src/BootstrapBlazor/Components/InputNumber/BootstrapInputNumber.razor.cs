@@ -120,7 +120,7 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
+                validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage!, DisplayText);
             }
             return ret;
         }

@@ -249,7 +249,10 @@ namespace BootstrapBlazor.Components
                     case nameof(String):
                         ret.Add(new KeyValuePair<string, object>("placeholder", Utility.GetPlaceHolder(Model, fieldName) ?? PlaceHolderText));
                         break;
+                    case nameof(Int16):
                     case nameof(Int32):
+                    case nameof(Int64):
+                    case nameof(Single):
                     case nameof(Double):
                     case nameof(Decimal):
                         ret.Add(new KeyValuePair<string, object>("Step", item.Step!));
@@ -288,10 +291,13 @@ namespace BootstrapBlazor.Components
                     case nameof(DateTime):
                         ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
                         break;
+                    case nameof(Int16):
                     case nameof(Int32):
+                    case nameof(Int64):
+                    case nameof(Single):
                     case nameof(Double):
                     case nameof(Decimal):
-                        ret = typeof(BootstrapInput<>).MakeGenericType(fieldType);
+                        ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
                         break;
                     case nameof(String):
                         ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));

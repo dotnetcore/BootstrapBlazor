@@ -150,10 +150,10 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获得/设置 类型转化失败格式化字符串 默认为 {0}字段值必须为{1}类型
+        /// 获得/设置 类型转化失败格式化字符串 默认为 null
         /// </summary>
         [Parameter]
-        public string ParsingErrorMessage { get; set; } = "{0}字段值必须为{1}类型";
+        public string? ParsingErrorMessage { get; set; }
 
 #nullable disable
         /// <summary>
@@ -264,19 +264,15 @@ namespace BootstrapBlazor.Components
                 else
                 {
                     result = default!;
+                    var fieldName = FieldIdentifier?.GetDisplayName() ?? "";
+                    var typeName = typeof(TValue).GetTypeDesc();
+                    validationErrorMessage = ParsingErrorMessage ?? $"The {fieldName} field is not valid.";
                 }
             }
             catch (Exception ex)
             {
                 validationErrorMessage = ex.Message;
                 result = default!;
-            }
-
-            if (!ret && validationErrorMessage == null)
-            {
-                var fieldName = FieldIdentifier?.GetDisplayName() ?? "";
-                var typeName = typeof(TValue).GetTypeDesc();
-                validationErrorMessage = string.Format(ParsingErrorMessage, fieldName, typeName);
             }
             return ret;
         }
