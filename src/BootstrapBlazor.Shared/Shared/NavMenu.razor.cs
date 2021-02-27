@@ -153,16 +153,6 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
-                Text = "表单组件 EditorForm",
-                Url = "editorforms"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "表单组件 ValidateForm",
-                Url = "validateforms"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
                 Text = "自动完成 AutoComplete",
                 Url = "autocompletes"
             });
@@ -183,6 +173,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "颜色拾取器 ColorPicker",
+                Url = "colorpickers"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "时间框 DateTimePicker",
                 Url = "datetimepickers"
             });
@@ -198,12 +194,16 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                Text = "表单组件 EditorForm",
+                Url = "editorforms"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "输入框 Input",
                 Url = "inputs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "数值框 InputNumber",
                 Url = "inputnumbers"
             });
@@ -211,6 +211,11 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "富文本框 Markdown",
                 Url = "markdowns"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = "多项选择器 MultiSelect",
+                Url = "multiselects"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -229,9 +234,8 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
-                Text = "多项选择器 MultiSelect",
-                Url = "multiselects"
+                Text = "表单组件 ValidateForm",
+                Url = "validateforms"
             });
             item.AddItem(new DemoMenuItem()
             {

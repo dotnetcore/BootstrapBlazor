@@ -1,0 +1,23 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ValidateBase<string>
+
+@if (IsShowLabel)
+{
+    <label class="control-label" for="@Id">@DisplayText</label>
+}
+@if (ShowBar)
+{
+    <div @attributes="AdditionalAttributes" @ref="ColorPickerElement" class="input-group">
+        <input placeholder="@PlaceHolder" id="@Id" class="@ClassName" readonly disabled="@DisabledString" value="@CurrentValueAsString" />
+        <span class="input-group-append">
+            <span class="input-group-text colorpicker-input-addon"><i></i></span>
+        </span>
+    </div>
+}
+else
+{
+    <input @attributes="AdditionalAttributes" placeholder="@PlaceHolder" id="@Id" class="@ClassName" readonly disabled="@DisabledString" value="@CurrentValueAsString" @ref="ColorPickerElement" />
+}
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>

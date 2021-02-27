@@ -1,0 +1,30 @@
+﻿@page "/colorpickers"
+
+<h3>ColorPicker 颜色拾取器</h3>
+
+<h4>选择颜色使用</h4>
+
+<Block Title="基本用法" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
+    <ColorPicker Value="@Value1" ColorChanged="@OnColorChanged" ShowBar="false" />
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="设置初始值" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
+    <p>设置 <code>Value="@Value2"</code> 初始化默认值</p>
+    <ColorPicker Value="@Value2" ShowBar="false" />
+</Block>
+
+<Block Title="双向绑定" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
+    <ColorPicker @bind-Value="@Value3" ShowBar="false" />
+    <div class="mt-3">Value3: @Value3</div>
+</Block>
+
+<Block Title="显示颜色 Bar" Introduction="通过设置 <code>ShowBar</code> 属性开启右侧颜色预览框">
+    <ColorPicker Value="@Value4" ShowBar="true" />
+</Block>
+
+<Block Title="禁用" Introduction="通过设置 <code>IsDisabled</code> 属性禁用此组件">
+    <ColorPicker Value="@Value5" ShowBar="true" IsDisabled="true" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
