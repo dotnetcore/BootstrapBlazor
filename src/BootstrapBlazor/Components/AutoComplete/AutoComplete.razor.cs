@@ -50,6 +50,13 @@ namespace BootstrapBlazor.Components
         public string? NoDataTip { get; set; }
 
         /// <summary>
+        /// 获得/设置 匹配数据时显示的数量
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public int? DisplayCount { get; set; }
+
+        /// <summary>
         /// 是否开启模糊查询，默认为 false
         /// </summary>
         [Parameter]
@@ -136,7 +143,7 @@ namespace BootstrapBlazor.Components
                     var items = IsLikeMatch ?
                         Items.Where(s => s.Contains(CurrentValueAsString, comparison)) :
                         Items.Where(s => s.StartsWith(CurrentValueAsString, comparison));
-                    FilterItems = items.ToList();
+                    FilterItems = DisplayCount == null ? items.ToList() : items.Take((int)DisplayCount).ToList();
                 }
                 _isLoading = false;
                 _isShown = true;
