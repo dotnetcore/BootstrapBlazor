@@ -6,6 +6,7 @@ using Microsoft.JSInterop;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,11 +47,10 @@ namespace BootstrapBlazor.Components
 
                             var th_value = cols.FirstOrDefault(x => x.GetFieldName() == pi.Name)?.Text
                                 ?? Utility.GetDisplayName(items.First(), pi.Name);
-
                             worksheet.SetValue(1, x, th_value);
                         }
                     }
-                    var value = pi.GetValue(item, null);
+                    var value = FormatValue(cols.First(col => col.GetFieldName() == pi.Name), pi.GetValue(item, null));
                     worksheet.SetValue(y + 1, x, value);
                     x++;
                 }
@@ -64,6 +64,38 @@ namespace BootstrapBlazor.Components
             var bytesBase64 = Convert.ToBase64String(bytes);
             await jsRuntime.InvokeVoidAsync(identifier: "$.generatefile", excelName, bytesBase64, contentType);
             return true;
+        }
+
+        private static async Task<string> FormatValue(ITableColumn col, object? value)
+        {
+            var ret = "";
+            if (col.Formatter != null)
+            {
+                // 格式化回调委托
+                ret = await col.Formatter(value);
+            }
+            else if (!string.IsNullOrEmpty(col.FormatString))
+            {
+                // 格式化字符串
+                ret = Utility.Format(value, col.FormatString);
+            }
+            else if (col.PropertyType.IsEnum())
+            {
+                ret = col.PropertyType.ToDescriptionString(value?.ToString());
+            }
+            else if (col.PropertyType.IsDateTime())
+            {
+                ret = Utility.Format(value, CultureInfo.CurrentUICulture.DateTimeFormat);
+            }
+            else if (value is IEnumerable<object> v)
+            {
+                ret = string.Join(",", v);
+            }
+            else
+            {
+                ret = value?.ToString() ?? "";
+            }
+            return ret;
         }
     }
 }
