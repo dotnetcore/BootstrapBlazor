@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -64,6 +65,26 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 树形数据展开小箭头
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
+            .AddClass("fa fa-caret-right", CheckTreeChildren(item))
+            .AddClass("fa-rotate-90", TreeRows.ContainsKey(item) && TreeRows[item].IsExpand)
+            .Build();
+
+        /// <summary>
+        /// 树形数据展开小箭头
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected string? GetTreeStyleString(TItem item) => CssBuilder.Default()
+            .AddClass($"margin-right: .5rem;")
+            .AddClass($"margin-left: {GetIndentSize(item)}px;")
+            .Build();
+
+        /// <summary>
         /// 获得明细行样式
         /// </summary>
         /// <param name="item"></param>
@@ -87,15 +108,127 @@ namespace BootstrapBlazor.Components
         protected List<TItem> ExpandRows { get; set; } = new List<TItem>();
 
         /// <summary>
+        /// 获得/设置 树形数据已展开集合
+        /// </summary>
+        protected ConcurrentDictionary<TItem, TableTreeNode<TItem>> TreeRows { get; set; } = new();
+
+        /// <summary>
+        /// 获得/设置 是否为树形数据 默认为 false
+        /// </summary>
+        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置</remarks>
+        protected bool IsTree { get; set; }
+
+        /// <summary>
+        /// 获得/设置 树形数据节点展开式回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task<IEnumerable<TItem>>>? OnTreeExpand { get; set; }
+
+        /// <summary>
+        /// 获得/设置 缩进大小 默认为 16 单位 px
+        /// </summary>
+        [Parameter]
+        public int IndentSize { get; set; } = 16;
+
+        [NotNull]
+        private string? NotSetOnTreeExpandErrorMessage { get; set; }
+
+        private string GetIndentSize(TItem item)
+        {
+            // 查找递归层次
+            var indent = 0;
+            var children = TreeRows.Values.Where(i => i.HasChildren).SelectMany(i => i.Children!);
+            TableTreeNode<TItem>? current = children.FirstOrDefault(i => i.Value == item);
+            while (current != null && current.Parent != null)
+            {
+                indent += IndentSize;
+                current = current.Parent;
+            }
+            return indent.ToString();
+        }
+
+        /// <summary>
         /// 明细行功能中切换行状态时调用此方法
         /// </summary>
         /// <param name="item"></param>
         protected EventCallback<MouseEventArgs> ExpandDetailRow(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, () =>
         {
             DetailRows.Add(item);
-            if (ExpandRows.Contains(item)) ExpandRows.Remove(item);
-            else ExpandRows.Add(item);
+            if (ExpandRows.Contains(item))
+            {
+                ExpandRows.Remove(item);
+            }
+            else
+            {
+                ExpandRows.Add(item);
+            }
         });
+
+        /// <summary>
+        /// 展开收缩树形数据节点方法
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected EventCallback<MouseEventArgs> ToggleTreeRow(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+        {
+            if (OnTreeExpand == null)
+            {
+                throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
+            }
+
+            var node = TreeRows.GetOrAdd(item, key => new TableTreeNode<TItem>(key)
+            {
+                HasChildren = CheckTreeChildren(key),
+                Parent = TreeRows.Values
+                            .Where(i => i.HasChildren)
+                            .SelectMany(i => i.Children!)
+                            .FirstOrDefault(t => t.Value == key)?
+                            .Parent
+            });
+            node.IsExpand = !node.IsExpand;
+            if (node.Children == null)
+            {
+                var nodes = await OnTreeExpand(item);
+                node.Children = nodes.Select(i => new TableTreeNode<TItem>(i)
+                {
+                    // 是否有子节点
+                    HasChildren = CheckTreeChildren(i),
+
+                    // 设置父节点
+                    Parent = node
+                });
+            }
+
+            var dataSource = Items.ToList();
+            var index = dataSource.IndexOf(item);
+
+            if (node.IsExpand)
+            {
+                dataSource.InsertRange(index + 1, node.Children.Select(i => i.Value));
+            }
+            else
+            {
+                dataSource.RemoveRange(index + 1, node.Children.Count());
+            }
+            Items = dataSource;
+        });
+
+        /// <summary>
+        /// 通过设置的 HasChildren 属性得知是否有子节点用于显示 UI
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private bool CheckTreeChildren(TItem item)
+        {
+            var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), HasChildrenColumnName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
+            var v = invoker.Invoke(item);
+            var ret = false;
+            if (v is bool b)
+            {
+                ret = b;
+            }
+            return ret;
+        }
 
         /// <summary>
         /// 明细行集合用于数据懒加载
@@ -219,6 +352,18 @@ namespace BootstrapBlazor.Components
         public Func<TItem, bool>? ShowDetailRow { get; set; }
 
         /// <summary>
+        /// 获得/设置 树形数据模式子项字段 默认为 Children
+        /// </summary>
+        [Parameter]
+        public string ChildrenColumnName { get; set; } = "Children";
+
+        /// <summary>
+        /// 获得设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren
+        /// </summary>
+        [Parameter]
+        public string HasChildrenColumnName { get; set; } = "HasChildren";
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override async Task OnInitializedAsync()
@@ -242,6 +387,9 @@ namespace BootstrapBlazor.Components
                 PageIndex = 1;
                 await QueryAsync();
             };
+
+            // 判断是否为树形结构
+            IsTree = typeof(TItem).GetProperty(ChildrenColumnName) != null;
         }
 
         private string? methodName;
@@ -295,7 +443,10 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             }
 
-            if (!firstRender) IsRendered = true;
+            if (!firstRender)
+            {
+                IsRendered = true;
+            }
 
             if (IsRendered)
             {
@@ -414,7 +565,7 @@ namespace BootstrapBlazor.Components
             object? ret = null;
             if (item != null)
             {
-                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.Item2).Compile());
+                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
                 ret = invoker(item);
 
                 if (ret?.GetType().IsEnum ?? false)
@@ -425,7 +576,7 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private static readonly ConcurrentDictionary<(Type, string), Func<TItem, object?>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<TItem, object?>>();
+        private static readonly ConcurrentDictionary<(Type Type, string PropertyName), Func<TItem, object?>> GetPropertyCache = new();
         #endregion
 
         /// <summary>

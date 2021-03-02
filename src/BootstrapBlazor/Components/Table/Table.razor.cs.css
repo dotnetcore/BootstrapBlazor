@@ -496,3 +496,8 @@
     .table-container .table-toolbar .btn-col .dropdown-item .form-checkbox {
         display: block;
     }
+
+.table .table-cell .is-tree {
+    cursor: pointer;
+    padding: 0 4px;
+}

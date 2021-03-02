@@ -1,0 +1,37 @@
+﻿@inherits BootstrapComponentBase
+@page "/tables/tree"
+
+<h3>Table 树形数据展示</h3>
+
+<h4>表格支持树形数据的展示</h4>
+
+<Block Title="树形数据展示" Introduction="当数据中有 <code>Children</code> 字段时会自动展示为树形表格，如果不需要或配置为其他字段可以用 <code>ChildrenColumnName</code> 进行配置。">
+    <Tips>
+        <div>出于性能考虑，默认子项未展开，点击小箭头后，触发 <code>OnTreeExpand</code> 回调委托方法，再此方法中对当前行的子数据进行赋值，<code>Table</code> 组件进行渲染新数据</div>
+    </Tips>
+    <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+           Items="@TreeItems" OnTreeExpand="@OnTreeExpand">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="层次缩进" Introduction="通过设置 <code>IndentSize</code> 以控制每一层的缩进宽度。">
+    <Tips>
+        <div>默认层次缩进宽度为 <code>16px</code> 通过设置 <code>Indent</code> 更改缩进宽度</div>
+    </Tips>
+    <p>本例中更改缩进宽度为 <code>8px</code></p>
+    <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+           Items="@TreeItems" OnTreeExpand="@OnTreeExpand" IndentSize="8">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</Block>

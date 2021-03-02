@@ -503,6 +503,13 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "tables/wrap"
             });
 
+            it.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "树形数据",
+                Url = "tables/tree"
+            });
+
             item.AddItem(it);
 
             AddBadge(it, false);

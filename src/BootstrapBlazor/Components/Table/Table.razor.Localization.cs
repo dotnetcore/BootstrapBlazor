@@ -273,6 +273,7 @@ namespace BootstrapBlazor.Components
             DeleteButtonToastContent ??= Localizer[nameof(DeleteButtonToastContent)];
             DeleteButtonToastResultContent ??= Localizer[nameof(DeleteButtonToastResultContent)];
             DataServiceInvalidOperationText ??= Localizer[nameof(DataServiceInvalidOperationText), typeof(TItem).FullName!];
+            NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
         }
     }
 }

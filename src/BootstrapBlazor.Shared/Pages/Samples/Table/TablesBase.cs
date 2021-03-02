@@ -244,6 +244,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "768"
             },
             new AttributeItem() {
+                Name = "IndentSize",
+                Description = "树状数据缩进宽度（像素px）",
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "16"
+            },
+            new AttributeItem() {
                 Name = "Items",
                 Description = "数据集合",
                 Type = "IEnumerable<TItem>",
@@ -513,6 +520,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnClickRowCallback",
                 Description = "点击行回调委托方法",
                 Type = "Func<TItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnTreeExpand",
+                Description = "树形数据节点展开式回调委托方法",
+                Type = "Func<TItem, Task<IEnumerable<TItem>>>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },

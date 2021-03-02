@@ -36,6 +36,7 @@
     "selection": "Table/TablesSelection",
     "toolbar": "Table/TablesToolbar",
     "wrap": "Table/TablesWrap",
+    "tree": "Table/TablesTree",
     "validateforms": "ValidateForms"
   },
   "video": {
