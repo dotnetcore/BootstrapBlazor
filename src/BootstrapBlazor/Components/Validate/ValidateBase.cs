@@ -89,7 +89,10 @@ namespace BootstrapBlazor.Components
                 {
                     Value = value;
                     _ = ValueChanged.InvokeAsync(value);
-                    if (!SkipValidate && FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+                    if (!SkipValidate && FieldIdentifier != null)
+                    {
+                        EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+                    }
                 }
             }
         }
@@ -315,8 +318,15 @@ namespace BootstrapBlazor.Components
                 // This is the first run
                 // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
 
-                if (CascadedEditContext != null) EditContext = CascadedEditContext;
-                if (ValueExpression != null) FieldIdentifier = Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression);
+                if (CascadedEditContext != null)
+                {
+                    EditContext = CascadedEditContext;
+                }
+
+                if (ValueExpression != null)
+                {
+                    FieldIdentifier = Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression);
+                }
             }
 
             // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
@@ -333,14 +343,20 @@ namespace BootstrapBlazor.Components
             if (EditForm != null && FieldIdentifier.HasValue)
             {
                 // 组件被禁用时不进行客户端验证
-                if (!IsDisabled) EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
+                if (!IsDisabled)
+                {
+                    EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
+                }
             }
-
-            // 内置到验证组件时才使用绑定属性值获取 DisplayName
-            if (DisplayText == null && FieldIdentifier.HasValue) DisplayText = FieldIdentifier.Value.GetDisplayName();
 
             //显式设置显示标签时一定显示
             IsShowLabel = ShowLabel || EditForm != null || EditFormShowLabel;
+
+            // 内置到验证组件时才使用绑定属性值获取 DisplayName
+            if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
+            {
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
+            }
         }
 
         /// <summary>
@@ -402,7 +418,10 @@ namespace BootstrapBlazor.Components
             {
                 // 模型验证设置 验证属性名称
                 // 验证组件内部使用
-                if (string.IsNullOrEmpty(context.MemberName) && FieldIdentifier.HasValue) context.MemberName = FieldIdentifier.Value.FieldName;
+                if (string.IsNullOrEmpty(context.MemberName) && FieldIdentifier.HasValue)
+                {
+                    context.MemberName = FieldIdentifier.Value.FieldName;
+                }
 
                 // 增加数值类型验证如 泛型 TValue 为 int 输入为 Empty 时
                 ValidateType(context, results);
@@ -452,7 +471,10 @@ namespace BootstrapBlazor.Components
                     TooltipMethod = "dispose";
                 }
 
-                if (Tooltip != null) Tooltip.Title = ErrorMessage;
+                if (Tooltip != null)
+                {
+                    Tooltip.Title = ErrorMessage;
+                }
 
                 OnValidate(IsValid ?? true);
             }
@@ -464,7 +486,10 @@ namespace BootstrapBlazor.Components
         /// <param name="valid">检查结果</param>
         protected virtual void OnValidate(bool valid)
         {
-            if (AdditionalAttributes != null) AdditionalAttributes["aria-invalid"] = !valid;
+            if (AdditionalAttributes != null)
+            {
+                AdditionalAttributes["aria-invalid"] = !valid;
+            }
         }
         #endregion
 
