@@ -28,6 +28,10 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 2. 安装 Visual Studio 2019 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
 3. 获取本项目代码 [BootstrapBlazor](https://gitee.com/LongbowEnterprise/BootstrapBlazor)
 
+## 相关资源
+- [Blazor 官方文档](https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=DT-MVP-5004174)
+- [MS Learn 平台 Blazor 教程](https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/?WT.mc_id=DT-MVP-5004174)
+
 ## QQ交流群
 
 [![QQ](https://img.shields.io/badge/QQ-795206915-green.svg?logo=tencent%20qq&logoColor=red)](https://shang.qq.com/wpa/qunwpa?idkey=d381355e50ff91db410c3da3eadb081ba859f64c2877e86343f4709b171f28b8)
