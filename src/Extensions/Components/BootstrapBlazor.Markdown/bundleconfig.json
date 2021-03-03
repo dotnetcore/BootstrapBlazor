@@ -19,12 +19,6 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/zh-cn.min.js",
-    "inputFiles": [
-      "wwwroot/lib/tui.editor/zh-cn.js"
-    ]
-  },
-  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.markdown.min.js",
     "inputFiles": [
       "wwwroot/lib/tui.editor/toastui-jquery-editor.min.js",

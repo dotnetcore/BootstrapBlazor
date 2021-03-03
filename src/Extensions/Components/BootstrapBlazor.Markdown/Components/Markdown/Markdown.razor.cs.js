@@ -4,9 +4,7 @@
             var key = 'bb_editor';
             var $el = $(el);
             if (!isInit) {
-                var result = $el.toastuiEditor(method);
-                    console.log(result);
-                    return result;
+                return $el.toastuiEditor(method);
             }
             else {
                 $el.toastuiEditor({
@@ -14,7 +12,7 @@
                     previewStyle: 'vertical',
                     language: 'zh-CN',
                     initialValue: method
-            });
+                });
             }
         }
     });
