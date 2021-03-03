@@ -342,11 +342,7 @@ namespace BootstrapBlazor.Components
 
             if (EditForm != null && FieldIdentifier.HasValue)
             {
-                // 组件被禁用时不进行客户端验证
-                if (!IsDisabled)
-                {
-                    EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
-                }
+                EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
             }
 
             //显式设置显示标签时一定显示
