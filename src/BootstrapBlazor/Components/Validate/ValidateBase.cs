@@ -232,6 +232,12 @@ namespace BootstrapBlazor.Components
         protected ValidateFormBase? EditForm { get; set; }
 
         /// <summary>
+        /// 获得 ValidateFormBase 实例
+        /// </summary>
+        [CascadingParameter(Name = "EditorFormShowLabel")]
+        protected bool EditFormShowLabel { get; set; }
+
+        /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
         /// </summary>
         /// <param name="value">The value to format.</param>
@@ -324,17 +330,17 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (EditForm != null && FieldIdentifier != null)
+            if (EditForm != null && FieldIdentifier.HasValue)
             {
                 // 组件被禁用时不进行客户端验证
                 if (!IsDisabled) EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
-
-                // 内置到验证组件时才使用绑定属性值获取 DisplayName
-                if (DisplayText == null) DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
 
+            // 内置到验证组件时才使用绑定属性值获取 DisplayName
+            if (DisplayText == null && FieldIdentifier.HasValue) DisplayText = FieldIdentifier.Value.GetDisplayName();
+
             //显式设置显示标签时一定显示
-            IsShowLabel = ShowLabel || EditForm != null;
+            IsShowLabel = ShowLabel || EditForm != null || EditFormShowLabel;
         }
 
         /// <summary>

@@ -26,7 +26,7 @@
                             var model = value as Foo;
                         }
                         <div class="form-group col-12">
-                            <CheckboxList TValue="IEnumerable<string>" @bind-Value="@model!.Hobby" Items="@Hobbys" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Hobby)]" />
+                            <CheckboxList TValue="IEnumerable<string>" @bind-Value="@model!.Hobby" Items="@Hobbys" />
                         </div>
                     </EditTemplate>
                 </EditorItem>
@@ -95,7 +95,7 @@
                     <EditorItem @bind-Field="@Model.Count">
                         <EditTemplate Context="value">
                             <div class="form-group col-6">
-                                <Select TValue="int" SkipValidate="true" @bind-Value="@Model.Count" Items="@DummyItems" ShowSearch="true" ShowLabel="true" />
+                                <Select TValue="int" SkipValidate="true" @bind-Value="@Model.Count" Items="@DummyItems" ShowSearch="true" />
                             </div>
                             <div class="form-group col-6">
                                 <BootstrapInput Value="@Model.Count" readonly="true" />

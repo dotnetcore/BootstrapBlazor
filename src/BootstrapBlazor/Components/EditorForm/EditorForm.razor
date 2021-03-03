@@ -20,7 +20,9 @@ else
             {
                 @if (item.EditTemplate != null)
                 {
-                    @item.EditTemplate.Invoke(Model)
+                    <CascadingValue Value="@ShowLabel" IsFixed="true" Name="EditorFormShowLabel">
+                        @item.EditTemplate.Invoke(Model)
+                    </CascadingValue>
                 }
                 else
                 {
