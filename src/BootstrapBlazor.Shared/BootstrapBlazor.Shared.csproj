@@ -19,13 +19,13 @@
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.Chart" Version="5.0.6" />
-    <PackageReference Include="BootstrapBlazor.Markdown" Version="5.0.7-beta01" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="5.0.7" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Markdown\BootstrapBlazor.Markdown.csproj" />
   </ItemGroup>
 
 </Project>

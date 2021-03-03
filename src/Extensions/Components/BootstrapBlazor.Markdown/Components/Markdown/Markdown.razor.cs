@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -19,6 +20,12 @@ namespace BootstrapBlazor.Components
         private ElementReference MarkdownElement { get; set; }
 
         /// <summary>
+        /// 初始化内容
+        /// </summary>
+        [Parameter]
+        public string Value { get; set; } = "";
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -27,19 +34,19 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) await JSRuntime.InvokeVoidAsync("$.bb_markdown", MarkdownElement);
+            if (firstRender) await JSRuntime.InvokeVoidAsync("$.bb_markdown", MarkdownElement, true, Value);
         }
 
         /// <summary>
         /// 获得 Markdown 编辑器源码
         /// </summary>
         /// <returns></returns>
-        public async ValueTask<string> GetMarkdownString() => await JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, "getMarkdown");
+        public async ValueTask<string> GetMarkdownString() => await JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, false, "getMarkdown");
 
         /// <summary>
         /// 获得 Markdown 编辑器 HTML 源码
         /// </summary>
         /// <returns></returns>
-        public async ValueTask<string> GetMarkdownHtmlString() => await JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, "getHTML");
+        public async ValueTask<string> GetMarkdownHtmlString() => await JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, false, "getHtml");
     }
 }

@@ -14,9 +14,7 @@
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
-    <Content Remove="wwwroot\lib\editor.md\*.*" />
     <None Include="bundleconfig.json" />
-    <None Include="wwwroot\lib\editor.md\*.*" />
   </ItemGroup>
 
   <ItemGroup>
