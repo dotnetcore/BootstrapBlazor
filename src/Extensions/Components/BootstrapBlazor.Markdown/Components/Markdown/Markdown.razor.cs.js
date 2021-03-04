@@ -1,18 +1,14 @@
 ﻿(function ($) {
     $.extend({
-        bb_markdown: function (el, isInit, method) {
-            var key = 'bb_editor';
+        bb_markdown: function (el, type, method, value) {
             var $el = $(el);
-            if (!isInit) {
+            if (type == 1) {
                 return $el.toastuiEditor(method);
             }
-            else {
-                $el.toastuiEditor({
-                    initialEditType: 'markdown',
-                    previewStyle: 'vertical',
-                    language: 'zh-CN',
-                    initialValue: method
-                });
+            else if (type == 0) {
+                $el.toastuiEditor(method);
+            } else if (type == 2) {
+                $el.toastuiEditor(method, value);
             }
         }
     });

@@ -6,8 +6,6 @@
 
 <h4>提供 Markdown 语法支持的文本编辑器</h4>
 
-<Alert ShowBar="true" Color="Color.Info">Markdown 组件是网友封装 editor.md 提交 PR 而来，使用本组件时，需要手动拷贝相关依赖文件到项目文件夹中，相关文档请查看 <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Markdown%20%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3?sort_id=2368826" target="_blank">[传送门]</a></Alert>
-
 <p><b>注意事项：</b></p>
 
 <p>本组件依赖于 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Markdown" target="_blank"><code>BootstrapBlazor.Markdown</code></a>，使用本组件时需要引用其组件包</p>
@@ -36,12 +34,15 @@
 <Block Title="普通用法" Introduction="">
     <p>输入 Markdown 相关代码后，点击下方相关按钮查看数据</p>
     <div style="width: 100%; height: 300px;">
-        <Markdown @ref="MarkdownElement" Value="# 这里是Markdown测试" />
+        <Markdown @ref="MarkdownElement" />
     </div>
     <div class="mt-3">
         <div class="btn-group">
             <Button Text="Markdown 源码" OnClick="@GetMarkdownString"></Button>
             <Button Text="HTML 源码" OnClick="@GetHTMLString"></Button>
+            <Button Text="选中的Text" OnClick="@GetSelectedString"></Button>
+            <Button Text="@ShowHideButtonString" OnClick="@ShowHideEditor"></Button>
+            <Button Text="插入文本" OnClick="@InsertText"></Button>
         </div>
     </div>
     <div class="mt-3">
@@ -51,9 +52,19 @@
     </div>
     <div class="mt-3">
         <textarea class="form-control" rows="6" disabled="disabled">
-            @HtmlString        
+            @HtmlString
         </textarea>
     </div>
+</Block>
+
+<Block Title="常用属性">
+    <p>设置 Markdown 编辑器最小高度300px，默认高度500px，提示信息这是Markdown，Tab方式显示，默认显示所见即所得页面</p>
+    <Markdown Height="500" MinHeight="300" Placeholder="这是Markdown" PreviewStyle="PreviewStyle.Tab" InitialEditType="InitialEditType.Wysiwyg"></Markdown>
+</Block>
+
+<Block Title="输入Html转为Markdown">
+    <p>可以使用IsHtml="true"来使用Html自动转换为Markdown</p>
+    <Markdown Value="<h1>这里是html的H1</h1><h2>这里是Html的H2</h2>" IsHtml="true" />
 </Block>
 
 @code {
@@ -63,6 +74,8 @@
 
     private Markdown? MarkdownElement { get; set; }
 
+    private string ShowHideButtonString { get; set; } = "隐藏Editor";
+
     private async Task GetMarkdownString()
     {
         if (MarkdownElement != null) MarkdownString = await MarkdownElement.GetMarkdownString();
@@ -71,6 +84,33 @@
     private async Task GetHTMLString()
     {
         if (MarkdownElement != null) HtmlString = await MarkdownElement.GetMarkdownHtmlString();
+    }
+
+    private async Task GetSelectedString()
+    {
+        if (MarkdownElement != null) MarkdownString = await MarkdownElement.GetSelectedText();
+    }
+
+    private async Task InsertText()
+    {
+        if (MarkdownElement != null) await MarkdownElement.InsertText("# 这是插入的内容");
+    }
+
+    private async Task ShowHideEditor()
+    {
+        if (MarkdownElement != null)
+        {
+            if (ShowHideButtonString == "隐藏Editor")
+            {
+                ShowHideButtonString = "显示Editor";
+                await MarkdownElement.Hide();
+            }
+            else
+            {
+                ShowHideButtonString = "隐藏Editor";
+                await MarkdownElement.Show();
+            }
+        }
     }
 
     /// <summary>
@@ -85,5 +125,6 @@
     protected override async Task OnInitializedAsync()
     {
         Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
+        MarkdownElement?.SetMarkdown("# 这里是初始化的Markdown");
     }
 }
