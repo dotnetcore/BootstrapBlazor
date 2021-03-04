@@ -131,7 +131,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<Foo> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i));
+        public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<Foo> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
     }
 
     /// <summary>

@@ -33,11 +33,12 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-        private readonly Foo Model = new();
+        private Foo Model { get; set; } = new();
 
         private IEnumerable<SelectedItem>? Educations { get; set; }
 
-        private IEnumerable<SelectedItem> Hobbys => Foo.GenerateHobbys(LocalizerFoo);
+        [NotNull]
+        private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
         /// <summary>baise
         /// OnInitialized 方法
@@ -48,6 +49,7 @@ namespace BootstrapBlazor.Shared.Pages
 
             // 初始化参数
             Educations = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["PlaceHolder"] ?? "请选择 ..."));
+            Hobbys = Foo.GenerateHobbys(LocalizerFoo);
         }
 
         private Task OnInvalidSubmit1(EditContext context)
