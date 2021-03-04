@@ -42,6 +42,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Checkbox/CheckboxList.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Checkbox/CheckboxList.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Collapse/Collapse.razor.cs.min.css",
     "inputFiles": [
       "Components/Collapse/Collapse.razor.cs.css"
@@ -208,7 +214,8 @@
     "inputFiles": [
       "Components/Transfer/Transfer.razor.cs.css"
     ]
-  },  {
+  },
+  {
     "outputFileName": "Components/Tree/Tree.razor.cs.min.css",
     "inputFiles": [
       "Components/Tree/Tree.razor.cs.css"
@@ -241,6 +248,7 @@
       "Components/Carousel/Carousel.razor.cs.min.css",
       "Components/Camera/Camera.razor.cs.min.css",
       "Components/Checkbox/Checkbox.razor.cs.min.css",
+      "Components/Checkbox/CheckboxList.razor.cs.min.css",
       "Components/Collapse/Collapse.razor.cs.min.css",
       "Components/ColorPicker/ColorPicker.razor.cs.min.css",
       "Components/Console/Console.razor.cs.min.css",
@@ -321,7 +329,7 @@
     "inputFiles": [
       "Components/Button/PopConfirmButton.razor.cs.js"
     ]
-  },  
+  },
   {
     "outputFileName": "Components/Camera/Camera.razor.cs.min.js",
     "inputFiles": [
@@ -363,13 +371,13 @@
     "inputFiles": [
       "Components/DateTimeRange/DateTimeRange.razor.cs.js"
     ]
-  },  
+  },
   {
     "outputFileName": "Components/Drawer/Drawer.razor.cs.min.js",
     "inputFiles": [
       "Components/Drawer/Drawer.razor.cs.js"
     ]
-  },  
+  },
   {
     "outputFileName": "Components/Editor/Editor.razor.cs.min.js",
     "inputFiles": [
@@ -405,7 +413,7 @@
     "inputFiles": [
       "Components/Popover/PopoverConfirmBox.razor.cs.js"
     ]
-  },  
+  },
   {
     "outputFileName": "Components/QRCode/QRCode.razor.cs.min.js",
     "inputFiles": [
@@ -429,7 +437,7 @@
     "inputFiles": [
       "Components/Select/MultiSelect.razor.cs.js"
     ]
-  },  
+  },
   {
     "outputFileName": "Components/Select/Select.razor.cs.min.js",
     "inputFiles": [
@@ -447,7 +455,7 @@
     "inputFiles": [
       "Components/Split/Split.razor.cs.js"
     ]
-  },  
+  },
   {
     "outputFileName": "Components/Tab/Tab.razor.cs.min.js",
     "inputFiles": [

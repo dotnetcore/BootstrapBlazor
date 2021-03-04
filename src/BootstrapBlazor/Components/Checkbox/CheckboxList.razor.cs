@@ -23,7 +23,9 @@ namespace BootstrapBlazor.Components
         /// 获得 组件样式
         /// </summary>
         private string? ClassString => CssBuilder.Default("checkbox-list form-control")
-            .AddClass(CssClass).AddClass(ValidCss)
+            .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
+            .AddClass(CssClass)
+            .AddClass("is-invalid", IsValid.HasValue && !IsValid.Value)
             .Build();
 
         /// <summary>
@@ -45,6 +47,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? CheckboxItemClass { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示边框 默认为 true
+        /// </summary>
+        [Parameter]
+        public bool ShowBorder { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 SelectedItemChanged 方法
@@ -174,7 +182,10 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (OnSelectedChanged != null) await OnSelectedChanged.Invoke(Items, Value);
+            if (OnSelectedChanged != null)
+            {
+                await OnSelectedChanged.Invoke(Items, Value);
+            }
         }
     }
 }

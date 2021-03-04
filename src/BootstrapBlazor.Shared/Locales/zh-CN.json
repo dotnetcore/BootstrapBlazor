@@ -85,7 +85,8 @@
     "Hobbys": "游泳,登山,打球,下棋",
     "Foo.Name": "张三 {0}",
     "Foo.Address": "上海市普陀区金沙江路 {0} 弄",
-    "Foo.Address2": "地球、中国、上海市普陀区金沙江路 {0} 弄 这里是超长单元格示例"
+    "Foo.Address2": "地球、中国、上海市普陀区金沙江路 {0} 弄 这里是超长单元格示例",
+    "Foo.BindValue": "绑定值"
   },
   "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
     "PlaceHolder": "请选择 ...",
