@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.18-beta04</Version>
+    <Version>5.0.18</Version>
     <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
