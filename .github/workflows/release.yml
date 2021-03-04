@@ -3,7 +3,6 @@ name: Package to Nuget
 on:
   push:
     branches:
-      - master
       - release
 
 jobs:
