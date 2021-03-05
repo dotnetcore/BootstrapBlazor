@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -151,9 +151,17 @@ namespace BootstrapBlazor.Components
                                 isResx = true;
                             }
                         }
-                        if (!isResx && JsonStringLocalizerFactory.TryGetLocalizerString(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out var msg))
+                        if (!isResx)
                         {
-                            rule.ErrorMessage = msg;
+                            if (JsonStringLocalizerFactory.TryGetLocalizerString(rule.GetType(), nameof(rule.ErrorMessage), out var msg))
+                            {
+                                rule.ErrorMessage = msg;
+                            }
+
+                            if (JsonStringLocalizerFactory.TryGetLocalizerString(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out msg))
+                            {
+                                rule.ErrorMessage = msg;
+                            }
                         }
 
                         var errorMessage = rule.FormatErrorMessage(displayName ?? memberName);
