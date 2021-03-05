@@ -39,7 +39,8 @@ namespace BootstrapBlazor.Shared.Pages
             Education = EnumEducation.Middel
         };
 
-        private IEnumerable<SelectedItem> Hobbys => Foo.GenerateHobbys(Localizer);
+        [NotNull]
+        private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
         private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
         {
@@ -49,6 +50,16 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem("4", "4"),
             new SelectedItem("5", "5")
         };
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Hobbys = Foo.GenerateHobbys(Localizer);
+        }
 
         private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
