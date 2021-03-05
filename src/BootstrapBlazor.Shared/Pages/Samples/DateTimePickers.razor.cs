@@ -166,7 +166,7 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "DateFormat",
+                Name = "Format",
                 Description = "日期格式字符串 默认为 yyyy-MM-dd",
                 Type = "string",
                 ValueList = " — ",
