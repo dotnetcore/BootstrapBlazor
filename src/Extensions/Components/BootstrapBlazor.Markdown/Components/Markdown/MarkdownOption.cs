@@ -10,37 +10,37 @@ namespace BootstrapBlazor.Components
     internal class MarkdownOption
     {
         /// <summary>
-        /// 编辑器呈现界面：markdown,wysiwyg(所见即所得)
+        /// 获得/设置 编辑器呈现界面：markdown,wysiwyg(所见即所得)
         /// </summary>
         public string InitialEditType { get; set; } = "markdown";
 
         /// <summary>
-        /// 预览方式：vertical(分栏), tab(tab页)
+        /// 获得/设置 预览方式：vertical(分栏), tab(tab页)
         /// </summary>
         public string PreviewStyle { get; set; } = "vertical";
 
         /// <summary>
-        /// 高度：px值，默认300px
+        /// 获得/设置 高度：px值，默认300px
         /// </summary>
         public string Height { get; set; } = "300px";
 
         /// <summary>
-        /// 最小高度：px值，默认200px
+        /// 获得/设置 最小高度：px值，默认200px
         /// </summary>
         public string MinHeight { get; set; } = "200px";
 
         /// <summary>
-        /// 语言，默认为简体中文，如果改变，需要自行引入语言包
+        /// 获得/设置 语言，默认为英文，如果改变，需要自行引入语言包
         /// </summary>
-        public string Language { get; set; } = "zh-CN";
+        public string? Language { get; set; }
 
         /// <summary>
-        /// 提示信息
+        /// 获得/设置 提示信息
         /// </summary>
-        public string Placeholder { get; set; } = "";
+        public string? Placeholder { get; set; }
 
         /// <summary>
-        /// 使用google分析，默认不使用
+        /// 获得/设置 使用 google 分析，默认不使用
         /// </summary>
         public bool UsageStatistics { get; set; } = false;
     }

@@ -31,16 +31,20 @@
 
 <Pre>&lt;script src="_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js"&gt;&lt;/script&gt;</Pre>
 
-<Block Title="普通用法" Introduction="">
-    <p>输入 Markdown 相关代码后，点击下方相关按钮查看数据</p>
+<h4>本地化</h4>
+
+<Tips>组件内置中文，切换当前文化信息即可获得中文</Tips>
+
+<Block Title="普通用法" Introduction="默认设置">
+    <p>输入 <code>Markdown</code> 相关代码后，点击下方相关按钮查看数据</p>
     <div style="width: 100%; height: 300px;">
-        <Markdown @ref="MarkdownElement" />
+        <Markdown @ref="MarkdownElement" Language="@Language" />
     </div>
     <div class="mt-3">
         <div class="btn-group">
             <Button Text="Markdown 源码" OnClick="@GetMarkdownString"></Button>
             <Button Text="HTML 源码" OnClick="@GetHTMLString"></Button>
-            <Button Text="选中的Text" OnClick="@GetSelectedString"></Button>
+            <Button Text="选中的 Text" OnClick="@GetSelectedString"></Button>
             <Button Text="@ShowHideButtonString" OnClick="@ShowHideEditor"></Button>
             <Button Text="插入文本" OnClick="@InsertText"></Button>
         </div>
@@ -57,74 +61,9 @@
     </div>
 </Block>
 
-<Block Title="常用属性">
-    <p>设置 Markdown 编辑器最小高度300px，默认高度500px，提示信息这是Markdown，Tab方式显示，默认显示所见即所得页面</p>
-    <Markdown Height="500" MinHeight="300" Placeholder="这是Markdown" PreviewStyle="PreviewStyle.Tab" InitialEditType="InitialEditType.Wysiwyg"></Markdown>
+<Block Title="常用属性" Introduction="更改默认参数">
+    <p>设置 <code>Markdown</code> 编辑器最小高度 <code>300px</code>，默认高度 <code>500px</code>，提示信息这是 <code>Markdown</code>，<code>Tab</code> 方式显示，默认显示所见即所得页面</p>
+    <Markdown Height="500" MinHeight="300" Placeholder="这是Markdown" PreviewStyle="PreviewStyle.Tab" InitialEditType="InitialEditType.Wysiwyg" Language="@Language"></Markdown>
 </Block>
 
-<Block Title="输入Html转为Markdown">
-    <p>可以使用IsHtml="true"来使用Html自动转换为Markdown</p>
-    <Markdown Value="<h1>这里是html的H1</h1><h2>这里是Html的H2</h2>" IsHtml="true" />
-</Block>
-
-@code {
-    private string? MarkdownString { get; set; }
-
-    private string? HtmlString { get; set; }
-
-    private Markdown? MarkdownElement { get; set; }
-
-    private string ShowHideButtonString { get; set; } = "隐藏Editor";
-
-    private async Task GetMarkdownString()
-    {
-        if (MarkdownElement != null) MarkdownString = await MarkdownElement.GetMarkdownString();
-    }
-
-    private async Task GetHTMLString()
-    {
-        if (MarkdownElement != null) HtmlString = await MarkdownElement.GetMarkdownHtmlString();
-    }
-
-    private async Task GetSelectedString()
-    {
-        if (MarkdownElement != null) MarkdownString = await MarkdownElement.GetSelectedText();
-    }
-
-    private async Task InsertText()
-    {
-        if (MarkdownElement != null) await MarkdownElement.InsertText("# 这是插入的内容");
-    }
-
-    private async Task ShowHideEditor()
-    {
-        if (MarkdownElement != null)
-        {
-            if (ShowHideButtonString == "隐藏Editor")
-            {
-                ShowHideButtonString = "显示Editor";
-                await MarkdownElement.Hide();
-            }
-            else
-            {
-                ShowHideButtonString = "隐藏Editor";
-                await MarkdownElement.Show();
-            }
-        }
-    }
-
-    /// <summary>
-    /// 获得/设置 版本号字符串
-    /// </summary>
-    private string Version { get; set; } = "fetching";
-
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
-        MarkdownElement?.SetMarkdown("# 这里是初始化的Markdown");
-    }
-}
+<AttributeTable Items="GetAttributes()"></AttributeTable>

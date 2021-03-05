@@ -2,12 +2,13 @@
     $.extend({
         bb_markdown: function (el, type, method, value) {
             var $el = $(el);
-            if (type == 1) {
+            if (type === 'init') {
+                $el.toastuiEditor(method);
+            }
+            if (type === 'get') {
                 return $el.toastuiEditor(method);
             }
-            else if (type == 0) {
-                $el.toastuiEditor(method);
-            } else if (type == 2) {
+            else if (type === 'set') {
                 $el.toastuiEditor(method, value);
             }
         }

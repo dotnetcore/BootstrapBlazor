@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.ComponentModel;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -10,12 +12,15 @@ namespace BootstrapBlazor.Components
     public enum PreviewStyle
     {
         /// <summary>
-        /// tab页预览
-        /// </summary>
-        Tab,
-        /// <summary>
         /// 左右树形预览
         /// </summary>
-        Vertical
+        [Description("vertical")]
+        Vertical,
+
+        /// <summary>
+        /// tab页预览
+        /// </summary>
+        [Description("tab")]
+        Tab
     }
 }

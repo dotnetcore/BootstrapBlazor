@@ -22,6 +22,7 @@
     "outputFileName": "wwwroot/js/bootstrap.blazor.markdown.min.js",
     "inputFiles": [
       "wwwroot/lib/tui.editor/toastui-jquery-editor.min.js",
+      "wwwroot/lib/tui.editor/zh-cn.min.js",
       "Components/Markdown/Markdown.razor.cs.min.js"
     ],
     "minify": {

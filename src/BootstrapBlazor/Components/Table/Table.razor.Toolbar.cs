@@ -341,7 +341,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private readonly DialogOption DialogOption = new DialogOption();
+        private readonly DialogOption DialogOption = new();
 
         /// <summary>
         /// 
