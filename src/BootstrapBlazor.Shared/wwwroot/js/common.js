@@ -207,5 +207,13 @@
                         break;
                 }
             });
+
+        // MVP learn
+        $(document)
+            .on('click', '.btn-learn', function (e) {
+                var $button = $(this);
+                var $list = $button.prev();
+                $list.slideToggle('fade');
+            });
     });
 })(jQuery);
