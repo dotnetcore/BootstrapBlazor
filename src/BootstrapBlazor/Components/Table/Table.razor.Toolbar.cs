@@ -323,7 +323,11 @@ namespace BootstrapBlazor.Components
                     }
                     else if (EditMode == EditMode.EditForm)
                     {
-                        ShowAddForm = false;
+                        if (ShowAddForm)
+                        {
+                            await QueryData();
+                            ShowAddForm = false;
+                        }
                         ShowEditForm = false;
                         StateHasChanged();
                     }
