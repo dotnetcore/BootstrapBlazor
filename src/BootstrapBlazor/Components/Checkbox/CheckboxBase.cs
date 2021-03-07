@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 判断双向绑定类型是否为 boolean 类型
         /// </summary>
-        private bool isBoolean { get; set; }
+        private bool IsBoolean { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false
@@ -72,9 +72,12 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            isBoolean = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)) == typeof(bool);
+            IsBoolean = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)) == typeof(bool);
 
-            if (ShowAfterLabel) IsShowLabel = false;
+            if (ShowAfterLabel)
+            {
+                IsShowLabel = false;
+            }
         }
 
         /// <summary>
@@ -84,7 +87,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
-            if (isBoolean && Value != null)
+            if (IsBoolean && Value != null)
             {
                 if (BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
                 {
@@ -126,7 +129,7 @@ namespace BootstrapBlazor.Components
             {
                 _stateChanged = true;
 
-                if (isBoolean)
+                if (IsBoolean)
                 {
                     CurrentValue = (TValue)(object)(state == CheckboxState.Checked);
                 }
@@ -134,8 +137,15 @@ namespace BootstrapBlazor.Components
                 if (State != state)
                 {
                     State = state;
-                    if (StateChanged.HasDelegate) await StateChanged.InvokeAsync(State);
-                    if (OnStateChanged != null) await OnStateChanged.Invoke(State, Value);
+                    if (StateChanged.HasDelegate)
+                    {
+                        await StateChanged.InvokeAsync(State);
+                    }
+
+                    if (OnStateChanged != null)
+                    {
+                        await OnStateChanged.Invoke(State, Value);
+                    }
                 }
             }
         }

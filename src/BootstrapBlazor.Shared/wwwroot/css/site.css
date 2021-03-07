@@ -1432,10 +1432,16 @@ section {
     box-shadow: 0 0 12px #211b50;
     overflow: hidden;
     border-radius: 5px;
-    right: 1rem;
     z-index: 2000;
-    width: 258.5px;
+    width: 260px;
+    right: calc(50% - 130px);
+    opacity: 0.7;
+    transition: opacity .3s linear;
 }
+
+    .ms-learn:hover {
+        opacity: 1;
+    }
 
     .ms-learn .btn-learn {
         display: block;
@@ -1483,3 +1489,9 @@ section {
                 background: rgba(135,89,255,.9);
                 color: #fff;
             }
+
+@media (min-width: 768px) {
+    .ms-learn {
+        right: 1rem;
+    }
+}
