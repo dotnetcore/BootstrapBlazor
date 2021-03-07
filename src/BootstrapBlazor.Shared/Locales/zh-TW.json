@@ -1,0 +1,41 @@
+﻿{
+  "BootstrapBlazor.Shared.Pages.Components.Block": {
+    "Title": "未設置",
+    "SubTitle": "示例"
+  },
+  "BootstrapBlazor.Shared.Pages.Alerts": {
+    "Title": "Alert 警告",
+    "SubTitle": "用於頁面中展示重要的提示資訊。",
+    "BaseUsageText": "基本用法",
+    "IntroText1": "頁面中的非浮層元素，不會自動消失。",
+    "AlertPrimaryText": "主要的警告框",
+    "AlertSecondaryText": "次要的警告框",
+    "AlertSuccessText": "成功的警告框",
+    "AlertDangerText": "危險的警告框",
+    "AlertWarningText": "警告的警告框",
+    "AlertInfoText": "資訊的警告框",
+    "AlertDarkText": "黑暗的警告框",
+    "CloseButtonUsageText": "關閉按鈕",
+    "IntroText2": "提供關閉按鈕的警告框",
+    "WithIconUsageText": "帶 Icon",
+    "IntroText3": "表示某種狀態時提升可讀性。",
+    "ShowBarUsageText": "顯示左側 Bar",
+    "IntroText4": "作為 <code>Tip</code> 使用"
+  },
+  "BootstrapBlazor.Shared.Pages.Anchors": {
+    "Title": "Anchor 錨點",
+    "SubTitle": "用於跳轉到頁面指定位置",
+    "BaseUsageText": "基本用法",
+    "IntroText1": "需要展現當前頁面上可供跳轉的錨點鏈接，以及快速在錨點之間跳轉",
+    "IntroText2": "點擊下麵 <code>Anchor</code> 專案，頁面滾動到相對應的章節",
+    "ContentText1": "<p>與現實生活一致：與現實生活的流程、邏輯保持一致，遵循用戶習慣的語言和概念；在介面中一致：所有的元素和結構需保持一致，比如：設計樣式、圖示和文本、元素的位置等。</p><p>控制回饋：通過介面樣式和交互動效讓用戶可以清晰的感知自己的操作；</p><p>頁面回饋：操作後，通過頁面元素的變化清晰地展現當前狀態。</p><p>簡化流程：設計簡潔直觀的操作流程；</p><p>清晰明確：語言表達清晰且表意明確，讓用戶快速理解進而作出決策；</p><p>幫助用戶識別：介面簡單直白，讓用戶快速識別而非回憶，減少用戶記憶負擔。</p>"
+  },
+  "BootstrapBlazor.Shared.Pages.BindItem": {
+    "Name": "姓名",
+    "DateTime": "日期",
+    "Address": "地址",
+    "Count": "數量",
+    "Complete": "是/否",
+    "Education": "學歷"
+  }
+}

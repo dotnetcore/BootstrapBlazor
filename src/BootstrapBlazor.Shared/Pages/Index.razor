@@ -1,8 +1,10 @@
-﻿@layout HomeLayout
+﻿@using Microsoft.Extensions.Localization
+@layout HomeLayout
 @page "/"
 @page "/index"
 @page "/home"
 
+@inject IStringLocalizer local
 <section class="home-section">
     <div class="welcome container">
         <div class="form-inline">
@@ -10,6 +12,7 @@
                 <div class="col-12 col-lg-6">
                     <div class="welcome-header">
                         <h1 class="mb-3">
+                           读取IStringLocalizer中_Admin.Account的值：  @local["_Admin.Account"]
                             Bootstrap of Blazor
                         </h1>
                         <h4>

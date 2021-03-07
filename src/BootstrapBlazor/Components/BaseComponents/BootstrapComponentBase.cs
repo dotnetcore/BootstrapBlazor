@@ -7,6 +7,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -27,6 +28,43 @@ namespace BootstrapBlazor.Components
         [Inject]
         [NotNull]
         protected IJSRuntime? JSRuntime { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Row 组件实例
+        /// </summary>
+        [CascadingParameter]
+        protected Row? ParentRow { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            if (ParentRow != null && (ParentRow.MaxCount == null || ParentRow.Items.Count < ParentRow.MaxCount))
+            {
+                var rf = new RowInfo();
+                if (this is Row row)
+                {
+                    rf.ColSpan = row.ColSpan;
+                    rf.IsRow = true;
+                    if (row.RowType == null)
+                    {
+                        row.SetRowType(ParentRow.RowType);
+                    }
+                }
+                rf.Content = async b =>
+                {
+                    if (this is Row r)
+                    {
+                        r.FirstRender = false;
+                    }
+                    this.BuildRenderTree(b);
+                    await this.OnAfterRenderAsync(false);
+                    this.OnAfterRender(false);
+                };
+                ParentRow.Items.Add(rf);
+            }
+        }
 
         /// <summary>
         /// Dispose 方法

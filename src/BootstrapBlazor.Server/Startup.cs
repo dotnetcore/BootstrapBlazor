@@ -59,6 +59,8 @@ namespace BootstrapBlazor.Server
 
             services.AddBlazorBackgroundTask();
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             // 增加 BootstrapBlazor 组件
             services.AddBootstrapBlazor(options =>
             {
@@ -66,8 +68,17 @@ namespace BootstrapBlazor.Server
                 options.ToastDelay = 4000;
             }, options =>
             {
+                // 设置自己的 RESX 多语言文化资源文件 如 Program.{CultureName}.resx
+                options.ResourceManagerStringLocalizerType = typeof(Program);
+
                 // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
-                options.AdditionalJsonAssemblies = new Assembly[] { typeof(BootstrapBlazor.Shared.App).Assembly };
+                options.AdditionalJsonAssemblies = new Assembly[] { GetType().Assembly, typeof(BootstrapBlazor.Shared.App).Assembly };
+
+                options.AdditionalJsonFiles = new string[]
+                {
+                    @"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-TW.json",
+                    @"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-CN.json"
+                };
             });
 
             // 增加多语言支持配置信息

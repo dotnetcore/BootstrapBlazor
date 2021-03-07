@@ -64,7 +64,7 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
                 op.SupportedCultures.AddRange(new string[] { "zh-CN", "en-US" });
             });
 
-            builder.Services.AddLocalization();
+            builder.Services.AddLocalization(option => option.ResourcesPath = "Resources");
 
             var host = builder.Build();
 

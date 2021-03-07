@@ -1,0 +1,107 @@
+﻿@page "/rows"
+
+<h3>Row布局组件</h3>
+
+<h4>可简单设置一行显示的组件数量</h4>
+
+<Block Title="放置普通控件" Introduction="将自己的组件放到 <code>Row</code> 内部即可">
+    <Row ItemsPerRow="ItemsPerRowEnum.Three">
+        <Card>
+            <CardBody>
+                <h5 class="card-title">Card 1</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </CardBody>
+        </Card>
+        <Card>
+            <CardBody>
+                <h5 class="card-title">Card 2</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </CardBody>
+        </Card>
+        <Card>
+            <CardBody>
+                <h5 class="card-title">Card 3</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </CardBody>
+        </Card>
+    </Row>
+</Block>
+<Block Title="放置表单控件（内联）" Introduction="当放置表单控件时，可以指定RowType为FormInline，会将Label显示在左边，控件显示原始大小">
+    <ValidateForm Model="@Model">
+        <Row ItemsPerRow="ItemsPerRowEnum.Three" RowType="RowTypeEnum.FormInline" >
+            <CheckboxList @bind-Value="@Educations" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <BootstrapInput @bind-Value="@Model.DateTime" />
+            <BootstrapInput @bind-Value="@Model.Id" />
+            <BootstrapInput @bind-Value="@Model.Complete" />
+        </Row>
+    </ValidateForm>
+</Block>
+<Block Title="放置表单控件（充满）" Introduction="当放置表单控件时，可以指定RowType为FormRow，会将Label显示在上边，控件充满">
+    <ValidateForm Model="@Model">
+        <Row ItemsPerRow="ItemsPerRowEnum.Three" RowType="RowTypeEnum.FormRow" MaxCount="5">
+            <CheckboxList @bind-Value="@Educations" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <BootstrapInput @bind-Value="@Model.DateTime" />
+            <BootstrapInput @bind-Value="@Model.Id" />
+            <BootstrapInput @bind-Value="@Model.Complete" />
+        </Row>
+    </ValidateForm>
+</Block>
+<Block Title="Row嵌套" Introduction="Row中还可以嵌套Row，比如下面最外层的Row设置一行显示两个控件，第一个是TextBox，第二个还是个Row，第二个Row继续设置显示两个控件">
+    <ValidateForm Model="@Model">
+        <Row ItemsPerRow="ItemsPerRowEnum.Two" RowType="RowTypeEnum.FormRow">
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <Row ItemsPerRow="ItemsPerRowEnum.Two">
+                <BootstrapInput @bind-Value="@Model.Address" />
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </Row>
+        </Row>
+    </ValidateForm>
+</Block>
+<Block Title="子Row跨列" Introduction="子Row中通过指定ColSpan可以设置跨父Row的列数，组合这些功能可以实现复杂布局">
+    <ValidateForm Model="@Model">
+        <Row ItemsPerRow="ItemsPerRowEnum.Four" RowType="RowTypeEnum.FormRow">
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+        </Row>
+        <Row ItemsPerRow="ItemsPerRowEnum.Two" RowType="RowTypeEnum.FormRow">
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+        </Row>
+        <Row ItemsPerRow="ItemsPerRowEnum.Four" RowType="RowTypeEnum.FormRow">
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <Row ColSpan="2">
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </Row>
+            <BootstrapInput @bind-Value="@Model.Address" />
+        </Row>
+        <Row ItemsPerRow="ItemsPerRowEnum.Four" RowType="RowTypeEnum.FormRow">
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <Row ColSpan="3">
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </Row>
+        </Row>
+        <Row ItemsPerRow="ItemsPerRowEnum.Four" RowType="RowTypeEnum.FormRow">
+            <Row ColSpan="3">
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </Row>
+            <BootstrapInput @bind-Value="@Model.Address" />
+        </Row>
+        <Row ItemsPerRow="ItemsPerRowEnum.One">
+            <BootstrapInput @bind-Value="@Model.Address" />
+        </Row>
+    </ValidateForm>
+</Block>
+
+<Tips>
+    注意，由于Blazor还无法区分子组件的级层，如果Row中包含的组件还输出了其他子组件，Row也会加载子组件导致排版错误，可以通过指定MaxCount来指定Row中显示组件的个数
+</Tips>
+
+
+<AttributeTable Items="@GetAttributes()" />
