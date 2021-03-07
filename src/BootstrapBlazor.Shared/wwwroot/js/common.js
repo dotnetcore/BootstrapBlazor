@@ -214,6 +214,10 @@
                 var $button = $(this);
                 var $list = $button.prev();
                 $list.slideToggle('fade');
+            })
+            .on('click', '.btn-close', function (e) {
+                var $div = $('.ms-learn');
+                $div.fadeOut();
             });
     });
 })(jQuery);

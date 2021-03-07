@@ -1433,8 +1433,8 @@ section {
     overflow: hidden;
     border-radius: 5px;
     right: 1rem;
-    margin-left: -6em;
     z-index: 2000;
+    width: 258.5px;
 }
 
     .ms-learn .btn-learn {
@@ -1458,10 +1458,28 @@ section {
 
     .ms-learn .learn-list {
         margin-top: 1rem;
-        padding-right: 1rem;
+        padding-right: 5rem;
         display: none;
+        position: relative;
     }
 
         .ms-learn .learn-list .learn-item {
             margin-bottom: 0.5rem;
         }
+
+        .ms-learn .learn-list .btn-close {
+            padding: .25rem .5rem;
+            font-size: 65%;
+            color: #fff;
+            background: #8759ff;
+            border-radius: .25rem;
+            position: absolute;
+            right: 1rem;
+            margin-top: -2px;
+            transition: all .3s linear;
+        }
+
+            .ms-learn .learn-list .btn-close:hover {
+                background: rgba(135,89,255,.9);
+                color: #fff;
+            }
