@@ -37,12 +37,32 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 
         /// </summary>
+        public string BootstrapAdminLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapAdmin";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BootstrapBlazorLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string VideoLibUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624";
 
         /// <summary>
         /// 
         /// </summary>
         public string RepositoryUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/dev/src/BootstrapBlazor.Shared/Pages/Samples/";
+
+        /// <summary>
+        /// 获得 QQ 1 群链接地址
+        /// </summary>
+        public string? QQGroup1Link { get; set; } = "https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi";
+
+        /// <summary>
+        /// 获得 QQ 2 群链接地址
+        /// </summary>
+        public string? QQGroup2Link { get; set; } = "https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi";
 
         /// <summary>
         /// 获得/设置 系统 wwwroot 文件夹路径 Server Side 模式下 Upload 使用

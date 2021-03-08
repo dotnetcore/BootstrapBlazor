@@ -3,6 +3,7 @@
 @inject ICultureStorage CultureStorage
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 @Body
 
@@ -12,7 +13,7 @@
             <h4>相关作品</h4>
             <ul>
                 <li>
-                    <a class="footer-link" href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank">Bootstrap Admin</a>
+                    <a class="footer-link" href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
                 </li>
                 <li>
                     <a class="footer-link" href="https://gitee.com/LongbowEnterprise/SliderCaptcha" target="_blank">滑块验证码</a>
@@ -71,7 +72,7 @@
     <div class="footer-info d-none d-sm-flex">
         <div>Powered by .NET @Version on Linux</div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
-            <a class="ml-3" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor" target="_blank">码云代码托管平台</a>
+            <a class="ml-3" href="@WebsiteOption.Value.BootstrapBlazorLink" target="_blank">码云代码托管平台</a>
             <div class="mx-3">
                 <img alt="12377@2x" class="footer-logo mr-1" src="_content/BootstrapBlazor.Shared/images/12377@2x.png">
                 <a href="https://12377.cn" target="_blank">违法和不良信息举报中心</a>

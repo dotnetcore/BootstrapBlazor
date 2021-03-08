@@ -1,4 +1,5 @@
 ﻿@page "/menus"
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>Menu 导航菜单</h3>
 
@@ -57,7 +58,7 @@
             <div style="padding: 10rem 1rem;">Main</div>
         </Main>
         <Footer>
-            <div class="d-flex justify-content-center align-items-center" style="height: 30px; color: #fff; background-color: #5b6e84;"><a href="https://gitee.com/LongbowEnterprise/BootstrapAdmin" target="_blank" style="color: #fff;">Bootstrap Admin</a></div>
+            <div class="d-flex justify-content-center align-items-center" style="height: 30px; color: #fff; background-color: #5b6e84;"><a href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank" style="color: #fff;">Bootstrap Admin</a></div>
         </Footer>
     </Layout>
 </Block>
