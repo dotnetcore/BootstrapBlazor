@@ -24,6 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? setupAction = null)
         {
+            services.AddAuthorizationCore();
             services.AddJsonLocalization(setupAction);
             services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
             services.TryAddSingleton<ITableExcelExport, DefaultExcelExport>();
