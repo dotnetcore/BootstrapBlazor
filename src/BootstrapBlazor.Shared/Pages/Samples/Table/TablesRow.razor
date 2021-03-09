@@ -1,6 +1,4 @@
-﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
-@inherits TablesBaseEdit
-@page "/tables/row"
+﻿@page "/tables/row"
 
 <h3>Table 表格</h3>
 
@@ -50,7 +48,7 @@
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDeleteButton="false"
            ClickToSelect="true" DoubleClickToEdit="true"
-           OnQueryAsync="@OnEditQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -115,34 +113,3 @@
         </TableColumns>
     </Table>
 </Block>
-
-@code {
-
-    private Task DoubleClickRowCallback(Foo item)
-    {
-        var cate = ToastCategory.Success;
-        var title = "双击行回调委托示例";
-        var content = $"选中行数据为名称 {item.Name} 的数据";
-        ToastService?.Show(new ToastOption()
-        {
-            Category = cate,
-            Title = title,
-            Content = content
-        });
-        return Task.CompletedTask;
-    }
-
-    private string? SetRowClassFormatter(Foo item)
-    {
-        return item.Count > 60 ? "highlight" : null;
-    }
-
-    private Foo? CurrentItem { get; set; }
-
-    private Task ClickRow(Foo item)
-    {
-        CurrentItem = item;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-}
