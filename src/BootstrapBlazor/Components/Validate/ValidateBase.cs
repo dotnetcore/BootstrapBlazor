@@ -406,11 +406,7 @@ namespace BootstrapBlazor.Components
         public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
             // 如果禁用移除验证信息
-            if (IsDisabled)
-            {
-                results.Clear();
-            }
-            else
+            if (!IsDisabled && !SkipValidate)
             {
                 // 模型验证设置 验证属性名称
                 // 验证组件内部使用
