@@ -1,5 +1,4 @@
-﻿@inherits TablesBase
-@page "/tables"
+﻿@page "/tables"
 
 <h3>Table 表格</h3>
 
@@ -60,24 +59,22 @@
 
 <Block Title="表头样式" Introduction="通过设置 <code>HeaderStyle</code> 属性，">
     <p><code>HeaderStyle</code> 为表格表头样式，默认值为 <code>None</code></p>
-    <GroupBox Title="TableHeaderStyle.Light">
-        <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Address" />
-            </TableColumns>
-        </Table>
-    </GroupBox>
-    <GroupBox Title="TableHeaderStyle.Dark" class="mt-3">
-        <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Address" />
-            </TableColumns>
-        </Table>
-    </GroupBox>
+    <div class="code-label"><code>Light</code> 模式</div>
+    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+    <div class="code-label mt-3"><code>Dark</code> 模式</div>
+    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
 </Block>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>
