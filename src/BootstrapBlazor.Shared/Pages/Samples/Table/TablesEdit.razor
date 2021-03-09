@@ -1,6 +1,4 @@
 ﻿@page "/tables/edit"
-@inherits TablesBaseEdit
-@inject IStringLocalizer<Foo> Localizer
 
 <h3>Table 表格</h3>
 
@@ -11,8 +9,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           OnQueryAsync="@OnEditQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
-           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -66,7 +63,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           OnQueryAsync="@OnEditQueryAsync"
+           OnQueryAsync="@OnQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -94,7 +91,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-           OnQueryAsync="@OnEditQueryAsync"
+           OnQueryAsync="@OnQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -130,7 +127,7 @@
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
-           OnQueryAsync="@OnEditQueryAsync" EditMode="EditMode.EditForm"
+           OnQueryAsync="@OnQueryAsync" EditMode="EditMode.EditForm"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
