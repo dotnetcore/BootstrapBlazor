@@ -1,16 +1,17 @@
 ﻿(function ($) {
     $.extend({
-        bb_markdown: function (el, type, method, value) {
+        bb_markdown: function (el, obj, value, method) {
             var $el = $(el);
-            if (type === 'init') {
-                $el.toastuiEditor(method);
-            }
-            if (type === 'get') {
-                return $el.toastuiEditor(method);
-            }
-            else if (type === 'set') {
-                $el.toastuiEditor(method, value);
-            }
+            $.extend(value, {
+                events: {
+                    blur: function () {
+                        var val = $el.toastuiEditor('getMarkdown');
+                        var html = $el.toastuiEditor('getHtml');
+                        obj.invokeMethodAsync(method, [val, html]);
+                    }
+                }
+            })
+            $el.toastuiEditor(value);
         }
     });
 })(jQuery);

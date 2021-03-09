@@ -130,11 +130,9 @@ namespace BootstrapBlazor.Shared.Pages
             Component = DynamicComponent.CreateComponent<CustomerSelectDialog>()
         });
 
-        private readonly List<SelectedItem> _item2 = new List<SelectedItem>();
+        private readonly List<SelectedItem> _item2 = new();
 
         private IEnumerable<SelectedItem> Items2 => _item2;
-
-        private IEnumerable<SelectedItem> EnumItems { get; set; } = typeof(SortOrder).ToSelectList();
 
         private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
         {

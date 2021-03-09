@@ -40,8 +40,8 @@ namespace BootstrapBlazor.Components
         public string? Placeholder { get; set; }
 
         /// <summary>
-        /// 获得/设置 使用 google 分析，默认不使用
+        /// 获得/设置 Markdown 内容
         /// </summary>
-        public bool UsageStatistics { get; set; } = false;
+        public string? initialValue { get; set; }
     }
 }
