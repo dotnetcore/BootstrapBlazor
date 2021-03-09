@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 
         /// </summary>
-        public string BootstrapAdminLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapAdmin";
+        public string BootstrapAdminLink { get; set; } = "https://gitee.com/dotnetchina/BootstrapAdmin";
 
         /// <summary>
         /// 

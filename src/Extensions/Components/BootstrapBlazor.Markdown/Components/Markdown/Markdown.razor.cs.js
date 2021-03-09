@@ -11,7 +11,14 @@
                     }
                 }
             })
-            $el.toastuiEditor(value);
+
+            // 修复弹窗内初始化值不正确问题
+            var handler = window.setInterval(function () {
+                if ($el.is(':visible')) {
+                    window.clearInterval(handler);
+                    $el.toastuiEditor(value);
+                }
+            }, 100);
         }
     });
 })(jQuery);
