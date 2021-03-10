@@ -497,7 +497,11 @@
         display: block;
     }
 
-.table .table-cell .is-tree {
+.table .table-cell.is-tree {
     cursor: pointer;
+}
+
+.table .table-cell > .is-tree {
     padding: 0 4px;
+    transition: transform .3s linear;
 }

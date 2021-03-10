@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 子节点集合
         /// </summary>
-        public IEnumerable<TableTreeNode<TItem>>? Children { get; set; }
+        public List<TableTreeNode<TItem>> Children { get; } = new();
 
         /// <summary>
         /// 获得/设置 是否有子节点

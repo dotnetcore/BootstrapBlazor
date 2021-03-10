@@ -51,13 +51,26 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Func<Task> OnClickHeader(ITableColumn col) => async () =>
         {
-            if (SortOrder == SortOrder.Unset) SortOrder = SortOrder.Asc;
-            else if (SortOrder == SortOrder.Asc) SortOrder = SortOrder.Desc;
-            else if (SortOrder == SortOrder.Desc) SortOrder = SortOrder.Unset;
+            if (SortOrder == SortOrder.Unset)
+            {
+                SortOrder = SortOrder.Asc;
+            }
+            else if (SortOrder == SortOrder.Asc)
+            {
+                SortOrder = SortOrder.Desc;
+            }
+            else if (SortOrder == SortOrder.Desc)
+            {
+                SortOrder = SortOrder.Unset;
+            }
+
             SortName = col.GetFieldName();
 
             // 通知 Table 组件刷新数据
-            if (OnSortAsync != null) await OnSortAsync.Invoke();
+            if (OnSortAsync != null)
+            {
+                await OnSortAsync.Invoke();
+            }
         };
 
         /// <summary>
@@ -134,10 +147,17 @@ namespace BootstrapBlazor.Components
                     {
                         width += Columns[index++].Width ?? defaultWidth;
                     }
-                    if (ShowExtendButtons && FixedExtendButtonsColumn) width += ExtendButtonColumnWidth;
+                    if (ShowExtendButtons && FixedExtendButtonsColumn)
+                    {
+                        width += ExtendButtonColumnWidth;
+                    }
 
                     // 如果是固定表头时增加滚动条位置
-                    if (Height.HasValue && (index + 1) == Columns.Count) width += margin;
+                    if (Height.HasValue && (index + 1) == Columns.Count)
+                    {
+                        width += margin;
+                    }
+
                     style.AddClass($"right: {width}px;");
                 }
                 else
@@ -177,8 +197,9 @@ namespace BootstrapBlazor.Components
         /// 获得 Cell 文字样式
         /// </summary>
         /// <param name="col"></param>
+        /// <param name="isTree"></param>
         /// <returns></returns>
-        protected string? GetCellClassString(ITableColumn col) => CssBuilder.Default("table-cell")
+        protected string? GetCellClassString(ITableColumn col, bool isTree) => CssBuilder.Default("table-cell")
             .AddClass("justify-content-start", col.Align == Alignment.Left)
             .AddClass("justify-content-end", col.Align == Alignment.Right)
             .AddClass("justify-content-center", col.Align == Alignment.Center)
@@ -186,6 +207,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-ellips", col.TextEllipsis)
             .AddClass("is-tips", col.ShowTips)
             .AddClass("is-resizable", AllowResizing)
+            .AddClass("is-tree", IsTree && isTree)
             .AddClass(col.CssClass)
             .Build();
 
