@@ -168,6 +168,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool AutoGenerateColumns { get; set; }
 
+        /// <summary>
+        /// 获得/设置 查询时是否显示正在加载中动画 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowLoading { get; set; }
+
         [NotNull]
         private string? DataServiceInvalidOperationText { get; set; }
 
@@ -242,7 +248,7 @@ namespace BootstrapBlazor.Components
         public async Task QueryAsync()
         {
             // 通知客户端开启遮罩
-            if (!IsAutoRefresh)
+            if (ShowLoading && !IsAutoRefresh)
             {
                 IsLoading = true;
                 var _ = JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", "show");
