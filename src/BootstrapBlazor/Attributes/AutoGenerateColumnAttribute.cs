@@ -111,7 +111,7 @@ namespace BootstrapBlazor.Components
         public object? Step { get; set; }
 
         /// <summary>
-        /// 获得/设置 Textarea行数
+        /// 获得/设置 Textarea 行数
         /// </summary>
         public int Rows { get; set; }
 
