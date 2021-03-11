@@ -64,6 +64,8 @@ namespace BootstrapBlazor.Components
 
         public object? Step { get; set; }
 
+        public int Rows { get; set; }
+
         [NotNull]
         public string? Text { get; set; }
 

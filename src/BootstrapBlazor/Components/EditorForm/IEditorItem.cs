@@ -43,6 +43,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         object? Step { get; set; }
 
+         /// <summary>
+        /// 获得/设置 Textarea行数
+        /// </summary>
+        int Rows { get; set; }
+
         /// <summary>
         /// 获得/设置 编辑模板
         /// </summary>
