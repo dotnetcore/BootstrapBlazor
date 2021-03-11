@@ -1,26 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <IsPackable>true</IsPackable>
-    <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.8</Version>
-  </PropertyGroup>
-
   <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FreeSql.Repository" Version="2.3.105" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="logo.png" Pack="true" PackagePath="" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <PackageReference Include="FreeSql.Repository" Version="2.3.200" />
   </ItemGroup>
 
 </Project>
