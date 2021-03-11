@@ -1030,6 +1030,7 @@ input:disabled,
 
     .menu .dropdown-menu {
         overflow: unset;
+        max-height: unset;
         margin-top: 10px;
     }
 
