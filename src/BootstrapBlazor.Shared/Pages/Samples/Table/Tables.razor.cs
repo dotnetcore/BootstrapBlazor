@@ -426,7 +426,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "ScollingDialogContent",
+                Name = "ScrollingDialogContent",
                 Description = "编辑弹窗框是否为内部出现滚动条",
                 Type = "boolean",
                 ValueList = "true / false",

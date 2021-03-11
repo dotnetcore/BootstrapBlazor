@@ -29,19 +29,24 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<ModalDialog>(JSRuntime);
-                await Interop.Invoke(this, DialogElement, "bb_modal_dialog");
+                await Interop.Invoke(this, DialogElement, "bb_modal_dialog", nameof(Close));
+            }
+        }
+
+        private async Task OnClickClose()
+        {
+            if (OnClose != null)
+            {
+                await OnClose();
             }
         }
 
         /// <summary>
-        /// Close 方法
+        /// Close 方法 客户端按 ESC 键盘时调用
         /// </summary>
         /// <returns></returns>
         [JSInvokable]
-        public async Task Close()
-        {
-            if (OnClose != null) await OnClose.Invoke();
-        }
+        public Task Close() => OnClickClose();
 
         /// <summary>
         /// Dispose 方法

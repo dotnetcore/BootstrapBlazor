@@ -1,8 +1,8 @@
 ﻿(function ($) {
     $.extend({
-        bb_modal_dialog: function (el, obj) {
+        bb_modal_dialog: function (el, obj, method) {
             var $el = $(el);
-            $el.data('bb_dotnet_invoker', obj);
+            $el.data('bb_dotnet_invoker', { obj, method });
         },
         bb_modal: function (el, method) {
             var $el = $(el);
@@ -74,9 +74,9 @@
                     $(document).one('keyup', function (e) {
                         if (e.key === 'Escape') {
                             var $dialog = $el.find('.modal-dialog');
-                            var method = $dialog.data('bb_dotnet_invoker');
-                            if (method != null) {
-                                method.invokeMethodAsync('Close');
+                            var invoker = $dialog.data('bb_dotnet_invoker');
+                            if (invoker != null) {
+                                invoker.obj.invokeMethodAsync(invoker.method);
                             }
                         }
                     });
