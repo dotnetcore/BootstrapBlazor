@@ -57,6 +57,7 @@
         <a class="dismiss"><i class="fa fa-times"></i></a>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/gh/google/brotli/js/decode.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js"></script>
@@ -65,6 +66,27 @@
     <script src="_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js"></script>
     <script src="_content/BootstrapBlazor.Shared/js/common.js"></script>
     <script src="service-worker-register.js"></script>
+    <script>
+        Blazor.start({
+            loadBootResource: function (type, name, defaultUri, integrity) {
+                if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+                    return (async function () {
+                        const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+                        if (!response.ok) {
+                            throw new Error(response.statusText);
+                        }
+                        const originalResponseBuffer = await response.arrayBuffer();
+                        const originalResponseArray = new Int8Array(originalResponseBuffer);
+                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
+                        const contentType = type ===
+                            'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+                        return new Response(decompressedResponseArray,
+                            { headers: { 'content-type': contentType } });
+                    })();
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
