@@ -16,7 +16,17 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        public static ServiceProvider ServiceProvider => _lazy.Value;
+        public static ServiceProvider ServiceProvider
+        {
+            get
+            {
+                if (_lazy == null)
+                {
+                    throw new InvalidOperationException("please add services.AddBootstrapBlazor() in Startup class.");
+                }
+                return _lazy.Value;
+            }
+        }
 
         [NotNull]
         private static Lazy<ServiceProvider>? _lazy = null;

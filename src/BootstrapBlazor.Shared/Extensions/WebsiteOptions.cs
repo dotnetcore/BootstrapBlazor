@@ -17,22 +17,22 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 
         /// </summary>
-        public string ServerUrl { get; set; } = "https://blazor.zylweb.cn";
+        public string ServerUrl { get; set; } = "https://www.blazor.zone";
 
         /// <summary>
         /// 
         /// </summary>
-        public string WasmUrl { get; set; } = "https://wasm.zylweb.cn";
+        public string WasmUrl { get; set; } = "https://wasm.blazor.zone";
 
         /// <summary>
         /// 
         /// </summary>
-        public string AdminUrl { get; set; } = "https://ba.zylweb.cn";
+        public string AdminUrl { get; set; } = "https://admin.blazor.zone";
 
         /// <summary>
         /// 
         /// </summary>
-        public string ImageLibUrl { get; set; } = "https://imgs.zylweb.cn";
+        public string ImageLibUrl { get; set; } = "https://imgs.blazor.zone";
 
         /// <summary>
         /// 
