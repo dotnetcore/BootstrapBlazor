@@ -492,7 +492,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
             <div class="table-cell">
-                <div class="btn-group">
+                <div class="btn-group" @onclick:stopPropagation="true">
                     @if (ShowDefaultButtons)
                     {
                         @if (ShowEditButton)
