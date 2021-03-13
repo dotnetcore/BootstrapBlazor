@@ -23,10 +23,9 @@ namespace BootstrapBlazor.Components
         private Modal? ModalContainer { get; set; }
 
         /// <summary>
-        /// 获得/设置 弹出对话框实例
+        /// 获得/设置 弹出对话框实例集合
         /// </summary>
-        [NotNull]
-        private ModalDialog? ModalDialog { get; set; }
+        private List<List<KeyValuePair<string, object>>> DialogOptions { get; set; } = new();
 
         /// <summary>
         /// DialogServices 服务实例
@@ -60,11 +59,11 @@ namespace BootstrapBlazor.Components
             if (ModalContainer != null && IsShowDialog)
             {
                 IsShowDialog = false;
-                await ModalContainer.Toggle();
+                await ModalContainer.Show();
             }
         }
 
-        private async Task Show(DialogOption option)
+        private Task Show(DialogOption option)
         {
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes().ToList();
@@ -89,13 +88,45 @@ namespace BootstrapBlazor.Components
             parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
             {
                 // 回调 OnClose 方法
-                if (option.OnCloseAsync != null) await option.OnCloseAsync();
+                // 移除当前对话框
+                DialogOptions.Remove(parameters);
+                if (option.OnCloseAsync != null)
+                {
+                    await option.OnCloseAsync();
+                }
+
+                // 显示上一个对话框
+                if (DialogOptions.Any())
+                {
+                    ModalContainer.ShowDialog();
+                }
+                else
+                {
+                    await ModalContainer.Close();
+                    StateHasChanged();
+                }
             })));
 
-            await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(key => key.Key, value => value.Value)));
-            IsShowDialog = true;
+            DialogOptions.Add(parameters);
+            if (DialogOptions.Count == 1)
+            {
+                IsShowDialog = true;
+            }
             StateHasChanged();
+            return Task.CompletedTask;
         }
+
+        private RenderFragment RenderDialog(IEnumerable<KeyValuePair<string, object>> parameter) => builder =>
+        {
+            builder.OpenComponent<ModalDialog>(0);
+            builder.AddMultipleAttributes(1, parameter);
+            builder.AddComponentReferenceCapture(2, dialog =>
+            {
+                var modal = (ModalDialog)dialog;
+                ModalContainer.ShowDialog(modal);
+            });
+            builder.CloseComponent();
+        };
 
         /// <summary>
         /// 

@@ -65,13 +65,29 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 移除对话窗方法
+        /// </summary>
+        /// <param name="dialog"></param>
+        public void RemoveDialog(ModalDialogBase dialog)
+        {
+            Dialogs.Remove(dialog);
+        }
+
+        /// <summary>
         /// 显示指定对话框方法
         /// </summary>
         /// <param name="dialog"></param>
-        public void ShowDialog(ModalDialogBase dialog)
+        public void ShowDialog(ModalDialogBase? dialog = null)
         {
-            Dialogs.ForEach(d => d.IsShown = d == dialog);
-            StateHasChanged();
+            if (Dialogs.Any())
+            {
+                if (dialog == null)
+                {
+                    dialog = Dialogs.Last();
+                }
+                Dialogs.ForEach(d => d.IsShown = d == dialog);
+                StateHasChanged();
+            }
         }
     }
 }

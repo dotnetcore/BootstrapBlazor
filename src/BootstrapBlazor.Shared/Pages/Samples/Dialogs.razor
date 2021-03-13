@@ -63,6 +63,19 @@
     <Button @onclick="@Show">Dialog</Button>
 </Block>
 
+<Block Title="多级弹窗" Introduction="点击弹窗内部按钮继续弹出对话窗">
+    <Tips>
+        <div>通过嵌套调用注入的 <code>DialogService</code> 实例弹出对话窗，组件内部通过 <code>LIFO</code> 模式后弹先关的顺序对弹窗排序；通过此功能即可实现 <code>无限弹窗</code></div>
+    </Tips>
+    <div class="form-inline">
+        <div class="row">
+            <div class="col-12">
+                <Button OnClick="@ShowDialogLoop">弹窗</Button>
+            </div>
+        </div>
+    </div>
+</Block>
+
 <Block Title="模态对话框" Introduction="通过 <code>ShowModal</code> 方法弹出线程阻塞模式的对话框">
     <p>功能介绍</p>
     <ul class="ul-demo">

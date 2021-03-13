@@ -159,6 +159,50 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
+        private int _counter;
+        private async Task ShowDialogLoop()
+        {
+            await DialogService.Show(new DialogOption()
+            {
+                Title = $"弹窗 {_counter++}",
+                Component = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+                {
+                    new KeyValuePair<string, object>(nameof(Button.Text), $"点击弹窗 {DateTime.Now:HH:mm:ss}"),
+                    new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await ShowDialogLoop1()))
+                }),
+                OnCloseAsync = () =>
+                {
+                    _counter--;
+                    return Task.CompletedTask;
+                }
+            });
+        }
+
+        private async Task ShowDialogLoop1()
+        {
+            await DialogService.Show(new DialogOption()
+            {
+                Title = $"弹窗 {_counter++}",
+                BodyTemplate = builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.OpenComponent<Counter>(1);
+                    builder.CloseComponent();
+                    builder.AddContent(2, new MarkupString($"<div>当前时间 {DateTime.Now:HH:mm:ss}</div>"));
+                    builder.OpenComponent<Button>(3);
+                    builder.AddAttribute(4, nameof(Button.Text), $"点击弹窗 {DateTime.Now:HH:mm:ss}");
+                    builder.AddAttribute(4, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await ShowDialogLoop()));
+                    builder.CloseComponent();
+                    builder.CloseElement();
+                },
+                OnCloseAsync = () =>
+                {
+                    _counter--;
+                    return Task.CompletedTask;
+                }
+            });
+        }
+
         /// <summary>
         /// 获得属性方法
         /// </summary>

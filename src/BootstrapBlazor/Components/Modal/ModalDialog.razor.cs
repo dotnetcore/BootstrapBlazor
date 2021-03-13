@@ -37,6 +37,7 @@ namespace BootstrapBlazor.Components
         {
             if (OnClose != null)
             {
+                Modal?.RemoveDialog(this);
                 await OnClose();
             }
         }
