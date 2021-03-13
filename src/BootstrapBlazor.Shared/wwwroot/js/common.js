@@ -174,6 +174,15 @@
 
                 obj.invokeMethodAsync(method, index);
             });
+        },
+        init_Theme: function (el) {
+            var $el = $(el);
+
+            $el.on('click', '.btn-theme, .theme-close, .theme-item', function (e) {
+                e.stopPropagation();
+                var $theme = $el.find('.theme-list');
+                $theme.toggleClass('is-open').slideToggle('fade');
+            });
         }
     });
 
@@ -218,6 +227,12 @@
             .on('click', '.btn-close', function (e) {
                 var $div = $('.ms-learn');
                 $div.fadeOut();
+            });
+
+        // Theme
+        $(document)
+            .on('click', function () {
+                $('.theme-list.is-open').toggleClass('is-open').slideToggle('fade');
             });
     });
 })(jQuery);

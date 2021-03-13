@@ -79,13 +79,18 @@ namespace BootstrapBlazor.Shared
         /// 获得/设置 资源配置集合
         /// </summary>
         [NotNull]
-        public Dictionary<string, string> SourceCodes { get; set; }
+        public Dictionary<string, string> SourceCodes { get; private set; }
 
         /// <summary>
         /// 获得/设置 资源配置集合
         /// </summary>
         [NotNull]
-        public Dictionary<string, string>? Videos { get; set; }
+        public Dictionary<string, string>? Videos { get; private set; }
+
+        /// <summary>
+        /// 获得/设置 当前主题
+        /// </summary>
+        public string CurrentTheme { get; set; } = "";
 
         /// <summary>
         /// 构造函数

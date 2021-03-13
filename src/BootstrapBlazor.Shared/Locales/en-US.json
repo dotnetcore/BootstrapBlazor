@@ -95,5 +95,8 @@
   },
   "BootstrapBlazor.Shared.Pages.Inputs": {
     "PlaceHolder": "please input ..."
+  },
+  "BootstrapBlazor.Shared.Pages.Components.ThemeChooser": {
+    "Title": "Click to choose theme"
   }
 }

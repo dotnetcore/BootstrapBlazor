@@ -64,6 +64,7 @@ namespace BootstrapBlazor.Server
             {
                 // 统一设置 Toast 组件自动消失时间
                 options.ToastDelay = 4000;
+                options.Themes.Add(new System.Collections.Generic.KeyValuePair<string, string>("Ant Design (完善中)", "_content/BootstrapBlazor.Shared/css/ant.css"));
             }, options =>
             {
                 // 附加自己的 json 多语言文化资源文件 如 zh-TW.json

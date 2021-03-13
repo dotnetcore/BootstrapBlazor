@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 
@@ -38,6 +39,14 @@ namespace BootstrapBlazor.Components
         /// 获得 组件内置本地化语言列表
         /// </summary>
         public List<string> SupportedCultures { get; set; } = new List<string>() { "zh", "en" };
+
+        /// <summary>
+        /// 获得/设置 网站主题集合
+        /// </summary>
+        [NotNull]
+        public List<KeyValuePair<string, string>> Themes { get; private set; } = new List<KeyValuePair<string, string>>() {
+            new KeyValuePair<string, string>("Bootstrap", "")
+        };
 
         private Lazy<IList<CultureInfo>>? _cultures;
         /// <summary>

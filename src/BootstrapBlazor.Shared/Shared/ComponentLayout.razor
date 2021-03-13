@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @layout MainLayout
-@inject NavigationManager Navigator
+
+<Theme Value="@SiteOptions.Value.CurrentTheme" />
 
 <div class="bb-title"><img class="bb-icon" src="_content/BootstrapBlazor.Shared/images/logo.png" /><span>@Title</span></div>
 
@@ -15,6 +16,10 @@
         <img alt="commit" src="https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/master.svg?logo=github&logoColor=green&label=commit">
     </span>
 </p>
+
+<div>
+    <ThemeChooser @bind-Value="@SiteOptions.Value.CurrentTheme" />
+</div>
 
 <Tab IsBorderCard="true" @ref="TabSet">
     <TabItem Text="@Example" Icon="fa fa-desktop">
