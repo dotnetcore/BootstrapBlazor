@@ -1,8 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @layout MainLayout
 
-<Theme Value="@SiteOptions.Value.CurrentTheme" />
-
 <div class="bb-title"><img class="bb-icon" src="_content/BootstrapBlazor.Shared/images/logo.png" /><span>@Title</span></div>
 
 <p class="text-center">
@@ -18,7 +16,7 @@
 </p>
 
 <div>
-    <ThemeChooser @bind-Value="@SiteOptions.Value.CurrentTheme" />
+    <ThemeChooser />
 </div>
 
 <Tab IsBorderCard="true" @ref="TabSet">

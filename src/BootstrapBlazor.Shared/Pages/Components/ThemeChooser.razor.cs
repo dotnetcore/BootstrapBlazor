@@ -27,6 +27,12 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [NotNull]
         private string? Title { get; set; }
 
+        [NotNull]
+        private string? HeaderText { get; set; }
+
+        [NotNull]
+        private IEnumerable<string>? ThemeList { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<ThemeChooser>? Localizer { get; set; }
@@ -40,18 +46,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
         private IOptions<WebsiteOptions>? SiteOptions { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public string Value { get; set; } = "";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public EventCallback<string> ValueChanged { get; set; }
-
-        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -59,7 +53,9 @@ namespace BootstrapBlazor.Shared.Pages.Components
             base.OnInitialized();
 
             Title ??= Localizer[nameof(Title)];
+            HeaderText ??= Localizer[nameof(HeaderText)];
             Themes = BootstrapOptions.Value.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
+            ThemeList = Themes.Select(t => t.Value);
         }
 
         /// <summary>
@@ -73,17 +69,15 @@ namespace BootstrapBlazor.Shared.Pages.Components
 
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("$.init_Theme", ThemeElement);
+                await JSRuntime.InvokeVoidAsync("$.initTheme", ThemeElement);
             }
         }
 
         private async Task OnClickTheme(SelectedItem item)
         {
-            Value = item.Value;
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(Value);
-            }
+            SiteOptions.Value.CurrentTheme = item.Value;
+
+            await JSRuntime.InvokeVoidAsync("$.setTheme", item.Value, ThemeList);
         }
 
         private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")

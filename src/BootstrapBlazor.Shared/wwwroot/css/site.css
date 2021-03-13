@@ -1429,18 +1429,17 @@ section {
     position: fixed;
     bottom: 4rem;
     background: #fff;
-    box-shadow: 0 0 12px #211b50;
+    box-shadow: 0 0 8px #211b50;
     overflow: hidden;
     border-radius: 5px;
     z-index: 2000;
     width: 260px;
     right: calc(50% - 130px);
-    opacity: 0.7;
-    transition: opacity .3s linear;
 }
 
     .ms-learn:hover {
         opacity: 1;
+        box-shadow: 0 0 12px #211b50;
     }
 
     .ms-learn .btn-learn {
@@ -1500,20 +1499,14 @@ section {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    opacity: 0.7;
     box-shadow: 0px 1px 20px 0px rgba(0,0,0,0.1),inset 0px -1px 0px 0px rgba(0,0,0,0.1);
     position: fixed;
     z-index: 1;
     right: 1rem;
     bottom: 8rem;
-    transition: opacity .3s linear;
     background-color: #034995;
     padding: 11px;
 }
-
-    .btn-theme:hover {
-        opacity: 1;
-    }
 
 .theme-bar {
     display: flex;
@@ -1581,3 +1574,16 @@ section {
         .theme-list .theme-item:not(:last-child) {
             margin-bottom: .5rem;
         }
+
+.ms-learn,
+.btn-theme {
+    opacity: 0.7;
+    box-shadow: 0 0 8px #211b50;
+    transition: opacity .3s linear, box-shadow .3s linear;
+}
+
+    .ms-learn:hover,
+    .btn-theme:hover {
+        opacity: 1;
+        box-shadow: 0 0 12px #211b50;
+    }

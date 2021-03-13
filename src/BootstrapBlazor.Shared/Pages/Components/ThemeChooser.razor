@@ -1,6 +1,6 @@
 ﻿@inherits BootstrapComponentBase
 
-<div @ref="@ThemeElement">
+<div @ref="@ThemeElement" class="theme">
     <div class="btn btn-theme" data-toggle="tooltip" title="@Title" data-placement="left">
         <div class="theme-bar">
             <span class="theme-color bg-danger"></span>
@@ -14,7 +14,7 @@
 
     <div class="theme-list">
         <div class="theme-header">
-            <div class="flex-fill">请选择主题</div>
+            <div class="flex-fill">@HeaderText</div>
             <div class="theme-close"><span aria-hidden="true">&times;</span></div>
         </div>
         @foreach (var item in Themes)

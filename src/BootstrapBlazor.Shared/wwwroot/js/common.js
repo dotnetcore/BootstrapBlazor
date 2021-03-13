@@ -175,14 +175,35 @@
                 obj.invokeMethodAsync(method, index);
             });
         },
-        init_Theme: function (el) {
+        initTheme: function (el) {
             var $el = $(el);
 
             $el.on('click', '.btn-theme, .theme-close, .theme-item', function (e) {
-                e.stopPropagation();
                 var $theme = $el.find('.theme-list');
                 $theme.toggleClass('is-open').slideToggle('fade');
             });
+        },
+        setTheme: function (css, cssList) {
+            var $link = $('link').filter(function (index, link) {
+                var href = $(link).attr('href');
+                return href === '_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css';
+            });
+            var $targetLink = $link.next();
+            if ($link.length == 1) {
+                if (css === '') {
+                    // remove
+                    var $theme = cssList.filter(function (theme) {
+                        return $targetLink.attr('href') === theme;
+                    });
+                    if ($theme.length === 1) {
+                        $targetLink.remove();
+                    }
+                }
+                else {
+                    // append
+                    $link.after('<link rel="stylesheet" href="' + css + '">')
+                }
+            }
         }
     });
 
@@ -231,8 +252,11 @@
 
         // Theme
         $(document)
-            .on('click', function () {
-                $('.theme-list.is-open').toggleClass('is-open').slideToggle('fade');
+            .on('click', function (e) {
+                var $el = $(e.target);
+                if ($el.closest('.theme').length == 0) {
+                    $('.theme-list.is-open').toggleClass('is-open').slideToggle('fade');
+                }
             });
     });
 })(jQuery);

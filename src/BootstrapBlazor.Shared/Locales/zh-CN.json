@@ -97,6 +97,7 @@
     "PlaceHolder": "请输入 ..."
   },
   "BootstrapBlazor.Shared.Pages.Components.ThemeChooser": {
-    "Title": "点击切换主题"
+    "Title": "点击切换主题",
+    "HeaderText": "请选择主题"
   }
 }
