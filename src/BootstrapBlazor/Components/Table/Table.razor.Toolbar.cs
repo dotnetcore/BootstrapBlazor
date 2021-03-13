@@ -89,6 +89,12 @@ namespace BootstrapBlazor.Components
         public bool ShowColumnList { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示保存、删除失败后的吐司提示 默认为 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowErrorToast { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 表格 Toolbar 按钮模板
         /// </summary>
         [Parameter]
@@ -296,13 +302,16 @@ namespace BootstrapBlazor.Components
             if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
             else valid = await GetDataService().SaveAsync((TItem)context.Model);
 
-            var option = new ToastOption
+            if (ShowErrorToast || valid)
             {
-                Category = valid ? ToastCategory.Success : ToastCategory.Error,
-                Title = SaveButtonToastTitle
-            };
-            option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
-            await Toast.Show(option);
+                var option = new ToastOption
+                {
+                    Category = valid ? ToastCategory.Success : ToastCategory.Error,
+                    Title = SaveButtonToastTitle
+                };
+                option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
+                await Toast.Show(option);
+            }
 
             return valid;
         }
@@ -428,7 +437,7 @@ namespace BootstrapBlazor.Components
                 SelectedItems.Clear();
                 await QueryAsync();
             }
-            await Toast.Show(option);
+            if (ShowErrorToast || ret) await Toast.Show(option);
         };
 
         /// <summary>
