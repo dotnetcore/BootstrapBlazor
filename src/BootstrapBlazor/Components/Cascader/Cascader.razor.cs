@@ -76,6 +76,20 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        }
+
+        private string _lastVaslue = string.Empty;
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            if (_lastVaslue == CurrentValueAsString) return;
+
+            _lastVaslue = CurrentValueAsString;
             SetDefaultValue(CurrentValueAsString);
         }
 
@@ -85,9 +99,6 @@ namespace BootstrapBlazor.Components
         /// <param name="defaultValue"></param>
         private void SetDefaultValue(string defaultValue)
         {
-            if (string.IsNullOrWhiteSpace(defaultValue))
-                return;
-
             _selectedItems.Clear();
             var item = GetNodeByValue(Items, defaultValue);
             SetSelectedNodeWithParent(item, _selectedItems);
