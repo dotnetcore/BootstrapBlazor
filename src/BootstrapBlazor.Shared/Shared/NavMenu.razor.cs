@@ -163,6 +163,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "级联选择 Cascader",
+                Url = "cascaders"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "多选框 Checkbox",
                 Url = "checkboxs"
             });

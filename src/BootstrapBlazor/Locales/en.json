@@ -41,6 +41,9 @@
     "Months": "January,February,March,April,May,June,July,August,September,October,November,December",
     "Title": "{0} {1}"
   },
+  "BootstrapBlazor.Components.Cascader": {
+    "PlaceHolder": "Please select ..."
+  },
   "BootstrapBlazor.Components.Console": {
     "HeaderText": "Monitor",
     "LightTitle": "Light",
