@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出对话框实例集合
         /// </summary>
-        private List<List<KeyValuePair<string, object>>> DialogOptions { get; set; } = new();
+        private List<List<KeyValuePair<string, object>>> DialogParameters { get; set; } = new();
 
         /// <summary>
         /// DialogServices 服务实例
@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
             var content = option.BodyTemplate ?? option.Component?.Render();
             if (content != null)
             {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), option.KeepChildrenState ? content : new RenderFragment(builder =>
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.BodyTemplate), option.KeepChildrenState ? content : new RenderFragment(builder =>
                 {
                     builder.OpenElement(0, "div");
                     builder.SetKey(option);
@@ -82,33 +82,26 @@ namespace BootstrapBlazor.Components
 
             if (option.FooterTemplate != null)
             {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.FooterTemplate), option.FooterTemplate));
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.FooterTemplate), option.FooterTemplate));
             }
 
-            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
+            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 // 回调 OnClose 方法
                 // 移除当前对话框
-                DialogOptions.Remove(parameters);
                 if (option.OnCloseAsync != null)
                 {
                     await option.OnCloseAsync();
                 }
+                DialogParameters.Remove(parameters);
 
-                // 显示上一个对话框
-                if (DialogOptions.Any())
-                {
-                    ModalContainer.ShowDialog();
-                }
-                else
-                {
-                    await ModalContainer.Close();
-                    StateHasChanged();
-                }
+                // 支持多级弹窗
+                await ModalContainer.CloseOrPopDialog();
+                StateHasChanged();
             })));
 
-            DialogOptions.Add(parameters);
-            if (DialogOptions.Count == 1)
+            DialogParameters.Add(parameters);
+            if (DialogParameters.Count == 1)
             {
                 IsShowDialog = true;
             }

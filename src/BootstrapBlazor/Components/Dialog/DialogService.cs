@@ -61,6 +61,8 @@ namespace BootstrapBlazor.Components
                     {
                         await option.OnResetSearchClick();
                     }
+                    option.OnCloseAsync = null;
+                    option.Dialog.RemoveDialog();
                 })),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.OnSearchClick), new Func<Task>(async () =>
                 {
@@ -68,6 +70,8 @@ namespace BootstrapBlazor.Components
                     {
                         await option.OnSearchClick();
                     }
+                    option.OnCloseAsync = null;
+                    option.Dialog.RemoveDialog();
                 }))
             });
 
@@ -93,10 +97,8 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate!),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.OnCloseAsync), new Func<Task>(async () =>
                 {
-                    if(option.OnCloseAsync != null)
-                    {
-                        await option.OnCloseAsync();
-                    }
+                    option.Dialog.RemoveDialog();
+                    await option.Dialog.CloseOrPopDialog();
                 })),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.OnSaveAsync), new Func<EditContext, Task>(async context =>
                 {
@@ -105,7 +107,8 @@ namespace BootstrapBlazor.Components
                         var ret = await option.OnSaveAsync(context);
                         if(ret)
                         {
-                            await option.Dialog!.Close();
+                            option.Dialog.RemoveDialog();
+                            await option.Dialog.CloseOrPopDialog();
                         }
                     }
                 }))
@@ -128,8 +131,8 @@ namespace BootstrapBlazor.Components
             option.BodyTemplate = builder =>
             {
                 builder.OpenComponent(0, typeof(TDialog));
-                builder.AddMultipleAttributes(2, option.ComponentParamters);
-                builder.AddComponentReferenceCapture(1, com => dialog = (IResultDialog)com);
+                builder.AddMultipleAttributes(1, option.ComponentParamters);
+                builder.AddComponentReferenceCapture(2, com => dialog = (IResultDialog)com);
                 builder.SetKey(Guid.NewGuid());
                 builder.CloseComponent();
             };
@@ -142,7 +145,7 @@ namespace BootstrapBlazor.Components
                 new(nameof(ResultDialogFooter.ButtonCloseText), option.ButtonCloseText ?? ResultDialogLocalizer[nameof(option.ButtonCloseText)] ?? ""),
                 new(nameof(ResultDialogFooter.OnClickClose), new Func<Task>(async () => {
                     result = DialogResult.Close;
-                    await option.OnCloseAsync!();
+                    if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
                 })),
 
                 new(nameof(ResultDialogFooter.ShowYesButton), option.ShowYesButton),
@@ -151,7 +154,7 @@ namespace BootstrapBlazor.Components
                 new(nameof(ResultDialogFooter.ButtonYesText), option.ButtonYesText ?? ResultDialogLocalizer[nameof(option.ButtonYesText)] ?? ""),
                 new(nameof(ResultDialogFooter.OnClickYes), new Func<Task>(async () => {
                     result = DialogResult.Yes;
-                    await option.OnCloseAsync!();
+                    if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
                 })),
 
                 new(nameof(ResultDialogFooter.ShowNoButton), option.ShowNoButton),
@@ -160,18 +163,25 @@ namespace BootstrapBlazor.Components
                 new(nameof(ResultDialogFooter.ButtonNoText), option.ButtonNoText?? ResultDialogLocalizer[nameof(option.ButtonNoText)] ?? ""),
                 new(nameof(ResultDialogFooter.OnClickNo), new Func<Task>(async () => {
                     result = DialogResult.No;
-                    await option.OnCloseAsync!();
+                    if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
                 }))
             }).Render();
 
             var closeCallback = option.OnCloseAsync;
             option.OnCloseAsync = async () =>
             {
-                if (await dialog!.OnClosing(result))
+                if (dialog != null && await dialog.OnClosing(result))
                 {
-                    await dialog!.OnClose(result);
-                    if (closeCallback != null) await closeCallback();
-                    await option.Dialog!.Close();
+                    await dialog.OnClose(result);
+                    if (closeCallback != null)
+                    {
+                        await closeCallback();
+                    }
+
+                    // Modal 与 ModalDialog 的 OnClose 事件陷入死循环
+                    // option.OnClose -> Modal.Close -> ModalDialog.Close -> ModalDialog.OnClose -> option.OnClose
+                    option.OnCloseAsync = null;
+                    await option.Dialog.Close();
                     option.ReturnTask.SetResult(result);
                 }
             };

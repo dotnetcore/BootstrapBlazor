@@ -68,7 +68,7 @@ namespace BootstrapBlazor.Shared.Pages
             option.BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
             {
                 new KeyValuePair<string, object>(nameof(Button.Text), "点击关闭弹窗"),
-                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog!.Close()))
+                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
             }).Render();
             await DialogService.Show(option);
         }
@@ -112,7 +112,7 @@ namespace BootstrapBlazor.Shared.Pages
             };
             op.BodyTemplate = DynamicComponent.CreateComponent<DataDialogComponent>(new List<KeyValuePair<string, object>>
             {
-                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog!.Toggle()))
+                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
             }).Render();
 
             await DialogService.Show(op);

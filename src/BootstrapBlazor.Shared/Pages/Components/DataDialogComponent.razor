@@ -19,10 +19,11 @@
                         </div>
                     </EditTemplate>
                 </EditorItem>
+                <EditorItem @bind-Field="@context.Hobby" Data="@Hobbys" />
             </FieldItems>
         </EditorForm>
         <div class="modal-footer table-modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <button type="button" class="btn btn-secondary" @onclick="@(e => OnClose?.Invoke())">
                 <i class="fa fa-times"></i>
                 <span>关闭</span>
             </button>
@@ -34,6 +35,10 @@
 <Toast />
 
 @code {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
     [Parameter]
     public Action? OnClose { get; set; }
 
@@ -42,25 +47,12 @@
 
     private Foo? Model { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.NotNull]
+    [NotNull]
     private List<Foo>? Items { get; set; }
 
-    private static readonly Random random = new Random();
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <returns></returns>
-    protected List<Foo> GenerateItems() => Enumerable.Range(1, 10).Select(i => new Foo()
-    {
-        Id = i,
-        Name = $"张三 {i:d4}",
-        DateTime = DateTime.Now.AddDays(i - 1),
-        Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
-        Count = random.Next(1, 100),
-        Complete = random.Next(1, 100) > 50,
-        Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
-    }).ToList();
 
     /// <summary>
     ///
@@ -69,7 +61,8 @@
     {
         base.OnInitialized();
 
-        Items = GenerateItems();
+        Items = Foo.GenerateFoo(Localizer);
+        Hobbys = Foo.GenerateHobbys(Localizer);
     }
 
     protected override void OnParametersSet()

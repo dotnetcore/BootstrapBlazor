@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         ///
         /// </summary>
         [Required(ErrorMessage = "{0}不能为空")]
-        [AutoGenerateColumn(Order = 10, Filterable = true)]
+        [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true)]
         [Display(Name = "姓名")]
         public string? Name { get; set; }
 
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// </summary>
         [Display(Name = "地址")]
         [Required(ErrorMessage = "{0}不能为空")]
-        [AutoGenerateColumn(Order = 20, Filterable = true)]
+        [AutoGenerateColumn(Order = 20, Filterable = true, Searchable = true)]
         public string? Address { get; set; }
 
         /// <summary>

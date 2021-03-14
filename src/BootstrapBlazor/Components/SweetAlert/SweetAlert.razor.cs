@@ -24,17 +24,11 @@ namespace BootstrapBlazor.Components
         private Modal? ModalContainer { get; set; }
 
         /// <summary>
-        /// 获得/设置 弹出对话框实例
-        /// </summary>
-        [NotNull]
-        private ModalDialog? ModalDialog { get; set; }
-
-        /// <summary>
         /// DialogServices 服务实例
         /// </summary>
         [Inject]
         [NotNull]
-        public SwalService? SwalService { get; set; }
+        private SwalService? SwalService { get; set; }
 
         private bool IsShowDialog { get; set; }
 
@@ -43,6 +37,9 @@ namespace BootstrapBlazor.Components
         private int Delay { get; set; }
 
         private CancellationTokenSource? DelayToken { get; set; }
+
+        [NotNull]
+        private List<KeyValuePair<string, object>>? DialogParameter { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -67,7 +64,7 @@ namespace BootstrapBlazor.Components
             if (ModalContainer != null && IsShowDialog)
             {
                 IsShowDialog = false;
-                await ModalContainer.Toggle();
+                await ModalContainer.Show();
 
                 if (IsAutoHide && Delay > 0)
                 {
@@ -77,45 +74,54 @@ namespace BootstrapBlazor.Components
                     if (!DelayToken.IsCancellationRequested)
                     {
                         // 自动关闭弹窗
-                        await ModalContainer.Toggle();
+                        await ModalContainer.Close();
                     }
                 }
             }
         }
 
-        private async Task Show(SwalOption option)
+        private Task Show(SwalOption option)
         {
             IsAutoHide = option.IsAutoHide;
             Delay = option.Delay;
 
             option.Dialog = ModalContainer;
-            option.Body = ModalDialog;
             var parameters = option.ToAttributes().ToList();
 
-            // 不保持状态
-            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.OnClose), new Func<Task>(async () =>
+            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 if (IsAutoHide && DelayToken != null)
                 {
                     DelayToken.Cancel();
                     DelayToken = null;
                 }
-                if (!option.KeepChildrenState)
-                {
-                    await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
-                    {
-                        [nameof(ModalDialogBase.BodyContext)] = null!,
-                        [nameof(ModalDialogBase.BodyTemplate)] = null!
-                    }));
-                }
+                DialogParameter = null;
+                await ModalContainer.CloseOrPopDialog();
+                StateHasChanged();
             })));
 
-            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialogBase.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
+            parameters.Add(new(nameof(ModalDialog.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
 
-            await ModalDialog.SetParametersAsync(ParameterView.FromDictionary(parameters.ToDictionary(item => item.Key, item => item.Value)));
+            DialogParameter = parameters;
             IsShowDialog = true;
             StateHasChanged();
+            return Task.CompletedTask;
         }
+
+        private RenderFragment RenderDialog() => builder =>
+        {
+            if (DialogParameter != null)
+            {
+                builder.OpenComponent<ModalDialog>(0);
+                builder.AddMultipleAttributes(1, DialogParameter);
+                builder.AddComponentReferenceCapture(2, dialog =>
+                {
+                    var modal = (ModalDialog)dialog;
+                    ModalContainer.ShowDialog(modal);
+                });
+                builder.CloseComponent();
+            }
+        };
 
         /// <summary>
         /// 

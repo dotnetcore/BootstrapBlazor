@@ -1541,20 +1541,27 @@ section {
 }
 
     .theme-list .theme-header {
-        display: flex;
         padding: 0.75rem 1rem;
         background-color: #8759ff;
         color: #fff;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         margin: -1rem -1rem 1rem -1rem;
+        position: relative;
     }
 
         .theme-list .theme-header .theme-close {
-            line-height: 21px;
             font-size: 1.25rem;
-            display: block;
             cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 7px;
+            padding: 0 3px;
+            transition: color .3s linear;
+        }
+
+        .theme-list .theme-header .theme-close:hover {
+            color: #005980;
         }
 
     .theme-list .theme-item {
