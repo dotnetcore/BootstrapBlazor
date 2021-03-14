@@ -477,7 +477,7 @@ RenderFragment<TItem> RenderRow => item =>
                     var triggerClick = showArrow && CheckTreeChildren(item);
                 }
                 <DynamicElement TagName="div" TriggerClick="@triggerClick"
-                                OnClick="@ToggleTreeRow(item)" StopPropagation="true"
+                                OnClick="@ToggleTreeRow(item)" StopPropagation="showArrow"
                                 class="@GetCellClassString(col, triggerClick)" style="@GetCellStyleString(col)">
                     @if (showArrow)
                     {
