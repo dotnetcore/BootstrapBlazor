@@ -106,6 +106,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 弹窗容器实例
         /// </summary>
         [CascadingParameter]
+        [NotNull]
         public Modal? Modal { get; set; }
 
         /// <summary>
@@ -115,15 +116,15 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (OnClose == null) OnClose = () => Task.CompletedTask;
+            if (OnClose == null) OnClose = async () => await Modal.CloseOrPopDialog();
 
-            Modal?.AddDialog(this);
+            Modal.AddDialog(this);
         }
 
         /// <summary>
         /// 显示弹窗方法
         /// </summary>
-        public void Show() => Modal?.ShowDialog(this);
+        public void Show() => Modal.ShowDialog(this);
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -143,7 +144,7 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClickClose()
         {
-            Modal?.RemoveDialog(this);
+            Modal.RemoveDialog(this);
             if (OnClose != null)
             {
                 await OnClose();

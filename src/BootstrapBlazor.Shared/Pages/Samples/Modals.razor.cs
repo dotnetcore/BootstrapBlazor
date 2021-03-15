@@ -65,27 +65,6 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        [NotNull]
-        private Modal? CascadeModal { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ModalDialog? Dialog1 { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ModalDialog? Dialog2 { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ModalDialog? Dialog3 { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
         private static IEnumerable<AttributeItem> GetAttributes()
         {
