@@ -407,7 +407,7 @@
         background-color: #e4e7ed;
     }
 
-.table-striped.table-fixed-column tbody tr:nth-of-type(odd):not(:hover) .fixed,
+.table-striped.table-fixed-column tr:nth-of-type(odd):not(:hover) .fixed,
 .table-striped.table-fixed-column .table-row:not(.active):nth-of-type(odd) .fixed {
     background-color: #fafafa;
 }
