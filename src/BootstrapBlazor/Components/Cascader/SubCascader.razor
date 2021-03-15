@@ -5,20 +5,20 @@
 {
     if (item.HasChildren)
     {
-        <li class="nav-item">
-            <div class="has-leaf nav-link" data-val="@item.Value" @onclick="@(e => OnClick(item))" @onclick:stopPropagation="true">
+        <li class="@ActiveItem("nav-item", item)" @onclick="@(e => OnClick(item))" @onclick:stopPropagation>
+            <div class="has-leaf nav-link">
                 <span>@item.Text</span>
                 <i class="fa fa-angle-down nav-link-right"></i>
-                <ul class="nav sub-menu">
-                    <SubCascader Items="@item.Items" class="dropdown-item" OnClick="@OnClick" />
+                <ul class="nav sub-menu" @onclick:stopPropagation>
+                    <SubCascader Items="@item.Items" OnClick="@OnClick" ActiveItem="@ActiveItem"/>
                 </ul>
             </div>
         </li>
     }
     else
     {
-        <li class="nav-item">
-            <div class="nav-link" data-val="@item.Value" @onclick="@(e => OnClick(item))" @onclick:stopPropagation="true"><span>@item.Text</span></div>
+        <li class="@ActiveItem("nav-item", item)" @onclick="@(e => OnClick(item))" @onclick:stopPropagation>
+            <div class="nav-link"><span>@item.Text</span></div>
         </li>
     }
 }

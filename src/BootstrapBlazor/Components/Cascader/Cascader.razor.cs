@@ -154,7 +154,7 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 设置当前项是否 Active 方法
+        /// 选择项是否 Active 方法
         /// </summary>
         /// <param name="className"></param>
         /// <param name="item"></param>
@@ -183,7 +183,10 @@ namespace BootstrapBlazor.Components
         private async Task SetValue(string value)
         {
             RefreshDisplayValue();
-            StateHasChanged();
+            if (_selectedItems.Count != 1)
+            {
+                StateHasChanged();
+            }
 
             CurrentValueAsString = value;
 

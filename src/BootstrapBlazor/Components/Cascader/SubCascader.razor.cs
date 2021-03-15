@@ -29,10 +29,15 @@ namespace BootstrapBlazor.Components
         public IEnumerable<CascaderItem> Items { get; set; } = Enumerable.Empty<CascaderItem>();
 
         /// <summary>
-        /// 获得/设置 菜单项点击回调委托
+        /// 获得/设置 选择项点击回调委托
         /// </summary>
         [Parameter]
         public Func<CascaderItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
+        /// <summary>
+        /// 获得/设置 选择项是否 Active 回调委托
+        /// </summary>
+        [Parameter]
+        public Func<string, CascaderItem, string?> ActiveItem {get; set;} = (className, _) => CssBuilder.Default(className).Build();
     }
 }

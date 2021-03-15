@@ -6,34 +6,31 @@
 {
     <label class="control-label" for="@InputId">@DisplayText</label>
 }
-<CascadingValue Value="_selectedItems">
-    <div class="menu" style="border-bottom: 0px;">
-        <div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
-            <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" style="@BackgroundColor" data-toggle="dropdown" placeholder="@PlaceHolder" value="@_displayText" />
-            <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
-            <div class="dropdown-menu">
-                @foreach (var item in Items)
+<div class="menu" style="border-bottom: 0px;">
+    <div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
+        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" style="@BackgroundColor" data-toggle="dropdown" placeholder="@PlaceHolder" value="@_displayText" />
+        <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
+        <div class="dropdown-menu">
+            @foreach (var item in Items)
+            {
+                if (item.HasChildren)
                 {
-                    if (item.HasChildren)
-                    {
-                        <div class="has-leaf dropdown-item" @onclick="@(e => OnItemClick(item))" @onclick:stopPropagation="true">
-                            <span>@item.Text</span>
-                            <i class="fa fa-angle-down nav-link-right"></i>
-                            <ul class="nav sub-menu">
-                                <SubCascader Items="@item.Items" class="dropdown-item" OnClick="@OnItemClick" />
-                            </ul>
-                        </div>
-                            
-                    }
-                    else
-                    {
-                        <div class="@ActiveItem("dropdown-item", item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
-                    }
+                    <div class="@ActiveItem("has-leaf dropdown-item", item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">
+                        <span>@item.Text</span>
+                        <i class="fa fa-angle-down nav-link-right"></i>
+                        <ul class="nav sub-menu" @onclick:stopPropagation>
+                            <SubCascader Items="@item.Items" OnClick="@OnItemClick" ActiveItem="@ActiveItem"/>
+                        </ul>
+                    </div>
                 }
-            </div>
+                else
+                {
+                    <div class="@ActiveItem("dropdown-item", item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
+                }
+            }
         </div>
     </div>
-</CascadingValue>
+</div>
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>
