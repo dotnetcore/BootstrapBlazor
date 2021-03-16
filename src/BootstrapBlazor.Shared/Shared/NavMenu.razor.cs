@@ -179,7 +179,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "颜色拾取器 ColorPicker",
                 Url = "colorpickers"
             });
@@ -270,6 +269,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "上传组件 Upload",
                 Url = "uploads"
             });
@@ -535,6 +535,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "对话框 Dialog",
                 Url = "dialogs"
             });
@@ -555,6 +556,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "模态框 Modal",
                 Url = "modals"
             });

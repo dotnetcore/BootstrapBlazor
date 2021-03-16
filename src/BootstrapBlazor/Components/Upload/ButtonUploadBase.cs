@@ -68,7 +68,7 @@ namespace BootstrapBlazor.Components
                     File = f,
                     Uploaded = OnChange == null,
                     UpdateCallback = Update
-                });
+                }).ToList();
                 UploadFiles.AddRange(items);
                 if (OnChange != null)
                 {
@@ -76,6 +76,7 @@ namespace BootstrapBlazor.Components
                     {
                         await OnChange(item);
                         item.Uploaded = true;
+                        StateHasChanged();
                     }
                 }
             }

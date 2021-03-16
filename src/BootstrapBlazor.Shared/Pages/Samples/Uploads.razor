@@ -47,10 +47,11 @@
 <Block Title="点击上传" Introduction="<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <ButtonUpload ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+            <p>点击 <code>浏览按钮</code> 选择文件上传，本例中设置 <code>IsMultiple=true</code> 可多选文件进行上传</p>
+            <ButtonUpload IsMultiple="true" ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
         </div>
     </div>
-    <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
+    <p class="mt-3">设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
     <div class="row mt-3">
         <div class="col-12 col-sm-6">
             <ButtonUpload IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
@@ -102,7 +103,10 @@
 
 <Block Title="预览卡片式" Introduction="<code>CardUpload</code> 组件，呈现为卡片式带预览模式">
     <p>
+        <div><b>SSR 模式</b></div>
         <div><code>Server Side</code> 模式中可以使用 <code>IWebHostEnviroment</code> 注入服务获取到 <code>wwwwroot</code> 目录，保存文件到 <code>images\uploader</code> 中，此功能无需 <b>MVC</b> 的控制器辅助进行文件的保存，直接调用 <code>SaveToFile</code> 方法即可</div>
+
+        <div><b>Wasm 模式</b></div>
         <div><code>wasm</code> 模式中无法使用 <code>IWebHostEnviroment</code> 需要调用 <code>webapi</code> 接口等形式将文件保存到服务器端</div>
         <div>有兴趣的同学可以通过开源仓库中的 <code>wiki</code> 文档中相关资源查看关于 <code>Upload</code> 组件的相关知识技巧 <a href="@SiteOptions.Value.VideoLibUrl" target="_blank">[传送门]</a></div>
         <div>本例中通过服务器端验证当文件大小超过 <code>200MB</code> 时，提示文件太大提示信息</div>
