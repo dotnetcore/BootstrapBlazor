@@ -51,6 +51,7 @@
 
             .upload .upload-body.is-list .upload-item .fa-trash-o,
             .upload .upload-body.is-list .upload-item:hover .fa-check-circle-o,
+            .upload .upload-body.is-list .upload-item:hover .fa-times-circle-o,
             .upload .upload-body.is-avatar .upload-item .upload-item-delete,
             .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
             .upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,

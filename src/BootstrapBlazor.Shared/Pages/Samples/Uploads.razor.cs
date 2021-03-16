@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Uploads : IDisposable
     {
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
 
         [Inject]
         [NotNull]
