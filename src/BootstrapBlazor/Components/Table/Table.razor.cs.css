@@ -1,4 +1,4 @@
-.table-container {
+﻿.table-container {
     position: relative;
 }
 
@@ -388,7 +388,7 @@
     border-spacing: 0;
 }
 
-    .table-fixed-column .table tr:not(:hover) td.fixed {
+    .table-fixed-column .table tr:not(:hover) .fixed {
         background-color: #fff;
     }
 
