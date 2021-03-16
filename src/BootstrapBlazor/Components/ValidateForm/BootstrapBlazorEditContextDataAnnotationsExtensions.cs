@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="editContext">The <see cref="EditContext"/>.</param>
         /// <param name="editForm"></param>
-        public static EditContext AddEditContextDataAnnotationsValidation(this EditContext editContext, ValidateFormBase editForm)
+        public static EditContext AddEditContextDataAnnotationsValidation(this EditContext editContext, ValidateForm editForm)
         {
             if (editContext == null)
             {
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
             return editContext;
         }
 
-        private static void ValidateModel(EditContext? editContext, ValidationMessageStore messages, ValidateFormBase editForm)
+        private static void ValidateModel(EditContext? editContext, ValidationMessageStore messages, ValidateForm editForm)
         {
             if (editContext != null)
             {
@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private static void ValidateField(EditContext editContext, ValidationMessageStore messages, in FieldIdentifier fieldIdentifier, ValidateFormBase editForm)
+        private static void ValidateField(EditContext editContext, ValidationMessageStore messages, in FieldIdentifier fieldIdentifier, ValidateForm editForm)
         {
             // 获取验证消息
             var results = new List<ValidationResult>();

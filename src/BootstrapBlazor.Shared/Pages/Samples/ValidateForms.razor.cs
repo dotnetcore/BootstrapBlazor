@@ -40,6 +40,9 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
+        [NotNull]
+        private ValidateForm? Test { get; set; }
+
         /// <summary>baise
         /// OnInitialized 方法
         /// </summary>
@@ -61,6 +64,12 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnValidSubmit(EditContext context)
         {
             Trace2.Log("OnValidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
+        private Task OnValidateNameSubmit(EditContext context)
+        {
+            Test.SetError(typeof(Foo), "Name", "数据库中已存在");
             return Task.CompletedTask;
         }
 

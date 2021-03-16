@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 当前编辑窗体上下文
         /// </summary>
         [CascadingParameter]
-        public ValidateFormBase? EditForm { get; set; }
+        public ValidateForm? EditForm { get; set; }
 
         /// <summary>
         /// 初始化方法

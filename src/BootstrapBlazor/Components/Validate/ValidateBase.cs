@@ -232,7 +232,7 @@ namespace BootstrapBlazor.Components
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
-        protected ValidateFormBase? EditForm { get; set; }
+        protected ValidateForm? EditForm { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
