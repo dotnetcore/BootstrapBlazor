@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components
                 var validationContext = new ValidationContext(editContext.Model);
                 var validationResults = new List<ValidationResult>();
 
-                TryValidateObject(editContext.Model, validationContext, validationResults);
+                TryValidateObject(editContext.Model, validationContext, validationResults, editForm);
                 editForm.ValidateObject(editContext.Model, validationContext, validationResults);
 
                 messages.Clear();
@@ -108,14 +108,20 @@ namespace BootstrapBlazor.Components
             return invoker.Invoke(model);
         }
 
-        private static void TryValidateObject(object model, ValidationContext context, ICollection<ValidationResult> results)
+        private static void TryValidateObject(object model, ValidationContext context, ICollection<ValidationResult> results, ValidateForm validateForm)
         {
             var modelType = model.GetType();
-            foreach (var p in modelType.GetProperties())
+            var validateProperties = validateForm.ValidateAllProperties
+                ? modelType.GetRuntimeProperties().Where(p => p.IsPublic() && !p.GetIndexParameters().Any())
+                : validateForm.GetPropertiesByModelType(model.GetType()).Select(p => model.GetType().GetProperty(p));
+            foreach (var p in validateProperties)
             {
-                var fieldIdentifier = new FieldIdentifier(model, fieldName: p.Name);
-                var propertyValue = fieldIdentifier.GetPropertyValue();
-                TryValidateProperty(propertyValue, context, results, p);
+                if (p != null)
+                {
+                    var fieldIdentifier = new FieldIdentifier(model, fieldName: p.Name);
+                    var propertyValue = fieldIdentifier.GetPropertyValue();
+                    TryValidateProperty(propertyValue, context, results, p);
+                }
             }
         }
 
@@ -170,5 +176,7 @@ namespace BootstrapBlazor.Components
                 }
             }
         }
+
+        private static bool IsPublic(this PropertyInfo p) => p.GetMethod != null && p.SetMethod != null && p.GetMethod.IsPublic && p.SetMethod.IsPublic;
     }
 }

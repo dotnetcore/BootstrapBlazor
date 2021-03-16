@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -42,6 +43,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否验证所有字段 默认 false
+        /// </summary>
+        [Parameter]
+        public bool ValidateAllProperties { get; set; }
 
         /// <summary>
         /// Specifies the top-level model object for the form. An edit context will
@@ -86,6 +93,13 @@ namespace BootstrapBlazor.Components
                 validator.ToggleMessage(results, true);
             }
         }
+
+        /// <summary>
+        /// 通过指定的模型类型获取当前表单中的绑定属性
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <returns></returns>
+        internal IEnumerable<string> GetPropertiesByModelType(Type modelType) => ValidatorCache.Keys.Where(k => k.ModelType == modelType).Select(k => k.FieldName);
 
         /// <summary>
         /// EditModel 数据模型验证方法
