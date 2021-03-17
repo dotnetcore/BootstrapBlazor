@@ -178,22 +178,26 @@ namespace BootstrapBlazor.Components
         private string? DataServiceInvalidOperationText { get; set; }
 
         /// <summary>
+        /// 获得/设置 数据服务
+        /// </summary>
+        [Parameter]
+        public IDataService<TItem>? DataServices { get; set; }
+
+        /// <summary>
         /// 获得/设置 注入数据服务
         /// </summary>
         [Inject]
         [NotNull]
-        private IEnumerable<IDataService<TItem>>? DataServices { get; set; }
+        private IDataService<TItem>? InjectDataServices { get; set; }
 
         private IDataService<TItem> GetDataService()
         {
-            if (DataServices.Any())
-            {
-                return DataServices.Last();
-            }
-            else
+            var ds = DataServices ?? InjectDataServices;
+            if (ds == null)
             {
                 throw new InvalidOperationException(DataServiceInvalidOperationText);
             }
+            return ds;
         }
 
         /// <summary>
