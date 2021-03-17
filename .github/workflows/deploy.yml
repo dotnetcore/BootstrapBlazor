@@ -3,7 +3,7 @@ name: Deploy To Huawei VM
 on:
   push:
     branches:
-      - dev
+      - master-off
 
 jobs:
   deploy:

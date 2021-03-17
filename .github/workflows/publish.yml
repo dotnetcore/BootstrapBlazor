@@ -3,7 +3,7 @@ name: Deploy To Pages
 on:
   push:
     branches:
-      - master
+      - publish
 
 jobs:
   publish:

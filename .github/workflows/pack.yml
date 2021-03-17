@@ -3,7 +3,7 @@ name: Package to Nuget
 on:
   push:
     branches:
-      - dev
+      - pack
 
 jobs:
   pack:
