@@ -229,9 +229,9 @@ namespace BootstrapBlazor.Components
                     list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
                     _oldStringValue = CurrentValueAsString;
                 }
-                else if (typeValue.IsGenericType)
+                else if (typeValue.IsGenericType || typeValue.IsArray)
                 {
-                    var t = typeValue.GenericTypeArguments;
+                    var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
                     var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
                     var mi = instance.GetType().GetMethod("AddRange");
                     if (mi != null)
@@ -346,24 +346,25 @@ namespace BootstrapBlazor.Components
             {
                 CurrentValueAsString = string.Join(",", SelectedItems.Select(i => i.Value));
             }
-            else if (typeValue.IsGenericType)
+            else if (typeValue.IsGenericType || typeValue.IsArray)
             {
-                var t = typeValue.GenericTypeArguments;
-                var instance = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
+                var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
+                var listType = typeof(List<>).MakeGenericType(t);
+                var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count)!;
 
                 foreach (var item in SelectedItems)
                 {
                     var val = item.Value;
-                    if (t[0].IsEnum)
+                    if (t.IsEnum && val != null)
                     {
-                        instance.Add(Enum.Parse(t[0], val));
+                        instance.Add(Enum.Parse(t, val));
                     }
                     else
                     {
-                        instance.Add(val);
+                        instance.Add(Convert.ChangeType(val, t));
                     }
                 }
-                CurrentValue = (TValue)instance;
+                CurrentValue = (TValue)(typeValue.IsGenericType ? instance : listType.GetMethod("ToArray")!.Invoke(instance, null)!);
             }
         }
 
