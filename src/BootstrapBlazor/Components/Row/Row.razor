@@ -1,15 +1,23 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-@if (FirstRender)
+
+@if (ParentRow == null || InnerRender == false)
 {
-    <CascadingValue Value="this" IsFixed="true">
-        <div hidden>
+    <CascadingValue Value="this">
+        @if (ParentRow == null)
+        {
+            <div hidden>
+                @ChildContent
+            </div>
+        }
+        else
+        {
             @ChildContent
-        </div>
+        }
     </CascadingValue>
 }
-else
+@if (ParentRow == null || InnerRender == true)
 {
     <div @attributes="@AdditionalAttributes" class="@ClassString">
         @foreach (var item in Items)

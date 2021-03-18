@@ -3,7 +3,7 @@
 <h3>Row布局组件</h3>
 
 <h4>可简单设置一行显示的组件数量</h4>
-
+<BootstrapBlazor.Components.Button OnClick="test"  Text="测试动态Parameters"/>
 <Block Title="放置普通控件" Introduction="将自己的组件放到 <code>Row</code> 内部即可">
     <Row ItemsPerRow="ItemsPerRowEnum.Three">
         <Card>
@@ -31,8 +31,8 @@
 </Block>
 <Block Title="放置表单控件（内联）" Introduction="当放置表单控件时，可以指定RowType为FormInline，会将Label显示在左边，控件显示原始大小">
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRowEnum.Three" RowType="RowTypeEnum.FormInline" >
-            <CheckboxList @bind-Value="@Educations" />
+        <Row ItemsPerRow="ItemsPerRowEnum.Three" RowType="RowTypeEnum.FormInline" RowName="parent">
+            <CheckboxList @bind-Value="@Model.Name" Items="Items" />
             <BootstrapInput @bind-Value="@Model.Address" />
             <BootstrapInput @bind-Value="@Model.DateTime" />
             <BootstrapInput @bind-Value="@Model.Id" />
@@ -43,7 +43,7 @@
 <Block Title="放置表单控件（充满）" Introduction="当放置表单控件时，可以指定RowType为FormRow，会将Label显示在上边，控件充满">
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRowEnum.Three" RowType="RowTypeEnum.FormRow" MaxCount="5">
-            <CheckboxList @bind-Value="@Educations" />
+            <CheckboxList @bind-Value="@Model.Educations" />
             <BootstrapInput @bind-Value="@Model.Address" />
             <BootstrapInput @bind-Value="@Model.DateTime" />
             <BootstrapInput @bind-Value="@Model.Id" />
@@ -89,7 +89,7 @@
         </Row>
         <Row ItemsPerRow="ItemsPerRowEnum.Four" RowType="RowTypeEnum.FormRow">
             <Row ColSpan="3">
-                <BootstrapInput @bind-Value="@Model.Address" />
+                <CheckboxList @bind-Value="@Model.Name" Items="Items" />
             </Row>
             <BootstrapInput @bind-Value="@Model.Address" />
         </Row>
