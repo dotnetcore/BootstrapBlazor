@@ -74,9 +74,10 @@
     </div>
     <div class="footer-info d-none d-sm-flex">
         <div>Powered by .NET @Version on Linux</div>
+        <div class="ml-1">BB @BBVersion</div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
-            <a class="ml-3" href="@WebsiteOption.Value.BootstrapBlazorLink" target="_blank">码云代码托管平台</a>
-            <div class="mx-3">
+            <a class="ml-3 d-none d-md-block" href="@WebsiteOption.Value.BootstrapBlazorLink" target="_blank">码云代码托管平台</a>
+            <div class="mx-3 d-none d-md-block">
                 <img alt="12377@2x" class="footer-logo mr-1" src="_content/BootstrapBlazor.Shared/images/12377@2x.png">
                 <a href="https://12377.cn" target="_blank">违法和不良信息举报中心</a>
             </div>
@@ -96,7 +97,23 @@
 @code {
     private string Version => Environment.Version.ToString();
 
+    private string BBVersion { get; set; } = "";
+
     private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        try
+        {
+            BBVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion ?? "";
+        }
+        catch (PlatformNotSupportedException)
+        {
+            BBVersion = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString() ?? "";
+        }
+    }
 
     private async Task SetLang(string cultureName)
     {
