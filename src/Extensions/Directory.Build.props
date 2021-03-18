@@ -6,7 +6,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.9</Version>
+    <Version>5.0.10</Version>
   </PropertyGroup>
 
   <ItemGroup>
