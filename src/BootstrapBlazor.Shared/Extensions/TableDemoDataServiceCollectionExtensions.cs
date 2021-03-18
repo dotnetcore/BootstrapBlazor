@@ -18,13 +18,13 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class TableDemoDataServiceCollectionExtensions
     {
         /// <summary>
-        /// 增加 PetaPoco 数据库操作服务
+        /// 增加 演示数据库操作服务
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
         public static IServiceCollection AddTableDemoDataService(this IServiceCollection services)
         {
-            services.TryAddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+            services.AddScoped(typeof(IDataService<>), typeof(TableDemoDataService<>));
             return services;
         }
     }

@@ -181,18 +181,18 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据服务
         /// </summary>
         [Parameter]
-        public IDataService<TItem>? DataServices { get; set; }
+        public IDataService<TItem>? DataService { get; set; }
 
         /// <summary>
         /// 获得/设置 注入数据服务
         /// </summary>
         [Inject]
         [NotNull]
-        private IDataService<TItem>? InjectDataServices { get; set; }
+        private IDataService<TItem>? InjectDataService { get; set; }
 
         private IDataService<TItem> GetDataService()
         {
-            var ds = DataServices ?? InjectDataServices;
+            var ds = DataService ?? InjectDataService;
             if (ds == null)
             {
                 throw new InvalidOperationException(DataServiceInvalidOperationText);

@@ -40,4 +40,38 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         Task<QueryData<TModel>> QueryAsync(QueryPageOptions option);
     }
+
+    /// <summary>
+    /// 内部默认数据注入服务实现类
+    /// </summary>
+    internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
+    {
+        /// <summary>
+        /// 查询操作方法
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions options) => Task.FromResult(new QueryData<TModel>()
+        {
+            Items = new List<TModel>(),
+            TotalCount = 0,
+            IsFiltered = true,
+            IsSearch = true,
+            IsSorted = true
+        });
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override Task<bool> SaveAsync(TModel model) => Task.FromResult(false);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public override Task<bool> DeleteAsync(IEnumerable<TModel> models) => Task.FromResult(false);
+    }
 }
