@@ -54,10 +54,7 @@ namespace BootstrapBlazor.Components
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions options) => Task.FromResult(new QueryData<TModel>()
         {
             Items = new List<TModel>(),
-            TotalCount = 0,
-            IsFiltered = true,
-            IsSearch = true,
-            IsSorted = true
+            TotalCount = 0
         });
 
         /// <summary>
