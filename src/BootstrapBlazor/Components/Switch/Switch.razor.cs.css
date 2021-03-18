@@ -67,6 +67,10 @@
         font-size: 80%;
     }
 
+.form-inline .switch {
+    height: 35px;
+}
+
 @media (min-width: 576px) {
     .form-inline .switch {
         width: 196px;

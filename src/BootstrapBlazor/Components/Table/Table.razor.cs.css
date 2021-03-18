@@ -364,6 +364,10 @@
         margin-right: 6px;
     }
 
+    .table-row .table-cell > span {
+        display: inherit;
+    }
+
     .table-row.table-footer {
         display: flex;
     }
