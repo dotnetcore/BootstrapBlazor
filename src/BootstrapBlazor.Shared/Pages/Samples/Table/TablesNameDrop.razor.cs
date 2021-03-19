@@ -6,8 +6,9 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Pages
+namespace BootstrapBlazor.Shared.Pages.Table
 {
     /// <summary>
     /// 
@@ -18,9 +19,10 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Parameter]
+        [NotNull]
         public Foo? Model { get; set; }
 
-        private readonly List<SelectedItem> items = new List<SelectedItem>()
+        private readonly List<SelectedItem> items = new()
         {
             new SelectedItem { Text = "自定义姓名1", Value = "自定义姓名1" },
             new SelectedItem { Text = "自定义姓名2", Value = "自定义姓名2" },

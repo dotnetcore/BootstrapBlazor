@@ -23,7 +23,7 @@
     "header": "Table/TablesFixedHeader;Table/TablesBaseQuery",
     "inputnumbers": "InputNumbers",
     "listviews": "ListViews",
-    "multi-header": "Table/TablesHeader;Table/TablesBase",
+    "multi-header": "Table/TablesHeader",
     "multiselects": "MultiSelects",
     "pages": "Table/TablesPages",
     "popconfirms": "PopoverConfirms",
