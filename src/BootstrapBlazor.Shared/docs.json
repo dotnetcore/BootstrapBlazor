@@ -20,7 +20,7 @@
     "footer": "Table/TablesFooter;Table/TablesBaseQuery",
     "gotops": "GoTops",
     "groupboxs": "GroupBoxs",
-    "header": "Table/TablesFixedHeader;Table/TablesBaseQuery",
+    "header": "Table/TablesFixedHeader",
     "inputnumbers": "InputNumbers",
     "listviews": "ListViews",
     "multi-header": "Table/TablesHeader",
