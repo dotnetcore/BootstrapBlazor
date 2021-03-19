@@ -72,6 +72,14 @@ namespace BootstrapBlazor.Shared.Pages.Components
         public EnumEducation? Education { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [Required(ErrorMessage = "请选择学历")]
+        [Display(Name = "学历")]
+        [AutoGenerateColumn(Order = 60)]
+        public List<EnumEducation>? Educations { get; set; }
+
+        /// <summary>
         ///
         /// </summary>
         [Required(ErrorMessage = "请选择一种{0}")]

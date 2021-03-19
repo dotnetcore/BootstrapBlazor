@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
@@ -20,10 +21,33 @@ namespace BootstrapBlazor.Shared.Pages
             Count = 23,
             Address = "测试地址",
             DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middel
+            Educations = new List<EnumEducation> { EnumEducation.Middel }
         };
 
-        private List<EnumEducation> Educations = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+        private List<string> testvalue { get; set; } = new List<string>();
+        private readonly List<EnumEducation> Educations = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+        private List<SelectedItem> Items = new List<SelectedItem>();
+
+
+        private void test(EventArgs e)
+        {
+            Items = new List<SelectedItem>
+        {
+           new SelectedItem
+           {
+               Text = "aaa",
+               Value = "bbb"
+           },
+                      new SelectedItem
+           {
+               Text = "ccc",
+               Value = "ddd"
+           }
+
+        };
+            Model.Address = "aaaaa";
+        }
+
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
