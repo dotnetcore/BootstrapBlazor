@@ -37,11 +37,15 @@ namespace BootstrapBlazor.Shared.Pages.Table
             TreeItems = FooTree.Generate(Localizer);
         }
 
-        private Task<IEnumerable<FooTree>> OnTreeExpand(FooTree foo) => Task.FromResult(FooTree.Generate(Localizer, level++ < 2, foo.Id + 10).Select(i =>
-         {
-             i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
-             return i;
-         }));
+        private async Task<IEnumerable<FooTree>> OnTreeExpand(FooTree foo)
+        {
+            await Task.Delay(1000);
+            return FooTree.Generate(Localizer, level++ < 2, foo.Id + 10).Select(i =>
+            {
+                i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
+                return i;
+            });
+        }
 
         private class FooTree : Foo
         {
