@@ -4,23 +4,22 @@
 
 <h4>通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互</h4>
 
+<Tips class="mt-3">
+    <p>
+        本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>Dialog</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+    </p>
+</Tips>
+
+<Pre>&lt;Dialog /&gt;</Pre>
+
 <Block Title="基本用法" Introduction="通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置">
     <Button @onclick="@OnClick">点击打开 Dialog</Button>
 </Block>
 
 <Block Title="弹出复杂组件" Introduction="通过调用 <code>Show&lt;Counter&gt;()</code> 来弹出一个自定义组件">
     <p>
-        本例中弹出对话框中包含一个示例网站的自带 <code>Counter</code> 组件，通过设置 <code>KeepChildrenState</code> 属性来控制弹窗内组件是否保持状态
-        <ul class="ul-demo">
-            <li>选择 <b>不保持状态</b> 时，弹窗内的计数器数据关闭弹窗后清零</li>
-            <li>选择 <b>保持状态</b> 时，弹窗内的计数器数据关闭弹窗后保持</li>
-        </ul>
+        本例中弹出对话框中包含一个示例网站的自带 <code>Counter</code> 组件
     </p>
-
-    <p>
-        <Radio Items="@RadioItems" OnStateChanged="@OnStateChanged" />
-    </p>
-
     <Button @onclick="@OnClickCounter">点击打开 Dialog</Button>
 </Block>
 
@@ -64,16 +63,15 @@
 </Block>
 
 <Block Title="多级弹窗" Introduction="点击弹窗内部按钮继续弹出对话窗">
-    <Tips>
-        <div>通过嵌套调用注入的 <code>DialogService</code> 实例弹出对话窗，组件内部通过 <code>LIFO</code> 模式后弹先关的顺序对弹窗排序；通过此功能即可实现 <code>无限弹窗</code></div>
-    </Tips>
-    <div class="form-inline">
-        <div class="row">
-            <div class="col-12">
-                <Button OnClick="@ShowDialogLoop">弹窗</Button>
-            </div>
-        </div>
-    </div>
+    <p>功能介绍</p>
+    <ul class="ul-demo">
+        <li>点击按钮弹出对话窗</li>
+        <li>切换弹窗内 <code>Tab</code> 组件的第三个标签页 <b>角色管理</b></li>
+        <li>点击标签页中的弹窗继续弹出对话框</li>
+        <li>关闭当前对话框后之前打开的对话框 <b>保持状态</b></li>
+    </ul>
+
+    <Button OnClick="@ShowDialogLoop">弹窗</Button>
 </Block>
 
 <Block Title="模态对话框" Introduction="通过 <code>ShowModal</code> 方法弹出线程阻塞模式的对话框">
@@ -109,13 +107,5 @@
         </div>
     </div>
 </Block>
-
-<Tips class="mt-3">
-    <p>
-        本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>Dialog</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
-    </p>
-</Tips>
-
-<Pre>&lt;Dialog /&gt;</Pre>
 
 <AttributeTable Items="@GetAttributes()" Title="DialogOption 属性" />

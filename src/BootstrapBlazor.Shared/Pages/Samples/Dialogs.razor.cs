@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    /// 弹窗组件示例代码
     /// </summary>
     public sealed partial class Dialogs
     {
@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Logger? Trace { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得 弹窗注入服务
         /// </summary>
         [Inject]
         [NotNull]
@@ -80,7 +80,6 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnClickCounter() => DialogService.Show(new DialogOption()
         {
             Title = "自带的 Counter 组件",
-            KeepChildrenState = KeepState,
             Component = DynamicComponent.CreateComponent<Counter>()
         });
 
@@ -159,47 +158,12 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        private int _counter;
         private async Task ShowDialogLoop()
         {
             await DialogService.Show(new DialogOption()
             {
-                Title = $"弹窗 {_counter++}",
-                Component = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
-                {
-                    new KeyValuePair<string, object>(nameof(Button.Text), $"点击弹窗 {DateTime.Now:HH:mm:ss}"),
-                    new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await ShowDialogLoop1()))
-                }),
-                OnCloseAsync = () =>
-                {
-                    _counter--;
-                    return Task.CompletedTask;
-                }
-            });
-        }
-
-        private async Task ShowDialogLoop1()
-        {
-            await DialogService.Show(new DialogOption()
-            {
-                Title = $"弹窗 {_counter++}",
-                BodyTemplate = builder =>
-                {
-                    builder.OpenElement(0, "div");
-                    builder.OpenComponent<Counter>(1);
-                    builder.CloseComponent();
-                    builder.AddContent(2, new MarkupString($"<div>当前时间 {DateTime.Now:HH:mm:ss}</div>"));
-                    builder.OpenComponent<Button>(3);
-                    builder.AddAttribute(4, nameof(Button.Text), $"点击弹窗 {DateTime.Now:HH:mm:ss}");
-                    builder.AddAttribute(4, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await ShowDialogLoop()));
-                    builder.CloseComponent();
-                    builder.CloseElement();
-                },
-                OnCloseAsync = () =>
-                {
-                    _counter--;
-                    return Task.CompletedTask;
-                }
+                Title = $"弹窗 {DateTime.Now}",
+                Component = DynamicComponent.CreateComponent<DialogDemo>()
             });
         }
 
@@ -238,13 +202,6 @@ namespace BootstrapBlazor.Shared.Pages
                     Type = "RenderFragment",
                     ValueList = " — ",
                     DefaultValue = " — "
-                },
-                new AttributeItem() {
-                    Name = "KeepChildrenState",
-                    Description = "是否保持弹窗内组件状态",
-                    Type = "boolean",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "IsCentered",
