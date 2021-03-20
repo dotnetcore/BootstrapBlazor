@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         private Task OnClickButton() => DialogService.Show(new DialogOption()
         {
             Title = $"弹窗 {Value}",
-            Component = DynamicComponent.CreateComponent<DialogDemo>()
+            Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
         });
     }
 }

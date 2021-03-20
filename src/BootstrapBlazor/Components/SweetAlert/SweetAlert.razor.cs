@@ -100,7 +100,7 @@ namespace BootstrapBlazor.Components
                 StateHasChanged();
             })));
 
-            parameters.Add(new(nameof(ModalDialog.BodyTemplate), DynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
+            parameters.Add(new(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render()));
 
             DialogParameter = parameters;
             IsShowDialog = true;

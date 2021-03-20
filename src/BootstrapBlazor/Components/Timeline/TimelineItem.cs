@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 自定义组件
         /// </summary>
-        public DynamicComponent? Component { get; set; }
+        public BootstrapDynamicComponent? Component { get; set; }
 
         /// <summary>
         /// 获得 时间线节点样式

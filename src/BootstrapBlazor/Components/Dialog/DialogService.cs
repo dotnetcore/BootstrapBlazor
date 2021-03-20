@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
             option.ResetButtonText ??= SearchDialogLocalizer[nameof(option.ResetButtonText)];
             option.QueryButtonText ??= SearchDialogLocalizer[nameof(option.QueryButtonText)];
 
-            option.Component = DynamicComponent.CreateComponent<SearchDialog<TModel>>(new[]
+            option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(new[]
             {
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.Model), option.Model!),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.ShowLabel), option.ShowLabel),
@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Components
             option.CloseButtonText ??= EditDialogLocalizer[nameof(option.CloseButtonText)];
             option.SaveButtonText ??= EditDialogLocalizer[nameof(option.SaveButtonText)];
 
-            option.Component = DynamicComponent.CreateComponent<EditDialog<TModel>>(new[]
+            option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(new[]
             {
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.Model), option.Model!),
                 new KeyValuePair<string, object>(nameof(EditDialog<TModel>.ShowLabel), option.ShowLabel),
@@ -137,7 +137,7 @@ namespace BootstrapBlazor.Components
                 builder.CloseComponent();
             };
 
-            option.FooterTemplate = DynamicComponent.CreateComponent<ResultDialogFooter>(new KeyValuePair<string, object>[]
+            option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new KeyValuePair<string, object>[]
             {
                 new(nameof(ResultDialogFooter.ShowCloseButton), option.ShowCloseButton),
                 new(nameof(ResultDialogFooter.ButtonCloseColor), option.ButtonCloseColor),

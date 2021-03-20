@@ -53,7 +53,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
 
-        private IEnumerable<MenuItem> GetItems()
+        private static IEnumerable<MenuItem> GetItems()
         {
             var ret = new List<MenuItem>
             {
@@ -83,7 +83,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> IconItems { get; set; } = Enumerable.Empty<MenuItem>();
 
-        private IEnumerable<MenuItem> GetIconItems()
+        private static IEnumerable<MenuItem> GetIconItems()
         {
             var ret = new List<MenuItem>
             {
@@ -101,7 +101,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> SideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
-        private IEnumerable<MenuItem> GetSideMenuItems()
+        private static IEnumerable<MenuItem> GetSideMenuItems()
         {
             var ret = new List<MenuItem>
             {
@@ -136,7 +136,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> IconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
-        private IEnumerable<MenuItem> GetIconSideMenuItems()
+        private static IEnumerable<MenuItem> GetIconSideMenuItems()
         {
             var ret = new List<MenuItem>
             {
@@ -159,23 +159,20 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
-        private DynamicComponent BuildDynamicComponent()
+        private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]
         {
-            return DynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]
+            new KeyValuePair<string, object>(nameof(Badge.Color), Color.Danger),
+            new KeyValuePair<string, object>(nameof(Badge.IsPill), true),
+            new KeyValuePair<string, object>(nameof(Badge.ChildContent), new RenderFragment(builder =>
             {
-                new KeyValuePair<string, object>(nameof(Badge.Color), Color.Danger),
-                new KeyValuePair<string, object>(nameof(Badge.IsPill), true),
-                new KeyValuePair<string, object>(nameof(Badge.ChildContent), new RenderFragment(builder =>
-                {
-                    var index = 0;
-                    builder.AddContent(index++, "10");
-                }))
-            });
-        }
+                var index = 0;
+                builder.AddContent(index++, "10");
+            }))
+        });
 
         private IEnumerable<MenuItem> WidgetIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
-        private IEnumerable<MenuItem> GetWidgetIconSideMenuItems()
+        private static IEnumerable<MenuItem> GetWidgetIconSideMenuItems()
         {
             var ret = new List<MenuItem>
             {
@@ -210,7 +207,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> CollapsedIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
-        private IEnumerable<MenuItem> GetCollapsedIconSideMenuItems()
+        private static IEnumerable<MenuItem> GetCollapsedIconSideMenuItems()
         {
             var ret = new List<MenuItem>
             {
@@ -235,7 +232,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<MenuItem> DisabledMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
 
-        private IEnumerable<MenuItem> GetDisabledMenuItems()
+        private static IEnumerable<MenuItem> GetDisabledMenuItems()
         {
             var ret = new List<MenuItem>
             {
@@ -272,7 +269,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {

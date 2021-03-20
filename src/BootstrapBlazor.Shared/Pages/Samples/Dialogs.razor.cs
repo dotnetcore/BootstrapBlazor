@@ -19,14 +19,6 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Dialogs
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private IEnumerable<SelectedItem> RadioItems { get; set; } = new SelectedItem[] {
-            new SelectedItem("false", "不保持状态") { Active = true },
-            new SelectedItem("true", "保持状态")
-        };
-
         [NotNull]
         private Logger? Trace { get; set; }
 
@@ -37,14 +29,6 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private DialogService? DialogService { get; set; }
 
-        private Task OnStateChanged(CheckboxState state, SelectedItem item)
-        {
-            KeepState = bool.Parse(item.Value);
-            return Task.CompletedTask;
-        }
-
-        private bool KeepState { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -52,7 +36,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnClick() => DialogService.Show(new DialogOption()
         {
             Title = "我是服务创建的弹出框",
-            BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
             {
                 new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
             })
@@ -65,7 +49,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Title = "利用代码关闭弹出框",
             };
-            option.BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
             {
                 new KeyValuePair<string, object>(nameof(Button.Text), "点击关闭弹窗"),
                 new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
@@ -80,7 +64,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnClickCounter() => DialogService.Show(new DialogOption()
         {
             Title = "自带的 Counter 组件",
-            Component = DynamicComponent.CreateComponent<Counter>()
+            Component = BootstrapDynamicComponent.CreateComponent<Counter>()
         });
 
         /// <summary>
@@ -109,7 +93,7 @@ namespace BootstrapBlazor.Shared.Pages
                 ShowFooter = false,
                 BodyContext = DataPrimaryId
             };
-            op.BodyTemplate = DynamicComponent.CreateComponent<DataDialogComponent>(new List<KeyValuePair<string, object>>
+            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new List<KeyValuePair<string, object>>
             {
                 new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
             }).Render();
@@ -163,7 +147,7 @@ namespace BootstrapBlazor.Shared.Pages
             await DialogService.Show(new DialogOption()
             {
                 Title = $"弹窗 {DateTime.Now}",
-                Component = DynamicComponent.CreateComponent<DialogDemo>()
+                Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
             });
         }
 

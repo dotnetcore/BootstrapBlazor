@@ -78,7 +78,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Title = "Oops...",
                 Content = "Something went wrong!",
                 ShowFooter = true,
-                FooterTemplate = DynamicComponent.CreateComponent<SwalFooter>().Render()
+                FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
             };
             await SwalService.Show(op);
         }
@@ -93,7 +93,7 @@ namespace BootstrapBlazor.Shared.Pages
                 ShowFooter = true,
                 IsAutoHide = true,
                 Delay = 4000,
-                FooterTemplate = DynamicComponent.CreateComponent<SwalFooter>().Render()
+                FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
             };
             await SwalService.Show(op);
         }
@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {

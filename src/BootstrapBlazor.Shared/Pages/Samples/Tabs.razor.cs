@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        private Task AddTab(Tab tabset)
+        private static Task AddTab(Tab tabset)
         {
             var text = $"Tab {tabset.Items.Count() + 1}";
             tabset.AddTab(new Dictionary<string, object>
@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
 
-        private Task RemoveTab(Tab tabset)
+        private static Task RemoveTab(Tab tabset)
         {
             if (tabset.Items.Count() > 4)
             {
@@ -81,7 +81,7 @@ namespace BootstrapBlazor.Shared.Pages
             BindPlacement = placement;
         }
 
-        private IEnumerable<MenuItem> GetSideMenuItems()
+        private static IEnumerable<MenuItem> GetSideMenuItems()
         {
             return new List<MenuItem>
             {
@@ -109,14 +109,14 @@ namespace BootstrapBlazor.Shared.Pages
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
-            [nameof(TabItem.ChildContent)] = text == "计数器" ? DynamicComponent.CreateComponent<Counter>().Render() : DynamicComponent.CreateComponent<FetchData>().Render()
+            [nameof(TabItem.ChildContent)] = text == "计数器" ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
         });
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -202,7 +202,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
         {
             // TODO: 移动到数据库中
             new MethodItem() {

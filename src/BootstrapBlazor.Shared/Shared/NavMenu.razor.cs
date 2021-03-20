@@ -705,7 +705,7 @@ namespace BootstrapBlazor.Shared.Shared
             if (append) Menus.Add(item);
         }
 
-        private static DynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => DynamicComponent.CreateComponent<State>(new KeyValuePair<string, object>[]
+        private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new KeyValuePair<string, object>[]
         {
             new KeyValuePair<string, object>(nameof(State.Count), count),
             new KeyValuePair<string, object>(nameof(State.IsNew), isNew),
