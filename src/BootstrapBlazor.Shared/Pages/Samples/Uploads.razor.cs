@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Uploads : IDisposable
     {
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
 
         [Inject]
         [NotNull]
@@ -155,11 +155,16 @@ namespace BootstrapBlazor.Shared.Pages
                 }
                 else
                 {
-                    await ToastService.Error("上传文件", $"保存文件失败 {file.OriginFileName}");
+                    var errorMessage = $"保存文件失败 {file.OriginFileName}";
+                    file.Code = 1;
+                    file.Error = errorMessage;
+                    await ToastService.Error("上传文件", errorMessage);
                 }
             }
             else
             {
+                file.Code = 1;
+                file.Error = "Wasm 模式未实现保存代码";
                 await ToastService.Information("保存文件", "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中");
             }
             return ret;

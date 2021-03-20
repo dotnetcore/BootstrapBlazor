@@ -281,7 +281,7 @@
             {
                 @RenderEditForm.Invoke(EditModel)
             }
-            @foreach (var item in Items)
+            @foreach (var item in GetItems())
             {
                 @RenderRow.Invoke(item)
                 if (DetailRowTemplate != null)
@@ -472,13 +472,19 @@ RenderFragment<TItem> RenderRow => item =>
         @if (CheckShownWithBreakpoint(col))
         {
             <td class="@GetFixedCellClassString(col)" style="@GetFixedCellStyleString(col)">
-                <div class="@GetCellClassString(col)" style="@GetCellStyleString(col)">
-                    @if (IsTree && index++ == 0)
+                @{
+                    var showArrow = IsTree && index++ == 0;
+                    var triggerClick = showArrow && CheckTreeChildren(item);
+                }
+                <DynamicElement TagName="div" TriggerClick="@triggerClick"
+                                OnClick="@ToggleTreeRow(item)" StopPropagation="showArrow"
+                                class="@GetCellClassString(col, triggerClick)" style="@GetCellStyleString(col)">
+                    @if (showArrow)
                     {
-                        <i class="@GetTreeClassString(item)" style="@GetTreeStyleString(item)" @onclick:stopPropagation @onclick="@ToggleTreeRow(item)"></i>
+                        <i class="@GetTreeClassString(item)" style="@GetTreeStyleString(item)"></i>
                     }
                     @GetValue(col, item)
-                </div>
+                </DynamicElement>
             </td>
         }
     }
@@ -486,7 +492,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
             <div class="table-cell">
-                <div class="btn-group">
+                <div class="btn-group" @onclick:stopPropagation="true">
                     @if (ShowDefaultButtons)
                     {
                         @if (ShowEditButton)

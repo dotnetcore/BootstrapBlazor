@@ -1,0 +1,33 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+@if (FirstRender)
+{
+    <CascadingValue Value="this" IsFixed="true">
+        <div hidden>
+            @ChildContent
+        </div>
+    </CascadingValue>
+}
+else
+{
+    <div @attributes="@AdditionalAttributes" class="@ClassString">
+        @foreach (var item in Items)
+        {
+            var col = (int)this.ItemsPerRow;
+            if (item.ColSpan != null)
+            {
+                col = col * item.ColSpan.Value;
+            }
+            var classstr = "";
+            if (item.IsRow == false)
+            {
+                classstr += "form-group";
+            }
+            classstr += $"  col-12 col-md-{col}";
+            <div class="@classstr">
+                @item.Content
+            </div>
+        }
+    </div>
+}

@@ -1,5 +1,5 @@
 ﻿@page "/validateforms"
- 
+
 <h3>ValidateForm 表单组件</h3>
 
 <h4>可供数据合规检查的表单组件</h4>
@@ -13,6 +13,7 @@
         <li><code>Model</code> 参数为必填项不允许为空</li>
         <li>表单内可以放置多个按钮，通过设置 <code>ButtonType="ButtonType.Submit"</code> 参数是否提交表单</li>
         <li>客户端验证机制支持模型的 <code>Required</code> 标签，通过设置 <code>ErrorMessage</code> 参数设置提示信息，未设置时使用默认的英文提示信息</li>
+        <li>表单默认检查表单内绑定字段值是否合法，如需要检查模型所有字段时可设置 <code>ValidateAllProperties</code> 属性值为 <code>true</code></li>
     </ul>
     <p>注意事项：</p>
     <ul class="ul-demo">
@@ -68,6 +69,62 @@
         </ValidateForm>
         <Logger @ref="Trace2" class="mt-3" />
     </div>
+</Block>
+
+<Block Title="自定义显示错误信息" Introduction="通过调用 <code>SetError</code> 方法设置自定义错误信息">
+    <p>
+        <b>应用场景</b>
+        <div>客户端验证通过后进行数据库保存操作，如果出现其他问题，后仍然可以进行表单自定义错误提示，本例中数据验证合法后，点击 <code>提交表单</code> 按钮后，姓名字段会显示 <code>数据库中已存在</code> 这样的自定义提示信息</div>
+    </p>
+    <ValidateForm class="form-inline" @ref="Test" Model="@Model" OnValidSubmit="@OnValidateNameSubmit">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInputNumber @bind-Value="@Model.Count" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <DateTimePicker @bind-Value="@Model.DateTime" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@Educations" @bind-Value="@Model.Education" />
+            </div>
+            <div class="form-group col-12">
+                <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
+            </div>
+            <div class="form-group col-12">
+                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+            </div>
+        </div>
+    </ValidateForm>
+</Block>
+
+<Block Title="验证所有字段值" Introduction="此组件默认检查表单内模型绑定字段值，如需要检查模型所有字段值时设置 <code>ValidateAllProperties</code> 值">
+    <p>本例中未放置 <code>Address</code>，由于设置 <code>ValidateAllProperties</code> 参数值为 <code>true</code>，所以 <code>Address</code> 字段仍然被检查，及时表单内所有数据均合法后，提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托</p>
+    <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmitAddress" ValidateAllProperties="true">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInputNumber @bind-Value="@Model.Count" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <DateTimePicker @bind-Value="@Model.DateTime" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select Items="@Educations" @bind-Value="@Model.Education" />
+            </div>
+            <div class="form-group col-12">
+                <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
+            </div>
+            <div class="form-group col-12">
+                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Logger @ref="Trace3" class="mt-3" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

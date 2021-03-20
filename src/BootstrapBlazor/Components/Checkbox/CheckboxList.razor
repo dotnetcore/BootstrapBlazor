@@ -6,14 +6,18 @@
 {
     <label class="control-label">@DisplayText</label>
 }
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="checkbox" tabindex="0" hidefocus="true">
-    @foreach (var item in Items)
-    {
-        <div class="@CheckboxItemClassString">
-            <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@item.Text" Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
-        </div>
-    }
-</div>
+
+<CascadingValue TValue="Row" Value="null" IsFixed="true" >
+
+    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="checkbox" tabindex="0" hidefocus="true">
+        @foreach (var item in Items)
+        {
+            <div class="@CheckboxItemClassString">
+                <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@item.Text" Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
+            </div>
+        }
+    </div>
+</CascadingValue>
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>

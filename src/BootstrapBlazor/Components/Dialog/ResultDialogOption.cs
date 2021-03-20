@@ -88,16 +88,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected new RenderFragment? BodyTemplate { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected new DynamicComponent? Component { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public IEnumerable<KeyValuePair<string, object>>? ComponentParamters { get; set; }
 
         /// <summary>

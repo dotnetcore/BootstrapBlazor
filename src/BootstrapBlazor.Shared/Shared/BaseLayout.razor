@@ -24,6 +24,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="@WebsiteOption.Value.WasmUrl" title="WebAssembly Client">wasm</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://ccflow.org" title="驰骋工作流">工作流</a>
+            </li>
         </ul>
     </div>
     <CultureChooser class="ml-md-auto" />
@@ -40,6 +43,39 @@
 
 @Body
 
+<div class="ms-learn">
+    <ul class="learn-list">
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/?WT.mc_id=DT-MVP-5004174">生成 Blazor Web 应用</a>
+            <a class="btn-close">Close</a>
+        </li>
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/2-understand-blazor-webassembly?WT.mc_id=DT-MVP-5004174">什么是 Blazor</a>
+        </li>
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/3-exercise-configure-enviromnent?WT.mc_id=DT-MVP-5004174">练习 - 配置开发环境</a>
+        </li>
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/4-blazor-components?WT.mc_id=DT-MVP-5004174">Blazor 组件</a>
+        </li>
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/5-exercise-add-component?WT.mc_id=DT-MVP-5004174">练习 - 添加组件</a>
+        </li>
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/6-csharp-razor-binding?WT.mc_id=DT-MVP-5004174">数据绑定和事件</a>
+        </li>
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/7-exercise-razor-binding?WT.mc_id=DT-MVP-5004174">练习 - 数据绑定和事件</a>
+        </li>
+        <li class="learn-item">
+            <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/8-summary?WT.mc_id=DT-MVP-5004174">总结</a>
+        </li>
+    </ul>
+    <button type="button" class="btn-learn">微软 MVP 推荐课程</button>
+</div>
+
+<ThemeChooser />
+
 @if (Installable)
 {
     <div class="install-prompt">
@@ -55,34 +91,34 @@
 
 @code
 {
-    static bool Installable = false;
+        static bool Installable = false;
 
-    [NotNull]
-    static Action? OnInstallable { get; set; }
+        [NotNull]
+        static Action? OnInstallable { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        OnInstallable = () => InvokeAsync(StateHasChanged);
+        /// <summary>
+        ///
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            OnInstallable = () => InvokeAsync(StateHasChanged);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        [JSInvokable]
+        public static Task PWAInstallable()
+        {
+            Installable = true;
+            OnInstallable.Invoke();
+            return Task.CompletedTask;
+        }
+
+        private async Task InstallClicked()
+        {
+            Installable = false;
+            await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
+        }
     }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public static Task PWAInstallable()
-    {
-        Installable = true;
-        OnInstallable.Invoke();
-        return Task.CompletedTask;
-    }
-
-    private async Task InstallClicked()
-    {
-        Installable = false;
-        await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
-    }
-}

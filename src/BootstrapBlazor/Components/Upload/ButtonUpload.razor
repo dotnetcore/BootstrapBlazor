@@ -12,18 +12,23 @@
                     <span>@GetFileName(item)</span>
                     <span>(@item.Size.ToFileSizeString())</span>
                 </div>
-                @if (item.Code == 0)
+                @if (GetShowProgress(item))
                 {
-                    <i class="fa fa-check-circle-o text-success"></i>
-                    <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                    <i class="fa fa-spinner fa-spin fa-fw text-success"></i>
+                    <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
                 }
                 else
                 {
-                    <i class="fa fa-times-circle-o" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
-                }
-                @if (GetShowProgress(item))
-                {
-                    <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
+                    @if (item.Code == 0)
+                    {
+                        <i class="fa fa-check-circle-o text-success"></i>
+                        <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-times-circle-o" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                        <i class="fa fa-trash-o text-danger" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                    }
                 }
             </div>
         }

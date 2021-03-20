@@ -24,9 +24,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? setupAction = null)
         {
+            services.AddAuthorizationCore();
             services.AddJsonLocalization(setupAction);
-            services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
-            services.TryAddSingleton<ITableExcelExport, DefaultExcelExport>();
+            services.TryAddScoped<IComponentIdGenerator, DefaultIdGenerator>();
+            services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
+            services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
             services.TryAddScoped<DialogService>();
             services.TryAddScoped<MessageService>();
             services.TryAddScoped<PopoverService>();

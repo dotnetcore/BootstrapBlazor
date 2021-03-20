@@ -47,9 +47,12 @@ namespace BootstrapBlazor.Components
         protected string? Text => Value ? OnText : OffText;
 
         /// <summary>
-        /// 获得 开关 disabled 属性
+        /// 获得 组件最小宽度
         /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
+        protected string? SwitchStyleName => CssBuilder.Default()
+            .AddClass($"min-width: {Width}px", Width > 0)
+            .Build();
+
 
         /// <summary>
         /// 获得 Style 集合

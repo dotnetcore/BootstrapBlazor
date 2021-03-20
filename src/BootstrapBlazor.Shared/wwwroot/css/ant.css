@@ -1,0 +1,1789 @@
+﻿.btn {
+    line-height: 1.5715;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    background-image: none;
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, .015);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .015);
+    cursor: pointer;
+    -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    height: 32px;
+    padding: 4px 15px;
+    font-size: 14px;
+    border-radius: 2px;
+    color: rgba(0, 0, 0, .85);
+    background: #fff;
+    border: 1px solid #d9d9d9
+}
+
+    .btn > .anticon {
+        line-height: 1
+    }
+
+    .btn, .btn:active, .btn:focus {
+        outline: 0
+    }
+
+        .btn:not([disabled]):hover {
+            text-decoration: none
+        }
+
+        .btn:not([disabled]):active {
+            outline: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+
+        .btn[disabled] {
+            cursor: not-allowed
+        }
+
+            .btn[disabled] > * {
+                pointer-events: none
+            }
+
+.btn-lg {
+    height: 40px;
+    padding: 6.4px 15px;
+    font-size: 16px;
+    border-radius: 2px
+}
+
+.btn-sm {
+    height: 24px;
+    padding: 0 7px;
+    font-size: 14px;
+    border-radius: 2px
+}
+
+.btn > a:only-child {
+    color: currentColor
+}
+
+    .btn > a:only-child:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: 0 0;
+        content: ""
+    }
+
+.btn:focus, .btn:hover {
+    color: #40a9ff;
+    background: #fff;
+    border-color: #40a9ff
+}
+
+    .btn:focus > a:only-child, .btn:hover > a:only-child {
+        color: currentColor
+    }
+
+        .btn:focus > a:only-child:after, .btn:hover > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+.btn:active {
+    color: #096dd9;
+    background: #fff;
+    border-color: #096dd9
+}
+
+    .btn:active > a:only-child {
+        color: currentColor
+    }
+
+        .btn:active > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+.btn[disabled], .btn[disabled]:active, .btn[disabled]:focus, .btn[disabled]:hover {
+    color: rgba(0, 0, 0, .25);
+    background: #f5f5f5;
+    border-color: #d9d9d9;
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+    .btn[disabled]:active > a:only-child, .btn[disabled]:focus > a:only-child, .btn[disabled]:hover > a:only-child, .btn[disabled] > a:only-child {
+        color: currentColor
+    }
+
+        .btn[disabled]:active > a:only-child:after, .btn[disabled]:focus > a:only-child:after, .btn[disabled]:hover > a:only-child:after, .btn[disabled] > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+.btn:active, .btn:focus, .btn:hover {
+    text-decoration: none;
+    background: #fff
+}
+
+.btn > span {
+    display: inline-block
+}
+
+.btn-primary {
+    color: #fff;
+    background: #1890ff;
+    border-color: #1890ff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045)
+}
+
+    .btn-primary > a:only-child {
+        color: currentColor
+    }
+
+        .btn-primary > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+    .btn-primary:focus, .btn-primary:hover {
+        color: #fff;
+        background: #40a9ff;
+        border-color: #40a9ff
+    }
+
+        .btn-primary:focus > a:only-child, .btn-primary:hover > a:only-child {
+            color: currentColor
+        }
+
+            .btn-primary:focus > a:only-child:after, .btn-primary:hover > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-primary:active {
+        color: #fff;
+        background: #096dd9;
+        border-color: #096dd9
+    }
+
+        .btn-primary:active > a:only-child {
+            color: currentColor
+        }
+
+            .btn-primary:active > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-primary[disabled], .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover {
+        color: rgba(0, 0, 0, .25);
+        background: #f5f5f5;
+        border-color: #d9d9d9;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-primary[disabled]:active > a:only-child, .btn-primary[disabled]:focus > a:only-child, .btn-primary[disabled]:hover > a:only-child, .btn-primary[disabled] > a:only-child {
+            color: currentColor
+        }
+
+            .btn-primary[disabled]:active > a:only-child:after, .btn-primary[disabled]:focus > a:only-child:after, .btn-primary[disabled]:hover > a:only-child:after, .btn-primary[disabled] > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+.btn-group .btn-primary:not(:first-child):not(:last-child) {
+    border-right-color: #40a9ff;
+    border-left-color: #40a9ff
+}
+
+    .btn-group .btn-primary:not(:first-child):not(:last-child):disabled {
+        border-color: #d9d9d9
+    }
+
+.btn-group .btn-primary:first-child:not(:last-child) {
+    border-right-color: #40a9ff
+}
+
+    .btn-group .btn-primary:first-child:not(:last-child)[disabled] {
+        border-right-color: #d9d9d9
+    }
+
+.btn-group .btn-primary + .btn-primary, .btn-group .btn-primary:last-child:not(:first-child) {
+    border-left-color: #40a9ff
+}
+
+    .btn-group .btn-primary + .btn-primary[disabled], .btn-group .btn-primary:last-child:not(:first-child)[disabled] {
+        border-left-color: #d9d9d9
+    }
+
+.btn-ghost {
+    color: rgba(0, 0, 0, .85);
+    background: 0 0;
+    border-color: #d9d9d9
+}
+
+    .btn-ghost > a:only-child {
+        color: currentColor
+    }
+
+        .btn-ghost > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+    .btn-ghost:focus, .btn-ghost:hover {
+        color: #40a9ff;
+        background: 0 0;
+        border-color: #40a9ff
+    }
+
+        .btn-ghost:focus > a:only-child, .btn-ghost:hover > a:only-child {
+            color: currentColor
+        }
+
+            .btn-ghost:focus > a:only-child:after, .btn-ghost:hover > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-ghost:active {
+        color: #096dd9;
+        background: 0 0;
+        border-color: #096dd9
+    }
+
+        .btn-ghost:active > a:only-child {
+            color: currentColor
+        }
+
+            .btn-ghost:active > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-ghost[disabled], .btn-ghost[disabled]:active, .btn-ghost[disabled]:focus, .btn-ghost[disabled]:hover {
+        color: rgba(0, 0, 0, .25);
+        background: #f5f5f5;
+        border-color: #d9d9d9;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-ghost[disabled]:active > a:only-child, .btn-ghost[disabled]:focus > a:only-child, .btn-ghost[disabled]:hover > a:only-child, .btn-ghost[disabled] > a:only-child {
+            color: currentColor
+        }
+
+            .btn-ghost[disabled]:active > a:only-child:after, .btn-ghost[disabled]:focus > a:only-child:after, .btn-ghost[disabled]:hover > a:only-child:after, .btn-ghost[disabled] > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+.btn-dashed {
+    color: rgba(0, 0, 0, .85);
+    background: #fff;
+    border-color: #d9d9d9;
+    border-style: dashed
+}
+
+    .btn-dashed > a:only-child {
+        color: currentColor
+    }
+
+        .btn-dashed > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+    .btn-dashed:focus, .btn-dashed:hover {
+        color: #40a9ff;
+        background: #fff;
+        border-color: #40a9ff
+    }
+
+        .btn-dashed:focus > a:only-child, .btn-dashed:hover > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dashed:focus > a:only-child:after, .btn-dashed:hover > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-dashed:active {
+        color: #096dd9;
+        background: #fff;
+        border-color: #096dd9
+    }
+
+        .btn-dashed:active > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dashed:active > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-dashed[disabled], .btn-dashed[disabled]:active, .btn-dashed[disabled]:focus, .btn-dashed[disabled]:hover {
+        color: rgba(0, 0, 0, .25);
+        background: #f5f5f5;
+        border-color: #d9d9d9;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-dashed[disabled]:active > a:only-child, .btn-dashed[disabled]:focus > a:only-child, .btn-dashed[disabled]:hover > a:only-child, .btn-dashed[disabled] > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dashed[disabled]:active > a:only-child:after, .btn-dashed[disabled]:focus > a:only-child:after, .btn-dashed[disabled]:hover > a:only-child:after, .btn-dashed[disabled] > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+.btn-danger {
+    color: #fff;
+    background: #ff4d4f;
+    border-color: #ff4d4f;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045)
+}
+
+    .btn-danger > a:only-child {
+        color: currentColor
+    }
+
+        .btn-danger > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+    .btn-danger:focus, .btn-danger:hover {
+        color: #fff;
+        background: #ff7875;
+        border-color: #ff7875
+    }
+
+        .btn-danger:focus > a:only-child, .btn-danger:hover > a:only-child {
+            color: currentColor
+        }
+
+            .btn-danger:focus > a:only-child:after, .btn-danger:hover > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-danger:active {
+        color: #fff;
+        background: #d9363e;
+        border-color: #d9363e
+    }
+
+        .btn-danger:active > a:only-child {
+            color: currentColor
+        }
+
+            .btn-danger:active > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-danger[disabled], .btn-danger[disabled]:active, .btn-danger[disabled]:focus, .btn-danger[disabled]:hover {
+        color: rgba(0, 0, 0, .25);
+        background: #f5f5f5;
+        border-color: #d9d9d9;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-danger[disabled]:active > a:only-child, .btn-danger[disabled]:focus > a:only-child, .btn-danger[disabled]:hover > a:only-child, .btn-danger[disabled] > a:only-child {
+            color: currentColor
+        }
+
+            .btn-danger[disabled]:active > a:only-child:after, .btn-danger[disabled]:focus > a:only-child:after, .btn-danger[disabled]:hover > a:only-child:after, .btn-danger[disabled] > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+.btn-link {
+    color: #1890ff;
+    background: 0 0;
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+    .btn-link > a:only-child {
+        color: currentColor
+    }
+
+        .btn-link > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+    .btn-link:focus, .btn-link:hover {
+        color: #40a9ff;
+        background: 0 0;
+        border-color: #40a9ff
+    }
+
+        .btn-link:focus > a:only-child, .btn-link:hover > a:only-child {
+            color: currentColor
+        }
+
+            .btn-link:focus > a:only-child:after, .btn-link:hover > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-link:active {
+        color: #096dd9;
+        background: 0 0;
+        border-color: #096dd9
+    }
+
+        .btn-link:active > a:only-child {
+            color: currentColor
+        }
+
+            .btn-link:active > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-link[disabled], .btn-link[disabled]:active, .btn-link[disabled]:focus, .btn-link[disabled]:hover {
+        background: #f5f5f5;
+        border-color: #d9d9d9
+    }
+
+    .btn-link:hover {
+        background: 0 0
+    }
+
+    .btn-link:active, .btn-link:focus, .btn-link:hover {
+        border-color: transparent
+    }
+
+    .btn-link[disabled], .btn-link[disabled]:active, .btn-link[disabled]:focus, .btn-link[disabled]:hover {
+        color: rgba(0, 0, 0, .25);
+        background: 0 0;
+        border-color: transparent;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-link[disabled]:active > a:only-child, .btn-link[disabled]:focus > a:only-child, .btn-link[disabled]:hover > a:only-child, .btn-link[disabled] > a:only-child {
+            color: currentColor
+        }
+
+            .btn-link[disabled]:active > a:only-child:after, .btn-link[disabled]:focus > a:only-child:after, .btn-link[disabled]:hover > a:only-child:after, .btn-link[disabled] > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+.btn-text {
+    color: rgba(0, 0, 0, .85);
+    background: 0 0;
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+    .btn-text > a:only-child {
+        color: currentColor
+    }
+
+        .btn-text > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+    .btn-text:focus, .btn-text:hover {
+        color: #40a9ff;
+        background: 0 0;
+        border-color: #40a9ff
+    }
+
+        .btn-text:focus > a:only-child, .btn-text:hover > a:only-child {
+            color: currentColor
+        }
+
+            .btn-text:focus > a:only-child:after, .btn-text:hover > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-text:active {
+        color: #096dd9;
+        background: 0 0;
+        border-color: #096dd9
+    }
+
+        .btn-text:active > a:only-child {
+            color: currentColor
+        }
+
+            .btn-text:active > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-text[disabled], .btn-text[disabled]:active, .btn-text[disabled]:focus, .btn-text[disabled]:hover {
+        background: #f5f5f5;
+        border-color: #d9d9d9
+    }
+
+    .btn-text:focus, .btn-text:hover {
+        color: rgba(0, 0, 0, .85);
+        background: rgba(0, 0, 0, .018);
+        border-color: transparent
+    }
+
+    .btn-text:active {
+        color: rgba(0, 0, 0, .85);
+        background: rgba(0, 0, 0, .028);
+        border-color: transparent
+    }
+
+    .btn-text[disabled], .btn-text[disabled]:active, .btn-text[disabled]:focus, .btn-text[disabled]:hover {
+        color: rgba(0, 0, 0, .25);
+        background: 0 0;
+        border-color: transparent;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-text[disabled]:active > a:only-child, .btn-text[disabled]:focus > a:only-child, .btn-text[disabled]:hover > a:only-child, .btn-text[disabled] > a:only-child {
+            color: currentColor
+        }
+
+            .btn-text[disabled]:active > a:only-child:after, .btn-text[disabled]:focus > a:only-child:after, .btn-text[disabled]:hover > a:only-child:after, .btn-text[disabled] > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+.btn-dangerous {
+    color: #ff4d4f;
+    background: #fff;
+    border-color: #ff4d4f
+}
+
+    .btn-dangerous > a:only-child {
+        color: currentColor
+    }
+
+        .btn-dangerous > a:only-child:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: 0 0;
+            content: ""
+        }
+
+    .btn-dangerous:focus, .btn-dangerous:hover {
+        color: #ff7875;
+        background: #fff;
+        border-color: #ff7875
+    }
+
+        .btn-dangerous:focus > a:only-child, .btn-dangerous:hover > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dangerous:focus > a:only-child:after, .btn-dangerous:hover > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-dangerous:active {
+        color: #d9363e;
+        background: #fff;
+        border-color: #d9363e
+    }
+
+        .btn-dangerous:active > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dangerous:active > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-dangerous[disabled], .btn-dangerous[disabled]:active, .btn-dangerous[disabled]:focus, .btn-dangerous[disabled]:hover {
+        color: rgba(0, 0, 0, .25);
+        background: #f5f5f5;
+        border-color: #d9d9d9;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-dangerous[disabled]:active > a:only-child, .btn-dangerous[disabled]:focus > a:only-child, .btn-dangerous[disabled]:hover > a:only-child, .btn-dangerous[disabled] > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dangerous[disabled]:active > a:only-child:after, .btn-dangerous[disabled]:focus > a:only-child:after, .btn-dangerous[disabled]:hover > a:only-child:after, .btn-dangerous[disabled] > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+    .btn-dangerous.btn-primary {
+        color: #fff;
+        background: #ff4d4f;
+        border-color: #ff4d4f;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+        -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, .045)
+    }
+
+        .btn-dangerous.btn-primary > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dangerous.btn-primary > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+        .btn-dangerous.btn-primary:focus, .btn-dangerous.btn-primary:hover {
+            color: #fff;
+            background: #ff7875;
+            border-color: #ff7875
+        }
+
+            .btn-dangerous.btn-primary:focus > a:only-child, .btn-dangerous.btn-primary:hover > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-primary:focus > a:only-child:after, .btn-dangerous.btn-primary:hover > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-dangerous.btn-primary:active {
+            color: #fff;
+            background: #d9363e;
+            border-color: #d9363e
+        }
+
+            .btn-dangerous.btn-primary:active > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-primary:active > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-dangerous.btn-primary[disabled], .btn-dangerous.btn-primary[disabled]:active, .btn-dangerous.btn-primary[disabled]:focus, .btn-dangerous.btn-primary[disabled]:hover {
+            color: rgba(0, 0, 0, .25);
+            background: #f5f5f5;
+            border-color: #d9d9d9;
+            text-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+
+            .btn-dangerous.btn-primary[disabled]:active > a:only-child, .btn-dangerous.btn-primary[disabled]:focus > a:only-child, .btn-dangerous.btn-primary[disabled]:hover > a:only-child, .btn-dangerous.btn-primary[disabled] > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-primary[disabled]:active > a:only-child:after, .btn-dangerous.btn-primary[disabled]:focus > a:only-child:after, .btn-dangerous.btn-primary[disabled]:hover > a:only-child:after, .btn-dangerous.btn-primary[disabled] > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+    .btn-dangerous.btn-link {
+        color: #ff4d4f;
+        background: 0 0;
+        border-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-dangerous.btn-link > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dangerous.btn-link > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+        .btn-dangerous.btn-link:focus, .btn-dangerous.btn-link:hover {
+            color: #40a9ff;
+            border-color: #40a9ff
+        }
+
+        .btn-dangerous.btn-link:active {
+            color: #096dd9;
+            border-color: #096dd9
+        }
+
+        .btn-dangerous.btn-link[disabled], .btn-dangerous.btn-link[disabled]:active, .btn-dangerous.btn-link[disabled]:focus, .btn-dangerous.btn-link[disabled]:hover {
+            background: #f5f5f5;
+            border-color: #d9d9d9
+        }
+
+        .btn-dangerous.btn-link:focus, .btn-dangerous.btn-link:hover {
+            color: #ff7875;
+            background: 0 0;
+            border-color: transparent
+        }
+
+            .btn-dangerous.btn-link:focus > a:only-child, .btn-dangerous.btn-link:hover > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-link:focus > a:only-child:after, .btn-dangerous.btn-link:hover > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-dangerous.btn-link:active {
+            color: #d9363e;
+            background: 0 0;
+            border-color: transparent
+        }
+
+            .btn-dangerous.btn-link:active > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-link:active > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-dangerous.btn-link[disabled], .btn-dangerous.btn-link[disabled]:active, .btn-dangerous.btn-link[disabled]:focus, .btn-dangerous.btn-link[disabled]:hover {
+            color: rgba(0, 0, 0, .25);
+            background: 0 0;
+            border-color: transparent;
+            text-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+
+            .btn-dangerous.btn-link[disabled]:active > a:only-child, .btn-dangerous.btn-link[disabled]:focus > a:only-child, .btn-dangerous.btn-link[disabled]:hover > a:only-child, .btn-dangerous.btn-link[disabled] > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-link[disabled]:active > a:only-child:after, .btn-dangerous.btn-link[disabled]:focus > a:only-child:after, .btn-dangerous.btn-link[disabled]:hover > a:only-child:after, .btn-dangerous.btn-link[disabled] > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+    .btn-dangerous.btn-text {
+        color: #ff4d4f;
+        background: 0 0;
+        border-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none
+    }
+
+        .btn-dangerous.btn-text > a:only-child {
+            color: currentColor
+        }
+
+            .btn-dangerous.btn-text > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+        .btn-dangerous.btn-text:focus, .btn-dangerous.btn-text:hover {
+            color: #40a9ff;
+            background: 0 0;
+            border-color: #40a9ff
+        }
+
+        .btn-dangerous.btn-text:active {
+            color: #096dd9;
+            background: 0 0;
+            border-color: #096dd9
+        }
+
+        .btn-dangerous.btn-text[disabled], .btn-dangerous.btn-text[disabled]:active, .btn-dangerous.btn-text[disabled]:focus, .btn-dangerous.btn-text[disabled]:hover {
+            background: #f5f5f5;
+            border-color: #d9d9d9
+        }
+
+        .btn-dangerous.btn-text:focus, .btn-dangerous.btn-text:hover {
+            color: #ff7875;
+            background: rgba(0, 0, 0, .018);
+            border-color: transparent
+        }
+
+            .btn-dangerous.btn-text:focus > a:only-child, .btn-dangerous.btn-text:hover > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-text:focus > a:only-child:after, .btn-dangerous.btn-text:hover > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-dangerous.btn-text:active {
+            color: #d9363e;
+            background: rgba(0, 0, 0, .028);
+            border-color: transparent
+        }
+
+            .btn-dangerous.btn-text:active > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-text:active > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-dangerous.btn-text[disabled], .btn-dangerous.btn-text[disabled]:active, .btn-dangerous.btn-text[disabled]:focus, .btn-dangerous.btn-text[disabled]:hover {
+            color: rgba(0, 0, 0, .25);
+            background: 0 0;
+            border-color: transparent;
+            text-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+
+            .btn-dangerous.btn-text[disabled]:active > a:only-child, .btn-dangerous.btn-text[disabled]:focus > a:only-child, .btn-dangerous.btn-text[disabled]:hover > a:only-child, .btn-dangerous.btn-text[disabled] > a:only-child {
+                color: currentColor
+            }
+
+                .btn-dangerous.btn-text[disabled]:active > a:only-child:after, .btn-dangerous.btn-text[disabled]:focus > a:only-child:after, .btn-dangerous.btn-text[disabled]:hover > a:only-child:after, .btn-dangerous.btn-text[disabled] > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+.btn-icon-only {
+    width: 32px;
+    height: 32px;
+    padding: 2.4px 0;
+    font-size: 16px;
+    border-radius: 2px;
+    vertical-align: -1px
+}
+
+    .btn-icon-only > * {
+        font-size: 16px
+    }
+
+    .btn-icon-only.btn-lg {
+        width: 40px;
+        height: 40px;
+        padding: 4.9px 0;
+        font-size: 18px;
+        border-radius: 2px
+    }
+
+        .btn-icon-only.btn-lg > * {
+            font-size: 18px
+        }
+
+    .btn-icon-only.btn-sm {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        font-size: 14px;
+        border-radius: 2px
+    }
+
+        .btn-icon-only.btn-sm > * {
+            font-size: 14px
+        }
+
+.btn-round {
+    height: 32px;
+    padding: 4px 16px;
+    font-size: 14px;
+    border-radius: 32px
+}
+
+    .btn-round.btn-lg {
+        height: 40px;
+        padding: 6.4px 20px;
+        font-size: 16px;
+        border-radius: 40px
+    }
+
+    .btn-round.btn-sm {
+        height: 24px;
+        padding: 0 12px;
+        font-size: 14px;
+        border-radius: 24px
+    }
+
+    .btn-round.btn-icon-only {
+        width: auto
+    }
+
+.btn-circle {
+    min-width: 32px;
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+    border-radius: 50%
+}
+
+    .btn-circle.btn-lg {
+        min-width: 40px;
+        border-radius: 50%
+    }
+
+    .btn-circle.btn-sm {
+        min-width: 24px;
+        border-radius: 50%
+    }
+
+.btn:before {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    z-index: 1;
+    display: none;
+    background: #fff;
+    border-radius: inherit;
+    opacity: .35;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+    content: "";
+    pointer-events: none
+}
+
+.btn .anticon {
+    -webkit-transition: margin-left .3s cubic-bezier(.645, .045, .355, 1);
+    transition: margin-left .3s cubic-bezier(.645, .045, .355, 1)
+}
+
+    .btn .anticon.anticon-minus > svg, .btn .anticon.anticon-plus > svg {
+        shape-rendering: optimizeSpeed
+    }
+
+.btn.btn-loading {
+    position: relative
+}
+
+    .btn.btn-loading:not([disabled]) {
+        pointer-events: none
+    }
+
+    .btn.btn-loading:before {
+        display: block
+    }
+
+.btn > .btn-loading-icon {
+    -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    transition: all .3s cubic-bezier(.645, .045, .355, 1)
+}
+
+    .btn > .btn-loading-icon .anticon {
+        padding-right: 8px;
+        -webkit-animation: none;
+        animation: none
+    }
+
+        .btn > .btn-loading-icon .anticon svg {
+            -webkit-animation: loadingCircle 1s linear infinite;
+            animation: loadingCircle 1s linear infinite
+        }
+
+.btn-group {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex
+}
+
+    .btn-group, .btn-group > .btn, .btn-group > span > .btn {
+        position: relative
+    }
+
+        .btn-group > .btn:active, .btn-group > .btn:focus, .btn-group > .btn:hover, .btn-group > span > .btn:active, .btn-group > span > .btn:focus, .btn-group > span > .btn:hover {
+            z-index: 2
+        }
+
+        .btn-group > .btn[disabled], .btn-group > span > .btn[disabled] {
+            z-index: 0
+        }
+
+        .btn-group .btn-icon-only {
+            font-size: 14px
+        }
+
+.btn-group-lg > .btn, .btn-group-lg > span > .btn {
+    height: 40px;
+    padding: 6.4px 15px;
+    font-size: 16px;
+    border-radius: 0
+}
+
+.btn-group-lg .btn.btn-icon-only {
+    width: 40px;
+    height: 40px;
+    padding-right: 0;
+    padding-left: 0
+}
+
+.btn-group-sm > .btn, .btn-group-sm > span > .btn {
+    height: 24px;
+    padding: 0 7px;
+    font-size: 14px;
+    border-radius: 0
+}
+
+    .btn-group-sm > .btn > .anticon, .btn-group-sm > span > .btn > .anticon {
+        font-size: 14px
+    }
+
+.btn-group-sm .btn.btn-icon-only {
+    width: 24px;
+    height: 24px;
+    padding-right: 0;
+    padding-left: 0
+}
+
+.btn + .btn-group, .btn-group + .btn, .btn-group + .btn-group, .btn-group .btn + .btn, .btn-group .btn + span, .btn-group > span + span, .btn-group span + .btn {
+    margin-left: -1px
+}
+
+.btn-group .btn-primary + .btn:not(.btn-primary):not([disabled]) {
+    border-left-color: transparent
+}
+
+.btn-group .btn {
+    border-radius: 0
+}
+
+.btn-group > .btn:first-child, .btn-group > span:first-child > .btn {
+    margin-left: 0
+}
+
+.btn-group > .btn:only-child, .btn-group > span:only-child > .btn {
+    border-radius: 2px
+}
+
+.btn-group > .btn:first-child:not(:last-child), .btn-group > span:first-child:not(:last-child) > .btn {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px
+}
+
+.btn-group > .btn:last-child:not(:first-child), .btn-group > span:last-child:not(:first-child) > .btn {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px
+}
+
+.btn-group-sm > .btn:only-child, .btn-group-sm > span:only-child > .btn {
+    border-radius: 2px
+}
+
+.btn-group-sm > .btn:first-child:not(:last-child), .btn-group-sm > span:first-child:not(:last-child) > .btn {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px
+}
+
+.btn-group-sm > .btn:last-child:not(:first-child), .btn-group-sm > span:last-child:not(:first-child) > .btn {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px
+}
+
+.btn-group > .btn-group {
+    float: left
+}
+
+    .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+        border-radius: 0
+    }
+
+    .btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child {
+        padding-right: 8px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0
+    }
+
+    .btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
+        padding-left: 8px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0
+    }
+
+.btn-group-rtl.btn + .btn-group, .btn-group-rtl.btn-group + .btn, .btn-group-rtl.btn-group + .btn-group, .btn-group-rtl.btn-group .btn + .btn, .btn-group-rtl.btn-group .btn + span, .btn-group-rtl.btn-group > span + span, .btn-group-rtl.btn-group span + .btn, .btn-rtl.btn + .btn-group, .btn-rtl.btn-group + .btn, .btn-rtl.btn-group + .btn-group, .btn-rtl.btn-group .btn + .btn, .btn-rtl.btn-group .btn + span, .btn-rtl.btn-group > span + span, .btn-rtl.btn-group span + .btn {
+    margin-right: -1px;
+    margin-left: auto
+}
+
+.btn-group.btn-group-rtl {
+    direction: rtl
+}
+
+.btn-group-rtl.btn-group > .btn:first-child:not(:last-child), .btn-group-rtl.btn-group > span:first-child:not(:last-child) > .btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 0
+}
+
+.btn-group-rtl.btn-group > .btn:last-child:not(:first-child), .btn-group-rtl.btn-group > span:last-child:not(:first-child) > .btn {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 2px
+}
+
+.btn-group-rtl.btn-group-sm > .btn:first-child:not(:last-child), .btn-group-rtl.btn-group-sm > span:first-child:not(:last-child) > .btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 0
+}
+
+.btn-group-rtl.btn-group-sm > .btn:last-child:not(:first-child), .btn-group-rtl.btn-group-sm > span:last-child:not(:first-child) > .btn {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 2px
+}
+
+.btn:active > span, .btn:focus > span {
+    position: relative
+}
+
+.btn > .anticon + span, .btn > span + .anticon {
+    margin-left: 8px
+}
+
+.btn-background-ghost {
+    color: #fff;
+    background: 0 0 !important;
+    border-color: #fff
+}
+
+    .btn-background-ghost.btn-primary {
+        color: #1890ff;
+        background: 0 0;
+        border-color: #1890ff;
+        text-shadow: none
+    }
+
+        .btn-background-ghost.btn-primary > a:only-child {
+            color: currentColor
+        }
+
+            .btn-background-ghost.btn-primary > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+        .btn-background-ghost.btn-primary:focus, .btn-background-ghost.btn-primary:hover {
+            color: #40a9ff;
+            background: 0 0;
+            border-color: #40a9ff
+        }
+
+            .btn-background-ghost.btn-primary:focus > a:only-child, .btn-background-ghost.btn-primary:hover > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-primary:focus > a:only-child:after, .btn-background-ghost.btn-primary:hover > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-background-ghost.btn-primary:active {
+            color: #096dd9;
+            background: 0 0;
+            border-color: #096dd9
+        }
+
+            .btn-background-ghost.btn-primary:active > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-primary:active > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-background-ghost.btn-primary[disabled], .btn-background-ghost.btn-primary[disabled]:active, .btn-background-ghost.btn-primary[disabled]:focus, .btn-background-ghost.btn-primary[disabled]:hover {
+            color: rgba(0, 0, 0, .25);
+            background: #f5f5f5;
+            border-color: #d9d9d9;
+            text-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+
+            .btn-background-ghost.btn-primary[disabled]:active > a:only-child, .btn-background-ghost.btn-primary[disabled]:focus > a:only-child, .btn-background-ghost.btn-primary[disabled]:hover > a:only-child, .btn-background-ghost.btn-primary[disabled] > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-primary[disabled]:active > a:only-child:after, .btn-background-ghost.btn-primary[disabled]:focus > a:only-child:after, .btn-background-ghost.btn-primary[disabled]:hover > a:only-child:after, .btn-background-ghost.btn-primary[disabled] > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+    .btn-background-ghost.btn-danger {
+        color: #ff4d4f;
+        background: 0 0;
+        border-color: #ff4d4f;
+        text-shadow: none
+    }
+
+        .btn-background-ghost.btn-danger > a:only-child {
+            color: currentColor
+        }
+
+            .btn-background-ghost.btn-danger > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+        .btn-background-ghost.btn-danger:focus, .btn-background-ghost.btn-danger:hover {
+            color: #ff7875;
+            background: 0 0;
+            border-color: #ff7875
+        }
+
+            .btn-background-ghost.btn-danger:focus > a:only-child, .btn-background-ghost.btn-danger:hover > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-danger:focus > a:only-child:after, .btn-background-ghost.btn-danger:hover > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-background-ghost.btn-danger:active {
+            color: #d9363e;
+            background: 0 0;
+            border-color: #d9363e
+        }
+
+            .btn-background-ghost.btn-danger:active > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-danger:active > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-background-ghost.btn-danger[disabled], .btn-background-ghost.btn-danger[disabled]:active, .btn-background-ghost.btn-danger[disabled]:focus, .btn-background-ghost.btn-danger[disabled]:hover {
+            color: rgba(0, 0, 0, .25);
+            background: #f5f5f5;
+            border-color: #d9d9d9;
+            text-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+
+            .btn-background-ghost.btn-danger[disabled]:active > a:only-child, .btn-background-ghost.btn-danger[disabled]:focus > a:only-child, .btn-background-ghost.btn-danger[disabled]:hover > a:only-child, .btn-background-ghost.btn-danger[disabled] > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-danger[disabled]:active > a:only-child:after, .btn-background-ghost.btn-danger[disabled]:focus > a:only-child:after, .btn-background-ghost.btn-danger[disabled]:hover > a:only-child:after, .btn-background-ghost.btn-danger[disabled] > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+    .btn-background-ghost.btn-dangerous {
+        color: #ff4d4f;
+        background: 0 0;
+        border-color: #ff4d4f;
+        text-shadow: none
+    }
+
+        .btn-background-ghost.btn-dangerous > a:only-child {
+            color: currentColor
+        }
+
+            .btn-background-ghost.btn-dangerous > a:only-child:after {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: 0 0;
+                content: ""
+            }
+
+        .btn-background-ghost.btn-dangerous:focus, .btn-background-ghost.btn-dangerous:hover {
+            color: #ff7875;
+            background: 0 0;
+            border-color: #ff7875
+        }
+
+            .btn-background-ghost.btn-dangerous:focus > a:only-child, .btn-background-ghost.btn-dangerous:hover > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-dangerous:focus > a:only-child:after, .btn-background-ghost.btn-dangerous:hover > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-background-ghost.btn-dangerous:active {
+            color: #d9363e;
+            background: 0 0;
+            border-color: #d9363e
+        }
+
+            .btn-background-ghost.btn-dangerous:active > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-dangerous:active > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-background-ghost.btn-dangerous[disabled], .btn-background-ghost.btn-dangerous[disabled]:active, .btn-background-ghost.btn-dangerous[disabled]:focus, .btn-background-ghost.btn-dangerous[disabled]:hover {
+            color: rgba(0, 0, 0, .25);
+            background: #f5f5f5;
+            border-color: #d9d9d9;
+            text-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none
+        }
+
+            .btn-background-ghost.btn-dangerous[disabled]:active > a:only-child, .btn-background-ghost.btn-dangerous[disabled]:focus > a:only-child, .btn-background-ghost.btn-dangerous[disabled]:hover > a:only-child, .btn-background-ghost.btn-dangerous[disabled] > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-dangerous[disabled]:active > a:only-child:after, .btn-background-ghost.btn-dangerous[disabled]:focus > a:only-child:after, .btn-background-ghost.btn-dangerous[disabled]:hover > a:only-child:after, .btn-background-ghost.btn-dangerous[disabled] > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+        .btn-background-ghost.btn-dangerous.btn-link {
+            color: #ff4d4f;
+            background: 0 0;
+            border-color: transparent;
+            text-shadow: none
+        }
+
+            .btn-background-ghost.btn-dangerous.btn-link > a:only-child {
+                color: currentColor
+            }
+
+                .btn-background-ghost.btn-dangerous.btn-link > a:only-child:after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    background: 0 0;
+                    content: ""
+                }
+
+            .btn-background-ghost.btn-dangerous.btn-link:focus, .btn-background-ghost.btn-dangerous.btn-link:hover {
+                color: #ff7875;
+                background: 0 0;
+                border-color: transparent
+            }
+
+                .btn-background-ghost.btn-dangerous.btn-link:focus > a:only-child, .btn-background-ghost.btn-dangerous.btn-link:hover > a:only-child {
+                    color: currentColor
+                }
+
+                    .btn-background-ghost.btn-dangerous.btn-link:focus > a:only-child:after, .btn-background-ghost.btn-dangerous.btn-link:hover > a:only-child:after {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        background: 0 0;
+                        content: ""
+                    }
+
+            .btn-background-ghost.btn-dangerous.btn-link:active {
+                color: #d9363e;
+                background: 0 0;
+                border-color: transparent
+            }
+
+                .btn-background-ghost.btn-dangerous.btn-link:active > a:only-child {
+                    color: currentColor
+                }
+
+                    .btn-background-ghost.btn-dangerous.btn-link:active > a:only-child:after {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        background: 0 0;
+                        content: ""
+                    }
+
+            .btn-background-ghost.btn-dangerous.btn-link[disabled], .btn-background-ghost.btn-dangerous.btn-link[disabled]:active, .btn-background-ghost.btn-dangerous.btn-link[disabled]:focus, .btn-background-ghost.btn-dangerous.btn-link[disabled]:hover {
+                color: rgba(0, 0, 0, .25);
+                background: #f5f5f5;
+                border-color: #d9d9d9;
+                text-shadow: none;
+                -webkit-box-shadow: none;
+                box-shadow: none
+            }
+
+                .btn-background-ghost.btn-dangerous.btn-link[disabled]:active > a:only-child, .btn-background-ghost.btn-dangerous.btn-link[disabled]:focus > a:only-child, .btn-background-ghost.btn-dangerous.btn-link[disabled]:hover > a:only-child, .btn-background-ghost.btn-dangerous.btn-link[disabled] > a:only-child {
+                    color: currentColor
+                }
+
+                    .btn-background-ghost.btn-dangerous.btn-link[disabled]:active > a:only-child:after, .btn-background-ghost.btn-dangerous.btn-link[disabled]:focus > a:only-child:after, .btn-background-ghost.btn-dangerous.btn-link[disabled]:hover > a:only-child:after, .btn-background-ghost.btn-dangerous.btn-link[disabled] > a:only-child:after {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        background: 0 0;
+                        content: ""
+                    }
+
+.btn-two-chinese-chars:first-letter {
+    letter-spacing: .34em
+}
+
+.btn-two-chinese-chars > :not(.anticon) {
+    margin-right: -.34em;
+    letter-spacing: .34em
+}
+
+.btn-block {
+    width: 100%
+}
+
+.btn:empty {
+    display: inline-block;
+    width: 0;
+    visibility: hidden;
+    content: "\a0"
+}
+
+a.btn {
+    padding-top: .1px;
+    line-height: 30px
+}
+
+a.btn-lg {
+    line-height: 38px
+}
+
+a.btn-sm {
+    line-height: 22px
+}
+
+.btn-rtl {
+    direction: rtl
+}
+
+.btn-group-rtl.btn-group .btn-primary + .btn-primary, .btn-group-rtl.btn-group .btn-primary:last-child:not(:first-child) {
+    border-right-color: #40a9ff;
+    border-left-color: #d9d9d9
+}
+
+    .btn-group-rtl.btn-group .btn-primary + .btn-primary[disabled], .btn-group-rtl.btn-group .btn-primary:last-child:not(:first-child)[disabled] {
+        border-right-color: #d9d9d9;
+        border-left-color: #40a9ff
+    }
+
+.btn-rtl.btn > .btn-loading-icon .anticon {
+    padding-right: 0;
+    padding-left: 8px
+}
+
+.btn > .btn-loading-icon:only-child .anticon {
+    padding-right: 0;
+    padding-left: 0
+}
+
+.btn-rtl.btn > .anticon + span, .btn-rtl.btn > span + .anticon {
+    margin-right: 8px;
+    margin-left: 0
+}

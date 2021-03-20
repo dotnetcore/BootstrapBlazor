@@ -407,7 +407,7 @@
         background-color: #e4e7ed;
     }
 
-.table-striped.table-fixed-column tbody tr:nth-of-type(odd):not(:hover) .fixed,
+.table-striped.table-fixed-column tbody tr:nth-of-type(odd):not(:hover):not(.active) .fixed,
 .table-striped.table-fixed-column .table-row:not(.active):nth-of-type(odd) .fixed {
     background-color: #fafafa;
 }
@@ -497,7 +497,10 @@
         display: block;
     }
 
-.table .table-cell .is-tree {
+.table .table-cell.is-tree {
     cursor: pointer;
+}
+
+.table .table-cell > .is-tree {
     padding: 0 4px;
 }

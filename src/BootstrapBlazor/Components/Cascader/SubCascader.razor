@@ -1,0 +1,24 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+@foreach (var item in Items)
+{
+    if (item.HasChildren)
+    {
+        <li class="@ActiveItem("nav-item", item)" @onclick="@(e => OnClick(item))" @onclick:stopPropagation>
+            <div class="has-leaf nav-link">
+                <span>@item.Text</span>
+                <i class="fa fa-angle-down nav-link-right"></i>
+                <ul class="nav sub-menu" @onclick:stopPropagation>
+                    <SubCascader Items="@item.Items" OnClick="@OnClick" ActiveItem="@ActiveItem"/>
+                </ul>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="@ActiveItem("nav-item", item)" @onclick="@(e => OnClick(item))" @onclick:stopPropagation>
+            <div class="nav-link"><span>@item.Text</span></div>
+        </li>
+    }
+}

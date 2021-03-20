@@ -75,6 +75,12 @@ namespace BootstrapBlazor.Components
         public object? Step { get; set; }
 
         /// <summary>
+        /// 获得/设置 Textarea 行数 默认为 0
+        /// </summary>
+        [Parameter]
+        public int Rows { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
         /// </summary>
         [Parameter]
@@ -228,7 +234,10 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             Table?.Columns.Add(this);
-            if (FieldExpression != null) _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+            if (FieldExpression != null)
+            {
+                _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+            }
 
             // 获取模型属性定义类型
             PropertyType = typeof(TType);

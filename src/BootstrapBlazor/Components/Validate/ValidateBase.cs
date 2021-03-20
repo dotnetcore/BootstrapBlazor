@@ -232,7 +232,7 @@ namespace BootstrapBlazor.Components
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
-        protected ValidateFormBase? EditForm { get; set; }
+        protected ValidateForm? EditForm { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
@@ -345,7 +345,7 @@ namespace BootstrapBlazor.Components
                 EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
             }
 
-            //显式设置显示标签时一定显示
+            // 显式设置显示标签时一定显示
             IsShowLabel = ShowLabel || EditForm != null || EditFormShowLabel;
 
             // 内置到验证组件时才使用绑定属性值获取 DisplayName
@@ -406,11 +406,7 @@ namespace BootstrapBlazor.Components
         public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
             // 如果禁用移除验证信息
-            if (IsDisabled)
-            {
-                results.Clear();
-            }
-            else
+            if (!IsDisabled && !SkipValidate)
             {
                 // 模型验证设置 验证属性名称
                 // 验证组件内部使用

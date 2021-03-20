@@ -41,6 +41,9 @@
     "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
     "Title": "{0} 年 {1} 月"
   },
+  "BootstrapBlazor.Components.Cascader": {
+    "PlaceHolder": "请选择 ..."
+  },
   "BootstrapBlazor.Components.Console": {
     "HeaderText": "系统监控",
     "LightTitle": "通讯指示灯",

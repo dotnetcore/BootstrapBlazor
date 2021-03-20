@@ -2,6 +2,8 @@
 @inherits BootstrapComponentBase
 
 <Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer">
-    <ModalDialog @ref="@ModalDialog">
-    </ModalDialog>
+    @foreach (var parameter in DialogParameters)
+    {
+        @RenderDialog(parameter)
+    }
 </Modal>

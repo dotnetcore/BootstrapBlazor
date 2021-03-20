@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
@@ -55,11 +56,33 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public string? Placeholder { get; set; }
 
+        /// <summary>
+        /// 获得/设置 组件值
+        /// </summary>
+        [Parameter]
+        public string? Value { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件值回调
+        /// </summary>
+        [Parameter]
+        public EventCallback<string?> ValueChanged { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件 Html 代码
+        /// </summary>
+        [Parameter]
+        public string? Html { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件 Html 代码回调
+        /// </summary>
+        [Parameter]
+        public EventCallback<string?> HtmlChanged { get; set; }
+
+        private JSInterop<Markdown>? Interop { get; set; }
+
         private readonly MarkdownOption _markdownOption = new();
-
-        private bool IsRendered { get; set; }
-
-        private Command? ActionCommand { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -74,6 +97,7 @@ namespace BootstrapBlazor.Components
             _markdownOption.Placeholder = Placeholder;
             _markdownOption.Height = $"{Height}px";
             _markdownOption.MinHeight = $"{MinHeight}px";
+            _markdownOption.initialValue = Value;
         }
 
         /// <summary>
@@ -87,106 +111,60 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("$.bb_markdown", MarkdownElement, "init", _markdownOption);
-                IsRendered = true;
-
-                if (ActionCommand.HasValue)
+                if (Interop == null)
                 {
-                    await RunCommand(ActionCommand.Value);
+                    Interop = new JSInterop<Markdown>(JSRuntime);
+                }
+
+                await Interop.Invoke(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
+            }
+        }
+
+        /// <summary>
+        /// 更新组件值方法
+        /// </summary>
+        /// <param name="vals"></param>
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task Update(string[] vals)
+        {
+            if (vals.Length == 2)
+            {
+                var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], Value);
+                if (hasChanged)
+                {
+                    Value = vals[0];
+                    if (ValueChanged.HasDelegate)
+                    {
+                        await ValueChanged.InvokeAsync(Value);
+                    }
+                }
+
+                hasChanged = !EqualityComparer<string>.Default.Equals(vals[1], Html);
+                if (hasChanged)
+                {
+                    Html = vals[1];
+                    if (HtmlChanged.HasDelegate)
+                    {
+                        await HtmlChanged.InvokeAsync(Html);
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// 设置Html内容（会覆盖原有内容，请谨慎使用）
+        /// Dispose 方法
         /// </summary>
-        /// <returns></returns>
-        public ValueTask SetHtml(string html) => RunCommand(new Command()
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
         {
-            Type = "set",
-            Method = "setHtml",
-            Value = html
-        });
+            base.Dispose(disposing);
 
-        /// <summary>
-        /// 设置 Html 内容（会覆盖原有内容，请谨慎使用）
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask SetMarkdown(string markdown) => RunCommand(new Command()
-        {
-            Type = "set",
-            Method = "setMarkdown",
-            Value = markdown
-        });
-
-        /// <summary>
-        /// 插入文本到光标处
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask InsertText(string text) => RunCommand(new Command()
-        {
-            Type = "set",
-            Method = "insertText",
-            Value = text
-        });
-
-        /// <summary>
-        /// 隐藏 Editor
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask Hide() => RunCommand(new Command()
-        {
-            Type = "get",
-            Method = "hide"
-        });
-
-        /// <summary>
-        /// 显示 Editor
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask Show() => RunCommand(new Command()
-        {
-            Type = "get",
-            Method = "show"
-        });
-
-        /// <summary>
-        /// 获得 Markdown 编辑器 已选中的文本内容
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask<string> GetSelectedText() => JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, "get", "getSelectedText");
-
-        /// <summary>
-        /// 获得 Markdown 编辑器源码
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask<string> GetMarkdownString() => JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, "get", "getMarkdown");
-
-        /// <summary>
-        /// 获得 Markdown 编辑器 HTML 源码
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask<string> GetMarkdownHtmlString() => JSRuntime.InvokeAsync<string>("$.bb_markdown", MarkdownElement, "get", "getHtml");
-
-        private async ValueTask RunCommand(Command cmd)
-        {
-            if (IsRendered)
+            if (disposing)
             {
-                await JSRuntime.InvokeVoidAsync("$.bb_markdown", MarkdownElement, cmd.Type, cmd.Method, cmd.Value);
+                Interop?.Dispose();
+                Interop = null;
             }
-            else
-            {
-                ActionCommand = cmd;
-            }
-        }
-
-        private struct Command
-        {
-            public string Method { get; set; }
-
-            public string Type { get; set; }
-
-            public string Value { get; set; }
         }
     }
 }

@@ -25,6 +25,9 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private Logger? Trace2 { get; set; }
 
+        [NotNull]
+        private Logger? Trace3 { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<EnumEducation>? Localizer { get; set; }
@@ -39,6 +42,9 @@ namespace BootstrapBlazor.Shared.Pages
 
         [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
+
+        [NotNull]
+        private ValidateForm? Test { get; set; }
 
         /// <summary>baise
         /// OnInitialized 方法
@@ -64,9 +70,21 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Task OnValidateNameSubmit(EditContext context)
+        {
+            Test.SetError(typeof(Foo), "Name", "数据库中已存在");
+            return Task.CompletedTask;
+        }
+
         private Task OnInvalidSubmit(EditContext context)
         {
             Trace2.Log("OnInvalidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
+        private Task OnInvalidSubmitAddress(EditContext context)
+        {
+            Trace3.Log("OnInvalidSubmit 回调委托");
             return Task.CompletedTask;
         }
 
@@ -80,6 +98,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "object",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ValidateAllProperties",
+                Description = "是否检查所有字段",
+                Type = "bool",
+                ValueList = "true/false",
+                DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ChildContent",

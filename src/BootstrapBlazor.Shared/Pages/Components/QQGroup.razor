@@ -1,0 +1,16 @@
+﻿@inject IOptions<WebsiteOptions> WebsiteOption
+
+<div>
+    QQ群：BootstrapAdmin & Blazor
+    <a class="mx-1" target="_blank" href="@WebsiteOption.Value.QQGroup1Link">
+        <span class="text-danger fa fa-qq">
+            <span class="ml-1"><b>795206915(满)</b></span>
+        </span>
+    </a>
+    <a class="mx-1" target="_blank" href="@WebsiteOption.Value.QQGroup2Link">
+        <span class="text-success fa fa-qq">
+            <span class="ml-1"><b>675147445</b></span>
+        </span>
+    </a>
+    欢迎加群讨论
+</div>

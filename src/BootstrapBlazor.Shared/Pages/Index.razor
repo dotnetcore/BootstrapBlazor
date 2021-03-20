@@ -1,4 +1,5 @@
-﻿@layout HomeLayout
+﻿@using Microsoft.Extensions.Localization
+@layout HomeLayout
 @page "/"
 @page "/index"
 @page "/home"
@@ -9,13 +10,10 @@
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="welcome-header">
-                        <h1 class="mb-3">
-                            Bootstrap of Blazor
-                        </h1>
                         <h4>
                             Bootstrap 风格的 Blazor UI 组件库
                         </h4>
-                        <div>基于 <code>Bootstrap</code> 样式库精心打造，并且额外增加了 70 多种常用的组件，为您快速开发项目带来非一般的感觉</div>
+                        <div>基于 <code>Bootstrap</code> 样式库精心打造，并且额外增加了 76 多种常用的组件，为您快速开发项目带来非一般的感觉</div>
                         <div class="welcome-body">
                             致力于打造全网<span @ref="TypeElement" class="typed"></span><span class="typed-cursor">|</span>
                             <div>最好玩的组件库</div>

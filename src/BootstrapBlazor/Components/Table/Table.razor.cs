@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
             .AddClass("fa fa-caret-right", CheckTreeChildren(item))
-            .AddClass("fa-rotate-90", TreeRows.ContainsKey(item) && TreeRows[item].IsExpand)
+            .AddClass("fa-rotate-90", TryGetTreeNodeByItem(item, out var node) && node.IsExpand)
             .Build();
 
         /// <summary>
@@ -110,7 +110,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 树形数据已展开集合
         /// </summary>
-        protected ConcurrentDictionary<TItem, TableTreeNode<TItem>> TreeRows { get; set; } = new();
+        [NotNull]
+        private List<TableTreeNode<TItem>>? TreeRows { get; set; }
 
         /// <summary>
         /// 获得/设置 是否为树形数据 默认为 false
@@ -137,12 +138,13 @@ namespace BootstrapBlazor.Components
         {
             // 查找递归层次
             var indent = 0;
-            var children = TreeRows.Values.Where(i => i.HasChildren).SelectMany(i => i.Children!);
-            TableTreeNode<TItem>? current = children.FirstOrDefault(i => i.Value == item);
-            while (current != null && current.Parent != null)
+            if (TryGetTreeNodeByItem(item, out var node))
             {
-                indent += IndentSize;
-                current = current.Parent;
+                while (node.Parent != null)
+                {
+                    indent += IndentSize;
+                    node = node.Parent;
+                }
             }
             return indent.ToString();
         }
@@ -169,49 +171,79 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected EventCallback<MouseEventArgs> ToggleTreeRow(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+        protected Func<Task> ToggleTreeRow(TItem item) => async () =>
         {
             if (OnTreeExpand == null)
             {
                 throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
             }
 
-            var node = TreeRows.GetOrAdd(item, key => new TableTreeNode<TItem>(key)
+            if (TryGetTreeNodeByItem(item, out var node))
             {
-                HasChildren = CheckTreeChildren(key),
-                Parent = TreeRows.Values
-                            .Where(i => i.HasChildren)
-                            .SelectMany(i => i.Children!)
-                            .FirstOrDefault(t => t.Value == key)?
-                            .Parent
-            });
-            node.IsExpand = !node.IsExpand;
-            if (node.Children == null)
-            {
-                var nodes = await OnTreeExpand(item);
-                node.Children = nodes.Select(i => new TableTreeNode<TItem>(i)
+                node.IsExpand = !node.IsExpand;
+
+                // 无子项时通过回调方法延时加载
+                if (node.Children.Count == 0)
                 {
-                    // 是否有子节点
-                    HasChildren = CheckTreeChildren(i),
-
-                    // 设置父节点
-                    Parent = node
-                });
+                    var nodes = await OnTreeExpand(item);
+                    node.Children.AddRange(nodes.Select(i => new TableTreeNode<TItem>(i)
+                    {
+                        HasChildren = CheckTreeChildren(i),
+                        Parent = node
+                    }));
+                }
             }
+            StateHasChanged();
+        };
 
-            var dataSource = Items.ToList();
-            var index = dataSource.IndexOf(item);
-
-            if (node.IsExpand)
+        private bool TryGetTreeNodeByItem(TItem item, [MaybeNullWhen(false)] out TableTreeNode<TItem> node)
+        {
+            TableTreeNode<TItem>? n = null;
+            foreach (var v in TreeRows)
             {
-                dataSource.InsertRange(index + 1, node.Children.Select(i => i.Value));
+                if (v.Value == item)
+                {
+                    n = v;
+                    break;
+                }
+
+                if (v.Children != null)
+                {
+                    n = GetTreeNodeByItem(item, v.Children);
+                }
+
+                if (n != null)
+                {
+                    break;
+                }
             }
-            else
+            node = n;
+            return n != null;
+        }
+
+        private TableTreeNode<TItem>? GetTreeNodeByItem(TItem item, IEnumerable<TableTreeNode<TItem>> nodes)
+        {
+            TableTreeNode<TItem>? ret = null;
+            foreach (var node in nodes)
             {
-                dataSource.RemoveRange(index + 1, node.Children.Count());
+                if (node.Value == item)
+                {
+                    ret = node;
+                    break;
+                }
+
+                if (node.Children.Any())
+                {
+                    ret = GetTreeNodeByItem(item, node.Children);
+                }
+
+                if (ret != null)
+                {
+                    break;
+                }
             }
-            Items = dataSource;
-        });
+            return ret;
+        }
 
         /// <summary>
         /// 通过设置的 HasChildren 属性得知是否有子节点用于显示 UI
@@ -229,6 +261,33 @@ namespace BootstrapBlazor.Components
             }
             return ret;
         }
+
+        #region Tree 树形数据获取 Items 方法集合
+        private IEnumerable<TItem> GetItems()
+        {
+            return IsTree ? GetTreeRows() : Items;
+        }
+
+        private IEnumerable<TItem> GetTreeRows()
+        {
+            var ret = new List<TItem>();
+            ReloadTreeNodes(ret, TreeRows);
+            return ret;
+        }
+
+        private void ReloadTreeNodes(List<TItem> items, IEnumerable<TableTreeNode<TItem>> nodes)
+        {
+            foreach (var node in nodes)
+            {
+                items.Add(node.Value);
+
+                if (node.IsExpand && node.Children.Any())
+                {
+                    ReloadTreeNodes(items, node.Children);
+                }
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 明细行集合用于数据懒加载
@@ -390,6 +449,13 @@ namespace BootstrapBlazor.Components
 
             // 判断是否为树形结构
             IsTree = typeof(TItem).GetProperty(ChildrenColumnName) != null;
+            if (IsTree)
+            {
+                TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
+                {
+                    HasChildren = CheckTreeChildren(item)
+                }).ToList();
+            }
         }
 
         private string? methodName;

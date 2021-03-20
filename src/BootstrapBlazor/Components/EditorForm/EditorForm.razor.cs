@@ -27,8 +27,8 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         private string? GetCssString(IEditorItem item) => CssBuilder.Default("form-group col-12")
-            .AddClass("col-sm-6", item.Data == null && ItemsPerRow == null)
-            .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Data == null && ItemsPerRow != null)
+            .AddClass("col-sm-6", item.Data == null && ItemsPerRow == null && item.Rows == 0)
+            .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Data == null && ItemsPerRow != null && item.Rows == 0)
             .Build();
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace BootstrapBlazor.Components
                 var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
                 var valueExpression = Expression.Lambda(tDelegate, body);
 
-                var componentType = EditorForm<TModel>.GenerateComponent(fieldType);
+                var componentType = EditorForm<TModel>.GenerateComponent(fieldType, item.Rows != 0);
                 builder.OpenComponent(0, componentType);
                 builder.AddAttribute(1, "DisplayText", displayName);
                 builder.AddAttribute(2, "Value", fieldValue);
@@ -248,6 +248,10 @@ namespace BootstrapBlazor.Components
                 {
                     case nameof(String):
                         ret.Add(new KeyValuePair<string, object>("placeholder", Utility.GetPlaceHolder(Model, fieldName) ?? PlaceHolderText));
+                        if (item.Rows != 0)
+                        {
+                            ret.Add(new KeyValuePair<string, object>("rows", item.Rows));
+                        }
                         break;
                     case nameof(Int16):
                     case nameof(Int32):
@@ -269,7 +273,7 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private static Type GenerateComponent(Type fieldType)
+        private static Type GenerateComponent(Type fieldType, bool hasRows)
         {
             Type? ret = null;
             var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
@@ -300,7 +304,14 @@ namespace BootstrapBlazor.Components
                         ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
                         break;
                     case nameof(String):
-                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
+                        if (hasRows)
+                        {
+                            ret = typeof(Textarea);
+                        }
+                        else
+                        {
+                            ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
+                        }
                         break;
                 }
             }

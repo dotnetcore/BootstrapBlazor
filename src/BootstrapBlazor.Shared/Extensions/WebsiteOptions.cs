@@ -17,22 +17,32 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 
         /// </summary>
-        public string ServerUrl { get; set; } = "https://blazor.zylweb.cn";
+        public string ServerUrl { get; set; } = "https://www.blazor.zone";
 
         /// <summary>
         /// 
         /// </summary>
-        public string WasmUrl { get; set; } = "https://wasm.zylweb.cn";
+        public string WasmUrl { get; set; } = "https://wasm.blazor.zone";
 
         /// <summary>
         /// 
         /// </summary>
-        public string AdminUrl { get; set; } = "https://ba.zylweb.cn";
+        public string AdminUrl { get; set; } = "https://admin.blazor.zone";
 
         /// <summary>
         /// 
         /// </summary>
-        public string ImageLibUrl { get; set; } = "https://imgs.zylweb.cn";
+        public string ImageLibUrl { get; set; } = "https://imgs.blazor.zone";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BootstrapAdminLink { get; set; } = "https://gitee.com/dotnetchina/BootstrapAdmin";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BootstrapBlazorLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor";
 
         /// <summary>
         /// 
@@ -43,6 +53,16 @@ namespace BootstrapBlazor.Shared
         /// 
         /// </summary>
         public string RepositoryUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/dev/src/BootstrapBlazor.Shared/Pages/Samples/";
+
+        /// <summary>
+        /// 获得 QQ 1 群链接地址
+        /// </summary>
+        public string? QQGroup1Link { get; set; } = "https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi";
+
+        /// <summary>
+        /// 获得 QQ 2 群链接地址
+        /// </summary>
+        public string? QQGroup2Link { get; set; } = "https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi";
 
         /// <summary>
         /// 获得/设置 系统 wwwroot 文件夹路径 Server Side 模式下 Upload 使用
@@ -59,13 +79,18 @@ namespace BootstrapBlazor.Shared
         /// 获得/设置 资源配置集合
         /// </summary>
         [NotNull]
-        public Dictionary<string, string> SourceCodes { get; set; }
+        public Dictionary<string, string> SourceCodes { get; private set; }
 
         /// <summary>
         /// 获得/设置 资源配置集合
         /// </summary>
         [NotNull]
-        public Dictionary<string, string>? Videos { get; set; }
+        public Dictionary<string, string>? Videos { get; private set; }
+
+        /// <summary>
+        /// 获得/设置 当前主题
+        /// </summary>
+        public string CurrentTheme { get; set; } = "";
 
         /// <summary>
         /// 构造函数

@@ -23,10 +23,7 @@
 @code {
     RenderFragment RenderFooter =>
     @<div class="modal-footer table-modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@EventCallback.Factory.Create(this, OnClose)">
-            <i class="fa fa-times"></i>
-            <span>@CloseButtonText</span>
-        </button>
+        <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="@(new Func<Task>(OnClose))" />
         <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
     </div>;
 }

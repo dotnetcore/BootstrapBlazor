@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -80,6 +81,17 @@ namespace BootstrapBlazor.Shared.Pages
             SelectedArrayValues = "Beijing,Chengdu".Split(',');
         }
 
+        private void AddArrayItems()
+        {
+            SelectedIntArrayValues = new[] { 1, 2, 3, 4 };
+        }
+
+        private void RemoveArrayItems()
+        {
+            SelectedIntArrayValues = new[] { 1, 2, };
+        }
+
+        private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
         private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
         private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
 

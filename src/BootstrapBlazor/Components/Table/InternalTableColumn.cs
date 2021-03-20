@@ -64,6 +64,8 @@ namespace BootstrapBlazor.Components
 
         public object? Step { get; set; }
 
+        public int Rows { get; set; }
+
         [NotNull]
         public string? Text { get; set; }
 
@@ -198,6 +200,7 @@ namespace BootstrapBlazor.Components
             if (source.Visible) dest.Visible = source.Visible;
             if (source.Width != null) dest.Width = source.Width;
             if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
+            if (source.Rows > 0) dest.Rows = source.Rows;
         }
     }
 }

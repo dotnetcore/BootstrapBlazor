@@ -4,11 +4,13 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using Microsoft.Extensions.Localization;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Shared
 {
@@ -26,23 +28,14 @@ namespace BootstrapBlazor.Shared.Shared
         [NotNull]
         private string? VideoFileName { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
-        public string? Title { get; set; }
+        private string? Title { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
-        public string? Example { get; set; }
+        private string? Example { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
-        public string? Video { get; set; }
+        private string? Video { get; set; }
 
         [Inject]
         [NotNull]
@@ -51,6 +44,14 @@ namespace BootstrapBlazor.Shared.Shared
         [Inject]
         [NotNull]
         private IOptions<WebsiteOptions>? SiteOptions { get; set; }
+
+        [Inject]
+        [NotNull]
+        private NavigationManager? Navigator { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IJSRuntime? JSRuntime { get; set; }
 
         [NotNull]
         private Tab? TabSet { get; set; }
@@ -105,9 +106,9 @@ namespace BootstrapBlazor.Shared.Shared
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             TabSet.ActiveTab(TabSet.Items.First());
         }

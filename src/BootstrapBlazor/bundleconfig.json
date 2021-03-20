@@ -186,6 +186,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Switch/Switch.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Switch/Switch.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Table/Table.razor.cs.min.css",
     "inputFiles": [
       "Components/Table/Table.razor.cs.css"
@@ -272,6 +278,7 @@
       "Components/Select/MultiSelect.razor.cs.min.css",
       "Components/Slider/Slider.razor.cs.min.css",
       "Components/Split/Split.razor.cs.min.css",
+      "Components/Switch/Switch.razor.cs.min.css",
       "Components/Table/Table.razor.cs.min.css",
       "Components/Table/Filter/TableFilter.razor.cs.min.css",
       "Components/Tab/Tab.razor.cs.min.css",

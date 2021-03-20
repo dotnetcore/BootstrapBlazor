@@ -68,7 +68,7 @@ namespace BootstrapBlazor.Shared.Pages
             option.BodyTemplate = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
             {
                 new KeyValuePair<string, object>(nameof(Button.Text), "点击关闭弹窗"),
-                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog!.Close()))
+                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
             }).Render();
             await DialogService.Show(option);
         }
@@ -112,7 +112,7 @@ namespace BootstrapBlazor.Shared.Pages
             };
             op.BodyTemplate = DynamicComponent.CreateComponent<DataDialogComponent>(new List<KeyValuePair<string, object>>
             {
-                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog!.Toggle()))
+                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
             }).Render();
 
             await DialogService.Show(op);
@@ -157,6 +157,50 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 InputValue = string.Join(";", Emails);
             }
+        }
+
+        private int _counter;
+        private async Task ShowDialogLoop()
+        {
+            await DialogService.Show(new DialogOption()
+            {
+                Title = $"弹窗 {_counter++}",
+                Component = DynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+                {
+                    new KeyValuePair<string, object>(nameof(Button.Text), $"点击弹窗 {DateTime.Now:HH:mm:ss}"),
+                    new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await ShowDialogLoop1()))
+                }),
+                OnCloseAsync = () =>
+                {
+                    _counter--;
+                    return Task.CompletedTask;
+                }
+            });
+        }
+
+        private async Task ShowDialogLoop1()
+        {
+            await DialogService.Show(new DialogOption()
+            {
+                Title = $"弹窗 {_counter++}",
+                BodyTemplate = builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.OpenComponent<Counter>(1);
+                    builder.CloseComponent();
+                    builder.AddContent(2, new MarkupString($"<div>当前时间 {DateTime.Now:HH:mm:ss}</div>"));
+                    builder.OpenComponent<Button>(3);
+                    builder.AddAttribute(4, nameof(Button.Text), $"点击弹窗 {DateTime.Now:HH:mm:ss}");
+                    builder.AddAttribute(4, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await ShowDialogLoop()));
+                    builder.CloseComponent();
+                    builder.CloseElement();
+                },
+                OnCloseAsync = () =>
+                {
+                    _counter--;
+                    return Task.CompletedTask;
+                }
+            });
         }
 
         /// <summary>

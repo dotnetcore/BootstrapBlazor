@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -19,9 +17,6 @@ namespace BootstrapBlazor.Shared.Pages
         private string? MarkdownString { get; set; }
 
         private string? HtmlString { get; set; }
-
-        [NotNull]
-        private Markdown? MarkdownElement { get; set; }
 
         private string ShowHideButtonString { get; set; } = "隐藏 Editor";
 
@@ -39,56 +34,8 @@ namespace BootstrapBlazor.Shared.Pages
         protected override async Task OnInitializedAsync()
         {
             Language = CultureInfo.CurrentUICulture.Name;
+            MarkdownString = "### 测试";
             Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
-            {
-                await MarkdownElement.SetMarkdown("# 这里是初始化的 Markdown");
-            }
-        }
-
-        private async Task GetMarkdownString()
-        {
-            MarkdownString = await MarkdownElement.GetMarkdownString();
-        }
-
-        private async Task GetHTMLString()
-        {
-            HtmlString = await MarkdownElement.GetMarkdownHtmlString();
-        }
-
-        private async Task GetSelectedString()
-        {
-            MarkdownString = await MarkdownElement.GetSelectedText();
-        }
-
-        private void InsertText()
-        {
-            var _ = MarkdownElement.InsertText("# 这是插入的内容");
-        }
-
-        private async Task ShowHideEditor()
-        {
-            if (ShowHideButtonString == "隐藏 Editor")
-            {
-                ShowHideButtonString = "显示 Editor";
-                await MarkdownElement.Hide();
-            }
-            else
-            {
-                ShowHideButtonString = "隐藏 Editor";
-                await MarkdownElement.Show();
-            }
         }
 
         private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

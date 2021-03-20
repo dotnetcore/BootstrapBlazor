@@ -5,7 +5,7 @@
 {
     <label class="control-label">@DisplayText</label>
 }
-<div @attributes="@AdditionalAttributes" class="@ClassName" @onclick="@OnClick">
+<div @attributes="@AdditionalAttributes" class="@ClassName" style="@SwitchStyleName" @onclick="@OnClick">
     <span class="@CoreClassName" data-inner-text="@GetInnerText()" style="@StyleName" />
     @if (!string.IsNullOrEmpty(Text))
     {

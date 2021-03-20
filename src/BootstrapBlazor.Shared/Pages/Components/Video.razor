@@ -1,6 +1,6 @@
 ﻿@inject IOptions<WebsiteOptions> Options
 
-<p>B 站相关视频链接 </p>
+<p><b>B 站相关视频链接</b></p>
 
 @if (string.IsNullOrEmpty(VideoUrl))
 {
@@ -8,11 +8,8 @@
 }
 else
 {
-    <a class="fa fa-link mb-3" href="@VideoUrl" target="_blank"> [传送门]</a>
+    <a class="fa fa-video-camera mb-3" href="@VideoUrl" target="_blank"><span class="ml-2">[传送门]</span></a>
 }
-
-<p>交流群</p>
- QQ群：<a class="fa fa-link" target="_blank" href="https://jq.qq.com/?_wv=1027&k=OUJVYPpX"> BootstrapAdmin & Blazor</a>（795206915）欢迎加群讨论
 
 @code {
     [NotNull]

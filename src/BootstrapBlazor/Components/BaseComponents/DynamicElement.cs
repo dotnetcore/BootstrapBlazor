@@ -36,6 +36,12 @@ namespace BootstrapBlazor.Components
         public bool PreventDefault { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否事件冒泡 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool StopPropagation { get; set; }
+
+        /// <summary>
         /// 获得/设置 Click 回调委托
         /// </summary>
         [Parameter]
@@ -70,7 +76,8 @@ namespace BootstrapBlazor.Components
             if (TriggerClick && OnClick != null) builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick()));
             if (TriggerDoubleClick && OnDoubleClick != null) builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnDoubleClick()));
             builder.AddEventPreventDefaultAttribute(4, "onclick", PreventDefault);
-            builder.AddContent(5, ChildContent);
+            builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
+            builder.AddContent(6, ChildContent);
             builder.CloseElement();
         }
     }

@@ -129,7 +129,7 @@ namespace BootstrapBlazor.Components
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter]
-        public ValidateFormBase? ValidateForm { get; set; }
+        public ValidateForm? ValidateForm { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

@@ -1,16 +1,12 @@
-﻿.form-select {
-    display: inline-block;
+﻿.form-select .dropdown-menu {
+    margin-top: 10px;
+    max-height: 274px;
+    overflow-x: hidden;
+    padding: 0.25rem 0;
+    width: 100%;
+    font-size: inherit;
+    cursor: pointer;
 }
-
-    .form-select .dropdown-menu {
-        margin-top: 10px;
-        max-height: 274px;
-        overflow-x: hidden;
-        padding: 0.25rem 0;
-        width: 100%;
-        font-size: inherit;
-        cursor: pointer;
-    }
 
 .dropdown-menu-arrow {
     width: 0;
@@ -136,3 +132,24 @@
         top: 18px;
         color: #adb5bd;
     }
+
+.form-inline .form-select .form-control {
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+    .form-inline .form-group.col-12 .form-select {
+        width: calc(100% - 100px);
+    }
+
+    .form-inline .form-group.col-6 .form-select,
+    .form-inline .form-group.col-sm-6 .form-select {
+        width: 196px;
+    }
+}
+
+@media (min-width: 768px) {
+    .form-select {
+        display: inline-block;
+    }
+}

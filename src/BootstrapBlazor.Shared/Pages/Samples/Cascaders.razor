@@ -1,0 +1,131 @@
+﻿@page "/cascaders"
+<h3>Cascader 级联选择</h3>
+
+<Block Title="Cascader 级联选择" Introduction="提供各种颜色的下拉选择框">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Primary" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Success" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Danger" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Warning" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Info" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Secondary" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Dark" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            </div>
+        </div>
+    </div>
+    <Logger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="Cascader 禁用级联选择" Introduction="级联选择不可用状态">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Success" Items="@Items" IsDisabled="true"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Danger" Items="@Items" IsDisabled="true"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Warning" Items="@Items" IsDisabled="true"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Info" Items="@Items" IsDisabled="true"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Secondary" Items="@Items" IsDisabled="true"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Cascader TValue="string" Color="Color.Dark" Items="@Items" IsDisabled="true"></Cascader>
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Cascader 双向绑定" Introduction="通过 <code>Select</code> 组件绑定 <code>Value</code> 属性，改变级联选择选项时，文本框内的数值随之改变。">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Value"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <BootstrapInput readonly @bind-Value="@Value" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="Select 客户端验证" Introduction="级联选择未选择时，点击提交按钮时拦截。">
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Cascader Items="@Items" @bind-Value="@Model.Address"></Cascader>
+            </div>
+            <div class="form-group col-12 col-sm-6 align-items-end">
+                <Button ButtonType="ButtonType.Submit">提交</Button>
+            </div>
+        </div>
+    </ValidateForm>
+</Block>
+
+<Block Title="绑定泛型为 Guid 结构" Introduction="组件绑定值为 Guid 结构体示例">
+    <div class="row">
+        <div class="form-group col-12 col-sm-3">
+            <Cascader Color="Color.Primary" Items="@GuidItems" @bind-Value="@CurrentGuid" />
+        </div>
+        <div class="form-group col-12 col-sm-9">
+            <div class="form-control">@CurrentGuid</div>
+        </div>
+    </div>
+</Block>
+
+<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
+    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
+    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm class="form-inline" Model="@Model">
+        <div class="row">
+            <div class="form-group col-12">
+                <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" />
+            </div>
+        </div>
+    </div>
+    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" DisplayText="自定义城市" ShowLabel="true" />
+            </div>
+        </div>
+    </div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

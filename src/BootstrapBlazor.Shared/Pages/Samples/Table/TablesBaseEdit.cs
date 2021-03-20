@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public abstract class TablesBaseEdit : TablesBaseQuery
     {
-        private static readonly object _objectLock = new object();
+        private static readonly object _objectLock = new();
 
         /// <summary>
         ///

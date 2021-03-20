@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -17,7 +18,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 相关弹窗实例
         /// </summary>
-        public ModalBase? Dialog { get; internal set; }
+        [NotNull]
+        public Modal? Dialog { get; internal set; }
 
         /// <summary>
         /// 获得/设置 弹窗标题

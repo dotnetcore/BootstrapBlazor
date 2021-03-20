@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="form-group col-12">
-                <Button @onclick="@(e => Modal.Toggle())">弹窗</Button>
+                <Button OnClick="@(async e => await Modal.Toggle())">弹窗</Button>
                 <Modal @ref="Modal">
                     <ModalDialog Title="默认弹窗">
                         <BodyTemplate>
@@ -42,7 +42,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Button @onclick="@(e => BackdropModal.Toggle())">弹窗</Button>
+                <Button OnClick="@(async e => await BackdropModal.Toggle())">弹窗</Button>
                 <Modal @ref="BackdropModal" IsBackdrop="true">
                     <ModalDialog Title="点击背景可关闭弹窗">
                         <BodyTemplate>
@@ -59,7 +59,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="@(e => SmailModal.Toggle())">小弹窗</Button>
+                <Button OnClick="@(async e => await SmailModal.Toggle())">小弹窗</Button>
                 <Modal @ref="SmailModal">
                     <ModalDialog Size="Size.Small" Title="小弹窗">
                         <BodyTemplate>
@@ -69,7 +69,7 @@
                 </Modal>
             </div>
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="@(e => LargeModal.Toggle())">大弹窗</Button>
+                <Button OnClick="@(async e => await LargeModal.Toggle())">大弹窗</Button>
                 <Modal @ref="LargeModal">
                     <ModalDialog Size="Size.Large" Title="大弹窗">
                         <BodyTemplate>
@@ -79,7 +79,7 @@
                 </Modal>
             </div>
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="@(e => ExtraLargeModal.Toggle())">超大弹窗</Button>
+                <Button OnClick="@(async e => await ExtraLargeModal.Toggle())">超大弹窗</Button>
                 <Modal @ref="ExtraLargeModal">
                     <ModalDialog Size="Size.ExtraLarge" Title="超大弹窗">
                         <BodyTemplate>
@@ -96,7 +96,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="@(e => CenterModal.Toggle())">垂直居中的弹窗</Button>
+                <Button OnClick="@(async e => await CenterModal.Toggle())">垂直居中的弹窗</Button>
                 <Modal @ref="CenterModal">
                     <ModalDialog IsCentered="true" Title="垂直居中的弹窗">
                         <BodyTemplate>
@@ -113,7 +113,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="@(e => LongContentModal.Toggle())">内容超长的弹窗</Button>
+                <Button OnClick="@(async e => await LongContentModal.Toggle())">内容超长的弹窗</Button>
                 <Modal @ref="LongContentModal">
                     <ModalDialog IsCentered="true" Title="内容超长的弹窗">
                         <BodyTemplate>
@@ -140,7 +140,7 @@
                 </Modal>
             </div>
             <div class="form-group col-12 col-sm-4 col-lg-auto">
-                <Button @onclick="@(e => ScrollModal.Toggle())">内置滚动条弹窗</Button>
+                <Button OnClick="@(async e => await ScrollModal.Toggle())">内置滚动条弹窗</Button>
                 <Modal @ref="ScrollModal">
                     <ModalDialog IsCentered="true" IsScrolling="true" Title="内置滚动条弹窗">
                         <BodyTemplate>
@@ -170,49 +170,11 @@
     </div>
 </Block>
 
-<Block Title="多级弹窗" Introduction="点击弹窗内部按钮继续弹出模态窗">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-12">
-                <button class="btn btn-primary" @onclick="@(e => CascadeModal.Toggle())">弹窗</button>
-                <Modal @ref="CascadeModal">
-                    <ModalDialog @ref="Dialog1" Title="内部按钮继续弹窗">
-                        <BodyTemplate>
-                            <div>我是第一个弹窗，点击下面按钮继续弹出第二个弹窗</div>
-                        </BodyTemplate>
-                        <FooterTemplate>
-                            <Button @onclick="e => Dialog2?.Show()">继续弹第二个弹窗</Button>
-                        </FooterTemplate>
-                    </ModalDialog>
-                    <ModalDialog @ref="Dialog2" Title="第二个弹窗">
-                        <BodyTemplate>
-                            <div>我是第二个弹窗，点击下面按钮继续弹出第三个弹窗</div>
-                        </BodyTemplate>
-                        <FooterTemplate>
-                            <Button @onclick="e => Dialog1?.Show()">返回第一个弹窗</Button>
-                            <Button Color="Color.Success" @onclick="e => Dialog3?.Show()">继续弹第三个弹窗</Button>
-                        </FooterTemplate>
-                    </ModalDialog>
-                    <ModalDialog @ref="Dialog3" Title="第三个弹窗">
-                        <BodyTemplate>
-                            <div>我是弹窗内正文，点击下面关闭按钮关闭弹窗</div>
-                            <p>弹窗背景一直是透明的哦，不会变黑乎乎的哦</p>
-                        </BodyTemplate>
-                        <FooterTemplate>
-                            <Button Color="Color.Info" @onclick="e => Dialog2?.Show()">返回第二个弹窗</Button>
-                        </FooterTemplate>
-                    </ModalDialog>
-                </Modal>
-            </div>
-        </div>
-    </div>
-</Block>
-
 <Block Title="可拖拽弹窗" Introduction="点击弹窗标题栏对弹窗进行拖拽">
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12">
-                <Button @onclick="@(e => Modal.Toggle())">弹窗</Button>
+                <Button OnClick="@(async e => await Modal.Toggle())">弹窗</Button>
                 <Modal @ref="Modal">
                     <ModalDialog Title="默认弹窗" IsDraggable="true">
                         <BodyTemplate>

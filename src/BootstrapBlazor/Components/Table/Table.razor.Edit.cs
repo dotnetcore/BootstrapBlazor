@@ -168,26 +168,36 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool AutoGenerateColumns { get; set; }
 
+        /// <summary>
+        /// 获得/设置 查询时是否显示正在加载中动画 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowLoading { get; set; }
+
         [NotNull]
         private string? DataServiceInvalidOperationText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据服务
+        /// </summary>
+        [Parameter]
+        public IDataService<TItem>? DataService { get; set; }
 
         /// <summary>
         /// 获得/设置 注入数据服务
         /// </summary>
         [Inject]
         [NotNull]
-        private IEnumerable<IDataService<TItem>>? DataServices { get; set; }
+        private IDataService<TItem>? InjectDataService { get; set; }
 
         private IDataService<TItem> GetDataService()
         {
-            if (DataServices.Any())
-            {
-                return DataServices.Last();
-            }
-            else
+            var ds = DataService ?? InjectDataService;
+            if (ds == null)
             {
                 throw new InvalidOperationException(DataServiceInvalidOperationText);
             }
+            return ds;
         }
 
         /// <summary>
@@ -242,7 +252,7 @@ namespace BootstrapBlazor.Components
         public async Task QueryAsync()
         {
             // 通知客户端开启遮罩
-            if (!IsAutoRefresh)
+            if (ShowLoading && !IsAutoRefresh)
             {
                 IsLoading = true;
                 var _ = JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", "show");

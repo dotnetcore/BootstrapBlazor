@@ -1,6 +1,5 @@
 ﻿@inherits LayoutComponentBase
 @layout MainLayout
-@inject NavigationManager Navigator
 
 <div class="bb-title"><img class="bb-icon" src="_content/BootstrapBlazor.Shared/images/logo.png" /><span>@Title</span></div>
 
@@ -28,5 +27,7 @@
     </TabItem>
     <TabItem Text="@Video" Icon="fa fa-file-video-o">
         <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
+        <p><b>交流群</b></p>
+        <QQGroup />
     </TabItem>
 </Tab>

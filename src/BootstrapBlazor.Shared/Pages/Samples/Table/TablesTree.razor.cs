@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private Task<IEnumerable<FooTree>> OnTreeExpand(FooTree foo) => Task.FromResult(FooTree.Generate(Localizer, level++ < 2, foo.Id + 10).Select(i =>
          {
-             i.Name = foo.Name;
+             i.Name = Localizer["Foo.Name", $"{foo.Id:d2}{i.Id:d2}"];
              return i;
          }));
 
@@ -54,7 +54,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             public static IEnumerable<FooTree> Generate(IStringLocalizer<Foo> localizer, bool hasChildren = true, int seed = 0) => Enumerable.Range(1, 2).Select(i => new FooTree()
             {
                 Id = i + seed,
-                Name = localizer["Foo.Name", $"{i:d4}"],
+                Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
                 DateTime = System.DateTime.Now.AddDays(i - 1),
                 Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
                 Count = random.Next(1, 100),

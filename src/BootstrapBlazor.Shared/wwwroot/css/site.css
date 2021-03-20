@@ -212,7 +212,7 @@ section {
     }
 
     .content .code-label {
-        font-weight: 500;
+        font-weight: bold;
         color: #333;
         margin-bottom: 2px;
     }
@@ -1424,3 +1424,173 @@ section {
 .widget .dropdown-item:not(:nth-of-type(odd)):active {
     background-color: inherit;
 }
+
+.ms-learn {
+    position: fixed;
+    bottom: 4rem;
+    background: #fff;
+    box-shadow: 0 0 8px #211b50;
+    overflow: hidden;
+    border-radius: 5px;
+    z-index: 2000;
+    width: 260px;
+    right: calc(50% - 130px);
+}
+
+    .ms-learn:hover {
+        opacity: 1;
+        box-shadow: 0 0 12px #211b50;
+    }
+
+    .ms-learn .btn-learn {
+        display: block;
+        margin: 0;
+        outline: 0;
+        border: none;
+        width: 100%;
+        color: #fff;
+        background: #8759ff;
+        line-height: 1.5;
+        padding: .5em 0;
+        min-width: 15em;
+        cursor: pointer;
+        transition: background .3s linear;
+    }
+
+        .ms-learn .btn-learn:hover {
+            background: rgba(135,89,255,.9);
+        }
+
+    .ms-learn .learn-list {
+        margin-top: 1rem;
+        padding-right: 5rem;
+        display: none;
+        position: relative;
+    }
+
+        .ms-learn .learn-list .learn-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .ms-learn .learn-list .btn-close {
+            padding: .25rem .5rem;
+            font-size: 65%;
+            color: #fff;
+            background: #8759ff;
+            border-radius: .25rem;
+            position: absolute;
+            right: 1rem;
+            margin-top: -2px;
+            transition: all .3s linear;
+        }
+
+            .ms-learn .learn-list .btn-close:hover {
+                background: rgba(135,89,255,.9);
+                color: #fff;
+            }
+
+@media (min-width: 768px) {
+    .ms-learn {
+        right: 1rem;
+    }
+}
+
+.btn-theme {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0px 1px 20px 0px rgba(0,0,0,0.1),inset 0px -1px 0px 0px rgba(0,0,0,0.1);
+    position: fixed;
+    z-index: 2;
+    right: 1rem;
+    bottom: 8rem;
+    background-color: #034995;
+    padding: 11px;
+}
+
+.theme-bar {
+    display: flex;
+}
+
+    .theme-bar:first-child {
+        margin-bottom: 2px;
+    }
+
+    .theme-bar .theme-color {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+    }
+
+        .theme-bar .theme-color:first-child {
+            margin-right: 2px;
+        }
+
+.theme-list {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    bottom: 11rem;
+    right: 1rem;
+    background: #FFFFFF;
+    box-shadow: 0 5px 24px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    width: 260px;
+    padding: 1rem;
+    box-shadow: 0 0 12px #211b50;
+}
+
+    .theme-list .theme-header {
+        padding: 0.75rem 1rem;
+        background-color: #8759ff;
+        color: #fff;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        margin: -1rem -1rem 1rem -1rem;
+        position: relative;
+    }
+
+        .theme-list .theme-header .theme-close {
+            font-size: 1.25rem;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 7px;
+            padding: 0 3px;
+            transition: color .3s linear;
+        }
+
+        .theme-list .theme-header .theme-close:hover {
+            color: #005980;
+        }
+
+    .theme-list .theme-item {
+        cursor: pointer;
+        border-radius: 100px;
+        padding: 6px 15px;
+        background-color: #f6f6f6;
+        color: #005980;
+        transition: background-color .3s linear;
+    }
+
+        .theme-list .theme-item:hover,
+        .theme-list .theme-item.active {
+            background-color: #ab8aff;
+        }
+
+        .theme-list .theme-item:not(:last-child) {
+            margin-bottom: .5rem;
+        }
+
+.ms-learn,
+.btn-theme {
+    opacity: 0.7;
+    box-shadow: 0 0 8px #211b50;
+    transition: opacity .3s linear, box-shadow .3s linear;
+}
+
+    .ms-learn:hover,
+    .btn-theme:hover {
+        opacity: 1;
+        box-shadow: 0 0 12px #211b50;
+    }
