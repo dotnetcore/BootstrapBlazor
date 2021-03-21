@@ -1,8 +1,9 @@
-<Project>
+﻿<Project>
 
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
     <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
     <PackageProjectUrl>https://argozhang.github.io</PackageProjectUrl>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
@@ -11,6 +12,10 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Nullable>enable</Nullable>
     <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <NoWarn>1701;1702;8620</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">

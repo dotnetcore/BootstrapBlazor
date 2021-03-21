@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <returns></returns>
         public async Task UpdateAsync()
         {
-            await RootPage.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object>()
+            await RootPage.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>()
             {
                 [nameof(RootPage.IsFullSide)] = IsFullSide,
                 [nameof(RootPage.IsFixedFooter)] = IsFixedFooter && ShowFooter,

@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Shared.Pages
         private static Task AddTab(Tab tabset)
         {
             var text = $"Tab {tabset.Items.Count() + 1}";
-            tabset.AddTab(new Dictionary<string, object>
+            tabset.AddTab(new Dictionary<string, object?>
             {
                 [nameof(TabItem.Text)] = text,
                 [nameof(TabItem.IsActive)] = true,
@@ -105,7 +105,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object>
+        private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,

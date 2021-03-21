@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Timelines
     {
-        private readonly BlockingCollection<ConsoleMessageItem> _messages = new(new ConcurrentQueue<ConsoleMessageItem>());
+        private readonly ConcurrentQueue<ConsoleMessageItem> _messages = new();
 
         private readonly CancellationTokenSource _cancelTokenSource = new();
 
@@ -52,16 +52,13 @@ namespace BootstrapBlazor.Shared.Pages
                 do
                 {
                     _locker.WaitOne();
-                    if (!_messages.IsAddingCompleted)
-                    {
-                        _messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+                    _messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
 
-                        if (_messages.Count > 8)
-                        {
-                            _messages.TryTake(out var _);
-                        }
-                        await InvokeAsync(StateHasChanged);
+                    if (_messages.Count > 8)
+                    {
+                        _messages.TryDequeue(out var _);
                     }
+                    await InvokeAsync(StateHasChanged);
                     _locker.Set();
                     await Task.Delay(2000, _cancelTokenSource.Token);
                 }
