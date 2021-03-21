@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class MessageService : PopupServiceBase<MessageOption>
     {
-        private IDisposable? _optionsReloadToken;
+        private readonly IDisposable _optionsReloadToken;
         private BootstrapBlazorOptions _option;
 
         /// <summary>
@@ -32,9 +32,33 @@ namespace BootstrapBlazor.Components
         /// <param name="option"></param>
         public override async Task Show(MessageOption option)
         {
-            if (!option.ForceDelay && _option.MessageDelay != 0) option.Delay = _option.MessageDelay;
+            if (!option.ForceDelay && _option.MessageDelay != 0)
+            {
+                option.Delay = _option.MessageDelay;
+            }
 
             await base.Show(option);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _optionsReloadToken.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
