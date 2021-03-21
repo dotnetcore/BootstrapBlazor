@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -28,6 +29,9 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private Logger? Trace3 { get; set; }
 
+        [NotNull]
+        private Logger? Trace4 { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<EnumEducation>? Localizer { get; set; }
@@ -46,6 +50,9 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private ValidateForm? Test { get; set; }
 
+        [NotNull]
+        private ComplexFoo? ComplexModel { get; set; }
+
         /// <summary>baise
         /// OnInitialized 方法
         /// </summary>
@@ -56,6 +63,10 @@ namespace BootstrapBlazor.Shared.Pages
             // 初始化参数
             Educations = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["PlaceHolder"] ?? "请选择 ..."));
             Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+            ComplexModel = new ComplexFoo()
+            {
+                Dummy = new Dummy1() { Dummy2 = new Dummy2() },
+            };
         }
 
         private Task OnInvalidSubmit1(EditContext context)
@@ -70,12 +81,6 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private Task OnValidateNameSubmit(EditContext context)
-        {
-            Test.SetError(typeof(Foo), "Name", "数据库中已存在");
-            return Task.CompletedTask;
-        }
-
         private Task OnInvalidSubmit(EditContext context)
         {
             Trace2.Log("OnInvalidSubmit 回调委托");
@@ -86,6 +91,37 @@ namespace BootstrapBlazor.Shared.Pages
         {
             Trace3.Log("OnInvalidSubmit 回调委托");
             return Task.CompletedTask;
+        }
+
+        private Task OnInvalidComplexModel(EditContext context)
+        {
+            Trace4.Log("OnInvalidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
+        private Task OnValidComplexModel(EditContext context)
+        {
+            Trace4.Log("OnValidSubmit 回调委托");
+            Test.SetError<ComplexFoo>(f => f.Dummy.Dummy2.Name, "数据库中已存在");
+            return Task.CompletedTask;
+        }
+
+        private class ComplexFoo : Foo
+        {
+            [NotNull]
+            public Dummy1? Dummy { get; set; }
+        }
+
+        private class Dummy1
+        {
+            [NotNull]
+            public Dummy2? Dummy2 { get; set; }
+        }
+
+        private class Dummy2
+        {
+            [Required]
+            public string? Name { get; set; }
         }
 
         #region 参数说明

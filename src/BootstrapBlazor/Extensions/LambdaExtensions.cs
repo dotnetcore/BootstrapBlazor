@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -363,6 +364,21 @@ namespace System.Linq
             var mi = p.GetSetMethod(true);
             var body = Expression.Call(Expression.Convert(param_p1, model.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
             return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
+        }
+
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object>> PropertyValueInvokerCache = new();
+
+        /// <summary>
+        /// 获取 指定对象的属性值
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        public static object GetPropertyValue(object model, string fieldName)
+        {
+            var cacheKey = (model.GetType(), fieldName);
+            var invoker = PropertyValueInvokerCache.GetOrAdd(cacheKey, key => GetPropertyValueLambda<object, object>(model, key.FieldName).Compile());
+            return invoker.Invoke(model);
         }
 
         #region TryParse

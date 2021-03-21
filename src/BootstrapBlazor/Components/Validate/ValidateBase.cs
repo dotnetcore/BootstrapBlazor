@@ -188,7 +188,7 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public override string? Id
         {
-            get { return (EditForm != null && !string.IsNullOrEmpty(EditForm.Id) && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.FieldName}" : _id; }
+            get { return (EditForm != null && !string.IsNullOrEmpty(EditForm.Id) && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}" : _id; }
             set { _id = value; }
         }
 
@@ -342,7 +342,7 @@ namespace BootstrapBlazor.Components
 
             if (EditForm != null && FieldIdentifier.HasValue)
             {
-                EditForm.AddValidator((FieldIdentifier.Value.Model.GetType(), FieldIdentifier.Value.FieldName), this);
+                EditForm.AddValidator(FieldIdentifier.Value, this);
             }
 
             // 显式设置显示标签时一定显示
@@ -408,13 +408,6 @@ namespace BootstrapBlazor.Components
             // 如果禁用移除验证信息
             if (!IsDisabled && !SkipValidate)
             {
-                // 模型验证设置 验证属性名称
-                // 验证组件内部使用
-                if (string.IsNullOrEmpty(context.MemberName) && FieldIdentifier.HasValue)
-                {
-                    context.MemberName = FieldIdentifier.Value.FieldName;
-                }
-
                 // 增加数值类型验证如 泛型 TValue 为 int 输入为 Empty 时
                 ValidateType(context, results);
 

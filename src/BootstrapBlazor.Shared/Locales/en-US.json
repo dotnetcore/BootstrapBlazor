@@ -88,6 +88,14 @@
     "Foo.Address2": "Earth, China, Lane {0} of Jinshajiang Road, Putuo District, Shanghai. Here is an example of super long cell",
     "Foo.BindValue": "BindValue"
   },
+  "BootstrapBlazor.Shared.Pages.ValidateForms.ComplexFoo": {
+    "Name": "Name",
+    "Name.Required": "{0} is required."
+  },
+  "BootstrapBlazor.Shared.Pages.ValidateForms.Dummy2": {
+    "Name": "Name",
+    "Name.Required": "Dummy2 {0} is required"
+  },
   "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
