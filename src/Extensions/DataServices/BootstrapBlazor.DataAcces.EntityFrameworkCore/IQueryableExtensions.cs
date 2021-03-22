@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -22,7 +22,7 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         /// <param name="condition"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition = true) => condition ? queryable.Where(predicate) : queryable;
+        public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition) => condition ? queryable.Where(predicate) : queryable;
 
         /// <summary>
         /// 排序
@@ -33,7 +33,7 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         /// <param name="sortOrder"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition = true) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
+        public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
 
         /// <summary>
         /// 分页
