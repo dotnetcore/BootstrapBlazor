@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -15,7 +16,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Rows
     {
-        private Foo Model { get; } = new Foo()
+        private RowFoo Model { get; } = new()
         {
             Name = "张三",
             Count = 23,
@@ -78,8 +79,17 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "-",
                 DefaultValue = "null"
             }
-
-
         };
+
+        private class RowFoo : Foo
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            [Required(ErrorMessage = "请选择学历")]
+            [Display(Name = "学历")]
+            [AutoGenerateColumn(Order = 60)]
+            public List<EnumEducation>? Educations { get; set; }
+        }
     }
 }
