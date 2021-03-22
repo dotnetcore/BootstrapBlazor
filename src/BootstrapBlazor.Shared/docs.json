@@ -16,7 +16,7 @@
     "editorforms": "EditorForms",
     "export": "Table/TablesExport;Table/TablesBaseEdit",
     "filter": "Table/TablesFilter;Table/TablesBaseQuery",
-    "fix-column": "Table/TablesFixedColumn;Table/TablesBaseQuery",
+    "fix-column": "Table/TablesFixedColumn",
     "footer": "Table/TablesFooter;Table/TablesBaseQuery",
     "gotops": "GoTops",
     "groupboxs": "GroupBoxs",

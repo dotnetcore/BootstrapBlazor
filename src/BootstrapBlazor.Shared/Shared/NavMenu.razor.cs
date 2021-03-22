@@ -153,6 +153,16 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
+                Text = "表单组件 EditorForm",
+                Url = "editorforms"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = "表单组件 ValidateForm",
+                Url = "validateforms"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "自动完成 AutoComplete",
                 Url = "autocompletes"
             });
@@ -199,28 +209,18 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "表单组件 EditorForm",
-                Url = "editorforms"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
                 Text = "输入框 Input",
                 Url = "inputs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "数值框 InputNumber",
+                Text = "数字框 InputNumber",
                 Url = "inputnumbers"
             });
             item.AddItem(new DemoMenuItem()
             {
                 Text = "富文本框 Markdown",
                 Url = "markdowns"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "多项选择器 MultiSelect",
-                Url = "multiselects"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -239,8 +239,8 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "表单组件 ValidateForm",
-                Url = "validateforms"
+                Text = "多项选择器 MultiSelect",
+                Url = "multiselects"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -702,7 +702,10 @@ namespace BootstrapBlazor.Shared.Shared
         private void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
         {
             item.Component = CreateBadge(count ?? item.Items.Count(), item.IsNew, item.IsUpdate);
-            if (append) Menus.Add(item);
+            if (append)
+            {
+                Menus.Add(item);
+            }
         }
 
         private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new KeyValuePair<string, object>[]
@@ -730,8 +733,15 @@ namespace BootstrapBlazor.Shared.Shared
                 if (menu.Parent != null)
                 {
                     var pMenu = ((DemoMenuItem)menu.Parent);
-                    if (menu.IsNew) pMenu.IsNew = true;
-                    if (menu.IsUpdate) pMenu.IsUpdate = true;
+                    if (menu.IsNew)
+                    {
+                        pMenu.IsNew = true;
+                    }
+
+                    if (menu.IsUpdate)
+                    {
+                        pMenu.IsUpdate = true;
+                    }
                 }
 
                 item.Component = CreateBadge(0, menu.IsNew, menu.IsUpdate);
