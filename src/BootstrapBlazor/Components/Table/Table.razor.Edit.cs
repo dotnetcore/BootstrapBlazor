@@ -295,6 +295,37 @@ namespace BootstrapBlazor.Components
             if (queryData != null)
             {
                 Items = queryData.Items;
+                if (IsTree)
+                {
+                    KeySet.Clear();
+                    if (TableTreeNode<TItem>.HasKey)
+                    {
+                        CheckExpandKeys(TreeRows);
+                    }
+                    if (KeySet.Count > 0)
+                    {
+                        TreeRows = Items.Select(item =>
+                        {
+                            var node = new TableTreeNode<TItem>(item)
+                            {
+                                HasChildren = CheckTreeChildren(item),
+                            };
+                            node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
+                            if (node.IsExpand)
+                            {
+                                RestoreIsExpand(node);
+                            }
+                            return node;
+                        }).ToList();
+                    }
+                    else
+                    {
+                        TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
+                        {
+                            HasChildren = CheckTreeChildren(item)
+                        }).ToList();
+                    }
+                }
                 TotalCount = queryData.TotalCount;
                 IsFiltered = queryData.IsFiltered;
                 IsSorted = queryData.IsSorted;
@@ -319,6 +350,44 @@ namespace BootstrapBlazor.Components
             {
                 SelectedItems.AddRange(Items.Where(i => SelectedRows.Contains(i)));
             }
+        }
+
+        private HashSet<object> KeySet { get; } = new();
+
+        private void CheckExpandKeys(List<TableTreeNode<TItem>> tableTreeNodes)
+        {
+            foreach (var node in tableTreeNodes)
+            {
+                if (node.IsExpand && node.Key != null)
+                {
+                    KeySet.Add(node.Key);
+                }
+                CheckExpandKeys(node.Children);
+            }
+        }
+
+        private void RestoreIsExpand(TableTreeNode<TItem> parentNode)
+        {
+            if (OnTreeExpand == null)
+            {
+                throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
+            }
+
+            var items = OnTreeExpand(parentNode.Value).Result;
+            parentNode.Children.AddRange(items.Select(item =>
+            {
+                var node = new TableTreeNode<TItem>(item)
+                {
+                    HasChildren = CheckTreeChildren(item),
+                    Parent = parentNode
+                };
+                node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
+                if (node.IsExpand)
+                {
+                    RestoreIsExpand(node);
+                }
+                return node;
+            }));
         }
 
         private static readonly ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new();

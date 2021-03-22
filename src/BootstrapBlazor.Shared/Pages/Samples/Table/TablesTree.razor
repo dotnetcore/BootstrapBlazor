@@ -35,3 +35,22 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="具有单表维护功能的树形数据" Introduction="实现简单的增、删、改、查功能。">
+    <Tips>
+        <div>通过在实体的唯一标识字段上定义 <code>[Key]</code> 特性，来保持展开状态</div>
+    </Tips>
+    <Table TItem="EditFooTree" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync"
+           OnDeleteAsync="@OnDeleteAsync" OnTreeExpand="@OnTreeExpandQuary">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Id" />
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.ParentId" />
+        </TableColumns>
+    </Table>
+</Block>
