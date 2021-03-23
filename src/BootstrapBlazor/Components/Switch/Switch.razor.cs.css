@@ -67,7 +67,8 @@
         font-size: 80%;
     }
 
-.form-inline .switch {
+.form-inline .switch,
+.form-row .switch {
     height: 35px;
 }
 
