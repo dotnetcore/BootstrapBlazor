@@ -107,6 +107,12 @@ namespace BootstrapBlazor.Components
         public Func<Task<TItem>>? OnAddAsync { get; set; }
 
         /// <summary>
+        /// 获得/设置 编辑按钮回调方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task>? OnEditAsync { get; set; }
+
+        /// <summary>
         /// 获得/设置 保存按钮异步回调方法
         /// </summary>
         [Parameter]
@@ -234,6 +240,10 @@ namespace BootstrapBlazor.Components
             {
                 if (SelectedItems.Count == 1)
                 {
+                    if (OnEditAsync != null)
+                    {
+                        await OnEditAsync(SelectedItems[0]);
+                    }
                     if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
                     {
                         EditModel = SelectedItems[0];

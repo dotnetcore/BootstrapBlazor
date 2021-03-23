@@ -454,6 +454,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "OnEditAsync",
+                Description = "编辑按钮异步回调方法",
+                Type = "Func<TItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "OnSaveAsync",
                 Description = "保存按钮异步回调方法",
                 Type = "Func<TItem, Task>",
