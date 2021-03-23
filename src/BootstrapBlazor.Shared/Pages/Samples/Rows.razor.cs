@@ -5,9 +5,12 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -16,40 +19,51 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Rows
     {
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
+
         private RowFoo Model { get; } = new()
         {
             Name = "张三",
             Count = 23,
             Address = "测试地址",
             DateTime = new DateTime(1997, 12, 05),
-            Educations = new List<EnumEducation> { EnumEducation.Middel }
+            Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middel }
         };
 
-        private List<string> testvalue { get; set; } = new List<string>();
-        private readonly List<EnumEducation> Educations = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
-        private List<SelectedItem> Items = new List<SelectedItem>();
+        [NotNull]
+        private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Hobbys = Foo.GenerateHobbys(Localizer);
+        }
 
         private void test(EventArgs e)
         {
-            Items = new List<SelectedItem>
-        {
-           new SelectedItem
-           {
-               Text = "aaa",
-               Value = "bbb"
-           },
-                      new SelectedItem
-           {
-               Text = "ccc",
-               Value = "ddd"
-           }
-
-        };
+            Hobbys = new List<SelectedItem>
+            {
+               new SelectedItem
+               {
+                   Text = "aaa",
+                   Value = "bbb"
+               },
+               new SelectedItem
+               {
+                   Text = "ccc",
+                   Value = "ddd"
+               }
+            };
             Model.Address = "aaaaa";
         }
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "ItemsPerRow",
