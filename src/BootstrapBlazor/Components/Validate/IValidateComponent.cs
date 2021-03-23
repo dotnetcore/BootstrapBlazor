@@ -13,6 +13,16 @@ namespace BootstrapBlazor.Components
     public interface IValidateComponent
     {
         /// <summary>
+        /// 获得/设置 是否不进行验证 默认为 false
+        /// </summary>
+        public bool SkipValidate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否禁用 默认为 false
+        /// </summary>
+        public bool IsDisabled { get; set; }
+
+        /// <summary>
         /// 数据验证方法
         /// </summary>
         /// <param name="propertyValue"></param>

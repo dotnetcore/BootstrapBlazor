@@ -143,23 +143,27 @@ namespace BootstrapBlazor.Components
                     if (pi != null)
                     {
                         var validator = ValidatorCache[key];
-                        var messages = new List<ValidationResult>();
-                        var propertyValidateContext = new ValidationContext(key.Model)
-                        {
-                            MemberName = key.FieldName,
-                            DisplayName = key.GetDisplayName()
-                        };
-                        ValidateDataAnnotations(propertyValue, propertyValidateContext, messages, pi);
 
-                        if (messages.Count == 0)
+                        if (!validator.IsDisabled && !validator.SkipValidate)
                         {
-                            // 自定义验证组件
-                            validator.ValidateProperty(propertyValue, propertyValidateContext, messages);
+                            var messages = new List<ValidationResult>();
+                            var propertyValidateContext = new ValidationContext(key.Model)
+                            {
+                                MemberName = key.FieldName,
+                                DisplayName = key.GetDisplayName()
+                            };
+                            ValidateDataAnnotations(propertyValue, propertyValidateContext, messages, pi);
+
+                            if (messages.Count == 0)
+                            {
+                                // 自定义验证组件
+                                validator.ValidateProperty(propertyValue, propertyValidateContext, messages);
+                            }
+
+                            // 客户端提示
+                            validator.ToggleMessage(messages, false);
+                            results.AddRange(messages);
                         }
-
-                        // 客户端提示
-                        validator.ToggleMessage(messages, false);
-                        results.AddRange(messages);
                     }
                 }
             }
@@ -173,7 +177,7 @@ namespace BootstrapBlazor.Components
         /// <param name="fieldIdentifier"></param>
         internal void ValidateField(ValidationContext context, List<ValidationResult> results, in FieldIdentifier fieldIdentifier)
         {
-            if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator))
+            if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
             {
                 var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
                 var pi = fieldIdentifier.Model.GetType().GetProperty(fieldIdentifier.FieldName)!;
@@ -272,7 +276,7 @@ namespace BootstrapBlazor.Components
                     context.DisplayName = fieldIdentifier.GetDisplayName();
                     ValidateDataAnnotations(propertyValue, context, messages, pi);
 
-                    if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator))
+                    if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
                     {
                         if (messages.Count == 0)
                         {
