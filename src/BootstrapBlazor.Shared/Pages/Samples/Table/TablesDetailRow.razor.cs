@@ -15,7 +15,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public sealed partial class TablesDetailRow
     {
-        private IEnumerable<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
+        private Dictionary<string, IEnumerable<DetailRow>> Cache { get; } = new();
+
+        private static IEnumerable<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
         {
             Id = i,
             Name = name,
@@ -50,9 +52,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
             public bool Complete { get; set; }
         }
 
-        private bool ShowDetailRow(Foo item)
-        {
-            return item.Complete;
-        }
+        private static bool ShowDetailRow(Foo item) => item.Complete;
     }
 }
