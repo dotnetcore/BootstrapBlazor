@@ -78,6 +78,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment<object>? EditTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件类型 默认为 null
+        /// </summary>
+        [Parameter]
+        public Type? ComponentType { get; set; }
+
+        /// <summary>
         /// 获得/设置 显示顺序
         /// </summary>
         public int Order { get; set; }

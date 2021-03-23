@@ -56,13 +56,6 @@
                             </div>
                         </EditTemplate>
                     </EditorItem>
-                    <EditorItem @bind-Field="@Model.Complete">
-                        <EditTemplate Context="value">
-                            <div class="form-group col-6">
-                                <Switch @bind-Value="((Foo)value).Complete" />
-                            </div>
-                        </EditTemplate>
-                    </EditorItem>
                 </FieldItems>
                 <Buttons>
                     <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />

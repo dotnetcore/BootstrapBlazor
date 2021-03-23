@@ -210,11 +210,7 @@
             <TableColumn @bind-Field="@context.Address" Text="地址" Width="290" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Visible="false" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -249,12 +245,5 @@
            IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-            </TableColumn>
-        </TableColumns>
     </Table>
 </Block>

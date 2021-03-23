@@ -212,7 +212,7 @@ namespace BootstrapBlazor.Components
                 var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
                 var valueExpression = Expression.Lambda(tDelegate, body);
 
-                var componentType = EditorForm<TModel>.GenerateComponent(fieldType, item.Rows != 0);
+                var componentType = item.ComponentType ?? EditorForm<TModel>.GenerateComponent(fieldType, item.Rows != 0);
                 builder.OpenComponent(0, componentType);
                 builder.AddAttribute(1, "DisplayText", displayName);
                 builder.AddAttribute(2, "Value", fieldValue);

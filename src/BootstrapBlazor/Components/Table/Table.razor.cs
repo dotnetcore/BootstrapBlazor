@@ -610,6 +610,16 @@ namespace BootstrapBlazor.Components
             {
                 var content = "";
                 var val = Table<TItem>.GetItemValue(col.GetFieldName(), item);
+
+                // 自动化处理 bool 值
+                if (val is bool && col.ComponentType != null)
+                {
+                    builder.OpenComponent(0, col.ComponentType);
+                    builder.AddAttribute(1, "Value", val);
+                    builder.AddAttribute(2, "IsDisabled", true);
+                    builder.CloseComponent();
+                    return;
+                }
                 if (col.Formatter != null)
                 {
                     // 格式化回调委托

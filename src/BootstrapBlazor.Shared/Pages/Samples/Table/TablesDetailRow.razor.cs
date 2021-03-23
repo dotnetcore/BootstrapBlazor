@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
@@ -37,18 +38,21 @@ namespace BootstrapBlazor.Shared.Pages.Table
             /// 
             /// </summary>
             [DisplayName("培训课程")]
+            [AutoGenerateColumn(Order = 10)]
             public string Name { get; set; } = "";
 
             /// <summary>
             /// 
             /// </summary>
             [DisplayName("日期")]
+            [AutoGenerateColumn(Order = 20, Width = 180)]
             public DateTime DateTime { get; set; }
 
             /// <summary>
             /// 
             /// </summary>
             [DisplayName("是/否")]
+            [AutoGenerateColumn(Order = 30, Width = 70, ComponentType = typeof(Switch))]
             public bool Complete { get; set; }
         }
 

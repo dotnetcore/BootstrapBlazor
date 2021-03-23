@@ -72,6 +72,11 @@ namespace BootstrapBlazor.Components
         public RenderFragment<object>? EditTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件类型 默认为 null
+        /// </summary>
+        public Type? ComponentType { get; set; }
+
+        /// <summary>
         /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
         /// </summary>
         public IEnumerable<SelectedItem>? Data { get; set; }

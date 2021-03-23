@@ -16,30 +16,22 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" />
-                </Template>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
         <EditTemplate>
             <div class="form-inline">
                 <div class="row">
                     <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
-                        </BootstrapInput>
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
-                        </BootstrapInput>
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <DateTimePicker @bind-Value="@context.DateTime">
-                        </DateTimePicker>
+                        <DateTimePicker @bind-Value="@context.DateTime" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <Select Items="@Educations" @bind-Value="@context.Education">
-                        </Select>
+                        <Select Items="@Educations" @bind-Value="@context.Education" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
                         <BootstrapInput @bind-Value="@context.Count" />
@@ -71,16 +63,7 @@
             <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Editable="false" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -105,16 +88,7 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -141,16 +115,7 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -174,16 +139,6 @@
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" UseInjectDataService="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
             <TableColumn @bind-Field="@context.Hobby" Data="@Hobbys" />
         </TableColumns>
     </Table>
