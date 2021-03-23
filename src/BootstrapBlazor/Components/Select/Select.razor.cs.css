@@ -138,18 +138,7 @@
 }
 
 @media (min-width: 576px) {
-    .form-inline .form-group.col-12 .form-select {
-        width: calc(100% - 100px);
-    }
-
-    .form-inline .form-group.col-6 .form-select,
-    .form-inline .form-group.col-sm-6 .form-select {
+    .form-inline .form-group .form-select {
         width: 196px;
-    }
-}
-
-@media (min-width: 768px) {
-    .form-select {
-        display: inline-block;
     }
 }
