@@ -15,6 +15,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -109,6 +110,61 @@ namespace BootstrapBlazor.Components
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 设置指定字段错误信息
+        /// </summary>
+        /// <param name="property">字段名，可以使用多层，如 a.b.c</param>
+        /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
+        public void SetError(string property, string errorMessage)
+        {
+            if(Model == null)
+            {
+                return;
+            }
+            property = Regex.Replace(property, @"\[[^\]]*\]", string.Empty);
+            List<string> level = new List<string>();
+            if (property.Contains('.'))
+            {
+                level.AddRange(property.Split('.'));
+            }
+            else
+            {
+                level.Add(property);
+            }
+            Type objtype = Model.GetType();
+            var pe = Expression.Parameter(objtype);
+            var pro = objtype.GetProperty(level[0]);
+            if(pro == null)
+            {
+                return;
+            }
+            var member = Expression.Property(pe, pro);
+            for (int i = 1; i < level.Count; i++)
+            {
+                pro = member.Type.GetProperty(level[i]);
+                if(pro == null)
+                {
+                    return;
+                }
+                member = Expression.Property(member, pro);
+            }
+            var fieldName = member.Member.Name;
+            var modelType = member.Expression?.Type;
+            if (modelType != null)
+            {
+                var validator = ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
+                if (validator != null)
+                {
+                    var results = new List<ValidationResult>
+                        {
+                            new ValidationResult(errorMessage, new string[] { fieldName })
+                        };
+                    validator.ToggleMessage(results, true);
+                }
+            }
+
         }
 
         /// <summary>
