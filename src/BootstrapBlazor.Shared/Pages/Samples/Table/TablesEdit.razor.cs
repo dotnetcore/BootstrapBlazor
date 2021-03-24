@@ -29,9 +29,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
         private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
         [NotNull]
-        private IEnumerable<SelectedItem>? Educations { get; set; }
-
-        [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
         [NotNull]
@@ -45,7 +42,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
             base.OnInitialized();
 
             Hobbys = Foo.GenerateHobbys(Localizer);
-            Educations = typeof(EnumEducation).ToSelectList();
             Items = Foo.GenerateFoo(Localizer);
         }
 

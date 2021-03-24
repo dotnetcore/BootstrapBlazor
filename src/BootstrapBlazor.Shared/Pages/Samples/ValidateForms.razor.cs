@@ -34,21 +34,18 @@ namespace BootstrapBlazor.Shared.Pages
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<EnumEducation>? Localizer { get; set; }
-
-        [Inject]
-        [NotNull]
         private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
         private Foo Model { get; set; } = new();
-
-        private IEnumerable<SelectedItem>? Educations { get; set; }
 
         [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
         [NotNull]
-        private ValidateForm? Test { get; set; }
+        private ValidateForm? FooForm { get; set; }
+
+        [NotNull]
+        private ValidateForm? ComplexForm { get; set; }
 
         [NotNull]
         private ComplexFoo? ComplexModel { get; set; }
@@ -61,7 +58,6 @@ namespace BootstrapBlazor.Shared.Pages
             base.OnInitialized();
 
             // 初始化参数
-            Educations = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["PlaceHolder"] ?? "请选择 ..."));
             Hobbys = Foo.GenerateHobbys(LocalizerFoo);
             ComplexModel = new ComplexFoo()
             {
@@ -102,8 +98,13 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnValidComplexModel(EditContext context)
         {
             Trace4.Log("OnValidSubmit 回调委托");
-            //Test.SetError<ComplexFoo>(f => f.Dummy.Dummy2.Name, "数据库中已存在");
-            Test.SetError("Dummy.Dummy2.Name", "数据库中已存在");
+            ComplexForm.SetError("Dummy.Dummy2.Name", "数据库中已存在");
+            return Task.CompletedTask;
+        }
+
+        private Task OnValidSetError(EditContext context)
+        {
+            FooForm.SetError<Foo>(f => f.Name, "数据库中已存在");
             return Task.CompletedTask;
         }
 

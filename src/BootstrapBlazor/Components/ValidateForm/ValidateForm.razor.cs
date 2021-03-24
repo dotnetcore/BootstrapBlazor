@@ -15,7 +15,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -62,6 +61,7 @@ namespace BootstrapBlazor.Components
         /// a value for <see cref="EditContext"/>.
         /// </summary>
         [Parameter]
+        [NotNull]
         public object? Model { get; set; }
 
         /// <summary>
@@ -97,63 +97,6 @@ namespace BootstrapBlazor.Components
             {
                 var fieldName = exp.Member.Name;
                 var modelType = exp.Expression?.Type;
-                if (modelType != null)
-                {
-                    var validator = ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
-                    if (validator != null)
-                    {
-                        var results = new List<ValidationResult>
-                        {
-                            new ValidationResult(errorMessage, new string[] { fieldName })
-                        };
-                        validator.ToggleMessage(results, true);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 设置指定字段错误信息
-        /// </summary>
-        /// <param name="property">字段名，可以使用多层，如 a.b.c</param>
-        /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
-        public void SetError(string property, string errorMessage)
-        {
-            if(Model == null)
-            {
-                return;
-            }
-            property = Regex.Replace(property, @"\[[^\]]*\]", string.Empty);
-            List<string> level = new List<string>();
-            if (property.Contains('.'))
-            {
-                level.AddRange(property.Split('.'));
-            }
-            else
-            {
-                level.Add(property);
-            }
-            Type objtype = Model.GetType();
-            var pe = Expression.Parameter(objtype);
-            var pro = objtype.GetProperty(level[0]);
-            if(pro == null)
-            {
-                return;
-            }
-            var member = Expression.Property(pe, pro);
-            for (int i = 1; i < level.Count; i++)
-            {
-                pro = member.Type.GetProperty(level[i]);
-                if(pro == null)
-                {
-                    return;
-                }
-                member = Expression.Property(member, pro);
-            }
-            var fieldName = member.Member.Name;
-            var modelType = member.Expression?.Type;
-            if (modelType != null)
-            {
                 var validator = ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
                 if (validator != null)
                 {
@@ -164,14 +107,52 @@ namespace BootstrapBlazor.Components
                     validator.ToggleMessage(results, true);
                 }
             }
-
         }
 
         /// <summary>
-        /// 通过指定的模型类型获取当前表单中的绑定属性
+        /// 设置指定字段错误信息
         /// </summary>
-        /// <returns></returns>
-        internal IEnumerable<(FieldIdentifier, PropertyInfo PropertyInfo)> GetBindModelProperties() => ValidatorCache.Keys.Select(key => (key, key.Model.GetType().GetProperty(key.FieldName)!));
+        /// <param name="propertyName">字段名，可以使用多层，如 a.b.c</param>
+        /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
+        public void SetError(string propertyName, string errorMessage)
+        {
+            if (TryGetModelField(propertyName, out var modelType, out var fieldName))
+            {
+                var validator = GetValidator(modelType, fieldName);
+                if (validator != null)
+                {
+                    var results = new List<ValidationResult>
+                    {
+                        new ValidationResult(errorMessage, new string[] { fieldName })
+                    };
+                    validator.ToggleMessage(results, true);
+                }
+            }
+        }
+
+        private bool TryGetModelField(string propertyName, [MaybeNullWhen(false)] out Type modelType, [MaybeNullWhen(false)] out string fieldName)
+        {
+            var propNames = new ConcurrentQueue<string>(propertyName.Split('.'));
+            var modelTypeInfo = Model.GetType();
+            modelType = null;
+            fieldName = null;
+            while (propNames.TryDequeue(out var propName))
+            {
+                modelType = modelTypeInfo;
+                fieldName = propName;
+                var propertyInfo = modelType.GetProperty(propName);
+                if (propertyInfo == null)
+                {
+                    break;
+                }
+                var exp = Expression.Parameter(modelTypeInfo);
+                var member = Expression.Property(exp, propertyInfo);
+                modelTypeInfo = member.Type;
+            }
+            return propNames.IsEmpty;
+        }
+
+        private IValidateComponent GetValidator(Type modelType, string fieldName) => ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
 
         private static bool IsPublic(PropertyInfo p) => p.GetMethod != null && p.SetMethod != null && p.GetMethod.IsPublic && p.SetMethod.IsPublic;
 

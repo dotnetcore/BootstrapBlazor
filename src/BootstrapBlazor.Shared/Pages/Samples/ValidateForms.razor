@@ -57,7 +57,7 @@
                     <DateTimePicker @bind-Value="@Model.DateTime" />
                 </div>
                 <div class="form-group col-12 col-sm-6">
-                    <Select Items="@Educations" @bind-Value="@Model.Education" />
+                    <Select @bind-Value="@Model.Education" />
                 </div>
                 <div class="form-group col-12">
                     <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
@@ -76,7 +76,7 @@
         <b>应用场景</b>
         <div>客户端验证通过后进行数据库保存操作，如果出现其他问题，后仍然可以进行表单自定义错误提示，本例中数据验证合法后，点击 <code>提交表单</code> 按钮后，姓名字段会显示 <code>数据库中已存在</code> 这样的自定义提示信息</div>
     </p>
-    <ValidateForm class="form-inline" Model="@Model">
+    <ValidateForm class="form-inline" @ref="FooForm" Model="@Model" OnValidSubmit="@OnValidSetError">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
                 <BootstrapInput @bind-Value="@Model.Name" />
@@ -88,7 +88,7 @@
                 <DateTimePicker @bind-Value="@Model.DateTime" />
             </div>
             <div class="form-group col-12 col-sm-6">
-                <Select Items="@Educations" @bind-Value="@Model.Education" />
+                <Select @bind-Value="@Model.Education" />
             </div>
             <div class="form-group col-12">
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
@@ -114,7 +114,7 @@
                 <DateTimePicker @bind-Value="@Model.DateTime" />
             </div>
             <div class="form-group col-12 col-sm-6">
-                <Select Items="@Educations" @bind-Value="@Model.Education" />
+                <Select @bind-Value="@Model.Education" />
             </div>
             <div class="form-group col-12">
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
@@ -128,8 +128,9 @@
 </Block>
 
 <Block>
-    <p>本示例中绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证</p>
-    <ValidateForm class="form-inline" @ref="Test" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel" OnValidSubmit="@OnValidComplexModel">
+    <p>本示例中绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用 <code>SetError</code> 再次显示错误提示</p>
+    <Pre>ComplexForm.SetError("Dummy.Dummy2.Name", "数据库中已存在");</Pre>
+    <ValidateForm class="form-inline" @ref="ComplexForm" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel" OnValidSubmit="@OnValidComplexModel">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
                 <BootstrapInput @bind-Value="@ComplexModel.Name" />
