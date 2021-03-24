@@ -304,7 +304,8 @@ namespace BootstrapBlazor.Components
                     }
                     if (KeySet.Count > 0)
                     {
-                        TreeRows = Items.Select(item =>
+                        TreeRows = new List<TableTreeNode<TItem>>();
+                        foreach (var item in Items)
                         {
                             var node = new TableTreeNode<TItem>(item)
                             {
@@ -313,10 +314,10 @@ namespace BootstrapBlazor.Components
                             node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
                             if (node.IsExpand)
                             {
-                                RestoreIsExpand(node);
+                                await RestoreIsExpand(node);
                             }
-                            return node;
-                        }).ToList();
+                            TreeRows.Add(node);
+                        }
                     }
                     else
                     {
@@ -366,15 +367,14 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private void RestoreIsExpand(TableTreeNode<TItem> parentNode)
+        private async Task RestoreIsExpand(TableTreeNode<TItem> parentNode)
         {
             if (OnTreeExpand == null)
             {
                 throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
             }
 
-            var items = OnTreeExpand(parentNode.Value).Result;
-            parentNode.Children.AddRange(items.Select(item =>
+            foreach (var item in (await OnTreeExpand(parentNode.Value)))
             {
                 var node = new TableTreeNode<TItem>(item)
                 {
@@ -384,10 +384,10 @@ namespace BootstrapBlazor.Components
                 node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
                 if (node.IsExpand)
                 {
-                    RestoreIsExpand(node);
+                    await RestoreIsExpand(node);
                 }
-                return node;
-            }));
+                parentNode.Children.Add(node);
+            }
         }
 
         private static readonly ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new();
