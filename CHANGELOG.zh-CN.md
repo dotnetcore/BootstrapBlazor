@@ -26,40 +26,40 @@
 
 #### 增加功能
 
-    !1193 feat(#I3CQYI): Table 组件编辑按钮增加回调委托
-    !1192 feat(#I3CQY7): 增加 Row 组件用于栅格系统布局
-    !1191 feat(#I3CQXQ): 自动生成标签 AutoGenerateColumn 增加 ComponentType 属性用于自定义呈现组件
-    !1188 feat(#I3CPJK): Switch 组件适配 Row 组件支持 row form-row form-inline 三种模式
-    !1187 feat(#I3CPJ8): Select 组件适配 Row 组件支持 row form-row form-inline 三种模式
-    !1172 feat(#I3CFJS): Table 组件树形数据支持 CRUD 并且保持编辑前展开收缩状态
-    !1173 feat(#I3CBQT): 增加演示网站 wasm 模式对浏览器是否兼容性提示功能
-    !1171 feat(#I3CBI6): DataAnnotation 支持复杂类型的验证
-    !1167 feat(#I3C6GH): Table 组件展开树形数据是增加 Spin 动画效果
+- !1193 feat(#I3CQYI): Table 组件编辑按钮增加回调委托 [#I3CQYI](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1193)
+- !1192 feat(#I3CQY7): 增加 Row 组件用于栅格系统布局 [#I3CQY7](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1192)
+- !1191 feat(#I3CQXQ): 自动生成标签 AutoGenerateColumn 增加 ComponentType 属性用于自定义呈现组件 [#I3CQXQ](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1191)
+- !1188 feat(#I3CQY7): Switch 组件适配 Row 组件支持 row form-row form-inline 三种模式 [#I3CQY7](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1188)
+- !1187 feat(#I3CPJ8): Select 组件适配 Row 组件支持 row form-row form-inline 三种模式 [#I3CPJ8](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1187)
+- !1172 feat(#I3CFJS): Table 组件树形数据支持 CRUD 并且保持编辑前展开收缩状态 [#I3CFJS](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1172)
+- !1173 feat(#I3CBQT): 增加演示网站 wasm 模式对浏览器是否兼容性提示功能 [#I3CBQT](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1173)
+- !1171 feat(#I3CBI6): DataAnnotation 支持复杂类型的验证 [#I3CBI6](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1171)
+- !1167 feat(#I3C6GH): Table 组件展开树形数据是增加 Spin 动画效果 [#I3C6GH](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1167)
 
 #### 问题修复
 
-    !1189 fix(#I3CPLZ): 更新 EFCore 数据注入服务获取记录总数逻辑
-    !1185 fix(#I3CFAS): 修复 EFCore 数据注入服务排序导致递归循环引用问题
-    !1183 fix(#I3CF4K): 更新 EFCore 数据注入服务使服务生命周期内部与参数一致默认 Scope
-    !1178 fix(#I3CCK1): 修复全局配置 SwalDelay 参数在 Swal 组件中未生效问题
-    !1177 fix(#I3CCIQ): 修复全局配置 MessageDelay 参数在 Message 组件中未生效问题
-    !1175 fix(#I3CBSW): 修复 Timer 计时器组件不兼容 wasm 模式问题
-    !1168 fix(#I3C8PH): 修复 Tab 组件首次加载时活动标签页蓝色火柴棍特效不能正常呈现问题
-    !1163 fix(#I3C2W4): 修复内置数据服务导致高级搜索默认高亮状态问题
-    !1161 fix(#I3C205): 更新 Switch 组件点击事件触发组件
+- !1189 fix(#I3CPLZ): 更新 EFCore 数据注入服务获取记录总数逻辑 [#I3CPLZ](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1189)
+- !1185 fix(#I3CFAS): 修复 EFCore 数据注入服务排序导致递归循环引用问题 [#I3CFAS](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1185)
+- !1183 fix(#I3CF4K): 更新 EFCore 数据注入服务使服务生命周期内部与参数一致默认 Scope [#I3CF4K](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1183)
+- !1178 fix(#I3CCK1): 修复全局配置 SwalDelay 参数在 Swal 组件中未生效问题 [#I3CCK1](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1178)
+- !1177 fix(#I3CCIQ): 修复全局配置 MessageDelay 参数在 Message 组件中未生效问题 [#I3CCIQ](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1177)
+- !1175 fix(#I3CBSW): 修复 Timer 计时器组件不兼容 wasm 模式问题 [#I3CBSW](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1175)
+- !1168 fix(#I3C8PH): 修复 Tab 组件首次加载时活动标签页蓝色火柴棍特效不能正常呈现问题 [#I3C8PH](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1168)
+- !1163 fix(#I3C2W4): 修复内置数据服务导致高级搜索默认高亮状态问题 [#I3C2W4](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1163)
+- !1161 fix(#I3C205): 更新 Switch 组件点击事件触发组件 [#I3C205](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1161)
 
 #### 示例更新
 
-    !1190 docs(#I3CQXN): 更新 Table 组件明细行示例代码
-    !1182 docs(#I3CF12): 更新 Table 组件更新固定列示例代码
-    !1169 docs(#I3C8Q3): 更新 dialog 示例代码
-    !1166 docs(#I3C4HV): 更新 Table 组件固定表头示例代码
-    !1165 docs(#I3C4F0): 更新 Table 组件多表头示例代码
+- !1190 docs(#I3CQXN): 更新 Table 组件明细行示例代码
+- !1182 docs(#I3CF12): 更新 Table 组件更新固定列示例代码
+- !1169 docs(#I3C8Q3): 更新 dialog 示例代码
+- !1166 docs(#I3C4HV): 更新 Table 组件固定表头示例代码
+- !1165 docs(#I3C4F0): 更新 Table 组件多表头示例代码
 
 #### 性能优化
 
-    !1186 perf(#I3CPID): 优化 ValidateForm 组件提高内部性能
-    !1170 refactor(#I3CA0I): DynamicComponent 改名为 BootstrapDynamicComponent
+- !1186 perf(#I3CPID): 优化 ValidateForm 组件提高内部性能 [#I3CPID](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1186)
+- !1170 refactor(#I3CA0I): DynamicComponent 改名为 BootstrapDynamicComponent [#I3CA0I](https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/1170)
 
 
 ### 5.0.21
