@@ -254,7 +254,7 @@ namespace BootstrapBlazor.Components
             var attributeSpan = "Attribute".AsSpan();
             foreach (var rule in rules)
             {
-                if (!rule.IsValid(value))
+                if (rule.GetValidationResult(value, context) != ValidationResult.Success)
                 {
                     // 查找 resx 资源文件中的 ErrorMessage
                     var ruleNameSpan = rule.GetType().Name.AsSpan();
