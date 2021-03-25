@@ -1,5 +1,4 @@
-﻿@inherits TablesBaseQuery
-@page "/tables/filter"
+﻿@page "/tables/filter"
 
 <h3>筛选和排序功能</h3>
 
@@ -33,16 +32,8 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
-                <Template Context="value">
-                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true">
-                <Template Context="value">
-                    <span>@value.Value?.ToDescriptionString()</span>
-                </Template>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />
         </TableColumns>
     </Table>
