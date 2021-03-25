@@ -127,8 +127,8 @@
     <Logger @ref="Trace3" class="mt-3" />
 </Block>
 
-<Block>
-    <p>本示例中绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用 <code>SetError</code> 再次显示错误提示</p>
+<Block Title="复杂类型支持" Introduction="支持任意复杂类型的绑定与验证">
+    <p>本示例中第二个绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用 <code>SetError</code> 再次显示错误提示</p>
     <Pre>ComplexForm.SetError("Dummy.Dummy2.Name", "数据库中已存在");</Pre>
     <ValidateForm class="form-inline" @ref="ComplexForm" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel" OnValidSubmit="@OnValidComplexModel">
         <div class="row">

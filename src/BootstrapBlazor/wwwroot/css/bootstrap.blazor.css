@@ -1738,3 +1738,11 @@ input:disabled,
         background-color: #eef0f3;
     }
 /*end widget*/
+
+label[required]:before {
+    content: "*";
+    color: red;
+    position: relative;
+    top: 2px;
+    margin-right: 2px;
+}

@@ -3,7 +3,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@Id">@DisplayText</label>
+    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div class="@ClassString">
     <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="@OnBlur" @onkeyup="@OnKeyUp" />

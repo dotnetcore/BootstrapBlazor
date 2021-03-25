@@ -70,9 +70,15 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
 
+        /// <summary>
+        /// 获得/设置 是否获取必填项标记 默认显示
+        /// </summary>
+        [Parameter]
+        public bool ShowRequiredMark { get; set; } = true;
+
         [Inject]
         [NotNull]
-        private IServiceProvider? ServiceProvider { get; set; }
+        private IOptions<JsonLocalizationOptions>? Options { get; set; }
 
         /// <summary>
         /// 验证组件缓存
@@ -257,7 +263,7 @@ namespace BootstrapBlazor.Components
                     var isResx = false;
                     if (!string.IsNullOrEmpty(rule.ErrorMessage))
                     {
-                        var resxType = ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value.ResourceManagerStringLocalizerType;
+                        var resxType = Options.Value.ResourceManagerStringLocalizerType;
                         if (resxType != null && JsonStringLocalizerFactory.TryGetLocalizerString(resxType, rule.ErrorMessage, out var resx))
                         {
                             rule.ErrorMessage = resx;

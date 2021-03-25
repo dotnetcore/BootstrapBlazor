@@ -3,7 +3,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@Id">@DisplayText</label>
+    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="input-group">

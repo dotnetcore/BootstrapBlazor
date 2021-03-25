@@ -145,6 +145,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowRequiredMark",
+                Description = "表单内必填项是否显示 * 标记",
+                Type = "bool",
+                ValueList = "true/false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
                 Name = "ChildContent",
                 Description = "子组件模板实例",
                 Type = "RenderFragment",

@@ -3,7 +3,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@Id">@DisplayText</label>
+    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <textarea @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange"></textarea>
 <CascadingValue Value="this" IsFixed="true">

@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label">@DisplayText</label>
+    <label class="control-label" required="@Required">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="Picker" data-placement="@PlacementString">
     <div class="datetime-picker-bar">

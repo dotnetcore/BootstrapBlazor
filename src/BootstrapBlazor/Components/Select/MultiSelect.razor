@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@Id">@DisplayText</label>
+    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div class="@ClassString" @ref="SelectElement">
     <div class="@ToggleClassString" tabindex="0" hidefocus="true" outline="0" id="@Id" @onclick="@ToggleMenu">

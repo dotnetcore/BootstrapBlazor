@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -75,6 +76,11 @@ namespace BootstrapBlazor.Components
         /// 是否显示 标签
         /// </summary>
         protected bool IsShowLabel { get; set; }
+
+        /// <summary>
+        /// 是否显示 必填项标记
+        /// </summary>
+        protected string? Required { get; set; }
 
         /// <summary>
         /// Gets or sets the current value of the input.
@@ -286,6 +292,8 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
+        private bool HasRequired() => FieldIdentifier?.Model.GetType().GetProperty(FieldIdentifier.Value.FieldName)?.GetCustomAttribute<RequiredAttribute>() != null;
+
         /// <summary>
         /// Gets a string that indicates the status of the field being edited. This will include
         /// some combination of "modified", "valid", or "invalid", depending on the status of the field.
@@ -347,6 +355,8 @@ namespace BootstrapBlazor.Components
 
             // 显式设置显示标签时一定显示
             IsShowLabel = ShowLabel || EditForm != null || EditFormShowLabel;
+
+            Required = ((EditForm?.ShowRequiredMark ?? false) && !IsDisabled && !SkipValidate && HasRequired()) ? "true" : null;
 
             // 内置到验证组件时才使用绑定属性值获取 DisplayName
             if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
