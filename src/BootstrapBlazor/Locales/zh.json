@@ -184,7 +184,7 @@
     "ExportButtonText": "导出数据",
     "SearchPlaceholderText": "搜索",
     "SearchButtonText": "搜索",
-    "ResetButtonText": "清空过滤",
+    "ResetSearchButtonText": "清空搜索",
     "AdvanceButtonText": "高级搜索",
     "CheckboxDisplayText": "选择",
     "EditModalTitle": "编辑数据窗口",

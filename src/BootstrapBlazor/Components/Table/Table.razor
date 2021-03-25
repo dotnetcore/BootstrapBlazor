@@ -113,10 +113,13 @@
                                 <i class="fa fa-search"></i>
                                 <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                             </button>
-                            <button class="btn btn-secondary" type="button" @onclick="@ClearSearchClick">
-                                <i class="fa fa-trash"></i>
-                                <span class="d-none d-sm-inline-block">@ResetButtonText</span>
-                            </button>
+                            @if (ShowResetSearch)
+                            {
+                                <button class="btn btn-secondary" type="button" @onclick="@ClearSearchClick">
+                                    <i class="fa fa-trash"></i>
+                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                                </button>
+                            }
                             @if (ShowAdvancedSearch)
                             {
                                 <Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">

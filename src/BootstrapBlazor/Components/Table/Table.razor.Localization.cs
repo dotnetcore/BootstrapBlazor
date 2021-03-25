@@ -124,7 +124,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         [NotNull]
-        public string? ResetButtonText { get; set; }
+        public string? ResetSearchButtonText { get; set; }
 
         /// <summary>
         /// 高级搜索按钮文本
@@ -250,7 +250,7 @@ namespace BootstrapBlazor.Components
             ExportButtonText ??= Localizer[nameof(ExportButtonText)];
             SearchPlaceholderText ??= Localizer[nameof(SearchPlaceholderText)];
             SearchButtonText ??= Localizer[nameof(SearchButtonText)];
-            ResetButtonText ??= Localizer[nameof(ResetButtonText)];
+            ResetSearchButtonText ??= Localizer[nameof(ResetSearchButtonText)];
             AdvanceButtonText ??= Localizer[nameof(AdvanceButtonText)];
             CheckboxDisplayText ??= Localizer[nameof(CheckboxDisplayText)];
             EditModalTitle ??= Localizer[nameof(EditModalTitle)];

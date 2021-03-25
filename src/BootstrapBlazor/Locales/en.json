@@ -184,7 +184,7 @@
     "ExportButtonText": "Export",
     "SearchPlaceholderText": "Search",
     "SearchButtonText": "Search",
-    "ResetButtonText": "Reset",
+    "ResetSearchButtonText": "Reset",
     "AdvanceButtonText": "Advance Search",
     "CheckboxDisplayText": "All",
     "EditModalTitle": "Edit Data",
