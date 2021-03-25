@@ -65,8 +65,8 @@ namespace BootstrapBlazor.Components
                 {
                     // search in Localization
                     var localizer = JsonStringLocalizerFactory.CreateLocalizer(t);
-                    var stringLocalizer = localizer[fieldName];
-                    if (!stringLocalizer.ResourceNotFound)
+                    var stringLocalizer = localizer?[fieldName];
+                    if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                     {
                         dn = stringLocalizer.Value;
                     }
@@ -79,12 +79,12 @@ namespace BootstrapBlazor.Components
                         // search in Localization again
                         if (!string.IsNullOrEmpty(dn))
                         {
-                            var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-                            if (resxType.Value.ResourceManagerStringLocalizerType != null)
+                            var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+                            if (resxType?.Value.ResourceManagerStringLocalizerType != null)
                             {
                                 localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                                stringLocalizer = localizer[dn];
-                                if (!stringLocalizer.ResourceNotFound)
+                                stringLocalizer = localizer?[dn];
+                                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                                 {
                                     dn = stringLocalizer.Value;
                                 }

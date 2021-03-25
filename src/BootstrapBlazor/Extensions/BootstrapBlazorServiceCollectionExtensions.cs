@@ -41,9 +41,25 @@ namespace Microsoft.Extensions.DependencyInjection
                 configureOptions?.Invoke(options);
             });
 
-            ServiceProviderHelper.RegisterService(services);
-
+            if (OperatingSystem.IsBrowser())
+            {
+                ServiceProviderHelper.RegisterService(services);
+            }
+            else
+            {
+                services.AddHttpContextAccessor();
+            }
             return services;
+        }
+
+        /// <summary>
+        /// 添加 ServiceProvider
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        public static void AddBootstrapBlazor(this IServiceProvider serviceProvider)
+        {
+            // wasm 模式非常重要
+            ServiceProviderHelper.RegisterProvider(serviceProvider);
         }
     }
 }

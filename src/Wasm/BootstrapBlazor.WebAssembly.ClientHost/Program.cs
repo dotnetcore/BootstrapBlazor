@@ -39,10 +39,7 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             builder.Services.AddExampleService();
 
             // 增加 BootstrapBlazor 组件
-            builder.Services.AddBootstrapBlazor(setupAction: option =>
-            {
-                option.ResourceManagerStringLocalizerType = typeof(Program);
-            });
+            builder.Services.AddBootstrapBlazor();
 
             // 增加 Table Excel 导出服务
             builder.Services.AddBootstrapBlazorTableExcelExport();
@@ -67,6 +64,9 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             builder.Services.AddLocalization();
 
             var host = builder.Build();
+
+            // 为了保证注入服务 Scope 的一致性请添加这句话
+            host.Services.AddBootstrapBlazor();
 
             await SetCultureAsync(host);
 

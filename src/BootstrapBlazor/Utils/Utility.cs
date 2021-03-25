@@ -48,8 +48,8 @@ namespace BootstrapBlazor.Components
             {
                 // 显示名称为空时通过资源文件查找 FieldName 项
                 var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                var stringLocalizer = localizer[fieldName];
-                if (!stringLocalizer.ResourceNotFound)
+                var stringLocalizer = localizer?[fieldName];
+                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
                     dn = stringLocalizer.Value;
                 }
@@ -62,14 +62,17 @@ namespace BootstrapBlazor.Components
                     // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
                     if (!string.IsNullOrEmpty(dn))
                     {
-                        var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-                        if (resxType.Value.ResourceManagerStringLocalizerType != null)
+                        var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+                        if (resxType?.Value.ResourceManagerStringLocalizerType != null)
                         {
                             localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                            stringLocalizer = localizer[dn];
-                            if (!stringLocalizer.ResourceNotFound)
+                            if (localizer != null)
                             {
-                                dn = stringLocalizer.Value;
+                                stringLocalizer = localizer[dn];
+                                if (!stringLocalizer.ResourceNotFound)
+                                {
+                                    dn = stringLocalizer.Value;
+                                }
                             }
                         }
                     }
@@ -105,8 +108,8 @@ namespace BootstrapBlazor.Components
             {
                 // 通过资源文件查找 FieldName 项
                 var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                var stringLocalizer = localizer[$"{fieldName}.PlaceHolder"];
-                if (!stringLocalizer.ResourceNotFound)
+                var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
+                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
                     placeHolder = stringLocalizer.Value;
                 }
