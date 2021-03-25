@@ -1,8 +1,4 @@
 ﻿@page "/tables/export"
-@inherits TablesBaseEdit
-@using Microsoft.Extensions.DependencyInjection
-@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
-@inject NugetVersionService VersionManager
 
 <h3>Table 表格</h3>
 
@@ -72,24 +68,3 @@
         </TableColumns>
     </Table>
 </Block>
-
-@code{
-    public Task<bool> ExportAsync(IEnumerable<Foo> Items)
-    {
-        return Task.FromResult(true);
-    }
-
-    /// <summary>
-    /// 获得/设置 版本号字符串
-    /// </summary>
-    private string Version { get; set; } = "fetching";
-
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        Version = await VersionManager.GetVersionAsync("bootstrapblazor.tableexport");
-    }
-}

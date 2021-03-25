@@ -14,7 +14,7 @@
     "edit": "Table/TablesEdit;Table/TablesBaseEdit",
     "editdialogs": "EditDialogs",
     "editorforms": "EditorForms",
-    "export": "Table/TablesExport;Table/TablesBaseEdit",
+    "export": "Table/TablesExport",
     "filter": "Table/TablesFilter",
     "fix-column": "Table/TablesFixedColumn",
     "footer": "Table/TablesFooter;Table/TablesBaseQuery",
