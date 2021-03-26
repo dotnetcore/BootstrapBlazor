@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
                 var file = (IBrowserFile?)value;
                 if (file != null)
                 {
-                    Localizer = JsonStringLocalizerFactory.CreateLocalizer<Upload>();
+                    Localizer = JsonStringLocalizerFactory.CreateLocalizer<Upload<object>>();
                     if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
                     {
                         var errorMessage = Localizer?["FileExtensions", string.Join(", ", Extensions)];

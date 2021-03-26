@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class AvatarUpload
+    public sealed partial class AvatarUpload<TValue>
     {
         /// <summary>
         /// 
@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            CurrentValue = args.File;
+            //CurrentValue = args.File;
 
             var file = new UploadFile()
             {

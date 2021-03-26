@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public abstract class MultipleUploadBase : UploadBase
+    public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
     {
         /// <summary>
         /// 
@@ -51,7 +51,7 @@ namespace BootstrapBlazor.Components
         public bool ShowProgress { get; set; }
 
         /// <summary>
-        /// 
+        /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
@@ -66,7 +66,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// OnFileDelete 回调委托
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
@@ -83,7 +83,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// 是否显示进度条方法
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>

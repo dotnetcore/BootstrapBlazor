@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class ButtonUpload
+    public sealed partial class ButtonUpload<TValue>
     {
         private bool IsUploadButtonDisabled => IsSingle && UploadFiles.Any();
 
@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Upload>? Localizer { get; set; }
+        private IStringLocalizer<Upload<TValue>>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

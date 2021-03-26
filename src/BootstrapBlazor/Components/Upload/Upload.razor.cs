@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Upload
+    public sealed partial class Upload<TValue>
     {
         /// <summary>
         /// 获得/设置 上传组件模式 默认为 Normal 正常模式多用于表单中

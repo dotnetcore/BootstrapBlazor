@@ -34,6 +34,8 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IOptions<WebsiteOptions>? SiteOptions { get; set; }
 
+        private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
+
         private Logger? Trace { get; set; }
 
         private IEnumerable<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
@@ -191,12 +193,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private class Person
         {
-            [Display(Name = "姓名")]
             [Required]
             [StringLength(20, MinimumLength = 2)]
             public string Name { get; set; } = "Blazor";
 
-            [Display(Name = "上传文件")]
             [Required]
             [FileValidation(Extensions = new string[] { ".png", ".jpg", ".jpeg" }, FileSize = 50 * 1024)]
             public IBrowserFile? Picture { get; set; }

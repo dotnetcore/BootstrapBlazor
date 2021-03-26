@@ -1,6 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits MultipleUploadBase
+@typeparam TValue
+@inherits MultipleUploadBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="control-label" required="@Required">@DisplayText</label>
+}
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="upload-body is-avatar">
         @foreach (var item in UploadFiles)

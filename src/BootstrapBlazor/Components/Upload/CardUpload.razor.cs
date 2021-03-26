@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class CardUpload
+    public sealed partial class CardUpload<TValue>
     {
         private static string? GetDiabledString(UploadFile item) => (item.Uploaded && item.Code == 0) ? null : "disabled";
 

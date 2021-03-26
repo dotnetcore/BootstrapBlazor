@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Upload 组件基类
     /// </summary>
-    public abstract class UploadBase : ValidateBase<IBrowserFile>
+    public abstract class UploadBase<TValue> : ValidateBase<TValue>
     {
         /// <summary>
         /// 获得 组件样式

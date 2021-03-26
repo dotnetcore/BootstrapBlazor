@@ -1,6 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ButtonUploadBase
+@typeparam TValue
+@inherits ButtonUploadBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="control-label" required="@Required">@DisplayText</label>
+}
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
     <div class="upload-body is-list">

@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class InputUpload
+    public sealed partial class InputUpload<TValue>
     {
         private string? InputValueClassString => CssBuilder.Default("form-control")
             .AddClass(CssClass).AddClass(ValidCss)
@@ -83,7 +83,7 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Upload>? Localizer { get; set; }
+        private IStringLocalizer<Upload<TValue>>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            CurrentValue = args.File;
+            //CurrentValue = args.File;
 
             CurrentFile = new UploadFile()
             {
@@ -128,7 +128,7 @@ namespace BootstrapBlazor.Components
                 if (ret)
                 {
                     CurrentFile = null;
-                    CurrentValue = null!;
+                    CurrentValue = default;
                 }
             }
         }
