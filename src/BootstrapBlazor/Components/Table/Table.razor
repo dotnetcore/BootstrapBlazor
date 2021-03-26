@@ -539,7 +539,7 @@ RenderFragment<TItem> RenderEditForm => item =>
             else
             {
                 <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(SaveAsync))">
-                    <CascadingValue Value="Columns" IsFixed="true">
+                    <CascadingValue Value="@Columns.Where(c => c.Editable)" IsFixed="true">
                         <EditorForm TModel="TItem">
                             <Buttons>
                                 <div class="modal-footer table-modal-footer">
