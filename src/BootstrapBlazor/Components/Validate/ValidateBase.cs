@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -228,6 +229,10 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool IsDisabled { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IServiceProvider? Provider { get; set; }
+
         /// <summary>
         /// 获得 父组件的 EditContext 实例
         /// </summary>
@@ -347,6 +352,8 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            ServiceProviderHelper.RegisterProvider(Provider);
 
             if (EditForm != null && FieldIdentifier.HasValue)
             {
