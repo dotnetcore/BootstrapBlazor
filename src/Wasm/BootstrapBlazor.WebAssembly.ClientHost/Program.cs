@@ -65,9 +65,6 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             var host = builder.Build();
 
-            // 为了保证注入服务 Scope 的一致性请添加这句话
-            host.Services.AddBootstrapBlazor();
-
             await SetCultureAsync(host);
 
             await host.RunAsync();

@@ -1529,7 +1529,7 @@ section {
 .theme-list {
     display: none;
     position: fixed;
-    z-index: 2;
+    z-index: 10;
     bottom: 11rem;
     right: 1rem;
     background: #FFFFFF;

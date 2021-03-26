@@ -8,6 +8,7 @@ using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -34,6 +35,10 @@ namespace BootstrapBlazor.Shared.Pages
             Category = SwalCategory.Success,
             Content = "我是 Content"
         });
+
+        [Inject]
+        [NotNull]
+        private SwalService? SwalService { get; set; }
 
         private async Task ShowButtons()
         {

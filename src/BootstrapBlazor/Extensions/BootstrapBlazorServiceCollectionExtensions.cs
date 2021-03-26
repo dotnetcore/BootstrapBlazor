@@ -26,40 +26,21 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddAuthorizationCore();
             services.AddJsonLocalization(setupAction);
-            services.TryAddScoped<IComponentIdGenerator, DefaultIdGenerator>();
-            services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
-            services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
-            services.TryAddScoped<DialogService>();
-            services.TryAddScoped<MessageService>();
-            services.TryAddScoped<PopoverService>();
-            services.TryAddScoped<ToastService>();
-            services.TryAddScoped<SwalService>();
-            services.AddScoped<TabItemTextOptions>();
-            services.AddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
+            services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
+            services.TryAddSingleton<ITableExcelExport, DefaultExcelExport>();
+            services.TryAddSingleton(typeof(IDataService<>), typeof(NullDataService<>));
+            services.TryAddSingleton<DialogService>();
+            services.TryAddSingleton<MessageService>();
+            services.TryAddSingleton<PopoverService>();
+            services.TryAddSingleton<ToastService>();
+            services.TryAddSingleton<SwalService>();
+            services.TryAddSingleton<TabItemTextOptions>();
+            services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {
                 configureOptions?.Invoke(options);
             });
-
-            if (OperatingSystem.IsBrowser())
-            {
-                ServiceProviderHelper.RegisterService(services);
-            }
-            else
-            {
-                services.AddHttpContextAccessor();
-            }
             return services;
-        }
-
-        /// <summary>
-        /// 添加 ServiceProvider
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        public static void AddBootstrapBlazor(this IServiceProvider serviceProvider)
-        {
-            // wasm 模式非常重要
-            ServiceProviderHelper.RegisterProvider(serviceProvider);
         }
     }
 }

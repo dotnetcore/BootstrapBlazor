@@ -32,12 +32,12 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             // 防止被 AddLocalization 覆盖掉
             services.AddSingleton<IHtmlLocalizerFactory, JsonHtmlLocalizerFactory>();
-            services.AddTransient(typeof(IHtmlLocalizer<>), typeof(HtmlLocalizer<>));
-            services.AddTransient(typeof(IHtmlLocalizer), typeof(HtmlLocalizer));
+            services.AddSingleton(typeof(IHtmlLocalizer<>), typeof(HtmlLocalizer<>));
+            services.AddSingleton(typeof(IHtmlLocalizer), typeof(HtmlLocalizer));
 
             services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-            services.AddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-            services.AddTransient(typeof(IStringLocalizer), typeof(StringLocalizer));
+            services.AddSingleton(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
+            services.AddSingleton(typeof(IStringLocalizer), typeof(StringLocalizer));
 
             if (setupAction != null) services.Configure(setupAction);
         }
