@@ -96,6 +96,16 @@
     </ValidateForm>
 </Block>
 
+<Block Title="禁用" Introduction="通过设置 <code>IsDisabled=true</code> 禁用">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <CheckboxList @bind-Value="@Dummy.Name" IsDisabled="true" ShowBorder="false" Items="@Items2" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

@@ -7,13 +7,13 @@
     <label class="control-label" required="@Required">@DisplayText</label>
 }
 
-<CascadingValue TValue="Row" Value="null" IsFixed="true" >
+<CascadingValue TValue="Row" Value="null" IsFixed="true">
 
     <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="checkbox" tabindex="0" hidefocus="true">
         @foreach (var item in Items)
         {
             <div class="@CheckboxItemClassString">
-                <Checkbox TValue="bool" ShowAfterLabel="true" DisplayText="@item.Text" Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
+                <Checkbox TValue="bool" IsDisabled="@IsDisabled" ShowAfterLabel="true" DisplayText="@item.Text" Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
             </div>
         }
     </div>
