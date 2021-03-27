@@ -87,20 +87,20 @@ namespace BootstrapBlazor.Components
             option.CloseButtonText ??= EditDialogLocalizer[nameof(option.CloseButtonText)];
             option.SaveButtonText ??= EditDialogLocalizer[nameof(option.SaveButtonText)];
 
-            option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(new[]
+            option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(new KeyValuePair<string, object?>[]
             {
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.Model), option.Model),
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.ShowLabel), option.ShowLabel),
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText!),
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText!),
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.Items), option.Items),
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate!),
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.OnCloseAsync), new Func<Task>(async () =>
+                new(nameof(EditDialog<TModel>.Model), option.Model),
+                new(nameof(EditDialog<TModel>.ShowLabel), option.ShowLabel),
+                new(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText),
+                new(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText),
+                new(nameof(EditDialog<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable)),
+                new(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate),
+                new(nameof(EditDialog<TModel>.OnCloseAsync), new Func<Task>(async () =>
                 {
                     option.Dialog.RemoveDialog();
                     await option.Dialog.CloseOrPopDialog();
                 })),
-                new KeyValuePair<string, object?>(nameof(EditDialog<TModel>.OnSaveAsync), new Func<EditContext, Task>(async context =>
+                new(nameof(EditDialog<TModel>.OnSaveAsync), new Func<EditContext, Task>(async context =>
                 {
                     if(option.OnSaveAsync != null)
                     {
