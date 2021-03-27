@@ -168,6 +168,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "按钮 Button",
                 Url = "buttons"
             });

@@ -58,11 +58,13 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private static Task ClickAsyncButton() => Task.Delay(5000);
+
         /// <summary>
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -82,7 +84,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -98,6 +100,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "string",
                 ValueList = "",
                 DefaultValue = ""
+            },
+            new AttributeItem() {
+                Name = "LoadingIcon",
+                Description = "异步加载时的动画图标",
+                Type = "string",
+                ValueList = "",
+                DefaultValue = "fa fa-fw fa-spin fa-spinner"
             },
             new AttributeItem() {
                 Name = "Text",
@@ -137,6 +146,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "IsOutline",
                 Description = "是否边框",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsAsync",
+                Description = "是否为异步按钮",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"

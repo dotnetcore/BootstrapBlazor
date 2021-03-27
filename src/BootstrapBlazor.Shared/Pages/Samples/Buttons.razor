@@ -154,6 +154,15 @@
     </div>
 </Block>
 
+<Block Title="异步请求按钮" Introduction="通过设置 <code>IsAsync</code> 属性按钮是否为 <b>异步请求按钮</b>，默认为 <code>false</code>">
+    <p>当按钮为异步请求按钮时，点击按钮后自身状态会改变为禁用状态，同时显示 <code>Loading</code> 小图标，异步请求结束后恢复正常，本例中点击 <b>异步请求</b>按钮后，显示请求加载动画，5 秒后恢复正常</p>
+    <div class="row">
+        <div class="col">
+            <Button Text="异步请求" IsAsync="true" Icon="fa fa-fw fa-fa" OnClick="@ClickAsyncButton" />
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

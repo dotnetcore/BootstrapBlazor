@@ -18,8 +18,6 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string? HtmlString { get; set; }
 
-        private string ShowHideButtonString { get; set; } = "隐藏 Editor";
-
         /// <summary>
         /// 获得/设置 版本号字符串
         /// </summary>
