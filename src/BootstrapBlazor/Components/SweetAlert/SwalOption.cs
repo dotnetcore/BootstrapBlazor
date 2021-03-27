@@ -91,15 +91,15 @@ namespace BootstrapBlazor.Components
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<KeyValuePair<string, object>> ToAttributes() => new List<KeyValuePair<string, object>>
+        public IEnumerable<KeyValuePair<string, object?>> ToAttributes() => new List<KeyValuePair<string, object?>>
         {
-            new KeyValuePair<string, object>(nameof(ModalDialog.Title), Title),
-            new KeyValuePair<string, object>(nameof(ModalDialog.Size), Size.Medium),
-            new KeyValuePair<string, object>(nameof(ModalDialog.IsCentered), true),
-            new KeyValuePair<string, object>(nameof(ModalDialog.IsScrolling), false),
-            new KeyValuePair<string, object>(nameof(ModalDialog.ShowCloseButton), false),
-            new KeyValuePair<string, object>(nameof(ModalDialog.ShowFooter), false),
-            new KeyValuePair<string, object>(nameof(BodyContext), BodyContext!)
+            new(nameof(ModalDialog.Title), Title),
+            new(nameof(ModalDialog.Size), Size.Medium),
+            new(nameof(ModalDialog.IsCentered), true),
+            new(nameof(ModalDialog.IsScrolling), false),
+            new(nameof(ModalDialog.ShowCloseButton), false),
+            new(nameof(ModalDialog.ShowFooter), false),
+            new(nameof(BodyContext), BodyContext)
         };
 
         /// <summary>
