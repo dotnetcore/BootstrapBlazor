@@ -8,7 +8,7 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="input-group">
-        <input type="text" class="@InputValueClassString" id="@Id" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
+        <input type="text" class="@InputValueClassString" id="@Id" disabled="@DisabledString" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
         <div class="input-group-append">
             @if (ShowDeleteButton)
             {

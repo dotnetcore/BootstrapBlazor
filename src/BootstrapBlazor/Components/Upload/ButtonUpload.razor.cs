@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class ButtonUpload<TValue>
     {
-        private bool IsUploadButtonDisabled => IsSingle && UploadFiles.Any();
+        private bool IsUploadButtonDisabled => IsDisabled || (IsSingle && UploadFiles.Any());
 
         private string? BrowserButtonClassString => CssBuilder.Default("btn btn-browser")
             .AddClass(BrowserButtonClass)

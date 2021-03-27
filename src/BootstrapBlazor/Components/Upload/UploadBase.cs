@@ -53,7 +53,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender)
+            if (firstRender && !IsDisabled)
             {
                 await JSRuntime.InvokeVoidAsync(UploaderElement, "bb_upload");
             }

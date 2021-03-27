@@ -18,6 +18,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override string? ItemClassString => CssBuilder.Default(base.ItemClassString)
             .AddClass("is-circle", IsCircle)
+            .AddClass("is-disabled", IsDisabled)
             .Build();
 
         /// <summary>

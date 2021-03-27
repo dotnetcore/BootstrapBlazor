@@ -23,6 +23,7 @@ namespace BootstrapBlazor.Components
             .AddClass(ValidCss)
             .AddClass("is-valid", !IsValid.HasValue && item.Uploaded && item.Code == 0)
             .AddClass("is-invalid", item.Code != 0)
+            .AddClass("is-disabled", IsDisabled)
             .Build();
 
         /// <summary>
