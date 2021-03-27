@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Concurrent;
@@ -112,6 +113,14 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 IsFiltered = isFiltered,
                 IsSearch = true
             });
+        }
+
+        private IDataService<Foo> CustomerDataService { get; } = new FooDataService<Foo>();
+
+        private class FooDataService<TModel> : TableDemoDataService<TModel>
+            where TModel : class, new()
+        {
+
         }
     }
 }
