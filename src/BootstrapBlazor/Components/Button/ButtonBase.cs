@@ -41,6 +41,16 @@ namespace BootstrapBlazor.Components
         protected string? Tab => IsDisabled ? "-1" : null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected string? ButtonIcon { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮风格枚举
         /// </summary>
         [Parameter]
@@ -87,8 +97,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsAsync { get; set; }
-
-        private bool IsLoading { get; set; }
 
         /// <summary>
         /// 获得/设置 显示文字
@@ -148,45 +156,27 @@ namespace BootstrapBlazor.Components
             {
                 AdditionalAttributes["type"] = "button";
             }
-        }
 
-        /// <summary>
-        /// OnParametersSetAsync 方法
-        /// </summary>
-        /// <returns></returns>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
+            ButtonIcon = Icon;
 
-            if (IsAsync && IsLoading)
+            OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                Icon = LoadingIcon;
-            }
-
-            var onClick = OnClick;
-            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
-            {
-                var icon = Icon;
                 if (IsAsync)
                 {
-                    IsLoading = true;
-                    Icon = "";
+                    ButtonIcon = LoadingIcon;
                     IsDisabled = true;
                 }
                 if (OnClickWithoutRender != null)
                 {
                     await OnClickWithoutRender.Invoke();
                 }
-
-                if (onClick.HasDelegate)
+                if (OnClick.HasDelegate)
                 {
-                    await onClick.InvokeAsync(e);
+                    await OnClick.InvokeAsync(e);
                 }
-
                 if (IsAsync)
                 {
-                    IsLoading = false;
-                    Icon = icon;
+                    ButtonIcon = Icon;
                     IsDisabled = false;
                 }
             });
