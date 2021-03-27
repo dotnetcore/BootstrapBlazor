@@ -45,24 +45,6 @@ namespace BootstrapBlazor.Shared.Pages
             Hobbys = Foo.GenerateHobbys(Localizer);
         }
 
-        private void test(EventArgs e)
-        {
-            Hobbys = new List<SelectedItem>
-            {
-               new SelectedItem
-               {
-                   Text = "aaa",
-                   Value = "bbb"
-               },
-               new SelectedItem
-               {
-                   Text = "ccc",
-                   Value = "ddd"
-               }
-            };
-            Model.Address = "aaaaa";
-        }
-
         private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {

@@ -173,7 +173,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "级联选择 Cascader",
                 Url = "cascaders"
             });
@@ -511,7 +510,6 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "树形数据",
                 Url = "tables/tree"
             });
@@ -535,7 +533,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "对话框 Dialog",
                 Url = "dialogs"
             });
@@ -556,7 +553,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "模态框 Modal",
                 Url = "modals"
             });
@@ -675,6 +671,12 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "滚动条 Scroll",
                 Url = "scrolls"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "行组件 Row",
+                Url = "rows"
             });
             item.AddItem(new DemoMenuItem()
             {
