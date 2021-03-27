@@ -208,7 +208,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(Func<IEditorItem, bool>? predicate = null) where TModel : class
+        public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool>? predicate = null)
         {
             if (predicate == null) predicate = p => true;
             return InternalTableColumn.GetProperties<TModel>().Where(predicate);

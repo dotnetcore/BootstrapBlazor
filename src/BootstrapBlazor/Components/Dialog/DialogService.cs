@@ -49,11 +49,11 @@ namespace BootstrapBlazor.Components
 
             option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(new[]
             {
-                new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.Model), option.Model!),
+                new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.Model), option.Model),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.ShowLabel), option.ShowLabel),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.ResetButtonText), option.ResetButtonText!),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.QueryButtonText), option.QueryButtonText!),
-                new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.Items), option.Items!),
+                new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable)),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.BodyTemplate), option.DialogBodyTemplate!),
                 new KeyValuePair<string, object>(nameof(SearchDialogOption<TModel>.OnResetSearchClick), new Func<Task>(async () =>
                 {
