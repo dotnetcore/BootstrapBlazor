@@ -50,5 +50,10 @@ namespace BootstrapBlazor.Components
         /// 添加按钮到工具栏方法
         /// </summary>
         public void AddButton(IToolbarButton<TItem> button) => Buttons.Add(button);
+
+        /// <summary>
+        /// 添加按钮到工具栏方法
+        /// </summary>
+        public void RemoveButton(IToolbarButton<TItem> button) => Buttons.Remove(button);
     }
 }

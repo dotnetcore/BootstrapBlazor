@@ -34,5 +34,16 @@ namespace BootstrapBlazor.Components
 
             Toolbar?.AddButton(this);
         }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            Toolbar?.RemoveButton(this);
+        }
     }
 }
