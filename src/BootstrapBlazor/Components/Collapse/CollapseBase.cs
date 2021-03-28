@@ -68,18 +68,5 @@ namespace BootstrapBlazor.Components
 
             if (firstRender) await JSRuntime.InvokeVoidAsync(CollapseElement, "bb_collapse");
         }
-
-        /// <summary>
-        /// 点击 TabItem 时回调此方法
-        /// </summary>
-        /// <param name="item"></param>
-        protected virtual void OnItemClick(CollapseItem item)
-        {
-            foreach (var collapseItem in Items)
-            {
-                var isActive = collapseItem.Text == item.Text;
-                collapseItem.SetCollapsed(isActive);
-            }
-        }
     }
 }
