@@ -14,18 +14,22 @@ namespace BootstrapBlazor.Components
     {
         private static IServiceProvider? _provider;
 
-        private static IServiceCollection? _service;
+        private static IServiceProvider? _providerRoot;
 
         private static IServiceProvider? _serviceProvider;
 
+        private static IServiceCollection? _service;
+
         internal static void RegisterProvider(IServiceProvider provider) => _provider = provider;
+
+        internal static void RegisterProviderRoot(IServiceProvider provider) => _providerRoot = provider;
 
         internal static void RegisterService(IServiceCollection services) => _service = services;
 
         /// <summary>
         /// 获取系统 IServiceProvider 接口
         /// </summary>
-        public static IServiceProvider ServiceProvider => _provider ?? CreateProvider();
+        public static IServiceProvider ServiceProvider => _providerRoot ?? _provider ?? CreateProvider();
 
         private static IServiceProvider CreateProvider()
         {

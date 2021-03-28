@@ -100,7 +100,7 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         /// <param name="resourceSource"></param>
         /// <returns></returns>
-        public static IStringLocalizer? CreateLocalizer(Type resourceSource) => ServiceProviderHelper.ServiceProvider?.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
+        public static IStringLocalizer? CreateLocalizer(Type resourceSource) => ServiceProviderHelper.ServiceProvider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
         /// <summary>
         /// 获取指定 Type 的资源文件
@@ -111,11 +111,10 @@ namespace BootstrapBlazor.Localization.Json
         /// <returns></returns>
         public static bool TryGetLocalizerString(Type type, string key, [MaybeNullWhen(false)] out string? text)
         {
-            var ret = false;
             var localizer = CreateLocalizer(type);
             text = null;
             var l = localizer?[key];
-            ret = l != null && !l.ResourceNotFound;
+            var ret = !(l?.ResourceNotFound ?? false);
             if (ret)
             {
                 text = l?.Value;

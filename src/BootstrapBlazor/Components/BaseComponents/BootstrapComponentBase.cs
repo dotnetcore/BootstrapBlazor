@@ -28,6 +28,20 @@ namespace BootstrapBlazor.Components
         [NotNull]
         protected IJSRuntime? JSRuntime { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IServiceProvider? Provider { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            ServiceProviderHelper.RegisterProvider(Provider);
+        }
+
         /// <summary>
         /// Dispose 方法
         /// </summary>

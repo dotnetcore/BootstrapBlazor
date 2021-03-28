@@ -51,7 +51,7 @@ namespace BootstrapBlazor.Components
                 var memberName = context.MemberName;
 
                 var isResx = false;
-                var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value.ResourceManagerStringLocalizerType;
+                var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value.ResourceManagerStringLocalizerType;
                 if (resxType != null && JsonStringLocalizerFactory.TryGetLocalizerString(resxType, errorMesssage, out var resx))
                 {
                     errorMesssage = resx;

@@ -26,15 +26,15 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddAuthorizationCore();
             services.AddJsonLocalization(setupAction);
-            services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
-            services.TryAddSingleton<ITableExcelExport, DefaultExcelExport>();
-            services.TryAddSingleton(typeof(IDataService<>), typeof(NullDataService<>));
-            services.TryAddSingleton<DialogService>();
-            services.TryAddSingleton<MessageService>();
-            services.TryAddSingleton<PopoverService>();
-            services.TryAddSingleton<ToastService>();
-            services.TryAddSingleton<SwalService>();
-            services.TryAddSingleton<TabItemTextOptions>();
+            services.TryAddScoped<IComponentIdGenerator, DefaultIdGenerator>();
+            services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
+            services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
+            services.TryAddScoped<DialogService>();
+            services.TryAddScoped<MessageService>();
+            services.TryAddScoped<PopoverService>();
+            services.TryAddScoped<ToastService>();
+            services.TryAddScoped<SwalService>();
+            services.TryAddScoped<TabItemTextOptions>();
             services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {

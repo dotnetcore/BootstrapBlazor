@@ -229,10 +229,6 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool IsDisabled { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IServiceProvider? Provider { get; set; }
-
         /// <summary>
         /// 获得 父组件的 EditContext 实例
         /// </summary>
@@ -352,8 +348,6 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            ServiceProviderHelper.RegisterProvider(Provider);
 
             if (EditForm != null && FieldIdentifier.HasValue)
             {
