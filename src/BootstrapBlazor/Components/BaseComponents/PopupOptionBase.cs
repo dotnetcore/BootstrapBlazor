@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
         public string? Content { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否自动隐藏
+        /// 获得/设置 是否自动隐藏 默认 true 自动关闭
         /// </summary>
         public bool IsAutoHide { get; set; } = true;
 

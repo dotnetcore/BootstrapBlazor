@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -11,6 +12,11 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class ToastOption : PopupOptionBase, IPopupHost
     {
+        /// <summary>
+        /// 获得/设置 弹窗载体
+        /// </summary>
+        internal ToastBox? ToastBox { get; set; }
+
         /// <summary>
         /// 获得/设置 弹出框类型
         /// </summary>
@@ -26,5 +32,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <remarks>设置此属性值可指定弹窗主体组件</remarks>
         public ComponentBase? Host { get; set; }
+
+        /// <summary>
+        /// 关闭当前弹窗方法
+        /// </summary>
+        public async ValueTask Close()
+        {
+            if (ToastBox != null)
+            {
+                await ToastBox.Close();
+            }
+        }
     }
 }

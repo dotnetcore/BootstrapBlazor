@@ -215,7 +215,7 @@ namespace BootstrapBlazor.Components
         }
 
         #region Format
-        private static readonly ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>> FormatLambdaCache = new ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>>();
+        private static readonly ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>> FormatLambdaCache = new();
 
         /// <summary>
         /// 任意类型格式化方法
@@ -262,7 +262,7 @@ namespace BootstrapBlazor.Components
             return Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
         }
 
-        private static readonly ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>> FormatProviderLambdaCache = new ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>>();
+        private static readonly ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>> FormatProviderLambdaCache = new();
 
         /// <summary>
         /// 任意类型格式化方法
