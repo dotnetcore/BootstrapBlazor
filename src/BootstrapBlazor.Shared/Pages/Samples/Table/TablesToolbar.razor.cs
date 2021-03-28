@@ -89,19 +89,49 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private async Task DownloadAsync(IEnumerable<Foo> items)
         {
+            // 构造弹窗配置信息，进行弹窗操作
             var cate = ToastCategory.Information;
             var title = "自定义下载示例";
             var content = "请先选择数据，然后点击下载按钮";
             if (items.Any())
             {
                 cate = ToastCategory.Success;
-                content = $"开始下载选中的 {items.Count()} 条数据";
+                content = $"开始打包选中的 {items.Count()} 条数据，完成后自动关闭本窗口";
             }
-            await ToastService.Show(new ToastOption()
+
+            var option = new ToastOption()
             {
                 Category = cate,
                 Title = title,
-                Content = content
+                Content = content,
+            };
+
+            await ToastService.Show(option);
+            if (items.Any())
+            {
+                option.IsAutoHide = false;
+
+                // 开启后台进程进行数据处理
+                // 此处不需要等待异步
+                // 传递 Option 过去是为了异步操作结束后可以关闭弹窗
+                await MockDownLoadAsync(option);
+            }
+        }
+
+        private async Task MockDownLoadAsync(ToastOption option)
+        {
+            // 此处模拟打包下载数据耗时 5 秒
+            await Task.Delay(5000);
+
+            // 关闭 option 相关联的弹窗
+            await option.Close();
+
+            // 弹窗告知下载完毕
+            await ToastService.Show(new ToastOption()
+            {
+                Category = ToastCategory.Success,
+                Title = "自定义下载示例",
+                Content = "数据下载完毕",
             });
         }
     }

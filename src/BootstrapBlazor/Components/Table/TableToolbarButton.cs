@@ -15,6 +15,12 @@ namespace BootstrapBlazor.Components
     public class TableToolbarButton<TItem> : BootstrapComponentBase, IToolbarButton<TItem>
     {
         /// <summary>
+        /// 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画
+        /// </summary>
+        [Parameter]
+        public bool IsAsync { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter]

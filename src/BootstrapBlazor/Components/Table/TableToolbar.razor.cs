@@ -32,19 +32,24 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<IEnumerable<TItem>> OnGetSelectedRows { get; set; } = () => Enumerable.Empty<TItem>();
 
+        private bool _prevDisabled;
         private async Task OnToolbarButtonClick(TableToolbarButton<TItem> button)
         {
             if (!button.IsDisabled)
             {
-                if (button.OnClick != null) await button.OnClick.Invoke();
+                _prevDisabled = button.IsAsync;
+                if (button.OnClick != null) await button.OnClick();
 
                 // 传递当前选中行给回调委托方法
                 if (button.OnClickCallback != null)
                 {
-                    await button.OnClickCallback.Invoke(OnGetSelectedRows());
+                    await button.OnClickCallback(OnGetSelectedRows());
                 }
+                _prevDisabled = false;
             }
         }
+
+        private bool GetDisabled(TableToolbarButton<TItem> button) => button.IsAsync ? _prevDisabled : false;
 
         /// <summary>
         /// 添加按钮到工具栏方法

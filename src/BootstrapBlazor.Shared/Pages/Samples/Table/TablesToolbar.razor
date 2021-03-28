@@ -1,6 +1,6 @@
 ﻿@page "/tables/toolbar"
 @inject ToastService ToastService
- 
+
 <h3>Table 表格</h3>
 
 <h4>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</h4>
@@ -32,13 +32,19 @@
 </Block>
 
 <Block Title="自定义扩展按钮" Introduction="设置 <code>TableToolbarTemplate</code> 模板添加自定义扩展按钮">
+    <p>本例中实现经典的应用场景</p>
+    <ul class="ul-demo">
+        <li>点击下载按钮，后台开启下载线程进行数据处理，<b>禁用</b> 下载按钮</li>
+        <li>前台显示进度条提示，正在打包导出，此期间可以处理其他事务</li>
+        <li>数据处理完成后，关闭前台提示弹窗，<b>恢复</b> 下载按钮</li>
+    </ul>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableToolbarTemplate>
-            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" OnClickCallback="@DownloadAsync" />
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa fa-fw fa-download" Text="下载" IsAsync OnClickCallback="@DownloadAsync" />
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
