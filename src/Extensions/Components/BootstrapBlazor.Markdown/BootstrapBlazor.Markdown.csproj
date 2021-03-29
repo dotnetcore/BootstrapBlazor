@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
+  <PropertyGroup>
+    <Version>5.0.13-beta01</Version>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\lib\tui.editor\toastui-jquery-editor.js" />
