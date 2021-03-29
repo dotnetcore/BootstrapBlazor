@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private List<IToolbarButton<TItem>> Buttons { get; } = new List<IToolbarButton<TItem>>();
 
+        private readonly ConcurrentDictionary<IToolbarButton<TItem>, bool> _asyncButtonStateCache = new();
+
         /// <summary>
         /// Specifies the content to be rendered inside this
         /// </summary>
@@ -32,24 +35,35 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<IEnumerable<TItem>> OnGetSelectedRows { get; set; } = () => Enumerable.Empty<TItem>();
 
-        private bool _prevDisabled;
         private async Task OnToolbarButtonClick(TableToolbarButton<TItem> button)
         {
-            if (!button.IsDisabled)
+            _asyncButtonStateCache.TryGetValue(button, out var disabled);
+            if (!disabled)
             {
-                _prevDisabled = button.IsAsync;
-                if (button.OnClick != null) await button.OnClick();
+                _asyncButtonStateCache.TryAdd(button, true);
+                if (button.OnClick != null)
+                {
+                    await button.OnClick();
+                }
 
                 // 传递当前选中行给回调委托方法
                 if (button.OnClickCallback != null)
                 {
                     await button.OnClickCallback(OnGetSelectedRows());
                 }
-                _prevDisabled = false;
+                _asyncButtonStateCache.TryRemove(button, out _);
             }
         }
 
-        private bool GetDisabled(TableToolbarButton<TItem> button) => button.IsAsync ? _prevDisabled : false;
+        private bool GetDisabled(TableToolbarButton<TItem> button)
+        {
+            var ret = button.IsDisabled;
+            if (button.IsAsync && _asyncButtonStateCache.TryGetValue(button, out var b))
+            {
+                ret = b;
+            }
+            return ret;
+        }
 
         /// <summary>
         /// 添加按钮到工具栏方法
