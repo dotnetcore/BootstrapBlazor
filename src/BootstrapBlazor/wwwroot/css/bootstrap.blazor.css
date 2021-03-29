@@ -1739,10 +1739,16 @@ input:disabled,
     }
 /*end widget*/
 
-label[required]:before {
-    content: "*";
-    color: red;
+form .control-label:before {
+    content: "";
     position: relative;
     top: 2px;
     margin-right: 2px;
+    display: inline-block;
+    min-width: 5px;
+}
+
+form .control-label[required]:before {
+    content: "*";
+    color: red;
 }
