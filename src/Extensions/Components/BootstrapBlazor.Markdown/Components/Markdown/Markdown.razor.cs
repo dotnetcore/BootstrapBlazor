@@ -80,6 +80,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public EventCallback<string?> HtmlChanged { get; set; }
 
+        /// <summary>
+        /// 获取/设置 组件是否为浏览器模式
+        /// </summary>
+        [Parameter]
+        public bool? IsViewer { get; set; }
+
         private JSInterop<Markdown>? Interop { get; set; }
 
         private readonly MarkdownOption _markdownOption = new();
@@ -98,6 +104,7 @@ namespace BootstrapBlazor.Components
             _markdownOption.Height = $"{Height}px";
             _markdownOption.MinHeight = $"{MinHeight}px";
             _markdownOption.initialValue = Value;
+            _markdownOption.Viewer = IsViewer;
         }
 
         /// <summary>

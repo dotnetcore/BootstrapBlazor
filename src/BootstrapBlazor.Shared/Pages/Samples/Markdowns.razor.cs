@@ -79,6 +79,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem(){
+                Name = "IsViewer",
+                Description = "是否为纯浏览模式",
+                Type = "bool",
+                ValueList = " true/false ",
+                DefaultValue = " false "
             }
         };
     }

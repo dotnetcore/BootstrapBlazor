@@ -43,5 +43,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Markdown 内容
         /// </summary>
         public string? initialValue { get; set; }
+
+        /// <summary>
+        /// 是否为浏览器模式
+        /// </summary>
+        public bool? Viewer { get; set; } = false;
     }
 }
