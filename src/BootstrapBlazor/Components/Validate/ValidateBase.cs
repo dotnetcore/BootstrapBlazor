@@ -236,7 +236,7 @@ namespace BootstrapBlazor.Components
         protected EditContext? CascadedEditContext { get; set; }
 
         /// <summary>
-        /// 获得 ValidateFormBase 实例
+        /// 获得 ValidateForm 实例
         /// </summary>
         [CascadingParameter]
         protected ValidateForm? EditForm { get; set; }

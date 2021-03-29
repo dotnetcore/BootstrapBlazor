@@ -8,6 +8,7 @@ using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
@@ -36,7 +37,7 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-        private Foo Model { get; set; } = new();
+        private Foo Model { get; set; } = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
 
         [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
@@ -71,10 +72,11 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private Task OnValidSubmit(EditContext context)
+        private async Task OnValidSubmit(EditContext context)
         {
-            Trace2.Log("OnValidSubmit 回调委托");
-            return Task.CompletedTask;
+            Trace2.Log("OnValidSubmit 回调委托: Starting ...");
+            await Task.Delay(3000);
+            Trace2.Log("OnValidSubmit 回调委托: Done!");
         }
 
         private Task OnInvalidSubmit(EditContext context)

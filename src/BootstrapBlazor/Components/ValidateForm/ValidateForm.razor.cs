@@ -5,7 +5,6 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
@@ -22,17 +21,8 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// ValidateForm 组件类
     /// </summary>
-    public sealed partial class ValidateForm
+    public partial class ValidateForm
     {
-        /// <summary>
-        /// A callback that will be invoked when the form is submitted.
-        /// If using this parameter, you are responsible for triggering any validation
-        /// manually, e.g., by calling <see cref="EditContext.Validate"/>.
-        /// </summary>
-        [Parameter]
-        [NotNull]
-        public Func<EditContext, Task>? OnSubmit { get; set; }
-
         /// <summary>
         /// A callback that will be invoked when the form is submitted and the
         /// <see cref="EditContext"/> is determined to be valid.
@@ -331,6 +321,33 @@ namespace BootstrapBlazor.Components
                         validator.ToggleMessage(messages, true);
                     }
                     results.AddRange(messages);
+                }
+            }
+        }
+
+        private List<Button> AsyncSubmitButtons { get; set; } = new List<Button>();
+
+        /// <summary>
+        /// 注册提交按钮
+        /// </summary>
+        /// <param name="button"></param>
+        internal void RegisterAsyncSubmitButton(Button button)
+        {
+            AsyncSubmitButtons.Add(button);
+        }
+
+        private async Task OnValidSubmitForm(EditContext context)
+        {
+            if (OnValidSubmit != null)
+            {
+                foreach (var b in AsyncSubmitButtons)
+                {
+                    b.TriggerAsync(true);
+                }
+                await OnValidSubmit(context);
+                foreach (var b in AsyncSubmitButtons)
+                {
+                    b.TriggerAsync(false);
                 }
             }
         }

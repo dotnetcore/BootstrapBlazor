@@ -45,6 +45,7 @@
             <li>教育为枚举类型</li>
             <li>爱好为集合类型</li>
         </ul>
+        <p>本例中通过设置 <b>提交按钮</b> 属性 <code>IsAsync</code> 来异步提交表单，点击提交后禁用自身，异步操作完毕后恢复</p>
         <ValidateForm class="form-inline" Model="@Model" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
             <div class="row">
                 <div class="form-group col-12 col-sm-6">
@@ -63,7 +64,7 @@
                     <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
                 </div>
                 <div class="form-group col-12">
-                    <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+                    <Button ButtonType="@ButtonType.Submit" Icon="fa fa-fw fa-save" IsAsync="true" Text="提交表单" />
                 </div>
             </div>
         </ValidateForm>

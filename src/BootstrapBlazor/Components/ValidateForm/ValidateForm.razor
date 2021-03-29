@@ -2,7 +2,7 @@
 @inherits IdComponentBase
 
 <CascadingValue Value="this">
-    <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" OnSubmit="@OnSubmit" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+    <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmit">
         <BootstrapBlazorDataAnnotationsValidator />
         @ChildContent
     </EditForm>
