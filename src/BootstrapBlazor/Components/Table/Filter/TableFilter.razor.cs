@@ -206,9 +206,17 @@ namespace BootstrapBlazor.Components
             {
                 IsShow = false;
 
-                if (Table != null && (FilterAction?.GetFilterConditions().Any() ?? false))
+                if (Table != null)
                 {
-                    Table.Filters[FieldKey] = FilterAction;
+                    if (FilterAction?.GetFilterConditions().Any() ?? false)
+                    {
+                        Table.Filters[FieldKey] = FilterAction;
+                    }
+                    else
+                    {
+                        Table.Filters.Remove(FieldKey);
+                    }
+
                     if (Table.OnFilterAsync != null)
                     {
                         await Table.OnFilterAsync();
