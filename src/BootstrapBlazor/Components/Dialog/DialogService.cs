@@ -133,7 +133,6 @@ namespace BootstrapBlazor.Components
                 builder.OpenComponent(0, typeof(TDialog));
                 builder.AddMultipleAttributes(1, option.ComponentParamters);
                 builder.AddComponentReferenceCapture(2, com => dialog = (IResultDialog)com);
-                builder.SetKey(option.GetHashCode());
                 builder.CloseComponent();
             };
 

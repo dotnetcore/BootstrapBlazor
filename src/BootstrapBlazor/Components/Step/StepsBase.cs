@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 步骤集合
         /// </summary>
         [Parameter]
-        public IEnumerable<StepItem> Items { get; set; } = new StepItem[0];
+        public IEnumerable<StepItem> Items { get; set; } = Array.Empty<StepItem>();
 
         /// <summary>
         /// 获得/设置 是否垂直渲染 默认 false 水平渲染
@@ -104,7 +104,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected virtual RenderFragment RenderStep(StepItem item) => new RenderFragment(builder =>
+        protected virtual RenderFragment RenderStep(StepItem item) => new(builder =>
         {
             item.Space = ParseSpace(item.Space);
             var index = 0;
@@ -123,8 +123,7 @@ namespace BootstrapBlazor.Components
 
         private string ParseSpace(string? space)
         {
-            if (!string.IsNullOrEmpty(space) && !double.TryParse(space.TrimEnd('%'), out var d)) space = null;
-
+            if (!string.IsNullOrEmpty(space) && !double.TryParse(space.TrimEnd('%'), out _)) space = null;
             if (string.IsNullOrEmpty(space)) space = $"{Math.Round(100 * 1.0d / Math.Max(1, Items.Count() - 1), 2)}%";
             return space;
         }
