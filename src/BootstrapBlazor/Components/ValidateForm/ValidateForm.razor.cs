@@ -166,7 +166,7 @@ namespace BootstrapBlazor.Components
             else
             {
                 // 遍历所有可验证组件进行数据验证
-                foreach (var key in ValidatorCache.Keys)
+                foreach (var key in ValidatorCache.Keys.Where(k => k.Model == context.ObjectInstance))
                 {
                     // 设置其关联属性字段
                     var propertyValue = LambdaExtensions.GetPropertyValue(key.Model, key.FieldName);
