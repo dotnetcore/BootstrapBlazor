@@ -44,6 +44,8 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
             Hobbys = Foo.GenerateHobbys(Localizer);
             Items = Foo.GenerateFoo(Localizer);
+
+            CustomerDataService = new FooDataService<Foo>(Localizer);
         }
 
         private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
@@ -115,12 +117,15 @@ namespace BootstrapBlazor.Shared.Pages.Table
             });
         }
 
-        private IDataService<Foo> CustomerDataService { get; } = new FooDataService<Foo>();
+        [NotNull]
+        private IDataService<Foo>? CustomerDataService { get; set; }
 
-        private class FooDataService<TModel> : TableDemoDataService<TModel>
-            where TModel : class, new()
+        private class FooDataService<TModel> : TableDemoDataService<TModel> where TModel : class, new()
         {
+            public FooDataService(IStringLocalizer<TModel> localizer) : base(localizer)
+            {
 
+            }
         }
     }
 }

@@ -11,7 +11,7 @@
     "dropdownwidgets": "DropdownWidgets",
     "detail": "Table/TablesDetailRow",
     "dialog": "Table/TablesDialog",
-    "edit": "Table/TablesEdit;Table/TablesBaseEdit",
+    "edit": "Table/TablesEdit",
     "editdialogs": "EditDialogs",
     "editorforms": "EditorForms",
     "export": "Table/TablesExport",

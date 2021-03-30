@@ -3,9 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Pages;
 using BootstrapBlazor.Shared.Pages.Components;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,6 +35,13 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         private List<TModel>? Items { get; set; }
 
+        private IStringLocalizer<TModel> Localizer { get; set; }
+
+        public TableDemoDataService(IStringLocalizer<TModel> localizer)
+        {
+            Localizer = localizer;
+        }
+
         /// <summary>
         /// 查询操作方法
         /// </summary>
@@ -44,7 +50,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions options)
         {
             // 此处代码实战中不可用，仅仅为演示而写
-            if (Items == null || Items.Count == 0) Items = TablesBase.GenerateItems().Cast<TModel>().ToList();
+            if (Items == null || Items.Count == 0)
+            {
+                Items = Foo.GenerateFoo((IStringLocalizer<Foo>)Localizer).Cast<TModel>().ToList();
+            }
 
             var total = Items.Count;
 
@@ -108,7 +117,11 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public override Task<bool> DeleteAsync(IEnumerable<TModel> models)
         {
-            foreach (var model in models) Items?.Remove(model);
+            foreach (var model in models)
+            {
+                Items?.Remove(model);
+            }
+
             return base.DeleteAsync(models);
         }
     }
