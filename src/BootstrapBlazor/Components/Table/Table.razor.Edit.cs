@@ -347,7 +347,7 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (!IsRendered && SelectedRows != null)
+            if (SelectedRows != null)
             {
                 SelectedItems.AddRange(Items.Where(i => SelectedRows.Contains(i)));
             }

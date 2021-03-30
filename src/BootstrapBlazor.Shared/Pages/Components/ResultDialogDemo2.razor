@@ -1,4 +1,4 @@
-﻿<Table TItem="Foo" Items="@Items.Take(10)" ClickToSelect="true" IsMultipleSelect="true" @bind-SelectedRows="@SelectedRows">
+﻿<Table TItem="Foo" ClickToSelect="true" IsMultipleSelect="true" @bind-SelectedRows="@SelectedRows" OnQueryAsync="@OnQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.Id" />
         <TableColumn @bind-Field="@context.Name" />

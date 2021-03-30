@@ -125,7 +125,7 @@ namespace BootstrapBlazor.Shared.Pages
             var result = await DialogService.ShowModal<ResultDialogDemo2>(new ResultDialogOption()
             {
                 Title = "选择收件人",
-                BodyContext = 10,
+                BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
                 ButtonYesText = "选择",
                 ButtonYesIcon = "fa fa-search",
                 ComponentParamters = new KeyValuePair<string, object?>[]
