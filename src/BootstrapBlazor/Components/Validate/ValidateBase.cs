@@ -356,14 +356,22 @@ namespace BootstrapBlazor.Components
 
             // 显式设置显示标签时一定显示
             IsShowLabel = ShowLabel || EditForm != null || EditFormShowLabel;
+        }
 
-            Required = ((EditForm?.ShowRequiredMark ?? false) && !IsDisabled && !SkipValidate && HasRequired()) ? "true" : null;
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
 
             // 内置到验证组件时才使用绑定属性值获取 DisplayName
             if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
             {
                 DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
+
+            Required = (!string.IsNullOrEmpty(DisplayText) && (EditForm?.ShowRequiredMark ?? false) && !IsDisabled && !SkipValidate && HasRequired()) ? "true" : null;
         }
 
         /// <summary>
