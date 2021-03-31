@@ -16,7 +16,7 @@ else
 {
     <div class="form-inline">
         <div class="row">
-            <CascadingValue Value="@(ShowLabel ?? true)" Name="EditorFormShowLabel">
+            <CascadingValue Value="this" Name="EidtorForm">
                 @foreach (var item in FormItems)
                 {
                     @if (item.EditTemplate != null)

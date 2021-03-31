@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 编辑表单基类
     /// </summary>
-    public sealed partial class EditorForm<TModel>
+    public sealed partial class EditorForm<TModel> : IShowLabel
     {
         /// <summary>
         /// 支持每行多少个控件功能

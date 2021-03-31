@@ -243,8 +243,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 ValidateFormBase 实例
         /// </summary>
-        [CascadingParameter(Name = "EditorFormShowLabel")]
-        protected bool? EditFormShowLabel { get; set; }
+        [CascadingParameter(Name = "EidtorForm")]
+        protected IShowLabel? EditorForm { get; set; }
 
         /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
@@ -365,15 +365,9 @@ namespace BootstrapBlazor.Components
             var showLabel = ShowLabel;
 
             // 组件自身未设置 ShowLabel 取 EditorForm 值
-            if (ShowLabel == null)
+            if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
             {
-                showLabel = EditFormShowLabel;
-            }
-
-            // EditorForm 未设置 ShowLabel 取 ValidateForm 值
-            if (showLabel == null && ValidateForm != null)
-            {
-                showLabel = (ValidateForm.ShowLabel ?? true);
+                showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
             }
 
             IsShowLabel = showLabel ?? false;
