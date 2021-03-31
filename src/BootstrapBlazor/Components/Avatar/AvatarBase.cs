@@ -83,12 +83,22 @@ namespace BootstrapBlazor.Components
         protected bool? IsLoaded { get; set; }
 
         /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            IsIcon = false;
+            IsLoaded = false;
+        }
+
+        /// <summary>
         /// 图片加载失败时回调此方法
         /// </summary>
         protected void OnError()
         {
             IsIcon = true;
-            IsLoaded = false;
         }
 
         /// <summary>

@@ -52,16 +52,16 @@ namespace BootstrapBlazor.Components
         public bool ShowProgress { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
+        /// OnParametersSet 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
-            base.OnInitialized();
-
+            base.OnParametersSet();
             UploadFiles ??= new List<UploadFile>();
 
             if (DefaultFileList != null)
             {
+                UploadFiles.Clear();
                 UploadFiles.AddRange(DefaultFileList);
             }
         }
