@@ -57,10 +57,10 @@ namespace BootstrapBlazor.Components
         public TModel? Model { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示前置标签 默认为 true 显示标签
+        /// 获得/设置 是否显示前置标签 默认为 null 未设置时默认显示标签
         /// </summary>
         [Parameter]
-        public bool ShowLabel { get; set; } = true;
+        public bool? ShowLabel { get; set; }
 
         /// <summary>
         /// 获得/设置 是否自动生成模型的所有属性 默认为 true 生成所有属性
@@ -79,6 +79,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [CascadingParameter]
         private IEnumerable<IEditorItem>? CascadeEditorItems { get; set; }
+
+        /// <summary>
+        /// 获得 ValidateForm 实例
+        /// </summary>
+        [CascadingParameter]
+        private ValidateForm? ValidateForm { get; set; }
 
         [Inject]
         [NotNull]
@@ -121,6 +127,17 @@ namespace BootstrapBlazor.Components
             }
 
             PlaceHolderText ??= Localizer[nameof(PlaceHolderText)];
+        }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            // 为空时使用级联参数 ValidateForm 的 ShowLabel
+            ShowLabel ??= ValidateForm?.ShowLabel;
         }
 
         /// <summary>
@@ -263,11 +280,7 @@ namespace BootstrapBlazor.Components
                         break;
                 }
             }
-
-            if (ShowLabel)
-            {
-                ret.Add(new KeyValuePair<string, object?>("ShowLabel", true));
-            }
+            ret.Add(new KeyValuePair<string, object?>("ShowLabel", ShowLabel));
             return ret;
         }
 

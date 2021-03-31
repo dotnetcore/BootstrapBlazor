@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -195,7 +194,7 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public override string? Id
         {
-            get { return (EditForm != null && !string.IsNullOrEmpty(EditForm.Id) && FieldIdentifier != null) ? $"{EditForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}" : _id; }
+            get { return (ValidateForm != null && !string.IsNullOrEmpty(ValidateForm.Id) && FieldIdentifier != null) ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}" : _id; }
             set { _id = value; }
         }
 
@@ -212,10 +211,10 @@ namespace BootstrapBlazor.Components
         public bool SkipValidate { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示前置标签 默认值为 false
+        /// 获得/设置 是否显示前置标签 默认值为 null 为空时默认不显示标签
         /// </summary>
         [Parameter]
-        public bool ShowLabel { get; set; }
+        public bool? ShowLabel { get; set; }
 
         /// <summary>
         /// 获得/设置 显示名称
@@ -239,13 +238,13 @@ namespace BootstrapBlazor.Components
         /// 获得 ValidateForm 实例
         /// </summary>
         [CascadingParameter]
-        protected ValidateForm? EditForm { get; set; }
+        protected ValidateForm? ValidateForm { get; set; }
 
         /// <summary>
         /// 获得 ValidateFormBase 实例
         /// </summary>
         [CascadingParameter(Name = "EditorFormShowLabel")]
-        protected bool EditFormShowLabel { get; set; }
+        protected bool? EditFormShowLabel { get; set; }
 
         /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
@@ -349,13 +348,10 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (EditForm != null && FieldIdentifier.HasValue)
+            if (ValidateForm != null && FieldIdentifier.HasValue)
             {
-                EditForm.AddValidator(FieldIdentifier.Value, this);
+                ValidateForm.AddValidator(FieldIdentifier.Value, this);
             }
-
-            // 显式设置显示标签时一定显示
-            IsShowLabel = ShowLabel || EditForm != null || EditFormShowLabel;
         }
 
         /// <summary>
@@ -365,13 +361,36 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
+            // 显式设置显示标签时一定显示
+            var showLabel = ShowLabel;
+
+            // 组件自身未设置 ShowLabel 取 EditorForm 值
+            if (ShowLabel == null)
+            {
+                showLabel = EditFormShowLabel;
+            }
+
+            // 组件自身未设置 EditorForm 未设置 ValidateForm 为空时
+            if (showLabel == null && ValidateForm == null)
+            {
+                showLabel = true;
+            }
+
+            // EditorForm 未设置 ShowLabel 取 ValidateForm 值
+            if (showLabel == null && ValidateForm != null)
+            {
+                showLabel = (ValidateForm.ShowLabel ?? true);
+            }
+
+            IsShowLabel = showLabel ?? false;
+
             // 内置到验证组件时才使用绑定属性值获取 DisplayName
             if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
             {
                 DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
 
-            Required = (!string.IsNullOrEmpty(DisplayText) && (EditForm?.ShowRequiredMark ?? false) && !IsDisabled && !SkipValidate && HasRequired()) ? "true" : null;
+            Required = (!string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && !IsDisabled && !SkipValidate && HasRequired()) ? "true" : null;
         }
 
         /// <summary>

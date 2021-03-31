@@ -131,6 +131,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "表单标签",
+                Url = "labels"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "服务器端模式 Server",
                 Url = "install-server"
             });

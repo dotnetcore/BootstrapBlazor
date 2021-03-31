@@ -61,10 +61,16 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否获取必填项标记 默认显示
+        /// 获得/设置 是否获取必填项标记 默认为 true 显示
         /// </summary>
         [Parameter]
         public bool ShowRequiredMark { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示验证表单内的 Label 默认为 null 未设置时默认显示
+        /// </summary>
+        [Parameter]
+        public bool? ShowLabel { get; set; } = true;
 
         [Inject]
         [NotNull]

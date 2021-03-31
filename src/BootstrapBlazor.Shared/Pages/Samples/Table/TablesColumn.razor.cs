@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        protected static Task<string> IntFormatter(object? d)
+        private static Task<string> IntFormatter(object? d)
         {
             var data = (int?)d;
             return Task.FromResult(data?.ToString("0.00") ?? "");
@@ -97,7 +97,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         /// 
         /// </summary>
         /// <param name="items"></param>
-        protected async Task CustomerButton(IEnumerable<Foo> items)
+        private async Task CustomerButton(IEnumerable<Foo> items)
         {
             var cate = ToastCategory.Information;
             var title = "自定义按钮处理方法";
@@ -114,7 +114,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         /// 
         /// </summary>
         /// <param name="item"></param>
-        protected async Task OnRowButtonClick(Foo item)
+        private async Task OnRowButtonClick(Foo item)
         {
             var cate = ToastCategory.Success;
             var title = "行内按钮处理方法";

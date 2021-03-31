@@ -73,11 +73,6 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             IsBoolean = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)) == typeof(bool);
-
-            if (ShowAfterLabel)
-            {
-                IsShowLabel = false;
-            }
         }
 
         /// <summary>
@@ -86,6 +81,11 @@ namespace BootstrapBlazor.Components
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
+
+            if (ShowAfterLabel)
+            {
+                ShowLabel = false;
+            }
 
             if (IsBoolean && Value != null)
             {
