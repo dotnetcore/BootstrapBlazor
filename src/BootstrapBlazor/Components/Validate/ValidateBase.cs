@@ -370,12 +370,6 @@ namespace BootstrapBlazor.Components
                 showLabel = EditFormShowLabel;
             }
 
-            // 组件自身未设置 EditorForm 未设置 ValidateForm 为空时
-            if (showLabel == null && ValidateForm == null)
-            {
-                showLabel = true;
-            }
-
             // EditorForm 未设置 ShowLabel 取 ValidateForm 值
             if (showLabel == null && ValidateForm != null)
             {
