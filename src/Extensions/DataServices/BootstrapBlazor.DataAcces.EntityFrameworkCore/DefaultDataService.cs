@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -94,7 +94,7 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         /// <returns></returns>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            // 处理过滤与高级搜索
+            // 处理过滤与快捷搜索框逻辑
             var query = _db.Set<TModel>()
                 .Where(option.Searchs.GetFilterLambda<TModel>(FilterLogic.Or), option.Searchs.Any())
                 .Where(option.Filters.GetFilterLambda<TModel>(), option.Filters.Any())
@@ -102,6 +102,7 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
                 .Count(out var count)
                 .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
 
+            // 注意：未处理搜索，此处设置 IsSearched=true 后会导致高级搜索按钮高亮
             var ret = new QueryData<TModel>()
             {
                 TotalCount = count,

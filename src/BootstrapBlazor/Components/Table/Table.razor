@@ -185,7 +185,7 @@
                                 <span>@(Items.ToList().IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
-                        @foreach (var col in Columns)
+                        @foreach (var col in GetColumns())
                         {
                             <div class="table-cell">
                                 <label>
