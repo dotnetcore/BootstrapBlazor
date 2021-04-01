@@ -118,7 +118,7 @@ namespace BootstrapBlazor.Components
                 {
                     Interop = new JSInterop<Select<TValue>>(JSRuntime);
                 }
-                await Interop.Invoke(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
 
                 if (SelectedItem != null && OnSelectedItemChanged != null)
                 {

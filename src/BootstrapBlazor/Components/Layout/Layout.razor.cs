@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<Layout>(JSRuntime);
-                await Interop.Invoke(this, null, "bb_layout", nameof(SetCollapsed));
+                await Interop.InvokeVoidAsync(this, null, "bb_layout", nameof(SetCollapsed));
             }
         }
 

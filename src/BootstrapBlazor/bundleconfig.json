@@ -548,7 +548,7 @@
       "Components/ColorPicker/ColorPicker.razor.cs.min.js",
       "Components/Console/Console.razor.cs.min.js",
       "Components/DateTimePicker/DateTimePicker.razor.cs.min.js",
-      "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
+      "Components/DateTimePicker/TimePickerBody.razor.cs.js",
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
       "Components/Drawer/Drawer.razor.cs.min.js",
       "Components/Editor/Editor.razor.cs.min.js",

@@ -123,7 +123,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<TableFilter>(JSRuntime);
-                await Interop.Invoke(this, FilterElement, "bb_filter", nameof(Close));
+                await Interop.InvokeVoidAsync(this, FilterElement, "bb_filter", nameof(Close));
             }
         }
 

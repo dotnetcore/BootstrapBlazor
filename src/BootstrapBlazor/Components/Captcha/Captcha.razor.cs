@@ -173,7 +173,7 @@ namespace BootstrapBlazor.Components
         {
             var option = GetCaptchaOption();
             if (Interop == null) Interop = new JSInterop<Captcha>(JSRuntime);
-            var _ = Interop?.Invoke(this, CaptchaElement, "captcha", nameof(Verify), option);
+            var _ = Interop?.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
         }
     }
 }

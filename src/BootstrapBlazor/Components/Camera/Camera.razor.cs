@@ -172,7 +172,7 @@ namespace BootstrapBlazor.Components
             if (firstRender && JSRuntime != null)
             {
                 Interop = new JSInterop<Camera>(JSRuntime);
-                await Interop.Invoke(this, CameraElement, "bb_camera", "init", AutoStart);
+                await Interop.InvokeVoidAsync(this, CameraElement, "bb_camera", "init", AutoStart);
             }
         }
 

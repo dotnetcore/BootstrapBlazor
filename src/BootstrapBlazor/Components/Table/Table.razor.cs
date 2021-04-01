@@ -490,7 +490,7 @@ namespace BootstrapBlazor.Components
                 {
                     // 注册 SeachBox 回调事件
                     Interop = new JSInterop<Table<TItem>>(JSRuntime);
-                    await Interop.Invoke(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
+                    await Interop.InvokeVoidAsync(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
                 }
 
                 FirstRender = false;

@@ -100,7 +100,7 @@ namespace BootstrapBlazor.Components
         /// <param name="firstRender"></param>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            //await base.OnAfterRenderAsync(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender)
             {

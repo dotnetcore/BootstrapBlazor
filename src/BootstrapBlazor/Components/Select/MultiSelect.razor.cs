@@ -276,7 +276,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<MultiSelect<TValue>>(JSRuntime);
-                await Interop.Invoke(this, SelectElement, "bb_multi_select", nameof(Close));
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_multi_select", nameof(Close));
             }
         }
 

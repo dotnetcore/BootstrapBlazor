@@ -151,7 +151,7 @@ namespace BootstrapBlazor.Components
                     methodGetPluginAttrs = nameof(GetPluginAttrs);
                     methodClickPluginItem = nameof(ClickPluginItem);
                 }
-                await Interope.Invoke(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
+                await Interope.InvokeVoidAsync(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
             }
             else if (_renderValue)
             {

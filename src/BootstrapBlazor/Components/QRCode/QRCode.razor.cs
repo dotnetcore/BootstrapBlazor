@@ -71,7 +71,7 @@ namespace BootstrapBlazor.Components
         private async Task Generate()
         {
             if (Interop == null) Interop = new JSInterop<QRCode>(JSRuntime);
-            await Interop.Invoke(this, QRCodeElement, "bb_qrcode", "generate");
+            await Interop.InvokeVoidAsync(this, QRCodeElement, "bb_qrcode", "generate");
         }
 
         /// <summary>

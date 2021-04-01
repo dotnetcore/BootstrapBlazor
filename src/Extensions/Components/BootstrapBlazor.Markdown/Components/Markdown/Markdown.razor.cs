@@ -123,7 +123,7 @@ namespace BootstrapBlazor.Components
                     Interop = new JSInterop<Markdown>(JSRuntime);
                 }
 
-                await Interop.Invoke(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
+                await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
             }
         }
 

@@ -149,7 +149,7 @@ namespace BootstrapBlazor.Components
             if (firstRender && JSRuntime != null)
             {
                 Interop = new JSInterop<BarcodeReader>(JSRuntime);
-                await Interop.Invoke(this, ScannerElement, "bb_barcode", "init", AutoStart);
+                await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "init", AutoStart);
             }
         }
 

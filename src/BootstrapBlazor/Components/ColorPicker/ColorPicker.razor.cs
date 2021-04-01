@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop ??= new JSInterop<ColorPicker>(JSRuntime);
-                await Interop.Invoke(this, ColorPickerElement, "bb_color_picker", nameof(UpdateColor));
+                await Interop.InvokeVoidAsync(this, ColorPickerElement, "bb_color_picker", nameof(UpdateColor));
             }
         }
 
