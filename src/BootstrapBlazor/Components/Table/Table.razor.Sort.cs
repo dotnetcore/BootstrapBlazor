@@ -197,9 +197,9 @@ namespace BootstrapBlazor.Components
         /// 获得 Cell 文字样式
         /// </summary>
         /// <param name="col"></param>
-        /// <param name="isTree"></param>
+        /// <param name="hasChildren"></param>
         /// <returns></returns>
-        protected string? GetCellClassString(ITableColumn col, bool isTree) => CssBuilder.Default("table-cell")
+        protected string? GetCellClassString(ITableColumn col, bool hasChildren) => CssBuilder.Default("table-cell")
             .AddClass("justify-content-start", col.Align == Alignment.Left)
             .AddClass("justify-content-end", col.Align == Alignment.Right)
             .AddClass("justify-content-center", col.Align == Alignment.Center)
@@ -207,7 +207,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-ellips", col.TextEllipsis)
             .AddClass("is-tips", col.ShowTips)
             .AddClass("is-resizable", AllowResizing)
-            .AddClass("is-tree", IsTree && isTree)
+            .AddClass("is-tree", IsTree && hasChildren)
             .AddClass(col.CssClass)
             .Build();
 

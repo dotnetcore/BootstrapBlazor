@@ -1,4 +1,4 @@
-<Project>
+﻿<Project>
 
   <Import Project="..\Directory.Build.props" />
 
@@ -11,6 +11,10 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Nullable>enable</Nullable>
     <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <NoWarn>1701;1702;8620</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">

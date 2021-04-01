@@ -105,13 +105,13 @@
     {
         await base.OnInitializedAsync();
 
-        try
-        {
-            BBVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion ?? "";
-        }
-        catch (PlatformNotSupportedException)
+        if (OperatingSystem.IsBrowser())
         {
             BBVersion = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString() ?? "";
+        }
+        else
+        {
+            BBVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion ?? "";
         }
     }
 

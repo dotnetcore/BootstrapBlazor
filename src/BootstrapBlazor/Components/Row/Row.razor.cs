@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -83,6 +84,11 @@ namespace BootstrapBlazor.Components
         /// 控件的RenderFragement
         /// </summary>
         public RenderFragment? Content { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ComponentBase? Component { get; set; }
     }
 
     /// <summary>
@@ -118,7 +124,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 记录子控件
         /// </summary>
-        internal List<RowInfo> Items { get; } = new List<RowInfo>();
+        internal List<RowInfo> Items { get; set; } = new List<RowInfo>();
 
         /// <summary>
         /// 获得/设置 是否第一次渲染 默认 true
@@ -141,8 +147,12 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 设置一行显示多少个子组件
         /// </summary>
         [Parameter]
-        public ItemsPerRowEnum ItemsPerRow { get; set; }
+        public ItemsPerRowEnum ItemsPerRow { get; set; } = ItemsPerRowEnum.One;
 
+        /// <summary>
+        /// 用于区别外层Row和子Row
+        /// </summary>
+        public bool InnerRender { get; set; } = false;
         /// <summary>
         /// AfterRender
         /// </summary>
@@ -150,11 +160,37 @@ namespace BootstrapBlazor.Components
         protected override void OnAfterRender(bool firstRender)
         {
             base.OnAfterRender(firstRender);
-            if (firstRender)
+            //最上层的Row需要永远Render两次
+            if (ParentRow == null)
             {
-                FirstRender = false;
-                StateHasChanged();
+                if (FirstRender == true)
+                {
+                    StateHasChanged();
+                    FirstRender = false;
+                }
             }
+            //子Row只需要在首次Render两次
+            else
+            {
+                if (firstRender)
+                {
+                    StateHasChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// OnParametersSetAsync
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnParametersSetAsync()
+        {
+            //最上层的Row需要永远Render两次
+            if (ParentRow == null)
+            {
+                FirstRender = true;
+            }
+            await base.OnParametersSetAsync();
         }
 
         /// <summary>

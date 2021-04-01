@@ -88,6 +88,14 @@
     "Foo.Address2": "地球、中国、上海市普陀区金沙江路 {0} 弄 这里是超长单元格示例",
     "Foo.BindValue": "绑定值"
   },
+  "BootstrapBlazor.Shared.Pages.ValidateForms.ComplexFoo": {
+    "Name": "姓名",
+    "Name.Required": "{0} 值是必填项"
+  },
+  "BootstrapBlazor.Shared.Pages.ValidateForms.Dummy2": {
+    "Name": "姓名",
+    "Name.Required": "Dummy2 {0} 值是必填项"
+  },
   "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
     "PlaceHolder": "请选择 ...",
     "Primary": "小学",

@@ -18,17 +18,17 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Timelines
     {
-        private readonly BlockingCollection<ConsoleMessageItem> _messages = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
+        private readonly ConcurrentQueue<ConsoleMessageItem> _messages = new();
 
-        private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _cancelTokenSource = new();
 
-        private readonly AutoResetEvent _locker = new AutoResetEvent(true);
+        private readonly AutoResetEvent _locker = new(true);
 
         private IEnumerable<ConsoleMessageItem> Messages => _messages;
 
         private bool IsReverse { get; set; }
 
-        private Color GetColor()
+        private static Color GetColor()
         {
             var second = DateTime.Now.Second;
             return (second % 3) switch
@@ -52,16 +52,13 @@ namespace BootstrapBlazor.Shared.Pages
                 do
                 {
                     _locker.WaitOne();
-                    if (!_messages.IsAddingCompleted)
-                    {
-                        _messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+                    _messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
 
-                        if (_messages.Count > 8)
-                        {
-                            _messages.TryTake(out var _);
-                        }
-                        await InvokeAsync(StateHasChanged);
+                    if (_messages.Count > 8)
+                    {
+                        _messages.TryDequeue(out var _);
                     }
+                    await InvokeAsync(StateHasChanged);
                     _locker.Set();
                     await Task.Delay(2000, _cancelTokenSource.Token);
                 }
@@ -144,7 +141,7 @@ namespace BootstrapBlazor.Shared.Pages
             new TimelineItem
             {
                 Color = Color.Success,
-                Component = DynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new KeyValuePair<string, object>[]
+                Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new KeyValuePair<string, object>[]
                 {
                     new KeyValuePair<string, object>(nameof(BootstrapBlazor.Components.Console.Items), Messages)
                 }),
@@ -153,13 +150,13 @@ namespace BootstrapBlazor.Shared.Pages
             new TimelineItem
             {
                 Color = Color.Info,
-                Component = DynamicComponent.CreateComponent<Counter>(),
+                Component = BootstrapDynamicComponent.CreateComponent<Counter>(),
                 Description = "计数器"
             },
             new TimelineItem
             {
                 Color = Color.Warning,
-                Component = DynamicComponent.CreateComponent<FetchData>(),
+                Component = BootstrapDynamicComponent.CreateComponent<FetchData>(),
                 Description = "天气预报信息"
             }
         };
@@ -199,7 +196,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -236,7 +233,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetTimelineItemAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetTimelineItemAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -270,7 +267,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = nameof(TimelineItem.Component),
                 Description = "节点自定义组件",
-                Type = nameof(DynamicComponent),
+                Type = nameof(BootstrapDynamicComponent),
                 ValueList = " — ",
                 DefaultValue = " — "
             }

@@ -72,6 +72,7 @@ namespace BootstrapBlazor.Components
         protected string? GetTreeClassString(TItem item) => CssBuilder.Default("is-tree")
             .AddClass("fa fa-caret-right", CheckTreeChildren(item))
             .AddClass("fa-rotate-90", TryGetTreeNodeByItem(item, out var node) && node.IsExpand)
+            .AddClass("fa-spin fa-spinner", IsLoadChildren)
             .Build();
 
         /// <summary>
@@ -118,6 +119,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置</remarks>
         protected bool IsTree { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否正在加载子项 默认为 false
+        /// </summary>
+        private bool IsLoadChildren { get; set; }
 
         /// <summary>
         /// 获得/设置 树形数据节点展开式回调委托方法
@@ -178,6 +184,11 @@ namespace BootstrapBlazor.Components
                 throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
             }
 
+            if (IsLoadChildren)
+            {
+                return;
+            }
+
             if (TryGetTreeNodeByItem(item, out var node))
             {
                 node.IsExpand = !node.IsExpand;
@@ -185,7 +196,10 @@ namespace BootstrapBlazor.Components
                 // 无子项时通过回调方法延时加载
                 if (node.Children.Count == 0)
                 {
+                    IsLoadChildren = true;
                     var nodes = await OnTreeExpand(item);
+                    IsLoadChildren = false;
+
                     node.Children.AddRange(nodes.Select(i => new TableTreeNode<TItem>(i)
                     {
                         HasChildren = CheckTreeChildren(i),

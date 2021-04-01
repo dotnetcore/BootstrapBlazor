@@ -481,7 +481,9 @@ RenderFragment<TItem> RenderRow => item =>
                                 class="@GetCellClassString(col, triggerClick)" style="@GetCellStyleString(col)">
                     @if (showArrow)
                     {
-                        <i class="@GetTreeClassString(item)" style="@GetTreeStyleString(item)"></i>
+                        <div style="@GetTreeStyleString(item)">
+                            <i class="@GetTreeClassString(item)"></i>
+                        </div>
                     }
                     @GetValue(col, item)
                 </DynamicElement>

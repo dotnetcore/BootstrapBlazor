@@ -17,13 +17,9 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Consoles : IDisposable
     {
-        private readonly BlockingCollection<ConsoleMessageItem> _messages = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
-        private readonly BlockingCollection<ConsoleMessageItem> _messages2 = new BlockingCollection<ConsoleMessageItem>(new ConcurrentQueue<ConsoleMessageItem>());
-
-        private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
-
-        private IEnumerable<ConsoleMessageItem> Messages => _messages;
-        private IEnumerable<ConsoleMessageItem> ColorMessages => _messages2;
+        private ConcurrentQueue<ConsoleMessageItem> Messages { get; set; } = new();
+        private ConcurrentQueue<ConsoleMessageItem> ColorMessages { get; set; } = new();
+        private readonly CancellationTokenSource _cancelTokenSource = new();
 
         /// <summary>
         /// 
@@ -38,23 +34,20 @@ namespace BootstrapBlazor.Shared.Pages
                 do
                 {
                     _locker.WaitOne();
-                    if (!_messages.IsAddingCompleted)
+                    Messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
+
+                    ColorMessages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+
+                    if (Messages.Count > 8)
                     {
-                        _messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
-
-                        _messages2.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
-
-                        if (_messages.Count > 8)
-                        {
-                            _messages.TryTake(out var _);
-                        }
-
-                        if (_messages2.Count > 12)
-                        {
-                            _messages2.TryTake(out var _);
-                        }
-                        await InvokeAsync(StateHasChanged);
+                        Messages.TryDequeue(out var _);
                     }
+
+                    if (ColorMessages.Count > 12)
+                    {
+                        ColorMessages.TryDequeue(out var _);
+                    }
+                    await InvokeAsync(StateHasChanged);
                     _locker.Set();
                     await Task.Delay(2000, _cancelTokenSource.Token);
                 }
@@ -62,7 +55,7 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        private Color GetColor()
+        private static Color GetColor()
         {
             var second = DateTime.Now.Second;
             return (second % 3) switch
@@ -73,22 +66,19 @@ namespace BootstrapBlazor.Shared.Pages
             };
         }
 
-        private readonly AutoResetEvent _locker = new AutoResetEvent(true);
+        private readonly AutoResetEvent _locker = new(true);
 
         private void OnClear()
         {
             _locker.WaitOne();
-            if (!_messages.IsAddingCompleted)
+            while (!Messages.IsEmpty)
             {
-                while (_messages.Count > 0)
-                {
-                    _messages.TryTake(out var _);
-                }
+                Messages.TryDequeue(out var _);
             }
             _locker.Set();
         }
 
-        private IEnumerable<AttributeItem> GetItemAttributes()
+        private static IEnumerable<AttributeItem> GetItemAttributes()
         {
             return new AttributeItem[]
             {
@@ -113,7 +103,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
@@ -187,7 +177,6 @@ namespace BootstrapBlazor.Shared.Pages
         {
             if (disposing)
             {
-                _messages.CompleteAdding();
                 _cancelTokenSource.Cancel();
                 _cancelTokenSource.Dispose();
             }

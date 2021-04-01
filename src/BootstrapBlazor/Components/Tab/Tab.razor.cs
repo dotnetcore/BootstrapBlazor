@@ -440,7 +440,7 @@ namespace BootstrapBlazor.Components
                 closable ??= Options.Closable ?? option.Closable ?? true;
                 Options.Reset();
 
-                AddTabItem(new Dictionary<string, object>
+                AddTabItem(new Dictionary<string, object?>
                 {
                     [nameof(TabItem.Text)] = GetTabText(text, context.Segments),
                     [nameof(TabItem.Url)] = url,
@@ -475,13 +475,13 @@ namespace BootstrapBlazor.Components
         /// 添加 TabItem 方法
         /// </summary>
         /// <param name="parameters"></param>
-        public void AddTab(Dictionary<string, object> parameters)
+        public void AddTab(Dictionary<string, object?> parameters)
         {
             AddTabItem(parameters);
             StateHasChanged();
         }
 
-        private void AddTabItem(Dictionary<string, object> parameters)
+        private void AddTabItem(Dictionary<string, object?> parameters)
         {
             var item = TabItem.Create(parameters);
             if (item.IsActive)

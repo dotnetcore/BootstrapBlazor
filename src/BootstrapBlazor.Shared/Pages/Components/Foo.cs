@@ -21,6 +21,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// <summary>
         ///
         /// </summary>
+        [Key]
         [Display(Name = "主键")]
         [AutoGenerateColumn(Ignore = true)]
         public int Id { get; set; }

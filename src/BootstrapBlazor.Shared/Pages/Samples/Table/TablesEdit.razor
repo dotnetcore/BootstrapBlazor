@@ -18,7 +18,7 @@
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Complete">
                 <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" />
                 </Template>
             </TableColumn>
         </TableColumns>
@@ -45,7 +45,7 @@
                         <BootstrapInput @bind-Value="@context.Count" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="@context.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
+                        <Switch @bind-Value="@context.Complete" ShowInnerText="true" />
                     </div>
                 </div>
             </div>

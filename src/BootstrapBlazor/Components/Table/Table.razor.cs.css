@@ -364,6 +364,10 @@
         margin-right: 6px;
     }
 
+    .table-row .table-cell > span {
+        display: inherit;
+    }
+
     .table-row.table-footer {
         display: flex;
     }
@@ -499,8 +503,4 @@
 
 .table .table-cell.is-tree {
     cursor: pointer;
-}
-
-.table .table-cell > .is-tree {
-    padding: 0 4px;
 }

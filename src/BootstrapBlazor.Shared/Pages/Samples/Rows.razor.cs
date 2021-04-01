@@ -2,10 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -14,16 +16,39 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Rows
     {
-        private Foo Model { get; } = new Foo()
+        private RowFoo Model { get; } = new()
         {
             Name = "张三",
             Count = 23,
             Address = "测试地址",
             DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middel
+            Educations = new List<EnumEducation> { EnumEducation.Middel }
         };
 
-        private List<EnumEducation> Educations = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+        private List<string> testvalue { get; set; } = new List<string>();
+        private readonly List<EnumEducation> Educations = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+        private List<SelectedItem> Items = new List<SelectedItem>();
+
+
+        private void test(EventArgs e)
+        {
+            Items = new List<SelectedItem>
+        {
+           new SelectedItem
+           {
+               Text = "aaa",
+               Value = "bbb"
+           },
+                      new SelectedItem
+           {
+               Text = "ccc",
+               Value = "ddd"
+           }
+
+        };
+            Model.Address = "aaaaa";
+        }
+
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
@@ -54,8 +79,17 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "-",
                 DefaultValue = "null"
             }
-
-
         };
+
+        private class RowFoo : Foo
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            [Required(ErrorMessage = "请选择学历")]
+            [Display(Name = "学历")]
+            [AutoGenerateColumn(Order = 60)]
+            public List<EnumEducation>? Educations { get; set; }
+        }
     }
 }

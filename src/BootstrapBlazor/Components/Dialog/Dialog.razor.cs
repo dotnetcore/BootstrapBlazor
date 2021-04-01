@@ -71,13 +71,7 @@ namespace BootstrapBlazor.Components
             var content = option.BodyTemplate ?? option.Component?.Render();
             if (content != null)
             {
-                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.BodyTemplate), option.KeepChildrenState ? content : new RenderFragment(builder =>
-                {
-                    builder.OpenElement(0, "div");
-                    builder.SetKey(option);
-                    builder.AddContent(1, content);
-                    builder.CloseElement();
-                })));
+                parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.BodyTemplate), content));
             }
 
             if (option.FooterTemplate != null)

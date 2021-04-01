@@ -27,15 +27,15 @@ namespace Microsoft.Extensions.DependencyInjection
             where TContext : DbContext
         {
             services.AddDbContext<TContext>(optionsAction, contextLifetime, optionsLifetime);
-            services.TryAdd(new ServiceDescriptor(typeof(IDataService<>), typeof(DefaultDataService<>), contextLifetime));
-            services.TryAddSingleton(provider =>
+            services.Add(new ServiceDescriptor(typeof(IDataService<>), typeof(DefaultDataService<>), contextLifetime));
+            services.Add(new ServiceDescriptor(typeof(Func<IEntityFrameworkCoreDataService, DbContext>), provider =>
             {
                 DbContext DbContextResolve(IEntityFrameworkCoreDataService server)
                 {
                     return provider.GetRequiredService<TContext>();
                 }
                 return (Func<IEntityFrameworkCoreDataService, DbContext>)DbContextResolve;
-            });
+            }, contextLifetime));
             return services;
         }
     }

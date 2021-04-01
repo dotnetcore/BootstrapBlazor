@@ -81,12 +81,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static TabItem Create(Dictionary<string, object> parameters)
+        public static TabItem Create(Dictionary<string, object?> parameters)
         {
             var item = new TabItem();
             if (parameters.TryGetValue(nameof(Url), out var url))
             {
-                parameters[nameof(Url)] = ((string)url).TrimStart('/');
+                parameters[nameof(Url)] = url?.ToString()?.TrimStart('/');
             }
             var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
             return item;

@@ -127,7 +127,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnShowDialog() => Dialog.Show(new DialogOption()
         {
             Title = "弹窗中使用级联下拉框",
-            Component = DynamicComponent.CreateComponent<CustomerSelectDialog>()
+            Component = BootstrapDynamicComponent.CreateComponent<CustomerSelectDialog>()
         });
 
         private readonly List<SelectedItem> _item2 = new();

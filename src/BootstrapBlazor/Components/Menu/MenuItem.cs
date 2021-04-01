@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        private readonly List<MenuItem> _items = new List<MenuItem>();
+        private readonly List<MenuItem> _items = new();
 
         /// <summary>
         /// 获得 父级菜单
@@ -67,7 +67,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 菜单内子组件
         /// </summary>
-        public DynamicComponent? Component { get; set; }
+        public BootstrapDynamicComponent? Component { get; set; }
 
         /// <summary>
         /// 添加 Menutem 方法 由 MenuItem 方法加载时调用
