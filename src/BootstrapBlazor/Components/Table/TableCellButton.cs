@@ -41,15 +41,33 @@ namespace BootstrapBlazor.Components
 
             if (Size == Size.None) Size = Size.ExtraSmall;
 
-            var onClick = OnClick;
-            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+            OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                if (!IsDisabled)
+                if (IsAsync)
                 {
-                    if (onClick.HasDelegate) await onClick.InvokeAsync(e);
-
-                    if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
-                    if (Item != null && OnClickWithoutRenderCallback != null) await OnClickWithoutRenderCallback.Invoke(Item);
+                    ButtonIcon = LoadingIcon;
+                    IsDisabled = true;
+                }
+                if (OnClickWithoutRender != null)
+                {
+                    await OnClickWithoutRender.Invoke();
+                }
+                if (OnClick.HasDelegate)
+                {
+                    await OnClick.InvokeAsync(e);
+                }
+                if (Item != null && OnClickWithoutRenderCallback != null)
+                {
+                    await OnClickWithoutRenderCallback.Invoke(Item);
+                }
+                if (Item != null && OnClickCallback != null)
+                {
+                    await OnClickCallback.Invoke(Item);
+                }
+                if (IsAsync)
+                {
+                    ButtonIcon = Icon;
+                    IsDisabled = false;
                 }
             });
         }

@@ -110,6 +110,10 @@ namespace BootstrapBlazor.Shared.Pages.Table
             });
         }
 
+        private List<Foo> SelectedRows { get; set; } = new();
+
+        [NotNull]
+        private Table<Foo>? TableRows { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -125,6 +129,10 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 Title = title,
                 Content = content
             });
+
+            SelectedRows.Clear();
+            SelectedRows.Add(item);
+            await TableRows.QueryAsync();
         }
     }
 }
