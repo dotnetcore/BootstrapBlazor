@@ -34,6 +34,9 @@ namespace BootstrapBlazor.Components
             .AddClass($"border-{Color.ToDescriptionString()} shadow-{Color.ToDescriptionString()}", Color != Color.None)
             .Build();
 
+        [NotNull]
+        private string? StepString { get; set; }
+
         /// <summary>
         /// 获得/设置 数值增加时回调委托
         /// </summary>
@@ -62,6 +65,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 步长 默认为 null
         /// </summary>
         [Parameter]
+        [NotNull]
         public string? Step { get; set; }
 
         /// <summary>
@@ -98,7 +102,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            ParsingErrorMessage = Localizer[nameof(ParsingErrorMessage)]!;
+            ParsingErrorMessage = Localizer[nameof(ParsingErrorMessage)];
+            SetStep();
         }
 
         /// <summary>
@@ -144,6 +149,24 @@ namespace BootstrapBlazor.Components
                     _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
                 });
 
+        private void SetStep()
+        {
+            var val = CurrentValue;
+            switch (val)
+            {
+                case int @int:
+                case long @long:
+                case short @short:
+                    StepString = Step ?? "1";
+                    break;
+                case float @float:
+                case double @double:
+                case decimal @decimal:
+                    StepString = Step ?? "0.01";
+                    break;
+            }
+        }
+
         /// <summary>
         /// 点击减少按钮式时回调此方法
         /// </summary>
@@ -154,27 +177,21 @@ namespace BootstrapBlazor.Components
             switch (val)
             {
                 case int @int:
-                    Step ??= "1";
                     val = (TValue)(object)(@int - int.Parse(Step));
                     break;
                 case long @long:
-                    Step ??= "1";
                     val = (TValue)(object)(@long - long.Parse(Step));
                     break;
                 case short @short:
-                    Step ??= "1";
                     val = (TValue)(object)(short)(@short - short.Parse(Step));
                     break;
                 case float @float:
-                    Step ??= "0.01";
                     val = (TValue)(object)(@float - float.Parse(Step));
                     break;
                 case double @double:
-                    Step ??= "0.01";
                     val = (TValue)(object)(@double - double.Parse(Step));
                     break;
                 case decimal @decimal:
-                    Step ??= "0.01";
                     val = (TValue)(object)(@decimal - decimal.Parse(Step));
                     break;
             }
@@ -191,27 +208,21 @@ namespace BootstrapBlazor.Components
             switch (val)
             {
                 case int @int:
-                    Step ??= "1";
                     val = (TValue)(object)(@int + int.Parse(Step));
                     break;
                 case long @long:
-                    Step ??= "1";
                     val = (TValue)(object)(@long + long.Parse(Step));
                     break;
                 case short @short:
-                    Step ??= "1";
                     val = (TValue)(object)(short)(@short + short.Parse(Step));
                     break;
                 case float @float:
-                    Step ??= "0.01";
                     val = (TValue)(object)(@float + float.Parse(Step));
                     break;
                 case double @double:
-                    Step ??= "0.01";
                     val = (TValue)(object)(@double + double.Parse(Step));
                     break;
                 case decimal @decimal:
-                    Step ??= "0.01";
                     val = (TValue)(object)(@decimal + decimal.Parse(Step));
                     break;
             }
