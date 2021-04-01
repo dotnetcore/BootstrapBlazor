@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -96,7 +96,8 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         {
             // 处理过滤与高级搜索
             var query = _db.Set<TModel>()
-                .Where(option.Filters.Concat(option.Searchs).GetFilterLambda<TModel>(), option.Filters.Any() || option.Searchs.Any())
+                .Where(option.Searchs.GetFilterLambda<TModel>(FilterLogic.Or), option.Searchs.Any())
+                .Where(option.Filters.GetFilterLambda<TModel>(), option.Filters.Any())
                 .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
                 .Count(out var count)
                 .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
