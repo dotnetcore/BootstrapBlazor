@@ -314,11 +314,6 @@ namespace BootstrapBlazor.Components
         protected IEnumerable<ITableColumn>? FilterColumns { get; set; }
 
         /// <summary>
-        /// 获得 起始行号
-        /// </summary>
-        protected int StarRowIndex { get; set; }
-
-        /// <summary>
         /// 获得/设置 组件是否渲染完毕 默认 false
         /// </summary>
         public bool IsRendered { get; set; }

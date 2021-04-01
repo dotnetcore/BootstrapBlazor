@@ -167,7 +167,6 @@
             }
             else
             {
-                StarRowIndex = (PageIndex - 1) * PageItems + 1;
                 foreach (var item in Items)
                 {
                     <DynamicElement class="@GetRowClassString(item, "table-row")"
@@ -183,7 +182,7 @@
                         {
                             <div class="table-cell">
                                 <label>@LineNoText</label>
-                                <span>@(StarRowIndex++)</span>
+                                <span>@(Items.ToList().IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
                         @foreach (var col in Columns)
