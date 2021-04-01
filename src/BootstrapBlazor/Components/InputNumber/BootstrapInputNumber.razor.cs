@@ -7,7 +7,6 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -100,7 +99,6 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             ParsingErrorMessage = Localizer[nameof(ParsingErrorMessage)]!;
-            Step ??= "1";
         }
 
         /// <summary>
@@ -133,7 +131,7 @@ namespace BootstrapBlazor.Components
         protected override string? FormatValueAsString(TValue? value) => Formatter != null
             ? Formatter.Invoke(value)
             : (!string.IsNullOrEmpty(FormatString) && value != null
-                ? Utility.Format((object)value, FormatString)
+                ? Utility.Format(value, FormatString)
                 : value switch
                 {
                     null => null,
@@ -152,32 +150,35 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private void OnClickDec()
         {
-            if (!string.IsNullOrEmpty(Step))
+            var val = CurrentValue;
+            switch (val)
             {
-                TValue val = CurrentValue;
-                switch (val)
-                {
-                    case int @int:
-                        val = (TValue)(object)(@int - int.Parse(Step));
-                        break;
-                    case long @long:
-                        val = (TValue)(object)(@long - long.Parse(Step));
-                        break;
-                    case short @short:
-                        val = (TValue)(object)(short)(@short - short.Parse(Step));
-                        break;
-                    case float @float:
-                        val = (TValue)(object)(@float - float.Parse(Step));
-                        break;
-                    case double @double:
-                        val = (TValue)(object)(@double - double.Parse(Step));
-                        break;
-                    case decimal @decimal:
-                        val = (TValue)(object)(@decimal - decimal.Parse(Step));
-                        break;
-                }
-                CurrentValue = SetMax(SetMin(val));
+                case int @int:
+                    Step ??= "1";
+                    val = (TValue)(object)(@int - int.Parse(Step));
+                    break;
+                case long @long:
+                    Step ??= "1";
+                    val = (TValue)(object)(@long - long.Parse(Step));
+                    break;
+                case short @short:
+                    Step ??= "1";
+                    val = (TValue)(object)(short)(@short - short.Parse(Step));
+                    break;
+                case float @float:
+                    Step ??= "0.01";
+                    val = (TValue)(object)(@float - float.Parse(Step));
+                    break;
+                case double @double:
+                    Step ??= "0.01";
+                    val = (TValue)(object)(@double - double.Parse(Step));
+                    break;
+                case decimal @decimal:
+                    Step ??= "0.01";
+                    val = (TValue)(object)(@decimal - decimal.Parse(Step));
+                    break;
             }
+            CurrentValue = SetMax(SetMin(val));
         }
 
         /// <summary>
@@ -186,32 +187,35 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private void OnClickInc()
         {
-            if (!string.IsNullOrEmpty(Step))
+            var val = CurrentValue;
+            switch (val)
             {
-                TValue val = CurrentValue;
-                switch (val)
-                {
-                    case int @int:
-                        val = (TValue)(object)(@int + int.Parse(Step));
-                        break;
-                    case long @long:
-                        val = (TValue)(object)(@long + long.Parse(Step));
-                        break;
-                    case short @short:
-                        val = (TValue)(object)(short)(@short + short.Parse(Step));
-                        break;
-                    case float @float:
-                        val = (TValue)(object)(@float + float.Parse(Step));
-                        break;
-                    case double @double:
-                        val = (TValue)(object)(@double + double.Parse(Step));
-                        break;
-                    case decimal @decimal:
-                        val = (TValue)(object)(@decimal + decimal.Parse(Step));
-                        break;
-                }
-                CurrentValue = SetMax(SetMin(val));
+                case int @int:
+                    Step ??= "1";
+                    val = (TValue)(object)(@int + int.Parse(Step));
+                    break;
+                case long @long:
+                    Step ??= "1";
+                    val = (TValue)(object)(@long + long.Parse(Step));
+                    break;
+                case short @short:
+                    Step ??= "1";
+                    val = (TValue)(object)(short)(@short + short.Parse(Step));
+                    break;
+                case float @float:
+                    Step ??= "0.01";
+                    val = (TValue)(object)(@float + float.Parse(Step));
+                    break;
+                case double @double:
+                    Step ??= "0.01";
+                    val = (TValue)(object)(@double + double.Parse(Step));
+                    break;
+                case decimal @decimal:
+                    Step ??= "0.01";
+                    val = (TValue)(object)(@decimal + decimal.Parse(Step));
+                    break;
             }
+            CurrentValue = SetMax(SetMin(val));
         }
 
         /// <summary>
