@@ -3,8 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -41,7 +43,12 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示文字
         /// </summary>
         [Parameter]
+        [NotNull]
         public Placement Placement { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IOptions<BootstrapBlazorOptions>? Options { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -50,7 +57,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            Placement = Placement.BottomEnd;
+            Placement = Options.Value.ToastPlacement ?? Placement.BottomEnd;
 
             // 注册 Toast 弹窗事件
             if (ToastService != null)

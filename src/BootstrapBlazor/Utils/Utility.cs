@@ -204,6 +204,38 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 泛型 Copy 方法
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// <returns></returns>
+        public static void Copy<TModel>(TModel source, TModel destination) where TModel : class
+        {
+            if (source != null && destination != null)
+            {
+                var type = source.GetType();
+                var valType = destination.GetType();
+                if (valType != null)
+                {
+                    type.GetFields().ToList().ForEach(f =>
+                    {
+                        var v = f.GetValue(source);
+                        valType.GetField(f.Name)?.SetValue(destination, v);
+                    });
+                    type.GetProperties().ToList().ForEach(p =>
+                    {
+                        if (p.CanWrite)
+                        {
+                            var v = p.GetValue(source);
+                            valType.GetProperty(p.Name)?.SetValue(destination, v);
+                        }
+                    });
+                }
+            }
+        }
+
+        /// <summary>
         /// 通过指定 Model 获得 IEditorItem 集合方法
         /// </summary>
         /// <param name="predicate"></param>
