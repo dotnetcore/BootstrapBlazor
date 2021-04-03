@@ -33,7 +33,7 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 
+        /// 获得/设置 上传文件集合
         /// </summary>
         [NotNull]
         protected List<UploadFile>? UploadFiles { get; set; }
@@ -52,16 +52,18 @@ namespace BootstrapBlazor.Components
         public bool ShowProgress { get; set; }
 
         /// <summary>
-        /// OnParametersSet 方法
+        /// OnInitialized 方法
         /// </summary>
-        protected override void OnParametersSet()
+        protected override void OnInitialized()
         {
-            base.OnParametersSet();
+            base.OnInitialized();
+
+            // 保证 UplaodFiles 不为空
             UploadFiles ??= new List<UploadFile>();
 
+            // 如果默认预览文件集合有值时增加到文件集合中
             if (DefaultFileList != null)
             {
-                UploadFiles.Clear();
                 UploadFiles.AddRange(DefaultFileList);
             }
         }
