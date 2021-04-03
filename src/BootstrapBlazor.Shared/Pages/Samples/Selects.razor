@@ -63,6 +63,14 @@
             </div>
         </div>
     </div>
+    <p>下拉框内选项 <b>禁用</b> 示例</p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items4" />
+            </div>
+        </div>
+    </div>
 </Block>
 
 <Block Title="Select 双向绑定" Introduction="通过 <code>Select</code> 组件绑定 <code>Model.Name</code> 属性，改变下拉框选项时，文本框内的数值随之改变。">
@@ -183,7 +191,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <Select  @bind-Value="@SelectedEnumItem">
+                <Select @bind-Value="@SelectedEnumItem">
                 </Select>
             </div>
             <div class="form-group col-12 col-sm-6">

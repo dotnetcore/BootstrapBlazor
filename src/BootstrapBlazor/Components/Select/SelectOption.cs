@@ -30,6 +30,12 @@ namespace BootstrapBlazor.Components
         public bool Active { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否禁用
+        /// </summary>
+        [Parameter]
+        public bool IsDisabled { get; set; }
+
+        /// <summary>
         /// 获得/设置 分组名称
         /// </summary>
         [Parameter]
@@ -51,12 +57,13 @@ namespace BootstrapBlazor.Components
             Container?.Add(ToSelectedItem());
         }
 
-        private SelectedItem ToSelectedItem() => new SelectedItem
+        private SelectedItem ToSelectedItem() => new()
         {
             Active = Active,
             GroupName = GroupName,
             Text = Text,
-            Value = Value
+            Value = Value,
+            IsDisabled = IsDisabled
         };
     }
 }

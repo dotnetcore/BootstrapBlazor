@@ -8,6 +8,15 @@
     cursor: pointer;
 }
 
+    .form-select .dropdown-menu .dropdown-item.is-disabled {
+        color: #c0c4cc;
+        cursor: not-allowed;
+    }
+
+        .form-select .dropdown-menu .dropdown-item.is-disabled:active {
+            background-color: #f8f9fa;
+        }
+
 .dropdown-menu-arrow {
     width: 0;
     height: 0;

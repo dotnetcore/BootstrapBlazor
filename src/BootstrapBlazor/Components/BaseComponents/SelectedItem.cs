@@ -35,6 +35,11 @@ namespace BootstrapBlazor.Components
         public bool Active { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否禁用
+        /// </summary>
+        public bool IsDisabled { get; set; }
+
+        /// <summary>
         /// 获得/设置 分组名称
         /// </summary>
         public string GroupName { get; set; } = "";

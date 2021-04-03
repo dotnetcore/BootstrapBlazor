@@ -53,6 +53,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
             .AddClass("active", () => item.Value == CurrentValueAsString)
+            .AddClass("is-disabled", item.IsDisabled)
             .Build();
 
         /// <summary>
