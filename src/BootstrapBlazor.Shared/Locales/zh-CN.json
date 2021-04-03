@@ -1,4 +1,7 @@
 ﻿{
+  "BootstrapBlazor.Shared.App": {
+    "Title": "Bootstrap Blazor - 企业级 UI 组件库"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",
     "SubTitle": "示例"

@@ -35,6 +35,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddScoped<ToastService>();
             services.TryAddScoped<SwalService>();
             services.TryAddScoped<TabItemTextOptions>();
+            services.TryAddScoped<TitleService>();
             services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {

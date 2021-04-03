@@ -1,8 +1,10 @@
-﻿@using Microsoft.Extensions.Localization
-@layout HomeLayout
+﻿@layout HomeLayout
 @page "/"
 @page "/index"
 @page "/home"
+@inject IStringLocalizer<App> Localizer
+
+<Title Text="@Localizer["Title"]"></Title>
 
 <section class="home-section">
     <div class="welcome container">

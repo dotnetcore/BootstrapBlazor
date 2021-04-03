@@ -501,6 +501,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Title/Title.cs.min.js",
+    "inputFiles": [
+      "Components/Title/Title.cs.js"
+    ]
+  },
+  {
     "outputFileName": "Components/Toast/Toast.razor.cs.min.js",
     "inputFiles": [
       "Components/Toast/Toast.razor.cs.js"
@@ -548,7 +554,7 @@
       "Components/ColorPicker/ColorPicker.razor.cs.min.js",
       "Components/Console/Console.razor.cs.min.js",
       "Components/DateTimePicker/DateTimePicker.razor.cs.min.js",
-      "Components/DateTimePicker/TimePickerBody.razor.cs.js",
+      "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
       "Components/Drawer/Drawer.razor.cs.min.js",
       "Components/Editor/Editor.razor.cs.min.js",
@@ -568,6 +574,7 @@
       "Components/Tab/Tab.razor.cs.min.js",
       "Components/Table/Table.razor.cs.min.js",
       "Components/Table/Filter/TableFilter.razor.cs.min.js",
+      "Components/Title/Title.cs.min.js",
       "Components/Toast/Toast.razor.cs.min.js",
       "Components/Tooltip/Tooltip.cs.min.js",
       "Components/Tree/Tree.razor.cs.min.js",

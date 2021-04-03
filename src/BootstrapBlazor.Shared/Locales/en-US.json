@@ -1,4 +1,7 @@
 ﻿{
+  "BootstrapBlazor.Shared.App": {
+    "Title": "Bootstrap of Blazor"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

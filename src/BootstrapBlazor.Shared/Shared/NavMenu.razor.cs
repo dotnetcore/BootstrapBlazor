@@ -4,7 +4,10 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +19,10 @@ namespace BootstrapBlazor.Shared.Shared
     public sealed partial class NavMenu
     {
         private bool collapseNavMenu = true;
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<App>? Localizer { get; set; }
 
         private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
             .AddClass("collapse", collapseNavMenu)
@@ -39,6 +46,11 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 ToggleNavMenu();
                 StateHasChanged();
+            }
+
+            if (!string.IsNullOrEmpty(item.Text))
+            {
+                await TitleService.SetWebSiteTitle($"{item.Text} - {Localizer["Title"]}");
             }
         }
 
@@ -372,6 +384,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
                 Text = "网站标题 Title",
                 Url = "titles"
             });
