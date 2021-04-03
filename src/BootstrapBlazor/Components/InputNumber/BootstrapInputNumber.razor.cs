@@ -65,7 +65,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 步长 默认为 null
         /// </summary>
         [Parameter]
-        [NotNull]
         public string? Step { get; set; }
 
         /// <summary>
@@ -103,6 +102,15 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             ParsingErrorMessage = Localizer[nameof(ParsingErrorMessage)];
+        }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
             SetStep();
         }
 
@@ -154,14 +162,14 @@ namespace BootstrapBlazor.Components
             var val = CurrentValue;
             switch (val)
             {
-                case int @int:
-                case long @long:
-                case short @short:
+                case int:
+                case long:
+                case short:
                     StepString = Step ?? "1";
                     break;
-                case float @float:
-                case double @double:
-                case decimal @decimal:
+                case float:
+                case double:
+                case decimal:
                     StepString = Step ?? "0.01";
                     break;
             }
@@ -177,22 +185,22 @@ namespace BootstrapBlazor.Components
             switch (val)
             {
                 case int @int:
-                    val = (TValue)(object)(@int - int.Parse(Step));
+                    val = (TValue)(object)(@int - int.Parse(StepString));
                     break;
                 case long @long:
-                    val = (TValue)(object)(@long - long.Parse(Step));
+                    val = (TValue)(object)(@long - long.Parse(StepString));
                     break;
                 case short @short:
-                    val = (TValue)(object)(short)(@short - short.Parse(Step));
+                    val = (TValue)(object)(short)(@short - short.Parse(StepString));
                     break;
                 case float @float:
-                    val = (TValue)(object)(@float - float.Parse(Step));
+                    val = (TValue)(object)(@float - float.Parse(StepString));
                     break;
                 case double @double:
-                    val = (TValue)(object)(@double - double.Parse(Step));
+                    val = (TValue)(object)(@double - double.Parse(StepString));
                     break;
                 case decimal @decimal:
-                    val = (TValue)(object)(@decimal - decimal.Parse(Step));
+                    val = (TValue)(object)(@decimal - decimal.Parse(StepString));
                     break;
             }
             CurrentValue = SetMax(SetMin(val));
@@ -208,22 +216,22 @@ namespace BootstrapBlazor.Components
             switch (val)
             {
                 case int @int:
-                    val = (TValue)(object)(@int + int.Parse(Step));
+                    val = (TValue)(object)(@int + int.Parse(StepString));
                     break;
                 case long @long:
-                    val = (TValue)(object)(@long + long.Parse(Step));
+                    val = (TValue)(object)(@long + long.Parse(StepString));
                     break;
                 case short @short:
-                    val = (TValue)(object)(short)(@short + short.Parse(Step));
+                    val = (TValue)(object)(short)(@short + short.Parse(StepString));
                     break;
                 case float @float:
-                    val = (TValue)(object)(@float + float.Parse(Step));
+                    val = (TValue)(object)(@float + float.Parse(StepString));
                     break;
                 case double @double:
-                    val = (TValue)(object)(@double + double.Parse(Step));
+                    val = (TValue)(object)(@double + double.Parse(StepString));
                     break;
                 case decimal @decimal:
-                    val = (TValue)(object)(@decimal + decimal.Parse(Step));
+                    val = (TValue)(object)(@decimal + decimal.Parse(StepString));
                     break;
             }
             CurrentValue = SetMax(SetMin(val));
