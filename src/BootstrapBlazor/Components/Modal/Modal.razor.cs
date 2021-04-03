@@ -174,7 +174,11 @@ namespace BootstrapBlazor.Components
 
             if (disposing)
             {
-                var _ = JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose");
+                Task.Run(async () =>
+                {
+                    await Task.Delay(50);
+                    await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose");
+                });
             }
         }
     }

@@ -91,34 +91,34 @@
 
 @code
 {
-        static bool Installable = false;
+    static bool Installable = false;
 
-        [NotNull]
-        static Action? OnInstallable { get; set; }
+    [NotNull]
+    static Action? OnInstallable { get; set; }
 
-        /// <summary>
-        ///
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            OnInstallable = () => InvokeAsync(StateHasChanged);
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        [JSInvokable]
-        public static Task PWAInstallable()
-        {
-            Installable = true;
-            OnInstallable.Invoke();
-            return Task.CompletedTask;
-        }
-
-        private async Task InstallClicked()
-        {
-            Installable = false;
-            await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
-        }
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        OnInstallable = () => InvokeAsync(StateHasChanged);
     }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public static Task PWAInstallable()
+    {
+        Installable = true;
+        OnInstallable.Invoke();
+        return Task.CompletedTask;
+    }
+
+    private async Task InstallClicked()
+    {
+        Installable = false;
+        await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
+    }
+}

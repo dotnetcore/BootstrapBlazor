@@ -33,14 +33,13 @@ namespace BootstrapBlazor.Shared.Shared
             InitMenus();
         }
 
-        private Task OnClickMenu(MenuItem item)
+        private async Task OnClickMenu(MenuItem item)
         {
             if (!item.Items.Any())
             {
                 ToggleNavMenu();
                 StateHasChanged();
             }
-            return Task.CompletedTask;
         }
 
         private void ToggleNavMenu()
@@ -370,6 +369,11 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "时间线 Timeline",
                 Url = "timelines"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = "网站标题 Title",
+                Url = "titles"
             });
             item.AddItem(new DemoMenuItem()
             {
