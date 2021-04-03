@@ -26,6 +26,14 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected string? InnerClassString => CssBuilder.Default("checkbox-inner")
+            .AddClass($"bg-primary border-primary", Color == Color.None)
+            .AddClass($"bg-{Color.ToDescriptionString()} border-{Color.ToDescriptionString()}", Color != Color.None)
+            .Build();
+
+        /// <summary>
         /// 获得 复选框状态字符串
         /// </summary>
         protected string StateString => State switch
@@ -39,6 +47,12 @@ namespace BootstrapBlazor.Components
         /// 判断双向绑定类型是否为 boolean 类型
         /// </summary>
         private bool IsBoolean { get; set; }
+
+        /// <summary>
+        /// 获得/设置 按钮颜色
+        /// </summary>
+        [Parameter]
+        public Color Color { get; set; } = Color.Primary;
 
         /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false

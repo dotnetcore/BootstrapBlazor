@@ -196,6 +196,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "多选框 Checkbox",
                 Url = "checkboxs"
             });
@@ -251,6 +252,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "选择器 Select",
                 Url = "selects"
             });
