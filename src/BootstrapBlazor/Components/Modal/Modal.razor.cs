@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -161,6 +161,20 @@ namespace BootstrapBlazor.Components
             {
                 // 全部关闭
                 await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "hide");
+            }
+        }
+
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                var _ = JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose");
             }
         }
     }
