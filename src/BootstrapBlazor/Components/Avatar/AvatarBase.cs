@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -78,9 +80,29 @@ namespace BootstrapBlazor.Components
         public bool IsBorder { get; set; }
 
         /// <summary>
+        /// 获得/设置 获取图片地址异步回调方法
+        /// </summary>
+        [Parameter]
+        public Func<Task<string>>? GetUrlAsync { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示图片
         /// </summary>
         protected bool? IsLoaded { get; set; }
+
+        /// <summary>
+        /// OnInitializedAsync 方法
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            if (Url == null && GetUrlAsync != null)
+            {
+                Url = await GetUrlAsync();
+            }
+        }
 
         /// <summary>
         /// 图片加载失败时回调此方法
