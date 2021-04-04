@@ -2,47 +2,53 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    /// Display 组件示例
     /// </summary>
-    public partial class Inputs
+    public partial class Displays
     {
-        private string? PlaceHolderText { get; set; }
+        [NotNull]
+        private Foo? Model { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
+
+        [NotNull]
+        private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
         private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
 
         private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
 
-        private Foo Model { get; set; } = new Foo() { Name = "张三" };
-
         private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
 
         /// <summary>
-        /// 
+        /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            PlaceHolderText = Localizer["PlaceHolder"];
+            Model = Foo.Generate(Localizer);
+            Model.Hobby = Foo.GenerateHobbys(Localizer).Take(3).Select(i => i.Text);
+            Hobbys = Foo.GenerateHobbys(Localizer);
         }
 
         private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description = "验证控件",
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
             new AttributeItem() {
                 Name = "ShowLabel",
                 Description = "是否显示前置标签",
@@ -70,22 +76,6 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "type",
-                Description = "控件类型",
-                Type = "string",
-                ValueList = "text / number / email / url / password",
-                DefaultValue = "text"
-            },
-            new AttributeItem()
-            {
-                Name = "IsDisabled",
-                Description = "是否禁用 默认为 fasle",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
             }
         };
     }

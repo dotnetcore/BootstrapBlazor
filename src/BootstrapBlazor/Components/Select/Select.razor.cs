@@ -85,9 +85,8 @@ namespace BootstrapBlazor.Components
             if (!Items.Any() && t.IsEnum())
             {
                 var item = "";
-
                 // 如果可为空枚举增加 请选择 ...
-                if (Nullable.GetUnderlyingType(t) != null)
+                if (NullableUnderlyingType != null)
                 {
                     // 优先查找 placeholder 字样 如果未设置使用资源文件中
                     if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var pl))
@@ -99,7 +98,6 @@ namespace BootstrapBlazor.Components
                         item = Localizer["PlaceHolder"].Value;
                     }
                 }
-
                 Items = typeof(TValue).ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
             }
         }

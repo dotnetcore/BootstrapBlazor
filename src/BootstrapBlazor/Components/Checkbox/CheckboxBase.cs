@@ -29,7 +29,6 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         protected string? InnerClassString => CssBuilder.Default("checkbox-inner")
-            .AddClass($"bg-primary border-primary", Color == Color.None)
             .AddClass($"bg-{Color.ToDescriptionString()} border-{Color.ToDescriptionString()}", Color != Color.None)
             .Build();
 
@@ -52,7 +51,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 按钮颜色
         /// </summary>
         [Parameter]
-        public Color Color { get; set; } = Color.Primary;
+        public Color Color { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false

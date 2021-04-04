@@ -84,6 +84,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Display/Display.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Display/Display.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Drawer/Drawer.razor.cs.min.css",
     "inputFiles": [
       "Components/Drawer/Drawer.razor.cs.css"
@@ -267,6 +273,7 @@
       "Components/DateTimePicker/DateTimePicker.razor.cs.min.css",
       "Components/DateTimePicker/TimePickerBody.razor.cs.min.css",
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
+      "Components/Display/Display.razor.cs.min.css",
       "Components/Drawer/Drawer.razor.cs.min.css",
       "Components/Editor/Editor.razor.cs.min.css",
       "Components/GoTop/GoTop.razor.cs.min.css",

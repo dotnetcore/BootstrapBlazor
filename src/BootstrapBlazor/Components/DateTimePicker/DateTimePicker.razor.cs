@@ -196,10 +196,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 格式化数值方法
         /// </summary>
-        protected override string FormatValueAsString(TValue? value)
+        protected override string FormatValueAsString(TValue value)
         {
             var ret = "";
-            if (Value != null)
+            if (value != null)
             {
                 var format = Format;
                 if (string.IsNullOrEmpty(format))

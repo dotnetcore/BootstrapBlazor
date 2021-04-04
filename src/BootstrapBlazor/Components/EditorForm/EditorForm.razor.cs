@@ -63,6 +63,12 @@ namespace BootstrapBlazor.Components
         public bool? ShowLabel { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示为 Display 组件 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisplay { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否自动生成模型的所有属性 默认为 true 生成所有属性
         /// </summary>
         [Parameter]
@@ -227,19 +233,32 @@ namespace BootstrapBlazor.Components
                 var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
                 var valueExpression = Expression.Lambda(tDelegate, body);
 
-                var componentType = item.ComponentType ?? EditorForm<TModel>.GenerateComponent(fieldType, item.Rows != 0);
-                builder.OpenComponent(0, componentType);
-                builder.AddAttribute(1, "DisplayText", displayName);
-                builder.AddAttribute(2, "Value", fieldValue);
-                builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
-                builder.AddAttribute(4, "ValueExpression", valueExpression);
-                builder.AddAttribute(5, "IsDisabled", item.Readonly);
-                if (IsCheckboxList(fieldType) && item.Data != null)
+                if (IsDisplay)
                 {
-                    builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
+                    builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
+                    builder.AddAttribute(1, "DisplayText", displayName);
+                    builder.AddAttribute(2, "Value", fieldValue);
+                    builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
+                    builder.AddAttribute(4, "ValueExpression", valueExpression);
+                    builder.AddAttribute(5, "ShowLabel", ShowLabel ?? true);
+                    builder.CloseComponent();
                 }
-                builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, fieldName, item));
-                builder.CloseComponent();
+                else
+                {
+                    var componentType = item.ComponentType ?? EditorForm<TModel>.GenerateComponent(fieldType, item.Rows != 0);
+                    builder.OpenComponent(0, componentType);
+                    builder.AddAttribute(1, "DisplayText", displayName);
+                    builder.AddAttribute(2, "Value", fieldValue);
+                    builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
+                    builder.AddAttribute(4, "ValueExpression", valueExpression);
+                    builder.AddAttribute(5, "IsDisabled", item.Readonly);
+                    if (IsCheckboxList(fieldType) && item.Data != null)
+                    {
+                        builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
+                    }
+                    builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, fieldName, item));
+                    builder.CloseComponent();
+                }
             }
         };
 

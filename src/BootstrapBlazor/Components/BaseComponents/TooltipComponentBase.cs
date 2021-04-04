@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 提供 Tooltip 功能的组件
     /// </summary>
-    public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IDisposable
+    public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IAsyncDisposable
     {
         /// <summary>
         /// 获得/设置 ITooltip 实例
@@ -29,9 +29,13 @@ namespace BootstrapBlazor.Components
             if (firstRender && Tooltip != null)
             {
                 if (Tooltip.PopoverType == PopoverType.Tooltip)
+                {
                     await ShowTooltip();
+                }
                 else
+                {
                     await ShowPopover();
+                }
             }
         }
 
@@ -103,10 +107,11 @@ namespace BootstrapBlazor.Components
         protected virtual string RetrieveTrigger() => Tooltip?.Trigger ?? "hover focus";
 
         /// <summary>
-        /// Dispose 方法
+        /// DisposeAsync 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        /// <returns></returns>
+        protected virtual async ValueTask DisposeAsync(bool disposing)
         {
             if (disposing && Tooltip != null)
             {
@@ -114,11 +119,20 @@ namespace BootstrapBlazor.Components
                 if (!string.IsNullOrEmpty(id))
                 {
                     if (Tooltip.PopoverType == PopoverType.Tooltip)
-                        _ = JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                    {
+                        await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                    }
                     else
-                        _ = JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                    {
+                        await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                    }
                 }
             }
         }
+
+        /// <summary>
+        /// DisposeAsync 方法
+        /// </summary>
+        public ValueTask DisposeAsync() => DisposeAsync(true);
     }
 }

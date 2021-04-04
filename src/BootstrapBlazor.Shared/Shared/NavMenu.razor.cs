@@ -345,6 +345,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "数据显示 Display",
+                Url = "displays"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "挂件 DropdownWidget",
                 Url = "dropdownwidgets"
             });

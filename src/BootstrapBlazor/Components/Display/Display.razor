@@ -1,0 +1,9 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits DisplayBase<TValue>
+
+@if (IsShowLabel)
+{
+    <label class="control-label is-display">@DisplayText</label>
+}
+<div @attributes="AdditionalAttributes" class="form-control is-display">@CurrentTextAsString</div>

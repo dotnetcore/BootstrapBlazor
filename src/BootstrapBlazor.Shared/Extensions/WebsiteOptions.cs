@@ -93,6 +93,11 @@ namespace BootstrapBlazor.Shared
         public string CurrentTheme { get; set; } = "";
 
         /// <summary>
+        /// 获得/设置 组件总数
+        /// </summary>
+        public int TotalCount { get; set; }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         public WebsiteOptions()

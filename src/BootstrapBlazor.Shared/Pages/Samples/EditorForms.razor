@@ -22,11 +22,8 @@
                 <EditorItem @bind-Field="@Model.Complete" Editable="false" />
                 <EditorItem @bind-Field="@Model.Hobby">
                     <EditTemplate Context="value">
-                        @{
-                            var model = value as Foo;
-                        }
                         <div class="form-group col-12">
-                            <CheckboxList @bind-Value="@model!.Hobby" Items="@Hobbys" />
+                            <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
                         </div>
                     </EditTemplate>
                 </EditorItem>
@@ -45,14 +42,11 @@
         <ValidateForm Model="@ValidateModel">
             <EditorForm TModel="Foo">
                 <FieldItems>
-                    <EditorItem @bind-Field="@Model.DateTime" Readonly="true" />
-                    <EditorItem @bind-Field="@Model.Hobby">
+                    <EditorItem @bind-Field="@ValidateModel.DateTime" Readonly="true" />
+                    <EditorItem @bind-Field="@ValidateModel.Hobby">
                         <EditTemplate Context="value">
-                            @{
-                                var model = value as Foo;
-                            }
                             <div class="form-group col-12">
-                                <CheckboxList @bind-Value="@model!.Hobby" Items="@Hobbys" />
+                                <CheckboxList @bind-Value="@ValidateModel.Hobby" Items="@Hobbys" />
                             </div>
                         </EditTemplate>
                     </EditorItem>
@@ -114,7 +108,7 @@
                     <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
                 </FieldItems>
                 <Buttons>
-                    <Button Icon="fa fa-save" Text="提交" />
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
                 </Buttons>
             </EditorForm>
         </ValidateForm>
