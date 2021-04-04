@@ -183,6 +183,12 @@ namespace BootstrapBlazor.Components
                     {
                         var validator = ValidatorCache[key];
 
+                        // 单独处理 Upload 组件
+                        if (validator is IUpload uploader)
+                        {
+                            propertyValue = uploader.UploadFile?.File;
+                        }
+
                         if (!validator.IsDisabled && !validator.SkipValidate)
                         {
                             var messages = new List<ValidationResult>();
@@ -250,13 +256,15 @@ namespace BootstrapBlazor.Components
             var attributeSpan = "Attribute".AsSpan();
             foreach (var rule in rules)
             {
-                if (rule.GetValidationResult(value, context) != ValidationResult.Success)
+                var result = rule.GetValidationResult(value, context);
+                if (result != null && result != ValidationResult.Success)
                 {
                     // 查找 resx 资源文件中的 ErrorMessage
                     var ruleNameSpan = rule.GetType().Name.AsSpan();
                     var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
                     var ruleName = rule.GetType().Name.AsSpan().Slice(0, index);
                     var isResx = false;
+                    rule.ErrorMessage = result.ErrorMessage;
                     if (!string.IsNullOrEmpty(rule.ErrorMessage))
                     {
                         var resxType = Options.Value.ResourceManagerStringLocalizerType;

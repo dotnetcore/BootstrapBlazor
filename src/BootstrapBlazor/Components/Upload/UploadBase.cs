@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Upload 组件基类
     /// </summary>
-    public abstract class UploadBase<TValue> : ValidateBase<TValue>
+    public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         /// <summary>
         /// 获得 组件样式
@@ -26,6 +26,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Upload 组件实例
         /// </summary>
         protected ElementReference UploaderElement { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected UploadFile? CurrentFile { get; set; }
+
+        UploadFile? IUpload.UploadFile { get => CurrentFile; set => CurrentFile = value; }
 
         /// <summary>
         /// 获得/设置 上传接收的文件格式 默认为 null 接收任意格式

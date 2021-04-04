@@ -25,8 +25,6 @@ namespace BootstrapBlazor.Components
 
         private bool IsDeleteButtonDisabled => IsDisabled || CurrentFile == null;
 
-        private UploadFile? CurrentFile { get; set; }
-
         private string? BrowserButtonClassString => CssBuilder.Default("btn btn-browser")
             .AddClass(BrowserButtonClass)
             .Build();
@@ -103,8 +101,6 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            //CurrentValue = args.File;
-
             CurrentFile = new UploadFile()
             {
                 OriginFileName = args.File.Name,
