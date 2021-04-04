@@ -57,7 +57,6 @@ namespace BootstrapBlazor.Server
             services.AddControllers();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddCultureStorage();
 
             services.AddBlazorBackgroundTask();
 

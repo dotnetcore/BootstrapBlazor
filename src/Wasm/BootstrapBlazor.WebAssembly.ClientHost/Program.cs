@@ -53,8 +53,6 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
                 options.RepositoryUrl = "https://www.blazor.zone/api/docs/";
             });
 
-            builder.Services.AddSingleton<ICultureStorage, DefaultCultureStorage>();
-
             builder.Services.Configure<BootstrapBlazorOptions>(op =>
             {
                 op.ToastDelay = 4000;
@@ -84,11 +82,6 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
                 CultureInfo.DefaultThreadCurrentCulture = culture;
                 CultureInfo.DefaultThreadCurrentUICulture = culture;
             }
-        }
-
-        internal class DefaultCultureStorage : ICultureStorage
-        {
-            public CultureStorageMode Mode { get; set; } = CultureStorageMode.LocalStorage;
         }
     }
 }

@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "fa fa-exclamation-circle text-info"
             },
             new AttributeItem() {
-                Name = "Cotent",
+                Name = "Content",
                 Description = "显示文字",
                 Type = "string",
                 ValueList = "",
