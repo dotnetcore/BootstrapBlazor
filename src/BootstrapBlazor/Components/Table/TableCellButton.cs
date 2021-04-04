@@ -12,25 +12,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 单元格内按钮组件
     /// </summary>
-    public class TableCellButton<TItem> : Button where TItem : class, new()
+    public class TableCellButton : Button
     {
-        /// <summary>
-        /// 获得/设置 当前行绑定数据
-        /// </summary>
-        [Parameter]
-        public TItem? Item { get; set; }
-
         /// <summary>
         /// 获得/设置 按钮点击后的回调方法
         /// </summary>
         [Parameter]
-        public Func<TItem, Task>? OnClickCallback { get; set; }
-
-        /// <summary>
-        /// 获得/设置 OnClick 事件不刷新父组件
-        /// </summary>
-        [Parameter]
-        public Func<TItem, Task>? OnClickWithoutRenderCallback { get; set; }
+        public Func<Task>? OnClickCallback { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -39,7 +27,10 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (Size == Size.None) Size = Size.ExtraSmall;
+            if (Size == Size.None)
+            {
+                Size = Size.ExtraSmall;
+            }
 
             OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
@@ -56,13 +47,13 @@ namespace BootstrapBlazor.Components
                 {
                     await OnClick.InvokeAsync(e);
                 }
-                if (Item != null && OnClickWithoutRenderCallback != null)
+                if (OnClickWithoutRender != null)
                 {
-                    await OnClickWithoutRenderCallback.Invoke(Item);
+                    await OnClickWithoutRender();
                 }
-                if (Item != null && OnClickCallback != null)
+                if (OnClickCallback != null)
                 {
-                    await OnClickCallback.Invoke(Item);
+                    await OnClickCallback();
                 }
                 if (IsAsync)
                 {
