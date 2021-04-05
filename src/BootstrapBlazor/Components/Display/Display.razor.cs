@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -33,6 +34,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? FormatString { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据集用于 CheckboxList Select 组件 通过 Value 显示 Text 使用 默认 null
+        /// </summary>
+        [Parameter]
+        public IEnumerable<SelectedItem>? Data { get; set; }
 
         /// <summary>
         /// OnParametersSetAsync 方法
@@ -111,16 +118,19 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private static Func<TValue, string>? _converterEnumerable;
+        private static Func<TValue, string>? _convertEnumerableToString;
+        private static Func<TValue, IEnumerable<string>>? _convertToEnumerableString;
         /// <summary>
         /// 获取属性方法 Lambda 表达式
         /// </summary>
         /// <returns></returns>
-        private static string ConvertEnumerableToString(TValue value)
+        private string ConvertEnumerableToString(TValue value)
         {
-            return (_converterEnumerable ??= ConvertArrayToStringLambda())(value);
+            return Data == null
+                ? (_convertEnumerableToString ??= ConvertEnumerableToStringLambda())(value)
+                : GetTextByValue((_convertToEnumerableString ??= ConvertToEnumerableStringLambda())(value));
 
-            static Func<TValue, string> ConvertArrayToStringLambda()
+            static Func<TValue, string> ConvertEnumerableToStringLambda()
             {
                 Func<TValue, string> ret = _ => "";
                 var typeArguments = typeof(TValue).GenericTypeArguments;
@@ -133,6 +143,37 @@ namespace BootstrapBlazor.Components
                 }
                 return ret;
             }
+
+            static Func<TValue, IEnumerable<string>> ConvertToEnumerableStringLambda()
+            {
+                Func<TValue, IEnumerable<string>> ret = _ => Enumerable.Empty<string>();
+                var typeArguments = typeof(TValue).GenericTypeArguments;
+                var param_p1 = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
+
+                var method = typeof(Display<>).MakeGenericType(typeof(TValue))
+                    .GetMethod("Cast", BindingFlags.NonPublic | BindingFlags.Static)?
+                    .MakeGenericMethod(typeArguments);
+                if (method != null)
+                {
+                    var body = Expression.Call(method, param_p1);
+                    ret = Expression.Lambda<Func<TValue, IEnumerable<string>>>(body, param_p1).Compile();
+                }
+                return ret;
+            }
         }
+
+        private static IEnumerable<string?> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString());
+
+        private string GetTextByValue(IEnumerable<string> source) => Data == null
+            ? ""
+            : string.Join(",", source.Aggregate(new List<string>(), (s, i) =>
+            {
+                var text = Data.FirstOrDefault(d => d.Value.Equals(i, StringComparison.OrdinalIgnoreCase))?.Text;
+                if (text != null)
+                {
+                    s.Add(text);
+                }
+                return s;
+            }));
     }
 }

@@ -110,4 +110,19 @@
     </div>
 </Block>
 
+<Block Title="自动翻译为 Text" Introduction="设置 <code>Data</code> 值为 <code>IEnumerable&lt;SelectedItem&gt;</code> 集合，组件将通过此数据集，进行通过 <code>Value</code> 显示 <code>Text</code> 翻译工作">
+    <p>
+        <div>本例中组件 <code>Value="@@IntValue"</code> 设置 <code>Data="@@IntValueSource"</code> 组件将 <code>Value</code> 值对应的 <code>Text</code> 显示出来</div>
+        <div><b>InitValue</b>: 1,2,3</div>
+        <div><b>IntValueSource</b>: Text1,Text2,Text3</div>
+    </p>
+    <div class="form-inline">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <Display Value="@IntValue" Data="@IntValueSource" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />

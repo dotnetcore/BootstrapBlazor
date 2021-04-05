@@ -32,6 +32,15 @@ namespace BootstrapBlazor.Shared.Pages
 
         private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
 
+        private IEnumerable<int> IntValue { get; set; } = new[] { 1, 2, 3 };
+
+        private IEnumerable<SelectedItem> IntValueSource { get; set; } = new[]
+        {
+            new SelectedItem("1", "Text1"),
+            new SelectedItem("2", "Text2"),
+            new SelectedItem("3", "Text3")
+        };
+
         private static async Task<string> ByteArrayFormatter(byte[] source)
         {
             await Task.Delay(10);
