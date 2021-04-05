@@ -140,7 +140,7 @@
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "Cancel",
     "ConfirmButtonText": "Ok",
-    "Content": "Are you sure DELETE?"
+    "Content": "Are you sure you want to perform this operation?"
   },
   "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "Please input ...",
