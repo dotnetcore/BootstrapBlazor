@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -31,7 +32,11 @@ namespace BootstrapBlazor.Shared.Pages
 
         private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
 
-        private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+        private async Task<string> ByteArrayFormatter(byte[] source)
+        {
+            await Task.Delay(10);
+            return Convert.ToBase64String(source);
+        }
 
         private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
 

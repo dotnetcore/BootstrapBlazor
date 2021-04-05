@@ -23,7 +23,13 @@ namespace BootstrapBlazor.Components
         protected string? CurrentTextAsString { get; set; }
 
         /// <summary>
-        /// 获得/设置 格式化字符串
+        /// 获得/设置 异步格式化字符串
+        /// </summary>
+        [Parameter]
+        public Func<TValue, Task<string>>? FormatterAsync { get; set; }
+
+        /// <summary>
+        /// 获得/设置 同步格式化字符串
         /// </summary>
         [Parameter]
         public Func<TValue, string>? Formatter { get; set; }
@@ -42,7 +48,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnParametersSetAsync();
 
-            CurrentTextAsString = FormatValueAsString(Value);
+            CurrentTextAsString = await FormatTextAsString(Value);
         }
 
         /// <summary>
@@ -50,11 +56,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override string? FormatValueAsString(TValue value) => Formatter != null
-            ? Formatter.Invoke(value)
-            : (!string.IsNullOrEmpty(FormatString) && value != null
-                ? Utility.Format((object)value, FormatString)
-                : FormatText(value));
+        protected virtual async Task<string?> FormatTextAsString(TValue value) => FormatterAsync != null
+            ? await FormatterAsync(value)
+            : Formatter != null
+                ? Formatter(value)
+                : (!string.IsNullOrEmpty(FormatString) && value != null
+                    ? Utility.Format((object)value, FormatString)
+                    : FormatText(value));
 
         private string? FormatText(TValue value)
         {
@@ -70,7 +78,7 @@ namespace BootstrapBlazor.Components
                 {
                     ret = ConvertArrayToString(value);
                 }
-                else if (value is not string && type.IsAssignableTo(typeof(IEnumerable)))
+                else if (type.IsGenericType && type.IsAssignableTo(typeof(IEnumerable)))
                 {
                     // 泛型集合 IEnumerable<TValue>
                     ret = ConvertEnumerableToString(value);
