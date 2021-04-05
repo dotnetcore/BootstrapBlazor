@@ -29,12 +29,6 @@ namespace BootstrapBlazor.Components
         public Func<TValue, Task<string>>? FormatterAsync { get; set; }
 
         /// <summary>
-        /// 获得/设置 同步格式化字符串
-        /// </summary>
-        [Parameter]
-        public Func<TValue, string>? Formatter { get; set; }
-
-        /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
         /// </summary>
         [Parameter]
@@ -58,11 +52,9 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected virtual async Task<string?> FormatTextAsString(TValue value) => FormatterAsync != null
             ? await FormatterAsync(value)
-            : Formatter != null
-                ? Formatter(value)
-                : (!string.IsNullOrEmpty(FormatString) && value != null
-                    ? Utility.Format((object)value, FormatString)
-                    : FormatText(value));
+            : (!string.IsNullOrEmpty(FormatString) && value != null
+                ? Utility.Format((object)value, FormatString)
+                : FormatText(value));
 
         private string? FormatText(TValue value)
         {

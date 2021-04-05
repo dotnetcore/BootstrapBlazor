@@ -6,6 +6,7 @@ using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -26,10 +27,17 @@ namespace BootstrapBlazor.Server.Controllers.Api
         /// <param name="options"></param>
         /// <returns></returns>
         [HttpGet]
-        public Task<string> Get([FromQuery] string fileName, [FromServices] HttpClient client, [FromServices] IOptions<WebsiteOptions> options)
+        public async Task<string> Get([FromQuery] string fileName, [FromServices] HttpClient client, [FromServices] IOptions<WebsiteOptions> options)
         {
+            var ret = "";
             client.BaseAddress = new Uri(options.Value.RepositoryUrl);
-            return client.GetStringAsync(fileName);
+            try
+            {
+                ret = await client.GetStringAsync(fileName);
+            }
+            catch (HttpRequestException ex) { ret = ex.StatusCode == HttpStatusCode.NotFound ? "无" : ex.StatusCode.ToString() ?? "网络错误"; }
+            catch (Exception) { }
+            return ret;
         }
 
         /// <summary>

@@ -32,13 +32,13 @@ namespace BootstrapBlazor.Shared.Pages
 
         private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
 
-        private async Task<string> ByteArrayFormatter(byte[] source)
+        private static async Task<string> ByteArrayFormatter(byte[] source)
         {
             await Task.Delay(10);
             return Convert.ToBase64String(source);
         }
 
-        private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
+        private static Task<string> DateTimeFormatter(DateTime source) => Task.FromResult(source.ToString("yyyy-MM-dd"));
 
         /// <summary>
         /// OnInitialized 方法

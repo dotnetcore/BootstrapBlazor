@@ -69,7 +69,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     content = await Client.GetStringAsync(CodeFile);
                 }
             }
-            catch (HttpRequestException) { content = "无"; }
+            catch (HttpRequestException) { content = "网络错误"; }
             catch (Exception) { }
             return content;
         }
