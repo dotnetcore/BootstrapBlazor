@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Layout
+    public sealed partial class Layout : IAsyncDisposable
     {
         private JSInterop<Layout>? Interop { get; set; }
 
@@ -118,13 +119,16 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// Dispose 方法
+        /// 
         /// </summary>
-        protected override void Dispose(bool disposing)
+        /// <returns></returns>
+        public async ValueTask DisposeAsync()
         {
-            base.Dispose(disposing);
-
-            if (disposing) Interop?.Dispose();
+            if (Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, null, "bb_layout", "dispose");
+                Interop?.Dispose();
+            }
         }
     }
 }

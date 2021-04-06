@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Dialog 对话框组件
     /// </summary>
-    public sealed partial class Dialog
+    public partial class Dialog : IDisposable
     {
         /// <summary>
         /// 获得/设置 Modal 容器组件实例
@@ -116,17 +116,24 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
-        /// 
+        /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 DialogService.UnRegister(this);
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

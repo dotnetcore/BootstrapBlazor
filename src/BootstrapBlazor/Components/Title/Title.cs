@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Title 组件
     /// </summary>
-    public class Title : BootstrapComponentBase
+    public class Title : BootstrapComponentBase, IDisposable
     {
         [Inject]
         [NotNull]
@@ -62,14 +63,21 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 TitleService.UnRegister(this);
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

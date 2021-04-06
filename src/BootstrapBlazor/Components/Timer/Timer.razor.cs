@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Timer
+    public partial class Timer : IDisposable
     {
         /// <summary>
         /// 获得 组件样式字符串
@@ -226,7 +226,7 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -235,8 +235,15 @@ namespace BootstrapBlazor.Components
 
                 ResetEvent.Dispose();
             }
+        }
 
-            base.Dispose(disposing);
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

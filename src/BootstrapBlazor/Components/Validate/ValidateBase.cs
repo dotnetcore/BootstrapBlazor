@@ -436,19 +436,5 @@ namespace BootstrapBlazor.Components
             }
         }
         #endregion
-
-        #region Dispose
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && EditContext != null)
-            {
-                base.Dispose(true);
-            }
-        }
-        #endregion
     }
 }

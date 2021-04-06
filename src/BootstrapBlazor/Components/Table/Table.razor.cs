@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table 组件基类
     /// </summary>
-    public partial class Table<TItem> : BootstrapComponentBase, ITable where TItem : class, new()
+    public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
     {
         private JSInterop<Table<TItem>>? Interop { get; set; }
 
@@ -668,18 +668,26 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
                 Interop?.Dispose();
+                Interop = null;
 
                 AutoRefreshCancelTokenSource?.Cancel();
                 AutoRefreshCancelTokenSource?.Dispose();
                 AutoRefreshCancelTokenSource = null;
             }
+        }
 
-            base.Dispose(disposing);
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

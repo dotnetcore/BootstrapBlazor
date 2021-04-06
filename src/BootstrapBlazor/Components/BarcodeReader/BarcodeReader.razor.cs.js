@@ -13,6 +13,11 @@
             var $el = $(el);
             var codeReader = new ZXing.BrowserMultiFormatReader();
 
+            if (method === 'dispose') {
+                codeReader.reset();
+                return;
+            }
+
             if ($el.attr('data-scan') === 'Camera') {
                 codeReader.getVideoInputDevices().then((videoInputDevices) => {
                     obj.invokeMethodAsync("InitDevices", videoInputDevices).then(() => {

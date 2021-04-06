@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// BarcodeReader 条码扫描
     /// </summary>
-    public sealed partial class BarcodeReader
+    public sealed partial class BarcodeReader : IAsyncDisposable
     {
         private JSInterop<BarcodeReader>? Interop { get; set; }
 
@@ -212,15 +212,14 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// Dispose 方法
+        /// 
         /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        /// <returns></returns>
+        public async ValueTask DisposeAsync()
         {
-            base.Dispose(disposing);
-
-            if (disposing && Interop != null)
+            if (Interop != null)
             {
+                await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "dispose");
                 Interop.Dispose();
             }
         }

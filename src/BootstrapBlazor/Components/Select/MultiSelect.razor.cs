@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// MultiSelect 组件
     /// </summary>
-    public partial class MultiSelect<TValue>
+    public partial class MultiSelect<TValue> : IDisposable
     {
         private string? _oldStringValue;
 
@@ -438,14 +438,23 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
 
-            if (disposing)
+            if (disposing && Interop != null)
             {
-                Interop?.Dispose();
+                Interop.Dispose();
+                Interop = null;
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

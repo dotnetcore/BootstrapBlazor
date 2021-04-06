@@ -110,15 +110,25 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        protected override void Dispose(bool disposing)
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
 
-            if (disposing)
+            if (disposing && Interop != null)
             {
-                Interop?.Dispose();
+                Interop.Dispose();
                 Interop = null;
             }
         }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
     }
 }

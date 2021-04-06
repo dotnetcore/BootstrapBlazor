@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Camera
+    public sealed partial class Camera : IAsyncDisposable
     {
         private ElementReference CameraElement { get; set; }
 
@@ -252,19 +252,12 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// Dispose 方法
+        /// DisposeAsync 方法
         /// </summary>
-        /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        public async ValueTask DisposeAsync()
         {
-            base.Dispose(disposing);
-
-            if (disposing)
-            {
-                var _ = JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop");
-                Interop?.Dispose();
-                Interop = null;
-            }
+            await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop");
+            Interop?.Dispose();
         }
     }
 }

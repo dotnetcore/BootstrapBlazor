@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// TableFilter 基类
     /// </summary>
-    public partial class TableFilter : IFilter
+    public partial class TableFilter : IFilter, IDisposable
     {
         private JSInterop<TableFilter>? Interop { get; set; }
 
@@ -247,14 +248,23 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+
+            if (disposing && Interop != null)
             {
-                Interop?.Dispose();
+                Interop.Dispose();
                 Interop = null;
             }
-            base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

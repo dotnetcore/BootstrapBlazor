@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Toast 弹出窗组件
     /// </summary>
-    public partial class Toast
+    public partial class Toast : IDisposable
     {
         private string? ClassString => CssBuilder.Default("toast-container")
             .AddClassFromAttributes(AdditionalAttributes)
@@ -93,17 +94,24 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 ToastService.UnRegister(this);
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

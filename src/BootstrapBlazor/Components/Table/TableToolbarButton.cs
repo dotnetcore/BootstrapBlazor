@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 表格 Toolbar 按钮组件
     /// </summary>
-    public class TableToolbarButton<TItem> : BootstrapComponentBase, IToolbarButton<TItem>
+    public class TableToolbarButton<TItem> : BootstrapComponentBase, IToolbarButton<TItem>, IDisposable
     {
         /// <summary>
         /// 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画
@@ -76,11 +76,21 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
+            if (disposing)
+            {
+                Toolbar?.RemoveButton(this);
+            }
+        }
 
-            Toolbar?.RemoveButton(this);
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

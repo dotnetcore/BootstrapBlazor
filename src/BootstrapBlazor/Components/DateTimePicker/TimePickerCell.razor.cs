@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 时间选择滚轮单元组件
     /// </summary>
-    public sealed partial class TimePickerCell
+    public partial class TimePickerCell : IDisposable
     {
         private ElementReference TimeCellElement { get; set; }
 
@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                if(Interop == null)
+                if (Interop == null)
                 {
                     Interop = new JSInterop<TimePickerCell>(JSRuntime);
                 }
@@ -172,14 +172,23 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
 
-            if (disposing)
+            if (disposing && Interop != null)
             {
-                Interop?.Dispose();
+                Interop.Dispose();
+                Interop = null;
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }
