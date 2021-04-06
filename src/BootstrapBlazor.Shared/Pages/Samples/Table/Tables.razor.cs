@@ -328,6 +328,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "IsTree",
+                Description = "是否为树形数据",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ClickToSelect",
                 Description = "点击行即选中本行",
                 Type = "boolean",

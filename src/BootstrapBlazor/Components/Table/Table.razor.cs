@@ -115,12 +115,6 @@ namespace BootstrapBlazor.Components
         private List<TableTreeNode<TItem>>? TreeRows { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否为树形数据 默认为 false
-        /// </summary>
-        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置</remarks>
-        protected bool IsTree { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否正在加载子项 默认为 false
         /// </summary>
         private bool IsLoadChildren { get; set; }
@@ -277,10 +271,7 @@ namespace BootstrapBlazor.Components
         }
 
         #region Tree 树形数据获取 Items 方法集合
-        private IEnumerable<TItem> GetItems()
-        {
-            return IsTree ? GetTreeRows() : Items;
-        }
+        private IEnumerable<TItem> GetItems() => IsTree ? GetTreeRows() : Items;
 
         private IEnumerable<TItem> GetTreeRows()
         {
@@ -420,8 +411,16 @@ namespace BootstrapBlazor.Components
         public Func<TItem, bool>? ShowDetailRow { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否为树形数据 默认为 false
+        /// </summary>
+        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置树状数据关联列</remarks>
+        [Parameter]
+        public bool IsTree { get; set; }
+
+        /// <summary>
         /// 获得/设置 树形数据模式子项字段 默认为 Children
         /// </summary>
+        /// <remarks>通过 <see cref="HasChildrenColumnName"/> 参数判断是否有子项</remarks>
         [Parameter]
         public string ChildrenColumnName { get; set; } = "Children";
 
@@ -456,8 +455,6 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             };
 
-            // 判断是否为树形结构
-            IsTree = typeof(TItem).GetProperty(ChildrenColumnName) != null;
             if (IsTree)
             {
                 TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
