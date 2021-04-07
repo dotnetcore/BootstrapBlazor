@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Layout : IAsyncDisposable
+    public partial class Layout : IAsyncDisposable
     {
         private JSInterop<Layout>? Interop { get; set; }
 
@@ -119,16 +119,28 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// DisposeAsyncCore 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// <returns></returns>
+        protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+        {
+            if (disposing && Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, null, "bb_layout", "dispose").ConfigureAwait(false);
+                Interop.Dispose();
+                Interop = null;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
-            if (Interop != null)
-            {
-                await Interop.InvokeVoidAsync(this, null, "bb_layout", "dispose");
-                Interop?.Dispose();
-            }
+            await DisposeAsyncCore(true).ConfigureAwait(false);
+            GC.SuppressFinalize(this);
         }
     }
 }

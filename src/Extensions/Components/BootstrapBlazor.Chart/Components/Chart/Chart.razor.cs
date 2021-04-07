@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Chart 组件基类
     /// </summary>
-    public sealed partial class Chart : BootstrapComponentBase
+    public partial class Chart : BootstrapComponentBase, IDisposable
     {
         private JSInterop<Chart>? Interop { get; set; }
 
@@ -141,11 +141,23 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        protected override void Dispose(bool disposing)
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing) Interop?.Dispose();
+            if (disposing)
+            {
+                Interop?.Dispose();
+                Interop = null;
+            }
+        }
 
-            base.Dispose(disposing);
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

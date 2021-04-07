@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Markdown 组件
     /// </summary>
-    public sealed partial class Markdown
+    public partial class Markdown : IDisposable
     {
         /// <summary>
         /// 获得/设置 DOM 元素实例
@@ -163,15 +164,22 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 Interop?.Dispose();
                 Interop = null;
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

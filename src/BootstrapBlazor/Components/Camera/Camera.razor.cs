@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Camera : IAsyncDisposable
+    public partial class Camera : IAsyncDisposable
     {
         private ElementReference CameraElement { get; set; }
 
@@ -187,7 +187,11 @@ namespace BootstrapBlazor.Components
             Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
             Disabled = !Devices.Any();
 
-            if (OnInit != null) await OnInit(devices);
+            if (OnInit != null)
+            {
+                await OnInit(devices);
+            }
+
             if (devices.Any())
             {
                 for (var index = 0; index < devices.Count(); index++)
@@ -202,7 +206,11 @@ namespace BootstrapBlazor.Components
                 ActiveCamera = Cameras.First();
             }
 
-            if (Disabled) InitDevicesString = NotFoundDevicesString;
+            if (Disabled)
+            {
+                InitDevicesString = NotFoundDevicesString;
+            }
+
             StateHasChanged();
         }
 
@@ -214,7 +222,10 @@ namespace BootstrapBlazor.Components
         [JSInvokable]
         public async Task GetError(string err)
         {
-            if (OnError != null) await OnError.Invoke(err);
+            if (OnError != null)
+            {
+                await OnError.Invoke(err);
+            }
         }
 
         /// <summary>
@@ -225,7 +236,11 @@ namespace BootstrapBlazor.Components
         public async Task Start()
         {
             CaptureDisabled = false;
-            if (OnStart != null) await OnStart.Invoke();
+            if (OnStart != null)
+            {
+                await OnStart.Invoke();
+            }
+
             StateHasChanged();
         }
 
@@ -237,7 +252,11 @@ namespace BootstrapBlazor.Components
         public async Task Stop()
         {
             CaptureDisabled = true;
-            if (OnClose != null) await OnClose.Invoke();
+            if (OnClose != null)
+            {
+                await OnClose.Invoke();
+            }
+
             StateHasChanged();
         }
 
@@ -248,7 +267,25 @@ namespace BootstrapBlazor.Components
         [JSInvokable]
         public async Task Capture()
         {
-            if (OnCapture != null) await OnCapture.Invoke();
+            if (OnCapture != null)
+            {
+                await OnCapture.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// DisposeAsyncCore 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// <returns></returns>
+        protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+        {
+            if (disposing && Interop != null)
+            {
+                await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop").ConfigureAwait(false);
+                Interop.Dispose();
+                Interop = null;
+            }
         }
 
         /// <summary>
@@ -256,8 +293,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async ValueTask DisposeAsync()
         {
-            await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop");
-            Interop?.Dispose();
+            await DisposeAsyncCore(true).ConfigureAwait(false);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -107,11 +107,11 @@ namespace BootstrapBlazor.Components
         protected virtual string RetrieveTrigger() => Tooltip?.Trigger ?? "hover focus";
 
         /// <summary>
-        /// DisposeAsync 方法
+        /// DisposeAsyncCore 方法
         /// </summary>
         /// <param name="disposing"></param>
         /// <returns></returns>
-        protected virtual async ValueTask DisposeAsync(bool disposing)
+        protected virtual async ValueTask DisposeAsyncCore(bool disposing)
         {
             if (disposing && Tooltip != null)
             {
@@ -120,11 +120,11 @@ namespace BootstrapBlazor.Components
                 {
                     if (Tooltip.PopoverType == PopoverType.Tooltip)
                     {
-                        await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                        await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose").ConfigureAwait(false);
                     }
                     else
                     {
-                        await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                        await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose").ConfigureAwait(false);
                     }
                 }
             }
@@ -133,6 +133,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// DisposeAsync 方法
         /// </summary>
-        public ValueTask DisposeAsync() => DisposeAsync(true);
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore(true).ConfigureAwait(false);
+            GC.SuppressFinalize(this);
+        }
     }
 }
