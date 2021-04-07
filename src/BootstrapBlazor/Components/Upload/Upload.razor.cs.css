@@ -88,8 +88,8 @@
                 border-radius: 50%;
             }
 
-            .upload .upload-body.is-avatar .upload-item:not(.is-disabled):hover,
-            .upload .upload-body.is-avatar .upload-item.is-valid,
+            .upload .upload-body.is-avatar .upload-item:not(.is-form):hover,
+            .upload .upload-body.is-avatar .upload-item:not(.is-form).is-valid,
             .upload .upload-body.is-card .upload-item.is-valid,
             .upload .upload-body.is-card .upload-item:not(.is-disabled):hover {
                 border-color: #409eff;
@@ -97,6 +97,10 @@
 
             .upload .upload-body.is-avatar .upload-item.is-valid {
                 border-style: solid;
+            }
+
+            .upload .upload-body.is-avatar .upload-item.is-invalid .avatar {
+                color: #dc3545;
             }
 
             .upload .upload-body.is-avatar .upload-item .avatar {

@@ -10,7 +10,7 @@
     <div class="upload-body is-avatar">
         @foreach (var item in UploadFiles)
         {
-            <div class="@GetItemClassString(item)" style="@PrevStyleString">
+            <div class="@GetItemClassString(item)" id="@item.ValidateId" style="@PrevStyleString">
                 <Avatar Url="@item.PrevUrl" />
                 @if (!IsDisabled)
                 {

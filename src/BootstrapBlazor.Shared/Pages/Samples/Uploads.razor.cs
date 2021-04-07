@@ -191,6 +191,15 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        [NotNull]
+        private Logger? AvatarTrace { get; set; }
+
+        private Task OnAvatarValidSubmit(EditContext context)
+        {
+            AvatarTrace.Log(Foo.Picture?.Name ?? "");
+            return Task.CompletedTask;
+        }
+
         private class Person
         {
             [Required]

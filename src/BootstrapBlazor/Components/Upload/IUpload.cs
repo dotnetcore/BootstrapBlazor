@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Collections.Generic;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -10,8 +12,8 @@ namespace BootstrapBlazor.Components
     public interface IUpload
     {
         /// <summary>
-        /// 获得/设置 上传文件实例
+        /// 获得/设置 上传文件实例集合
         /// </summary>
-        UploadFile? UploadFile { get; set; }
+        List<UploadFile> UploadFiles { get; }
     }
 }

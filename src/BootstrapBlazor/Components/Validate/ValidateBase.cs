@@ -393,7 +393,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="results"></param>
         /// <param name="validProperty">是否对本属性进行数据验证</param>
-        public void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+        public virtual void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
         {
             if (FieldIdentifier != null)
             {

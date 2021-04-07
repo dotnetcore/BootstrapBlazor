@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -32,7 +34,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected UploadFile? CurrentFile { get; set; }
 
-        UploadFile? IUpload.UploadFile { get => CurrentFile; set => CurrentFile = value; }
+        /// <summary>
+        /// 获得/设置 上传文件集合
+        /// </summary>
+        protected List<UploadFile> UploadFiles { get; } = new List<UploadFile>();
+
+        List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
 
         /// <summary>
         /// 获得/设置 上传接收的文件格式 默认为 null 接收任意格式
@@ -74,6 +81,50 @@ namespace BootstrapBlazor.Components
         protected static string? GetFileName(UploadFile? item = null) => item?.OriginFileName ?? item?.FileName;
 
         /// <summary>
+        /// 触发客户端验证方法
+        /// </summary>
+        protected void ValidateFile()
+        {
+            if (ValidateForm != null && EditContext != null && FieldIdentifier.HasValue)
+            {
+                EditContext.NotifyFieldChanged(FieldIdentifier.Value);
+            }
+        }
+
+        /// <summary>
+        /// 显示/隐藏验证结果方法
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="validProperty">是否对本属性进行数据验证</param>
+        public override void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+        {
+            if (FieldIdentifier != null)
+            {
+                var messages = results.Where(item => item.MemberNames.Any(m => UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)));
+                if (messages.Any() && CurrentFile != null)
+                {
+                    ErrorMessage = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)))?.ErrorMessage;
+                    IsValid = string.IsNullOrEmpty(ErrorMessage);
+
+                    // 控件自身数据验证时显示 tooltip
+                    // EditForm 数据验证时调用 tooltip('enable') 保证 tooltip 组件生成
+                    // 调用 tooltip('hide') 后导致鼠标悬停时 tooltip 无法正常显示
+                    if (IsValid.HasValue && !IsValid.Value)
+                    {
+                        TooltipMethod = validProperty ? "show" : "enable";
+                    }
+                }
+                else
+                {
+                    ErrorMessage = null;
+                    IsValid = true;
+                    TooltipMethod = "dispose";
+                }
+                OnValidate(IsValid ?? true);
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
@@ -97,7 +148,20 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        protected abstract Task OnFileChange(InputFileChangeEventArgs args);
+        protected virtual Task OnFileChange(InputFileChangeEventArgs args)
+        {
+            // 判定可为空
+            var type = NullableUnderlyingType ?? typeof(TValue);
+            if (type.IsAssignableTo(typeof(IBrowserFile)))
+            {
+                CurrentValue = (TValue)args.File;
+            }
+            if (type.IsAssignableTo(typeof(List<IBrowserFile>)))
+            {
+                CurrentValue = (TValue)(object)UploadFiles;
+            }
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// 
@@ -118,7 +182,11 @@ namespace BootstrapBlazor.Components
             {
                 { "hidden", "hidden" }
             };
-            if (!string.IsNullOrEmpty(Accept)) ret.Add("accept", Accept);
+            if (!string.IsNullOrEmpty(Accept))
+            {
+                ret.Add("accept", Accept);
+            }
+
             return ret;
         }
     }

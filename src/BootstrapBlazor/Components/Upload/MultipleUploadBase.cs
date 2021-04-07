@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -20,8 +21,7 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         protected string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-            .AddClass(ValidCss)
-            .AddClass("is-valid", !IsValid.HasValue && item.Uploaded && item.Code == 0)
+            .AddClass("is-valid", item.Uploaded && item.Code == 0)
             .AddClass("is-invalid", item.Code != 0)
             .AddClass("is-disabled", IsDisabled)
             .Build();
@@ -31,12 +31,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected virtual string? ItemClassString => CssBuilder.Default("upload-item")
             .Build();
-
-        /// <summary>
-        /// 获得/设置 上传文件集合
-        /// </summary>
-        [NotNull]
-        protected List<UploadFile>? UploadFiles { get; set; }
 
         /// <summary>
         /// 获得/设置 已上传文件集合
@@ -58,9 +52,6 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            // 保证 UplaodFiles 不为空
-            UploadFiles ??= new List<UploadFile>();
-
             // 如果默认预览文件集合有值时增加到文件集合中
             if (DefaultFileList != null)
             {
@@ -80,6 +71,11 @@ namespace BootstrapBlazor.Components
             if (ret && item != null)
             {
                 UploadFiles.Remove(item);
+
+                if (!string.IsNullOrEmpty(item.ValidateId))
+                {
+                    await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
+                }
             }
 
             return ret;

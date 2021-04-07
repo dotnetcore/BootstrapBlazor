@@ -106,6 +106,25 @@
                           OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))" />
         </div>
     </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <p>验证表单内使用头像框示例</p>
+            <ValidateForm Model="Foo" OnValidSubmit="OnAvatarValidSubmit" class="form-inline">
+                <div class="row">
+                    <div class="form-group col-12">
+                        <BootstrapInput @bind-Value="@Foo.Name" />
+                    </div>
+                    <div class="form-group col-12">
+                        <AvatarUpload @bind-Value="@Foo.Picture" IsSingle="true" />
+                    </div>
+                    <div class="form-group col-12">
+                        <Button ButtonType="@ButtonType.Submit" Text="提交"></Button>
+                    </div>
+                </div>
+            </ValidateForm>
+        </div>
+    </div>
+    <Logger @ref="AvatarTrace" />
 </Block>
 
 <Block Title="预览卡片式" Introduction="<code>CardUpload</code> 组件，呈现为卡片式带预览模式">

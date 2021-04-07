@@ -5,6 +5,7 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
@@ -75,6 +76,10 @@ namespace BootstrapBlazor.Components
         [Inject]
         [NotNull]
         private IOptions<JsonLocalizationOptions>? Options { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
         /// <summary>
         /// 验证组件缓存
@@ -174,41 +179,45 @@ namespace BootstrapBlazor.Components
                 // 遍历所有可验证组件进行数据验证
                 foreach (var key in ValidatorCache.Keys.Where(k => k.Model == context.ObjectInstance))
                 {
-                    // 设置其关联属性字段
-                    var propertyValue = LambdaExtensions.GetPropertyValue(key.Model, key.FieldName);
-
                     // 验证 DataAnnotations
-                    var pi = key.Model.GetType().GetProperty(key.FieldName);
-                    if (pi != null)
+                    var validator = ValidatorCache[key];
+                    if (!validator.IsDisabled && !validator.SkipValidate)
                     {
-                        var validator = ValidatorCache[key];
-
-                        // 单独处理 Upload 组件
-                        if (validator is IUpload uploader)
+                        var messages = new List<ValidationResult>();
+                        var propertyValidateContext = new ValidationContext(key.Model)
                         {
-                            propertyValue = uploader.UploadFile?.File;
-                        }
-
-                        if (!validator.IsDisabled && !validator.SkipValidate)
+                            MemberName = key.FieldName,
+                            DisplayName = key.GetDisplayName()
+                        };
+                        var pi = key.Model.GetType().GetProperty(key.FieldName);
+                        if (pi != null)
                         {
-                            var messages = new List<ValidationResult>();
-                            var propertyValidateContext = new ValidationContext(key.Model)
+                            // 单独处理 Upload 组件
+                            if (validator is IUpload uploader)
                             {
-                                MemberName = key.FieldName,
-                                DisplayName = key.GetDisplayName()
-                            };
-                            ValidateDataAnnotations(propertyValue, propertyValidateContext, messages, pi);
-
-                            if (messages.Count == 0)
-                            {
-                                // 自定义验证组件
-                                validator.ValidateProperty(propertyValue, propertyValidateContext, messages);
+                                // 处理多个上传文件
+                                uploader.UploadFiles.ForEach(file =>
+                                {
+                                    ValidateDataAnnotations(file.File, propertyValidateContext, messages, pi, file.ValidateId);
+                                });
                             }
+                            else
+                            {
+                                // 设置其关联属性字段
+                                var propertyValue = LambdaExtensions.GetPropertyValue(key.Model, key.FieldName);
 
-                            // 客户端提示
-                            validator.ToggleMessage(messages, false);
-                            results.AddRange(messages);
+                                ValidateDataAnnotations(propertyValue, propertyValidateContext, messages, pi);
+
+                                if (messages.Count == 0)
+                                {
+                                    // 自定义验证组件
+                                    validator.ValidateProperty(propertyValue, propertyValidateContext, messages);
+                                }
+                            }
                         }
+                        // 客户端提示
+                        validator.ToggleMessage(messages, false);
+                        results.AddRange(messages);
                     }
                 }
             }
@@ -224,16 +233,32 @@ namespace BootstrapBlazor.Components
         {
             if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
             {
-                var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
-                var pi = fieldIdentifier.Model.GetType().GetProperty(fieldIdentifier.FieldName)!;
+                var pi = fieldIdentifier.Model.GetType().GetProperty(fieldIdentifier.FieldName);
 
-                // 验证 DataAnnotations
-                ValidateDataAnnotations(propertyValue, context, results, pi);
-
-                if (results.Count == 0)
+                if (pi != null)
                 {
-                    // 自定义验证组件
-                    validator.ValidateProperty(propertyValue, context, results);
+                    // 单独处理 Upload 组件
+                    if (validator is IUpload uploader)
+                    {
+                        // 处理多个上传文件
+                        uploader.UploadFiles.ForEach(file =>
+                        {
+                            ValidateDataAnnotations(file.File, context, results, pi, file.ValidateId);
+                        });
+                    }
+                    else
+                    {
+                        var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+
+                        // 验证 DataAnnotations
+                        ValidateDataAnnotations(propertyValue, context, results, pi);
+
+                        if (results.Count == 0)
+                        {
+                            // 自定义验证组件
+                            validator.ValidateProperty(propertyValue, context, results);
+                        }
+                    }
                 }
 
                 // 客户端提示
@@ -248,11 +273,12 @@ namespace BootstrapBlazor.Components
         /// <param name="context"></param>
         /// <param name="results"></param>
         /// <param name="propertyInfo"></param>
-        private void ValidateDataAnnotations(object? value, ValidationContext context, ICollection<ValidationResult> results, PropertyInfo propertyInfo)
+        /// <param name="memberName"></param>
+        private void ValidateDataAnnotations(object? value, ValidationContext context, ICollection<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
         {
             var rules = propertyInfo.GetCustomAttributes(true).Where(i => i.GetType().BaseType == typeof(ValidationAttribute)).Cast<ValidationAttribute>();
             var displayName = context.DisplayName;
-            var memberName = propertyInfo.Name;
+            memberName ??= propertyInfo.Name;
             var attributeSpan = "Attribute".AsSpan();
             foreach (var rule in rules)
             {
@@ -268,7 +294,10 @@ namespace BootstrapBlazor.Components
                     if (!string.IsNullOrEmpty(rule.ErrorMessage))
                     {
                         var resxType = Options.Value.ResourceManagerStringLocalizerType;
-                        if (resxType != null && JsonStringLocalizerFactory.TryGetLocalizerString(resxType, rule.ErrorMessage, out var resx))
+                        if (resxType != null
+                            && JsonStringLocalizerFactory.TryGetLocalizerString(
+                                localizer: LocalizerFactory.Create(resxType),
+                                key: rule.ErrorMessage, out var resx))
                         {
                             rule.ErrorMessage = resx;
                             isResx = true;
@@ -276,12 +305,16 @@ namespace BootstrapBlazor.Components
                     }
                     if (!isResx)
                     {
-                        if (JsonStringLocalizerFactory.TryGetLocalizerString(rule.GetType(), nameof(rule.ErrorMessage), out var msg))
+                        if (JsonStringLocalizerFactory.TryGetLocalizerString(
+                            localizer: LocalizerFactory.Create(rule.GetType()),
+                            key: nameof(rule.ErrorMessage), out var msg))
                         {
                             rule.ErrorMessage = msg;
                         }
 
-                        if (JsonStringLocalizerFactory.TryGetLocalizerString(context.ObjectType, $"{memberName}.{ruleName.ToString()}", out msg))
+                        if (JsonStringLocalizerFactory.TryGetLocalizerString(
+                            localizer: LocalizerFactory.Create(context.ObjectType),
+                            key: $"{memberName}.{ruleName.ToString()}", out msg))
                         {
                             rule.ErrorMessage = msg;
                         }
@@ -318,19 +351,30 @@ namespace BootstrapBlazor.Components
                 else
                 {
                     // 验证 DataAnnotations
-                    var fieldIdentifier = new FieldIdentifier(context.ObjectInstance, pi.Name);
                     var messages = new List<ValidationResult>();
+                    var fieldIdentifier = new FieldIdentifier(context.ObjectInstance, pi.Name);
                     context.DisplayName = fieldIdentifier.GetDisplayName();
-                    ValidateDataAnnotations(propertyValue, context, messages, pi);
 
                     if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
                     {
-                        if (messages.Count == 0)
+                        // 单独处理 Upload 组件
+                        if (validator is IUpload uploader)
                         {
-                            // 自定义验证组件
-                            validator.ValidateProperty(propertyValue, context, messages);
+                            // 处理多个上传文件
+                            uploader.UploadFiles.ForEach(file =>
+                            {
+                                ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
+                            });
                         }
-
+                        else
+                        {
+                            ValidateDataAnnotations(propertyValue, context, messages, pi);
+                            if (messages.Count == 0)
+                            {
+                                // 自定义验证组件
+                                validator.ValidateProperty(propertyValue, context, messages);
+                            }
+                        }
                         // 客户端提示
                         validator.ToggleMessage(messages, true);
                     }

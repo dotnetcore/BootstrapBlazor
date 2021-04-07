@@ -109,9 +109,17 @@ namespace BootstrapBlazor.Localization.Json
         /// <param name="key"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static bool TryGetLocalizerString(Type type, string key, [MaybeNullWhen(false)] out string? text)
+        public static bool TryGetLocalizerString(Type type, string key, [MaybeNullWhen(false)] out string? text) => TryGetLocalizerString(CreateLocalizer(type), key, out text);
+
+        /// <summary>
+        /// 获取指定 Type 的资源文件
+        /// </summary>
+        /// <param name="localizer"></param>
+        /// <param name="key"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool TryGetLocalizerString(IStringLocalizer? localizer, string key, [MaybeNullWhen(false)] out string? text)
         {
-            var localizer = CreateLocalizer(type);
             text = null;
             var l = localizer?[key];
             var ret = !(l?.ResourceNotFound ?? false);

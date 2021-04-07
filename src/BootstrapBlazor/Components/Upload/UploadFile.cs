@@ -66,6 +66,16 @@ namespace BootstrapBlazor.Components
         internal bool Uploaded { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 用于客户端验证 Id
+        /// </summary>
+        internal string? ValidateId { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件是否合规 默认为 null 未检查
+        /// </summary>
+        internal bool? IsValid { get; set; }
+
+        /// <summary>
         /// 获取 base64 格式图片字符串
         /// </summary>
         /// <param name="format"></param>
