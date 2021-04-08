@@ -435,6 +435,17 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 更改组件数据源方法
+        /// </summary>
+        /// <param name="items"></param>
+        public void SetItems(IEnumerable<SelectedItem> items)
+        {
+            SelectedItems.Clear();
+            Items = items;
+            StateHasChanged();
+        }
+
+        /// <summary>
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
