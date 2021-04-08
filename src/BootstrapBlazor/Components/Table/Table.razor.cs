@@ -339,7 +339,7 @@ namespace BootstrapBlazor.Components
         public RenderFragment<IEnumerable<TItem>>? TableFooter { get; set; }
 
         /// <summary>
-        /// 获得/设置 数据集合
+        /// 获得/设置 数据集合，适用于无功能时仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托
         /// </summary>
         [Parameter]
         public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
@@ -413,7 +413,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否为树形数据 默认为 false
         /// </summary>
-        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置树状数据关联列</remarks>
+        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置树状数据关联列，是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置</remarks>
         [Parameter]
         public bool IsTree { get; set; }
 
