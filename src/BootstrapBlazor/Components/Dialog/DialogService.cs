@@ -57,21 +57,21 @@ namespace BootstrapBlazor.Components
                 new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.BodyTemplate), option.DialogBodyTemplate!),
                 new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.OnResetSearchClick), new Func<Task>(async () =>
                 {
+                    option.OnCloseAsync = null;
+                    option.Dialog.RemoveDialog();
                     if(option.OnResetSearchClick != null)
                     {
                         await option.OnResetSearchClick();
                     }
-                    option.OnCloseAsync = null;
-                    option.Dialog.RemoveDialog();
                 })),
                 new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.OnSearchClick), new Func<Task>(async () =>
                 {
+                    option.OnCloseAsync = null;
+                    option.Dialog.RemoveDialog();
                     if(option.OnSearchClick != null)
                     {
                         await option.OnSearchClick();
                     }
-                    option.OnCloseAsync = null;
-                    option.Dialog.RemoveDialog();
                 }))
             });
 

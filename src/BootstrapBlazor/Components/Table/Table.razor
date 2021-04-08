@@ -49,10 +49,7 @@
                 <div class="float-right table-toolbar-button btn-group table-column-right">
                     @if (ShowRefresh)
                     {
-                        <button class="btn btn-secondary" type="button" title="@RefreshButtonText" @onclick="@QueryAsync">
-                            <i class="fa fa-refresh"></i>
-                            <span class="d-none d-sm-inline-block">@RefreshButtonText</span>
-                        </button>
+                        <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }
                     @if (ShowColumnList)
                     {
@@ -109,16 +106,14 @@
                             <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                         </BootstrapInput>
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" @onclick="@SearchClick">
-                                <i class="fa fa-search"></i>
+                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
                                 <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </button>
+                            </Button>
                             @if (ShowResetSearch)
                             {
-                                <button class="btn btn-secondary" type="button" @onclick="@ClearSearchClick">
-                                    <i class="fa fa-trash"></i>
+                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
                                     <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                                </button>
+                                </Button>
                             }
                             @if (ShowAdvancedSearch)
                             {

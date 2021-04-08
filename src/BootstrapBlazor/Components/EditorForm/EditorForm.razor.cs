@@ -164,7 +164,7 @@ namespace BootstrapBlazor.Components
             {
                 FirstRender = false;
 
-                if (CascadeEditorItems?.Any() ?? false)
+                if (CascadeEditorItems != null)
                 {
                     // 通过级联参数渲染组件
                     FormItems.AddRange(CascadeEditorItems);

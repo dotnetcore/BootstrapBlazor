@@ -226,7 +226,10 @@ namespace BootstrapBlazor.Components
                 await OnSelectedRowsChanged();
             }
 
-            if (OnClickRowCallback != null) await OnClickRowCallback(val);
+            if (OnClickRowCallback != null)
+            {
+                await OnClickRowCallback(val);
+            }
         };
 
         private async Task OnSelectedRowsChanged()
@@ -246,19 +249,37 @@ namespace BootstrapBlazor.Components
         protected virtual bool CheckActive(TItem val) => SelectedItems.Contains(val);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected async Task OnClickRefreshAsync()
+        {
+            await ToggleLoading(true);
+            await QueryAsync();
+            await ToggleLoading(false);
+        }
+
+        /// <summary>
         /// 查询按钮调用此方法
         /// </summary>
         /// <returns></returns>
         public async Task QueryAsync()
         {
-            // 通知客户端开启遮罩
-            if (ShowLoading && !IsAutoRefresh)
-            {
-                IsLoading = true;
-                var _ = JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", "show");
-            }
             await QueryData();
             StateHasChanged();
+        }
+
+        /// <summary>
+        /// 显示/隐藏 Loading 遮罩
+        /// </summary>
+        /// <param name="state">true 时显示，false 时隐藏</param>
+        /// <returns></returns>
+        public async ValueTask ToggleLoading(bool state)
+        {
+            if (ShowLoading)
+            {
+                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            }
         }
 
         /// <summary>
@@ -418,7 +439,10 @@ namespace BootstrapBlazor.Components
                 await ClickEditButton(item);
             }
 
-            if (OnDoubleClickRowCallback != null) await OnDoubleClickRowCallback(item);
+            if (OnDoubleClickRowCallback != null)
+            {
+                await OnDoubleClickRowCallback(item);
+            }
 
             StateHasChanged();
         };
