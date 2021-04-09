@@ -2,7 +2,7 @@
 @typeparam TModel
 @inherits DialogBase<TModel>
 
-<ValidateForm Model="@Model" OnValidSubmit="@OnSaveAsync">
+<ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync">
     @if (BodyTemplate != null)
     {
         @BodyTemplate?.Invoke(Model)
@@ -19,6 +19,9 @@
         </CascadingValue>
     }
 </ValidateForm>
+<div class="form-loader" @ref="SpinnerElement">
+    <Spinner Color="Color.Primary" />
+</div>
 
 @code {
     RenderFragment RenderFooter =>

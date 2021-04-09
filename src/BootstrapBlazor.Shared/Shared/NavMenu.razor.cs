@@ -185,7 +185,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "按钮 Button",
                 Url = "buttons"
             });
@@ -196,7 +195,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "多选框 Checkbox",
                 Url = "checkboxs"
             });
@@ -252,12 +250,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "选择器 Select",
                 Url = "selects"
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "多项选择器 MultiSelect",
                 Url = "multiselects"
             });
@@ -546,6 +544,13 @@ namespace BootstrapBlazor.Shared.Shared
                 Url = "tables/tree"
             });
 
+            it.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "数据加载",
+                Url = "tables/loading"
+            });
+
             item.AddItem(it);
 
             AddBadge(it, false);
@@ -706,7 +711,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "行组件 Row",
                 Url = "rows"
             });

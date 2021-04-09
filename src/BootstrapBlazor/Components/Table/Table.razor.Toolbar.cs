@@ -377,6 +377,7 @@ namespace BootstrapBlazor.Components
         protected Task ShowEditDialog() => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
         {
             IsScrolling = ScrollingDialogContent,
+            ShowLoading = ShowLoading,
             Title = EditModalTitleString,
             Model = EditModel,
             Items = Columns.Where(i => i.Editable),

@@ -90,6 +90,7 @@ namespace BootstrapBlazor.Components
             option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(new KeyValuePair<string, object?>[]
             {
                 new(nameof(EditDialog<TModel>.Model), option.Model),
+                new(nameof(EditDialog<TModel>.ShowLoading), option.ShowLoading),
                 new(nameof(EditDialog<TModel>.ShowLabel), option.ShowLabel),
                 new(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText),
                 new(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText),

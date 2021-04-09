@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class EditDialog<TModel>
     {
+        private ElementReference SpinnerElement { get; set; }
+
         /// <summary>
         /// 获得/设置 保存回调委托
         /// </summary>
@@ -29,6 +32,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public string? CloseButtonText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 查询时是否显示正在加载中动画 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowLoading { get; set; }
 
         /// <summary>
         /// 获得/设置 查询按钮文本
@@ -47,6 +56,10 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IJSRuntime? JSRuntime { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -61,6 +74,29 @@ namespace BootstrapBlazor.Components
         private async Task OnClose()
         {
             if (OnCloseAsync != null) await OnCloseAsync();
+        }
+
+        private async Task OnValidSubmitAsync(EditContext context)
+        {
+            if (OnSaveAsync != null)
+            {
+                await ToggleLoading(true);
+                await OnSaveAsync(context);
+                await ToggleLoading(false);
+            }
+        }
+
+        /// <summary>
+        /// 显示/隐藏 Loading 遮罩
+        /// </summary>
+        /// <param name="state">true 时显示，false 时隐藏</param>
+        /// <returns></returns>
+        public async ValueTask ToggleLoading(bool state)
+        {
+            if (ShowLoading)
+            {
+                await JSRuntime.InvokeVoidAsync(SpinnerElement, "bb_form_load", state ? "show" : "hide");
+            }
         }
     }
 }
