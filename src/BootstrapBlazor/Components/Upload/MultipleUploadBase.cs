@@ -67,17 +67,15 @@ namespace BootstrapBlazor.Components
         protected override async Task<bool> OnFileDelete(UploadFile item)
         {
             var ret = await base.OnFileDelete(item);
-
             if (ret && item != null)
             {
                 UploadFiles.Remove(item);
-
                 if (!string.IsNullOrEmpty(item.ValidateId))
                 {
                     await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
                 }
+                StateHasChanged();
             }
-
             return ret;
         }
 

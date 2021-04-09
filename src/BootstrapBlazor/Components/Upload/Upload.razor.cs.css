@@ -160,6 +160,7 @@
 
         .upload .upload-body.is-card .upload-item-body {
             border-radius: 4px;
+            width: 168px;
             height: 168px;
             border: 1px solid #d9d9d9;
             margin: 0 auto;
