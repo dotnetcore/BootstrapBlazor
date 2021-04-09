@@ -451,8 +451,10 @@ namespace BootstrapBlazor.Components
             // 设置 OnFilter 回调方法
             OnFilterAsync = async () =>
             {
+                await ToggleLoading(true);
                 PageIndex = 1;
                 await QueryAsync();
+                await ToggleLoading(false);
             };
 
             if (IsTree)

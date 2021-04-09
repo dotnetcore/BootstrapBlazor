@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared
@@ -27,7 +28,7 @@ namespace BootstrapBlazor.Shared
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender && OperatingSystem.IsBrowser() && JSRuntime != null)
             {
                 await JSRuntime.InvokeVoidAsync("$.loading");
             }

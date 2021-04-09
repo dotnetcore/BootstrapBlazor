@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function ($) {
     $.extend({
         bb_form_load: function (el, method) {
             var $el = $(el);
