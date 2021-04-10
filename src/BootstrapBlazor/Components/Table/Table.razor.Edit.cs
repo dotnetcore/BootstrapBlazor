@@ -252,12 +252,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected async Task OnClickRefreshAsync()
-        {
-            await ToggleLoading(true);
-            await QueryAsync();
-            await ToggleLoading(false);
-        }
+        protected Task OnClickRefreshAsync() => QueryAsync();
 
         /// <summary>
         /// 查询按钮调用此方法
@@ -265,7 +260,9 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async Task QueryAsync()
         {
+            await ToggleLoading(true);
             await QueryData();
+            await ToggleLoading(false);
             StateHasChanged();
         }
 
@@ -273,12 +270,20 @@ namespace BootstrapBlazor.Components
         /// 显示/隐藏 Loading 遮罩
         /// </summary>
         /// <param name="state">true 时显示，false 时隐藏</param>
+        /// <param name="external">有值 时表示外部调用，内部逻辑不进行设置; 无值时表示组件内部处理</param>
         /// <returns></returns>
-        public async ValueTask ToggleLoading(bool state)
+        public async ValueTask ToggleLoading(bool state, bool? external = null)
         {
             if (ShowLoading)
             {
-                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+                if (external == null)
+                {
+                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+                }
+                else
+                {
+                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", external.Value ? "show" : "hide");
+                }
             }
         }
 

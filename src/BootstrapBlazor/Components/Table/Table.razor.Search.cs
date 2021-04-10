@@ -82,12 +82,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task ResetSearchClick()
         {
-            await ToggleLoading(true);
+            await ToggleLoading(true, true);
             if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
             else if (SearchTemplate == null) Utility.Reset(SearchModel);
             PageIndex = 1;
             await QueryAsync();
-            await ToggleLoading(false);
+            await ToggleLoading(false, false);
         }
 
         /// <summary>
@@ -95,10 +95,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task SearchClick()
         {
-            await ToggleLoading(true);
             PageIndex = 1;
             await QueryAsync();
-            await ToggleLoading(false);
         }
 
         /// <summary>

@@ -71,11 +71,9 @@ namespace BootstrapBlazor.Components
         {
             if (pageIndex != PageIndex)
             {
-                await ToggleLoading(true);
                 PageIndex = pageIndex;
                 PageItems = pageItems;
                 await QueryAsync();
-                await ToggleLoading(false);
             }
         }
 
@@ -86,11 +84,9 @@ namespace BootstrapBlazor.Components
         {
             if (PageItems != pageItems)
             {
-                await ToggleLoading(true);
                 PageIndex = 1;
                 PageItems = pageItems;
                 await QueryAsync();
-                await ToggleLoading(false);
             }
         }
     }

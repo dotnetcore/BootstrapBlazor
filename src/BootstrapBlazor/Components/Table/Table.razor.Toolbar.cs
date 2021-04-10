@@ -189,7 +189,7 @@ namespace BootstrapBlazor.Components
         {
             if (UseInjectDataService || OnSaveAsync != null)
             {
-                await ToggleLoading(true);
+                await ToggleLoading(true, true);
                 if (OnAddAsync != null)
                 {
                     EditModel = await OnAddAsync();
@@ -216,7 +216,7 @@ namespace BootstrapBlazor.Components
                     ShowAddForm = true;
                     ShowEditForm = false;
                 }
-                await ToggleLoading(false);
+                await ToggleLoading(false, false);
                 StateHasChanged();
             }
             else
@@ -242,7 +242,7 @@ namespace BootstrapBlazor.Components
             {
                 if (SelectedItems.Count == 1)
                 {
-                    await ToggleLoading(true);
+                    await ToggleLoading(true, true);
                     if (OnEditAsync != null)
                     {
                         await OnEditAsync(SelectedItems[0]);
@@ -268,7 +268,7 @@ namespace BootstrapBlazor.Components
                         ShowEditForm = true;
                         ShowAddForm = false;
                     }
-                    await ToggleLoading(false);
+                    await ToggleLoading(false, false);
                 }
                 else
                 {
@@ -430,7 +430,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Func<Task> DeleteAsync() => async () =>
         {
-            await ToggleLoading(true);
+            await ToggleLoading(true, true);
             var ret = false;
             if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
             else if (UseInjectDataService) ret = await GetDataService().DeleteAsync(SelectedItems);
@@ -455,7 +455,7 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             }
             if (ShowErrorToast || ret) await Toast.Show(option);
-            await ToggleLoading(false);
+            await ToggleLoading(false, false);
         };
 
         /// <summary>

@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -44,7 +45,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 表头排序时回调方法
         /// </summary>
-        protected Func<Task> OnSortAsync { get; set; } = () => Task.CompletedTask;
+        [NotNull]
+        protected Func<Task>? OnSortAsync { get; set; }
 
         /// <summary>
         /// 点击列进行排序方法
