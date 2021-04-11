@@ -260,30 +260,38 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async Task QueryAsync()
         {
-            await ToggleLoading(true);
+            await InternalToggleLoading(true);
             await QueryData();
-            await ToggleLoading(false);
+            await InternalToggleLoading(false);
             StateHasChanged();
+        }
+
+        private bool loading = false;
+
+        /// <summary>
+        /// 显示/隐藏 Loading 遮罩
+        /// </summary>
+        /// <param name="state">true 时显示，false 时隐藏</param>
+        /// <returns></returns>
+        public async ValueTask ToggleLoading(bool state)
+        {
+            if (ShowLoading)
+            {
+                loading = state;
+                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            }
         }
 
         /// <summary>
         /// 显示/隐藏 Loading 遮罩
         /// </summary>
         /// <param name="state">true 时显示，false 时隐藏</param>
-        /// <param name="external">有值 时表示外部调用，内部逻辑不进行设置; 无值时表示组件内部处理</param>
         /// <returns></returns>
-        public async ValueTask ToggleLoading(bool state, bool? external = null)
+        protected async ValueTask InternalToggleLoading(bool state)
         {
-            if (ShowLoading)
+            if (ShowLoading && !loading)
             {
-                if (external == null)
-                {
-                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
-                }
-                else
-                {
-                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", external.Value ? "show" : "hide");
-                }
+                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
             }
         }
 

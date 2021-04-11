@@ -23,6 +23,7 @@
     "header": "Table/TablesFixedHeader",
     "inputnumbers": "InputNumbers",
     "listviews": "ListViews",
+    "loading": "Table/TablesLoading",
     "multi-header": "Table/TablesHeader",
     "multiselects": "MultiSelects",
     "pages": "Table/TablesPages",

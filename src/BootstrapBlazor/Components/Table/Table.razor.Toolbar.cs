@@ -189,7 +189,7 @@ namespace BootstrapBlazor.Components
         {
             if (UseInjectDataService || OnSaveAsync != null)
             {
-                await ToggleLoading(true, true);
+                await ToggleLoading(true);
                 if (OnAddAsync != null)
                 {
                     EditModel = await OnAddAsync();
@@ -216,7 +216,7 @@ namespace BootstrapBlazor.Components
                     ShowAddForm = true;
                     ShowEditForm = false;
                 }
-                await ToggleLoading(false, false);
+                await ToggleLoading(false);
                 StateHasChanged();
             }
             else
@@ -242,7 +242,7 @@ namespace BootstrapBlazor.Components
             {
                 if (SelectedItems.Count == 1)
                 {
-                    await ToggleLoading(true, true);
+                    await ToggleLoading(true);
                     if (OnEditAsync != null)
                     {
                         await OnEditAsync(SelectedItems[0]);
@@ -268,7 +268,7 @@ namespace BootstrapBlazor.Components
                         ShowEditForm = true;
                         ShowAddForm = false;
                     }
-                    await ToggleLoading(false, false);
+                    await ToggleLoading(false);
                 }
                 else
                 {
@@ -339,6 +339,7 @@ namespace BootstrapBlazor.Components
         {
             if (UseInjectDataService || OnSaveAsync != null)
             {
+                await ToggleLoading(true);
                 if (await SaveModelAsync(context))
                 {
                     if (EditMode == EditMode.Popup)
@@ -356,6 +357,7 @@ namespace BootstrapBlazor.Components
                         StateHasChanged();
                     }
                 }
+                await ToggleLoading(false);
             }
             else
             {
@@ -388,16 +390,20 @@ namespace BootstrapBlazor.Components
                 if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
                 {
                     // EFCore
+                    await ToggleLoading(true);
                     await ef.CancelAsync();
+                    await ToggleLoading(false);
                 }
             },
             OnSaveAsync = async context =>
             {
+                await ToggleLoading(true);
                 var valid = await SaveModelAsync(context);
                 if (valid)
                 {
                     await QueryAsync();
                 }
+                await ToggleLoading(false);
                 return valid;
             }
         });
@@ -430,7 +436,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Func<Task> DeleteAsync() => async () =>
         {
-            await ToggleLoading(true, true);
+            await ToggleLoading(true);
             var ret = false;
             if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
             else if (UseInjectDataService) ret = await GetDataService().DeleteAsync(SelectedItems);
@@ -455,7 +461,7 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             }
             if (ShowErrorToast || ret) await Toast.Show(option);
-            await ToggleLoading(false, false);
+            await ToggleLoading(false);
         };
 
         /// <summary>
