@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -54,6 +54,22 @@ namespace BootstrapBlazor.Components
         /// 获得 后台关闭弹窗设置
         /// </summary>
         private string? Backdrop => IsBackdrop ? null : "static";
+
+        private bool IsRendered { get; set; }
+
+        /// <summary>
+        /// OnAfterRender 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                IsRendered = true;
+            }
+        }
 
         /// <summary>
         /// 添加对话框方法
@@ -171,7 +187,7 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && IsRendered)
             {
                 Task.Run(async () =>
                 {

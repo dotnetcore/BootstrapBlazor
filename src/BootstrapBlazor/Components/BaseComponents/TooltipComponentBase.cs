@@ -107,13 +107,27 @@ namespace BootstrapBlazor.Components
         protected virtual string RetrieveTrigger() => Tooltip?.Trigger ?? "hover focus";
 
         /// <summary>
+        /// 获得/设置 组件是否已经 Render
+        /// </summary>
+        protected bool IsRendered { get; set; }
+
+        /// <summary>
+        /// OnAfterRender 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+        }
+
+        /// <summary>
         /// DisposeAsyncCore 方法
         /// </summary>
         /// <param name="disposing"></param>
         /// <returns></returns>
         protected virtual async ValueTask DisposeAsyncCore(bool disposing)
         {
-            if (disposing && Tooltip != null)
+            if (disposing && IsRendered && Tooltip != null)
             {
                 var id = RetrieveId();
                 if (!string.IsNullOrEmpty(id))
