@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,10 +17,21 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class TitleService
     {
+        [NotNull]
+        private static TitleService? Instance { get; set; }
+
         /// <summary>
         /// 获得 回调委托缓存集合
         /// </summary>
         private List<(IComponent Key, Func<string, ValueTask> Callback)> Cache { get; set; } = new();
+
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        public TitleService()
+        {
+            Instance = this;
+        }
 
         /// <summary>
         /// 设置当前页面 Title 方法
@@ -56,10 +68,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="title"></param>
         /// <returns></returns>
-        public static ValueTask SetWebSiteTitle(string title)
-        {
-            var titleSvr = ServiceProviderHelper.ServiceProvider.GetRequiredService<TitleService>();
-            return titleSvr.SetTitle(title);
-        }
+        public static ValueTask SetWebSiteTitle(string title) => Instance.SetTitle(title);
     }
 }
