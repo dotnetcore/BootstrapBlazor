@@ -105,15 +105,6 @@ namespace BootstrapBlazor.Localization.Json
         /// <summary>
         /// 获取指定 Type 的资源文件
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="key"></param>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static bool TryGetLocalizerString(Type type, string key, [MaybeNullWhen(false)] out string? text) => TryGetLocalizerString(CreateLocalizer(type), key, out text);
-
-        /// <summary>
-        /// 获取指定 Type 的资源文件
-        /// </summary>
         /// <param name="localizer"></param>
         /// <param name="key"></param>
         /// <param name="text"></param>

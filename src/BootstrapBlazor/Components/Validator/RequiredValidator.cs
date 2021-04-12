@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization.Json;
+using Microsoft.Extensions.Localization;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +21,16 @@ namespace BootstrapBlazor.Components
         public bool AllowEmptyString { get; set; }
 
         /// <summary>
+        /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
+        /// </summary>
+        public IStringLocalizerFactory? LocalizerFactory { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Json 资源文件配置 默认为 null
+        /// </summary>
+        public JsonLocalizationOptions? Options { get; set; }
+
+        /// <summary>
         /// 数据验证方法
         /// </summary>
         /// <param name="propertyValue"></param>
@@ -26,7 +38,7 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            var errorMessage = GetLocalizerErrorMessage(context);
+            var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
             var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
             if (propertyValue == null)
             {

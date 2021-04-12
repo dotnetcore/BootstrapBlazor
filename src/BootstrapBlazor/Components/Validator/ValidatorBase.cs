@@ -5,6 +5,7 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -41,8 +42,10 @@ namespace BootstrapBlazor.Components
         /// 通过资源文件获取 ErrorMessage 方法
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="localizerFactory"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        protected virtual string? GetLocalizerErrorMessage(ValidationContext context)
+        protected virtual string? GetLocalizerErrorMessage(ValidationContext context, IStringLocalizerFactory? localizerFactory = null, JsonLocalizationOptions? options = null)
         {
             var errorMesssage = ErrorMessage;
             if (!string.IsNullOrEmpty(context.MemberName) && !string.IsNullOrEmpty(errorMesssage))
@@ -50,17 +53,25 @@ namespace BootstrapBlazor.Components
                 // 查找 resx 资源文件中的 ErrorMessage
                 var memberName = context.MemberName;
 
-                var isResx = false;
-                var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value.ResourceManagerStringLocalizerType;
-                if (resxType != null && JsonStringLocalizerFactory.TryGetLocalizerString(resxType, errorMesssage, out var resx))
+                if (localizerFactory != null)
                 {
-                    errorMesssage = resx;
-                    isResx = true;
-                }
+                    // 查找微软格式 resx 格式资源文件
+                    var isResx = false;
+                    if (options != null && options.ResourceManagerStringLocalizerType != null)
+                    {
+                        var localizer = localizerFactory.Create(options.ResourceManagerStringLocalizerType);
+                        if (JsonStringLocalizerFactory.TryGetLocalizerString(localizer, errorMesssage, out var resx))
+                        {
+                            errorMesssage = resx;
+                            isResx = true;
+                        }
+                    }
 
-                if (!isResx && JsonStringLocalizerFactory.TryGetLocalizerString(context.ObjectType, $"{memberName}.{GetRuleKey()}", out var msg))
-                {
-                    errorMesssage = msg;
+                    // 查找 json 格式资源文件
+                    if (!isResx && JsonStringLocalizerFactory.TryGetLocalizerString(localizerFactory.Create(context.ObjectType), $"{memberName}.{GetRuleKey()}", out var msg))
+                    {
+                        errorMesssage = msg;
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(errorMesssage))
