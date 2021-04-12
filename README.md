@@ -1,15 +1,15 @@
-﻿<h1 align="center">Bootstrap Blazor Component</h1>
+<h1 align="center">Bootstrap Blazor Component</h1>
 
 <div align="center">
 <h2>A set of enterprise-class UI components based on Bootstrap and Blazor.</h2>
 
 
-[![Github build](https://img.shields.io/github/workflow/status/ArgoZhang/BootstrapBlazor/Package%20to%20Nuget/master?label=master&logo=github&logoColor=green)](https://github.com/ArgoZhang/BootstrapAdmin/actions?query=workflow%3A%22Auto+Build+CI%22+branch%3Amaster)
+[![Github build](https://img.shields.io/github/workflow/status/ArgoZhang/BootstrapBlazor/Package%20to%20Nuget/main?label=master&logo=github&logoColor=green)](https://github.com/ArgoZhang/BootstrapAdmin/actions?query=workflow%3A%22Auto+Build+CI%22+branch%3Amaster)
 [![Nuget](https://img.shields.io/nuget/v/BootstrapBlazor.svg?color=red&logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
 [![Nuget](https://img.shields.io/nuget/dt/BootstrapBlazor.svg?logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
 [![Github](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/master/LICENSE)
 [![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)
-[![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/master.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
+[![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
 
 </div>
 
