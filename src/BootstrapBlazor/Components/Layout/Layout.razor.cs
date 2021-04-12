@@ -119,13 +119,18 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 获得/设置 组件是否已经 Render
+        /// </summary>
+        protected bool IsRendered { get; set; }
+
+        /// <summary>
         /// DisposeAsyncCore 方法
         /// </summary>
         /// <param name="disposing"></param>
         /// <returns></returns>
         protected virtual async ValueTask DisposeAsyncCore(bool disposing)
         {
-            if (disposing && Interop != null)
+            if (disposing && IsRendered && Interop != null)
             {
                 await Interop.InvokeVoidAsync(this, null, "bb_layout", "dispose").ConfigureAwait(false);
                 Interop.Dispose();
