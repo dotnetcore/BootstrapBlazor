@@ -121,6 +121,35 @@ namespace UnitTest.Performance
             Logger.WriteLine($"Expression: {sw.Elapsed}");
         }
 
+        delegate string DummyCallback<TModel>(TModel dummy);
+        [Fact]
+        public void Delegate_Test()
+        {
+            var test = new Dummy { Name = "Test" };
+            var count = 10000000;
+            var obj = LambdaExtensions.GetPropertyValue(test, "Name");
+            var stopWatch = Stopwatch.StartNew();
+            for (int i = 0; i < count; i++)
+            {
+                LambdaExtensions.GetPropertyValue(test, "Name");
+            }
+            stopWatch.Stop();
+            var interval = stopWatch.ElapsedMilliseconds;
+
+            var objectType = test.GetType();
+            var method = objectType.GetProperty("Name")?.GetGetMethod(false);
+            var proxy = (DummyCallback<Dummy>)Delegate.CreateDelegate(typeof(DummyCallback<Dummy>), method);
+            obj = proxy(test);
+
+            stopWatch.Restart();
+            for (int i = 0; i < count; i++)
+            {
+                proxy(test);
+            }
+            stopWatch.Stop();
+            var interval2 = stopWatch.ElapsedMilliseconds;
+        }
+
         private class Dummy
         {
             /// <summary>

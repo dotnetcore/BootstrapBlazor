@@ -195,7 +195,7 @@ namespace BootstrapBlazor.Components
                     await Task.Delay(50);
 
                     // JS 清理 DOM
-                    await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose");
+                    await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose").ConfigureAwait(false);
                 });
             }
         }
