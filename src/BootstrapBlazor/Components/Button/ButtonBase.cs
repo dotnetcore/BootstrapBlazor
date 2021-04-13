@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
         protected string? Tab => IsDisabled ? "-1" : null;
 
         /// <summary>
-        /// 
+        /// 按钮点击回调方法，内置支持 IsAsync 开关
         /// </summary>
         protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
 

@@ -1,9 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits PopoverConfirmBase
+@inherits BootstrapComponentBase
 
 <div class="popover-confirm-container">
-    @if (PopoverService != null)
-    {
-        @PopoverService.ConfirmBox?.RenderFragment
-    }
+    @Content
 </div>

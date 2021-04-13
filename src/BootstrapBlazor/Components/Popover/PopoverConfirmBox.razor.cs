@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -105,6 +106,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 PopoverConfirm 服务实例
         /// </summary>
         [Inject]
+        [NotNull]
         private PopoverService? PopoverService { get; set; }
 
         /// <summary>
@@ -112,7 +114,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task OnCloseClick()
         {
-            PopoverService?.Hide();
             if (OnClose != null) await OnClose.Invoke();
         }
 
@@ -121,7 +122,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task OnConfirmClick()
         {
-            PopoverService?.Hide();
             if (OnConfirm != null) await OnConfirm();
         }
     }
