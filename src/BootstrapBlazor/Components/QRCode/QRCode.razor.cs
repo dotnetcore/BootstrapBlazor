@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// QRCode 组件
     /// </summary>
-    public sealed partial class QRCode
+    public partial class QRCode : IDisposable
     {
         private ElementReference QRCodeElement { get; set; }
 
@@ -70,8 +70,12 @@ namespace BootstrapBlazor.Components
 
         private async Task Generate()
         {
-            if (Interop == null) Interop = new JSInterop<QRCode>(JSRuntime);
-            await Interop.Invoke(this, QRCodeElement, "bb_qrcode", "generate");
+            if (Interop == null)
+            {
+                Interop = new JSInterop<QRCode>(JSRuntime);
+            }
+
+            await Interop.InvokeVoidAsync(this, QRCodeElement, "bb_qrcode", "generate");
         }
 
         /// <summary>
@@ -81,20 +85,33 @@ namespace BootstrapBlazor.Components
         [JSInvokable]
         public async Task Generated()
         {
-            if (OnGenerated != null) await OnGenerated.Invoke();
+            if (OnGenerated != null)
+            {
+                await OnGenerated.Invoke();
+            }
         }
 
         /// <summary>
-        /// 
+        /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+
+            if (disposing && Interop != null)
             {
-                Interop?.Dispose();
+                Interop.Dispose();
+                Interop = null;
             }
-            base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -52,11 +52,7 @@
             <TableColumn @bind-Field="@context.Address" Text="地址" Width="200" TextEllipsis="true" ShowTips="true" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>

@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class InputUpload
+    public sealed partial class InputUpload<TValue>
     {
         private string? InputValueClassString => CssBuilder.Default("form-control")
             .AddClass(CssClass).AddClass(ValidCss)
@@ -24,8 +24,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         private bool IsDeleteButtonDisabled => IsDisabled || CurrentFile == null;
-
-        private UploadFile? CurrentFile { get; set; }
 
         private string? BrowserButtonClassString => CssBuilder.Default("btn btn-browser")
             .AddClass(BrowserButtonClass)
@@ -83,7 +81,7 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Upload>? Localizer { get; set; }
+        private IStringLocalizer<Upload<TValue>>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -103,7 +101,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            CurrentValue = args.File;
+            await OnFileChange(args);
 
             CurrentFile = new UploadFile()
             {
@@ -112,6 +110,11 @@ namespace BootstrapBlazor.Components
                 File = args.File,
                 Uploaded = false
             };
+
+            UploadFiles.Clear();
+            UploadFiles.Add(CurrentFile);
+
+            ValidateFile();
 
             if (OnChange != null)
             {
@@ -128,7 +131,7 @@ namespace BootstrapBlazor.Components
                 if (ret)
                 {
                     CurrentFile = null;
-                    CurrentValue = null!;
+                    CurrentValue = default;
                 }
             }
         }

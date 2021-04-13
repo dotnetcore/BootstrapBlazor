@@ -4,8 +4,11 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +19,15 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public partial class TablesAutoRefresh
     {
+        private static readonly Random random = new();
+
+        [NotNull]
+        private List<Foo>? Items { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Foo>? Localizer { get; set; }
+
         private List<Foo> AutoItems { get; set; } = new List<Foo>();
 
         /// <summary>
@@ -25,24 +37,19 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
-            AutoItems = Items.Take(2).ToList();
+            AutoItems = Foo.GenerateFoo(Localizer).Take(2).ToList();
         }
 
         private Task<QueryData<Foo>> OnRefreshQueryAsync(QueryPageOptions options)
         {
             // 设置记录总数
-            var total = AutoItems.Count();
+            var total = AutoItems.Count;
+            var foo = Foo.Generate(Localizer);
+            foo.Id = total++;
+            foo.Name = Localizer["Foo.Name", total.ToString("D4")];
+            foo.Address = Localizer["Foo.Address", $"{random.Next(1000, 2000)}"];
 
-            AutoItems.Insert(0, new Foo()
-            {
-                Id = total++,
-                Name = $"张三 {total:d4}",
-                DateTime = DateTime.Now.AddDays(total - 1),
-                Address = $"上海市普陀区金沙江路 {random.Next(1000, 2000)} 弄",
-                Count = random.Next(1, 100),
-                Complete = random.Next(1, 100) > 50,
-                Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
-            });
+            AutoItems.Insert(0, foo);
 
             if (AutoItems.Count > 10)
             {

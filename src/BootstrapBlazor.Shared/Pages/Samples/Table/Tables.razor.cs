@@ -328,6 +328,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "IsTree",
+                Description = "是否为树形数据",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ClickToSelect",
                 Description = "点击行即选中本行",
                 Type = "boolean",
@@ -354,6 +361,20 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "ShowResetSearch",
+                Description = "显示清空搜索按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowAdvancedSearch",
+                Description = "显示高级搜索按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowToolbar",
@@ -450,6 +471,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 Name = "OnAddAsync",
                 Description = "新建按钮回调方法",
                 Type = "Func<Task<TItem>>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnEditAsync",
+                Description = "编辑按钮异步回调方法",
+                Type = "Func<TItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },

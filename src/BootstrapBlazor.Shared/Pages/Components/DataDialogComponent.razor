@@ -12,13 +12,6 @@
         <EditorForm TModel="Foo">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Id" Editable="false" />
-                <EditorItem @bind-Field="@context.Complete">
-                    <EditTemplate Context="value">
-                        <div class="form-group col-12 col-sm-6">
-                            <Switch @bind-Value="@(((Foo)value).Complete)" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                        </div>
-                    </EditTemplate>
-                </EditorItem>
                 <EditorItem @bind-Field="@context.Hobby" Data="@Hobbys" />
             </FieldItems>
         </EditorForm>

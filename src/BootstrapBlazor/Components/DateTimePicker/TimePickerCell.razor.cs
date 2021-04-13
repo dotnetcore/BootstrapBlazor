@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 时间选择滚轮单元组件
     /// </summary>
-    public sealed partial class TimePickerCell
+    public partial class TimePickerCell : IDisposable
     {
+        private ElementReference TimeCellElement { get; set; }
+
         /// <summary>
         /// 获得 当前样式名称
         /// </summary>
@@ -61,27 +64,53 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 时间选择框视图模式
         /// </summary>
-        [Parameter] public TimePickerCellViewModel ViewModel { get; set; }
+        [Parameter]
+        public TimePickerCellViewModel ViewModel { get; set; }
 
         /// <summary>
         /// 获得/设置 组件值
         /// </summary>
-        [Parameter] public TimeSpan Value { get; set; }
+        [Parameter]
+        public TimeSpan Value { get; set; }
 
         /// <summary>
         /// 获得/设置 组件值变化时委托方法
         /// </summary>
-        [Parameter] public EventCallback<TimeSpan> ValueChanged { get; set; }
+        [Parameter]
+        public EventCallback<TimeSpan> ValueChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 时间刻度行高
         /// </summary>
-        [Parameter] public Func<double>? ItemHeightCallback { get; set; }
+        [Parameter]
+        public Func<double>? ItemHeightCallback { get; set; }
+
+        private JSInterop<TimePickerCell>? Interop { get; set; }
+
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                if (Interop == null)
+                {
+                    Interop = new JSInterop<TimePickerCell>(JSRuntime);
+                }
+                await Interop.InvokeVoidAsync(this, TimeCellElement, "bb_timecell", nameof(OnClickUp), nameof(OnClickDown));
+            }
+        }
 
         /// <summary>
         /// 上翻页按钮调用此方法
         /// </summary>
-        private async Task OnClickUp()
+        [JSInvokable]
+        public async Task OnClickUp()
         {
             var ts = ViewModel switch
             {
@@ -105,7 +134,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 下翻页按钮调用此方法
         /// </summary>
-        private async Task OnClickDown()
+        [JSInvokable]
+        public async Task OnClickDown()
         {
             var ts = ViewModel switch
             {
@@ -136,6 +166,29 @@ namespace BootstrapBlazor.Components
                 TimePickerCellViewModel.Second => (Value.Seconds) * height,
                 _ => 0
             };
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+
+            if (disposing && Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

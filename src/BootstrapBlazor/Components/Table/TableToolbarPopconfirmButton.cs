@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase, IToolbarButton<TItem>
+    public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase, IToolbarButton<TItem>, IDisposable
     {
         /// <summary>
         /// 
@@ -33,6 +33,27 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             Toolbar?.AddButton(this);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Toolbar?.RemoveButton(this);
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

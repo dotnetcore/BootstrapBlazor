@@ -1,10 +1,10 @@
-@namespace BootstrapBlazor.Components
+﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits ValidateBase<TValue>
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@InputId">@DisplayText</label>
+    <label class="control-label" required="@Required" for="@InputId">@DisplayText</label>
 }
 <div class="menu" style="border-bottom: 0px;">
     <div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">

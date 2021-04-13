@@ -18,8 +18,6 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string? HtmlString { get; set; }
 
-        private string ShowHideButtonString { get; set; } = "隐藏 Editor";
-
         /// <summary>
         /// 获得/设置 版本号字符串
         /// </summary>
@@ -81,6 +79,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem(){
+                Name = "IsViewer",
+                Description = "是否为纯浏览模式",
+                Type = "bool",
+                ValueList = " true/false ",
+                DefaultValue = " false "
             }
         };
     }

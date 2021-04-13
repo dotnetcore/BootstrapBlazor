@@ -10,11 +10,15 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class CardUpload
+    public sealed partial class CardUpload<TValue>
     {
-        private static string? GetDiabledString(UploadFile item) => (item.Uploaded && item.Code == 0) ? null : "disabled";
+        private string? GetDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
 
-        private static string? GetDeleteButtonDiabledString(UploadFile item) => (item.Uploaded) ? null : "disabled";
+        private string? GetDeleteButtonDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
+
+        private string? CardItemClass => CssBuilder.Default("upload-item")
+            .AddClass("is-disabled", IsDisabled)
+            .Build();
 
         private static bool IsImage(UploadFile item)
         {

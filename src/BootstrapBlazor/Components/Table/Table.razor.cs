@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table 组件基类
     /// </summary>
-    public partial class Table<TItem> : BootstrapComponentBase, ITable where TItem : class, new()
+    public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
     {
         private JSInterop<Table<TItem>>? Interop { get; set; }
 
@@ -113,12 +113,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [NotNull]
         private List<TableTreeNode<TItem>>? TreeRows { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否为树形数据 默认为 false
-        /// </summary>
-        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置</remarks>
-        protected bool IsTree { get; set; }
 
         /// <summary>
         /// 获得/设置 是否正在加载子项 默认为 false
@@ -277,10 +271,7 @@ namespace BootstrapBlazor.Components
         }
 
         #region Tree 树形数据获取 Items 方法集合
-        private IEnumerable<TItem> GetItems()
-        {
-            return IsTree ? GetTreeRows() : Items;
-        }
+        private IEnumerable<TItem> GetItems() => IsTree ? GetTreeRows() : Items;
 
         private IEnumerable<TItem> GetTreeRows()
         {
@@ -312,11 +303,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 可过滤表格列集合
         /// </summary>
         protected IEnumerable<ITableColumn>? FilterColumns { get; set; }
-
-        /// <summary>
-        /// 获得 起始行号
-        /// </summary>
-        protected int StarRowIndex { get; set; }
 
         /// <summary>
         /// 获得/设置 组件是否渲染完毕 默认 false
@@ -353,7 +339,7 @@ namespace BootstrapBlazor.Components
         public RenderFragment<IEnumerable<TItem>>? TableFooter { get; set; }
 
         /// <summary>
-        /// 获得/设置 数据集合
+        /// 获得/设置 数据集合，适用于无功能时仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托
         /// </summary>
         [Parameter]
         public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
@@ -425,8 +411,16 @@ namespace BootstrapBlazor.Components
         public Func<TItem, bool>? ShowDetailRow { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否为树形数据 默认为 false
+        /// </summary>
+        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置树状数据关联列，是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置</remarks>
+        [Parameter]
+        public bool IsTree { get; set; }
+
+        /// <summary>
         /// 获得/设置 树形数据模式子项字段 默认为 Children
         /// </summary>
+        /// <remarks>通过 <see cref="HasChildrenColumnName"/> 参数判断是否有子项</remarks>
         [Parameter]
         public string ChildrenColumnName { get; set; } = "Children";
 
@@ -461,8 +455,6 @@ namespace BootstrapBlazor.Components
                 await QueryAsync();
             };
 
-            // 判断是否为树形结构
-            IsTree = typeof(TItem).GetProperty(ChildrenColumnName) != null;
             if (IsTree)
             {
                 TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
@@ -495,7 +487,7 @@ namespace BootstrapBlazor.Components
                 {
                     // 注册 SeachBox 回调事件
                     Interop = new JSInterop<Table<TItem>>(JSRuntime);
-                    await Interop.Invoke(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
+                    await Interop.InvokeVoidAsync(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
                 }
 
                 FirstRender = false;
@@ -530,12 +522,6 @@ namespace BootstrapBlazor.Components
 
             if (IsRendered)
             {
-                if (IsLoading)
-                {
-                    IsLoading = false;
-                    var _ = JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", "hide");
-                }
-
                 // fix: https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2AYEH
                 // PR: https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/818
                 if (Columns.Any(col => col.ShowTips) && string.IsNullOrEmpty(methodName))
@@ -610,6 +596,16 @@ namespace BootstrapBlazor.Components
             {
                 var content = "";
                 var val = Table<TItem>.GetItemValue(col.GetFieldName(), item);
+
+                // 自动化处理 bool 值
+                if (val is bool && col.ComponentType != null)
+                {
+                    builder.OpenComponent(0, col.ComponentType);
+                    builder.AddAttribute(1, "Value", val);
+                    builder.AddAttribute(2, "IsDisabled", true);
+                    builder.CloseComponent();
+                    return;
+                }
                 if (col.Formatter != null)
                 {
                     // 格式化回调委托
@@ -663,18 +659,26 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
                 Interop?.Dispose();
+                Interop = null;
 
                 AutoRefreshCancelTokenSource?.Cancel();
                 AutoRefreshCancelTokenSource?.Dispose();
                 AutoRefreshCancelTokenSource = null;
             }
+        }
 
-            base.Dispose(disposing);
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

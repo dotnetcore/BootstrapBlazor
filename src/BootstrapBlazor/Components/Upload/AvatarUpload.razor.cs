@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -11,13 +12,27 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class AvatarUpload
+    public partial class AvatarUpload<TValue>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected new string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
+            .AddClass("is-valid", !IsDisabled && item.IsValid.HasValue && item.IsValid.Value)
+            .AddClass("is-invalid", !IsDisabled && item.IsValid.HasValue && !item.IsValid.Value)
+            .AddClass("is-valid", !IsDisabled && !item.IsValid.HasValue && item.Uploaded && item.Code == 0)
+            .AddClass("is-invalid", !IsDisabled && !item.IsValid.HasValue && item.Code != 0)
+            .AddClass("is-disabled", IsDisabled)
+            .Build();
+
         /// <summary>
         /// 
         /// </summary>
         protected override string? ItemClassString => CssBuilder.Default(base.ItemClassString)
             .AddClass("is-circle", IsCircle)
+            .AddClass("is-disabled", IsDisabled)
             .Build();
 
         /// <summary>
@@ -60,26 +75,37 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            CurrentValue = args.File;
+            await base.OnFileChange(args);
 
-            var file = new UploadFile()
+            CurrentFile = new UploadFile()
             {
                 OriginFileName = args.File.Name,
                 Size = args.File.Size,
                 File = args.File,
                 Uploaded = false
             };
+            CurrentFile.ValidateId = $"{Id}_{CurrentFile.GetHashCode()}";
 
-            UploadFiles.Add(file);
+            UploadFiles.Add(CurrentFile);
+            ValidateFile();
+
+            // ValidateFile 后 IsValid 才有值
+            CurrentFile.IsValid = IsValid;
 
             if (OnChange != null)
             {
-                await OnChange(file);
+                await OnChange(CurrentFile);
             }
             else
             {
-                await file.RequestBase64ImageFileAsync(file.File.ContentType, 320, 240);
+                await CurrentFile.RequestBase64ImageFileAsync(CurrentFile.File.ContentType, 320, 240);
             }
         }
+
+        /// <summary>
+        /// 获得 弹窗客户端 ID
+        /// </summary>
+        /// <returns></returns>
+        protected override string? RetrieveId() => CurrentFile?.ValidateId;
     }
 }

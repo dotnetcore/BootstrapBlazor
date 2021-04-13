@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// SweetAlert 组件
     /// </summary>
-    public sealed partial class SweetAlert
+    public partial class SweetAlert : IDisposable
     {
         /// <summary>
         /// 获得/设置 Modal 容器组件实例
@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
         private CancellationTokenSource? DelayToken { get; set; }
 
         [NotNull]
-        private List<KeyValuePair<string, object>>? DialogParameter { get; set; }
+        private List<KeyValuePair<string, object?>>? DialogParameter { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -68,7 +68,11 @@ namespace BootstrapBlazor.Components
 
                 if (IsAutoHide && Delay > 0)
                 {
-                    if (DelayToken == null) DelayToken = new CancellationTokenSource();
+                    if (DelayToken == null)
+                    {
+                        DelayToken = new CancellationTokenSource();
+                    }
+
                     await Task.Delay(Delay, DelayToken.Token);
 
                     if (!DelayToken.IsCancellationRequested)
@@ -88,7 +92,7 @@ namespace BootstrapBlazor.Components
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes().ToList();
 
-            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+            parameters.Add(new KeyValuePair<string, object?>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 if (IsAutoHide && DelayToken != null)
                 {
@@ -127,16 +131,23 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 DelayToken?.Dispose();
                 DelayToken = null;
                 SwalService.UnRegister(this);
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

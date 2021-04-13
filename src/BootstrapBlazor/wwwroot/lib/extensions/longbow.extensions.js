@@ -136,19 +136,4 @@
             $this.on('touchstart', handleDragStart);
         }
     });
-
-    $(function () {
-        new MutationObserver((mutations, observer) => {
-            if (document.querySelector('#components-reconnect-modal h5 a')) {
-                function attemptReload() {
-                    fetch('').then(() => {
-                        location.reload();
-                    });
-                }
-                observer.disconnect();
-                attemptReload();
-                setInterval(attemptReload, 10000);
-            }
-        }).observe(document.body, { childList: true, subtree: true });
-    });
 })(jQuery);

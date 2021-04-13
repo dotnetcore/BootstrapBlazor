@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Modal
+    public partial class Modal : IDisposable
     {
         /// <summary>
         /// 获得/设置 DOM 元素实例
@@ -54,6 +55,22 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private string? Backdrop => IsBackdrop ? null : "static";
 
+        private bool IsRendered { get; set; }
+
+        /// <summary>
+        /// OnAfterRender 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                IsRendered = true;
+            }
+        }
+
         /// <summary>
         /// 添加对话框方法
         /// </summary>
@@ -76,8 +93,8 @@ namespace BootstrapBlazor.Components
         {
             if (dialog == null)
             {
-                dialog = Dialogs.Last();
-                dialog.Close();
+                dialog = Dialogs.LastOrDefault();
+                dialog?.Close();
             }
             else
             {
@@ -162,6 +179,34 @@ namespace BootstrapBlazor.Components
                 // 全部关闭
                 await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "hide");
             }
+        }
+
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && IsRendered)
+            {
+                Task.Run(async () =>
+                {
+                    // 等待 C# 清理 DOM
+                    await Task.Delay(50);
+
+                    // JS 清理 DOM
+                    await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose").ConfigureAwait(false);
+                });
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

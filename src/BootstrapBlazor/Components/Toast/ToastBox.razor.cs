@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class ToastBox
     {
-        private MarkupString MarkupContent => string.IsNullOrEmpty(Content) ? new MarkupString() : new MarkupString(Content);
+        private MarkupString MarkupContent => string.IsNullOrEmpty(Options.Content) ? new MarkupString() : new MarkupString(Options.Content);
         /// <summary>
         /// ToastBox HTML 实例引用
         /// </summary>
@@ -22,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出框类型
         /// </summary>
-        protected string? AutoHide => !IsAutoHide ? "false" : null;
+        protected string? AutoHide => !Options.IsAutoHide ? "false" : null;
 
         /// <summary>
         /// 获得/设置 弹出框类型
@@ -35,53 +36,31 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 进度条样式
         /// </summary>
         protected string? ProgressClass => CssBuilder.Default("toast-progress")
-            .AddClass("bg-success", Category == ToastCategory.Success)
-            .AddClass("bg-info", Category == ToastCategory.Information)
-            .AddClass("bg-danger", Category == ToastCategory.Error)
+            .AddClass("bg-success", Options.Category == ToastCategory.Success)
+            .AddClass("bg-info", Options.Category == ToastCategory.Information)
+            .AddClass("bg-danger", Options.Category == ToastCategory.Error)
             .Build();
 
         /// <summary>
         /// 获得/设置 图标样式
         /// </summary>
         protected string? IconString => CssBuilder.Default("fa")
-            .AddClass("fa-check-circle text-success", Category == ToastCategory.Success)
-            .AddClass("fa-exclamation-circle text-info", Category == ToastCategory.Information)
-            .AddClass("fa-times-circle text-danger", Category == ToastCategory.Error)
+            .AddClass("fa-check-circle text-success", Options.Category == ToastCategory.Success)
+            .AddClass("fa-exclamation-circle text-info", Options.Category == ToastCategory.Information)
+            .AddClass("fa-times-circle text-danger", Options.Category == ToastCategory.Error)
             .Build();
 
         /// <summary>
         /// 获得/设置 弹出框自动关闭时长
         /// </summary>
-        protected string? DelayString => IsAutoHide ? Convert.ToString(Delay + 200) : null;
+        protected string? DelayString => Options.IsAutoHide ? Convert.ToString(Options.Delay + 200) : null;
 
         /// <summary>
-        /// 获得/设置 弹出框类型
-        /// </summary>
-        [Parameter] public ToastCategory Category { get; set; }
-
-        /// <summary>
-        /// 获得/设置 显示标题 默认为 未设置
+        /// 
         /// </summary>
         [Parameter]
-        public string? Title { get; set; }
-
-        /// <summary>
-        /// 获得/设置 Toast Body 子组件
-        /// </summary>
-        [Parameter]
-        public string? Content { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否自动隐藏
-        /// </summary>
-        [Parameter]
-        public bool IsAutoHide { get; set; } = true;
-
-        /// <summary>
-        /// 获得/设置 自动隐藏时间间隔
-        /// </summary>
-        [Parameter]
-        public int Delay { get; set; } = 4000;
+        [NotNull]
+        public ToastOption? Options { get; set; }
 
         /// <summary>
         /// 获得/设置 Toast 实例
@@ -91,6 +70,21 @@ namespace BootstrapBlazor.Components
         public Toast? Toast { get; set; }
 
         private JSInterop<Toast>? Interop { get; set; }
+
+        /// <summary>
+        /// OnInitialized
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            if (Options == null)
+            {
+                throw new InvalidOperationException("the Parameter Options must be set.");
+            }
+
+            Options.ToastBox = this;
+        }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -106,23 +100,35 @@ namespace BootstrapBlazor.Components
                 if (Toast != null)
                 {
                     Interop = new JSInterop<Toast>(JSRuntime);
-                    await Interop.Invoke(Toast, ToastBoxElement, "bb_toast", nameof(Toast.Clear));
+                    await Interop.InvokeVoidAsync(Toast, ToastBoxElement, "bb_toast", nameof(Toast.Clear));
                 }
+            }
+        }
+
+        internal ValueTask Close() => JSRuntime.InvokeVoidAsync(ToastBoxElement, "bb_toast_close");
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+
+            if (disposing && Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
             }
         }
 
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        protected override void Dispose(bool disposing)
+        public void Dispose()
         {
-            base.Dispose(disposing);
-
-            if (disposing)
-            {
-                Interop?.Dispose();
-                Interop = null;
-            }
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
+
     }
 }

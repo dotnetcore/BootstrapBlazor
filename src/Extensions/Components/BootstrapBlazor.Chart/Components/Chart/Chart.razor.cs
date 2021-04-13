@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Chart 组件基类
     /// </summary>
-    public sealed partial class Chart : BootstrapComponentBase
+    public partial class Chart : BootstrapComponentBase, IDisposable
     {
         private JSInterop<Chart>? Interop { get; set; }
 
@@ -104,7 +104,7 @@ namespace BootstrapBlazor.Components
 
                 var ds = await OnInit.Invoke();
 
-                await Interop.Invoke(this, ChartElement, "chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
+                await Interop.InvokeVoidAsync(this, ChartElement, "chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
             }
         }
 
@@ -133,7 +133,7 @@ namespace BootstrapBlazor.Components
                 var ds = await OnInit.Invoke();
                 if (Interop != null)
                 {
-                    await Interop.Invoke(this, ChartElement, "chart", nameof(Completed), ds, method, ChartType.ToDescriptionString(), Angle);
+                    await Interop.InvokeVoidAsync(this, ChartElement, "chart", nameof(Completed), ds, method, ChartType.ToDescriptionString(), Angle);
                 }
             }
         }
@@ -141,11 +141,23 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        protected override void Dispose(bool disposing)
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing) Interop?.Dispose();
+            if (disposing)
+            {
+                Interop?.Dispose();
+                Interop = null;
+            }
+        }
 
-            base.Dispose(disposing);
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

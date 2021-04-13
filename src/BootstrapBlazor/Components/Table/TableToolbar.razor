@@ -14,9 +14,9 @@
                     @if (button is TableToolbarButton<TItem> b)
                     {
                         <Button AdditionalAttributes="b.AdditionalAttributes"
-                                Color="@b.Color" Icon="@b.Icon" Text="@b.Text"
-                                OnClick="@(e => OnToolbarButtonClick(b))"
-                                IsDisabled="@b.IsDisabled"></Button>
+                                Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
+                                OnClickWithoutRender="@(() => OnToolbarButtonClick(b))"
+                                IsDisabled="@GetDisabled(b)"></Button>
                     }
                     else if (button is TableToolbarPopconfirmButton<TItem> pb)
                     {

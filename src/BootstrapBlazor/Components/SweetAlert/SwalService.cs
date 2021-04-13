@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// SweetAlert 弹窗服务
     /// </summary>
-    public class SwalService : PopupServiceBase<SwalOption>
+    public class SwalService : PopupServiceBase<SwalOption>, IDisposable
     {
         private readonly IDisposable _optionsReloadToken;
         private BootstrapBlazorOptions _option;

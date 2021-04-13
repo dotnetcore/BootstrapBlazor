@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class ModalDialog
+    public partial class ModalDialog : IDisposable
     {
         private ElementReference DialogElement { get; set; }
 
@@ -116,7 +116,10 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (OnClose == null) OnClose = async () => await Modal.CloseOrPopDialog();
+            if (OnClose == null)
+            {
+                OnClose = async () => await Modal.CloseOrPopDialog();
+            }
 
             Modal.AddDialog(this);
         }
@@ -138,7 +141,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<ModalDialog>(JSRuntime);
-                await Interop.Invoke(this, DialogElement, "bb_modal_dialog", nameof(Close));
+                await Interop.InvokeVoidAsync(this, DialogElement, "bb_modal_dialog", nameof(Close));
             }
         }
 
@@ -162,14 +165,23 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                Interop?.Dispose();
-            }
 
-            base.Dispose(disposing);
+            if (disposing && Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

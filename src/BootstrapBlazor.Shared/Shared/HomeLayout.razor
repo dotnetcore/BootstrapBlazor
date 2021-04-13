@@ -1,6 +1,5 @@
 ﻿@inherits LayoutComponentBase
 @layout BaseLayout
-@inject ICultureStorage CultureStorage
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 @inject IOptions<WebsiteOptions> WebsiteOption
@@ -34,6 +33,9 @@
                 </li>
                 <li>
                     <a class="footer-link" href="http://ccflow.org" target="_blank">驰骋工作流</a>
+                </li>
+                <li>
+                    <a class="footer-link" href="https://gitee.com/loogn/bulmarazor" target="_blank">Bulma</a>
                 </li>
                 <li>
                     <a class="footer-link" href="http://www.pearadmin.com" target="_blank">Pear Admin</a>
@@ -117,7 +119,19 @@
 
     private async Task SetLang(string cultureName)
     {
-        if (CultureStorage.Mode == CultureStorageMode.Webapi)
+        if (OperatingSystem.IsBrowser())
+        {
+            if (cultureName != CultureInfo.CurrentCulture.Name)
+            {
+                await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
+                var culture = new CultureInfo(cultureName);
+                CultureInfo.CurrentCulture = culture;
+                CultureInfo.CurrentUICulture = culture;
+
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+            }
+        }
+        else
         {
             // 使用 api 方式 适用于 Server-Side 模式
             if (SelectedCulture != cultureName)
@@ -128,18 +142,6 @@
 
                 // use a path that matches your culture redirect controller from the previous steps
                 NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
-            }
-        }
-        else
-        {
-            if (cultureName != CultureInfo.CurrentCulture.Name)
-            {
-                await JSRuntime.InvokeVoidAsync(identifier: "$.blazorCulture.set", cultureName);
-                var culture = new CultureInfo(cultureName);
-                CultureInfo.CurrentCulture = culture;
-                CultureInfo.CurrentUICulture = culture;
-
-                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }
         }
     }

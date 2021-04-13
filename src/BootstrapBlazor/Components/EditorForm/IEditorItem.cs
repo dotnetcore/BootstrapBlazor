@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         object? Step { get; set; }
 
-         /// <summary>
+        /// <summary>
         /// 获得/设置 Textarea 行数 默认为 0
         /// </summary>
         int Rows { get; set; }
@@ -52,6 +52,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 编辑模板
         /// </summary>
         RenderFragment<object>? EditTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件类型 默认为 null
+        /// </summary>
+        Type? ComponentType { get; set; }
 
         /// <summary>
         /// 获取绑定字段显示名称方法

@@ -53,6 +53,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
             .AddClass("active", () => item.Value == CurrentValueAsString)
+            .AddClass("is-disabled", item.IsDisabled)
             .Build();
 
         /// <summary>
@@ -78,6 +79,27 @@ namespace BootstrapBlazor.Components
             {
                 OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
             }
+
+            // 内置对枚举类型的支持
+            var t = typeof(TValue);
+            if (!Items.Any() && t.IsEnum())
+            {
+                var item = "";
+                // 如果可为空枚举增加 请选择 ...
+                if (NullableUnderlyingType != null)
+                {
+                    // 优先查找 placeholder 字样 如果未设置使用资源文件中
+                    if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var pl))
+                    {
+                        item = pl.ToString();
+                    }
+                    else
+                    {
+                        item = Localizer["PlaceHolder"].Value;
+                    }
+                }
+                Items = typeof(TValue).ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
+            }
         }
 
         /// <summary>
@@ -95,7 +117,7 @@ namespace BootstrapBlazor.Components
                 {
                     Interop = new JSInterop<Select<TValue>>(JSRuntime);
                 }
-                await Interop.Invoke(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
 
                 if (SelectedItem != null && OnSelectedItemChanged != null)
                 {

@@ -2,32 +2,31 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace Microsoft.Extensions.DependencyInjection
+using System.ComponentModel;
+
+namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// ICulture
+    /// 行内格式枚举
     /// </summary>
-    public interface ICultureStorage
+    public enum RowType
     {
         /// <summary>
-        /// 
+        /// 默认格式
         /// </summary>
-        public CultureStorageMode Mode { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum CultureStorageMode
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        Webapi,
+        [Description("row")]
+        Normal,
 
         /// <summary>
-        /// 
+        /// 在表单中使用 Label 在上，控件充满
         /// </summary>
-        LocalStorage
+        [Description("form-row")]
+        FormRow,
+
+        /// <summary>
+        /// 表单中使用 label 在左，控件不充满
+        /// </summary>
+        [Description("form-inline")]
+        Inline
     }
 }

@@ -49,10 +49,7 @@
                 <div class="float-right table-toolbar-button btn-group table-column-right">
                     @if (ShowRefresh)
                     {
-                        <button class="btn btn-secondary" type="button" title="@RefreshButtonText" @onclick="@QueryAsync">
-                            <i class="fa fa-refresh"></i>
-                            <span class="d-none d-sm-inline-block">@RefreshButtonText</span>
-                        </button>
+                        <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }
                     @if (ShowColumnList)
                     {
@@ -109,14 +106,15 @@
                             <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                         </BootstrapInput>
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" @onclick="@SearchClick">
-                                <i class="fa fa-search"></i>
+                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
                                 <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </button>
-                            <button class="btn btn-secondary" type="button" @onclick="@ClearSearchClick">
-                                <i class="fa fa-trash"></i>
-                                <span class="d-none d-sm-inline-block">@ResetButtonText</span>
-                            </button>
+                            </Button>
+                            @if (ShowResetSearch)
+                            {
+                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                                </Button>
+                            }
                             @if (ShowAdvancedSearch)
                             {
                                 <Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
@@ -164,7 +162,6 @@
             }
             else
             {
-                StarRowIndex = (PageIndex - 1) * PageItems + 1;
                 foreach (var item in Items)
                 {
                     <DynamicElement class="@GetRowClassString(item, "table-row")"
@@ -180,10 +177,10 @@
                         {
                             <div class="table-cell">
                                 <label>@LineNoText</label>
-                                <span>@(StarRowIndex++)</span>
+                                <span>@(Items.ToList().IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
-                        @foreach (var col in Columns)
+                        @foreach (var col in GetColumns())
                         {
                             <div class="table-cell">
                                 <label>
@@ -536,7 +533,7 @@ RenderFragment<TItem> RenderEditForm => item =>
             else
             {
                 <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(SaveAsync))">
-                    <CascadingValue Value="Columns" IsFixed="true">
+                    <CascadingValue Value="@Columns.Where(c => c.Editable)" IsFixed="true">
                         <EditorForm TModel="TItem">
                             <Buttons>
                                 <div class="modal-footer table-modal-footer">

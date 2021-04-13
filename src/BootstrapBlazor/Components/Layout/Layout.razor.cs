@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Layout
+    public partial class Layout : IAsyncDisposable
     {
         private JSInterop<Layout>? Interop { get; set; }
 
@@ -103,7 +104,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<Layout>(JSRuntime);
-                await Interop.Invoke(this, null, "bb_layout", nameof(SetCollapsed));
+                await Interop.InvokeVoidAsync(this, null, "bb_layout", nameof(SetCollapsed));
             }
         }
 
@@ -118,13 +119,33 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// Dispose 方法
+        /// 获得/设置 组件是否已经 Render
         /// </summary>
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
+        protected bool IsRendered { get; set; }
 
-            if (disposing) Interop?.Dispose();
+        /// <summary>
+        /// DisposeAsyncCore 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// <returns></returns>
+        protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+        {
+            if (disposing && IsRendered && Interop != null)
+            {
+                await Interop.InvokeVoidAsync(this, null, "bb_layout", "dispose").ConfigureAwait(false);
+                Interop.Dispose();
+                Interop = null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore(true).ConfigureAwait(false);
+            GC.SuppressFinalize(this);
         }
     }
 }

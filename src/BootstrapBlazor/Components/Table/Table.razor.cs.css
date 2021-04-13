@@ -294,7 +294,8 @@
     }
 
 .table-loading,
-.table-loader {
+.table-loader,
+.form-loader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -304,7 +305,8 @@
     flex: 1;
 }
 
-.table-loader {
+.table-loader,
+.form-loader {
     display: none;
     opacity: 0.8;
     position: absolute;
@@ -316,7 +318,8 @@
     z-index: 4;
 }
 
-    .table-loader.show {
+    .table-loader.show,
+    .form-loader.show {
         display: flex;
     }
 

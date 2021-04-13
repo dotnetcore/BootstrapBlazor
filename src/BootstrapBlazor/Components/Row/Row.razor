@@ -1,41 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-
-@if (ParentRow == null || InnerRender == false)
-{
-    <CascadingValue Value="this">
-        @if (ParentRow == null)
-        {
-            <div hidden>
-                @ChildContent
-            </div>
-        }
-        else
-        {
-            @ChildContent
-        }
-    </CascadingValue>
-}
-@if (ParentRow == null || InnerRender == true)
-{
-    <div @attributes="@AdditionalAttributes" class="@ClassString">
-        @foreach (var item in Items)
-        {
-            var col = (int)this.ItemsPerRow;
-            if (item.ColSpan != null)
-            {
-                col = col * item.ColSpan.Value;
-            }
-            var classstr = "";
-            if (item.IsRow == false)
-            {
-                classstr += "form-group";
-            }
-            classstr += $"  col-12 col-md-{col}";
-            <div class="@classstr">
-                @item.Content
-            </div>
-        }
-    </div>
-}
+<div @attributes="@AdditionalAttributes" data-toggle="row" data-type="@RowType.ToDescriptionString()" data-items="@ItemsPerRow.ToDescriptionString()" data-colspan="@ColSpan" class="row-container d-none" @ref="RowElement">
+    @ChildContent
+</div>

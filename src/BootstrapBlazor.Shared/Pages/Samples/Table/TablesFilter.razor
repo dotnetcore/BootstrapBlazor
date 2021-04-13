@@ -1,5 +1,4 @@
-﻿@inherits TablesBaseQuery
-@page "/tables/filter"
+﻿@page "/tables/filter"
 
 <h3>筛选和排序功能</h3>
 
@@ -33,16 +32,8 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
-                <Template Context="value">
-                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-                </Template>
-            </TableColumn>
-            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true">
-                <Template Context="value">
-                    <span>@value.Value?.ToDescriptionString()</span>
-                </Template>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />
         </TableColumns>
     </Table>
@@ -52,7 +43,7 @@
     <p>
         <code>FilterTemplate</code> 类型为 <code>RenderFragment</code>：
         <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>
-        <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/src/BootstrapBlazor.Shared/Pages/Table/CustomerFilter.razor" target="_blank">[传送门] CustomerFilter 组件源码</a>
+        <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/dev/src/BootstrapBlazor.Shared/Pages/Samples/Table/CustomerFilter.razor" target="_blank">[传送门] CustomerFilter 组件源码</a>
     </p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"

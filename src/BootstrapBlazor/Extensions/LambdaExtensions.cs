@@ -325,7 +325,7 @@ namespace System.Linq
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var p = item.GetType().GetProperty(name);
+            var p = item.GetType().GetProperties().FirstOrDefault(p => p.Name == name);
             if (p == null)
             {
                 throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {name} 属性，无法获取其值");
@@ -351,7 +351,7 @@ namespace System.Linq
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var p = model.GetType().GetProperty(name);
+            var p = model.GetType().GetProperties().FirstOrDefault(p => p.Name == name);
             if (p == null)
             {
                 throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {name} 属性，无法设置其值");

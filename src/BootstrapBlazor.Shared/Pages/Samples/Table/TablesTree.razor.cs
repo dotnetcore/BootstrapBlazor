@@ -97,9 +97,10 @@ namespace BootstrapBlazor.Shared.Pages.Table
             });
         }
 
-        private Task<IEnumerable<EditFooTree>> OnTreeExpandQuary(EditFooTree foo)
+        private async Task<IEnumerable<EditFooTree>> OnTreeExpandQuary(EditFooTree foo)
         {
-            return Task.FromResult(AllItems.Where(f => f.ParentId == foo.Id));
+            await Task.Delay(50);
+            return AllItems.Where(f => f.ParentId == foo.Id);
         }
 
         private class FooTree : Foo

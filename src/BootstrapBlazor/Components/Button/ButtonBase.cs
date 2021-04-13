@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
@@ -42,6 +41,16 @@ namespace BootstrapBlazor.Components
         protected string? Tab => IsDisabled ? "-1" : null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected string? ButtonIcon { get; set; }
+
+        /// <summary>
         /// 获得/设置 按钮风格枚举
         /// </summary>
         [Parameter]
@@ -76,6 +85,18 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? Icon { get; set; }
+
+        /// <summary>
+        /// 获得/设置 正在加载动画图标 默认为 fa fa-spin fa-spinner
+        /// </summary>
+        [Parameter]
+        public string LoadingIcon { get; set; } = "fa fa-fw fa-spin fa-spinner";
+
+        /// <summary>
+        /// 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画
+        /// </summary>
+        [Parameter]
+        public bool IsAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 显示文字
@@ -120,38 +141,43 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// 获得 EditContext 实例
-        /// </summary>
-        [CascadingParameter]
-        protected EditContext? EditContext { get; set; }
-
-        /// <summary>
-        /// 获得 ValidateFormBase 实例
-        /// </summary>
-        [CascadingParameter]
-        public ValidateForm? ValidateForm { get; set; }
-
-        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            if (AdditionalAttributes == null) AdditionalAttributes = new Dictionary<string, object>();
+            if (AdditionalAttributes == null)
+            {
+                AdditionalAttributes = new Dictionary<string, object>();
+            }
 
             if (!AdditionalAttributes.TryGetValue("type", out var _))
             {
                 AdditionalAttributes["type"] = "button";
             }
 
-            var onClick = OnClick;
-            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+            ButtonIcon = Icon;
+
+            OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
             {
-                if (!IsDisabled)
+                if (IsAsync)
                 {
-                    if (OnClickWithoutRender != null) await OnClickWithoutRender.Invoke();
-                    if (onClick.HasDelegate) await onClick.InvokeAsync(e);
+                    ButtonIcon = LoadingIcon;
+                    IsDisabled = true;
+                }
+                if (OnClickWithoutRender != null)
+                {
+                    await OnClickWithoutRender.Invoke();
+                }
+                if (OnClick.HasDelegate)
+                {
+                    await OnClick.InvokeAsync(e);
+                }
+                if (IsAsync)
+                {
+                    ButtonIcon = Icon;
+                    IsDisabled = false;
                 }
             });
         }
@@ -175,16 +201,24 @@ namespace BootstrapBlazor.Components
                     if (IsDisabled)
                     {
                         if (Tooltip.PopoverType == PopoverType.Tooltip)
+                        {
                             await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                        }
                         else
+                        {
                             await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                        }
                     }
                     else
                     {
                         if (Tooltip.PopoverType == PopoverType.Tooltip)
+                        {
                             await ShowTooltip();
+                        }
                         else
+                        {
                             await ShowPopover();
+                        }
                     }
                 }
             }

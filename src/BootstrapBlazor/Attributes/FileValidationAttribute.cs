@@ -18,15 +18,7 @@ namespace BootstrapBlazor.Components
     [AttributeUsage(AttributeTargets.Property)]
     public class FileValidationAttribute : ValidationAttribute
     {
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        public FileValidationAttribute()
-        {
-            Localizer = JsonStringLocalizerFactory.CreateLocalizer<Upload>();
-        }
-
-        private IStringLocalizer Localizer { get; }
+        private IStringLocalizer? Localizer { get; set; }
 
         /// <summary>
         /// 获得/设置 允许的扩展名
@@ -53,15 +45,16 @@ namespace BootstrapBlazor.Components
                 var file = (IBrowserFile?)value;
                 if (file != null)
                 {
+                    Localizer = JsonStringLocalizerFactory.CreateLocalizer<Upload<object>>();
                     if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
                     {
-                        var errorMessage = Localizer["FileExtensions", string.Join(", ", Extensions)];
-                        ret = new ValidationResult(errorMessage, new[] { validationContext.MemberName! });
+                        var errorMessage = Localizer?["FileExtensions", string.Join(", ", Extensions)];
+                        ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
                     }
                     if (ret == null && FileSize > 0 && file.Size > FileSize)
                     {
-                        var errorMessage = Localizer["FileSizeValidation", FileSize.ToFileSizeString()];
-                        ret = new ValidationResult(errorMessage, new[] { validationContext.MemberName! });
+                        var errorMessage = Localizer?["FileSizeValidation", FileSize.ToFileSizeString()];
+                        ret = new ValidationResult(errorMessage?.Value, new[] { validationContext.MemberName! });
                     }
                 }
             }

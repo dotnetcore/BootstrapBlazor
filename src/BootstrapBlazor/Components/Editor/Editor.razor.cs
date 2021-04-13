@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Editor 组件基类
     /// </summary>
-    public sealed partial class Editor
+    public partial class Editor : IDisposable
     {
         /// <summary>
         /// 获得/设置 组件 DOM 实例
@@ -151,7 +151,7 @@ namespace BootstrapBlazor.Components
                     methodGetPluginAttrs = nameof(GetPluginAttrs);
                     methodClickPluginItem = nameof(ClickPluginItem);
                 }
-                await Interope.Invoke(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
+                await Interope.InvokeVoidAsync(this, EditorElement, "bb_editor", methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "");
             }
             else if (_renderValue)
             {
@@ -168,8 +168,16 @@ namespace BootstrapBlazor.Components
         public async Task Update(string value)
         {
             Value = value;
-            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
-            if (OnValueChanged != null) await OnValueChanged.Invoke(value);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+
+            if (OnValueChanged != null)
+            {
+                await OnValueChanged.Invoke(value);
+            }
+
             _renderValue = false;
         }
 
@@ -183,9 +191,11 @@ namespace BootstrapBlazor.Components
             var list = new List<object>(50);
             list.AddRange(ToolbarItems);
 
-            var itemList = new List<object>();
-            itemList.Add("custom");
-            itemList.Add(CustomerToolbarButtons.Select(p => p.ButtonName).ToList());
+            var itemList = new List<object>
+            {
+                "custom",
+                CustomerToolbarButtons.Select(p => p.ButtonName).ToList()
+            };
             list.Add(itemList);
 
             return Task.FromResult(list);
@@ -221,14 +231,22 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 Interope?.Dispose();
+                Interope = null;
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

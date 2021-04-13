@@ -1,6 +1,4 @@
-﻿@using Foo = BootstrapBlazor.Shared.Pages.Components.Foo
-@inherits TablesBaseColumn
-@page "/tables/column"
+﻿@page "/tables/column"
 
 <h3>Table 表格</h3>
 
@@ -55,7 +53,7 @@
 
 <Block Title="自定义各列宽度" Introduction="通过设置 <code>TableColumn</code> <code>Width</code> 属性，来控制列宽度，行内按钮操作列宽度由 <code>ExtendButtonColumnWidth</code> 属性控制">
     <p>本例中继续上一个例子，实现了自定义四个功能按钮，并且扩展到行内，点击各个按钮时均有相对应的回调委托方法，<code>TableToolbarButton</code> 采用的是 <code>Delegate</code> 方式完成数据交换，点击工具栏按钮时设置 <code>OnClickCallback</code> 委托方法即可获取表内选中的行数据集合</p>
-    <Table TItem="Foo"
+    <Table TItem="Foo" @ref="TableRows" SelectedRows="@SelectedRows"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
@@ -73,10 +71,11 @@
             <TableColumn @bind-Field="@context.Address" />
         </TableColumns>
         <RowButtonTemplate>
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="明细" OnClickCallback="@OnRowButtonClick" />
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="编辑" OnClickCallback="@OnRowButtonClick" />
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="权限" OnClickCallback="@OnRowButtonClick" />
-            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" TItem="Foo" Item="@context" Icon="fa fa-edit" Text="审批" OnClickCallback="@OnRowButtonClick" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Primary" Icon="fa fa-edit" Text="明细" OnClickCallback="@(() => OnRowButtonClick(context))" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Success" Icon="fa fa-edit" Text="编辑" OnClickCallback="@(() => OnRowButtonClick(context))" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Warning" Icon="fa fa-edit" Text="权限" OnClickCallback="@(() => OnRowButtonClick(context))" />
+            <TableCellButton Size="Size.ExtraSmall" Color="Color.Danger" Icon="fa fa-edit" Text="审批" OnClickCallback="@(() => OnRowButtonClick(context))" />
+            <PopConfirmButton Text="确认" Color="Color.Info" Icon="fa fa-edit" Size="Size.ExtraSmall" OnConfirm="@(() => OnRowButtonClick(context))" />
         </RowButtonTemplate>
     </Table>
 </Block>
@@ -210,11 +209,7 @@
             <TableColumn @bind-Field="@context.Address" Text="地址" Width="290" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Visible="false" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -234,6 +229,26 @@
     </Table>
 </Block>
 
+<Block Title="自定义列模板" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Id" Text="">
+                <Template Context="v">
+                    <PopConfirmButton Text="Test" Size="Size.ExtraSmall" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
+
 <Block Title="自动生成列" Introduction="通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能">
     <p>
         本例中通过设置 <code>AutoGenerateColumns</code> 值为 <code>true</code> 开启自动生成列功能，默认绑定模型实体类所有属性全部生成，实体类可以通过 <code>AutoGenerateColumnAttribute</code> 标签类进行功能设置，如：
@@ -249,12 +264,5 @@
            IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-            </TableColumn>
-        </TableColumns>
     </Table>
 </Block>

@@ -41,9 +41,71 @@ namespace UnitTest.Components
             Assert.False(ret);
         }
 
-        public class Dummy
+        [Fact]
+        public void GetPropertyValue_Test()
         {
-            public string Foo { get; set; }
+            var dog = new Dog() { Foo = "test" };
+            var v1 = LambdaExtensions.GetPropertyValue(dog, nameof(dog.Foo));
+            Assert.Equal(dog.Foo, v1);
+
+            var cat = new Cat() { Foo = 1 };
+            var v2 = LambdaExtensions.GetPropertyValue(cat, nameof(cat.Foo));
+            Assert.Equal(cat.Foo, v2);
+
+            var fish = new Fish() { Foo = "test" };
+            var v3 = LambdaExtensions.GetPropertyValue(fish, nameof(fish.Foo));
+            Assert.Equal(fish.Foo, v3);
+
+            var persian = new Persian() { Foo = 1 };
+            var v4 = LambdaExtensions.GetPropertyValue(persian, nameof(persian.Foo));
+            Assert.Equal(persian.Foo, v4);
+        }
+
+        [Fact]
+        public void SetPropertyValue_Test()
+        {
+            var dog = new Dog() { Foo = "test" };
+            var v1 = LambdaExtensions.SetPropertyValueLambda<Dog, string>(dog, nameof(dog.Foo)).Compile();
+            v1.Invoke(dog, "test1");
+            Assert.Equal("test1", dog.Foo);
+
+            var cat = new Cat() { Foo = 1 };
+            var v2 = LambdaExtensions.SetPropertyValueLambda<Cat, int>(cat, nameof(cat.Foo)).Compile();
+            v2.Invoke(cat, 2);
+            Assert.Equal(2, cat.Foo);
+
+            var fish = new Fish() { Foo = "test" };
+            var v3 = LambdaExtensions.SetPropertyValueLambda<Fish, string>(fish, nameof(fish.Foo)).Compile();
+            v3.Invoke(fish, "test1");
+            Assert.Equal("test1", fish.Foo);
+
+            var persian = new Persian() { Foo = 1 };
+            var v4 = LambdaExtensions.SetPropertyValueLambda<Persian, int>(persian, nameof(persian.Foo)).Compile();
+            v4.Invoke(persian, 2);
+            Assert.Equal(2, persian.Foo);
+        }
+
+        private class Dummy
+        {
+            public virtual string Foo { get; set; }
+        }
+
+        private class Dog : Dummy
+        {
+            public override string Foo { get; set; }
+        }
+
+        private class Cat : Dummy
+        {
+            public new int Foo { get; set; }
+        }
+
+        private class Fish : Dummy
+        {
+        }
+
+        private class Persian : Cat
+        {
         }
     }
 }

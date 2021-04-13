@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         public EventCallback<IEnumerable<string>> EmailsChanged { get; set; }
 
         [CascadingParameter(Name = "BodyContext")]
-        private object? Count { get; set; }
+        private object? BodyContext { get; set; }
 
         [Inject]
         [NotNull]
@@ -50,11 +50,18 @@ namespace BootstrapBlazor.Shared.Pages.Components
         {
             base.OnInitialized();
 
-            Items = GenerateItems((int)(Count ?? 10));
-            Emails ??= Array.Empty<string>();
+            var context = BodyContext as FooContext;
+            Items = GenerateItems(context?.Count ?? 10);
+            Emails = context?.Emails?.Split(";") ?? Array.Empty<string>();
 
             SelectedRows = Items.Where(i => Emails.Any(mail => mail == i.Email));
         }
+
+        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions option) => Task.FromResult(new QueryData<Foo>()
+        {
+            TotalCount = Items.Count(),
+            Items = Items
+        });
 
         /// <summary>
         /// 
@@ -93,7 +100,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         ///
         /// </summary>
         /// <returns></returns>
-        protected static List<Foo> GenerateItems(int startId) => new List<Foo>(Enumerable.Range(startId, 10).Select(i => new Foo()
+        private static List<Foo> GenerateItems(int startId) => new(Enumerable.Range(startId, 10).Select(i => new Foo()
         {
             Id = i,
             Name = $"张三 {i:d4}",
@@ -103,7 +110,23 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// <summary>
         /// 
         /// </summary>
-        public class Foo
+        public class FooContext
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            public int Count { get; set; }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public string? Emails { get; set; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private class Foo
         {
             /// <summary>
             ///

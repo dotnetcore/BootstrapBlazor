@@ -19,6 +19,27 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private Toast? Toast { get; set; }
 
+        [NotNull]
+        private ToastOption? Options1 { get; set; }
+
+        [NotNull]
+        private ToastOption? Options2 { get; set; }
+
+        [NotNull]
+        private ToastOption? Options3 { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Options1 = new ToastOption { Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
+            Options2 = new ToastOption { Category = ToastCategory.Error, Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
+            Options3 = new ToastOption { Category = ToastCategory.Information, Title = "提示信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -109,7 +130,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

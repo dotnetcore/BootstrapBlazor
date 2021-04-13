@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Captcha
+    public partial class Captcha : IDisposable
     {
         private static Random ImageRandomer { get; set; } = new Random();
 
@@ -138,12 +138,14 @@ namespace BootstrapBlazor.Components
                 option.ImageUrl = Path.Combine(ImagesPath, fileName);
             }
             else
+            {
                 option.ImageUrl = GetImageName();
+            }
 
             return option;
         }
 
-        private bool CalcStddev(IEnumerable<int> trails)
+        private static bool CalcStddev(IEnumerable<int> trails)
         {
             var ret = false;
             if (trails.Any())
@@ -159,11 +161,22 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
+            if (disposing)
+            {
+                Interop?.Dispose();
+                Interop = null;
+            }
+        }
 
-            if (disposing) Interop?.Dispose();
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -172,8 +185,12 @@ namespace BootstrapBlazor.Components
         public override void Reset()
         {
             var option = GetCaptchaOption();
-            if (Interop == null) Interop = new JSInterop<Captcha>(JSRuntime);
-            var _ = Interop?.Invoke(this, CaptchaElement, "captcha", nameof(Verify), option);
+            if (Interop == null)
+            {
+                Interop = new JSInterop<Captcha>(JSRuntime);
+            }
+
+            var _ = Interop?.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
         }
     }
 }

@@ -34,8 +34,6 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         private HttpClient Client { get; set; }
 
-        private bool IsWebAssembly { get; set; }
-
         private string ServerUrl { get; set; }
 
         /// <summary>
@@ -43,15 +41,13 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="client"></param>
         /// <param name="options"></param>
-        /// <param name="storage"></param>
-        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options, ICultureStorage storage)
+        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options)
         {
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);
             Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
 
             ServerUrl = options.Value.ServerUrl;
-            IsWebAssembly = storage.Mode == CultureStorageMode.LocalStorage;
         }
 
         /// <summary>
@@ -63,7 +59,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var content = "";
             try
             {
-                if (IsWebAssembly)
+                if (OperatingSystem.IsBrowser())
                 {
                     Client.BaseAddress = new Uri($"{ServerUrl}/api/");
                     content = await Client.GetStringAsync($"Code?fileName={CodeFile}");
@@ -73,7 +69,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     content = await Client.GetStringAsync(CodeFile);
                 }
             }
-            catch (HttpRequestException) { content = "无"; }
+            catch (HttpRequestException) { content = "网络错误"; }
             catch (Exception) { }
             return content;
         }

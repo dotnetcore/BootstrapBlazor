@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Rate 组件
     /// </summary>
-    public sealed partial class Rate
+    public partial class Rate : IDisposable
     {
         private JSInterop<Rate>? Interop { get; set; }
 
@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 if (Interop == null) Interop = new JSInterop<Rate>(JSRuntime);
-                if (Interop != null) await Interop.Invoke(this, RateElement, "bb_rate", nameof(Clicked));
+                if (Interop != null) await Interop.InvokeVoidAsync(this, RateElement, "bb_rate", nameof(Clicked));
             }
         }
 
@@ -91,11 +91,24 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        protected override void Dispose(bool disposing)
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
 
-            if (disposing) Interop?.Dispose();
+            if (disposing && Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

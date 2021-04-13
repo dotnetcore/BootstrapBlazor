@@ -5,6 +5,7 @@
 <h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
 
 <Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件">
+    <p>本例中设置了 <code>Height</code> 高度为 <b>200</b> 最终渲染代码为 <code>max-height: 200px;</code>，可通过切换每页显示数据行数体验不同效果</p>
     <Table TItem="Foo" Height="200"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -16,30 +17,22 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" />
-                </Template>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
         <EditTemplate>
             <div class="form-inline">
                 <div class="row">
                     <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
-                        </BootstrapInput>
+                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
-                        </BootstrapInput>
+                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <DateTimePicker @bind-Value="@context.DateTime">
-                        </DateTimePicker>
+                        <DateTimePicker @bind-Value="@context.DateTime" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
-                        <Select Items="@Educations" @bind-Value="@context.Education">
-                        </Select>
+                        <Select @bind-Value="@context.Education" />
                     </div>
                     <div class="form-group col-12 col-sm-6">
                         <BootstrapInput @bind-Value="@context.Count" />
@@ -71,16 +64,7 @@
             <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Editable="false" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -105,16 +89,7 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -141,16 +116,7 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
     </Table>
 </Block>
@@ -174,16 +140,22 @@
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" UseInjectDataService="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Complete">
-                <Template Context="v">
-                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                </Template>
-                <EditTemplate Context="v">
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="(v as Foo)!.Complete" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                    </div>
-                </EditTemplate>
-            </TableColumn>
+            <TableColumn @bind-Field="@context.Hobby" Data="@Hobbys" />
+        </TableColumns>
+    </Table>
+</Block>
+
+<Block Title="使用自定义数据服务" Introduction="通过设置表格的 <code>DataService</code> 属性，使用独立的数据服务进行对数据的增删改查">
+    <p>
+        <b>自定义数据服务</b>
+        <div class="mt-1">开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例</div>
+    </p>
+    <Pre class="no-highlight mt-3">services.AddTableDemoDataService();</Pre>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" UseInjectDataService="true">
+        <TableColumns>
             <TableColumn @bind-Field="@context.Hobby" Data="@Hobbys" />
         </TableColumns>
     </Table>

@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 编辑表单基类
     /// </summary>
-    public sealed partial class EditorForm<TModel>
+    public sealed partial class EditorForm<TModel> : IShowLabel
     {
         /// <summary>
         /// 支持每行多少个控件功能
@@ -57,10 +57,16 @@ namespace BootstrapBlazor.Components
         public TModel? Model { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示前置标签 默认为 true 显示标签
+        /// 获得/设置 是否显示前置标签 默认为 null 未设置时默认显示标签
         /// </summary>
         [Parameter]
-        public bool ShowLabel { get; set; } = true;
+        public bool? ShowLabel { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示为 Display 组件 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsDisplay { get; set; }
 
         /// <summary>
         /// 获得/设置 是否自动生成模型的所有属性 默认为 true 生成所有属性
@@ -79,6 +85,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [CascadingParameter]
         private IEnumerable<IEditorItem>? CascadeEditorItems { get; set; }
+
+        /// <summary>
+        /// 获得 ValidateForm 实例
+        /// </summary>
+        [CascadingParameter]
+        private ValidateForm? ValidateForm { get; set; }
 
         [Inject]
         [NotNull]
@@ -124,6 +136,17 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            // 为空时使用级联参数 ValidateForm 的 ShowLabel
+            ShowLabel ??= ValidateForm?.ShowLabel;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         private bool FirstRender { get; set; } = true;
@@ -141,7 +164,7 @@ namespace BootstrapBlazor.Components
             {
                 FirstRender = false;
 
-                if (CascadeEditorItems?.Any() ?? false)
+                if (CascadeEditorItems != null)
                 {
                     // 通过级联参数渲染组件
                     FormItems.AddRange(CascadeEditorItems);
@@ -186,8 +209,6 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private int GetOrder(string fieldName) => Model.GetType().GetProperty(fieldName)?.GetCustomAttribute<AutoGenerateColumnAttribute>()?.Order ?? 0;
-
         #region AutoEdit
         private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
         {
@@ -212,25 +233,38 @@ namespace BootstrapBlazor.Components
                 var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
                 var valueExpression = Expression.Lambda(tDelegate, body);
 
-                var componentType = EditorForm<TModel>.GenerateComponent(fieldType, item.Rows != 0);
-                builder.OpenComponent(0, componentType);
-                builder.AddAttribute(1, "DisplayText", displayName);
-                builder.AddAttribute(2, "Value", fieldValue);
-                builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
-                builder.AddAttribute(4, "ValueExpression", valueExpression);
-                builder.AddAttribute(5, "IsDisabled", item.Readonly);
-                if (IsCheckboxList(fieldType) && item.Data != null)
+                if (IsDisplay)
                 {
-                    builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
+                    builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
+                    builder.AddAttribute(1, "DisplayText", displayName);
+                    builder.AddAttribute(2, "Value", fieldValue);
+                    builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
+                    builder.AddAttribute(4, "ValueExpression", valueExpression);
+                    builder.AddAttribute(5, "ShowLabel", ShowLabel ?? true);
+                    builder.CloseComponent();
                 }
-                builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, fieldName, item));
-                builder.CloseComponent();
+                else
+                {
+                    var componentType = item.ComponentType ?? EditorForm<TModel>.GenerateComponent(fieldType, item.Rows != 0);
+                    builder.OpenComponent(0, componentType);
+                    builder.AddAttribute(1, "DisplayText", displayName);
+                    builder.AddAttribute(2, "Value", fieldValue);
+                    builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
+                    builder.AddAttribute(4, "ValueExpression", valueExpression);
+                    builder.AddAttribute(5, "IsDisabled", item.Readonly);
+                    if (IsCheckboxList(fieldType) && item.Data != null)
+                    {
+                        builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
+                    }
+                    builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, fieldName, item));
+                    builder.CloseComponent();
+                }
             }
         };
 
-        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, string fieldName, IEditorItem item)
+        private IEnumerable<KeyValuePair<string, object?>> CreateMultipleAttributes(Type fieldType, string fieldName, IEditorItem item)
         {
-            var ret = new List<KeyValuePair<string, object>>();
+            var ret = new List<KeyValuePair<string, object?>>();
             var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
             if (type.IsEnum)
             {
@@ -239,7 +273,7 @@ namespace BootstrapBlazor.Components
                 var items = type.ToSelectList();
                 if (items != null)
                 {
-                    ret.Add(new KeyValuePair<string, object>("Items", items));
+                    ret.Add(new KeyValuePair<string, object?>("Items", items));
                 }
             }
             else
@@ -247,10 +281,10 @@ namespace BootstrapBlazor.Components
                 switch (type.Name)
                 {
                     case nameof(String):
-                        ret.Add(new KeyValuePair<string, object>("placeholder", Utility.GetPlaceHolder(Model, fieldName) ?? PlaceHolderText));
+                        ret.Add(new KeyValuePair<string, object?>("placeholder", Utility.GetPlaceHolder(Model, fieldName) ?? PlaceHolderText));
                         if (item.Rows != 0)
                         {
-                            ret.Add(new KeyValuePair<string, object>("rows", item.Rows));
+                            ret.Add(new KeyValuePair<string, object?>("rows", item.Rows));
                         }
                         break;
                     case nameof(Int16):
@@ -259,17 +293,13 @@ namespace BootstrapBlazor.Components
                     case nameof(Single):
                     case nameof(Double):
                     case nameof(Decimal):
-                        ret.Add(new KeyValuePair<string, object>("Step", item.Step!));
+                        ret.Add(new KeyValuePair<string, object?>("Step", item.Step!));
                         break;
                     default:
                         break;
                 }
             }
-
-            if (ShowLabel)
-            {
-                ret.Add(new KeyValuePair<string, object>("ShowLabel", true));
-            }
+            ret.Add(new KeyValuePair<string, object?>("ShowLabel", ShowLabel));
             return ret;
         }
 

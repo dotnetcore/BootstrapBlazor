@@ -2,7 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,6 +63,14 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<IEnumerable<SelectedItem>, TValue, Task>? OnSelectedChanged { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizerFactory? LocalizerFactory { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IOptions<JsonLocalizationOptions>? Options { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -95,7 +106,7 @@ namespace BootstrapBlazor.Components
                     var required = pi.GetCustomAttribute<RequiredAttribute>();
                     if (required != null)
                     {
-                        Rules.Add(new RequiredValidator() { ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
+                        Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
                     }
                 }
             }

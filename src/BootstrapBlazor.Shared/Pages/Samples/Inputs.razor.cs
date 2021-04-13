@@ -34,62 +34,59 @@ namespace BootstrapBlazor.Shared.Pages
             PlaceHolderText = Localizer["PlaceHolder"];
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
-            return new AttributeItem[]
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "验证控件",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ShowLabel",
+                Description = "是否显示前置标签",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "DisplayText",
+                Description = "前置标签显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "FormatString",
+                Description = "数值格式化字符串",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Formatter",
+                Description = "TableHeader 实例",
+                Type = "RenderFragment<TItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem()
             {
-                new AttributeItem() {
-                    Name = "ChildContent",
-                    Description = "验证控件",
-                    Type = "RenderFragment",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem() {
-                    Name = "ShowLabel",
-                    Description = "是否显示前置标签",
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "DisplayText",
-                    Description = "前置标签显示文本",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem() {
-                    Name = "FormatString",
-                    Description = "数值格式化字符串",
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem() {
-                    Name = "Formatter",
-                    Description = "TableHeader 实例",
-                    Type = "RenderFragment<TItem>",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem()
-                {
-                    Name = "type",
-                    Description = "控件类型",
-                    Type = "string",
-                    ValueList = "text / number / email / url / password",
-                    DefaultValue = "text"
-                },
-                new AttributeItem()
-                {
-                    Name = "IsDisabled",
-                    Description = "是否禁用 默认为 fasle",
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                }
-            };
-        }
+                Name = "type",
+                Description = "控件类型",
+                Type = "string",
+                ValueList = "text / number / email / url / password",
+                DefaultValue = "text"
+            },
+            new AttributeItem()
+            {
+                Name = "IsDisabled",
+                Description = "是否禁用 默认为 fasle",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            }
+        };
     }
 }

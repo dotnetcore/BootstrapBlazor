@@ -5,12 +5,16 @@
 
 <h4>表格支持树形数据的展示</h4>
 
+<Tips>
+    <div>通过 <code>IsTree</code> 参数控制是否为树形数据，通过 <code>ChildrenColumnName</code> 参数设置树形数据列，通过 <code>HasChildrenColumnName</code> 参数控制当前行是否有子数据，点击子项展开小箭头时，通过 <code>OnTreeExpand</code> 回调委托方法获取子项数据</div>
+</Tips>
+
 <Block Title="树形数据展示" Introduction="当数据中有 <code>Children</code> 字段时会自动展示为树形表格，如果不需要或配置为其他字段可以用 <code>ChildrenColumnName</code> 进行配置。">
     <Tips>
         <div>出于性能考虑，默认子项未展开，点击小箭头后，触发 <code>OnTreeExpand</code> 回调委托方法，再此方法中对当前行的子数据进行赋值，<code>Table</code> 组件进行渲染新数据</div>
     </Tips>
     <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
-           Items="@TreeItems" OnTreeExpand="@OnTreeExpand">
+           Items="@TreeItems" IsTree="true" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -26,7 +30,7 @@
     </Tips>
     <p>本例中更改缩进宽度为 <code>8px</code></p>
     <Table TItem="FooTree" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
-           Items="@TreeItems" OnTreeExpand="@OnTreeExpand" IndentSize="8">
+           Items="@TreeItems" IsTree="true" OnTreeExpand="@OnTreeExpand" IndentSize="8">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -43,7 +47,7 @@
     <Table TItem="EditFooTree" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync"
-           OnDeleteAsync="@OnDeleteAsync" OnTreeExpand="@OnTreeExpandQuary">
+           OnDeleteAsync="@OnDeleteAsync" IsTree="true" OnTreeExpand="@OnTreeExpandQuary">
         <TableColumns>
             <TableColumn @bind-Field="@context.Id" />
             <TableColumn @bind-Field="@context.Name" Width="360" />

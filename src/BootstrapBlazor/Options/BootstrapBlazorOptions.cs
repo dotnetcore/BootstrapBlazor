@@ -36,6 +36,11 @@ namespace BootstrapBlazor.Components
         public string FallbackCultureName { get; set; } = "en";
 
         /// <summary>
+        /// 获得/设置 Toast 组件全局弹窗默认位置 默认为 null 当设置值后覆盖整站设置
+        /// </summary>
+        public Placement? ToastPlacement { get; set; }
+
+        /// <summary>
         /// 获得 组件内置本地化语言列表
         /// </summary>
         public List<string> SupportedCultures { get; set; } = new List<string>() { "zh", "en" };

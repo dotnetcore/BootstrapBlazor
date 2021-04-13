@@ -39,7 +39,10 @@ namespace BootstrapBlazor.Localization.Json
         protected override string GetResourcePrefix(TypeInfo typeInfo)
         {
             var typeName = typeInfo.FullName;
-            if (string.IsNullOrEmpty(typeName)) throw new InvalidOperationException($"{nameof(typeInfo)} full name is null or String.Empty.");
+            if (string.IsNullOrEmpty(typeName))
+            {
+                throw new InvalidOperationException($"{nameof(typeInfo)} full name is null or String.Empty.");
+            }
 
             if (typeInfo.IsGenericType)
             {
@@ -90,28 +93,32 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         /// <typeparam name="TType"></typeparam>
         /// <returns></returns>
-        public static IStringLocalizer CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
+        public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
 
         /// <summary>
         /// 通过指定类型创建 IStringLocalizer 实例
         /// </summary>
         /// <param name="resourceSource"></param>
         /// <returns></returns>
-        public static IStringLocalizer CreateLocalizer(Type resourceSource) => ServiceProviderHelper.ServiceProvider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
+        public static IStringLocalizer? CreateLocalizer(Type resourceSource) => ServiceProviderHelper.ServiceProvider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
         /// <summary>
         /// 获取指定 Type 的资源文件
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="localizer"></param>
         /// <param name="key"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static bool TryGetLocalizerString(Type type, string key, [MaybeNullWhen(false)] out string? text)
+        public static bool TryGetLocalizerString(IStringLocalizer? localizer, string key, [MaybeNullWhen(false)] out string? text)
         {
-            var localizer = JsonStringLocalizerFactory.CreateLocalizer(type);
-            var l = localizer[key];
-            text = !l.ResourceNotFound ? l.Value : null;
-            return !l.ResourceNotFound;
+            text = null;
+            var l = localizer?[key];
+            var ret = !(l?.ResourceNotFound ?? false);
+            if (ret)
+            {
+                text = l?.Value;
+            }
+            return ret;
         }
     }
 }

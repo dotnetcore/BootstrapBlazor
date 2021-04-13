@@ -1,13 +1,14 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits UploadBase
+@typeparam TValue
+@inherits UploadBase<TValue>
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@Id">@DisplayText</label>
+    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="input-group">
-        <input type="text" class="@InputValueClassString" id="@Id" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
+        <input type="text" class="@InputValueClassString" id="@Id" disabled="@DisabledString" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
         <div class="input-group-append">
             @if (ShowDeleteButton)
             {

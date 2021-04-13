@@ -4,7 +4,10 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +19,10 @@ namespace BootstrapBlazor.Shared.Shared
     public sealed partial class NavMenu
     {
         private bool collapseNavMenu = true;
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<App>? Localizer { get; set; }
 
         private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
             .AddClass("collapse", collapseNavMenu)
@@ -33,14 +40,18 @@ namespace BootstrapBlazor.Shared.Shared
             InitMenus();
         }
 
-        private Task OnClickMenu(MenuItem item)
+        private async Task OnClickMenu(MenuItem item)
         {
             if (!item.Items.Any())
             {
                 ToggleNavMenu();
                 StateHasChanged();
             }
-            return Task.CompletedTask;
+
+            if (!string.IsNullOrEmpty(item.Text))
+            {
+                await TitleService.SetWebSiteTitle($"{item.Text} - {Localizer["Title"]}");
+            }
         }
 
         private void ToggleNavMenu()
@@ -131,6 +142,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "表单标签",
+                Url = "labels"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "服务器端模式 Server",
                 Url = "install-server"
             });
@@ -173,7 +190,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "级联选择 Cascader",
                 Url = "cascaders"
             });
@@ -239,6 +255,7 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsUpdate = true,
                 Text = "多项选择器 MultiSelect",
                 Url = "multiselects"
             });
@@ -326,6 +343,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "数据显示 Display",
+                Url = "displays"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "挂件 DropdownWidget",
                 Url = "dropdownwidgets"
             });
@@ -364,6 +387,12 @@ namespace BootstrapBlazor.Shared.Shared
             {
                 Text = "时间线 Timeline",
                 Url = "timelines"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "网站标题 Title",
+                Url = "titles"
             });
             item.AddItem(new DemoMenuItem()
             {
@@ -511,9 +540,15 @@ namespace BootstrapBlazor.Shared.Shared
 
             it.AddItem(new DemoMenuItem()
             {
-                IsNew = true,
                 Text = "树形数据",
                 Url = "tables/tree"
+            });
+
+            it.AddItem(new DemoMenuItem()
+            {
+                IsNew = true,
+                Text = "数据加载",
+                Url = "tables/loading"
             });
 
             item.AddItem(it);
@@ -535,7 +570,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "对话框 Dialog",
                 Url = "dialogs"
             });
@@ -556,7 +590,6 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
-                IsUpdate = true,
                 Text = "模态框 Modal",
                 Url = "modals"
             });
@@ -678,6 +711,11 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                Text = "行组件 Row",
+                Url = "rows"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "骨架屏 Skeleton",
                 Url = "skeletons"
             });
@@ -708,11 +746,11 @@ namespace BootstrapBlazor.Shared.Shared
             }
         }
 
-        private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new KeyValuePair<string, object>[]
+        private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new KeyValuePair<string, object?>[]
         {
-            new KeyValuePair<string, object>(nameof(State.Count), count),
-            new KeyValuePair<string, object>(nameof(State.IsNew), isNew),
-            new KeyValuePair<string, object>(nameof(State.IsUpdate), isUpdate)
+            new(nameof(State.Count), count),
+            new(nameof(State.IsNew), isNew),
+            new(nameof(State.IsUpdate), isUpdate)
         });
 
         private class DemoMenuItem : MenuItem

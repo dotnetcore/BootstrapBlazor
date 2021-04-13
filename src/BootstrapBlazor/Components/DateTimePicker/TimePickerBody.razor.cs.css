@@ -37,6 +37,7 @@
 
     .time-panel-content.has-seconds:after {
         left: 66.66667%;
+        pointer-events: none;
     }
 
     .time-panel-content:after {
@@ -115,6 +116,7 @@
     font-size: 12px;
     color: #606266;
     opacity: 0.6;
+    cursor: pointer;
 }
 
     .time-spinner-item.active:not(.disabled) {

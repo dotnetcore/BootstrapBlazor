@@ -3,8 +3,11 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -12,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Toast 弹出窗组件
     /// </summary>
-    public partial class Toast
+    public partial class Toast : IDisposable
     {
         private string? ClassString => CssBuilder.Default("toast-container")
             .AddClassFromAttributes(AdditionalAttributes)
@@ -41,7 +44,12 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示文字
         /// </summary>
         [Parameter]
+        [NotNull]
         public Placement Placement { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IOptions<BootstrapBlazorOptions>? Options { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -50,7 +58,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            Placement = Placement.BottomEnd;
+            Placement = Options.Value.ToastPlacement ?? Placement.BottomEnd;
 
             // 注册 Toast 弹窗事件
             if (ToastService != null)
@@ -86,17 +94,24 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 ToastService.UnRegister(this);
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

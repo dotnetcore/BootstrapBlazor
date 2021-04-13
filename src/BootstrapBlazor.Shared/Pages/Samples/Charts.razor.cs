@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Shared.Pages
             if (firstRender && JSRuntime != null)
             {
                 if (Interope == null) Interope = new JSInterop<Charts>(JSRuntime);
-                await Interope.Invoke(this, "", "_initChart", nameof(ShowToast));
+                await Interope.InvokeVoidAsync(this, "", "_initChart", nameof(ShowToast));
             }
         }
 

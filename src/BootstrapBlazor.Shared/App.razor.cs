@@ -4,6 +4,8 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared
 {
@@ -22,13 +24,13 @@ namespace BootstrapBlazor.Shared
         /// 
         /// </summary>
         /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnAfterRender(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && JSRuntime != null)
+            if (firstRender && OperatingSystem.IsBrowser() && JSRuntime != null)
             {
-                JSRuntime.InvokeVoidAsync("$.loading");
+                await JSRuntime.InvokeVoidAsync("$.loading");
             }
         }
     }

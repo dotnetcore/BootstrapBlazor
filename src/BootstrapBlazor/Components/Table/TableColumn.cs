@@ -26,6 +26,12 @@ namespace BootstrapBlazor.Components
         public IFilter? Filter { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件类型 默认为 null
+        /// </summary>
+        [Parameter]
+        public Type? ComponentType { get; set; }
+
+        /// <summary>
         /// 获得/设置 绑定列类型
         /// </summary>
         [NotNull]
@@ -254,6 +260,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
 
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TType>> GetPropertyCache = new ConcurrentDictionary<(Type, string), Func<object, TType>>();
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TType>> GetPropertyCache = new();
     }
 }

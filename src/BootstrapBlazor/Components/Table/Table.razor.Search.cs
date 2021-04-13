@@ -60,6 +60,12 @@ namespace BootstrapBlazor.Components
         public bool ShowAdvancedSearch { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示清空搜索按钮 默认显示
+        /// </summary>
+        [Parameter]
+        public bool ShowResetSearch { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 搜索关键字 通过列设置的 Searchable 自动生成搜索拉姆达表达式
         /// </summary>
         [Parameter]
@@ -76,9 +82,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task ResetSearchClick()
         {
+            await ToggleLoading(true);
             if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
             else if (SearchTemplate == null) Utility.Reset(SearchModel);
-            await SearchClick();
+            PageIndex = 1;
+            await QueryAsync();
+            await ToggleLoading(false);
         }
 
         /// <summary>

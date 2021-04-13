@@ -1,4 +1,7 @@
 ﻿{
+  "BootstrapBlazor.Shared.App": {
+    "Title": "Bootstrap of Blazor"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
@@ -107,5 +110,11 @@
   "BootstrapBlazor.Shared.Pages.Components.ThemeChooser": {
     "Title": "Click to choose theme",
     "HeaderText": "Themes"
+  },
+  "BootstrapBlazor.Shared.Pages.Uploads.Person": {
+    "Name": "Name",
+    "Name.Required": "{0} is required",
+    "Picture": "File",
+    "Picture.Required": "{0} is required"
   }
 }

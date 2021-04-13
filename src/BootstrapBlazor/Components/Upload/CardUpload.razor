@@ -1,6 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ButtonUploadBase
+@typeparam TValue
+@inherits ButtonUploadBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="control-label" required="@Required">@DisplayText</label>
+}
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="upload-body is-card">
         @foreach (var item in UploadFiles)
@@ -21,9 +26,10 @@
                     <button class="btn btn-sm btn-outline-secondary" disabled="@GetDiabledString(item)">
                         <i class="fa fa-search-plus"></i>
                     </button>
-                    <button class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)" @onclick="@(e => OnFileDelete(item))">
+                    <DynamicElement TagName="button" class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)"
+                                    TriggerClick="@(!IsDisabled)" OnClick="@(() => OnFileDelete(item))">
                         <i class="fa fa-trash-o"></i>
-                    </button>
+                    </DynamicElement>
                 </div>
                 @if (GetShowProgress(item))
                 {
@@ -37,11 +43,14 @@
         }
         @if (!IsSingle || (IsSingle && !UploadFiles.Any()))
         {
-            <div class="upload-item">
+            <div class="@CardItemClass">
                 <div class="upload-item-actions btn-browser">
-                    <span class="upload-item-plus">
-                        <i class="fa fa-plus"></i>
-                    </span>
+                    @if (!IsDisabled)
+                    {
+                        <span class="upload-item-plus">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                    }
                 </div>
             </div>
         }

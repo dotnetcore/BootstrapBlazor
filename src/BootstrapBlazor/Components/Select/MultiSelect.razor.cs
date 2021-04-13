@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// MultiSelect 组件
     /// </summary>
-    public partial class MultiSelect<TValue>
+    public partial class MultiSelect<TValue> : IDisposable
     {
         private string? _oldStringValue;
 
@@ -276,7 +276,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<MultiSelect<TValue>>(JSRuntime);
-                await Interop.Invoke(this, SelectElement, "bb_multi_select", nameof(Close));
+                await Interop.InvokeVoidAsync(this, SelectElement, "bb_multi_select", nameof(Close));
             }
         }
 
@@ -435,17 +435,37 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 更改组件数据源方法
+        /// </summary>
+        /// <param name="items"></param>
+        public void SetItems(IEnumerable<SelectedItem> items)
+        {
+            SelectedItems.Clear();
+            Items = items;
+            StateHasChanged();
+        }
+
+        /// <summary>
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
 
-            if (disposing)
+            if (disposing && Interop != null)
             {
-                Interop?.Dispose();
+                Interop.Dispose();
+                Interop = null;
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

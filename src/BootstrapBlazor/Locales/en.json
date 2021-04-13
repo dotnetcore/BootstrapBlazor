@@ -140,7 +140,7 @@
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "Cancel",
     "ConfirmButtonText": "Ok",
-    "Content": "Are you sure DELETE?"
+    "Content": "Are you sure you want to perform this operation?"
   },
   "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "Please input ...",
@@ -184,7 +184,7 @@
     "ExportButtonText": "Export",
     "SearchPlaceholderText": "Search",
     "SearchButtonText": "Search",
-    "ResetButtonText": "Reset",
+    "ResetSearchButtonText": "Reset",
     "AdvanceButtonText": "Advance Search",
     "CheckboxDisplayText": "All",
     "EditModalTitle": "Edit Data",

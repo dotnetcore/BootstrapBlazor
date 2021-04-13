@@ -1,5 +1,9 @@
 ﻿(function ($) {
     $.extend({
+        bb_toast_close: function (el) {
+            var $el = $(el);
+            $el.find('.close').trigger('click');
+        },
         bb_toast: function (el, toast, method) {
             if (window.Toasts === undefined) window.Toasts = [];
 

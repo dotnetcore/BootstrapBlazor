@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Markdown 组件
     /// </summary>
-    public sealed partial class Markdown
+    public partial class Markdown : IDisposable
     {
         /// <summary>
         /// 获得/设置 DOM 元素实例
@@ -80,6 +81,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public EventCallback<string?> HtmlChanged { get; set; }
 
+        /// <summary>
+        /// 获取/设置 组件是否为浏览器模式
+        /// </summary>
+        [Parameter]
+        public bool? IsViewer { get; set; }
+
         private JSInterop<Markdown>? Interop { get; set; }
 
         private readonly MarkdownOption _markdownOption = new();
@@ -98,6 +105,7 @@ namespace BootstrapBlazor.Components
             _markdownOption.Height = $"{Height}px";
             _markdownOption.MinHeight = $"{MinHeight}px";
             _markdownOption.initialValue = Value;
+            _markdownOption.Viewer = IsViewer;
         }
 
         /// <summary>
@@ -116,7 +124,7 @@ namespace BootstrapBlazor.Components
                     Interop = new JSInterop<Markdown>(JSRuntime);
                 }
 
-                await Interop.Invoke(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
+                await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
             }
         }
 
@@ -156,15 +164,22 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 Interop?.Dispose();
                 Interop = null;
             }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

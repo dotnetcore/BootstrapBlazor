@@ -93,26 +93,30 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Foo Dummy { get; set; } = new Foo() { Name = "张三,李四" };
 
-        private static IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
-            return new AttributeItem[]
-            {
-                new AttributeItem() {
-                    Name = "Items",
-                    Description = "数据源",
-                    Type = "IEnumerable<SelectedItem>",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem(){
-                    Name = "Value",
-                    Description = "组件值用于双向绑定",
-                    Type = "TValue",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                }
-            };
-        }
+            new AttributeItem() {
+                Name = "Items",
+                Description = "数据源",
+                Type = "IEnumerable<SelectedItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "IsDisabled",
+                Description = "是否禁用",
+                Type = "boolean",
+                ValueList = " — ",
+                DefaultValue = "false"
+            },
+            new AttributeItem(){
+                Name = "Value",
+                Description = "组件值用于双向绑定",
+                Type = "TValue",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
+        };
 
         /// <summary>
         /// 获得事件方法

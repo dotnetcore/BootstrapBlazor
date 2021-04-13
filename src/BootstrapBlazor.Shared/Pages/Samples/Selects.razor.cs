@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 获得 默认数据集合
         /// </summary>
-        private readonly IEnumerable<SelectedItem> Items = new SelectedItem[]
+        private readonly IEnumerable<SelectedItem> Items = new[]
         {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海") { Active = true },
@@ -43,7 +43,17 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 获得 默认数据集合
         /// </summary>
-        private readonly IEnumerable<SelectedItem> StringItems = new SelectedItem[]
+        private readonly IEnumerable<SelectedItem> Items4 = new[]
+        {
+            new SelectedItem ("Beijing", "北京") { IsDisabled = true},
+            new SelectedItem ("Shanghai", "上海") { Active = true },
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        /// <summary>
+        /// 获得 默认数据集合
+        /// </summary>
+        private readonly IEnumerable<SelectedItem> StringItems = new[]
         {
             new SelectedItem ("1", "1"),
             new SelectedItem ("12", "12"),

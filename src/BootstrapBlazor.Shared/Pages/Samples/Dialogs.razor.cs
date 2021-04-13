@@ -36,9 +36,9 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnClick() => DialogService.Show(new DialogOption()
         {
             Title = "我是服务创建的弹出框",
-            BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new[]
             {
-                new KeyValuePair<string, object>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
+                new KeyValuePair<string, object?>(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
             })
             .Render()
         });
@@ -49,10 +49,10 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Title = "利用代码关闭弹出框",
             };
-            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new[]
             {
-                new KeyValuePair<string, object>(nameof(Button.Text), "点击关闭弹窗"),
-                new KeyValuePair<string, object>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
+                new KeyValuePair<string, object?>(nameof(Button.Text), "点击关闭弹窗"),
+                new KeyValuePair<string, object?>(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
             }).Render();
             await DialogService.Show(option);
         }
@@ -93,9 +93,9 @@ namespace BootstrapBlazor.Shared.Pages
                 ShowFooter = false,
                 BodyContext = DataPrimaryId
             };
-            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new List<KeyValuePair<string, object>>
+            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new KeyValuePair<string, object?>[]
             {
-                new KeyValuePair<string, object>(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
+                new(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
             }).Render();
 
             await DialogService.Show(op);
@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Shared.Pages
             var result = await DialogService.ShowModal<ResultDialogDemo>(new ResultDialogOption()
             {
                 Title = "带返回值模态弹出框",
-                ComponentParamters = new KeyValuePair<string, object>[]
+                ComponentParamters = new KeyValuePair<string, object?>[]
                 {
                     new(nameof(ResultDialogDemo.Value), DemoValue1),
                     new(nameof(ResultDialogDemo.ValueChanged), EventCallback.Factory.Create<int>(this, v => DemoValue1 = v))
@@ -125,10 +125,10 @@ namespace BootstrapBlazor.Shared.Pages
             var result = await DialogService.ShowModal<ResultDialogDemo2>(new ResultDialogOption()
             {
                 Title = "选择收件人",
-                BodyContext = 10,
+                BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
                 ButtonYesText = "选择",
                 ButtonYesIcon = "fa fa-search",
-                ComponentParamters = new KeyValuePair<string, object>[]
+                ComponentParamters = new KeyValuePair<string, object?>[]
                 {
                     // 用于初始化已选择的用户邮件
                     new(nameof(ResultDialogDemo2.Emails), Emails),

@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Foo = BootstrapBlazor.Shared.Pages.Components.Foo;
@@ -54,6 +55,49 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         };
+
+        /// <summary>
+        /// 获得 默认数据集合
+        /// </summary>
+        private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
+        {
+            new SelectedItem ("", "请选择 ..."),
+            new SelectedItem ("Beijing", "北京") { Active = true },
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Hangzhou", "杭州")
+        };
+
+        private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
+
+        [NotNull]
+        private MultiSelect<string>? Select1 { get; set; }
+
+        /// <summary>
+        /// 级联绑定菜单
+        /// </summary>
+        /// <param name="item"></param>
+        private Task OnCascadeBindSelectClick(SelectedItem item)
+        {
+            Items2.Clear();
+            if (item.Value == "Beijing")
+            {
+                Items2.AddRange(new SelectedItem[]
+                {
+                    new SelectedItem("1","朝阳区"),
+                    new SelectedItem("2","海淀区"),
+                });
+            }
+            else if (item.Value == "Shanghai")
+            {
+                Items2.AddRange(new SelectedItem[]
+                {
+                    new SelectedItem("1","静安区"),
+                    new SelectedItem("2","黄浦区"),
+                });
+            }
+            Select1.SetItems(Items2);
+            return Task.CompletedTask;
+        }
 
         private string SelectedLongItemsValue { get; set; } = "";
         private string SelectedMaxItemsValue { get; set; } = "";

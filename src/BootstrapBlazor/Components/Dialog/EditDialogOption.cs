@@ -33,6 +33,11 @@ namespace BootstrapBlazor.Components
         public bool ShowLabel { get; set; }
 
         /// <summary>
+        /// 获得/设置 查询时是否显示正在加载中动画 默认为 false
+        /// </summary>
+        public bool ShowLoading { get; set; }
+
+        /// <summary>
         /// 获得/设置 编辑框模型
         /// </summary>
         public TModel? Model { get; set; }

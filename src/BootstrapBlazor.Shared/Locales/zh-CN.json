@@ -1,4 +1,7 @@
 ﻿{
+  "BootstrapBlazor.Shared.App": {
+    "Title": "Bootstrap Blazor - 企业级 UI 组件库"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",
     "SubTitle": "示例"
@@ -107,5 +110,11 @@
   "BootstrapBlazor.Shared.Pages.Components.ThemeChooser": {
     "Title": "点击切换主题",
     "HeaderText": "请选择主题"
+  },
+  "BootstrapBlazor.Shared.Pages.Uploads.Person": {
+    "Name": "姓名",
+    "Name.Required": "{0}不能为空",
+    "Picture": "上传文件",
+    "Picture.Required": "上传文件不能为空"
   }
 }

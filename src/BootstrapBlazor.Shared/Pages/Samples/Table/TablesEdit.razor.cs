@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Concurrent;
@@ -29,9 +30,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
         private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
         [NotNull]
-        private IEnumerable<SelectedItem>? Educations { get; set; }
-
-        [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
         [NotNull]
@@ -45,8 +43,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
             base.OnInitialized();
 
             Hobbys = Foo.GenerateHobbys(Localizer);
-            Educations = typeof(EnumEducation).ToSelectList();
             Items = Foo.GenerateFoo(Localizer);
+
+            CustomerDataService = new FooDataService<Foo>(Localizer);
         }
 
         private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
@@ -116,6 +115,17 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 IsFiltered = isFiltered,
                 IsSearch = true
             });
+        }
+
+        [NotNull]
+        private IDataService<Foo>? CustomerDataService { get; set; }
+
+        private class FooDataService<TModel> : TableDemoDataService<TModel> where TModel : class, new()
+        {
+            public FooDataService(IStringLocalizer<TModel> localizer) : base(localizer)
+            {
+
+            }
         }
     }
 }

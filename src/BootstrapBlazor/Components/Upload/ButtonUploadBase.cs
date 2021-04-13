@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public abstract class ButtonUploadBase : MultipleUploadBase
+    public abstract class ButtonUploadBase<TValue> : MultipleUploadBase<TValue>
     {
         /// <summary>
         /// 获得/设置 是否仅上传一次 默认 false
@@ -49,7 +49,10 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             // 上传文件夹时 开启 Multiple 属性
-            if (IsDirectory) IsMultiple = true;
+            if (IsDirectory)
+            {
+                IsMultiple = true;
+            }
         }
 
         /// <summary>
@@ -116,7 +119,7 @@ namespace BootstrapBlazor.Components
         {
             var builder = CssBuilder.Default("fa");
             var fileExtension = Path.GetExtension(item.OriginFileName ?? item.FileName)?.ToLowerInvariant() ?? "";
-            string icon = OnGetFileFormat?.Invoke(fileExtension) ?? fileExtension switch
+            var icon = OnGetFileFormat?.Invoke(fileExtension) ?? fileExtension switch
             {
                 ".csv" or ".xls" or ".xlsx" => "fa-file-excel-o",
                 ".doc" or ".docx" or ".dot" or ".dotx" => "fa-file-word-o",
@@ -145,8 +148,16 @@ namespace BootstrapBlazor.Components
                 { "hidden", "hidden" }
             };
 
-            if (!string.IsNullOrEmpty(Accept)) ret.Add("accept", Accept);
-            if (IsMultiple) ret.Add("multiple", "multiple");
+            if (!string.IsNullOrEmpty(Accept))
+            {
+                ret.Add("accept", Accept);
+            }
+
+            if (IsMultiple)
+            {
+                ret.Add("multiple", "multiple");
+            }
+
             if (IsDirectory)
             {
                 ret.Add("directory", "dicrectory");

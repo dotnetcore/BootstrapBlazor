@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -433,11 +431,10 @@ namespace BootstrapBlazor.Components
             var context = RouteTableFactory.Create(AdditionalAssemblies!, url);
             if (context.Handler != null)
             {
-                var option = ServiceProviderHelper.ServiceProvider.GetRequiredService<TabItemTextOptions>();
-                text ??= Options.Text ?? option.Text;
-                icon ??= Options.Icon ?? option.Icon ?? string.Empty;
-                active ??= Options.IsActive ?? option.IsActive ?? true;
-                closable ??= Options.Closable ?? option.Closable ?? true;
+                text ??= Options.Text;
+                icon ??= Options.Icon ?? string.Empty;
+                active ??= Options.IsActive ?? true;
+                closable ??= Options.Closable ?? true;
                 Options.Reset();
 
                 AddTabItem(new Dictionary<string, object?>

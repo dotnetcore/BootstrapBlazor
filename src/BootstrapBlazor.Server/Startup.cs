@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace BootstrapBlazor.Server
@@ -55,7 +57,6 @@ namespace BootstrapBlazor.Server
             services.AddControllers();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddCultureStorage();
 
             services.AddBlazorBackgroundTask();
 
@@ -64,7 +65,9 @@ namespace BootstrapBlazor.Server
             {
                 // 统一设置 Toast 组件自动消失时间
                 options.ToastDelay = 4000;
-                options.Themes.Add(new System.Collections.Generic.KeyValuePair<string, string>("Ant Design (完善中)", "_content/BootstrapBlazor.Shared/css/ant.css"));
+                options.Themes.AddRange(Configuration.GetSection("Themes")
+                    .GetChildren()
+                    .Select(c => new KeyValuePair<string, string>(c.Key, c.Value)));
             }, options =>
             {
                 // 附加自己的 json 多语言文化资源文件 如 zh-TW.json

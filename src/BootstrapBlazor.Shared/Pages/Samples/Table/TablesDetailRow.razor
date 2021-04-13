@@ -1,5 +1,4 @@
-﻿@inherits TablesBaseEdit
-@page "/tables/detail"
+﻿@page "/tables/detail"
 
 <h3>显示明细行功能</h3>
 
@@ -56,11 +55,7 @@
                 <TableColumns Context="Detail">
                     <TableColumn @bind-Field="@Detail.Name" />
                     <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
-                    <TableColumn @bind-Field="@context.Complete" Width="70">
-                        <Template Context="v">
-                            <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                        </Template>
-                    </TableColumn>
+                    <TableColumn @bind-Field="@context.Complete" Width="70" ComponentType="@typeof(Switch)" />
                 </TableColumns>
             </Table>
         </DetailRowTemplate>
@@ -114,17 +109,7 @@
                             Cache.Add(cacheKey, DetailDataSource);
                         }
                     }
-                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource">
-                        <TableColumns Context="Detail">
-                            <TableColumn @bind-Field="@Detail.Name" />
-                            <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
-                            <TableColumn @bind-Field="@context.Complete" Width="70">
-                                <Template Context="v">
-                                    <Switch IsDisabled="true" Value="v.Value" ShowInnerText="true" OnInnerText="是" OffInnerText="否" />
-                                </Template>
-                            </TableColumn>
-                        </TableColumns>
-                    </Table>
+                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@DetailDataSource" AutoGenerateColumns="true" />
                 </TabItem>
                 <TabItem Text="关联数据">
                     <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
@@ -133,7 +118,3 @@
         </DetailRowTemplate>
     </Table>
 </Block>
-
-@code {
-    private Dictionary<string, IEnumerable<DetailRow>> Cache { get; } = new Dictionary<string, IEnumerable<DetailRow>>();
-}

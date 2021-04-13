@@ -226,14 +226,17 @@ namespace BootstrapBlazor.Components
                 await OnSelectedRowsChanged();
             }
 
-            if (OnClickRowCallback != null) await OnClickRowCallback(val);
+            if (OnClickRowCallback != null)
+            {
+                await OnClickRowCallback(val);
+            }
         };
 
         private async Task OnSelectedRowsChanged()
         {
+            SelectedRows = SelectedItems;
             if (SelectedRowsChanged.HasDelegate)
             {
-                SelectedRows = SelectedItems;
                 await SelectedRowsChanged.InvokeAsync(SelectedRows);
             }
         }
@@ -246,19 +249,50 @@ namespace BootstrapBlazor.Components
         protected virtual bool CheckActive(TItem val) => SelectedItems.Contains(val);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected Task OnClickRefreshAsync() => QueryAsync();
+
+        /// <summary>
         /// 查询按钮调用此方法
         /// </summary>
         /// <returns></returns>
         public async Task QueryAsync()
         {
-            // 通知客户端开启遮罩
-            if (ShowLoading && !IsAutoRefresh)
-            {
-                IsLoading = true;
-                var _ = JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", "show");
-            }
+            await InternalToggleLoading(true);
             await QueryData();
+            await InternalToggleLoading(false);
             StateHasChanged();
+        }
+
+        private bool loading = false;
+
+        /// <summary>
+        /// 显示/隐藏 Loading 遮罩
+        /// </summary>
+        /// <param name="state">true 时显示，false 时隐藏</param>
+        /// <returns></returns>
+        public async ValueTask ToggleLoading(bool state)
+        {
+            if (ShowLoading)
+            {
+                loading = state;
+                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            }
+        }
+
+        /// <summary>
+        /// 显示/隐藏 Loading 遮罩
+        /// </summary>
+        /// <param name="state">true 时显示，false 时隐藏</param>
+        /// <returns></returns>
+        protected async ValueTask InternalToggleLoading(bool state)
+        {
+            if (ShowLoading && !loading)
+            {
+                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            }
         }
 
         /// <summary>
@@ -304,7 +338,8 @@ namespace BootstrapBlazor.Components
                     }
                     if (KeySet.Count > 0)
                     {
-                        TreeRows = Items.Select(item =>
+                        TreeRows = new List<TableTreeNode<TItem>>();
+                        foreach (var item in Items)
                         {
                             var node = new TableTreeNode<TItem>(item)
                             {
@@ -313,10 +348,10 @@ namespace BootstrapBlazor.Components
                             node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
                             if (node.IsExpand)
                             {
-                                RestoreIsExpand(node);
+                                await RestoreIsExpand(node);
                             }
-                            return node;
-                        }).ToList();
+                            TreeRows.Add(node);
+                        }
                     }
                     else
                     {
@@ -346,7 +381,7 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (!IsRendered && SelectedRows != null)
+            if (SelectedRows != null)
             {
                 SelectedItems.AddRange(Items.Where(i => SelectedRows.Contains(i)));
             }
@@ -366,15 +401,14 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private void RestoreIsExpand(TableTreeNode<TItem> parentNode)
+        private async Task RestoreIsExpand(TableTreeNode<TItem> parentNode)
         {
             if (OnTreeExpand == null)
             {
                 throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
             }
 
-            var items = OnTreeExpand(parentNode.Value).Result;
-            parentNode.Children.AddRange(items.Select(item =>
+            foreach (var item in (await OnTreeExpand(parentNode.Value)))
             {
                 var node = new TableTreeNode<TItem>(item)
                 {
@@ -384,10 +418,10 @@ namespace BootstrapBlazor.Components
                 node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
                 if (node.IsExpand)
                 {
-                    RestoreIsExpand(node);
+                    await RestoreIsExpand(node);
                 }
-                return node;
-            }));
+                parentNode.Children.Add(node);
+            }
         }
 
         private static readonly ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new();
@@ -418,7 +452,10 @@ namespace BootstrapBlazor.Components
                 await ClickEditButton(item);
             }
 
-            if (OnDoubleClickRowCallback != null) await OnDoubleClickRowCallback(item);
+            if (OnDoubleClickRowCallback != null)
+            {
+                await OnDoubleClickRowCallback(item);
+            }
 
             StateHasChanged();
         };

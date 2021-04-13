@@ -1,0 +1,50 @@
+﻿@page "/titles"
+
+<h3>Title 网站标题</h3>
+
+<h4>用于设置网页页面标题</h4>
+
+<Block Title="基本用法" Introduction="网页中添加 <code>Title</code> 组件并设置 <code>Text</code> 属性即可">
+    <Tips>
+        <p>
+            <code>Title</code> 组件设置 <code>Text</code> 后为普通组件使用，未设置 <code>Text</code> 属性时供服务调用
+        </p>
+    </Tips>
+    <p><b>设置 <code>Text</code> 属性</b></p>
+    <Pre>@@page "/titles"
+&lt;Title Text="我是标题" /&gt;
+&lt;p&gt;测试网页&lt;p/&gt;
+</Pre>
+</Block>
+
+<Block Title="高级用法" Introduction="网页中无需添加 <code>Title</code> 组件，调用注入服务 <code>TitleService</code>">
+    <p>
+        <b>特别注意：</b>
+        <div>使用此种方法时请在 <code>App</code> 或者 <code>MainLayout</code> 或者 <code>Page</code> 中添加 <b>未设置 <code>Text</code> 属性</b> 的 <code>Title</code> 组件</div>
+    </p>
+    <Pre>[Inject]
+[NotNull]
+private TitleService? TitleService { get; set; }
+
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    await base.OnAfterRenderAsync(firstRender);
+
+    await TitleService.SetTitle("我是标题");
+}
+</Pre>
+</Block>
+
+<Block Title="静态方法" Introduction="直接调用 <code>TitleService</code> 静态方法">
+    <p>
+        <b>特别注意：</b>
+        <div>使用此种方法时请在 <code>App</code> 或者 <code>MainLayout</code> 或者 <code>Page</code> 中添加 <b>未设置 <code>Text</code> 属性</b> 的 <code>Title</code> 组件</div>
+    </p>
+    <Pre>protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    await base.OnAfterRenderAsync(firstRender);
+
+    await TitleService.SetWebSiteTitle("我是标题");
+}
+</Pre>
+</Block>

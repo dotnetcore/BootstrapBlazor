@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" for="@Id">@DisplayText</label>
+    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
 }
 @if (ShowButton)
 {
@@ -14,7 +14,7 @@
                 <i class="fa fa-fw fa-minus-circle"></i>
             </button>
         </div>
-        <input @attributes="AdditionalAttributes" step="@Step" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
+        <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
         <div class="input-group-append">
             <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@DisabledString">
                 <i class="fa fa-fw fa-plus-circle"></i>
@@ -24,7 +24,7 @@
 }
 else
 {
-    <input @attributes="AdditionalAttributes" step="@Step" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
+    <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
 }
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent

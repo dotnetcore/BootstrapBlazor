@@ -4,11 +4,11 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label checkbox-label" @onclick="@OnToggleClick">@DisplayText</label>
+    <label class="control-label checkbox-label" required="@Required" @onclick="@OnToggleClick">@DisplayText</label>
 }
 <label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
     <span class="checkbox-input">
-        <span class="checkbox-inner"></span>
+        <span class="@InnerClassString"></span>
     </span>
     @if (ShowAfterLabel && !string.IsNullOrEmpty(DisplayText))
     {

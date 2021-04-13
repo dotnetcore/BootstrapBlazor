@@ -88,16 +88,19 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task OnItemClick(SelectedItem item)
         {
-            if (SelectedItem != null) SelectedItem.Active = false;
-            SelectedItem = item;
+            if (!item.IsDisabled)
+            {
+                if (SelectedItem != null) SelectedItem.Active = false;
+                SelectedItem = item;
 
-            SelectedItem.Active = true;
+                SelectedItem.Active = true;
 
-            // ValueChanged
-            CurrentValueAsString = SelectedItem.Value;
+                // ValueChanged
+                CurrentValueAsString = SelectedItem.Value;
 
-            // 触发 SelectedItemChanged 事件
-            if (OnSelectedItemChanged != null) await OnSelectedItemChanged.Invoke(SelectedItem);
+                // 触发 SelectedItemChanged 事件
+                if (OnSelectedItemChanged != null) await OnSelectedItemChanged.Invoke(SelectedItem);
+            }
         }
 
         /// <summary>

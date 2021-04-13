@@ -1,23 +1,31 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits MultipleUploadBase
+@typeparam TValue
+@inherits MultipleUploadBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="control-label" required="@Required">@DisplayText</label>
+}
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="upload-body is-avatar">
         @foreach (var item in UploadFiles)
         {
-            <div class="@GetItemClassString(item)" style="@PrevStyleString">
+            <div class="@GetItemClassString(item)" id="@item.ValidateId" style="@PrevStyleString">
                 <Avatar Url="@item.PrevUrl" />
-                <div class="upload-item-actions">
-                    <span class="upload-item-delete p-3" @onclick="@(e => OnFileDelete(item))">
-                        <i class="fa fa-trash-o"></i>
-                    </span>
-                    @if (GetShowProgress(item))
-                    {
-                        <span class="upload-item-spin">
-                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                @if (!IsDisabled)
+                {
+                    <div class="upload-item-actions">
+                        <span class="upload-item-delete p-3" @onclick="@(e => OnFileDelete(item))">
+                            <i class="fa fa-trash-o"></i>
                         </span>
-                    }
-                </div>
+                        @if (GetShowProgress(item))
+                        {
+                            <span class="upload-item-spin">
+                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                            </span>
+                        }
+                    </div>
+                }
                 @if (!IsCircle)
                 {
                     <span class="upload-item-label">

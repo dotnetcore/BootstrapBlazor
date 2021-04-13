@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// TableFilter 基类
     /// </summary>
-    public partial class TableFilter : IFilter
+    public partial class TableFilter : IFilter, IDisposable
     {
         private JSInterop<TableFilter>? Interop { get; set; }
 
@@ -123,7 +124,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<TableFilter>(JSRuntime);
-                await Interop.Invoke(this, FilterElement, "bb_filter", nameof(Close));
+                await Interop.InvokeVoidAsync(this, FilterElement, "bb_filter", nameof(Close));
             }
         }
 
@@ -206,9 +207,17 @@ namespace BootstrapBlazor.Components
             {
                 IsShow = false;
 
-                if (Table != null && (FilterAction?.GetFilterConditions().Any() ?? false))
+                if (Table != null)
                 {
-                    Table.Filters[FieldKey] = FilterAction;
+                    if (FilterAction?.GetFilterConditions().Any() ?? false)
+                    {
+                        Table.Filters[FieldKey] = FilterAction;
+                    }
+                    else
+                    {
+                        Table.Filters.Remove(FieldKey);
+                    }
+
                     if (Table.OnFilterAsync != null)
                     {
                         await Table.OnFilterAsync();
@@ -239,14 +248,23 @@ namespace BootstrapBlazor.Components
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+
+            if (disposing && Interop != null)
             {
-                Interop?.Dispose();
+                Interop.Dispose();
                 Interop = null;
             }
-            base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

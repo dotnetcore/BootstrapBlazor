@@ -1,19 +1,20 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ButtonUploadBase
+@typeparam TValue
+@inherits ButtonUploadBase<TValue>
 
 @if (Style == UploadStyle.Avatar)
 {
-    <AvatarUpload AdditionalAttributes="@AdditionalAttributes" Accept="@Accept" DefaultFileList="@DefaultFileList" DisplayText="@DisplayText" IsDisabled="@IsDisabled" IsCircle="@IsCircle" ShowLabel="@ShowLabel" ShowProgress="@ShowProgress"  />
+    <AvatarUpload TValue="TValue" AdditionalAttributes="@AdditionalAttributes" Accept="@Accept" DefaultFileList="@DefaultFileList" DisplayText="@DisplayText" IsDisabled="@IsDisabled" IsCircle="@IsCircle" ShowLabel="@ShowLabel" ShowProgress="@ShowProgress"  />
 }
 else if (Style == UploadStyle.ClickToUpload)
 {
-    <ButtonUpload />
+    <ButtonUpload TValue="TValue" />
 }
 else if (Style == UploadStyle.Card)
 {
-    <CardUpload />
+    <CardUpload TValue="TValue" />
 }
 else
 {
-    <InputUpload DisplayText="@DisplayText" />
+    <InputUpload TValue="TValue" DisplayText="@DisplayText" />
 }

@@ -1,0 +1,152 @@
+﻿@layout ComponentLayout
+@page "/labels"
+
+<h3>组件标签</h3>
+
+<p>本套组件中有 <code>ValidateForm</code> <code>EditorForm</code> 以及多种继承 <code>ValidateBase&lt;TValue&gt;</code> 的 <b>表单组件</b>，这些组件中有一套特殊的显示前置标签逻辑，现在我们统一的梳理一下：</p>
+
+<ul class="ul-demo">
+    <li><a href="/validateforms" target="_blank">ValidateForm</a> 组件是 <b>可验证的</b> 表单组件，此组件内的表单组件会自动进行数据合规性检查，如果数据不合规将会阻止 <b>提交(Submit)</b> 动作，是数据提交中使用最最最频繁的组件</li>
+    <li><a href="/editorforms" target="_blank">EditorForm</a> 组件是普通的表单组件，此组件绑定 <code>Model</code> 后即可自动生成整个表单，大大减少重复性编码，外面套上 <code>ValidateForm</code> 即可开启 <b>数据合规性检查</b> 非常方便、简洁、高效</li>
+</ul>
+
+<p>以 <a href="/inputs" target="_blank">BootstrapInput</a> 输入框组件为例，阐述一下是否显示 <code>Label</code> 逻辑</p>
+
+<Tips>
+    <p><code>ShowLabel</code> 的逻辑即就近原则，离自身越近的设置生效，如表单组件内置到 <code>ValidateForm</code> 组件中，即使 <code>ValidateForm</code> 设置 <code>ShowLabel=true</code>，表单组件自身设置 <code>ShowLabel=false</code> 时，标签最终结果为 <b>不显示</b></p>
+</Tips>
+
+<Block Title="单独使用" Introduction="适用于数据录入">
+    <p><b>未使用双向绑定时</b></p>
+    <ul class="ul-demo">
+        <li>默认不会显示 <code>Label</code></li>
+        <li>通过 <code>ShowLabel</code> 属性进行控制是否显示</li>
+        <li>设置 <code>DisplayText</code> 时显示内容</li>
+        <li>未设置时渲染一个无内容的 <code>label</code> 组件进行占位</li>
+    </ul>
+
+    <GroupBox Title="未双向绑定" style="margin-top: 1.5rem;">
+        <div>第一个文本框未进行任何设置，不显示标签</div>
+        <div>第二个文本框设置 <code>ShowLabel="true" DisplayText=""</code> 显示无内容的占位标签</div>
+        <div>第三个文本框设置 <code>ShowLabel="true" DisplayText="Name"</code> 显示设置的内容标签</div>
+        <div>第四个文本框设置 <code>ShowLabel="true" DisplayText="@@null"</code> 显示无内容的占位标签</div>
+        <div class="form-inline mt-3">
+            <div class="form-row">
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput TValue="string" />
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput TValue="string" ShowLabel="true" DisplayText="" />
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@null" />
+                </div>
+            </div>
+        </div>
+    </GroupBox>
+
+    <p class="mt-3"><b>使用双向绑定时</b></p>
+    <GroupBox Title="双向绑定" class="mt-3">
+        <div>第一个文本框设置 <code>@@bind-Value="@@Dummy.Name"</code>，不显示标签</div>
+        <div>第二个文本框设置 <code>@@bind-Value="@@Dummy.Name" ShowLabel="true" DisplayText="@@Localizer[nameof(Foo.Address)]"</code> 显示设置的内容</div>
+        <div>第三个文本框设置 <code>@@bind-Value="@@Dummy.Name" ShowLabel="true" DisplayText=""</code> 显示无内容占位标签</div>
+        <div>第四个文本框设置 <code>@@bind-Value="@@Dummy.Name" ShowLabel="true" DisplayText="@@null"</code> 显示资源文件机制下的标签内容 <code>Label</code></div>
+        <div class="form-inline mt-3">
+            <div class="form-row">
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput @bind-Value="@Dummy.Name" />
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput @bind-Value="@Dummy.Name" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Address)]" />
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput @bind-Value="@Dummy.Name" ShowLabel="true" DisplayText="" />
+                </div>
+                <div class="form-group col-sm-12 col-md-3">
+                    <BootstrapInput @bind-Value="@Dummy.Name" ShowLabel="true" DisplayText="@null" />
+                </div>
+            </div>
+        </div>
+    </GroupBox>
+</Block>
+
+<Block Title="EditorForm 中使用" , Introduction="未套 <code>ValidateForm</code> 中使用">
+    <p><b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div></p>
+    <GroupBox>
+        <EditorForm Model="@Dummy">
+            <FieldItems>
+                <EditorItem @bind-Field="@context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                </EditorItem>
+            </FieldItems>
+        </EditorForm>
+    </GroupBox>
+
+    <p class="mt-3"><b>不显示标签</b><div>设置 <code>ShowLabel="false"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div></p>
+    <GroupBox>
+        <EditorForm Model="@Dummy" ShowLabel="false">
+            <FieldItems>
+                <EditorItem @bind-Field="@context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                </EditorItem>
+            </FieldItems>
+        </EditorForm>
+    </GroupBox>
+</Block>
+
+<Block Title="EditorForm 内置 ValidateForm 中使用" , Introduction="外置 <code>ValidateForm</code> 中使用">
+    <p><b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div></p>
+    <GroupBox>
+        <ValidateForm Model="@Dummy">
+            <EditorForm TModel="Foo">
+                <FieldItems>
+                    <EditorItem @bind-Field="@context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                    </EditorItem>
+                </FieldItems>
+            </EditorForm>
+        </ValidateForm>
+    </GroupBox>
+
+    <p class="mt-3"><b>不显示标签</b><div>设置 <code>ShowLabel="false"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div></p>
+    <GroupBox>
+        <ValidateForm Model="@Dummy" ShowLabel="false">
+            <EditorForm TModel="Foo">
+                <FieldItems>
+                    <EditorItem @bind-Field="@context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                    </EditorItem>
+                </FieldItems>
+            </EditorForm>
+        </ValidateForm>
+    </GroupBox>
+</Block>
+
+<Block Title="ValidateForm 中使用" , Introduction="默认自动开启显示标签">
+    <p><b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div></p>
+    <GroupBox>
+        <ValidateForm Model="@Dummy" class="form-inline">
+            <div class="form-row">
+                <div class="form-group col-sm-12 col-md-6">
+                    <BootstrapInput @bind-Value="@Dummy.Name" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6">
+                    <BootstrapInput @bind-Value="@Dummy.Address" />
+                </div>
+            </div>
+        </ValidateForm>
+    </GroupBox>
+
+    <p class="mt-3"><b>不显示标签</b><div>设置 <code>ShowLabel="false"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div></p>
+    <GroupBox>
+        <ValidateForm Model="@Dummy" ShowLabel="false" class="form-inline">
+            <div class="form-row">
+                <div class="form-group col-sm-12 col-md-6">
+                    <BootstrapInput @bind-Value="@Dummy.Name" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6">
+                    <BootstrapInput @bind-Value="@Dummy.Address" />
+                </div>
+            </div>
+        </ValidateForm>
+    </GroupBox>
+</Block>

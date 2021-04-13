@@ -48,8 +48,8 @@ namespace BootstrapBlazor.Components
             {
                 // 显示名称为空时通过资源文件查找 FieldName 项
                 var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                var stringLocalizer = localizer[fieldName];
-                if (!stringLocalizer.ResourceNotFound)
+                var stringLocalizer = localizer?[fieldName];
+                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
                     dn = stringLocalizer.Value;
                 }
@@ -63,13 +63,16 @@ namespace BootstrapBlazor.Components
                     if (!string.IsNullOrEmpty(dn))
                     {
                         var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-                        if (resxType.Value.ResourceManagerStringLocalizerType != null)
+                        if (resxType?.Value.ResourceManagerStringLocalizerType != null)
                         {
                             localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                            stringLocalizer = localizer[dn];
-                            if (!stringLocalizer.ResourceNotFound)
+                            if (localizer != null)
                             {
-                                dn = stringLocalizer.Value;
+                                stringLocalizer = localizer[dn];
+                                if (!stringLocalizer.ResourceNotFound)
+                                {
+                                    dn = stringLocalizer.Value;
+                                }
                             }
                         }
                     }
@@ -105,8 +108,8 @@ namespace BootstrapBlazor.Components
             {
                 // 通过资源文件查找 FieldName 项
                 var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                var stringLocalizer = localizer[$"{fieldName}.PlaceHolder"];
-                if (!stringLocalizer.ResourceNotFound)
+                var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
+                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
                     placeHolder = stringLocalizer.Value;
                 }
@@ -201,18 +204,50 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 泛型 Copy 方法
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// <returns></returns>
+        public static void Copy<TModel>(TModel source, TModel destination) where TModel : class
+        {
+            if (source != null && destination != null)
+            {
+                var type = source.GetType();
+                var valType = destination.GetType();
+                if (valType != null)
+                {
+                    type.GetFields().ToList().ForEach(f =>
+                    {
+                        var v = f.GetValue(source);
+                        valType.GetField(f.Name)?.SetValue(destination, v);
+                    });
+                    type.GetProperties().ToList().ForEach(p =>
+                    {
+                        if (p.CanWrite)
+                        {
+                            var v = p.GetValue(source);
+                            valType.GetProperty(p.Name)?.SetValue(destination, v);
+                        }
+                    });
+                }
+            }
+        }
+
+        /// <summary>
         /// 通过指定 Model 获得 IEditorItem 集合方法
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<IEditorItem> GenerateColumns<TModel>(Func<IEditorItem, bool>? predicate = null) where TModel : class
+        public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool>? predicate = null)
         {
             if (predicate == null) predicate = p => true;
             return InternalTableColumn.GetProperties<TModel>().Where(predicate);
         }
 
         #region Format
-        private static readonly ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>> FormatLambdaCache = new ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>>();
+        private static readonly ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>> FormatLambdaCache = new();
 
         /// <summary>
         /// 任意类型格式化方法
@@ -259,7 +294,7 @@ namespace BootstrapBlazor.Components
             return Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
         }
 
-        private static readonly ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>> FormatProviderLambdaCache = new ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>>();
+        private static readonly ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>> FormatProviderLambdaCache = new();
 
         /// <summary>
         /// 任意类型格式化方法

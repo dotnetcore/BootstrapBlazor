@@ -88,7 +88,7 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect  @bind-Value="@SelectedEnumValues"></MultiSelect>
+                <MultiSelect @bind-Value="@SelectedEnumValues"></MultiSelect>
             </div>
         </div>
     </div>
@@ -204,6 +204,19 @@
                 <button class="btn" @onclick="@OnClickButton">测试</button>
             </ButtonTemplate>
         </MultiSelect>
+    </div>
+</Block>
+
+<Block Title="级联绑定" Introduction="通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-6">
+                <Select TValue="string" Items="@Items3" OnSelectedItemChanged="@OnCascadeBindSelectClick" />
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <MultiSelect TValue="string" @ref="@Select1" Items="@Items2" />
+            </div>
+        </div>
     </div>
 </Block>
 

@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -11,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Silder 组件
     /// </summary>
-    public sealed partial class Slider
+    public partial class Slider : IDisposable
     {
         /// <summary>
         /// 获得/设置 JSInterop 实例
@@ -21,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        private string? ClassName => CssBuilder.Default("slider")
+        private static string? ClassName => CssBuilder.Default("slider")
             .Build();
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<Slider>(JSRuntime);
-                await Interop.Invoke(this, SliderElement, "slider", nameof(SetValue));
+                await Interop.InvokeVoidAsync(this, SliderElement, "slider", nameof(SetValue));
             }
         }
 
@@ -74,18 +75,33 @@ namespace BootstrapBlazor.Components
         public void SetValue(int val)
         {
             Value = val;
-            if (ValueChanged.HasDelegate) ValueChanged.InvokeAsync(val);
+            if (ValueChanged.HasDelegate)
+            {
+                ValueChanged.InvokeAsync(val);
+            }
         }
 
         /// <summary>
         /// Dispose 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
 
-            if (disposing) Interop?.Dispose();
+            if (disposing && Interop != null)
+            {
+                Interop.Dispose();
+                Interop = null;
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

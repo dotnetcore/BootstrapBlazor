@@ -34,15 +34,14 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddScoped<PopoverService>();
             services.TryAddScoped<ToastService>();
             services.TryAddScoped<SwalService>();
-            services.AddScoped<TabItemTextOptions>();
-            services.AddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
+            services.TryAddScoped<TabItemTextOptions>();
+            services.TryAddScoped<TitleService>();
+            services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {
                 configureOptions?.Invoke(options);
             });
-
             ServiceProviderHelper.RegisterService(services);
-
             return services;
         }
     }

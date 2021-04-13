@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 提供 Tooltip 功能的组件
     /// </summary>
-    public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IDisposable
+    public abstract class TooltipComponentBase : IdComponentBase, ITooltipHost, IAsyncDisposable
     {
         /// <summary>
         /// 获得/设置 ITooltip 实例
@@ -29,9 +29,13 @@ namespace BootstrapBlazor.Components
             if (firstRender && Tooltip != null)
             {
                 if (Tooltip.PopoverType == PopoverType.Tooltip)
+                {
                     await ShowTooltip();
+                }
                 else
+                {
                     await ShowPopover();
+                }
             }
         }
 
@@ -103,22 +107,50 @@ namespace BootstrapBlazor.Components
         protected virtual string RetrieveTrigger() => Tooltip?.Trigger ?? "hover focus";
 
         /// <summary>
-        /// Dispose 方法
+        /// 获得/设置 组件是否已经 Render
+        /// </summary>
+        protected bool IsRendered { get; set; }
+
+        /// <summary>
+        /// OnAfterRender 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+        }
+
+        /// <summary>
+        /// DisposeAsyncCore 方法
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing)
+        /// <returns></returns>
+        protected virtual async ValueTask DisposeAsyncCore(bool disposing)
         {
-            if (disposing && Tooltip != null)
+            if (disposing && IsRendered && Tooltip != null)
             {
                 var id = RetrieveId();
                 if (!string.IsNullOrEmpty(id))
                 {
                     if (Tooltip.PopoverType == PopoverType.Tooltip)
-                        _ = JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                    {
+                        await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose").ConfigureAwait(false);
+                    }
                     else
-                        _ = JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                    {
+                        await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose").ConfigureAwait(false);
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// DisposeAsync 方法
+        /// </summary>
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore(true).ConfigureAwait(false);
+            GC.SuppressFinalize(this);
         }
     }
 }

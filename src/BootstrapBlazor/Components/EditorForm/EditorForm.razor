@@ -16,21 +16,21 @@ else
 {
     <div class="form-inline">
         <div class="row">
-            @foreach (var item in FormItems)
-            {
-                @if (item.EditTemplate != null)
+            <CascadingValue Value="this" Name="EidtorForm">
+                @foreach (var item in FormItems)
                 {
-                    <CascadingValue Value="@ShowLabel" IsFixed="true" Name="EditorFormShowLabel">
+                    @if (item.EditTemplate != null)
+                    {
                         @item.EditTemplate.Invoke(Model)
-                    </CascadingValue>
+                    }
+                    else
+                    {
+                        <div class="@GetCssString(item)">
+                            @AutoGenerateTemplate(item)
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div class="@GetCssString(item)">
-                        @AutoGenerateTemplate(item)
-                    </div>
-                }
-            }
+            </CascadingValue>
         </div>
     </div>
     @Buttons

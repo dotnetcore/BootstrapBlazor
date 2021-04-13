@@ -7,15 +7,13 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Bootstrap Blazor 组件基类
     /// </summary>
-    public abstract class BootstrapComponentBase : ComponentBase, IDisposable
+    public abstract class BootstrapComponentBase : ComponentBase
     {
         /// <summary>
         /// 获得/设置 用户自定义属性
@@ -30,72 +28,18 @@ namespace BootstrapBlazor.Components
         [NotNull]
         protected IJSRuntime? JSRuntime { get; set; }
 
-        /// <summary>
-        /// 获得/设置 Row 组件实例
-        /// </summary>
-        [CascadingParameter]
-        protected Row? ParentRow { get; set; }
+        [Inject]
+        [NotNull]
+        private IServiceProvider? Provider { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
-        protected override async Task OnParametersSetAsync()
+        protected override void OnInitialized()
         {
-            if (ParentRow != null && (ParentRow.MaxCount == null || ParentRow.Items.Count < ParentRow.MaxCount))
-            {
-                var exist = ParentRow.Items.Any(x => x.Component == this);
-                if (exist == false)
-                {
-                    var rf = new RowInfo();
-                    if (this is Row row)
-                    {
-                        rf.ColSpan = row.ColSpan;
-                        rf.IsRow = true;
-                        if (row.RowType == null)
-                        {
-                            row.SetRowType(ParentRow.RowType);
-                        }
-                    }
-                    rf.Component = this;
-                    rf.Content = async b =>
-                    {
-                        if (this is Row r)
-                        {
-                            r.InnerRender = true;
-                            this.BuildRenderTree(b);
-                            r.InnerRender = false;
-                            await this.OnAfterRenderAsync(false);
-                            this.OnAfterRender(false);
-                        }
-                        else
-                        {
-                            this.BuildRenderTree(b);
-                            await this.OnAfterRenderAsync(false);
-                            this.OnAfterRender(false);
-                        }
-                    };
-                    ParentRow.Items.Add(rf);
-                }
-            }
-            await base.OnParametersSetAsync();
-        }
+            base.OnInitialized();
 
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-
-        }
-
-        /// <summary>
-        /// Dispose 方法
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            ServiceProviderHelper.RegisterProvider(Provider);
         }
     }
 }

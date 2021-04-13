@@ -12,25 +12,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 单元格内按钮组件
     /// </summary>
-    public class TableCellButton<TItem> : Button where TItem : class, new()
+    public class TableCellButton : Button
     {
-        /// <summary>
-        /// 获得/设置 当前行绑定数据
-        /// </summary>
-        [Parameter]
-        public TItem? Item { get; set; }
-
         /// <summary>
         /// 获得/设置 按钮点击后的回调方法
         /// </summary>
         [Parameter]
-        public Func<TItem, Task>? OnClickCallback { get; set; }
-
-        /// <summary>
-        /// 获得/设置 OnClick 事件不刷新父组件
-        /// </summary>
-        [Parameter]
-        public Func<TItem, Task>? OnClickWithoutRenderCallback { get; set; }
+        public Func<Task>? OnClickCallback { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -39,17 +27,38 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (Size == Size.None) Size = Size.ExtraSmall;
-
-            var onClick = OnClick;
-            OnClick = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+            if (Size == Size.None)
             {
-                if (!IsDisabled)
-                {
-                    if (onClick.HasDelegate) await onClick.InvokeAsync(e);
+                Size = Size.ExtraSmall;
+            }
 
-                    if (Item != null && OnClickCallback != null) await OnClickCallback.Invoke(Item);
-                    if (Item != null && OnClickWithoutRenderCallback != null) await OnClickWithoutRenderCallback.Invoke(Item);
+            OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+            {
+                if (IsAsync)
+                {
+                    ButtonIcon = LoadingIcon;
+                    IsDisabled = true;
+                }
+                if (OnClickWithoutRender != null)
+                {
+                    await OnClickWithoutRender.Invoke();
+                }
+                if (OnClick.HasDelegate)
+                {
+                    await OnClick.InvokeAsync(e);
+                }
+                if (OnClickWithoutRender != null)
+                {
+                    await OnClickWithoutRender();
+                }
+                if (OnClickCallback != null)
+                {
+                    await OnClickCallback();
+                }
+                if (IsAsync)
+                {
+                    ButtonIcon = Icon;
+                    IsDisabled = false;
                 }
             });
         }

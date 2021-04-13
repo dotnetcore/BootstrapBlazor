@@ -119,19 +119,19 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        internal static IEnumerable<KeyValuePair<string, object>> Parse(SwalOption option) => new List<KeyValuePair<string, object>>()
+        internal static IEnumerable<KeyValuePair<string, object?>> Parse(SwalOption option) => new List<KeyValuePair<string, object?>>()
         {
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.Category) , option.Category),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.Title) , option.Title),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.Content), option.Content ?? ""),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.ShowClose), option.ShowClose),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate!),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate!),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.ShowFooter), option.ShowFooter!),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
-            new KeyValuePair<string, object>(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))
+            new(nameof(SweetAlertBody.Category) , option.Category),
+            new(nameof(SweetAlertBody.Title) , option.Title),
+            new(nameof(SweetAlertBody.Content), option.Content ?? ""),
+            new(nameof(SweetAlertBody.ShowClose), option.ShowClose),
+            new(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
+            new(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate!),
+            new(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate!),
+            new(nameof(SweetAlertBody.ShowFooter), option.ShowFooter!),
+            new(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!),
+            new(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
+            new(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))
         };
 
         /// <summary>
@@ -148,14 +148,20 @@ namespace BootstrapBlazor.Components
 
         private Task OnClickClose()
         {
-            if (OnClose != null) OnClose.Invoke();
+            if (OnClose != null)
+            {
+                OnClose.Invoke();
+            }
 
             return Task.CompletedTask;
         }
 
         private Task OnClickConfirm()
         {
-            if (OnConfirm != null) OnConfirm.Invoke();
+            if (OnConfirm != null)
+            {
+                OnConfirm.Invoke();
+            }
 
             return Task.CompletedTask;
         }

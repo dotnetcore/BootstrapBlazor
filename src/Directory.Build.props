@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 
   <Import Project="..\Directory.Build.props" />
 
@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <NoWarn>1701;1702;8620</NoWarn>
+    <NoWarn>1701;1702;CA1816;8620</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">

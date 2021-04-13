@@ -94,13 +94,15 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         /// <returns></returns>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            // 处理过滤与高级搜索
+            // 处理过滤与快捷搜索框逻辑
             var query = _db.Set<TModel>()
-                .Count(out var count)
-                .Where(option.Filters.Concat(option.Searchs).GetFilterLambda<TModel>(), option.Filters.Any() || option.Searchs.Any())
+                .Where(option.Searchs.GetFilterLambda<TModel>(FilterLogic.Or), option.Searchs.Any())
+                .Where(option.Filters.GetFilterLambda<TModel>(), option.Filters.Any())
                 .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
+                .Count(out var count)
                 .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
 
+            // 注意：未处理搜索，此处设置 IsSearched=true 后会导致高级搜索按钮高亮
             var ret = new QueryData<TModel>()
             {
                 TotalCount = count,

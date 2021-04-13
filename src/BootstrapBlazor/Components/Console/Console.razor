@@ -10,7 +10,7 @@
         <div class="console-window">
             @foreach (var item in Items)
             {
-                <div @key="@Guid.NewGuid()" class="@GetClassString(item)">@item.Message</div>
+                <div @key="@item" class="@GetClassString(item)">@item.Message</div>
             }
         </div>
     </div>
