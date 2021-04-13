@@ -11,13 +11,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Avatar 头像框组件
     /// </summary>
-    public abstract class AvatarBase : BootstrapComponentBase
+    public partial class Avatar
     {
         /// <summary>
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
-        protected string? ClassName => CssBuilder.Default("avatar")
+        private string? ClassName => CssBuilder.Default("avatar")
             .AddClass("is-circle", IsCircle)
             .AddClass("border border-info", IsBorder)
             .AddClass("border-success", IsBorder && IsLoaded.HasValue && IsLoaded.Value && !IsIcon && !IsText)
@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 图片样式
         /// </summary>
-        protected string? ImgClassString => (IsLoaded.HasValue && IsLoaded.Value) ? null : "d-none";
+        private string? ImgClassString => (IsLoaded.HasValue && IsLoaded.Value) ? null : "d-none";
 
         /// <summary>
         /// 获得/设置 是否为圆形
@@ -88,15 +88,15 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否显示图片
         /// </summary>
-        protected bool? IsLoaded { get; set; }
+        private bool? IsLoaded { get; set; }
 
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnParametersSetAsync()
         {
-            await base.OnInitializedAsync();
+            await base.OnParametersSetAsync();
 
             if (Url == null && GetUrlAsync != null)
             {
@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 图片加载失败时回调此方法
         /// </summary>
-        protected void OnError()
+        private void OnError()
         {
             IsIcon = true;
             IsLoaded = false;
@@ -116,7 +116,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 图片加载成功时回调此方法
         /// </summary>
-        protected void OnLoad()
+        private void OnLoad()
         {
             IsLoaded = true;
         }
