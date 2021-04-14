@@ -177,22 +177,7 @@ namespace BootstrapBlazor.Components
             MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
             MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
-            if (Items == null)
-            {
-                Type? innerType = null;
-                if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
-                {
-                    innerType = typeof(TValue).GetGenericArguments()[0];
-                }
-                if (innerType != null && innerType.IsEnum)
-                {
-                    Items = innerType.ToSelectList();
-                }
-                else
-                {
-                    Items = Enumerable.Empty<SelectedItem>();
-                }
-            }
+            ResetItems();
 
             if (OnSearchTextChanged == null)
             {
@@ -434,14 +419,41 @@ namespace BootstrapBlazor.Components
             Color = valid ? Color.Success : Color.Danger;
         }
 
+        private void ResetItems()
+        {
+            if (Items == null)
+            {
+                Type? innerType = null;
+                if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
+                {
+                    innerType = typeof(TValue).GetGenericArguments()[0];
+                }
+                if (innerType != null && innerType.IsEnum)
+                {
+                    Items = innerType.ToSelectList();
+                }
+                else
+                {
+                    Items = Enumerable.Empty<SelectedItem>();
+                }
+            }
+        }
+
         /// <summary>
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
-        public void SetItems(IEnumerable<SelectedItem> items)
+        public void SetItems(IEnumerable<SelectedItem>? items)
         {
-            SelectedItems.Clear();
             Items = items;
+            ResetItems();
+
+            // 重置选中项
+            SelectedItems.Clear();
+            if (items != null)
+            {
+                SelectedItems.AddRange(items.Where(i => i.Active));
+            }
             StateHasChanged();
         }
 
@@ -451,7 +463,6 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-
             if (disposing && Interop != null)
             {
                 Interop.Dispose();

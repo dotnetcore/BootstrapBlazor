@@ -83,8 +83,8 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Items2.AddRange(new SelectedItem[]
                 {
-                    new SelectedItem("1","朝阳区"),
-                    new SelectedItem("2","海淀区"),
+                    new SelectedItem("1","朝阳区") { Active = true },
+                    new SelectedItem("2","海淀区")
                 });
             }
             else if (item.Value == "Shanghai")
@@ -92,7 +92,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Items2.AddRange(new SelectedItem[]
                 {
                     new SelectedItem("1","静安区"),
-                    new SelectedItem("2","黄浦区"),
+                    new SelectedItem("2","黄浦区") {Active = true },
                 });
             }
             Select1.SetItems(Items2);
