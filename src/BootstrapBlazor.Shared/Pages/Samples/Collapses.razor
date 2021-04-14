@@ -5,7 +5,7 @@
 <h4>通过折叠面板收纳内容区域</h4>
 
 <Block Title="基础用法" Introduction="可同时展开多个面板，面板之间不影响">
-    <Collapse>
+    <Collapse OnCollapseChanged="@OnChanged">
         <CollapseItems>
             <CollapseItem Text="一致性 Consistency">
                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
@@ -26,6 +26,7 @@
             </CollapseItem>
         </CollapseItems>
     </Collapse>
+    <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="指示箭头" Introduction="右侧显示指示箭头">

@@ -2,10 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -14,18 +16,13 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Collapses
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
         private Logger? Trace { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        private void ButtonClick(MouseEventArgs e)
+        private Task OnChanged(CollapseItem item)
         {
-            Trace?.Log($"Button Clicked");
+            Trace.Log($"{item.Text}: {item.IsCollapsed}");
+            return Task.CompletedTask;
         }
 
         /// <summary>

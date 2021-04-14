@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -53,6 +54,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? CollapseItems { get; set; }
 
         /// <summary>
+        /// 获得/设置 CollapseItem 展开收缩时回调方法
+        /// </summary>
+        [Parameter]
+        public Func<CollapseItem, Task>? OnCollapseChanged { get; set; }
+
+        /// <summary>
         /// 添加 TabItem 方法 由 TabItem 方法加载时调用
         /// </summary>
         /// <param name="item">TabItemBase 实例</param>
@@ -66,7 +73,10 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender) await JSRuntime.InvokeVoidAsync(CollapseElement, "bb_collapse");
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync(CollapseElement, "bb_collapse");
+            }
         }
     }
 }
