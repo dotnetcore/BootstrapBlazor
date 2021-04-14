@@ -30,6 +30,12 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// 获得/设置 标题颜色 默认无颜色 Color.None
+        /// </summary>
+        [Parameter]
+        public Color TitleColor { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件内容
         /// </summary>
         [Parameter]

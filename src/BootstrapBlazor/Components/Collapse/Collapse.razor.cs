@@ -27,5 +27,9 @@ namespace BootstrapBlazor.Components
             .AddClass("collapse", collpased)
             .AddClass("collapse show", !collpased)
             .Build();
+
+        private static string? TitleClassString(Color color) => CssBuilder.Default("card-header")
+            .AddClass($"bg-{color.ToDescriptionString()}", color != Color.None)
+            .Build();
     }
 }
