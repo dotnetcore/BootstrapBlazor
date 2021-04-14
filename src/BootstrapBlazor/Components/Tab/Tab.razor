@@ -62,8 +62,8 @@ else
                     </div>
                     <div class="dropdown-menu dropdown-menu-right">
                         <DynamicElement class="dropdown-item" OnClick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></DynamicElement>
-                        <div class="dropdown-item" @onclick="@CloseOtherTabs"><span>@CloseOtherTabsText</span></div>
-                        <div class="dropdown-item" @onclick="@CloseAllTabs"><span>@CloseAllTabsText</span></div>
+                        <div class="dropdown-item" @onclick="@OnClickCloseOtherTabs"><span>@CloseOtherTabsText</span></div>
+                        <div class="dropdown-item" @onclick="@OnClickCloseAllTabs"><span>@CloseAllTabsText</span></div>
                     </div>
                 }
                 else
