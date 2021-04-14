@@ -182,6 +182,16 @@ namespace BootstrapBlazor.Components
             });
         }
 
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            ButtonIcon = Icon;
+        }
+
         private bool _prevDisable;
         /// <summary>
         /// OnAfterRenderAsync 方法
