@@ -84,10 +84,23 @@ namespace BootstrapBlazor.Components
                 }
                 else
                 {
-                    ret = value.ToString();
+                    ret = FormatValueString();
                 }
             }
             return ret;
+        }
+
+        private string FormatValueString()
+        {
+            string? ret = null;
+
+            // 检查 数据源
+            var valueString = Value?.ToString();
+            if (Data != null && !string.IsNullOrEmpty(valueString))
+            {
+                ret = Data.FirstOrDefault(i => i.Value.Equals(valueString, StringComparison.OrdinalIgnoreCase))?.Text;
+            }
+            return ret ?? valueString ?? string.Empty;
         }
 
         private static Func<TValue, string>? _converterArray;
