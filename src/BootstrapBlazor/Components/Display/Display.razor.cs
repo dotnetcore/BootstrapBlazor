@@ -60,28 +60,27 @@ namespace BootstrapBlazor.Components
         protected virtual async Task<string?> FormatTextAsString(TValue value) => FormatterAsync != null
             ? await FormatterAsync(value)
             : (!string.IsNullOrEmpty(FormatString) && value != null
-                ? Utility.Format((object)value, FormatString)
-                : FormatText(value));
+                ? Utility.Format(value, FormatString)
+                : value == null
+                    ? FormatValueString()
+                    : FormatText(value));
 
-        private string? FormatText(TValue value)
+        private string FormatText(TValue value)
         {
-            var ret = "";
-            if (value != null)
+            string ret;
+            var type = typeof(TValue);
+            if (type.IsEnum())
             {
-                var type = NullableUnderlyingType ?? typeof(TValue);
-                if (type.IsEnum())
-                {
-                    ret = type.ToEnumDisplayName(value.ToString());
-                }
-                else if (type.IsArray)
-                {
-                    ret = ConvertArrayToString(value);
-                }
-                else if (type.IsGenericType && type.IsAssignableTo(typeof(IEnumerable)))
-                {
-                    // 泛型集合 IEnumerable<TValue>
-                    ret = ConvertEnumerableToString(value);
-                }
+                ret = type.ToEnumDisplayName(value!.ToString());
+            }
+            else if (type.IsArray)
+            {
+                ret = ConvertArrayToString(value);
+            }
+            else if (type.IsGenericType && type.IsAssignableTo(typeof(IEnumerable)))
+            {
+                // 泛型集合 IEnumerable<TValue>
+                ret = ConvertEnumerableToString(value);
             }
             else
             {
