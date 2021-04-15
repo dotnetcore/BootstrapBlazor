@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnParametersSetAsync();
 
-            if (Url == null && GetUrlAsync != null)
+            if (string.IsNullOrEmpty(Url) && GetUrlAsync != null)
             {
                 Url = await GetUrlAsync();
             }
