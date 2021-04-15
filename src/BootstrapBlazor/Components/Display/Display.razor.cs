@@ -82,10 +82,10 @@ namespace BootstrapBlazor.Components
                     // 泛型集合 IEnumerable<TValue>
                     ret = ConvertEnumerableToString(value);
                 }
-                else
-                {
-                    ret = FormatValueString();
-                }
+            }
+            else
+            {
+                ret = FormatValueString();
             }
             return ret;
         }
@@ -96,9 +96,9 @@ namespace BootstrapBlazor.Components
 
             // 检查 数据源
             var valueString = Value?.ToString();
-            if (Data != null && !string.IsNullOrEmpty(valueString))
+            if (Data != null)
             {
-                ret = Data.FirstOrDefault(i => i.Value.Equals(valueString, StringComparison.OrdinalIgnoreCase))?.Text;
+                ret = Data.FirstOrDefault(i => i.Value.Equals(valueString ?? "", StringComparison.OrdinalIgnoreCase))?.Text;
             }
             return ret ?? valueString ?? string.Empty;
         }
