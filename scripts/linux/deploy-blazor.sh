@@ -2,6 +2,7 @@
 
 cd ~/BootstrapBlazor
 git pull
+dotnet restore --no-cache
 dotnet publish src/BootstrapBlazor.WebConsole -c Release
 
 systemctl stop ba.blazor
