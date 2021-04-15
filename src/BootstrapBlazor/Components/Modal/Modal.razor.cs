@@ -112,7 +112,6 @@ namespace BootstrapBlazor.Components
             {
                 dialog ??= Dialogs.Last();
                 Dialogs.ForEach(d => d.IsShown = d == dialog);
-                StateHasChanged();
             }
         }
 
