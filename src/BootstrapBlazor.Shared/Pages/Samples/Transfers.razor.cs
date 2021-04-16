@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -19,14 +20,26 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private IEnumerable<SelectedItem>? Items { get; set; }
+        [NotNull]
+        private List<SelectedItem>? Items { get; set; }
 
-        private IEnumerable<SelectedItem>? Items1 { get; set; }
+        [NotNull]
+        private List<SelectedItem>? Items1 { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
+        private List<SelectedItem>? Items2 { get; set; }
+
+        [NotNull]
+        private List<SelectedItem>? Items3 { get; set; }
+
+        [NotNull]
+        private List<SelectedItem>? Items4 { get; set; }
+
+        [NotNull]
         private Logger? Trace { get; set; }
+
+        [NotNull]
+        private Logger? Trace2 { get; set; }
 
         /// <summary>
         /// 
@@ -35,17 +48,42 @@ namespace BootstrapBlazor.Shared.Pages
         {
             base.OnInitialized();
 
-            Items = Enumerable.Range(1, 20).Select(i => new SelectedItem()
+            Items = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"备选 {i:d2}",
                 Value = i.ToString()
-            });
+            }).ToList();
 
-            Items1 = Enumerable.Range(1, 20).Select(i => new SelectedItem()
+            Items1 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
-            });
+            }).ToList();
+
+            Items2 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
+                Value = i.ToString()
+            }).ToList();
+
+            Items3 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"备选 {i:d2}",
+                Value = i.ToString(),
+                Active = i % 2 == 0
+            }).ToList();
+
+            Items4 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
+                Value = i.ToString()
+            }).ToList();
+        }
+
+        private void OnAddItem()
+        {
+            var count = Items3.Count + 1;
+            Items3.Add(new SelectedItem(count.ToString(), $"备选 {count:d2}"));
         }
 
         /// <summary>
@@ -61,7 +99,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -133,7 +171,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {

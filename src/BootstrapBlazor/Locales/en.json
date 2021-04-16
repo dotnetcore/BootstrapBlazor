@@ -248,6 +248,10 @@
     "LeftPanelText": "List 1",
     "RightPanelText": "List 2"
   },
+  "BootstrapBlazor.Components.TransferPanel": {
+    "SearchPlaceHolderString": "Please input ...",
+    "Text": "List"
+  },
   "BootstrapBlazor.Components.Upload": {
     "DeleteButtonText": "Delete",
     "BrowserButtonText": "Browser",

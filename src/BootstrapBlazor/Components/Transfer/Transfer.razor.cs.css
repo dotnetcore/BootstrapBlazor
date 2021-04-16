@@ -106,7 +106,12 @@
         color: #c0c4cc;
     }
 
-        .transfer-panel-filter .input-prefix:hover i:before, .transfer-panel-filter .input-prefix.is-on i:before {
+        .transfer-panel-filter .input-prefix:not(.is-disabled):hover i:before,
+        .transfer-panel-filter .input-prefix.is-on i:before {
             cursor: pointer;
             content: "\f057";
+        }
+
+        .transfer-panel-filter .input-prefix.is-disabled:hover i:before {
+            cursor: not-allowed;
         }
