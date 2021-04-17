@@ -5,12 +5,15 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
+    /// <summary>
+    /// 文件下载服务类
+    /// </summary>
     public class DownloadService
     {
         /// <summary>
@@ -31,14 +34,41 @@ namespace BootstrapBlazor.Components
         internal void UnRegister(IComponent key)
         {
             var item = Cache.FirstOrDefault(i => i.Key == key);
-            if (item.Key != null) Cache.Remove(item);
+            if (item.Key != null)
+            {
+                Cache.Remove(item);
+            }
         }
 
         /// <summary>
         /// 下载文件方法
         /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="stream">文件流</param>
+        /// <param name="mime"></param>
+        /// <returns></returns>
+        public async Task DownloadAsync(string fileName, Stream stream, string mime = "application/octet-stream")
+        {
+            var bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            stream.Seek(0, SeekOrigin.Begin);
+            await DownloadAsync(new DownloadOption() { FileName = fileName, FileContent = bytes, Mime = mime });
+        }
+
+        /// <summary>
+        /// 下载文件方法
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileContent">文件内容 byte[] 数组</param>
+        /// <param name="mime"></param>
+        /// <returns></returns>
+        public Task DownloadAsync(string fileName, byte[] fileContent, string mime = "application/octet-stream") => DownloadAsync(new DownloadOption() { FileName = fileName, FileContent = fileContent, Mime = mime });
+
+        /// <summary>
+        /// 下载文件方法
+        /// </summary>
         /// <param name="option">文件下载选项</param>
-        public async Task Download(DownloadOption option)
+        public async Task DownloadAsync(DownloadOption option)
         {
             var cb = Cache.FirstOrDefault().Callback;
             if (cb != null)

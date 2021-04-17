@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
+    /// <summary>
+    /// 下载组件
+    /// </summary>
     public class Download : BootstrapComponentBase, IDisposable
     {
-        [Inject]
-        private IJSRuntime JSRuntime { get; set; }
-
         [Inject]
         [NotNull]
         private DownloadService? DownloadService { get; set; }
@@ -34,11 +34,11 @@ namespace BootstrapBlazor.Components
             if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
             {
                 webAssemblyJsRuntime.InvokeUnmarshalled<string?, string, byte[], bool>("$.bb_download_wasm", option.FileName,
-                    option.Mime, option.File);
+                    option.Mime, option.FileContent);
             }
             else
             {
-                await JSRuntime.InvokeVoidAsync(identifier:"$.bb_download", option.FileName, option.Mime, option.File);
+                await JSRuntime.InvokeVoidAsync(identifier: "$.bb_download", option.FileName, option.Mime, option.FileContent);
             }
         }
 

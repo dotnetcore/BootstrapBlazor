@@ -4,13 +4,8 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -24,37 +19,39 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private DownloadService? downloadService { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IOptions<WebsiteOptions>? SiteOptions { get; set; }
-
-        private async Task DownloadFile()
+        private async Task DownloadFileAsync()
         {
-            await using var ms = new MemoryStream();
-            TextWriter textWriter = new StreamWriter(ms);
-            await textWriter.WriteAsync("自行生成并写入的文本，这里可以换成图片或其他内容");
-            await textWriter.FlushAsync();
-            ms.Position = 0;
-            var option = new DownloadOption();
-            option.FileName = "测试文件.txt";
-            option.File = ms.ToArray();
-            await downloadService.Download(option);
-        }
+            var content = await GenerateFileAsync();
+            await downloadService.DownloadAsync("测试文件.txt", content);
 
-        private async Task DownloadLargeFile()
-        {
-            await using var ms = new MemoryStream();
-            TextWriter textWriter = new StreamWriter(ms);
-            for (int i = 0; i < 1000000; i++)
+            static async Task<byte[]> GenerateFileAsync()
             {
-                await textWriter.WriteAsync("这里是一个大文件下载示例，共循环100万次\r\n");
+                using var ms = new MemoryStream();
+                using var writer = new StreamWriter(ms);
+                await writer.WriteLineAsync("自行生成并写入的文本，这里可以换成图片或其他内容");
+                await writer.FlushAsync();
+                ms.Position = 0;
+                return ms.ToArray();
             }
-            await textWriter.FlushAsync();
-            ms.Position = 0;
-            var option = new DownloadOption();
-            option.FileName = "测试大文件.txt";
-            option.File = ms.ToArray();
-            await downloadService.Download(option);
         }
+
+        private Task DownloadLargeFileAsync() => Task.Run(async () =>
+        {
+            using var stream = await GenerateFileStreamAsync();
+            await downloadService.DownloadAsync("测试大文件.txt", stream);
+
+            static async Task<Stream> GenerateFileStreamAsync()
+            {
+                var ms = new MemoryStream();
+                var writer = new StreamWriter(ms);
+                for (var i = 0; i < 1000; i++)
+                {
+                    await writer.WriteLineAsync($"这里是一个大文件下载示例，共循环100万次");
+                }
+                await writer.FlushAsync();
+                ms.Position = 0;
+                return ms;
+            }
+        });
     }
 }

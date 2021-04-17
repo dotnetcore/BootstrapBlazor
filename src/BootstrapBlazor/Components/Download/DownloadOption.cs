@@ -6,16 +6,19 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
+    /// <summary>
+    /// 文件下载配置类
+    /// </summary>
     public class DownloadOption
     {
         /// <summary>
-        /// 获取/设置 要下载的文件数组
+        /// 获取/设置 要下载的文件数据字节数组
         /// </summary>
         [NotNull]
-        public byte[]? File { get; set; }
+        public byte[]? FileContent { get; set; }
 
         /// <summary>
-        /// 获取/设置 要下载的文件名
+        /// 获取/设置 下载文件另存为文件名
         /// </summary>
         [NotNull]
         public string? FileName { get; set; }

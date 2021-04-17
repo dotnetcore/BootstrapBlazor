@@ -2,14 +2,7 @@
 
 <h3>Download 文件下载</h3>
 
-<h4>用于直接下载Blazor文件</h4>
-<Download></Download>
-
-<p>
-    <b>特别注意：</b>
-    <div>Blazor与js的交互使用了json，在ssr模式中，json最大传输大小是125M，asp.net core的限制。并且由于json转js的blob非常非常慢，所以大文件请谨慎，建议只在类似页面文件导出、报表图片下载等页面自行完成的内容中使用。
-        其他例如服务器文件下载等依旧使用Controller来完成。如果下载大文件请自行仔细测试</div>
-</p>
+<h4>用于直接下载物理文件</h4>
 
 <Tips>
     <p>
@@ -19,29 +12,41 @@
 
 <Pre>&lt;Download /&gt;</Pre>
 
-<Block Title="基本用法" Introduction="调用注入服务<code>DownloadService</code>">
-    <p>示例：
-        <Button OnClick="DownloadFile">点我下载文件</Button>
-        </p>
-    <Pre>
-        &lt;Button OnClick=&quot;DownloadFile&quot;&gt;点我下载文件&lt;/Button&gt;
-        private async Task DownloadFile()
-        {
-            await using var ms = new MemoryStream();
-            TextWriter textWriter = new StreamWriter(ms);
-            await textWriter.WriteAsync("自行生成并写入的文本，这里可以换成图片或其他内容");
-            await textWriter.FlushAsync();
-            ms.Position = 0;
-            var option = new DownloadOption();
-            option.FileName = "测试文件.txt";
-            option.File = ms.ToArray();
-            await downloadService.Download(option);
-        }
-    </Pre>
+<Block Title="基本用法" Introduction="调用注入服务 <code>DownloadService</code>">
+    <p>
+        <b>特别注意：</b>
+        <div>
+            <code>Blazor</code> 与 <code>js</code> 的交互使用了 <code>json</code>，在 <code>ssr</code> 模式中，<code>json</code> 最大传输大小是 <b>125M</b>，这是 <code>asp.net core</code> 的限制。并且由于 <code>json</code> 转 <code>js</code> 的 <code>blob</code> 非常非常慢，所以大文件请谨慎，建议只在类似页面文件导出、报表图片下载等页面自行完成的内容中使用。
+            其他例如服务器文件下载等依旧使用 <code>Controller</code> 来完成。如果下载大文件请自行仔细测试
+        </div>
+    </p>
+    <div class="mb-3">
+        示例：
+        <Button Icon="fa fa-download" Text="下载文件" OnClick="@DownloadFileAsync"></Button>
+    </div>
+    <div><code>Razor</code> 代码</div>
+    <Pre>&lt;Button OnClick=&quot;DownloadFile&quot;&gt;点我下载文件&lt;/Button&gt;</Pre>
+    <div><code>C#</code> 代码</div>
+    <Pre>private async Task DownloadFileAsync()
+{
+    var content = await GenerateFileAsync();
+    await downloadService.DownloadAsync("测试文件", content);
+
+    static async Task&lt;byte[]&gt; GenerateFileAsync()
+    {
+        using var ms = new MemoryStream();
+        using var writer = new StreamWriter(ms);
+        await writer.WriteLineAsync("自行生成并写入的文本，这里可以换成图片或其他内容");
+        await writer.FlushAsync();
+        ms.Position = 0;
+        return ms.ToArray();
+    }
+}</Pre>
 </Block>
 
-<Block Title="大文件下载测试" Introduction="这里模拟生成了一个100万行的txt文件，大概56M，可以自行测试">
-
-    <Button OnClick="DownloadLargeFile">大文件下载</Button>
+<Block Title="大文件下载测试" Introduction="这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>56M</b>，可以自行测试">
+    <p>按钮设置 <code>IsAsync</code> 值为 <code>true</code> 进行异步下载操作</p>
+    <Button IsAsync="true" Icon="fa fa-download" Text="大文件下载" OnClickWithoutRender="DownloadLargeFileAsync"></Button>
 </Block>
 
+<Download></Download>
