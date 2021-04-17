@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Components
 
         private ElementReference SelectElement { get; set; }
 
-        private List<SelectedItem> SelectedItems { get; set; } = new List<SelectedItem>();
+        private IEnumerable<SelectedItem> SelectedItems => Items.Where(i => i.Active);
 
         private bool IsShow { get; set; }
 
@@ -98,7 +98,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         [NotNull]
-        public IEnumerable<SelectedItem>? Items { get; set; }
+        public List<SelectedItem>? Items { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件绑定数据项集合选项变化时回调方法
+        /// </summary>
+        [Parameter]
+        public EventCallback<List<SelectedItem>> ItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索文本发生变化时回调此方法
@@ -229,9 +235,9 @@ namespace BootstrapBlazor.Components
                 }
                 if (list != null)
                 {
-                    SelectedItems.Clear();
                     foreach (var item in Items)
                     {
+                        item.Active = false;
                         var v = item.Value;
                         if (!string.IsNullOrEmpty(v))
                         {
@@ -239,7 +245,7 @@ namespace BootstrapBlazor.Components
                             {
                                 if (v == l.ToString())
                                 {
-                                    SelectedItems.Add(item);
+                                    item.Active = true;
                                     break;
                                 }
                             }
@@ -288,14 +294,7 @@ namespace BootstrapBlazor.Components
         {
             if (!IsDisabled)
             {
-                if (SelectedItems.Contains(item))
-                {
-                    SelectedItems.Remove(item);
-                }
-                else
-                {
-                    SelectedItems.Add(item);
-                }
+                item.Active = !item.Active;
 
                 SetValue();
 
@@ -304,7 +303,7 @@ namespace BootstrapBlazor.Components
                     var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
                     var validationResults = new List<ValidationResult>();
 
-                    ValidateProperty(SelectedItems.Count, validationContext, validationResults);
+                    ValidateProperty(SelectedItems.Count(), validationContext, validationResults);
                     ToggleMessage(validationResults, true);
                 }
 
@@ -322,6 +321,7 @@ namespace BootstrapBlazor.Components
         private async Task TriggerSelectedItemChanged()
         {
             if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke(SelectedItems);
+            if (ItemsChanged.HasDelegate) await ItemsChanged.InvokeAsync(Items);
         }
 
         private void SetValue()
@@ -335,7 +335,7 @@ namespace BootstrapBlazor.Components
             {
                 var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
                 var listType = typeof(List<>).MakeGenericType(t);
-                var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count)!;
+                var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count())!;
 
                 foreach (var item in SelectedItems)
                 {
@@ -355,23 +355,21 @@ namespace BootstrapBlazor.Components
 
         private async Task Clear()
         {
-            SelectedItems.Clear();
+            Items.ForEach(i => i.Active = false);
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task SelectAll()
         {
-            SelectedItems.AddRange(Items);
+            Items.ForEach(i => i.Active = true);
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task InvertSelect()
         {
-            var items = Items.Where(i => !SelectedItems.Any(item => item == i)).ToList();
-            SelectedItems.Clear();
-            SelectedItems.AddRange(items);
+            Items.ForEach(i => i.Active = !i.Active);
 
             await TriggerSelectedItemChanged();
         }
@@ -383,7 +381,7 @@ namespace BootstrapBlazor.Components
             var ret = true;
             if (Max > 0)
             {
-                ret = SelectedItems.Count < Max || GetCheckedState(item);
+                ret = SelectedItems.Count() < Max || GetCheckedState(item);
             }
             return ret;
         }
@@ -405,7 +403,7 @@ namespace BootstrapBlazor.Components
             var data = Items;
             if (ShowSearch && !string.IsNullOrEmpty(SearchText) && OnSearchTextChanged != null)
             {
-                data = OnSearchTextChanged.Invoke(SearchText);
+                data = OnSearchTextChanged.Invoke(SearchText).ToList();
             }
             return data;
         }
@@ -430,11 +428,11 @@ namespace BootstrapBlazor.Components
                 }
                 if (innerType != null && innerType.IsEnum)
                 {
-                    Items = innerType.ToSelectList();
+                    Items = innerType.ToSelectList().ToList();
                 }
                 else
                 {
-                    Items = Enumerable.Empty<SelectedItem>();
+                    Items = new List<SelectedItem>();
                 }
             }
         }
@@ -443,17 +441,12 @@ namespace BootstrapBlazor.Components
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
-        public void SetItems(IEnumerable<SelectedItem>? items)
+        [Obsolete("请使用双向绑定 @bind-Items 来获取 Items 集合变化，更改数据源只需更改 Items 参数即可")]
+        public void SetItems(List<SelectedItem>? items)
         {
             Items = items;
             ResetItems();
 
-            // 重置选中项
-            SelectedItems.Clear();
-            if (items != null)
-            {
-                SelectedItems.AddRange(items.Where(i => i.Active));
-            }
             StateHasChanged();
         }
 

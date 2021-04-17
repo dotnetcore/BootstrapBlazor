@@ -24,11 +24,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private Logger? Trace { get; set; }
 
-        /// <summary>
-        /// 获得 默认数据集合
-        /// </summary>
-        private readonly IEnumerable<SelectedItem> Items = new SelectedItem[]
-        {
+        private List<SelectedItem> Items { get; set; } = new(new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州"),
@@ -37,13 +33,56 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("Wuhan", "武汉"),
             new SelectedItem ("Dalian", "大连"),
             new SelectedItem ("Hangzhou", "杭州"),
-            new SelectedItem ("Lianyungang", "连云港"),
-        };
+            new SelectedItem ("Lianyungang", "连云港")
+        });
 
-        /// <summary>
-        /// 获得 默认数据集合
-        /// </summary>
-        private readonly IEnumerable<SelectedItem> LongItems = new SelectedItem[]
+        private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
+
+        private readonly List<SelectedItem> Items3 = new SelectedItem[]
+        {
+            new SelectedItem ("", "请选择 ..."),
+            new SelectedItem ("Beijing", "北京") { Active = true },
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Hangzhou", "杭州")
+        }.ToList();
+
+        private List<SelectedItem> Items4 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> Items5 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> Items6 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> Items7 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> Items8 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> Items9 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> LongItems { get; set; } = new(new[]
         {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
@@ -54,23 +93,72 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        };
+        });
 
-        /// <summary>
-        /// 获得 默认数据集合
-        /// </summary>
-        private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
+        private List<SelectedItem> LongItems1 { get; set; } = new(new[]
         {
-            new SelectedItem ("", "请选择 ..."),
-            new SelectedItem ("Beijing", "北京") { Active = true },
-            new SelectedItem ("Shanghai", "上海"),
-            new SelectedItem ("Hangzhou", "杭州")
-        };
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        });
 
-        private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
+        private List<SelectedItem> LongItems2 { get; set; } = new(new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        });
 
-        [NotNull]
-        private MultiSelect<string>? Select1 { get; set; }
+        private List<SelectedItem> LongItems3 { get; set; } = new(new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        });
+
+        private List<SelectedItem> LongItems4 { get; set; } = new(new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        });
+
+        private List<SelectedItem> LongItems5 { get; set; } = new(new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        });
 
         /// <summary>
         /// 级联绑定菜单
@@ -95,7 +183,7 @@ namespace BootstrapBlazor.Shared.Pages
                     new SelectedItem("2","黄浦区") {Active = true },
                 });
             }
-            Select1.SetItems(Items2);
+            StateHasChanged();
             return Task.CompletedTask;
         }
 
@@ -103,16 +191,16 @@ namespace BootstrapBlazor.Shared.Pages
         private string SelectedMaxItemsValue { get; set; } = "";
         private string SelectedMinItemsValue { get; set; } = "";
 
-        private string SelectedItemsValue { get; set; } = "Beijing,Chengdu";
+        private string SelectedItemsValue { get; set; } = "Beijing";
 
         private void AddItems()
         {
-            SelectedItemsValue = "Beijing,Chengdu,Hangzhou,Lianyungang";
+            SelectedItemsValue = "Beijing,Shanghai,Guangzhou";
         }
 
         private void RemoveItems()
         {
-            SelectedItemsValue = "Beijing,Chengdu";
+            SelectedItemsValue = "Beijing";
         }
 
         private void AddListItems()
