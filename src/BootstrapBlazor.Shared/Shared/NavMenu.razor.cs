@@ -396,6 +396,12 @@ namespace BootstrapBlazor.Shared.Shared
             });
             item.AddItem(new DemoMenuItem()
             {
+                IsNew = true,
+                Text = "文件下载 Download",
+                Url = "downloads"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
                 Text = "工具条 Tooltip",
                 Url = "tooltips"
             });

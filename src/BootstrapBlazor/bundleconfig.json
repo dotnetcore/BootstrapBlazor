@@ -520,6 +520,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Download/Download.cs.min.js",
+    "inputFiles": [
+      "Components/Download/Download.cs.js"
+    ]
+  },
+  {
     "outputFileName": "Components/Toast/Toast.razor.cs.min.js",
     "inputFiles": [
       "Components/Toast/Toast.razor.cs.js"
@@ -589,6 +595,7 @@
       "Components/Table/Table.razor.cs.min.js",
       "Components/Table/Filter/TableFilter.razor.cs.min.js",
       "Components/Title/Title.cs.min.js",
+      "Components/Download/Download.cs.min.js",
       "Components/Toast/Toast.razor.cs.min.js",
       "Components/Tooltip/Tooltip.cs.min.js",
       "Components/Tree/Tree.razor.cs.min.js",

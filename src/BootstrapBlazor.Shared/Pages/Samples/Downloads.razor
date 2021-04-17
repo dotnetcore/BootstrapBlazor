@@ -1,0 +1,47 @@
+﻿@page "/downloads"
+
+<h3>Download 文件下载</h3>
+
+<h4>用于直接下载Blazor文件</h4>
+<Download></Download>
+
+<p>
+    <b>特别注意：</b>
+    <div>Blazor与js的交互使用了json，在ssr模式中，json最大传输大小是125M，asp.net core的限制。并且由于json转js的blob非常非常慢，所以大文件请谨慎，建议只在类似页面文件导出、报表图片下载等页面自行完成的内容中使用。
+        其他例如服务器文件下载等依旧使用Controller来完成。如果下载大文件请自行仔细测试</div>
+</p>
+
+<Tips>
+    <p>
+        本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>Download</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+    </p>
+</Tips>
+
+<Pre>&lt;Download /&gt;</Pre>
+
+<Block Title="基本用法" Introduction="调用注入服务<code>DownloadService</code>">
+    <p>示例：
+        <Button OnClick="DownloadFile">点我下载文件</Button>
+        </p>
+    <Pre>
+        &lt;Button OnClick=&quot;DownloadFile&quot;&gt;点我下载文件&lt;/Button&gt;
+        private async Task DownloadFile()
+        {
+            await using var ms = new MemoryStream();
+            TextWriter textWriter = new StreamWriter(ms);
+            await textWriter.WriteAsync("自行生成并写入的文本，这里可以换成图片或其他内容");
+            await textWriter.FlushAsync();
+            ms.Position = 0;
+            var option = new DownloadOption();
+            option.FileName = "测试文件.txt";
+            option.File = ms.ToArray();
+            await downloadService.Download(option);
+        }
+    </Pre>
+</Block>
+
+<Block Title="大文件下载测试" Introduction="这里模拟生成了一个100万行的txt文件，大概56M，可以自行测试">
+
+    <Button OnClick="DownloadLargeFile">大文件下载</Button>
+</Block>
+
