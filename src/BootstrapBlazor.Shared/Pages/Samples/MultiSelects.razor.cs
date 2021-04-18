@@ -205,7 +205,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void AddListItems()
         {
-            SelectedArrayValues = "Beijing,Chengdu,Hangzhou,Lianyungang".Split(',');
+            SelectedArrayValues = "Beijing,Shanghai".Split(',');
         }
 
         private void RemoveListItems()

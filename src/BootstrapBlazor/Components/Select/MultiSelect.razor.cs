@@ -7,10 +7,13 @@ using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -20,7 +23,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class MultiSelect<TValue> : IDisposable
     {
-        private string? _oldStringValue;
+        private readonly string? _oldStringValue;
 
         private ElementReference SelectElement { get; set; }
 
@@ -211,49 +214,75 @@ namespace BootstrapBlazor.Components
             // 通过 Value 对集合进行赋值
             if (Value != null)
             {
-                if (_oldStringValue == CurrentValueAsString) return;
-
-                var typeValue = typeof(TValue);
-                IList? list = null;
-                if (typeValue == typeof(string))
+                var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                foreach (var item in Items)
                 {
-                    list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                    _oldStringValue = CurrentValueAsString;
-                }
-                else if (typeValue.IsGenericType || typeValue.IsArray)
-                {
-                    var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
-                    var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
-                    var mi = instance.GetType().GetMethod("AddRange");
-                    if (mi != null)
+                    item.Active = false;
+                    var v = item.Value;
+                    if (!string.IsNullOrEmpty(v))
                     {
-                        mi.Invoke(instance, new object[] { Value });
-                    }
-
-                    list = instance as IList;
-                    _oldStringValue = string.Join(",", list);
-                }
-                if (list != null)
-                {
-                    foreach (var item in Items)
-                    {
-                        item.Active = false;
-                        var v = item.Value;
-                        if (!string.IsNullOrEmpty(v))
+                        foreach (var l in list)
                         {
-                            foreach (var l in list)
+                            if (v == l.ToString())
                             {
-                                if (v == l.ToString())
-                                {
-                                    item.Active = true;
-                                    break;
-                                }
+                                item.Active = true;
+                                break;
                             }
                         }
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// FormatValueAsString 方法
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected override string? FormatValueAsString(TValue value) => value == null
+            ? null
+            : ConvertValueToString(value);
+
+        private string? ConvertValueToString(TValue value)
+        {
+            var ret = "";
+            var typeValue = typeof(TValue);
+            if (typeValue == typeof(string))
+            {
+                ret = value!.ToString();
+            }
+            else if (typeValue.IsGenericType || typeValue.IsArray)
+            {
+                var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
+                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
+                var mi = instance.GetType().GetMethod("AddRange");
+                if (mi != null)
+                {
+                    mi.Invoke(instance, new object[] { value! });
+                }
+
+                var invoker = ConverterCache.GetOrAdd(t, key => CreateConverterInvoker(key));
+                var v = invoker.Invoke(instance);
+                ret = string.Join(",", v);
+            }
+            return ret;
+        }
+
+        private static ConcurrentDictionary<Type, Func<object, IEnumerable<string?>>> ConverterCache { get; set; } = new();
+
+        private Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
+        {
+            var method = this.GetType()
+                .GetMethod(nameof(ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
+                .MakeGenericMethod(type);
+
+            var para_exp = Expression.Parameter(typeof(object));
+            var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
+            var body = Expression.Call(method, convert);
+            return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
+        }
+
+        private static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source.Select(o => o?.ToString());
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -320,8 +349,15 @@ namespace BootstrapBlazor.Components
 
         private async Task TriggerSelectedItemChanged()
         {
-            if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke(SelectedItems);
-            if (ItemsChanged.HasDelegate) await ItemsChanged.InvokeAsync(Items);
+            if (OnSelectedItemsChanged != null)
+            {
+                await OnSelectedItemsChanged.Invoke(SelectedItems);
+            }
+
+            if (ItemsChanged.HasDelegate)
+            {
+                await ItemsChanged.InvokeAsync(Items);
+            }
         }
 
         private void SetValue()
