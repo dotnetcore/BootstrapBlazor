@@ -105,7 +105,19 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private Select<string>? Select2 { get; set; }
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Items2 = new(new SelectedItem[]
+            {
+                new SelectedItem("1","朝阳区"),
+                new SelectedItem("2","海淀区")
+            });
+        }
 
         /// <summary>
         /// 级联绑定菜单
@@ -113,24 +125,26 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="item"></param>
         private Task OnCascadeBindSelectClick(SelectedItem item)
         {
-            _item2.Clear();
             if (item.Value == "Beijing")
             {
-                _item2.AddRange(new SelectedItem[]
+                Items2 = new(new SelectedItem[]
                 {
-                    new SelectedItem("1","朝阳区"),
+                    new SelectedItem("1","朝阳区") { Active = true},
                     new SelectedItem("2","海淀区"),
                 });
             }
             else if (item.Value == "Shanghai")
             {
-                _item2.AddRange(new SelectedItem[]
+                Items2 = new(new SelectedItem[]
                 {
                     new SelectedItem("1","静安区"),
-                    new SelectedItem("2","黄浦区"),
+                    new SelectedItem("2","黄浦区") { Active = true } ,
                 });
             }
-            Select2?.SetItems(_item2);
+            else
+            {
+                Items2 = new List<SelectedItem>();
+            }
             return Task.CompletedTask;
         }
 
@@ -140,9 +154,7 @@ namespace BootstrapBlazor.Shared.Pages
             Component = BootstrapDynamicComponent.CreateComponent<CustomerSelectDialog>()
         });
 
-        private readonly List<SelectedItem> _item2 = new();
-
-        private IEnumerable<SelectedItem> Items2 => _item2;
+        private List<SelectedItem>? Items2 { get; set; }
 
         private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
         {

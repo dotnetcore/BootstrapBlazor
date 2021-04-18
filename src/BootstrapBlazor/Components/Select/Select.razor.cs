@@ -80,6 +80,8 @@ namespace BootstrapBlazor.Components
                 OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
             }
 
+            Items ??= Enumerable.Empty<SelectedItem>();
+
             // 内置对枚举类型的支持
             var t = typeof(TValue);
             if (!Items.Any() && t.IsEnum())
@@ -119,7 +121,8 @@ namespace BootstrapBlazor.Components
                 }
                 await Interop.InvokeVoidAsync(this, SelectElement, "bb_select", nameof(ConfirmSelectedItem));
 
-                if (SelectedItem != null && OnSelectedItemChanged != null)
+                // 选项值不为 null 后者 string.Empty 时触发一次 OnSelectedItemChanged 回调
+                if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value))
                 {
                     await OnSelectedItemChanged.Invoke(SelectedItem);
                 }

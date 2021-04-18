@@ -202,7 +202,7 @@ namespace BootstrapBlazor.Components
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
-        [Obsolete("请使用双向绑定 @bind-Items 来获取 Items 集合变化，更改数据源只需更改 Items 参数即可")]
+        [Obsolete("更改数据源 Items 参数即可")]
         public void SetItems(List<SelectedItem>? items)
         {
             Items = items;

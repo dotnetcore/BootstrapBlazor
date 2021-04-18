@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -57,7 +58,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
+        [NotNull]
+        public IEnumerable<SelectedItem>? Items { get; set; }
+
+        /// <summary>
+        /// 获得/设置 绑定数据集回调方法
+        /// </summary>
+        [Parameter]
+        public EventCallback<IEnumerable<SelectedItem>> ItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 选项模板
@@ -100,6 +108,8 @@ namespace BootstrapBlazor.Components
 
                 // 触发 SelectedItemChanged 事件
                 if (OnSelectedItemChanged != null) await OnSelectedItemChanged.Invoke(SelectedItem);
+
+                if (ItemsChanged.HasDelegate) await ItemsChanged.InvokeAsync(Items);
             }
         }
 
@@ -154,6 +164,7 @@ namespace BootstrapBlazor.Components
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
+        [Obsolete("更改数据源 Items 参数即可")]
         public void SetItems(IEnumerable<SelectedItem> items)
         {
             Items = items;

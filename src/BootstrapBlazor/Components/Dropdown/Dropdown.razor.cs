@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Linq;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -60,5 +62,15 @@ namespace BootstrapBlazor.Components
         private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
             .AddClass("active", () => item.Value == CurrentValueAsString)
             .Build();
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Items ??= Enumerable.Empty<SelectedItem>();
+        }
     }
 }
