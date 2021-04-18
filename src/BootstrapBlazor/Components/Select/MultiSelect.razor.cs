@@ -23,8 +23,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class MultiSelect<TValue> : IDisposable
     {
-        private readonly string? _oldStringValue;
-
         private ElementReference SelectElement { get; set; }
 
         private IEnumerable<SelectedItem> SelectedItems => Items.Where(i => i.Active);
@@ -102,12 +100,6 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public List<SelectedItem>? Items { get; set; }
-
-        /// <summary>
-        /// 获得/设置 组件绑定数据项集合选项变化时回调方法
-        /// </summary>
-        [Parameter]
-        public EventCallback<List<SelectedItem>> ItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索文本发生变化时回调此方法
@@ -319,7 +311,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private Task ToggleRow(SelectedItem item, bool force = false)
+        private async Task ToggleRow(SelectedItem item, bool force = false)
         {
             if (!IsDisabled)
             {
@@ -336,15 +328,13 @@ namespace BootstrapBlazor.Components
                     ToggleMessage(validationResults, true);
                 }
 
-                _ = TriggerSelectedItemChanged();
+                await TriggerSelectedItemChanged();
 
                 if (force)
                 {
                     StateHasChanged();
                 }
             }
-
-            return Task.CompletedTask;
         }
 
         private async Task TriggerSelectedItemChanged()
@@ -352,11 +342,6 @@ namespace BootstrapBlazor.Components
             if (OnSelectedItemsChanged != null)
             {
                 await OnSelectedItemsChanged.Invoke(SelectedItems);
-            }
-
-            if (ItemsChanged.HasDelegate)
-            {
-                await ItemsChanged.InvokeAsync(Items);
             }
         }
 

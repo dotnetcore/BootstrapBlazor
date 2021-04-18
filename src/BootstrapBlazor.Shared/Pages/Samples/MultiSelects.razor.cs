@@ -7,10 +7,8 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using Foo = BootstrapBlazor.Shared.Pages.Components.Foo;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -23,6 +21,99 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得/设置 Logger 实例
         /// </summary>
         private Logger? Trace { get; set; }
+
+        /// <summary>
+        /// 级联绑定菜单
+        /// </summary>
+        /// <param name="item"></param>
+        private async Task OnCascadeBindSelectClick(SelectedItem item)
+        {
+            await Task.Delay(100);
+            Items2.Clear();
+            if (item.Value == "Beijing")
+            {
+                Items2.AddRange(new SelectedItem[]
+                {
+                    new SelectedItem("1","朝阳区") { Active = true },
+                    new SelectedItem("2","海淀区")
+                });
+            }
+            else if (item.Value == "Shanghai")
+            {
+                Items2.AddRange(new SelectedItem[]
+                {
+                    new SelectedItem("1","静安区"),
+                    new SelectedItem("2","黄浦区") {Active = true },
+                });
+            }
+            StateHasChanged();
+        }
+
+        private void AddItems()
+        {
+            SelectedItemsValue = "Beijing,Shanghai,Guangzhou";
+        }
+
+        private void RemoveItems()
+        {
+            SelectedItemsValue = "Beijing";
+        }
+
+        private void AddListItems()
+        {
+            SelectedArrayValues = "Beijing,Shanghai".Split(',');
+        }
+
+        private void RemoveListItems()
+        {
+            SelectedArrayValues = "Beijing,Chengdu".Split(',');
+        }
+
+        private void AddArrayItems()
+        {
+            SelectedIntArrayValues = new[] { 1, 2, 3, 4 };
+        }
+
+        private void RemoveArrayItems()
+        {
+            SelectedIntArrayValues = new[] { 1, 2, };
+        }
+
+        private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
+        private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
+        private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
+
+        private IEnumerable<SelectedItem> OnSearch(string searchText)
+        {
+            return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
+        }
+
+        private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
+        {
+            Trace?.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
+            return Task.CompletedTask;
+        }
+
+        private Foo Model { get; set; } = new Foo();
+
+        private Foo Foo { get; set; } = new Foo();
+
+        private void OnClickButton()
+        {
+
+        }
+
+        private string SelectedLongItemsValue { get; set; } = "";
+        private string SelectedMaxItemsValue { get; set; } = "";
+        private string SelectedMinItemsValue { get; set; } = "";
+
+        private string SelectedItemsValue { get; set; } = "Beijing";
+
+        private string SelectedItemsValue6 { get; set; } = "Beijing";
+
+        private string SelectedItemsValue7 { get; set; } = "Beijing";
+
+        private string SelectedItemsValue8 { get; set; } = "Beijing";
 
         private List<SelectedItem> Items { get; set; } = new(new[] {
             new SelectedItem ("Beijing", "北京"),
@@ -77,6 +168,18 @@ namespace BootstrapBlazor.Shared.Pages
         });
 
         private List<SelectedItem> Items9 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> Items10 { get; set; } = new(new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        });
+
+        private List<SelectedItem> Items11 { get; set; } = new(new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
@@ -159,93 +262,6 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
         });
-
-        /// <summary>
-        /// 级联绑定菜单
-        /// </summary>
-        /// <param name="item"></param>
-        private Task OnCascadeBindSelectClick(SelectedItem item)
-        {
-            Items2.Clear();
-            if (item.Value == "Beijing")
-            {
-                Items2.AddRange(new SelectedItem[]
-                {
-                    new SelectedItem("1","朝阳区") { Active = true },
-                    new SelectedItem("2","海淀区")
-                });
-            }
-            else if (item.Value == "Shanghai")
-            {
-                Items2.AddRange(new SelectedItem[]
-                {
-                    new SelectedItem("1","静安区"),
-                    new SelectedItem("2","黄浦区") {Active = true },
-                });
-            }
-            StateHasChanged();
-            return Task.CompletedTask;
-        }
-
-        private string SelectedLongItemsValue { get; set; } = "";
-        private string SelectedMaxItemsValue { get; set; } = "";
-        private string SelectedMinItemsValue { get; set; } = "";
-
-        private string SelectedItemsValue { get; set; } = "Beijing";
-
-        private void AddItems()
-        {
-            SelectedItemsValue = "Beijing,Shanghai,Guangzhou";
-        }
-
-        private void RemoveItems()
-        {
-            SelectedItemsValue = "Beijing";
-        }
-
-        private void AddListItems()
-        {
-            SelectedArrayValues = "Beijing,Shanghai".Split(',');
-        }
-
-        private void RemoveListItems()
-        {
-            SelectedArrayValues = "Beijing,Chengdu".Split(',');
-        }
-
-        private void AddArrayItems()
-        {
-            SelectedIntArrayValues = new[] { 1, 2, 3, 4 };
-        }
-
-        private void RemoveArrayItems()
-        {
-            SelectedIntArrayValues = new[] { 1, 2, };
-        }
-
-        private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
-        private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
-        private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
-
-        private IEnumerable<SelectedItem> OnSearch(string searchText)
-        {
-            return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
-        }
-
-        private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
-        {
-            Trace?.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
-            return Task.CompletedTask;
-        }
-
-        private Foo Model { get; set; } = new Foo();
-
-        private Foo Foo { get; set; } = new Foo();
-
-        private void OnClickButton()
-        {
-
-        }
 
         /// <summary>
         /// 获得事件方法
