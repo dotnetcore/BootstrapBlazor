@@ -39,6 +39,7 @@ namespace BootstrapBlazor.Components
         /// <param name="loading">true 时显示正在操作 false 时表示结束</param>
         internal void TriggerAsync(bool loading)
         {
+            IsAsyncLoading = loading;
             ButtonIcon = loading ? LoadingIcon : Icon;
             SetDisable(loading);
         }
