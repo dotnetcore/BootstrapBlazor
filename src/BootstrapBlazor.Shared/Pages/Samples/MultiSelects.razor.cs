@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,10 +18,11 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class MultiSelects
     {
-        /// <summary>
-        /// 获得/设置 Logger 实例
-        /// </summary>
+        [NotNull]
         private Logger? Trace { get; set; }
+
+        [NotNull]
+        private Logger? Trace2 { get; set; }
 
         /// <summary>
         /// 级联绑定菜单
@@ -66,7 +68,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void RemoveListItems()
         {
-            SelectedArrayValues = "Beijing,Chengdu".Split(',');
+            SelectedArrayValues = new[] { "Beijing" };
         }
 
         private void AddArrayItems()
@@ -85,12 +87,19 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<SelectedItem> OnSearch(string searchText)
         {
+            Trace.Log($"搜索文字：{searchText}");
             return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
         }
 
         private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
         {
-            Trace?.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
+            Trace.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)
+        {
+            Trace2.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
             return Task.CompletedTask;
         }
 
@@ -103,7 +112,9 @@ namespace BootstrapBlazor.Shared.Pages
 
         }
 
-        private string SelectedLongItemsValue { get; set; } = "";
+        private string SelectedLongItemsValue1 { get; set; } = "";
+        private string SelectedLongItemsValue2 { get; set; } = "";
+        private string SelectedLongItemsValue3 { get; set; } = "";
         private string SelectedMaxItemsValue { get; set; } = "";
         private string SelectedMinItemsValue { get; set; } = "";
 
@@ -115,7 +126,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string SelectedItemsValue8 { get; set; } = "Beijing";
 
-        private List<SelectedItem> Items { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州"),
@@ -125,7 +136,7 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("Dalian", "大连"),
             new SelectedItem ("Hangzhou", "杭州"),
             new SelectedItem ("Lianyungang", "连云港")
-        });
+        };
 
         private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
 
@@ -137,55 +148,55 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("Hangzhou", "杭州")
         }.ToList();
 
-        private List<SelectedItem> Items4 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items4 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> Items5 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items5 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> Items6 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items6 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> Items7 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items7 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> Items8 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items8 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> Items9 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items9 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> Items10 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items10 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> Items11 { get; set; } = new(new[] {
+        private IEnumerable<SelectedItem> Items11 { get; set; } = new[] {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海"),
             new SelectedItem ("Guangzhou", "广州")
-        });
+        };
 
-        private List<SelectedItem> LongItems { get; set; } = new(new[]
+        private IEnumerable<SelectedItem> LongItems { get; set; } = new[]
         {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
@@ -196,9 +207,9 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        });
+        };
 
-        private List<SelectedItem> LongItems1 { get; set; } = new(new[]
+        private IEnumerable<SelectedItem> LongItems1 { get; set; } = new[]
         {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
@@ -209,9 +220,9 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        });
+        };
 
-        private List<SelectedItem> LongItems2 { get; set; } = new(new[]
+        private IEnumerable<SelectedItem> LongItems2 { get; set; } = new[]
         {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
@@ -222,9 +233,9 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        });
+        };
 
-        private List<SelectedItem> LongItems3 { get; set; } = new(new[]
+        private IEnumerable<SelectedItem> LongItems3 { get; set; } = new[]
         {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
@@ -235,9 +246,9 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        });
+        };
 
-        private List<SelectedItem> LongItems4 { get; set; } = new(new[]
+        private IEnumerable<SelectedItem> LongItems4 { get; set; } = new[]
         {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
@@ -248,9 +259,9 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        });
+        };
 
-        private List<SelectedItem> LongItems5 { get; set; } = new(new[]
+        private IEnumerable<SelectedItem> LongItems5 { get; set; } = new[]
         {
             new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
             new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
@@ -261,13 +272,13 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
             new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
             new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        });
+        };
 
         /// <summary>
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new[]
         {
             new EventItem()
             {
@@ -287,7 +298,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

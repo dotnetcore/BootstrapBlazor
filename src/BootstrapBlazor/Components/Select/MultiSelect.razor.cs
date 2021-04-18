@@ -99,7 +99,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         [NotNull]
-        public List<SelectedItem>? Items { get; set; }
+        public IEnumerable<SelectedItem>? Items { get; set; }
+
+        /// <summary>
+        /// 获得/设置 绑定数据集回调方法
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public EventCallback<IEnumerable<SelectedItem>> ItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索文本发生变化时回调此方法
@@ -343,11 +350,15 @@ namespace BootstrapBlazor.Components
             {
                 await OnSelectedItemsChanged.Invoke(SelectedItems);
             }
+            if (ItemsChanged.HasDelegate)
+            {
+                await ItemsChanged.InvokeAsync(Items);
+            }
         }
 
         private void SetValue()
         {
-            var typeValue = typeof(TValue);
+            var typeValue = NullableUnderlyingType ?? typeof(TValue);
             if (typeValue == typeof(string))
             {
                 CurrentValueAsString = string.Join(",", SelectedItems.Select(i => i.Value));
@@ -376,21 +387,27 @@ namespace BootstrapBlazor.Components
 
         private async Task Clear()
         {
-            Items.ForEach(i => i.Active = false);
+            var items = Items.ToList();
+            items.ForEach(i => i.Active = false);
+            Items = items;
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task SelectAll()
         {
-            Items.ForEach(i => i.Active = true);
+            var items = Items.ToList();
+            items.ForEach(i => i.Active = true);
+            Items = items;
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task InvertSelect()
         {
-            Items.ForEach(i => i.Active = !i.Active);
+            var items = Items.ToList();
+            items.ForEach(i => i.Active = !i.Active);
+            Items = items;
 
             await TriggerSelectedItemChanged();
         }
@@ -442,6 +459,7 @@ namespace BootstrapBlazor.Components
         {
             if (Items == null)
             {
+                // 判断 IEnumerable<T> 泛型 T 是否为 Enum
                 Type? innerType = null;
                 if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
                 {
@@ -449,11 +467,11 @@ namespace BootstrapBlazor.Components
                 }
                 if (innerType != null && innerType.IsEnum)
                 {
-                    Items = innerType.ToSelectList().ToList();
+                    Items = innerType.ToSelectList();
                 }
                 else
                 {
-                    Items = new List<SelectedItem>();
+                    Items = Enumerable.Empty<SelectedItem>();
                 }
             }
         }
