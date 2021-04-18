@@ -105,7 +105,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 绑定数据集回调方法
         /// </summary>
         [Parameter]
-        [NotNull]
         public EventCallback<IEnumerable<SelectedItem>> ItemsChanged { get; set; }
 
         /// <summary>
@@ -211,7 +210,7 @@ namespace BootstrapBlazor.Components
             await base.OnParametersSetAsync();
 
             // 通过 Value 对集合进行赋值
-            if (Value != null)
+            if (!string.IsNullOrEmpty(CurrentValueAsString))
             {
                 var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 foreach (var item in Items)
@@ -480,7 +479,7 @@ namespace BootstrapBlazor.Components
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
-        [Obsolete("请使用双向绑定 @bind-Items 来获取 Items 集合变化，更改数据源只需更改 Items 参数即可")]
+        [Obsolete("更改数据源 Items 参数即可")]
         public void SetItems(List<SelectedItem>? items)
         {
             Items = items;

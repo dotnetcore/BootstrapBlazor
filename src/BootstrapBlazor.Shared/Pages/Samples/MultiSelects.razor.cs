@@ -30,11 +30,11 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="item"></param>
         private async Task OnCascadeBindSelectClick(SelectedItem item)
         {
+            // 模拟异步获取数据源
             await Task.Delay(100);
-            Items2.Clear();
             if (item.Value == "Beijing")
             {
-                Items2.AddRange(new SelectedItem[]
+                Items2 = new List<SelectedItem>(new[]
                 {
                     new SelectedItem("1","朝阳区") { Active = true },
                     new SelectedItem("2","海淀区")
@@ -42,11 +42,15 @@ namespace BootstrapBlazor.Shared.Pages
             }
             else if (item.Value == "Shanghai")
             {
-                Items2.AddRange(new SelectedItem[]
+                Items2 = new List<SelectedItem>(new[]
                 {
                     new SelectedItem("1","静安区"),
                     new SelectedItem("2","黄浦区") {Active = true },
                 });
+            }
+            else
+            {
+                Items2 = new List<SelectedItem>();
             }
             StateHasChanged();
         }
