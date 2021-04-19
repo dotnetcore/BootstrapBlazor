@@ -59,7 +59,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// Razor 文件中 Options 模板子项
         /// </summary>
-        private List<SelectedItem> Childs { get; set; } = new List<SelectedItem>();
+        [NotNull]
+        private List<SelectedItem>? Childs { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索文本发生变化时回调此方法
@@ -79,6 +80,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? PlaceHolder { get; set; }
+
+        /// <summary>
+        /// 获得/设置 选项模板支持静态数据
+        /// </summary>
+        [Parameter]
+        public RenderFragment? Options { get; set; }
 
         [Inject]
         [NotNull]
@@ -119,6 +126,8 @@ namespace BootstrapBlazor.Components
 
             Items ??= Enumerable.Empty<SelectedItem>();
 
+            Childs = new List<SelectedItem>();
+
             // 内置对枚举类型的支持
             var t = typeof(TValue);
             if (!Items.Any() && t.IsEnum())
@@ -141,13 +150,8 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        /// <summary>
-        /// OnParametersSet 方法
-        /// </summary>
-        protected override void OnParametersSet()
+        private void ResetSelectedItem()
         {
-            base.OnParametersSet();
-
             // 合并 Items 与 Options 集合
             if (!Items.Any() && typeof(TValue).IsEnum())
             {
@@ -156,11 +160,6 @@ namespace BootstrapBlazor.Components
             DataSource = Items.ToList();
             DataSource.AddRange(Childs);
 
-            ResetSelectedItem();
-        }
-
-        private void ResetSelectedItem()
-        {
             SelectedItem = DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString)
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();

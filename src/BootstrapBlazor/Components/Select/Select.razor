@@ -11,6 +11,9 @@
         @Options
     </CascadingValue>
     <RenderTemplate>
+        @{
+            ResetSelectedItem();
+        }
         <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" placeholder="@PlaceHolder" value="@SelectedItem?.Text" />
         <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
         <div class="dropdown-menu-arrow"></div>

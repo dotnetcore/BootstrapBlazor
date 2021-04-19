@@ -47,12 +47,6 @@ namespace BootstrapBlazor.Components
         public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
 
         /// <summary>
-        /// 获得/设置 选项模板支持静态数据
-        /// </summary>
-        [Parameter]
-        public RenderFragment? Options { get; set; }
-
-        /// <summary>
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
