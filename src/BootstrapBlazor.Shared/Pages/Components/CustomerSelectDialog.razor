@@ -4,14 +4,14 @@
             <Select TValue="string" Items="@Items3" OnSelectedItemChanged="@OnCascadeBindSelectClick" />
         </div>
         <div class="form-group col-12 col-sm-6">
-            <Select @ref="Select2" TValue="string" Items="@Items2" />
+            <Select TValue="string" Items="@Items2" />
         </div>
     </div>
 </div>
 
 @code {
     private Select<string>? Select2;
-    private readonly List<SelectedItem> Items2 = new List<SelectedItem>();
+    private List<SelectedItem>? Items2;
     private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
     {
         new SelectedItem ("", "请选择 ..."),
@@ -23,12 +23,12 @@
     /// 级联绑定菜单
     /// </summary>
     /// <param name="item"></param>
-    private Task OnCascadeBindSelectClick(SelectedItem item)
+    private async Task OnCascadeBindSelectClick(SelectedItem item)
     {
-        Items2.Clear();
+        await Task.Delay(100);
         if (item.Value == "Beijing")
         {
-            Items2.AddRange(new SelectedItem[]
+            Items2 = new(new SelectedItem[]
             {
                     new SelectedItem("1","朝阳区"),
                     new SelectedItem("2","海淀区"),
@@ -36,13 +36,16 @@
         }
         else if (item.Value == "Shanghai")
         {
-            Items2.AddRange(new SelectedItem[]
+            Items2 = new(new SelectedItem[]
             {
-                    new SelectedItem("1","静安区"),
-                    new SelectedItem("2","黄浦区"),
+                new SelectedItem("1","静安区"),
+                new SelectedItem("2","黄浦区"),
             });
         }
-        Select2?.SetItems(Items2);
-        return Task.CompletedTask;
+        else
+        {
+            Items2 = new List<SelectedItem>();
+        }
+        StateHasChanged();
     }
 }

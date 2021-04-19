@@ -8,28 +8,28 @@
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" Color="Color.Primary" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" Color="Color.Success" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Color="Color.Success" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" Color="Color.Danger" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Color="Color.Danger" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" Color="Color.Warning" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Color="Color.Warning" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" Color="Color.Info" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Color="Color.Info" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" Color="Color.Secondary" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Color="Color.Secondary" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="form-group col-12 col-sm-6">
-                <MultiSelect TValue="string" Color="Color.Dark" @bind-Items="@Items"></MultiSelect>
+                <MultiSelect TValue="string" Color="Color.Dark" Items="@Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
         </div>
     </div>
@@ -122,16 +122,6 @@
 </Block>
 
 <Block Title="选项改变时事件" Introduction="通过设置 <code>OnSelectedItemsChanged</code> 回调方法获取当前选中数据集合改变事件">
-    <p>由于组件数据源参数 <code>IEnumerable&lt;T&gt;</code> 支持双向绑定，组件内部更改选项后，数据源也随之更改，<code>OnSelectedItemsChanged</code> 回调传递参数值等效数据源 <code>Active=true</code> 条件的过滤结果</p>
-    <Pre>private Task OnSelectedItemsChanged(IEnumerable&lt;SelectedItem&gt; items)
-{
-    Trace?.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
-
-    // 等效
-    // Items8.Where(i => i.Active).Select(i => i.Value);
-    return Task.CompletedTask;
-}
-</Pre>
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">

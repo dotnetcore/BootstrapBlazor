@@ -102,12 +102,6 @@ namespace BootstrapBlazor.Components
         public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
-        /// 获得/设置 绑定数据集回调方法
-        /// </summary>
-        [Parameter]
-        public EventCallback<IEnumerable<SelectedItem>> ItemsChanged { get; set; }
-
-        /// <summary>
         /// 获得/设置 搜索文本发生变化时回调此方法
         /// </summary>
         [Parameter]
@@ -349,10 +343,6 @@ namespace BootstrapBlazor.Components
             {
                 await OnSelectedItemsChanged.Invoke(SelectedItems);
             }
-            if (ItemsChanged.HasDelegate)
-            {
-                await ItemsChanged.InvokeAsync(Items);
-            }
         }
 
         private void SetValue()
@@ -386,27 +376,30 @@ namespace BootstrapBlazor.Components
 
         private async Task Clear()
         {
-            var items = Items.ToList();
-            items.ForEach(i => i.Active = false);
-            Items = items;
+            foreach (var item in Items)
+            {
+                item.Active = false;
+            }
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task SelectAll()
         {
-            var items = Items.ToList();
-            items.ForEach(i => i.Active = true);
-            Items = items;
+            foreach (var item in Items)
+            {
+                item.Active = true;
+            }
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task InvertSelect()
         {
-            var items = Items.ToList();
-            items.ForEach(i => i.Active = !i.Active);
-            Items = items;
+            foreach (var item in Items)
+            {
+                item.Active = !item.Active;
+            }
 
             await TriggerSelectedItemChanged();
         }

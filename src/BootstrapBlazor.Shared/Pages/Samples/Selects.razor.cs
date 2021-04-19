@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 获得 默认数据集合
         /// </summary>
-        private readonly IEnumerable<SelectedItem> Items = new[]
+        private IEnumerable<SelectedItem> Items { get; set; } = new[]
         {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海") { Active = true },
@@ -102,21 +102,8 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnItemChanged(SelectedItem item)
         {
             Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+            StateHasChanged();
             return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Items2 = new(new SelectedItem[]
-            {
-                new SelectedItem("1","朝阳区"),
-                new SelectedItem("2","海淀区")
-            });
         }
 
         /// <summary>
@@ -145,6 +132,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Items2 = new List<SelectedItem>();
             }
+            StateHasChanged();
             return Task.CompletedTask;
         }
 
