@@ -41,19 +41,15 @@ namespace BootstrapBlazor.Components
                 }
                 if (OnClickWithoutRender != null)
                 {
-                    await OnClickWithoutRender.Invoke();
-                }
-                if (OnClick.HasDelegate)
-                {
-                    await OnClick.InvokeAsync(e);
-                }
-                if (OnClickWithoutRender != null)
-                {
                     await OnClickWithoutRender();
                 }
                 if (OnClickCallback != null)
                 {
                     await OnClickCallback();
+                }
+                if (OnClick.HasDelegate)
+                {
+                    await OnClick.InvokeAsync(e);
                 }
                 if (IsAsync)
                 {
