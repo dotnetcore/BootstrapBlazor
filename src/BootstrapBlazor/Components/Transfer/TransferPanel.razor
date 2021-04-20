@@ -3,7 +3,7 @@
 
 <div class="transfer-panel">
     <p class="transfer-panel-header">
-        <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true"
+        <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false"
                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
     </p>
     <div class="transfer-panel-body">
@@ -22,7 +22,7 @@
                 {
                     var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
                     <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="transfer-panel-item"
-                              DisplayText="@item.Text" Value="item" ShowAfterLabel="true"
+                              DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
                               State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
                 }
             }
