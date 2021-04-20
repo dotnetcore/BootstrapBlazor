@@ -188,9 +188,11 @@ namespace BootstrapBlazor.Components
         {
             if (disposing && IsRendered)
             {
-                // JS 清理 DOM
+                // 切换线程防止 JS 清理 DOM 后 C# 代码报错
+                await Task.Delay(300);
                 try
                 {
+                    // JS 清理 DOM
                     await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose").ConfigureAwait(false);
                 }
                 catch (TaskCanceledException) { }
