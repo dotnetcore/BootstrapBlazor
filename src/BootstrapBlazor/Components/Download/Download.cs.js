@@ -1,15 +1,7 @@
 ﻿(function ($) {
     $.extend({
         bb_download_wasm: function (name, contentType, content) {
-            // Convert the parameters to actual JS types
-            var nameStr = BINDING.conv_string(name);
-            var contentTypeStr = BINDING.conv_string(contentType);
-            var contentArray = Blazor.platform.toUint8Array(content);
-
-            // Create the URL
-            var file = new File([contentArray], nameStr, { type: contentTypeStr });
-            var exportUrl = URL.createObjectURL(file);
-
+            var exportUrl = $.bb_create_url_wasm(name, contentType, content)
             // Create the <a> element and click on it
             var a = document.createElement("a");
             document.body.appendChild(a);
@@ -23,13 +15,7 @@
             URL.revokeObjectURL(exportUrl);
         },
         bb_download: function (filename, contentType, content) {
-            // Blazor marshall byte[] to a base64 string, so we first need to convert the string (content) to a Uint8Array to create the File
-            var data = $.base64DecToArr(content);
-
-            // Create the URL
-            var file = new File([data], filename, { type: contentType });
-            var exportUrl = URL.createObjectURL(file);
-
+            var exportUrl = $.bb_create_url(filename, contentType, content)
             // Create the <a> element and click on it
             var a = document.createElement("a");
             document.body.appendChild(a);
@@ -41,6 +27,24 @@
             // We don't need to keep the url, let's release the memory
             // On Safari it seems you need to comment this line... (please let me know if you know why)
             URL.revokeObjectURL(exportUrl);
+        },
+        bb_create_url_wasm: function (filename, contentType, content) {
+            // Convert the parameters to actual JS types
+            var nameStr = BINDING.conv_string(filename);
+            var contentTypeStr = BINDING.conv_string(contentType);
+            var contentArray = Blazor.platform.toUint8Array(content);
+
+            // Create the URL
+            var file = new File([contentArray], nameStr, { type: contentTypeStr });
+            return URL.createObjectURL(file);
+        },
+        bb_create_url: function (filename, contentType, content) {
+            // Blazor marshall byte[] to a base64 string, so we first need to convert the string (content) to a Uint8Array to create the File
+            var data = $.base64DecToArr(content);
+
+            // Create the URL
+            var file = new File([data], filename, { type: contentType });
+            return  URL.createObjectURL(file);
         },
         // Convert a base64 string to a Uint8Array. This is needed to create a blob object from the base64 string.
         // The code comes from: https://developer.mozilla.org/fr/docs/Web/API/WindowBase64/D%C3%A9coder_encoder_en_base64

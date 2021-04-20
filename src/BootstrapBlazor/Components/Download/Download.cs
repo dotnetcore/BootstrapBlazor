@@ -27,6 +27,7 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             DownloadService.Register(this, DownloadFile);
+            DownloadService.RegisterUrl(this, CreateUrl);
         }
 
         private async Task DownloadFile(DownloadOption option)
@@ -42,6 +43,19 @@ namespace BootstrapBlazor.Components
             }
         }
 
+        private async Task<string> CreateUrl(DownloadOption option)
+        {
+            if (JSRuntime is IJSUnmarshalledRuntime webAssemblyJsRuntime)
+            {
+                return webAssemblyJsRuntime.InvokeUnmarshalled<string?, string, byte[], string>("$.bb_create_url_wasm", option.FileName,
+                    option.Mime, option.FileContent);
+            }
+            else
+            {
+                return await JSRuntime.InvokeAsync<string>(identifier: "$.bb_create_url", option.FileName, option.Mime, option.FileContent);
+            }
+        }
+
         /// <summary>
         /// Dispose 方法
         /// </summary>
@@ -50,6 +64,7 @@ namespace BootstrapBlazor.Components
             if (disposing)
             {
                 DownloadService.UnRegister(this);
+                DownloadService.UnRegisterUrl(this);
             }
         }
 
