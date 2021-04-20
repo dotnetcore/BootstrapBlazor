@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -110,30 +111,31 @@ namespace BootstrapBlazor.Shared.Pages
         /// 级联绑定菜单
         /// </summary>
         /// <param name="item"></param>
-        private Task OnCascadeBindSelectClick(SelectedItem item)
+        private async Task OnCascadeBindSelectClick(SelectedItem item)
         {
+            // 模拟异步通讯切换线程
+            await Task.Delay(10);
             if (item.Value == "Beijing")
             {
-                Items2 = new(new SelectedItem[]
+                Items2 = new SelectedItem[]
                 {
                     new SelectedItem("1","朝阳区") { Active = true},
                     new SelectedItem("2","海淀区"),
-                });
+                };
             }
             else if (item.Value == "Shanghai")
             {
-                Items2 = new(new SelectedItem[]
+                Items2 = new SelectedItem[]
                 {
                     new SelectedItem("1","静安区"),
                     new SelectedItem("2","黄浦区") { Active = true } ,
-                });
+                };
             }
             else
             {
-                Items2 = new List<SelectedItem>();
+                Items2 = Enumerable.Empty<SelectedItem>();
             }
             StateHasChanged();
-            return Task.CompletedTask;
         }
 
         private Task OnShowDialog() => Dialog.Show(new DialogOption()
@@ -142,7 +144,7 @@ namespace BootstrapBlazor.Shared.Pages
             Component = BootstrapDynamicComponent.CreateComponent<CustomerSelectDialog>()
         });
 
-        private List<SelectedItem>? Items2 { get; set; }
+        private IEnumerable<SelectedItem>? Items2 { get; set; }
 
         private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
         {
