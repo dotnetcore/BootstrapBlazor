@@ -112,7 +112,6 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public Task<string> CreateUrlAsync(string fileName, byte[] fileContent, string mime = "application/octet-stream") => CreateUrlAsync(new DownloadOption() { FileName = fileName, FileContent = fileContent, Mime = mime });
 
-
         /// <summary>
         /// 下载文件方法
         /// </summary>
@@ -133,12 +132,7 @@ namespace BootstrapBlazor.Components
         public async Task<string> CreateUrlAsync(DownloadOption option)
         {
             var cb = CacheUrl.FirstOrDefault().Callback;
-            if (cb != null)
-            {
-                return await cb.Invoke(option);
-            }
-
-            return "";
+            return cb == null ? "" : await cb.Invoke(option);
         }
     }
 }

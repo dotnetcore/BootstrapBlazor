@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,7 +17,6 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class Downloads
     {
-
         [Inject]
         [NotNull]
         private ToastService? ToastService { get; set; }
@@ -41,17 +41,16 @@ namespace BootstrapBlazor.Shared.Pages
             await base.OnAfterRenderAsync(firstRender);
             if (firstRender)
             {
-                if (!string.IsNullOrEmpty(SiteOptions.Value.WebRootPath))
+                if (OperatingSystem.IsBrowser())
+                {
+                    await ToastService.Information("显示图片", "当前模式为 WebAssembly 模式，无法直接调用 wwwroot 文件夹，请自行生成图片测试。");
+                }
+                else
                 {
                     var filePath = Path.Combine(SiteOptions.Value.WebRootPath, "favicon.png");
                     TempUrl = await downloadService.CreateUrlAsync("favicon.png", File.OpenRead(filePath),
                         "image/jpeg");
                     StateHasChanged();
-
-                }
-                else
-                {
-                    await ToastService.Information("显示图片", "当前模式为 WebAssembly 模式，无法直接调用wwwroot文件夹，请自行生成图片测试。");
                 }
             }
         }
