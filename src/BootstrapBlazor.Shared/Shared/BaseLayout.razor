@@ -10,27 +10,27 @@
     <div class="navbar-nav-scroll">
         <ul class="navbar-nav bd-navbar-nav flex-row">
             <li class="nav-item">
-                <a class="nav-link " href="index">首页</a>
+                <a class="nav-link " href="index">@HomeText</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="introduction">文档</a>
+                <a class="nav-link" href="introduction">@IntroductionText</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="components">组件</a>
+                <a class="nav-link" href="components">@ComponentsText</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@WebsiteOption.Value.ServerUrl" title="Server">server</a>
+            <li class="nav-item d-none d-md-flex">
+                <a class="nav-link" href="@WebsiteOption.Value.ServerUrl">server</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@WebsiteOption.Value.WasmUrl" title="WebAssembly Client">wasm</a>
+            <li class="nav-item d-none d-md-flex">
+                <a class="nav-link" href="@WebsiteOption.Value.WasmUrl">wasm</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://ccflow.org" title="驰骋工作流">工作流</a>
+            <li class="nav-item d-none d-xl-flex">
+                <a class="nav-link" href="http://ccflow.org">@FlowText</a>
             </li>
         </ul>
     </div>
     <CultureChooser class="ml-md-auto" />
-    <ul class="navbar-nav ml-3">
+    <ul class="navbar-nav ml-3 d-none d-lg-flex">
         <li class="nav-item">
             <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor"><img src="_content/BootstrapBlazor.Shared/images/git.svg" /></a>
         </li>
@@ -38,7 +38,7 @@
             <a class="nav-link p-2" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor"><img src="_content/BootstrapBlazor.Shared/images/gitee.svg" /></a>
         </li>
     </ul>
-    <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" target="_blank" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/repository/archive/master.zip">下载</a>
+    <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" target="_blank" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/repository/archive/main.zip">@DownloadText</a>
 </header>
 
 @Body
@@ -81,44 +81,10 @@
     <div class="install-prompt">
         <div class="row">
             <div class="install-prompt-body col-10 col-offset-2 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
-                <span class="ml-2">安装小程序</span>
-                <button class="installButton btn btn-primary" @onclick="@InstallClicked">安装</button>
-                <button class="cancelButton btn btn-danger" @onclick="@(() => Installable = false)">取消</button>
+                <span class="ml-2">@InstallAppText</span>
+                <button class="installButton btn btn-primary" @onclick="@InstallClicked">@InstallText</button>
+                <button class="cancelButton btn btn-danger" @onclick="@(() => Installable = false)">@CancelText</button>
             </div>
         </div>
     </div>
-}
-
-@code
-{
-    static bool Installable = false;
-
-    [NotNull]
-    static Action? OnInstallable { get; set; }
-
-    /// <summary>
-    ///
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        OnInstallable = () => InvokeAsync(StateHasChanged);
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public static Task PWAInstallable()
-    {
-        Installable = true;
-        OnInstallable.Invoke();
-        return Task.CompletedTask;
-    }
-
-    private async Task InstallClicked()
-    {
-        Installable = false;
-        await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
-    }
 }
