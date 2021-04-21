@@ -138,7 +138,10 @@ namespace BootstrapBlazor.Components
                 // Validator.TryValidateProperty 只能对 Public 属性生效
                 propertyInfo = cacheKey.ModelType.GetProperty(cacheKey.FieldName);
 
-                if (propertyInfo != null) PropertyInfoCache[cacheKey] = propertyInfo;
+                if (propertyInfo != null)
+                {
+                    PropertyInfoCache[cacheKey] = propertyInfo;
+                }
             }
             return propertyInfo != null;
         }
@@ -242,7 +245,11 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool>? predicate = null)
         {
-            if (predicate == null) predicate = p => true;
+            if (predicate == null)
+            {
+                predicate = p => true;
+            }
+
             return InternalTableColumn.GetProperties<TModel>().Where(predicate);
         }
 
@@ -278,20 +285,28 @@ namespace BootstrapBlazor.Components
             var exp_p1 = Expression.Parameter(typeof(object));
             var exp_p2 = Expression.Parameter(typeof(string));
             var exp_p3 = Expression.Parameter(typeof(IFormatProvider));
-            Expression? body;
+            Expression? body = null;
             if (type.IsSubclassOf(typeof(IFormattable)))
             {
                 // 通过 IFormattable 接口格式化
                 var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
-                body = Expression.Call(Expression.Convert(exp_p1, type), mi!, exp_p2, exp_p3);
+                if (mi != null)
+                {
+                    body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2, exp_p3);
+                }
             }
             else
             {
                 // 通过 ToString(string format) 方法格式化
                 var mi = type.GetMethod("ToString", new Type[] { typeof(string) });
-                body = Expression.Call(Expression.Convert(exp_p1, type), mi!, exp_p2);
+                if (mi != null)
+                {
+                    body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2);
+                }
             }
-            return Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
+            return body == null
+                ? (s, f, provider) => s.ToString() ?? ""
+                : Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
         }
 
         private static readonly ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>> FormatProviderLambdaCache = new();
@@ -304,7 +319,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static string Format(object? source, IFormatProvider provider)
         {
-            string ret = string.Empty;
+            var ret = string.Empty;
             if (source != null)
             {
                 var invoker = FormatProviderLambdaCache.GetOrAdd(source.GetType(), key => GetFormatProviderLambda(source).Compile());
