@@ -6,9 +6,12 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -21,63 +24,77 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [NotNull]
-        private List<SelectedItem>? Items { get; set; }
+        private IEnumerable<SelectedItem>? Items { get; set; }
 
         [NotNull]
-        private List<SelectedItem>? Items1 { get; set; }
+        private IEnumerable<SelectedItem>? Items1 { get; set; }
 
         [NotNull]
-        private List<SelectedItem>? Items2 { get; set; }
+        private IEnumerable<SelectedItem>? Items2 { get; set; }
 
         [NotNull]
         private List<SelectedItem>? Items3 { get; set; }
 
         [NotNull]
-        private List<SelectedItem>? Items4 { get; set; }
+        private IEnumerable<SelectedItem>? Items4 { get; set; }
+
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items5 { get; set; }
 
         [NotNull]
         private Logger? Trace { get; set; }
 
-        [NotNull]
-        private Logger? Trace2 { get; set; }
+        private IEnumerable<SelectedItem> SelectedValue { get; set; } = Enumerable.Empty<SelectedItem>();
+
+        private Foo Model { get; set; } = new();
 
         /// <summary>
-        /// 
+        /// OnInitializedAsync 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
+
+            // 模拟异步加载数据源
+            await Task.Delay(100);
 
             Items = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"备选 {i:d2}",
                 Value = i.ToString()
-            }).ToList();
+            });
 
             Items1 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
-            }).ToList();
+            });
 
             Items2 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
-            }).ToList();
+            });
 
             Items3 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"备选 {i:d2}",
-                Value = i.ToString(),
-                Active = i % 2 == 0
+                Value = i.ToString()
             }).ToList();
+
+            SelectedValue = Items3.Take(2);
 
             Items4 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
-            }).ToList();
+            });
+
+            Items5 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
+                Value = i.ToString()
+            });
         }
 
         private void OnAddItem()
@@ -90,9 +107,10 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <param name="items"></param>
-        private void OnItemsChanged(IEnumerable<SelectedItem> items)
+        private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
         {
             Trace?.Log(string.Join(" ", items.Where(i => i.Active).Select(i => i.Text)));
+            return Task.CompletedTask;
         }
 
         /// <summary>

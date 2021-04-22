@@ -1,4 +1,4 @@
-name: Build Solution
+name: Build Project
 
 on:
   push:

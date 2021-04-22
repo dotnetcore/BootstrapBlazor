@@ -33,44 +33,44 @@
     "ReturnValue": "ReturnValue"
   },
   "BootstrapBlazor.Shared.Shared.ComponentLayout": {
-    "Title": "Enterprise-levelcomponentlibrarybasedonBootstrapandBlazor",
+    "Title": "Enterprise-level component library based on Bootstrap and Blazor",
     "Example": "Example",
     "Video": "Video"
   },
   "BootstrapBlazor.Shared.Pages.Alerts": {
     "Title": "Alert",
-    "SubTitle": "Displaysimportantalertmessages.",
-    "BaseUsageText": "Basicusage",
-    "IntroText1": "Alertcomponentsarenon-overlayelementsinthepagethatdoesnotdisappearautomatically.",
-    "AlertPrimaryText": "Asimpleprimaryalert—checkitout!",
-    "AlertSecondaryText": "Asimplesecondaryalert—checkitout!",
-    "AlertSuccessText": "Asimplesuccessalert—checkitout!",
-    "AlertDangerText": "Asimpledangeralert—checkitout!",
-    "AlertWarningText": "Asimplewarningalert—checkitout!",
-    "AlertInfoText": "Asimpleinfoalert—checkitout!",
-    "AlertDarkText": "Asimpledarkalert—checkitout!",
-    "CloseButtonUsageText": "Closebutton",
-    "IntroText2": "Customizetheclosebuttonastextsorothersymbols.",
-    "WithIconUsageText": "WithIcon",
-    "IntroText3": "Displayinganiconimprovesreadability.",
-    "ShowBarUsageText": "WithBar",
-    "IntroText4": "Show<code>Tip</code>"
+    "SubTitle": "Displays important alert messages.",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "Alert components are non-overlay elements in the page that does not disappear automatically.",
+    "AlertPrimaryText": "A simple primary alert—check it out!",
+    "AlertSecondaryText": "A simple secondary alert—check it out!",
+    "AlertSuccessText": "A simple success alert—check it out!",
+    "AlertDangerText": "A simple danger alert—check it out!",
+    "AlertWarningText": "A simple warning alert—check it out!",
+    "AlertInfoText": "A simple info alert—check it out!",
+    "AlertDarkText": "A simple dark alert—check it out!",
+    "CloseButtonUsageText": "Close button",
+    "IntroText2": "Customize the close button as texts or other symbols.",
+    "WithIconUsageText": "With Icon",
+    "IntroText3": "Displaying an icon improves readability.",
+    "ShowBarUsageText": "With Bar",
+    "IntroText4": "Show <code>Tip</code>"
   },
   "BootstrapBlazor.Shared.Pages.QRCodes": {
     "Title": "QRCode",
-    "SubTitle": "GenerateQRcode",
-    "BaseUsageText": "Basicusage",
-    "IntroText1": "ClicktheGeneratebuttontogeneratea<code>QRCode</code>",
-    "SuccessText": "QRcodegeneratedsuccessfully",
-    "CallbackDescription": "CallbackafterQRcodegeneration"
+    "SubTitle": "Generate QR code",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "Click the Generate button to generate a <code>QRCode</code>",
+    "SuccessText": "QR code generated successfully",
+    "CallbackDescription": "Call back after QR code generation"
   },
   "BootstrapBlazor.Shared.Pages.Anchors": {
     "Title": "Anchor",
-    "SubTitle": "Hyperlinkstoscrollononepage.",
-    "BaseUsageText": "Basicusage",
-    "IntroText1": "Fordisplayinganchorhyperlinksonpageandjumpingbetweenthem.",
-    "IntroText2": "Click<code>Anchor</code>itemtryit",
-    "ContentText1": "<p>Crasmattisconsecteturpurussitametfermentum.Crasjustoodio,dapibusacfacilisisin,egestasegetquam.Morbileorisus,portaacconsecteturac,vestibulumateros.</p><p>Praesentcommodocursusmagna,velscelerisquenislconsecteturet.Vivamussagittislacusvelauguelaoreetrutrumfaucibusdolorauctor.</p><p>Aeneanlaciniabibendumnullasedconsectetur.Praesentcommodocursusmagna,velscelerisquenislconsecteturet.Donecsedodiodui.Donecullamcorpernullanonmetusauctorfringilla.</p><p>Crasmattisconsecteturpurussitametfermentum.Crasjustoodio,dapibusacfacilisisin,egestasegetquam.Morbileorisus,portaacconsecteturac,vestibulumateros.</p><p>Praesentcommodocursusmagna,velscelerisquenislconsecteturet.Vivamussagittislacusvelauguelaoreetrutrumfaucibusdolorauctor.</p>"
+    "SubTitle": "Hyperlinks to scroll on one page.",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "For displaying anchor hyperlinks on page and jumping between them.",
+    "IntroText2": "Click <code>Anchor</code> item try it",
+    "ContentText1": "<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>"
   },
   "BootstrapBlazor.Shared.Pages.Components.Foo": {
     "Name": "Name",
@@ -80,42 +80,42 @@
     "Complete": "Complete",
     "Education": "Education",
     "Hobby": "Hobby",
-    "Name.Required": "{0}isrequired.",
-    "Address.Required": "{0}isrequired.",
-    "Education.Required": "{0}isrequired.",
-    "Hobby.Required": "{0}isrequired.",
+    "Name.Required": "{0} is required.",
+    "Address.Required": "{0} is required.",
+    "Education.Required": "{0} is required.",
+    "Hobby.Required": "{0} is required.",
     "Name.PlaceHolder": "required",
     "Hobbys": "Swimming,Climb,Shoot,Chess",
-    "Foo.Name": "Zhangsan{0}",
-    "Foo.Address": "Lane{0}ofJinshajiangRoad,PutuoDistrict,Shanghai",
-    "Foo.Address2": "Earth,China,Lane{0}ofJinshajiangRoad,PutuoDistrict,Shanghai.Hereisanexampleofsuperlongcell",
+    "Foo.Name": "Zhangsan {0}",
+    "Foo.Address": "Lane {0} of Jinshajiang Road, Putuo District, Shanghai",
+    "Foo.Address2": "Earth, China, Lane {0} of Jinshajiang Road, Putuo District, Shanghai. Here is an example of super long cell",
     "Foo.BindValue": "BindValue"
   },
   "BootstrapBlazor.Shared.Pages.ValidateForms.ComplexFoo": {
     "Name": "Name",
-    "Name.Required": "{0}isrequired."
+    "Name.Required": "{0} is required."
   },
   "BootstrapBlazor.Shared.Pages.ValidateForms.Dummy2": {
     "Name": "Name",
-    "Name.Required": "Dummy2{0}isrequired"
+    "Name.Required": "Dummy2 {0} is required"
   },
   "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
-    "PlaceHolder": "Clicktoselect...",
+    "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
     "Middel": "Middel"
   },
   "BootstrapBlazor.Shared.Pages.Inputs": {
-    "PlaceHolder": "pleaseinput..."
+    "PlaceHolder": "please input ..."
   },
   "BootstrapBlazor.Shared.Pages.Components.ThemeChooser": {
-    "Title": "Clicktochoosetheme",
+    "Title": "Click to choose theme",
     "HeaderText": "Themes"
   },
   "BootstrapBlazor.Shared.Pages.Uploads.Person": {
     "Name": "Name",
-    "Name.Required": "{0}isrequired",
+    "Name.Required": "{0} is required",
     "Picture": "File",
-    "Picture.Required": "{0}isrequired"
+    "Picture.Required": "{0} is required"
   },
   "BootstrapBlazor.Shared.Pages.Components.CultureChooser": {
     "Label": "Language："
@@ -126,7 +126,7 @@
     "IntroductionText": "Documents",
     "ComponentsText": "Components",
     "FlowText": "Workflow",
-    "InstallAppText": "InstallPWAApp",
+    "InstallAppText": "Install PWA App",
     "InstallText": "Install",
     "CancelText": "Cancel"
   },

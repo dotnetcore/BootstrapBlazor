@@ -15,6 +15,14 @@
     position: relative;
 }
 
+    .transfer-panel.is-invalid {
+        border: 1px solid #dc3545;
+    }
+
+    .transfer-panel.is-valid {
+        border: 1px solid #28a745;
+    }
+
     .transfer-panel .transfer-panel-header {
         height: 40px;
         line-height: 40px;
@@ -44,6 +52,10 @@
     height: 30px;
     line-height: 30px;
     padding-left: 15px;
+    display: block;
+}
+
+.form-inline .transfer-panel-item {
     display: block;
 }
 

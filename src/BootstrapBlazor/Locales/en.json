@@ -245,8 +245,8 @@
     "OffText": "Collapse"
   },
   "BootstrapBlazor.Components.Transfer": {
-    "LeftPanelText": "List 1",
-    "RightPanelText": "List 2"
+    "LeftPanelText": "All",
+    "RightPanelText": "Selected"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "Please input ...",

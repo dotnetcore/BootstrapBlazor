@@ -23,6 +23,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected string? SearchText { get; set; }
 
+        private string? PanelClassString => CssBuilder.Default("transfer-panel")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
         /// <summary>
         /// 获得 搜索图标样式
         /// </summary>
@@ -83,7 +87,7 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Transfer>? Localizer { get; set; }
+        private IStringLocalizer<Transfer<string>>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div class="transfer-panel">
+<div @attributes="@AdditionalAttributes" class="@PanelClassString">
     <p class="transfer-panel-header">
         <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false"
                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
