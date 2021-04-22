@@ -5,7 +5,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.17</Version>
+    <Version>5.0.18</Version>
   </PropertyGroup>
 
   <ItemGroup>
