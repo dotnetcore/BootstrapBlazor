@@ -110,29 +110,32 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 上一页方法
         /// </summary>
-        protected void MovePrev(int index)
+        protected async Task MovePrev(int index)
         {
             var pageIndex = PageIndex > 1 ? Math.Max(1, PageIndex - index) : PageCount;
-            OnPageItemClick(pageIndex);
+            await OnPageItemClick(pageIndex);
         }
 
         /// <summary>
         /// 下一页方法
         /// </summary>
-        protected void MoveNext(int index)
+        protected async Task MoveNext(int index)
         {
             var pageIndex = PageIndex < PageCount ? Math.Min(PageCount, PageIndex + index) : 1;
-            OnPageItemClick(pageIndex);
+            await OnPageItemClick(pageIndex);
         }
 
         /// <summary>
         /// 点击页码时回调方法
         /// </summary>
         /// <param name="pageIndex"></param>
-        protected void OnPageItemClick(int pageIndex)
+        protected async Task OnPageItemClick(int pageIndex)
         {
             PageIndex = pageIndex;
-            OnPageClick?.Invoke(pageIndex, PageItems);
+            if (OnPageClick != null)
+            {
+                await OnPageClick.Invoke(pageIndex, PageItems);
+            }
         }
 
         /// <summary>
@@ -144,7 +147,11 @@ namespace BootstrapBlazor.Components
             {
                 PageItems = pageItems;
                 PageIndex = 1;
-                if (OnPageItemsChanged != null) await OnPageItemsChanged.Invoke(PageItems);
+                if (OnPageItemsChanged != null)
+                {
+                    await OnPageItemsChanged.Invoke(PageItems);
+                }
+                StateHasChanged();
             }
         }
     }
