@@ -101,8 +101,6 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnFileChange(InputFileChangeEventArgs args)
         {
-            await OnFileChange(args);
-
             CurrentFile = new UploadFile()
             {
                 OriginFileName = args.File.Name,
@@ -113,6 +111,8 @@ namespace BootstrapBlazor.Components
 
             UploadFiles.Clear();
             UploadFiles.Add(CurrentFile);
+
+            await base.OnFileChange(args);
 
             ValidateFile();
 
