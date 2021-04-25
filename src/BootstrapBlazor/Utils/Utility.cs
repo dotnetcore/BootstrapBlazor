@@ -136,7 +136,7 @@ namespace BootstrapBlazor.Components
             if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))
             {
                 // Validator.TryValidateProperty 只能对 Public 属性生效
-                propertyInfo = cacheKey.ModelType.GetProperty(cacheKey.FieldName);
+                propertyInfo = cacheKey.ModelType.GetProperties().Where(x=>x.Name ==cacheKey.FieldName).FirstOrDefault();
 
                 if (propertyInfo != null)
                 {
