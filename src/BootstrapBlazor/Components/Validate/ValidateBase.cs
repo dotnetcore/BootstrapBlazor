@@ -237,7 +237,9 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private bool HasRequired() => FieldIdentifier?.Model.GetType().GetProperties().Where(x=>x.Name ==FieldIdentifier.Value.FieldName).FirstOrDefault()?.GetCustomAttribute<RequiredAttribute>() != null;
+        private bool HasRequired() => FieldIdentifier?.Model.GetType()
+            .GetProperties().Where(x => x.Name == FieldIdentifier.Value.FieldName).FirstOrDefault()
+            ?.GetCustomAttribute<RequiredAttribute>() != null;
 
         /// <summary>
         /// Gets a string that indicates the status of the field being edited. This will include

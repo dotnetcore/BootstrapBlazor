@@ -189,7 +189,7 @@ namespace BootstrapBlazor.Components
                             MemberName = key.FieldName,
                             DisplayName = key.GetDisplayName()
                         };
-                        var pi = key.Model.GetType().GetProperty(key.FieldName);
+                        var pi = key.Model.GetType().GetProperties().Where(p => p.Name == key.FieldName).FirstOrDefault();
                         if (pi != null)
                         {
                             // 单独处理 Upload 组件
@@ -233,8 +233,8 @@ namespace BootstrapBlazor.Components
         {
             if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
             {
-                var pi = fieldIdentifier.Model.GetType().GetProperty(fieldIdentifier.FieldName);
-
+                var fieldName = fieldIdentifier.FieldName;
+                var pi = fieldIdentifier.Model.GetType().GetProperties().Where(p => p.Name == fieldName).FirstOrDefault();
                 if (pi != null)
                 {
                     // 单独处理 Upload 组件
