@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Components
         internal TaskCompletionSource<bool> ReturnTask { get; } = new TaskCompletionSource<bool>();
 
         /// <summary>
-        /// 获得/设置 提示类型 默认为 Sucess
+        /// 获得/设置 提示类型 默认为 Success
         /// </summary>
         public SwalCategory Category { get; set; }
 
