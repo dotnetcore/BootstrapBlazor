@@ -186,6 +186,14 @@ namespace BootstrapBlazor.Components
                         {
                             instance.Add(Enum.Parse(t[0], val.ToString()));
                         }
+                        else if (t[0] == typeof(Guid))
+                        {
+                            if (val == null)
+                            {
+                                val = "";
+                            }
+                            instance.Add(new Guid(val));
+                        }
                         else
                         {
                             instance.Add(Convert.ChangeType(val, t[0]));
