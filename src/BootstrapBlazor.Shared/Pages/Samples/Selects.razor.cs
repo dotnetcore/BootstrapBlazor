@@ -5,8 +5,11 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,6 +34,10 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得/设置 Logger 实例
         /// </summary>
         private Logger? Trace { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Selects>? Localizer { get; set; }
 
         /// <summary>
         /// 获得 默认数据集合
@@ -175,6 +182,8 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         private EnumEducation SelectedEnumItem { get; set; } = EnumEducation.Primary;
+
+        private EnumEducation? SelectedEnumItem1 { get; set; }
 
         /// <summary>
         /// 获得事件方法

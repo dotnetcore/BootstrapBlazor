@@ -188,11 +188,20 @@
 </Block>
 
 <Block Title="枚举数据" Introduction="<code>Select</code> 组件绑定枚举类型示例">
-    <p>本次展现的是通过 <code>Select</code> 组件绑定枚举类型 <code>EnumEducation</code>，通过选项的更改绑定数据</p>
+    <p>当绑定值为可为空枚举类型时，组件内部自动通过 <code>PlaceHolder</code> 值添加首选项，未设置 <code>PlaceHolder</code> 值时，使用资源文件中的 <b>请选择 ...</b> 作为首选项，本示例绑定 <code>EnumEducation</code> 枚举类型</p>
+    <p>绑定值为枚举类型时，设置 <code>PalceHolder</code> 无效</p>
     <div class="form-inline">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
-                <Select @bind-Value="@SelectedEnumItem">
+                <Select @bind-Value="@SelectedEnumItem1" PlaceHolder="@Localizer["PlaceHolder"]" ShowLabel="true" DisplayText="可为空">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select @bind-Value="@SelectedEnumItem1" ShowLabel="true" DisplayText="可为空">
+                </Select>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+                <Select @bind-Value="@SelectedEnumItem" ShowLabel="true" DisplayText="不为空">
                 </Select>
             </div>
             <div class="form-group col-12 col-sm-6">

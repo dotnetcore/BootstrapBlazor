@@ -56,6 +56,9 @@
     "ShowBarUsageText": "With Bar",
     "IntroText4": "Show <code>Tip</code>"
   },
+  "BootstrapBlazor.Shared.Pages.Selects": {
+    "PlaceHolder": "Not Select"
+  },
   "BootstrapBlazor.Shared.Pages.QRCodes": {
     "Title": "QRCode",
     "SubTitle": "Generate QR code",

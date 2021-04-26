@@ -56,6 +56,9 @@
     "ShowBarUsageText": "显示左侧 Bar",
     "IntroText4": "作为 <code>Tip</code> 使用"
   },
+  "BootstrapBlazor.Shared.Pages.Selects": {
+    "PlaceHolder": "未选择"
+  },
   "BootstrapBlazor.Shared.Pages.QRCodes": {
     "Title": "QRCode 二维码",
     "SubTitle": "用于二维码生成",

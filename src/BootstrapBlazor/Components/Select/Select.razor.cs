@@ -117,35 +117,41 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-
             if (OnSearchTextChanged == null)
             {
                 OnSearchTextChanged = text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
             }
 
             Items ??= Enumerable.Empty<SelectedItem>();
-
             Childs = new List<SelectedItem>();
+        }
 
-            // 内置对枚举类型的支持
-            var t = typeof(TValue);
-            if (!Items.Any() && t.IsEnum())
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            if (NullableUnderlyingType != null)
             {
-                var item = "";
-                // 如果可为空枚举增加 请选择 ...
-                if (NullableUnderlyingType != null)
+                if (string.IsNullOrEmpty(PlaceHolder))
                 {
-                    // 优先查找 placeholder 字样 如果未设置使用资源文件中
+                    // 设置 placeholder
                     if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var pl))
                     {
-                        item = pl.ToString();
-                    }
-                    else
-                    {
-                        item = Localizer["PlaceHolder"].Value;
+                        PlaceHolder = pl?.ToString();
+                        AdditionalAttributes.Remove("placeholder");
                     }
                 }
+                PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+            }
+
+            // 内置对枚举类型的支持
+            var t = NullableUnderlyingType ?? typeof(TValue);
+            if (!Items.Any() && t.IsEnum())
+            {
+                var item = NullableUnderlyingType == null ? "" : PlaceHolder;
                 Items = typeof(TValue).ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
             }
         }
