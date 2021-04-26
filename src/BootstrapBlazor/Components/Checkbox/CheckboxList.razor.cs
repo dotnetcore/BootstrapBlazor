@@ -181,24 +181,10 @@ namespace BootstrapBlazor.Components
                 {
                     foreach (var sl in Items.Where(i => i.Active))
                     {
-                        var val = sl.Value;
-                        if (t[0].IsEnum && val != null)
+                        if (sl.Value.TryConvertTo(t[0], out var val))
                         {
-                            instance.Add(Enum.Parse(t[0], val.ToString()));
+                            instance.Add(val);
                         }
-                        else if (t[0] == typeof(Guid))
-                        {
-                            if (val == null)
-                            {
-                                val = "";
-                            }
-                            instance.Add(new Guid(val));
-                        }
-                        else
-                        {
-                            instance.Add(Convert.ChangeType(val, t[0]));
-                        }
-
                     }
                     CurrentValue = (TValue)instance;
                 }

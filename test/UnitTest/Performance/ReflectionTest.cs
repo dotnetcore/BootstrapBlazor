@@ -28,7 +28,7 @@ namespace UnitTest.Performance
         [Fact]
         public void GetProperty()
         {
-            var count = 10000;
+            var count = 10000000;
             var s1 = new Dummy()
             {
                 Name = "Argo"
@@ -56,7 +56,7 @@ namespace UnitTest.Performance
         [Fact]
         public void SetProperty()
         {
-            var count = 10000;
+            var count = 10000000;
             var s1 = new Dummy()
             {
                 Name = "Argo"
@@ -90,7 +90,7 @@ namespace UnitTest.Performance
         [Fact]
         public void InvokeMethod()
         {
-            var count = 10000;
+            var count = 10000000;
             var s1 = new Dummy()
             {
                 Name = "Argo"
@@ -134,20 +134,18 @@ namespace UnitTest.Performance
                 LambdaExtensions.GetPropertyValue(test, "Name");
             }
             stopWatch.Stop();
-            var interval = stopWatch.ElapsedMilliseconds;
+            Logger.WriteLine($"Expression: {stopWatch.ElapsedMilliseconds}");
 
             var objectType = test.GetType();
             var method = objectType.GetProperty("Name")?.GetGetMethod(false);
             var proxy = (DummyCallback<Dummy>)Delegate.CreateDelegate(typeof(DummyCallback<Dummy>), method);
-            obj = proxy(test);
-
             stopWatch.Restart();
             for (int i = 0; i < count; i++)
             {
                 proxy(test);
             }
             stopWatch.Stop();
-            var interval2 = stopWatch.ElapsedMilliseconds;
+            Logger.WriteLine($"Delegate: {stopWatch.ElapsedMilliseconds}");
         }
 
         private class Dummy

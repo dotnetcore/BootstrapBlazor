@@ -2,7 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components
 {
@@ -80,6 +86,56 @@ namespace BootstrapBlazor.Components
             else if (t.IsNumber()) ret = "数字";
             else if (t.IsDateTime()) ret = "日期";
             else ret = "字符串";
+            return ret;
+        }
+
+        /// <summary>
+        /// 字符串类型转换为其他数据类型
+        /// </summary>
+        /// <returns></returns>
+        public static bool TryConvertTo(this string? source, Type type, [MaybeNullWhen(false)] out object? val)
+        {
+            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.IsGenericMethod)!.MakeGenericMethod(type);
+            var v = Activator.CreateInstance(type);
+            var args = new object?[] { source, v };
+            var ret = (bool)methodInfo.Invoke(null, args)!;
+            val = ret ? args[1] : null;
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static bool TryConvertTo<TValue>(this string? source, [MaybeNullWhen(false)] out TValue val)
+        {
+            var ret = false;
+            try
+            {
+                if (source == null)
+                {
+                    val = default;
+                    ret = true;
+                }
+                else if (source == string.Empty)
+                {
+                    ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.InvariantCulture, out val);
+                }
+                else
+                {
+                    var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+                    var isBoolean = type == typeof(bool);
+                    var v = isBoolean ? (object)source.Equals("true", StringComparison.CurrentCultureIgnoreCase) : source;
+                    ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out val);
+                }
+            }
+            catch
+            {
+                val = default;
+            }
             return ret;
         }
 

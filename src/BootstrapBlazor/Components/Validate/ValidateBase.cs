@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -206,19 +207,14 @@ namespace BootstrapBlazor.Components
         /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
         /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
         /// <returns>True if the value could be parsed; otherwise false.</returns>
-        protected virtual bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
+        protected virtual bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
         {
             var ret = false;
             validationErrorMessage = null;
             try
             {
-                var valueType = typeof(TValue);
-                var isBoolean = valueType == typeof(bool) || valueType == typeof(bool?);
-                var v = isBoolean ? (object)value.Equals("true", StringComparison.CurrentCultureIgnoreCase) : value;
-
-                if (BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out var v1))
+                if (value.TryConvertTo<TValue>(out result))
                 {
-                    result = v1;
                     ret = true;
                 }
                 else

@@ -360,22 +360,9 @@ namespace BootstrapBlazor.Components
 
                 foreach (var item in SelectedItems)
                 {
-                    var val = item.Value;
-                    if (t.IsEnum && val != null)
+                    if (item.Value.TryConvertTo(t, out var val))
                     {
-                        instance.Add(Enum.Parse(t, val));
-                    }
-                    else if(t == typeof(Guid))
-                    {
-                        if(val == null)
-                        {
-                            val = "";
-                        }
-                        instance.Add(new Guid(val));
-                    }
-                    else
-                    {
-                        instance.Add(Convert.ChangeType(val, t));
+                        instance.Add(val);
                     }
                 }
                 CurrentValue = (TValue)(typeValue.IsGenericType ? instance : listType.GetMethod("ToArray")!.Invoke(instance, null)!);
