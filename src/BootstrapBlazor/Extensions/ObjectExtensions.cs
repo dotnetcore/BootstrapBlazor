@@ -4,11 +4,9 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components
 {
@@ -82,10 +80,23 @@ namespace BootstrapBlazor.Components
         public static string GetTypeDesc(this Type t)
         {
             string? ret;
-            if (t.IsEnum) ret = "枚举";
-            else if (t.IsNumber()) ret = "数字";
-            else if (t.IsDateTime()) ret = "日期";
-            else ret = "字符串";
+            if (t.IsEnum)
+            {
+                ret = "枚举";
+            }
+            else if (t.IsNumber())
+            {
+                ret = "数字";
+            }
+            else if (t.IsDateTime())
+            {
+                ret = "日期";
+            }
+            else
+            {
+                ret = "字符串";
+            }
+
             return ret;
         }
 
@@ -95,11 +106,20 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static bool TryConvertTo(this string? source, Type type, [MaybeNullWhen(false)] out object? val)
         {
-            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.IsGenericMethod)!.MakeGenericMethod(type);
-            var v = Activator.CreateInstance(type);
-            var args = new object?[] { source, v };
-            var ret = (bool)methodInfo.Invoke(null, args)!;
-            val = ret ? args[1] : null;
+            var ret = false;
+            if (type == typeof(string))
+            {
+                val = source;
+                ret = true;
+            }
+            else
+            {
+                var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.IsGenericMethod)!.MakeGenericMethod(type);
+                var v = type == typeof(string) ? null : Activator.CreateInstance(type);
+                var args = new object?[] { source, v };
+                ret = (bool)methodInfo.Invoke(null, args)!;
+                val = ret ? args[1] : null;
+            }
             return ret;
         }
 
@@ -113,28 +133,36 @@ namespace BootstrapBlazor.Components
         public static bool TryConvertTo<TValue>(this string? source, [MaybeNullWhen(false)] out TValue val)
         {
             var ret = false;
-            try
+            var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+            if (type == typeof(string))
             {
-                if (source == null)
+                val = (TValue)(object)source!;
+                ret = true;
+            }
+            else
+            {
+                try
+                {
+                    if (source == null)
+                    {
+                        val = default;
+                        ret = true;
+                    }
+                    else if (source == string.Empty)
+                    {
+                        ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.InvariantCulture, out val);
+                    }
+                    else
+                    {
+                        var isBoolean = type == typeof(bool);
+                        var v = isBoolean ? (object)source.Equals("true", StringComparison.CurrentCultureIgnoreCase) : source;
+                        ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out val);
+                    }
+                }
+                catch
                 {
                     val = default;
-                    ret = true;
                 }
-                else if (source == string.Empty)
-                {
-                    ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.InvariantCulture, out val);
-                }
-                else
-                {
-                    var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-                    var isBoolean = type == typeof(bool);
-                    var v = isBoolean ? (object)source.Equals("true", StringComparison.CurrentCultureIgnoreCase) : source;
-                    ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out val);
-                }
-            }
-            catch
-            {
-                val = default;
             }
             return ret;
         }
