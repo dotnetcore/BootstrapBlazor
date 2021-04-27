@@ -1583,3 +1583,11 @@ section {
         opacity: 1;
         box-shadow: 0 0 12px #211b50;
     }
+
+.wwads-cn.wwads-horizontal {
+    position: absolute;
+    bottom: 14rem;
+    right: 1rem;
+    z-index: 20;
+    border: 1px solid #c0c4cc;
+}
