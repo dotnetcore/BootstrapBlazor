@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -16,15 +17,24 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件样式
         /// </summary>
-        private string? ClassString => CssBuilder.Default("has-leaf")
-            .AddClass("active", Item?.IsActive ?? false)
+        private string? ClassString => CssBuilder.Default("has-leaf nav-link")
+            .AddClass("active", Item.IsActive)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+
+        private string? GetIconString => string.IsNullOrEmpty(Item.Icon)
+            ? (Parent != null && Parent.IsVertical
+                ? "fa fa-fw"
+                : null)
+            : Item.Icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
+                ? Item.Icon
+                : $"{Item.Icon} fa-fw";
 
         /// <summary>
         /// 获得/设置 组件数据源
         /// </summary>
         [Parameter]
+        [NotNull]
         public MenuItem? Item { get; set; }
 
         /// <summary>
@@ -33,16 +43,17 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
+        [CascadingParameter]
+        private Menu? Parent { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="className"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetClassString(string className, MenuItem item) => CssBuilder.Default(className)
+        private static string? GetClassString(MenuItem item) => CssBuilder.Default()
             .AddClass("active", item.IsActive && !item.IsDisabled)
             .AddClass("disabled", item.IsDisabled)
             .Build();
-
     }
 }

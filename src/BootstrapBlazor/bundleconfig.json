@@ -132,6 +132,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Menu/Menu.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Menu/Menu.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Modal/Modal.razor.cs.min.css",
     "inputFiles": [
       "Components/Modal/Modal.razor.cs.css"
@@ -254,10 +260,10 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
-      "wwwroot/lib/bootstrap/css/bootstrap.min.css",
-      "wwwroot/lib/colorpicker/bootstrap-colorpicker.min.css",
       "wwwroot/lib/font-awesome/css/font-awesome.min.css",
       "wwwroot/lib/summernote/summernote-bs4.min.css",
+      "wwwroot/lib/bootstrap/css/bootstrap.min.css",
+      "wwwroot/lib/colorpicker/bootstrap-colorpicker.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
       "wwwroot/css/bootstrap.blazor.min.css",
       "Components/Alert/Alert.razor.cs.min.css",
@@ -281,6 +287,7 @@
       "Components/Layout/Layout.razor.cs.min.css",
       "Components/Light/Light.razor.cs.min.css",
       "Components/Message/Message.razor.cs.min.css",
+      "Components/Menu/Menu.razor.cs.min.css",
       "Components/Modal/Modal.razor.cs.min.css",
       "Components/Popover/PopoverConfirmBox.razor.cs.min.css",
       "Components/QRCode/QRCode.razor.cs.min.css",
@@ -448,6 +455,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Menu/Menu.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Menu/Menu.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "Components/Popover/PopoverConfirmBox.razor.cs.min.js",
     "inputFiles": [
       "Components/Popover/PopoverConfirmBox.razor.cs.js"
@@ -582,6 +595,7 @@
       "Components/GoTop/GoTop.razor.cs.min.js",
       "Components/Layout/Layout.razor.cs.min.js",
       "Components/Message/Message.razor.cs.min.js",
+      "Components/Menu/Menu.razor.cs.min.js",
       "Components/Modal/Modal.razor.cs.min.js",
       "Components/Popover/PopoverConfirmBox.razor.cs.min.js",
       "Components/QRCode/QRCode.razor.cs.min.js",

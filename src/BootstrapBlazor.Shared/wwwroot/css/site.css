@@ -98,10 +98,6 @@ section {
         font-weight: 400;
     }
 
-.sidebar-content {
-    padding: 1rem 0;
-}
-
 .sidebar .top-row {
     height: 3.5rem;
     display: flex;
@@ -261,10 +257,6 @@ section {
         font-size: 1.8rem;
         color: #1c3949;
         margin-left: 38px;
-    }
-
-    .content .sidebar-content ul li:not(:last-child) {
-        padding-bottom: 0.5rem;
     }
 
     .content .alert h4 {
@@ -533,7 +525,7 @@ section {
     }
 
     .sidebar {
-        width: 250px;
+        width: 300px;
         height: calc(100vh - 50px);
         position: sticky;
         top: 50px;
@@ -547,7 +539,7 @@ section {
         }
 
     .main {
-        width: calc(100% - 250px);
+        width: calc(100% - 300px);
     }
 
         .main .top-row {
@@ -831,13 +823,9 @@ section {
     }
 }
 
-.menu-demo .menu.is-vertical {
+.menu-demo .menu.is-vertical:not(.is-collapsed) {
     width: 160px;
 }
-
-    .menu-demo .menu.is-vertical.is-collapsed {
-        width: 70px;
-    }
 
 .menu-demo-bar i {
     transition: transform .3s linear;
@@ -1584,8 +1572,28 @@ section {
         box-shadow: 0 0 12px #211b50;
     }
 
+.menu-accordion {
+    padding: 0.875rem 0;
+    display: flex;
+    border-bottom: solid 1px #c0c4cc;
+    justify-content: center;
+    margin-bottom: 0.875rem;
+}
+
+    .menu-accordion .control-label {
+        margin: 0 0.5rem 0 0;
+    }
+
+    .menu-accordion .switch {
+        width: auto;
+    }
+
+.sidebar-content .menu.is-vertical {
+    padding-bottom: .5rem;
+}
+
 .wwads-cn.wwads-horizontal {
-    position: absolute;
+    position: fixed;
     bottom: 14rem;
     right: 1rem;
     z-index: 20;

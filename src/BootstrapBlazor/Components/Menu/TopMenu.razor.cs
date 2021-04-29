@@ -3,8 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -14,17 +16,20 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class TopMenu
     {
-        /// <summary>
-        /// 获得/设置 是否禁止导航 默认为 false 允许导航
-        /// </summary>
-        [Parameter]
-        public bool DisableNavigation { get; set; }
+        private static string? GetDropdownClassString(MenuItem item, string className = "") => CssBuilder.Default(className)
+            .AddClass(item.GetDisabledClassString())
+            .AddClass("active", item.IsActive)
+            .Build();
+
+        private static string? GetIconString(string icon) => icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
+                ? icon
+                : $"{icon} fa-fw";
 
         /// <summary>
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<MenuItem> Items { get; set; } = new MenuItem[0];
+        public IEnumerable<MenuItem> Items { get; set; } = Array.Empty<MenuItem>();
 
         /// <summary>
         /// 获得/设置 菜单项点击回调委托
@@ -32,15 +37,29 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
+        [CascadingParameter]
+        private Menu? Parent { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Menu>? Localizer { get; set; }
+
         /// <summary>
-        /// 
+        /// SetParametersAsync 方法
         /// </summary>
-        /// <param name="className"></param>
-        /// <param name="item"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        private string? GetClassString(string className, MenuItem item) => CssBuilder.Default(className)
-            .AddClass("active", item.IsActive && !item.IsDisabled)
-            .AddClass("disabled", item.IsDisabled)
-            .Build();
+        public override Task SetParametersAsync(ParameterView parameters)
+        {
+            parameters.SetParameterProperties(this);
+
+            if (Parent == null)
+            {
+                throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
+            }
+
+            // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
+            return base.SetParametersAsync(ParameterView.Empty);
+        }
     }
 }

@@ -74,12 +74,16 @@ namespace BootstrapBlazor.Shared.Shared
         /// </summary>
         public void Update() => StateHasChanged();
 
-        private IEnumerable<MenuItem> GetIconSideMenuItems() => new List<MenuItem>
+        private IEnumerable<MenuItem> GetIconSideMenuItems()
         {
-            new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "layouts" },
-            new MenuItem() { Text = "布局网页", Icon = "fa fa-fw fa-desktop", Url = "layout-page" },
-            new MenuItem() { Text = "示例网页", Icon = "fa fa-fw fa-laptop", Url = "layout-demo/router" }
-        };
+            var menus = new List<MenuItem>
+            {
+                new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "layouts" },
+                new MenuItem() { Text = "布局网页", Icon = "fa fa-fw fa-desktop", Url = "layout-page" },
+                new MenuItem() { Text = "示例网页", Icon = "fa fa-fw fa-laptop", Url = "layout-demo" }
+            };
+            return menus;
+        }
 
         private void ToggleDrawer()
         {

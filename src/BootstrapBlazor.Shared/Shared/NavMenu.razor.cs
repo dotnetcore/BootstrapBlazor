@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -19,6 +20,16 @@ namespace BootstrapBlazor.Shared.Shared
     public sealed partial class NavMenu
     {
         private bool collapseNavMenu = true;
+
+        private bool IsAccordion { get; set; }
+
+        private bool IsExpandAll { get; set; }
+
+        [NotNull]
+        private string? AccordionText { get; set; }
+
+        [NotNull]
+        private string? ExpandAllText { get; set; }
 
         [Inject]
         [NotNull]
@@ -42,6 +53,9 @@ namespace BootstrapBlazor.Shared.Shared
             base.OnInitialized();
 
             InitMenus();
+
+            AccordionText ??= Localizer["MenuAccordion"];
+            ExpandAllText ??= Localizer["MenuExpandAll"];
         }
 
         private async Task OnClickMenu(MenuItem item)
@@ -119,621 +133,624 @@ namespace BootstrapBlazor.Shared.Shared
 
         private void AddQuickStar(DemoMenuItem item)
         {
-            item.AddItem(new DemoMenuItem()
+            item.Items = new List<DemoMenuItem>
             {
-                Text = Localizer["Introduction"],
-                Url = "introduction"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Install"],
-                Url = "install"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["ProjectTemplate"],
-                Url = "template"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Globalization"],
-                Url = "globalization"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Localization"],
-                Url = "localization"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                IsNew = true,
-                Text = Localizer["Labels"],
-                Url = "labels"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["ServerBlazor"],
-                Url = "install-server"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["ClientBlazor"],
-                Url = "install-wasm"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["LayoutPage"],
-                Url = "layout-page"
-            });
-
+                new()
+                {
+                    Text = Localizer["Introduction"],
+                    Url = "introduction"
+                },
+                new()
+                {
+                    Text = Localizer["Install"],
+                    Url = "install",
+                    Match = NavLinkMatch.All
+                },
+                new()
+                {
+                    Text = Localizer["ProjectTemplate"],
+                    Url = "template"
+                },
+                new()
+                {
+                    Text = Localizer["Globalization"],
+                    Url = "globalization"
+                },
+                new()
+                {
+                    Text = Localizer["Localization"],
+                    Url = "localization"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Labels"],
+                    Url = "labels"
+                },
+                new()
+                {
+                    Text = Localizer["ServerBlazor"],
+                    Url = "install-server",
+                    Match = NavLinkMatch.All
+                },
+                new()
+                {
+                    Text = Localizer["ClientBlazor"],
+                    Url = "install-wasm",
+                    Match = NavLinkMatch.All
+                },
+                new()
+                {
+                    Text = Localizer["LayoutPage"],
+                    Url = "layout-page"
+                }
+            };
             item.IsCollapsed = false;
-            Menus.Add(item);
+            AddBadge(item);
         }
 
         private void AddForm(DemoMenuItem item)
         {
-            item.AddItem(new DemoMenuItem()
+            item.Items = new List<DemoMenuItem>
             {
-                Text = Localizer["AutoComplete"],
-                Url = "autocompletes"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Button"],
-                Url = "buttons"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Cascader"],
-                Url = "cascaders"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Checkbox"],
-                Url = "checkboxs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["CheckboxList"],
-                Url = "checkboxlists"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["ColorPicker"],
-                Url = "colorpickers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["DateTimePicker"],
-                Url = "datetimepickers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["DateTimeRange"],
-                Url = "datetimeranges"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Editor"],
-                Url = "editors"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["EditorForm"],
-                Url = "editorforms"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Input"],
-                Url = "inputs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["InputNumber"],
-                Url = "inputnumbers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Markdown"],
-                Url = "markdowns"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                IsUpdate = true,
-                Text = Localizer["MultiSelect"],
-                Url = "multiselects"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Radio"],
-                Url = "radios"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Rate"],
-                Url = "rates"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Select"],
-                Url = "selects"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Slider"],
-                Url = "sliders"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Switch"],
-                Url = "switchs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Textarea"],
-                Url = "textareas"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Toggle"],
-                Url = "toggles"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Transfer"],
-                Url = "transfers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                IsUpdate = true,
-                Text = Localizer["Upload"],
-                Url = "uploads"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["ValidateForm"],
-                Url = "validateforms"
-            });
+                new()
+                {
+                    Text = Localizer["AutoComplete"],
+                    Url = "autocompletes"
+                },
+                new()
+                {
+                    Text = Localizer["Button"],
+                    Url = "buttons"
+                },
+                new()
+                {
+                    Text = Localizer["Cascader"],
+                    Url = "cascaders"
+                },
+                new()
+                {
+                    Text = Localizer["Checkbox"],
+                    Url = "checkboxs"
+                },
+                new()
+                {
+                    Text = Localizer["CheckboxList"],
+                    Url = "checkboxlists"
+                },
+                new()
+                {
+                    Text = Localizer["ColorPicker"],
+                    Url = "colorpickers"
+                },
+                new()
+                {
+                    Text = Localizer["DateTimePicker"],
+                    Url = "datetimepickers"
+                },
+                new()
+                {
+                    Text = Localizer["DateTimeRange"],
+                    Url = "datetimeranges"
+                },
+                new()
+                {
+                    Text = Localizer["Editor"],
+                    Url = "editors"
+                },
+                new()
+                {
+                    Text = Localizer["EditorForm"],
+                    Url = "editorforms"
+                },
+                new()
+                {
+                    Text = Localizer["Input"],
+                    Url = "inputs"
+                },
+                new()
+                {
+                    Text = Localizer["InputNumber"],
+                    Url = "inputnumbers"
+                },
+                new()
+                {
+                    Text = Localizer["Markdown"],
+                    Url = "markdowns"
+                },
+                new()
+                {
+                    IsUpdate = true,
+                    Text = Localizer["MultiSelect"],
+                    Url = "multiselects"
+                },
+                new()
+                {
+                    Text = Localizer["Radio"],
+                    Url = "radios"
+                },
+                new()
+                {
+                    Text = Localizer["Rate"],
+                    Url = "rates"
+                },
+                new()
+                {
+                    Text = Localizer["Select"],
+                    Url = "selects"
+                },
+                new()
+                {
+                    Text = Localizer["Slider"],
+                    Url = "sliders"
+                },
+                new()
+                {
+                    Text = Localizer["Switch"],
+                    Url = "switchs"
+                },
+                new()
+                {
+                    Text = Localizer["Textarea"],
+                    Url = "textareas"
+                },
+                new()
+                {
+                    Text = Localizer["Toggle"],
+                    Url = "toggles"
+                },
+                new()
+                {
+                    Text = Localizer["Transfer"],
+                    Url = "transfers"
+                },
+                new()
+                {
+                    IsUpdate = true,
+                    Text = Localizer["Upload"],
+                    Url = "uploads"
+                },
+                new()
+                {
+                    Text = Localizer["ValidateForm"],
+                    Url = "validateforms"
+                }
+            };
             AddBadge(item);
         }
 
         private void AddData(DemoMenuItem item)
         {
-            item.AddItem(new DemoMenuItem()
+            var tableItem = new DemoMenuItem()
             {
-                Text = Localizer["Avatar"],
-                Url = "avatars"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Badge"],
-                Url = "badges"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["BarcodeReader"],
-                Url = "barcodereaders"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Card"],
-                Url = "cards"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Calendar"],
-                Url = "calendars"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Camera"],
-                Url = "Cameras"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Captcha"],
-                Url = "captchas"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Carousel"],
-                Url = "carousels"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Chart"],
-                Url = "charts"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Circle"],
-                Url = "circles"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Collapse"],
-                Url = "collapses"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                IsNew = true,
-                Text = Localizer["Display"],
-                Url = "displays"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["DropdownWidget"],
-                Url = "dropdownwidgets"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["GroupBox"],
-                Url = "groupboxs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["HandwrittenPage"],
-                Url = "handwrittenPage"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["ListView"],
-                Url = "listviews"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Popover"],
-                Url = "popovers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["QRCode"],
-                Url = "qrcodes"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Search"],
-                Url = "searchs"
-            });
-            AddTableItem(item);
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Tag"],
-                Url = "tags"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Timeline"],
-                Url = "timelines"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                IsNew = true,
-                Text = Localizer["Title"],
-                Url = "titles"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                IsNew = true,
-                Text = Localizer["Download"],
-                Url = "downloads"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Tooltip"],
-                Url = "tooltips"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Tree"],
-                Url = "trees"
-            });
+                Text = Localizer["Table"],
+                Items = TableItems()
+            };
+            AddBadge(tableItem, false);
 
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["Avatar"],
+                    Url = "avatars"
+                },
+                new()
+                {
+                    Text = Localizer["Badge"],
+                    Url = "badges"
+                },
+                new()
+                {
+                    Text = Localizer["BarcodeReader"],
+                    Url = "barcodereaders"
+                },
+                new()
+                {
+                    Text = Localizer["Card"],
+                    Url = "cards"
+                },
+                new()
+                {
+                    Text = Localizer["Calendar"],
+                    Url = "calendars"
+                },
+                new()
+                {
+                    Text = Localizer["Camera"],
+                    Url = "Cameras"
+                },
+                new()
+                {
+                    Text = Localizer["Captcha"],
+                    Url = "captchas"
+                },
+                new()
+                {
+                    Text = Localizer["Carousel"],
+                    Url = "carousels"
+                },
+                new()
+                {
+                    Text = Localizer["Chart"],
+                    Url = "charts"
+                },
+                new()
+                {
+                    Text = Localizer["Circle"],
+                    Url = "circles"
+                },
+                new()
+                {
+                    Text = Localizer["Collapse"],
+                    Url = "collapses"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Display"],
+                    Url = "displays"
+                },
+                new()
+                {
+                    Text = Localizer["DropdownWidget"],
+                    Url = "dropdownwidgets"
+                },
+                new()
+                {
+                    Text = Localizer["GroupBox"],
+                    Url = "groupboxs"
+                },
+                new()
+                {
+                    Text = Localizer["HandwrittenPage"],
+                    Url = "handwrittenPage"
+                },
+                new()
+                {
+                    Text = Localizer["ListView"],
+                    Url = "listviews"
+                },
+                new()
+                {
+                    Text = Localizer["Popover"],
+                    Url = "popovers"
+                },
+                new()
+                {
+                    Text = Localizer["QRCode"],
+                    Url = "qrcodes"
+                },
+                new()
+                {
+                    Text = Localizer["Search"],
+                    Url = "searchs"
+                },
+                tableItem,
+                new()
+                {
+                    Text = Localizer["Tag"],
+                    Url = "tags"
+                },
+                new()
+                {
+                    Text = Localizer["Timeline"],
+                    Url = "timelines"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Title"],
+                    Url = "titles"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Download"],
+                    Url = "downloads"
+                },
+                new()
+                {
+                    Text = Localizer["Tooltip"],
+                    Url = "tooltips"
+                },
+                new()
+                {
+                    Text = Localizer["Tree"],
+                    Url = "trees"
+                },
+            };
             AddBadge(item);
         }
 
-        private void AddTableItem(DemoMenuItem item)
+        private IEnumerable<DemoMenuItem> TableItems()
         {
-            var it = new DemoMenuItem()
+            var item = new List<DemoMenuItem>
             {
-                Text = Localizer["Table"]
+                new()
+                {
+                    Text = Localizer["TableBase"],
+                    Url = "tables",
+                    Match = NavLinkMatch.All
+                },
+                new()
+                {
+                    Text = Localizer["TableColumn"],
+                    Url = "tables/column"
+                },
+                new()
+                {
+                    Text = Localizer["TableRow"],
+                    Url = "tables/row"
+                },
+                new()
+                {
+                    Text = Localizer["TableDetail"],
+                    Url = "tables/detail"
+                },
+                new()
+                {
+                    Text = Localizer["TableSearch"],
+                    Url = "tables/search"
+                },
+                new()
+                {
+                    Text = Localizer["TableFilter"],
+                    Url = "tables/filter"
+                },
+                new()
+                {
+                    Text = Localizer["TableFixHeader"],
+                    Url = "tables/header"
+                },
+                new()
+                {
+                    Text = Localizer["TableHeaderGroup"],
+                    Url = "tables/multi-header"
+                },
+                new()
+                {
+                    Text = Localizer["TableFixColumn"],
+                    Url = "tables/fix-column"
+                },
+                new()
+                {
+                    Text = Localizer["TablePage"],
+                    Url = "tables/pages"
+                },
+                new()
+                {
+                    Text = Localizer["TableToolbar"],
+                    Url = "tables/toolbar"
+                },
+                new()
+                {
+                    Text = Localizer["TableEdit"],
+                    Url = "tables/edit"
+                },
+                new()
+                {
+                    Text = Localizer["TableExport"],
+                    Url = "tables/export"
+                },
+                new()
+                {
+                    Text = Localizer["TableSelection"],
+                    Url = "tables/selection"
+                },
+                new()
+                {
+                    Text = Localizer["TableAutoRefresh"],
+                    Url = "tables/autorefresh"
+                },
+                new()
+                {
+                    Text = Localizer["TableFooter"],
+                    Url = "tables/footer"
+                },
+                new()
+                {
+                    Text = Localizer["TableDialog"],
+                    Url = "tables/dialog"
+                },
+                new()
+                {
+                    Text = Localizer["TableWrap"],
+                    Url = "tables/wrap"
+                },
+                new()
+                {
+                    Text = Localizer["TableTree"],
+                    Url = "tables/tree"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["TableLaoding"],
+                    Url = "tables/loading"
+                }
             };
 
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableBase"],
-                Url = "tables"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableColumn"],
-                Url = "tables/column"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableRow"],
-                Url = "tables/row"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableDetail"],
-                Url = "tables/detail"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableSearch"],
-                Url = "tables/search"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableFilter"],
-                Url = "tables/filter"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableFixHeader"],
-                Url = "tables/header"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableHeaderGroup"],
-                Url = "tables/multi-header"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableFixColumn"],
-                Url = "tables/fix-column"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TablePage"],
-                Url = "tables/pages"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableToolbar"],
-                Url = "tables/toolbar"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableEdit"],
-                Url = "tables/edit"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableExport"],
-                Url = "tables/export"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableSelection"],
-                Url = "tables/selection"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableAutoRefresh"],
-                Url = "tables/autorefresh"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableFooter"],
-                Url = "tables/footer"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableDialog"],
-                Url = "tables/dialog"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableWrap"],
-                Url = "tables/wrap"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["TableTree"],
-                Url = "tables/tree"
-            });
-
-            it.AddItem(new DemoMenuItem()
-            {
-                IsNew = true,
-                Text = Localizer["TableLaoding"],
-                Url = "tables/loading"
-            });
-
-            item.AddItem(it);
-
-            AddBadge(it, false);
+            return item;
         }
 
         private void AddNotice(DemoMenuItem item)
         {
-            item.AddItem(new DemoMenuItem()
+            item.Items = new List<DemoMenuItem>
             {
-                Text = Localizer["Alert"],
-                Url = "alerts"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Console"],
-                Url = "consoles"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Dialog"],
-                Url = "dialogs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Drawer"],
-                Url = "drawers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["EditDialog"],
-                Url = "editdialogs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Light"],
-                Url = "lights"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Message"],
-                Url = "messages"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Modal"],
-                Url = "modals"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Popconfirm"],
-                Url = "popconfirms"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Progress"],
-                Url = "progresss"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["SearchDialog"],
-                Url = "searchdialogs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Spinner"],
-                Url = "spinners"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["SweetAlert"],
-                Url = "swals"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Timer"],
-                Url = "timers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Toast"],
-                Url = "toasts"
-            });
+                new()
+                {
+                    Text = Localizer["Alert"],
+                    Url = "alerts"
+                },
+                new()
+                {
+                    Text = Localizer["Console"],
+                    Url = "consoles"
+                },
+                new()
+                {
+                    Text = Localizer["Dialog"],
+                    Url = "dialogs"
+                },
+                new()
+                {
+                    Text = Localizer["Drawer"],
+                    Url = "drawers"
+                },
+                new()
+                {
+                    Text = Localizer["EditDialog"],
+                    Url = "editdialogs"
+                },
+                new()
+                {
+                    Text = Localizer["Light"],
+                    Url = "lights"
+                },
+                new()
+                {
+                    Text = Localizer["Message"],
+                    Url = "messages"
+                },
+                new()
+                {
+                    Text = Localizer["Modal"],
+                    Url = "modals"
+                },
+                new()
+                {
+                    Text = Localizer["Popconfirm"],
+                    Url = "popconfirms"
+                },
+                new()
+                {
+                    Text = Localizer["Progress"],
+                    Url = "progresss"
+                },
+                new()
+                {
+                    Text = Localizer["SearchDialog"],
+                    Url = "searchdialogs"
+                },
+                new()
+                {
+                    Text = Localizer["Spinner"],
+                    Url = "spinners"
+                },
+                new()
+                {
+                    Text = Localizer["SweetAlert"],
+                    Url = "swals"
+                },
+                new()
+                {
+                    Text = Localizer["Timer"],
+                    Url = "timers"
+                },
+                new()
+                {
+                    Text = Localizer["Toast"],
+                    Url = "toasts"
+                }
+            };
             AddBadge(item);
         }
 
         private void AddNavigation(DemoMenuItem item)
         {
-            item.AddItem(new DemoMenuItem()
+            item.Items = new List<DemoMenuItem>
             {
-                Text = Localizer["Anchor"],
-                Url = "anchors"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Breadcrumb"],
-                Url = "breadcrumbs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Dropdown"],
-                Url = "dropdowns"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["GoTop"],
-                Url = "gotops"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Menu"],
-                Url = "menus"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Nav"],
-                Url = "navs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Pagination"],
-                Url = "paginations"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Steps"],
-                Url = "stepss"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Tab"],
-                Url = "tabs"
-            });
+                new()
+                {
+                    Text = Localizer["Anchor"],
+                    Url = "anchors"
+                },
+                new()
+                {
+                    Text = Localizer["Breadcrumb"],
+                    Url = "breadcrumbs"
+                },
+                new()
+                {
+                    Text = Localizer["Dropdown"],
+                    Url = "dropdowns"
+                },
+                new()
+                {
+                    Text = Localizer["GoTop"],
+                    Url = "gotops"
+                },
+                new()
+                {
+                    Text = Localizer["Menu"],
+                    Url = "menus"
+                },
+                new()
+                {
+                    Text = Localizer["Nav"],
+                    Url = "navs"
+                },
+                new()
+                {
+                    Text = Localizer["Pagination"],
+                    Url = "paginations"
+                },
+                new()
+                {
+                    Text = Localizer["Steps"],
+                    Url = "stepss"
+                },
+                new()
+                {
+                    Text = Localizer["Tab"],
+                    Url = "tabs"
+                }
+            };
 
             AddBadge(item);
         }
 
         private void AddLayout(DemoMenuItem item)
         {
-            item.AddItem(new DemoMenuItem()
+            item.Items = new List<DemoMenuItem>
             {
-                Text = Localizer["Divider"],
-                Url = "dividers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Layout"],
-                Url = "layouts"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Footer"],
-                Url = "footers"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Row"],
-                Url = "rows"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Scroll"],
-                Url = "scrolls"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Skeleton"],
-                Url = "skeletons"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = Localizer["Split"],
-                Url = "splits"
-            });
-
+                new()
+                {
+                    Text = Localizer["Divider"],
+                    Url = "dividers"
+                },
+                new()
+                {
+                    Text = Localizer["Layout"],
+                    Url = "layouts"
+                },
+                new()
+                {
+                    Text = Localizer["Footer"],
+                    Url = "footers"
+                },
+                new()
+                {
+                    Text = Localizer["Row"],
+                    Url = "rows"
+                },
+                new()
+                {
+                    Text = Localizer["Scroll"],
+                    Url = "scrolls"
+                },
+                new()
+                {
+                    Text = Localizer["Skeleton"],
+                    Url = "skeletons"
+                },
+                new()
+                {
+                    Text = Localizer["Split"],
+                    Url = "splits"
+                }
+            };
             AddBadge(item);
         }
 
@@ -748,11 +765,19 @@ namespace BootstrapBlazor.Shared.Shared
 
         private void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
         {
-            item.Component = CreateBadge(count ?? item.Items.Count(), item.IsNew, item.IsUpdate);
+            item.Component = CreateBadge(count ?? item.Items.Count(),
+               isNew: item.Items.OfType<DemoMenuItem>().Any(i => i.IsNew),
+               isUpdate: item.Items.OfType<DemoMenuItem>().Any(i => i.IsUpdate));
+            foreach (var menu in item.GetAllSubItems().OfType<DemoMenuItem>().Where(i => ShouldBadge(i)))
+            {
+                menu.Component = CreateBadge(0, menu.IsNew, menu.IsUpdate);
+            }
             if (append)
             {
                 Menus.Add(item);
             }
+
+            static bool ShouldBadge(DemoMenuItem? item) => item != null && (item.IsNew || item.IsUpdate);
         }
 
         private static BootstrapDynamicComponent CreateBadge(int count, bool isNew = false, bool isUpdate = false) => BootstrapDynamicComponent.CreateComponent<State>(new KeyValuePair<string, object?>[]
@@ -767,32 +792,6 @@ namespace BootstrapBlazor.Shared.Shared
             public bool IsNew { get; set; }
 
             public bool IsUpdate { get; set; }
-
-            /// <summary>
-            ///
-            /// </summary>
-            /// <param name="item"></param>
-            public override void AddItem(MenuItem item)
-            {
-                base.AddItem(item);
-
-                var menu = (DemoMenuItem)item;
-                if (menu.Parent != null)
-                {
-                    var pMenu = ((DemoMenuItem)menu.Parent);
-                    if (menu.IsNew)
-                    {
-                        pMenu.IsNew = true;
-                    }
-
-                    if (menu.IsUpdate)
-                    {
-                        pMenu.IsUpdate = true;
-                    }
-                }
-
-                item.Component = CreateBadge(0, menu.IsNew, menu.IsUpdate);
-            }
         }
     }
 }

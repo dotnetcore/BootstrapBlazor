@@ -1,14 +1,14 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<NavLink @attributes="@AdditionalAttributes" class="@ClassString" href="@GetHrefString" @onclick="@OnClickLink" Match="@GetMatch()">
-    @if (!string.IsNullOrEmpty(Item.Icon))
-    {
-        <i class="@Item.Icon"></i>
-    }
-    <span class="nav-link-text">@Item.Text</span>
+<NavLink @attributes="@AdditionalAttributes" class="@ClassString" href="@GetHrefString" @onclick="@OnClickLink" Match="@GetMatch()" style="@GetStyleClassString">
+    <i class="@GetIconString"></i>
+    <span class="text">@Item.Text</span>
     @if (Item.Component != null)
     {
-        @Item.Component.Render()
+        <div class="widget">
+            @Item.Component.Render()
+        </div>
     }
+    <i class="@GetMenuArrowClassString" />
 </NavLink>

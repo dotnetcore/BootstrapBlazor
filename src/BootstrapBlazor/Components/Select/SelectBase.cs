@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
-        [Obsolete("更改数据源 Items 参数即可")]
+        [Obsolete("更改数据源 Items 参数即可，下一个版本移除此方法")]
         public void SetItems(IEnumerable<SelectedItem> items)
         {
             Items = items;

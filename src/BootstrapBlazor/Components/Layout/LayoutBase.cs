@@ -138,7 +138,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 收缩展开回调委托
         /// </summary>
         [Parameter]
-        public Func<bool, Task> OnCollapsed { get; set; } = b => Task.CompletedTask;
+        public Func<bool, Task>? OnCollapsed { get; set; }
 
         /// <summary>
         /// 点击 收缩展开按钮时回调此方法
@@ -147,7 +147,7 @@ namespace BootstrapBlazor.Components
         protected async Task CollapseMenu()
         {
             IsCollapsed = !IsCollapsed;
-            await OnCollapsed.Invoke(IsCollapsed);
+            if(OnCollapsed != null) await OnCollapsed(IsCollapsed);
         }
 
         /// <summary>

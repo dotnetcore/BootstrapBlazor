@@ -8,5 +8,10 @@
 </div>
 
 <div class="@NavMenuCssClass">
-    <Menu Items="@Menus" IsVertical="true" OnClick="@OnClickMenu" />
+    <div class="menu-accordion">
+        <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" />
+        <div style="width:1rem;"></div>
+        <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
+    </div>
+    <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu" />
 </div>

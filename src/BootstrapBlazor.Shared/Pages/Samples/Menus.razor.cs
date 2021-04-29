@@ -6,8 +6,9 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -17,21 +18,54 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Menus
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
         private Logger? Trace { get; set; }
+
+        [NotNull]
+        private Logger? Trace2 { get; set; }
+
+        [NotNull]
+        private Logger? TraceSideMenu { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? Items { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? IconItems { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? SideMenuItems { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? IconSideMenuItems { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? WidgetIconSideMenuItems { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? CollapsedIconSideMenuItems { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? DisabledMenuItems { get; set; }
+
+        [NotNull]
+        private IEnumerable<MenuItem>? DynamicSideMenuItems { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Menus>? Localizer { get; set; }
 
         private Task OnClickMenu(MenuItem item)
         {
-            Trace?.Log($"菜单点击项: {item.Text}");
+            Trace.Log($"菜单点击项: {item.Text}");
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private Logger? TraceSideMenu { get; set; }
+        private Task OnClick2(MenuItem item)
+        {
+            Trace2.Log($"菜单点击项: {item.Text}");
+            return Task.CompletedTask;
+        }
 
         private Task OnClickSideMenu(MenuItem item)
         {
@@ -51,266 +85,344 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
-
-        private static IEnumerable<MenuItem> GetItems()
-        {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "导航一" },
-                new MenuItem() { Text = "导航二", IsActive = true },
-                new MenuItem() { Text = "导航三" }
-            };
-
-            ret[1].AddItem(new MenuItem() { Text = "子菜单一" });
-            ret[1].AddItem(new MenuItem() { Text = "子菜单二" });
-            ret[1].AddItem(new MenuItem() { Text = "子菜单三" });
-
-            ret[1].Items.ElementAt(0).AddItem(new MenuItem() { Text = "孙菜单1一" });
-            ret[1].Items.ElementAt(0).AddItem(new MenuItem() { Text = "孙菜单1二" });
-
-            ret[1].Items.ElementAt(1).AddItem(new MenuItem() { Text = "孙菜单2一" });
-            ret[1].Items.ElementAt(1).AddItem(new MenuItem() { Text = "孙菜单2二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new MenuItem() { Text = "曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new MenuItem() { Text = "曾孙菜单二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new MenuItem() { Text = "曾曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new MenuItem() { Text = "曾曾孙菜单二" });
-
-            return ret;
-        }
-
-        private IEnumerable<MenuItem> IconItems { get; set; } = Enumerable.Empty<MenuItem>();
-
-        private static IEnumerable<MenuItem> GetIconItems()
-        {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "导航一", Icon = "fa fa-life-bouy fa-fw" },
-                new MenuItem() { Text = "导航二", Icon = "fa fa-fa fa-fw", IsActive = true },
-                new MenuItem() { Text = "导航三", Icon = "fa fa-rebel fa-fw" }
-            };
-
-            ret[1].AddItem(new MenuItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
-            ret[1].AddItem(new MenuItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
-            ret[1].AddItem(new MenuItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw" });
-
-            return ret;
-        }
-
-        private IEnumerable<MenuItem> SideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
-
-        private static IEnumerable<MenuItem> GetSideMenuItems()
-        {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "导航一" },
-                new MenuItem() { Text = "导航二" },
-                new MenuItem() { Text = "导航三" },
-                new MenuItem() { Text = "导航四" }
-            };
-
-            ret[1].AddItem(new MenuItem() { Text = "子菜单一" });
-            ret[1].AddItem(new MenuItem() { Text = "子菜单二" });
-            ret[1].AddItem(new MenuItem() { Text = "子菜单三" });
-
-            ret[3].AddItem(new MenuItem() { Text = "子菜单一" });
-            ret[3].AddItem(new MenuItem() { Text = "子菜单二" });
-            ret[3].AddItem(new MenuItem() { Text = "子菜单三" });
-
-            ret[1].Items.ElementAt(0).AddItem(new MenuItem() { Text = "孙菜单1一" });
-            ret[1].Items.ElementAt(0).AddItem(new MenuItem() { Text = "孙菜单1二" });
-
-            ret[1].Items.ElementAt(1).AddItem(new MenuItem() { Text = "孙菜单2一" });
-            ret[1].Items.ElementAt(1).AddItem(new MenuItem() { Text = "孙菜单2二" });
-
-            ret[1].Items.ElementAt(0).Items.ElementAt(0).AddItem(new MenuItem() { Text = "曾孙菜单一" });
-            ret[1].Items.ElementAt(0).Items.ElementAt(0).AddItem(new MenuItem() { Text = "曾孙菜单二" });
-
-            ret[1].Items.ElementAt(0).Items.ElementAt(0).Items.ElementAt(0).AddItem(new MenuItem() { Text = "曾曾孙菜单一" });
-            ret[1].Items.ElementAt(0).Items.ElementAt(0).Items.ElementAt(0).AddItem(new MenuItem() { Text = "曾曾孙菜单二" });
-
-            return ret;
-        }
-
-        private IEnumerable<MenuItem> IconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
-
-        private static IEnumerable<MenuItem> GetIconSideMenuItems()
-        {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "系统设置", IsActive = true, Icon = "fa fa-fw fa-gears" },
-                new MenuItem() { Text = "权限设置", Icon = "fa fa-fw fa-users" },
-                new MenuItem() { Text = "日志设置", Icon = "fa fa-fw fa-database" }
-            };
-
-            ret[0].AddItem(new MenuItem() { Text = "网站设置", Icon = "fa fa-fw fa-fa" });
-            ret[0].AddItem(new MenuItem() { Text = "任务设置", Icon = "fa fa-fw fa-tasks" });
-
-            ret[1].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
-            ret[1].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
-            ret[1].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
-
-            ret[2].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
-            ret[2].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
-            ret[2].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
-
-            return ret;
-        }
-
-        private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new[]
-        {
-            new KeyValuePair<string, object?>(nameof(Badge.Color), Color.Danger),
-            new KeyValuePair<string, object?>(nameof(Badge.IsPill), true),
-            new KeyValuePair<string, object?>(nameof(Badge.ChildContent), new RenderFragment(builder =>
-            {
-                var index = 0;
-                builder.AddContent(index++, "10");
-            }))
-        });
-
-        private IEnumerable<MenuItem> WidgetIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
-
-        private static IEnumerable<MenuItem> GetWidgetIconSideMenuItems()
-        {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "系统设置", Icon = "fa fa-fw fa-gears" },
-                new MenuItem() { Text = "权限设置", Icon = "fa fa-fw fa-users" },
-                new MenuItem() {
-                    Text = "日志设置",
-                    IsActive = true,
-                    Icon = "fa fa-fw fa-database",
-                    Component = BuildDynamicComponent()
-                }
-            };
-
-            ret[0].AddItem(new MenuItem() { Text = "网站设置", Icon = "fa fa-fw fa-fa" });
-            ret[0].AddItem(new MenuItem() { Text = "任务设置", Icon = "fa fa-fw fa-tasks" });
-
-            ret[1].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
-            ret[1].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
-            ret[1].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
-
-            ret[2].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
-            ret[2].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
-            ret[2].AddItem(new MenuItem()
-            {
-                Text = "操作日志",
-                Icon = "fa fa-fw fa-edit",
-                Component = BuildDynamicComponent()
-            });
-
-            return ret;
-        }
-
-        private IEnumerable<MenuItem> CollapsedIconSideMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
-
-        private static IEnumerable<MenuItem> GetCollapsedIconSideMenuItems()
-        {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "系统设置", Icon = "fa fa-fw fa-gears" },
-                new MenuItem() { Text = "权限设置", IsActive = true, Icon = "fa fa-fw fa-users" , IsCollapsed = false },
-                new MenuItem() { Text = "日志设置", Icon = "fa fa-fw fa-database" }
-            };
-
-            ret[0].AddItem(new MenuItem() { Text = "网站设置", Icon = "fa fa-fw fa-fa" });
-            ret[0].AddItem(new MenuItem() { Text = "任务设置", Icon = "fa fa-fw fa-tasks" });
-
-            ret[1].AddItem(new MenuItem() { Text = "用户设置", Icon = "fa fa-fw fa-user" });
-            ret[1].AddItem(new MenuItem() { Text = "菜单设置", Icon = "fa fa-fw fa-dashboard" });
-            ret[1].AddItem(new MenuItem() { Text = "角色设置", Icon = "fa fa-fw fa-sitemap" });
-
-            ret[2].AddItem(new MenuItem() { Text = "访问日志", Icon = "fa fa-fw fa-bars" });
-            ret[2].AddItem(new MenuItem() { Text = "登录日志", Icon = "fa fa-fw fa-user-circle-o" });
-            ret[2].AddItem(new MenuItem() { Text = "操作日志", Icon = "fa fa-fw fa-edit" });
-
-            return ret;
-        }
-
-        private IEnumerable<MenuItem> DisabledMenuItems { get; set; } = Enumerable.Empty<MenuItem>();
-
-        private static IEnumerable<MenuItem> GetDisabledMenuItems()
-        {
-            var ret = new List<MenuItem>
-            {
-                new MenuItem() { Text = "导航一", IsActive = true },
-                new MenuItem() { Text = "导航二", IsDisabled = true },
-                new MenuItem() { Text = "导航三" },
-                new MenuItem() { Text = "导航四", IsDisabled = true },
-            };
-
-            ret[1].AddItem(new MenuItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
-
-            ret[2].AddItem(new MenuItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
-            ret[2].AddItem(new MenuItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw", IsDisabled = true });
-
-            return ret;
-        }
-
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
-            Items = GetItems();
-            IconItems = GetIconItems();
-            SideMenuItems = GetSideMenuItems();
-            IconSideMenuItems = GetIconSideMenuItems();
-            WidgetIconSideMenuItems = GetWidgetIconSideMenuItems();
-            CollapsedIconSideMenuItems = GetCollapsedIconSideMenuItems();
-            DisabledMenuItems = GetDisabledMenuItems();
+            await base.OnInitializedAsync();
+            Items = await MenusDataGerator.GetTopItemsAsync(Localizer);
+            IconItems = await MenusDataGerator.GetTopIconItemsAsync(Localizer);
+            SideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
+            IconSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(Localizer);
+            WidgetIconSideMenuItems = await MenusDataGerator.GetWidgetIconSideMenuItemsAsync(Localizer);
+            CollapsedIconSideMenuItems = await MenusDataGerator.GetCollapsedIconSideMenuItemsAsync(Localizer);
+            DisabledMenuItems = await MenusDataGerator.GetDisabledMenuItemsAsync(Localizer);
+            DynamicSideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes()
+        private async Task UpdateMenu()
         {
-            return new AttributeItem[]
+            DynamicSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(Localizer);
+        }
+
+        private async Task ResetMenu()
+        {
+            DynamicSideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
+        }
+
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        {
+            new AttributeItem()
             {
-                new AttributeItem()
+                Name = "Items",
+                Description = "菜单组件数据集合",
+                Type = "IEnumerable<MenuItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem()
+            {
+                Name = "IsVertical",
+                Description = "是否为侧栏",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsAccordion",
+                Description = "是否手风琴效果",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "DisableNavigation",
+                Description = "是否禁止地址栏导航",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "OnClick",
+                Description = "菜单项被点击时回调此方法",
+                Type = "Func<MenuItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
+        };
+
+        internal static class MenusDataGerator
+        {
+            public static async Task<IEnumerable<MenuItem>> GetTopItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+
+                return new List<MenuItem>
                 {
-                    Name = "Items",
-                    Description = "菜单组件数据集合",
-                    Type = "IEnumerable<MenuItem>",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem()
+                    new(localizer["Menu1"].Value),
+                    new(localizer["Menu2"].Value)
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["SubMenu1"].Value)
+                            {
+                                Items = new List<MenuItem>
+                                {
+                                    new(localizer["SubMenu11"].Value),
+                                    new(localizer["SubMenu12"].Value)
+                                }
+                            },
+                            new(localizer["SubMenu2"].Value)
+                            {
+                                Items = new List<MenuItem>
+                                {
+                                    new(localizer["SubMenu21"].Value),
+                                    new(localizer["SubMenu22"].Value)
+                                    {
+                                        Items = new List<MenuItem>
+                                        {
+                                            new(localizer["SubMenu31"].Value),
+                                            new(localizer["SubMenu32"].Value)
+                                            {
+                                                Items = new List<MenuItem>
+                                                {
+                                                    new(localizer["SubMenu41"].Value),
+                                                    new(localizer["SubMenu42"].Value)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            new(localizer["SubMenu3"].Value)
+                        }
+                    },
+                    new(localizer["Menu3"].Value)
+                };
+            }
+
+            public static async Task<IEnumerable<MenuItem>> GetTopIconItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+                return new List<MenuItem>
                 {
-                    Name = "IsVertical",
-                    Description = "是否为侧栏",
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "IsAccordion",
-                    Description = "是否手风琴效果",
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "DisableNavigation",
-                    Description = "是否禁止地址栏导航",
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "OnClick",
-                    Description = "菜单项被点击时回调此方法",
-                    Type = "Func<MenuItem, Task>",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                }
-            };
+                    new(localizer["Menu1"].Value, icon:"fa fa-life-bouy"),
+                    new(localizer["Menu2"].Value, icon:"fa fa-fa")
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["SubMenu1"].Value, icon:"fa fa-fa"),
+                            new(localizer["SubMenu2"].Value, icon:"fa fa-fa"),
+                            new(localizer["SubMenu3"].Value, icon:"fa fa-fa"),
+                        }
+                    },
+                    new(localizer["Menu3"].Value, icon:"fa fa-rebel fa-fw")
+                };
+            }
+
+            public static async Task<IEnumerable<MenuItem>> GetSideMenuItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+
+                return new List<MenuItem>
+                {
+                    new(localizer["Menu1"].Value, icon: "fa fa-fa"),
+                    new(localizer["Menu2"].Value)
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["SubMenu1"].Value)
+                            {
+                                Items = new List<MenuItem>
+                                {
+                                    new(localizer["SubMenu11"].Value),
+                                    new(localizer["SubMenu12"].Value)
+                                }
+                            },
+                            new(localizer["SubMenu2"].Value)
+                            {
+                                Items = new List<MenuItem>
+                                {
+                                    new(localizer["SubMenu21"].Value),
+                                    new(localizer["SubMenu22"].Value)
+                                    {
+                                        Items = new List<MenuItem>
+                                        {
+                                            new(localizer["SubMenu31"].Value),
+                                            new(localizer["SubMenu32"].Value)
+                                            {
+                                                Items = new List<MenuItem>
+                                                {
+                                                    new(localizer["SubMenu41"].Value),
+                                                    new(localizer["SubMenu42"].Value)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            new(localizer["SubMenu3"].Value)
+                        }
+                    },
+                    new(localizer["Menu3"].Value)
+                };
+            }
+
+            public static async Task<IEnumerable<MenuItem>> GetDisabledMenuItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+                return new List<MenuItem>
+                {
+                    new(localizer["Menu1"].Value)
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["SubMenu1"].Value)
+                        }
+                    },
+                    new(localizer["Menu2"].Value)
+                    {
+                        IsDisabled = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["SubMenu2"].Value)
+                        }
+                    },
+                    new(localizer["Menu3"].Value)
+                    {
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["SubMenu3"].Value)
+                        }
+                    }
+                };
+            }
+
+            private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new[]
+            {
+                new KeyValuePair<string, object?>(nameof(Badge.Color), Color.Danger),
+                new KeyValuePair<string, object?>(nameof(Badge.IsPill), true),
+                new KeyValuePair<string, object?>(nameof(Badge.ChildContent), new RenderFragment(builder =>
+                {
+                    var index = 0;
+                    builder.AddContent(index++, "10");
+                }))
+            });
+
+            public static async Task<IEnumerable<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+                return new List<MenuItem>
+                {
+                    new(localizer["System"].Value, icon: "fa fa-gears")
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["Website"].Value, icon: "fa fa-fa"),
+                            new(localizer["Task"].Value, icon: "fa fa-tasks")
+                        }
+                    },
+                    new(localizer["Authorize"].Value, icon: "fa fa-users")
+                    {
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["User"].Value, icon: "fa fa-user"),
+                            new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
+                            new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                        }
+                    },
+                    new(localizer["Log"].Value, icon: "fa fa-database")
+                    {
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["Access"].Value, icon: "fa fa-bars"),
+                            new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
+                            new(localizer["Operation"].Value, icon: "fa fa-edit")
+                        }
+                    }
+                };
+            }
+
+            public static async Task<IEnumerable<MenuItem>> GetWidgetIconSideMenuItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+                return new List<MenuItem>
+                {
+                    new(localizer["System"].Value, icon: "fa fa-gears")
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["Website"].Value, icon: "fa fa-fa"),
+                            new(localizer["Task"].Value, icon: "fa fa-tasks")
+                        }
+                    },
+                    new(localizer["Authorize"].Value, icon: "fa fa-users")
+                    {
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["User"].Value, icon: "fa fa-user"),
+                            new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
+                            new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                        }
+                    },
+                    new(localizer["Log"].Value, icon: "fa fa-database")
+                    {
+                        Component = BuildDynamicComponent(),
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["Access"].Value, icon: "fa fa-bars"),
+                            new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
+                            new(localizer["Operation"].Value, icon: "fa fa-edit")
+                            {
+                                Component = BuildDynamicComponent()
+                            }
+                        }
+                    }
+                };
+            }
+
+            public static async Task<IEnumerable<MenuItem>> GetCollapsedIconSideMenuItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+                return new List<MenuItem>
+                {
+                    new(localizer["System"].Value, icon: "fa fa-gears")
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["Website"].Value, icon: "fa fa-fa"),
+                            new(localizer["Task"].Value, icon: "fa fa-tasks")
+                        }
+                    },
+                    new(localizer["Authorize"].Value, icon: "fa fa-users")
+                    {
+                        IsCollapsed = false,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["User"].Value, icon: "fa fa-user"),
+                            new(localizer["Menu"].Value, icon: "fa fa-dashboard"),
+                            new(localizer["Role"].Value, icon: "fa fa-sitemap")
+                        }
+                    },
+                    new(localizer["Log"].Value, icon: "fa fa-database")
+                    {
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["Access"].Value, icon: "fa fa-bars"),
+                            new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
+                            new(localizer["Operation"].Value, icon: "fa fa-edit")
+                        }
+                    }
+                };
+            }
         }
     }
 }

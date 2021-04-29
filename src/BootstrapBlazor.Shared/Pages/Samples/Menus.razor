@@ -19,8 +19,8 @@
 </Block>
 
 <Block Title="侧栏" Introduction="适用于左右结构布局的网站，通过设置 <code>IsVertical</code> 更改导航菜单为侧栏">
-    <div style="width:220px;">
-        <Menu Items="@SideMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClickSideMenu" style="border-right: 1px solid #e6e6e6;" />
+    <div style="width:220px; border-right: 1px solid #e6e6e6; padding-right: 4px;">
+        <Menu Items="@SideMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClickSideMenu" />
     </div>
     <Logger @ref="TraceSideMenu" class="mt-3" />
 </Block>
@@ -51,7 +51,7 @@
         </Header>
         <Side>
             <div class="menu-demo" style="background-color: #2f4050; color: #dcdfe6; height: 100%; padding: 6px 0;">
-                <Menu Items="@IconSideMenuItems" IsVertical="true" IsCollapsed="@IsCollapsed" />
+                <Menu Items="@IconSideMenuItems" DisableNavigation="true" IsVertical="true" IsCollapsed="@IsCollapsed" />
             </div>
         </Side>
         <Main>
@@ -76,13 +76,22 @@
     </div>
 </Block>
 
+<Block Title="动态更改菜单" Introduction="通过代码动态设置 <code>Items</code> 属性值更改菜单项">
+    <div class="mt-3" style="width:220px;">
+        <Menu Items="@DynamicSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+    </div>
+    <Button Text="更新菜单" OnClick="UpdateMenu" />
+    <Button Text="重置菜单" OnClick="ResetMenu" />
+</Block>
+
 <Block Title="部分菜单禁用功能" Introduction="通过设置 <code>MenuItem</code> 的 <code>IsDisabled</code> 属性设置节点是否禁用">
     <p>本例中 <b>导航二</b> 节点为禁用状态，菜单与其子菜单均不可点击</p>
-    <Menu Items="@DisabledMenuItems" />
+    <Menu Items="@DisabledMenuItems" DisableNavigation="true" OnClick="@OnClick2" />
     <p class="mt-3"><b>侧栏的禁用示例</b></p>
-    <div style="width:220px;">
-        <Menu Items="@DisabledMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6;" />
+    <div style="width:220px; border-right: 1px solid #e6e6e6;">
+        <Menu Items="@DisabledMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClick2" />
     </div>
+    <Logger @ref="Trace2" class="mt-3" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

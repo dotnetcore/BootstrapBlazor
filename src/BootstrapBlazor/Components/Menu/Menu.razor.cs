@@ -16,39 +16,122 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Menu
     {
+        private ElementReference MenuElemenet { get; set; }
+
         /// <summary>
         /// 获得 组件样式
         /// </summary>
         protected string? ClassString => CssBuilder.Default("menu")
             .AddClass("is-vertical", IsVertical)
             .AddClass("is-collapsed", IsVertical && IsCollapsed)
+            .AddClass("accordion", IsVertical && IsAccordion)
+            .AddClass("expaned", IsVertical && IsExpandAll)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
+        /// 用于提高性能存储当前 active 状态的菜单
+        /// </summary>
+        private MenuItem? ActiveMenu { get; set; }
+
+        private IEnumerable<MenuItem>? _items;
+        /// <summary>
+        /// 菜单是否初始化
+        /// </summary>
+        private bool _init;
+        /// <summary>
+        /// 是否需要调用 JS
+        /// </summary>
+        private bool _invokeJs;
+        /// <summary>
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
+        [NotNull]
+        public IEnumerable<MenuItem>? Items
+        {
+            get => _items ?? Enumerable.Empty<MenuItem>();
+            set
+            {
+                if (_items != value)
+                {
+                    _items = value;
+                    _init = false;
+                    _invokeJs = true;
+                }
+            }
+        }
 
+        private bool _accordion;
         /// <summary>
         /// 获得/设置 是否为手风琴效果 默认为 false
         /// </summary>
+        /// <remarks>启用此功能时 <see cref="IsExpandAll" /> 参数不生效</remarks>
         [Parameter]
-        public bool IsAccordion { get; set; }
+        public bool IsAccordion
+        {
+            get => _accordion;
+            set
+            {
+                if (_accordion != value)
+                {
+                    _accordion = value;
+                    _invokeJs = true;
+                }
+            }
+        }
+
+        private bool _expand;
+        private bool _invokeExpandJs;
+        /// <summary>
+        /// 获得/设置 是否全部展开 默认为 false
+        /// </summary>
+        /// <remarks>手风琴效果 <see cref="IsAccordion" /> 时此参数不生效</remarks>
+        [Parameter]
+        public bool IsExpandAll
+        {
+            get => _expand;
+            set
+            {
+                if (_expand != value)
+                {
+                    _expand = value;
+                    _invokeExpandJs = true;
+                }
+            }
+        }
+
+        private bool _collapsed;
+        private bool _invokeCollapsedJs;
+        /// <summary>
+        /// 获得/设置 侧栏是否收起 默认 false 未收起
+        /// </summary>
+        [Parameter]
+        public bool IsCollapsed
+        {
+            get => _collapsed;
+            set
+            {
+                if (_collapsed != value)
+                {
+                    _collapsed = value;
+                    _invokeCollapsedJs = true;
+                }
+            }
+        }
 
         /// <summary>
-        /// 获得/设置 侧栏垂直模式
+        /// 获得/设置 侧栏垂直模式 默认 false
         /// </summary>
         /// <value></value>
         [Parameter]
         public bool IsVertical { get; set; }
 
         /// <summary>
-        /// 获得/设置 侧栏是否收起 默认 false 未收起
+        /// 获得/设置 缩进大小 默认为 16 单位 px
         /// </summary>
         [Parameter]
-        public bool IsCollapsed { get; set; }
+        public int IndentSize { get; set; } = 16;
 
         /// <summary>
         /// 获得/设置 是否禁止导航 默认为 false 允许导航
@@ -74,54 +157,90 @@ namespace BootstrapBlazor.Components
         private TabItemTextOptions? Options { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
+        /// OnParametersSet 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
-            base.OnInitialized();
+            base.OnParametersSet();
 
-            var item = FindMenuItem(Items, Navigator.ToBaseRelativePath(Navigator.Uri));
-            CascadingSetActive(item);
-
-            if (!DisableNavigation)
+            // 参数变化时重新整理菜单
+            if (!_init && Items.Any())
             {
-                Options.Text = item?.Text;
-                Options.Icon = item?.Icon;
-                Options.IsActive = true;
+                InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
+                if (!DisableNavigation)
+                {
+                    Options.Text = ActiveMenu?.Text;
+                    Options.Icon = ActiveMenu?.Icon;
+                    Options.IsActive = true;
+                }
+                _init = true;
             }
         }
 
         /// <summary>
-        /// 根据当前路径设置菜单激活状态
+        /// OnAfterRenderAsync 方法
         /// </summary>
-        /// <param name="item"></param>
-        private void CascadingSetActive(MenuItem? item)
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            // 重新设置菜单激活状态
-            if (item != null)
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (IsVertical)
             {
-                MenuItem.CascadingCancelActive(Items);
-                MenuItem.CascadingSetActive(item);
+                if (_invokeJs)
+                {
+                    _invokeJs = false;
+                    await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu");
+                }
+                if (_invokeExpandJs)
+                {
+                    _invokeExpandJs = false;
+                    await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu_expand", IsExpandAll);
+                }
+                if (_invokeCollapsedJs)
+                {
+                    _invokeExpandJs = false;
+                    await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu_collapsed");
+                }
             }
         }
 
-        private static MenuItem? FindMenuItem(IEnumerable<MenuItem> menus, string url)
+        private void InitMenus(MenuItem? parent, IEnumerable<MenuItem> menus, string url)
         {
-            MenuItem? ret = null;
             foreach (var item in menus)
             {
-                if (item.Items.Any())
+                if (parent != null)
                 {
-                    ret = FindMenuItem(item.Items, url);
-                }
-                else if (item.Url?.TrimStart('/').Equals(url, StringComparison.OrdinalIgnoreCase) ?? false)
-                {
-                    ret = item;
+                    // 设置当前菜单父菜单
+                    item.Parent = parent;
                 }
 
-                if (ret != null) break;
+                // 设置当前菜单缩进
+                item.SetIndent();
+
+                if (!DisableNavigation)
+                {
+                    // 未禁用导航时设置 active = false 使用地址栏激活菜单
+                    item.IsActive = false;
+                }
+
+                if (item.Items.Any())
+                {
+                    // 递归子菜单
+                    InitMenus(item, item.Items, url);
+                }
+                else if (!DisableNavigation && (item.Url?.TrimStart('/').Equals(url, StringComparison.OrdinalIgnoreCase) ?? false))
+                {
+                    // 未禁用导航时 使用地址栏激活菜单
+                    item.IsActive = true;
+                }
+
+                if (item.IsActive)
+                {
+                    ActiveMenu = item;
+                }
             }
-            return ret;
         }
 
         private async Task OnClickMenu(MenuItem item)
@@ -129,10 +248,34 @@ namespace BootstrapBlazor.Components
             if (!item.IsDisabled)
             {
                 // 回调委托
-                if (OnClick != null) await OnClick(item);
+                if (OnClick != null)
+                {
+                    await OnClick(item);
+                }
+
                 if (DisableNavigation)
                 {
-                    CascadingSetActive(item);
+                    if (IsVertical)
+                    {
+                        if (ActiveMenu != null)
+                        {
+                            ActiveMenu.IsActive = false;
+                        }
+                        item.IsActive = true;
+                        if (IsCollapsed)
+                        {
+                            item.CascadingSetActive();
+                        }
+                    }
+                    else
+                    {
+                        // 顶栏模式重新级联设置 active
+                        ActiveMenu?.CascadingSetActive(false);
+                        item.CascadingSetActive();
+                    }
+                    ActiveMenu = item;
+
+                    // 刷新 UI
                     StateHasChanged();
                 }
                 else

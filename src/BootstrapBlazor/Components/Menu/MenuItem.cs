@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Routing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,19 +15,14 @@ namespace BootstrapBlazor.Components
     public class MenuItem
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private readonly List<MenuItem> _items = new();
-
-        /// <summary>
         /// 获得 父级菜单
         /// </summary>
-        protected MenuItem? Parent { get; set; }
+        public MenuItem? Parent { get; set; }
 
         /// <summary>
         /// 获得/设置 组件数据源
         /// </summary>
-        public IEnumerable<MenuItem> Items => _items;
+        public IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
 
         /// <summary>
         /// 获得/设置 导航菜单文本内容
@@ -70,42 +66,48 @@ namespace BootstrapBlazor.Components
         public BootstrapDynamicComponent? Component { get; set; }
 
         /// <summary>
+        /// 获得 当前菜单所在层次 从 0 开始
+        /// </summary>
+        public int Indent { get; private set; }
+
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        public MenuItem() { }
+
+        /// <summary>
+        /// 带参数构造函数
+        /// </summary>
+        /// <param name="text">显示文本</param>
+        /// <param name="url">菜单地址</param>
+        /// <param name="icon">菜单图标</param>
+        public MenuItem(string text, string? url = null, string? icon = null)
+        {
+            Text = text;
+            Url = url;
+            Icon = icon;
+        }
+
+        /// <summary>
         /// 添加 Menutem 方法 由 MenuItem 方法加载时调用
         /// </summary>
         /// <param name="item">Menutem 实例</param>
+        [Obsolete("Items 属性移除只读直接赋值即可，下一个版本移除此方法")]
         public virtual void AddItem(MenuItem item)
         {
-            item.Parent = this;
-            _items.Add(item);
+            var items = Items.ToList();
+            items.Add(item);
+            Items = items;
         }
 
         /// <summary>
-        /// 级联设置菜单 active=true 方法
+        /// 设置当前节点缩进方法
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="active"></param>
-        public static void CascadingSetActive(MenuItem item, bool active = true)
+        protected internal virtual void SetIndent()
         {
-            item.IsActive = active;
-            var current = item;
-            while (current.Parent != null)
+            if (Parent != null)
             {
-                current.Parent.IsActive = active;
-                current.Parent.IsCollapsed = false;
-                current = current.Parent;
-            }
-        }
-
-        /// <summary>
-        /// 级联设置菜单 Active=false 方法
-        /// </summary>
-        /// <param name="items"></param>
-        public static void CascadingCancelActive(IEnumerable<MenuItem> items)
-        {
-            foreach (var item in items)
-            {
-                item.IsActive = false;
-                if (item.Items.Any()) CascadingCancelActive(item.Items);
+                Indent = Parent.Indent + 1;
             }
         }
 
