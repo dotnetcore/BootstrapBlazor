@@ -179,7 +179,7 @@ namespace BootstrapBlazor.Components
             else
             {
                 // 遍历所有可验证组件进行数据验证
-                foreach (var key in ValidatorCache.Keys.Where(k => k.Model == context.ObjectInstance))
+                foreach (var key in ValidatorCache.Keys)
                 {
                     // 验证 DataAnnotations
                     var validator = ValidatorCache[key];
