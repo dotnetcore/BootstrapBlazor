@@ -186,36 +186,19 @@ namespace BootstrapBlazor.Components
                     if (!validator.IsDisabled && !validator.SkipValidate)
                     {
                         var messages = new List<ValidationResult>();
-                        var propertyValidateContext = new ValidationContext(key.Model)
-                        {
-                            MemberName = key.FieldName,
-                            DisplayName = key.GetDisplayName()
-                        };
                         var pi = key.Model.GetType().GetProperties().Where(p => p.Name == key.FieldName).FirstOrDefault();
                         if (pi != null)
                         {
-                            // 单独处理 Upload 组件
-                            if (validator is IUpload uploader)
+                            var propertyValidateContext = new ValidationContext(key.Model)
                             {
-                                // 处理多个上传文件
-                                uploader.UploadFiles.ForEach(file =>
-                                {
-                                    ValidateDataAnnotations(file.File, propertyValidateContext, messages, pi, file.ValidateId);
-                                });
-                            }
-                            else
-                            {
-                                // 设置其关联属性字段
-                                var propertyValue = LambdaExtensions.GetPropertyValue(key.Model, key.FieldName);
+                                MemberName = key.FieldName,
+                                DisplayName = key.GetDisplayName()
+                            };
 
-                                ValidateDataAnnotations(propertyValue, propertyValidateContext, messages, pi);
+                            // 设置其关联属性字段
+                            var propertyValue = LambdaExtensions.GetPropertyValue(key.Model, key.FieldName);
 
-                                if (messages.Count == 0)
-                                {
-                                    // 自定义验证组件
-                                    validator.ValidateProperty(propertyValue, propertyValidateContext, messages);
-                                }
-                            }
+                            Validate(validator, propertyValidateContext, messages, pi, propertyValue);
                         }
                         // 客户端提示
                         validator.ToggleMessage(messages, false);
@@ -239,28 +222,8 @@ namespace BootstrapBlazor.Components
                 var pi = fieldIdentifier.Model.GetType().GetProperties().Where(p => p.Name == fieldName).FirstOrDefault();
                 if (pi != null)
                 {
-                    // 单独处理 Upload 组件
-                    if (validator is IUpload uploader)
-                    {
-                        // 处理多个上传文件
-                        uploader.UploadFiles.ForEach(file =>
-                        {
-                            ValidateDataAnnotations(file.File, context, results, pi, file.ValidateId);
-                        });
-                    }
-                    else
-                    {
-                        var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
-
-                        // 验证 DataAnnotations
-                        ValidateDataAnnotations(propertyValue, context, results, pi);
-
-                        if (results.Count == 0)
-                        {
-                            // 自定义验证组件
-                            validator.ValidateProperty(propertyValue, context, results);
-                        }
-                    }
+                    var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+                    Validate(validator, context, results, pi, propertyValue);
                 }
 
                 // 客户端提示
@@ -278,7 +241,7 @@ namespace BootstrapBlazor.Components
         /// <param name="memberName"></param>
         private void ValidateDataAnnotations(object? value, ValidationContext context, ICollection<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
         {
-            var rules = propertyInfo.GetCustomAttributes(true).Where(i => i.GetType().IsSubclassOf(typeof(ValidationAttribute))).Cast<ValidationAttribute>();
+            var rules = propertyInfo.GetCustomAttributes(true).OfType<ValidationAttribute>();
             var displayName = context.DisplayName;
             memberName ??= propertyInfo.Name;
             var attributeSpan = "Attribute".AsSpan();
@@ -335,19 +298,20 @@ namespace BootstrapBlazor.Components
         /// <param name="results"></param>
         private void ValidateProperty(ValidationContext context, List<ValidationResult> results)
         {
-            var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && !p.GetIndexParameters().Any());
+            // 获得所有可写属性
+            var properties = context.ObjectType.GetRuntimeProperties()
+                .Where(p => IsPublic(p) && p.CanWrite && !p.GetIndexParameters().Any());
             foreach (var pi in properties)
             {
                 // 设置其关联属性字段
                 var propertyValue = LambdaExtensions.GetPropertyValue(context.ObjectInstance, pi.Name);
 
-                // 检查当前值是否为 Class
-                if (propertyValue != null && propertyValue is not string && propertyValue.GetType().IsClass)
+                // 检查当前值是否为 Class 不是 string 不是集合
+                if (propertyValue != null && propertyValue is not string
+                    && !propertyValue.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
+                    && propertyValue.GetType().IsClass)
                 {
-                    var fieldContext = new ValidationContext(propertyValue)
-                    {
-                        MemberName = pi.Name
-                    };
+                    var fieldContext = new ValidationContext(propertyValue);
                     ValidateProperty(fieldContext, results);
                 }
                 else
@@ -356,31 +320,39 @@ namespace BootstrapBlazor.Components
                     var messages = new List<ValidationResult>();
                     var fieldIdentifier = new FieldIdentifier(context.ObjectInstance, pi.Name);
                     context.DisplayName = fieldIdentifier.GetDisplayName();
+                    context.MemberName = fieldIdentifier.FieldName;
 
                     if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
                     {
-                        // 单独处理 Upload 组件
-                        if (validator is IUpload uploader)
-                        {
-                            // 处理多个上传文件
-                            uploader.UploadFiles.ForEach(file =>
-                            {
-                                ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
-                            });
-                        }
-                        else
-                        {
-                            ValidateDataAnnotations(propertyValue, context, messages, pi);
-                            if (messages.Count == 0)
-                            {
-                                // 自定义验证组件
-                                validator.ValidateProperty(propertyValue, context, messages);
-                            }
-                        }
+                        // 组件进行验证
+                        Validate(validator, context, messages, pi, propertyValue);
+
                         // 客户端提示
                         validator.ToggleMessage(messages, true);
                     }
                     results.AddRange(messages);
+                }
+            }
+        }
+
+        private void Validate(IValidateComponent validator, ValidationContext context, List<ValidationResult> messages, PropertyInfo pi, object? propertyValue)
+        {
+            // 单独处理 Upload 组件
+            if (validator is IUpload uploader)
+            {
+                // 处理多个上传文件
+                uploader.UploadFiles.ForEach(file =>
+                {
+                    ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
+                });
+            }
+            else
+            {
+                ValidateDataAnnotations(propertyValue, context, messages, pi);
+                if (messages.Count == 0)
+                {
+                    // 自定义验证组件
+                    validator.ValidateProperty(propertyValue, context, messages);
                 }
             }
         }
