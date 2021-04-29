@@ -147,7 +147,9 @@ namespace BootstrapBlazor.Components
             {
                 modelType = modelTypeInfo;
                 fieldName = propName;
-                var propertyInfo = modelType.GetProperty(propName);
+                var propertyInfo = modelType.GetProperties()
+                    .Where(p => p.Name == propName)
+                    .FirstOrDefault();
                 if (propertyInfo == null)
                 {
                     break;

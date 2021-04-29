@@ -138,7 +138,9 @@ namespace System.Linq
             Expression<Func<TItem, bool>> ret = t => true;
             if (!string.IsNullOrEmpty(filter.FieldKey) && filter.FieldValue != null)
             {
-                var prop = typeof(TItem).GetProperty(filter.FieldKey);
+                var prop = typeof(TItem).GetProperties()
+                    .Where(p => p.Name == filter.FieldKey)
+                    .FirstOrDefault();
                 if (prop != null)
                 {
                     var p = Expression.Parameter(typeof(TItem));
@@ -210,7 +212,7 @@ namespace System.Linq
             var exp_p2 = Expression.Parameter(typeof(string));
             var exp_p3 = Expression.Parameter(typeof(SortOrder));
 
-            var mi = typeof(LambdaExtensions).GetMethods().Where(m => m.Name == "Sort" && m.ReturnType.Name == typeof(IEnumerable<>).Name).First().MakeGenericMethod(typeof(TItem));
+            var mi = typeof(LambdaExtensions).GetMethods().Where(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name).First().MakeGenericMethod(typeof(TItem));
             var body = Expression.Call(mi, exp_p1, exp_p2, exp_p3);
             return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, exp_p1, exp_p2, exp_p3);
         }
@@ -243,24 +245,38 @@ namespace System.Linq
 
         private static IEnumerable<TItem> EnumerableOrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
         {
+            IEnumerable<TItem>? ret = null;
             var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
 
-            var pi = typeof(TItem).GetProperty(propertyName);
-            var mi = typeof(LambdaExtensions).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
-                                       .MakeGenericMethod(typeof(TItem), pi!.PropertyType);
-
-            return mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem> ?? query;
+            var pi = typeof(TItem).GetProperties()
+                    .Where(p => p.Name == propertyName)
+                    .FirstOrDefault();
+            if (pi != null)
+            {
+                var mi = typeof(LambdaExtensions)
+                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
+                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+                ret = mi?.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+            }
+            return ret ?? query;
         }
 
         private static IQueryable<TItem> QueryableOrderBy<TItem>(IQueryable<TItem> query, string propertyName, SortOrder sortOrder)
         {
-            var methodName = sortOrder == SortOrder.Desc ? "OrderByDescendingInternal" : "OrderByInternal";
+            IQueryable<TItem>? ret = null;
+            var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
 
-            var pi = typeof(TItem).GetProperty(propertyName);
-            var mi = typeof(LambdaExtensions).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
-                                       .MakeGenericMethod(typeof(TItem), pi!.PropertyType);
-
-            return mi?.Invoke(null, new object[] { query, pi }) as IOrderedQueryable<TItem> ?? query;
+            var pi = typeof(TItem).GetProperties()
+                    .Where(p => p.Name == propertyName)
+                    .FirstOrDefault();
+            if (pi != null)
+            {
+                var mi = typeof(LambdaExtensions)
+                    .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?
+                    .MakeGenericMethod(typeof(TItem), pi.PropertyType);
+                ret = mi?.Invoke(null, new object[] { query, pi }) as IOrderedQueryable<TItem>;
+            }
+            return ret ?? query;
         }
 
         private static IOrderedQueryable<TItem> OrderByInternal<TItem, TKey>(IQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.OrderBy(GetPropertyLambda<TItem, TKey>(memberProperty));

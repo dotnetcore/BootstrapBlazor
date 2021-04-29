@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -191,19 +191,19 @@ namespace BootstrapBlazor.Components
                     if (valType != null)
                     {
                         // 20200608 tian_teng@outlook.com 支持字段和只读属性
-                        type.GetFields().ToList().ForEach(f =>
+                        foreach (var f in type.GetFields())
                         {
                             var v = f.GetValue(item);
                             valType.GetField(f.Name)?.SetValue(ret, v);
-                        });
-                        type.GetProperties().ToList().ForEach(p =>
+                        };
+                        foreach (var p in type.GetProperties())
                         {
                             if (p.CanWrite)
                             {
                                 var v = p.GetValue(item);
                                 valType.GetProperty(p.Name)?.SetValue(ret, v);
                             }
-                        });
+                        };
                     }
                 }
             }
