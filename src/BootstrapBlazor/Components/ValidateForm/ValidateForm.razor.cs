@@ -123,9 +123,9 @@ namespace BootstrapBlazor.Components
         /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
         public void SetError(string propertyName, string errorMessage)
         {
-            if (TryGetModelField(propertyName, out var modelType, out var fieldName))
+            if (TryGetModelField(propertyName, out var modelType, out var fieldName)
+                && TryGetValidator(modelType, fieldName, out var validator))
             {
-                var validator = GetValidator(modelType, fieldName);
                 if (validator != null)
                 {
                     var results = new List<ValidationResult>
@@ -161,7 +161,11 @@ namespace BootstrapBlazor.Components
             return propNames.IsEmpty;
         }
 
-        private IValidateComponent GetValidator(Type modelType, string fieldName) => ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
+        private bool TryGetValidator(Type modelType, string fieldName, [MaybeNull] out IValidateComponent validator)
+        {
+            validator = ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
+            return validator != null;
+        }
 
         private static bool IsPublic(PropertyInfo p) => p.GetMethod != null && p.SetMethod != null && p.GetMethod.IsPublic && p.SetMethod.IsPublic;
 
@@ -382,6 +386,29 @@ namespace BootstrapBlazor.Components
                     b.TriggerAsync(false);
                 }
             }
+        }
+
+        /// <summary>
+        /// DisposeAsyncCore 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// <returns></returns>
+        protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+        {
+            if (disposing)
+            {
+                await JSRuntime.InvokeVoidAsync(Id, "bb_form", "dispose").ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore(true).ConfigureAwait(false);
+            GC.SuppressFinalize(this);
         }
     }
 }

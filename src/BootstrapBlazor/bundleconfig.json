@@ -563,6 +563,12 @@
     ]
   },
   {
+    "outputFileName": "Components/ValidateForm/ValidateForm.razor.cs.min.js",
+    "inputFiles": [
+      "Components/ValidateForm/ValidateForm.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -613,7 +619,8 @@
       "Components/Toast/Toast.razor.cs.min.js",
       "Components/Tooltip/Tooltip.cs.min.js",
       "Components/Tree/Tree.razor.cs.min.js",
-      "Components/Upload/Upload.razor.cs.min.js"
+      "Components/Upload/Upload.razor.cs.min.js",
+      "Components/ValidateForm/ValidateForm.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
