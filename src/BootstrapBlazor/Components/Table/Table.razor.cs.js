@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function ($) {
     $.extend({
         bb_table_search: function (el, obj, searchMethod, clearSearchMethod) {
             $(el).data('bb_table_search', { obj: obj, searchMethod, clearSearchMethod });

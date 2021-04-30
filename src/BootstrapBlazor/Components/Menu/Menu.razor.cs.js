@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function ($) {
     $.extend({
         bb_side_menu_collapsed: function (el) {
             var $el = $(el);

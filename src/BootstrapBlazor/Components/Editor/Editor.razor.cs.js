@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        html5edit: function (el, options) {
+        bb_html5edit: function (el, options) {
             if (!$.isFunction($.fn.summernote)) {
                 return;
             }
@@ -72,7 +72,7 @@
                     var option = { obj: obj, method: method, height: height };
                     if (value) option.value = value;
 
-                    $.html5edit(editor, option);
+                    $.bb_html5edit(editor, option);
                 }
             }
 

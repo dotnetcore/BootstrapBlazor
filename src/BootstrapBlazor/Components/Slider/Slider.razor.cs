@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
             if (firstRender)
             {
                 Interop = new JSInterop<Slider>(JSRuntime);
-                await Interop.InvokeVoidAsync(this, SliderElement, "slider", nameof(SetValue));
+                await Interop.InvokeVoidAsync(this, SliderElement, "bb_slider", nameof(SetValue));
             }
         }
 

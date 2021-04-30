@@ -1,6 +1,6 @@
 ﻿(function ($) {
     $.extend({
-        slider: function (el, slider, method) {
+        bb_slider: function (el, slider, method) {
             var $slider = $(el);
 
             var isDisabled = $slider.find('.disabled').length > 0;
