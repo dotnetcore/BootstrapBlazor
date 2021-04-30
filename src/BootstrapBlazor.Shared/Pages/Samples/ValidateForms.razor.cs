@@ -110,6 +110,37 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        #region 动态更改表单内验证组件
+        [NotNull]
+        private Logger? Trace5 { get; set; }
+
+        private bool ShowAddress { get; set; }
+
+        private Foo DynamicModel { get; set; } = new Foo();
+
+        private Task OnInvalidDynamicModel(EditContext context)
+        {
+            Trace5.Log("OnInvalidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
+        private Task OnValidDynamicModel(EditContext context)
+        {
+            Trace5.Log("OnValidSubmit 回调委托");
+            return Task.CompletedTask;
+        }
+
+        private void OnValidateChange()
+        {
+            ShowAddress = true;
+        }
+
+        private void OnValidateReset()
+        {
+            ShowAddress = false;
+        }
+        #endregion
+
         private class ComplexFoo : Foo
         {
             [NotNull]

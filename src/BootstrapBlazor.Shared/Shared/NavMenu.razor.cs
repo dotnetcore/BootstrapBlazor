@@ -312,6 +312,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["ValidateForm"],
                     Url = "validateforms"
                 }
