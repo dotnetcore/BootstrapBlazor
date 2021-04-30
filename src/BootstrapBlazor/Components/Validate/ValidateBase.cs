@@ -436,6 +436,24 @@ namespace BootstrapBlazor.Components
                 AdditionalAttributes["aria-invalid"] = !valid;
             }
         }
+
+        /// <summary>
+        /// DisposeAsyncCore 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// <returns></returns>
+        protected override async ValueTask DisposeAsyncCore(bool disposing)
+        {
+            if (disposing)
+            {
+                if (ValidateForm != null && FieldIdentifier.HasValue)
+                {
+                    ValidateForm.TryRemoveValidator(FieldIdentifier.Value, out _);
+                }
+            }
+
+            await base.DisposeAsyncCore(disposing);
+        }
         #endregion
     }
 }

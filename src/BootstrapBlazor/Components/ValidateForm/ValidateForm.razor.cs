@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// ValidateForm 组件类
     /// </summary>
-    public partial class ValidateForm
+    public partial class ValidateForm : IAsyncDisposable
     {
         /// <summary>
         /// A callback that will be invoked when the form is submitted and the
@@ -92,6 +92,13 @@ namespace BootstrapBlazor.Components
         /// <param name="key"></param>
         /// <param name="comp"></param>
         internal void AddValidator(in FieldIdentifier key, IValidateComponent comp) => ValidatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
+
+        /// <summary>
+        /// 移除数据验证组件到 EditForm 中
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="com"></param>
+        internal bool TryRemoveValidator(in FieldIdentifier key, [MaybeNullWhen(false)] out IValidateComponent com) => ValidatorCache.TryRemove(key, out com);
 
         /// <summary>
         /// 设置指定字段错误信息
