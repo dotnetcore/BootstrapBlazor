@@ -7,9 +7,7 @@
 <Block Title="基础用法" Introduction="放置到 <code>ValidateForm</code> 中的组件提交时自动进行数据合规检查">
     <p>组件说明：</p>
     <ul class="ul-demo">
-        <li>表单事件为 <code>OnSubmit</code> <code>OnValidSubmit</code> <code>OnInvalidSubmit</code></li>
-        <li>当使用 <code>OnSubmit</code> 时其他两种不可以同时使用</li>
-        <li>本例中使用了 <code>OnSubmit</code> 回调委托无论客户端验证是否通过均显示结果</li>
+        <li>表单事件为 <code>OnValidSubmit</code> <code>OnInvalidSubmit</code></li>
         <li><code>Model</code> 参数为必填项不允许为空</li>
         <li>表单内可以放置多个按钮，通过设置 <code>ButtonType="ButtonType.Submit"</code> 参数是否提交表单</li>
         <li>客户端验证机制支持模型的 <code>Required</code> 标签，通过设置 <code>ErrorMessage</code> 参数设置提示信息，未设置时使用默认的英文提示信息</li>
@@ -20,7 +18,7 @@
         <li>表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code> 方法被调用，即其所在组件或者页面进行刷新重新渲染</li>
     </ul>
     <div class="form-demo">
-        <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1">
+        <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1" OnValidSubmit="@OnValidSubmit1">
             <div class="row">
                 <div class="form-group col-12">
                     <BootstrapInput @bind-Value="@Model.Name" />

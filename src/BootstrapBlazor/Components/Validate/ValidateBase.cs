@@ -286,7 +286,7 @@ namespace BootstrapBlazor.Components
 
             if (ValidateForm != null && FieldIdentifier.HasValue)
             {
-                ValidateForm.AddValidator(FieldIdentifier.Value, this);
+                ValidateForm.AddValidator((FieldIdentifier.Value.FieldName, ModelType: FieldIdentifier.Value.Model.GetType()), (FieldIdentifier.Value, this));
             }
         }
 
@@ -448,7 +448,7 @@ namespace BootstrapBlazor.Components
             {
                 if (ValidateForm != null && FieldIdentifier.HasValue)
                 {
-                    ValidateForm.TryRemoveValidator(FieldIdentifier.Value, out _);
+                    ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
                 }
             }
 

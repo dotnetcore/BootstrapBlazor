@@ -84,21 +84,24 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 验证组件缓存
         /// </summary>
-        private ConcurrentDictionary<FieldIdentifier, IValidateComponent> ValidatorCache { get; } = new();
+        private ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> ValidatorCache { get; } = new();
 
         /// <summary>
         /// 添加数据验证组件到 EditForm 中
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="comp"></param>
-        internal void AddValidator(in FieldIdentifier key, IValidateComponent comp) => ValidatorCache.AddOrUpdate(key, k => comp, (k, c) => c = comp);
+        /// <param name="value"></param>
+        internal void AddValidator((string FieldName, Type ModelType) key, (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value)
+        {
+            ValidatorCache.AddOrUpdate(key, k => value, (k, v) => v = value);
+        }
 
         /// <summary>
         /// 移除数据验证组件到 EditForm 中
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="com"></param>
-        internal bool TryRemoveValidator(in FieldIdentifier key, [MaybeNullWhen(false)] out IValidateComponent com) => ValidatorCache.TryRemove(key, out com);
+        /// <param name="value"></param>
+        internal bool TryRemoveValidator((string FieldName, Type ModelType) key, [MaybeNullWhen(false)] out (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value) => ValidatorCache.TryRemove(key, out value);
 
         /// <summary>
         /// 设置指定字段错误信息
@@ -111,13 +114,13 @@ namespace BootstrapBlazor.Components
             {
                 var fieldName = exp.Member.Name;
                 var modelType = exp.Expression?.Type;
-                var validator = ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
+                var validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
                 if (validator != null)
                 {
                     var results = new List<ValidationResult>
-                        {
-                            new ValidationResult(errorMessage, new string[] { fieldName })
-                        };
+                    {
+                        new ValidationResult(errorMessage, new string[] { fieldName })
+                    };
                     validator.ToggleMessage(results, true);
                 }
             }
@@ -170,7 +173,7 @@ namespace BootstrapBlazor.Components
 
         private bool TryGetValidator(Type modelType, string fieldName, [MaybeNull] out IValidateComponent validator)
         {
-            validator = ValidatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
+            validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
             return validator != null;
         }
 
@@ -193,21 +196,23 @@ namespace BootstrapBlazor.Components
                 foreach (var key in ValidatorCache.Keys)
                 {
                     // 验证 DataAnnotations
-                    var validator = ValidatorCache[key];
+                    var validatorValue = ValidatorCache[key];
+                    var validator = validatorValue.ValidateComponent;
+                    var fieldIdentifier = validatorValue.FieldIdentifier;
                     if (!validator.IsDisabled && !validator.SkipValidate)
                     {
                         var messages = new List<ValidationResult>();
-                        var pi = key.Model.GetType().GetProperties().Where(p => p.Name == key.FieldName).FirstOrDefault();
+                        var pi = key.ModelType.GetProperties().Where(p => p.Name == key.FieldName).FirstOrDefault();
                         if (pi != null)
                         {
-                            var propertyValidateContext = new ValidationContext(key.Model)
+                            var propertyValidateContext = new ValidationContext(fieldIdentifier.Model)
                             {
-                                MemberName = key.FieldName,
-                                DisplayName = key.GetDisplayName()
+                                MemberName = fieldIdentifier.FieldName,
+                                DisplayName = fieldIdentifier.GetDisplayName()
                             };
 
                             // 设置其关联属性字段
-                            var propertyValue = LambdaExtensions.GetPropertyValue(key.Model, key.FieldName);
+                            var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
                             Validate(validator, propertyValidateContext, messages, pi, propertyValue);
                         }
@@ -227,18 +232,22 @@ namespace BootstrapBlazor.Components
         /// <param name="fieldIdentifier"></param>
         internal void ValidateField(ValidationContext context, List<ValidationResult> results, in FieldIdentifier fieldIdentifier)
         {
-            if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
+            if (ValidatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
             {
-                var fieldName = fieldIdentifier.FieldName;
-                var pi = fieldIdentifier.Model.GetType().GetProperties().Where(p => p.Name == fieldName).FirstOrDefault();
-                if (pi != null)
+                var validator = v.ValidateComponent;
+                if (validator != null && !validator.IsDisabled && !validator.SkipValidate)
                 {
-                    var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
-                    Validate(validator, context, results, pi, propertyValue);
-                }
+                    var fieldName = fieldIdentifier.FieldName;
+                    var pi = fieldIdentifier.Model.GetType().GetProperties().Where(p => p.Name == fieldName).FirstOrDefault();
+                    if (pi != null)
+                    {
+                        var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+                        Validate(validator, context, results, pi, propertyValue);
+                    }
 
-                // 客户端提示
-                validator.ToggleMessage(results, true);
+                    // 客户端提示
+                    validator.ToggleMessage(results, true);
+                }
             }
         }
 
@@ -333,13 +342,17 @@ namespace BootstrapBlazor.Components
                     context.DisplayName = fieldIdentifier.GetDisplayName();
                     context.MemberName = fieldIdentifier.FieldName;
 
-                    if (ValidatorCache.TryGetValue(fieldIdentifier, out var validator) && !validator.IsDisabled && !validator.SkipValidate)
+                    if (ValidatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v) && v.ValidateComponent != null)
                     {
-                        // 组件进行验证
-                        Validate(validator, context, messages, pi, propertyValue);
+                        var validator = v.ValidateComponent;
+                        if (!validator.IsDisabled && !validator.SkipValidate)
+                        {
+                            // 组件进行验证
+                            Validate(validator, context, messages, pi, propertyValue);
 
-                        // 客户端提示
-                        validator.ToggleMessage(messages, true);
+                            // 客户端提示
+                            validator.ToggleMessage(messages, true);
+                        }
                     }
                     results.AddRange(messages);
                 }

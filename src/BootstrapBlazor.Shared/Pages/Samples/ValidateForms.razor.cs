@@ -37,7 +37,8 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-        private Foo Model { get; set; } = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        [NotNull]
+        private Foo? Model { get; set; }
 
         [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
@@ -51,12 +52,17 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private ComplexFoo? ComplexModel { get; set; }
 
-        /// <summary>baise
-        /// OnInitialized 方法
+        /// <summary>
+        /// OnInitializedAsync 方法
         /// </summary>
-        protected override void OnInitialized()
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
+
+            await Task.Yield();
+
+            Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
 
             // 初始化参数
             Hobbys = Foo.GenerateHobbys(LocalizerFoo);
@@ -68,7 +74,13 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Task OnInvalidSubmit1(EditContext context)
         {
-            Trace.Log("OnInvalidSubmit 回调委托");
+            Trace.Log("OnInvalidSubmit 回调委托: 验证未通过");
+            return Task.CompletedTask;
+        }
+
+        private Task OnValidSubmit1(EditContext context)
+        {
+            Trace.Log("OnValidSubmit 回调委托: 验证通过");
             return Task.CompletedTask;
         }
 
