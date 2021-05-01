@@ -60,6 +60,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             await base.OnInitializedAsync();
 
+            // 切换线程 模拟异步通过 webapi 加载数据
             await Task.Yield();
 
             Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
@@ -204,13 +205,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "OnSubmit",
-                Description = "表单提交时的回调委托",
-                Type = "EventCallback<EditContext>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
                 Name = "OnValidSubmit",
                 Description = "表单提交时数据合规检查通过时的回调委托",
                 Type = "EventCallback<EditContext>",
@@ -234,10 +228,10 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new MethodItem()
             {
-                Name = "Validate",
-                Description="表单验证方法",
-                Parameters =" — ",
-                ReturnValue = "Task<bool>"
+                Name = "SetError",
+                Description="设置验证失败方法",
+                Parameters ="PropertyName, ErrorMessage",
+                ReturnValue = " — "
             }
         };
         #endregion
