@@ -61,12 +61,15 @@
         bb_init_side_menu: function ($el) {
             var accordion = $el.hasClass('accordion');
             var $root = $el.children('.submenu');
-            var rootId = '#' + $root.attr('id');
             $root.find('.submenu').each(function (index, ele) {
                 var $ul = $(this);
                 $ul.addClass('collapse').removeClass('d-none');
                 if (accordion) {
-                    $ul.attr('data-parent', rootId);
+                    var $li = $ul.parentsUntil('.submenu')
+                    if ($li.prop('nodeName') === 'LI') {
+                        var rootId = $li.parent().attr('id');
+                        $ul.attr('data-parent', '#' + rootId);
+                    }
                 }
                 else {
                     $ul.removeAttr('data-parent');
@@ -77,16 +80,16 @@
                 $link.attr('data-toggle', 'collapse');
                 $link.attr('href', '#' + ulId);
             });
-            var parent = '';
-            if (accordion) parent = rootId;
             var collapses = $root.find('.collapse');
             collapses.each(function (index, ele) {
                 var $ele = $(ele);
                 if ($ele.data('bs.collapse')) {
                     $ele.collapse('dispose');
                 }
+                var parent = '';
+                if (accordion) parent = $ele.attr('data-parent');
+                $ele.collapse({ parent: parent, toggle: false });
             });
-            collapses.collapse({ parent: parent, toggle: false });
         },
         bb_side_menu: function (el) {
             var $el = $(el);
