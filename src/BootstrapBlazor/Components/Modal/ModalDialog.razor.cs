@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -103,11 +104,22 @@ namespace BootstrapBlazor.Components
         public Func<Task>? OnClose { get; set; }
 
         /// <summary>
+        /// 获得/设置 关闭按钮显示文字 资源文件设置为 关闭
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CloseButtonText { get; set; }
+
+        /// <summary>
         /// 获得/设置 弹窗容器实例
         /// </summary>
         [CascadingParameter]
         [NotNull]
         public Modal? Modal { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -120,6 +132,8 @@ namespace BootstrapBlazor.Components
             {
                 OnClose = async () => await Modal.CloseOrPopDialog();
             }
+
+            CloseButtonText ??= Localizer[nameof(CloseButtonText)];
 
             Modal.AddDialog(this);
         }

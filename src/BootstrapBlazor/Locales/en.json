@@ -120,6 +120,9 @@
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "Sidemenu component cannot be used independently. Please use Menu component to set IsVertical = true"
   },
+  "BootstrapBlazor.Components.ModalDialog": {
+    "CloseButtonText": "Close"
+  },
   "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "Click for select ...",
     "SelectAllText": "All",

@@ -120,6 +120,9 @@
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "SideMenu 组件不可以独立使用，请使用 Menu 组件设置 IsVertical=true"
   },
+  "BootstrapBlazor.Components.ModalDialog": {
+    "CloseButtonText": "关闭"
+  },
   "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "点击进行多选 ...",
     "SelectAllText": "全选",
