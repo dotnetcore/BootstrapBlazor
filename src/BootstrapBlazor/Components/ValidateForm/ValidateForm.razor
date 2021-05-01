@@ -1,9 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<CascadingValue Value="this">
-    <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmit">
-        <BootstrapBlazorDataAnnotationsValidator />
-        @ChildContent
-    </EditForm>
-</CascadingValue>
+@if (Model != null)
+{
+    <CascadingValue Value="this">
+        <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmit">
+            <BootstrapBlazorDataAnnotationsValidator />
+            @ChildContent
+        </EditForm>
+    </CascadingValue>
+}
