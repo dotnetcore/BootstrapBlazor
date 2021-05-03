@@ -67,10 +67,6 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IOptions<JsonLocalizationOptions>? Options { get; set; }
-
         /// <summary>
         /// OnInitialized 方法
         /// </summary>

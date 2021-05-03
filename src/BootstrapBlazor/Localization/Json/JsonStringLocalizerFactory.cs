@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Localization.Json
         public JsonStringLocalizerFactory(IOptions<JsonLocalizationOptions> jsonOptions, IOptions<LocalizationOptions> resxOptions, IOptions<BootstrapBlazorOptions> options, ILoggerFactory loggerFactory) : base(resxOptions, loggerFactory)
         {
             _jsonOptions = jsonOptions.Value;
-            _jsonOptions.FallbackCulture = options.Value.FallbackCultureName;
+            _jsonOptions.FallbackCulture = options.Value.FallbackCulture;
             _loggerFactory = loggerFactory;
         }
 
@@ -82,10 +82,11 @@ namespace BootstrapBlazor.Localization.Json
         /// 获得 IResourceNamesCache 实例
         /// </summary>
         /// <returns></returns>
-        public IResourceNamesCache? GetCache()
+        public IResourceNamesCache GetCache()
         {
             var field = this.GetType().BaseType?.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
-            return field?.GetValue(this) as IResourceNamesCache;
+            var ret = field?.GetValue(this) as IResourceNamesCache;
+            return ret!;
         }
 
         /// <summary>

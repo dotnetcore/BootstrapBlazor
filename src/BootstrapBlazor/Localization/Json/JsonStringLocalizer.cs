@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Localization.Json
         /// <param name="baseName"></param>
         /// <param name="logger"></param>
         /// <param name="options"></param>
-        public JsonStringLocalizer(JsonStringLocalizerFactory factory, Assembly assembly, string typeName, string baseName, ILogger logger, JsonLocalizationOptions options) : base(new ResourceManager(baseName, assembly), assembly, baseName, factory.GetCache()!, logger)
+        public JsonStringLocalizer(JsonStringLocalizerFactory factory, Assembly assembly, string typeName, string baseName, ILogger logger, JsonLocalizationOptions options) : base(new ResourceManager(baseName, assembly), assembly, baseName, factory.GetCache(), logger)
         {
             _assembly = assembly;
             _typeName = typeName;

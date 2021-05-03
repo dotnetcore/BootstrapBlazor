@@ -33,7 +33,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 回落默认语言文化 默认为 en 英文
         /// </summary>
+        [Obsolete("请使用 FallbackCulture 属性，此属性下一个版本移除")]
         public string FallbackCultureName { get; set; } = "en";
+
+        /// <summary>
+        /// 获得/设置 回落默认语言文化 默认为 en 英文
+        /// </summary>
+        public string FallbackCulture { get; set; } = "en";
 
         /// <summary>
         /// 获得/设置 Toast 组件全局弹窗默认位置 默认为 null 当设置值后覆盖整站设置
@@ -43,7 +49,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件内置本地化语言列表
         /// </summary>
-        public List<string> SupportedCultures { get; set; } = new List<string>() { "zh", "en" };
+        public List<string>? SupportedCultures { get; set; }
 
         /// <summary>
         /// 获得/设置 网站主题集合
@@ -64,7 +70,7 @@ namespace BootstrapBlazor.Components
             {
                 // 循环过滤掉上级文化
                 var ret = new List<CultureInfo>();
-                foreach (var name in SupportedCultures)
+                foreach (var name in (SupportedCultures ?? new List<string> { "zh", "en" }))
                 {
                     var culture = new CultureInfo(name);
                     if (!ret.Any(c => c.Name == culture.Name))
