@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class PopoverConfirm
+    public partial class PopoverConfirm : IDisposable
     {
         private RenderFragment? Content { get; set; }
 
