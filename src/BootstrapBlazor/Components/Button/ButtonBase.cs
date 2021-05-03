@@ -164,7 +164,7 @@ namespace BootstrapBlazor.Components
 
             ButtonIcon = Icon;
 
-            OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
+            OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
             {
                 if (IsAsync && ButtonType == ButtonType.Button)
                 {
@@ -172,13 +172,13 @@ namespace BootstrapBlazor.Components
                     ButtonIcon = LoadingIcon;
                     IsDisabled = true;
                 }
-                if (OnClickWithoutRender != null)
+                if (IsAsync)
                 {
-                    await OnClickWithoutRender.Invoke();
+                    await Task.Run(async () => await InvokeAsync(HandlerClick));
                 }
-                if (OnClick.HasDelegate)
+                else
                 {
-                    await OnClick.InvokeAsync(e);
+                    await HandlerClick();
                 }
                 if (IsAsync && ButtonType == ButtonType.Button)
                 {
@@ -187,6 +187,18 @@ namespace BootstrapBlazor.Components
                     IsAsyncLoading = false;
                 }
             });
+
+            async Task HandlerClick()
+            {
+                if (OnClickWithoutRender != null)
+                {
+                    await OnClickWithoutRender.Invoke();
+                }
+                if (OnClick.HasDelegate)
+                {
+                    await OnClick.InvokeAsync();
+                }
+            }
         }
 
         /// <summary>
