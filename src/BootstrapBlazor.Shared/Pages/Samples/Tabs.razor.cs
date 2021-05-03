@@ -195,6 +195,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "Func<TabItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "TabItemTextDictionary",
+                Description = "设置标签页显示标题集合，未设置时内部尝试使用菜单项数据",
+                Type = "Dictionary<string, string>",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
 

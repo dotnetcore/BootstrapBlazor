@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -60,6 +61,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Main 模板
         /// </summary>
         [Parameter]
+        [NotNull]
         public RenderFragment? Main { get; set; }
 
         /// <summary>
@@ -85,6 +87,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool UseTabSet { get; set; }
+
+        /// <summary>
+        /// 获得/设置 TabItem 显示文本字典 默认 null 未设置时取侧边栏菜单显示文本
+        /// </summary>
+        [Parameter]
+        public Dictionary<string, string>? TabItemTextDictionary { get; set; }
 
         /// <summary>
         /// 获得/设置 排除地址支持通配符

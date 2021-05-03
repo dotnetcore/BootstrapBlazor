@@ -169,10 +169,10 @@ namespace BootstrapBlazor.Components
         public string? CloseOtherTabsText { get; set; }
 
         /// <summary>
-        /// The resource to which access is being controlled.
+        /// 获得/设置 TabItem 显示文本字典 默认 null 未设置时取侧边栏菜单显示文本
         /// </summary>
         [Parameter]
-        public object? Resource { get; set; }
+        public Dictionary<string, string>? TabItemTextDictionary { get; set; }
 
         [Inject]
         [NotNull]
@@ -211,7 +211,7 @@ namespace BootstrapBlazor.Components
         {
             if (ClickTabToNavigation)
             {
-                AddTabByUrl(Navigator.Uri);
+                AddTabByUrl();
             }
         }
 
@@ -243,9 +243,9 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private void AddTabByUrl(string url)
+        private void AddTabByUrl()
         {
-            var requestUrl = Navigator.ToBaseRelativePath(url);
+            var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
 
             // 判断是否排除
             Excluded = CheckUrl(requestUrl);
@@ -431,12 +431,21 @@ namespace BootstrapBlazor.Components
             StateHasChanged();
         }
 
-        private readonly HashSet<Assembly> _assemblies = new();
+        private bool TryGetTabItemText(string url, [MaybeNullWhen(false)] out string? text)
+        {
+            text = null;
+            return TabItemTextDictionary != null && TabItemTextDictionary.TryGetValue(url, out text);
+        }
+
         private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = null, bool? closable = null)
         {
             var context = RouteTableFactory.Create(AdditionalAssemblies!, url);
             if (context.Handler != null)
             {
+                if (TryGetTabItemText(url, out var tabText))
+                {
+                    text = tabText;
+                }
                 text ??= Options.Text;
                 icon ??= Options.Icon ?? string.Empty;
                 active ??= Options.IsActive ?? true;
@@ -552,6 +561,14 @@ namespace BootstrapBlazor.Components
         {
             _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
+            if (ClickTabToNavigation
+                && string.IsNullOrEmpty(item.Text)
+                && item.Url != null
+                && TryGetTabItemText(item.Url, out var tabText)
+                && !string.IsNullOrEmpty(tabText))
+            {
+                item.SetText(tabText);
+            }
         }
     }
 }

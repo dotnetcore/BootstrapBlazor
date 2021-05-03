@@ -82,11 +82,11 @@ RenderFragment RenderMain =>
     @if (UseTabSet)
     {
         <RenderTemplate>
-            <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true"
-                 AdditionalAssemblies="@AdditionalAssemblies" ExcludeUrls="@ExcludeUrls" Body="@(Main!)">
-                 <NotAuthorized>
-                     @NotAuthorized
-                 </NotAuthorized>
+            <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true" TabItemTextDictionary="@TabItemTextDictionary"
+                 AdditionalAssemblies="@AdditionalAssemblies" ExcludeUrls="@ExcludeUrls" Body="@Main">
+                <NotAuthorized>
+                    @NotAuthorized
+                </NotAuthorized>
             </Tab>
         </RenderTemplate>
     }

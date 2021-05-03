@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Components
             .AddClass("fa-angle-left", Item.Items.Any())
             .Build();
 
-        private string? GetHrefString => (Parent.DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url);
+        private string? GetHrefString => (Parent.DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url?.TrimStart('/'));
 
         /// <summary>
         /// 获得/设置 MenuItem 实例 不可为空

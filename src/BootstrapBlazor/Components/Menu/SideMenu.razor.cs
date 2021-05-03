@@ -30,7 +30,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 菜单项点击回调委托
         /// </summary>
         [Parameter]
-        public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
+        [NotNull]
+        public Func<MenuItem, Task>? OnClick { get; set; }
 
         [CascadingParameter]
         private Menu? Parent { get; set; }
