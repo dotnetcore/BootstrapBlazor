@@ -64,33 +64,9 @@ namespace BootstrapBlazor.Components
         /// 获得支持多语言集合
         /// </summary>
         /// <returns></returns>
-        public List<CultureInfo> GetSupportedCultures()
+        public IList<CultureInfo> GetSupportedCultures()
         {
-            _cultures ??= new Lazy<List<CultureInfo>>(() =>
-            {
-                // 循环过滤掉上级文化
-                var ret = new List<CultureInfo>();
-                foreach (var name in (SupportedCultures ?? new List<string> { "zh", "en" }))
-                {
-                    var culture = new CultureInfo(name);
-                    if (!ret.Any(c => c.Name == culture.Name))
-                    {
-                        ret.Add(culture);
-                    }
-
-                    while (culture != culture.Parent)
-                    {
-                        culture = culture.Parent;
-                        var p = ret.FirstOrDefault(c => c.Name == culture.Name);
-                        if (p != null)
-                        {
-                            ret.Remove(p);
-                        }
-                    }
-                }
-                return ret;
-            });
-
+            _cultures ??= new Lazy<List<CultureInfo>>(() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList() ?? new List<CultureInfo> { new("zh"), new("en") });
             return _cultures.Value;
         }
     }
