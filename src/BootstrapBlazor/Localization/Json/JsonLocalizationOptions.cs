@@ -5,6 +5,8 @@
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Localization.Json
@@ -30,9 +32,20 @@ namespace BootstrapBlazor.Localization.Json
         public IEnumerable<string>? AdditionalJsonFiles { get; set; }
 
         /// <summary>
-        /// 获得/设置 回落默认文化
+        /// 获得/设置 回落默认文化 默认为 en 英文
         /// </summary>
-        internal string? FallbackCulture { get; set; }
+        internal string FallbackCulture { get; set; } = "en";
+
+        /// <summary>
+        /// 获得/设置 是否回落到 UI 父文化 默认为 true
+        /// </summary>
+        internal bool FallBackToParentUICultures { get; set; } = true;
+
+        /// <summary>
+        /// 获得 组件内置本地化语言列表
+        /// </summary>
+        [NotNull]
+        internal static List<CultureInfo> SupportedCultures { get; } = new List<CultureInfo> { new("zh"), new("en") };
 
         /// <summary>
         /// 构造方法

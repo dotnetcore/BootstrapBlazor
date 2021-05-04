@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Localization.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -52,6 +53,11 @@ namespace BootstrapBlazor.Components
         public List<string>? SupportedCultures { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否回落到 UI 父文化 默认为 true
+        /// </summary>
+        public bool FallBackToParentUICultures { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 网站主题集合
         /// </summary>
         [NotNull]
@@ -66,7 +72,8 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public IList<CultureInfo> GetSupportedCultures()
         {
-            _cultures ??= new Lazy<List<CultureInfo>>(() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList() ?? new List<CultureInfo> { new("zh"), new("en") });
+            // 用户设置时使用用户设置，未设置时使用内置中英文文化
+            _cultures ??= new Lazy<List<CultureInfo>>(() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList() ?? JsonLocalizationOptions.SupportedCultures);
             return _cultures.Value;
         }
     }

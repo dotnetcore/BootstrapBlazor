@@ -5,6 +5,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -85,9 +86,11 @@ namespace BootstrapBlazor.Localization.Json
         /// <returns></returns>
         public override IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
         {
+            // 获得 resx 资源文件中的信息
             var ret = GetAllStrings(includeParentCultures, CultureInfo.CurrentUICulture);
             if (!ret.Any())
             {
+                // 获取 json 资源文件中的信息
                 ret = GetAllJsonStrings(includeParentCultures, CultureInfo.CurrentUICulture);
             }
             return ret;
@@ -119,36 +122,60 @@ namespace BootstrapBlazor.Localization.Json
         /// <returns></returns>
         protected virtual string? GetJsonStringSafely(string name)
         {
-            string? value = GetStringByCulture(CultureInfo.CurrentUICulture, name);
-            if (string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(_options.FallbackCulture))
-            {
-                value = GetStringByCulture(new CultureInfo(_options.FallbackCulture), name);
-            }
-            return value;
+            var cultureInfo = GetCultureInfo(new StringSegment(CultureInfo.CurrentUICulture.Name), _options.FallBackToParentUICultures, 0) ?? new CultureInfo(_options.FallbackCulture);
+            return GetStringByCulture(cultureInfo, name);
         }
 
         private string? GetStringByCulture(CultureInfo culture, string name)
         {
             string? value = null;
-            while (culture != culture.Parent)
+            BuildResourcesCache(culture);
+
+            if (_resourcesCache.TryGetValue(culture.Name, out var resources))
             {
-                BuildResourcesCache(culture);
-
-                if (_resourcesCache.TryGetValue(culture.Name, out var resources))
-                {
-                    var resource = resources?.FirstOrDefault(s => s.Key == name);
-                    value = resource?.Value ?? null;
-                    _logger.LogDebug($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}'.");
-
-                    if (value != null)
-                    {
-                        break;
-                    }
-
-                    culture = culture.Parent;
-                }
+                var resource = resources?.FirstOrDefault(s => s.Key == name);
+                value = resource?.Value ?? null;
+                _logger.LogDebug($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}'.");
             }
             return value;
+        }
+
+        private static readonly int MaxCultureFallbackDepth = 5;
+        private static CultureInfo? GetCultureInfo(StringSegment cultureName, bool fallbackToParentCultures, int currentDepth)
+        {
+            var culture = GetCultureInfo(cultureName);
+
+            if (culture == null && fallbackToParentCultures && currentDepth < MaxCultureFallbackDepth)
+            {
+                var lastIndexOfHyphen = cultureName.LastIndexOf('-');
+
+                if (lastIndexOfHyphen > 0)
+                {
+                    // Trim the trailing section from the culture name, e.g. "fr-FR" becomes "fr"
+                    var parentCultureName = cultureName.Subsegment(0, lastIndexOfHyphen);
+
+                    culture = GetCultureInfo(parentCultureName, fallbackToParentCultures, currentDepth + 1);
+                }
+            }
+
+            return culture;
+        }
+
+        private static CultureInfo? GetCultureInfo(StringSegment name)
+        {
+            if (name == null)
+            {
+                return null;
+            }
+            var culture = JsonLocalizationOptions.SupportedCultures.FirstOrDefault(
+                supportedCulture => StringSegment.Equals(supportedCulture.Name, name, StringComparison.OrdinalIgnoreCase));
+
+            if (culture == null)
+            {
+                return null;
+            }
+
+            return CultureInfo.ReadOnly(culture);
         }
 
         private IEnumerable<string> GetAllStringsFromCultureHierarchy(CultureInfo startingCulture)
