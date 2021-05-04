@@ -20,6 +20,8 @@ namespace BootstrapBlazor.Shared.Shared
 
         private string Theme { get; set; } = "";
 
+        private IEnumerable<MenuItem>? Menus { get; set; }
+
         /// <summary>
         /// 获得/设置 是否固定页头
         /// </summary>
@@ -55,6 +57,24 @@ namespace BootstrapBlazor.Shared.Shared
         private IJSRuntime? JSRuntime { get; set; }
 
         /// <summary>
+        /// OnInitializedAsync 方法
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            // 模拟异步获取菜单数据
+            await Task.Delay(500);
+            Menus = new List<MenuItem>
+            {
+                new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "layouts" },
+                new MenuItem() { Text = "布局网页", Icon = "fa fa-fw fa-desktop", Url = "layout-page" },
+                new MenuItem() { Text = "示例网页", Icon = "fa fa-fw fa-laptop", Url = "layout-demo" }
+            };
+        }
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -73,17 +93,6 @@ namespace BootstrapBlazor.Shared.Shared
         /// 更新组件方法
         /// </summary>
         public void Update() => StateHasChanged();
-
-        private IEnumerable<MenuItem> GetIconSideMenuItems()
-        {
-            var menus = new List<MenuItem>
-            {
-                new MenuItem() { Text = "返回组件库", Icon = "fa fa-fw fa-home", Url = "layouts" },
-                new MenuItem() { Text = "布局网页", Icon = "fa fa-fw fa-desktop", Url = "layout-page" },
-                new MenuItem() { Text = "示例网页", Icon = "fa fa-fw fa-laptop", Url = "layout-demo" }
-            };
-            return menus;
-        }
 
         private void ToggleDrawer()
         {
