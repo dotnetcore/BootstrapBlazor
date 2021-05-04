@@ -220,7 +220,7 @@ namespace BootstrapBlazor.Components
         {
             if (disposing && Interop != null)
             {
-                await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "dispose").ConfigureAwait(false);
+                await Interop.InvokeVoidAsync(this, ScannerElement, "bb_barcode", "dispose");
                 Interop.Dispose();
                 Interop = null;
             }
@@ -232,7 +232,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
-            await DisposeAsyncCore(true).ConfigureAwait(false);
+            await DisposeAsyncCore(true);
             GC.SuppressFinalize(this);
         }
     }

@@ -134,11 +134,11 @@ namespace BootstrapBlazor.Components
                 {
                     if (Tooltip.PopoverType == PopoverType.Tooltip)
                     {
-                        await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose").ConfigureAwait(false);
+                        await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
                     }
                     else
                     {
-                        await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose").ConfigureAwait(false);
+                        await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
                     }
                 }
             }
@@ -149,7 +149,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async ValueTask DisposeAsync()
         {
-            await DisposeAsyncCore(true).ConfigureAwait(false);
+            await DisposeAsyncCore(true);
             GC.SuppressFinalize(this);
         }
     }

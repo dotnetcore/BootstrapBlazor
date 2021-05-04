@@ -20,12 +20,17 @@ namespace BootstrapBlazor.Components
         /// <param name="el">Element 实例或者组件 Id</param>
         /// <param name="func">Javascript 方法</param>
         /// <param name="args">Javascript 参数</param>
-        public static async ValueTask InvokeVoidAsync(this IJSRuntime jsRuntime, object? el = null, string? func = null, params object[] args)
+        public static ValueTask InvokeVoidAsync(this IJSRuntime jsRuntime, object? el = null, string? func = null, params object[] args)
         {
             var paras = new List<object>();
             if (el != null) paras.Add(el);
             if (args != null) paras.AddRange(args);
-            await jsRuntime.InvokeVoidAsync($"$.{func}", paras.ToArray());
+            try
+            {
+                var _ = jsRuntime.InvokeVoidAsync($"$.{func}", paras.ToArray()).ConfigureAwait(false);
+            }
+            catch (TaskCanceledException) { }
+            return ValueTask.CompletedTask;
         }
 
         /// <summary>
@@ -35,12 +40,18 @@ namespace BootstrapBlazor.Components
         /// <param name="el">Element 实例或者组件 Id</param>
         /// <param name="func">Javascript 方法</param>
         /// <param name="args">Javascript 参数</param>
-        public static async ValueTask<TValue> InvokeAsync<TValue>(this IJSRuntime jsRuntime, object? el = null, string? func = null, params object[] args)
+        public static async ValueTask<TValue?> InvokeAsync<TValue>(this IJSRuntime jsRuntime, object? el = null, string? func = null, params object[] args)
         {
+            TValue? ret = default;
             var paras = new List<object>();
             if (el != null) paras.Add(el);
             if (args != null) paras.AddRange(args);
-            return await jsRuntime.InvokeAsync<TValue>($"$.{func}", paras.ToArray());
+            try
+            {
+                ret = await jsRuntime.InvokeAsync<TValue>($"$.{func}", paras.ToArray()).ConfigureAwait(false);
+            }
+            catch (TaskCanceledException) { }
+            return ret;
         }
     }
 }

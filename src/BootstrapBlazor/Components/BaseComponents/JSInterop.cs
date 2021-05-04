@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components
         /// <param name="func"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public async ValueTask<TReturn> InvokeAsync<TReturn>(TValue value, object? el, string func, params object[] args)
+        public async ValueTask<TReturn?> InvokeAsync<TReturn>(TValue value, object? el, string func, params object[] args)
         {
             _objRef = DotNetObjectReference.Create(value);
             var paras = new List<object>()

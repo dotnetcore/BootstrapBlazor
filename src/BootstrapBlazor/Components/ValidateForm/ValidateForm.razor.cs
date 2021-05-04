@@ -417,7 +417,7 @@ namespace BootstrapBlazor.Components
         {
             if (disposing)
             {
-                await JSRuntime.InvokeVoidAsync(Id, "bb_form", "dispose").ConfigureAwait(false);
+                await JSRuntime.InvokeVoidAsync(Id, "bb_form", "dispose");
             }
         }
 
@@ -427,7 +427,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
-            await DisposeAsyncCore(true).ConfigureAwait(false);
+            await DisposeAsyncCore(true);
             GC.SuppressFinalize(this);
         }
     }
