@@ -48,7 +48,7 @@ namespace BootstrapBlazor.Components
         public Placement? ToastPlacement { get; set; }
 
         /// <summary>
-        /// 获得 组件内置本地化语言列表
+        /// 获得/设置 组件内置本地化语言列表 默认为 null
         /// </summary>
         public List<string>? SupportedCultures { get; set; }
 

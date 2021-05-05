@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             builder.Services.Configure<BootstrapBlazorOptions>(op =>
             {
                 op.ToastDelay = 4000;
-                op.SupportedCultures.AddRange(new string[] { "zh-CN", "en-US" });
+                op.SupportedCultures = new List<string> { "zh-CN", "en-US" };
             });
 
             builder.Services.AddLocalization();
