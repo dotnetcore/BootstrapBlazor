@@ -57,6 +57,7 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
             builder.Services.Configure<BootstrapBlazorOptions>(op =>
             {
                 op.ToastDelay = 4000;
+                op.FallbackCulture = "en";
                 op.SupportedCultures = new List<string> { "zh-CN", "en-US" };
             });
 

@@ -18,7 +18,10 @@
         <code>BootstrapBlazor</code> 组件额外支持使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href="https://www.nuget.org/packages/BootstrapBlazor/" target="_blank">BootstrapBalzor</a> 包自带中文（zh）、英语（en）两种资源文件。组件内置本地化语言回退机制，如请求文化为 <code>zh-CN</code> 时，如未提供相对应的文化资源文件时，内置逻辑通过父级文化进行尝试本地化，以 <code>zh-CN</code> 为例回退机制如下：
     </div>
     <div>
-        <code>zh-CN</code> -> <code>zh-Hans</code> -> <code>zh</code>
+        <code>zh-CN</code> 到 <code>zh</code>
+    </div>
+    <div>
+        如果设置的本地化语言未提供资源文件回落后仍无法找到资源文件后，使用 <code>FallbackCulture</code> 参数设置的文化信息进行本地化，默认为 <code>en</code>
     </div>
 </p>
 
@@ -32,7 +35,7 @@
 
 <Pre>{
   "BootstrapBlazorOptions": {
-    "FallbackCultureName": "en-US",
+    "FallbackCultureName": "en",
     "SupportedCultures": [
       "zh-CN",
       "en-US"
@@ -203,7 +206,7 @@ public class CultureController : Controller
     builder.Services.Configure&lt;BootstrapBlazorOptions&gt;(op =>
     {
         op.ToastDelay = 4000;
-        op.SupportedCultures.AddRange(new string[] { "zh-CN", "en-US" });
+        op.SupportedCultures = new List&lt;string&gt; { "zh-CN", "en-US" };
     });
 
     var host = builder.Build();
