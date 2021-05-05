@@ -126,6 +126,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
         /// </summary>
         [Parameter]
+        [NotNull]
         public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
         /// <summary>
@@ -187,11 +188,11 @@ namespace BootstrapBlazor.Components
         private TabItemTextOptions? Options { get; set; }
 
         /// <summary>
-        /// OnInitializedAsync 方法
+        /// OnInitialized 方法
         /// </summary>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            await base.OnInitializedAsync();
+            base.OnInitialized();
 
             if (ShowExtendButtons)
             {
@@ -201,6 +202,11 @@ namespace BootstrapBlazor.Components
             CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
             CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
             CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
+
+            if (!OperatingSystem.IsBrowser() && AdditionalAssemblies == null)
+            {
+                AdditionalAssemblies = new[] { Assembly.GetEntryAssembly()! };
+            }
         }
 
         /// <summary>
@@ -439,7 +445,7 @@ namespace BootstrapBlazor.Components
 
         private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = null, bool? closable = null)
         {
-            var context = RouteTableFactory.Create(AdditionalAssemblies!, url);
+            var context = RouteTableFactory.Create(AdditionalAssemblies, url);
             if (context.Handler != null)
             {
                 if (TryGetTabItemText(url, out var tabText))
