@@ -143,8 +143,11 @@
     list-style: none;
 }
 
+    .menu .submenu li:not(:last-child) {
+        margin-top: 2px;
+    }
+
     .menu .submenu .nav-link {
-        margin: 2px 0;
         border-radius: 4px;
         padding: .5rem 0.25rem;
     }
