@@ -1,7 +1,15 @@
 ﻿(function ($) {
     $.extend({
         bb_download_wasm: function (name, contentType, content) {
-            var exportUrl = $.bb_create_url_wasm(name, contentType, content)
+            // Convert the parameters to actual JS types
+            var nameStr = BINDING.conv_string(name);
+            var contentTypeStr = BINDING.conv_string(contentType);
+            var contentArray = Blazor.platform.toUint8Array(content);
+
+            // Create the URL
+            var file = new File([contentArray], nameStr, { type: contentTypeStr });
+            var exportUrl = URL.createObjectURL(file);
+
             // Create the <a> element and click on it
             var a = document.createElement("a");
             document.body.appendChild(a);
