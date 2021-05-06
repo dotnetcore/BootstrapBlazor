@@ -1573,11 +1573,11 @@ section {
     }
 
 .menu-accordion {
-    padding: 0.875rem 0;
+    padding: 0.375rem 0 0.875rem 0;
     display: flex;
     border-bottom: solid 1px #c0c4cc;
     justify-content: center;
-    margin-bottom: 0.875rem;
+    margin-bottom: 0.75rem;
 }
 
     .menu-accordion .control-label {
@@ -1588,8 +1588,8 @@ section {
         width: auto;
     }
 
-.sidebar-content .menu.is-vertical {
-    padding-bottom: .5rem;
+.sidebar-content {
+    padding: .5rem 0;
 }
 
 .wwads-cn.wwads-horizontal {
