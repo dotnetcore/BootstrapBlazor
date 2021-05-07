@@ -57,11 +57,6 @@ namespace BootstrapBlazor.Components
         private List<SelectedItem> RightItems { get; set; } = new List<SelectedItem>();
 
         /// <summary>
-        /// 获得/设置 是否按钮点击转移 优化性能使用
-        /// </summary>
-        private bool IsTransfer { get; set; }
-
-        /// <summary>
         /// 获得/设置 组件绑定数据项集合
         /// </summary>
         [Parameter]
@@ -174,21 +169,7 @@ namespace BootstrapBlazor.Components
                 }
             }
 
-            if (!IsTransfer)
-            {
-                ResetItems();
-            }
-        }
-
-        /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
-        {
-            base.OnAfterRender(firstRender);
-
-            IsTransfer = false;
+            ResetItems();
         }
 
         /// <summary>
@@ -196,7 +177,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private async Task TransferItems(List<SelectedItem> source, List<SelectedItem> target)
         {
-            IsTransfer = true;
             if (!IsDisabled && Items != null)
             {
                 var items = source.Where(i => i.Active).ToList();
@@ -226,10 +206,6 @@ namespace BootstrapBlazor.Components
                 if (OnSelectedItemsChanged != null)
                 {
                     await OnSelectedItemsChanged.Invoke(RightItems);
-                }
-                if (!ValueChanged.HasDelegate)
-                {
-                    StateHasChanged();
                 }
             }
         }
