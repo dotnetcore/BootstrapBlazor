@@ -143,7 +143,7 @@
     list-style: none;
 }
 
-    .menu .submenu li:not(:last-child) {
+    .menu .submenu li {
         margin-top: 2px;
     }
 

@@ -66,6 +66,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "test\UnitTest\UnitTest.csproj", "{190F25CF-C6F9-4964-97E9-F6A912D527AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "extensions", "extensions", "{22328011-53B3-447A-B781-AC3C196B2847}"
+	ProjectSection(SolutionItems) = preProject
+		src\Extensions\Directory.Build.props = src\Extensions\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wasm", "wasm", "{C8E79F4C-8C55-4E13-96B5-3D2BD6A07B74}"
 EndProject
