@@ -23,12 +23,14 @@ namespace BootstrapBlazor.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        private string? GetMenuArrowClassString => CssBuilder.Default("arrow")
+        private string? MenuArrowClassString => CssBuilder.Default("arrow")
             .AddClass("fa fa-fw", Parent != null && Parent.IsVertical)
             .AddClass("fa-angle-left", Item.Items.Any())
             .Build();
 
-        private string? GetHrefString => (Parent.DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url?.TrimStart('/'));
+        private string? HrefString => (Parent.DisableNavigation || Item.IsDisabled) ? null : (Item.Items.Any() ? "#" : Item.Url?.TrimStart('/'));
+
+        private string? TargetString => string.IsNullOrEmpty(Item.Target) ? null : Item.Target;
 
         /// <summary>
         /// 获得/设置 MenuItem 实例 不可为空
@@ -49,12 +51,15 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClickLink()
         {
-            if (OnClick != null) await OnClick(Item);
+            if (OnClick != null)
+            {
+                await OnClick(Item);
+            }
         }
 
-        private NavLinkMatch GetMatch() => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
+        private NavLinkMatch ItemMatch => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
 
-        private string? GetIconString => string.IsNullOrEmpty(Item.Icon)
+        private string? IconString => string.IsNullOrEmpty(Item.Icon)
             ? (Parent.IsVertical
                 ? (Parent.IsCollapsed
                     ? "fa-none"
@@ -64,7 +69,7 @@ namespace BootstrapBlazor.Components
                 ? Item.Icon
                 : $"{Item.Icon} fa-fw";
 
-        private string? GetStyleClassString => (Parent.IsVertical && !Parent.IsCollapsed)
+        private string? StyleClassString => (Parent.IsVertical && !Parent.IsCollapsed)
             ? (Item.Indent == 0
                 ? null
                 : $"padding-left: {Item.Indent * Parent.IndentSize}px;")

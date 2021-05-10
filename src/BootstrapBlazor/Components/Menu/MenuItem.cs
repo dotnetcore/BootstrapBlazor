@@ -46,6 +46,11 @@ namespace BootstrapBlazor.Components
         public bool IsCollapsed { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 A 标签 target 参数
+        /// </summary>
+        public string? Target { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否禁用 默认 false 未禁用
         /// </summary>
         public bool IsDisabled { get; set; }
