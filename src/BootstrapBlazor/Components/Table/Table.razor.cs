@@ -535,23 +535,30 @@ namespace BootstrapBlazor.Components
                     methodName = null;
                 }
 
-                if (IsAutoRefresh && AutoRefreshInterval > 500 && AutoRefreshCancelTokenSource == null)
+                if (IsAutoRefresh && AutoRefreshInterval > 500)
                 {
-                    AutoRefreshCancelTokenSource = new CancellationTokenSource();
-
+                    AutoRefreshCancelTokenSource ??= new CancellationTokenSource();
                     // 自动刷新功能
                     _ = Task.Run(async () =>
                     {
                         try
                         {
-                            while (!(AutoRefreshCancelTokenSource?.IsCancellationRequested ?? true))
+                            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+                            if (!AutoRefreshCancelTokenSource.IsCancellationRequested)
                             {
                                 await InvokeAsync(QueryAsync);
-                                await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource?.Token ?? new CancellationToken(true));
                             }
                         }
                         catch (TaskCanceledException) { }
                     });
+                }
+                else
+                {
+                    if (AutoRefreshCancelTokenSource != null)
+                    {
+                        AutoRefreshCancelTokenSource.Cancel();
+                        AutoRefreshCancelTokenSource = null;
+                    }
                 }
             }
         }
