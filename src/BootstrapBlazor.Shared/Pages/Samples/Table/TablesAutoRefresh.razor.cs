@@ -30,15 +30,22 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private List<Foo> AutoItems { get; set; } = new List<Foo>();
 
+        private bool IsAutoRefresh { get; set; } = false;
+
         /// <summary>
-        /// 
+        /// OnInitialized 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
+
+            // 模拟异步获取数据耗时 100ms
+            await Task.Delay(100);
 
             AutoItems = Foo.GenerateFoo(Localizer).Take(2).ToList();
         }
+
+        private void ClickIsAutoRefresh() => IsAutoRefresh = !IsAutoRefresh;
 
         private Task<QueryData<Foo>> OnRefreshQueryAsync(QueryPageOptions options)
         {

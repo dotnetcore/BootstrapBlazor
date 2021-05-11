@@ -21,3 +21,23 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="通过设置变量控制是否自动更新" Introduction="本示例通过设置变量控制是否自动更新">
+    <p>
+        <div>通过点击按钮开始/关闭是否自动更新功能</div>
+        <Button Text="更改 Auto" OnClick="@ClickIsAutoRefresh" /> <span>IsAutoRefresh 当前值：@IsAutoRefresh</span>
+    </p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsAutoRefresh="@IsAutoRefresh" AutoRefreshInterval="2000"
+           OnQueryAsync="@OnRefreshQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" ComponentType="typeof(Switch)" />
+        </TableColumns>
+    </Table>
+</Block>
