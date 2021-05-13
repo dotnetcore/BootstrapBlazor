@@ -185,8 +185,7 @@ namespace BootstrapBlazor.Shared.Shared
                     Url = "layout-page"
                 }
             };
-            item.IsCollapsed = false;
-            AddBadge(item);
+            AddBadge(item, count: 0);
         }
 
         private void AddForm(DemoMenuItem item)
