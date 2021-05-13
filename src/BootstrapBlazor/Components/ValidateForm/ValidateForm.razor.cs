@@ -367,7 +367,8 @@ namespace BootstrapBlazor.Components
                 // 处理多个上传文件
                 uploader.UploadFiles.ForEach(file =>
                 {
-                    ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
+                    // 优先检查 File 流，如果没有检查 FileName
+                    ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
                 });
             }
             else
