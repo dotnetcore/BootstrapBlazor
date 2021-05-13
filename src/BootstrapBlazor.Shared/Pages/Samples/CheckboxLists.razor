@@ -96,6 +96,16 @@
     </ValidateForm>
 </Block>
 
+<Block Title="竖向排列" Introduction="通过设置 <code>IsVertical=true</code> 使checkbox竖向排列">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <CheckboxList @bind-Value="@Dummy.Name" IsVertical="true" ShowBorder="false" Items="@Items2" />
+            </div>
+        </div>
+    </div>
+</Block>
+
 <Block Title="禁用" Introduction="通过设置 <code>IsDisabled=true</code> 禁用">
     <div class="form-inline">
         <div class="row">

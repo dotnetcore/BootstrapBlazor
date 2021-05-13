@@ -6,6 +6,11 @@
     padding-bottom: 0;
 }
 
+    .checkbox-list.is-vertical {
+        display: flex;
+        flex-direction: column;
+    }
+
     .checkbox-list .checkbox-item {
         display: inline-flex;
         width: 120px;

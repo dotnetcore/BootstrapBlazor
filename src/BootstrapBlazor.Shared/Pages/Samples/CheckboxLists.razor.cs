@@ -115,6 +115,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "TValue",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem(){
+                Name = "IsVertical",
+                Description = "是否竖向排列",
+                Type = "boolean",
+                ValueList = " true / false ",
+                DefaultValue = " false "
             }
         };
 
