@@ -224,12 +224,12 @@ namespace BootstrapBlazor.Components
             {
                 result = (TValue)(object)value;
             }
-            else if (typeof(TValue) == typeof(IEnumerable<string>))
+            else if (typeof(IEnumerable<string>).IsAssignableFrom(typeof(TValue)))
             {
                 var v = value.Split(",", StringSplitOptions.RemoveEmptyEntries);
-                result = (TValue)(object)v;
+                result = (TValue)(object)new List<string>(v);
             }
-            else if (typeof(TValue) == typeof(IEnumerable<SelectedItem>))
+            else if (typeof(IEnumerable<SelectedItem>).IsAssignableFrom(typeof(TValue)))
             {
                 result = (TValue)(object)RightItems;
             }
