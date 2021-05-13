@@ -175,9 +175,13 @@
             border-radius: 0;
         }
 
-        .layout-side.is-collapsed:not(:hover) .menu.is-collapsed > .submenu > li > .nav-link > .text {
+        .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .submenu .text {
             margin: 0;
             width: 0;
             max-width: 0;
+        }
+
+        .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .nav-link {
+            padding-left: 0 !important;
         }
 }

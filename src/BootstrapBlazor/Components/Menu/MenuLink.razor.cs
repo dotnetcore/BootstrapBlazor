@@ -69,7 +69,7 @@ namespace BootstrapBlazor.Components
                 ? Item.Icon
                 : $"{Item.Icon} fa-fw";
 
-        private string? StyleClassString => (Parent.IsVertical && !Parent.IsCollapsed)
+        private string? StyleClassString => Parent.IsVertical
             ? (Item.Indent == 0
                 ? null
                 : $"padding-left: {Item.Indent * Parent.IndentSize}px;")

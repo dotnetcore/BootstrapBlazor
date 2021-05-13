@@ -101,24 +101,11 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private bool _collapsed;
-        private bool _invokeCollapsedJs;
         /// <summary>
         /// 获得/设置 侧栏是否收起 默认 false 未收起
         /// </summary>
         [Parameter]
-        public bool IsCollapsed
-        {
-            get => _collapsed;
-            set
-            {
-                if (_collapsed != value)
-                {
-                    _collapsed = value;
-                    _invokeCollapsedJs = true;
-                }
-            }
-        }
+        public bool IsCollapsed { get; set; }
 
         /// <summary>
         /// 获得/设置 侧栏垂直模式 默认 false
@@ -197,11 +184,6 @@ namespace BootstrapBlazor.Components
                 {
                     _invokeExpandJs = false;
                     await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu_expand", IsExpandAll);
-                }
-                if (_invokeCollapsedJs)
-                {
-                    _invokeExpandJs = false;
-                    await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu_collapsed");
                 }
             }
         }

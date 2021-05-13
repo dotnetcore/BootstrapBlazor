@@ -1,25 +1,5 @@
 ﻿(function ($) {
     $.extend({
-        bb_side_menu_collapsed: function (el) {
-            if ($(window).width() < 768) return;
-            var $el = $(el);
-            if ($el.hasClass('is-collapsed')) {
-                $el.find('.collapse').each(function (index, ele) {
-                    var $ele = $(ele);
-                    if ($ele.data('bs.collapse')) {
-                        $ele.collapse('dispose');
-                    }
-                    $ele.removeAttr('data-parent').removeClass('collapse show');
-                    var $link = $ele.prev();
-                    if ($link.hasClass('nav-link')) {
-                        $link.attr('href', "#").removeAttr('data-toggle').removeAttr('aria-expanded').removeClass('collapsed');
-                    }
-                });
-            }
-            else {
-                $.bb_side_menu(el);
-            }
-        },
         bb_side_menu_expand: function (el, expand) {
             if (expand) {
                 $(el).find('.collapse').collapse('show');
