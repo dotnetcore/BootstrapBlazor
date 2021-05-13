@@ -150,6 +150,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 类型转化失败格式化字符串 默认为 null
         /// </summary>
         [Parameter]
+        [NotNull]
         public string? ParsingErrorMessage { get; set; }
 
         private string? _id;
@@ -220,9 +221,7 @@ namespace BootstrapBlazor.Components
                 else
                 {
                     result = default!;
-                    var fieldName = FieldIdentifier?.GetDisplayName() ?? "";
-                    var typeName = typeof(TValue).GetTypeDesc();
-                    validationErrorMessage = ParsingErrorMessage ?? $"The {fieldName} field is not valid.";
+                    validationErrorMessage = FormatParsingErrorMessage();
                 }
             }
             catch (Exception ex)
@@ -232,6 +231,12 @@ namespace BootstrapBlazor.Components
             }
             return ret;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string? FormatParsingErrorMessage() => ParsingErrorMessage;
 
         private bool HasRequired() => FieldIdentifier?.Model.GetType()
             .GetProperties().Where(x => x.Name == FieldIdentifier.Value.FieldName).FirstOrDefault()

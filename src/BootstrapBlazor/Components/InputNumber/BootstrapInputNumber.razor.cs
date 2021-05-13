@@ -101,7 +101,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            ParsingErrorMessage = Localizer[nameof(ParsingErrorMessage)];
+            ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
         }
 
         /// <summary>
@@ -117,24 +117,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="result"></param>
-        /// <param name="validationErrorMessage"></param>
         /// <returns></returns>
-        protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-        {
-            var ret = false;
-            validationErrorMessage = null;
-            if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
-            {
-                ret = true;
-            }
-            else
-            {
-                validationErrorMessage = string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage!, DisplayText);
-            }
-            return ret;
-        }
+        protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
 
         /// <summary>
         /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
