@@ -53,14 +53,14 @@ namespace BootstrapBlazor.Components
             new KeyValuePair<string, string>("Bootstrap", "")
         };
 
-        private Lazy<IList<CultureInfo>>? _cultures;
+        private Lazy<List<CultureInfo>>? _cultures;
         /// <summary>
         /// 获得支持多语言集合
         /// </summary>
         /// <returns></returns>
-        public IList<CultureInfo> GetSupportedCultures()
+        public List<CultureInfo> GetSupportedCultures()
         {
-            _cultures ??= new Lazy<IList<CultureInfo>>(() =>
+            _cultures ??= new Lazy<List<CultureInfo>>(() =>
             {
                 // 循环过滤掉上级文化
                 var ret = new List<CultureInfo>();

@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Threading.Tasks;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -27,5 +29,18 @@ namespace BootstrapBlazor.Components
             .AddClass("collapse", collpased)
             .AddClass("collapse show", !collpased)
             .Build();
+
+        private static string? TitleClassString(Color color) => CssBuilder.Default("card-header")
+            .AddClass($"bg-{color.ToDescriptionString()}", color != Color.None)
+            .Build();
+
+        private async Task OnClickItem(CollapseItem item)
+        {
+            item.SetCollapsed(!item.IsCollapsed);
+            if (OnCollapseChanged != null)
+            {
+                await OnCollapseChanged(item);
+            }
+        }
     }
 }

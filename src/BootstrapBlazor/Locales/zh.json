@@ -245,8 +245,12 @@
     "OffText": "收缩"
   },
   "BootstrapBlazor.Components.Transfer": {
-    "LeftPanelText": "列表 1",
-    "RightPanelText": "列表 2"
+    "LeftPanelText": "全部",
+    "RightPanelText": "已选"
+  },
+  "BootstrapBlazor.Components.TransferPanel": {
+    "SearchPlaceHolderString": "请输入 ...",
+    "Text": "列表"
   },
   "BootstrapBlazor.Components.Upload": {
     "DeleteButtonText": "删除",

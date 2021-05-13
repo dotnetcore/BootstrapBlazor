@@ -1,12 +1,13 @@
-name: Package to Nuget
+name: Build Project
 
 on:
   push:
     branches:
-      - pack
+      - main
+      - dev
 
 jobs:
-  pack:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -17,9 +18,9 @@ jobs:
       with:
         dotnet-version: 5.0.202
 
-    - name: Publish to Nuget
+    - name: Build
       env: 
         NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
       run: |
-        dotnet pack src/BootstrapBlazor -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        dotnet restore src/BootstrapBlazor --no-cache
+        dotnet build src/BootstrapBlazor

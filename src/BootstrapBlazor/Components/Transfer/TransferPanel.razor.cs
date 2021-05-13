@@ -4,8 +4,10 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,48 +16,49 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// TransferPanelBase 穿梭框面板组件
     /// </summary>
-    public class TransferPanelBase : BootstrapComponentBase
+    public partial class TransferPanel
     {
-        /// <summary>
-        /// 获得/设置 头部复选框
-        /// </summary>
-        protected Checkbox<SelectedItem>? HeaderCheckbox { get; set; }
-
         /// <summary>
         /// 获得/设置 搜索关键字
         /// </summary>
         protected string? SearchText { get; set; }
 
+        private string? PanelClassString => CssBuilder.Default("transfer-panel")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
         /// <summary>
         /// 获得 搜索图标样式
         /// </summary>
-        protected string? SearchClass => CssBuilder.Default("input-prefix")
+        private string? SearchClass => CssBuilder.Default("input-prefix")
             .AddClass("is-on", !string.IsNullOrEmpty(SearchText))
+            .AddClass("is-disabled", IsDisabled)
             .Build();
 
         /// <summary>
         /// 获得 Panel 样式
         /// </summary>
-        protected string? PanelListClassString => CssBuilder.Default("checkbox-group transfer-panel-list")
+        private string? PanelListClassString => CssBuilder.Default("checkbox-group transfer-panel-list")
             .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>
         /// 获得 组件是否被禁用属性值
         /// </summary>
-        protected string? DisabledString => IsDisabled ? "disabled" : null;
+        private string? DisabledString => IsDisabled ? "disabled" : null;
 
         /// <summary>
         /// 获得/设置 数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem>? Items { get; set; }
+        public List<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 面板显示文字
         /// </summary>
         [Parameter]
-        public string Text { get; set; } = "列表";
+        [NotNull]
+        public string? Text { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示搜索框
@@ -73,7 +76,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 搜索框的 placeholder 字符串
         /// </summary>
         [Parameter]
-        public string? SearchPlaceHolderString { get; set; } = "请输入 ...";
+        [NotNull]
+        public string? SearchPlaceHolderString { get; set; }
 
         /// <summary>
         /// 获得/设置 是否禁用 默认为 false
@@ -81,14 +85,36 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool IsDisabled { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Transfer<string>>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            SearchPlaceHolderString ??= Localizer[nameof(SearchPlaceHolderString)];
+            Text ??= Localizer[nameof(Text)];
+        }
+
         /// <summary>
         /// 头部复选框初始化值方法
         /// </summary>
         protected CheckboxState HeaderCheckState()
         {
             var ret = CheckboxState.Mixed;
-            if (Items != null && Items.Any() && Items.All(i => i.Active)) ret = CheckboxState.Checked;
-            else if (Items != null && !Items.Any(i => i.Active)) ret = CheckboxState.UnChecked;
+            if (Items != null && Items.Any() && Items.All(i => i.Active))
+            {
+                ret = CheckboxState.Checked;
+            }
+            else if (Items != null && !Items.Any(i => i.Active))
+            {
+                ret = CheckboxState.UnChecked;
+            }
+
             return ret;
         }
 
@@ -99,9 +125,19 @@ namespace BootstrapBlazor.Components
         {
             if (Items != null)
             {
-                if (state == CheckboxState.Checked) Items.ToList().ForEach(i => i.Active = true);
-                else Items.ToList().ForEach(i => i.Active = false);
-                if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke();
+                if (state == CheckboxState.Checked)
+                {
+                    GetShownItems().ForEach(i => i.Active = true);
+                }
+                else
+                {
+                    GetShownItems().ForEach(i => i.Active = false);
+                }
+
+                if (OnSelectedItemsChanged != null)
+                {
+                    await OnSelectedItemsChanged.Invoke();
+                }
             }
         }
 
@@ -115,7 +151,10 @@ namespace BootstrapBlazor.Components
             item.Active = state == CheckboxState.Checked;
 
             // set header
-            if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke();
+            if (OnSelectedItemsChanged != null)
+            {
+                await OnSelectedItemsChanged.Invoke();
+            }
         }
 
         /// <summary>
@@ -131,7 +170,10 @@ namespace BootstrapBlazor.Components
         protected void OnKeyUp(KeyboardEventArgs e)
         {
             // Escape
-            if (e.Key == "Escape") ClearSearch();
+            if (e.Key == "Escape")
+            {
+                ClearSearch();
+            }
         }
 
         /// <summary>
@@ -141,5 +183,9 @@ namespace BootstrapBlazor.Components
         {
             SearchText = "";
         }
+
+        private List<SelectedItem> GetShownItems() => (string.IsNullOrEmpty(SearchText)
+            ? Items
+            : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList()) ?? new List<SelectedItem>();
     }
 }

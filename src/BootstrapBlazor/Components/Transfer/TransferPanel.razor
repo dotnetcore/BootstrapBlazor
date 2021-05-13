@@ -1,9 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TransferPanelBase
+@inherits BootstrapComponentBase
 
-<div class="transfer-panel">
+<div @attributes="@AdditionalAttributes" class="@PanelClassString">
     <p class="transfer-panel-header">
-        <Checkbox TValue="SelectedItem" DisplayText="@Text" @ref="HeaderCheckbox" IsDisabled="@IsDisabled" ShowAfterLabel="true"
+        <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false"
                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
     </p>
     <div class="transfer-panel-body">
@@ -18,18 +18,14 @@
         }
         <div role="group" aria-label="checkbox-group" class="@PanelListClassString">
             @{
-                var items = (string.IsNullOrEmpty(SearchText) ? Items : Items?.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase))) ?? new SelectedItem[0];
-
-                foreach (var item in items)
+                foreach (var item in GetShownItems())
                 {
                     var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
                     <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="transfer-panel-item"
-                              DisplayText="@item.Text" Value="item" ShowAfterLabel="true"
+                              DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
                               State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
                 }
             }
         </div>
-        <p class="transfer-panel-empty" style="display: none;">无匹配数据</p>
-        <p class="transfer-panel-empty" style="display: none;">无数据</p>
     </div>
 </div>

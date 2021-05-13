@@ -78,7 +78,10 @@ namespace BootstrapBlazor.Components
                 if (hasChanged)
                 {
                     Value = value;
-                    _ = ValueChanged.InvokeAsync(value);
+                    if (ValueChanged.HasDelegate)
+                    {
+                        _ = ValueChanged.InvokeAsync(value);
+                    }
                     if (!SkipValidate && FieldIdentifier != null)
                     {
                         EditContext?.NotifyFieldChanged(FieldIdentifier.Value);

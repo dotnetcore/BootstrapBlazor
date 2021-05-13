@@ -9,9 +9,9 @@
         @foreach (var item in Items)
         {
             <div class="card">
-                <div class="card-header">
+                <div class="@TitleClassString(item.TitleColor)">
                     <div class="card-header-wrapper">
-                        <button class="@GetButtonClassString(item.IsCollapsed)" type="button" data-toggle="collapse" aria-expanded="@(item.IsCollapsed ? "false" : "true")">@item.Text</button>
+                        <Button class="@GetButtonClassString(item.IsCollapsed)" data-toggle="collapse" aria-expanded="@(item.IsCollapsed ? "false" : "true")" Color="Color.None" Text="@item.Text" OnClickWithoutRender="@(() => OnClickItem(item))" />
                         @if (ShowArrow)
                         {
                             <i class="fa fa-angle-down"></i>

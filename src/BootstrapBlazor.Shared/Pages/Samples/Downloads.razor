@@ -1,0 +1,57 @@
+﻿@page "/downloads"
+
+<h3>Download 文件下载</h3>
+
+<h4>用于直接下载物理文件</h4>
+
+<Tips>
+    <p>
+        本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>Download</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+    </p>
+</Tips>
+
+<Pre>&lt;Download /&gt;</Pre>
+
+<Block Title="基本用法" Introduction="调用注入服务 <code>DownloadService</code>">
+    <p>
+        <b>特别注意：</b>
+        <div>
+            <code>Blazor</code> 与 <code>js</code> 的交互使用了 <code>json</code>，在 <code>ssr</code> 模式中，<code>json</code> 最大传输大小是 <b>125M</b>，这是 <code>asp.net core</code> 的限制。并且由于 <code>json</code> 转 <code>js</code> 的 <code>blob</code> 非常非常慢，所以大文件请谨慎，建议只在类似页面文件导出、报表图片下载等页面自行完成的内容中使用。
+            其他例如服务器文件下载等依旧使用 <code>Controller</code> 来完成。如果下载大文件请自行仔细测试
+        </div>
+    </p>
+    <div class="mb-3">
+        示例：
+        <Button Icon="fa fa-download" Text="下载文件" OnClick="@DownloadFileAsync"></Button>
+    </div>
+    <div><code>Razor</code> 代码</div>
+    <Pre>&lt;Button OnClick=&quot;DownloadFile&quot;&gt;点我下载文件&lt;/Button&gt;</Pre>
+    <div><code>C#</code> 代码</div>
+    <Pre>private async Task DownloadFileAsync()
+{
+    var content = await GenerateFileAsync();
+    await downloadService.DownloadAsync("测试文件", content);
+
+    static async Task&lt;byte[]&gt; GenerateFileAsync()
+    {
+        using var ms = new MemoryStream();
+        using var writer = new StreamWriter(ms);
+        await writer.WriteLineAsync("自行生成并写入的文本，这里可以换成图片或其他内容");
+        await writer.FlushAsync();
+        ms.Position = 0;
+        return ms.ToArray();
+    }
+}</Pre>
+</Block>
+
+<Block Title="大文件下载测试" Introduction="这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>56M</b>，可以自行测试">
+    <p>按钮设置 <code>IsAsync</code> 值为 <code>true</code> 进行异步下载操作</p>
+    <Button IsAsync="true" Icon="fa fa-download" Text="大文件下载" OnClickWithoutRender="DownloadLargeFileAsync"></Button>
+</Block>
+
+<Block Title="获取图片并显示" Introduction="模拟直接由前端页面生成验证码或者上传图片不保存直接显示的情况。">
+    <p>由于测试使用了wwwroot下的文件，没有代码生成，wasm无法访问wwwroot文件夹，故此测试只有ssr模式可用。wasm请自行测试。</p>
+    <img src="@TempUrl" style="width: 120px; height: auto;" />
+</Block>
+
+<Download></Download>

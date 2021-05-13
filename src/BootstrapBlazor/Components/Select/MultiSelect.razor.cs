@@ -7,10 +7,13 @@ using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -20,11 +23,9 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class MultiSelect<TValue> : IDisposable
     {
-        private string? _oldStringValue;
-
         private ElementReference SelectElement { get; set; }
 
-        private List<SelectedItem> SelectedItems { get; set; } = new List<SelectedItem>();
+        private IEnumerable<SelectedItem> SelectedItems => Items.Where(i => i.Active);
 
         private bool IsShow { get; set; }
 
@@ -177,22 +178,7 @@ namespace BootstrapBlazor.Components
             MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
             MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
-            if (Items == null)
-            {
-                Type? innerType = null;
-                if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
-                {
-                    innerType = typeof(TValue).GetGenericArguments()[0];
-                }
-                if (innerType != null && innerType.IsEnum)
-                {
-                    Items = innerType.ToSelectList();
-                }
-                else
-                {
-                    Items = Enumerable.Empty<SelectedItem>();
-                }
-            }
+            ResetItems();
 
             if (OnSearchTextChanged == null)
             {
@@ -218,51 +204,77 @@ namespace BootstrapBlazor.Components
             await base.OnParametersSetAsync();
 
             // 通过 Value 对集合进行赋值
-            if (Value != null)
+            if (!string.IsNullOrEmpty(CurrentValueAsString))
             {
-                if (_oldStringValue == CurrentValueAsString) return;
-
-                var typeValue = typeof(TValue);
-                IList? list = null;
-                if (typeValue == typeof(string))
+                var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                foreach (var item in Items)
                 {
-                    list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                    _oldStringValue = CurrentValueAsString;
-                }
-                else if (typeValue.IsGenericType || typeValue.IsArray)
-                {
-                    var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
-                    var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
-                    var mi = instance.GetType().GetMethod("AddRange");
-                    if (mi != null)
+                    item.Active = false;
+                    var v = item.Value;
+                    if (!string.IsNullOrEmpty(v))
                     {
-                        mi.Invoke(instance, new object[] { Value });
-                    }
-
-                    list = instance as IList;
-                    _oldStringValue = string.Join(",", list);
-                }
-                if (list != null)
-                {
-                    SelectedItems.Clear();
-                    foreach (var item in Items)
-                    {
-                        var v = item.Value;
-                        if (!string.IsNullOrEmpty(v))
+                        foreach (var l in list)
                         {
-                            foreach (var l in list)
+                            if (v == l.ToString())
                             {
-                                if (v == l.ToString())
-                                {
-                                    SelectedItems.Add(item);
-                                    break;
-                                }
+                                item.Active = true;
+                                break;
                             }
                         }
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// FormatValueAsString 方法
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected override string? FormatValueAsString(TValue value) => value == null
+            ? null
+            : ConvertValueToString(value);
+
+        private string? ConvertValueToString(TValue value)
+        {
+            var ret = "";
+            var typeValue = typeof(TValue);
+            if (typeValue == typeof(string))
+            {
+                ret = value!.ToString();
+            }
+            else if (typeValue.IsGenericType || typeValue.IsArray)
+            {
+                var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
+                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
+                var mi = instance.GetType().GetMethod("AddRange");
+                if (mi != null)
+                {
+                    mi.Invoke(instance, new object[] { value! });
+                }
+
+                var invoker = ConverterCache.GetOrAdd(t, key => CreateConverterInvoker(key));
+                var v = invoker.Invoke(instance);
+                ret = string.Join(",", v);
+            }
+            return ret;
+        }
+
+        private static ConcurrentDictionary<Type, Func<object, IEnumerable<string?>>> ConverterCache { get; set; } = new();
+
+        private Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
+        {
+            var method = this.GetType()
+                .GetMethod(nameof(ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
+                .MakeGenericMethod(type);
+
+            var para_exp = Expression.Parameter(typeof(object));
+            var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
+            var body = Expression.Call(method, convert);
+            return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
+        }
+
+        private static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source.Select(o => o?.ToString());
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -299,18 +311,11 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private Task ToggleRow(SelectedItem item, bool force = false)
+        private async Task ToggleRow(SelectedItem item, bool force = false)
         {
             if (!IsDisabled)
             {
-                if (SelectedItems.Contains(item))
-                {
-                    SelectedItems.Remove(item);
-                }
-                else
-                {
-                    SelectedItems.Add(item);
-                }
+                item.Active = !item.Active;
 
                 SetValue();
 
@@ -319,29 +324,30 @@ namespace BootstrapBlazor.Components
                     var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
                     var validationResults = new List<ValidationResult>();
 
-                    ValidateProperty(SelectedItems.Count, validationContext, validationResults);
+                    ValidateProperty(SelectedItems.Count(), validationContext, validationResults);
                     ToggleMessage(validationResults, true);
                 }
 
-                _ = TriggerSelectedItemChanged();
+                await TriggerSelectedItemChanged();
 
                 if (force)
                 {
                     StateHasChanged();
                 }
             }
-
-            return Task.CompletedTask;
         }
 
         private async Task TriggerSelectedItemChanged()
         {
-            if (OnSelectedItemsChanged != null) await OnSelectedItemsChanged.Invoke(SelectedItems);
+            if (OnSelectedItemsChanged != null)
+            {
+                await OnSelectedItemsChanged.Invoke(SelectedItems);
+            }
         }
 
         private void SetValue()
         {
-            var typeValue = typeof(TValue);
+            var typeValue = NullableUnderlyingType ?? typeof(TValue);
             if (typeValue == typeof(string))
             {
                 CurrentValueAsString = string.Join(",", SelectedItems.Select(i => i.Value));
@@ -350,7 +356,7 @@ namespace BootstrapBlazor.Components
             {
                 var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
                 var listType = typeof(List<>).MakeGenericType(t);
-                var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count)!;
+                var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count())!;
 
                 foreach (var item in SelectedItems)
                 {
@@ -370,23 +376,30 @@ namespace BootstrapBlazor.Components
 
         private async Task Clear()
         {
-            SelectedItems.Clear();
+            foreach (var item in Items)
+            {
+                item.Active = false;
+            }
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task SelectAll()
         {
-            SelectedItems.AddRange(Items);
+            foreach (var item in Items)
+            {
+                item.Active = true;
+            }
 
             await TriggerSelectedItemChanged();
         }
 
         private async Task InvertSelect()
         {
-            var items = Items.Where(i => !SelectedItems.Any(item => item == i)).ToList();
-            SelectedItems.Clear();
-            SelectedItems.AddRange(items);
+            foreach (var item in Items)
+            {
+                item.Active = !item.Active;
+            }
 
             await TriggerSelectedItemChanged();
         }
@@ -398,7 +411,7 @@ namespace BootstrapBlazor.Components
             var ret = true;
             if (Max > 0)
             {
-                ret = SelectedItems.Count < Max || GetCheckedState(item);
+                ret = SelectedItems.Count() < Max || GetCheckedState(item);
             }
             return ret;
         }
@@ -420,7 +433,7 @@ namespace BootstrapBlazor.Components
             var data = Items;
             if (ShowSearch && !string.IsNullOrEmpty(SearchText) && OnSearchTextChanged != null)
             {
-                data = OnSearchTextChanged.Invoke(SearchText);
+                data = OnSearchTextChanged.Invoke(SearchText).ToList();
             }
             return data;
         }
@@ -434,14 +447,37 @@ namespace BootstrapBlazor.Components
             Color = valid ? Color.Success : Color.Danger;
         }
 
+        private void ResetItems()
+        {
+            if (Items == null)
+            {
+                // 判断 IEnumerable<T> 泛型 T 是否为 Enum
+                Type? innerType = null;
+                if (typeof(IEnumerable).IsAssignableFrom(typeof(TValue)))
+                {
+                    innerType = typeof(TValue).GetGenericArguments()[0];
+                }
+                if (innerType != null && innerType.IsEnum)
+                {
+                    Items = innerType.ToSelectList();
+                }
+                else
+                {
+                    Items = Enumerable.Empty<SelectedItem>();
+                }
+            }
+        }
+
         /// <summary>
         /// 更改组件数据源方法
         /// </summary>
         /// <param name="items"></param>
-        public void SetItems(IEnumerable<SelectedItem> items)
+        [Obsolete("更改数据源 Items 参数即可")]
+        public void SetItems(List<SelectedItem>? items)
         {
-            SelectedItems.Clear();
             Items = items;
+            ResetItems();
+
             StateHasChanged();
         }
 
@@ -451,7 +487,6 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-
             if (disposing && Interop != null)
             {
                 Interop.Dispose();

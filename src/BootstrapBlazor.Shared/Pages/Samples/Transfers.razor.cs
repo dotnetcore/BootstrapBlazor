@@ -6,8 +6,12 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -19,49 +23,101 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private IEnumerable<SelectedItem>? Items { get; set; }
 
+        [NotNull]
         private IEnumerable<SelectedItem>? Items1 { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items2 { get; set; }
+
+        [NotNull]
+        private List<SelectedItem>? Items3 { get; set; }
+
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items4 { get; set; }
+
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items5 { get; set; }
+
+        [NotNull]
         private Logger? Trace { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
+        private IEnumerable<SelectedItem> SelectedValue { get; set; } = Enumerable.Empty<SelectedItem>();
 
-            Items = Enumerable.Range(1, 20).Select(i => new SelectedItem()
+        private Foo Model { get; set; } = new();
+
+        /// <summary>
+        /// OnInitializedAsync 方法
+        /// </summary>
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            // 模拟异步加载数据源
+            await Task.Delay(100);
+
+            Items = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"备选 {i:d2}",
                 Value = i.ToString()
             });
 
-            Items1 = Enumerable.Range(1, 20).Select(i => new SelectedItem()
+            Items1 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
+                Value = i.ToString()
+            });
+
+            Items2 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
+                Value = i.ToString()
+            });
+
+            Items3 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"备选 {i:d2}",
+                Value = i.ToString()
+            }).ToList();
+
+            SelectedValue = Items3.Take(2);
+
+            Items4 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            {
+                Text = $"数据 {i:d2}",
+                Value = i.ToString()
+            });
+
+            Items5 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
             });
         }
 
+        private void OnAddItem()
+        {
+            var count = Items3.Count + 1;
+            Items3.Add(new SelectedItem(count.ToString(), $"备选 {count:d2}"));
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="items"></param>
-        private void OnItemsChanged(IEnumerable<SelectedItem> items)
+        private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
         {
             Trace?.Log(string.Join(" ", items.Where(i => i.Active).Select(i => i.Text)));
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -133,7 +189,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {

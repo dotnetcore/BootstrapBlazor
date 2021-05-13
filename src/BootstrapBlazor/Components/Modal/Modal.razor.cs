@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class Modal : IDisposable
+    public partial class Modal : IAsyncDisposable
     {
         /// <summary>
         /// 获得/设置 DOM 元素实例
@@ -112,7 +112,6 @@ namespace BootstrapBlazor.Components
             {
                 dialog ??= Dialogs.Last();
                 Dialogs.ForEach(d => d.IsShown = d == dialog);
-                StateHasChanged();
             }
         }
 
@@ -185,27 +184,27 @@ namespace BootstrapBlazor.Components
         /// Dispose
         /// </summary>
         /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
+        protected virtual async ValueTask DisposeAsyncCore(bool disposing)
         {
             if (disposing && IsRendered)
             {
-                Task.Run(async () =>
+                // 切换线程防止 JS 清理 DOM 后 C# 代码报错
+                await Task.Delay(300);
+                try
                 {
-                    // 等待 C# 清理 DOM
-                    await Task.Delay(50);
-
                     // JS 清理 DOM
                     await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose").ConfigureAwait(false);
-                });
+                }
+                catch (TaskCanceledException) { }
             }
         }
 
         /// <summary>
         /// Dispose 方法
         /// </summary>
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            Dispose(disposing: true);
+            await DisposeAsyncCore(disposing: true).ConfigureAwait(false);
             GC.SuppressFinalize(this);
         }
     }

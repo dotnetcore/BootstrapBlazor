@@ -22,7 +22,11 @@ namespace BootstrapBlazor.Shared.Shared
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<App>? Localizer { get; set; }
+        private IStringLocalizer<App>? AppLocalizer { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<NavMenu>? Localizer { get; set; }
 
         private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
             .AddClass("collapse", collapseNavMenu)
@@ -50,7 +54,7 @@ namespace BootstrapBlazor.Shared.Shared
 
             if (!string.IsNullOrEmpty(item.Text))
             {
-                await TitleService.SetWebSiteTitle($"{item.Text} - {Localizer["Title"]}");
+                await TitleService.SetWebSiteTitle($"{item.Text} - {AppLocalizer["Title"]}");
             }
         }
 
@@ -64,49 +68,49 @@ namespace BootstrapBlazor.Shared.Shared
             // 快速入门
             var item = new DemoMenuItem()
             {
-                Text = "快速上手",
+                Text = Localizer["GetStarted"],
                 Icon = "fa fa-fw fa-fa"
             };
             AddQuickStar(item);
 
             item = new DemoMenuItem()
             {
-                Text = "布局组件",
+                Text = Localizer["LayoutComponents"],
                 Icon = "fa fa-fw fa-desktop"
             };
             AddLayout(item);
 
             item = new DemoMenuItem()
             {
-                Text = "导航组件",
+                Text = Localizer["NavigationComponents"],
                 Icon = "fa fa-fw fa-bars"
             };
             AddNavigation(item);
 
             item = new DemoMenuItem()
             {
-                Text = "表单组件",
+                Text = Localizer["FormsComponents"],
                 Icon = "fa fa-fw fa-cubes"
             };
             AddForm(item);
 
             item = new DemoMenuItem()
             {
-                Text = "数据组件",
+                Text = Localizer["DataComponents"],
                 Icon = "fa fa-fw fa-database"
             };
             AddData(item);
 
             item = new DemoMenuItem()
             {
-                Text = "消息组件",
+                Text = Localizer["NotificationComponents"],
                 Icon = "fa fa-fw fa-comments"
             };
             AddNotice(item);
 
             item = new DemoMenuItem()
             {
-                Text = "组件总览",
+                Text = Localizer["Components"],
                 Icon = "fa fa-fw fa-fa",
                 Url = "components"
             };
@@ -117,48 +121,48 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
-                Text = "简介",
+                Text = Localizer["Introduction"],
                 Url = "introduction"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "类库安装",
+                Text = Localizer["Install"],
                 Url = "install"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "项目模板",
+                Text = Localizer["ProjectTemplate"],
                 Url = "template"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "全球化",
+                Text = Localizer["Globalization"],
                 Url = "globalization"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "本地化",
+                Text = Localizer["Localization"],
                 Url = "localization"
             });
             item.AddItem(new DemoMenuItem()
             {
                 IsNew = true,
-                Text = "表单标签",
+                Text = Localizer["Labels"],
                 Url = "labels"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "服务器端模式 Server",
+                Text = Localizer["ServerBlazor"],
                 Url = "install-server"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "客户端模式 wasm",
+                Text = Localizer["ClientBlazor"],
                 Url = "install-wasm"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "后台模板模拟器",
+                Text = Localizer["LayoutPage"],
                 Url = "layout-page"
             });
 
@@ -170,127 +174,126 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
-                Text = "表单组件 EditorForm",
-                Url = "editorforms"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "表单组件 ValidateForm",
-                Url = "validateforms"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "自动完成 AutoComplete",
+                Text = Localizer["AutoComplete"],
                 Url = "autocompletes"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "按钮 Button",
+                Text = Localizer["Button"],
                 Url = "buttons"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "级联选择 Cascader",
+                Text = Localizer["Cascader"],
                 Url = "cascaders"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "多选框 Checkbox",
+                Text = Localizer["Checkbox"],
                 Url = "checkboxs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "多选框组 CheckboxList",
+                Text = Localizer["CheckboxList"],
                 Url = "checkboxlists"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "颜色拾取器 ColorPicker",
+                Text = Localizer["ColorPicker"],
                 Url = "colorpickers"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "时间框 DateTimePicker",
+                Text = Localizer["DateTimePicker"],
                 Url = "datetimepickers"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "时间范围框 DateTimeRange",
+                Text = Localizer["DateTimeRange"],
                 Url = "datetimeranges"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "富文本框 Editor",
+                Text = Localizer["Editor"],
                 Url = "editors"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "输入框 Input",
+                Text = Localizer["EditorForm"],
+                Url = "editorforms"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Input"],
                 Url = "inputs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "数字框 InputNumber",
+                Text = Localizer["InputNumber"],
                 Url = "inputnumbers"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "富文本框 Markdown",
+                Text = Localizer["Markdown"],
                 Url = "markdowns"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "单选框 Radio",
-                Url = "radios"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "评分 Rate",
-                Url = "rates"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "选择器 Select",
-                Url = "selects"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
                 IsUpdate = true,
-                Text = "多项选择器 MultiSelect",
+                Text = Localizer["MultiSelect"],
                 Url = "multiselects"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "滑块 Slider",
+                Text = Localizer["Radio"],
+                Url = "radios"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Rate"],
+                Url = "rates"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Select"],
+                Url = "selects"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Slider"],
                 Url = "sliders"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "开关 Switch",
+                Text = Localizer["Switch"],
                 Url = "switchs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "多行文本框 Textarea",
+                Text = Localizer["Textarea"],
                 Url = "textareas"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "开关 Toggle",
+                Text = Localizer["Toggle"],
                 Url = "toggles"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "穿梭框 Transfer",
+                Text = Localizer["Transfer"],
                 Url = "transfers"
             });
             item.AddItem(new DemoMenuItem()
             {
                 IsUpdate = true,
-                Text = "上传组件 Upload",
+                Text = Localizer["Upload"],
                 Url = "uploads"
             });
-
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["ValidateForm"],
+                Url = "validateforms"
+            });
             AddBadge(item);
         }
 
@@ -298,126 +301,132 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
-                Text = "头像框 Avatar",
+                Text = Localizer["Avatar"],
                 Url = "avatars"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "徽章 Badge",
+                Text = Localizer["Badge"],
                 Url = "badges"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "卡片 Card",
+                Text = Localizer["BarcodeReader"],
+                Url = "barcodereaders"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Card"],
                 Url = "cards"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "日历框 Calendar",
+                Text = Localizer["Calendar"],
                 Url = "calendars"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "验证码 Captcha",
+                Text = Localizer["Camera"],
+                Url = "Cameras"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Captcha"],
                 Url = "captchas"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "走马灯 Carousel",
+                Text = Localizer["Carousel"],
                 Url = "carousels"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "图表 Chart",
+                Text = Localizer["Chart"],
                 Url = "charts"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "进度环 Circle",
+                Text = Localizer["Circle"],
                 Url = "circles"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "折叠 Collapse",
+                Text = Localizer["Collapse"],
                 Url = "collapses"
             });
             item.AddItem(new DemoMenuItem()
             {
                 IsNew = true,
-                Text = "数据显示 Display",
+                Text = Localizer["Display"],
                 Url = "displays"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "挂件 DropdownWidget",
+                Text = Localizer["DropdownWidget"],
                 Url = "dropdownwidgets"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "集合 GroupBox",
+                Text = Localizer["GroupBox"],
                 Url = "groupboxs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "列表组件 ListView",
+                Text = Localizer["HandwrittenPage"],
+                Url = "handwrittenPage"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["ListView"],
                 Url = "listviews"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "弹出框 Popover",
+                Text = Localizer["Popover"],
                 Url = "popovers"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "二维码 QRCode",
+                Text = Localizer["QRCode"],
                 Url = "qrcodes"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "搜索框 Search",
+                Text = Localizer["Search"],
                 Url = "searchs"
             });
             AddTableItem(item);
             item.AddItem(new DemoMenuItem()
             {
-                Text = "标签 Tag",
+                Text = Localizer["Tag"],
                 Url = "tags"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "时间线 Timeline",
+                Text = Localizer["Timeline"],
                 Url = "timelines"
             });
             item.AddItem(new DemoMenuItem()
             {
                 IsNew = true,
-                Text = "网站标题 Title",
+                Text = Localizer["Title"],
                 Url = "titles"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "工具条 Tooltip",
+                IsNew = true,
+                Text = Localizer["Download"],
+                Url = "downloads"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Tooltip"],
                 Url = "tooltips"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "树形控件 Tree",
+                Text = Localizer["Tree"],
                 Url = "trees"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "条码扫描 BarcodeReader",
-                Url = "barcodereaders"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "摄像头组件 Camera",
-                Url = "Cameras"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "手写签名 HandwrittenPage",
-                Url = "handwrittenPage"
             });
 
             AddBadge(item);
@@ -427,127 +436,127 @@ namespace BootstrapBlazor.Shared.Shared
         {
             var it = new DemoMenuItem()
             {
-                Text = "表格 Table"
+                Text = Localizer["Table"]
             };
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "基本功能",
+                Text = Localizer["TableBase"],
                 Url = "tables"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "列设置",
+                Text = Localizer["TableColumn"],
                 Url = "tables/column"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "行设置",
+                Text = Localizer["TableRow"],
                 Url = "tables/row"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "明细行",
+                Text = Localizer["TableDetail"],
                 Url = "tables/detail"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "搜索功能",
+                Text = Localizer["TableSearch"],
                 Url = "tables/search"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "筛选和排序",
+                Text = Localizer["TableFilter"],
                 Url = "tables/filter"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "固定表头",
+                Text = Localizer["TableFixHeader"],
                 Url = "tables/header"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "表头分组",
+                Text = Localizer["TableHeaderGroup"],
                 Url = "tables/multi-header"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "固定列",
+                Text = Localizer["TableFixColumn"],
                 Url = "tables/fix-column"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "分页功能",
+                Text = Localizer["TablePage"],
                 Url = "tables/pages"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "工具栏",
+                Text = Localizer["TableToolbar"],
                 Url = "tables/toolbar"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "表单维护",
+                Text = Localizer["TableEdit"],
                 Url = "tables/edit"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "导出功能",
+                Text = Localizer["TableExport"],
                 Url = "tables/export"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "行选中",
+                Text = Localizer["TableSelection"],
                 Url = "tables/selection"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "自动刷新",
+                Text = Localizer["TableAutoRefresh"],
                 Url = "tables/autorefresh"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "统计合并",
+                Text = Localizer["TableFooter"],
                 Url = "tables/footer"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "弹窗联动",
+                Text = Localizer["TableDialog"],
                 Url = "tables/dialog"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "折行演示",
+                Text = Localizer["TableWrap"],
                 Url = "tables/wrap"
             });
 
             it.AddItem(new DemoMenuItem()
             {
-                Text = "树形数据",
+                Text = Localizer["TableTree"],
                 Url = "tables/tree"
             });
 
             it.AddItem(new DemoMenuItem()
             {
                 IsNew = true,
-                Text = "数据加载",
+                Text = Localizer["TableLaoding"],
                 Url = "tables/loading"
             });
 
@@ -560,78 +569,78 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
-                Text = "警告框 Alert",
+                Text = Localizer["Alert"],
                 Url = "alerts"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "控制台 Console",
+                Text = Localizer["Console"],
                 Url = "consoles"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "对话框 Dialog",
+                Text = Localizer["Dialog"],
                 Url = "dialogs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "抽屉 Drawer",
+                Text = Localizer["Drawer"],
                 Url = "drawers"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "编辑弹窗 EditDialog",
+                Text = Localizer["EditDialog"],
                 Url = "editdialogs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "消息框 Message",
-                Url = "messages"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "模态框 Modal",
-                Url = "modals"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "指示灯 Light",
+                Text = Localizer["Light"],
                 Url = "lights"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "确认框 Popconfirm",
+                Text = Localizer["Message"],
+                Url = "messages"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Modal"],
+                Url = "modals"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Popconfirm"],
                 Url = "popconfirms"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "进度条 Progress",
+                Text = Localizer["Progress"],
                 Url = "progresss"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "旋转图标 Spinner",
-                Url = "spinners"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "模态弹窗 SweetAlert",
-                Url = "swals"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "搜索弹窗 SearchDialog",
+                Text = Localizer["SearchDialog"],
                 Url = "searchdialogs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "轻量弹窗 Toast",
-                Url = "toasts"
+                Text = Localizer["Spinner"],
+                Url = "spinners"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "计时器 Timer",
+                Text = Localizer["SweetAlert"],
+                Url = "swals"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Timer"],
                 Url = "timers"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Toast"],
+                Url = "toasts"
             });
             AddBadge(item);
         }
@@ -640,47 +649,47 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
-                Text = "锚点 Anchor",
+                Text = Localizer["Anchor"],
                 Url = "anchors"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "面包屑 Breadcrumb",
+                Text = Localizer["Breadcrumb"],
                 Url = "breadcrumbs"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "菜单 Menu",
-                Url = "menus"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "导航栏 Nav",
-                Url = "navs"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "下拉菜单 Dropdown",
+                Text = Localizer["Dropdown"],
                 Url = "dropdowns"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "跳转组件 GoTop",
+                Text = Localizer["GoTop"],
                 Url = "gotops"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "分页 Pagination",
+                Text = Localizer["Menu"],
+                Url = "menus"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Nav"],
+                Url = "navs"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Pagination"],
                 Url = "paginations"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "步骤条 Steps",
+                Text = Localizer["Steps"],
                 Url = "stepss"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "标签页 Tab",
+                Text = Localizer["Tab"],
                 Url = "tabs"
             });
 
@@ -691,37 +700,37 @@ namespace BootstrapBlazor.Shared.Shared
         {
             item.AddItem(new DemoMenuItem()
             {
-                Text = "分隔线 Divider",
+                Text = Localizer["Divider"],
                 Url = "dividers"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "布局组件 Layout",
+                Text = Localizer["Layout"],
                 Url = "layouts"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "页脚组件 Footer",
+                Text = Localizer["Footer"],
                 Url = "footers"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "滚动条 Scroll",
-                Url = "scrolls"
-            });
-            item.AddItem(new DemoMenuItem()
-            {
-                Text = "行组件 Row",
+                Text = Localizer["Row"],
                 Url = "rows"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "骨架屏 Skeleton",
+                Text = Localizer["Scroll"],
+                Url = "scrolls"
+            });
+            item.AddItem(new DemoMenuItem()
+            {
+                Text = Localizer["Skeleton"],
                 Url = "skeletons"
             });
             item.AddItem(new DemoMenuItem()
             {
-                Text = "分割面板 Split",
+                Text = Localizer["Split"],
                 Url = "splits"
             });
 

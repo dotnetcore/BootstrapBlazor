@@ -406,6 +406,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Download/Download.cs.min.js",
+    "inputFiles": [
+      "Components/Download/Download.cs.js"
+    ]
+  },
+  {
     "outputFileName": "Components/Drawer/Drawer.razor.cs.min.js",
     "inputFiles": [
       "Components/Drawer/Drawer.razor.cs.js"
@@ -570,6 +576,7 @@
       "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
       "Components/Dialog/EditDialog.razor.cs.min.js",
+      "Components/Download/Download.cs.min.js",
       "Components/Drawer/Drawer.razor.cs.min.js",
       "Components/Editor/Editor.razor.cs.min.js",
       "Components/GoTop/GoTop.razor.cs.min.js",

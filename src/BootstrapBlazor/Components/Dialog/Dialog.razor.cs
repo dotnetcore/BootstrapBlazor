@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            // 注册 Toast 弹窗事件
+            // 注册 Dialog 弹窗事件
             DialogService.Register(this, Show);
         }
 

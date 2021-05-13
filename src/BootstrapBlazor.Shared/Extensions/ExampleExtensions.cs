@@ -70,6 +70,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
             }
             catch (HttpRequestException) { content = "网络错误"; }
+            catch (TaskCanceledException) { }
             catch (Exception) { }
             return content;
         }

@@ -3,35 +3,48 @@
 <h3>Transfer 穿梭框</h3>
 
 <Block Title="基础用法" Introduction="">
-    <Transfer Items="@Items" ItemsChanged="@OnItemsChanged"
-              LeftPanelText="候选项列表" RightPanelText="已选项列表" />
-
+    <Transfer TValue="string" Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged" />
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="可自定义" Introduction="可以对列表标题文案、按钮文案、数据项的渲染函数、列表底部的勾选状态文案、列表底部的内容区等进行自定义。">
-    <Transfer Items="@Items"
+    <Transfer TValue="string" Items="@Items1"
               LeftPanelText="左侧列表" RightPanelText="右侧列表"
               LeftButtonText="到左边" RightButtonText="到右边" />
 </Block>
 
 <Block Title="可搜索" Introduction="在数据很多的情况下，可以对数据进行搜索和过滤。">
-    <Transfer Items="@Items"
+    <Transfer TValue="string" Items="@Items2"
               LeftPanelText="左侧列表" RightPanelText="右侧列表"
               LeftButtonText="到左边" RightButtonText="到右边"
               LeftPannelSearchPlaceHolderString="请输入" RightPannelSearchPlaceHolderString="请输入"
               ShowSearch="true" />
 </Block>
 
-<Block Title="双向绑定" Introduction="组件数据发生变化时，更新绑定数据源 <code>Items</code>">
-    <p>本例中 <code>Transfer</code> 组件双向绑定数据源 <code>Item1</code>，左右移动数据后，源集合中 <code>Active = false</code> 的为左侧面板中数据集合，<code>Active = true</code> 的为右侧面板中数据集合</p>
-    <Transfer @bind-Items="@Items1"
-              LeftPanelText="左侧列表" RightPanelText="右侧列表"
-              LeftButtonText="到左边" RightButtonText="到右边" />
+<Block Title="双向绑定" Introduction="组件数据发生变化时，双向绑定 <code>bind_Value</code> 值同步变化">
+    <p><code>Transfer</code> 组件为泛型组件，支持三种绑定类型 <code>string</code> <code>IEnumerable&lt;string&gt;</code> <code>IEnumerable&lt;SelectedItem&gt;</code> 本例中双向绑定 <code>SelectedValue</code> 类型为 <code>IEnumerable&lt;SelectedItem&gt;</code></p>
+    <Transfer Items="@Items3" @bind-Value="@SelectedValue" />
+    <div class="mb-3">Value：@string.Join(";", SelectedValue.Select(i => i.Text))</div>
+    <Button Text="增加" OnClick="@OnAddItem" />
+</Block>
+
+<Block Title="客户端验证" Introduction="组件数据发生变化时，双向绑定 <code>bind_Value</code> 值同步变化">
+    <p><code>Transfer</code> 组件内置于 <code>ValidateForm</code> 组件即开启客户端验证，本例中组件双向绑定 <code>Model.Hobby</code> 类型为 <code>IEnumerable&lt;string&gt;</code></p>
+    <ValidateForm Model="@Model" class="form-inline">
+        <div class="row">
+            <div class="form-group col-12 col-sm-8">
+                <Transfer Items="@Items5" @bind-Value="@Model.Hobby" />
+            </div>
+            <div class="form-group col-12 col-sm-4 align-items-end">
+                <Button ButtonType="ButtonType.Submit">提交</Button>
+            </div>
+        </div>
+    </ValidateForm>
+    <div>Hobby: @string.Join(",", Model.Hobby)</div>
 </Block>
 
 <Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
-    <Transfer Items="@Items" IsDisabled="true"
+    <Transfer TValue="string" Items="@Items4" IsDisabled="true"
               LeftPanelText="左侧列表" RightPanelText="右侧列表"
               LeftButtonText="到左边" RightButtonText="到右边"
               LeftPannelSearchPlaceHolderString="请输入" RightPannelSearchPlaceHolderString="请输入"

@@ -276,7 +276,7 @@ namespace BootstrapBlazor.Components
         /// <param name="memberName"></param>
         private void ValidateDataAnnotations(object? value, ValidationContext context, ICollection<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
         {
-            var rules = propertyInfo.GetCustomAttributes(true).Where(i => i.GetType().BaseType == typeof(ValidationAttribute)).Cast<ValidationAttribute>();
+            var rules = propertyInfo.GetCustomAttributes(true).Where(i => i.GetType().IsSubclassOf(typeof(ValidationAttribute))).Cast<ValidationAttribute>();
             var displayName = context.DisplayName;
             memberName ??= propertyInfo.Name;
             var attributeSpan = "Attribute".AsSpan();

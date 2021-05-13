@@ -469,6 +469,7 @@ namespace BootstrapBlazor.Components
             SelectedItems.Clear();
             SelectedItems.Add(item);
 
+            StateHasChanged();
             return Task.FromResult(true);
         };
     }

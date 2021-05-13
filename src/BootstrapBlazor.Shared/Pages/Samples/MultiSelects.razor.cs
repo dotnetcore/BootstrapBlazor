@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using Foo = BootstrapBlazor.Shared.Pages.Components.Foo;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -19,110 +18,61 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class MultiSelects
     {
-        /// <summary>
-        /// 获得/设置 Logger 实例
-        /// </summary>
+        [NotNull]
         private Logger? Trace { get; set; }
 
-        /// <summary>
-        /// 获得 默认数据集合
-        /// </summary>
-        private readonly IEnumerable<SelectedItem> Items = new SelectedItem[]
-        {
-            new SelectedItem ("Beijing", "北京"),
-            new SelectedItem ("Shanghai", "上海"),
-            new SelectedItem ("Guangzhou", "广州"),
-            new SelectedItem ("Shenzhen", "深圳"),
-            new SelectedItem ("Chengdu", "成都"),
-            new SelectedItem ("Wuhan", "武汉"),
-            new SelectedItem ("Dalian", "大连"),
-            new SelectedItem ("Hangzhou", "杭州"),
-            new SelectedItem ("Lianyungang", "连云港"),
-        };
-
-        /// <summary>
-        /// 获得 默认数据集合
-        /// </summary>
-        private readonly IEnumerable<SelectedItem> LongItems = new SelectedItem[]
-        {
-            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
-            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
-            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
-            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
-            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
-            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
-            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
-            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
-            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        };
-
-        /// <summary>
-        /// 获得 默认数据集合
-        /// </summary>
-        private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
-        {
-            new SelectedItem ("", "请选择 ..."),
-            new SelectedItem ("Beijing", "北京") { Active = true },
-            new SelectedItem ("Shanghai", "上海"),
-            new SelectedItem ("Hangzhou", "杭州")
-        };
-
-        private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
-
         [NotNull]
-        private MultiSelect<string>? Select1 { get; set; }
+        private Logger? Trace2 { get; set; }
 
         /// <summary>
         /// 级联绑定菜单
         /// </summary>
         /// <param name="item"></param>
-        private Task OnCascadeBindSelectClick(SelectedItem item)
+        private async Task OnCascadeBindSelectClick(SelectedItem item)
         {
-            Items2.Clear();
+            // 模拟异步获取数据源
+            await Task.Delay(100);
             if (item.Value == "Beijing")
             {
-                Items2.AddRange(new SelectedItem[]
+                Items2 = new List<SelectedItem>(new[]
                 {
-                    new SelectedItem("1","朝阳区"),
-                    new SelectedItem("2","海淀区"),
+                    new SelectedItem("1","朝阳区") { Active = true },
+                    new SelectedItem("2","海淀区")
                 });
             }
             else if (item.Value == "Shanghai")
             {
-                Items2.AddRange(new SelectedItem[]
+                Items2 = new List<SelectedItem>(new[]
                 {
                     new SelectedItem("1","静安区"),
-                    new SelectedItem("2","黄浦区"),
+                    new SelectedItem("2","黄浦区") {Active = true },
                 });
             }
-            Select1.SetItems(Items2);
-            return Task.CompletedTask;
+            else
+            {
+                Items2 = new List<SelectedItem>();
+            }
+            StateHasChanged();
         }
-
-        private string SelectedLongItemsValue { get; set; } = "";
-        private string SelectedMaxItemsValue { get; set; } = "";
-        private string SelectedMinItemsValue { get; set; } = "";
-
-        private string SelectedItemsValue { get; set; } = "Beijing,Chengdu";
 
         private void AddItems()
         {
-            SelectedItemsValue = "Beijing,Chengdu,Hangzhou,Lianyungang";
+            SelectedItemsValue = "Beijing,Shanghai,Guangzhou";
         }
 
         private void RemoveItems()
         {
-            SelectedItemsValue = "Beijing,Chengdu";
+            SelectedItemsValue = "Beijing";
         }
 
         private void AddListItems()
         {
-            SelectedArrayValues = "Beijing,Chengdu,Hangzhou,Lianyungang".Split(',');
+            SelectedArrayValues = "Beijing,Shanghai".Split(',');
         }
 
         private void RemoveListItems()
         {
-            SelectedArrayValues = "Beijing,Chengdu".Split(',');
+            SelectedArrayValues = new[] { "Beijing" };
         }
 
         private void AddArrayItems()
@@ -141,12 +91,19 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<SelectedItem> OnSearch(string searchText)
         {
+            Trace.Log($"搜索文字：{searchText}");
             return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
         }
 
         private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
         {
-            Trace?.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
+            Trace.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)
+        {
+            Trace2.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
             return Task.CompletedTask;
         }
 
@@ -159,11 +116,173 @@ namespace BootstrapBlazor.Shared.Pages
 
         }
 
+        private string SelectedLongItemsValue1 { get; set; } = "";
+        private string SelectedLongItemsValue2 { get; set; } = "";
+        private string SelectedLongItemsValue3 { get; set; } = "";
+        private string SelectedMaxItemsValue { get; set; } = "";
+        private string SelectedMinItemsValue { get; set; } = "";
+
+        private string SelectedItemsValue { get; set; } = "Beijing";
+
+        private string SelectedItemsValue6 { get; set; } = "Beijing";
+
+        private string SelectedItemsValue7 { get; set; } = "Beijing";
+
+        private string SelectedItemsValue8 { get; set; } = "Beijing";
+
+        private IEnumerable<SelectedItem> Items { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州"),
+            new SelectedItem ("Shenzhen", "深圳"),
+            new SelectedItem ("Chengdu", "成都"),
+            new SelectedItem ("Wuhan", "武汉"),
+            new SelectedItem ("Dalian", "大连"),
+            new SelectedItem ("Hangzhou", "杭州"),
+            new SelectedItem ("Lianyungang", "连云港")
+        };
+
+        private List<SelectedItem> Items2 { get; set; } = new List<SelectedItem>();
+
+        private readonly List<SelectedItem> Items3 = new SelectedItem[]
+        {
+            new SelectedItem ("", "请选择 ..."),
+            new SelectedItem ("Beijing", "北京") { Active = true },
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Hangzhou", "杭州")
+        }.ToList();
+
+        private IEnumerable<SelectedItem> Items4 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> Items5 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> Items6 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> Items7 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> Items8 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> Items9 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> Items10 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> Items11 { get; set; } = new[] {
+            new SelectedItem ("Beijing", "北京"),
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Guangzhou", "广州")
+        };
+
+        private IEnumerable<SelectedItem> LongItems { get; set; } = new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        };
+
+        private IEnumerable<SelectedItem> LongItems1 { get; set; } = new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        };
+
+        private IEnumerable<SelectedItem> LongItems2 { get; set; } = new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        };
+
+        private IEnumerable<SelectedItem> LongItems3 { get; set; } = new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        };
+
+        private IEnumerable<SelectedItem> LongItems4 { get; set; } = new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        };
+
+        private IEnumerable<SelectedItem> LongItems5 { get; set; } = new[]
+        {
+            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
+        };
+
         /// <summary>
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new[]
         {
             new EventItem()
             {
@@ -183,7 +302,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

@@ -2,3 +2,16 @@
 .collapse-group .collapsing {
     margin-top: 1rem;
 }
+
+.card-header.bg-primary .btn-link,
+.card-header.bg-primary .btn-link + i,
+.card-header.bg-info .btn-link,
+.card-header.bg-info .btn-link + i,
+.card-header.bg-success .btn-link,
+.card-header.bg-success .btn-link + i,
+.card-header.bg-warning .btn-link,
+.card-header.bg-warning .btn-link + i,
+.card-header.bg-danger .btn-link,
+.card-header.bg-danger .btn-link + i {
+    color: #fff;
+}

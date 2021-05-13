@@ -388,20 +388,26 @@ namespace BootstrapBlazor.Components
             return Task.CompletedTask;
         }
 
+        private void OnClickCloseAllTabs() => _items.RemoveAll(t => t.Closable);
+
         /// <summary>
         /// 关闭所有标签页方法
         /// </summary>
         public void CloseAllTabs()
         {
-            _items.RemoveAll(t => t.Closable);
+            OnClickCloseAllTabs();
+            StateHasChanged();
         }
+
+        private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t.Closable && !t.IsActive);
 
         /// <summary>
         /// 关闭其他标签页方法
         /// </summary>
         public void CloseOtherTabs()
         {
-            _items.RemoveAll(t => t.Closable && !t.IsActive);
+            OnClickCloseOtherTabs();
+            StateHasChanged();
         }
 
         /// <summary>

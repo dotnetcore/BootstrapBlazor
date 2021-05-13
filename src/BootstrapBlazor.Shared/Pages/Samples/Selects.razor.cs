@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -34,7 +35,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 获得 默认数据集合
         /// </summary>
-        private readonly IEnumerable<SelectedItem> Items = new[]
+        private IEnumerable<SelectedItem> Items { get; set; } = new[]
         {
             new SelectedItem ("Beijing", "北京"),
             new SelectedItem ("Shanghai", "上海") { Active = true },
@@ -102,36 +103,39 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnItemChanged(SelectedItem item)
         {
             Trace?.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
+            StateHasChanged();
             return Task.CompletedTask;
         }
-
-        private Select<string>? Select2 { get; set; }
 
         /// <summary>
         /// 级联绑定菜单
         /// </summary>
         /// <param name="item"></param>
-        private Task OnCascadeBindSelectClick(SelectedItem item)
+        private async Task OnCascadeBindSelectClick(SelectedItem item)
         {
-            _item2.Clear();
+            // 模拟异步通讯切换线程
+            await Task.Delay(10);
             if (item.Value == "Beijing")
             {
-                _item2.AddRange(new SelectedItem[]
+                Items2 = new SelectedItem[]
                 {
-                    new SelectedItem("1","朝阳区"),
+                    new SelectedItem("1","朝阳区") { Active = true},
                     new SelectedItem("2","海淀区"),
-                });
+                };
             }
             else if (item.Value == "Shanghai")
             {
-                _item2.AddRange(new SelectedItem[]
+                Items2 = new SelectedItem[]
                 {
                     new SelectedItem("1","静安区"),
-                    new SelectedItem("2","黄浦区"),
-                });
+                    new SelectedItem("2","黄浦区") { Active = true } ,
+                };
             }
-            Select2?.SetItems(_item2);
-            return Task.CompletedTask;
+            else
+            {
+                Items2 = Enumerable.Empty<SelectedItem>();
+            }
+            StateHasChanged();
         }
 
         private Task OnShowDialog() => Dialog.Show(new DialogOption()
@@ -140,9 +144,7 @@ namespace BootstrapBlazor.Shared.Pages
             Component = BootstrapDynamicComponent.CreateComponent<CustomerSelectDialog>()
         });
 
-        private readonly List<SelectedItem> _item2 = new();
-
-        private IEnumerable<SelectedItem> Items2 => _item2;
+        private IEnumerable<SelectedItem>? Items2 { get; set; }
 
         private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
         {

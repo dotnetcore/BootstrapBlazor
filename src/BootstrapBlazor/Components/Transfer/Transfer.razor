@@ -1,23 +1,28 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TransferBase
+@typeparam TValue
+@inherits ValidateBase<TValue>
 
+@if (IsShowLabel)
+{
+    <label class="control-label" required="@Required">@DisplayText</label>
+}
 <div @attributes="@AdditionalAttributes" class="transfer">
-    <TransferPanel @ref="LeftPanel" Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
+    <TransferPanel Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPannelSearchPlaceHolderString"
-                   OnSelectedItemsChanged="@OnSelectedItemsChanged">
+                   OnSelectedItemsChanged="@SelectedItemsChanged">
     </TransferPanel>
     <div class="transfer-buttons">
-        <button class="btn btn-primary" disabled="@GetButtonState(RightItems)" @onclick="e => Transfer(RightItems, LeftItems)">
+        <Button class="btn btn-primary" IsDisabled="@GetButtonState(RightItems)" OnClickWithoutRender="() => TransferItems(RightItems, LeftItems)">
             <i class="fa fa-angle-left"></i>
             <span class="@LeftButtonClassName">@LeftButtonText</span>
-        </button>
-        <button class="btn btn-primary" disabled="@GetButtonState(LeftItems)" @onclick="e => Transfer(LeftItems, RightItems)">
+        </Button>
+        <Button class="btn btn-primary" IsDisabled="@GetButtonState(LeftItems)" OnClickWithoutRender="() => TransferItems(LeftItems, RightItems)">
             <span class="@RightButtonClassName">@RightButtonText</span>
             <i class="fa fa-angle-right"></i>
-        </button>
+        </Button>
     </div>
-    <TransferPanel @ref="RightPanel" Items="@RightItems" Text="@RightPanelText" IsDisabled="@IsDisabled"
+    <TransferPanel Items="@RightItems" Text="@RightPanelText" IsDisabled="@IsDisabled" class="@ValidateClass" Id="@Id"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPannelSearchPlaceHolderString"
-                   OnSelectedItemsChanged="@OnSelectedItemsChanged">
+                   OnSelectedItemsChanged="@SelectedItemsChanged">
     </TransferPanel>
 </div>
