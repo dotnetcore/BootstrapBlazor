@@ -210,10 +210,14 @@
         box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);
     }
 
-        .layout.is-page .layout-side.is-collapsed,
-        .layout.is-page .layout-side .menu.is-vertical.is-collapsed {
-            width: 70px;
+        .layout.is-page .layout-side:not(:hover) .menu.is-vertical {
+            width: 100%;
         }
+
+            .layout.is-page .layout-side.is-collapsed:not(:hover),
+            .layout.is-page .layout-side:not(:hover) .menu.is-vertical.is-collapsed {
+                width: 70px;
+            }
 
         .layout.is-page .layout-side.is-fixed-header {
             position: sticky;
@@ -288,17 +292,6 @@
 
     .layout.is-page .layout-footer.is-collapsed {
         display: flex;
-    }
-
-    .layout.is-page .layout-menu .menu.is-vertical .nav-link:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        opacity: 0;
-        transition: background-color .3s linear, opacity .3s linear;
     }
 
     .layout.is-page .layout-menu .menu.is-vertical.is-collapsed .nav-link.active::before {

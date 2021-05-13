@@ -1,6 +1,7 @@
 ﻿(function ($) {
     $.extend({
         bb_side_menu_collapsed: function (el) {
+            if ($(window).width() < 768) return;
             var $el = $(el);
             if ($el.hasClass('is-collapsed')) {
                 $el.find('.collapse').each(function (index, ele) {
