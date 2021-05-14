@@ -38,6 +38,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 选择项是否 Active 回调委托
         /// </summary>
         [Parameter]
-        public Func<string, CascaderItem, string?> ActiveItem {get; set;} = (className, _) => CssBuilder.Default(className).Build();
+        public Func<string, CascaderItem, string?> ActiveItem { get; set; } = (className, _) => CssBuilder.Default(className).Build();
     }
 }

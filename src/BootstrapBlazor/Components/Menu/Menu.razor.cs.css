@@ -24,7 +24,8 @@
         transition: width .3s linear, left .3s linear;
     }
 
-.menu .nav .nav-link {
+.menu .nav .nav-link,
+.cascade .dropdown-item {
     padding: 0.5rem 1rem;
     color: rgba(0,0,0,.65);
     user-select: none;
@@ -37,7 +38,8 @@
         color: #1890ff;
     }
 
-.menu .nav .dropdown-menu {
+.menu .nav .dropdown-menu,
+.cascade .dropdown-menu {
     overflow: unset;
     max-height: unset;
     margin-top: 10px;
@@ -46,12 +48,17 @@
     .menu .nav .dropdown-menu .nav-link:hover,
     .menu .nav .dropdown-menu .nav-link.active,
     .menu .submenu .nav-link.active,
-    .menu .submenu .nav-link:hover {
+    .menu .submenu .nav-link:hover,
+    .cascade .dropdown-item:hover,
+    .cascade .dropdown-item.active,
+    .cascade .nav .nav-link:hover,
+    .cascade .nav .nav-link.active {
         background-color: #60aff9;
         color: #16181b;
     }
 
-.menu .nav .sub-menu {
+.menu .nav .sub-menu,
+.cascade .has-leaf .sub-menu {
     display: none;
     background-color: #fff;
     white-space: nowrap;
@@ -65,11 +72,13 @@
 }
 
 .menu .nav .dropdown-menu,
-.menu .nav .sub-menu {
+.menu .nav .sub-menu,
+.cascade .sub-menu {
     width: 160px;
 }
 
-.menu .nav .nav-link:hover > .sub-menu {
+.menu .nav .nav-link:hover > .sub-menu,
+.cascade .dropdown-item:hover > .sub-menu {
     display: block;
 }
 
@@ -112,7 +121,8 @@
     margin-left: 4px;
 }
 
-.menu .nav .dropdown-toggle[aria-expanded="true"] + .dropdown-menu-arrow {
+.menu .nav .dropdown-toggle[aria-expanded="true"] + .dropdown-menu-arrow,
+.cascade .show .dropdown-menu-arrow {
     display: block;
 }
 
@@ -164,6 +174,15 @@
         .menu .submenu .nav-link .widget {
             margin: 0 4px;
         }
+
+.cascade .dropdown-menu {
+    right: 0;
+}
+
+.cascade .sub-menu {
+    display: none;
+}
+
 
 @media (min-width: 768px) {
     .layout-side.is-collapsed:not(:hover) .menu.is-collapsed {
