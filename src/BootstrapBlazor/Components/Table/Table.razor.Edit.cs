@@ -224,6 +224,9 @@ namespace BootstrapBlazor.Components
                 }
 
                 await OnSelectedRowsChanged();
+
+                // 更新 设置选中状态
+                StateHasChanged();
             }
 
             if (OnClickRowCallback != null)
