@@ -35,6 +35,7 @@ namespace BootstrapBlazor.Components
         protected string? WrapperClassName => CssBuilder.Default()
             .AddClass("table-bordered", IsBordered)
             .AddClass("table-striped table-hover", IsStriped)
+            .AddClass("border-dark", HeaderStyle == TableHeaderStyle.Dark)
             .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
             .AddClass("table-scroll", !Height.HasValue)
             .AddClass("table-fixed", Height.HasValue)
