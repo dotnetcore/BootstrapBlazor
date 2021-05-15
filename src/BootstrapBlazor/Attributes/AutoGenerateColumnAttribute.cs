@@ -88,27 +88,29 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 编辑模板
         /// </summary>
-        public RenderFragment<object>? EditTemplate { get; set; }
+        RenderFragment<object>? IEditorItem.EditTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 组件类型 默认为 null
         /// </summary>
         public Type? ComponentType { get; set; }
 
+        RenderFragment<object>? ITableColumn.Template { get => Template; }
+
         /// <summary>
         /// 获得/设置 显示模板
         /// </summary>
-        public RenderFragment<object>? Template { get; set; }
+        internal RenderFragment<object>? Template { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索模板
         /// </summary>
-        public RenderFragment<object>? SearchTemplate { get; set; }
+        RenderFragment<object>? ITableColumn.SearchTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 过滤模板
         /// </summary>
-        public RenderFragment? FilterTemplate { get; set; }
+        RenderFragment? ITableColumn.FilterTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 步长 默认为 1
