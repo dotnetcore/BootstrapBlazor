@@ -18,5 +18,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示 默认为 true
         /// </summary>
         public bool Display { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否合并 默认为 false
+        /// </summary>
+        public bool Stacked { get; set; }
     }
 }

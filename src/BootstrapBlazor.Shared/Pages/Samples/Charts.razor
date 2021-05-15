@@ -50,7 +50,7 @@
     <Chart ChartType="ChartType.Bar" OnInit="@(() => OnInit(BarDatasetCount, BarDataCount))" @ref="BarChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
-            <button class="btn btn-info" data-method="play" @onclick="@OnPlayChart">
+            <button class="btn btn-info" data-method="play" @onclick="e=>OnPlayChart(BarChart)">
                 <i class="fa fa-play-circle"></i>
                 <span>开启动画</span>
             </button>
@@ -67,6 +67,31 @@
             <button class="btn btn-primary" @onclick="e => RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
             <button class="btn btn-primary" @onclick="e => AddData(BarChart, ref BarDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
             <button class="btn btn-primary" @onclick="e => RemoveData(BarChart, ref BarDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => SwitchStacked(BarChart)"><i class="fa fa-signal"></i><span>合并显示</span></button>
+        </div>
+    </div>
+
+    <Chart ChartType="ChartType.Bar" OnInit="@(() => OnInit(BarDatasetCount, BarDataCount,true))" @ref="BarChartStacked" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-info" data-method="play" @onclick="e=>OnPlayChart(BarChartStacked)">
+                <i class="fa fa-play-circle"></i>
+                <span>开启动画</span>
+            </button>
+            <button class="btn btn-info" data-method="stop" @onclick="@OnStopChart">
+                <i class="fa fa-stop-circle"></i>
+                <span>关闭动画</span>
+            </button>
+        </div>
+    </div>
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => RandomData(BarChartStacked)"><i class="fa fa-bar-chart"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => AddDataSet(BarChartStacked, ref BarDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveDataSet(BarChartStacked, ref BarDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => AddData(BarChartStacked, ref BarDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => RemoveData(BarChartStacked, ref BarDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+            <button class="btn btn-primary" @onclick="e => SwitchStacked(BarChartStacked)"><i class="fa fa-signal"></i><span>合并显示</span></button>
         </div>
     </div>
 </Block>

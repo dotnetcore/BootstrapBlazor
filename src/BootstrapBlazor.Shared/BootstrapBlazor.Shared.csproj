@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.Chart" Version="5.0.16" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="5.0.16" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="5.0.16" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
@@ -25,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Chart\BootstrapBlazor.Chart.csproj" />
   </ItemGroup>
 
 </Project>

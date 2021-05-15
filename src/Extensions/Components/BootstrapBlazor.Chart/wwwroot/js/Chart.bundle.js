@@ -4975,7 +4975,7 @@ var controller_bar = core_datasetController.extend({
 		var me = this;
 		var scale = me._getIndexScale();
 		var metasets = scale._getMatchingVisibleMetas(me._type);
-		var stacked = scale.options.stacked;
+        var stacked = scale.options.scaleLabel.stacked;//scale.options.stacked;
 		var ilen = metasets.length;
 		var stacks = [];
 		var i, meta;

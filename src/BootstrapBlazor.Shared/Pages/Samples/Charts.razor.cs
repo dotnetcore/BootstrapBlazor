@@ -35,6 +35,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Chart? LineChart { get; set; }
 
         private Chart? BarChart { get; set; }
+        private Chart? BarChartStacked { get; set; }
 
         private Chart? PieChart { get; set; }
 
@@ -44,6 +45,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private bool IsCricle { get; set; }
 
+        /// <summary>
+        /// 是否合并Bar显示
+        /// </summary>
+        private bool IsStacked { get; set; }
         private IEnumerable<string> Colors { get; set; } = new List<string>() { "Red", "Blue", "Green", "Orange", "Yellow", "Tomato", "Pink", "Violet" };
 
         /// <summary>
@@ -61,11 +66,16 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        private Task<ChartDataSource> OnInit(int dsCount, int daCount)
+        private Task<ChartDataSource> OnInit(int dsCount, int daCount, bool? isStacked=null)
         {
             var ds = new ChartDataSource();
-            ds.Options.XAxes.Add(new ChartAxes() { LabelString = "天数" });
-            ds.Options.YAxes.Add(new ChartAxes() { LabelString = "数值" });
+            IsStacked = isStacked ?? IsStacked;
+            if (IsStacked)
+            {
+                ds.Options.Title.Text = "合并Bar";
+            }
+            ds.Options.XAxes.Add(new ChartAxes() { LabelString = "天数" , Stacked = IsStacked });
+            ds.Options.YAxes.Add(new ChartAxes() { LabelString = "数值" , Stacked = IsStacked });
 
             ds.Labels = Enumerable.Range(1, daCount).Select(i => i.ToString());
 
@@ -82,7 +92,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private CancellationTokenSource _chartCancellationTokenSource = new CancellationTokenSource();
 
-        private Task OnPlayChart()
+        private Task OnPlayChart(Chart? chart)
         {
             _chartCancellationTokenSource = new CancellationTokenSource();
             return Task.Run(async () =>
@@ -90,7 +100,7 @@ namespace BootstrapBlazor.Shared.Pages
                 while (!_chartCancellationTokenSource.IsCancellationRequested)
                 {
                     await Task.Delay(800, _chartCancellationTokenSource.Token);
-                    if (!_chartCancellationTokenSource.IsCancellationRequested) RandomData(BarChart);
+                    if (!_chartCancellationTokenSource.IsCancellationRequested) RandomData(chart);
                 }
             });
         }
@@ -147,6 +157,14 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void RandomData(Chart? chart)
         {
+            chart?.Update();
+        }
+
+        //TODO : 搞不定重新初始化控件外观,请张老板出手,例如 OnInit 改了 ds.Options.Title.Text = "合并Bar", chart?.Update()方法是不会刷新控件Title的
+        private void SwitchStacked(Chart? chart)
+        {
+            IsStacked = !IsStacked;
+            //StateHasChanged();
             chart?.Update();
         }
 
