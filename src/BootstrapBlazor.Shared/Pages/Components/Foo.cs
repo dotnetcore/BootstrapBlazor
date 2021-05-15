@@ -34,6 +34,14 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Display(Name = "姓名")]
         public string? Name { get; set; }
 
+
+        /// <summary>
+        ///
+        /// </summary>
+        [AutoGenerateColumn(Visible =false, Order = 11, ComponentType = typeof(PasswordBox<string>))]
+        [Display(Name = "密码")]
+        public string? Password { get; set; } = "1234";
+
         /// <summary>
         ///
         /// </summary>

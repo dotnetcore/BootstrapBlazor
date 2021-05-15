@@ -70,7 +70,15 @@
 <Block Title="密码框" Introduction="通过设置属性 <code>type</code> 值为 <code>password</code> 使输入文字后以 <code>*</code> 进行屏蔽的密码输入框">
     <p>为了支持更多的文本框属性本组件可以直接写入 <code>type="email"</code> <code>type="number"</code> <code>type="phone"</code> 等 <code>html5</code> 新标准支持的全部属性值，组件未设置 <code>type</code> 值时使用默认的 <code>type="text"</code></p>
     <BootstrapInput TValue="string" placeholder="@PlaceHolderText" type="password" maxlength="5" style="width: 200px;" />
+    <br />
+    <p>
+        密码框控件<code>PasswordBox</code>,用于自动生成列 <code>[AutoGenerateColumn(Order = 10, ComponentType = typeof(PasswordBox&lt;T&gt;))]</code>
+    </p>
+    <PasswordBox @bind-Value="@Model.Password" />
+    <br />
+    <a href="/tables/edit"><Badge Color="Color.Info">例子:表单维护,注入服务,编辑某一行数据</Badge></a>
 </Block>
+
 
 <Block Title="泛型绑定" Introduction="<code>BootstrapInput</code> 组件双向绑定值是泛型的，本例中双向绑定一个 int 类型数值">
     <div class="form-inline">
@@ -116,5 +124,6 @@
         </div>
     </div>
 </Block>
+
 
 <AttributeTable Items="@GetAttributes()" />
