@@ -56,3 +56,23 @@
         </TableColumns>
     </Table>
 </Block>
+
+<Block Title="自定义单元格内排版" Introduction="使用模板对单元格内数据进行特殊布局">
+    <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" AllowResizing="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
+            <TableColumn @bind-Field="@context.Name" Text="姓名" />
+            <TableColumn @bind-Field="@context.Address" Text="地址" Width="200" TextEllipsis="true" ShowTips="true" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)">
+                <Template Context="v">
+                    <div>
+                        <div>状态:@v.Value</div>
+                        <div>时间:@((v.Row as Foo)!.DateTime)</div>
+                    </div>
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</Block>
