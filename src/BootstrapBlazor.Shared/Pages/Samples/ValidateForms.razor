@@ -16,10 +16,12 @@
     </ul>
     <p>注意事项：</p>
     <ul class="ul-demo">
-        <li>表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code> 方法被调用，即其所在组件或者页面进行刷新重新渲染</li>
+        <li>表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code>
+            方法被调用，即其所在组件或者页面进行刷新重新渲染</li>
     </ul>
     <div class="form-demo">
-        <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1" OnValidSubmit="@OnValidSubmit1">
+        <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1"
+            OnValidSubmit="@OnValidSubmit1">
             <div class="row">
                 <div class="form-group col-12">
                     <BootstrapInput @bind-Value="@Model.Name" />
@@ -45,7 +47,8 @@
             <li>爱好为集合类型</li>
         </ul>
         <p>本例中通过设置 <b>提交按钮</b> 属性 <code>IsAsync</code> 来异步提交表单，点击提交后禁用自身，异步操作完毕后恢复</p>
-        <ValidateForm class="form-inline" Model="@Model" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+        <ValidateForm class="form-inline" Model="@Model" OnValidSubmit="@OnValidSubmit"
+            OnInvalidSubmit="@OnInvalidSubmit">
             <div class="row">
                 <div class="form-group col-12 col-sm-6">
                     <BootstrapInput @bind-Value="@Model.Name" />
@@ -74,7 +77,8 @@
 <Block Title="自定义显示错误信息" Introduction="通过调用 <code>SetError</code> 方法设置自定义错误信息">
     <p>
         <b>应用场景</b>
-        <div>客户端验证通过后进行数据库保存操作，如果出现其他问题，后仍然可以进行表单自定义错误提示，本例中数据验证合法后，点击 <code>提交表单</code> 按钮后，姓名字段会显示 <code>数据库中已存在</code> 这样的自定义提示信息</div>
+    <div>客户端验证通过后进行数据库保存操作，如果出现其他问题，后仍然可以进行表单自定义错误提示，本例中数据验证合法后，点击 <code>提交表单</code> 按钮后，姓名字段会显示 <code>数据库中已存在</code>
+        这样的自定义提示信息</div>
     </p>
     <ValidateForm class="form-inline" @ref="FooForm" Model="@Model" OnValidSubmit="@OnValidSetError">
         <div class="row">
@@ -101,8 +105,10 @@
 </Block>
 
 <Block Title="验证所有字段值" Introduction="此组件默认检查表单内模型绑定字段值，如需要检查模型所有字段值时设置 <code>ValidateAllProperties</code> 值">
-    <p>本例中未放置 <code>Address</code>，由于设置 <code>ValidateAllProperties</code> 参数值为 <code>true</code>，所以 <code>Address</code> 字段仍然被检查，及时表单内所有数据均合法后，提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托</p>
-    <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmitAddress" ValidateAllProperties="true">
+    <p>本例中未放置 <code>Address</code>，由于设置 <code>ValidateAllProperties</code> 参数值为 <code>true</code>，所以
+        <code>Address</code> 字段仍然被检查，及时表单内所有数据均合法后，提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托</p>
+    <ValidateForm class="form-inline" Model="@Model" OnInvalidSubmit="@OnInvalidSubmitAddress"
+        ValidateAllProperties="true">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
                 <BootstrapInput @bind-Value="@Model.Name" />
@@ -128,9 +134,11 @@
 </Block>
 
 <Block Title="复杂类型支持" Introduction="支持任意复杂类型的绑定与验证">
-    <p>本示例中第二个绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用 <code>SetError</code> 再次显示错误提示</p>
+    <p>本示例中第二个绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用
+        <code>SetError</code> 再次显示错误提示</p>
     <Pre>ComplexForm.SetError("Dummy.Dummy2.Name", "数据库中已存在");</Pre>
-    <ValidateForm class="form-inline" @ref="ComplexForm" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel" OnValidSubmit="@OnValidComplexModel">
+    <ValidateForm class="form-inline" @ref="ComplexForm" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel"
+        OnValidSubmit="@OnValidComplexModel">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
                 <BootstrapInput @bind-Value="@ComplexModel.Name" />
@@ -147,8 +155,10 @@
 </Block>
 
 <Block Title="动态调整表单内组件" Introduction="通过代码更改表单内组件，验证表单仍然可以正确的进行验证">
-    <p>点击 <b>更改组件</b> 按钮后 <code>地址</code> 组件变更为 <code>数量</code> 组件，<b>重置组件</b> 按钮恢复，<code>姓名</code> <code>地址</code> 组件为必填项，<code>数量</code> 组件有默认值 <code>0</code> 所以可以通过数据检查</p>
-    <ValidateForm class="form-inline" Model="@DynamicModel" OnInvalidSubmit="@OnInvalidDynamicModel" OnValidSubmit="@OnValidDynamicModel">
+    <p>点击 <b>更改组件</b> 按钮后 <code>地址</code> 组件变更为 <code>数量</code> 组件，<b>重置组件</b> 按钮恢复，<code>姓名</code> <code>地址</code>
+        组件为必填项，<code>数量</code> 组件有默认值 <code>0</code> 所以可以通过数据检查</p>
+    <ValidateForm class="form-inline" Model="@DynamicModel" OnInvalidSubmit="@OnInvalidDynamicModel"
+        OnValidSubmit="@OnValidDynamicModel">
         <div class="row">
             <div class="form-group col-12 col-sm-6">
                 <BootstrapInput @bind-Value="@DynamicModel.Name" />
@@ -171,6 +181,24 @@
         </div>
     </ValidateForm>
     <Logger @ref="Trace5" class="mt-3" />
+</Block>
+
+<Block Title="表单内设置组件标签右对齐" Introduction="通过样式统一设置全站或者特定表单内标签对齐方式">
+    <p>由于 <code>Bootstrap</code> 栅格系统右对齐后可能导致小屏幕下右对齐很丑的问题，请自行解决，拷贝下面 <code>is-right</code> 样式到自己项目样式表中，<code>ValidateForm</code> 自行添加 <code>class="is-right"</code> 即可</p>
+    <Pre>.is-right {
+    text-align: right;        
+}</Pre>
+    <div class="form-demo">
+        <GroupBox Title="右对齐标签示例" style="margin-top: 1.5rem;">
+            <ValidateForm Model="@Model" class="is-right">
+                <EditorForm Model="@Model" ItemsPerRow="2">
+                    <FieldItems>
+                        <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+                    </FieldItems>
+                </EditorForm>
+            </ValidateForm>
+        </GroupBox>
+    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
