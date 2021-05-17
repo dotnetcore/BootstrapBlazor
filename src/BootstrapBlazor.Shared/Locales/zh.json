@@ -252,7 +252,8 @@
     "TableTree": "树形数据",
     "TableLaoding": "数据加载",
     "MenuAccordion": "手风琴效果",
-    "MenuExpandAll": "全部展开"
+    "MenuExpandAll": "全部展开",
+    "Empty": "空状态 Empty"
   },
   "BootstrapBlazor.Shared.Pages.Menus": {
     "System": "系统设置",
@@ -280,5 +281,9 @@
     "SubMenu32": "曾孙菜单 32",
     "SubMenu41": "曾曾孙菜单 41",
     "SubMenu42": "曾曾孙菜单 42"
+  },
+  "BootstrapBlazor.Shared.Pages.Emptys": {
+    "Title": "Empty 空状态",
+    "subTitle": "空状态时的展示占位图"
   }
 }

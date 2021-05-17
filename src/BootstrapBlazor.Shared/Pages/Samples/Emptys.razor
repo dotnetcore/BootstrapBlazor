@@ -1,0 +1,25 @@
+﻿@page "/empty"
+@namespace BootstrapBlazor.Shared.Pages
+@inject NavigationManager NavigationManager
+
+<h3>@Title</h3>
+<h4>@subTitle</h4>
+
+<Block Title="基本用法" Introduction="添加 <code>Empty</code> 标签即可">
+  <Empty />
+</Block>
+
+<Block Title="自定义空状态图片路径" Introduction="设置 <code>Image</code> 属性替换默认图片">
+  <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Width="133" Description="暂无数据" />
+</Block>
+
+<Block Title="自定义空状态模板" Introduction="内套 <code>Telemplate</code> 标签渲染自定义组件">
+  <Empty>
+    <Telemplate>
+      <Button OnClick='(()=>NavigationManager.NavigateTo("components"))'>返回上一页</Button>
+    </Telemplate>
+  </Empty>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />
+

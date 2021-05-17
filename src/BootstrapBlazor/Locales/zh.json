@@ -263,5 +263,8 @@
     "BrowserButtonText": "浏览",
     "FileExtensions": "文件扩展名必须为以下几种格式: {0}",
     "FileSizeValidation": "文件太大，文件限制大小为 {0}"
+  },
+  "BootstrapBlazor.Components.Empty": {
+    "Description": "暂无描述"
   }
 }

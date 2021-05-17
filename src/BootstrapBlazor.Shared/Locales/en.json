@@ -252,7 +252,8 @@
     "TableTree": "Table-Tree",
     "TableLaoding": "Table-Loading",
     "MenuAccordion": "Accordion",
-    "MenuExpandAll": "Expand"
+    "MenuExpandAll": "Expand",
+    "Empty": "Empty"
   },
   "BootstrapBlazor.Shared.Pages.Menus": {
     "System": "System",
@@ -280,5 +281,8 @@
     "SubMenu32": "Sub Menu 32",
     "SubMenu41": "Sub Menu 41",
     "SubMenu42": "Sub Menu 42"
+  },
+  "BootstrapBlazor.Shared.Pages.Empty": {
+
   }
 }

@@ -749,6 +749,11 @@ namespace BootstrapBlazor.Shared.Shared
                 {
                     Text = Localizer["Split"],
                     Url = "splits"
+                },
+                new ()
+                {
+                    Text=Localizer["Empty"],
+                    Url = "empty"
                 }
             };
             AddBadge(item);

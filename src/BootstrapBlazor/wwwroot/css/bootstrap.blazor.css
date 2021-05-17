@@ -1518,3 +1518,36 @@ form .control-label[required]:before {
     background-image: none;
 }
 /* end */
+/* end */
+.empty {
+    width:100%;
+    font-size: 14px;
+    line-height: 1.5715;
+    text-align: center;
+}
+
+.empty-image {
+   height: 100px;
+   margin-bottom: 8px;
+}
+
+.empty-image svg {
+  height: 100%;
+  margin: auto;
+
+}
+
+.empty-description {
+  margin:3px 0 0 0 ;
+}
+
+.empty-telemplate {
+ margin: 5px 0 0 0;
+}
+
+.transfer-panel-empty {
+ position:absolute;
+ top:35%;
+ width:100%;
+}
+
