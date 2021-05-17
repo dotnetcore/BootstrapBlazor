@@ -1510,3 +1510,11 @@ form .control-label[required]:before {
     content: "*";
     color: red;
 }
+
+/* form-control */
+.form-control.is-valid[type="number"],
+.form-control.is-invalid[type="number"] {
+    padding-right: .75rem;
+    background-image: none;
+}
+/* end */
