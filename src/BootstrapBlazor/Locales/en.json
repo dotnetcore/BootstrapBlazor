@@ -29,9 +29,11 @@
     "NotFoundDevicesString": "Not found video device"
   },
   "BootstrapBlazor.Components.Calendar": {
+    "PreviousYear": "Previous Year",
     "PreviousMonth": "Previous Month",
     "Today": "Today",
     "NextMonth": "Next Month",
+    "NextYear": "Next Year",
     "PreviousWeek": "Previous Week",
     "WeekText": "Week",
     "NextWeek": "Next Week",

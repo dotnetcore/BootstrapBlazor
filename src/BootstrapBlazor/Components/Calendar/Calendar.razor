@@ -8,6 +8,9 @@
             <div class="calendar-title">@GetTitle()</div>
             <div class="calendar-button-group">
                 <div class="btn-group">
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeYear(-1)">
+                        <span>@PreviousYear</span>
+                    </button>
                     <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(-1)">
                         <span>@PreviousMonth</span>
                     </button>
@@ -16,6 +19,9 @@
                     </button>
                     <button type="button" class="btn btn-sm" @onclick="e => OnChangeMonth(1)">
                         <span>@NextMonth</span>
+                    </button>
+                    <button type="button" class="btn btn-sm" @onclick="e => OnChangeYear(1)">
+                        <span>@NextYear</span>
                     </button>
                 </div>
             </div>

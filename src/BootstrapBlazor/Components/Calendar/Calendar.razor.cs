@@ -17,6 +17,12 @@ namespace BootstrapBlazor.Components
     public sealed partial class Calendar
     {
         [NotNull]
+        private string? PreviousYear { get; set; }
+
+        [NotNull]
+        private string? NextYear { get; set; }
+
+        [NotNull]
         private string? PreviousMonth { get; set; }
 
         [NotNull]
@@ -65,6 +71,8 @@ namespace BootstrapBlazor.Components
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+            PreviousYear = Localizer[nameof(PreviousYear)];
+            NextYear = Localizer[nameof(NextYear)];
             PreviousMonth = Localizer[nameof(PreviousMonth)];
             NextMonth = Localizer[nameof(NextMonth)];
             Today = Localizer[nameof(Today)];

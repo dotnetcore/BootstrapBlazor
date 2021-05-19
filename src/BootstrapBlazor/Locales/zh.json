@@ -29,9 +29,11 @@
     "NotFoundDevicesString": "未找到视频相关设备"
   },
   "BootstrapBlazor.Components.Calendar": {
+    "PreviousYear": "上一年",
     "PreviousMonth": "上一月",
     "Today": "今天",
     "NextMonth": "下一月",
+    "NextYear": "下一年",
     "PreviousWeek": "上一周",
     "WeekText": "本周",
     "NextWeek": "下一周",

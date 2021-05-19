@@ -94,6 +94,16 @@ namespace BootstrapBlazor.Components
         });
 
         /// <summary>
+        /// 右侧快捷切换年按钮回调此方法
+        /// </summary>
+        /// <param name="offset"></param>
+        protected void OnChangeYear(int offset)
+        {
+            if (offset == 0) Value = DateTime.Today;
+            else Value = Value.AddYears(offset);
+        }
+
+        /// <summary>
         /// 右侧快捷切换月按钮回调此方法
         /// </summary>
         /// <param name="offset"></param>
