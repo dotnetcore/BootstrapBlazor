@@ -181,7 +181,7 @@ namespace BootstrapBlazor.Components
             if (source.AllowTextWrap) dest.AllowTextWrap = source.AllowTextWrap;
             if (source.DefaultSort) dest.DefaultSort = source.DefaultSort;
             if (source.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = source.DefaultSortOrder;
-            if (source.Editable) dest.Editable = source.Editable;
+            if (!source.Editable) dest.Editable = source.Editable;
             if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
             if (source.Filter != null) dest.Filter = source.Filter;
             if (source.Filterable) dest.Filterable = source.Filterable;
