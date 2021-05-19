@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Calendar
+    public partial class Calendar
     {
         [NotNull]
         private string? PreviousYear { get; set; }
@@ -63,6 +64,22 @@ namespace BootstrapBlazor.Components
         [Inject]
         [NotNull]
         private IStringLocalizer<Calendar>? Localizer { get; set; }
+
+        /// <summary>
+        /// 获得 周日期
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        private string GetWeekDayString(int offset) => $"{Value.AddDays(offset - (int)Value.DayOfWeek).Day}";
+
+        /// <summary>
+        /// 获得 周日期样式
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        private string? GetWeekDayClassString(int offset) => CssBuilder.Default("week-header")
+                .AddClass("is-today", Value.AddDays(offset - (int)Value.DayOfWeek) == DateTime.Today)
+                .Build();
 
         /// <summary>
         /// OnInitializedAsync 方法

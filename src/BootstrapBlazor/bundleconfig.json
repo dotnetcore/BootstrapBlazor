@@ -30,6 +30,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Calendar/Calendar.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Calendar/Calendar.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Carousel/Carousel.razor.cs.min.css",
     "inputFiles": [
       "Components/Carousel/Carousel.razor.cs.css"
@@ -269,8 +275,9 @@
       "Components/Alert/Alert.razor.cs.min.css",
       "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
       "Components/Button/Button.razor.cs.min.css",
-      "Components/Carousel/Carousel.razor.cs.min.css",
       "Components/Camera/Camera.razor.cs.min.css",
+      "Components/Calendar/Calendar.razor.cs.min.css",
+      "Components/Carousel/Carousel.razor.cs.min.css",
       "Components/Checkbox/Checkbox.razor.cs.min.css",
       "Components/Checkbox/CheckboxList.razor.cs.min.css",
       "Components/Collapse/Collapse.razor.cs.min.css",
