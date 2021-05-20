@@ -2,38 +2,20 @@
 @inherits LayoutBase
 
 <CascadingValue Value="this" IsFixed="true">
-    <section @attributes="AdditionalAttributes" class="@ClassString">
-        @if (Side == null)
-        {
-            @RenderHeader.Invoke(false)
-            @RenderMain
-            @if (ShowFooter)
+    @if (IsAuthenticated)
+    {
+        <section @attributes="AdditionalAttributes" class="@ClassString">
+            @if (Side == null)
             {
-                @RenderFooter
-            }
-        }
-        else if (IsFullSide)
-        {
-            <aside class="@SideClassString" style="@SideStyleString">
-                @Side
-                @if (Menus != null)
-                {
-                    @RenderMenu.Invoke(IsFullSide)
-                }
-            </aside>
-            <section class="layout-right">
-                @RenderHeader.Invoke(ShowCollapseBar)
+                @RenderHeader.Invoke(false)
                 @RenderMain
                 @if (ShowFooter)
                 {
                     @RenderFooter
                 }
-            </section>
-        }
-        else
-        {
-            @RenderHeader.Invoke(ShowCollapseBar);
-            <section class="has-sidebar">
+            }
+            else if (IsFullSide)
+            {
                 <aside class="@SideClassString" style="@SideStyleString">
                     @Side
                     @if (Menus != null)
@@ -41,14 +23,39 @@
                         @RenderMenu.Invoke(IsFullSide)
                     }
                 </aside>
-                @RenderMain
-            </section>
-            @if (ShowFooter)
-            {
-                @RenderFooter
+                <section class="layout-right">
+                    @RenderHeader.Invoke(ShowCollapseBar)
+                    @RenderMain
+                    @if (ShowFooter)
+                    {
+                        @RenderFooter
+                    }
+                </section>
             }
-        }
-    </section>
+            else
+            {
+                @RenderHeader.Invoke(ShowCollapseBar);
+                <section class="has-sidebar">
+                    <aside class="@SideClassString" style="@SideStyleString">
+                        @Side
+                        @if (Menus != null)
+                        {
+                            @RenderMenu.Invoke(IsFullSide)
+                        }
+                    </aside>
+                    @RenderMain
+                </section>
+                @if (ShowFooter)
+                {
+                    @RenderFooter
+                }
+            }
+        </section>
+    }
+    else
+    {
+        @Main
+    }
 </CascadingValue>
 
 @code {

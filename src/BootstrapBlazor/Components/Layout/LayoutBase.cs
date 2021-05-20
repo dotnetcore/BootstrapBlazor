@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -147,6 +148,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<bool, Task>? OnCollapsed { get; set; }
+
+        /// <summary>
+        /// 获得 登录授权信息
+        /// </summary>
+        [CascadingParameter]
+        protected Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
         /// <summary>
         /// 点击 收缩展开按钮时回调此方法

@@ -18,6 +18,8 @@ namespace BootstrapBlazor.Components
     {
         private JSInterop<Layout>? Interop { get; set; }
 
+        private bool IsAuthenticated { get; set; }
+
         /// <summary>
         /// 获得 组件样式
         /// </summary>
@@ -91,6 +93,25 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             TooltipText ??= Localizer[nameof(TooltipText)];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            if (AuthenticationStateTask != null)
+            {
+                var state = await AuthenticationStateTask;
+                IsAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+            }
+            else
+            {
+                IsAuthenticated = true;
+            }
         }
 
         /// <summary>
