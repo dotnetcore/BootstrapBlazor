@@ -13,6 +13,8 @@
 
             $split.children().children('.split-bar').drag(
                 function (e) {
+                    splitWidth = $split.innerWidth();
+                    splitHeight = $split.innerHeight();
                     if (isVertical) {
                         originY = e.clientY || e.touches[0].clientY;
                         curVal = $split.children().children('.split-left').innerHeight() * 100 / splitHeight;
