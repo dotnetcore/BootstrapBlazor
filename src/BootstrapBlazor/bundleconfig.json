@@ -240,6 +240,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Timer/Timer.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Timer/Timer.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Toast/Toast.razor.cs.min.css",
     "inputFiles": [
       "Components/Toast/Toast.razor.cs.css"
@@ -317,6 +323,7 @@
       "Components/Table/Table.razor.cs.min.css",
       "Components/Table/Filter/TableFilter.razor.cs.min.css",
       "Components/Tab/Tab.razor.cs.min.css",
+      "Components/Timer/Timer.razor.cs.min.css",
       "Components/Toast/Toast.razor.cs.min.css",
       "Components/Tooltip/Tooltip.cs.min.css",
       "Components/Tree/Tree.razor.cs.min.css",
