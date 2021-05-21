@@ -156,6 +156,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Pagination/Pagination.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Pagination/Pagination.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Popover/PopoverConfirmBox.razor.cs.min.css",
     "inputFiles": [
       "Components/Popover/PopoverConfirmBox.razor.cs.css"
@@ -296,6 +302,7 @@
       "Components/Message/Message.razor.cs.min.css",
       "Components/Menu/Menu.razor.cs.min.css",
       "Components/Modal/Modal.razor.cs.min.css",
+      "Components/Pagination/Pagination.razor.cs.min.css",
       "Components/Popover/PopoverConfirmBox.razor.cs.min.css",
       "Components/QRCode/QRCode.razor.cs.min.css",
       "Components/Radio/Radio.razor.cs.min.css",
