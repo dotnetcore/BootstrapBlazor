@@ -186,9 +186,7 @@
                 }
             }
             else {
-                config.data.datasets.forEach(function (dataset, index) {
-                    dataset.data = option.data.datasets[index].data;
-                });
+                config.data.datasets = option.data.datasets;
             }
         },
         chart: function (el, obj, method, option, updateMethod, type, angle) {
