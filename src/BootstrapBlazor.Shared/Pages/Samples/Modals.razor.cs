@@ -14,53 +14,39 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Modals
     {
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? Modal { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? BackdropModal { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? SmailModal { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? LargeModal { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? ExtraLargeModal { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? CenterModal { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? LongContentModal { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         private Modal? ScrollModal { get; set; }
+
+        [NotNull]
+        private Modal? DragModal { get; set; }
+
+        private bool IsKeyboard { get; set; }
+
+        private void OnClickKeyboard()
+        {
+            IsKeyboard = !IsKeyboard;
+        }
 
         /// <summary>
         /// 
@@ -97,6 +83,13 @@ namespace BootstrapBlazor.Shared.Pages
                     Type = "boolean",
                     ValueList = " — ",
                     DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = "IsKeyboard",
+                    Description = "是否响应 ESC 键盘",
+                    Type = "boolean",
+                    ValueList = " — ",
+                    DefaultValue = "true"
                 },
                 new AttributeItem() {
                     Name = "IsCentered",
