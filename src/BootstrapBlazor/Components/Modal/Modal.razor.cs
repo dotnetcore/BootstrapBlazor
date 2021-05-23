@@ -39,6 +39,12 @@ namespace BootstrapBlazor.Components
         public bool IsBackdrop { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否开启键盘支持 默认 true 响应键盘 ESC 按键
+        /// </summary>
+        [Parameter]
+        public bool IsKeyboard { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 是否开启淡入淡出动画 默认为 true 开启动画
         /// </summary>
         [Parameter]
@@ -56,6 +62,8 @@ namespace BootstrapBlazor.Components
         private string? Backdrop => IsBackdrop ? null : "static";
 
         private bool IsRendered { get; set; }
+
+        private string? KeyboardString => IsKeyboard ? null : "false";
 
         /// <summary>
         /// OnAfterRender 方法

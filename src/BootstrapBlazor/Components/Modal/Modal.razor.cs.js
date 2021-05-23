@@ -71,18 +71,29 @@
                     );
                 }
                 $el.on('shown.bs.modal', function () {
-                    $(document).one('keyup', function (e) {
-                        if (e.key === 'Escape') {
-                            var $dialog = $el.find('.modal-dialog');
-                            var invoker = $dialog.data('bb_dotnet_invoker');
-                            if (invoker != null) {
-                                invoker.obj.invokeMethodAsync(invoker.method);
+                    var keyboard = $el.data('keyboard');
+                    if (keyboard === true) {
+                        $(document).one('keyup', function (e) {
+                            if (e.key === 'Escape') {
+                                var $dialog = $el.find('.modal-dialog');
+                                var invoker = $dialog.data('bb_dotnet_invoker');
+                                if (invoker != null) {
+                                    invoker.obj.invokeMethodAsync(invoker.method);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 });
             }
             else {
+                if (method !== 'hide' && method !== 'dispose') {
+                    var keyboard = $el.attr('data-keyboard') === "false";
+                    var config = $el.data('bs.modal');
+                    if (config != null) {
+                        config._config.keyboard = !keyboard;
+                        console.log(!keyboard);
+                    }
+                }
                 $el.modal(method);
             }
         }
