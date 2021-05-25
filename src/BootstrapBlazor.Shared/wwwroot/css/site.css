@@ -105,28 +105,30 @@ section {
     background-color: rgb(60, 40, 97);
 }
 
+.tabs-body-content > h2,
+.tabs-body-content > h3,
+.tabs-body-content > h4 {
+    font-weight: 400;
+    color: #1f2f3d;
+}
+
+    .tabs-body-content > h3:not(:first-child) {
+        margin-top: 2rem;
+    }
+
+.tabs-body-content > h4 {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.tabs-body-content > h5 {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
 .content {
     color: #495057;
 }
-
-    .content h2, .content h3, .content h4 {
-        font-weight: 400;
-        color: #1f2f3d;
-    }
-
-        .content h3:not(:first-child) {
-            margin-top: 2rem;
-        }
-
-    .content h4 {
-        margin-top: 1.5rem;
-        font-size: 1.2rem;
-    }
-
-    .content h5 {
-        font-size: 1rem;
-        line-height: 1.5;
-    }
 
     .content .alert:last-child {
         margin-bottom: 0;
