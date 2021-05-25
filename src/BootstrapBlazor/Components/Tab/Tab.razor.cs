@@ -467,9 +467,9 @@ namespace BootstrapBlazor.Components
                     [nameof(TabItem.IsActive)] = active,
                     [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
                     {
-                        builder.OpenComponent<TabAuthorizeView>(0);
-                        builder.AddAttribute(1, nameof(TabAuthorizeView.RouteContext), context);
-                        builder.AddAttribute(2, nameof(TabAuthorizeView.NotAuthorized), NotAuthorized);
+                        builder.OpenComponent<BootstrapBlazorAuthorizeView>(0);
+                        builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.RouteContext), context);
+                        builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
                         builder.CloseComponent();
                     })
                 });

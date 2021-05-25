@@ -3,12 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -96,18 +94,6 @@ namespace BootstrapBlazor.Components
         public Dictionary<string, string>? TabItemTextDictionary { get; set; }
 
         /// <summary>
-        /// 获得/设置 排除地址支持通配符
-        /// </summary>
-        [Parameter]
-        public IEnumerable<string>? ExcludeUrls { get; set; }
-
-        /// <summary>
-        /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
-        /// </summary>
-        [Parameter]
-        public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否固定 Footer 组件
         /// </summary>
         [Parameter]
@@ -150,19 +136,13 @@ namespace BootstrapBlazor.Components
         public Func<bool, Task>? OnCollapsed { get; set; }
 
         /// <summary>
-        /// 获得 登录授权信息
-        /// </summary>
-        [CascadingParameter]
-        protected Task<AuthenticationState>? AuthenticationStateTask { get; set; }
-
-        /// <summary>
         /// 点击 收缩展开按钮时回调此方法
         /// </summary>
         /// <returns></returns>
         protected async Task CollapseMenu()
         {
             IsCollapsed = !IsCollapsed;
-            if(OnCollapsed != null) await OnCollapsed(IsCollapsed);
+            if (OnCollapsed != null) await OnCollapsed(IsCollapsed);
         }
 
         /// <summary>

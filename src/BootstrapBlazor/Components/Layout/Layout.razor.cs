@@ -2,11 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -75,6 +80,19 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得/设置 排除地址支持通配符
+        /// </summary>
+        [Parameter]
+        public IEnumerable<string>? ExcludeUrls { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+
+        /// <summary>
         /// 获得/设置 鼠标悬停提示文字信息
         /// </summary>
         [Parameter]
@@ -86,6 +104,24 @@ namespace BootstrapBlazor.Components
         private IStringLocalizer<Layout>? Localizer { get; set; }
 
         /// <summary>
+        /// 获得 登录授权信息
+        /// </summary>
+        [CascadingParameter]
+        private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
+
+        [Inject]
+        private IAuthorizationPolicyProvider? AuthorizationPolicyProvider { get; set; }
+
+        [Inject]
+        private IAuthorizationService? AuthorizationService { get; set; }
+
+        [Inject]
+        [NotNull]
+        private NavigationManager? Navigator { get; set; }
+
+        private bool IsInit { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -93,6 +129,13 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             TooltipText ??= Localizer[nameof(TooltipText)];
+
+            if (!OperatingSystem.IsBrowser() && AdditionalAssemblies == null)
+            {
+                AdditionalAssemblies = new[] { Assembly.GetEntryAssembly()! };
+            }
+
+            AdditionalAssemblies ??= Enumerable.Empty<Assembly>();
         }
 
         /// <summary>
@@ -103,15 +146,22 @@ namespace BootstrapBlazor.Components
         {
             await base.OnInitializedAsync();
 
+            // 需要认证并且未认证
             if (AuthenticationStateTask != null)
             {
-                var state = await AuthenticationStateTask;
-                IsAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+                var url = Navigator.ToBaseRelativePath(Navigator.Uri);
+                var context = RouteTableFactory.Create(AdditionalAssemblies, url);
+                if (context.Handler != null)
+                {
+                    IsAuthenticated = await BootstrapBlazorAuthorizeView.IsAuthorizedAsync(context.Handler, AuthenticationStateTask, AuthorizationPolicyProvider, AuthorizationService);
+                }
             }
             else
             {
                 IsAuthenticated = true;
             }
+
+            IsInit = true;
         }
 
         /// <summary>

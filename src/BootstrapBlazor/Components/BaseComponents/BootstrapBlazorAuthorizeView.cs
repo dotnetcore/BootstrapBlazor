@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    internal class TabAuthorizeView : ComponentBase
+    internal class BootstrapBlazorAuthorizeView : ComponentBase
     {
         /// <summary>
         /// 获得/设置 路由关联上下文
@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            Authorized = await IsAuthorizedAsync(RouteContext.Handler!);
+            Authorized = RouteContext.Handler == null ? true : await IsAuthorizedAsync(RouteContext.Handler, AuthenticationState, AuthorizationPolicyProvider, AuthorizationService, Resource);
         }
 
         /// <summary>
@@ -74,16 +74,14 @@ namespace BootstrapBlazor.Components
                     builder.AddAttribute(index++, kv.Key, kv.Value);
                 }
                 builder.CloseComponent();
-
             }
             else
             {
                 builder.AddContent(0, NotAuthorized);
             }
-
         }
 
-        private async Task<bool> IsAuthorizedAsync(Type type)
+        public static async Task<bool> IsAuthorizedAsync(Type type, Task<AuthenticationState>? authenticateState, IAuthorizationPolicyProvider? authorizePolicy, IAuthorizationService? authorizeService, object? resource = null)
         {
             var ret = true;
             var authorizeData = AttributeAuthorizeDataCache.GetAuthorizeDataForType(type);
@@ -91,14 +89,14 @@ namespace BootstrapBlazor.Components
             {
                 EnsureNoAuthenticationSchemeSpecified(authorizeData);
 
-                if (AuthenticationState != null && AuthorizationPolicyProvider != null && AuthorizationService != null)
+                if (authenticateState != null && authorizePolicy != null && authorizeService != null)
                 {
-                    var currentAuthenticationState = await AuthenticationState;
+                    var currentAuthenticationState = await authenticateState;
                     var user = currentAuthenticationState.User;
-                    var policy = await AuthorizationPolicy.CombineAsync(AuthorizationPolicyProvider, authorizeData);
+                    var policy = await AuthorizationPolicy.CombineAsync(authorizePolicy, authorizeData);
                     if (policy != null)
                     {
-                        var result = await AuthorizationService.AuthorizeAsync(user, Resource, policy);
+                        var result = await authorizeService.AuthorizeAsync(user, resource, policy);
                         ret = result.Succeeded;
                     }
                 }
