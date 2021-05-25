@@ -38,6 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F07542
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\deploy.yml = .github\workflows\deploy.yml
+		.github\workflows\docker.yml = .github\workflows\docker.yml
 		.github\workflows\pack.yml = .github\workflows\pack.yml
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 		.github\workflows\release.yml = .github\workflows\release.yml

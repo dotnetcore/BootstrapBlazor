@@ -1,0 +1,15 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - dev-dockerfile
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: docker build . --file src/BootstrapBlazor.Server/Linux.Dockerfile --tag bb:$(date +%s)
