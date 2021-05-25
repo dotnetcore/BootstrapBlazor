@@ -102,13 +102,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "IsDark",
-                Description = "是否为暗黑模式",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
                 Name = "IsFixedHeader",
                 Description = "是否固定 Header 组件",
                 Type = "bool",
