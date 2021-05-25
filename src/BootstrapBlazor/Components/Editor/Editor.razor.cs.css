@@ -32,4 +32,6 @@
 
 .editor .dropdown-menu {
     overflow: unset;
+    max-height: unset;
+    max-width: unset;
 }
