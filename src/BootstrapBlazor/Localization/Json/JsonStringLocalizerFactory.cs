@@ -34,6 +34,7 @@ namespace BootstrapBlazor.Localization.Json
             _jsonOptions = jsonOptions.Value;
             _jsonOptions.FallbackCulture = options.Value.FallbackCulture;
             _jsonOptions.FallBackToParentUICultures = options.Value.FallBackToParentUICultures;
+            _jsonOptions.SupportedCultures.AddRange(options.Value.GetSupportedCultures());
             _loggerFactory = loggerFactory;
         }
 

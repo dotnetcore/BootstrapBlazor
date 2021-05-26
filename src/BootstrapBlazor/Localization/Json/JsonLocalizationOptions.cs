@@ -5,7 +5,6 @@
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 
@@ -44,8 +43,7 @@ namespace BootstrapBlazor.Localization.Json
         /// <summary>
         /// 获得 组件内置本地化语言列表
         /// </summary>
-        [NotNull]
-        internal static List<CultureInfo> SupportedCultures { get; } = new List<CultureInfo> { new("zh"), new("en") };
+        internal List<CultureInfo> SupportedCultures { get; } = new();
 
         /// <summary>
         /// 构造方法

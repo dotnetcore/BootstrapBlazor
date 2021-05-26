@@ -120,11 +120,7 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        protected virtual string? GetJsonStringSafely(string name)
-        {
-            var cultureInfo = GetCultureInfo(new StringSegment(CultureInfo.CurrentUICulture.Name), _options.FallBackToParentUICultures, 0) ?? new CultureInfo(_options.FallbackCulture);
-            return GetStringByCulture(cultureInfo, name);
-        }
+        protected virtual string? GetJsonStringSafely(string name) => GetStringByCulture(CultureInfo.CurrentUICulture, name);
 
         private string? GetStringByCulture(CultureInfo culture, string name)
         {
@@ -138,44 +134,6 @@ namespace BootstrapBlazor.Localization.Json
                 _logger.LogDebug($"{nameof(JsonStringLocalizer)} searched for '{name}' in '{_searchedLocation}' with culture '{culture}'.");
             }
             return value;
-        }
-
-        private static readonly int MaxCultureFallbackDepth = 5;
-        private static CultureInfo? GetCultureInfo(StringSegment cultureName, bool fallbackToParentCultures, int currentDepth)
-        {
-            var culture = GetCultureInfo(cultureName);
-
-            if (culture == null && fallbackToParentCultures && currentDepth < MaxCultureFallbackDepth)
-            {
-                var lastIndexOfHyphen = cultureName.LastIndexOf('-');
-
-                if (lastIndexOfHyphen > 0)
-                {
-                    // Trim the trailing section from the culture name, e.g. "fr-FR" becomes "fr"
-                    var parentCultureName = cultureName.Subsegment(0, lastIndexOfHyphen);
-
-                    culture = GetCultureInfo(parentCultureName, fallbackToParentCultures, currentDepth + 1);
-                }
-            }
-
-            return culture;
-        }
-
-        private static CultureInfo? GetCultureInfo(StringSegment name)
-        {
-            if (name == null)
-            {
-                return null;
-            }
-            var culture = JsonLocalizationOptions.SupportedCultures.FirstOrDefault(
-                supportedCulture => StringSegment.Equals(supportedCulture.Name, name, StringComparison.OrdinalIgnoreCase));
-
-            if (culture == null)
-            {
-                return null;
-            }
-
-            return CultureInfo.ReadOnly(culture);
         }
 
         private IEnumerable<string> GetAllStringsFromCultureHierarchy(CultureInfo startingCulture)
@@ -210,35 +168,75 @@ namespace BootstrapBlazor.Localization.Json
             return ret;
         }
 
+        private static StringSegment GetParentCultureName(StringSegment cultureInfoName)
+        {
+            var ret = new StringSegment();
+            var index = cultureInfoName.IndexOf('-');
+            if (index > 0)
+            {
+                ret = cultureInfoName.Subsegment(0, index);
+            }
+            return ret;
+        }
+
+        private List<Stream> GetLangHandlers(string cultureInfoName)
+        {
+            // 获取程序集中的资源文件
+            var langHandler = GetResourceStream(_assembly, cultureInfoName);
+
+            // 获取外部设置程序集中的资源文件
+            if (_options.AdditionalJsonAssemblies != null)
+            {
+                foreach (var assembly in _options.AdditionalJsonAssemblies)
+                {
+                    langHandler.AddRange(GetResourceStream(assembly, cultureInfoName));
+                }
+            }
+            return langHandler;
+        }
+
+        private List<Stream> GetResourceStream(Assembly assembly, string cultureInfoName)
+        {
+            var ret = new List<Stream>();
+            if (_options.FallBackToParentUICultures)
+            {
+                // 查找回落资源
+                var parentName = GetParentCultureName(cultureInfoName).Value;
+                if (!string.IsNullOrEmpty(parentName))
+                {
+                    _searchedLocation = $"{assembly.GetName().Name}.{_options.ResourcesPath}.{parentName}.json";
+                    var stream = assembly.GetManifestResourceStream(_searchedLocation);
+                    if (stream != null)
+                    {
+                        ret.Add(stream);
+                    }
+                }
+            }
+
+            // 当前文化资源
+            _searchedLocation = $"{assembly.GetName().Name}.{_options.ResourcesPath}.{cultureInfoName}.json";
+            var s = assembly.GetManifestResourceStream(_searchedLocation);
+            if (s != null)
+            {
+                ret.Add(s);
+            }
+            return ret;
+        }
+
         private void BuildResourcesCache(CultureInfo culture)
         {
             _resourcesCache.GetOrAdd(culture.Name, key =>
             {
+                // 获得程序集中的资源文件 stream
+                var langHandler = GetLangHandlers(key);
+
                 var builder = new ConfigurationBuilder();
-
-                _searchedLocation = $"{_assembly.GetName().Name}.{_options.ResourcesPath}.{key}.json";
-                using var res = _assembly.GetManifestResourceStream(_searchedLocation);
-
-                if (res != null)
+                foreach (var h in langHandler)
                 {
-                    builder.AddJsonStream(res);
+                    builder.AddJsonStream(h);
                 }
 
-                var langHandler = new List<Stream>();
-                if (_options.AdditionalJsonAssemblies != null)
-                {
-                    foreach (var assembly in _options.AdditionalJsonAssemblies)
-                    {
-                        var fileName = $"{assembly.GetName().Name}.{_options.ResourcesPath}.{key}.json";
-                        var lang = assembly.GetManifestResourceStream(fileName);
-                        if (lang != null)
-                        {
-                            langHandler.Add(lang);
-                            builder.AddJsonStream(lang);
-                        }
-                    }
-                }
-
+                // 获得配置外置资源文件
                 if (_options.AdditionalJsonFiles != null)
                 {
                     var file = _options.AdditionalJsonFiles.FirstOrDefault(f =>
