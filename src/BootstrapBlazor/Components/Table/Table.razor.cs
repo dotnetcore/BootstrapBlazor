@@ -434,9 +434,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            await base.OnInitializedAsync();
+            base.OnInitialized();
 
             OnInitLocalization();
 
@@ -514,10 +514,6 @@ namespace BootstrapBlazor.Components
                     SortOrder = col.DefaultSortOrder;
                 }
                 await QueryAsync();
-            }
-
-            if (!firstRender)
-            {
                 IsRendered = true;
             }
 
@@ -536,33 +532,22 @@ namespace BootstrapBlazor.Components
                     methodName = null;
                 }
 
-                if (IsAutoRefresh && AutoRefreshInterval > 500)
+                // 增加去重保护 _loop 为 false 时执行
+                if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
                 {
-                    AutoRefreshCancelTokenSource ??= new CancellationTokenSource();
+                    _loop = true;
                     // 自动刷新功能
-                    _ = Task.Run(async () =>
-                    {
-                        try
-                        {
-                            await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
-                            if (!AutoRefreshCancelTokenSource.IsCancellationRequested)
-                            {
-                                await InvokeAsync(QueryAsync);
-                            }
-                        }
-                        catch (TaskCanceledException) { }
-                    });
-                }
-                else
-                {
-                    if (AutoRefreshCancelTokenSource != null)
-                    {
-                        AutoRefreshCancelTokenSource.Cancel();
-                        AutoRefreshCancelTokenSource = null;
-                    }
+                    await Task.Delay(AutoRefreshInterval);
+
+                    // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
+                    await QueryData();
+                    StateHasChanged();
+                    _loop = false;
                 }
             }
         }
+
+        private bool _loop;
 
         /// <summary>
         /// 获得 Table 组件客户端宽度

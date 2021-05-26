@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.32-beta05</Version>
+    <Version>5.0.32-beta06</Version>
     <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
