@@ -14,7 +14,11 @@
 
 <p>将 Bootstrap 的 CSS 文件以 <code>&lt;link&gt;</code> 标签的形式添加到 <code>@HostFile</code> 文件 <code>&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前。</p>
 
-<Pre>&lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;</Pre>
+<Tips>
+    <p>本套组件 <b>5.0.32</b> 版本后移除内置 <code>font-awesome</code> 图标，请自行下载或者使用 <b>CDN</b> 加速服务</p>
+</Tips>
+<Pre>&lt;link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"&gt;
+&lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;</Pre>
 
 <Tips>
     <p>如果是使用 <code>Blazozr App</code> 模板创建的工程请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" /&gt;</code></p>

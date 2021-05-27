@@ -278,7 +278,6 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
-      "wwwroot/lib/font-awesome/css/font-awesome.min.css",
       "wwwroot/lib/summernote/summernote-bs4.min.css",
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
       "wwwroot/lib/colorpicker/bootstrap-colorpicker.min.css",
