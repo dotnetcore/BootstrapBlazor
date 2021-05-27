@@ -27,6 +27,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private List<List<KeyValuePair<string, object?>>> DialogParameters { get; set; } = new();
 
+        private bool IsKeyboard { get; set; }
+
         /// <summary>
         /// DialogServices 服务实例
         /// </summary>
@@ -65,6 +67,7 @@ namespace BootstrapBlazor.Components
 
         private Task Show(DialogOption option)
         {
+            IsKeyboard = option.IsKeyboard;
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes().ToList();
 
