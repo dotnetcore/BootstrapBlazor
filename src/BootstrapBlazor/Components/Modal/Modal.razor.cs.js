@@ -71,7 +71,7 @@
                     );
                 }
                 $el.on('shown.bs.modal', function () {
-                    var keyboard = $el.data('keyboard');
+                    var keyboard = $el.attr('data-keyboard') === "true";
                     if (keyboard === true) {
                         $(document).one('keyup', function (e) {
                             if (e.key === 'Escape') {
@@ -87,11 +87,10 @@
             }
             else {
                 if (method !== 'hide' && method !== 'dispose') {
-                    var keyboard = $el.attr('data-keyboard') === "false";
+                    var keyboard = $el.attr('data-keyboard') === "true";
                     var config = $el.data('bs.modal');
                     if (config != null) {
-                        config._config.keyboard = !keyboard;
-                        console.log(!keyboard);
+                        config._config.keyboard = keyboard;
                     }
                 }
                 $el.modal(method);

@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
 
         private bool IsRendered { get; set; }
 
-        private string? KeyboardString => IsKeyboard ? null : "false";
+        private string? KeyboardString => IsKeyboard ? "true" : "false";
 
         /// <summary>
         /// OnAfterRender 方法

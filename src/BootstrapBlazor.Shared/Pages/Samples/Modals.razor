@@ -25,8 +25,10 @@
                 </div>
             </div>
             <div class="form-group col-12">
-                <p>通过设置 <code>Modal</code> 组件的 <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果</p>
-                <Button OnClick="@(async e => await Modal.Toggle())">弹窗</Button> <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ml-3" />
+                <div>
+                    <p>通过设置 <code>Modal</code> 组件的 <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果</p>
+                    <Button OnClick="@(async e => await Modal.Toggle())">弹窗</Button> <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ml-3" />
+                </div>
                 <Modal @ref="Modal" IsKeyboard="@IsKeyboard">
                     <ModalDialog Title="默认弹窗">
                         <BodyTemplate>
