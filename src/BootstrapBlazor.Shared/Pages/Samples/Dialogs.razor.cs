@@ -29,12 +29,20 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private DialogService? DialogService { get; set; }
 
+        private bool IsKeyboard { get; set; }
+
+        private void OnClickKeyboard()
+        {
+            IsKeyboard = !IsKeyboard;
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         private Task OnClick() => DialogService.Show(new DialogOption()
         {
+            IsKeyboard = IsKeyboard,
             Title = "我是服务创建的弹出框",
             BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new[]
             {

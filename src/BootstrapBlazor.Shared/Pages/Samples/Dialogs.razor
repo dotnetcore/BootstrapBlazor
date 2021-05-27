@@ -13,7 +13,10 @@
 <Pre>&lt;Dialog /&gt;</Pre>
 
 <Block Title="基本用法" Introduction="通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置">
-    <Button @onclick="@OnClick">点击打开 Dialog</Button>
+    <div>
+        <p>通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果</p>
+        <Button @onclick="@OnClick">点击打开 Dialog</Button> <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ml-3" />
+    </div>
 </Block>
 
 <Block Title="弹出复杂组件" Introduction="通过调用 <code>Show&lt;Counter&gt;()</code> 来弹出一个自定义组件">
