@@ -282,7 +282,8 @@
     "SubMenu41": "Sub Menu 41",
     "SubMenu42": "Sub Menu 42"
   },
-  "BootstrapBlazor.Shared.Pages.Empty": {
-
+  "BootstrapBlazor.Shared.Pages.Empties": {
+    "Title": "Empty",
+    "SubTitle": "Sub Title PlaceHolder"
   }
 }

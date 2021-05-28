@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Emptys
+    public partial class Empties
     {
 
         /// <summary>
@@ -26,14 +26,14 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         [Parameter]
-        public string? subTitle { get; set; }
+        public string? SubTitle { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [Inject]
         [NotNull]
-        private IStringLocalizer<Emptys>? localizer { get; set; }
+        private IStringLocalizer<Empties>? Localizer { get; set; }
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace BootstrapBlazor.Shared.Pages
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            Title = localizer[nameof(Title)];
-            subTitle = localizer[nameof(subTitle)];
+            Title = Localizer[nameof(Title)];
+            SubTitle = Localizer[nameof(SubTitle)];
         }
 
         /// <summary>

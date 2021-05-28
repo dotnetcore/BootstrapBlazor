@@ -396,6 +396,11 @@ namespace BootstrapBlazor.Shared.Shared
                     Text = Localizer["DropdownWidget"],
                     Url = "dropdownwidgets"
                 },
+                new ()
+                {
+                    Text=Localizer["Empty"],
+                    Url = "empties"
+                },
                 new()
                 {
                     Text = Localizer["GroupBox"],
@@ -749,11 +754,6 @@ namespace BootstrapBlazor.Shared.Shared
                 {
                     Text = Localizer["Split"],
                     Url = "splits"
-                },
-                new ()
-                {
-                    Text=Localizer["Empty"],
-                    Url = "empty"
                 }
             };
             AddBadge(item);

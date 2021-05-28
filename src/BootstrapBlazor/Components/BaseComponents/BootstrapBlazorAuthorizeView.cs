@@ -55,7 +55,13 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            Authorized = RouteContext.Handler == null ? true : await IsAuthorizedAsync(RouteContext.Handler, AuthenticationState, AuthorizationPolicyProvider, AuthorizationService, Resource);
+            Authorized = RouteContext.Handler == null
+                || await IsAuthorizedAsync(
+                    type: RouteContext.Handler,
+                    authenticateState: AuthenticationState,
+                    authorizePolicy: AuthorizationPolicyProvider,
+                    authorizeService: AuthorizationService,
+                    resource: Resource);
         }
 
         /// <summary>
