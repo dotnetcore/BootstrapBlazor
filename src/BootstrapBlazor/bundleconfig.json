@@ -228,6 +228,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Toggle/Toggle.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Toggle/Toggle.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Table/Filter/TableFilter.razor.cs.min.css",
     "inputFiles": [
       "Components/Table/Filter/TableFilter.razor.cs.css"
@@ -324,6 +330,7 @@
       "Components/Tab/Tab.razor.cs.min.css",
       "Components/Timer/Timer.razor.cs.min.css",
       "Components/Toast/Toast.razor.cs.min.css",
+      "Components/Toggle/Toggle.razor.cs.min.css",
       "Components/Tooltip/Tooltip.cs.min.css",
       "Components/Tree/Tree.razor.cs.min.css",
       "Components/Transfer/Transfer.razor.cs.min.css",
