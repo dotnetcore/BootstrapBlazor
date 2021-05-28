@@ -82,4 +82,10 @@
             $.bb_auto_expand($(el));
         }
     });
+
+    $(function () {
+        $(document).on('click', '.menu a[href="#"]', function (e) {
+            return false;
+        });
+    });
 })(jQuery);

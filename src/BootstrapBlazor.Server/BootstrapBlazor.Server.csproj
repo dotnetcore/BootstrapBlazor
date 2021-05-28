@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Linux.Dockerfile" />
-  </ItemGroup>
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
