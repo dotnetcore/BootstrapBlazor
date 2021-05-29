@@ -260,7 +260,7 @@ namespace BootstrapBlazor.Components
                     // 刷新 UI
                     StateHasChanged();
                 }
-                else
+                else if (!item.Items.Any())
                 {
                     Options.Text = item.Text;
                     Options.Icon = item.Icon;

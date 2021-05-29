@@ -66,7 +66,7 @@ namespace BootstrapBlazor.Shared.Shared
                 StateHasChanged();
             }
 
-            if (!string.IsNullOrEmpty(item.Text))
+            if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
             {
                 await TitleService.SetWebSiteTitle($"{item.Text} - {AppLocalizer["Title"]}");
             }
