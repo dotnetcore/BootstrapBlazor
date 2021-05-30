@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Longbow.Tasks" Version="5.0.1" />
   </ItemGroup>
 
