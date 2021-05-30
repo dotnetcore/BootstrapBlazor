@@ -1,0 +1,39 @@
+﻿@page "/charts/index"
+@layout MainLayout
+
+<h3>Chart 图表</h3>
+
+<h4>通过给定数据，绘画各种图表的组件</h4>
+
+<p>本组件依赖于 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank"><code>BootstrapBlazor.Chart</code></a>，使用本组件时需要引用其组件包</p>
+
+<Tips>
+    <div>本套组件 5.0.19 版本后 <code>chart.js</code> 脚本升级到 <code>3.3.0</code> 为了适配新版本脚本，有部分功能更新或者移除</div>
+</Tips>
+
+<p><b>Nuget 包安装</b></p>
+
+<p>使用 <a href="https://www.nuget.org/packages?q=BootstrapBlazor.Chart" target="_blank">nuget.org</a> 进行 <code>BootstrapBlazor.Chart</code> 组件的安装</p>
+
+<div class="code-label">.NET CLI</div>
+<Pre class="no-highlight">dotnet add package BootstrapBlazor.Chart --version @Version</Pre>
+
+<div class="code-label">PackageReference</div>
+<Pre class="no-highlight">&lt;PackageReference Include="BootstrapBlazor.Chart" Version="@Version" /&gt;</Pre>
+
+<div class="code-label">Package Manager</div>
+<Pre class="no-highlight">Install-Package BootstrapBlazor.Chart -Version @Version</Pre>
+
+<h4>CSS 文件</h4>
+
+<Pre>&lt;link rel="stylesheet" href="_content/BootstrapBlazor.Chart/css/bootstrap.blazor.chart.bundle.min.css" /&gt;</Pre>
+
+<h4>JS 文件</h4>
+
+<Pre>&lt;script src="_content/BootstrapBlazor.Chart/js/bootstrap.blazor.chart.bundle.min.js"&gt;&lt;/script&gt;</Pre>
+
+<p>组件数据在 <code>OnInit</code> 回调委托中进行设置即可</p>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

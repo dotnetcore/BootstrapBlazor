@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components FreeSql</PackageTags>
+    <Description>Bootstrap UI components extensions of FreeSql</Description>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FreeSql.Repository" Version="2.5.100" />
   </ItemGroup>

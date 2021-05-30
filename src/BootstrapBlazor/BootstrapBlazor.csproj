@@ -1,15 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <IsPackable>true</IsPackable>
-    <PackageIcon>logo.png</PackageIcon>
     <Version>5.0.33-beta01</Version>
-    <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
-
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.6" />
@@ -33,10 +26,6 @@
     <Content Include="wwwroot\lib\summernote\font\*.*" />
     <None Include="bundleconfig.json" />
     <None Include="wwwroot\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

@@ -3,12 +3,14 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-    <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
-    <PackageProjectUrl>https://www.blazor.zone</PackageProjectUrl>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
     <Description>Bootstrap UI components for Blazor and Razor Components</Description>
-    <RepositoryType>github</RepositoryType>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
@@ -20,6 +22,14 @@
 
   <ItemGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>

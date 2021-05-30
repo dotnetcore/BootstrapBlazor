@@ -13,9 +13,11 @@
     window.chartOption = {
         options: {
             responsive: true,
-            title: {
-                display: true,
-                text: 'Chart'
+            plugins: {
+                title: {
+                    display: true,
+                    text: null
+                }
             },
             tooltips: {
                 mode: 'index',
@@ -26,20 +28,20 @@
                 intersect: true
             },
             scales: {
-                xAxes: [{
+                x: {
                     display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: ''
+                    title: {
+                        display: false,
+                        text: null
                     }
-                }],
-                yAxes: [{
+                },
+                y: {
                     display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: ''
+                    title: {
+                        display: false,
+                        text: null
                     }
-                }]
+                }
             }
         }
     };
@@ -73,7 +75,18 @@
                 }
             }
             else if (option.type === 'pie' || option.type === 'doughnut') {
-                config = $.extend(true, {}, chartOption);
+                config = $.extend(true, {}, chartOption, {
+                    options: {
+                        scales: {
+                            x: {
+                                display: false
+                            },
+                            y: {
+                                display: false
+                            }
+                        }
+                    }
+                });
                 colorFunc = function (data) {
                     $.extend(data, {
                         backgroundColor: colors.slice(0, data.data.length).map(function (name) {
@@ -127,20 +140,27 @@
                 },
                 options: {
                     responsive: option.options.responsive,
-                    title: option.options.title,
+                    plugins: {
+                        title: {
+                            display: option.options.title != null,
+                            text: option.options.title
+                        }
+                    },
                     scales: {
-                        xAxes: option.options.xAxes.map(function (v) {
-                            return {
-                                display: option.options.showXAxesLine,
-                                scaleLabel: v
-                            };
-                        }),
-                        yAxes: option.options.yAxes.map(function (v) {
-                            return {
-                                display: option.options.showYAxesLine,
-                                scaleLabel: v
-                            }
-                        })
+                        x: {
+                            title: {
+                                display: option.options.x.title != null,
+                                text: option.options.x.title
+                            },
+                            stacked: option.options.x.stacked
+                        },
+                        y: {
+                            title: {
+                                display: option.options.y.title != null,
+                                text: option.options.y.title
+                            },
+                            stacked: option.options.x.stacked
+                        }
                     }
                 }
             });
@@ -186,27 +206,27 @@
                 }
             }
             else {
-                config.data.datasets = option.data.datasets;
+                config.data.datasets.forEach((dataset, index) => {
+                    dataset.data = option.data.datasets[index].data;
+                });
             }
         },
-        chart: function (el, obj, method, option, updateMethod, type, angle) {
-            if ($.isFunction(Chart)) {
-                var $el = $(el);
-                option.type = type;
-                var chart = $el.data('chart');
-                if (!chart) {
-                    var op = $.getChartOption(option);
-                    $el.data('chart', chart = new Chart(el.getElementsByTagName('canvas'), op));
-                    $el.removeClass('is-loading').trigger('chart.afterInit');
-                    obj.invokeMethodAsync(method);
-                }
-                else {
-                    var op = $.getChartOption(option);
-                    op.angle = angle;
-                    op.updateMethod = updateMethod;
-                    $.updateChart(chart.config, op);
-                    chart.update();
-                }
+        bb_chart: function (el, obj, method, option, updateMethod, type, angle) {
+            var $el = $(el);
+            option.type = type;
+            var chart = $el.data('chart');
+            if (!chart) {
+                var op = $.getChartOption(option);
+                $el.data('chart', chart = new Chart(el.getElementsByTagName('canvas'), op));
+                $el.removeClass('is-loading').trigger('chart.afterInit');
+                obj.invokeMethodAsync(method);
+            }
+            else {
+                var op = $.getChartOption(option);
+                op.angle = angle;
+                op.updateMethod = updateMethod;
+                $.updateChart(chart.config, op);
+                chart.update();
             }
         }
     });

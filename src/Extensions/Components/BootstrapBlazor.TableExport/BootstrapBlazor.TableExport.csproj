@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Table Export</PackageTags>
+    <Description>Bootstrap UI components extensions of export</Description>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\**\*.*" />

@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components PetaPoco</PackageTags>
+    <Description>Bootstrap UI components extensions of PetaPoco</Description>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Longbow.PetaPoco" Version="5.0.1" />
     <PackageReference Include="PetaPoco.Extensions" Version="5.0.1" />

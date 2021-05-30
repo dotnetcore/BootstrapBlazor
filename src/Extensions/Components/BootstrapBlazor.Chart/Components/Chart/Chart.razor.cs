@@ -16,6 +16,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Chart : BootstrapComponentBase, IDisposable
     {
+        [NotNull]
         private JSInterop<Chart>? Interop { get; set; }
 
         /// <summary>
@@ -47,25 +48,31 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件数据初始化委托方法
         /// </summary>
         [Parameter]
-        public Func<Task<ChartDataSource>>? OnInit { get; set; }
+        public Func<Task<ChartDataSource>>? OnInitAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 客户端绘制图表完毕后回调此委托方法
         /// </summary>
         [Parameter]
-        public Action? OnAfterInit { get; set; }
+        public Func<Task>? OnAfterInitAsync { get; set; }
+
+        /// <summary>
+        /// 获得/设置 客户端更新图表完毕后回调此委托方法
+        /// </summary>
+        [Parameter]
+        public Func<ChartAction, Task>? OnAfterUpdateAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 图表组件渲染类型 默认为 line 图
         /// </summary>
         [Parameter]
-        public ChartType ChartType { get; set; } = ChartType.Line;
+        public ChartType ChartType { get; set; }
 
         /// <summary>
-        /// 获得/设置 Bubble 模式下显示角度 180 为 半圆 360 为正圆
+        /// 获得/设置 图表组件渲染类型 默认为 Update
         /// </summary>
         [Parameter]
-        public int Angle { get; set; }
+        public ChartAction ChartAction { get; set; }
 
         /// <summary>
         /// 获得/设置 正在加载文本
@@ -78,8 +85,10 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private IStringLocalizer<Chart>? Localizer { get; set; }
 
+        private bool UpdateDataSource { get; set; }
+
         /// <summary>
-        /// 
+        /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
@@ -98,13 +107,10 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                if (OnInit == null) throw new InvalidOperationException("OnInit paramenter must be set");
-
-                if (Interop == null) Interop = new JSInterop<Chart>(JSRuntime);
-
-                var ds = await OnInit.Invoke();
-
-                await Interop.InvokeVoidAsync(this, ChartElement, "chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
+                if (OnInitAsync == null) throw new InvalidOperationException("OnInit paramenter must be set");
+                Interop ??= new JSInterop<Chart>(JSRuntime);
+                var ds = await OnInitAsync.Invoke();
+                await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
             }
         }
 
@@ -114,30 +120,27 @@ namespace BootstrapBlazor.Components
         [JSInvokable]
         public void Completed()
         {
-            OnAfterInit?.Invoke();
+            OnAfterInitAsync?.Invoke();
         }
-
-        /// <summary>
-        /// 设置 Doughnut 图形显示角度
-        /// </summary>
-        /// <param name="angle"></param>
-        public void SetAngle(int angle) => Angle = angle;
 
         /// <summary>
         /// 更新图表方法
         /// </summary>
-        public async Task Update(string method = "")
+        public async Task Update(ChartAction action)
         {
-            if (OnInit != null)
+            if (OnInitAsync != null)
             {
-                var ds = await OnInit.Invoke();
-                if (Interop != null)
+                var ds = await OnInitAsync();
+                await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, action.ToDescriptionString(), ChartType.ToDescriptionString(), 0);
+
+                if (OnAfterUpdateAsync != null)
                 {
-                    await Interop.InvokeVoidAsync(this, ChartElement, "chart", nameof(Completed), ds, method, ChartType.ToDescriptionString(), Angle);
+                    await OnAfterUpdateAsync(action);
                 }
             }
         }
 
+        #region Dispose
         /// <summary>
         /// Dispose 方法
         /// </summary>
@@ -159,5 +162,6 @@ namespace BootstrapBlazor.Components
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

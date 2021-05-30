@@ -213,7 +213,6 @@
     "Camera": "Camera",
     "Captcha": "Captcha",
     "Carousel": "Carousel",
-    "Chart": "Chart",
     "Circle": "Circle",
     "Collapse": "Collapse",
     "Display": "Display",
@@ -253,7 +252,14 @@
     "TableLaoding": "Table-Loading",
     "MenuAccordion": "Accordion",
     "MenuExpandAll": "Expand",
-    "Empty": "Empty"
+    "Empty": "Empty",
+    "Charts": "Chart",
+    "ChartSummary": "Introduction",
+    "ChartLine": "Line",
+    "ChartBar": "Bar",
+    "ChartPie": "Pie",
+    "ChartDoughnut": "Doughnut",
+    "ChartBubble": "Bubble"
   },
   "BootstrapBlazor.Shared.Pages.Menus": {
     "System": "System",

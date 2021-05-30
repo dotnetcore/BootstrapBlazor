@@ -106,8 +106,11 @@ section {
 }
 
 .tabs-body-content > h2,
+.content > h2,
 .tabs-body-content > h3,
-.tabs-body-content > h4 {
+.content > h3,
+.tabs-body-content > h4,
+.content > h4 {
     font-weight: 400;
     color: #1f2f3d;
 }
@@ -116,12 +119,14 @@ section {
         margin-top: 2rem;
     }
 
-.tabs-body-content > h4 {
+.tabs-body-content > h4,
+.content > h4 {
     margin-top: 1.5rem;
     font-size: 1.2rem;
 }
 
-.tabs-body-content > h5 {
+.tabs-body-content > h5,
+.content > h45 {
     font-size: 1rem;
     line-height: 1.5;
 }

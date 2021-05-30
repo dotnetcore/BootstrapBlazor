@@ -12,11 +12,16 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 坐标轴显示名称
         /// </summary>
-        public string LabelString { get; set; } = "未设置";
+        public string? Title { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示 默认为 true
+        /// 获得/设置 坐标轴显示名称颜色
         /// </summary>
-        public bool Display { get; set; } = true;
+        public string? Color { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否堆砌 默认 false
+        /// </summary>
+        public bool Stacked { get; set; }
     }
 }

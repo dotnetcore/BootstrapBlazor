@@ -1,0 +1,17 @@
+﻿@page "/charts/doughnut"
+
+<Block Title="Doughnut 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>doughnut</code> 图">
+    <Chart ChartType="ChartType.Doughnut" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="DoughnutChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(DoughnutChart)"><i class="fa fa-slack"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(DoughnutChart, ref DoughnutDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(DoughnutChart, ref DoughnutDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(DoughnutChart, ref DoughnutDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+        </div>
+    </div>
+    <Logger @ref="Logger" class="mt-3" />
+</Block>
+
+<ChartToast />

@@ -1,0 +1,33 @@
+﻿@page "/charts/bar"
+
+<Block Title="Bar 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bar</code> 图">
+    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BarChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-info" data-method="play" @onclick="@OnPlayChart">
+                <i class="fa fa-play-circle"></i>
+                <span>开启动画</span>
+            </button>
+            <button class="btn btn-info" data-method="stop" @onclick="@OnStopChart">
+                <i class="fa fa-stop-circle"></i>
+                <span>关闭动画</span>
+            </button>
+        </div>
+    </div>
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(BarChart)"><i class="fa fa-bar-chart"></i><span>随机数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-plus-circle"></i><span>添加数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BarChart, ref BarDatasetCount)"><i class="fa fa-minus-circle"></i><span>移除数据集</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(BarChart, ref BarDataCount)"><i class="fa fa-plus"></i><span>添加数据</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BarChart, ref BarDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
+        </div>
+    </div>
+    <Logger @ref="Logger" class="mt-3" />
+</Block>
+
+<Block Title="Bar 图" Introduction="通过设置 X/Y 轴 <code>Stacked</code> 属性，控制是否堆砌排列">
+    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(true)" />
+</Block>
+
+<ChartToast />

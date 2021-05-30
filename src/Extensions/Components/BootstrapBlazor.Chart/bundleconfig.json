@@ -1,5 +1,11 @@
 ﻿[
   {
+    "outputFileName": "wwwroot/css/bootstrap.blazor.chart.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap.blazor.chart.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.chart.bundle.min.css",
     "inputFiles": [
       "wwwroot/css/!(*.min).css"
@@ -17,7 +23,8 @@
   {
     "outputFileName": "wwwroot/js/bootstrap.blazor.chart.bundle.min.js",
     "inputFiles": [
-      "wwwroot/js/*.min.js"
+      "wwwroot/js/chart.min.js",
+      "wwwroot/js/bootstrap.blazor.chart.js"
     ],
     "minify": {
       "enabled": false,

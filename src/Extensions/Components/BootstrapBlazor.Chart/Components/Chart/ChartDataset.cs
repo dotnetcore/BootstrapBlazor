@@ -25,5 +25,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否填充 默认 false
         /// </summary>
         public bool Fill { get; set; }
+
+        /// <summary>
+        /// 获得/设置 折线曲率 默认 0.4
+        /// </summary>
+        public float Tension { get; set; } = 0.4f;
     }
 }

@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Chart</PackageTags>
+    <Description>Bootstrap UI components extensions of Chart.js</Description>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="Locales\*.json" />
     <EmbeddedResource Include="Locales\*.json" />
@@ -8,18 +13,18 @@
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\css\bootstrap.blazor.chart.css" />
-    <Content Remove="wwwroot\css\Chart.*" />
+    <Content Remove="wwwroot\css\bootstrap.blazor.chart.min.css" />
     <Content Remove="wwwroot\js\bootstrap.blazor.chart.js" />
     <Content Remove="wwwroot\js\bootstrap.blazor.chart.min.js" />
-    <Content Remove="wwwroot\js\Chart.bundle.js" />
-    <Content Remove="wwwroot\js\Chart.bundle.min.js" />
+    <Content Remove="wwwroot\js\chart.js" />
+    <Content Remove="wwwroot\js\chart.min.js" />
     <None Include="bundleconfig.json" />
     <None Include="wwwroot\css\bootstrap.blazor.chart.css" />
-    <None Include="wwwroot\css\Chart.*" />
+    <None Include="wwwroot\css\bootstrap.blazor.chart.min.css" />
     <None Include="wwwroot\js\bootstrap.blazor.chart.js" />
     <None Include="wwwroot\js\bootstrap.blazor.chart.min.js" />
-    <None Include="wwwroot\js\Chart.bundle.js" />
-    <None Include="wwwroot\js\Chart.bundle.min.js" />
+    <None Include="wwwroot\js\chart.js" />
+    <None Include="wwwroot\js\chart.min.js" />
   </ItemGroup>
 
 </Project>

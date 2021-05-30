@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Collections.Generic;
-
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -12,30 +10,20 @@ namespace BootstrapBlazor.Components
     public class ChartOptions
     {
         /// <summary>
-        /// 获得/设置 ChartTitle 实例
+        /// 获得/设置 表格 Title
         /// </summary>
-        public ChartTitle Title { get; } = new ChartTitle();
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得 X 坐标轴实例集合
         /// </summary>
-        public List<ChartAxes> XAxes { get; } = new List<ChartAxes>();
-
-        /// <summary>
-        /// 获得/设置 是否显示 X 坐标轴刻度线 默认为 true
-        /// </summary>
-        public bool ShowXAxesLine { get; set; } = true;
+        public ChartAxes X { get; } = new ChartAxes();
 
         /// <summary>
         /// 获得 X 坐标轴实例集合
         /// </summary>
 
-        public List<ChartAxes> YAxes { get; } = new List<ChartAxes>();
-
-        /// <summary>
-        /// 获得/设置 是否显示 Y 坐标轴刻度线 默认为 true
-        /// </summary>
-        public bool ShowYAxesLine { get; set; } = true;
+        public ChartAxes Y { get; } = new ChartAxes();
 
         /// <summary>
         /// 获得/设置 是否 适配移动端 默认为 true
