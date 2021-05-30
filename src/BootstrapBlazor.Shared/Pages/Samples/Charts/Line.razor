@@ -1,7 +1,7 @@
 ﻿@page "/charts/line"
 
 <Block Title="Line 图" Introduction="使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作">
-    <Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+    <Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa fa-line-chart"></i><span>随机数据</span></button>
@@ -15,7 +15,11 @@
 </Block>
 
 <Block Title="Line 图" Introduction="使用设置 <code>ChartDataset</code> 实例的 <code>Tension</code> 参数，调整折线的曲率，默认位 <b>0.4f</b>">
-    <Chart OnInitAsync="() => OnInit(0f)" />
+    <Chart OnInitAsync="() => OnInit(0f, false)" />
+</Block>
+
+<Block Title="Line 图" Introduction="使用设置 <code>ChartDataset</code> 实例的 <code>Data</code> 参数中含 <code>null</code>，折线图使用虚线连接">
+    <Chart OnInitAsync="() => OnInit(0f, true)" />
 </Block>
 
 <ChartToast />

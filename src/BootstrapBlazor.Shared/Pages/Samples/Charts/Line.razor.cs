@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Shared.Pages.Charts
             return Task.CompletedTask;
         }
 
-        private Task<ChartDataSource> OnInit(float tension = 1.0f)
+        private Task<ChartDataSource> OnInit(float tension, bool hasNull)
         {
             var ds = new ChartDataSource();
             ds.Options.Title = "Line 折线图";
@@ -65,7 +65,7 @@ namespace BootstrapBlazor.Shared.Pages.Charts
                 {
                     Tension = tension,
                     Label = $"数据集 {index}",
-                    Data = Enumerable.Range(1, LineDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+                    Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
                 });
             }
             return Task.FromResult(ds);
