@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages.Charts
     /// <summary>
     /// 
     /// </summary>
-    public partial class Doughout
+    public partial class Doughnut
     {
         private Random Randomer { get; } = new Random();
         private int DoughnutDatasetCount = 1;

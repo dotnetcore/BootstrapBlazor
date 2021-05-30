@@ -38,7 +38,12 @@
     "toolbar": "Table/TablesToolbar",
     "tree": "Table/TablesTree",
     "validateforms": "ValidateForms",
-    "wrap": "Table/TablesWrap"
+    "wrap": "Table/TablesWrap",
+    "line": "Charts/Line",
+    "bar": "Charts/Bar",
+    "pie": "Charts/Pie",
+    "doughnut": "Charts/Doughnut",
+    "bubble": "Charts/Bubble"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
