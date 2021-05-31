@@ -17,9 +17,14 @@
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <TableFooter>
-            <TableFooterCell colspan="3" Text="合计：" />
+            <TableFooterCell Text="合计：" ColSpan="3" Align="@Align" />
             <TableFooterCell Text="@context.Sum(i => i.Count).ToString()" />
         </TableFooter>
     </Table>
+    <div class="mt-3 btn-group">
+        <Button Icon="fa fa-align-left" Text="@Left" OnClick="() => ClickAlign(Alignment.Left)" />
+        <Button Icon="fa fa-align-center" Text="@Center" OnClick="() => ClickAlign(Alignment.Center)" />
+        <Button Icon="fa fa-align-right" Text="@Right" OnClick="() => ClickAlign(Alignment.Right)" />
+    </div>
 </Block>
 

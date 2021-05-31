@@ -291,5 +291,10 @@
   "BootstrapBlazor.Shared.Pages.Empties": {
     "Title": "Empty",
     "SubTitle": "Sub Title PlaceHolder"
+  },
+  "BootstrapBlazor.Shared.Pages.Table.TablesFooter": {
+    "Left": "Left",
+    "Center": "Center",
+    "Right": "Right"
   }
 }

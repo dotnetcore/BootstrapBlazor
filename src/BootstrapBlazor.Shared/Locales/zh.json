@@ -291,5 +291,10 @@
   "BootstrapBlazor.Shared.Pages.Empties": {
     "Title": "Empty 空状态",
     "SubTitle": "空状态时的展示占位图"
+  },
+  "BootstrapBlazor.Shared.Pages.Table.TablesFooter": {
+    "Left": "左对齐",
+    "Center": "居中",
+    "Right": "右对齐"
   }
 }

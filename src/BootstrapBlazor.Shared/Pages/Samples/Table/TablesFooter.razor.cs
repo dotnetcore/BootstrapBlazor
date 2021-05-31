@@ -22,10 +22,25 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<TablesFooter>? LocalizerFooter { get; set; }
+
         private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
 
         [NotNull]
         private IEnumerable<Foo>? Items { get; set; }
+
+        [NotNull]
+        private string? Left { get; set; }
+
+        [NotNull]
+        private string? Center { get; set; }
+
+        [NotNull]
+        private string? Right { get; set; }
+
+        private Alignment Align { get; set; }
 
         /// <summary>
         /// 
@@ -35,6 +50,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
             base.OnInitialized();
 
             Items = Foo.GenerateFoo(Localizer);
+            Left ??= LocalizerFooter[nameof(Left)];
+            Center ??= LocalizerFooter[nameof(Center)];
+            Right ??= LocalizerFooter[nameof(Right)];
         }
 
         private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -54,5 +72,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 IsSearch = true
             });
         }
+
+        private void ClickAlign(Alignment align) => Align = align;
     }
 }

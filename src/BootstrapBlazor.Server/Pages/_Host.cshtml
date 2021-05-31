@@ -63,6 +63,8 @@
     <script src="_content/BootstrapBlazor.Shared/lib/summernote/summernote-zh-CN.min.js" asp-append-version="true"></script>
     <script src="_content/BootstrapBlazor.Shared/js/common.js" asp-append-version="true"></script>
     <script src="_framework/blazor.server.js" asp-append-version="true"></script>
-    <script src="https://wwads.cn/js/makemoney.js" type="text/javascript" async></script>
+    <environment include="Staging,Production">
+        <script src="https://wwads.cn/js/makemoney.js" type="text/javascript" async></script>
+    </environment>
 </body>
 </html>
