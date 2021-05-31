@@ -311,10 +311,8 @@
         {
             <tfoot>
                 <tr>
-                    <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                        <CascadingValue Value="@RenderModelResponsiveWidth" Name="ViewModelResponsiveWidth">
-                            @TableFooter?.Invoke(Items)
-                        </CascadingValue>
+                    <CascadingValue Value="@(ScreenSize > RenderModelResponsiveWidth)" Name="IsMobileMode">
+                        @TableFooter?.Invoke(Items)
                     </CascadingValue>
                 </tr>
             </tfoot>
