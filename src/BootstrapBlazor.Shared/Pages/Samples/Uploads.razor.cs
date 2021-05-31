@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Logger? Trace { get; set; }
 
-        private IEnumerable<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
+        private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
         {
             new UploadFile { FileName = "Test.xls" },
             new UploadFile { FileName = "Test.doc" },

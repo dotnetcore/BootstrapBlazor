@@ -48,8 +48,8 @@ namespace BootstrapBlazor.Shared.Pages
             SubTitle ??= Localizer[nameof(SubTitle)];
             BaseUsageText ??= Localizer[nameof(BaseUsageText)];
             IntroText1 ??= Localizer[nameof(IntroText1)];
-            IntroText2 = new MarkupString(Localizer[nameof(IntroText2)] ?? "");
-            ContentText1 = new MarkupString(Localizer[nameof(ContentText1)] ?? "");
+            IntroText2 = new MarkupString(Localizer[nameof(IntroText2)]?.Value ?? "");
+            ContentText1 = new MarkupString(Localizer[nameof(ContentText1)]?.Value ?? "");
         }
 
 
@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

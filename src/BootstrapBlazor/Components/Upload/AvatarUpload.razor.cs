@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,12 +64,6 @@ namespace BootstrapBlazor.Components
         public bool IsCircle { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否仅上传一次 默认 false
-        /// </summary>
-        [Parameter]
-        public bool IsSingle { get; set; }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="args"></param>
@@ -85,6 +80,13 @@ namespace BootstrapBlazor.Components
                 Uploaded = false
             };
             CurrentFile.ValidateId = $"{Id}_{CurrentFile.GetHashCode()}";
+
+            if (IsSingle)
+            {
+                // 单图片模式
+                DefaultFileList.Clear();
+                UploadFiles.Clear();
+            }
 
             UploadFiles.Add(CurrentFile);
             ValidateFile();

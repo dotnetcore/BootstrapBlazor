@@ -15,14 +15,8 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public abstract class ButtonUploadBase<TValue> : MultipleUploadBase<TValue>
+    public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     {
-        /// <summary>
-        /// 获得/设置 是否仅上传一次 默认 false
-        /// </summary>
-        [Parameter]
-        public bool IsSingle { get; set; }
-
         /// <summary>
         /// 获得/设置 是否上传整个目录 默认为 false
         /// </summary>

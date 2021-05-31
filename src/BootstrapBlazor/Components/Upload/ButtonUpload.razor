@@ -9,7 +9,7 @@
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
     <div class="upload-body is-list">
-        @foreach (var item in UploadFiles)
+        @foreach (var item in GetUploadFiles())
         {
             <div @key="item" class="@GetItemClassString(item)">
                 <i class="@GetFileFormatClassString(item)"></i>

@@ -167,10 +167,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected virtual Task OnFileBrowser()
-        {
-            return Task.CompletedTask;
-        }
+        protected virtual Task OnFileBrowser() => Task.CompletedTask;
 
         /// <summary>
         /// 

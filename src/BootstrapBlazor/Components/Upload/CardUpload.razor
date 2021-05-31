@@ -8,7 +8,7 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="upload-body is-card">
-        @foreach (var item in UploadFiles)
+        @foreach (var item in GetUploadFiles())
         {
             <div @key="@item" class="@GetItemClassString(item)">
                 <div class="upload-item-body">

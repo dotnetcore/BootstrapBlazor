@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits MultipleUploadBase<TValue>
+@inherits SingleUploadBase<TValue>
 
 @if (IsShowLabel)
 {
@@ -8,7 +8,7 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="upload-body is-avatar">
-        @foreach (var item in UploadFiles)
+        @foreach (var item in GetUploadFiles())
         {
             <div class="@GetItemClassString(item)" id="@item.ValidateId" style="@PrevStyleString">
                 <Avatar Url="@item.PrevUrl" />
@@ -35,7 +35,7 @@
                 }
             </div>
         }
-        @if (!IsSingle || (IsSingle && !UploadFiles.Any()))
+        @if (!IsSingle || (IsSingle && !GetUploadFiles().Any()))
         {
             <div class="@ItemClassString" style="@PrevStyleString">
                 <div class="upload-item-actions btn-browser">
