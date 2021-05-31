@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -45,6 +46,40 @@ namespace BootstrapBlazor.Components
                     ret.AddRange(DefaultFileList);
                 }
                 ret.AddRange(UploadFiles);
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// OnFileDelete 回调委托
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        protected override async Task<bool> OnFileDelete(UploadFile item)
+        {
+            var ret = await base.OnFileDelete(item);
+            if (ret && item != null)
+            {
+                if (IsSingle)
+                {
+                    UploadFiles.Clear();
+                }
+                else
+                {
+                    UploadFiles.Remove(item);
+                }
+                if (!string.IsNullOrEmpty(item.ValidateId))
+                {
+                    await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
+                }
+                if (IsSingle)
+                {
+                    DefaultFileList?.Clear();
+                }
+                else
+                {
+                    DefaultFileList?.Remove(item);
+                }
             }
             return ret;
         }
