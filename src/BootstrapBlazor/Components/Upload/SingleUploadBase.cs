@@ -29,7 +29,7 @@ namespace BootstrapBlazor.Components
             var ret = new List<UploadFile>();
             if (IsSingle)
             {
-                if (DefaultFileList.Any())
+                if (DefaultFileList?.Any() ?? false)
                 {
                     ret.Add(DefaultFileList.First());
                 }
@@ -40,7 +40,10 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                ret.AddRange(DefaultFileList);
+                if (DefaultFileList != null)
+                {
+                    ret.AddRange(DefaultFileList);
+                }
                 ret.AddRange(UploadFiles);
             }
             return ret;

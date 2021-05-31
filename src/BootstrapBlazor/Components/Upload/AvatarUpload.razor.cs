@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Components
             if (IsSingle)
             {
                 // 单图片模式
-                DefaultFileList.Clear();
+                DefaultFileList?.Clear();
                 UploadFiles.Clear();
             }
 

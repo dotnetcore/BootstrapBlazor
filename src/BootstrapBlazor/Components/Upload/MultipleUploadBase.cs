@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,7 +35,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 已上传文件集合
         /// </summary>
         [Parameter]
-        [NotNull]
         public List<UploadFile>? DefaultFileList { get; set; }
 
         /// <summary>
@@ -60,7 +58,7 @@ namespace BootstrapBlazor.Components
                 {
                     await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
                 }
-                DefaultFileList.Remove(item);
+                DefaultFileList?.Remove(item);
             }
             return ret;
         }
@@ -76,6 +74,6 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected virtual List<UploadFile> GetUploadFiles() => DefaultFileList.Concat(UploadFiles).ToList();
+        protected virtual List<UploadFile> GetUploadFiles() => DefaultFileList == null ? UploadFiles : DefaultFileList.Concat(UploadFiles).ToList();
     }
 }
