@@ -18,7 +18,7 @@
         </TableColumns>
         <TableFooter>
             <TableFooterCell Text="合计：" colspan="3" Align="@Align" />
-            <TableFooterCell Text="@GetAggregate(context)" />
+            <TableFooterCell Aggregate="@Aggregate" Field="@nameof(Foo.Count)" />
         </TableFooter>
     </Table>
     <div class="mt-3 btn-group">

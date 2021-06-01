@@ -312,7 +312,9 @@
             <tfoot>
                 <tr>
                     <CascadingValue Value="@(ScreenSize > RenderModelResponsiveWidth)" Name="IsMobileMode">
-                        @TableFooter?.Invoke(Items)
+                        <CascadingValue Value="@Items" Name="TableFooterContext">
+                            @TableFooter?.Invoke(Items)
+                        </CascadingValue>
                     </CascadingValue>
                 </tr>
             </tfoot>
