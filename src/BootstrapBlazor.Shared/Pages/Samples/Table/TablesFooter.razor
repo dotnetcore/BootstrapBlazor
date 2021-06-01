@@ -1,6 +1,6 @@
 ﻿@page "/tables/footer"
 
-<h3>Table 合计功能</h3>
+<h3>Table 统计功能</h3>
 
 <h4>用于数据统计</h4>
 
@@ -17,14 +17,21 @@
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <TableFooter>
-            <TableFooterCell Text="合计：" ColSpan="3" Align="@Align" />
-            <TableFooterCell Text="@context.Sum(i => i.Count).ToString()" />
+            <TableFooterCell Text="合计：" colspan="3" Align="@Align" />
+            <TableFooterCell Text="@GetAggregate(context)" />
         </TableFooter>
     </Table>
     <div class="mt-3 btn-group">
         <Button Icon="fa fa-align-left" Text="@Left" OnClick="() => ClickAlign(Alignment.Left)" />
         <Button Icon="fa fa-align-center" Text="@Center" OnClick="() => ClickAlign(Alignment.Center)" />
         <Button Icon="fa fa-align-right" Text="@Right" OnClick="() => ClickAlign(Alignment.Right)" />
+    </div>
+    <div class="mt-3 btn-group">
+        <Button Text="Sum" OnClick="() => ClickAggregate(AggregateType.Sum)" />
+        <Button Text="Average" OnClick="() => ClickAggregate(AggregateType.Average)" />
+        <Button Text="Count" OnClick="() => ClickAggregate(AggregateType.Count)" />
+        <Button Text="Min" OnClick="() => ClickAggregate(AggregateType.Min)" />
+        <Button Text="Max" OnClick="() => ClickAggregate(AggregateType.Max)" />
     </div>
 </Block>
 

@@ -42,6 +42,8 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private Alignment Align { get; set; }
 
+        private AggregateType Aggregate { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -74,5 +76,17 @@ namespace BootstrapBlazor.Shared.Pages.Table
         }
 
         private void ClickAlign(Alignment align) => Align = align;
+
+        private void ClickAggregate(AggregateType aggregate) => Aggregate = aggregate;
+
+        private string GetAggregate(IEnumerable<Foo> context) => Aggregate switch
+        {
+            AggregateType.Sum => context.Sum(i => i.Count).ToString(),
+            AggregateType.Count => context.Count().ToString(),
+            AggregateType.Max => context.Max(i => i.Count).ToString(),
+            AggregateType.Min => context.Min(i => i.Count).ToString(),
+            AggregateType.Average => context.Average(i => i.Count).ToString(),
+            _ => ""
+        };
     }
 }

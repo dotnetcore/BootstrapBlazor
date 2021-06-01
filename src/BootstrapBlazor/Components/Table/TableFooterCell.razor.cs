@@ -34,6 +34,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否为移动端模式
         /// </summary>
         [CascadingParameter(Name = "IsMobileMode")]
-        public bool IsMobileMode { get; set; }
+        private bool IsMobileMode { get; set; }
     }
 }
