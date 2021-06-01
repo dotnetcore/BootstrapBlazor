@@ -340,6 +340,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment<IEnumerable<TItem>>? TableFooter { get; set; }
 
         /// <summary>
+        /// 获得/设置 Table Footer 模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment<IEnumerable<TItem>>? FooterTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 数据集合，适用于无功能时仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托
         /// </summary>
         [Parameter]

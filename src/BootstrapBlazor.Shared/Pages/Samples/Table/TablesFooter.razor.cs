@@ -74,9 +74,5 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 IsSearch = true
             });
         }
-
-        private void ClickAlign(Alignment align) => Align = align;
-
-        private void ClickAggregate(AggregateType aggregate) => Aggregate = aggregate;
     }
 }

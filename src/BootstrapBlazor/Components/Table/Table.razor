@@ -310,13 +310,20 @@
         @if (ShowFooter)
         {
             <tfoot>
-                <tr>
-                    <CascadingValue Value="@(ScreenSize > RenderModelResponsiveWidth)" Name="IsMobileMode">
-                        <CascadingValue Value="@Items" Name="TableFooterContext">
-                            @TableFooter?.Invoke(Items)
-                        </CascadingValue>
+                <CascadingValue Value="@(ScreenSize > RenderModelResponsiveWidth)" Name="IsMobileMode">
+                    <CascadingValue Value="@Items" Name="TableFooterContext">
+                        @if (FooterTemplate != null)
+                        {
+                            @FooterTemplate.Invoke(Items)
+                        }
+                        else
+                        {
+                            <tr>
+                                @TableFooter?.Invoke(Items)
+                            </tr>
+                        }
                     </CascadingValue>
-                </tr>
+                </CascadingValue>
             </tfoot>
         }
     </table>;
