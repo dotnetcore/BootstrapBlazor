@@ -204,6 +204,19 @@
                     $link.after('<link rel="stylesheet" href="' + css + '">')
                 }
             }
+        },
+        bb_open: function (method) {
+            if (method === 'dispose') {
+                $('#log').popover(method);
+            }
+            else {
+                $('#log').popover({ delay: { 'show': 1000 } }).one('click', function () {
+                    $(this).popover('toggle');
+                }).trigger('click');
+            }
+        },
+        bb_tooltip_site: function (el) {
+            $(el).tooltip();
         }
     });
 

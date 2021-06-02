@@ -1,6 +1,7 @@
 ﻿@page "/docs"
 @page "/introduction"
 @inject IOptions<WebsiteOptions> WebsiteOption
+@implements IAsyncDisposable
 
 <h3>简介</h3>
 
@@ -12,11 +13,39 @@
 
 <p>最新 <a href="template" target="_blank">项目模板</a> 中将以上依赖进行了打包捆绑大大简化使用</p>
 
+<h3>更新日志</h3>
+
+<p>
+    本组件目前每天可能有 <b><code>beta</code></b> 版本发布，每 <b><code>周四</code></b> 发布 <b><code>正式版</code></b> 更新日志
+    <a id="log" data-toggle="popover" title="更新日志" data-content="本组件目前每天可能有 <b><code>beta</code></b> 版本发布，每 <b><code>周四</code></b> 发布 <b><code>正式版</code></b> 更新日志" data-html="true" href="@WebsiteOption.Value.WikiUrl" target="_blank">[传送门]</a>
+</p>
+
 <h3>学习资料</h3>
 
 <ul class="ul-demo mt-3">
     <li><a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=DT-MVP-5004174" target="_blank">Blazor 官方文档</a></li>
     <li><a href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/?WT.mc_id=DT-MVP-5004174" target="_blank">使用 Blazor WebAssembly 和 Visual Studio Code 生成 Web 应用</a></li>
+    <li class="learn-item">
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/2-understand-blazor-webassembly?WT.mc_id=DT-MVP-5004174">什么是 Blazor</a>
+    </li>
+    <li class="learn-item">
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/3-exercise-configure-enviromnent?WT.mc_id=DT-MVP-5004174">练习 - 配置开发环境</a>
+    </li>
+    <li class="learn-item">
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/4-blazor-components?WT.mc_id=DT-MVP-5004174">Blazor 组件</a>
+    </li>
+    <li class="learn-item">
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/5-exercise-add-component?WT.mc_id=DT-MVP-5004174">练习 - 添加组件</a>
+    </li>
+    <li class="learn-item">
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/6-csharp-razor-binding?WT.mc_id=DT-MVP-5004174">数据绑定和事件</a>
+    </li>
+    <li class="learn-item">
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/7-exercise-razor-binding?WT.mc_id=DT-MVP-5004174">练习 - 数据绑定和事件</a>
+    </li>
+    <li class="learn-item">
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/8-summary?WT.mc_id=DT-MVP-5004174">总结</a>
+    </li>
 </ul>
 
 <h3>作品展示</h3>
@@ -44,4 +73,27 @@
 </ul>
 
 <p class="code-label">交流群</p>
+
 <QQGroup />
+
+@code {
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("$.bb_open");
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("$.bb_open", "dispose");
+        GC.SuppressFinalize(this);
+    }
+}

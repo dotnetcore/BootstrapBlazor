@@ -1412,13 +1412,17 @@ section {
 .ms-learn {
     position: fixed;
     bottom: 4rem;
-    background: #fff;
+    right: 1rem;
+    background: #8759ff;
     box-shadow: 0 0 8px #211b50;
     overflow: hidden;
-    border-radius: 5px;
+    border-radius: 50%;
     z-index: 2000;
-    width: 260px;
-    right: calc(50% - 130px);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
     .ms-learn:hover {
@@ -1472,6 +1476,17 @@ section {
                 background: rgba(135,89,255,.9);
                 color: #fff;
             }
+
+    .ms-learn a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ms-learn img {
+        width: 55%;
+        margin-left: 2px;
+    }
 
 @media (min-width: 768px) {
     .ms-learn {
@@ -1605,6 +1620,12 @@ section {
     right: 1rem;
     z-index: 20;
     border: 1px solid #c0c4cc;
+}
+
+@media (max-width: 768px) {
+    .wwads-cn {
+        display: none;
+    }
 }
 
 .is-right .control-label {

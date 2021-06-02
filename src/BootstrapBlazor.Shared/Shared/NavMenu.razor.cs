@@ -170,7 +170,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Labels"],
                     Url = "labels"
                 },
@@ -266,7 +265,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["MultiSelect"],
                     Url = "multiselects"
                 },
@@ -318,7 +316,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["ValidateForm"],
                     Url = "validateforms"
                 }
@@ -389,7 +386,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Display"],
                     Url = "displays"
                 },
@@ -420,11 +416,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    Text = Localizer["Popover"],
-                    Url = "popovers"
-                },
-                new()
-                {
                     Text = Localizer["QRCode"],
                     Url = "qrcodes"
                 },
@@ -446,13 +437,11 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Title"],
                     Url = "titles"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Download"],
                     Url = "downloads"
                 },
@@ -590,6 +579,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["TableFooter"],
                     Url = "tables/footer"
                 },
@@ -610,7 +600,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TableLaoding"],
                     Url = "tables/loading"
                 }
@@ -667,6 +656,11 @@ namespace BootstrapBlazor.Shared.Shared
                 {
                     Text = Localizer["Popconfirm"],
                     Url = "popconfirms"
+                },
+                new()
+                {
+                    Text = Localizer["Popover"],
+                    Url = "popovers"
                 },
                 new()
                 {

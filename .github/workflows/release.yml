@@ -1,4 +1,4 @@
-name: Package to Nuget
+name: Package Extensions to Nuget
 
 on:
   push:

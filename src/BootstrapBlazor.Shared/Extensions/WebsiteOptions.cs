@@ -55,6 +55,11 @@ namespace BootstrapBlazor.Shared
         public string RepositoryUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/dev/src/BootstrapBlazor.Shared/Pages/Samples/";
 
         /// <summary>
+        /// 
+        /// </summary>
+        public string WikiUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Home";
+
+        /// <summary>
         /// 获得 QQ 1 群链接地址
         /// </summary>
         public string? QQGroup1Link { get; set; } = "https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi";
