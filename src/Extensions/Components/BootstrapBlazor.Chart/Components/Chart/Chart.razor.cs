@@ -63,6 +63,12 @@ namespace BootstrapBlazor.Components
         public Func<ChartAction, Task>? OnAfterUpdateAsync { get; set; }
 
         /// <summary>
+        /// 获得/设置 Bubble 模式下显示角度 180 为 半圆 360 为正圆
+        /// </summary>
+        [Parameter]
+        public int Angle { get; set; }
+
+        /// <summary>
         /// 获得/设置 图表组件渲染类型 默认为 line 图
         /// </summary>
         [Parameter]
@@ -110,7 +116,7 @@ namespace BootstrapBlazor.Components
                 if (OnInitAsync == null) throw new InvalidOperationException("OnInit paramenter must be set");
                 Interop ??= new JSInterop<Chart>(JSRuntime);
                 var ds = await OnInitAsync.Invoke();
-                await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, "", ChartType.ToDescriptionString());
+                await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, "", ChartType.ToDescriptionString(), Angle);
             }
         }
 
@@ -131,7 +137,7 @@ namespace BootstrapBlazor.Components
             if (OnInitAsync != null)
             {
                 var ds = await OnInitAsync();
-                await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, action.ToDescriptionString(), ChartType.ToDescriptionString(), 0);
+                await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, action.ToDescriptionString(), ChartType.ToDescriptionString(), Angle);
 
                 if (OnAfterUpdateAsync != null)
                 {

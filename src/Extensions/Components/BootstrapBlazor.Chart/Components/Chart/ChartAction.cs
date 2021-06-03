@@ -35,6 +35,11 @@ namespace BootstrapBlazor.Components
         /// 减少数据
         /// </summary>
         [Description("removeData")]
-        RemoveData
+        RemoveData,
+        /// <summary>
+        /// 全圆/半圆
+        /// </summary>
+        [Description("setAngle")]
+        SetAngle
     }
 }
