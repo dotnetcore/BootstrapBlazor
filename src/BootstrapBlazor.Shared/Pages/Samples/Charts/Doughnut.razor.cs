@@ -67,5 +67,14 @@ namespace BootstrapBlazor.Shared.Pages.Charts
             }
             return Task.FromResult(ds);
         }
+
+        private bool IsCircle { get; set; }
+        private int Angle { get; set; }
+        private async Task ToggleCircle()
+        {
+            IsCircle = !IsCircle;
+            Angle = IsCircle ? 360 : 0;
+            await DoughnutChart.Update(ChartAction.SetAngle);
+        }
     }
 }
