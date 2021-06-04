@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -65,7 +65,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "自定义描述信息",
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = " 暂无描述 "
+                DefaultValue = "暂无描述"
             },
             new AttributeItem() {
                 Name = "Width",
@@ -82,8 +82,15 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " 100 "
             },
             new AttributeItem() {
-                Name = "Telemplate",
+                Name = "Template",
                 Description = "自定义模板",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ChildContent",
+                Description = "子组件",
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

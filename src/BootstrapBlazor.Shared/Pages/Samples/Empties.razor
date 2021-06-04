@@ -5,19 +5,19 @@
 <h4>@SubTitle</h4>
 
 <Block Title="基本用法" Introduction="添加 <code>Empty</code> 标签即可">
-  <Empty />
+    <Empty />
 </Block>
 
-<Block Title="自定义空状态图片路径" Introduction="设置 <code>Image</code> 属性替换默认图片">
-  <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Width="133" Description="暂无数据" />
+<Block Title="设置空状态图片路径" Introduction="设置 <code>Image</code> 属性即可">
+    <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Width="133" Description="暂无数据" />
 </Block>
 
-<Block Title="自定义空状态模板" Introduction="内套 <code>Telemplate</code> 标签渲染自定义组件">
-  <Empty>
-    <Telemplate>
-      <Button OnClick='(()=>NavigationManager.NavigateTo("components"))'>返回上一页</Button>
-    </Telemplate>
-  </Empty>
+<Block Title="自定义空状态模板" Introduction="内套 <code>Template</code> 标签渲染自定义组件">
+    <Empty Image="_content/BootstrapBlazor.Shared/images/empty.svg">
+        <Template>
+            <Button OnClick="@(()=>NavigationManager.NavigateTo("components"))">返回上一页</Button>
+        </Template>
+    </Empty>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
