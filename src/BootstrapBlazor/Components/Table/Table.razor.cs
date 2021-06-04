@@ -104,6 +104,8 @@ namespace BootstrapBlazor.Components
             .AddClass("fa-rotate-90", ExpandRows.Contains(item))
             .Build();
 
+        private static string? GetColspan(int? colspan) => (colspan.HasValue && colspan.Value > 1) ? colspan.Value.ToString() : null;
+
         /// <summary>
         /// 明细行集合用于数据懒加载
         /// </summary>

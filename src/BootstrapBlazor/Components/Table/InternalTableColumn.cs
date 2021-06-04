@@ -92,6 +92,11 @@ namespace BootstrapBlazor.Components
         public IEnumerable<SelectedItem>? Lookup { get; set; }
 
         /// <summary>
+        /// 获得/设置 单元格回调方法
+        /// </summary>
+        public Action<TableCellArgs>? OnCellRender { get; set; }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="fieldName">字段名称</param>

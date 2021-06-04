@@ -147,7 +147,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
         /// </summary>
-        public IEnumerable<SelectedItem>? Lookup { get; set; }
+        IEnumerable<SelectedItem>? IEditorItem.Lookup { get; set; }
+
+        /// <summary>
+        /// 获得/设置 单元格回调方法
+        /// </summary>
+        Action<TableCellArgs>? ITableColumn.OnCellRender { get; set; }
 
         /// <summary>
         /// 

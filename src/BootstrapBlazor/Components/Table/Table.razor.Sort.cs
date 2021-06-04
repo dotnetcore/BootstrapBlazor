@@ -90,8 +90,9 @@ namespace BootstrapBlazor.Components
         /// 获得指定列头固定列样式
         /// </summary>
         /// <param name="col"></param>
+        /// <param name="cellClass"></param>
         /// <returns></returns>
-        protected string? GetFixedCellClassString(ITableColumn col) => CssBuilder.Default()
+        protected string? GetFixedCellClassString(ITableColumn col, string? cellClass = null) => CssBuilder.Default(cellClass)
             .AddClass("fixed", col.Fixed)
             .AddClass("fixed-right", col.Fixed && IsTail(col))
             .Build();

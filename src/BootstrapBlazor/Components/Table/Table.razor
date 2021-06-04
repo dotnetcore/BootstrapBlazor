@@ -470,12 +470,30 @@ RenderFragment<TItem> RenderRow => item =>
     }
     @{
         var index = 0;
+        var prevColspan = 0;
     }
     @foreach (var col in GetColumns())
     {
         @if (CheckShownWithBreakpoint(col))
         {
-            <td class="@GetFixedCellClassString(col)" style="@GetFixedCellStyleString(col)">
+            @if (prevColspan > 1)
+            {
+                prevColspan--;
+                continue;
+            }
+            var cellClass = "";
+            int? colspan = null;
+            string? value = null;
+            @if (col.OnCellRender != null)
+            {
+                var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                col.OnCellRender(args);
+                cellClass = args.Class;
+                colspan = args.Colspan;
+                value = args.Value;
+                prevColspan = colspan.HasValue ? colspan.Value : 0;
+            }
+            <td colspan="@GetColspan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                 @{
                     var showArrow = IsTree && index++ == 0;
                     var triggerClick = showArrow && CheckTreeChildren(item);
@@ -489,7 +507,14 @@ RenderFragment<TItem> RenderRow => item =>
                             <i class="@GetTreeClassString(item)"></i>
                         </div>
                     }
-                    @GetValue(col, item)
+                    @if (string.IsNullOrEmpty(value))
+                    {
+                        @GetValue(col, item)
+                    }
+                    else
+                    {
+                        @value
+                    }
                 </DynamicElement>
             </td>
         }
