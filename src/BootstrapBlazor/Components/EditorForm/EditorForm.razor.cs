@@ -195,6 +195,7 @@ namespace BootstrapBlazor.Components
                                     item.EditTemplate = el.EditTemplate;
                                     item.Text = el.Text;
                                     item.Data = el.Data;
+                                    item.Lookup = el.Lookup;
                                 }
                             }
                         }

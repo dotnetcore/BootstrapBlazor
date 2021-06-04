@@ -59,6 +59,11 @@ namespace BootstrapBlazor.Components
         Type? ComponentType { get; set; }
 
         /// <summary>
+        /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
+        /// </summary>
+        IEnumerable<SelectedItem>? Lookup { get; set; }
+
+        /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>
         string? GetDisplayName();

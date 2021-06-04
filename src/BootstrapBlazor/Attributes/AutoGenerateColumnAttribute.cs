@@ -145,6 +145,11 @@ namespace BootstrapBlazor.Components
         internal string? FieldName { get; set; }
 
         /// <summary>
+        /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
+        /// </summary>
+        public IEnumerable<SelectedItem>? Lookup { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>

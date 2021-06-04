@@ -95,6 +95,12 @@ namespace BootstrapBlazor.Components
         public IEnumerable<SelectedItem>? Data { get; set; }
 
         /// <summary>
+        /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
+        /// </summary>
+        [Parameter]
+        public IEnumerable<SelectedItem>? Lookup { get; set; }
+
+        /// <summary>
         /// 获得/设置 IEditorItem 集合实例
         /// </summary>
         /// <remarks>EditorForm 组件级联传参下来的值</remarks>

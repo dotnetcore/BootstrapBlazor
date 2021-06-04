@@ -605,31 +605,43 @@ namespace BootstrapBlazor.Components
                     builder.CloseComponent();
                     return;
                 }
-                if (col.Formatter != null)
+                // 转化 Lookup 数据源
+                if (col.Lookup != null && val != null)
                 {
-                    // 格式化回调委托
-                    content = await col.Formatter(val);
-                }
-                else if (!string.IsNullOrEmpty(col.FormatString))
-                {
-                    // 格式化字符串
-                    content = Utility.Format(val, col.FormatString);
-                }
-                else if (col.PropertyType.IsEnum())
-                {
-                    content = col.PropertyType.ToDescriptionString(val?.ToString());
-                }
-                else if (col.PropertyType.IsDateTime())
-                {
-                    content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
-                }
-                else if (val is IEnumerable<object> v)
-                {
-                    content = string.Join(",", v);
+                    var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), StringComparison.OrdinalIgnoreCase));
+                    if (lookupVal != null)
+                    {
+                        content = lookupVal.Text;
+                    }
                 }
                 else
                 {
-                    content = val?.ToString() ?? "";
+                    if (col.Formatter != null)
+                    {
+                        // 格式化回调委托
+                        content = await col.Formatter(val);
+                    }
+                    else if (!string.IsNullOrEmpty(col.FormatString))
+                    {
+                        // 格式化字符串
+                        content = Utility.Format(val, col.FormatString);
+                    }
+                    else if (col.PropertyType.IsEnum())
+                    {
+                        content = col.PropertyType.ToDescriptionString(val?.ToString());
+                    }
+                    else if (col.PropertyType.IsDateTime())
+                    {
+                        content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
+                    }
+                    else if (val is IEnumerable<object> v)
+                    {
+                        content = string.Join(",", v);
+                    }
+                    else
+                    {
+                        content = val?.ToString() ?? "";
+                    }
                 }
                 builder.AddContent(0, content);
             }

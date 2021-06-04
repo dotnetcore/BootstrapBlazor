@@ -81,7 +81,15 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public IEnumerable<SelectedItem>? Data { get; set; }
 
+        /// <summary>
+        /// 获得/设置 显示顺序
+        /// </summary>
         public int Order { get; set; }
+
+        /// <summary>
+        /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
+        /// </summary>
+        public IEnumerable<SelectedItem>? Lookup { get; set; }
 
         /// <summary>
         /// 构造函数
@@ -197,6 +205,7 @@ namespace BootstrapBlazor.Components
             if (source.Sortable) dest.Sortable = source.Sortable;
             if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
             if (source.Data != null) dest.Data = source.Data;
+            if (source.Lookup != null) dest.Lookup = source.Lookup;
             if (source.Template != null)
             {
                 if (dest is InternalTableColumn d) d.Template = source.Template;
