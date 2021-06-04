@@ -35,6 +35,7 @@
     "search": "Table/TablesSearch",
     "selection": "Table/TablesSelection",
     "tables": "Table/Tables",
+    "lookup": "Table/TablesLookup",
     "toolbar": "Table/TablesToolbar",
     "tree": "Table/TablesTree",
     "validateforms": "ValidateForms",

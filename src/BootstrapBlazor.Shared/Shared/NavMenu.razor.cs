@@ -485,6 +485,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["ChartDoughnut"],
                     Url = "charts/doughnut"
                 },
@@ -511,6 +512,12 @@ namespace BootstrapBlazor.Shared.Shared
                 {
                     Text = Localizer["TableColumn"],
                     Url = "tables/column"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["TableLook"],
+                    Url = "tables/lookup"
                 },
                 new()
                 {
