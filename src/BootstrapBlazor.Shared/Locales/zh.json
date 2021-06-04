@@ -235,6 +235,7 @@
     "TableBase": "基本功能",
     "TableRow": "行设置",
     "TableColumn": "列设置",
+    "TableCell": "单元格",
     "TableDetail": "明细行",
     "TableSearch": "搜索功能",
     "TableFilter": "筛选和排序",

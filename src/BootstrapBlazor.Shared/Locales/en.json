@@ -235,6 +235,7 @@
     "TableBase": "Base",
     "TableRow": "Row",
     "TableColumn": "Column",
+    "TableCell": "Cell",
     "TableDetail": "Detail",
     "TableSearch": "Search",
     "TableFilter": "Sort/Filter",
