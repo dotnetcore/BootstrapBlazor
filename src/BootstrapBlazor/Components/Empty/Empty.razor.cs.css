@@ -1,0 +1,16 @@
+﻿.empty {
+    text-align: center;
+}
+
+.empty-image {
+    margin-bottom: 8px;
+}
+
+    .empty-image svg {
+        height: 100%;
+        margin: auto;
+    }
+
+.empty-telemplate {
+    margin: 5px 0 0 0;
+}

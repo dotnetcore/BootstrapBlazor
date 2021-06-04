@@ -110,6 +110,9 @@
     "ModelInvalidOperationExceptionMessage": "验证表单与 {0} 绑定模型不一致",
     "PlaceHolderText": "请输入 ..."
   },
+  "BootstrapBlazor.Components.Empty": {
+    "Description": "暂无描述"
+  },
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "你的输入不相同"
   },
@@ -265,8 +268,5 @@
     "BrowserButtonText": "浏览",
     "FileExtensions": "文件扩展名必须为以下几种格式: {0}",
     "FileSizeValidation": "文件太大，文件限制大小为 {0}"
-  },
-  "BootstrapBlazor.Components.Empty": {
-    "Description": "暂无描述"
   }
 }

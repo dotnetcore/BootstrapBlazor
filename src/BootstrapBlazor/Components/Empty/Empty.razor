@@ -1,16 +1,23 @@
 ﻿@namespace BootstrapBlazor.Components
 
 <div class="empty">
-  <div class="empty-image">
-    <embed src="@Image" type="" width="@Width" height="@Height">
-  </div>
-  <div class="empty-description">
-    <span>@Description</span>
-  </div>
-  @if (Telemplate != null)
-  {
-    <div class="empty-telemplate">
-      @Telemplate
-    </div>
-  }
+    @if (!string.IsNullOrEmpty(Image))
+    {
+        <div class="empty-image">
+            <embed src="@Image" type="" width="@Width" height="@Height">
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(Description))
+    {
+        <div class="empty-description">
+            <span>@Description</span>
+        </div>
+    }
+    @if (Template != null)
+    {
+        <div class="empty-telemplate">
+            @Template
+        </div>
+    }
+    @ChildContent
 </div>

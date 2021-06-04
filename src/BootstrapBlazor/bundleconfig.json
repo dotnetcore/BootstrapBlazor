@@ -108,6 +108,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Empty/Empty.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Empty/Empty.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/GoTop/GoTop.razor.cs.min.css",
     "inputFiles": [
       "Components/GoTop/GoTop.razor.cs.css"
@@ -306,6 +312,7 @@
       "Components/Display/Display.razor.cs.min.css",
       "Components/Drawer/Drawer.razor.cs.min.css",
       "Components/Editor/Editor.razor.cs.min.css",
+      "Components/Empty/Empty.razor.cs.min.css",
       "Components/GoTop/GoTop.razor.cs.min.css",
       "Components/GroupBox/GroupBox.razor.cs.min.css",
       "Components/Layout/Layout.razor.cs.min.css",

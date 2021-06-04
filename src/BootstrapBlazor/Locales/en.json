@@ -110,6 +110,9 @@
     "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL not match {0} MODEL",
     "PlaceHolderText": "Please input ..."
   },
+  "BootstrapBlazor.Components.Empty": {
+    "Description": "No Data"
+  },
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
   },
@@ -265,8 +268,5 @@
     "BrowserButtonText": "Browser",
     "FileExtensions": "File must have one of the following extensions: {0}",
     "FileSizeValidation": "File size must less {0}"
-  },
-  "BootstrapBlazor.Components.Empty": {
-    "Description": "No description"
   }
 }

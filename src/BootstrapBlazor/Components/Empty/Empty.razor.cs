@@ -13,36 +13,41 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Empty
     {
-
         /// <summary>
-        ///  获得或设置图片路径
+        ///  获得/设置 图片路径 默认为 null
         /// </summary>
         [Parameter]
-        public string? Image { get; set; } = "_content/BootstrapBlazor/images/empty.svg";
+        public string? Image { get; set; }
 
         /// <summary>
-        /// 获得或设置空状态描述
+        /// 获得/设置 空状态描述 默认为 null
         /// </summary>
         [Parameter]
         public string? Description { get; set; }
 
         /// <summary>
-        /// 获得或设置svg宽度
+        /// 获得/ 设置 图片宽度 默认 100px
         /// </summary>
         [Parameter]
         public string? Width { get; set; } = "100";
 
         /// <summary>
-        /// 获得或设置svg高度
+        /// 获得/设置 图片高度 默认 100px
         /// </summary>
         [Parameter]
         public string? Height { get; set; } = "100";
 
         /// <summary>
-        /// 获得或设置自定义模板
+        /// 获得/设置 自定义模板
         /// </summary>
         [Parameter]
-        public RenderFragment? Telemplate { get; set; }
+        public RenderFragment? Template { get; set; }
+
+        /// <summary>
+        /// 获得/设置 子组件
+        /// </summary>
+        [Parameter]
+        public RenderFragment? ChildContent { get; set; }
 
         [Inject]
         [NotNull]
@@ -54,8 +59,8 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            Description = Description ?? Localizer[nameof(Description)];
-        }
 
+            Description ??= Localizer[nameof(Description)];
+        }
     }
 }
