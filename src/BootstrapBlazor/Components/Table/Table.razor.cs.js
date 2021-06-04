@@ -47,8 +47,13 @@
                                 var marginX = e.clientX - originalX;
                                 col.width = colWidth + marginX;
 
-                                if (index === 0)
-                                    $(colgroup).closest('table').width(tableWidth + marginX);
+                                var $table = $(colgroup).closest('table');
+                                if ($table.parent().hasClass('table-fixed-header')) {
+                                    $table.width(tableWidth + marginX);
+                                }
+                                else {
+                                    $table.width(tableWidth + marginX - 17);
+                                }
                             });
                         },
                         function () {
