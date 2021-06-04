@@ -285,6 +285,7 @@
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
     .table-cell.is-ellips.is-resizable {
