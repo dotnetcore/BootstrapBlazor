@@ -516,7 +516,7 @@ namespace BootstrapBlazor.Shared.Shared
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["TableLook"],
+                    Text = Localizer["TableLookup"],
                     Url = "tables/lookup"
                 },
                 new()
