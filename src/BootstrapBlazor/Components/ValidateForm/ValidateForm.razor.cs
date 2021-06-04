@@ -320,7 +320,9 @@ namespace BootstrapBlazor.Components
                         rule.ErrorMessage = result.ErrorMessage;
                     }
 
-                    var errorMessage = rule.FormatErrorMessage(displayName ?? memberName);
+                    var errorMessage = string.IsNullOrEmpty(rule.ErrorMessageResourceName)
+                        ? rule.FormatErrorMessage(displayName ?? memberName)
+                        : rule.ErrorMessage;
                     results.Add(new ValidationResult(errorMessage, new string[] { memberName }));
                 }
             }
