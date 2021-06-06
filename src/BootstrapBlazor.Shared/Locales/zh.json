@@ -133,7 +133,8 @@
     "FlowText": "工作流",
     "InstallAppText": "安装小程序",
     "InstallText": "安装",
-    "CancelText": "取消"
+    "CancelText": "取消",
+    "Title": "点击查看更新日志"
   },
   "BootstrapBlazor.Shared.Shared.NavMenu": {
     "GetStarted": "快速上手",

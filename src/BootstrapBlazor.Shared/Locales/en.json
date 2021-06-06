@@ -133,7 +133,8 @@
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
     "InstallText": "Install",
-    "CancelText": "Cancel"
+    "CancelText": "Cancel",
+    "Title": "View update log"
   },
   "BootstrapBlazor.Shared.Shared.NavMenu": {
     "GetStarted": "GETTINGSTARTED",

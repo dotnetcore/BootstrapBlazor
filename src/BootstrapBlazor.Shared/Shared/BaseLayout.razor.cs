@@ -46,6 +46,9 @@ namespace BootstrapBlazor.Shared.Shared
         [NotNull]
         private string? CancelText { get; set; }
 
+        [NotNull]
+        private string? Title { get; set; }
+
         private static bool Installable = false;
 
         [NotNull]
@@ -67,7 +70,7 @@ namespace BootstrapBlazor.Shared.Shared
             InstallAppText ??= Localizer[nameof(InstallAppText)];
             InstallText ??= Localizer[nameof(InstallText)];
             CancelText ??= Localizer[nameof(CancelText)];
-
+            Title ??= Localizer[nameof(Title)];
             OnInstallable = () => InvokeAsync(StateHasChanged);
         }
 
