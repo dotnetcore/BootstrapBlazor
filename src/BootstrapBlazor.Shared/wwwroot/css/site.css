@@ -1616,15 +1616,15 @@ section {
 
 .wwads-cn.wwads-horizontal {
     position: fixed;
-    bottom: 14rem;
+    top: 2.5rem;
     right: 1rem;
     z-index: 20;
     border: 1px solid #c0c4cc;
 }
 
 @media (max-width: 768px) {
-    .wwads-cn {
-        display: none;
+    .wwads-horizontal {
+        display: none !important;
     }
 }
 
