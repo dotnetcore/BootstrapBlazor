@@ -54,7 +54,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 表头上的复选框
         /// </summary>
-        protected CheckboxBase<TItem>? HeaderCheckbox { get; set; }
+        protected Checkbox<TItem>? HeaderCheckbox { get; set; }
 
         /// <summary>
         /// 获得/设置 是否为多选模式 默认为 false

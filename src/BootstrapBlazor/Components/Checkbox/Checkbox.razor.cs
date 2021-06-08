@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// BootstrapInputTextBase 组件
+    /// Checkbox 组件
     /// </summary>
-    public abstract class CheckboxBase<TValue> : ValidateBase<TValue>
+    public partial class Checkbox<TValue>
     {
         /// <summary>
         /// 获得 class 样式集合
