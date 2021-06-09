@@ -19,7 +19,7 @@
         <p>布局调整</p>
         <div class="row">
             <div class="col-12">
-                <Radio Items="@SideBarItems" OnStateChanged="@OnSideChanged" />
+                <RadioList TValue="SelectedItem" Items="@SideBarItems" OnSelectedChanged="@OnSideChanged" />
             </div>
         </div>
         <div class="row mt-3">

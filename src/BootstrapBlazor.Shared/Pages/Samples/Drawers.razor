@@ -6,7 +6,7 @@
 
 <Block Title="基本用法" Introduction="呼出一个临时的侧边栏, 可以从多个方向呼出">
     <p class="d-flex flex-wrap drawer-demo">
-        <Radio Items="@DrawerDirection" OnStateChanged="@OnStateChanged" />
+        <RadioList TValue="SelectedItem" Items="@DrawerDirection" OnSelectedChanged="@OnStateChanged" />
     </p>
     <p>
         <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = true)">点我打开</button>

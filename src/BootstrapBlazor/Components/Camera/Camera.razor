@@ -19,7 +19,7 @@
             <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" placeholder="@InitDevicesString" />
         </div>
         <div class="form-group col-12">
-            <Radio Items="@Cameras" @bind-Value="@ActiveCamera" />
+            <RadioList Items="@Cameras" @bind-Value="@ActiveCamera" />
         </div>
         <div class="form-group col-12">
             <div class="btn-group">

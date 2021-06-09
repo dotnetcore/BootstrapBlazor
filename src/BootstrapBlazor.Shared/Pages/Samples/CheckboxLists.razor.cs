@@ -135,7 +135,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = "OnSelectedChanged",
                 Description="复选框状态改变时回调此方法",
-                Type ="EventCallback<IEnumerable<SelectedItem>, TValue, Task>"
+                Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
             }
         };
     }

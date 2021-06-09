@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Placement DrawerAlign { get; set; }
 
-        private Task OnStateChanged(CheckboxState state, SelectedItem val)
+        private Task OnStateChanged(IEnumerable<SelectedItem> values, SelectedItem val)
         {
             DrawerAlign = val.Value switch
             {

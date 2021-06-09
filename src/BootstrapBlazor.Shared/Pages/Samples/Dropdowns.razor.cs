@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Shared.Pages
             Foos.Add(new SelectedItem($"{Foos.Count()}", $"城市 {Foos.Count()}"));
         }
 
-        private Task OnRadioItemChanged(CheckboxState state, SelectedItem item)
+        private Task OnRadioItemChanged(IEnumerable<SelectedItem> values, SelectedItem item)
         {
             RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count() + 1}", $"城市 {RadioDropDownItems.Count()}"));
             StateHasChanged();

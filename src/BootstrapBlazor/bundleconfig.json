@@ -180,9 +180,9 @@
     ]
   },
   {
-    "outputFileName": "Components/Radio/Radio.razor.cs.min.css",
+    "outputFileName": "Components/Radio/RadioList.razor.cs.min.css",
     "inputFiles": [
-      "Components/Radio/Radio.razor.cs.css"
+      "Components/Radio/RadioList.razor.cs.css"
     ]
   },
   {
@@ -323,7 +323,7 @@
       "Components/Pagination/Pagination.razor.cs.min.css",
       "Components/Popover/PopoverConfirmBox.razor.cs.min.css",
       "Components/QRCode/QRCode.razor.cs.min.css",
-      "Components/Radio/Radio.razor.cs.min.css",
+      "Components/Radio/RadioList.razor.cs.min.css",
       "Components/Rate/Rate.razor.cs.min.css",
       "Components/Row/Row.razor.cs.min.css",
       "Components/Scroll/Scroll.razor.cs.min.css",

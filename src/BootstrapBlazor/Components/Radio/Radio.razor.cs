@@ -2,6 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Threading.Tasks;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -10,14 +14,14 @@ namespace BootstrapBlazor.Components
     public partial class Radio
     {
         /// <summary>
-        /// OnParametersSet 方法
+        /// 
         /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
+        [Parameter]
+        public Func<SelectedItem, Task>? OnClick { get; set; }
 
-            // 根据值设置是否选中
-            State = Value.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
+        private void OnClickHandler()
+        {
+            OnClick?.Invoke(Value);
         }
     }
 }

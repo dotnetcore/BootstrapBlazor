@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Task OnFooterStateChanged(CheckboxState state, bool val) => UpdateAsync();
 
-        private async Task OnSideChanged(CheckboxState state, SelectedItem item)
+        private async Task OnSideChanged(IEnumerable<SelectedItem> values, SelectedItem item)
         {
             IsFullSide = item.Value == "left-right";
             await UpdateAsync();

@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected string? InnerClassString => CssBuilder.Default("checkbox-inner")
+        protected string? GetInnerClassString(string defaultClass = "checkbox-inner") => CssBuilder.Default(defaultClass)
             .AddClass($"bg-{Color.ToDescriptionString()} border-{Color.ToDescriptionString()}", Color != Color.None)
             .Build();
 
@@ -123,7 +123,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击选择框方法
         /// </summary>
-        protected virtual async Task OnToggleClick()
+        private async Task OnToggleClick()
         {
             if (!IsDisabled)
             {

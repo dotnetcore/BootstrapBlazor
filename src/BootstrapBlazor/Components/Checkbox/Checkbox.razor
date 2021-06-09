@@ -8,7 +8,7 @@
 }
 <label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
     <span class="checkbox-input">
-        <span class="@InnerClassString"></span>
+        <span class="@GetInnerClassString()"></span>
     </span>
     @if (ShowAfterLabel && !string.IsNullOrEmpty(DisplayText))
     {

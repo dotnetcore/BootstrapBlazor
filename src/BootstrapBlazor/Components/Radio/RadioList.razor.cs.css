@@ -1,12 +1,17 @@
-﻿.form-radio-group.is-vertical {
+﻿.radio-list.is-vertical {
     display: flex;
     flex-direction: column;
 }
 
-.form-radio-group .form-checkbox:not(:last-child) {
+.radio-list .form-checkbox:not(:last-child) {
     margin-right: 1rem;
 }
 
-.form-radio-group.is-vertical .form-checkbox:not(:last-child) {
-    margin-bottom: 0.5rem;
+.radio-list.is-vertical {
+    height: auto;
+    line-height: unset;
 }
+
+    .radio-list.is-vertical .form-checkbox:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }

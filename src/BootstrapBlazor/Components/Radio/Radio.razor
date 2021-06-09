@@ -1,13 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits Checkbox<SelectedItem>
 
-@if (IsShowLabel)
-{
-    <label class="control-label checkbox-label" required="@Required" @onclick="@OnToggleClick">@DisplayText</label>
-}
-<label @attributes="AdditionalAttributes" id="@Id" role="radio" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
+<label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnClickHandler">
     <span class="radio-input">
-        <span class="radio-inner"></span>
+        <span class="@GetInnerClassString("radio-inner")"></span>
     </span>
-    <span class="checkbox-label">@DisplayText</span>
+    @if (ShowAfterLabel && !string.IsNullOrEmpty(DisplayText))
+    {
+        <span class="checkbox-label">@DisplayText</span>
+    }
 </label>

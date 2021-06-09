@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +23,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件样式
         /// </summary>
-        private string? ClassString => CssBuilder.Default("checkbox-list form-control")
+        protected string? GetClassString(string defaultClass = "checkbox-list") => CssBuilder.Default("form-control")
+            .AddClass(defaultClass)
             .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
             .AddClass("is-vertical", IsVertical)
             .AddClass(CssClass)
@@ -35,7 +34,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件内部 Checkbox 项目样式
         /// </summary>
-        private string? CheckboxItemClassString => CssBuilder.Default("checkbox-item")
+        protected string? CheckboxItemClassString => CssBuilder.Default("checkbox-item")
             .AddClass(CheckboxItemClass)
             .Build();
 
