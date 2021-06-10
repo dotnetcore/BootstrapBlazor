@@ -5,7 +5,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.0.21-beta01</Version>
+    <Version>5.0.21</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
