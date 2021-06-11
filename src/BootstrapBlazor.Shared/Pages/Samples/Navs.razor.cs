@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             var ret = new List<NavLink>();
             var link = new NavLink();
-            var view = new Dictionary<string, object>()
+            var parameters = new Dictionary<string, object?>()
             {
                 ["href"] = WebsiteOption.Value.AdminUrl,
                 ["class"] = "nav-link nav-item",
@@ -30,7 +30,8 @@ namespace BootstrapBlazor.Shared.Pages
                     builder.AddContent(0, "BootstrapAdmin");
                 })
             };
-            link.SetParametersAsync(ParameterView.FromDictionary(view));
+            // TODO: NET6.0 移除 ! 断言
+            link.SetParametersAsync(ParameterView.FromDictionary(parameters!));
             ret.Add(link);
             return ret;
         }
