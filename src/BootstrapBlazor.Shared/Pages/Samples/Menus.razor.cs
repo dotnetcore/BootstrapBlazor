@@ -303,11 +303,11 @@ namespace BootstrapBlazor.Shared.Pages
                 };
             }
 
-            private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new[]
+            private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]
             {
-                new KeyValuePair<string, object?>(nameof(Badge.Color), Color.Danger),
-                new KeyValuePair<string, object?>(nameof(Badge.IsPill), true),
-                new KeyValuePair<string, object?>(nameof(Badge.ChildContent), new RenderFragment(builder =>
+                new(nameof(Badge.Color), Color.Danger),
+                new(nameof(Badge.IsPill), true),
+                new(nameof(Badge.ChildContent), new RenderFragment(builder =>
                 {
                     var index = 0;
                     builder.AddContent(index++, "10");

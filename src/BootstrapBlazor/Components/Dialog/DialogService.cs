@@ -47,15 +47,15 @@ namespace BootstrapBlazor.Components
             option.ResetButtonText ??= SearchDialogLocalizer[nameof(option.ResetButtonText)];
             option.QueryButtonText ??= SearchDialogLocalizer[nameof(option.QueryButtonText)];
 
-            option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(new[]
+            option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(new KeyValuePair<string, object>[]
             {
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.Model), option.Model),
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.ShowLabel), option.ShowLabel),
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.ResetButtonText), option.ResetButtonText!),
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.QueryButtonText), option.QueryButtonText!),
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable)),
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.BodyTemplate), option.DialogBodyTemplate!),
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.OnResetSearchClick), new Func<Task>(async () =>
+                new(nameof(SearchDialogOption<TModel>.Model), option.Model!),
+                new(nameof(SearchDialogOption<TModel>.ShowLabel), option.ShowLabel),
+                new(nameof(SearchDialogOption<TModel>.ResetButtonText), option.ResetButtonText!),
+                new(nameof(SearchDialogOption<TModel>.QueryButtonText), option.QueryButtonText!),
+                new(nameof(SearchDialogOption<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable)),
+                new(nameof(SearchDialogOption<TModel>.BodyTemplate), option.DialogBodyTemplate!),
+                new(nameof(SearchDialogOption<TModel>.OnResetSearchClick), new Func<Task>(async () =>
                 {
                     option.OnCloseAsync = null;
                     option.Dialog.RemoveDialog();
@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Components
                         await option.OnResetSearchClick();
                     }
                 })),
-                new KeyValuePair<string, object?>(nameof(SearchDialogOption<TModel>.OnSearchClick), new Func<Task>(async () =>
+                new(nameof(SearchDialogOption<TModel>.OnSearchClick), new Func<Task>(async () =>
                 {
                     option.OnCloseAsync = null;
                     option.Dialog.RemoveDialog();
@@ -87,15 +87,15 @@ namespace BootstrapBlazor.Components
             option.CloseButtonText ??= EditDialogLocalizer[nameof(option.CloseButtonText)];
             option.SaveButtonText ??= EditDialogLocalizer[nameof(option.SaveButtonText)];
 
-            option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(new KeyValuePair<string, object?>[]
+            option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(new KeyValuePair<string, object>[]
             {
-                new(nameof(EditDialog<TModel>.Model), option.Model),
+                new(nameof(EditDialog<TModel>.Model), option.Model!),
                 new(nameof(EditDialog<TModel>.ShowLoading), option.ShowLoading),
                 new(nameof(EditDialog<TModel>.ShowLabel), option.ShowLabel),
-                new(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText),
-                new(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText),
+                new(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText!),
+                new(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText!),
                 new(nameof(EditDialog<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable)),
-                new(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate),
+                new(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate!),
                 new(nameof(EditDialog<TModel>.OnCloseAsync), new Func<Task>(async () =>
                 {
                     option.Dialog.RemoveDialog();
@@ -137,12 +137,12 @@ namespace BootstrapBlazor.Components
                 builder.CloseComponent();
             };
 
-            option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new KeyValuePair<string, object?>[]
+            option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new KeyValuePair<string, object>[]
             {
                 new(nameof(ResultDialogFooter.ShowCloseButton), option.ShowCloseButton),
                 new(nameof(ResultDialogFooter.ButtonCloseColor), option.ButtonCloseColor),
                 new(nameof(ResultDialogFooter.ButtonCloseIcon), option.ButtonCloseIcon),
-                new(nameof(ResultDialogFooter.ButtonCloseText), option.ButtonCloseText ?? ResultDialogLocalizer[nameof(option.ButtonCloseText)] ?? ""),
+                new(nameof(ResultDialogFooter.ButtonCloseText), option.ButtonCloseText ?? ResultDialogLocalizer[nameof(option.ButtonCloseText)]?.Value ?? ""),
                 new(nameof(ResultDialogFooter.OnClickClose), new Func<Task>(async () => {
                     result = DialogResult.Close;
                     if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
@@ -151,7 +151,7 @@ namespace BootstrapBlazor.Components
                 new(nameof(ResultDialogFooter.ShowYesButton), option.ShowYesButton),
                 new(nameof(ResultDialogFooter.ButtonYesColor), option.ButtonYesColor),
                 new(nameof(ResultDialogFooter.ButtonYesIcon), option.ButtonYesIcon),
-                new(nameof(ResultDialogFooter.ButtonYesText), option.ButtonYesText ?? ResultDialogLocalizer[nameof(option.ButtonYesText)] ?? ""),
+                new(nameof(ResultDialogFooter.ButtonYesText), option.ButtonYesText ?? ResultDialogLocalizer[nameof(option.ButtonYesText)]?.Value ?? ""),
                 new(nameof(ResultDialogFooter.OnClickYes), new Func<Task>(async () => {
                     result = DialogResult.Yes;
                     if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
@@ -160,7 +160,7 @@ namespace BootstrapBlazor.Components
                 new(nameof(ResultDialogFooter.ShowNoButton), option.ShowNoButton),
                 new(nameof(ResultDialogFooter.ButtonNoColor), option.ButtonNoColor),
                 new(nameof(ResultDialogFooter.ButtonNoIcon), option.ButtonNoIcon),
-                new(nameof(ResultDialogFooter.ButtonNoText), option.ButtonNoText?? ResultDialogLocalizer[nameof(option.ButtonNoText)] ?? ""),
+                new(nameof(ResultDialogFooter.ButtonNoText), option.ButtonNoText?? ResultDialogLocalizer[nameof(option.ButtonNoText)]?.Value ?? ""),
                 new(nameof(ResultDialogFooter.OnClickNo), new Func<Task>(async () => {
                     result = DialogResult.No;
                     if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }

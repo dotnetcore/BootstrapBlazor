@@ -86,9 +86,9 @@ namespace BootstrapBlazor.Components
             var item = new TabItem();
             if (parameters.TryGetValue(nameof(Url), out var url))
             {
-                parameters[nameof(Url)] = url?.ToString()?.TrimStart('/');
+                parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
             }
-            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters));
+            var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
             return item;
         }
 

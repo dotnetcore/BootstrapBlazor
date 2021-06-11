@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
             }
 
             EnumType = Nullable.GetUnderlyingType(Type) ?? Type ?? throw new InvalidOperationException("the Parameter Type must be set.");
-            Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"] ?? "All"));
+            Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"]?.Value ?? "All"));
         }
 
         /// <summary>

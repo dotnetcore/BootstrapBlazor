@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
         private CancellationTokenSource? DelayToken { get; set; }
 
         [NotNull]
-        private List<KeyValuePair<string, object?>>? DialogParameter { get; set; }
+        private List<KeyValuePair<string, object>>? DialogParameter { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -92,7 +92,7 @@ namespace BootstrapBlazor.Components
             option.Dialog = ModalContainer;
             var parameters = option.ToAttributes().ToList();
 
-            parameters.Add(new KeyValuePair<string, object?>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+            parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 if (IsAutoHide && DelayToken != null)
                 {

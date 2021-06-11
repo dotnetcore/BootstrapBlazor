@@ -85,7 +85,7 @@ namespace BootstrapBlazor.Components
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<KeyValuePair<string, object?>> ToAttributes() => new KeyValuePair<string, object?>[]
+        public IEnumerable<KeyValuePair<string, object>> ToAttributes() => new KeyValuePair<string, object>[]
         {
             new(nameof(Title), Title!),
             new(nameof(Size), Size),

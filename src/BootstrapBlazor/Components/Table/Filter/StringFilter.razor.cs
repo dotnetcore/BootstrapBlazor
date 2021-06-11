@@ -43,10 +43,10 @@ namespace BootstrapBlazor.Components
 
             Items = new SelectedItem[]
             {
-                new SelectedItem("Contains", Localizer["Contains"] ?? "Contains"),
-                new SelectedItem("Equal", Localizer["Equal"] ?? "Equal"),
-                new SelectedItem("NotEqual", Localizer["NotEqual"] ?? "NotEqual"),
-                new SelectedItem("NotContains", Localizer["NotContains"] ?? "NotContains")
+                new SelectedItem("Contains", Localizer["Contains"]?.Value ?? "Contains"),
+                new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
+                new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual"),
+                new SelectedItem("NotContains", Localizer["NotContains"]?.Value ?? "NotContains")
             };
         }
 

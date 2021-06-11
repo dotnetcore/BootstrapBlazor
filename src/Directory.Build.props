@@ -11,8 +11,4 @@
     <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <NoWarn>1701;1702;CA1816;8620</NoWarn>
-  </PropertyGroup>
-
 </Project>

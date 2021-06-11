@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出对话框实例集合
         /// </summary>
-        private List<List<KeyValuePair<string, object?>>> DialogParameters { get; set; } = new();
+        private List<List<KeyValuePair<string, object>>> DialogParameters { get; set; } = new();
 
         private bool IsKeyboard { get; set; }
 
@@ -74,15 +74,15 @@ namespace BootstrapBlazor.Components
             var content = option.BodyTemplate ?? option.Component?.Render();
             if (content != null)
             {
-                parameters.Add(new KeyValuePair<string, object?>(nameof(ModalDialog.BodyTemplate), content));
+                parameters.Add(new(nameof(ModalDialog.BodyTemplate), content));
             }
 
             if (option.FooterTemplate != null)
             {
-                parameters.Add(new KeyValuePair<string, object?>(nameof(ModalDialog.FooterTemplate), option.FooterTemplate));
+                parameters.Add(new(nameof(ModalDialog.FooterTemplate), option.FooterTemplate));
             }
 
-            parameters.Add(new KeyValuePair<string, object?>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+            parameters.Add(new(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 // 回调 OnClose 方法
                 // 移除当前对话框
@@ -106,7 +106,7 @@ namespace BootstrapBlazor.Components
             return Task.CompletedTask;
         }
 
-        private RenderFragment RenderDialog(IEnumerable<KeyValuePair<string, object?>> parameter) => builder =>
+        private RenderFragment RenderDialog(IEnumerable<KeyValuePair<string, object>> parameter) => builder =>
         {
             builder.OpenComponent<ModalDialog>(0);
             builder.AddMultipleAttributes(1, parameter);

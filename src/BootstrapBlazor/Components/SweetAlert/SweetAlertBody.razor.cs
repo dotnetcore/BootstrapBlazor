@@ -119,7 +119,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        internal static IEnumerable<KeyValuePair<string, object?>> Parse(SwalOption option) => new List<KeyValuePair<string, object?>>()
+        internal static IEnumerable<KeyValuePair<string, object>> Parse(SwalOption option) => new List<KeyValuePair<string, object>>()
         {
             new(nameof(SweetAlertBody.Category) , option.Category),
             new(nameof(SweetAlertBody.Title) , option.Title),

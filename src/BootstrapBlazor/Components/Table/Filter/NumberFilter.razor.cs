@@ -38,12 +38,12 @@ namespace BootstrapBlazor.Components
 
             Items = new SelectedItem[]
             {
-                new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"] ?? "GreaterThanOrEqual"),
-                new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"] ?? "LessThanOrEqual"),
-                new SelectedItem("GreaterThan", Localizer["GreaterThan"] ?? "GreaterThan"),
-                new SelectedItem("LessThan", Localizer["LessThan"] ?? "LessThan"),
-                new SelectedItem("Equal", Localizer["Equal"] ?? "Equal"),
-                new SelectedItem("NotEqual", Localizer["NotEqual"] ?? "NotEqual")
+                new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"]?.Value ?? "GreaterThanOrEqual"),
+                new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"]?.Value ?? "LessThanOrEqual"),
+                new SelectedItem("GreaterThan", Localizer["GreaterThan"]?.Value ?? "GreaterThan"),
+                new SelectedItem("LessThan", Localizer["LessThan"]?.Value ?? "LessThan"),
+                new SelectedItem("Equal", Localizer["Equal"]?.Value ?? "Equal"),
+                new SelectedItem("NotEqual", Localizer["NotEqual"]?.Value ?? "NotEqual")
             };
         }
 

@@ -141,7 +141,7 @@ namespace BootstrapBlazor.Shared.Pages
             new TimelineItem
             {
                 Color = Color.Success,
-                Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new KeyValuePair<string, object?>[]
+                Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new KeyValuePair<string, object>[]
                 {
                     new(nameof(BootstrapBlazor.Components.Console.Items), Messages)
                 }),

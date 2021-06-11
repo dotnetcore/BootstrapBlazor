@@ -263,9 +263,9 @@ namespace BootstrapBlazor.Components
             }
         };
 
-        private IEnumerable<KeyValuePair<string, object?>> CreateMultipleAttributes(Type fieldType, string fieldName, IEditorItem item)
+        private IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, string fieldName, IEditorItem item)
         {
-            var ret = new List<KeyValuePair<string, object?>>();
+            var ret = new List<KeyValuePair<string, object>>();
             var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
             if (type.IsEnum)
             {
@@ -274,7 +274,7 @@ namespace BootstrapBlazor.Components
                 var items = type.ToSelectList();
                 if (items != null)
                 {
-                    ret.Add(new KeyValuePair<string, object?>("Items", items));
+                    ret.Add(new("Items", items));
                 }
             }
             else
@@ -282,10 +282,10 @@ namespace BootstrapBlazor.Components
                 switch (type.Name)
                 {
                     case nameof(String):
-                        ret.Add(new KeyValuePair<string, object?>("placeholder", Utility.GetPlaceHolder(Model, fieldName) ?? PlaceHolderText));
+                        ret.Add(new("placeholder", Utility.GetPlaceHolder(Model, fieldName) ?? PlaceHolderText));
                         if (item.Rows != 0)
                         {
-                            ret.Add(new KeyValuePair<string, object?>("rows", item.Rows));
+                            ret.Add(new("rows", item.Rows));
                         }
                         break;
                     case nameof(Int16):
@@ -294,13 +294,13 @@ namespace BootstrapBlazor.Components
                     case nameof(Single):
                     case nameof(Double):
                     case nameof(Decimal):
-                        ret.Add(new KeyValuePair<string, object?>("Step", item.Step!));
+                        ret.Add(new("Step", item.Step!));
                         break;
                     default:
                         break;
                 }
             }
-            ret.Add(new KeyValuePair<string, object?>("ShowLabel", ShowLabel));
+            ret.Add(new("ShowLabel", ShowLabel!));
             return ret;
         }
 
