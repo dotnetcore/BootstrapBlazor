@@ -1,8 +1,9 @@
-{
+﻿{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
+      "hotReloadProfile": "aspnetcore",
       "applicationUrl": "http://localhost:50853/",
       "sslPort": 0
     }
@@ -10,6 +11,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
+      "hotReloadProfile": "aspnetcore",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -17,6 +19,7 @@
     },
     "BootstrapBlazor.WebConsole": {
       "commandName": "Project",
+      "hotReloadProfile": "aspnetcore",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

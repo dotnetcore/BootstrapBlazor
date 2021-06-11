@@ -1,7 +1,8 @@
-{
+﻿{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "hotReloadProfile": "blazorwasm",
     "iisExpress": {
       "applicationUrl": "http://localhost:50855",
       "sslPort": 0
@@ -11,6 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "hotReloadProfile": "blazorwasm",
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -19,6 +21,7 @@
     "BootstrapBlazor.WebAssembly.ServerHost": {
       "commandName": "Project",
       "launchBrowser": true,
+      "hotReloadProfile": "blazorwasm",
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {

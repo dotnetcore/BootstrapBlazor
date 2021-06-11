@@ -5,8 +5,12 @@
     <Description>Bootstrap UI components extensions of EFCore</Description>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.4.21253.1" />
+  </ItemGroup>
+  
 </Project>
