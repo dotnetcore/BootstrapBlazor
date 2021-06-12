@@ -154,8 +154,11 @@ namespace BootstrapBlazor.Components
         public async ValueTask Show()
         {
             var dialog = Dialogs.LastOrDefault();
-            Dialogs.ForEach(d => d.IsShown = dialog == d);
-            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "show");
+            if (dialog != null)
+            {
+                Dialogs.ForEach(d => d.IsShown = dialog == d);
+                await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "show");
+            }
         }
 
         /// <summary>
