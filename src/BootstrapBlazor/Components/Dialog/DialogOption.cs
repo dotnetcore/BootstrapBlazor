@@ -85,16 +85,26 @@ namespace BootstrapBlazor.Components
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<KeyValuePair<string, object>> ToAttributes() => new KeyValuePair<string, object>[]
+        public IEnumerable<KeyValuePair<string, object>> ToAttributes()
         {
-            new(nameof(Title), Title!),
-            new(nameof(Size), Size),
-            new(nameof(IsCentered), IsCentered),
-            new(nameof(IsScrolling), IsScrolling),
-            new(nameof(ShowCloseButton), ShowCloseButton),
-            new(nameof(ShowFooter), ShowFooter),
-            new(nameof(BodyContext), BodyContext!),
-            new(nameof(IsKeyboard), IsKeyboard)
-        };
+            var ret = new List<KeyValuePair<string, object>>
+            {
+                new(nameof(Size), Size),
+                new(nameof(IsCentered), IsCentered),
+                new(nameof(IsScrolling), IsScrolling),
+                new(nameof(ShowCloseButton), ShowCloseButton),
+                new(nameof(ShowFooter), ShowFooter),
+                new(nameof(IsKeyboard), IsKeyboard)
+            };
+            if (!string.IsNullOrEmpty(Title))
+            {
+                ret.Add(new(nameof(Title), Title));
+            }
+            if (BodyContext != null)
+            {
+                ret.Add(new(nameof(BodyContext), BodyContext));
+            }
+            return ret;
+        }
     }
 }

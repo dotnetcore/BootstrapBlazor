@@ -19,11 +19,6 @@ namespace BootstrapBlazor.Components
         internal Modal? Dialog { get; set; }
 
         /// <summary>
-        /// 获得/设置 相关弹窗实例
-        /// </summary>
-        internal ModalDialog? Body { get; set; }
-
-        /// <summary>
         /// 获得/设置 模态弹窗返回值任务实例
         /// </summary>
         internal TaskCompletionSource<bool> ReturnTask { get; } = new TaskCompletionSource<bool>();
@@ -91,16 +86,23 @@ namespace BootstrapBlazor.Components
         /// 将参数转换为组件属性方法
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<KeyValuePair<string, object>> ToAttributes() => new List<KeyValuePair<string, object>>
+        public List<KeyValuePair<string, object>> ToAttributes()
         {
-            new(nameof(ModalDialog.Title), Title),
-            new(nameof(ModalDialog.Size), Size.Medium),
-            new(nameof(ModalDialog.IsCentered), true),
-            new(nameof(ModalDialog.IsScrolling), false),
-            new(nameof(ModalDialog.ShowCloseButton), false),
-            new(nameof(ModalDialog.ShowFooter), false),
-            new(nameof(BodyContext), BodyContext!)
-        };
+            var parameters = new List<KeyValuePair<string, object>>
+            {
+                new(nameof(Title), Title),
+                new(nameof(Size), Size.Medium),
+                new(nameof(ModalDialog.IsCentered), true),
+                new(nameof(ModalDialog.IsScrolling), false),
+                new(nameof(ModalDialog.ShowCloseButton), false),
+                new(nameof(ShowFooter), false)
+            };
+            if (BodyContext != null)
+            {
+                parameters.Add(new(nameof(BodyContext), BodyContext));
+            }
+            return parameters;
+        }
 
         /// <summary>
         /// 关闭弹窗方法

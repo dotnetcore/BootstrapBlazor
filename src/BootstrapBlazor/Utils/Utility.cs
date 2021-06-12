@@ -62,7 +62,7 @@ namespace BootstrapBlazor.Components
                     // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
                     if (!string.IsNullOrEmpty(dn))
                     {
-                        var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+                        var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
                         if (resxType?.Value.ResourceManagerStringLocalizerType != null)
                         {
                             localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);

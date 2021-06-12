@@ -294,7 +294,10 @@ namespace BootstrapBlazor.Components
                     case nameof(Single):
                     case nameof(Double):
                     case nameof(Decimal):
-                        ret.Add(new("Step", item.Step!));
+                        if (item.Step != null)
+                        {
+                            ret.Add(new("Step", item.Step));
+                        }
                         break;
                     default:
                         break;

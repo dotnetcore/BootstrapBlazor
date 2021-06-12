@@ -145,15 +145,18 @@ namespace BootstrapBlazor.Components
                             mi.Invoke(instance, new object[] { Value });
                         }
                         list = instance as IEnumerable;
-                        foreach (var item in Items)
+                        if (list != null)
                         {
-                            item.Active = false;
-                            foreach (var v in list!)
+                            foreach (var item in Items)
                             {
-                                item.Active = item.Value.Equals(v!.ToString(), StringComparison.OrdinalIgnoreCase);
-                                if (item.Active)
+                                item.Active = false;
+                                foreach (var v in list)
                                 {
-                                    break;
+                                    item.Active = item.Value.Equals(v!.ToString(), StringComparison.OrdinalIgnoreCase);
+                                    if (item.Active)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                         }

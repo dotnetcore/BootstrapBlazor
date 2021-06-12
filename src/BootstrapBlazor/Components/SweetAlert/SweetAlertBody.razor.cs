@@ -119,20 +119,36 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        internal static IEnumerable<KeyValuePair<string, object>> Parse(SwalOption option) => new List<KeyValuePair<string, object>>()
+        internal static IEnumerable<KeyValuePair<string, object>> Parse(SwalOption option)
         {
-            new(nameof(SweetAlertBody.Category) , option.Category),
-            new(nameof(SweetAlertBody.Title) , option.Title),
-            new(nameof(SweetAlertBody.Content), option.Content ?? ""),
-            new(nameof(SweetAlertBody.ShowClose), option.ShowClose),
-            new(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
-            new(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate!),
-            new(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate!),
-            new(nameof(SweetAlertBody.ShowFooter), option.ShowFooter!),
-            new(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate!),
-            new(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
-            new(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))
-        };
+            var parameters = new List<KeyValuePair<string, object>>()
+            {
+                new(nameof(SweetAlertBody.Category) , option.Category),
+                new(nameof(SweetAlertBody.Title) , option.Title),
+                new(nameof(SweetAlertBody.ShowClose), option.ShowClose),
+                new(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
+                new(nameof(SweetAlertBody.ShowFooter), option.ShowFooter),
+                new(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
+                new(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))
+            };
+            if (!string.IsNullOrEmpty(option.Content))
+            {
+                parameters.Add(new(nameof(SweetAlertBody.Content), option.Content));
+            }
+            if (option.BodyTemplate != null)
+            {
+                parameters.Add(new(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate));
+            }
+            if (option.FooterTemplate != null)
+            {
+                parameters.Add(new(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate));
+            }
+            if (option.ButtonTemplate != null)
+            {
+                parameters.Add(new(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate));
+            }
+            return parameters;
+        }
 
         /// <summary>
         /// OnInitialized 方法

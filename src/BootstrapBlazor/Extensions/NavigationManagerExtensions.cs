@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// <param name="closable"></param>
         public static void NavigateTo(this NavigationManager navigation, string url, string text, string? icon = null, bool? closable = null)
         {
-            var option = ServiceProviderHelper.ServiceProvider.GetRequiredService<TabItemTextOptions>();
+            var option = ServiceProviderHelper.ServiceProvider?.GetRequiredService<TabItemTextOptions>();
             if (option != null)
             {
                 option.Text = text;

@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Components
                         // search in Localization again
                         if (!string.IsNullOrEmpty(dn))
                         {
-                            var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+                            var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
                             if (resxType?.Value.ResourceManagerStringLocalizerType != null)
                             {
                                 localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);

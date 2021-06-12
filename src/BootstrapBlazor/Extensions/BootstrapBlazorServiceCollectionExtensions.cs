@@ -42,7 +42,6 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 configureOptions?.Invoke(options);
             });
-            ServiceProviderHelper.RegisterService(services);
             return services;
         }
     }

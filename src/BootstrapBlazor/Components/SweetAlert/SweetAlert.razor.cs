@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -90,7 +89,7 @@ namespace BootstrapBlazor.Components
             Delay = option.Delay;
 
             option.Dialog = ModalContainer;
-            var parameters = option.ToAttributes().ToList();
+            var parameters = option.ToAttributes();
 
             parameters.Add(new KeyValuePair<string, object>(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {

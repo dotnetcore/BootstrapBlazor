@@ -71,10 +71,10 @@ namespace BootstrapBlazor.Components
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             // 判断是否开启权限
-            if (Authorized)
+            if (Authorized && RouteContext.Handler != null)
             {
                 var index = 0;
-                builder.OpenComponent(index++, RouteContext.Handler!);
+                builder.OpenComponent(index++, RouteContext.Handler);
                 foreach (var kv in (RouteContext.Parameters ?? new ReadOnlyDictionary<string, object>(new Dictionary<string, object>())))
                 {
                     builder.AddAttribute(index++, kv.Key, kv.Value);

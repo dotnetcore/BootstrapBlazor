@@ -20,8 +20,8 @@ namespace BootstrapBlazor.Shared.Pages.Charts
     public partial class Bar
     {
         private Random Randomer { get; } = new Random();
-        private int BarDatasetCount = 1;
-        private int BarDataCount = 3;
+        private int BarDatasetCount = 2;
+        private int BarDataCount = 7;
 
         [NotNull]
         private Chart? BarChart { get; set; }

@@ -29,7 +29,6 @@ namespace BootstrapBlazor.Components
         protected IJSRuntime? JSRuntime { get; set; }
 
         [Inject]
-        [NotNull]
         private IServiceProvider? Provider { get; set; }
 
         /// <summary>
