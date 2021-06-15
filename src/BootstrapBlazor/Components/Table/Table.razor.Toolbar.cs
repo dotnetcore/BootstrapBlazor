@@ -267,6 +267,7 @@ namespace BootstrapBlazor.Components
                     {
                         ShowEditForm = true;
                         ShowAddForm = false;
+                        StateHasChanged();
                     }
                     await ToggleLoading(false);
                 }
