@@ -471,6 +471,7 @@ RenderFragment<TItem> RenderRow => item =>
     @{
         var index = 0;
         var prevColspan = 0;
+        var isInCell = EditInCell && SelectedItems.FirstOrDefault() == item;
     }
     @foreach (var col in GetColumns())
     {
@@ -500,21 +501,28 @@ RenderFragment<TItem> RenderRow => item =>
                 }
                 <DynamicElement TagName="div" TriggerClick="@triggerClick"
                                 OnClick="@ToggleTreeRow(item)" StopPropagation="showArrow"
-                                class="@GetCellClassString(col, triggerClick)" style="@GetCellStyleString(col)">
+                                class="@GetCellClassString(col, triggerClick, isInCell)" style="@GetCellStyleString(col)">
                     @if (showArrow)
                     {
                         <div style="@GetTreeStyleString(item)">
                             <i class="@GetTreeClassString(item)"></i>
                         </div>
                     }
-                    @if (string.IsNullOrEmpty(value))
+                    @if(isInCell)
                     {
-                        @GetValue(col, item)
+                        @RenderCell(col)
                     }
                     else
                     {
-                        @value
-                    }
+                        @if (string.IsNullOrEmpty(value))
+                        {
+                            @GetValue(col, item)
+                        }
+                        else
+                        {
+                            @value
+                        }
+                        }
                 </DynamicElement>
             </td>
         }
@@ -528,16 +536,30 @@ RenderFragment<TItem> RenderRow => item =>
                     {
                         @if (ShowEditButton)
                         {
-                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+                            @if(isInCell)
+                            {
+                                <Button Size="Size.ExtraSmall" OnClick="@ClickUpdateButtonCallback()" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
+                            }
+                            else
+                            {
+                                <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+                            }
                         }
                         @if (ShowDeleteButton)
                         {
-                            <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                              Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
-                                              CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
-                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
-                                              OnBeforeClick="@ClickBeforeDelete(item)"
-                                              OnConfirm="@DeleteAsync()" />
+                            @if(isInCell)
+                            {
+                                <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Warning" Icon="fa fa-cancel" Text="@CancelButtonText" />
+                            }
+                            else
+                            {
+                                <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                                  Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                                  CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
+                                                  ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
+                                                  OnBeforeClick="@ClickBeforeDelete(item)"
+                                                  OnConfirm="@DeleteAsync()" />
+                            }
                         }
                     }
                     @RowButtonTemplate?.Invoke(item)

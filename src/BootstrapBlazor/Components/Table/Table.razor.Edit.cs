@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Concurrent;
@@ -443,6 +444,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         protected EventCallback<MouseEventArgs> ClickEditButtonCallback(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, () => ClickEditButton(item));
+
+        private EventCallback<MouseEventArgs> ClickUpdateButtonCallback() => EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+        {
+            var context = new EditContext(EditModel);
+            await SaveAsync(context);
+        });
 
         /// <summary>
         /// 双击行回调此方法

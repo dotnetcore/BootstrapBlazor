@@ -184,7 +184,9 @@
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Add",
     "EditButtonText": "Edit",
+    "UpdateButtonText": "Update",
     "DeleteButtonText": "Delete",
+    "CancelButtonText": "Cancel",
     "SaveButtonText": "Save",
     "CancelDeleteButtonText": "Cancel",
     "ConfirmDeleteButtonText": "Delete",

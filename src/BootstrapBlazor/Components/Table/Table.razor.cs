@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -665,8 +667,10 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        private static readonly ConcurrentDictionary<(Type Type, string PropertyName), Func<TItem, object?>> GetPropertyCache = new();
+        private static ConcurrentDictionary<(Type Type, string PropertyName), Func<TItem, object?>> GetPropertyCache { get; } = new();
         #endregion
+
+        private RenderFragment RenderCell(ITableColumn col) => builder => builder.CreateComponentByFieldType(this, col, EditModel);
 
         /// <summary>
         /// Dispose 方法

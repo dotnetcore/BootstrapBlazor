@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
@@ -23,9 +25,13 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public static class Utility
     {
-        private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(string, Type, string), string>();
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> PropertyInfoCache { get; } = new ConcurrentDictionary<(Type, string), PropertyInfo>();
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), string> PlaceHolderCache { get; } = new ConcurrentDictionary<(Type, string), string>();
+        private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new();
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> PropertyInfoCache { get; } = new();
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), string> PlaceHolderCache { get; } = new();
+
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object?>> GetPropertyValueLambdaCache { get; } = new();
+
+        private static ConcurrentDictionary<(Type ModelType, string FieldName), Action<object, object?>> SetPropertyValueLambdaCache { get; } = new();
 
         /// <summary>
         /// 获取资源文件中 DisplayAttribute/DisplayNameAttribute 标签名称方法
@@ -255,6 +261,242 @@ namespace BootstrapBlazor.Components
             }
 
             return InternalTableColumn.GetProperties<TModel>().Where(predicate);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="component"></param>
+        /// <param name="item"></param>
+        /// <param name="model"></param>
+        /// <param name="showLabel"></param>
+        public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null)
+        {
+            var fieldType = item.PropertyType;
+            var fieldName = item.GetFieldName();
+            var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
+
+            var fieldValue = GenerateValue(model, fieldName);
+            var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
+            var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
+
+            builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
+            builder.AddAttribute(1, "DisplayText", displayName);
+            builder.AddAttribute(2, "Value", fieldValue);
+            builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
+            builder.AddAttribute(4, "ValueExpression", valueExpression);
+            builder.AddAttribute(5, "ShowLabel", showLabel ?? true);
+            builder.CloseComponent();
+        }
+
+        /// <summary>
+        /// RenderTreeBuilder 扩展方法，通过指定模型与属性生成编辑组件
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="model"></param>
+        /// <param name="component"></param>
+        /// <param name="item"></param>
+        /// <param name="showLabel"></param>
+        /// <param name="placeholder"></param>
+        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, string? placeholder = null)
+        {
+            var fieldType = item.PropertyType;
+            var fieldName = item.GetFieldName();
+            var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
+
+            var fieldValue = GenerateValue(model, fieldName);
+            var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
+            var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
+
+            var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
+            builder.OpenComponent(0, componentType);
+            builder.AddAttribute(1, "DisplayText", displayName);
+            builder.AddAttribute(2, "Value", fieldValue);
+            builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
+            builder.AddAttribute(4, "ValueExpression", valueExpression);
+            builder.AddAttribute(5, "IsDisabled", item.Readonly);
+            if (IsCheckboxList(fieldType) && item.Data != null)
+            {
+                builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
+            }
+            builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
+            builder.CloseComponent();
+        }
+
+        private static object? GenerateValue(object model, string fieldName)
+        {
+            // FieldValue
+            var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd(
+                key: (model.GetType(), fieldName),
+                valueFactory: key => LambdaExtensions.GetPropertyValueLambda<object, object?>(model, key.FieldName).Compile()
+            );
+            return valueInvoker.Invoke(model);
+        }
+
+        private static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
+        {
+            // ValueChanged
+            var valueChangedInvoker = CreateLambda(fieldType).Compile();
+            return valueChangedInvoker(component, model, fieldName);
+        }
+
+        private static object GenerateValueExpression(object model, string fieldName, Type fieldType)
+        {
+            // ValueExpression
+            var body = Expression.Property(Expression.Constant(model), model.GetType(), fieldName);
+            var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
+            return Expression.Lambda(tDelegate, body);
+        }
+
+        /// <summary>
+        /// 通过指定类型生成组件类型
+        /// </summary>
+        /// <param name="fieldType"></param>
+        /// <param name="hasRows"></param>
+        /// <returns></returns>
+        private static Type GenerateComponentType(Type fieldType, bool hasRows)
+        {
+            Type? ret = null;
+            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
+            if (type.IsEnum)
+            {
+                ret = typeof(Select<>).MakeGenericType(fieldType);
+            }
+            else if (IsCheckboxList(type))
+            {
+                ret = typeof(CheckboxList<IEnumerable<string>>);
+            }
+            else
+            {
+                switch (type.Name)
+                {
+                    case nameof(Boolean):
+                        ret = typeof(Checkbox<>).MakeGenericType(fieldType);
+                        break;
+                    case nameof(DateTime):
+                        ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
+                        break;
+                    case nameof(Int16):
+                    case nameof(Int32):
+                    case nameof(Int64):
+                    case nameof(Single):
+                    case nameof(Double):
+                    case nameof(Decimal):
+                        ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
+                        break;
+                    case nameof(String):
+                        if (hasRows)
+                        {
+                            ret = typeof(Textarea);
+                        }
+                        else
+                        {
+                            ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
+                        }
+                        break;
+                }
+            }
+            return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
+        }
+
+        /// <summary>
+        /// 通过指定数据类型判断是否可使用 CheckboxList 进行渲染
+        /// </summary>
+        /// <param name="fieldType"></param>
+        /// <returns></returns>
+        private static bool IsCheckboxList(Type fieldType)
+        {
+            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
+            return type.IsAssignableTo(typeof(IEnumerable<string>));
+        }
+
+        /// <summary>
+        /// 通过模型与指定数据类型生成组件参数集合
+        /// </summary>
+        /// <param name="fieldType">待编辑数据类型</param>
+        /// <param name="model">上下文模型</param>
+        /// <param name="fieldName">字段名称</param>
+        /// <param name="item">IEditorItem 实例</param>
+        /// <param name="showLabel"></param>
+        /// <param name="placeholder"></param>
+        /// <returns></returns>
+        private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item, bool? showLabel = null, string? placeholder = null)
+        {
+            var ret = new List<KeyValuePair<string, object>>();
+            var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
+            if (type.IsEnum)
+            {
+                // 枚举类型
+                // 通过字符串转化为枚举类实例
+                var items = type.ToSelectList();
+                if (items != null)
+                {
+                    ret.Add(new("Items", items));
+                }
+            }
+            else
+            {
+                switch (type.Name)
+                {
+                    case nameof(String):
+                        var ph = Utility.GetPlaceHolder(model, fieldName) ?? placeholder;
+                        if (!string.IsNullOrEmpty(ph))
+                        {
+                            ret.Add(new("placeholder", ph));
+                        }
+                        if (item.Rows != 0)
+                        {
+                            ret.Add(new("rows", item.Rows));
+                        }
+                        break;
+                    case nameof(Int16):
+                    case nameof(Int32):
+                    case nameof(Int64):
+                    case nameof(Single):
+                    case nameof(Double):
+                    case nameof(Decimal):
+                        if (item.Step != null)
+                        {
+                            ret.Add(new("Step", item.Step));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (showLabel != null)
+            {
+                ret.Add(new("ShowLabel", showLabel));
+            }
+            return ret;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TType"></typeparam>
+        /// <param name="component"></param>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t =>
+        {
+            var invoker = SetPropertyValueLambdaCache.GetOrAdd((typeof(object), fieldName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(model, key.FieldName).Compile());
+            invoker.Invoke(model, t);
+        });
+
+        private static Expression<Func<ComponentBase, object, string, object>> CreateLambda(Type fieldType)
+        {
+            var exp_p1 = Expression.Parameter(typeof(ComponentBase));
+            var exp_p2 = Expression.Parameter(typeof(object));
+            var exp_p3 = Expression.Parameter(typeof(string));
+            var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
+            var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
+
+            return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
         }
 
         #region Format

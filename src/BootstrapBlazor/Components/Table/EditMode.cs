@@ -17,6 +17,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 行内编辑模式
         /// </summary>
-        EditForm
+        EditForm,
+
+        /// <summary>
+        /// 单元格内编辑模式
+        /// </summary>
+        InCell
     }
 }
