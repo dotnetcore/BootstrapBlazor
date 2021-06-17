@@ -83,8 +83,15 @@ namespace BootstrapBlazor.Components
         protected async Task ResetSearchClick()
         {
             await ToggleLoading(true);
-            if (OnResetSearchAsync != null) await OnResetSearchAsync(SearchModel);
-            else if (SearchTemplate == null) Utility.Reset(SearchModel);
+            if (OnResetSearchAsync != null)
+            {
+                await OnResetSearchAsync(SearchModel);
+            }
+            else if (SearchTemplate == null)
+            {
+                Utility.Reset(SearchModel);
+            }
+
             PageIndex = 1;
             await QueryAsync();
             await ToggleLoading(false);
@@ -114,9 +121,13 @@ namespace BootstrapBlazor.Components
                 OnSearchClick = SearchClick
             };
 
-            var columns = Columns.Where(i => i.Searchable).ToList();
+            var columns = Columns.Where(i => i.Searchable || i.SearchTemplate != null).ToList();
             columns.ForEach(col => col.EditTemplate = col.SearchTemplate);
-            option.Items = columns;
+
+            if (columns.Any())
+            {
+                option.Items = columns;
+            }
 
             await DialogService.ShowSearchDialog(option);
         }

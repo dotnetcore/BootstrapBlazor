@@ -159,7 +159,7 @@ namespace BootstrapBlazor.Components
         public static void Reset<TModel>(TModel source) where TModel : class, new()
         {
             var v = new TModel();
-            foreach (var pi in source.GetType().GetProperties())
+            foreach (var pi in source.GetType().GetProperties().Where(p => p.CanWrite))
             {
                 var pinfo = v.GetType().GetProperties().Where(p => p.Name == pi.Name).FirstOrDefault();
                 if (pinfo != null)

@@ -77,7 +77,7 @@ namespace BootstrapBlazor.Components
 
             if (!string.IsNullOrEmpty(option.QueryButtonText))
             {
-                parameters.Add(new(nameof(SearchDialogOption<TModel>.ResetButtonText), option.QueryButtonText));
+                parameters.Add(new(nameof(SearchDialogOption<TModel>.QueryButtonText), option.QueryButtonText));
             }
 
             if (option.Model != null)
@@ -89,6 +89,8 @@ namespace BootstrapBlazor.Components
             {
                 parameters.Add(new(nameof(SearchDialogOption<TModel>.BodyTemplate), option.DialogBodyTemplate));
             }
+
+            option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(parameters);
 
             await base.Show(option);
         }
