@@ -184,7 +184,9 @@
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "新建",
     "EditButtonText": "编辑",
+    "UpdateButtonText": "更新",
     "DeleteButtonText": "删除",
+    "CancelButtonText": "取消",
     "SaveButtonText": "保存",
     "CancelDeleteButtonText": "取消",
     "ConfirmDeleteButtonText": "删除",

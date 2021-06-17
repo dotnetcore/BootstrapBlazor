@@ -124,11 +124,11 @@ namespace BootstrapBlazor.Components
                 await HeaderCheckbox.SetState(headerCheckboxState);
             }
 
-            //if (EditInCell)
-            //{
-            //    // auto quit edit in cell mode
-            //    EditInCell = false;
-            //}
+            if (EditInCell)
+            {
+                // auto quit edit in cell mode
+                EditInCell = false;
+            }
 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
             StateHasChanged();

@@ -201,8 +201,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="col"></param>
         /// <param name="hasChildren"></param>
+        /// <param name="inCell"></param>
         /// <returns></returns>
-        protected string? GetCellClassString(ITableColumn col, bool hasChildren) => CssBuilder.Default("table-cell")
+        protected string? GetCellClassString(ITableColumn col, bool hasChildren, bool inCell) => CssBuilder.Default("table-cell")
             .AddClass("justify-content-start", col.Align == Alignment.Left)
             .AddClass("justify-content-end", col.Align == Alignment.Right)
             .AddClass("justify-content-center", col.Align == Alignment.Center)
@@ -211,6 +212,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-tips", col.ShowTips)
             .AddClass("is-resizable", AllowResizing)
             .AddClass("is-tree", IsTree && hasChildren)
+            .AddClass("is-incell", inCell)
             .AddClass(col.CssClass)
             .Build();
 

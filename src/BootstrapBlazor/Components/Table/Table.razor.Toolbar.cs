@@ -182,6 +182,8 @@ namespace BootstrapBlazor.Components
 
         private bool ShowAddForm { get; set; }
 
+        private bool EditInCell { get; set; }
+
         /// <summary>
         /// 新建按钮方法
         /// </summary>
@@ -269,6 +271,11 @@ namespace BootstrapBlazor.Components
                         ShowAddForm = false;
                         StateHasChanged();
                     }
+                    else if (EditMode == EditMode.InCell)
+                    {
+                        EditInCell = true;
+                        StateHasChanged();
+                    }
                     await ToggleLoading(false);
                 }
                 else
@@ -305,6 +312,11 @@ namespace BootstrapBlazor.Components
                 ShowAddForm = false;
                 ShowEditForm = false;
             }
+            else if (EditMode == EditMode.InCell)
+            {
+                SelectedItems.Clear();
+                EditInCell = false;
+            }
         });
 
         /// <summary>
@@ -315,8 +327,14 @@ namespace BootstrapBlazor.Components
         protected async Task<bool> SaveModelAsync(EditContext context)
         {
             var valid = false;
-            if (OnSaveAsync != null) valid = await OnSaveAsync((TItem)context.Model);
-            else valid = await GetDataService().SaveAsync((TItem)context.Model);
+            if (OnSaveAsync != null)
+            {
+                valid = await OnSaveAsync((TItem)context.Model);
+            }
+            else
+            {
+                valid = await GetDataService().SaveAsync((TItem)context.Model);
+            }
 
             if (ShowErrorToast || valid)
             {
@@ -356,6 +374,11 @@ namespace BootstrapBlazor.Components
                         }
                         ShowEditForm = false;
                         StateHasChanged();
+                    }
+                    else if (EditMode == EditMode.InCell)
+                    {
+                        SelectedItems.Clear();
+                        EditInCell = false;
                     }
                 }
                 await ToggleLoading(false);
@@ -439,8 +462,15 @@ namespace BootstrapBlazor.Components
         {
             await ToggleLoading(true);
             var ret = false;
-            if (OnDeleteAsync != null) ret = await OnDeleteAsync(SelectedItems);
-            else if (UseInjectDataService) ret = await GetDataService().DeleteAsync(SelectedItems);
+            if (OnDeleteAsync != null)
+            {
+                ret = await OnDeleteAsync(SelectedItems);
+            }
+            else if (UseInjectDataService)
+            {
+                ret = await GetDataService().DeleteAsync(SelectedItems);
+            }
+
             var option = new ToastOption()
             {
                 Title = DeleteButtonToastTitle
@@ -461,7 +491,11 @@ namespace BootstrapBlazor.Components
                 SelectedItems.Clear();
                 await QueryAsync();
             }
-            if (ShowErrorToast || ret) await Toast.Show(option);
+            if (ShowErrorToast || ret)
+            {
+                await Toast.Show(option);
+            }
+
             await ToggleLoading(false);
         };
 

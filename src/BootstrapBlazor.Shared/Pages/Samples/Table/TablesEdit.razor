@@ -95,7 +95,7 @@
 </Block>
 
 <Block Title="设置编辑模式" Introduction="通过设置表格的 <code>EditMode</code> 属性，设置组件是弹窗编辑行数据还是行内编辑数据">
-    <p><code>EditMode</code> 为枚举类型其值分别为：<code>Popup</code> <code>EditForm</code> 其默认值为 <code>Popup</code> 弹窗编辑行数据</p>
+    <p><code>EditMode</code> 为枚举类型其值分别为：<code>Popup</code> <code>EditForm</code> <code>InCell</code> 其默认值为 <code>Popup</code> 弹窗编辑行数据</p>
     <p><code>EditForm</code> 模式示例</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -103,6 +103,30 @@
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnQueryAsync" EditMode="EditMode.EditForm"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name">
+                <EditTemplate Context="value">
+                    <div class="form-group col-12 col-sm-6">
+                        <TablesNameDrop Model="@((Foo)value)" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
+        </TableColumns>
+    </Table>
+
+    <p class="mt-3"><code>InCell</code> 模式示例</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
+           OnQueryAsync="@OnQueryAsync" EditMode="EditMode.InCell"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

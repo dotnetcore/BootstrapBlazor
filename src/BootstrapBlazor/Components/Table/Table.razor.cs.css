@@ -508,3 +508,12 @@
 .table .table-cell.is-tree {
     cursor: pointer;
 }
+
+.table-cell.is-incell {
+    margin: -7px -9px;
+}
+
+    .table-cell.is-incell .switch {
+        height: 35px;
+        padding-left: 9px;
+    }
