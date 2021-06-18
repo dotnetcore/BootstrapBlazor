@@ -320,6 +320,13 @@ namespace BootstrapBlazor.Components
             {
                 builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
             }
+
+            //增加非枚举类,手动设定ComponentType为Select 并且Data有值.自动生成下拉框
+            if (item.ComponentType?.GetGenericTypeDefinition() == typeof(Select<>).GetGenericTypeDefinition() && item.Data != null)
+            {
+                builder.AddAttribute(6, nameof(Select<string>.Items), item.Data);
+            }
+
             builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
             builder.CloseComponent();
         }
