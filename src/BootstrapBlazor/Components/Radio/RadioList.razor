@@ -10,7 +10,7 @@
     <div @attributes="@AdditionalAttributes" id="@Id" class="@GetClassString("radio-list")" role="checkbox" tabindex="0" hidefocus="true">
         @foreach (var item in Items)
         {
-            <Radio @key="item" Value="@item" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" OnClick="@OnClick" State="@CheckState(item)" />
+            <Radio @key="item" Value="@item" Color="@Color" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" OnClick="@OnClick" State="@CheckState(item)" />
         }
     </div>
     @ChildContent

@@ -42,7 +42,32 @@
 </Block>
 
 <Block Title="绑定枚举类型" Introduction="通过双向绑定 <code>Value</code> 无需设置 <code>Items</code>">
-    <RadioList @bind-Value="SelectedEnumItem"></RadioList>
+    <RadioList @bind-Value="@SelectedEnumItem"></RadioList>
+</Block>
+
+<Block Title="颜色" Introduction="通过设置 <code>Color</code> 属性改变组件背景色">
+    <div class="form-inline">
+        <div class="row">
+            <div class="form-group col-12">
+                <RadioList TValue="string" Items="@DemoValues" Color="@Color.Primary"></RadioList>
+            </div>
+            <div class="form-group col-12">
+                <RadioList TValue="string" Items="@DemoValues" Color="@Color.Success"></RadioList>
+            </div>
+            <div class="form-group col-12">
+                <RadioList TValue="string" Items="@DemoValues" Color="@Color.Danger"></RadioList>
+            </div>
+            <div class="form-group col-12">
+                <RadioList TValue="string" Items="@DemoValues" Color="@Color.Info"></RadioList>
+            </div>
+            <div class="form-group col-12">
+                <RadioList TValue="string" Items="@DemoValues" Color="@Color.Warning"></RadioList>
+            </div>
+            <div class="form-group col-12">
+                <RadioList TValue="string" Items="@DemoValues" Color="@Color.Secondary"></RadioList>
+            </div>
+        </div>
+    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,12 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class RadioList<TValue>
     {
+        /// <summary>
+        /// 获得/设置 按钮颜色
+        /// </summary>
+        [Parameter]
+        public Color Color { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
