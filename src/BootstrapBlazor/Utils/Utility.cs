@@ -321,13 +321,17 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
             }
 
-            //增加非枚举类,手动设定ComponentType为Select 并且Data有值.自动生成下拉框
-            if (item.ComponentType?.GetGenericTypeDefinition() == typeof(Select<>).GetGenericTypeDefinition() && item.Data != null)
+            //增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
+            if (item.Data != null && item.ComponentType != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
             {
-                builder.AddAttribute(6, nameof(Select<string>.Items), item.Data);
+                builder.AddAttribute(7, nameof(Select<SelectedItem>.Items), item.Data);
+                builder.AddAttribute(8, nameof(Select<SelectedItem>.Value), fieldValue);
+                builder.AddAttribute(9, nameof(Select<SelectedItem>.ValueChanged), fieldValueChanged);
+                builder.AddAttribute(10, nameof(Select<SelectedItem>.ValueExpression), valueExpression);
+                builder.AddAttribute(11, nameof(Select<SelectedItem>.SkipValidate), false);
             }
 
-            builder.AddMultipleAttributes(7, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
+            builder.AddMultipleAttributes(12, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
             builder.CloseComponent();
         }
 

@@ -6,12 +6,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -99,12 +96,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 配置编辑项目集合
         /// </summary>
-        private List<IEditorItem> EditorItems { get; set; } = new List<IEditorItem>();
+        private List<IEditorItem> EditorItems { get; } = new List<IEditorItem>();
 
         /// <summary>
         /// 获得/设置 渲染的编辑项集合
         /// </summary>
-        private List<IEditorItem> FormItems { get; set; } = new List<IEditorItem>();
+        private List<IEditorItem> FormItems { get; } = new List<IEditorItem>();
 
         [NotNull]
         private string? PlaceHolderText { get; set; }
@@ -196,6 +193,7 @@ namespace BootstrapBlazor.Components
                                     item.Text = el.Text;
                                     item.Data = el.Data;
                                     item.Lookup = el.Lookup;
+                                    item.ComponentType = el.ComponentType;
                                 }
                             }
                         }
