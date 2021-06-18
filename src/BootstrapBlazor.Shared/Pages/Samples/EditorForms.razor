@@ -115,6 +115,20 @@
     </GroupBox>
 </Block>
 
+<Block Title="自定义渲染组件类型" Introduction="通过设置 <code>CompnentType</code> 属性值来控制渲染组件类型">
+        <ValidateForm Model="@Model">
+            <EditorForm Model="@Model" ItemsPerRow="2">
+                <FieldItems>
+                    <EditorItem @bind-Field="@Model.Count" ComponentType="typeof(Select<Int32>)" Data="DummyItems" />
+                    <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+                </FieldItems>
+                <Buttons>
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                </Buttons>
+            </EditorForm>
+        </ValidateForm>
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Title="EditorItem 属性" Items="@GetEditorItemAttributes()" />

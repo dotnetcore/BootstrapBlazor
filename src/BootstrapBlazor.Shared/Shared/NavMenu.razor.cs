@@ -245,6 +245,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["EditorForm"],
                     Url = "editorforms"
                 },
@@ -310,7 +311,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["Upload"],
                     Url = "uploads"
                 },
@@ -485,7 +485,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["ChartDoughnut"],
                     Url = "charts/doughnut"
                 },
@@ -515,13 +514,11 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TableCell"],
                     Url = "tables/cell"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TableLookup"],
                     Url = "tables/lookup"
                 },
@@ -592,7 +589,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TableFooter"],
                     Url = "tables/footer"
                 },
