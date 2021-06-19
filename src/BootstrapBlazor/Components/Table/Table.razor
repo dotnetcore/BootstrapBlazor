@@ -281,7 +281,7 @@
             @foreach (var item in GetItems())
             {
                 @RenderRow.Invoke(item)
-                if (DetailRowTemplate != null)
+                if (ShowDetails())
                 {
                     <tr class="@GetDetailRowClassString(item)">
                         <td>&nbsp;</td>
@@ -289,7 +289,7 @@
                             <div class="table-cell is-wrap">
                                 @if (DetailRows.Contains(item))
                                 {
-                                    @DetailRowTemplate.Invoke(item)
+                                    @DetailRowTemplate?.Invoke(item)
                                 }
                                 else
                                 {
@@ -330,7 +330,7 @@
 
 RenderFragment<bool> RenderColgroup => hasScroll =>
 @<colgroup>
-    @if (DetailRowTemplate != null)
+    @if (ShowDetails())
     {
         <col width="24" />
     }
@@ -375,7 +375,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
     else
     {
         <tr>
-            @if (DetailRowTemplate != null)
+            @if (ShowDetails())
             {
                 <th>
                     <div class="table-cell">&nbsp;</div>
@@ -443,7 +443,7 @@ RenderFragment<TItem> RenderRow => item =>
 @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
                  TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="@ClickRow(item)"
                  TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="@DoubleClickRow(item)">
-    @if (DetailRowTemplate != null)
+    @if (ShowDetails())
     {
         <td>
             <div class="@GetDetailBarClassString(item)">
@@ -508,7 +508,7 @@ RenderFragment<TItem> RenderRow => item =>
                             <i class="@GetTreeClassString(item)"></i>
                         </div>
                     }
-                    @if(isInCell)
+                    @if (isInCell)
                     {
                         @RenderCell(col)
                     }
@@ -522,7 +522,7 @@ RenderFragment<TItem> RenderRow => item =>
                         {
                             @value
                         }
-                        }
+                    }
                 </DynamicElement>
             </td>
         }
@@ -536,7 +536,7 @@ RenderFragment<TItem> RenderRow => item =>
                     {
                         @if (ShowEditButton)
                         {
-                            @if(isInCell)
+                            @if (isInCell)
                             {
                                 <Button Size="Size.ExtraSmall" OnClick="@ClickUpdateButtonCallback()" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
                             }
@@ -547,7 +547,7 @@ RenderFragment<TItem> RenderRow => item =>
                         }
                         @if (ShowDeleteButton)
                         {
-                            @if(isInCell)
+                            @if (isInCell)
                             {
                                 <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Warning" Icon="fa fa-cancel" Text="@CancelButtonText" />
                             }
@@ -575,7 +575,7 @@ RenderFragment<TItem> RenderEditForm => item =>
         var colspanCount = Columns.Count;
         if (IsMultipleSelect) colspanCount++;
         if (ShowLineNo) colspanCount++;
-        if (DetailRowTemplate != null) colspanCount++;
+        if (ShowDetails()) colspanCount++;
         if (ShowExtendButtons) colspanCount++;
     }
     <td colspan="@colspanCount">

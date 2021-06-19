@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Components
         protected string? GetRowClassString(TItem item, string? css = null) => CssBuilder.Default(css)
             .AddClass(SetRowClassFormatter?.Invoke(item))
             .AddClass("active", CheckActive(item))
-            .AddClass("is-master", DetailRowTemplate != null)
+            .AddClass("is-master", ShowDetails())
             .AddClass("is-click", ClickToSelect)
             .AddClass("is-dblclick", DoubleClickToEdit)
             .Build();
@@ -136,8 +136,28 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public int IndentSize { get; set; } = 16;
 
+        /// <summary>
+        /// 获得/设置 是否显示明细行
+        /// </summary>
+        [Parameter]
+        public bool? IsDetails { get; set; }
+
         [NotNull]
         private string? NotSetOnTreeExpandErrorMessage { get; set; }
+
+        private bool ShowDetails()
+        {
+            var ret = false;
+            if (IsDetails == null)
+            {
+                ret = DetailRowTemplate != null;
+            }
+            else
+            {
+                ret = IsDetails.Value && DetailRowTemplate != null;
+            }
+            return ret;
+        }
 
         private string GetIndentSize(TItem item)
         {
@@ -302,7 +322,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 明细行集合用于数据懒加载
         /// </summary>
-        protected List<TItem> DetailRows { get; set; } = new List<TItem>();
+        protected List<TItem> DetailRows { get; } = new List<TItem>();
 
         /// <summary>
         /// 获得/设置 可过滤表格列集合
