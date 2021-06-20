@@ -131,6 +131,12 @@ namespace BootstrapBlazor.Components
         public Func<TItem, Task<IEnumerable<TItem>>>? OnTreeExpand { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否有子节点回调方法 默认为 null 用于未提供 <see cref="HasChildrenColumnName"/> 列名时使用
+        /// </summary>
+        [Parameter]
+        public Func<TItem, bool>? HasChildrenCallback { get; set; }
+
+        /// <summary>
         /// 获得/设置 缩进大小 默认为 16 单位 px
         /// </summary>
         [Parameter]
@@ -275,12 +281,19 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private bool CheckTreeChildren(TItem item)
         {
-            var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), HasChildrenColumnName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
-            var v = invoker.Invoke(item);
             var ret = false;
-            if (v is bool b)
+            if (HasChildrenCallback != null)
             {
-                ret = b;
+                ret = HasChildrenCallback(item);
+            }
+            else
+            {
+                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), HasChildrenColumnName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
+                var v = invoker.Invoke(item);
+                if (v is bool b)
+                {
+                    ret = b;
+                }
             }
             return ret;
         }
@@ -446,7 +459,7 @@ namespace BootstrapBlazor.Components
         public string ChildrenColumnName { get; set; } = "Children";
 
         /// <summary>
-        /// 获得设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren
+        /// 获得设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
         /// </summary>
         [Parameter]
         public string HasChildrenColumnName { get; set; } = "HasChildren";
