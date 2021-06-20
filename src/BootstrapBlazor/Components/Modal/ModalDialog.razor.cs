@@ -73,6 +73,12 @@ namespace BootstrapBlazor.Components
         public bool ShowCloseButton { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示 Header 关闭按钮
+        /// </summary>
+        [Parameter]
+        public bool ShowHeaderCloseButton { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 是否显示 Footer 默认为 true
         /// </summary>
         [Parameter]

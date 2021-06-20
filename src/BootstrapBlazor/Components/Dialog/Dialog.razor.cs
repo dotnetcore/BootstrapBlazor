@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹出对话框实例集合
         /// </summary>
-        private List<List<KeyValuePair<string, object>>> DialogParameters { get; set; } = new();
+        private List<List<KeyValuePair<string, object>>> DialogParameters { get; } = new();
 
         private bool IsKeyboard { get; set; }
 

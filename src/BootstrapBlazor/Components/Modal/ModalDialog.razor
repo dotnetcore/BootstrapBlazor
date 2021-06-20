@@ -5,9 +5,12 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">@Title</h5>
-            <Button Color="Color.None" class="close" aria-label="Close" OnClickWithoutRender="@OnClickClose">
-                <span aria-hidden="true">&times;</span>
-            </Button>
+            @if (ShowHeaderCloseButton)
+            {
+                <Button Color="Color.None" class="close" aria-label="Close" OnClickWithoutRender="@OnClickClose">
+                    <span aria-hidden="true">&times;</span>
+                </Button>
+            }
         </div>
         <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
             <div class="modal-body">

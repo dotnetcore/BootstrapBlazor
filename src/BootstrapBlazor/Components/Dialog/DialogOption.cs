@@ -47,6 +47,11 @@ namespace BootstrapBlazor.Components
         public bool ShowCloseButton { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示 Header 关闭按钮 默认为 true
+        /// </summary>
+        public bool ShowHeaderCloseButton { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持
         /// </summary>
         public bool IsKeyboard { get; set; } = true;
@@ -93,6 +98,7 @@ namespace BootstrapBlazor.Components
                 new(nameof(IsCentered), IsCentered),
                 new(nameof(IsScrolling), IsScrolling),
                 new(nameof(ShowCloseButton), ShowCloseButton),
+                new(nameof(ShowHeaderCloseButton), ShowHeaderCloseButton),
                 new(nameof(ShowFooter), ShowFooter),
                 new(nameof(IsKeyboard), IsKeyboard)
             };
