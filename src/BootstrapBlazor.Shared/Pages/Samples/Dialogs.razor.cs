@@ -65,6 +65,21 @@ namespace BootstrapBlazor.Shared.Pages
             await DialogService.Show(option);
         }
 
+        private async Task ShowNoHeaderCloseButtonDialog()
+        {
+            var option = new DialogOption()
+            {
+                Title = "Header 中无关闭按钮",
+                ShowHeaderCloseButton = false
+            };
+            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            {
+                new(nameof(Button.Text), "点击关闭弹窗"),
+                new(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
+            }).Render();
+            await DialogService.Show(option);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -212,6 +227,13 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem() {
                     Name = "ShowCloseButton",
                     Description = "是否显示关闭按钮",
+                    Type = "boolean",
+                    ValueList = "true|false",
+                    DefaultValue = "true"
+                },
+                new AttributeItem() {
+                    Name = "ShowHeaderCloseButton",
+                    Description = "是否显示标题栏右侧关闭按钮",
                     Type = "boolean",
                     ValueList = "true|false",
                     DefaultValue = "true"

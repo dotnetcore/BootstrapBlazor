@@ -65,6 +65,12 @@
     <Button @onclick="@Show">Dialog</Button>
 </Block>
 
+<Block Title="禁用 Header 中的关闭按钮" Introduction="本例讲解如何通过代码打开与关闭弹窗">
+    <p>设置参数 <code>ShowHeaderCloseButton</code> 禁止弹窗 <code>Header</code> 右侧显示 <b>关闭</b> 按钮</p>
+
+    <Button @onclick="@ShowNoHeaderCloseButtonDialog">Dialog</Button>
+</Block>
+
 <Block Title="多级弹窗" Introduction="点击弹窗内部按钮继续弹出对话窗">
     <p>功能介绍</p>
     <ul class="ul-demo">
