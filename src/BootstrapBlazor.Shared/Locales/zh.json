@@ -301,5 +301,9 @@
     "Left": "左对齐",
     "Center": "居中",
     "Right": "右对齐"
+  },
+  "BootstrapBlazor.Shared.Pages.Table.TablesDetailRow": {
+    "DetailTextTrue": "关闭明细行",
+    "DetailTextFalse": "开启明细行"
   }
 }

@@ -137,7 +137,7 @@ namespace BootstrapBlazor.Components
         public int IndentSize { get; set; } = 16;
 
         /// <summary>
-        /// 获得/设置 是否显示明细行
+        /// 获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断
         /// </summary>
         [Parameter]
         public bool? IsDetails { get; set; }
@@ -145,19 +145,9 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
-        private bool ShowDetails()
-        {
-            var ret = false;
-            if (IsDetails == null)
-            {
-                ret = DetailRowTemplate != null;
-            }
-            else
-            {
-                ret = IsDetails.Value && DetailRowTemplate != null;
-            }
-            return ret;
-        }
+        private bool ShowDetails() => IsDetails == null
+            ? DetailRowTemplate != null
+            : IsDetails.Value && DetailRowTemplate != null;
 
         private string GetIndentSize(TItem item)
         {
@@ -346,7 +336,7 @@ namespace BootstrapBlazor.Components
         public bool UseInjectDataService { get; set; }
 
         /// <summary>
-        /// 获得/设置 明细行模板
+        /// 获得/设置 明细行模板 <see cref="IsDetails" />
         /// </summary>
         [Parameter]
         public RenderFragment<TItem>? DetailRowTemplate { get; set; }

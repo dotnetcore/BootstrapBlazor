@@ -301,5 +301,9 @@
     "Left": "Left",
     "Center": "Center",
     "Right": "Right"
+  },
+  "BootstrapBlazor.Shared.Pages.Table.TablesDetailRow": {
+    "DetailTextTrue": "Enable",
+    "DetailTextFalse": "Disable"
   }
 }

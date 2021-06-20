@@ -335,6 +335,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "IsDetails",
+                Description = "是否为明细行表格，未设置时使用 DetailRowTemplate 进行逻辑判断",
+                Type = "boolean",
+                ValueList = "true / false / null",
+                DefaultValue = "null"
+            },
+            new AttributeItem() {
                 Name = "ClickToSelect",
                 Description = "点击行即选中本行",
                 Type = "boolean",

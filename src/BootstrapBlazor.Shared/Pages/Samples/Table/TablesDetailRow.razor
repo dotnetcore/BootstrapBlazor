@@ -6,9 +6,12 @@
 
 <Block Title="简单应用" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容">
     <p>明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现</p>
+    <Tips>
+        <p>通过 <code>IsDetails</code> 参数可以实现动态切换是否显示明细行功能</p>
+    </Tips>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
+           IsStriped="true" IsBordered="true" IsDetails="@IsDetails"
            ShowToolbar="true" ShowDefaultButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
@@ -21,6 +24,8 @@
             <div>学历: @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
         </DetailRowTemplate>
     </Table>
+
+    <Button Text="@DetailText" OnClick="OnClickDetailRow" class="mt-3"></Button>
 </Block>
 
 <Block Title="嵌套 Table 组件应用" Introduction="通过设置 <code>DetailRowTemplate</code> 模板设置明细行为子表数据">

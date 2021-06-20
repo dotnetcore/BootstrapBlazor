@@ -33,6 +33,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<TablesDetailRow>? LocalizerDetailRow { get; set; }
+
+        [NotNull]
+        private string? DetailText { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -40,6 +47,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
+            DetailText ??= LocalizerDetailRow[$"{nameof(DetailText)}{!IsDetails}"];
             Items = Foo.GenerateFoo(Localizer);
         }
 
@@ -66,6 +74,14 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 Items = items,
                 TotalCount = total
             });
+        }
+
+        private bool IsDetails { get; set; } = true;
+
+        private void OnClickDetailRow()
+        {
+            DetailText = LocalizerDetailRow[$"{nameof(DetailText)}{IsDetails}"];
+            IsDetails = !IsDetails;
         }
 
         private class DetailRow
