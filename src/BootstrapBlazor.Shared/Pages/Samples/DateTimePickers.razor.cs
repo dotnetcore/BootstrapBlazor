@@ -6,6 +6,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -15,34 +16,19 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class DateTimePickers
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
 
-        /// <summary>
-        /// 
-        /// </summary>
         private string SpanValue2 { get; set; } = DateTime.Now.ToString("HH:mm:ss");
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
         private Logger? DateLogger { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
         private Logger? TimeLogger { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        [NotNull]
         private Logger? DateTimeLogger { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private DateTime? BindValue { get; set; } = DateTime.Today;
 
         private DateTime? BindNullValue { get; set; }
@@ -77,7 +63,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="d"></param>
         private Task DateValueChanged(DateTime d)
         {
-            DateLogger?.Log($"选择的日期为: {d:yyyy-MM-dd}");
+            DateLogger.Log($"选择的日期为: {d:yyyy-MM-dd}");
             return Task.CompletedTask;
         }
 
@@ -94,7 +80,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="d"></param>
         private void TimeValueChanged(TimeSpan d)
         {
-            TimeLogger?.Log($"选择的时间为: {d:hh\\:mm\\:ss}");
+            TimeLogger.Log($"选择的时间为: {d:hh\\:mm\\:ss}");
         }
 
         /// <summary>
@@ -104,7 +90,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task DateTimeValueChanged(DateTime? d)
         {
             BindValue = d;
-            DateTimeLogger?.Log($"选择的时间为: {d:yyyy-MM-dd}");
+            DateTimeLogger.Log($"选择的时间为: {d:yyyy-MM-dd}");
             return Task.CompletedTask;
         }
 

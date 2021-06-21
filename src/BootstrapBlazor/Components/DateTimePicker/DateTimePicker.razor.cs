@@ -19,6 +19,7 @@ namespace BootstrapBlazor.Components
         /// 获得 组件样式名称
         /// </summary>
         private string? ClassString => CssBuilder.Default("datetime-picker")
+            .AddClass(ValidCss)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
