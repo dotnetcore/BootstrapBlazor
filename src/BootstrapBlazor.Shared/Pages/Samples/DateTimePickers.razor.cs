@@ -4,8 +4,11 @@
 
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -33,7 +36,29 @@ namespace BootstrapBlazor.Shared.Pages
 
         private DateTime? BindNullValue { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        public DateTime? ModelValidateValue { get; set; }
+
+        private string? SubmitText { get; set; }
+
         private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : "空值";
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            SubmitText ??= Localizer[nameof(SubmitText)];
+        }
 
         /// <summary>
         /// 

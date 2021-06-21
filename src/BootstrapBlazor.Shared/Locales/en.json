@@ -56,6 +56,11 @@
     "ShowBarUsageText": "With Bar",
     "IntroText4": "Show <code>Tip</code>"
   },
+  "BootstrapBlazor.Shared.Pages.DateTimePickers": {
+    "SubmitText": "Save",
+    "ModelValidateValue": "ModelValidateValue",
+    "ModelValidateValue.Required": "{0} is required."
+  },
   "BootstrapBlazor.Shared.Pages.Selects": {
     "PlaceHolder": "Not Select"
   },

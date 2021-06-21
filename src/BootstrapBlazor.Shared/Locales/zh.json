@@ -56,6 +56,11 @@
     "ShowBarUsageText": "显示左侧 Bar",
     "IntroText4": "作为 <code>Tip</code> 使用"
   },
+  "BootstrapBlazor.Shared.Pages.DateTimePickers": {
+    "SubmitText": "保存",
+    "ModelValidateValue": "属性",
+    "ModelValidateValue.Required": "{0}为必填项"
+  },
   "BootstrapBlazor.Shared.Pages.Selects": {
     "PlaceHolder": "未选择"
   },
