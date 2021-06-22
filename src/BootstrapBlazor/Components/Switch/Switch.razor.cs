@@ -45,7 +45,8 @@ namespace BootstrapBlazor.Components
         /// 获得 组件最小宽度
         /// </summary>
         private string? SwitchStyleName => CssBuilder.Default()
-            .AddClass($"min-width: {Width}px", Width > 0)
+            .AddClass($"min-width: {Width}px;", Width > 0)
+            .AddStyleFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

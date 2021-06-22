@@ -65,13 +65,13 @@ namespace BootstrapBlazor.Components
         public EventCallback<bool> IsOpenChanged { get; set; }
 
         /// <summary>
-        /// 获得/设置 点击背景遮罩时回调委托方法
+        /// 获得/设置 点击背景遮罩时回调委托方法 默认为 null
         /// </summary>
         [Parameter]
         public Func<Task>? OnClickBackdrop { get; set; }
 
         /// <summary>
-        /// 获得/设置 点击遮罩是否关闭抽屉
+        /// 获得/设置 点击遮罩是否关闭抽屉 默认为 false
         /// </summary>
         [Parameter]
         public bool IsBackdrop { get; set; }
