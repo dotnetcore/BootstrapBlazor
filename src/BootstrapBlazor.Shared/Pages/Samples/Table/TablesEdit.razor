@@ -132,9 +132,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
-                    <div class="form-group col-12 col-sm-6">
-                        <TablesNameDrop Model="@((Foo)value)" />
-                    </div>
+                    <TablesNameDrop Model="@((Foo)value)" />
                 </EditTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" />
