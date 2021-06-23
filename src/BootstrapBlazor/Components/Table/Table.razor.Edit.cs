@@ -332,7 +332,7 @@ namespace BootstrapBlazor.Components
 
             if (queryData != null)
             {
-                Items = queryData.Items;
+                Items = queryData.Items.ToList();
                 if (IsTree)
                 {
                     KeySet.Clear();
