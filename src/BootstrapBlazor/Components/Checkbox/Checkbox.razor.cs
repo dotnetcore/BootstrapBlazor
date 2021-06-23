@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnAfterRender(firstRender);
 
-            _stateChanged = false;
+            _peddingStateChanged = false;
         }
 
         /// <summary>
@@ -127,6 +127,7 @@ namespace BootstrapBlazor.Components
         {
             if (!IsDisabled)
             {
+                _peddingStateChanged = true;
                 await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
             }
         }
@@ -134,14 +135,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 此变量为了提高性能，避免循环更新
         /// </summary>
-        private bool _stateChanged;
+        private bool _peddingStateChanged;
 
         private async Task InternalStateChanged(CheckboxState state)
         {
-            if (!_stateChanged)
+            if (_peddingStateChanged)
             {
-                _stateChanged = true;
-
                 if (IsBoolean)
                 {
                     CurrentValue = (TValue)(object)(state == CheckboxState.Checked);
@@ -169,8 +168,13 @@ namespace BootstrapBlazor.Components
         /// <param name="state"></param>
         public virtual async Task SetState(CheckboxState state)
         {
-            await InternalStateChanged(state);
-            StateHasChanged();
+            if (!_peddingStateChanged)
+            {
+                _peddingStateChanged = true;
+
+                await InternalStateChanged(state);
+                StateHasChanged();
+            }
         }
     }
 }
