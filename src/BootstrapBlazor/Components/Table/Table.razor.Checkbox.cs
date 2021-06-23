@@ -116,14 +116,6 @@ namespace BootstrapBlazor.Components
 
             await OnSelectedRowsChanged();
 
-            if (HeaderCheckbox != null)
-            {
-                var headerCheckboxState = SelectedItems.Count == 0 && Items.Any()
-                    ? CheckboxState.UnChecked
-                    : (SelectedItems.Count == Items.Count() ? CheckboxState.Checked : CheckboxState.Mixed);
-                await HeaderCheckbox.SetState(headerCheckboxState);
-            }
-
             if (EditInCell)
             {
                 // auto quit edit in cell mode

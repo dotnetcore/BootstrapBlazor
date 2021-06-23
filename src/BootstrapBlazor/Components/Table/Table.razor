@@ -385,8 +385,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             {
                 <th class="@CheckboxColumnClass">
                     <div class="table-cell">
-                        <Checkbox TValue="TItem" @ref="@HeaderCheckbox"
-                                  DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
+                        <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
                                   State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
                     </div>
                 </th>
@@ -458,7 +457,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td>
             <div class="table-cell">
-                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck()" @onclick:stopPropagation></Checkbox>
+                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck()"></Checkbox>
             </div>
         </td>
     }
