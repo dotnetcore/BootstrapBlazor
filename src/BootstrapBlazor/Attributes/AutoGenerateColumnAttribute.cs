@@ -38,6 +38,11 @@ namespace BootstrapBlazor.Components
         public bool DefaultSort { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否不进行验证 默认为 false
+        /// </summary>
+        public bool SkipValidate { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
         /// </summary>
         public SortOrder DefaultSortOrder { get; set; }

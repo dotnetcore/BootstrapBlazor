@@ -36,6 +36,11 @@ namespace BootstrapBlazor.Components
 
         public bool TextEllipsis { get; set; }
 
+        /// <summary>
+        /// 获得/设置 是否不进行验证 默认为 false
+        /// </summary>
+        public bool SkipValidate { get; set; }
+
         public string? CssClass { get; set; }
 
         public BreakPoint ShownWithBreakPoint { get; set; }
@@ -209,6 +214,7 @@ namespace BootstrapBlazor.Components
             if (source.ShowTips) dest.ShowTips = source.ShowTips;
             if (source.Sortable) dest.Sortable = source.Sortable;
             if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
+            if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
             if (source.Data != null) dest.Data = source.Data;
             if (source.Lookup != null) dest.Lookup = source.Lookup;
             if (source.Template != null)

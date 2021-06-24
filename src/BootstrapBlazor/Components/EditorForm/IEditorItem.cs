@@ -29,6 +29,11 @@ namespace BootstrapBlazor.Components
         bool Readonly { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否不进行验证 默认为 false
+        /// </summary>
+        public bool SkipValidate { get; set; }
+
+        /// <summary>
         /// 获得/设置 表头显示文字
         /// </summary>
         string? Text { get; set; }

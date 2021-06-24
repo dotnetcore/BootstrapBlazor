@@ -180,36 +180,34 @@ namespace BootstrapBlazor.Components
             var ret = item;
             if (item != null)
             {
-                var type = item.GetType();
-                if (typeof(ICloneable).IsAssignableFrom(type))
+                if (item is ICloneable cloneable)
                 {
-                    var clv = type.GetMethod("Clone")?.Invoke(item, null);
-                    if (clv != null)
-                    {
-                        ret = (TModel)clv;
-                        return ret;
-                    }
+                    ret = (TModel)cloneable.Clone();
                 }
-                if (type.IsClass)
+                else
                 {
-                    ret = Activator.CreateInstance<TModel>();
-                    var valType = ret?.GetType();
-                    if (valType != null)
+                    var type = item.GetType();
+                    if (type.IsClass)
                     {
-                        // 20200608 tian_teng@outlook.com 支持字段和只读属性
-                        foreach (var f in type.GetFields())
+                        ret = Activator.CreateInstance<TModel>();
+                        var valType = ret?.GetType();
+                        if (valType != null)
                         {
-                            var v = f.GetValue(item);
-                            valType.GetField(f.Name)?.SetValue(ret, v);
-                        };
-                        foreach (var p in type.GetProperties())
-                        {
-                            if (p.CanWrite)
+                            // 20200608 tian_teng@outlook.com 支持字段和只读属性
+                            foreach (var f in type.GetFields())
                             {
-                                var v = p.GetValue(item);
-                                valType.GetProperty(p.Name)?.SetValue(ret, v);
-                            }
-                        };
+                                var v = f.GetValue(item);
+                                valType.GetField(f.Name)?.SetValue(ret, v);
+                            };
+                            foreach (var p in type.GetProperties())
+                            {
+                                if (p.CanWrite)
+                                {
+                                    var v = p.GetValue(item);
+                                    valType.GetProperty(p.Name)?.SetValue(ret, v);
+                                }
+                            };
+                        }
                     }
                 }
             }
@@ -248,6 +246,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
+        #region
         /// <summary>
         /// 通过指定 Model 获得 IEditorItem 集合方法
         /// </summary>
@@ -282,11 +281,11 @@ namespace BootstrapBlazor.Components
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
 
             builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
-            builder.AddAttribute(1, "DisplayText", displayName);
-            builder.AddAttribute(2, "Value", fieldValue);
-            builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
-            builder.AddAttribute(4, "ValueExpression", valueExpression);
-            builder.AddAttribute(5, "ShowLabel", showLabel ?? true);
+            builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
+            builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
+            builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
+            builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
+            builder.AddAttribute(5, nameof(ValidateBase<string>.ShowLabel), showLabel ?? true);
             builder.CloseComponent();
         }
 
@@ -311,11 +310,11 @@ namespace BootstrapBlazor.Components
 
             var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
             builder.OpenComponent(0, componentType);
-            builder.AddAttribute(1, "DisplayText", displayName);
-            builder.AddAttribute(2, "Value", fieldValue);
-            builder.AddAttribute(3, "ValueChanged", fieldValueChanged);
-            builder.AddAttribute(4, "ValueExpression", valueExpression);
-            builder.AddAttribute(5, "IsDisabled", item.Readonly);
+            builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
+            builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
+            builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
+            builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
+            builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), item.Readonly);
             if (IsCheckboxList(fieldType) && item.Data != null)
             {
                 builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
@@ -329,6 +328,10 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(9, nameof(Select<SelectedItem>.ValueChanged), fieldValueChanged);
                 builder.AddAttribute(10, nameof(Select<SelectedItem>.ValueExpression), valueExpression);
                 builder.AddAttribute(11, nameof(Select<SelectedItem>.SkipValidate), false);
+            }
+            else if (IsValidatableComponent(componentType))
+            {
+                builder.AddAttribute(11, nameof(IEditorItem.SkipValidate), item.SkipValidate);
             }
 
             builder.AddMultipleAttributes(12, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
@@ -422,6 +425,8 @@ namespace BootstrapBlazor.Components
             return type.IsAssignableTo(typeof(IEnumerable<string>));
         }
 
+        private static bool IsValidatableComponent(Type componentType) => componentType.GetProperties().FirstOrDefault(p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
+
         /// <summary>
         /// 通过模型与指定数据类型生成组件参数集合
         /// </summary>
@@ -484,7 +489,6 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -509,6 +513,7 @@ namespace BootstrapBlazor.Components
 
             return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
         }
+        #endregion
 
         #region Format
         private static readonly ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>> FormatLambdaCache = new();
