@@ -162,6 +162,10 @@ namespace BootstrapBlazor.Components
                     .FirstOrDefault();
                 if (propertyInfo == null)
                 {
+
+
+
+
                     break;
                 }
                 var exp = Expression.Parameter(modelTypeInfo);
