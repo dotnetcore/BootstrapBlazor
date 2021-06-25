@@ -135,6 +135,23 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
+        private static IEnumerable<TreeItem> GetLazyItems()
+        {
+            var ret = new List<TreeItem>
+            {
+                new TreeItem() { Text = "导航一", IsExpanded = true  },
+                new TreeItem() { Text = "懒加载", HasChildNode = true },
+                new TreeItem() { Text = "懒加载延时",  HasChildNode = true , Key = "Delay" }
+            };
+
+            ret[0].AddItem(new TreeItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
+            ret[0].AddItem(new TreeItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
+            ret[0].AddItem(new TreeItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw" });
+
+            return ret;
+        }
+
+
         private IEnumerable<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
 
         private Task OnTreeItemClick(TreeItem item)
@@ -149,6 +166,26 @@ namespace BootstrapBlazor.Shared.Pages
             TraceChecked?.Log($"TreeItem: {item.Text} {state}");
             return Task.CompletedTask;
         }
+
+        private async Task OnExpandNode(TreeItem item)
+        {
+            if (!item.Items.Any() && item.HasChildNode && !item.ShowLoading)
+            {
+                item.ShowLoading = true;
+                if (item.Key?.ToString() == "Delay")
+                {
+                    await Task.Delay(2000);
+                }
+                item.AddItem(new TreeItem() {
+                    Text = "懒加载子节点1",
+                    HasChildNode = true
+                });
+                item.AddItem(new TreeItem() { Text = "懒加载子节点2" });
+                item.ShowLoading = false;
+            }
+        }
+
+
 
         /// <summary>
         /// 获得属性方法
@@ -202,6 +239,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "OnTreeItemChecked",
                 Description = "树形控件节点选中时回调委托",
+                Type = "Func<TreeItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnExpandNode",
+                Description = "树形控件节点展开回调委托",
                 Type = "Func<TreeItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -267,6 +311,20 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = " — ",
                 DefaultValue = " — "
             },
+            new AttributeItem() {
+                Name = nameof(TreeItem.HasChildNode),
+                Description = "是否有子节点",
+                Type = "bool",
+                ValueList = " true|false ",
+                DefaultValue = " false "
+            },new AttributeItem() {
+                Name = nameof(TreeItem.ShowLoading),
+                Description = "是否显示子节点加载动画",
+                Type = "bool",
+                ValueList = " true|false ",
+                DefaultValue = " false "
+            }
+
         };
     }
 }

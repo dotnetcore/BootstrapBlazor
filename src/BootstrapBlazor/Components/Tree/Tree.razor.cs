@@ -42,7 +42,7 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         private string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa fa-caret-right")
-            .AddClass("invisible", !item.Items.Any())
+            .AddClass("invisible", !item.HasChildNode && !item.Items.Any())
             .AddClass("fa-rotate-90", item.IsExpanded)
             .Build();
 
@@ -118,6 +118,14 @@ namespace BootstrapBlazor.Components
         public Func<TreeItem, Task> OnTreeItemChecked { get; set; } = item => Task.CompletedTask;
 
         /// <summary>
+        /// 获得/设置 节点展开前回调委托
+        /// </summary>
+        [Parameter]
+        public Func<TreeItem, Task> OnExpandNode { get; set; } = item => Task.CompletedTask;
+
+
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -139,7 +147,7 @@ namespace BootstrapBlazor.Components
         private async Task OnClick(TreeItem item)
         {
             ActiveItem = item;
-            if (ClickToggleNode) OnExpandRow(item);
+            if (ClickToggleNode) await OnExpandRowAsync(item);
             if (OnTreeItemClick != null) await OnTreeItemClick.Invoke(item);
         }
 
@@ -147,8 +155,9 @@ namespace BootstrapBlazor.Components
         /// 更改节点是否展开方法
         /// </summary>
         /// <param name="item"></param>
-        private void OnExpandRow(TreeItem item)
+        private async Task OnExpandRowAsync(TreeItem item)
         {
+            
             if (IsAccordion)
             {
                 if (Items.Contains(item))
@@ -161,6 +170,10 @@ namespace BootstrapBlazor.Components
                 }
             }
             item.IsExpanded = !item.IsExpanded;
+            if (item.IsExpanded)
+            {
+                if (OnExpandNode != null) await OnExpandNode.Invoke(item);
+            }
         }
 
         /// <summary>

@@ -37,8 +37,10 @@ else
 
 private RenderFragment<TreeItem> RenderTreeItem => item =>
 @<li role="treeitem" class="@GetItemClassString(item)">
+
+
     <div class="tree-content">
-        <i class="@GetCaretClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, () => OnExpandRow(item)))"></i>
+        <i class="@GetCaretClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, () => OnExpandRowAsync(item)))"></i>
         @if (ShowCheckbox)
         {
             <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.Disabled" SkipValidate="true"
@@ -53,7 +55,13 @@ private RenderFragment<TreeItem> RenderTreeItem => item =>
             <span>@item.Text</span>
         </div>
     </div>
-    @if (item.Items.Any())
+    @if (item.ShowLoading)
+    {
+        <ul class="tree-ul show">
+            <Spinner Size="Size.Small" Color="Color.Primary" />
+        </ul>
+    }
+    else if (item.Items.Any())
     {
         @RenderTreeNode(item)
     }
