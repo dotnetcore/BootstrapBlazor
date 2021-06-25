@@ -167,14 +167,14 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private async Task OnExpandNode(TreeItem item)
+        private static async Task OnExpandNode(TreeItem item)
         {
             if (!item.Items.Any() && item.HasChildNode && !item.ShowLoading)
             {
                 item.ShowLoading = true;
                 if (item.Key?.ToString() == "Delay")
                 {
-                    await Task.Delay(2000);
+                    await Task.Delay(800);
                 }
                 item.AddItem(new TreeItem() {
                     Text = "懒加载子节点1",
