@@ -414,11 +414,16 @@ namespace BootstrapBlazor.Components
         {
             if (OnValidSubmit != null)
             {
+                var isAsync = AsyncSubmitButtons.Any();
                 foreach (var b in AsyncSubmitButtons)
                 {
                     b.TriggerAsync(true);
                 }
-                await Task.Run(async () => await InvokeAsync(async () => await OnValidSubmit(context)));
+                if (isAsync)
+                {
+                    await Task.Yield();
+                }
+                await OnValidSubmit(context);
                 foreach (var b in AsyncSubmitButtons)
                 {
                     b.TriggerAsync(false);
