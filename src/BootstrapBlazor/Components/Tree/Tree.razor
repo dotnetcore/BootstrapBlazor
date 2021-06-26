@@ -37,8 +37,6 @@ else
 
 private RenderFragment<TreeItem> RenderTreeItem => item =>
 @<li role="treeitem" class="@GetItemClassString(item)">
-
-
     <div class="tree-content">
         <i class="@GetCaretClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, () => OnExpandRowAsync(item)))"></i>
         @if (ShowCheckbox)

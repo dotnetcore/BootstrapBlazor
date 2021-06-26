@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetIconClassString(TreeItem item) => CssBuilder.Default("tree-icon")
+        private static string? GetIconClassString(TreeItem item) => CssBuilder.Default("tree-icon")
             .AddClass(item.Icon)
             .Build();
 
@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa fa-caret-right")
+        private static string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa fa-caret-right")
             .AddClass("invisible", !item.HasChildNode && !item.Items.Any())
             .AddClass("fa-rotate-90", item.IsExpanded)
             .Build();
@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetTreeNodeClassString(TreeItem item) => CssBuilder.Default("tree-ul")
+        private static string? GetTreeNodeClassString(TreeItem item) => CssBuilder.Default("tree-ul")
             .AddClass("show", item.IsExpanded)
             .Build();
 
@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<TreeItem> Items { get; set; } = new TreeItem[0];
+        public IEnumerable<TreeItem> Items { get; set; } = Array.Empty<TreeItem>();
 
         /// <summary>
         /// 获得/设置 是否显示 CheckBox 默认 false 不显示
@@ -121,9 +121,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 节点展开前回调委托
         /// </summary>
         [Parameter]
-        public Func<TreeItem, Task> OnExpandNode { get; set; } = item => Task.CompletedTask;
-
-
+        public Func<TreeItem, Task>? OnExpandNode { get; set; }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -157,7 +155,6 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         private async Task OnExpandRowAsync(TreeItem item)
         {
-            
             if (IsAccordion)
             {
                 if (Items.Contains(item))
@@ -170,9 +167,9 @@ namespace BootstrapBlazor.Components
                 }
             }
             item.IsExpanded = !item.IsExpanded;
-            if (item.IsExpanded)
+            if (item.IsExpanded && OnExpandNode != null)
             {
-                if (OnExpandNode != null) await OnExpandNode.Invoke(item);
+                await OnExpandNode.Invoke(item);
             }
         }
 
