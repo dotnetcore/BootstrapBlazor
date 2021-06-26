@@ -79,10 +79,10 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private Task OnValidSubmit1(EditContext context)
+        private async Task OnValidSubmit1(EditContext context)
         {
+            await Task.Delay(1000);
             Trace.Log("OnValidSubmit 回调委托: 验证通过");
-            return Task.CompletedTask;
         }
 
         private async Task OnValidSubmit(EditContext context)

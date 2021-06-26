@@ -13,6 +13,7 @@
         <li>表单内可以放置多个按钮，通过设置 <code>ButtonType="ButtonType.Submit"</code> 参数是否提交表单</li>
         <li>客户端验证机制支持模型的 <code>Required</code> 标签，通过设置 <code>ErrorMessage</code> 参数设置提示信息，未设置时使用默认的英文提示信息</li>
         <li>表单默认检查表单内绑定字段值是否合法，如需要检查模型所有字段时可设置 <code>ValidateAllProperties</code> 属性值为 <code>true</code></li>
+        <li>通过设置提交按钮 <code>Button</code> 属性 <code>IsAsync</code> 值，设置异步提交表单</li>
     </ul>
     <p>注意事项：</p>
     <ul class="ul-demo">
@@ -27,7 +28,7 @@
                     <BootstrapInput @bind-Value="@Model.Name" />
                 </div>
                 <div class="form-group col-12">
-                    <Button ButtonType="ButtonType.Submit" Text="提交表单" />
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-fw fa-save" Text="提交表单" IsAsync="true" />
                 </div>
             </div>
         </ValidateForm>
