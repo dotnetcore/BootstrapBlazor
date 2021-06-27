@@ -332,7 +332,7 @@ namespace BootstrapBlazor.Components
 
             if (queryData != null)
             {
-                Items = queryData.Items.ToList();
+                Items = queryData.Items;
                 if (IsTree)
                 {
                     KeySet.Clear();
@@ -384,6 +384,10 @@ namespace BootstrapBlazor.Components
                     Items = invoker(Items, SortName, SortOrder);
                 }
             }
+
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I3XZ71
+            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I3XIDI
+            Items = Items.ToList();
 
             if (SelectedRows != null)
             {
