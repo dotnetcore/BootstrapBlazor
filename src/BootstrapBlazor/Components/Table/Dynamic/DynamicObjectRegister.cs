@@ -12,10 +12,10 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 动态属性注册中心
     /// </summary>
-    public static class DynamicColumnCenter
+    public static class DynamicObjectRegister
     {
-        private static readonly Dictionary<Type, List<PropertyInfo>> typePropDic = new Dictionary<Type, List<PropertyInfo>>();
-        private static readonly Dictionary<Type, AutoGenerateClassAttribute> classAttrDic = new Dictionary<Type, AutoGenerateClassAttribute>();
+        private static readonly Dictionary<Type, List<PropertyInfo>> typePropDic = new();
+        private static readonly Dictionary<Type, AutoGenerateClassAttribute> classAttrDic = new();
 
         /// <summary>
         /// 给指定类型，添加动态属性

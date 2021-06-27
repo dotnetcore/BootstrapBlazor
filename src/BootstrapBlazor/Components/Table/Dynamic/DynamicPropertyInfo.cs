@@ -16,19 +16,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class DynamicPropertyInfo
     {
-        /// <summary>
-        /// 构造动态属性
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="propType"></param>
-        /// <param name="attributes"></param>
-        public DynamicPropertyInfo(string name, Type propType, Attribute[] attributes)
-        {
-            this.name = name;
-            this.propertyType = propType;
-            this.attributes = attributes;
-        }
-        public override PropertyAttributes Attributes => PropertyAttributes.None;
 
     }
 }

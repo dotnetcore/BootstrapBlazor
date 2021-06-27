@@ -3,10 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -28,17 +24,5 @@ namespace BootstrapBlazor.Components
         /// <param name="propertyName">属性名称</param>
         /// <param name="value">属性值</param>
         void SetValue(string propertyName, object? value);
-
-        /// <summary>
-        /// 从另一个动态类型拷贝属性值到当前对象上
-        /// </summary>
-        /// <param name="other"></param>
-        void CopyFrom(IDynamicObject other);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        string GetTypeKey();
     }
 }

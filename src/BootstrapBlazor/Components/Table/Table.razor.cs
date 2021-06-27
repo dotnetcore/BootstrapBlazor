@@ -146,12 +146,6 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool? IsDetails { get; set; }
 
-        /// <summary>
-        /// 获得/设置 是否动态列模式 默认 false
-        /// </summary>
-        [Parameter]
-        public bool IsDynamicColumn { get; set; }
-
         [NotNull]
         private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
@@ -534,11 +528,11 @@ namespace BootstrapBlazor.Components
                 ScreenSize = await RetrieveWidth();
 
                 // 动态列模式
-                if(IsDynamicColumn)
+                if (typeof(TItem) is IDynamicObject)
                 {
                     AutoGenerateColumns = false;
 
-                    var cols = DynamicColumnCenter.GetProperties<TItem>();
+                    var cols = DynamicObjectRegister.GetProperties<TItem>();
                     Columns.Clear();
                     Columns.AddRange(cols);
                 }
