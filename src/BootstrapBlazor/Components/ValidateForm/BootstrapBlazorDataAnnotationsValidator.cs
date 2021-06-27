@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
 {
