@@ -10,9 +10,9 @@ using System.Reflection;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 动态属性注册中心
+    /// 动态类型注册中心
     /// </summary>
-    public static class DynamicObjectRegister
+    internal static class DynamicObjectRegister
     {
         private static readonly Dictionary<Type, List<PropertyInfo>> typePropDic = new();
         private static readonly Dictionary<Type, AutoGenerateClassAttribute> classAttrDic = new();
@@ -43,13 +43,18 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// 获得指定类型的所有列
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<ITableColumn> GetProperties<TItem>()
         {
+            var ret = new List<ITableColumn>();
             var type = typeof(TItem);
-            return Enumerable.Empty<ITableColumn>();
+            if (type is IDynamicObject)
+            {
+
+            }
+            return ret;
         }
 
         /// <summary>
