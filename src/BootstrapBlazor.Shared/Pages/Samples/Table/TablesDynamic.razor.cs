@@ -16,9 +16,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// <summary>
     /// 动态表格示例
     /// </summary>
-    public partial class TablesDynamic : IDisposable
+    public partial class TablesDynamic
     {
-        private IEnumerable<DynamicFoo>? Items { get; set; }
+        private IEnumerable<DataTableDynamicObject>? Items { get; set; }
 
         private DataTable UserData { get; } = new DataTable();
 
@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             InitDataTable();
 
             // 拼装动态类型
-            Items = UserData.ToDynamicTableColumns<DynamicFoo>();
+            Items = UserData.ToDynamicObjects();
         }
 
         private void InitDataTable()
@@ -49,27 +49,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
             {
                 UserData.Rows.Add(f.DateTime, f.Name, f.Count);
             });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if(disposing)
-            {
-                UserData.DisposeDynamicTableColumn<DynamicFoo>();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
