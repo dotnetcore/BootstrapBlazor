@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             if(disposing)
             {
-
+                UserData.DisposeDynamicTableColumn<DynamicFoo>();
             }
         }
 

@@ -195,5 +195,15 @@ namespace BootstrapBlazor.Components
             }
             return Enumerable.Empty<TItem>();
         }
+
+        /// <summary>
+        /// 释放动态列资源
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="dt"></param>
+        public static void DisposeDynamicTableColumn<TItem>(this DataTable dt) where TItem : IDynamicObject
+        {
+            DynamicObjectRegister.Release(typeof(TItem));
+        }
     }
 }

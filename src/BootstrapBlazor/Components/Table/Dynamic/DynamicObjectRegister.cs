@@ -59,7 +59,6 @@ namespace BootstrapBlazor.Components
         /// <param name="colName"></param>
         public static void RemoveColumn(Type modelType, string colName)
         {
-            // TODO: 考虑销毁问题，否则内存越战越多
             if (TableColumnsCache.TryGetValue(modelType, out var cols))
             {
                 InternalRemoveColumn(cols, colName);
@@ -73,6 +72,15 @@ namespace BootstrapBlazor.Components
             {
                 cols.Remove(col);
             }
+        }
+
+        /// <summary>
+        /// 释放缓存资源
+        /// </summary>
+        /// <param name="modelType"></param>
+        public static void Release(Type modelType)
+        {
+            TableColumnsCache.TryRemove(modelType, out _);
         }
 
         /// <summary>
