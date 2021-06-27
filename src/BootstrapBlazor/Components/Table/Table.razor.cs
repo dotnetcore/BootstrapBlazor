@@ -626,6 +626,10 @@ namespace BootstrapBlazor.Components
             {
                 builder.AddContent(0, col.Template.Invoke(item));
             }
+            else if (item is IDynamicObject dynamicObject)
+            {
+                builder.AddContent(0, dynamicObject.GetValue(col.GetFieldName()));
+            }
             else
             {
                 var content = "";

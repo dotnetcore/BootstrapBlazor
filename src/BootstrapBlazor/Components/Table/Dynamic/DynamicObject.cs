@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public abstract class DynamicObjectContext
+    public class DynamicObject : IDynamicObject
     {
         /// <summary>
         /// 
@@ -18,16 +18,16 @@ namespace BootstrapBlazor.Components
         public List<object?>? Values { get; set; }
 
         /// <summary>
-        /// 复制对象方法
+        /// 
         /// </summary>
         /// <returns></returns>
-        public DynamicObjectContext Clone()
+        public object Clone()
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 获得属性值方法
+        /// 
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
@@ -37,29 +37,13 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 保存属性值方法
+        /// 
         /// </summary>
         /// <param name="propertyName"></param>
         /// <param name="value"></param>
         public void SetValue(string propertyName, object? value)
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 对象配置方法
-        /// </summary>
-        protected internal virtual void OnConfigurating()
-        {
-
-        }
-
-        /// <summary>
-        /// 对象创建方法
-        /// </summary>
-        protected internal virtual void OnCreating()
-        {
-
         }
     }
 }

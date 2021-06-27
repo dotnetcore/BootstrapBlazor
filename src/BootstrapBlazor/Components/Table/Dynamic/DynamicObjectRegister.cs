@@ -6,7 +6,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components
 {
@@ -16,17 +15,57 @@ namespace BootstrapBlazor.Components
     internal static class DynamicObjectRegister
     {
         private static ConcurrentDictionary<Type, List<AutoGenerateColumnAttribute>> TableColumnsCache { get; } = new();
-        private static ConcurrentDictionary<Type, AutoGenerateClassAttribute> classAttrDic = new();
+
+        private static ConcurrentDictionary<Type, List<List<object?>>> ValuesCache { get; } = new();
 
         /// <summary>
-        /// 注册 AutoGenerateClassAttribute
+        /// 
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="info"></param>
-        public static void AddAutoGenerateClassAttribute(Type type, AutoGenerateClassAttribute info)
+        /// <typeparam name="TItem"></typeparam>
+        /// <returns></returns>
+        public static IEnumerable<TItem> GenerateDynamicObject<TItem>() where TItem : IDynamicObject, new()
         {
-            classAttrDic[type] = info;
+            var ret = new List<TItem>();
+            if (ValuesCache.TryGetValue(typeof(TItem), out var vals))
+            {
+                ret.AddRange(vals.Select(v => new TItem()
+                {
+                    Values = v
+                }));
+            }
+            return ret;
         }
+
+        /// <summary>
+        /// 增加数值集合方法
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static void AddValues<TItem>(List<object?> values) => AddValues(typeof(TItem), values);
+
+        /// <summary>
+        /// 增加数值集合方法
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="values"></param>
+        public static void AddValues(Type modelType, List<object?> values)
+        {
+            if (!ValuesCache.TryGetValue(modelType, out var vals))
+            {
+                vals = new List<List<object?>>();
+                ValuesCache.TryAdd(modelType, vals);
+            }
+            vals.Add(values);
+        }
+
+        /// <summary>
+        /// 增加动态列
+        /// </summary>
+        /// <typeparam name="TItem"></typeparam>
+        /// <param name="colName"></param>
+        /// <param name="colType"></param>
+        public static void AddColumn<TItem>(string colName, Type colType) => AddColumn(typeof(TItem), colName, colType);
 
         /// <summary>
         /// 增加动态列
@@ -75,28 +114,19 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 释放缓存资源
-        /// </summary>
-        /// <param name="modelType"></param>
-        public static void Release(Type modelType)
-        {
-            TableColumnsCache.TryRemove(modelType, out _);
-        }
-
-        /// <summary>
         /// 获得指定类型的所有列
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<ITableColumn> GetColumns<TItem>() => TableColumnsCache.TryGetValue(typeof(TItem), out var cols) ? cols : Enumerable.Empty<ITableColumn>();
 
         /// <summary>
-        /// 获取类型上面的 AutoGenerateClassAttribute
+        /// 释放缓存资源
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static AutoGenerateClassAttribute GetTypeAttribute(Type type)
+        /// <param name="modelType"></param>
+        public static void Release(Type modelType)
         {
-            return classAttrDic[type];
+            TableColumnsCache.TryRemove(modelType, out _);
+            ValuesCache.TryRemove(modelType, out _);
         }
     }
 }

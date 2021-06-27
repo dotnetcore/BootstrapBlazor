@@ -183,17 +183,17 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
-        /// 将 DataTable 转化为 TItem 集合用于动态表格 <see cref="IDynamicObject"/>
+        /// 将 DataTable 转化为 TItem 集合用于动态表格 <see cref="DataTableDynamicContext"/>
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static IEnumerable<TItem> ToDynamicTableColumns<TItem>(this DataTable dt) where TItem : IDynamicObject
+        public static IEnumerable<DataTableDynamicObject> ToDynamicObjects(this DataTable dt)
         {
-            foreach (DataColumn col in dt.Columns)
+            var item = new DataTableDynamicContext
             {
-                DynamicObjectRegister.AddColumn(typeof(TItem), col.ColumnName, col.DataType);
-            }
-            return Enumerable.Empty<TItem>();
+                DataTable = dt
+            };
+            return item.ToDynamicObjects();
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="dt"></param>
-        public static void DisposeDynamicTableColumn<TItem>(this DataTable dt) where TItem : IDynamicObject
+        public static void Release<TItem>(this DataTable dt) where TItem : IDynamicObject
         {
             DynamicObjectRegister.Release(typeof(TItem));
         }
