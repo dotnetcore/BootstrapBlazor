@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components.Table.Dynamic
         /// <summary>
         /// 对象配置方法
         /// </summary>
-        protected internal void OnConfigurating()
+        protected internal virtual void OnConfigurating()
         {
 
         }
@@ -60,9 +60,9 @@ namespace BootstrapBlazor.Components.Table.Dynamic
         /// <summary>
         /// 对象创建方法
         /// </summary>
-        protected internal void OnCreating()
+        protected internal virtual void OnCreating()
         {
-
+            //xxx.Add("", typeof(string), yyy);
         }
     }
 }

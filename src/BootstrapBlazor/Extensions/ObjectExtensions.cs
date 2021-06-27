@@ -4,6 +4,8 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -179,5 +181,19 @@ namespace BootstrapBlazor.Components
             >= 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
             _ => $"{fileSize} B"
         };
+
+        /// <summary>
+        /// 将 DataTable 转化为 TItem 集合用于动态表格 <see cref="IDynamicObject"/>
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static IEnumerable<TItem> ToDynamicTableColumns<TItem>(this DataTable dt) where TItem : IDynamicObject
+        {
+            foreach (DataColumn col in dt.Columns)
+            {
+                DynamicObjectRegister.AddColumn(typeof(TItem), col.ColumnName, col.DataType);
+            }
+            return Enumerable.Empty<TItem>();
+        }
     }
 }

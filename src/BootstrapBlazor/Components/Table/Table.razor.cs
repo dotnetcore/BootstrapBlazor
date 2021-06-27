@@ -528,11 +528,11 @@ namespace BootstrapBlazor.Components
                 ScreenSize = await RetrieveWidth();
 
                 // 动态列模式
-                if (typeof(TItem) is IDynamicObject)
+                if (typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
                 {
                     AutoGenerateColumns = false;
 
-                    var cols = DynamicObjectRegister.GetProperties<TItem>();
+                    var cols = DynamicObjectRegister.GetColumns<TItem>();
                     Columns.Clear();
                     Columns.AddRange(cols);
                 }

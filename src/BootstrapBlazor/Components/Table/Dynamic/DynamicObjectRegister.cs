@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,23 +15,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     internal static class DynamicObjectRegister
     {
-        private static readonly Dictionary<Type, List<PropertyInfo>> typePropDic = new();
-        private static readonly Dictionary<Type, AutoGenerateClassAttribute> classAttrDic = new();
-
-        /// <summary>
-        /// 给指定类型，添加动态属性
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="info"></param>
-
-        public static void AddProperty(Type type, PropertyInfo info)
-        {
-            if (!typePropDic.ContainsKey(type))
-            {
-                typePropDic[type] = new List<PropertyInfo>();
-            }
-            typePropDic[type].Add(info);
-        }
+        private static ConcurrentDictionary<Type, List<AutoGenerateColumnAttribute>> TableColumnsCache { get; } = new();
+        private static ConcurrentDictionary<Type, AutoGenerateClassAttribute> classAttrDic = new();
 
         /// <summary>
         /// 注册 AutoGenerateClassAttribute
@@ -43,28 +29,57 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获得指定类型的所有列
+        /// 增加动态列
         /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<ITableColumn> GetProperties<TItem>()
+        /// <param name="modelType"></param>
+        /// <param name="colName"></param>
+        /// <param name="colType"></param>
+        public static void AddColumn(Type modelType, string colName, Type colType)
         {
-            var ret = new List<ITableColumn>();
-            var type = typeof(TItem);
-            if (type is IDynamicObject)
+            if (!TableColumnsCache.TryGetValue(modelType, out var cols))
             {
-
+                cols = new List<AutoGenerateColumnAttribute>();
+                TableColumnsCache.TryAdd(modelType, cols);
             }
-            return ret;
+
+            InternalRemoveColumn(cols, colName);
+
+            cols.Add(new AutoGenerateColumnAttribute()
+            {
+                Text = colName,
+                FieldName = colName,
+                PropertyType = colType
+            });
         }
 
         /// <summary>
-        /// 获取指定了类型的所有属性信息
+        /// 移除动态列
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="colName"></param>
+        public static void RemoveColumn(Type modelType, string colName)
+        {
+            // TODO: 考虑销毁问题，否则内存越战越多
+            if (TableColumnsCache.TryGetValue(modelType, out var cols))
+            {
+                InternalRemoveColumn(cols, colName);
+            }
+        }
+
+        private static void InternalRemoveColumn(List<AutoGenerateColumnAttribute> cols, string colName)
+        {
+            var col = cols.FirstOrDefault(c => c.FieldName == colName);
+            if (col != null)
+            {
+                cols.Remove(col);
+            }
+        }
+
+        /// <summary>
+        /// 获得指定类型的所有列
         /// </summary>
         /// <returns></returns>
-        public static PropertyInfo[] GetProperties(Type type)
-        {
-            return typePropDic[type].ToArray();
-        }
+        public static IEnumerable<ITableColumn> GetColumns<TItem>() => TableColumnsCache.TryGetValue(typeof(TItem), out var cols) ? cols : Enumerable.Empty<ITableColumn>();
 
         /// <summary>
         /// 获取类型上面的 AutoGenerateClassAttribute
