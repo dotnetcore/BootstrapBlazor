@@ -527,6 +527,16 @@ namespace BootstrapBlazor.Components
 
                 ScreenSize = await RetrieveWidth();
 
+                // 动态列模式
+                if (typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+                {
+                    AutoGenerateColumns = false;
+
+                    var cols = DynamicObjectRegister.GetColumns<TItem>();
+                    Columns.Clear();
+                    Columns.AddRange(cols);
+                }
+
                 // 初始化列
                 if (AutoGenerateColumns)
                 {
@@ -615,6 +625,10 @@ namespace BootstrapBlazor.Components
             if (col.Template != null)
             {
                 builder.AddContent(0, col.Template.Invoke(item));
+            }
+            else if (item is IDynamicObject dynamicObject)
+            {
+                builder.AddContent(0, dynamicObject.GetValue(col.GetFieldName()));
             }
             else
             {
