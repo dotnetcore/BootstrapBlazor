@@ -243,6 +243,7 @@
     "TableColumn": "列设置",
     "TableCell": "单元格",
     "TableDetail": "明细行",
+    "TableDynamic": "动态表格",
     "TableSearch": "搜索功能",
     "TableFilter": "筛选和排序",
     "TableFixHeader": "固定表头",
