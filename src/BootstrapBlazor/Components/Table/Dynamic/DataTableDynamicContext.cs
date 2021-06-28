@@ -4,11 +4,12 @@
 
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// DataTable 动态数据上下文实现类 <see cref="DynamicObjectContext" />
     /// </summary>
     public class DataTableDynamicContext : DynamicObjectContext
     {
@@ -18,22 +19,34 @@ namespace BootstrapBlazor.Components
         public DataTable? DataTable { get; set; }
 
         /// <summary>
-        /// ToDynamicObjects 方法
+        /// GetItems 方法
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<DataTableDynamicObject> ToDynamicObjects()
+        public override IEnumerable<IDynamicObject> GetItems()
         {
             var ret = new List<DataTableDynamicObject>();
             if (DataTable != null)
             {
-                foreach (DataColumn col in DataTable.Columns)
-                {
-                    DynamicObjectRegister.AddColumn<DataTableDynamicObject>(col.ColumnName, col.DataType);
-                }
-
                 foreach (DataRow row in DataTable.Rows)
                 {
                     ret.Add(new DataTableDynamicObject() { Row = row });
+                }
+            }
+            return ret.Cast<IDynamicObject>();
+        }
+
+        /// <summary>
+        /// 获得列信息方法
+        /// </summary>
+        /// <returns></returns>
+        public override IEnumerable<ITableColumn> GetColumns()
+        {
+            var ret = new List<InternalTableColumn>();
+            if (DataTable != null)
+            {
+                foreach (DataColumn col in DataTable.Columns)
+                {
+                    ret.Add(new InternalTableColumn(col.ColumnName, col.DataType, col.ColumnName));
                 }
             }
             return ret;

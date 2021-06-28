@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
-using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components
 {
@@ -25,10 +24,5 @@ namespace BootstrapBlazor.Components
         /// <param name="propertyName">属性名称</param>
         /// <param name="value">属性值</param>
         void SetValue(string propertyName, object? value);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        List<object?>? Values { get; set; }
     }
 }

@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
@@ -181,29 +182,5 @@ namespace BootstrapBlazor.Components
             >= 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
             _ => $"{fileSize} B"
         };
-
-        /// <summary>
-        /// 将 DataTable 转化为 TItem 集合用于动态表格 <see cref="DataTableDynamicContext"/>
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        public static IEnumerable<DataTableDynamicObject> ToDynamicObjects(this DataTable dt)
-        {
-            var item = new DataTableDynamicContext
-            {
-                DataTable = dt
-            };
-            return item.ToDynamicObjects();
-        }
-
-        /// <summary>
-        /// 释放动态列资源
-        /// </summary>
-        /// <typeparam name="TItem"></typeparam>
-        /// <param name="dt"></param>
-        public static void Release<TItem>(this DataTable dt) where TItem : IDynamicObject
-        {
-            DynamicObjectRegister.Release(typeof(TItem));
-        }
     }
 }
