@@ -536,6 +536,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["TableDynamic"],
+                    Url = "tables/dynamic"
+                },
+                new()
+                {
                     Text = Localizer["TableSearch"],
                     Url = "tables/search"
                 },

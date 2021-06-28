@@ -243,6 +243,7 @@
     "TableColumn": "Column",
     "TableCell": "Cell",
     "TableDetail": "Detail",
+    "TableDynamic": "Dynamic",
     "TableSearch": "Search",
     "TableFilter": "Sort/Filter",
     "TableFixHeader": "FixHeader",
