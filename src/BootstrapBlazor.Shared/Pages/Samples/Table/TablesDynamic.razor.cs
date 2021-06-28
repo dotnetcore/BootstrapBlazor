@@ -7,7 +7,6 @@ using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 
@@ -16,9 +15,10 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// <summary>
     /// 动态表格示例
     /// </summary>
-    public partial class TablesDynamic
+    public partial class TablesDynamic //: IDisposable
     {
-        private IEnumerable<DataTableDynamicObject>? Items { get; set; }
+        [NotNull]
+        private DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
         private DataTable UserData { get; } = new DataTable();
 
@@ -33,10 +33,14 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
+            // 初始化 DataTable
             InitDataTable();
 
-            // 拼装动态类型
-            Items = UserData.ToDynamicObjects();
+            // 初始化动态类型上下文实例
+            DataTableDynamicContext = new DataTableDynamicContext()
+            {
+                DataTable = UserData
+            };
         }
 
         private void InitDataTable()
