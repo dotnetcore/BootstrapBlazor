@@ -305,8 +305,13 @@ namespace BootstrapBlazor.Components
         protected async Task QueryData()
         {
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I29YK1
-            // 选中行目前不支持跨页 原因是选中行实例无法在翻页后保持
             SelectedItems.Clear();
+
+            if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            {
+                Items = DynamicContext.GetItems().Cast<TItem>();
+                return;
+            }
 
             QueryData<TItem>? queryData = null;
             var queryOption = new QueryPageOptions()

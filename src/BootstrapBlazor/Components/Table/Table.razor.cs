@@ -457,10 +457,16 @@ namespace BootstrapBlazor.Components
         public string ChildrenColumnName { get; set; } = "Children";
 
         /// <summary>
-        /// 获得设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
+        /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
         /// </summary>
         [Parameter]
         public string HasChildrenColumnName { get; set; } = "HasChildren";
+
+        /// <summary>
+        /// 获得/设置 动态数据上下文实例
+        /// </summary>
+        [Parameter]
+        public IDynamicObjectContext? DynamicContext { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -526,6 +532,16 @@ namespace BootstrapBlazor.Components
                 methodName = Height.HasValue ? "fixTableHeader" : "init";
 
                 ScreenSize = await RetrieveWidth();
+
+                // 动态列模式
+                if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+                {
+                    AutoGenerateColumns = false;
+
+                    var cols = DynamicContext.GetColumns();
+                    Columns.Clear();
+                    Columns.AddRange(cols);
+                }
 
                 // 初始化列
                 if (AutoGenerateColumns)
@@ -615,6 +631,10 @@ namespace BootstrapBlazor.Components
             if (col.Template != null)
             {
                 builder.AddContent(0, col.Template.Invoke(item));
+            }
+            else if (item is IDynamicObject dynamicObject)
+            {
+                builder.AddContent(0, dynamicObject.GetValue(col.GetFieldName()));
             }
             else
             {
