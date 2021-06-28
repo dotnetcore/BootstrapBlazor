@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// <summary>
     /// 动态表格示例
     /// </summary>
-    public partial class TablesDynamic //: IDisposable
+    public partial class TablesDynamic
     {
         [NotNull]
         private DataTableDynamicContext? DataTableDynamicContext { get; set; }
