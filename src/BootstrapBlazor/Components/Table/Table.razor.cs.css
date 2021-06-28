@@ -517,3 +517,16 @@
         height: 35px;
         padding-left: 9px;
     }
+
+.table-sm .table-cell.is-incell {
+    margin: -.25rem;
+}
+
+    .table-sm .table-cell.is-incell .form-control {
+        height: calc(1.5em + .75rem -3px);
+    }
+
+    .table-sm .table-cell.is-incell .switch {
+        height: 30px;
+        padding-left: 4px;
+    }
