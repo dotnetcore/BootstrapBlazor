@@ -7,26 +7,26 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 动态类型实体类 <see cref="IDynamicObject" /> 实例
     /// </summary>
-    public abstract class DynamicObject : IDynamicObject
+    public class DynamicObject : IDynamicObject
     {
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public abstract object Clone();
+        public virtual object Clone() => new DynamicObject();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public abstract object? GetValue(string propertyName);
+        public virtual object? GetValue(string propertyName) => null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="propertyName"></param>
         /// <param name="value"></param>
-        public abstract void SetValue(string propertyName, object? value);
+        public virtual void SetValue(string propertyName, object? value) { }
     }
 }
