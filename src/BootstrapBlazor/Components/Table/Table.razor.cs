@@ -534,7 +534,7 @@ namespace BootstrapBlazor.Components
                 ScreenSize = await RetrieveWidth();
 
                 // 动态列模式
-                if (DynamicContext != null)
+                if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
                 {
                     AutoGenerateColumns = false;
 

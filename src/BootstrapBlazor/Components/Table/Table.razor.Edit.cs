@@ -307,6 +307,12 @@ namespace BootstrapBlazor.Components
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I29YK1
             SelectedItems.Clear();
 
+            if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            {
+                Items = DynamicContext.GetItems().Cast<TItem>();
+                return;
+            }
+
             QueryData<TItem>? queryData = null;
             var queryOption = new QueryPageOptions()
             {
