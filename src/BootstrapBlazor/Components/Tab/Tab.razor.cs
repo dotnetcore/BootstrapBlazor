@@ -532,23 +532,23 @@ namespace BootstrapBlazor.Components
                     // 查找前面的 Tab
                     activeItem = _items.LastOrDefault();
                 }
-                if (activeItem != null)
+            }
+            if (activeItem != null)
+            {
+                if (ClickTabToNavigation)
                 {
-                    if (ClickTabToNavigation)
-                    {
-                        Navigator.NavigateTo(activeItem.Url!);
-                    }
-                    else
-                    {
-                        activeItem.SetActive(true);
-                        StateHasChanged();
-                    }
+                    Navigator.NavigateTo(activeItem.Url!);
                 }
                 else
                 {
-                    // 无标签
+                    activeItem.SetActive(true);
                     StateHasChanged();
                 }
+            }
+            else
+            {
+                // 无标签
+                StateHasChanged();
             }
         }
 
