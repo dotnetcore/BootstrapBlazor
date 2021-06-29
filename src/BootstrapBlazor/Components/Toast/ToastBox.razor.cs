@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class ToastBox
+    public partial class ToastBox : IDisposable
     {
         private MarkupString MarkupContent => string.IsNullOrEmpty(Options.Content) ? new MarkupString() : new MarkupString(Options.Content);
         /// <summary>
