@@ -116,7 +116,7 @@ namespace BootstrapBlazor.Components
             if (CascadedEditContext != null)
             {
                 var message = Localizer["ModelInvalidOperationExceptionMessage", nameof(EditorForm<TModel>)];
-                if (CascadedEditContext.Model.GetType() != typeof(TModel))
+                if (!CascadedEditContext.Model.GetType().IsAssignableTo(typeof(TModel)))
                 {
                     throw new InvalidOperationException(message);
                 }
