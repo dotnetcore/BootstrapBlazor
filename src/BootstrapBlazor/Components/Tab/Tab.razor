@@ -74,11 +74,24 @@ else
         </div>
         <div class="tabs-body">
             <CascadingValue Value="this" IsFixed="true">
-                @foreach (var item in Items)
+                @if (IsOnlyRenderActiveTab)
                 {
-                    <div @key="@item" class="@GetContentClassString(item)">
-                        @item.ChildContent
-                    </div>
+                    var item = Items.FirstOrDefault(i => i.IsActive);
+                    if (item != null)
+                    {
+                        <div class="@GetContentClassString(item)">
+                            @item.ChildContent
+                        </div>
+                    }
+                }
+                else
+                {
+                    foreach (var item in Items)
+                    {
+                        <div @key="@item" class="@GetContentClassString(item)">
+                            @item.ChildContent
+                        </div>
+                    }
                 }
             </CascadingValue>
         </div>

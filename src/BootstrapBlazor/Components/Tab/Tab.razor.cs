@@ -75,6 +75,12 @@ namespace BootstrapBlazor.Components
         public bool IsBorderCard { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否仅渲染 Active 标签
+        /// </summary>
+        [Parameter]
+        public bool IsOnlyRenderActiveTab { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件高度 默认值为 0 高度自动
         /// </summary>
         [Parameter]
