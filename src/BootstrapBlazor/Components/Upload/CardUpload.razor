@@ -41,7 +41,7 @@
                 </span>
             </div>
         }
-        @if (!IsSingle || (IsSingle && !UploadFiles.Any()))
+        @if (CanUpload)
         {
             <div class="@CardItemClass">
                 <div class="upload-item-actions btn-browser">

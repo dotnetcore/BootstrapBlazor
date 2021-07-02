@@ -35,7 +35,7 @@
                 }
             </div>
         }
-        @if (!IsSingle || (IsSingle && !GetUploadFiles().Any()))
+        @if (CanUpload)
         {
             <div class="@ItemClassString" style="@PrevStyleString">
                 <div class="upload-item-actions btn-browser">

@@ -22,6 +22,11 @@ namespace BootstrapBlazor.Components
         public bool IsSingle { get; set; }
 
         /// <summary>
+        /// 是否显示上传组件
+        /// </summary>
+        protected bool CanUpload => !(IsSingle && GetUploadFiles().Count > 0);
+
+        /// <summary>
         /// 获得当前图片集合
         /// </summary>
         /// <returns></returns>
