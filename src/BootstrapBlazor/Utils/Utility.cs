@@ -49,6 +49,8 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static string GetDisplayName(Type modelType, string fieldName)
         {
+            if (modelType.Assembly.IsDynamic) return fieldName;
+
             var cacheKey = (CultureInfoName: CultureInfo.CurrentUICulture.Name, Type: modelType, FieldName: fieldName);
             if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
             {
@@ -109,27 +111,31 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static string? GetPlaceHolder(Type modelType, string fieldName)
         {
-            var cacheKey = (Type: modelType, FieldName: fieldName);
-            if (!PlaceHolderCache.TryGetValue(cacheKey, out var placeHolder))
+            string? placeHolder = null;
+            if (!modelType.Assembly.IsDynamic)
             {
-                // 通过资源文件查找 FieldName 项
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
-                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+                var cacheKey = (Type: modelType, FieldName: fieldName);
+                if (!PlaceHolderCache.TryGetValue(cacheKey, out placeHolder))
                 {
-                    placeHolder = stringLocalizer.Value;
-                }
-                else if (Utility.TryGetProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
-                {
-                    var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>();
-                    if (placeHolderAttribute != null)
+                    // 通过资源文件查找 FieldName 项
+                    var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
+                    var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
+                    if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                     {
-                        placeHolder = placeHolderAttribute.Text;
+                        placeHolder = stringLocalizer.Value;
                     }
-                    if (!string.IsNullOrEmpty(placeHolder))
+                    else if (Utility.TryGetProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                     {
-                        // add display name into cache
-                        PlaceHolderCache.GetOrAdd(cacheKey, key => placeHolder);
+                        var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>();
+                        if (placeHolderAttribute != null)
+                        {
+                            placeHolder = placeHolderAttribute.Text;
+                        }
+                        if (!string.IsNullOrEmpty(placeHolder))
+                        {
+                            // add display name into cache
+                            PlaceHolderCache.GetOrAdd(cacheKey, key => placeHolder);
+                        }
                     }
                 }
             }
@@ -189,24 +195,28 @@ namespace BootstrapBlazor.Components
                     var type = item.GetType();
                     if (type.IsClass)
                     {
-                        ret = Activator.CreateInstance<TModel>();
-                        var valType = ret?.GetType();
-                        if (valType != null)
+                        var instance = Activator.CreateInstance(type);
+                        if (instance != null)
                         {
-                            // 20200608 tian_teng@outlook.com 支持字段和只读属性
-                            foreach (var f in type.GetFields())
+                            ret = (TModel)instance;
+                            var valType = ret?.GetType();
+                            if (valType != null)
                             {
-                                var v = f.GetValue(item);
-                                valType.GetField(f.Name)?.SetValue(ret, v);
-                            };
-                            foreach (var p in type.GetProperties())
-                            {
-                                if (p.CanWrite)
+                                // 20200608 tian_teng@outlook.com 支持字段和只读属性
+                                foreach (var f in type.GetFields())
                                 {
-                                    var v = p.GetValue(item);
-                                    valType.GetProperty(p.Name)?.SetValue(ret, v);
-                                }
-                            };
+                                    var v = f.GetValue(item);
+                                    valType.GetField(f.Name)?.SetValue(ret, v);
+                                };
+                                foreach (var p in type.GetProperties())
+                                {
+                                    if (p.CanWrite)
+                                    {
+                                        var v = p.GetValue(item);
+                                        valType.GetProperty(p.Name)?.SetValue(ret, v);
+                                    }
+                                };
+                            }
                         }
                     }
                 }
@@ -246,7 +256,7 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        #region
+        #region GenerateColumns
         /// <summary>
         /// 通过指定 Model 获得 IEditorItem 集合方法
         /// </summary>

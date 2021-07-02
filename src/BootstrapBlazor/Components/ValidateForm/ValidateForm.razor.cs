@@ -264,7 +264,7 @@ namespace BootstrapBlazor.Components
             var rules = propertyInfo.GetCustomAttributes(true).OfType<ValidationAttribute>();
             var displayName = context.DisplayName;
             memberName ??= propertyInfo.Name;
-            var attributeSpan = "Attribute".AsSpan();
+            var attributeSpan = nameof(Attribute).AsSpan();
             foreach (var rule in rules)
             {
                 var result = rule.GetValidationResult(value, context);

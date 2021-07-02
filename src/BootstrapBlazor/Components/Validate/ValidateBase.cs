@@ -270,7 +270,6 @@ namespace BootstrapBlazor.Components
             {
                 // This is the first run
                 // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
-
                 if (CascadedEditContext != null)
                 {
                     EditContext = CascadedEditContext;

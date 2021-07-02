@@ -17,15 +17,6 @@ namespace BootstrapBlazor.Components
         public DataRow? Row { get; set; }
 
         /// <summary>
-        /// Clone 方法
-        /// </summary>
-        /// <returns></returns>
-        public override object Clone()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="propertyName"></param>
