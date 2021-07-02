@@ -134,6 +134,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "IsOnlyRenderActiveTab",
+                Description = "是否仅渲染 Active 标签",
+                Type = "boolean",
+                ValueList = "true/false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ShowClose",
                 Description = "是否显示关闭按钮",
                 Type = "boolean",

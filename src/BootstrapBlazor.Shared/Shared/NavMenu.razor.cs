@@ -760,6 +760,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["Tab"],
                     Url = "tabs"
                 }
