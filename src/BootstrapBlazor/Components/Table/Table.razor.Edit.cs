@@ -310,86 +310,86 @@ namespace BootstrapBlazor.Components
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 Items = DynamicContext.GetItems().Cast<TItem>();
-                return;
             }
-
-            QueryData<TItem>? queryData = null;
-            var queryOption = new QueryPageOptions()
+            else
             {
-                IsPage = IsPagination,
-                PageIndex = PageIndex,
-                PageItems = PageItems,
-                SearchText = SearchText,
-                SortOrder = SortOrder,
-                SortName = SortName,
-                Filters = Filters.Values,
-                Searchs = GetSearchs(),
-                SearchModel = SearchModel
-            };
-            if (OnQueryAsync != null)
-            {
-                queryData = await OnQueryAsync(queryOption);
-            }
-            else if (UseInjectDataService)
-            {
-                queryData = await GetDataService().QueryAsync(queryOption);
-            }
-
-            if (queryData != null)
-            {
-                Items = queryData.Items;
-                if (IsTree)
+                QueryData<TItem>? queryData = null;
+                var queryOption = new QueryPageOptions()
                 {
-                    KeySet.Clear();
-                    if (TableTreeNode<TItem>.HasKey)
+                    IsPage = IsPagination,
+                    PageIndex = PageIndex,
+                    PageItems = PageItems,
+                    SearchText = SearchText,
+                    SortOrder = SortOrder,
+                    SortName = SortName,
+                    Filters = Filters.Values,
+                    Searchs = GetSearchs(),
+                    SearchModel = SearchModel
+                };
+                if (OnQueryAsync != null)
+                {
+                    queryData = await OnQueryAsync(queryOption);
+                }
+                else if (UseInjectDataService)
+                {
+                    queryData = await GetDataService().QueryAsync(queryOption);
+                }
+
+                if (queryData != null)
+                {
+                    Items = queryData.Items;
+                    if (IsTree)
                     {
-                        CheckExpandKeys(TreeRows);
-                    }
-                    if (KeySet.Count > 0)
-                    {
-                        TreeRows = new List<TableTreeNode<TItem>>();
-                        foreach (var item in Items)
+                        KeySet.Clear();
+                        if (TableTreeNode<TItem>.HasKey)
                         {
-                            var node = new TableTreeNode<TItem>(item)
+                            CheckExpandKeys(TreeRows);
+                        }
+                        if (KeySet.Count > 0)
+                        {
+                            TreeRows = new List<TableTreeNode<TItem>>();
+                            foreach (var item in Items)
                             {
-                                HasChildren = CheckTreeChildren(item),
-                            };
-                            node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
-                            if (node.IsExpand)
-                            {
-                                await RestoreIsExpand(node);
+                                var node = new TableTreeNode<TItem>(item)
+                                {
+                                    HasChildren = CheckTreeChildren(item),
+                                };
+                                node.IsExpand = node.HasChildren && node.Key != null && KeySet.Contains(node.Key);
+                                if (node.IsExpand)
+                                {
+                                    await RestoreIsExpand(node);
+                                }
+                                TreeRows.Add(node);
                             }
-                            TreeRows.Add(node);
+                        }
+                        else
+                        {
+                            TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
+                            {
+                                HasChildren = CheckTreeChildren(item)
+                            }).ToList();
                         }
                     }
-                    else
+                    TotalCount = queryData.TotalCount;
+                    IsFiltered = queryData.IsFiltered;
+                    IsSorted = queryData.IsSorted;
+                    IsSearch = queryData.IsSearch;
+
+                    // 外部未过滤，内部自行过滤
+                    if (!IsFiltered && Filters.Any())
                     {
-                        TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
-                        {
-                            HasChildren = CheckTreeChildren(item)
-                        }).ToList();
+                        Items = Items.Where(Filters.Values.GetFilterFunc<TItem>());
+                        TotalCount = Items.Count();
+                    }
+
+                    // 外部未处理排序，内部自行排序
+                    if (!IsSorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
+                    {
+                        var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => LambdaExtensions.GetSortLambda<TItem>().Compile());
+                        Items = invoker(Items, SortName, SortOrder);
                     }
                 }
-                TotalCount = queryData.TotalCount;
-                IsFiltered = queryData.IsFiltered;
-                IsSorted = queryData.IsSorted;
-                IsSearch = queryData.IsSearch;
-
-                // 外部未过滤，内部自行过滤
-                if (!IsFiltered && Filters.Any())
-                {
-                    Items = Items.Where(Filters.Values.GetFilterFunc<TItem>());
-                    TotalCount = Items.Count();
-                }
-
-                // 外部未处理排序，内部自行排序
-                if (!IsSorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
-                {
-                    var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => LambdaExtensions.GetSortLambda<TItem>().Compile());
-                    Items = invoker(Items, SortName, SortOrder);
-                }
             }
-
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I3XZ71
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I3XIDI
             Items = Items.ToList();
