@@ -115,7 +115,6 @@ namespace BootstrapBlazor.Shared.Pages
         private Task DateTimeValueChanged(DateTime? d)
         {
             BindValue = d;
-            DateTimeLogger.Log($"选择的时间为: {d:yyyy-MM-dd}");
             return Task.CompletedTask;
         }
 

@@ -230,6 +230,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["DateTimePicker"],
                     Url = "datetimepickers"
                 },
@@ -245,7 +246,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["EditorForm"],
                     Url = "editorforms"
                 },
@@ -316,7 +316,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["ValidateForm"],
                     Url = "validateforms"
                 }
@@ -530,7 +529,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["TableDetail"],
                     Url = "tables/detail"
                 },
@@ -641,7 +639,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["Dialog"],
                     Url = "dialogs"
                 },
@@ -760,7 +757,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["Tab"],
                     Url = "tabs"
                 }

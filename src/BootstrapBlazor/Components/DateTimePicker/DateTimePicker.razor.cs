@@ -170,13 +170,13 @@ namespace BootstrapBlazor.Components
             // 不允许为空时设置 Value 默认值
             if (!AllowNull && Value == null)
             {
-                Value = (TValue)(object)DateTime.Now;
+                CurrentValue = (TValue)(object)DateTime.Now;
             }
 
             // Value 为 MinValue 时 设置 Value 默认值
             if (Value?.ToString() == DateTime.MinValue.ToString())
             {
-                Value = (TValue)(object)DateTime.Now;
+                CurrentValue = (TValue)(object)DateTime.Now;
             }
         }
 
