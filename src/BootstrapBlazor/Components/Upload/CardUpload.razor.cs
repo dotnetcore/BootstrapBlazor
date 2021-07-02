@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -28,6 +29,12 @@ namespace BootstrapBlazor.Components
                     ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => true,
                     _ => false
                 };
+        }
+
+        private async Task OnCardFileDelete(UploadFile item)
+        {
+            await OnFileDelete(item);
+            StateHasChanged();
         }
     }
 }
