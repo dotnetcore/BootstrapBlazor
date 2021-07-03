@@ -311,5 +311,8 @@
   "BootstrapBlazor.Shared.Pages.Table.TablesDetailRow": {
     "DetailTextTrue": "Enable",
     "DetailTextFalse": "Disable"
+  },
+  "BootstrapBlazor.Shared.Pages.Table.Tables": {
+    "RefreshText": "Refresh"
   }
 }

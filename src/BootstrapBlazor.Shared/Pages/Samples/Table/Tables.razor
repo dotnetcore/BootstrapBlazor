@@ -17,6 +17,8 @@
 <p><code>Table</code> 组件有一个 <code>UseComponentWidth</code> 属性，其默认值为 <code>false</code>，表示使用 <code>window</code> 宽度来进行判断，当设置值为 <code>true</code> 时，表示使用组件自身宽度进行判断</p>
 
 <Block Title="基础表格" Introduction="基础的表格展示用法。">
+    <div>点击按钮时更新数据源 <code>Items</code> 组件 <code>Table</code> 显示数据自动更新</div>
+    <Button Icon="fa fa-refresh" Text="RefreshText" OnClick="OnClick" class="my-2" />
     <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

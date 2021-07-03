@@ -311,5 +311,8 @@
   "BootstrapBlazor.Shared.Pages.Table.TablesDetailRow": {
     "DetailTextTrue": "关闭明细行",
     "DetailTextFalse": "开启明细行"
+  },
+  "BootstrapBlazor.Shared.Pages.Table.Tables": {
+    "RefreshText": "刷新"
   }
 }

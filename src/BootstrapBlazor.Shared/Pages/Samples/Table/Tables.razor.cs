@@ -20,8 +20,15 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
+
         [NotNull]
         private List<Foo>? Items { get; set; }
+
+        [NotNull]
+        private string? RefreshText { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -30,6 +37,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
+            Items = Foo.GenerateFoo(Localizer);
+
+            RefreshText ??= TablesLocalizer[nameof(RefreshText)];
+        }
+
+        private void OnClick()
+        {
             Items = Foo.GenerateFoo(Localizer);
         }
 
