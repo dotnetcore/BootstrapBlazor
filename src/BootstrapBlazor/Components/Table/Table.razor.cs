@@ -296,16 +296,6 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        #region Tree 树形数据获取 Items 方法集合
-        private IEnumerable<TItem> GetItems() => IsTree ? GetTreeRows() : Items;
-
-        private IEnumerable<TItem> GetTreeRows()
-        {
-            var ret = new List<TItem>();
-            ReloadTreeNodes(ret, TreeRows);
-            return ret;
-        }
-
         private void ReloadTreeNodes(List<TItem> items, IEnumerable<TableTreeNode<TItem>> nodes)
         {
             foreach (var node in nodes)
@@ -318,7 +308,6 @@ namespace BootstrapBlazor.Components
                 }
             }
         }
-        #endregion
 
         /// <summary>
         /// 明细行集合用于数据懒加载
@@ -374,7 +363,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据集合，适用于无功能时仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托
         /// </summary>
         [Parameter]
-        public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
+        public IEnumerable<TItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 表格组件大小 默认为 Normal 正常模式
@@ -495,7 +484,7 @@ namespace BootstrapBlazor.Components
 
             if (IsTree)
             {
-                TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
+                TreeRows = RowItems.Select(item => new TableTreeNode<TItem>(item)
                 {
                     HasChildren = CheckTreeChildren(item)
                 }).ToList();
@@ -510,6 +499,16 @@ namespace BootstrapBlazor.Components
         protected bool FirstRender { get; set; } = true;
 
         private CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            RowItemsCache = null;
+        }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -617,6 +616,22 @@ namespace BootstrapBlazor.Components
                 BreakPoint.ExtraLarge => ScreenSize >= 1200,
                 _ => true
             };
+        }
+
+        /// <summary>
+        /// OnQueryAsync 查询结果数据集合
+        /// </summary>
+        private IEnumerable<TItem>? QueryItems { get; set; }
+
+        private Lazy<List<TItem>>? RowItemsCache { get; set; }
+
+        private List<TItem> RowItems
+        {
+            get
+            {
+                RowItemsCache ??= new(() => Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>());
+                return RowItemsCache.Value;
+            }
         }
 
         #region 生成 Row 方法

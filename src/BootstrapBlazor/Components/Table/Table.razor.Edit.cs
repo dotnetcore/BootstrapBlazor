@@ -304,12 +304,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task QueryData()
         {
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I29YK1
             SelectedItems.Clear();
+            RowItemsCache = null;
 
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
-                Items = DynamicContext.GetItems().Cast<TItem>();
+                QueryItems = DynamicContext.GetItems().Cast<TItem>();
             }
             else
             {
@@ -337,7 +337,7 @@ namespace BootstrapBlazor.Components
 
                 if (queryData != null)
                 {
-                    Items = queryData.Items;
+                    QueryItems = queryData.Items;
                     if (IsTree)
                     {
                         KeySet.Clear();
@@ -348,7 +348,7 @@ namespace BootstrapBlazor.Components
                         if (KeySet.Count > 0)
                         {
                             TreeRows = new List<TableTreeNode<TItem>>();
-                            foreach (var item in Items)
+                            foreach (var item in QueryItems)
                             {
                                 var node = new TableTreeNode<TItem>(item)
                                 {
@@ -364,7 +364,7 @@ namespace BootstrapBlazor.Components
                         }
                         else
                         {
-                            TreeRows = Items.Select(item => new TableTreeNode<TItem>(item)
+                            TreeRows = QueryItems.Select(item => new TableTreeNode<TItem>(item)
                             {
                                 HasChildren = CheckTreeChildren(item)
                             }).ToList();
@@ -378,25 +378,21 @@ namespace BootstrapBlazor.Components
                     // 外部未过滤，内部自行过滤
                     if (!IsFiltered && Filters.Any())
                     {
-                        Items = Items.Where(Filters.Values.GetFilterFunc<TItem>());
-                        TotalCount = Items.Count();
+                        QueryItems = QueryItems.Where(Filters.Values.GetFilterFunc<TItem>());
+                        TotalCount = QueryItems.Count();
                     }
 
                     // 外部未处理排序，内部自行排序
                     if (!IsSorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
                     {
                         var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => LambdaExtensions.GetSortLambda<TItem>().Compile());
-                        Items = invoker(Items, SortName, SortOrder);
+                        QueryItems = invoker(QueryItems, SortName, SortOrder);
                     }
                 }
             }
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I3XZ71
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I3XIDI
-            Items = Items.ToList();
-
             if (SelectedRows != null)
             {
-                SelectedItems.AddRange(Items.Where(i => SelectedRows.Contains(i)));
+                SelectedItems.AddRange(RowItems.Where(i => SelectedRows.Contains(i)));
             }
         }
 

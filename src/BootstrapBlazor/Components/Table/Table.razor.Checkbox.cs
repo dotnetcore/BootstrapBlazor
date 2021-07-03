@@ -39,8 +39,8 @@ namespace BootstrapBlazor.Components
         protected CheckboxState HeaderCheckState()
         {
             var ret = CheckboxState.UnChecked;
-            if (Items.Any() && Items.All(i => SelectedItems.Contains(i))) ret = CheckboxState.Checked;
-            else if (Items.Any(i => SelectedItems.Contains(i))) ret = CheckboxState.Mixed;
+            if (RowItems.Any() && RowItems.All(i => SelectedItems.Contains(i))) ret = CheckboxState.Checked;
+            else if (RowItems.Any(i => SelectedItems.Contains(i))) ret = CheckboxState.Mixed;
             return ret;
         }
 
@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Components
                 case CheckboxState.Checked:
                     // select all
                     SelectedItems.Clear();
-                    SelectedItems.AddRange(Items);
+                    SelectedItems.AddRange(RowItems);
 
                     // callback
                     await OnSelectedRowsChanged();

@@ -505,7 +505,7 @@ namespace BootstrapBlazor.Components
         protected async Task<bool> ConfirmExport()
         {
             var ret = false;
-            if (!Items.Any())
+            if (!RowItems.Any())
             {
                 var option = new ToastOption
                 {
@@ -533,13 +533,13 @@ namespace BootstrapBlazor.Components
             {
                 if (OnExportAsync != null)
                 {
-                    ret = await OnExportAsync(Items);
+                    ret = await OnExportAsync(RowItems);
                 }
                 else
                 {
                     // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
                     // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-                    ret = await ExcelExport.ExportAsync(Items, Columns, JSRuntime);
+                    ret = await ExcelExport.ExportAsync(RowItems, Columns, JSRuntime);
                 }
 
                 var option = new ToastOption()
