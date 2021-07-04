@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 动态类型实体类 <see cref="IDynamicObject" /> 实例
     /// </summary>
-    public class DynamicObject
+    public class DynamicObject : IDynamicObject
     {
         /// <summary>
         /// 

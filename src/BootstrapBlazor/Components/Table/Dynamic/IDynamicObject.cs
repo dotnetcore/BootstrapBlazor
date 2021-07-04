@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 动态对象接口
     /// </summary>
-    public interface IDynamicObject : ICloneable
+    public interface IDynamicObject
     {
         /// <summary>
         /// 通过指定属性名获取属性值方法

@@ -133,13 +133,13 @@ namespace BootstrapBlazor.Components
         public IFilter? Filter { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得 属性类型
         /// </summary>
         [NotNull]
         public Type? PropertyType { get; internal set; }
 
         /// <summary>
-        /// 
+        /// 获得/设置 当前属性显示文字 列头或者标签名称
         /// </summary>
         public string? Text { get; set; }
 
