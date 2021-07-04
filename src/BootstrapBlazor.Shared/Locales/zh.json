@@ -313,6 +313,8 @@
     "DetailTextFalse": "开启明细行"
   },
   "BootstrapBlazor.Shared.Pages.Table.Tables": {
-    "RefreshText": "刷新"
+    "RefreshText": "刷新",
+    "ButtonAddColumnText": "增加列",
+    "ButtonRemoveColumnText": "移除列"
   }
 }

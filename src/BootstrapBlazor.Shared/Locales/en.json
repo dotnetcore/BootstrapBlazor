@@ -313,6 +313,8 @@
     "DetailTextFalse": "Disable"
   },
   "BootstrapBlazor.Shared.Pages.Table.Tables": {
-    "RefreshText": "Refresh"
+    "RefreshText": "Refresh",
+    "ButtonAddColumnText": "Add Column",
+    "ButtonRemoveColumnText": "Remove Column"
   }
 }

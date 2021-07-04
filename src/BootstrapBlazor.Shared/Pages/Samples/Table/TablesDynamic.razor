@@ -4,6 +4,25 @@
 
 <h4>支持动态添加列</h4>
 
-<Block Title="动态列生成" Introduction="高级的表格展示用法">
+<Block Title="普通用法" Introduction="仅展示 <code>DataTable</code> 数据">
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" />
+</Block>
+
+<Block Title="编辑功能" Introduction="增加编辑维护功能">
+    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+           IsMultipleSelect="true" IsBordered="true" IsStriped="true"
+           ShowToolbar="true" ShowExtendButtons="true"
+           OnAddAsync="OnAddAsync" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync" />
+</Block>
+
+<Block Title="动态列" Introduction="通过代码动态调整 <code>DataTable</code> 表格组件自动更新">
+    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+           IsMultipleSelect="true" IsBordered="true" IsStriped="true"
+           ShowToolbar="true" ShowExtendButtons="true"
+           OnAddAsync="OnAddAsync" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton TItem="DynamicObject" Color="Color.Info" Icon="fa fa-fw fa-plus-circle" Text="@ButtonAddColumnText" OnClick="OnAddColumn" />
+            <TableToolbarButton TItem="DynamicObject" Color="Color.Secondary" Icon="fa fa-fw fa-minus-circle" Text="@ButtonRemoveColumnText" OnClick="OnRemoveColumn" />
+        </TableToolbarTemplate>
+    </Table>
 </Block>

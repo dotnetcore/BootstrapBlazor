@@ -508,6 +508,31 @@ namespace BootstrapBlazor.Components
             base.OnParametersSet();
 
             RowItemsCache = null;
+
+            if (!FirstRender)
+            {
+                // 动态列模式
+                if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+                {
+                    AutoGenerateColumns = false;
+
+                    var cols = DynamicContext.GetColumns();
+                    Columns.Clear();
+                    Columns.AddRange(cols);
+
+                    ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
+
+                    QueryItems = DynamicContext.GetItems().Cast<TItem>();
+                }
+
+                // set default sortName
+                var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
+                if (col != null)
+                {
+                    SortName = col.GetFieldName();
+                    SortOrder = col.DefaultSortOrder;
+                }
+            }
         }
 
         /// <summary>
@@ -647,14 +672,12 @@ namespace BootstrapBlazor.Components
             {
                 builder.AddContent(0, col.Template.Invoke(item));
             }
-            else if (item is IDynamicObject dynamicObject)
-            {
-                builder.AddContent(0, dynamicObject.GetValue(col.GetFieldName()));
-            }
             else
             {
                 var content = "";
-                var val = Table<TItem>.GetItemValue(col.GetFieldName(), item);
+                var val = (item is IDynamicObject dynamicObject)
+                    ? dynamicObject.GetValue(col.GetFieldName())
+                    : Table<TItem>.GetItemValue(col.GetFieldName(), item);
 
                 // 自动化处理 bool 值
                 if (val is bool && col.ComponentType != null)

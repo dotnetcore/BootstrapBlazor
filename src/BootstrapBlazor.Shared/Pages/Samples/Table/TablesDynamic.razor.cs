@@ -7,8 +7,10 @@ using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Table
 {
@@ -26,6 +28,14 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
+
+        private string? ButtonAddColumnText { get; set; }
+
+        private string? ButtonRemoveColumnText { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -33,14 +43,40 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
+            ButtonAddColumnText ??= TablesLocalizer[nameof(ButtonAddColumnText)];
+            ButtonRemoveColumnText ??= TablesLocalizer[nameof(ButtonRemoveColumnText)];
+
             // 初始化 DataTable
             InitDataTable();
+        }
 
+        private void CreateContext()
+        {
             // 初始化动态类型上下文实例
-            DataTableDynamicContext = new DataTableDynamicContext()
+            DataTableDynamicContext = new DataTableDynamicContext(UserData, (context, col) =>
             {
-                DataTable = UserData
-            };
+                var propertyName = col.GetFieldName();
+                if (propertyName == nameof(Foo.DateTime))
+                {
+                    context.AddRequiredAttribute(nameof(Foo.DateTime));
+                    col.Text = Localizer[nameof(Foo.DateTime)];
+                }
+                else if (propertyName == nameof(Foo.Name))
+                {
+                    context.AddRequiredAttribute(nameof(Foo.Name), "测试姓名不能为空");
+                    col.Text = Localizer[nameof(Foo.Name)];
+                }
+                else if (propertyName == nameof(Foo.Count))
+                {
+                    context.AddRequiredAttribute(nameof(Foo.Count));
+                    col.Text = Localizer[nameof(Foo.Count)];
+                }
+                else if (propertyName == nameof(Foo.Complete))
+                {
+                    col.ComponentType = typeof(Switch);
+                    col.Text = Localizer[nameof(Foo.Complete)];
+                }
+            });
         }
 
         private void InitDataTable()
@@ -53,6 +89,43 @@ namespace BootstrapBlazor.Shared.Pages.Table
             {
                 UserData.Rows.Add(f.DateTime, f.Name, f.Count);
             });
+
+            CreateContext();
+        }
+
+        private Task<DynamicObject> OnAddAsync() => DataTableDynamicContext.AddAsync();
+
+        private Task<bool> OnSaveAsync(DynamicObject item) => DataTableDynamicContext.SaveAsync(item);
+
+        private Task<bool> OnDeleteAsync(IEnumerable<DynamicObject> items) => DataTableDynamicContext.DeleteAsync(items);
+
+        private Task OnAddColumn()
+        {
+            if (!UserData.Columns.Contains(nameof(Foo.Complete)))
+            {
+                UserData.Columns.Add(nameof(Foo.Complete), typeof(bool));
+
+                // 更新数据
+                var fs = Foo.GenerateWrapFoo(Localizer);
+                for (int i = 0; i < fs.Count; i++)
+                {
+                    UserData.Rows[i][nameof(Foo.Complete)] = fs[i].Complete;
+                }
+                CreateContext();
+                StateHasChanged();
+            }
+            return Task.CompletedTask;
+        }
+
+        private Task OnRemoveColumn()
+        {
+            if (UserData.Columns.Contains(nameof(Foo.Complete)))
+            {
+                UserData.Columns.Remove(nameof(Foo.Complete));
+                CreateContext();
+                StateHasChanged();
+            }
+            return Task.CompletedTask;
         }
     }
 }
