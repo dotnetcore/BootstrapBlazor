@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -17,16 +18,17 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 通过 ITableColumn 创建动态类
         /// </summary>
-        public static Type? CreateTypeByName(string typeName, IEnumerable<IEditorItem> cols, Type? parent = null)
+        public static Type CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
         {
             var typeBuilder = CreateTypeBuilderByName(typeName, parent);
 
             foreach (var col in cols)
             {
-                typeBuilder.CreateProperty(col);
+                var attributeBuilds = creatingCallback?.Invoke(col);
+                typeBuilder.CreateProperty(col, attributeBuilds);
             }
 
-            return typeBuilder.CreateType();
+            return typeBuilder.CreateType()!;
         }
 
         private static TypeBuilder CreateTypeBuilderByName(string typeName, Type? parent = null)
@@ -38,7 +40,7 @@ namespace BootstrapBlazor.Components
             return typeBuilder;
         }
 
-        private static void CreateProperty(this TypeBuilder typeBuilder, IEditorItem col)
+        private static void CreateProperty(this TypeBuilder typeBuilder, IEditorItem col, IEnumerable<CustomAttributeBuilder>? attributeBuilds)
         {
             var fieldName = col.GetFieldName();
             var field = typeBuilder.DefineField($"_{fieldName}", col.PropertyType, FieldAttributes.Private);
@@ -61,6 +63,11 @@ namespace BootstrapBlazor.Components
             var propertyId = typeBuilder.DefineProperty(fieldName, PropertyAttributes.None, col.PropertyType, null);
             propertyId.SetGetMethod(methodGetField);
             propertyId.SetSetMethod(methodSetField);
+
+            foreach (var cab in attributeBuilds ?? Enumerable.Empty<CustomAttributeBuilder>())
+            {
+                propertyId.SetCustomAttribute(cab);
+            }
         }
     }
 }
