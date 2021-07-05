@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
                 // 更新数据
                 var fs = Foo.GenerateWrapFoo(Localizer);
-                for (int i = 0; i < fs.Count; i++)
+                for (var i = 0; i < fs.Count; i++)
                 {
                     UserData.Rows[i][nameof(Foo.Complete)] = fs[i].Complete;
                 }

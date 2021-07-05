@@ -226,6 +226,7 @@ namespace BootstrapBlazor.Components
             if (source.Width != null) dest.Width = source.Width;
             if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
             if (source.Rows > 0) dest.Rows = source.Rows;
+            if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
         }
     }
 }
