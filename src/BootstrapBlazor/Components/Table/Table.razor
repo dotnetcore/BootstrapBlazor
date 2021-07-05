@@ -101,28 +101,33 @@
             @if (ShowSearch)
             {
                 <div class="float-right table-toolbar-button btn-group">
-                    <div class="input-group">
-                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
-                            <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                        </BootstrapInput>
-                        <div class="input-group-append">
-                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
-                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </Button>
-                            @if (ShowResetSearch)
-                            {
-                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
-                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                    @if (ShowSearchText)
+                    {
+                        <div class="input-group">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
+                                <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                            </BootstrapInput>
+                            <div class="input-group-append">
+                                <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                                 </Button>
-                            }
-                            @if (ShowAdvancedSearch)
-                            {
-                                <Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
-                                    <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
-                                </Button>
-                            }
+                                @if (ShowResetSearch)
+                                {
+                                    <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                                    </Button>
+                                }
+                                @if (ShowAdvancedSearch)
+                                {
+                                    @RenderAdvanceSearchButton
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else if (ShowAdvancedSearch)
+                    {
+                        @RenderAdvanceSearchButton
+                    }
                 </div>
             }
         </div>
@@ -601,4 +606,9 @@ RenderFragment<TItem> RenderEditForm => item =>
         </div>
     </td>
 </tr>;
+
+RenderFragment RenderAdvanceSearchButton =>
+@<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
+    <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
+</Button>;
 }

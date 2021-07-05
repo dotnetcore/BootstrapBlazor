@@ -54,16 +54,22 @@ namespace BootstrapBlazor.Components
         public bool ShowSearch { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示高级搜索按钮 默认显示
+        /// 获得/设置 是否显示搜索框 默认为 true 显示搜索文本框  <see cref="ShowSearch" />
         /// </summary>
         [Parameter]
-        public bool ShowAdvancedSearch { get; set; } = true;
+        public bool ShowSearchText { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否显示清空搜索按钮 默认显示
+        /// 获得/设置 是否显示清空搜索按钮 默认显示 <see cref="ShowSearch" />
         /// </summary>
         [Parameter]
         public bool ShowResetSearch { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示高级搜索按钮 默认显示 <see cref="ShowSearch" />
+        /// </summary>
+        [Parameter]
+        public bool ShowAdvancedSearch { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 搜索关键字 通过列设置的 Searchable 自动生成搜索拉姆达表达式
