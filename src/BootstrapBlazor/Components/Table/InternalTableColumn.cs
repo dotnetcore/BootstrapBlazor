@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Components
         /// <param name="fieldName">字段名称</param>
         /// <param name="fieldType">字段类型</param>
         /// <param name="fieldText">显示文字</param>
-        public InternalTableColumn(string fieldName, Type fieldType, string fieldText)
+        public InternalTableColumn(string fieldName, Type fieldType, string? fieldText = null)
         {
             FieldName = fieldName;
             PropertyType = fieldType;
@@ -118,22 +118,32 @@ namespace BootstrapBlazor.Components
 
         public string GetFieldName() => FieldName;
 
-        public static IEnumerable<ITableColumn> GetProperties<TModel>(IEnumerable<ITableColumn>? source = null)
+        /// <summary>
+        /// 通过泛型模型获取模型属性集合
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static IEnumerable<ITableColumn> GetProperties<TModel>(IEnumerable<ITableColumn>? source = null) => GetProperties(typeof(TModel), source);
+
+        /// <summary>
+        /// 通过特定类型模型获取模型属性集合
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static IEnumerable<ITableColumn> GetProperties(Type type, IEnumerable<ITableColumn>? source = null)
         {
             var cols = new List<ITableColumn>(50);
-            var type = typeof(TModel);
             var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>();
             var props = type.GetProperties();
             foreach (var prop in props)
             {
                 ITableColumn? tc;
                 var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>();
-
-                // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-                // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
-                var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
                 if (attr == null)
                 {
+                    var displayName = Utility.GetDisplayName(type, prop.Name);
                     tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
 
                     if (attrModel != null)
@@ -145,7 +155,6 @@ namespace BootstrapBlazor.Components
                 {
                     if (attr.Ignore) continue;
 
-                    attr.Text = displayName;
                     attr.FieldName = prop.Name;
                     attr.PropertyType = prop.PropertyType;
 

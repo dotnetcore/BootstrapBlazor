@@ -49,13 +49,11 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static string GetDisplayName(Type modelType, string fieldName)
         {
-            if (modelType.Assembly.IsDynamic) return fieldName;
-
             var cacheKey = (CultureInfoName: CultureInfo.CurrentUICulture.Name, Type: modelType, FieldName: fieldName);
             if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
             {
                 // 显示名称为空时通过资源文件查找 FieldName 项
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
+                var localizer = modelType.Assembly.IsDynamic ? null : JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
                 var stringLocalizer = localizer?[fieldName];
                 if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
@@ -68,7 +66,7 @@ namespace BootstrapBlazor.Components
                         ?? propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
 
                     // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
-                    if (!string.IsNullOrEmpty(dn))
+                    if (!string.IsNullOrEmpty(dn) && !modelType.Assembly.IsDynamic)
                     {
                         var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
                         if (resxType?.Value.ResourceManagerStringLocalizerType != null)

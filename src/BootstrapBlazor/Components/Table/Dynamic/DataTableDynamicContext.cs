@@ -44,8 +44,9 @@ namespace BootstrapBlazor.Components
             DataTable = table;
             AddAttributesCallback = addAttributesCallback;
 
-            Columns = InternalGetColumns();
-            DynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", Columns, typeof(DynamicObject), OnColumnCreating);
+            var cols = InternalGetColumns();
+            DynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DynamicObject), OnColumnCreating);
+            Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols);
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace BootstrapBlazor.Components
             var ret = new List<InternalTableColumn>();
             foreach (DataColumn col in DataTable.Columns)
             {
-                ret.Add(new InternalTableColumn(col.ColumnName, col.DataType, col.ColumnName));
+                ret.Add(new InternalTableColumn(col.ColumnName, col.DataType));
             }
             return ret;
         }
