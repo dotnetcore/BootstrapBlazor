@@ -608,7 +608,7 @@ RenderFragment<TItem> RenderEditForm => item =>
 </tr>;
 
 RenderFragment RenderAdvanceSearchButton =>
-@<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@ShowSearchDialog">
+@<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@(new Func<Task>(ShowSearchDialog))">
     <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
 </Button>;
 }

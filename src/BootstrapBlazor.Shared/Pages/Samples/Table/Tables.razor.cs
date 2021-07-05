@@ -384,6 +384,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowSearchText",
+                Description = "显示搜索文本框",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ShowResetSearch",
                 Description = "显示清空搜索按钮",
                 Type = "boolean",
