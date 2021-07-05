@@ -4,8 +4,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components
@@ -24,20 +24,12 @@ namespace BootstrapBlazor.Components
         /// <param name="allowEmptyStrings"></param>
         public static void AddRequiredAttribute(this DynamicObjectContext context, string columnName, string? errorMessage = null, bool allowEmptyStrings = false)
         {
-            var type = typeof(RequiredAttribute);
-            var propertyInfos = new List<PropertyInfo>();
-            var propertyValues = new List<object>();
-            if (!string.IsNullOrEmpty(errorMessage))
+            var parameters = new KeyValuePair<string, object?>[]
             {
-                propertyInfos.Add(type.GetProperty(nameof(RequiredAttribute.ErrorMessage))!);
-                propertyValues.Add(errorMessage);
-            }
-            if (allowEmptyStrings)
-            {
-                propertyInfos.Add(type.GetProperty(nameof(RequiredAttribute.AllowEmptyStrings))!);
-                propertyValues.Add(true);
-            }
-            context.AddAttribute(columnName, type, Type.EmptyTypes, Array.Empty<object>(), propertyInfos.ToArray(), propertyValues.ToArray());
+                        new(nameof(RequiredAttribute.ErrorMessage), errorMessage),
+                        new(nameof(RequiredAttribute.AllowEmptyStrings), allowEmptyStrings)
+            };
+            context.AddMultipleParameterAttribute<RequiredAttribute>(columnName, parameters);
         }
 
         /// <summary>
@@ -46,9 +38,19 @@ namespace BootstrapBlazor.Components
         /// <param name="context"></param>
         /// <param name="columnName"></param>
         /// <param name="parameters"></param>
-        public static void AddAutoGenerateColumnAttribute(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters)
+        public static void AddAutoGenerateColumnAttribute(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) => context.AddMultipleParameterAttribute<AutoGenerateColumnAttribute>(columnName, parameters);
+
+        /// <summary>
+        /// 增加 DisplayAttribute 扩展方法
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="columnName"></param>
+        /// <param name="parameters"></param>
+        public static void AddDisplayAttribute(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) => context.AddMultipleParameterAttribute<DisplayAttribute>(columnName, parameters);
+
+        private static void AddMultipleParameterAttribute<TAttribute>(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) where TAttribute : Attribute
         {
-            var type = typeof(AutoGenerateColumnAttribute);
+            var type = typeof(TAttribute);
             var propertyInfos = new List<PropertyInfo>();
             var propertyValues = new List<object?>();
             foreach (var kv in parameters)
@@ -61,6 +63,30 @@ namespace BootstrapBlazor.Components
                 }
             }
             context.AddAttribute(columnName, type, Type.EmptyTypes, Array.Empty<object>(), propertyInfos.ToArray(), propertyValues.ToArray());
+        }
+
+        /// <summary>
+        /// 增加 DisplayNameAttribute 扩展方法
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="columnName"></param>
+        /// <param name="displayName"></param>
+        public static void AddDisplayNameAttribute(this DynamicObjectContext context, string columnName, string displayName)
+        {
+            var type = typeof(DisplayNameAttribute);
+            context.AddAttribute(columnName, type, new Type[] { typeof(string) }, new object?[] { displayName });
+        }
+
+        /// <summary>
+        /// 增加 DescriptionAttribute 扩展方法
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="columnName"></param>
+        /// <param name="description"></param>
+        public static void AddDescriptionAttribute(this DynamicObjectContext context, string columnName, string description)
+        {
+            var type = typeof(DescriptionAttribute);
+            context.AddAttribute(columnName, type, new Type[] { typeof(string) }, new object?[] { description });
         }
     }
 }

@@ -42,12 +42,14 @@ namespace BootstrapBlazor.Components
         /// <param name="constructorArgs"></param>
         /// <param name="propertyInfos"></param>
         /// <param name="propertyValues"></param>
-        public void AddAttribute(string columnName, Type attributeType, Type[] types, object?[] constructorArgs, PropertyInfo[] propertyInfos, object?[] propertyValues)
+        public void AddAttribute(string columnName, Type attributeType, Type[] types, object?[] constructorArgs, PropertyInfo[]? propertyInfos = null, object?[]? propertyValues = null)
         {
             var attr = attributeType.GetConstructor(types);
             if (attr != null)
             {
-                var cab = new CustomAttributeBuilder(attr, constructorArgs, propertyInfos, propertyValues);
+                var cab = new CustomAttributeBuilder(attr, constructorArgs,
+                    namedProperties: propertyInfos ?? Array.Empty<PropertyInfo>(),
+                    propertyValues: propertyValues ?? Array.Empty<object?>());
                 CustomerAttributeBuilderCache.AddOrUpdate(columnName,
                     key => new List<CustomAttributeBuilder> { cab },
                     (key, builders) =>

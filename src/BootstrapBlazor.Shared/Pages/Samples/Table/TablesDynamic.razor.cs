@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -59,22 +60,30 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 if (propertyName == nameof(Foo.DateTime))
                 {
                     context.AddRequiredAttribute(nameof(Foo.DateTime));
-                    col.Text = Localizer[nameof(Foo.DateTime)];
+                    // 使用 AutoGenerateColumnAttribute 设置显示名称示例
+                    context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] {
+                        new(nameof(AutoGenerateColumnAttribute.Text), Localizer[nameof(Foo.DateTime)].Value)
+                    });
                 }
                 else if (propertyName == nameof(Foo.Name))
                 {
-                    context.AddRequiredAttribute(nameof(Foo.Name), "测试姓名不能为空");
+                    context.AddRequiredAttribute(nameof(Foo.Name), Localizer["Name.Required"]);
+                    // 使用 Text 设置显示名称示例
                     col.Text = Localizer[nameof(Foo.Name)];
                 }
                 else if (propertyName == nameof(Foo.Count))
                 {
                     context.AddRequiredAttribute(nameof(Foo.Count));
-                    col.Text = Localizer[nameof(Foo.Count)];
+                    // 使用 DisplayNameAttribute 设置显示名称示例
+                    context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
                 }
                 else if (propertyName == nameof(Foo.Complete))
                 {
                     col.ComponentType = typeof(Switch);
-                    col.Text = Localizer[nameof(Foo.Complete)];
+                    // 使用 DisplayAttribute 设置显示名称示例
+                    context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
+                        new(nameof(DisplayAttribute.Name), Localizer[nameof(Foo.Complete)].Value)
+                    });
                 }
             });
         }
