@@ -15,6 +15,7 @@
     "dropdownwidgets": "DropdownWidgets",
     "detail": "Table/TablesDetailRow",
     "dialog": "Table/TablesDialog",
+    "dynamic": "Table/TablesDynamic",
     "edit": "Table/TablesEdit",
     "editdialogs": "EditDialogs",
     "editorforms": "EditorForms",
