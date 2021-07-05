@@ -507,7 +507,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t =>
         {
-            var invoker = SetPropertyValueLambdaCache.GetOrAdd((typeof(object), fieldName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(model, key.FieldName).Compile());
+            var invoker = SetPropertyValueLambdaCache.GetOrAdd((model.GetType(), fieldName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(model, key.FieldName).Compile());
             invoker.Invoke(model, t);
         });
 
