@@ -183,7 +183,7 @@
                 };
 
                 // 点击 filter 小按钮时计算弹出位置
-                $ele.find('.filterable .fa-filter').on('click', function () {
+                $ele.on('click', '.filterable .fa-filter', function () {
                     calcPosition.call(this);
                 });
 
