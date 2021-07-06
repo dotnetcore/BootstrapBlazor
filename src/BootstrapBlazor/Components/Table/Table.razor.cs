@@ -296,6 +296,13 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
+        private List<TItem> GetTreeRows()
+        {
+            var ret = new List<TItem>();
+            ReloadTreeNodes(ret, TreeRows);
+            return ret;
+        }
+
         private void ReloadTreeNodes(List<TItem> items, IEnumerable<TableTreeNode<TItem>> nodes)
         {
             foreach (var node in nodes)
@@ -484,7 +491,8 @@ namespace BootstrapBlazor.Components
 
             if (IsTree)
             {
-                TreeRows = RowItems.Select(item => new TableTreeNode<TItem>(item)
+                var rows = Items ?? QueryItems ?? Enumerable.Empty<TItem>();
+                TreeRows = rows.Select(item => new TableTreeNode<TItem>(item)
                 {
                     HasChildren = CheckTreeChildren(item)
                 }).ToList();
@@ -655,7 +663,7 @@ namespace BootstrapBlazor.Components
             get
             {
                 RowItemsCache ??= new(() => Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>());
-                return RowItemsCache.Value;
+                return IsTree ? GetTreeRows() : RowItemsCache.Value;
             }
         }
 
