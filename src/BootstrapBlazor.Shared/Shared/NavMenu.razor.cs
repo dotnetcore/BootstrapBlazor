@@ -561,6 +561,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["TableFixColumn"],
                     Url = "tables/fix-column"
                 },
