@@ -601,6 +601,27 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "UnsetText",
+                Description = "未设置排序时 tooltip 显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "点击升序"
+            },
+            new AttributeItem() {
+                Name = "SortAscText",
+                Description = "升序排序时 tooltip 显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "点击降序"
+            },
+            new AttributeItem() {
+                Name = "SortDescText",
+                Description = "降序排序时 tooltip 显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "取消排序"
+            },
+            new AttributeItem() {
                 Name = "RenderModel",
                 Description = "Table 组件布局模式设置",
                 Type = "TableRenderModel",

@@ -465,6 +465,27 @@ namespace BootstrapBlazor.Components
         public IDynamicObjectContext? DynamicContext { get; set; }
 
         /// <summary>
+        /// 获得/设置 未设置排序时 tooltip 显示文字 默认点击升序
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? UnsetText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 升序排序时 tooltip 显示文字 默认点击降序
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? SortAscText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 降序排序时 tooltip 显示文字 默认取消排序
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? SortDescText { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -607,7 +628,7 @@ namespace BootstrapBlazor.Components
 
                 if (!string.IsNullOrEmpty(methodName))
                 {
-                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName);
+                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName, new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
                     methodName = null;
                 }
 

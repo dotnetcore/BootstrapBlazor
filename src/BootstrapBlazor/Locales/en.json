@@ -220,7 +220,10 @@
     "DeleteButtonToastContent": "Please select DELETE rows, auto close after {0}s",
     "DeleteButtonToastResultContent": "Delete data {0}, auto close after {1}s",
     "DataServiceInvalidOperationText": "Cannot provide a value for property 'DataService' on type 'BootstrapBlazor.Components.Table`1[[{0}]]'. There is no registered service of type 'BootstrapBlazor.Components.IDataService`1[{0}]'.",
-    "NotSetOnTreeExpandErrorMessage": "not set OnTreeExpand parameter"
+    "NotSetOnTreeExpandErrorMessage": "not set OnTreeExpand parameter",
+    "UnsetText": "Asc",
+    "SortAscText": "Desc",
+    "SortDescText": "None"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

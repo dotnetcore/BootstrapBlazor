@@ -123,7 +123,7 @@
             else if (method === 'init') {
                 // sort
                 var $tooltip = $ele.find('.table-cell.is-sort .table-text');
-                var tooltipTitle = { unset: "点击升序", sortAsc: "点击降序", sortDesc: "取消排序" };
+                var tooltipTitle = args;
 
                 $tooltip.each(function () {
                     var $sortIcon = $(this).parent().find('.fa:last');

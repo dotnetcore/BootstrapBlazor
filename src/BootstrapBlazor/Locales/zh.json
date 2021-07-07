@@ -220,7 +220,10 @@
     "DeleteButtonToastContent": "请选择要删除的数据, {0} 秒后自动关闭",
     "DeleteButtonToastResultContent": "删除数据{0}, {1} 秒后自动关闭",
     "DataServiceInvalidOperationText": "未注册 'BootstrapBlazor.Components.IDataService`1[{0}]' 服务",
-    "NotSetOnTreeExpandErrorMessage": "未设置 OnTreeExpand 回调委托方法"
+    "NotSetOnTreeExpandErrorMessage": "未设置 OnTreeExpand 回调委托方法",
+    "UnsetText": "点击升序",
+    "SortAscText": "点击降序",
+    "SortDescText": "取消排序"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",
