@@ -530,3 +530,11 @@
         height: 30px;
         padding-left: 4px;
     }
+
+.table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 1px;
+}
+
+.table-bordered thead tr:last-child td, .table-bordered thead tr:last-child th {
+    border-bottom-width: 2px;
+}

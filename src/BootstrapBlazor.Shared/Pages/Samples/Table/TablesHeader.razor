@@ -12,14 +12,14 @@
                 <th colspan="2"><div class="table-cell" style="justify-content: center">个人信息</div></th>
             </tr>
             <tr>
-                <th><div class="table-cell">姓名</div></th>
-                <th><div class="table-cell">地址</div></th>
+                <th><div class="table-cell">个人姓名</div></th>
+                <th><div class="table-cell">个人地址</div></th>
             </tr>
         </MultiHeaderTemplate>
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
         </TableColumns>
     </Table>
 </Block>

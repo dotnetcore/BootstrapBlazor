@@ -155,22 +155,25 @@
                 // filter
                 var $toolbar = $ele.find('.table-toolbar');
                 var marginTop = 0;
-                if ($toolbar.length > 0) marginTop = $toolbar.height();
+                if ($toolbar.length > 0) marginTop = $toolbar.outerHeight();
 
                 var calcPosition = function () {
                     // position
                     var position = $(this).position();
                     var field = $(this).attr('data-field');
                     var $body = $ele.find('.table-filter-item[data-field="' + field + '"]');
-                    var th = $(this).closest('th');
-                    var left = th.outerWidth() + th.position().left - $body.outerWidth() / 2;
+                    var $th = $(this).closest('th');
+                    var $thead = $th.closest('thead');
+                    var rowHeight = $thead.outerHeight() - $th.outerHeight();
+                    console.log(rowHeight);
+                    var left = $th.outerWidth() + $th.position().left - $body.outerWidth() / 2;
                     var marginRight = 0;
-                    if (th.hasClass('sortable')) marginRight = 24;
-                    if (th.hasClass('filterable')) marginRight = marginRight + 12;
+                    if ($th.hasClass('sortable')) marginRight = 24;
+                    if ($th.hasClass('filterable')) marginRight = marginRight + 12;
 
                     // 判断是否越界
-                    var scrollLeft = th.closest('table').parent().scrollLeft();
-                    var margin = th.offset().left + th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
+                    var scrollLeft = $th.closest('table').parent().scrollLeft();
+                    var margin = $th.offset().left + $th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
                     marginRight = marginRight + scrollLeft;
                     if (margin > 0) {
                         left = left - margin - 16;
@@ -179,7 +182,7 @@
                         $arrow = $body.find('.card-arrow');
                         $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
                     }
-                    $body.css({ "top": position.top + marginTop + 50, "left": left - marginRight });
+                    $body.css({ "top": position.top + marginTop + rowHeight + 50, "left": left - marginRight });
                 };
 
                 // 点击 filter 小按钮时计算弹出位置
