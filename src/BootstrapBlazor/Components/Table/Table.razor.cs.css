@@ -396,8 +396,16 @@
     border-spacing: 0;
 }
 
-    .table-fixed-column .table tr:not(:hover) .fixed {
+    .table-fixed-column .table .fixed {
         background-color: #fff;
+    }
+
+    .table-fixed-column .table .thead-light .fixed {
+        background-color: #e9ecef;
+    }
+
+    .table-fixed-column .table .thead-dark .fixed {
+        background-color: #343a40;
     }
 
     .table-fixed-column .table tr .fixed {
