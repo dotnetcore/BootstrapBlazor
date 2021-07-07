@@ -68,6 +68,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "无匹配数据"
             },
             new AttributeItem() {
+                Name = "DisplayCount",
+                Description = "匹配数据时显示的数量",
+                Type = "int?",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "ValueChanged",
                 Description = "文本框值变化时回调委托方法",
                 Type = "Action<string>",
@@ -89,6 +96,14 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
+            new AttributeItem()
+            {
+                Name = "CustomFilter",
+                Description = "自定义集合过滤规则",
+                Type = "Func<Task<IEnumerable<string>>>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            }
         };
     }
 }
