@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -20,6 +20,7 @@ namespace BootstrapBlazor.Components
     {
         private bool _isLoading;
         private bool _isShown;
+        private string? _lastFilterText;
 
         /// <summary>
         /// 获得 组件样式
@@ -129,9 +130,10 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected virtual async Task OnKeyUp(KeyboardEventArgs args)
         {
-            if (!_isLoading)
+            if (!_isLoading && _lastFilterText != CurrentValueAsString)
             {
                 _isLoading = true;
+                _lastFilterText = CurrentValueAsString;
                 if (CustomFilter != null)
                 {
                     var items = await CustomFilter();
