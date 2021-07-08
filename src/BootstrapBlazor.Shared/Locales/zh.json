@@ -270,7 +270,8 @@
     "ChartBar": "柱状图",
     "ChartPie": "饼图",
     "ChartDoughnut": "圆环图",
-    "ChartBubble": "气泡图"
+    "ChartBubble": "气泡图",
+    "Transition": "过渡效果"
   },
   "BootstrapBlazor.Shared.Pages.Menus": {
     "System": "系统设置",

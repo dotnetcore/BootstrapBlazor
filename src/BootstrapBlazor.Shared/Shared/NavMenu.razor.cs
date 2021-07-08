@@ -455,6 +455,12 @@ namespace BootstrapBlazor.Shared.Shared
                     Text = Localizer["Tree"],
                     Url = "trees"
                 },
+                new()
+                {
+                    IsNew=true,
+                    Text = Localizer["Transition"],
+                    Url = "transitions"
+                },
             };
             AddBadge(item);
         }

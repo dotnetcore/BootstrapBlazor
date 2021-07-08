@@ -270,7 +270,8 @@
     "ChartBar": "Bar",
     "ChartPie": "Pie",
     "ChartDoughnut": "Doughnut",
-    "ChartBubble": "Bubble"
+    "ChartBubble": "Bubble",
+    "Transition": "Transition"
   },
   "BootstrapBlazor.Shared.Pages.Menus": {
     "System": "System",

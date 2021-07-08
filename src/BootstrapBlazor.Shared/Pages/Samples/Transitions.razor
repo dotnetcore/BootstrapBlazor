@@ -1,0 +1,43 @@
+﻿@page "/transitions"
+
+<h3>Transition 过渡效果</h3>
+
+<h4>BootstarpBlazor应用在部分组件的过渡动画，你也可以直接使用。</h4>
+
+<Block Title="基础用法" Introduction="基础动画效果演示">
+  <div style="margin-bottom:10px">
+    <Button Color="Color.Primary" @onclick="OnShow">淡出效果</Button>
+  </div>
+  <Transition Name="Animate.FadeOut" Show="Show">
+    <Card style="width:20%" IsCenter="true">
+      <CardBody>
+        FadeOut
+      </CardBody>
+    </Card>
+  </Transition>
+</Block>
+
+<Block Title="动画执行完成回调" Introduction="动画执行完成后执行回调函数">
+  <div style="margin-bottom:10px">
+    <Button Color="Color.Primary" @onclick="OnCallBackShow">Animated CallBack</Button>
+  </div>
+  <Transition Name="Animate.FadeOut" Show="TransitionedShow" Transitioned="@Transitioned">
+    <Card style="width:20%" IsCenter="true">
+      <CardBody>
+        FadeOut
+      </CardBody>
+    </Card>
+  </Transition>
+</Block>
+
+
+<Message @ref="MessageElement" />
+
+<AttributeTable Items="@GetAttributes()" />
+
+
+
+
+
+
+

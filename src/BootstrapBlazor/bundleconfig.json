@@ -294,6 +294,7 @@
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
       "wwwroot/lib/colorpicker/bootstrap-colorpicker.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
+      "wwwroot/lib/animate/animate.min.css",
       "wwwroot/css/bootstrap.blazor.min.css",
       "Components/Alert/Alert.razor.cs.min.css",
       "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
@@ -603,6 +604,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Transition/Transition.razor.cs.min.js",
+    "inputFiles": [
+      "Components/Transition/Transition.razor.cs.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/jquery-3.5.1.min.js",
@@ -654,7 +661,8 @@
       "Components/Tooltip/Tooltip.cs.min.js",
       "Components/Tree/Tree.razor.cs.min.js",
       "Components/Upload/Upload.razor.cs.min.js",
-      "Components/ValidateForm/ValidateForm.razor.cs.min.js"
+      "Components/ValidateForm/ValidateForm.razor.cs.min.js",
+      "Components/Transition/Transition.razor.cs.min.js"
     ],
     "minify": {
       "enabled": false,
