@@ -18,17 +18,17 @@
     display: inline-block;
 }
 
-    .pagination-items .form-select {
+    .pagination-items .select {
         width: 100px;
         margin: 0 10px;
     }
 
-        .pagination-items .form-select .dropdown-menu {
+        .pagination-items .select .dropdown-menu {
             min-width: unset;
             text-align: right;
         }
 
-        .pagination-items .form-select .form-control {
+        .pagination-items .select .form-control {
             width: 100%;
         }
 
