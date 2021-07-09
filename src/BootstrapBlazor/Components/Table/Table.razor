@@ -46,7 +46,7 @@
                     }
                     @TableToolbarTemplate
                 </TableToolbar>
-                <div class="float-right table-toolbar-button btn-group table-column-right">
+                <div class="float-end table-toolbar-button btn-group table-column-right">
                     @if (ShowRefresh)
                     {
                         <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
@@ -100,7 +100,7 @@
             }
             @if (ShowSearch)
             {
-                <div class="float-right table-toolbar-button btn-group">
+                <div class="float-end table-toolbar-button btn-group">
                     @if (ShowSearchText)
                     {
                         <div class="input-group">

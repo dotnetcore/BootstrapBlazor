@@ -30,7 +30,7 @@
         </ul>
     </div>
     <CultureChooser class="flex-md-fill justify-content-md-end" />
-    <ul class="navbar-nav ml-3 d-none d-lg-flex">
+    <ul class="navbar-nav ms-3 d-none d-lg-flex">
         <li class="nav-item">
             <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor"><img src="_content/BootstrapBlazor.Shared/images/git.svg" /></a>
         </li>
@@ -56,7 +56,7 @@
     <div class="install-prompt">
         <div class="row">
             <div class="install-prompt-body col-10 col-offset-2 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
-                <span class="ml-2">@InstallAppText</span>
+                <span class="ms-2">@InstallAppText</span>
                 <button class="installButton btn btn-primary" @onclick="@InstallClicked">@InstallText</button>
                 <button class="cancelButton btn btn-danger" @onclick="@(() => Installable = false)">@CancelText</button>
             </div>
