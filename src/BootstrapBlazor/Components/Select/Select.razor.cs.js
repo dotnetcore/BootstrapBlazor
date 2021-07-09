@@ -3,11 +3,11 @@
         bb_select: function (el, obj, method) {
             var $el = $(el);
             var $search = $el.find('input.search-text');
-            $el.on('shown.bs.dropdown', function () {
-                if ($search.length > 0) {
+            if ($search.length > 0) {
+                $el.on('shown.bs.dropdown', function () {
                     $search.focus();
-                }
-            });
+                });
+            }
 
             $el.on('keyup', function (e) {
                 var $this = $(this);

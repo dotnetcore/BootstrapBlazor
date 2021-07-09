@@ -1,9 +1,5 @@
-﻿.select .form-select {
-    background-image: none;
-}
-
-.select .dropdown-menu {
-    margin-top: 8px !important;
+﻿.form-select .dropdown-menu {
+    margin-top: 10px;
     max-height: 274px;
     overflow-x: hidden;
     padding: 0.25rem 0;
@@ -12,12 +8,12 @@
     cursor: pointer;
 }
 
-    .select .dropdown-menu .dropdown-item.is-disabled {
+    .form-select .dropdown-menu .dropdown-item.is-disabled {
         color: #c0c4cc;
         cursor: not-allowed;
     }
 
-        .select .dropdown-menu .dropdown-item.is-disabled:active {
+        .form-select .dropdown-menu .dropdown-item.is-disabled:active {
             background-color: #f8f9fa;
         }
 
@@ -46,22 +42,26 @@
         left: -6px;
     }
 
-.select .form-select.show + .form-select-append i {
-    transform: rotate(0);
-}
-
-.select .form-select.show + .form-select-append + .dropdown-menu[data-popper-placement="bottom-start"] + .dropdown-menu-arrow {
+.form-select.show .dropdown-menu-arrow {
     display: block;
 }
 
-.select.is-disabled .form-select-input {
+.form-select .form-select-input[readonly] {
+    background-color: #fff;
+}
+
+.form-select.show .form-select-append i {
+    transform: rotate(0);
+}
+
+.form-select.is-disabled .form-select-input {
     background-color: #f5f7fa;
     border-color: #e4e7ed;
     color: #c0c4cc;
     cursor: not-allowed;
 }
 
-.select.is-disabled .form-select-append {
+.form-select.is-disabled .form-select-append {
     color: #c0c4cc;
 }
 
@@ -122,7 +122,7 @@
         transform: rotate(180deg);
     }
 
-.select .search {
+.form-select .search {
     padding: 7px 10px;
     position: relative;
     border-bottom: 1px solid #ddd;
@@ -130,24 +130,24 @@
     margin-bottom: 0.5rem;
 }
 
-    .select .search .search-text {
+    .form-select .search .search-text {
         width: 100%;
         padding-right: 30px;
     }
 
-    .select .search .fa-search {
+    .form-select .search .fa-search {
         position: absolute;
         left: calc(100% - 34px);
         top: 18px;
         color: #adb5bd;
     }
 
-.form-inline .select .form-select {
+.form-inline .form-select .form-control {
     width: 100%;
 }
 
 @media (min-width: 576px) {
-    .form-inline .form-group .select {
+    .form-inline .form-group .form-select {
         width: 196px;
     }
 }

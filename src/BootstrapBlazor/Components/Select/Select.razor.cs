@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        private string? ClassName => CssBuilder.Default("select dropdown")
+        private string? ClassName => CssBuilder.Default("form-select dropdown")
             .AddClass("is-disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        private string? InputClassName => CssBuilder.Default("form-select form-select-input dropdown-toggle")
+        private string? InputClassName => CssBuilder.Default("form-control form-select-input")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();

@@ -14,8 +14,9 @@
         @{
             ResetSelectedItem();
         }
-        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-bs-toggle="dropdown" aria-expanded="false" value="@SelectedItem?.Text" />
+        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" value="@SelectedItem?.Text" />
         <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
+        <div class="dropdown-menu-arrow"></div>
         <div class="dropdown-menu">
             @if (ShowSearch)
             {
@@ -48,7 +49,6 @@
                 }
             }
         </div>
-        <div class="dropdown-menu-arrow"></div>
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">

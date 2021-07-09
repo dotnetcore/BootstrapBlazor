@@ -98,7 +98,10 @@ section {
         font-weight: 400;
     }
 
-.sidebar .navbar {
+.sidebar .top-row {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
     background-color: rgb(60, 40, 97);
 }
 
@@ -1117,7 +1120,7 @@ section {
         color: rgba(255,255,255,.5);
     }
 
-    .culture-selector .select {
+    .culture-selector .form-select {
         width: 210px;
     }
 
