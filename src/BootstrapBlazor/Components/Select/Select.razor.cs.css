@@ -1,6 +1,43 @@
 ﻿.select .form-select {
     background-image: none;
+    color: #606266;
+    outline: none;
+    padding-right: calc(1.5em + 0.75rem);
+    cursor: pointer;
 }
+
+    .select .form-select:focus {
+        box-shadow: none;
+    }
+
+    .select .form-select:hover,
+    .select .form-select:focus {
+        border-color: #c0c4cc;
+    }
+
+    .select .form-select.border-primary:hover {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    }
+
+    .select .form-select.border-info:hover {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(23, 162, 184, 0.5);
+    }
+
+    .select .form-select.border-success:hover {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69, 0.5);
+    }
+
+    .select .form-select.border-warning:hover {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 193, 7, 0.5);
+    }
+
+    .select .form-select.border-danger:hover {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69, 0.5);
+    }
+
+    .select .form-select.is-valid, .select .form-select.is-invalid {
+        background-image: none;
+    }
 
 .select .dropdown-menu {
     margin-top: 8px !important;
@@ -54,7 +91,7 @@
     display: block;
 }
 
-.select.is-disabled .form-select-input {
+.select.is-disabled .form-select {
     background-color: #f5f7fa;
     border-color: #e4e7ed;
     color: #c0c4cc;
@@ -64,45 +101,6 @@
 .select.is-disabled .form-select-append {
     color: #c0c4cc;
 }
-
-.form-select-input {
-    color: #606266;
-    outline: none;
-    padding-right: calc(1.5em + 0.75rem);
-    cursor: pointer;
-}
-
-    .form-select-input:hover, .form-select-input:focus {
-        border-color: #c0c4cc;
-    }
-
-    .form-select-input:focus {
-        box-shadow: none;
-    }
-
-    .form-select-input.border-primary:hover {
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-    }
-
-    .form-select-input.border-info:hover {
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(23, 162, 184, 0.5);
-    }
-
-    .form-select-input.border-success:hover {
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69, 0.5);
-    }
-
-    .form-select-input.border-warning:hover {
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 193, 7, 0.5);
-    }
-
-    .form-select-input.border-danger:hover {
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(220, 53, 69, 0.5);
-    }
-
-    .form-select-input.is-valid, .form-select-input.is-invalid {
-        background-image: none;
-    }
 
 .form-select-append {
     position: absolute;
@@ -150,4 +148,15 @@
     .form-inline .form-group .select {
         width: 196px;
     }
+}
+
+.select .form-select.is-valid:not([multiple]):not([size]),
+.select .form-select.is-valid:not([multiple])[size="1"],
+.was-validated .form-select:valid:not([multiple]):not([size]),
+.was-validated .form-select:valid:not([multiple])[size="1"],
+.form-select.is-invalid:not([multiple]):not([size]),
+.form-select.is-invalid:not([multiple])[size="1"],
+.was-validated .form-select:invalid:not([multiple]):not([size]),
+.was-validated .form-select:invalid:not([multiple])[size="1"] {
+    background-position: right -1rem center, center right 1.5rem;
 }
