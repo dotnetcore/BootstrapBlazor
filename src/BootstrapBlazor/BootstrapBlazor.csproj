@@ -30,17 +30,10 @@
     <Content Remove="wwwroot\**\*.*" />
     <Content Include="wwwroot\css\bootstrap.blazor.bundle.min.css" />
     <Content Include="wwwroot\js\bootstrap.blazor.bundle.min.js" />
-    <Content Include="wwwroot\lib\animate\animate.min.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <Content Include="wwwroot\lib\animate\animate.min.css" />
     <Content Include="wwwroot\lib\summernote\font\*.*" />
     <None Include="bundleconfig.json" />
     <None Include="wwwroot\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="wwwroot\lib\animate\animate.min.css" />
   </ItemGroup>
 
 </Project>
