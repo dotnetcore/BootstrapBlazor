@@ -447,11 +447,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    Text = Localizer["Tooltip"],
-                    Url = "tooltips"
-                },
-                new()
-                {
                     Text = Localizer["Tree"],
                     Url = "trees"
                 },
@@ -714,6 +709,11 @@ namespace BootstrapBlazor.Shared.Shared
                 {
                     Text = Localizer["Toast"],
                     Url = "toasts"
+                },
+                new()
+                {
+                    Text = Localizer["Tooltip"],
+                    Url = "tooltips"
                 }
             };
             AddBadge(item);
