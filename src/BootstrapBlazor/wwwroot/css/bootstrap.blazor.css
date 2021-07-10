@@ -356,32 +356,6 @@ input:disabled,
     }
 /*end divider*/
 
-/*accordion*/
-.accordion .card-header {
-    padding: 6px;
-}
-
-.accordion .card-header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 0.5rem;
-}
-
-    .accordion .card-header-wrapper .fa-angle-down {
-        transition: transform .3s linear;
-    }
-
-    .accordion .card-header-wrapper .collapsed + .fa-angle-down {
-        transform: rotate(-90deg);
-    }
-
-.accordion .collapse-item {
-    font-size: 13px;
-    line-height: 1.8;
-}
-/*end accordion*/
-
 /*avatar*/
 .avatar {
     border-radius: 4px;

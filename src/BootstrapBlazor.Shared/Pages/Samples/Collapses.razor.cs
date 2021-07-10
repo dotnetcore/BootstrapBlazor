@@ -40,13 +40,6 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "ShowArrow",
-                Description = "是否显示指示箭头",
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
                 Name = "IsAccordion",
                 Description = "是否手风琴效果",
                 Type = "bool",
