@@ -18,14 +18,14 @@
                         $item.attr('data-parent', parent);
                     }
 
-                    var $button = $item.prev().find('[data-toggle="collapse"]');
-                    $button.attr('data-target', '#' + id).attr('aria-controls', id);
+                    var $button = $item.prev().find('[data-bs-toggle="collapse"]');
+                    $button.attr('data-bs-target', '#' + id).attr('aria-controls', id);
                 }
             });
 
             $el.find('.tree .tree-item > .fa').on('click', function (e) {
                 var $parent = $(this).parent();
-                $parent.find('[data-toggle="collapse"]').trigger('click');
+                $parent.find('[data-bs-toggle="collapse"]').trigger('click');
             });
 
             // support menu component

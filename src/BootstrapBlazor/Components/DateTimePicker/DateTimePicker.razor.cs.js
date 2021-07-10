@@ -2,7 +2,7 @@
     $.extend({
         bb_datetimePicker: function (el, method) {
             var $el = $(el);
-            var placement = $el.attr('data-placement') || 'auto';
+            var placement = $el.attr('data-bs-placement') || 'auto';
             var $input = $el.find('.datetime-picker-input');
             if (!method) {
                 $input.popover({

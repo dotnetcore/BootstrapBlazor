@@ -43,7 +43,7 @@
             // 判断是否点击 popover 内部
             var $confirm = findConfirmButton($el);
             if ($confirm != null) hide = false;
-            if (hide) $('[data-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
+            if (hide) $('[data-bs-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
         });
 
         $(document).on('click', '.popover-confirm-buttons .btn', function (e) {

@@ -7,8 +7,8 @@
     <label class="control-label" required="@Required" for="@InputId">@DisplayText</label>
 }
 <div class="cascade menu">
-    <div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName">
-        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" style="@BackgroundColor" data-toggle="dropdown" placeholder="@PlaceHolder" value="@_displayText" />
+    <div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName">
+        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" style="@BackgroundColor" data-bs-toggle="dropdown" placeholder="@PlaceHolder" value="@_displayText" />
         <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
         @if (!IsDisabled)
         {

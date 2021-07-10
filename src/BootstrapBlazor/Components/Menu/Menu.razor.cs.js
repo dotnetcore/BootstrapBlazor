@@ -58,7 +58,7 @@
 
                 var ulId = $ul.attr('id');
                 var $link = $ul.prev();
-                $link.attr('data-toggle', 'collapse');
+                $link.attr('data-bs-toggle', 'collapse');
                 $link.attr('href', '#' + ulId);
             });
             var collapses = $root.find('.collapse');
