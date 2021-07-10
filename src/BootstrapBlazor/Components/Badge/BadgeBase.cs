@@ -16,8 +16,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         protected string? ClassName => CssBuilder.Default("badge")
-            .AddClass($"badge-{Color.ToDescriptionString()}", Color != Color.None)
-            .AddClass("badge-pill", IsPill)
+            .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
+            .AddClass("rounded-pill", IsPill)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
