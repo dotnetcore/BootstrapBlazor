@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Footer 样式
         /// </summary>
-        private string? FooterClassString => CssBuilder.Default("card-footer text-right")
+        private string? FooterClassString => CssBuilder.Default("card-footer text-end")
             .AddClass("d-none", OnClear == null && !ShowAutoScroll)
             .Build();
 
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 客户端是否自动滚屏样式字符串
         /// </summary>
-        private string? AutoScrollClassString => CssBuilder.Default("fa text-left")
+        private string? AutoScrollClassString => CssBuilder.Default("fa text-start")
             .AddClass("fa-check-square-o", IsAutoScroll)
             .AddClass("fa-square-o", !IsAutoScroll)
             .Build();

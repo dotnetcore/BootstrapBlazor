@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
             .AddClass("nav-pills", IsPills)
             .AddClass("nav-fill", IsFill)
             .AddClass("nav-justified", IsJustified)
-            .AddClass("text-right", Alignment == Alignment.Right && IsVertical)
+            .AddClass("text-end", Alignment == Alignment.Right && IsVertical)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
