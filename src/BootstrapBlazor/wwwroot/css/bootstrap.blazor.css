@@ -162,26 +162,6 @@ input:disabled,
 }
 /*end progress*/
 
-/*dropdown*/
-.dropdown .dropdown-toggle:after, .dropup .dropdown-toggle:after, .dropright .dropdown-toggle:after, .btn-group .dropdown-toggle:not(:empty):after {
-    margin-left: 6px;
-}
-
-.dropleft .dropdown-toggle:before {
-    margin-right: 6px;
-}
-
-.dropdown-menu {
-    max-height: 186px;
-    overflow: auto;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-}
-
-.dropdown-item {
-    cursor: pointer;
-}
-/*end dropdown*/
-
 .close {
     display: flex;
 }

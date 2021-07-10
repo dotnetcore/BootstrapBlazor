@@ -102,6 +102,12 @@
     ]
   },
   {
+    "outputFileName": "Components/Dropdown/Dropdown.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Dropdown/Dropdown.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "Components/Editor/Editor.razor.cs.min.css",
     "inputFiles": [
       "Components/Editor/Editor.razor.cs.css"
@@ -312,6 +318,7 @@
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
       "Components/Display/Display.razor.cs.min.css",
       "Components/Drawer/Drawer.razor.cs.min.css",
+      "Components/Dropdown/Dropdown.razor.cs.min.css",
       "Components/Editor/Editor.razor.cs.min.css",
       "Components/Empty/Empty.razor.cs.min.css",
       "Components/GoTop/GoTop.razor.cs.min.css",
