@@ -82,15 +82,15 @@ input:disabled,
 }
 
 .arrow-primary {
-    border-color: transparent transparent #007bff;
+    border-color: transparent transparent #0d6efd;
 }
 
 .arrow-success {
-    border-color: transparent transparent #28a745;
+    border-color: transparent transparent #198754;
 }
 
 .arrow-info {
-    border-color: transparent transparent #17a2b8;
+    border-color: transparent transparent #0dcaf0;
 }
 
 .arrow-warning {
@@ -103,17 +103,17 @@ input:disabled,
 
 .show .shadow-primary, .shadow-primary:hover, .shadow-primary:focus {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 123, 255, 0.5);
-    border-color: #007bff !important;
+    border-color: #0d6efd !important;
 }
 
 .show .shadow-success, .shadow-success:hover, .shadow-success:focus {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(40, 167, 69, 0.5);
-    border-color: #28a745 !important;
+    border-color: #198754 !important;
 }
 
 .show .shadow-info, .shadow-info:hover, .shadow-info:focus {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(23, 162, 184, 0.5);
-    border-color: #17a2b8 !important;
+    border-color: #0dcaf0 !important;
 }
 
 .show .shadow-warning, .shadow-warning:hover, .shadow-warning:focus {
@@ -993,66 +993,6 @@ input:disabled,
     border-radius: 50%;
 }
 /*end skeleton*/
-
-/*widget*/
-.widget .dropdown-toggle {
-    color: #fff;
-    padding: 14px 15px;
-    position: relative;
-}
-
-    .widget .dropdown-toggle:after {
-        content: unset;
-    }
-
-    .widget .dropdown-toggle .badge {
-        position: absolute;
-        top: 5px;
-        font-size: 9px;
-    }
-
-.widget .dropdown-menu {
-    overflow: visible;
-    width: 235px;
-    margin-left: -96px;
-    padding: 0;
-    max-height: none;
-    border: none;
-}
-
-    .widget .dropdown-menu .dropdown-arrow {
-        border-style: solid;
-        border-width: 0 9px 9px;
-        position: absolute;
-        left: 108px;
-        top: -9px;
-    }
-
-.widget .dropdown-header {
-    color: #fff;
-    padding: 0.5rem 0.625rem;
-    border-radius: 4px 4px 0 0;
-}
-
-.widget .dropdown-body {
-    overflow: auto;
-    max-height: 300px;
-}
-
-.widget .dropdown-footer {
-    padding: 0.5rem 0.625rem;
-    background-color: #dcdfe6;
-    border-radius: 0 0 4px 4px;
-}
-
-.widget .dropdown-item {
-    border-bottom: 1px solid #dcdfe6;
-}
-
-    .widget .dropdown-item:nth-of-type(odd) {
-        background-color: #eef0f3;
-    }
-/*end widget*/
 
 form .control-label:before {
     content: "";
