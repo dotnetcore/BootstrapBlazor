@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -16,23 +17,16 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class Transitions
     {
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         [Inject]
         private IStringLocalizer<Transitions>? Localizer { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [NotNull]
         [Inject]
-        public MessageService? MessageService { get; set; }
+        private MessageService? MessageService { get; set; }
 
-#nullable disable
-        private Message MessageElement { get; set; }
-#nullable restore
+        [NotNull]
+        private Message? MessageElement { get; set; }
 
         private bool Show { get; set; }
 
@@ -43,46 +37,43 @@ namespace BootstrapBlazor.Shared.Pages
 
         private bool TransitionedShow { get; set; }
 
-        private bool CallBackShow { get; set; }
-
         private void OnCallBackShow()
         {
             TransitionedShow = !TransitionedShow;
         }
 
-        private void Transitioned()
+        private async Task Transitioned()
         {
-            MessageElement.SetPlacement(Placement.Top);
-            MessageService?.Show(new MessageOption()
+            await MessageService.Show(new MessageOption()
             {
                 Host = MessageElement,
                 Content = "这是一条提示消息"
             });
         }
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-      {
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        {
             // TODO: 移动到数据库中
             new AttributeItem() {
-                Name = "Name",
+                Name = "TransitionType",
                 Description = "动画效果名称",
-                Type = "Adimate",
-                ValueList = " ",
-                DefaultValue = " "
+                Type = "TransitionType",
+                ValueList = "FadeIn/FadeOut",
+                DefaultValue = "FadeIn"
             },
              new AttributeItem() {
                 Name = "Show",
                 Description = "控制动画执行",
                 Type = "Boolean",
                 ValueList = "true|false",
-                DefaultValue = ""
+                DefaultValue = "true"
             },
              new AttributeItem() {
-                Name = "Transitioned",
+                Name = "OnTransitionEnd",
                 Description = "动画执行完成回调",
-                Type = "Action",
-                ValueList = "",
-                DefaultValue = ""
+                Type = "Func<Task>",
+                ValueList = " - ",
+                DefaultValue = " - "
             }
       };
     }

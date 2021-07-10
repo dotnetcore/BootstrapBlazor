@@ -338,6 +338,7 @@ namespace BootstrapBlazor.Components
                 if (queryData != null)
                 {
                     RowItemsCache = null;
+                    Items = null;
                     QueryItems = queryData.Items;
                     if (IsTree)
                     {

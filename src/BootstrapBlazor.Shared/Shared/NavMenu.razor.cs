@@ -452,7 +452,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew=true,
+                    IsNew = true,
                     Text = Localizer["Transition"],
                     Url = "transitions"
                 },
