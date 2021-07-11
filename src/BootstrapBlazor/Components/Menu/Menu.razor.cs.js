@@ -49,11 +49,11 @@
                     var $li = $ul.parentsUntil('.submenu')
                     if ($li.prop('nodeName') === 'LI') {
                         var rootId = $li.parent().attr('id');
-                        $ul.attr('data-parent', '#' + rootId);
+                        $ul.attr('data-bs-parent', '#' + rootId);
                     }
                 }
                 else {
-                    $ul.removeAttr('data-parent');
+                    $ul.removeAttr('data-bs-parent');
                 }
 
                 var ulId = $ul.attr('id');
@@ -64,11 +64,11 @@
             var collapses = $root.find('.collapse');
             collapses.each(function (index, ele) {
                 var $ele = $(ele);
-                if ($ele.data('bs.collapse')) {
+                if (bootstrap.Collapse.getInstance(ele)) {
                     $ele.collapse('dispose');
                 }
                 var parent = '';
-                if (accordion) parent = $ele.attr('data-parent');
+                if (accordion) parent = $ele.attr('data-bs-parent');
                 $ele.collapse({ parent: parent, toggle: false });
             });
         },
