@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件样式
         /// </summary>
-        protected string? ClassName => CssBuilder.Default("popover fade")
+        protected string? ClassName => CssBuilder.Default("popover fade shadow")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

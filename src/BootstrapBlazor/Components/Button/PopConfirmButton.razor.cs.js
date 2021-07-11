@@ -1,7 +1,7 @@
 ﻿(function ($) {
     $.extend({
         bb_confirm: function (id) {
-            var $ele = $('[data-target="' + id + '"]');
+            var $ele = $('[data-bs-target="' + id + '"]');
             var $button = $('#' + id);
 
             $button.popover({

@@ -28,16 +28,10 @@
 </Block>
 
 <Block Title="Popover 按钮激活弹出框" Introduction="点击按钮后弹出 Popover 弹出框">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-6 col-sm-4 col-md-3 col-lg-auto">
-                <Button>
-                    <span>Click 激活/关闭</span>
-                    <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" />
-                </Button>
-            </div>
-        </div>
-    </div>
+    <Button>
+        <span>Click 激活/关闭</span>
+        <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" />
+    </Button>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

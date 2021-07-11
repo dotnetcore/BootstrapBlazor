@@ -21,8 +21,16 @@
         // popover confirm
         $.fn.popover.Constructor.prototype.isWithContent = function () {
             var components = ['', 'confirm', 'datetime-picker', 'datetime-range'];
-            var toggle = this.config.toggle;
+            var toggle = this._config.toggle;
             return components.indexOf(toggle) || this.getTitle() || this._getContent();
+        }
+
+        // add shadow
+        var getTipElement = $.fn.popover.Constructor.prototype.getTipElement;
+        $.fn.popover.Constructor.prototype.getTipElement = function () {
+            var tip = getTipElement.call(this);
+            $(tip).addClass('shadow');
+            return tip;
         }
 
         var findConfirmButton = function ($el) {
@@ -57,7 +65,7 @@
 
                 // remove popover
                 var buttonId = $confirm.attr('id');
-                $ele = $('[data-target="' + buttonId + '"]');
+                $ele = $('[data-bs-target="' + buttonId + '"]');
 
                 var $button = this.getAttribute('data-dismiss') === 'confirm'
                     ? $ele.find('.popover-confirm-buttons .btn:first')
