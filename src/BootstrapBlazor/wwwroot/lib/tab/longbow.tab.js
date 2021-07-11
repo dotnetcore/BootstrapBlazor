@@ -118,6 +118,6 @@
         });
     }
 
-    $.fn.tab = TabPlugin;
-    $.fn.tab.Constructor = Tab;
+    $.fn.lgbTab = TabPlugin;
+    $.fn.lgbTab.Constructor = Tab;
 })(jQuery);
