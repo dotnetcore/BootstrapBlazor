@@ -25,22 +25,28 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Table 组件样式表
         /// </summary>
-        protected string? TableClassName => CssBuilder.Default("table-container")
+        private string? ClassName => CssBuilder.Default("table-container")
             .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
+        /// 获得 Table 组件样式表
+        /// </summary>
+        private string? TableClassName => CssBuilder.Default("table")
+            .AddClass("table-sm", TableSize == TableSize.Compact)
+            .AddClass("table-bordered", IsBordered)
+            .AddClass("table-striped table-hover", IsStriped)
             .Build();
 
         /// <summary>
         /// 获得 wrapper 样式表集合
         /// </summary>
         protected string? WrapperClassName => CssBuilder.Default()
-            .AddClass("table-bordered", IsBordered)
-            .AddClass("table-striped table-hover", IsStriped)
-            .AddClass("border-dark", HeaderStyle == TableHeaderStyle.Dark)
+            .AddClass("table-wrapper", IsBordered)
             .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
             .AddClass("table-scroll", !Height.HasValue)
             .AddClass("table-fixed", Height.HasValue)
             .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
-            .AddClass("table-sm", TableSize == TableSize.Compact)
             .AddClass("table-resize", AllowResizing)
             .Build();
 

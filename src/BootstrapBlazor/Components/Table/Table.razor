@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@TableClassName" @ref="TableElement">
+<div @attributes="@AdditionalAttributes" class="@ClassName" @ref="TableElement">
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
@@ -145,7 +145,7 @@
                 if (Height.HasValue)
                 {
                     <div class="table-fixed-header">
-                        <table class="table">
+                        <table class="@TableClassName">
                             @RenderColgroup.Invoke(true)
                             @RenderHeader.Invoke(true)
                         </table>
@@ -272,7 +272,7 @@
 
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>
-    @<table class="table">
+    @<table class="@TableClassName">
         @RenderColgroup.Invoke(false)
         @if (hasHeader)
         {
