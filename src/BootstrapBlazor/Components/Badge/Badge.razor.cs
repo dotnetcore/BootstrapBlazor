@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Badge 徽章组件
     /// </summary>
-    public abstract class BadgeBase : BootstrapComponentBase
+    public partial class Badge
     {
         /// <summary>
         /// 获得 样式集合
@@ -18,6 +18,7 @@ namespace BootstrapBlazor.Components
         protected string? ClassName => CssBuilder.Default("badge")
             .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass("rounded-pill", IsPill)
+            .AddClass("text-dark", Color == Color.Warning || Color == Color.Info)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
