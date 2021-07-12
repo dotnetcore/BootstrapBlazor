@@ -18,6 +18,10 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Display<TValue>
     {
+        private string? ClassString => CssBuilder.Default("form-control is-display")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
         /// <summary>
         /// 获得 显示文本
         /// </summary>
