@@ -24,6 +24,11 @@ namespace BootstrapBlazor.Components
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
+        private string? StyleString => CssBuilder.Default()
+            .AddClass($"--animate-duration: {Duration / 1000}s", Duration > 100)
+            .AddStyleFromAttributes(AdditionalAttributes)
+            .Build();
+
         /// <summary>
         /// 获得/设置 是否显示动画 默认 true
         /// </summary>
@@ -37,10 +42,10 @@ namespace BootstrapBlazor.Components
         public TransitionType TransitionType { get; set; } = TransitionType.FadeIn;
 
         /// <summary>
-        /// 获得/设置 是否执行一次 默认 false
+        ///  获得/设置 动画执行时长 单位毫秒 默认为 0 未生效
         /// </summary>
         [Parameter]
-        public bool Once { get; set; } = false;
+        public int Duration { get; set; }
 
         /// <summary>
         /// 获得/设置 子内容
