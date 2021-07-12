@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
+using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -17,41 +15,53 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class Transitions
     {
-        [NotNull]
-        [Inject]
-        private IStringLocalizer<Transitions>? Localizer { get; set; }
-
-        [NotNull]
-        [Inject]
-        private MessageService? MessageService { get; set; }
-
-        [NotNull]
-        private Message? MessageElement { get; set; }
-
         private bool Show { get; set; }
+
+        [NotNull]
+        private Logger? Trace { get; set; }
 
         private void OnShow()
         {
-            Show = !Show;
+            Show = true;
         }
 
-        private bool TransitionedShow { get; set; }
-
-        private void OnCallBackShow()
+        private Task OnShowEnd()
         {
-            TransitionedShow = !TransitionedShow;
+            Show = false;
+            StateHasChanged();
+            return Task.CompletedTask;
         }
 
-        private async Task Transitioned()
+        private bool TransitionEndShow { get; set; }
+
+        private void OnTransitionShow()
         {
-            await MessageService.Show(new MessageOption()
-            {
-                Host = MessageElement,
-                Content = "这是一条提示消息"
-            });
+            TransitionEndShow = true;
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private Task OnTransitionEndShow()
+        {
+            TransitionEndShow = false;
+            Trace.Log("动画结束");
+            StateHasChanged();
+            return Task.CompletedTask;
+        }
+
+        private bool FadeInShow { get; set; }
+
+        private void OnFadeInShow()
+        {
+            FadeInShow = true;
+        }
+
+        private Task OnFadeInEndShow()
+        {
+            FadeInShow = false;
+            StateHasChanged();
+            return Task.CompletedTask;
+        }
+
+        private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
@@ -61,20 +71,27 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "FadeIn/FadeOut",
                 DefaultValue = "FadeIn"
             },
-             new AttributeItem() {
+            new AttributeItem() {
                 Name = "Show",
                 Description = "控制动画执行",
                 Type = "Boolean",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
-             new AttributeItem() {
+            new AttributeItem() {
+                Name = "Duration",
+                Description = "控制动画时长",
+                Type = "int",
+                ValueList = " - ",
+                DefaultValue = "0"
+            },
+            new AttributeItem() {
                 Name = "OnTransitionEnd",
                 Description = "动画执行完成回调",
                 Type = "Func<Task>",
                 ValueList = " - ",
                 DefaultValue = " - "
             }
-      };
+        };
     }
 }
