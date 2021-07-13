@@ -166,7 +166,7 @@ namespace BootstrapBlazor.Components
             DataSource = Items.ToList();
             DataSource.AddRange(Childs);
 
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString)
+            SelectedItem ??= DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString)
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
 
