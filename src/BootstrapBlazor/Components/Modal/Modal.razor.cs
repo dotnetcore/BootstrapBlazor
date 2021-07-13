@@ -157,8 +157,8 @@ namespace BootstrapBlazor.Components
             if (dialog != null)
             {
                 Dialogs.ForEach(d => d.IsShown = dialog == d);
-                await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "show");
             }
+            await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "show");
         }
 
         /// <summary>
