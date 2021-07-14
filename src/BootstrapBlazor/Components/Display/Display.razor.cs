@@ -43,7 +43,14 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据集用于 CheckboxList Select 组件 通过 Value 显示 Text 使用 默认 null
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem>? Data { get; set; }
+        [Obsolete("请使用 Lookup 参数，下一个版本删除此参数")]
+        public IEnumerable<SelectedItem>? Data { get { return Lookup; } set { Lookup = value; } }
+
+        /// <summary>
+        /// 获得/设置 数据集用于 CheckboxList Select 组件 通过 Value 显示 Text 使用 默认 null
+        /// </summary>
+        [Parameter]
+        public IEnumerable<SelectedItem>? Lookup { get; set; }
 
         /// <summary>
         /// OnParametersSetAsync 方法
@@ -99,9 +106,9 @@ namespace BootstrapBlazor.Components
 
             // 检查 数据源
             var valueString = Value?.ToString();
-            if (Data != null)
+            if (Lookup != null)
             {
-                ret = Data.FirstOrDefault(i => i.Value.Equals(valueString ?? "", StringComparison.OrdinalIgnoreCase))?.Text;
+                ret = Lookup.FirstOrDefault(i => i.Value.Equals(valueString ?? "", StringComparison.OrdinalIgnoreCase))?.Text;
             }
             return ret ?? valueString ?? string.Empty;
         }
@@ -142,7 +149,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private string ConvertEnumerableToString(TValue value)
         {
-            return Data == null
+            return Lookup == null
                 ? (_convertEnumerableToString ??= ConvertEnumerableToStringLambda())(value)
                 : GetTextByValue((_convertToEnumerableString ??= ConvertToEnumerableStringLambda())(value));
 
@@ -180,11 +187,11 @@ namespace BootstrapBlazor.Components
 
         private static IEnumerable<string?> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString());
 
-        private string GetTextByValue(IEnumerable<string> source) => Data == null
+        private string GetTextByValue(IEnumerable<string> source) => Lookup == null
             ? ""
             : string.Join(",", source.Aggregate(new List<string>(), (s, i) =>
             {
-                var text = Data.FirstOrDefault(d => d.Value.Equals(i, StringComparison.OrdinalIgnoreCase))?.Text;
+                var text = Lookup.FirstOrDefault(d => d.Value.Equals(i, StringComparison.OrdinalIgnoreCase))?.Text;
                 if (text != null)
                 {
                     s.Add(text);
