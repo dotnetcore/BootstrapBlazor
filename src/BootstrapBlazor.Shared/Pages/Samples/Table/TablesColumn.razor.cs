@@ -52,8 +52,14 @@ namespace BootstrapBlazor.Shared.Pages.Table
         /// <returns></returns>
         private static Task<string> IntFormatter(object? d)
         {
-            var data = (int?)d;
-            return Task.FromResult(data?.ToString("0.00") ?? "");
+            var ret = "";
+            var data = d as TableColumnContext<Foo, object?>;
+            if (data != null && data.Value != null)
+            {
+                var val = (int)data.Value;
+                ret = val.ToString("0.00");
+            }
+            return Task.FromResult(ret);
         }
 
         private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)

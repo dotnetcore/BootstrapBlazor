@@ -731,7 +731,7 @@ namespace BootstrapBlazor.Components
                     if (col.Formatter != null)
                     {
                         // 格式化回调委托
-                        content = await col.Formatter(val);
+                        content = await col.Formatter(new TableColumnContext<TItem, object?>(item, val));
                     }
                     else if (!string.IsNullOrEmpty(col.FormatString))
                     {
