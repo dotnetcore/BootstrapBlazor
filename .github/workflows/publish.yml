@@ -15,7 +15,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.202
+        dotnet-version: 5.0.302
 
     - name: Publish wasm
       run: |

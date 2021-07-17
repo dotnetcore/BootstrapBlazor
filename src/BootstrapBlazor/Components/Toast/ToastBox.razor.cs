@@ -129,6 +129,5 @@ namespace BootstrapBlazor.Components
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-
     }
 }

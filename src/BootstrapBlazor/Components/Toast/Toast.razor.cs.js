@@ -2,7 +2,7 @@
     $.extend({
         bb_toast_close: function (el) {
             var $el = $(el);
-            $el.find('.close').trigger('click');
+            $el.find('.btn-close').trigger('click');
         },
         bb_toast: function (el, toast, method) {
             if (window.Toasts === undefined) window.Toasts = [];
@@ -14,8 +14,8 @@
             var $toast = $(el);
 
             // check autohide
-            var autoHide = $toast.attr('data-autohide') !== 'false';
-            var delay = parseInt($toast.attr('data-delay'));
+            var autoHide = $toast.attr('data-bs-autohide') !== 'false';
+            var delay = parseInt($toast.attr('data-bs-delay'));
 
             $toast.addClass('d-block');
             var autoHideHandler = null;
@@ -27,14 +27,14 @@
                     // auto close
                     autoHideHandler = window.setTimeout(function () {
                         window.clearTimeout(autoHideHandler);
-                        $toast.find('.close').trigger('click');
+                        $toast.find('.btn-close').trigger('click');
                     }, delay);
                 }
                 $toast.addClass('show');
             }, 50);
 
             // handler close
-            $toast.on('click', '.close', function (e) {
+            $toast.on('click', '.btn-close', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 

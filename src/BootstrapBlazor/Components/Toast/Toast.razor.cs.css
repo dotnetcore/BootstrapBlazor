@@ -40,8 +40,10 @@
         right: unset;
     }
 
-    .toast .close {
-        height: 28px;
+    .toast .btn-close {
+        height: 4px;
+        width: 4px;
+        margin: 0;
     }
 
 @media (min-width: 375px) {
