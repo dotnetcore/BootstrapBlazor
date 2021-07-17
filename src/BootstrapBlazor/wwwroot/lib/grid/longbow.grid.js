@@ -6,16 +6,15 @@
      */
     var Grid = function (element, options) {
         this.$element = $(element);
-        var rowType = this.$element.data('type');
         var colSpan = this._getColSpan(this.$element);
         var itemsPerRow = parseInt(this.$element.data('items'));
         if (isNaN(itemsPerRow)) itemsPerRow = 12;
 
-        this.options = $.extend({ rowType, itemsPerRow, colSpan }, options);
+        this.options = $.extend({ itemsPerRow, colSpan }, options);
         this.layout();
     };
 
-    Grid.VERSION = "3.1.0";
+    Grid.VERSION = "5.1.0";
     Grid.Author = 'argo@163.com';
     Grid.DATA_KEY = "lgb.grid";
 
@@ -27,23 +26,21 @@
             else {
                 this._layout_column(null);
             }
-
             this.$element.removeClass('d-none');
         },
         _layout_column: function ($target) {
             var $el = this.$element;
-            var rowType = this.options.rowType;
             var itemsPerRow = this.options.itemsPerRow;
-            var $div = $('<div></div>').addClass(this.options.rowType);
             var isLabel = false;
             var $groupCell = null;
             var that = this;
+            var $div = $('<div class="row g-3"></div>');
 
             $el.children().each(function (index, ele) {
                 var $ele = $(ele);
                 var isRow = $ele.data('toggle') === 'row';
+                var colSpan = that._getColSpan($ele);
                 if (isRow) {
-                    var colSpan = that._getColSpan($ele);
                     var uId = $.getUID();
 
                     // 设置目标地址元素
@@ -56,14 +53,14 @@
                     // 如果有 Label 表示在表单内
                     if (isLabel) {
                         if ($groupCell === null) {
-                            $groupCell = $('<div></div>').addClass('form-group').addClass(that._calc());
+                            $groupCell = $('<div></div>').addClass(that._calc(colSpan));
                         }
                         $groupCell.append($ele);
                     }
                     else {
                         isLabel = false;
                         if ($groupCell == null) {
-                            $groupCell = $('<div></div>').addClass(that._calc());
+                            $groupCell = $('<div></div>').addClass(that._calc(colSpan));
                         }
                         $groupCell.append($ele);
                         if ($target == null) $groupCell.appendTo($div);
@@ -73,20 +70,23 @@
                 }
             });
 
-            $el.append($div);
+            if ($target == null) {
+                $el.append($div);
+            }
         },
         _layout_parent_row: function () {
             var uid = this.$element.data('target');
             var $target = $('[data-uid="' + uid + '"]');
-            var $row = $('<div></div>').addClass(this.options.rowType).appendTo($target);
+            var $row = $('<div class="row"></div>').appendTo($target);
             this._layout_column($row);
+            $('[data-target="' + uid + '"]').remove();
         },
         _calc: function (colSpan) {
             var itemsPerRow = this.options.itemsPerRow;
             if (colSpan > 0) itemsPerRow = itemsPerRow * colSpan;
             var ret = "col-12";
             if (itemsPerRow !== 12) {
-                ret = "col-sm-12 col-md-" + itemsPerRow;
+                ret = "col-12 col-sm-" + itemsPerRow;
             }
             return ret;
         },

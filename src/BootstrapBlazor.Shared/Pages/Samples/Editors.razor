@@ -30,7 +30,7 @@
     <p>通过 <code>bind-Value</code> 对 <code>EditorValue</code> 后台属性进行双向绑定，编辑框内进行编辑后点击 <b>完成</b> 按钮，下方文本框内即可显示编辑后结果</p>
     <Editor @bind-Value="@EditorValue" OnValueChanged="@OnValueChanged"></Editor>
 
-    <label class="control-label mt-3">显示编辑内容：</label>
+    <label class="form-label mt-3">显示编辑内容：</label>
     <textarea class="form-control mt-3">@EditorValue</textarea>
     <div class="mt-3">
         <Button OnClick="SetValue">Reset</Button>

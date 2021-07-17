@@ -1,21 +1,10 @@
-﻿.form-inline .control-label + .form-checkbox {
-    margin-bottom: 0.5rem;
-}
-
-@media (min-width: 576px) {
-    .form-inline .control-label + .form-checkbox {
-        margin-bottom: 0;
-    }
-}
-
-.control-label.checkbox-label {
+﻿.checkbox-label {
     cursor: pointer;
 }
 
 .form-checkbox {
     font-weight: 500;
     cursor: pointer;
-    display: inline-block;
     user-select: none;
     white-space: nowrap;
     margin: 0;
@@ -146,8 +135,6 @@
         border-color: #28a745;
     }
 
-@media (min-width: 576px) {
-    .form-inline .form-checkbox {
-        display: inline-block;
-    }
+form .form-label + .form-checkbox {
+    margin-left: 6px;
 }

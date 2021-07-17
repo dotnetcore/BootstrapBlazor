@@ -13,6 +13,10 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public sealed partial class Toggle
     {
+        private string? WrapperClassString => CssBuilder.Default("toggle")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
         [Inject]
         [NotNull]
         private IStringLocalizer<Toggle>? Localizer { get; set; }

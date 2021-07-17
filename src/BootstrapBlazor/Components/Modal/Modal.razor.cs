@@ -143,7 +143,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async ValueTask Toggle()
         {
-            Dialogs.ForEach(d => d.IsShown = Dialogs.IndexOf(d) == 0);
+            var dialog = Dialogs.FirstOrDefault();
+            if (dialog != null)
+            {
+                dialog.IsShown = true;
+            }
             await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "toggle");
         }
 

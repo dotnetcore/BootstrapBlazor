@@ -44,8 +44,7 @@
     }
 
 @media (min-width: 576px) {
-    .form-inline .checkbox-list {
+    .checkbox-list {
         display: flex;
-        width: calc(100% - 100px);
     }
 }

@@ -29,51 +29,12 @@
             </CardBody>
         </Card>
     </Row>
-
-    <p class="mt-3"><b>行显示 3 个，采用 <code>FormRow</code></b></p>
-    <Row RowType="RowType.FormRow" ItemsPerRow="ItemsPerRow.Three">
-        <Card>
-            <CardBody>
-                <h5 class="card-title">Card 1</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </CardBody>
-        </Card>
-        <Card>
-            <CardBody>
-                <h5 class="card-title">Card 2</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </CardBody>
-        </Card>
-        <Card>
-            <CardBody>
-                <h5 class="card-title">Card 3</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </CardBody>
-        </Card>
-    </Row>
 </Block>
 
-<Block Title="放置表单控件（内联）" Introduction="当放置表单控件时，可以指定 <code>RowType</code> 为 <code>Inline</code>，会将 <b>Label</b> 显示在左边，控件显示原始大小">
+<Block Title="放置表单控件" Introduction="当放置表单控件时，可以指定 <code>RowType</code> 为 <code>FormRow</code>，会将 <b>Label</b> 显示在上边，控件充满">
     <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Three" RowType="RowType.Inline">
-            <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbys" />
-            <BootstrapInput @bind-Value="@Model.Address" />
-            <DateTimePicker @bind-Value="@Model.DateTime" />
-            <BootstrapInputNumber @bind-Value="@Model.Count" />
-            <Switch @bind-Value="@Model.Complete" />
-            <Select @bind-Value="@Model.Education" />
-        </Row>
-    </ValidateForm>
-</Block>
-
-<Block Title="放置表单控件（充满）" Introduction="当放置表单控件时，可以指定 <code>RowType</code> 为 <code>FormRow</code>，会将 <b>Label</b> 显示在上边，控件充满">
-    <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
-    <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Three" RowType="RowType.FormRow">
+        <Row ItemsPerRow="ItemsPerRow.Three">
             <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbys" />
             <BootstrapInput @bind-Value="@Model.Address" />
             <DateTimePicker @bind-Value="@Model.DateTime" />
@@ -86,16 +47,15 @@
 
 <Block Title="嵌套使用" Introduction="<code>Row</code> 组件支持嵌套使用，比如下面最外层的 <code>Row</code> 设置一行显示两个控件，第一个是 <code>TextBox</code>，第二个还是 <code>Row</code>，第二个 <code>Row</code> 继续设置显示两个控件">
     <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
-    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.FormRow"&gt;
+    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Two"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;Row ItemsPerRow="ItemsPerRow.Two"&gt;
         &lt;Switch @@bind-Value="@@Model.Complete" /&gt;
         &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
     &lt;/Row&gt;
-&lt;/Row&gt;
-</Pre>
+&lt;/Row&gt;</Pre>
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.FormRow">
+        <Row ItemsPerRow="ItemsPerRow.Two">
             <BootstrapInput @bind-Value="@Model.Name" />
             <Row ItemsPerRow="ItemsPerRow.Two">
                 <Switch @bind-Value="@Model.Complete" />
@@ -109,15 +69,14 @@
     <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
 
     <p><b>行显示 4 个</b></p>
-    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow"&gt;
+    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
     &lt;BootstrapInputNumber @@bind-Value="@@Model.Count" /&gt;
     &lt;Select @@bind-Value="@@Model.Education" /&gt;
-&lt;/Row&gt;
-</Pre>
+&lt;/Row&gt;</Pre>
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow">
+        <Row ItemsPerRow="ItemsPerRow.Four">
             <BootstrapInput @bind-Value="@Model.Name" />
             <BootstrapInput @bind-Value="@Model.Address" />
             <BootstrapInputNumber @bind-Value="@Model.Count" />
@@ -125,30 +84,28 @@
         </Row>
     </ValidateForm>
 
-    <p><b>行显示 2 个</b></p>
-    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.FormRow"&gt;
+    <p class="mt-3"><b>行显示 2 个</b></p>
+    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Two"
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
-&lt;/Row&gt;
-</Pre>
+&lt;/Row&gt;</Pre>
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.FormRow">
+        <Row ItemsPerRow="ItemsPerRow.Two">
             <BootstrapInput @bind-Value="@Model.Name" />
             <BootstrapInput @bind-Value="@Model.Address" />
         </Row>
     </ValidateForm>
 
-    <p><b>行显示 4 个 <code>Address</code> 占 2 列</b></p>
-    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow"&gt;
+    <p class="mt-3"><b>行显示 4 个 <code>Address</code> 占 2 列</b></p>
+    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;Row ColSpan="2"&gt;
         &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
     &lt;/Row&gt;
-    &lt;Select @@bind-Value="@Model.Education" /&gt;
-&lt;/Row&gt;
-</Pre>
+    &lt;Select @@bind-Value="@@Model.Education" /&gt;
+&lt;/Row&gt;</Pre>
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow">
+        <Row ItemsPerRow="ItemsPerRow.Four">
             <BootstrapInput @bind-Value="@Model.Name" />
             <Row ColSpan="2">
                 <BootstrapInput @bind-Value="@Model.Address" />
@@ -157,16 +114,15 @@
         </Row>
     </ValidateForm>
 
-    <p><b>行显示 4 个，第二个组件 <code>ColSpan</code> 设置为 3</b></p>
-    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow"&gt;
+    <p class="mt-3"><b>行显示 4 个，第二个组件 <code>ColSpan</code> 设置为 3</b></p>
+    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;Row ColSpan="3"&gt;
         &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
     &lt;/Row&gt;
-&lt;/Row&gt;
-</Pre>
+&lt;/Row&gt;</Pre>
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow">
+        <Row ItemsPerRow="ItemsPerRow.Four">
             <BootstrapInput @bind-Value="@Model.Name" />
             <Row ColSpan="3">
                 <BootstrapInput @bind-Value="@Model.Address" />
@@ -174,16 +130,15 @@
         </Row>
     </ValidateForm>
 
-    <p><b>行显示 2 个，第一个组件 <code>ColSpan</code> 设置为 3</b></p>
-    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow"&gt;
+    <p class="mt-3"><b>行显示 2 个，第一个组件 <code>ColSpan</code> 设置为 3</b></p>
+    <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;Row ColSpan="3"&gt;
         &lt;CheckboxList @@bind-Value="@@Model.Hobby" Items="@@Hobbys" /&gt;
     &lt;/Row&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
-&lt;/Row&gt;
-</Pre>
+&lt;/Row&gt;</Pre>
     <ValidateForm Model="@Model">
-        <Row ItemsPerRow="ItemsPerRow.Four" RowType="RowType.FormRow">
+        <Row ItemsPerRow="ItemsPerRow.Four">
             <Row ColSpan="3">
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
             </Row>
@@ -191,7 +146,7 @@
         </Row>
     </ValidateForm>
 
-    <p>行显示一个组件</p>
+    <p class="mt-3"><b>行显示一个组件</b></p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.One">
             <BootstrapInput @bind-Value="@Model.Address" />

@@ -6,7 +6,7 @@
             ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" Menus="@Menus"
             UseTabSet="@UseTabSet" AdditionalAssemblies="new[] { GetType().Assembly }" class="@Theme">
         <Header>
-            <span class="ml-3 flex-fill">Bootstrap of Blazor</span>
+            <span class="ms-3 flex-fill">Bootstrap of Blazor</span>
             <Widget></Widget>
             <img src="_content/BootstrapBlazor.Shared/images/Argo.png" class="layout-avatar-right" />
             <span class="mx-3 d-none d-sm-block">超级管理员</span>
@@ -44,7 +44,7 @@
                 <p>布局调整</p>
                 <div class="row">
                     <div class="col-6">
-                        <div class="layout-item @(IsFullSide ? "active d-flex" : "d-flex")" @onclick="@(e => IsFullSide = true)" data-toggle="tooltip" title="左右结构">
+                        <div class="layout-item @(IsFullSide ? "active d-flex" : "d-flex")" @onclick="@(e => IsFullSide = true)" data-bs-toggle="tooltip" title="左右结构">
                             <div class="layout-left d-flex flex-column">
                                 <div class="layout-left-header"></div>
                                 <div class="layout-left-body flex-fill"></div>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="layout-item flex-column @(IsFullSide ? "d-flex" : "active d-flex")" @onclick="@(e => IsFullSide = false)" data-toggle="tooltip" title="上下结构">
+                        <div class="layout-item flex-column @(IsFullSide ? "d-flex" : "active d-flex")" @onclick="@(e => IsFullSide = false)" data-bs-toggle="tooltip" title="上下结构">
                             <div class="layout-top">
                             </div>
                             <div class="layout-body d-flex flex-fill">
@@ -79,7 +79,7 @@
                     <div class="col-6 d-flex align-items-center">
                         <Switch @bind-Value="@IsFixedHeader" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-6 text-end">
                         <span>固定页头</span>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <div class="col-6 d-flex align-items-center">
                         <Switch @bind-Value="@IsFixedFooter" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-6 text-end">
                         <span>固定页脚</span>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                     <div class="col-6 d-flex align-items-center">
                         <Switch @bind-Value="@ShowFooter" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-6 text-end">
                         <span>显示页脚</span>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                     <div class="col-6 d-flex align-items-center">
                         <Switch @bind-Value="@UseTabSet" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-6 text-end">
                         <span>@(UseTabSet ? "多标签" : "单页")</span>
                     </div>
                 </div>

@@ -20,14 +20,12 @@
             <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
         <SearchTemplate>
-            <div class="form-inline">
-                <div class="row">
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Name)]" />
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Address)]" />
-                    </div>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Name)]" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" ShowLabel="true" DisplayText="@Localizer[nameof(context.Address)]" />
                 </div>
             </div>
         </SearchTemplate>
@@ -87,7 +85,7 @@
                                 new SelectedItem { Text = "姓名1", Value = "姓名1" },
                                 new SelectedItem { Text = "姓名2", Value = "姓名2" },
                             };
-                            <div class="form-group col-12 col-sm-6">
+                            <div class="col-12 col-sm-6">
                                 <Select Items="items" @bind-Value="@model.Name" ShowLabel="true" DisplayText="姓名" />
                             </div>
                         }

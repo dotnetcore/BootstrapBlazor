@@ -1,4 +1,4 @@
-﻿<DropdownWidget class="text-right flex-fill px-3">
+﻿<DropdownWidget class="text-end flex-fill px-3">
     <DropdownWidgetItem Icon="fa fa-envelope-o" BadgeNumber="4">
         <HeaderTemplate>
             <span>您有 4 个未读消息</span>
@@ -10,7 +10,7 @@
                     <div style="width: 40px; height: 40px;">
                         <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.Small" />
                     </div>
-                    <div class="ml-2">
+                    <div class="ms-2">
                         <div class="d-flex position-relative">
                             <h4>Argo Zhang</h4>
                             <small><i class="fa fa-clock-o"></i> @(4 + index) mins</small>
@@ -33,7 +33,7 @@
             {
                 <a class="dropdown-item d-flex align-items-center" href="#" @onclick:preventDefault>
                     <i class="fa fa-users text-primary"></i>
-                    <div class="ml-2">5 new members joined</div>
+                    <div class="ms-2">5 new members joined</div>
                 </a>
             }
         </BodyTemplate>

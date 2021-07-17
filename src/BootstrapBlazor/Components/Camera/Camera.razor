@@ -1,27 +1,27 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div class="camera form-inline" @ref="CameraElement">
-    <div class="row">
-        <div class="form-group col-12">
+<div class="camera" @ref="CameraElement">
+    <div class="row g-3">
+        <div class="col-12">
             <video class="camera-header"></video>
             <canvas></canvas>
         </div>
         @if (ShowPreview)
         {
-            <div class="form-group col-12">
+            <div class="col-12">
                 <div class="camera-header">
                     <img />
                 </div>
             </div>
         }
-        <div class="form-group col-12">
+        <div class="col-12">
             <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" placeholder="@InitDevicesString" />
         </div>
-        <div class="form-group col-12">
+        <div class="col-12">
             <RadioList Items="@Cameras" @bind-Value="@ActiveCamera" />
         </div>
-        <div class="form-group col-12">
+        <div class="col-12">
             <div class="btn-group">
                 <Button Text="@PlayText" Color="Color.Success" Icon="fa fa-play-circle" IsDisabled="@Disabled" data-method="play" data-camera="@ActiveCamera?.Value" />
                 <Button Text="@StopText" Color="Color.Danger" Icon="fa fa-stop-circle" IsDisabled="@Disabled" data-method="stop" />

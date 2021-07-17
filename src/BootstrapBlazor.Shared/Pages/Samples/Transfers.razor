@@ -30,12 +30,12 @@
 
 <Block Title="客户端验证" Introduction="组件数据发生变化时，双向绑定 <code>bind_Value</code> 值同步变化">
     <p><code>Transfer</code> 组件内置于 <code>ValidateForm</code> 组件即开启客户端验证，本例中组件双向绑定 <code>Model.Hobby</code> 类型为 <code>IEnumerable&lt;string&gt;</code></p>
-    <ValidateForm Model="@Model" class="form-inline">
-        <div class="row">
-            <div class="form-group col-12 col-sm-8">
+    <ValidateForm Model="@Model">
+        <div class="row g-3">
+            <div class="col-12 col-sm-8">
                 <Transfer Items="@Items5" @bind-Value="@Model.Hobby" />
             </div>
-            <div class="form-group col-12 col-sm-4 align-items-end">
+            <div class="col-12 col-sm-4 align-items-end">
                 <Button ButtonType="ButtonType.Submit">提交</Button>
             </div>
         </div>

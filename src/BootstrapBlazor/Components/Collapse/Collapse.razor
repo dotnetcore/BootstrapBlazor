@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits CollapseBase
+@inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="CollapseElement">
     <CascadingValue Value="this" IsFixed="true">
@@ -8,18 +8,12 @@
     <RenderTemplate>
         @foreach (var item in Items)
         {
-            <div class="card">
-                <div class="@TitleClassString(item.TitleColor)">
-                    <div class="card-header-wrapper">
-                        <Button class="@GetButtonClassString(item.IsCollapsed)" data-toggle="collapse" aria-expanded="@(item.IsCollapsed ? "false" : "true")" Color="Color.None" Text="@item.Text" OnClickWithoutRender="@(() => OnClickItem(item))" />
-                        @if (ShowArrow)
-                        {
-                            <i class="fa fa-angle-down"></i>
-                        }
-                    </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <Button class="@GetButtonClassString(item)" data-bs-toggle="collapse" aria-expanded="@(item.IsCollapsed ? "false" : "true")" Color="Color.None" Text="@item.Text" OnClickWithoutRender="@(() => OnClickItem(item))" />
                 </div>
                 <div class="@GetClassString(item.IsCollapsed)">
-                    <div class="card-body">
+                    <div class="accordion-body">
                         @item.ChildContent
                     </div>
                 </div>

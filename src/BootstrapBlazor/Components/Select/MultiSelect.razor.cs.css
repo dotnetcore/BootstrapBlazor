@@ -120,42 +120,43 @@
         width: 100%;
     }
 
-    .multi-select .dropdown-menu .toolbar {
-        padding: 6px 10px;
-    }
-
-        .multi-select .dropdown-menu .toolbar .btn {
-            line-height: 12px;
-            padding: 7px 15px;
-            border: 1px solid #dee2e6;
-            transition: border-color .3s linear, color .3s linear;
+        .multi-select .dropdown-menu .toolbar {
+            padding: 6px 10px;
+            white-space: nowrap;
         }
 
-            .multi-select .dropdown-menu .toolbar .btn:hover {
-                border-color: #409eff;
-                color: #409eff;
+            .multi-select .dropdown-menu .toolbar .btn {
+                line-height: 12px;
+                padding: 7px 15px;
+                border: 1px solid #dee2e6;
+                transition: border-color .3s linear, color .3s linear;
             }
 
-            .multi-select .dropdown-menu .toolbar .btn:not(:last-child) {
-                margin-right: 1rem;
+                .multi-select .dropdown-menu .toolbar .btn:hover {
+                    border-color: #409eff;
+                    color: #409eff;
+                }
+
+                .multi-select .dropdown-menu .toolbar .btn:not(:last-child) {
+                    margin-right: 1rem;
+                }
+
+        .multi-select .dropdown-menu .search {
+            padding: 7px 10px;
+            position: relative;
+        }
+
+            .multi-select .dropdown-menu .search .search-text {
+                width: 100%;
+                padding-right: 30px;
             }
 
-    .multi-select .dropdown-menu .search {
-        padding: 7px 10px;
-        position: relative;
-    }
-
-        .multi-select .dropdown-menu .search .search-text {
-            width: 100%;
-            padding-right: 30px;
-        }
-
-        .multi-select .dropdown-menu .search .fa-search {
-            position: absolute;
-            left: calc(100% - 34px);
-            top: 18px;
-            color: #adb5bd;
-        }
+            .multi-select .dropdown-menu .search .fa-search {
+                position: absolute;
+                left: calc(100% - 34px);
+                top: 18px;
+                color: #adb5bd;
+            }
 
     .multi-select .dropdown-item {
         display: flex;
@@ -186,15 +187,9 @@
         display: block;
     }
 
-@media (min-width: 576px) {
-    .form-inline .multi-select {
-        width: 196px;
+    .multi-select .multi-select-ph {
+        padding: 0 1rem;
+        color: #c0c4cc;
+        line-height: 35px;
+        position: absolute;
     }
-}
-
-.multi-select .multi-select-ph {
-    padding: 0 1rem;
-    color: #c0c4cc;
-    line-height: 35px;
-    position: absolute;
-}

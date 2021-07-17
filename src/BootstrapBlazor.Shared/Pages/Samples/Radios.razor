@@ -14,26 +14,18 @@
 </Block>
 
 <Block Title="Label 文字" Introduction="单选框显示文字">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-12">
                 <RadioList TValue="string" Items="@DemoValues" ShowLabel="true" DisplayText="按钮组"></RadioList>
-            </div>
-        </div>
-    </div>
 </Block>
 
 <Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步，绑定数据类型为 SelectedItem 类型数组">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-12">
+        <div class="row g-3">
+            <div class="col-12">
                 <RadioList Items="@Items" @bind-Value="@BindRadioItem" OnSelectedChanged="@OnItemChanged"></RadioList>
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <div>Text: @BindRadioItem.Text Value: @BindRadioItem.Value</div>
             </div>
         </div>
-    </div>
     <Logger @ref="BinderLog" />
 </Block>
 
@@ -46,28 +38,26 @@
 </Block>
 
 <Block Title="颜色" Introduction="通过设置 <code>Color</code> 属性改变组件背景色">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-12">
+        <div class="row g-3">
+            <div class="col-12">
                 <RadioList TValue="string" Items="@DemoValues" Color="@Color.Primary"></RadioList>
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <RadioList TValue="string" Items="@DemoValues" Color="@Color.Success"></RadioList>
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <RadioList TValue="string" Items="@DemoValues" Color="@Color.Danger"></RadioList>
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <RadioList TValue="string" Items="@DemoValues" Color="@Color.Info"></RadioList>
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <RadioList TValue="string" Items="@DemoValues" Color="@Color.Warning"></RadioList>
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <RadioList TValue="string" Items="@DemoValues" Color="@Color.Secondary"></RadioList>
             </div>
         </div>
-    </div>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

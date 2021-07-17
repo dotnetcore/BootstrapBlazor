@@ -6,7 +6,7 @@
         @if (menu.Items.Any())
         {
             <li class="@GetDropdownClassString(menu, "dropdown")">
-                <a data-toggle="dropdown" class="@GetDropdownClassString(menu, "nav-link dropdown-toggle")">
+                <a data-bs-toggle="dropdown" class="@GetDropdownClassString(menu, "nav-link dropdown-toggle")">
                     @if (!string.IsNullOrEmpty(menu.Icon))
                     {
                         <i class="@GetIconString(menu.Icon)"></i>

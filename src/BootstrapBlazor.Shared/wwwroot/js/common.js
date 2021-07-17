@@ -15,7 +15,7 @@
         },
         highlight: function (el) {
             var $el = $(el);
-            $el.find('[data-toggle="tooltip"]').tooltip();
+            $el.find('[data-bs-toggle="tooltip"]').tooltip();
             var code = $el.find('code')[0];
             if (code) {
                 hljs.highlightBlock(code);
@@ -146,7 +146,7 @@
                 }, 300);
             });
 
-            $('.welcome-footer [data-toggle="tooltip"]').tooltip();
+            $('.welcome-footer [data-bs-toggle="tooltip"]').tooltip();
         },
         table_wrap: function () {
             var handler = window.setInterval(function () {
@@ -164,7 +164,7 @@
             }, 500);
         },
         tooltip: function () {
-            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-bs-toggle="tooltip"]').tooltip();
         },
         table_test: function (el, obj, method) {
             var $el = $(el);
@@ -177,7 +177,7 @@
         },
         initTheme: function (el) {
             var $el = $(el);
-            $el.find('[data-toggle="tooltip"]').tooltip();
+            $el.find('[data-bs-toggle="tooltip"]').tooltip();
             $el.on('click', '.btn-theme, .theme-close, .theme-item', function (e) {
                 var $theme = $el.find('.theme-list');
                 $theme.toggleClass('is-open').slideToggle('fade');

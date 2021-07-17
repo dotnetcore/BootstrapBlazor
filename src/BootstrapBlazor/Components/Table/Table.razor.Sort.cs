@@ -191,8 +191,8 @@ namespace BootstrapBlazor.Components
         /// <param name="col"></param>
         /// <returns></returns>
         protected string? GetHeaderTextClassString(ITableColumn col) => CssBuilder.Default("table-text")
-            .AddClass("text-left", col.Align == Alignment.Left)
-            .AddClass("text-right", col.Align == Alignment.Right)
+            .AddClass("text-start", col.Align == Alignment.Left)
+            .AddClass("text-end", col.Align == Alignment.Right)
             .AddClass("text-center", col.Align == Alignment.Center)
             .Build();
 

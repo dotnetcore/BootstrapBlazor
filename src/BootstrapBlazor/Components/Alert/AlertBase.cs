@@ -20,6 +20,7 @@ namespace BootstrapBlazor.Components
         protected virtual string? ClassName => CssBuilder.Default("alert fade show")
             .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
             .AddClass("is-bar", ShowBar)
+            .AddClass("is-close", ShowDismiss)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

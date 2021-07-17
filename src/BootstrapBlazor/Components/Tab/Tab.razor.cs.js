@@ -5,7 +5,7 @@
             var handler = window.setInterval(function () {
                 if ($el.is(':visible')) {
                     window.clearInterval(handler);
-                    $el.tab('active');
+                    $el.lgbTab('active');
                 }
             }, 200);
         }

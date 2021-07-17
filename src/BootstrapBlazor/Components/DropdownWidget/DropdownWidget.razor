@@ -10,14 +10,14 @@
             @foreach (var item in GetItems())
             {
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                         <i class="@item.Icon"></i>
                         @if (!string.IsNullOrEmpty(item.BadgeNumber))
                         {
                             <Badge Color="@item.BadgeColor">@item.BadgeNumber</Badge>
                         }
                     </a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu shadow">
                         @if (item.ShowArrow)
                         {
                             <div class="dropdown-arrow arrow-@item.HeaderColor.ToDescriptionString()"></div>

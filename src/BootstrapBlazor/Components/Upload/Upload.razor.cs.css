@@ -236,15 +236,3 @@
 .upload .upload-item.is-invalid .progress {
     display: none;
 }
-
-@media (min-width: 576px) {
-    .form-inline .upload {
-        width: 100%;
-    }
-}
-
-@media (min-width: 768px) {
-    .form-inline .upload {
-        width: calc(100% - 104px);
-    }
-}

@@ -56,24 +56,22 @@
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <EditTemplate>
-            <div class="form-inline">
-                <div class="row">
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
-                        </BootstrapInput>
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
-                        </BootstrapInput>
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <DateTimePicker @bind-Value="@context.DateTime">
-                        </DateTimePicker>
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Count">
-                        </BootstrapInput>
-                    </div>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50">
+                    </BootstrapInput>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50">
+                    </BootstrapInput>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <DateTimePicker @bind-Value="@context.DateTime">
+                    </DateTimePicker>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Count">
+                    </BootstrapInput>
                 </div>
             </div>
         </EditTemplate>

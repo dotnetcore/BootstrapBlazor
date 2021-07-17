@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@TableClassName" @ref="TableElement">
+<div @attributes="@AdditionalAttributes" class="@ClassName" @ref="TableElement">
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
@@ -46,7 +46,7 @@
                     }
                     @TableToolbarTemplate
                 </TableToolbar>
-                <div class="float-right table-toolbar-button btn-group table-column-right">
+                <div class="float-end table-toolbar-button btn-group table-column-right">
                     @if (ShowRefresh)
                     {
                         <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
@@ -54,7 +54,7 @@
                     @if (ShowColumnList)
                     {
                         <div class="btn-group btn-col" role="group">
-                            <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
+                            <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
                                 <i class="fa fa-th-list"></i>
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
@@ -75,7 +75,7 @@
                     @if (ShowExportButton)
                     {
                         <div class="btn-group" role="group">
-                            <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" type="button" title="@ExportButtonText">
+                            <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" title="@ExportButtonText">
                                 <i class="fa fa-download"></i>
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>
@@ -100,7 +100,7 @@
             }
             @if (ShowSearch)
             {
-                <div class="float-right table-toolbar-button btn-group">
+                <div class="float-end table-toolbar-button btn-group">
                     @if (ShowSearchText)
                     {
                         <div class="input-group">
@@ -145,7 +145,7 @@
                 if (Height.HasValue)
                 {
                     <div class="table-fixed-header">
-                        <table class="table">
+                        <table class="@TableClassName">
                             @RenderColgroup.Invoke(true)
                             @RenderHeader.Invoke(true)
                         </table>
@@ -272,7 +272,7 @@
 
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>
-    @<table class="table">
+    @<table class="@TableClassName">
         @RenderColgroup.Invoke(false)
         @if (hasHeader)
         {

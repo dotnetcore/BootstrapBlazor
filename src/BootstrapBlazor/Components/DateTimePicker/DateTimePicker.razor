@@ -4,9 +4,9 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required">@DisplayText</label>
+    <label class="form-label" required="@Required">@DisplayText</label>
 }
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" @ref="Picker" data-placement="@PlacementString">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" @ref="Picker" data-bs-placement="@PlacementString">
     <div class="datetime-picker-bar">
         <input readonly="readonly" class="@InputClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@DisabledString" />
         <span class="@DateTimePickerIconClassString">

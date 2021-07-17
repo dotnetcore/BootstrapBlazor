@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 按钮文本样式
         /// </summary>
-        private string? RightButtonClassName => CssBuilder.Default("mr-1")
+        private string? RightButtonClassName => CssBuilder.Default("me-1")
             .AddClass("d-none", string.IsNullOrEmpty(RightButtonText))
             .Build();
 

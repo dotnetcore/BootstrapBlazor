@@ -4,22 +4,18 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
+    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
 @if (ShowButton)
 {
     <div class="input-group">
-        <div class="input-group-prepend">
-            <button class="@ButtonClassString" type="button" @onclick="OnClickDec" disabled="@DisabledString">
-                <i class="fa fa-fw fa-minus-circle"></i>
-            </button>
-        </div>
+        <button class="@ButtonClassString" type="button" @onclick="OnClickDec" disabled="@DisabledString">
+            <i class="fa fa-fw fa-minus-circle"></i>
+        </button>
         <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
-        <div class="input-group-append">
-            <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@DisabledString">
-                <i class="fa fa-fw fa-plus-circle"></i>
-            </button>
-        </div>
+        <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@DisabledString">
+            <i class="fa fa-fw fa-plus-circle"></i>
+        </button>
     </div>
 }
 else

@@ -7,56 +7,46 @@
 <h4>提供轻量级 Toast 弹窗</h4>
 
 <Block Title="基础用法" Introduction="用户操作时，右下角给予适当的提示信息">
-    <div class="form-inline">
-        <div class="row overflow-hidden">
-            <div class="form-group col-12 col-lg-4">
-                <ToastBox class="d-block" Options="@Options1" />
-            </div>
-            <div class="form-group col-12 col-lg-4">
-                <ToastBox class="d-block" Options="@Options2" />
-            </div>
-            <div class="form-group col-12 col-lg-4">
-                <ToastBox class="d-block" Options="@Options3" />
-            </div>
-            <div class="form-group col-12 col-sm-4">
-                <Button Color="Color.Success" OnClick="@OnSuccessClick">成功通知</Button>
-            </div>
-            <div class="form-group col-12 col-sm-4">
-                <Button Color="Color.Danger" OnClick="@OnErrorClick">失败通知</Button>
-            </div>
-            <div class="form-group col-12 col-sm-4">
-                <Button Color="Color.Info" OnClick="@OnInfoClick">信息通知</Button>
-            </div>
+    <div class="row g-3 overflow-hidden">
+        <div class="col-12 col-lg-4">
+            <ToastBox class="d-block" Options="@Options1" />
+        </div>
+        <div class="col-12 col-lg-4">
+            <ToastBox class="d-block" Options="@Options2" />
+        </div>
+        <div class="col-12 col-lg-4">
+            <ToastBox class="d-block" Options="@Options3" />
+        </div>
+        <div class="col-12 col-sm-4">
+            <Button Color="Color.Success" OnClick="@OnSuccessClick">成功通知</Button>
+        </div>
+        <div class="col-12 col-sm-4">
+            <Button Color="Color.Danger" OnClick="@OnErrorClick">失败通知</Button>
+        </div>
+        <div class="col-12 col-sm-4">
+            <Button Color="Color.Info" OnClick="@OnInfoClick">信息通知</Button>
         </div>
     </div>
 </Block>
 
 <Block Title="Toast 手动关闭" Introduction="不会自动关闭，需要人工点击关闭按钮">
-    <div class="form-inline">
-        <div class="row">
-            <div class="col-12">
-                <Button OnClick="@OnNotAutoHideClick">成功通知</Button>
-            </div>
-        </div>
-    </div>
+    <Button OnClick="@OnNotAutoHideClick">成功通知</Button>
 </Block>
 
 <Block Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置">
     <p>通过设置 <code>Toast</code> 组件的 <code>Placement</code> 值来设置弹窗出现的位置，默认值为 <code>BottomEnd</code> 除此之外的值均为右上角</p>
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-6 col-md-3">
-                <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
-            </div>
-            <div class="form-group col-6 col-md-3">
-                <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
-            </div>
-            <div class="form-group col-6 col-md-3">
-                <Button OnClick="e => OnPlacementClick(Placement.TopStart)">左上角</Button>
-            </div>
-            <div class="form-group col-6 col-md-3">
-                <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">左下角</Button>
-            </div>
+    <div class="row g-3">
+        <div class="col-6 col-md-3">
+            <Button OnClick="e => OnPlacementClick(Placement.TopEnd)">右上角</Button>
+        </div>
+        <div class="col-6 col-md-3">
+            <Button OnClick="e => OnPlacementClick(Placement.BottomEnd)">右下角</Button>
+        </div>
+        <div class="col-6 col-md-3">
+            <Button OnClick="e => OnPlacementClick(Placement.TopStart)">左上角</Button>
+        </div>
+        <div class="col-6 col-md-3">
+            <Button OnClick="e => OnPlacementClick(Placement.BottomStart)">左下角</Button>
         </div>
     </div>
 </Block>

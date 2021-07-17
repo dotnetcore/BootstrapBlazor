@@ -3,9 +3,9 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required">@DisplayText</label>
+    <label class="form-label" required="@Required">@DisplayText</label>
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="PickerRange" data-placement="@PlacementString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="PickerRange" data-bs-placement="@PlacementString">
     <div class="datetime-range-bar" style="@BarStyleString">
         <div class="position-relative">
             <span class="@DateTimePickerIconClassString">
@@ -45,7 +45,7 @@
             </CascadingValue>
         </div>
         <div class="range-panel-footer picker-panel-footer">
-            <div class="flex-fill mr-3">
+            <div class="flex-fill me-3">
                 @if (AllowNull)
                 {
                     <button type="button" class="btn picker-panel-link-btn is-confirm is-clear" @onclick="@ClickClearButton">
@@ -55,7 +55,7 @@
             </div>
             @if (ShowToday)
             {
-                <button type="button" class="btn picker-panel-link-btn is-confirm mr-3" @onclick="@ClickTodayButton">
+                <button type="button" class="btn picker-panel-link-btn is-confirm me-3" @onclick="@ClickTodayButton">
                     <span>@TodayButtonText</span>
                 </button>
             }

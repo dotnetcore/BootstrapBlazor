@@ -18,13 +18,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 浅色
         /// </summary>
-        [Description("thead-light")]
+        [Description("table-light")]
         Light,
 
         /// <summary>
         /// 深色
         /// </summary>
-        [Description("thead-dark")]
+        [Description("table-dark")]
         Dark
     }
 }

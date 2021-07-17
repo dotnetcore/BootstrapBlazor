@@ -1,0 +1,19 @@
+﻿.tag {
+    display: inline-flex;
+    padding: 0 10px;
+    line-height: 30px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    align-items: center;
+}
+
+    .tag > i + .tag-text {
+        margin-left: 4px;
+    }
+
+    .tag > .btn-close {
+        margin-left: 8px;
+        width: 4px;
+        height: 4px;
+    }

@@ -17,10 +17,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        protected virtual string? ClassName => CssBuilder.Default("toggle btn")
+        protected virtual string? ClassName => CssBuilder.Default("btn btn-toggle")
             .AddClass("btn-default off", !Value)
             .AddClass("disabled", IsDisabled)
-            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

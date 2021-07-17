@@ -3,6 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -10,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Carousel
+    public partial class Carousel
     {
         private ElementReference CarouselElement { get; set; }
 
@@ -41,9 +44,33 @@ namespace BootstrapBlazor.Components
         /// <param name="index"></param>
         /// <param name="css"></param>
         /// <returns></returns>
-        private string? CheckActive(int index, string? css = null) => CssBuilder.Default(css)
+        private static string? CheckActive(int index, string? css = null) => CssBuilder.Default(css)
             .AddClass("active", index == 0)
             .Build();
+
+        /// <summary>
+        /// 获得 Images 集合
+        /// </summary>
+        [Parameter]
+        public IEnumerable<string> Images { get; set; } = Enumerable.Empty<string>();
+
+        /// <summary>
+        /// 获得/设置 内部图片的宽度
+        /// </summary>
+        [Parameter]
+        public int? Width { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否采用淡入淡出效果 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsFade { get; set; }
+
+        /// <summary>
+        /// 获得/设置 点击 Image 回调委托
+        /// </summary>
+        [Parameter]
+        public Func<string, Task>? OnClick { get; set; }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -55,6 +82,15 @@ namespace BootstrapBlazor.Components
             await base.OnAfterRenderAsync(firstRender);
 
             if (firstRender) await JSRuntime.InvokeVoidAsync(CarouselElement, "bb_carousel");
+        }
+
+        /// <summary>
+        /// 点击 Image 是触发此方法
+        /// </summary>
+        /// <returns></returns>
+        protected async Task OnClickImage(string imageUrl)
+        {
+            if (OnClick != null) await OnClick(imageUrl);
         }
     }
 }

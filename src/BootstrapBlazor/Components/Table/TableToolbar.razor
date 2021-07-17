@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
 
-<div class="float-left table-toolbar-button">
+<div class="float-start table-toolbar-button">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
@@ -32,7 +32,7 @@
                 }
             </div>
             <div class="btn-gear btn-group d-sm-none">
-                <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" type="button">
+                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">
                     <i class="fa fa-fw fa-gear"></i>
                 </button>
                 <div class="dropdown-menu">

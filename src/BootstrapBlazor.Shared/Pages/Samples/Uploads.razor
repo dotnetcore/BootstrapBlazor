@@ -5,23 +5,21 @@
 <h4>通过点击上传文件</h4>
 
 <Block Title="基本用法" Introduction="<code>InputUpload</code> 组件与其他表单组件一起使用，显示文件名称，点击 <b>浏览</b> 按钮后选择文件并上传；通过设置 <code>ShowRemoveButton</code> 参数，显示 <b>删除</b> 按钮，点击删除按钮时回调 <code>OnDelete</code> 委托方法">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-12 col-sm-6">
-                <label for="text1" class="control-label">姓名:</label>
-                <input id="text1" class="form-control">
-            </div>
-            <div class="form-group col-12 col-sm-6">
-                <label for="text2" class="control-label">地址:</label>
-                <input id="text2" class="form-control">
-            </div>
-            <div class="form-group col-12">
-                <label for="text3" class="control-label">照片:</label>
-                <InputUpload TValue="string" Id="text3" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
-            </div>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <label for="text1" class="form-label">姓名:</label>
+            <input id="text1" class="form-control">
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="text2" class="form-label">地址:</label>
+            <input id="text2" class="form-control">
+        </div>
+        <div class="col-12">
+            <label for="text3" class="form-label">照片:</label>
+            <InputUpload TValue="string" Id="text3" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
         </div>
     </div>
-    <Logger @ref="Trace" />
+    <Logger @ref="Trace" class="mt3" />
 </Block>
 
 <Block Title="表单应用" Introduction="在表单内使用文件上传组件对文件格式进行约束">
@@ -29,15 +27,15 @@
         <li>使用 <code>ValidateForm</code> 表单组件，通过设置模型属性的 <code>FileValidation</code> 标签设置自定义验证，支持文件 <b>扩展名</b> <b>大小</b> 验证，本例中设置扩展名为 <code>.png .jpg .jpeg</code>，文件大小限制为 <code>50K</code></li>
         <li>选择文件后并未开始上传文件，点击 <code>提交</code> 按钮数据验证合法后，再 <code>OnSubmit</code> 回调委托中进行上传文件操作，注意 <b>Picture</b> 属性类型为 <code>IBrowserFile</code></li>
     </ul>
-    <ValidateForm Model="Foo" OnValidSubmit="OnSubmit" class="form-inline">
-        <div class="row">
-            <div class="form-group col-12">
+    <ValidateForm Model="Foo" OnValidSubmit="OnSubmit">
+        <div class="row g-3">
+            <div class="col-12">
                 <BootstrapInput @bind-Value="@Foo.Name" />
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <InputUpload @bind-Value="@Foo.Picture" />
             </div>
-            <div class="form-group col-12">
+            <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="提交"></Button>
             </div>
         </div>
@@ -45,22 +43,18 @@
 </Block>
 
 <Block Title="点击上传" Introduction="<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。">
-    <div class="row">
+    <div class="row g-3">
         <div class="col-12 col-sm-6">
             <p>点击 <code>浏览按钮</code> 选择文件上传，本例中设置 <code>IsMultiple=true</code> 可多选文件进行上传</p>
             <ButtonUpload TValue="string" IsMultiple="true" ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
         </div>
     </div>
     <p class="mt-3">设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
-    <div class="row mt-3">
-        <div class="col-12 col-sm-6">
-            <ButtonUpload TValue="string" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
-        </div>
-    </div>
+    <ButtonUpload TValue="string" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" class="mt-3"></ButtonUpload>
 </Block>
 
 <Block Title="已上传文件列表" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容">
-    <div class="row">
+    <div class="row g-3">
         <div class="col-12 col-sm-6">
             <ButtonUpload TValue="string" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></ButtonUpload>
         </div>
@@ -68,7 +62,7 @@
 </Block>
 
 <Block Title="上传文件夹" Introduction="使用 <code>DefaultFileList</code> 设置已上传的内容">
-    <div class="row">
+    <div class="row g-3">
         <div class="col-12 col-sm-6">
             <ButtonUpload TValue="string" IsDirectory="true" OnChange="@OnUploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
         </div>
@@ -76,19 +70,15 @@
 </Block>
 
 <Block Title="用户头像上传" Introduction="<code>AvatarUpload</code> 组件，使用 <code>OnChange</code> 限制用户上传的图片格式和大小。本例中仅允许上传 <code>jpg/png/bmp/jpeg/gif</code> 五种图片格式">
-    <div class="row">
+    <div class="row g-3">
         <div class="col-12">
             <p>卡片形式头像框</p>
             <AvatarUpload TValue="string" Accept="image/*" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
         </div>
-    </div>
-    <div class="row mt-3">
         <div class="col-12">
             <p>圆形头像框</p>
             <AvatarUpload TValue="string" Accept="image/*" ShowProgress="true" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
         </div>
-    </div>
-    <div class="row mt-3">
         <div class="col-12">
             <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
             <AvatarUpload TValue="string" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
@@ -98,33 +88,29 @@
             <p>相关文档：<a href="https://www.runoob.com/tags/att-input-accept.html" target="_blank">[Accept 属性详解]</a> <a href="http://www.iana.org/assignments/media-types/media-types.xhtml" target="_blank">[Media Types 详细列表]</a></p>
             <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
         </div>
-    </div>
-    <div class="row mt-3">
         <div class="col-12">
             <p>通过 <code>DefaultFileList</code> 属性设置预览地址 <code>PreUrl</code> 即可</p>
             <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" DefaultFileList="@PreviewFileList"
                           OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))" />
         </div>
-    </div>
-    <div class="row mt-3">
         <div class="col-12">
             <p>验证表单内使用头像框示例</p>
-            <ValidateForm Model="Foo" OnValidSubmit="OnAvatarValidSubmit" class="form-inline">
-                <div class="row">
-                    <div class="form-group col-12">
+            <ValidateForm Model="Foo" OnValidSubmit="OnAvatarValidSubmit">
+                <div class="row g-3">
+                    <div class="col-12">
                         <BootstrapInput @bind-Value="@Foo.Name" />
                     </div>
-                    <div class="form-group col-12">
+                    <div class="col-12">
                         <AvatarUpload @bind-Value="@Foo.Picture" IsSingle="true" />
                     </div>
-                    <div class="form-group col-12">
+                    <div class="col-12">
                         <Button ButtonType="@ButtonType.Submit" Text="提交"></Button>
                     </div>
                 </div>
             </ValidateForm>
         </div>
     </div>
-    <Logger @ref="AvatarTrace" />
+    <Logger @ref="AvatarTrace" class="mt-3" />
 </Block>
 
 <Block Title="预览卡片式" Introduction="<code>CardUpload</code> 组件，呈现为卡片式带预览模式">
@@ -137,13 +123,11 @@
         <div>有兴趣的同学可以通过开源仓库中的 <code>wiki</code> 文档中相关资源查看关于 <code>Upload</code> 组件的相关知识技巧 <a href="@SiteOptions.Value.VideoLibUrl" target="_blank">[传送门]</a></div>
         <div>本例中通过服务器端验证当文件大小超过 <code>200MB</code> 时，提示文件太大提示信息</div>
     </p>
-    <div class="row">
+    <div class="row g-3">
         <div class="col-12">
             <p>本例中设置 <code>ShowProgress=true</code> 显示上传进度条</p>
             <CardUpload TValue="string" ShowProgress="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
         </div>
-    </div>
-    <div class="row mt-3">
         <div class="col-12">
             <p>设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件</p>
             <CardUpload TValue="string" IsSingle="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>

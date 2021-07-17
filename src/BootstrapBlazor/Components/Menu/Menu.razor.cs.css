@@ -133,7 +133,7 @@
 .menu .nav-link {
     display: flex;
     align-items: center;
-    line-height: 20px;
+    line-height: 21px;
     color: inherit;
     transition: background-color .3s linear, color .3s linear;
 }

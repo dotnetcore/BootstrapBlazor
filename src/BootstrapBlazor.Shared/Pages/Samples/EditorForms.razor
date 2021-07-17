@@ -22,7 +22,7 @@
                 <EditorItem @bind-Field="@Model.Complete" Editable="false" />
                 <EditorItem @bind-Field="@Model.Hobby">
                     <EditTemplate Context="value">
-                        <div class="form-group col-12">
+                        <div class="col-12">
                             <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
                         </div>
                     </EditTemplate>
@@ -45,7 +45,7 @@
                     <EditorItem @bind-Field="@ValidateModel.DateTime" Readonly="true" />
                     <EditorItem @bind-Field="@ValidateModel.Hobby">
                         <EditTemplate Context="value">
-                            <div class="form-group col-12">
+                            <div class="col-12">
                                 <CheckboxList @bind-Value="@ValidateModel.Hobby" Items="@Hobbys" />
                             </div>
                         </EditTemplate>
@@ -81,10 +81,10 @@
                     <EditorItem @bind-Field="@Model.Address" />
                     <EditorItem @bind-Field="@Model.Count">
                         <EditTemplate Context="value">
-                            <div class="form-group col-6">
+                            <div class="col-6">
                                 <Select SkipValidate="true" @bind-Value="@Model.Count" Items="@DummyItems" ShowSearch="true" />
                             </div>
-                            <div class="form-group col-6">
+                            <div class="col-6">
                                 <BootstrapInput Value="@Model.Count" readonly="true" />
                             </div>
                         </EditTemplate>
@@ -116,17 +116,17 @@
 </Block>
 
 <Block Title="自定义渲染组件类型" Introduction="通过设置 <code>CompnentType</code> 属性值来控制渲染组件类型">
-        <ValidateForm Model="@Model">
-            <EditorForm Model="@Model" ItemsPerRow="2">
-                <FieldItems>
-                    <EditorItem @bind-Field="@Model.Count" ComponentType="typeof(Select<Int32>)" Data="DummyItems" />
-                    <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
-                </FieldItems>
-                <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
-                </Buttons>
-            </EditorForm>
-        </ValidateForm>
+    <ValidateForm Model="@Model">
+        <EditorForm Model="@Model" ItemsPerRow="2">
+            <FieldItems>
+                <EditorItem @bind-Field="@Model.Count" ComponentType="typeof(Select<Int32>)" Data="DummyItems" />
+                <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+            </FieldItems>
+            <Buttons>
+                <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+            </Buttons>
+        </EditorForm>
+    </ValidateForm>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

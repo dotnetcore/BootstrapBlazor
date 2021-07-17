@@ -4,18 +4,16 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
+    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
     <div class="input-group">
         <input type="text" class="@InputValueClassString" id="@Id" disabled="@DisabledString" readonly placeholder="@PlaceHolder" value="@GetFileName(CurrentFile)" />
-        <div class="input-group-append">
-            @if (ShowDeleteButton)
-            {
-                <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@OnDeleteFile" />
-            }
-            <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" OnClick="@OnFileBrowser" />
-        </div>
+        @if (ShowDeleteButton)
+        {
+            <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" OnClick="@OnDeleteFile" />
+        }
+        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" OnClick="@OnFileBrowser" />
     </div>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>

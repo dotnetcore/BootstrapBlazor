@@ -3,15 +3,13 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
+    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
 @if (ShowBar)
 {
     <div @attributes="AdditionalAttributes" @ref="ColorPickerElement" class="input-group">
         <input placeholder="@PlaceHolder" id="@Id" class="@ClassName" readonly disabled="@DisabledString" value="@CurrentValueAsString" />
-        <span class="input-group-append">
-            <span class="input-group-text colorpicker-input-addon"><i></i></span>
-        </span>
+        <span class="input-group-text colorpicker-input-addon"><i></i></span>
     </div>
 }
 else

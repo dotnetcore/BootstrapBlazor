@@ -13,11 +13,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.0-preview.4.21253.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0-preview.4.21253.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-preview.4.21253.7" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.0-preview.4.21253.5" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0-preview.4.21253.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.0-preview.6.21355.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0-preview.6.21355.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-preview.6.21352.12" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.0-preview.6.21355.2" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0-preview.6.21352.12" />
   </ItemGroup>
 
   <ItemGroup>

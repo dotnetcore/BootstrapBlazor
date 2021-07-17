@@ -90,15 +90,21 @@
     ]
   },
   {
-    "outputFileName": "Components/Display/Display.razor.cs.min.css",
-    "inputFiles": [
-      "Components/Display/Display.razor.cs.css"
-    ]
-  },
-  {
     "outputFileName": "Components/Drawer/Drawer.razor.cs.min.css",
     "inputFiles": [
       "Components/Drawer/Drawer.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/Dropdown/Dropdown.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Dropdown/Dropdown.razor.cs.css"
+    ]
+  },
+  {
+    "outputFileName": "Components/DropdownWidget/DropdownWidget.razor.cs.min.css",
+    "inputFiles": [
+      "Components/DropdownWidget/DropdownWidget.razor.cs.css"
     ]
   },
   {
@@ -192,12 +198,6 @@
     ]
   },
   {
-    "outputFileName": "Components/Row/Row.razor.cs.min.css",
-    "inputFiles": [
-      "Components/Row/Row.razor.cs.css"
-    ]
-  },
-  {
     "outputFileName": "Components/Slider/Slider.razor.cs.min.css",
     "inputFiles": [
       "Components/Slider/Slider.razor.cs.css"
@@ -288,13 +288,19 @@
     ]
   },
   {
+    "outputFileName": "Components/Tag/Tag.razor.cs.min.css",
+    "inputFiles": [
+      "Components/Tag/Tag.razor.cs.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/css/bootstrap.blazor.bundle.min.css",
     "inputFiles": [
-      "wwwroot/lib/summernote/summernote-bs4.min.css",
+      "wwwroot/lib/animate/animate.min.css",
+      "wwwroot/lib/summernote/summernote-bs5.min.css",
       "wwwroot/lib/bootstrap/css/bootstrap.min.css",
       "wwwroot/lib/colorpicker/bootstrap-colorpicker.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
-      "wwwroot/lib/animate/animate.min.css",
       "wwwroot/css/bootstrap.blazor.min.css",
       "Components/Alert/Alert.razor.cs.min.css",
       "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
@@ -310,8 +316,9 @@
       "Components/DateTimePicker/DateTimePicker.razor.cs.min.css",
       "Components/DateTimePicker/TimePickerBody.razor.cs.min.css",
       "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
-      "Components/Display/Display.razor.cs.min.css",
       "Components/Drawer/Drawer.razor.cs.min.css",
+      "Components/Dropdown/Dropdown.razor.cs.min.css",
+      "Components/DropdownWidget/DropdownWidget.razor.cs.min.css",
       "Components/Editor/Editor.razor.cs.min.css",
       "Components/Empty/Empty.razor.cs.min.css",
       "Components/GoTop/GoTop.razor.cs.min.css",
@@ -326,7 +333,6 @@
       "Components/QRCode/QRCode.razor.cs.min.css",
       "Components/Radio/RadioList.razor.cs.min.css",
       "Components/Rate/Rate.razor.cs.min.css",
-      "Components/Row/Row.razor.cs.min.css",
       "Components/Scroll/Scroll.razor.cs.min.css",
       "Components/Select/Select.razor.cs.min.css",
       "Components/Select/MultiSelect.razor.cs.min.css",
@@ -342,7 +348,8 @@
       "Components/Tooltip/Tooltip.cs.min.css",
       "Components/Tree/Tree.razor.cs.min.css",
       "Components/Transfer/Transfer.razor.cs.min.css",
-      "Components/Upload/Upload.razor.cs.min.css"
+      "Components/Upload/Upload.razor.cs.min.css",
+      "Components/Tag/Tag.razor.cs.css"
     ]
   },
   {
@@ -394,12 +401,6 @@
     ]
   },
   {
-    "outputFileName": "Components/Button/PopConfirmButton.razor.cs.min.js",
-    "inputFiles": [
-      "Components/Button/PopConfirmButton.razor.cs.js"
-    ]
-  },
-  {
     "outputFileName": "Components/Camera/Camera.razor.cs.min.js",
     "inputFiles": [
       "Components/Camera/Camera.razor.cs.js"
@@ -424,21 +425,9 @@
     ]
   },
   {
-    "outputFileName": "Components/DateTimePicker/DateTimePicker.razor.cs.min.js",
-    "inputFiles": [
-      "Components/DateTimePicker/DateTimePicker.razor.cs.js"
-    ]
-  },
-  {
     "outputFileName": "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
     "inputFiles": [
       "Components/DateTimePicker/TimePickerBody.razor.cs.js"
-    ]
-  },
-  {
-    "outputFileName": "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
-    "inputFiles": [
-      "Components/DateTimeRange/DateTimeRange.razor.cs.js"
     ]
   },
   {
@@ -496,9 +485,9 @@
     ]
   },
   {
-    "outputFileName": "Components/Popover/PopoverConfirmBox.razor.cs.min.js",
+    "outputFileName": "Components/Popover/Popover.min.js",
     "inputFiles": [
-      "Components/Popover/PopoverConfirmBox.razor.cs.js"
+      "Components/Popover/Popover.js"
     ]
   },
   {
@@ -621,20 +610,17 @@
       "wwwroot/lib/colorpicker/bootstrap-colorpicker.min.js",
       "wwwroot/lib/grid/longbow.grid.min.js",
       "wwwroot/lib/handwritten/handwritten.min.js",
-      "wwwroot/lib/summernote/summernote-bs4.min.js",
+      "wwwroot/lib/summernote/summernote-bs5.min.js",
       "wwwroot/lib/slimscroll/jquery.slimscroll.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
       "Components/Anchor/Anchor.razor.cs.min.js",
       "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
-      "Components/Button/PopConfirmButton.razor.cs.min.js",
       "Components/Camera/Camera.razor.cs.min.js",
       "Components/Carousel/Carousel.razor.cs.min.js",
       "Components/Collapse/Collapse.razor.cs.min.js",
       "Components/ColorPicker/ColorPicker.razor.cs.min.js",
       "Components/Console/Console.razor.cs.min.js",
-      "Components/DateTimePicker/DateTimePicker.razor.cs.min.js",
       "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
-      "Components/DateTimeRange/DateTimeRange.razor.cs.min.js",
       "Components/Dialog/EditDialog.razor.cs.min.js",
       "Components/Download/Download.cs.min.js",
       "Components/Drawer/Drawer.razor.cs.min.js",
@@ -644,7 +630,7 @@
       "Components/Message/Message.razor.cs.min.js",
       "Components/Menu/Menu.razor.cs.min.js",
       "Components/Modal/Modal.razor.cs.min.js",
-      "Components/Popover/PopoverConfirmBox.razor.cs.min.js",
+      "Components/Popover/Popover.min.js",
       "Components/QRCode/QRCode.razor.cs.min.js",
       "Components/Rate/Rate.razor.cs.min.js",
       "Components/Row/Row.razor.cs.min.js",

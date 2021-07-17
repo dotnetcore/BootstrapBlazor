@@ -3,12 +3,14 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required" @onclick="@OnClick">@DisplayText</label>
+    <label class="form-label" required="@Required" @onclick="@OnClick">@DisplayText</label>
 }
-<div @attributes="AdditionalAttributes" class="@ClassName" data-toggle="toggle" style="@StyleName" @onclick="@OnClick">
-    <div class="toggle-group">
-        <label class="@ToggleOnClassString">@OnText</label>
-        <label class="toggle-off">@OffText</label>
-        <span class="btn btn-handle"></span>
+<div @attributes="AdditionalAttributes" class="@WrapperClassString">
+    <div class="@ClassName" style="@StyleName" @onclick="@OnClick">
+        <div class="toggle-group">
+            <label class="@ToggleOnClassString">@OnText</label>
+            <label class="toggle-off">@OffText</label>
+            <span class="btn btn-handle"></span>
+        </div>
     </div>
 </div>

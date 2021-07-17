@@ -11,14 +11,12 @@
 </Block>
 
 <Block Title="Slider 双向绑定" Introduction="通过拖动滑块在一个固定区间内进行选择">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-12 col-sm-8">
-                <Slider @bind-Value="@BindValue" Label="自定义初始值"></Slider>
-            </div>
-            <div class="form-group col-12 col-sm-4">
-                <BootstrapInput @bind-Value="@BindValue" readonly></BootstrapInput>
-            </div>
+    <div class="row g-3">
+        <div class="col-12 col-sm-8">
+            <Slider @bind-Value="@BindValue" Label="自定义初始值"></Slider>
+        </div>
+        <div class="col-12 col-sm-4">
+            <BootstrapInput @bind-Value="@BindValue" readonly></BootstrapInput>
         </div>
     </div>
 </Block>

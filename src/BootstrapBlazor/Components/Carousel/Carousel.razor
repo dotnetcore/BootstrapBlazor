@@ -1,11 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits CarouselBase
+@inherits IdComponentBase
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-ride="carousel" @ref="CarouselElement">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-bs-ride="carousel" @ref="CarouselElement">
     <ol class="carousel-indicators">
         @for (var index = 0; index < Images.Count(); index++)
         {
-            <li data-slide-to="@index" class="@CheckActive(index)" data-target="@TargetId"></li>
+            <li data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></li>
         }
     </ol>
     <div class="carousel-inner">
@@ -16,11 +16,11 @@
             </div>
         }
     </div>
-    <a class="carousel-control-prev d-none" data-slide="prev" @onclick:preventDefault href="@TargetId">
+    <a class="carousel-control-prev d-none" data-bs-slide="prev" @onclick:preventDefault href="@TargetId">
         <i class="fa fa-angle-left"></i>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="carousel-control-next d-none" data-slide="next" @onclick:preventDefault href="@TargetId">
+    <a class="carousel-control-next d-none" data-bs-slide="next" @onclick:preventDefault href="@TargetId">
         <i class="fa fa-angle-right"></i>
         <span class="sr-only">Next</span>
     </a>

@@ -2,7 +2,7 @@
 @inject IJSRuntime JSRuntime
 @inject IOptions<WebsiteOptions> WebsiteOption
 
-<header class="navbar navbar-expand navbar-dark flex-column flex-md-row">
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row px-3">
     <div class="header-img navbar-brand">
         <img src="_content/BootstrapBlazor.Shared/images/logo.png" />
         <span>Bootstrap Blazor</span>
@@ -29,8 +29,8 @@
             </li>
         </ul>
     </div>
-    <CultureChooser class="ml-md-auto" />
-    <ul class="navbar-nav ml-3 d-none d-lg-flex">
+    <CultureChooser class="flex-md-fill justify-content-md-end" />
+    <ul class="navbar-nav ms-3 d-none d-lg-flex">
         <li class="nav-item">
             <a class="nav-link p-2" href="https://github.com/ArgoZhang/BootstrapBlazor"><img src="_content/BootstrapBlazor.Shared/images/git.svg" /></a>
         </li>
@@ -38,12 +38,12 @@
             <a class="nav-link p-2" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor"><img src="_content/BootstrapBlazor.Shared/images/gitee.svg" /></a>
         </li>
     </ul>
-    <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" target="_blank" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/repository/archive/main.zip">@DownloadText</a>
+    <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ms-md-3" target="_blank" href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/repository/archive/main.zip">@DownloadText</a>
 </header>
 
 @Body
 
-<div class="ms-learn" data-toggle="tooltip" data-placement="left" title="@Title" @ref="MsLearnElement">
+<div class="ms-learn" data-bs-toggle="tooltip" data-bs-placement="left" title="@Title" @ref="MsLearnElement">
     <a href="@WebsiteOption.Value.WikiUrl" target="_blank">
         <img src="_content/BootstrapBlazor.Shared/images/log.svg" />
     </a>
@@ -56,7 +56,7 @@
     <div class="install-prompt">
         <div class="row">
             <div class="install-prompt-body col-10 col-offset-2 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
-                <span class="ml-2">@InstallAppText</span>
+                <span class="ms-2">@InstallAppText</span>
                 <button class="installButton btn btn-primary" @onclick="@InstallClicked">@InstallText</button>
                 <button class="cancelButton btn btn-danger" @onclick="@(() => Installable = false)">@CancelText</button>
             </div>

@@ -20,26 +20,24 @@
             <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
         <EditTemplate>
-            <div class="form-inline">
-                <div class="row">
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <DateTimePicker @bind-Value="@context.DateTime" />
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <Select @bind-Value="@context.Education" />
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <BootstrapInputNumber @bind-Value="@context.Count" />
-                    </div>
-                    <div class="form-group col-12 col-sm-6">
-                        <Switch @bind-Value="@context.Complete" ShowInnerText="true" />
-                    </div>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <DateTimePicker @bind-Value="@context.DateTime" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <Select @bind-Value="@context.Education" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInputNumber @bind-Value="@context.Count" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <Switch @bind-Value="@context.Complete" ShowInnerText="true" />
                 </div>
             </div>
         </EditTemplate>
@@ -81,7 +79,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
-                    <div class="form-group col-12 col-sm-6">
+                    <div class="col-12 col-sm-6">
                         <TablesNameDrop Model="@((Foo)value)" />
                     </div>
                 </EditTemplate>
@@ -108,7 +106,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
-                    <div class="form-group col-12 col-sm-6">
+                    <div class="col-12 col-sm-6">
                         <TablesNameDrop Model="@((Foo)value)" />
                     </div>
                 </EditTemplate>

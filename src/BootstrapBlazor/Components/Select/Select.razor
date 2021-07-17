@@ -4,9 +4,9 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required" for="@InputId">@DisplayText</label>
+    <label class="form-label" required="@Required" for="@InputId">@DisplayText</label>
 }
-<div @attributes="AdditionalAttributes" id="@Id" data-toggle="lgbSelect" class="@ClassName" @ref="SelectElement">
+<div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName" @ref="SelectElement">
     <CascadingValue Value="this" IsFixed="true">
         @Options
     </CascadingValue>
@@ -14,10 +14,9 @@
         @{
             ResetSelectedItem();
         }
-        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-toggle="dropdown" value="@SelectedItem?.Text" />
+        <input type="text" id="@InputId" readonly disabled="@DisabledString" class="@InputClassName" data-bs-toggle="dropdown" aria-expanded="false" value="@SelectedItem?.Text" />
         <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
-        <div class="dropdown-menu-arrow"></div>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu shadow">
             @if (ShowSearch)
             {
                 <div class="search">
@@ -49,6 +48,7 @@
                 }
             }
         </div>
+        <div class="dropdown-menu-arrow"></div>
     </RenderTemplate>
 </div>
 <CascadingValue Value="this" IsFixed="true">

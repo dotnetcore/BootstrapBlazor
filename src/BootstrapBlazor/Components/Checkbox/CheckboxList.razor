@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required">@DisplayText</label>
+    <label class="form-label" required="@Required">@DisplayText</label>
 }
 <CascadingValue Value="this" IsFixed="true">
     <div @attributes="@AdditionalAttributes" id="@Id" class="@GetClassString()" role="checkbox" tabindex="0" hidefocus="true">

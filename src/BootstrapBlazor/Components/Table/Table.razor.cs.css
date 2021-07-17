@@ -2,27 +2,40 @@
     position: relative;
 }
 
-.table-bordered {
+.table-wrapper {
     border-radius: 4px;
+    border: 1px solid #dee2e6;
 }
 
-    .table-bordered th:first-child,
-    .table-bordered td:first-child,
-    .table-bordered th.fixed-scroll {
+    .table-wrapper .table-fixed-header {
+        border-radius: 4px;
+    }
+
+    .table-wrapper thead tr:first-child {
+        border-top: none;
+    }
+
+    .table-wrapper tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .table-wrapper th:first-child,
+    .table-wrapper td:first-child,
+    .table-wrapper th.fixed-scroll {
         border-left-width: 0;
     }
 
-    .table-bordered th:last-child,
-    .table-bordered td:last-child,
-    .table-bordered .table-fixed-header th:nth-last-of-type(2) {
+    .table-wrapper th:last-child,
+    .table-wrapper td:last-child,
+    .table-wrapper .table-fixed-header th:nth-last-of-type(2) {
         border-right-width: 0;
     }
 
-    .table-bordered tr:last-child td {
+    .table-wrapper tr:last-child td {
         border-bottom-width: 0;
     }
 
-    .table-bordered .table-fixed-body td:last-child {
+    .table-wrapper .table-fixed-body td:last-child {
         border-right-width: 1px;
     }
 
@@ -59,8 +72,8 @@
                 color: #999;
             }
 
-    .table thead.thead-dark th.sortable:hover,
-    .table thead.thead-dark th.filterable:hover {
+    .table thead.table-dark th.sortable:hover,
+    .table thead.table-dark th.filterable:hover {
         background-color: #343a40;
     }
 
@@ -76,9 +89,9 @@
         .table thead th .table-cell > .fa {
             content: "";
             position: absolute;
-            right: -12px;
-            top: -12px;
-            bottom: -12px;
+            right: -8px;
+            top: -8px;
+            bottom: -8px;
             width: 1.5rem;
             display: flex;
             align-items: center;
@@ -99,16 +112,16 @@
                 color: #409eff;
             }
 
-    .table thead.thead-dark th .table-cell > .fa:hover {
+    .table thead.table-dark th .table-cell > .fa:hover {
         background-color: #6c757d;
         color: #fff;
     }
 
-    .table thead.thead-light th .table-cell > .fa {
+    .table thead.table-light th .table-cell > .fa {
         color: #c0c4cc;
     }
 
-        .table thead.thead-light th .table-cell > .fa:hover {
+        .table thead.table-light th .table-cell > .fa:hover {
             color: #495057;
         }
 
@@ -123,11 +136,11 @@
     }
 
     .table thead th.filterable .table-cell .fa-filter {
-        right: -12px;
+        right: -8px;
     }
 
     .table thead th.sortable.filterable .table-cell .fa-filter {
-        right: calc(1.5rem - 12px);
+        right: calc(1.5rem - 8px);
     }
 
     .table thead th.sortable.filterable .table-cell .table-text {
@@ -150,18 +163,18 @@
         overflow: hidden;
     }
 
-.table-sm .table thead th .table-cell > .fa {
-    right: -5px;
-    top: -5px;
-    bottom: -5px;
+.table-sm thead th .table-cell > .fa {
+    right: -4px;
+    top: -4px;
+    bottom: -4px;
 }
 
-.table-sm .table thead th.filterable .table-cell .fa-filter {
-    right: -5px;
+.table-sm thead th.filterable .table-cell .fa-filter {
+    right: -4px;
 }
 
-.table-sm .table thead th.sortable.filterable .table-cell .fa-filter {
-    right: calc(1.5rem - 5px);
+.table-sm thead th.sortable.filterable .table-cell .fa-filter {
+    right: calc(1.5rem - 4px);
 }
 
 .is-clickable tbody tr,
@@ -325,7 +338,7 @@
     }
 
 .table-modal-footer {
-    margin: 0 -1rem -1rem -1rem;
+    margin: 1rem -1rem -1rem -1rem;
 }
 
 .table tbody tr.active,
@@ -400,14 +413,6 @@
         background-color: #fff;
     }
 
-    .table-fixed-column .table .thead-light .fixed {
-        background-color: #e9ecef;
-    }
-
-    .table-fixed-column .table .thead-dark .fixed {
-        background-color: #343a40;
-    }
-
     .table-fixed-column .table tr .fixed {
         position: sticky;
         z-index: 2;
@@ -419,33 +424,26 @@
         border-top-width: 0;
     }
 
-    .table-fixed-column .table tbody tr:hover .fixed {
-        background-color: #e4e7ed;
+    .table-fixed-column .table .table-light .fixed,
+    .table-fixed-column .table .table-light .fixed-scroll,
+    .table-fixed-column .table .table-dark .fixed,
+    .table-fixed-column .table .table-dark .fixed-scroll {
+        background-color: var(--bs-table-bg);
     }
 
-.table-striped.table-fixed-column tbody tr:nth-of-type(odd):not(:hover):not(.active) .fixed,
-.table-striped.table-fixed-column .table-row:not(.active):nth-of-type(odd) .fixed {
-    background-color: #fafafa;
-}
+    .table-fixed-column .table .fixed {
+        border-right: 1px solid #409eff;
+    }
 
-.table-fixed-column .table .fixed {
-    border-right: 1px solid #409eff;
-}
-
-.table-fixed-column .table .fixed-right {
-    border-right: inherit;
-    border-left: 1px solid #409eff;
-}
+    .table-fixed-column .table .fixed-right {
+        border-right: inherit;
+        border-left: 1px solid #409eff;
+    }
 
 .table-fixed-column .fixed-scroll {
     position: sticky;
     right: 0;
-    background-color: #fff;
-}
-
-.table-striped.table-fixed-column tbody tr.active .fixed,
-.table-striped.table-fixed-column .table-row.active .fixed {
-    background-color: inherit;
+    background-color: var(--bs-table-bg);
 }
 
 .table .is-bar {
@@ -539,10 +537,6 @@
         padding-left: 4px;
     }
 
-.table-bordered thead td, .table-bordered thead th {
-    border-bottom-width: 1px;
-}
-
-.table-bordered thead tr:last-child td, .table-bordered thead tr:last-child th {
-    border-bottom-width: 2px;
+.table-bordered thead tr:last-child {
+    border-width: 2px 0;
 }

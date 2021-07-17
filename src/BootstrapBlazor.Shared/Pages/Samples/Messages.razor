@@ -21,26 +21,24 @@
 </Block>
 
 <Block Title="不同颜色的消息框" Introduction="通过设置 <code>MessageOption</code> 的 <code>Color</code> 属性，更改消息框颜色">
-    <div class="form-inline">
-        <div class="row">
-            <div class="form-group col-6 col-sm-auto">
-                <button class="btn btn-primary" @onclick="@(e => ShowColorMessage(Color.Primary))">Primary 消息</button>
-            </div>
-            <div class="form-group col-6 col-sm-auto">
-                <button class="btn btn-success" @onclick="@(e => ShowColorMessage(Color.Success))">Success 消息</button>
-            </div>
-            <div class="form-group col-6 col-sm-auto">
-                <button class="btn btn-info" @onclick="@(e => ShowColorMessage(Color.Info))">Info 消息</button>
-            </div>
-            <div class="form-group col-6 col-sm-auto">
-                <button class="btn btn-danger" @onclick="@(e => ShowColorMessage(Color.Danger))">Danger 消息</button>
-            </div>
-            <div class="form-group col-6 col-sm-auto">
-                <button class="btn btn-warning" @onclick="@(e => ShowColorMessage(Color.Warning))">Warning 消息</button>
-            </div>
-            <div class="form-group col-6 col-sm-auto">
-                <button class="btn btn-secondary" @onclick="@(e => ShowColorMessage(Color.Secondary))">Secondary 消息</button>
-            </div>
+    <div class="row g-3">
+        <div class="col-6 col-sm-auto">
+            <button class="btn btn-primary" @onclick="@(e => ShowColorMessage(Color.Primary))">Primary 消息</button>
+        </div>
+        <div class="col-6 col-sm-auto">
+            <button class="btn btn-success" @onclick="@(e => ShowColorMessage(Color.Success))">Success 消息</button>
+        </div>
+        <div class="col-6 col-sm-auto">
+            <button class="btn btn-info" @onclick="@(e => ShowColorMessage(Color.Info))">Info 消息</button>
+        </div>
+        <div class="col-6 col-sm-auto">
+            <button class="btn btn-danger" @onclick="@(e => ShowColorMessage(Color.Danger))">Danger 消息</button>
+        </div>
+        <div class="col-6 col-sm-auto">
+            <button class="btn btn-warning" @onclick="@(e => ShowColorMessage(Color.Warning))">Warning 消息</button>
+        </div>
+        <div class="col-6 col-sm-auto">
+            <button class="btn btn-secondary" @onclick="@(e => ShowColorMessage(Color.Secondary))">Secondary 消息</button>
         </div>
     </div>
 </Block>

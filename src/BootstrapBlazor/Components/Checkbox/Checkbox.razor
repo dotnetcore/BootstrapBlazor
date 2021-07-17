@@ -4,9 +4,9 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label checkbox-label" required="@Required" @onclick="@OnToggleClick">@DisplayText</label>
+    <label class="form-label" required="@Required" @onclick="@OnToggleClick">@DisplayText</label>
 }
-<label @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
+<div @attributes="AdditionalAttributes" id="@Id" role="checkbox" aria-checked="@StateString" class="@ClassString" @onclick="@OnToggleClick">
     <span class="checkbox-input">
         <span class="@GetInnerClassString()"></span>
     </span>
@@ -14,4 +14,4 @@
     {
         <span class="checkbox-label">@DisplayText</span>
     }
-</label>
+</div>

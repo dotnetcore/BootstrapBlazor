@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -13,10 +14,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Progresss
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private Logger? Trace { get; set; }
+        private int Value { get; set; } = 75;
 
         /// <summary>
         /// 获得属性方法

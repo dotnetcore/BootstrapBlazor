@@ -2,13 +2,13 @@
     $.extend({
         bb_tooltip: function (id, method, title, placement, html, trigger) {
             var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
+            var instance = bootstrap.Tooltip.getInstance(document.getElementById(id));
+            if (instance) instance.dispose();
             var $ele = $('#' + id);
             if (method === "") {
-                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose');
                 $ele.tooltip(op);
             }
             else if (method === 'enable') {
-                if ($ele.data('bs.tooltip')) $ele.tooltip('dispose');
                 $ele.tooltip(op);
                 var $ctl = $ele.parents('form').find('.is-invalid:first');
                 if ($ctl.prop("nodeName") === 'INPUT') {
@@ -23,13 +23,7 @@
                     $ctl.trigger('focus');
                 }
             }
-            else if (method === "dispose") {
-                if ($ele.data('bs.tooltip')) $ele.tooltip(method);
-            }
-            else {
-                if ($ele.data('bs.tooltip')) {
-                    $ele.tooltip('dispose');
-                }
+            else if (method !== "dispose") {
                 $ele.tooltip(op);
                 $ele.tooltip(method);
             }

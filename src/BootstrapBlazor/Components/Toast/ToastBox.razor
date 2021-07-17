@@ -3,13 +3,11 @@
 
 <div @attributes="@AdditionalAttributes" @ref="ToastBoxElement" class="@ClassName" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="@AutoHide" data-delay="@DelayString">
     <div class="toast-header">
-        <div class="toast-bar mr-2">
+        <div class="toast-bar me-2">
             <i class="@IconString"></i>
         </div>
-        <strong class="mr-auto">@Options.Title</strong>
-        <button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
-            <i class="fa fa-close" aria-hidden="true"></i>
-        </button>
+        <strong class="me-auto">@Options.Title</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">@MarkupContent</div>
     <div class="@ProgressClass"></div>

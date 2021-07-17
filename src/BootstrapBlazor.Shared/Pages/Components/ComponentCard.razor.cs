@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
     {
         private string ImageUrl => $"_content/BootstrapBlazor.Shared/images/{Image}";
 
-        private string? ClassString => CssBuilder.Default("form-group col-12 col-sm-6 col-md-4 col-lg-3")
+        private string? ClassString => CssBuilder.Default("col-12 col-sm-6 col-md-4 col-lg-3")
             .AddClass("d-none", !string.IsNullOrEmpty(SearchText) && !Text.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase))
             .Build();
 

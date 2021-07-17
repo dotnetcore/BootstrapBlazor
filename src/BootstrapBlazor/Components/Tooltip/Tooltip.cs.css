@@ -6,22 +6,22 @@
     background-color: #dc3545;
 }
 
-.is-invalid.bs-tooltip-auto[x-placement^=top] .arrow::before,
-.is-invalid.bs-tooltip-top .arrow::before {
+.is-invalid.bs-tooltip-auto[x-placement^=top] .tooltip-arrow::before,
+.is-invalid.bs-tooltip-top .tooltip-arrow::before {
     border-top-color: #dc3545;
 }
 
-.is-invalid.bs-tooltip-auto[x-placement^=bottom] .arrow::before,
-.is-invalid.bs-tooltip-bottom .arrow::before {
+.is-invalid.bs-tooltip-auto[x-placement^=bottom] .tooltip-arrow::before,
+.is-invalid.bs-tooltip-bottom .tooltip-arrow::before {
     border-bottom-color: #dc3545;
 }
 
-.is-invalid.bs-tooltip-auto[x-placement^=left] .arrow::before,
-.is-invalid.bs-tooltip-left .arrow::before {
+.is-invalid.bs-tooltip-auto[x-placement^=left] .tooltip-arrow::before,
+.is-invalid.bs-tooltip-left .tooltip-arrow::before {
     border-left-color: #dc3545;
 }
 
-.is-invalid.bs-tooltip-auto[x-placement^=right] .arrow::before,
-.is-invalid.bs-tooltip-right .arrow::before {
+.is-invalid.bs-tooltip-auto[x-placement^=right] .tooltip-arrow::before,
+.is-invalid.bs-tooltip-right .tooltip-arrow::before {
     border-right-color: #dc3545;
 }

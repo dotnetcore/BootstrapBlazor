@@ -1,9 +1,5 @@
 ﻿.popover {
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     min-width: 240px;
-    border-radius: 4px;
-    border: 1px solid #ebeef5;
-    border: 1px solid #dcdfe6
 }
 
 .popover-confirm-body {
@@ -28,3 +24,8 @@
         .popover-confirm-buttons .btn:last-child {
             margin-left: 0.5rem;
         }
+
+.bs-popover-auto[data-popper-placement^=bottom].has-header > .popover-arrow::after,
+.bs-popover-bottom.has-header > .popover-arrow::after {
+    border-bottom-color: #f0f0f0;
+}

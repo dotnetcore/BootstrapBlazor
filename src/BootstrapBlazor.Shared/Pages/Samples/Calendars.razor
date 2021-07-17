@@ -11,7 +11,7 @@
 
 <Block Title="数据双向绑定" Introduction="日历框选择时间时数据自动更新文本框">
     <Calendar @bind-Value="@BindValue" />
-    <BootstrapInput TItem="DateTime" @bind-Value="@BindValue" Formatter="@Formatter" style="margin-top: 1rem;" />
+    <BootstrapInput @bind-Value="@BindValue" Formatter="@Formatter" style="margin-top: 1rem;" />
 </Block>
 
 <Block Title="按周展示" Introduction="通过设置属性 <code></code>">

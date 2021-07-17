@@ -315,6 +315,11 @@ namespace BootstrapBlazor.Components
                 DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
 
+            if (IsShowLabel && string.IsNullOrEmpty(DisplayText))
+            {
+                DisplayText = "　";
+            }
+
             Required = (!string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && !IsDisabled && !SkipValidate && HasRequired()) ? "true" : null;
         }
 

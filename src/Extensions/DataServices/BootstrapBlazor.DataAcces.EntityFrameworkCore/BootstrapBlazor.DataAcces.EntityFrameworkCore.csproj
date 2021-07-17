@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.4.21253.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.6.21352.1" />
   </ItemGroup>
   
 </Project>

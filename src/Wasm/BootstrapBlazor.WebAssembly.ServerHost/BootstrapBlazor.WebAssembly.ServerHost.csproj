@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0-preview.4.21253.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0-preview.6.21355.2" />
   </ItemGroup>
 
   <ItemGroup>

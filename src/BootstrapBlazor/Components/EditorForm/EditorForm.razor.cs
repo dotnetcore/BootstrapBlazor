@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string? GetCssString(IEditorItem item) => CssBuilder.Default("form-group col-12")
+        private string? GetCssString(IEditorItem item) => CssBuilder.Default("col-12")
             .AddClass("col-sm-6", item.Data == null && ItemsPerRow == null && item.Rows == 0)
             .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Data == null && ItemsPerRow != null && item.Rows == 0)
             .Build();

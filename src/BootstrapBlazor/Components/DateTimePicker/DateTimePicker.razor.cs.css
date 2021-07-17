@@ -1,6 +1,4 @@
 ﻿.popover-datetime {
-    border: none;
-    box-shadow: none;
     max-width: unset;
 }
 
@@ -8,37 +6,9 @@
         padding: 0;
     }
 
-    .popover-datetime[x-placement="right"] .popover-body {
-        margin-left: -1px;
+    .popover-datetime .date-picker {
+        border: none;
     }
-
-    .popover-datetime[x-placement="left"] .popover-body {
-        margin-right: -1px;
-    }
-
-    .popover-datetime[x-placement="top"] .popover-body {
-        margin-bottom: -1px;
-    }
-
-    .popover-datetime[x-placement="bottom"] .popover-body {
-        margin-top: -1px;
-    }
-
-.bs-popover-top > .arrow::before, .bs-popover-auto[x-placement^="top"] > .arrow::before {
-    border-top-color: #ced4da;
-}
-
-.bs-popover-right > .arrow::before, .bs-popover-auto[x-placement^="right"] > .arrow::before {
-    border-right-color: #ced4da;
-}
-
-.bs-popover-bottom > .arrow::before, .bs-popover-auto[x-placement^="bottom"] > .arrow::before {
-    border-bottom-color: #ced4da;
-}
-
-.bs-popover-left > .arrow::before, .bs-popover-auto[x-placement^="left"] > .arrow::before {
-    border-left-color: #ced4da;
-}
 
 .datetime-picker-bar {
     position: relative;
@@ -318,11 +288,39 @@
     }
 
 @media (min-width: 576px) {
-    .form-inline input.form-control {
-        width: 196px;
-    }
-
     .input-group input.form-control {
         width: 1%;
     }
 }
+
+.picker-panel-footer {
+    border-top: 1px solid #e4e4e4;
+    padding: 4px;
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+    .picker-panel-footer .picker-panel-link-btn {
+        padding: 7px 15px;
+        font-size: 0.75rem;
+        border-radius: 3px;
+        line-height: 12px;
+        color: #606266;
+        transition: border-color .3s linear, color .3s linear;
+    }
+
+        .picker-panel-footer .picker-panel-link-btn.is-confirm {
+            border: 1px solid #dcdfe6;
+        }
+
+            .picker-panel-footer .picker-panel-link-btn.is-confirm:hover {
+                border-color: #409eff;
+                color: #409eff;
+            }
+
+        .picker-panel-footer .picker-panel-link-btn.is-now {
+            color: #409eff;
+        }

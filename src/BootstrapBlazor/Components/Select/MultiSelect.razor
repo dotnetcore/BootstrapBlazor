@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <label class="control-label" required="@Required" for="@Id">@DisplayText</label>
+    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div class="@ClassString" @ref="SelectElement">
     <div class="@ToggleClassString" tabindex="0" hidefocus="true" outline="0" id="@Id" @onclick="@ToggleMenu">
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="dropdown-menu-arrow"></div>
-    <div class="dropdown-menu">
+    <div class="dropdown-menu shadow">
         @if (ShowSearch)
         {
             <div class="search">

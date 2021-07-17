@@ -7,12 +7,12 @@
 <Block Title="合并单元格" Introduction="基础的表格展示用法。">
     <style>
         .cell-demo {
-            background: #ddd;
+            --bs-table-bg: #ddd;
         }
     </style>
     <p>本例中通过设置 <code>OnCellRenderHandler</code> 回调委托，通过判断条件对 <code>Name</code> 与 <code>Address</code> 两列进行单元格合并操作，并且通过设置 <code>TableCellArgs</code> 属性 <code>Class</code> 值为 <code>cell-demo</code> 样式表名称对合并后单元格进行背景色设置</p>
     <Pre>.cell-demo {
-    background: #ddd;
+    --bs-table-bg: #ddd;
 }</Pre>
     <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>

@@ -13,12 +13,6 @@ namespace BootstrapBlazor.Components
     public partial class Row
     {
         /// <summary>
-        /// 获得/设置 设置行格式
-        /// </summary>
-        [Parameter]
-        public RowType RowType { get; set; }
-
-        /// <summary>
         /// 获得/设置 设置一行显示多少个子组件
         /// </summary>
         [Parameter]

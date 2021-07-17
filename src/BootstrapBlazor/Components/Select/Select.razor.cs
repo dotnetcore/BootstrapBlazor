@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        private string? ClassName => CssBuilder.Default("form-select dropdown")
+        private string? ClassName => CssBuilder.Default("select dropdown")
             .AddClass("is-disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
@@ -34,8 +34,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        private string? InputClassName => CssBuilder.Default("form-control form-select-input")
-            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
+        private string? InputClassName => CssBuilder.Default("form-select dropdown-toggle")
+            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled  && !IsValid.HasValue)
+            .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
+            .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
@@ -43,7 +45,9 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         private string? AppendClassName => CssBuilder.Default("form-select-append")
-            .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
+            .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
+            .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+            .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
             .Build();
 
         /// <summary>

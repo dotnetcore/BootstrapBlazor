@@ -15,9 +15,8 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         /// <returns></returns>
-        protected override string? ClassName => CssBuilder.Default("tag alert fade show")
+        protected override string? ClassName => CssBuilder.Default("tag fade show")
             .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
-            .AddClass("is-close", ShowDismiss)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

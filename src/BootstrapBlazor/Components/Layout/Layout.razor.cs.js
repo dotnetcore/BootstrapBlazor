@@ -10,7 +10,7 @@
                 refObj.invokeMethodAsync(method, width);
             }
 
-            $('.layout-header').find('[data-toggle="tooltip"]').tooltip();
+            $('.layout-header').find('[data-bs-toggle="tooltip"]').tooltip();
 
             calcWindow();
 

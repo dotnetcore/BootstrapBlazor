@@ -159,33 +159,3 @@
         font-weight: 800;
         color: #409eff;
     }
-
-.picker-panel-footer {
-    border-top: 1px solid #e4e4e4;
-    padding: 4px;
-    background-color: #fff;
-    position: relative;
-    display: flex;
-}
-
-    .picker-panel-footer .picker-panel-link-btn {
-        padding: 7px 15px;
-        font-size: 0.75rem;
-        border-radius: 3px;
-        line-height: 12px;
-        color: #606266;
-        transition: border-color .3s linear, color .3s linear;
-    }
-
-        .picker-panel-footer .picker-panel-link-btn.is-confirm {
-            border: 1px solid #dcdfe6;
-        }
-
-            .picker-panel-footer .picker-panel-link-btn.is-confirm:hover {
-                border-color: #409eff;
-                color: #409eff;
-            }
-
-        .picker-panel-footer .picker-panel-link-btn.is-now {
-            color: #409eff;
-        }

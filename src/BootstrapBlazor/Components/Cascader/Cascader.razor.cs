@@ -139,7 +139,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        private string? InputClassName => CssBuilder.Default("form-control form-select-input")
+        private string? InputClassName => CssBuilder.Default("form-control form-select")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
