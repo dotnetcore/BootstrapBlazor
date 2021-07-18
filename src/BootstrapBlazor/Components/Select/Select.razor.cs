@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         private string? InputClassName => CssBuilder.Default("form-select")
-            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled  && !IsValid.HasValue)
+            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
             .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
             .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
             .AddClass(CssClass).AddClass(ValidCss)
@@ -167,21 +167,20 @@ namespace BootstrapBlazor.Components
             {
                 Items = typeof(TValue).ToSelectList();
             }
-            DataSource = Items.ToList();
-            DataSource.AddRange(Childs);
 
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString)
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                DataSource = Items.ToList();
+                DataSource.AddRange(Childs);
+            }
+            else
+            {
+                DataSource = OnSearchTextChanged(SearchText).ToList();
+            }
+
+            SelectedItem = DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString || i.Value == SelectedItem?.Value)
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
-
-            if (SelectedItem != null)
-            {
-                SelectedItem.Active = true;
-                if (CurrentValueAsString != SelectedItem.Value)
-                {
-                    CurrentValueAsString = SelectedItem.Value;
-                }
-            }
         }
 
         /// <summary>
@@ -217,7 +216,10 @@ namespace BootstrapBlazor.Components
         [JSInvokable]
         public async Task ConfirmSelectedItem(int index)
         {
-            var item = GetShownItems().ElementAt(index);
+            var ds = string.IsNullOrEmpty(SearchText)
+                ? DataSource
+                : OnSearchTextChanged.Invoke(SearchText);
+            var item = ds.ElementAt(index);
             await OnItemClick(item);
             StateHasChanged();
         }
@@ -229,13 +231,7 @@ namespace BootstrapBlazor.Components
         {
             if (!item.IsDisabled)
             {
-                var i = DataSource.FirstOrDefault(i => i.Active);
-                if (i != null)
-                {
-                    i.Active = false;
-                }
                 item.Active = true;
-
                 SelectedItem = item;
                 CurrentValueAsString = item.Value;
 
@@ -248,20 +244,9 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 获取显示的候选项集合
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<SelectedItem> GetShownItems() => string.IsNullOrEmpty(SearchText)
-            ? DataSource
-            : OnSearchTextChanged.Invoke(SearchText);
-
-        /// <summary>
         /// 添加静态下拉项方法
         /// </summary>
         /// <param name="item"></param>
-        public void Add(SelectedItem item)
-        {
-            Childs.Add(item);
-        }
+        public void Add(SelectedItem item) => Childs.Add(item);
     }
 }

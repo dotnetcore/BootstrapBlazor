@@ -28,7 +28,7 @@
             }
             @if (ItemTemplate != null)
             {
-                foreach (var item in GetShownItems())
+                foreach (var item in DataSource)
                 {
                     <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">
                         @ItemTemplate.Invoke(item)
@@ -37,7 +37,7 @@
             }
             else
             {
-                @foreach (var itemGroup in GetShownItems().GroupBy(i => i.GroupName))
+                @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
                 {
                     if (!string.IsNullOrEmpty(itemGroup.Key))
                     {
