@@ -288,9 +288,10 @@
                 @RenderRow.Invoke(item)
                 if (ShowDetails())
                 {
+                    var colspan = IsMultipleSelect ? Columns.Count + 1: Columns.Count;
                     <tr class="@GetDetailRowClassString(item)">
                         <td>&nbsp;</td>
-                        <td colspan="@Columns.Count">
+                        <td colspan="@colspan">
                             <div class="table-cell is-wrap">
                                 @if (DetailRows.Contains(item))
                                 {

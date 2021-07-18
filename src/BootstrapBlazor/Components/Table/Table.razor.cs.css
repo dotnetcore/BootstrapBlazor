@@ -347,6 +347,10 @@
     background-color: #9ec6ef;
 }
 
+.table-hover > tbody > tr.is-detail:hover {
+    --bs-table-accent-bg: none;
+}
+
 .table-row {
     padding: 0.75rem;
 }

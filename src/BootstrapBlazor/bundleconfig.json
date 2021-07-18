@@ -342,14 +342,14 @@
       "Components/Table/Table.razor.cs.min.css",
       "Components/Table/Filter/TableFilter.razor.cs.min.css",
       "Components/Tab/Tab.razor.cs.min.css",
+      "Components/Tag/Tag.razor.cs.min.css",
       "Components/Timer/Timer.razor.cs.min.css",
       "Components/Toast/Toast.razor.cs.min.css",
       "Components/Toggle/Toggle.razor.cs.min.css",
       "Components/Tooltip/Tooltip.cs.min.css",
       "Components/Tree/Tree.razor.cs.min.css",
       "Components/Transfer/Transfer.razor.cs.min.css",
-      "Components/Upload/Upload.razor.cs.min.css",
-      "Components/Tag/Tag.razor.cs.css"
+      "Components/Upload/Upload.razor.cs.min.css"
     ]
   },
   {
