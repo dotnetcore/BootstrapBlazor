@@ -28,6 +28,10 @@
     background-image: none;
 }
 
+[data-bs-toggle="lgbSelect"] .dropdown-toggle::after {
+    content: none;
+}
+
 [data-bs-toggle="lgbSelect"] .form-select {
     background-image: none;
     color: #606266;

@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式集合
         /// </summary>
-        private string? InputClassName => CssBuilder.Default("form-select dropdown-toggle")
+        private string? InputClassName => CssBuilder.Default("form-select")
             .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled  && !IsValid.HasValue)
             .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
             .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
@@ -170,7 +170,7 @@ namespace BootstrapBlazor.Components
             DataSource = Items.ToList();
             DataSource.AddRange(Childs);
 
-            SelectedItem ??= DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString)
+            SelectedItem = DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString)
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
 
