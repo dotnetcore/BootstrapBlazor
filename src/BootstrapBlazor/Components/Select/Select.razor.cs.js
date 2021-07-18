@@ -11,8 +11,8 @@
 
             $el.on('keyup', function (e) {
                 var $this = $(this);
-                if ($this.hasClass('show')) {
-                    var $items = $this.find('.dropdown-menu.show > .dropdown-item').not('.is-disabled');
+                if ($this.find('.dropdown-toggle').hasClass('show')) {
+                    var $items = $this.find('.dropdown-menu.show > .dropdown-item').not('.is-disabled, .search');
 
                     var $activeItem = $items.filter(function (index, ele) {
                         return $(ele).hasClass('active');
@@ -21,7 +21,7 @@
                     if ($items.length > 1) {
                         if (e.key === "ArrowUp") {
                             $activeItem.removeClass('active');
-                            var $prev = $activeItem.prev().not('.is-disabled');
+                            var $prev = $activeItem.prev().not('.is-disabled, .search');
                             if ($prev.length === 0) {
                                 $prev = $items.last();
                             }
@@ -29,7 +29,7 @@
                         }
                         else if (e.key === "ArrowDown") {
                             $activeItem.removeClass('active');
-                            var $next = $activeItem.next().not('.is-disabled');
+                            var $next = $activeItem.next().not('.is-disabled, .search');
                             if ($next.length === 0) {
                                 $next = $items.first();
                             }
@@ -38,8 +38,12 @@
                     }
 
                     if (e.key === "Enter") {
-                        $this.removeClass('show').find('.show').removeClass('show');
-                        obj.invokeMethodAsync(method, $activeItem.index());
+                        $this.find('.show').removeClass('show');
+                        var index = $activeItem.index();
+                        if ($this.find('.search').length > 0) {
+                            index--;
+                        }
+                        obj.invokeMethodAsync(method, index);
                     }
                 }
             });
