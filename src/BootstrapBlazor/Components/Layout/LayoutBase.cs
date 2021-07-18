@@ -51,6 +51,19 @@ namespace BootstrapBlazor.Components
         public RenderFragment? NotAuthorized { get; set; }
 
         /// <summary>
+        /// 获得/设置 NotFound 模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? NotFound { get; set; }
+
+        /// <summary>
+        /// 获得/设置 NotFound 标签文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? NotFoundTabText { get; set; }
+
+        /// <summary>
         /// 获得/设置 Footer 高度 支持百分比 默认宽度为 300px
         /// </summary>
         [Parameter]

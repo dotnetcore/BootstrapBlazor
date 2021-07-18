@@ -97,10 +97,13 @@ RenderFragment RenderMain =>
     {
         <RenderTemplate>
             <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true" TabItemTextDictionary="@TabItemTextDictionary"
-                 AdditionalAssemblies="@AdditionalAssemblies" ExcludeUrls="@ExcludeUrls" Body="@Main">
+                 AdditionalAssemblies="@AdditionalAssemblies" ExcludeUrls="@ExcludeUrls" NotFoundTabText="@NotFoundTabText" Body="@Main">
                 <NotAuthorized>
                     @NotAuthorized
                 </NotAuthorized>
+                <NotFound>
+                    @NotFound
+                </NotFound>
             </Tab>
         </RenderTemplate>
     }

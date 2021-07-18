@@ -179,7 +179,8 @@
   "BootstrapBlazor.Components.Tab": {
     "CloseCurrentTabText": "关闭当前标签",
     "CloseOtherTabsText": "关闭其他标签",
-    "CloseAllTabsText": "关闭所有标签"
+    "CloseAllTabsText": "关闭所有标签",
+    "NotFoundTabText": "未找到"
   },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "新建",
