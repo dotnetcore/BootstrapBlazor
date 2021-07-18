@@ -159,20 +159,24 @@
 
                 var calcPosition = function () {
                     // position
-                    var position = $(this).position();
-                    var field = $(this).attr('data-field');
+                    var $this = $(this);
+                    var position = $this.position();
+                    var field = $this.attr('data-field');
                     var $body = $ele.find('.table-filter-item[data-field="' + field + '"]');
-                    var $th = $(this).closest('th');
+                    var $th = $this.closest('th');
                     var $thead = $th.closest('thead');
                     var rowHeight = $thead.outerHeight() - $th.outerHeight();
-                    console.log(rowHeight);
                     var left = $th.outerWidth() + $th.position().left - $body.outerWidth() / 2;
                     var marginRight = 0;
+                    var isFixed = $th.hasClass('fixed');
                     if ($th.hasClass('sortable')) marginRight = 24;
                     if ($th.hasClass('filterable')) marginRight = marginRight + 12;
 
                     // 判断是否越界
-                    var scrollLeft = $th.closest('table').parent().scrollLeft();
+                    var scrollLeft = 0;
+                    if (!isFixed) {
+                        scrollLeft = $th.closest('table').parent().scrollLeft();
+                    }
                     var margin = $th.offset().left + $th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
                     marginRight = marginRight + scrollLeft;
                     if (margin > 0) {
