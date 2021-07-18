@@ -722,12 +722,18 @@ section {
         cursor: pointer;
     }
 
-        .footer-body .footer-link:hover {
+        .footer-body .footer-link:hover,
+        .footer-body .footer-link a:hover {
             color: #40a9ff;
         }
 
         .footer-body .footer-link:not(:last-child) {
             margin-top: 1rem;
+        }
+
+        .footer-body .footer-link a {
+            transition: all .3s linear;
+            color: #fff;
         }
 
 .footer-info {

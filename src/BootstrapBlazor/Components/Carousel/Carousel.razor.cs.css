@@ -43,3 +43,7 @@
     .carousel .carousel-item img {
         display: block;
     }
+
+.carousel-indicators [data-bs-target] {
+    background-color: #606266;
+}

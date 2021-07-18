@@ -130,7 +130,7 @@
                 }
 
                 var $this = $(this);
-                var $bar = $this.find('[data-slide]');
+                var $bar = $this.find('[data-bs-slide]');
                 $bar.removeClass('d-none');
                 var hoverHandler = window.setTimeout(function () {
                     window.clearTimeout(hoverHandler);
@@ -138,7 +138,7 @@
                 }, 10);
             }, function () {
                 var $this = $(this);
-                var $bar = $this.find('[data-slide]');
+                var $bar = $this.find('[data-bs-slide]');
                 $this.removeClass('hover');
                 leaveHandler = window.setTimeout(function () {
                     window.clearTimeout(leaveHandler);
