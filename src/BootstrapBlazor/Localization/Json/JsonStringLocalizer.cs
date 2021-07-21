@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
@@ -27,6 +28,7 @@ namespace BootstrapBlazor.Localization.Json
         private readonly string _typeName;
         private readonly ILogger _logger;
         private readonly JsonLocalizationOptions _options;
+        private IServiceProvider _provider;
 
         private string _searchedLocation = "";
 
@@ -39,12 +41,14 @@ namespace BootstrapBlazor.Localization.Json
         /// <param name="baseName"></param>
         /// <param name="logger"></param>
         /// <param name="options"></param>
-        public JsonStringLocalizer(JsonStringLocalizerFactory factory, Assembly assembly, string typeName, string baseName, ILogger logger, JsonLocalizationOptions options) : base(new ResourceManager(baseName, assembly), assembly, baseName, factory.GetCache(), logger)
+        /// <param name="provider"></param>
+        public JsonStringLocalizer(JsonStringLocalizerFactory factory, Assembly assembly, string typeName, string baseName, ILogger logger, JsonLocalizationOptions options, IServiceProvider provider) : base(new ResourceManager(baseName, assembly), assembly, baseName, factory.GetCache(), logger)
         {
             _assembly = assembly;
             _typeName = typeName;
             _logger = logger;
             _options = options;
+            _provider = provider;
         }
 
         /// <summary>
@@ -56,10 +60,32 @@ namespace BootstrapBlazor.Localization.Json
         {
             get
             {
-                var value = base.GetStringSafely(name, CultureInfo.CurrentUICulture) ?? GetJsonStringSafely(name);
+                var value = base.GetStringSafely(name, CultureInfo.CurrentUICulture)
+                    ?? GetStringFromInject(name)
+                    ?? GetJsonStringSafely(name);
 
                 return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: _searchedLocation);
             }
+        }
+
+        private string? GetStringFromInject(string name)
+        {
+            string? ret = null;
+            var factorys = _provider.GetService<IEnumerable<IStringLocalizerFactory>>();
+            if (factorys != null)
+            {
+                var factory = factorys.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+                if (factory != null)
+                {
+                    var type = _assembly.GetType(_typeName);
+                    if (type != null)
+                    {
+                        var localizer = factory.Create(type);
+                        ret = localizer[name];
+                    }
+                }
+            }
+            return ret;
         }
 
         /// <summary>
