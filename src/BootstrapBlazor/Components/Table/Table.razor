@@ -107,21 +107,19 @@
                             <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
                                 <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                             </BootstrapInput>
-                            <div class="input-group-append">
-                                <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
-                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                            </Button>
+                            @if (ShowResetSearch)
+                            {
+                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                                 </Button>
-                                @if (ShowResetSearch)
-                                {
-                                    <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
-                                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                                    </Button>
-                                }
-                                @if (ShowAdvancedSearch)
-                                {
-                                    @RenderAdvanceSearchButton
-                                }
-                            </div>
+                            }
+                            @if (ShowAdvancedSearch)
+                            {
+                                @RenderAdvanceSearchButton
+                            }
                         </div>
                     }
                     else if (ShowAdvancedSearch)
