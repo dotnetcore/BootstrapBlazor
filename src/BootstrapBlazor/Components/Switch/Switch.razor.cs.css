@@ -70,3 +70,7 @@
 .switch {
     height: 35px;
 }
+
+td .switch {
+    height: auto;
+}
