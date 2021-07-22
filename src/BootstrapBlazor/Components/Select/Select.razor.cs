@@ -178,7 +178,7 @@ namespace BootstrapBlazor.Components
                 DataSource = OnSearchTextChanged(SearchText).ToList();
             }
 
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value == CurrentValueAsString || i.Value == SelectedItem?.Value)
+            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
         }
