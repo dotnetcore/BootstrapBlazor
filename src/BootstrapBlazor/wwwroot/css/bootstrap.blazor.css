@@ -33,6 +33,10 @@ a {
     outline: none;
 }
 
+.form-control.is-display {
+    height: 35px;
+}
+
 input:disabled,
 .btn:disabled,
 .datetime-picker-input-icon.disabled,
