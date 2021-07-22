@@ -81,7 +81,8 @@ namespace BootstrapBlazor.Localization.Json
                     if (type != null)
                     {
                         var localizer = factory.Create(type);
-                        ret = localizer[name];
+                        var l = localizer[name];
+                        ret = l.ResourceNotFound ? null : l.Value;
                     }
                 }
             }
@@ -98,9 +99,10 @@ namespace BootstrapBlazor.Localization.Json
         {
             get
             {
-                var format = base.GetStringSafely(name, CultureInfo.CurrentUICulture) ?? GetJsonStringSafely(name);
+                var format = base.GetStringSafely(name, CultureInfo.CurrentUICulture)
+                    ?? GetStringFromInject(name)
+                    ?? GetJsonStringSafely(name);
                 var value = !string.IsNullOrEmpty(format) ? string.Format(format, arguments) : name;
-
                 return new LocalizedString(name, value, resourceNotFound: format == null, searchedLocation: _searchedLocation);
             }
         }

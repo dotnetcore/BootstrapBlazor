@@ -21,7 +21,7 @@ namespace BootstrapBlazor.Localization.Json
         private readonly JsonLocalizationOptions _jsonOptions;
         private readonly ILoggerFactory _loggerFactory;
         private string? _typeName;
-        private IServiceProvider _provider;
+        private readonly IServiceProvider _provider;
 
         /// <summary>
         /// 构造函数
@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Localization.Json
         /// 获得 IResourceNamesCache 实例
         /// </summary>
         /// <returns></returns>
-        public IResourceNamesCache GetCache()
+        internal IResourceNamesCache GetCache()
         {
             var field = this.GetType().BaseType?.GetField("_resourceNamesCache", BindingFlags.NonPublic | BindingFlags.Instance);
             var ret = field?.GetValue(this) as IResourceNamesCache;
