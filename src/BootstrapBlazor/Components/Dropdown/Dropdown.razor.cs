@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
+        protected string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
             .AddClass("active", () => item.Value == CurrentValueAsString)
             .Build();
 
@@ -81,7 +81,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 下拉框选项点击时调用此方法
         /// </summary>
-        private async Task OnItemClick(SelectedItem item)
+        protected async Task OnItemClick(SelectedItem item)
         {
             if (!item.IsDisabled)
             {

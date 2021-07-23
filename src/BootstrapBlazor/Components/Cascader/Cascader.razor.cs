@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components
         /// ValueChanged 方法
         /// </summary>
         [Parameter]
-        public Func<CascaderItem[], Task>? OnValueChanged { get; set; }
+        public Func<CascaderItem[], Task>? OnSelectedItemChanged { get; set; }
 
         [Inject]
         [NotNull]
@@ -190,7 +190,7 @@ namespace BootstrapBlazor.Components
 
             CurrentValueAsString = value;
 
-            if (OnValueChanged != null) await OnValueChanged.Invoke(_selectedItems.ToArray());
+            if (OnSelectedItemChanged != null) await OnSelectedItemChanged.Invoke(_selectedItems.ToArray());
         }
 
         private void RefreshDisplayValue() => _displayText = string.Join("/", _selectedItems.Select(item => item.Text));

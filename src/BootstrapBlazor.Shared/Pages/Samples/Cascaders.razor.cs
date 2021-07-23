@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new EventItem()
             {
-                Name = "OnValueChanged",
+                Name = nameof(Cascader<string>.OnSelectedItemChanged),
                 Description="级联选择选项改变时触发此事件",
                 Type ="Func<CascaderItem[], Task>"
             }

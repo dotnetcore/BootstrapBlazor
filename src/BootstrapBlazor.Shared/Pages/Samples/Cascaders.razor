@@ -4,28 +4,28 @@
 <Block Title="Cascader 级联选择" Introduction="提供各种颜色的下拉选择框">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Color="Color.Primary" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Color="Color.Primary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Color="Color.Success" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Color="Color.Success" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Color="Color.Danger" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Color="Color.Danger" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Color="Color.Warning" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Color="Color.Warning" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Color="Color.Info" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Color="Color.Info" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Color="Color.Secondary" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Color="Color.Secondary" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
         <div class="col-12 col-sm-6">
-            <Cascader TValue="string" Color="Color.Dark" Items="@Items" OnValueChanged="@OnItemChanged"></Cascader>
+            <Cascader TValue="string" Color="Color.Dark" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
         </div>
     </div>
     <Logger @ref="Trace" class="mt-3" />
