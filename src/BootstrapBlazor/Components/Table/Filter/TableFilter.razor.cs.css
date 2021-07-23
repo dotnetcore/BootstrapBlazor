@@ -95,3 +95,24 @@
                 border-color: #409eff;
                 color: #409eff;
             }
+
+.filter-row {
+    display: flex;
+}
+
+    .filter-row .btn-ban {
+        display: none;
+        padding-left: 0;
+    }
+
+    .filter-row input {
+        min-width: 50px;
+    }
+
+    .filter-row.active .btn-ban {
+        display: block;
+    }
+
+.btn-filter::after {
+    content: none;
+}

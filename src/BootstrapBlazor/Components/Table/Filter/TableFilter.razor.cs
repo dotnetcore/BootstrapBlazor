@@ -64,6 +64,11 @@ namespace BootstrapBlazor.Components
         public IFilterAction? FilterAction { get; set; }
 
         /// <summary>
+        /// 获得 当前过滤条件是否激活
+        /// </summary>
+        internal bool HasFilter => (Table != null && Column != null) ? Table.Filters.ContainsKey(Column.GetFieldName()) : false;
+
+        /// <summary>
         /// 获得 相关联 ITableColumn 实例
         /// </summary>
         [Parameter]
@@ -77,6 +82,12 @@ namespace BootstrapBlazor.Components
         public string? ClearButtonText { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否为 HeaderRow 模式 默认 false
+        /// </summary>
+        [Parameter]
+        public bool IsHeaderRow { get; set; }
+
+        /// <summary>
         /// 过滤按钮文本
         /// </summary>
         [Parameter]
@@ -87,7 +98,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 Table Header 实例
         /// </summary>
         [CascadingParameter]
-        protected ITable? Table { get; set; }
+        private ITable? Table { get; set; }
 
         [Inject]
         [NotNull]
@@ -207,21 +218,30 @@ namespace BootstrapBlazor.Components
             {
                 IsShow = false;
 
-                if (Table != null)
-                {
-                    if (FilterAction?.GetFilterConditions().Any() ?? false)
-                    {
-                        Table.Filters[FieldKey] = FilterAction;
-                    }
-                    else
-                    {
-                        Table.Filters.Remove(FieldKey);
-                    }
+                await OnFilterAsync();
+            }
+        }
 
-                    if (Table.OnFilterAsync != null)
-                    {
-                        await Table.OnFilterAsync();
-                    }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal async Task OnFilterAsync()
+        {
+            if (Table != null)
+            {
+                if (FilterAction?.GetFilterConditions().Any() ?? false)
+                {
+                    Table.Filters[FieldKey] = FilterAction;
+                }
+                else
+                {
+                    Table.Filters.Remove(FieldKey);
+                }
+
+                if (Table.OnFilterAsync != null)
+                {
+                    await Table.OnFilterAsync();
                 }
             }
         }

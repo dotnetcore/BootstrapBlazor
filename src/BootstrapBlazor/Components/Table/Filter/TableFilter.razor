@@ -1,57 +1,72 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" data-field="@FieldKey" @ref="@FilterElement">
-    <div class="card-arrow"></div>
-    <div class="card-header"><span>@Title</span></div>
-    <div class="card-body">
-        @if (Column != null)
-        {
-            <CascadingValue Value="this" IsFixed="true">
-                @if (Column.FilterTemplate != null)
-                {
-                    @Column.FilterTemplate;
-                }
-                else if (Column.PropertyType.IsEnum())
-                {
-                    <EnumFilter Type="@Column.PropertyType"></EnumFilter>
-                }
-                else
-                {
-                    var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
-                    switch (fieldType?.Name)
-                    {
-                        case nameof(Boolean):
-                            <BoolFilter />
-                            break;
-                        case nameof(DateTime):
-                            <DateTimeFilter Count="@Count" />
-                            break;
-                        case nameof(Int32):
-                        case nameof(Double):
-                        case nameof(Decimal):
-                            <NumberFilter Count="@Count" />
-                            break;
-                        case nameof(String):
-                            <StringFilter Count="@Count" />
-                            break;
-                        default:
-                            <div>不支持的类型</div>
-                            break;
-                    };
-                }
-            </CascadingValue>
-        }
-    </div>
-    <div class="card-footer">
-        <div class="d-flex flex-fill">
-            @if (ShowMoreButton)
+@if (IsHeaderRow)
+{
+    @if (Column != null)
+    {
+        @RenderFilter(Column)
+    }
+}
+else
+{
+    <div @attributes="@AdditionalAttributes" class="@ClassString" data-field="@FieldKey" @ref="@FilterElement">
+        <div class="card-arrow"></div>
+        <div class="card-header"><span>@Title</span></div>
+        <div class="card-body">
+            @if (Column != null)
             {
-                <Button Color="@Color.None" OnClick="@OnClickPlus" Icon="fa fa-fw fa-plus" IsDisabled="@(Count == 1)"></Button>
-                <Button Color="@Color.None" OnClick="@OnClickMinus" Icon="fa fa-fw fa-minus" IsDisabled="@(Count == 0)"></Button>
+                @RenderFilter(Column)
             }
         </div>
-        <Button Color="@Color.None" class="is-close" OnClick="@OnClickReset" Text="@ClearButtonText"></Button>
-        <Button Color="@Color.None" class="is-close" OnClick="@OnClickConfirm" Text="@FilterButtonText"></Button>
+        <div class="card-footer">
+            <div class="d-flex flex-fill">
+                @if (ShowMoreButton)
+                {
+                    <Button Color="Color.None" OnClick="OnClickPlus" Icon="fa fa-fw fa-plus" IsDisabled="@(Count == 1)"></Button>
+                    <Button Color="Color.None" OnClick="OnClickMinus" Icon="fa fa-fw fa-minus" IsDisabled="@(Count == 0)"></Button>
+                }
+            </div>
+            <Button Color="Color.None" class="is-close" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+            <Button Color="Color.None" class="is-close" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+        </div>
     </div>
-</div>
+}
+
+@code {
+    RenderFragment<ITableColumn> RenderFilter => Column =>
+    @<CascadingValue Value="this" IsFixed="true">
+        @if (Column.FilterTemplate != null)
+        {
+            @Column.FilterTemplate
+        }
+        else if (Column.PropertyType.IsEnum())
+        {
+            <EnumFilter Type="Column.PropertyType"></EnumFilter>
+        }
+        else
+        {
+            var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
+            switch (fieldType?.Name)
+            {
+                case nameof(Boolean):
+                    <BoolFilter />
+                    break;
+                case nameof(DateTime):
+                    <DateTimeFilter Count="Count" />
+                    break;
+                case nameof(Int32):
+                case nameof(Double):
+                case nameof(Decimal):
+                    <NumberFilter Count="Count" />
+                    break;
+                case nameof(String):
+                    <StringFilter Count="Count" />
+                    break;
+                default:
+                    <div>不支持的类型</div>
+                    break;
+            };
+        }
+    </CascadingValue>;
+}

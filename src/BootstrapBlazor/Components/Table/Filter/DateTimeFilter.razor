@@ -1,15 +1,25 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits FilterBase
 
-<Select Items="@Items" @bind-Value="@Action1"></Select>
-
-<DateTimePicker class="is-filter" @bind-Value="@Value1"></DateTimePicker>
-
-@if (Count > 0)
+@if (IsHeaderRow)
 {
-    <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+    <div class="@FilterRowClassString">
+        <DateTimePicker class="is-filter" @bind-Value="Value1" OnDateTimeChanged="_ => OnFilterValueChanged()"></DateTimePicker>
+        <FilterButton Items="Items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+    </div>
+}
+else
+{
+    <Select Items="Items" @bind-Value="Action1"></Select>
 
-    <Select Items="@Items" @bind-Value="@Action2"></Select>
+    <DateTimePicker class="is-filter" @bind-Value="Value1"></DateTimePicker>
 
-    <DateTimePicker class="is-filter" @bind-Value="@Value2"></DateTimePicker>
+    @if (Count > 0)
+    {
+        <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+
+        <Select Items="Items" @bind-Value="Action2"></Select>
+
+        <DateTimePicker class="is-filter" @bind-Value="Value2"></DateTimePicker>
+    }
 }

@@ -542,5 +542,5 @@
     }
 
 .table-bordered thead tr:last-child {
-    border-width: 2px 0;
+    border-bottom-width: 2px !important;
 }

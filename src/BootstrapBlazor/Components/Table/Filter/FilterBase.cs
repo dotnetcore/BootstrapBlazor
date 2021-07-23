@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -15,12 +16,29 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
+        protected string? FilterRowClassString => CssBuilder.Default("filter-row")
+            .AddClass("active", HasFilter)
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected virtual FilterLogic Logic { get; set; }
 
         /// <summary>
         /// 获得/设置 相关 Field 字段名称
         /// </summary>
         protected string? FieldKey { get; set; }
+
+        /// <summary>
+        /// 获得 是否为 HeaderRow 呈现模式 默认为 false
+        /// </summary>
+        protected bool IsHeaderRow => TableFilter?.IsHeaderRow ?? false;
+
+        /// <summary>
+        /// 获得 当前过滤条件是否激活
+        /// </summary>
+        protected bool HasFilter => TableFilter?.HasFilter ?? false;
 
         /// <summary>
         /// 获得/设置 条件数量
@@ -58,5 +76,31 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected async Task OnFilterValueChanged()
+        {
+            if (TableFilter != null)
+            {
+                await TableFilter.OnFilterAsync();
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected async Task OnClearFilter()
+        {
+            if (TableFilter != null)
+            {
+                Reset();
+                await TableFilter.OnFilterAsync();
+            }
+        }
     }
 }

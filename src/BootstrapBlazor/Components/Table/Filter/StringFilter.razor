@@ -1,15 +1,25 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits FilterBase
 
-<Select Items="@Items" @bind-Value="@Action1"></Select>
-
-<BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
-
-@if (Count > 0)
+@if (IsHeaderRow)
 {
-    <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+    <div class="@FilterRowClassString">
+        <BootstrapInput @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
+        <FilterButton Items="Items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+    </div>
+}
+else
+{
+    <Select Items="@Items" @bind-Value="@Action1"></Select>
 
-    <Select Items="@Items" @bind-Value="@Action2"></Select>
+    <BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
 
-    <BootstrapInput @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
+    @if (Count > 0)
+    {
+        <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+
+        <Select Items="@Items" @bind-Value="@Action2"></Select>
+
+        <BootstrapInput @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
+    }
 }

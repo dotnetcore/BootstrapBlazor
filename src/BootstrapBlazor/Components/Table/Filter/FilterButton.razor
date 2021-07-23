@@ -1,0 +1,14 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits Dropdown<TItem>
+
+<button type="button" class="btn btn-filter dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa fa-filter" />
+</button>
+<div class="dropdown-menu">
+    @foreach (var item in Items)
+    {
+        <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
+    }
+</div>
+<Button Icon="fa fa-ban text-danger" Color="Color.None" class="btn-ban" OnClickWithoutRender="ClearFilter" />

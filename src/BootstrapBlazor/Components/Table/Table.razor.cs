@@ -385,6 +385,12 @@ namespace BootstrapBlazor.Components
         public TableSize TableSize { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示过滤表头 默认 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowFilterHeader { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示表脚 默认为 false
         /// </summary>
         [Parameter]
@@ -788,6 +794,35 @@ namespace BootstrapBlazor.Components
             ? builder => builder.CreateComponentByFieldType(this, col, EditModel)
             : col.EditTemplate.Invoke(EditModel);
 
+        #region Filter
+        /// <summary>
+        /// 获得 过滤小图标样式
+        /// </summary>
+        protected string? GetFilterClassString(string fieldName) => CssBuilder.Default("fa fa-fw fa-filter")
+            .AddClass("active", Filters.ContainsKey(fieldName))
+            .Build();
+
+        /// <summary>
+        /// 获得/设置 表头过滤时回调方法
+        /// </summary>
+        public Func<Task>? OnFilterAsync { get; private set; }
+
+        /// <summary>
+        /// 获得 过滤集合
+        /// </summary>
+        public Dictionary<string, IFilterAction> Filters { get; } = new Dictionary<string, IFilterAction>();
+
+        /// <summary>
+        /// 点击 过滤小图标方法
+        /// </summary>
+        /// <param name="col"></param>
+        protected EventCallback<MouseEventArgs> OnFilterClick(ITableColumn col) => EventCallback.Factory.Create<MouseEventArgs>(this, () =>
+        {
+            col.Filter?.Show();
+        });
+        #endregion
+
+        #region Dispose
         /// <summary>
         /// Dispose 方法
         /// </summary>
@@ -813,5 +848,6 @@ namespace BootstrapBlazor.Components
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

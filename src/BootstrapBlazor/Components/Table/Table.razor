@@ -408,7 +408,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                                 TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                     <div class="@GetHeaderWrapperClassString(col)">
                         <span class="@GetHeaderTextClassString(col)">@displayName</span>
-                        @if (col.Filterable)
+                        @if (col.Filterable && !ShowFilterHeader)
                         {
                             <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@OnFilterClick(col)"></i>
                         }
@@ -437,6 +437,54 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             <th class="fixed-scroll"><div class="table-cell"><span>&nbsp;</span></div></th>
         }
     </tr>
+    @if(ShowFilterHeader)
+    {
+        <tr>
+            @if (ShowDetails())
+            {
+                <th>
+                    <div class="table-cell">&nbsp;</div>
+                </th>
+            }
+            @if (IsMultipleSelect)
+            {
+                <th>
+                    <div class="table-cell">&nbsp;</div>
+                </th>
+            }
+            @if (ShowLineNo)
+            {
+                <th>
+                    <div class="table-cell">&nbsp;</div>
+                </th>
+            }
+            <CascadingValue Value="this" IsFixed="true">
+                @foreach (var col in GetColumns())
+                {
+                    @if (CheckShownWithBreakpoint(col))
+                    {
+                        var fieldName = col.GetFieldName();
+                        var displayName = col.GetDisplayName();
+                        <th style="@GetFixedCellStyleString(col, 17)">
+                            <div class="tabel-cell">
+                                <TableFilter Column="col" IsHeaderRow="true" />
+                            </div>
+                        </th>
+                    }
+                }
+            </CascadingValue>
+            @if (ShowExtendButtons)
+            {
+                <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
+                    <div class="table-cell">&nbsp;</div>
+                </th>
+            }
+            @if (hasScroll)
+            {
+                <th class="fixed-scroll"><div class="table-cell"><span>&nbsp;</span></div></th>
+            }
+        </tr>
+    }
 </thead>;
 
 RenderFragment<TItem> RenderRow => item =>
