@@ -200,11 +200,6 @@
         white-space: nowrap;
     }
 
-.table-striped tbody tr:not(:hover):not(.active):not(.highlight):nth-of-type(odd),
-.table-striped .table-row:not(.active):not(.highlight):nth-of-type(odd) {
-    background-color: #fafafa;
-}
-
 .table-hover tbody tr.is-detail:hover,
 .table-hover tbody tr.is-editform:hover {
     background-color: unset;
@@ -413,7 +408,8 @@
     border-spacing: 0;
 }
 
-    .table-fixed-column .table .fixed {
+    .table-fixed-column .table .fixed,
+    .table-fixed-column .table .fixed-scroll {
         background-color: #fff;
     }
 
@@ -543,4 +539,13 @@
 
 .table-bordered thead tr:last-child {
     border-bottom-width: 2px !important;
+}
+
+.table-striped > tbody > tr.is-master:nth-of-type(odd) {
+    --bs-table-accent-bg: #fff;
+}
+
+.table-striped > tbody > tr.is-master:nth-of-type(4n+1) {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: var(--bs-table-striped-color);
 }
