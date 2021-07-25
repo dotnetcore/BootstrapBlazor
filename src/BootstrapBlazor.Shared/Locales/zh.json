@@ -338,7 +338,7 @@
     "ProjectsShow": "作品展示",
     "P5": "国内最大代码托管协作开发平台 <b><a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>码云</a></b> C# 板块最高星 <a href='https://gitee.com/dotnetchina/BootstrapAdmin/stargazers'><img src='https://gitee.com/dotnetchina/BootstrapAdmin/badge/star.svg?theme=gvp' alt='star' style='margin-bottom',: '1px;' ></a> 作品 <b><a href='https://gitee.com/dotnetchina/BootstrapAdmin' target=''_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
     "ShowWebSiteTitle": "演示网站",
-    "Getstarted": "快速上手",
+    "GetStarted": "快速上手",
     "QuikStart": "快速入门",
     "Features": "组件特色",
     "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>SmartPage</code> 组件",
@@ -348,7 +348,7 @@
     "AdvantageLi3": "组件支持数据双向绑定",
     "AdvantageLi4": "组件支持自动客户端验证",
     "AdvantageLi5": "组件支持组合",
-    "ExchangeGroup": "交流群"
+    "Community": "交流群"
   },
   "BootstrapBlazor.Shared.Pages.Components.QQGroup": {
     "Group": "QQ群",

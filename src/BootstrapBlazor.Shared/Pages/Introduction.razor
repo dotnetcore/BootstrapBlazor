@@ -1,97 +1,72 @@
 ﻿@page "/docs"
 @page "/introduction"
-@inject IOptions<WebsiteOptions> WebsiteOption
-@inject IStringLocalizer<Introduction> L
-@implements IAsyncDisposable
 
-<h3>@L["Title"]</h3>
+<h3>@Localizer["Title"]</h3>
 
 <p></p>
 
-<p>@L["P1"]</p>
+<p>@Localizer["P1"]</p>
 
-<p>@L["P2"]</p>
+<p>@Localizer["P2"]</p>
 
-<p>@((MarkupString)L["P3"].Value)</p>
+<p>@((MarkupString)Localizer["P3"].Value)</p>
 
-<h3>@L["UpdateTitle"]</h3>
+<h3>@Localizer["UpdateTitle"]</h3>
 
-<p>@((MarkupString)L["P4"].Value)</p>
+<p>@((MarkupString)Localizer["P4"].Value)</p>
 
-<h3>@L["LearnTitle"]</h3>
+<h3>@Localizer["LearnTitle"]</h3>
 
 <ul class="ul-demo mt-3">
-    <li><a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=DT-MVP-5004174" target="_blank">@L["LearnLi1"]</a></li>
-    <li><a href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/?WT.mc_id=DT-MVP-5004174" target="_blank">@L["LearnLi2"]</a></li>
+    <li><a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=DT-MVP-5004174" target="_blank">@Localizer["LearnLi1"]</a></li>
+    <li><a href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/?WT.mc_id=DT-MVP-5004174" target="_blank">@Localizer["LearnLi2"]</a></li>
     <li class="learn-item">
-        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/2-understand-blazor-webassembly?WT.mc_id=DT-MVP-5004174">@L["LearnLi3"]</a>
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/2-understand-blazor-webassembly?WT.mc_id=DT-MVP-5004174">@Localizer["LearnLi3"]</a>
     </li>
     <li class="learn-item">
-        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/3-exercise-configure-enviromnent?WT.mc_id=DT-MVP-5004174">@L["LearnLi4"]</a>
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/3-exercise-configure-enviromnent?WT.mc_id=DT-MVP-5004174">@Localizer["LearnLi4"]</a>
     </li>
     <li class="learn-item">
-        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/4-blazor-components?WT.mc_id=DT-MVP-5004174">@L["LearnLi5"]</a>
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/4-blazor-components?WT.mc_id=DT-MVP-5004174">@Localizer["LearnLi5"]</a>
     </li>
     <li class="learn-item">
-        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/5-exercise-add-component?WT.mc_id=DT-MVP-5004174">@L["Learn6"]</a>
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/5-exercise-add-component?WT.mc_id=DT-MVP-5004174">@Localizer["Learn6"]</a>
     </li>
     <li class="learn-item">
-        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/6-csharp-razor-binding?WT.mc_id=DT-MVP-5004174">@L["LeanrnLi7"]</a>
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/6-csharp-razor-binding?WT.mc_id=DT-MVP-5004174">@Localizer["LeanrnLi7"]</a>
     </li>
     <li class="learn-item">
-        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/7-exercise-razor-binding?WT.mc_id=DT-MVP-5004174">@L["LearnLi8"]</a>
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/7-exercise-razor-binding?WT.mc_id=DT-MVP-5004174">@Localizer["LearnLi8"]</a>
     </li>
     <li class="learn-item">
-        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/8-summary?WT.mc_id=DT-MVP-5004174">@L["Summarize"]</a>
+        <a target="_blank" href="https://docs.microsoft.com/zh-cn/learn/modules/build-blazor-webassembly-visual-studio-code/8-summary?WT.mc_id=DT-MVP-5004174">@Localizer["Summarize"]</a>
     </li>
 </ul>
 
-<h3>@L["ProjectsShow"]</h3>
+<h3>@Localizer["ProjectsShow"]</h3>
 
-<p>@((MarkupString)L["P5"].Value)</p>
+<p>@((MarkupString)Localizer["P5"].Value)</p>
 
-<p>@L["ShowWebSiteTitle"]：<a href="@($"{WebsiteOption.Value.AdminUrl}/Pages")" target="_blank">@WebsiteOption.Value.AdminUrl</a></p>
+<p>@Localizer["ShowWebSiteTitle"]：<a href="@($"{WebsiteOption.Value.AdminUrl}/Pages")" target="_blank">@WebsiteOption.Value.AdminUrl</a></p>
 
-<h4>@L["Getstarted"]</h4>
+<h4>@Localizer["GetStarted"]</h4>
 
-<p><a href="https://v5.bootcss.com/docs/getting-started/introduction/" target="_blank">Bootstrap @L["QuikStart"]</a></p>
+<p><a href="https://v5.bootcss.com/docs/getting-started/introduction/" target="_blank">Bootstrap @Localizer["QuikStart"]</a></p>
 
-<h4>@L["Features"]</h4>
+<h4>@Localizer["Features"]</h4>
 
-<p>@((MarkupString)L["P6"].Value)</p>
+<p>@((MarkupString)Localizer["P6"].Value)</p>
 
-<p class="code-label">@L["Advantage"]</p>
+<p class="code-label">@Localizer["Advantage"]</p>
 
 <ul>
-    <li>@((MarkupString)L["AdvantageLi1"].Value)</li>
-    <li>@((MarkupString)L["AdvantageLi2"].Value)</li>
-    <li>@L["AdvantageLi3"]</li>
-    <li>@L["AdvantageLi4"]</li>
-    <li>@L["AdvantageLi5"]</li>
+    <li>@((MarkupString)Localizer["AdvantageLi1"].Value)</li>
+    <li>@((MarkupString)Localizer["AdvantageLi2"].Value)</li>
+    <li>@Localizer["AdvantageLi3"]</li>
+    <li>@Localizer["AdvantageLi4"]</li>
+    <li>@Localizer["AdvantageLi5"]</li>
 </ul>
 
-<p class="code-label">@L["ExchangeGroup"]</p>
+<p class="code-label">@Localizer["Community"]</p>
 
 <QQGroup />
-
-@code {
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("$.bb_open");
-        }
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        await JSRuntime.InvokeVoidAsync("$.bb_open", "dispose");
-        GC.SuppressFinalize(this);
-    }
-}

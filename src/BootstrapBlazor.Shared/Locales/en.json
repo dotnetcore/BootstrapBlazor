@@ -338,7 +338,7 @@
     "ProjectsShow": "Gllery",
     "P5": "The largest code hosting collaborative development platform in China <b><a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='https://gitee.com/dotnetchina/BootstrapAdmin/stargazers'><img src='https://gitee.com/dotnetchina/BootstrapAdmin/badge/star.svg?theme=gvp' alt='star' style='margin-bottom',: '1px;' ></a> Works <b><a href='https://gitee.com/dotnetchina/BootstrapAdmin' target=''_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
     "ShowWebSiteTitle": "Demo Site",
-    "Getstarted": "Get Started",
+    "GetStarted": "Get Started",
     "QuikStart": "Quick Start",
     "Features": "Features of Components",
     "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>SmartPage</code> components",
@@ -348,7 +348,7 @@
     "AdvantageLi3": "The component supports two-way data binding",
     "AdvantageLi4": "Components support automatic client verification",
     "AdvantageLi5": "Component support combination",
-    "ExchangeGroup": "Exchange group"
+    "Community": "Community"
   },
   "BootstrapBlazor.Shared.Pages.Components.QQGroup": {
     "Group": "QQ Group",
