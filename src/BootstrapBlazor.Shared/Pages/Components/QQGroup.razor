@@ -1,10 +1,11 @@
 ﻿@inject IOptions<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<QQGroup>  L
 
 <div>
-    QQ群：BootstrapAdmin & Blazor
+    @L["Group"]：BootstrapAdmin & Blazor
     <a class="mx-1" target="_blank" href="@WebsiteOption.Value.QQGroup1Link">
         <span class="text-danger fa fa-qq">
-            <span class="ms-1"><b>795206915(满)</b></span>
+            <span class="ms-1"><b>795206915(@L["Status"])</b></span>
         </span>
     </a>
     <a class="mx-1" target="_blank" href="@WebsiteOption.Value.QQGroup2Link">
@@ -12,5 +13,5 @@
             <span class="ms-1"><b>675147445</b></span>
         </span>
     </a>
-    欢迎加群讨论
+    @L["Welcome"]
 </div>

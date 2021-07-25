@@ -317,5 +317,42 @@
     "RefreshText": "Refresh",
     "ButtonAddColumnText": "Add Column",
     "ButtonRemoveColumnText": "Remove Column"
+  },
+  "BootstrapBlazor.Shared.Pages.Introduction": {
+    "Title": "Introduction",
+    "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
+    "P2": "The dependency is：BootstrapBlazor > Bootstrap > jQuery",
+    "P3": "In the latest <a href='template' target='_blank'>Project Template</a> ,the above dependencies are packaged and bundled, which greatly simplifies use",
+    "UpdateTitle": "Update Log",
+    "P4": "This component may be released every day <b><code>beta</code></b> version, every <b><code>Thursday</code></b> release <b><code>official version </code></b> Update log<a id='log' data-bs-toggle='popover' title='Update log' data-bs-content='This component may have <b><code >beta</code></b> version released, every <b><code>Thursday</code></b> release <b><code>official version</code></b> update log' data-bs-html='true' href='https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Home' target='_blank'>[portal gate]</a>",
+    "LearnTitle": "Learning materials",
+    "LearnLi1": "Blazor Official Document",
+    "LearnLi2": "Use Blazor WebAssembly and Visual Studio Code to generate web applications",
+    "LearnLi3": "What is Blazor",
+    "LearnLi4": "Exercise-Configure the development environment",
+    "LearnLi5": "Blazor Components",
+    "LearnLi6": "Exercise-Add Components",
+    "LeanrnLi7": "Data binding and events",
+    "LearnLi8": "Exercise-Data binding and Events",
+    "Summarize": "Summarize",
+    "ProjectsShow": "Gllery",
+    "P5": "The largest code hosting collaborative development platform in China <b><a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='https://gitee.com/dotnetchina/BootstrapAdmin/stargazers'><img src='https://gitee.com/dotnetchina/BootstrapAdmin/badge/star.svg?theme=gvp' alt='star' style='margin-bottom',: '1px;' ></a> Works <b><a href='https://gitee.com/dotnetchina/BootstrapAdmin' target=''_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
+    "ShowWebSiteTitle": "Demo Site",
+    "Getstarted": "Get Started",
+    "QuikStart": "Quick Start",
+    "Features": "Features of Components",
+    "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>SmartPage</code> components",
+    "Advantage": "Advantage",
+    "AdvantageLi1": "No need to write <code>Javascript</code> to use components",
+    "AdvantageLi2": "The component supports all <code>html</code> features",
+    "AdvantageLi3": "The component supports two-way data binding",
+    "AdvantageLi4": "Components support automatic client verification",
+    "AdvantageLi5": "Component support combination",
+    "ExchangeGroup": "Exchange group"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.QQGroup": {
+    "Group": "QQ Group",
+    "Status": " Full",
+    "Welcome": "Welcome to join the group discussion"
   }
 }

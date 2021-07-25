@@ -317,5 +317,42 @@
     "RefreshText": "刷新",
     "ButtonAddColumnText": "增加列",
     "ButtonRemoveColumnText": "移除列"
+  },
+  "BootstrapBlazor.Shared.Pages.Introduction": {
+    "Title": "简介",
+    "P1": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。",
+    "P2": "依赖关系为：BootstrapBlazor > Bootstrap > jQuery",
+    "P3": "最新 <a href='template' target='_blank'>项目模板</a> 中将以上依赖进行了打包捆绑大大简化使用",
+    "UpdateTitle": "更新日志",
+    "P4": "本组件目前每天可能有 <b><code>beta</code></b> 版本发布，每 <b><code>周四</code></b> 发布 <b><code>正式版</code></b> 更新日志 <a id='log' data-bs-toggle='popover' title='更新日志' data-bs-content='本组件目前每天可能有 <b><code>beta</code></b> 版本发布，每 <b><code>周四</code></b> 发布 <b><code>正式版</code></b> 更新日志' data-bs-html='true' href='https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Home' target='_blank'>[传送门]</a>",
+    "LearnTitle": "学习资料",
+    "LearnLi1": "Blazor 官方文档",
+    "LearnLi2": "使用 Blazor WebAssembly 和 Visual Studio Code 生成 Web 应用",
+    "LearnLi3": "什么是 Blazor",
+    "LearnLi4": "练习 - 配置开发环境",
+    "LearnLi5": "Blazor 组件",
+    "LearnLi6": "练习 - 添加组件",
+    "LeanrnLi7": "数据绑定和事件",
+    "LearnLi8": "练习 - 数据绑定和事件",
+    "Summarize": "总结",
+    "ProjectsShow": "作品展示",
+    "P5": "国内最大代码托管协作开发平台 <b><a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>码云</a></b> C# 板块最高星 <a href='https://gitee.com/dotnetchina/BootstrapAdmin/stargazers'><img src='https://gitee.com/dotnetchina/BootstrapAdmin/badge/star.svg?theme=gvp' alt='star' style='margin-bottom',: '1px;' ></a> 作品 <b><a href='https://gitee.com/dotnetchina/BootstrapAdmin' target=''_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
+    "ShowWebSiteTitle": "演示网站",
+    "Getstarted": "快速上手",
+    "QuikStart": "快速入门",
+    "Features": "组件特色",
+    "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>SmartPage</code> 组件",
+    "Advantage": "优势",
+    "AdvantageLi1": "使用组件无需编写 <code>Javascript</code>",
+    "AdvantageLi2": "组件支持所有 <code>html</code> 特性",
+    "AdvantageLi3": "组件支持数据双向绑定",
+    "AdvantageLi4": "组件支持自动客户端验证",
+    "AdvantageLi5": "组件支持组合",
+    "ExchangeGroup": "交流群"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.QQGroup": {
+    "Group": "QQ群",
+    "Status": "满",
+    "Welcome": "欢迎加群讨论"
   }
 }
