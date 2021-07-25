@@ -6,291 +6,291 @@
     ]
   },
   {
-    "outputFileName": "Components/Alert/Alert.razor.cs.min.css",
+    "outputFileName": "Components/Alert/Alert.min.css",
     "inputFiles": [
-      "Components/Alert/Alert.razor.cs.css"
+      "Components/Alert/Alert.css"
     ]
   },
   {
-    "outputFileName": "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
+    "outputFileName": "Components/BarcodeReader/BarcodeReader.min.css",
     "inputFiles": [
-      "Components/BarcodeReader/BarcodeReader.razor.cs.css"
+      "Components/BarcodeReader/BarcodeReader.css"
     ]
   },
   {
-    "outputFileName": "Components/Button/Button.razor.cs.min.css",
+    "outputFileName": "Components/Button/Button.min.css",
     "inputFiles": [
-      "Components/Button/Button.razor.cs.css"
+      "Components/Button/Button.css"
     ]
   },
   {
-    "outputFileName": "Components/Camera/Camera.razor.cs.min.css",
+    "outputFileName": "Components/Camera/Camera.min.css",
     "inputFiles": [
-      "Components/Camera/Camera.razor.cs.css"
+      "Components/Camera/Camera.css"
     ]
   },
   {
-    "outputFileName": "Components/Calendar/Calendar.razor.cs.min.css",
+    "outputFileName": "Components/Calendar/Calendar.min.css",
     "inputFiles": [
-      "Components/Calendar/Calendar.razor.cs.css"
+      "Components/Calendar/Calendar.css"
     ]
   },
   {
-    "outputFileName": "Components/Carousel/Carousel.razor.cs.min.css",
+    "outputFileName": "Components/Carousel/Carousel.min.css",
     "inputFiles": [
-      "Components/Carousel/Carousel.razor.cs.css"
+      "Components/Carousel/Carousel.css"
     ]
   },
   {
-    "outputFileName": "Components/Checkbox/Checkbox.razor.cs.min.css",
+    "outputFileName": "Components/Checkbox/Checkbox.min.css",
     "inputFiles": [
-      "Components/Checkbox/Checkbox.razor.cs.css"
+      "Components/Checkbox/Checkbox.css"
     ]
   },
   {
-    "outputFileName": "Components/Checkbox/CheckboxList.razor.cs.min.css",
+    "outputFileName": "Components/Checkbox/CheckboxList.min.css",
     "inputFiles": [
-      "Components/Checkbox/CheckboxList.razor.cs.css"
+      "Components/Checkbox/CheckboxList.css"
     ]
   },
   {
-    "outputFileName": "Components/Collapse/Collapse.razor.cs.min.css",
+    "outputFileName": "Components/Collapse/Collapse.min.css",
     "inputFiles": [
-      "Components/Collapse/Collapse.razor.cs.css"
+      "Components/Collapse/Collapse.css"
     ]
   },
   {
-    "outputFileName": "Components/ColorPicker/ColorPicker.razor.cs.min.css",
+    "outputFileName": "Components/ColorPicker/ColorPicker.min.css",
     "inputFiles": [
-      "Components/ColorPicker/ColorPicker.razor.cs.css"
+      "Components/ColorPicker/ColorPicker.css"
     ]
   },
   {
-    "outputFileName": "Components/Console/Console.razor.cs.min.css",
+    "outputFileName": "Components/Console/Console.min.css",
     "inputFiles": [
-      "Components/Console/Console.razor.cs.css"
+      "Components/Console/Console.css"
     ]
   },
   {
-    "outputFileName": "Components/DateTimePicker/DateTimePicker.razor.cs.min.css",
+    "outputFileName": "Components/DateTimePicker/DateTimePicker.min.css",
     "inputFiles": [
-      "Components/DateTimePicker/DateTimePicker.razor.cs.css"
+      "Components/DateTimePicker/DateTimePicker.css"
     ]
   },
   {
-    "outputFileName": "Components/DateTimePicker/TimePickerBody.razor.cs.min.css",
+    "outputFileName": "Components/DateTimePicker/TimePickerBody.min.css",
     "inputFiles": [
-      "Components/DateTimePicker/TimePickerBody.razor.cs.css"
+      "Components/DateTimePicker/TimePickerBody.css"
     ]
   },
   {
-    "outputFileName": "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
+    "outputFileName": "Components/DateTimeRange/DateTimeRange.min.css",
     "inputFiles": [
-      "Components/DateTimeRange/DateTimeRange.razor.cs.css"
+      "Components/DateTimeRange/DateTimeRange.css"
     ]
   },
   {
-    "outputFileName": "Components/Drawer/Drawer.razor.cs.min.css",
+    "outputFileName": "Components/Drawer/Drawer.min.css",
     "inputFiles": [
-      "Components/Drawer/Drawer.razor.cs.css"
+      "Components/Drawer/Drawer.css"
     ]
   },
   {
-    "outputFileName": "Components/Dropdown/Dropdown.razor.cs.min.css",
+    "outputFileName": "Components/Dropdown/Dropdown.min.css",
     "inputFiles": [
-      "Components/Dropdown/Dropdown.razor.cs.css"
+      "Components/Dropdown/Dropdown.css"
     ]
   },
   {
-    "outputFileName": "Components/DropdownWidget/DropdownWidget.razor.cs.min.css",
+    "outputFileName": "Components/DropdownWidget/DropdownWidget.min.css",
     "inputFiles": [
-      "Components/DropdownWidget/DropdownWidget.razor.cs.css"
+      "Components/DropdownWidget/DropdownWidget.css"
     ]
   },
   {
-    "outputFileName": "Components/Editor/Editor.razor.cs.min.css",
+    "outputFileName": "Components/Editor/Editor.min.css",
     "inputFiles": [
-      "Components/Editor/Editor.razor.cs.css"
+      "Components/Editor/Editor.css"
     ]
   },
   {
-    "outputFileName": "Components/Empty/Empty.razor.cs.min.css",
+    "outputFileName": "Components/Empty/Empty.min.css",
     "inputFiles": [
-      "Components/Empty/Empty.razor.cs.css"
+      "Components/Empty/Empty.css"
     ]
   },
   {
-    "outputFileName": "Components/GoTop/GoTop.razor.cs.min.css",
+    "outputFileName": "Components/GoTop/GoTop.min.css",
     "inputFiles": [
-      "Components/GoTop/GoTop.razor.cs.css"
+      "Components/GoTop/GoTop.css"
     ]
   },
   {
-    "outputFileName": "Components/GroupBox/GroupBox.razor.cs.min.css",
+    "outputFileName": "Components/GroupBox/GroupBox.min.css",
     "inputFiles": [
-      "Components/GroupBox/GroupBox.razor.cs.css"
+      "Components/GroupBox/GroupBox.css"
     ]
   },
   {
-    "outputFileName": "Components/Layout/Layout.razor.cs.min.css",
+    "outputFileName": "Components/Layout/Layout.min.css",
     "inputFiles": [
-      "Components/Layout/Layout.razor.cs.css"
+      "Components/Layout/Layout.css"
     ]
   },
   {
-    "outputFileName": "Components/Light/Light.razor.cs.min.css",
+    "outputFileName": "Components/Light/Light.min.css",
     "inputFiles": [
-      "Components/Light/Light.razor.cs.css"
+      "Components/Light/Light.css"
     ]
   },
   {
-    "outputFileName": "Components/Message/Message.razor.cs.min.css",
+    "outputFileName": "Components/Message/Message.min.css",
     "inputFiles": [
-      "Components/Message/Message.razor.cs.css"
+      "Components/Message/Message.css"
     ]
   },
   {
-    "outputFileName": "Components/Menu/Menu.razor.cs.min.css",
+    "outputFileName": "Components/Menu/Menu.min.css",
     "inputFiles": [
-      "Components/Menu/Menu.razor.cs.css"
+      "Components/Menu/Menu.css"
     ]
   },
   {
-    "outputFileName": "Components/Modal/Modal.razor.cs.min.css",
+    "outputFileName": "Components/Modal/Modal.min.css",
     "inputFiles": [
-      "Components/Modal/Modal.razor.cs.css"
+      "Components/Modal/Modal.css"
     ]
   },
   {
-    "outputFileName": "Components/Select/MultiSelect.razor.cs.min.css",
+    "outputFileName": "Components/Select/MultiSelect.min.css",
     "inputFiles": [
-      "Components/Select/MultiSelect.razor.cs.css"
+      "Components/Select/MultiSelect.css"
     ]
   },
   {
-    "outputFileName": "Components/Pagination/Pagination.razor.cs.min.css",
+    "outputFileName": "Components/Pagination/Pagination.min.css",
     "inputFiles": [
-      "Components/Pagination/Pagination.razor.cs.css"
+      "Components/Pagination/Pagination.css"
     ]
   },
   {
-    "outputFileName": "Components/Popover/PopoverConfirmBox.razor.cs.min.css",
+    "outputFileName": "Components/Popover/PopoverConfirmBox.min.css",
     "inputFiles": [
-      "Components/Popover/PopoverConfirmBox.razor.cs.css"
+      "Components/Popover/PopoverConfirmBox.css"
     ]
   },
   {
-    "outputFileName": "Components/QRCode/QRCode.razor.cs.min.css",
+    "outputFileName": "Components/QRCode/QRCode.min.css",
     "inputFiles": [
-      "Components/QRCode/QRCode.razor.cs.css"
+      "Components/QRCode/QRCode.css"
     ]
   },
   {
-    "outputFileName": "Components/Radio/RadioList.razor.cs.min.css",
+    "outputFileName": "Components/Radio/RadioList.min.css",
     "inputFiles": [
-      "Components/Radio/RadioList.razor.cs.css"
+      "Components/Radio/RadioList.css"
     ]
   },
   {
-    "outputFileName": "Components/Rate/Rate.razor.cs.min.css",
+    "outputFileName": "Components/Rate/Rate.min.css",
     "inputFiles": [
-      "Components/Rate/Rate.razor.cs.css"
+      "Components/Rate/Rate.css"
     ]
   },
   {
-    "outputFileName": "Components/Slider/Slider.razor.cs.min.css",
+    "outputFileName": "Components/Slider/Slider.min.css",
     "inputFiles": [
-      "Components/Slider/Slider.razor.cs.css"
+      "Components/Slider/Slider.css"
     ]
   },
   {
-    "outputFileName": "Components/Split/Split.razor.cs.min.css",
+    "outputFileName": "Components/Split/Split.min.css",
     "inputFiles": [
-      "Components/Split/Split.razor.cs.css"
+      "Components/Split/Split.css"
     ]
   },
   {
-    "outputFileName": "Components/Scroll/Scroll.razor.cs.min.css",
+    "outputFileName": "Components/Scroll/Scroll.min.css",
     "inputFiles": [
-      "Components/Scroll/Scroll.razor.cs.css"
+      "Components/Scroll/Scroll.css"
     ]
   },
   {
-    "outputFileName": "Components/Select/Select.razor.cs.min.css",
+    "outputFileName": "Components/Select/Select.min.css",
     "inputFiles": [
-      "Components/Select/Select.razor.cs.css"
+      "Components/Select/Select.css"
     ]
   },
   {
-    "outputFileName": "Components/Switch/Switch.razor.cs.min.css",
+    "outputFileName": "Components/Switch/Switch.min.css",
     "inputFiles": [
-      "Components/Switch/Switch.razor.cs.css"
+      "Components/Switch/Switch.css"
     ]
   },
   {
-    "outputFileName": "Components/Table/Table.razor.cs.min.css",
+    "outputFileName": "Components/Table/Table.min.css",
     "inputFiles": [
-      "Components/Table/Table.razor.cs.css"
+      "Components/Table/Table.css"
     ]
   },
   {
-    "outputFileName": "Components/Toggle/Toggle.razor.cs.min.css",
+    "outputFileName": "Components/Toggle/Toggle.min.css",
     "inputFiles": [
-      "Components/Toggle/Toggle.razor.cs.css"
+      "Components/Toggle/Toggle.css"
     ]
   },
   {
-    "outputFileName": "Components/Table/Filter/TableFilter.razor.cs.min.css",
+    "outputFileName": "Components/Table/Filter/TableFilter.min.css",
     "inputFiles": [
-      "Components/Table/Filter/TableFilter.razor.cs.css"
+      "Components/Table/Filter/TableFilter.css"
     ]
   },
   {
-    "outputFileName": "Components/Tab/Tab.razor.cs.min.css",
+    "outputFileName": "Components/Tab/Tab.min.css",
     "inputFiles": [
-      "Components/Tab/Tab.razor.cs.css"
+      "Components/Tab/Tab.css"
     ]
   },
   {
-    "outputFileName": "Components/Timer/Timer.razor.cs.min.css",
+    "outputFileName": "Components/Timer/Timer.min.css",
     "inputFiles": [
-      "Components/Timer/Timer.razor.cs.css"
+      "Components/Timer/Timer.css"
     ]
   },
   {
-    "outputFileName": "Components/Toast/Toast.razor.cs.min.css",
+    "outputFileName": "Components/Toast/Toast.min.css",
     "inputFiles": [
-      "Components/Toast/Toast.razor.cs.css"
+      "Components/Toast/Toast.css"
     ]
   },
   {
-    "outputFileName": "Components/Transfer/Transfer.razor.cs.min.css",
+    "outputFileName": "Components/Transfer/Transfer.min.css",
     "inputFiles": [
-      "Components/Transfer/Transfer.razor.cs.css"
+      "Components/Transfer/Transfer.css"
     ]
   },
   {
-    "outputFileName": "Components/Tree/Tree.razor.cs.min.css",
+    "outputFileName": "Components/Tree/Tree.min.css",
     "inputFiles": [
-      "Components/Tree/Tree.razor.cs.css"
+      "Components/Tree/Tree.css"
     ]
   },
   {
-    "outputFileName": "Components/Tooltip/Tooltip.cs.min.css",
+    "outputFileName": "Components/Tooltip/Tooltip.min.css",
     "inputFiles": [
-      "Components/Tooltip/Tooltip.cs.css"
+      "Components/Tooltip/Tooltip.css"
     ]
   },
   {
-    "outputFileName": "Components/Upload/Upload.razor.cs.min.css",
+    "outputFileName": "Components/Upload/Upload.min.css",
     "inputFiles": [
-      "Components/Upload/Upload.razor.cs.css"
+      "Components/Upload/Upload.css"
     ]
   },
   {
-    "outputFileName": "Components/Tag/Tag.razor.cs.min.css",
+    "outputFileName": "Components/Tag/Tag.min.css",
     "inputFiles": [
-      "Components/Tag/Tag.razor.cs.css"
+      "Components/Tag/Tag.css"
     ]
   },
   {
@@ -302,54 +302,54 @@
       "wwwroot/lib/colorpicker/bootstrap-colorpicker.min.css",
       "wwwroot/lib/swal/sweetalert2.min.css",
       "wwwroot/css/bootstrap.blazor.min.css",
-      "Components/Alert/Alert.razor.cs.min.css",
-      "Components/BarcodeReader/BarcodeReader.razor.cs.min.css",
-      "Components/Button/Button.razor.cs.min.css",
-      "Components/Camera/Camera.razor.cs.min.css",
-      "Components/Calendar/Calendar.razor.cs.min.css",
-      "Components/Carousel/Carousel.razor.cs.min.css",
-      "Components/Checkbox/Checkbox.razor.cs.min.css",
-      "Components/Checkbox/CheckboxList.razor.cs.min.css",
-      "Components/Collapse/Collapse.razor.cs.min.css",
-      "Components/ColorPicker/ColorPicker.razor.cs.min.css",
-      "Components/Console/Console.razor.cs.min.css",
-      "Components/DateTimePicker/DateTimePicker.razor.cs.min.css",
-      "Components/DateTimePicker/TimePickerBody.razor.cs.min.css",
-      "Components/DateTimeRange/DateTimeRange.razor.cs.min.css",
-      "Components/Drawer/Drawer.razor.cs.min.css",
-      "Components/Dropdown/Dropdown.razor.cs.min.css",
-      "Components/DropdownWidget/DropdownWidget.razor.cs.min.css",
-      "Components/Editor/Editor.razor.cs.min.css",
-      "Components/Empty/Empty.razor.cs.min.css",
-      "Components/GoTop/GoTop.razor.cs.min.css",
-      "Components/GroupBox/GroupBox.razor.cs.min.css",
-      "Components/Layout/Layout.razor.cs.min.css",
-      "Components/Light/Light.razor.cs.min.css",
-      "Components/Message/Message.razor.cs.min.css",
-      "Components/Menu/Menu.razor.cs.min.css",
-      "Components/Modal/Modal.razor.cs.min.css",
-      "Components/Pagination/Pagination.razor.cs.min.css",
-      "Components/Popover/PopoverConfirmBox.razor.cs.min.css",
-      "Components/QRCode/QRCode.razor.cs.min.css",
-      "Components/Radio/RadioList.razor.cs.min.css",
-      "Components/Rate/Rate.razor.cs.min.css",
-      "Components/Scroll/Scroll.razor.cs.min.css",
-      "Components/Select/Select.razor.cs.min.css",
-      "Components/Select/MultiSelect.razor.cs.min.css",
-      "Components/Slider/Slider.razor.cs.min.css",
-      "Components/Split/Split.razor.cs.min.css",
-      "Components/Switch/Switch.razor.cs.min.css",
-      "Components/Table/Table.razor.cs.min.css",
-      "Components/Table/Filter/TableFilter.razor.cs.min.css",
-      "Components/Tab/Tab.razor.cs.min.css",
-      "Components/Tag/Tag.razor.cs.min.css",
-      "Components/Timer/Timer.razor.cs.min.css",
-      "Components/Toast/Toast.razor.cs.min.css",
-      "Components/Toggle/Toggle.razor.cs.min.css",
-      "Components/Tooltip/Tooltip.cs.min.css",
-      "Components/Tree/Tree.razor.cs.min.css",
-      "Components/Transfer/Transfer.razor.cs.min.css",
-      "Components/Upload/Upload.razor.cs.min.css"
+      "Components/Alert/Alert.min.css",
+      "Components/BarcodeReader/BarcodeReader.min.css",
+      "Components/Button/Button.min.css",
+      "Components/Camera/Camera.min.css",
+      "Components/Calendar/Calendar.min.css",
+      "Components/Carousel/Carousel.min.css",
+      "Components/Checkbox/Checkbox.min.css",
+      "Components/Checkbox/CheckboxList.min.css",
+      "Components/Collapse/Collapse.min.css",
+      "Components/ColorPicker/ColorPicker.min.css",
+      "Components/Console/Console.min.css",
+      "Components/DateTimePicker/DateTimePicker.min.css",
+      "Components/DateTimePicker/TimePickerBody.min.css",
+      "Components/DateTimeRange/DateTimeRange.min.css",
+      "Components/Drawer/Drawer.min.css",
+      "Components/Dropdown/Dropdown.min.css",
+      "Components/DropdownWidget/DropdownWidget.min.css",
+      "Components/Editor/Editor.min.css",
+      "Components/Empty/Empty.min.css",
+      "Components/GoTop/GoTop.min.css",
+      "Components/GroupBox/GroupBox.min.css",
+      "Components/Layout/Layout.min.css",
+      "Components/Light/Light.min.css",
+      "Components/Message/Message.min.css",
+      "Components/Menu/Menu.min.css",
+      "Components/Modal/Modal.min.css",
+      "Components/Pagination/Pagination.min.css",
+      "Components/Popover/PopoverConfirmBox.min.css",
+      "Components/QRCode/QRCode.min.css",
+      "Components/Radio/RadioList.min.css",
+      "Components/Rate/Rate.min.css",
+      "Components/Scroll/Scroll.min.css",
+      "Components/Select/Select.min.css",
+      "Components/Select/MultiSelect.min.css",
+      "Components/Slider/Slider.min.css",
+      "Components/Split/Split.min.css",
+      "Components/Switch/Switch.min.css",
+      "Components/Table/Table.min.css",
+      "Components/Table/Filter/TableFilter.min.css",
+      "Components/Tab/Tab.min.css",
+      "Components/Tag/Tag.min.css",
+      "Components/Timer/Timer.min.css",
+      "Components/Toast/Toast.min.css",
+      "Components/Toggle/Toggle.min.css",
+      "Components/Tooltip/Tooltip.min.css",
+      "Components/Tree/Tree.min.css",
+      "Components/Transfer/Transfer.min.css",
+      "Components/Upload/Upload.min.css"
     ]
   },
   {
@@ -383,105 +383,105 @@
     ]
   },
   {
-    "outputFileName": "Components/Anchor/Anchor.razor.cs.min.js",
+    "outputFileName": "Components/Anchor/Anchor.min.js",
     "inputFiles": [
-      "Components/Anchor/Anchor.razor.cs.js"
+      "Components/Anchor/Anchor.js"
     ]
   },
   {
-    "outputFileName": "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
+    "outputFileName": "Components/BarcodeReader/BarcodeReader.min.js",
     "inputFiles": [
-      "Components/BarcodeReader/BarcodeReader.razor.cs.js"
+      "Components/BarcodeReader/BarcodeReader.js"
     ]
   },
   {
-    "outputFileName": "Components/Console/Console.razor.cs.min.js",
+    "outputFileName": "Components/Console/Console.min.js",
     "inputFiles": [
-      "Components/Console/Console.razor.cs.js"
+      "Components/Console/Console.js"
     ]
   },
   {
-    "outputFileName": "Components/Camera/Camera.razor.cs.min.js",
+    "outputFileName": "Components/Camera/Camera.min.js",
     "inputFiles": [
-      "Components/Camera/Camera.razor.cs.js"
+      "Components/Camera/Camera.js"
     ]
   },
   {
-    "outputFileName": "Components/Carousel/Carousel.razor.cs.min.js",
+    "outputFileName": "Components/Carousel/Carousel.min.js",
     "inputFiles": [
-      "Components/Carousel/Carousel.razor.cs.js"
+      "Components/Carousel/Carousel.js"
     ]
   },
   {
-    "outputFileName": "Components/Collapse/Collapse.razor.cs.min.js",
+    "outputFileName": "Components/Collapse/Collapse.min.js",
     "inputFiles": [
-      "Components/Collapse/Collapse.razor.cs.js"
+      "Components/Collapse/Collapse.js"
     ]
   },
   {
-    "outputFileName": "Components/ColorPicker/ColorPicker.razor.cs.min.js",
+    "outputFileName": "Components/ColorPicker/ColorPicker.min.js",
     "inputFiles": [
-      "Components/ColorPicker/ColorPicker.razor.cs.js"
+      "Components/ColorPicker/ColorPicker.js"
     ]
   },
   {
-    "outputFileName": "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
+    "outputFileName": "Components/DateTimePicker/TimePickerBody.min.js",
     "inputFiles": [
-      "Components/DateTimePicker/TimePickerBody.razor.cs.js"
+      "Components/DateTimePicker/TimePickerBody.js"
     ]
   },
   {
-    "outputFileName": "Components/Dialog/EditDialog.razor.cs.min.js",
+    "outputFileName": "Components/Dialog/EditDialog.min.js",
     "inputFiles": [
-      "Components/Dialog/EditDialog.razor.cs.js"
+      "Components/Dialog/EditDialog.js"
     ]
   },
   {
-    "outputFileName": "Components/Download/Download.cs.min.js",
+    "outputFileName": "Components/Download/Download.min.js",
     "inputFiles": [
-      "Components/Download/Download.cs.js"
+      "Components/Download/Download.js"
     ]
   },
   {
-    "outputFileName": "Components/Drawer/Drawer.razor.cs.min.js",
+    "outputFileName": "Components/Drawer/Drawer.min.js",
     "inputFiles": [
-      "Components/Drawer/Drawer.razor.cs.js"
+      "Components/Drawer/Drawer.js"
     ]
   },
   {
-    "outputFileName": "Components/Editor/Editor.razor.cs.min.js",
+    "outputFileName": "Components/Editor/Editor.min.js",
     "inputFiles": [
-      "Components/Editor/Editor.razor.cs.js"
+      "Components/Editor/Editor.js"
     ]
   },
   {
-    "outputFileName": "Components/GoTop/GoTop.razor.cs.min.js",
+    "outputFileName": "Components/GoTop/GoTop.min.js",
     "inputFiles": [
-      "Components/GoTop/GoTop.razor.cs.js"
+      "Components/GoTop/GoTop.js"
     ]
   },
   {
-    "outputFileName": "Components/Layout/Layout.razor.cs.min.js",
+    "outputFileName": "Components/Layout/Layout.min.js",
     "inputFiles": [
-      "Components/Layout/Layout.razor.cs.js"
+      "Components/Layout/Layout.js"
     ]
   },
   {
-    "outputFileName": "Components/Modal/Modal.razor.cs.min.js",
+    "outputFileName": "Components/Modal/Modal.min.js",
     "inputFiles": [
-      "Components/Modal/Modal.razor.cs.js"
+      "Components/Modal/Modal.js"
     ]
   },
   {
-    "outputFileName": "Components/Message/Message.razor.cs.min.js",
+    "outputFileName": "Components/Message/Message.min.js",
     "inputFiles": [
-      "Components/Message/Message.razor.cs.js"
+      "Components/Message/Message.js"
     ]
   },
   {
-    "outputFileName": "Components/Menu/Menu.razor.cs.min.js",
+    "outputFileName": "Components/Menu/Menu.min.js",
     "inputFiles": [
-      "Components/Menu/Menu.razor.cs.js"
+      "Components/Menu/Menu.js"
     ]
   },
   {
@@ -491,111 +491,111 @@
     ]
   },
   {
-    "outputFileName": "Components/QRCode/QRCode.razor.cs.min.js",
+    "outputFileName": "Components/QRCode/QRCode.min.js",
     "inputFiles": [
-      "Components/QRCode/QRCode.razor.cs.js"
+      "Components/QRCode/QRCode.js"
     ]
   },
   {
-    "outputFileName": "Components/Rate/Rate.razor.cs.min.js",
+    "outputFileName": "Components/Rate/Rate.min.js",
     "inputFiles": [
-      "Components/Rate/Rate.razor.cs.js"
+      "Components/Rate/Rate.js"
     ]
   },
   {
-    "outputFileName": "Components/Row/Row.razor.cs.min.js",
+    "outputFileName": "Components/Row/Row.min.js",
     "inputFiles": [
-      "Components/Row/Row.razor.cs.js"
+      "Components/Row/Row.js"
     ]
   },
   {
-    "outputFileName": "Components/Scroll/Scroll.razor.cs.min.js",
+    "outputFileName": "Components/Scroll/Scroll.min.js",
     "inputFiles": [
-      "Components/Scroll/Scroll.razor.cs.js"
+      "Components/Scroll/Scroll.js"
     ]
   },
   {
-    "outputFileName": "Components/Select/MultiSelect.razor.cs.min.js",
+    "outputFileName": "Components/Select/MultiSelect.min.js",
     "inputFiles": [
-      "Components/Select/MultiSelect.razor.cs.js"
+      "Components/Select/MultiSelect.js"
     ]
   },
   {
-    "outputFileName": "Components/Select/Select.razor.cs.min.js",
+    "outputFileName": "Components/Select/Select.min.js",
     "inputFiles": [
-      "Components/Select/Select.razor.cs.js"
+      "Components/Select/Select.js"
     ]
   },
   {
-    "outputFileName": "Components/Slider/Slider.razor.cs.min.js",
+    "outputFileName": "Components/Slider/Slider.min.js",
     "inputFiles": [
-      "Components/Slider/Slider.razor.cs.js"
+      "Components/Slider/Slider.js"
     ]
   },
   {
-    "outputFileName": "Components/Split/Split.razor.cs.min.js",
+    "outputFileName": "Components/Split/Split.min.js",
     "inputFiles": [
-      "Components/Split/Split.razor.cs.js"
+      "Components/Split/Split.js"
     ]
   },
   {
-    "outputFileName": "Components/Tab/Tab.razor.cs.min.js",
+    "outputFileName": "Components/Tab/Tab.min.js",
     "inputFiles": [
-      "Components/Tab/Tab.razor.cs.js"
+      "Components/Tab/Tab.js"
     ]
   },
   {
-    "outputFileName": "Components/Table/Table.razor.cs.min.js",
+    "outputFileName": "Components/Table/Table.min.js",
     "inputFiles": [
-      "Components/Table/Table.razor.cs.js"
+      "Components/Table/Table.js"
     ]
   },
   {
-    "outputFileName": "Components/Table/Filter/TableFilter.razor.cs.min.js",
+    "outputFileName": "Components/Table/Filter/TableFilter.min.js",
     "inputFiles": [
-      "Components/Table/Filter/TableFilter.razor.cs.js"
+      "Components/Table/Filter/TableFilter.js"
     ]
   },
   {
-    "outputFileName": "Components/Title/Title.cs.min.js",
+    "outputFileName": "Components/Title/Title.min.js",
     "inputFiles": [
-      "Components/Title/Title.cs.js"
+      "Components/Title/Title.js"
     ]
   },
   {
-    "outputFileName": "Components/Toast/Toast.razor.cs.min.js",
+    "outputFileName": "Components/Toast/Toast.min.js",
     "inputFiles": [
-      "Components/Toast/Toast.razor.cs.js"
+      "Components/Toast/Toast.js"
     ]
   },
   {
-    "outputFileName": "Components/Tooltip/Tooltip.cs.min.js",
+    "outputFileName": "Components/Tooltip/Tooltip.min.js",
     "inputFiles": [
-      "Components/Tooltip/Tooltip.cs.js"
+      "Components/Tooltip/Tooltip.js"
     ]
   },
   {
-    "outputFileName": "Components/Tree/Tree.razor.cs.min.js",
+    "outputFileName": "Components/Transition/Transition.min.js",
     "inputFiles": [
-      "Components/Tree/Tree.razor.cs.js"
+      "Components/Transition/Transition.js"
     ]
   },
   {
-    "outputFileName": "Components/Upload/Upload.razor.cs.min.js",
+    "outputFileName": "Components/Tree/Tree.min.js",
     "inputFiles": [
-      "Components/Upload/Upload.razor.cs.js"
+      "Components/Tree/Tree.js"
     ]
   },
   {
-    "outputFileName": "Components/ValidateForm/ValidateForm.razor.cs.min.js",
+    "outputFileName": "Components/Upload/Upload.min.js",
     "inputFiles": [
-      "Components/ValidateForm/ValidateForm.razor.cs.js"
+      "Components/Upload/Upload.js"
     ]
   },
   {
-    "outputFileName": "Components/Transition/Transition.razor.cs.min.js",
+    "outputFileName": "Components/ValidateForm/ValidateForm.min.js",
     "inputFiles": [
-      "Components/Transition/Transition.razor.cs.js"
+      "Components/ValidateForm/ValidateForm.js"
     ]
   },
   {
@@ -613,42 +613,42 @@
       "wwwroot/lib/summernote/summernote-bs5.min.js",
       "wwwroot/lib/slimscroll/jquery.slimscroll.min.js",
       "wwwroot/lib/tab/longbow.tab.min.js",
-      "Components/Anchor/Anchor.razor.cs.min.js",
-      "Components/BarcodeReader/BarcodeReader.razor.cs.min.js",
-      "Components/Camera/Camera.razor.cs.min.js",
-      "Components/Carousel/Carousel.razor.cs.min.js",
-      "Components/Collapse/Collapse.razor.cs.min.js",
-      "Components/ColorPicker/ColorPicker.razor.cs.min.js",
-      "Components/Console/Console.razor.cs.min.js",
-      "Components/DateTimePicker/TimePickerBody.razor.cs.min.js",
-      "Components/Dialog/EditDialog.razor.cs.min.js",
-      "Components/Download/Download.cs.min.js",
-      "Components/Drawer/Drawer.razor.cs.min.js",
-      "Components/Editor/Editor.razor.cs.min.js",
-      "Components/GoTop/GoTop.razor.cs.min.js",
-      "Components/Layout/Layout.razor.cs.min.js",
-      "Components/Message/Message.razor.cs.min.js",
-      "Components/Menu/Menu.razor.cs.min.js",
-      "Components/Modal/Modal.razor.cs.min.js",
+      "Components/Anchor/Anchor.min.js",
+      "Components/BarcodeReader/BarcodeReader.min.js",
+      "Components/Camera/Camera.min.js",
+      "Components/Carousel/Carousel.min.js",
+      "Components/Collapse/Collapse.min.js",
+      "Components/ColorPicker/ColorPicker.min.js",
+      "Components/Console/Console.min.js",
+      "Components/DateTimePicker/TimePickerBody.min.js",
+      "Components/Dialog/EditDialog.min.js",
+      "Components/Download/Download.min.js",
+      "Components/Drawer/Drawer.min.js",
+      "Components/Editor/Editor.min.js",
+      "Components/GoTop/GoTop.min.js",
+      "Components/Layout/Layout.min.js",
+      "Components/Message/Message.min.js",
+      "Components/Menu/Menu.min.js",
+      "Components/Modal/Modal.min.js",
       "Components/Popover/Popover.min.js",
-      "Components/QRCode/QRCode.razor.cs.min.js",
-      "Components/Rate/Rate.razor.cs.min.js",
-      "Components/Row/Row.razor.cs.min.js",
-      "Components/Scroll/Scroll.razor.cs.min.js",
-      "Components/Select/Select.razor.cs.min.js",
-      "Components/Select/MultiSelect.razor.cs.min.js",
-      "Components/Slider/Slider.razor.cs.min.js",
-      "Components/Split/Split.razor.cs.min.js",
-      "Components/Tab/Tab.razor.cs.min.js",
-      "Components/Table/Table.razor.cs.min.js",
-      "Components/Table/Filter/TableFilter.razor.cs.min.js",
-      "Components/Title/Title.cs.min.js",
-      "Components/Toast/Toast.razor.cs.min.js",
-      "Components/Tooltip/Tooltip.cs.min.js",
-      "Components/Tree/Tree.razor.cs.min.js",
-      "Components/Upload/Upload.razor.cs.min.js",
-      "Components/ValidateForm/ValidateForm.razor.cs.min.js",
-      "Components/Transition/Transition.razor.cs.min.js"
+      "Components/QRCode/QRCode.min.js",
+      "Components/Rate/Rate.min.js",
+      "Components/Row/Row.min.js",
+      "Components/Scroll/Scroll.min.js",
+      "Components/Select/Select.min.js",
+      "Components/Select/MultiSelect.min.js",
+      "Components/Slider/Slider.min.js",
+      "Components/Split/Split.min.js",
+      "Components/Tab/Tab.min.js",
+      "Components/Table/Table.min.js",
+      "Components/Table/Filter/TableFilter.min.js",
+      "Components/Title/Title.min.js",
+      "Components/Toast/Toast.min.js",
+      "Components/Tooltip/Tooltip.min.js",
+      "Components/Tree/Tree.min.js",
+      "Components/Upload/Upload.min.js",
+      "Components/ValidateForm/ValidateForm.min.js",
+      "Components/Transition/Transition.min.js"
     ],
     "minify": {
       "enabled": false,

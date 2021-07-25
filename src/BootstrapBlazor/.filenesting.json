@@ -1,0 +1,110 @@
+﻿{
+  "help": "https://go.microsoft.com/fwlink/?linkid=866610",
+  "root": true,
+
+  "dependentFileProviders": {
+    "add": {
+      "addedExtension": {},
+      "pathSegment": {
+        "add": {
+          ".*": [
+            ".js",
+            ".css",
+            ".html",
+            ".htm",
+            ".less",
+            ".scss",
+            ".coffee",
+            ".iced",
+            ".config",
+            ".cs",
+            ".vb",
+            ".json"
+          ]
+        }
+      },
+      "extensionToExtension": {
+        "add": {
+          ".js": [
+            ".cs",
+            ".razor",
+            ".coffee",
+            ".iced",
+            ".ts",
+            ".tsx",
+            ".jsx"
+          ],
+          ".css": [
+            ".cs",
+            ".razor",
+            ".less",
+            ".scss",
+            ".sass",
+            ".styl"
+          ],
+          ".html": [
+            ".md",
+            ".mdown",
+            ".markdown",
+            ".mdwn"
+          ],
+          ".map": [
+            ".js",
+            ".css"
+          ],
+          ".svgz": [
+            ".svg"
+          ],
+          ".designer.cs": [
+            ".resx"
+          ],
+          ".cs.d.ts": [
+            ".cs"
+          ]
+        }
+      },
+      "fileToFile": {
+        "add": {
+          ".bowerrc": [
+            "bower.json"
+          ],
+          ".npmrc": [
+            "package.json"
+          ],
+          "npm-shrinkwrap.json": [
+            "package.json"
+          ],
+          "yarn.lock": [
+            "package.json"
+          ],
+          ".yarnclean": [
+            "package.json"
+          ],
+          ".yarnignore": [
+            "package.json"
+          ],
+          ".yarn-integrity": [
+            "package.json"
+          ],
+          ".yarnrc": [
+            "package.json"
+          ],
+          "package-lock.json": [
+            "package.json"
+          ]
+        }
+      },
+      "fileSuffixToExtension": {
+        "add": {
+          "-vsdoc.js": [
+            ".js"
+          ]
+        }
+      },
+      "allExtensions": {
+        "add": {
+        }
+      }
+    }
+  }
+}
