@@ -53,6 +53,7 @@
 
 .table {
     margin-bottom: 0;
+    --bb-table-selected-bg: #9ec6ef;
 }
 
     .table thead th, .table tbody td {
@@ -337,9 +338,8 @@
 }
 
 .table tbody tr.active,
-.table tbody tr.active:hover td,
 .table-row.active {
-    background-color: #9ec6ef;
+    background-color: var(--bb-table-selected-bg);
 }
 
 .table-hover > tbody > tr.is-detail:hover {
@@ -544,6 +544,10 @@
 .table-striped > tbody > tr.is-master:nth-of-type(odd) {
     --bs-table-accent-bg: #fff;
 }
+
+    .table-striped > tbody > tr.is-master:nth-of-type(odd).active {
+        --bs-table-accent-bg: var(--bb-table-selected-bg);
+    }
 
 .table-striped > tbody > tr.is-master:nth-of-type(4n+1) {
     --bs-table-accent-bg: var(--bs-table-striped-bg);
