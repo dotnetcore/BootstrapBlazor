@@ -324,7 +324,7 @@
     "P2": "The dependency is：BootstrapBlazor > Bootstrap > jQuery",
     "P3": "In the latest <a href='template' target='_blank'>Project Template</a> ,the above dependencies are packaged and bundled, which greatly simplifies use",
     "UpdateTitle": "Update Log",
-    "P4": "This component may be released every day <b><code>beta</code></b> version, every <b><code>Thursday</code></b> release <b><code>official version </code></b> Update log<a id='log' data-bs-toggle='popover' title='Update log' data-bs-content='This component may have <b><code >beta</code></b> version released, every <b><code>Thursday</code></b> release <b><code>official version</code></b> update log' data-bs-html='true' href='{0}' target='_blank'>[portal gate]</a>",
+    "P4": "This component may be released every day <b><code>beta</code></b> version, every <b><code>Thursday</code></b> release <b><code>official version </code></b> <a id='log' data-bs-toggle='popover' title='Update log' data-bs-content='This component may have <b><code >beta</code></b> version released, every <b><code>Thursday</code></b> release <b><code>official version</code></b> update log' data-bs-html='true' href='{0}' target='_blank'>Update log</a>",
     "LearnTitle": "Learning materials",
     "LearnLi1": "Blazor Official Document",
     "LearnLi2": "Use Blazor WebAssembly and Visual Studio Code to generate web applications",

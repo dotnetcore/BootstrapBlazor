@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Shared.Pages
         private IJSRuntime? JSRuntime { get; set; }
 
         [NotNull]
-        private object[]? LocalizerUrls { get; set; }
+        private string[]? LocalizerUrls { get; set; }
 
         /// <summary>
         /// 
@@ -45,14 +45,16 @@ namespace BootstrapBlazor.Shared.Pages
         {
             base.OnInitialized();
 
-            LocalizerUrls = new object[]
+            LocalizerUrls = new string[]
             {
                 WebsiteOption.Value.BootstrapBlazorLink,
-                WebsiteOption.Value.ImageLibUrl + "/stargazers",
+                WebsiteOption.Value.BootstrapBlazorLink + "/stargazers",
                 WebsiteOption.Value.BootstrapBlazorLink + "/badge/star.svg?theme=gvp",
                 WebsiteOption.Value.BootstrapAdminLink
             };
         }
+
+        private bool IsRender { get; set; }
 
         /// <summary>
         /// 
@@ -65,6 +67,7 @@ namespace BootstrapBlazor.Shared.Pages
 
             if (firstRender)
             {
+                IsRender = true;
                 await JSRuntime.InvokeVoidAsync("$.bb_open");
             }
         }
@@ -75,7 +78,10 @@ namespace BootstrapBlazor.Shared.Pages
         /// <returns></returns>
         public async ValueTask DisposeAsync()
         {
-            await JSRuntime.InvokeVoidAsync("$.bb_open", "dispose");
+            if (IsRender)
+            {
+                await JSRuntime.InvokeVoidAsync("$.bb_open", "dispose");
+            }
             GC.SuppressFinalize(this);
         }
     }
