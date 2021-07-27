@@ -286,8 +286,15 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "BeforeRowButtonTemplate",
+                Description = "Table 行按钮模板 放置到按钮前",
+                Type = "RenderFragment<TItem>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "RowButtonTemplate",
-                Description = "Table 行按钮模板",
+                Description = "Table 行按钮模板 默认放置到按钮后",
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "

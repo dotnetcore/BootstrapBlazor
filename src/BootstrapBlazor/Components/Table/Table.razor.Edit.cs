@@ -139,7 +139,13 @@ namespace BootstrapBlazor.Components
         public RenderFragment<TItem>? EditTemplate { get; set; }
 
         /// <summary>
-        /// 获得/设置 RowButtonTemplate 实例
+        /// 获得/设置 BeforeRowButtonTemplate 实例 此模板生成的按钮默认放置到按钮前面如需放置前面 请查看 <see cref="RowButtonTemplate" />
+        /// </summary>
+        [Parameter]
+        public RenderFragment<TItem>? BeforeRowButtonTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 RowButtonTemplate 实例 此模板生成的按钮默认放置到按钮后面如需放置前面 请查看 <see cref="BeforeRowButtonTemplate" />
         /// </summary>
         [Parameter]
         public RenderFragment<TItem>? RowButtonTemplate { get; set; }
