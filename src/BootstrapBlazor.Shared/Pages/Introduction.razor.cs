@@ -35,6 +35,25 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IJSRuntime? JSRuntime { get; set; }
 
+        [NotNull]
+        private object[]? LocalizerUrls { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            LocalizerUrls = new object[]
+            {
+                WebsiteOption.Value.BootstrapBlazorLink,
+                WebsiteOption.Value.ImageLibUrl + "/stargazers",
+                WebsiteOption.Value.BootstrapBlazorLink + "/badge/star.svg?theme=gvp",
+                WebsiteOption.Value.BootstrapAdminLink
+            };
+        }
+
         /// <summary>
         /// 
         /// </summary>

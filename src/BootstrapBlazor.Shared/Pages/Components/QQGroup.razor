@@ -1,11 +1,11 @@
 ﻿@inject IOptions<WebsiteOptions> WebsiteOption
-@inject IStringLocalizer<QQGroup>  L
+@inject IStringLocalizer<QQGroup> Localzier
 
 <div>
-    @L["Group"]：BootstrapAdmin & Blazor
+    @Localzier["Group"]：BootstrapAdmin & Blazor
     <a class="mx-1" target="_blank" href="@WebsiteOption.Value.QQGroup1Link">
         <span class="text-danger fa fa-qq">
-            <span class="ms-1"><b>795206915(@L["Status"])</b></span>
+            <span class="ms-1"><b>795206915(@Localzier["Status"])</b></span>
         </span>
     </a>
     <a class="mx-1" target="_blank" href="@WebsiteOption.Value.QQGroup2Link">
@@ -13,5 +13,5 @@
             <span class="ms-1"><b>675147445</b></span>
         </span>
     </a>
-    @L["Welcome"]
+    @Localzier["Welcome"]
 </div>
