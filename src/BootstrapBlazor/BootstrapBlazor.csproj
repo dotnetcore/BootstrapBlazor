@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>5.3.3</Version>
+    <Version>5.3.4</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -28,11 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="bundleconfig.json" />
+    <Content Remove="*.json" />
     <Content Remove="wwwroot\**\*.*" />
+    <Content Include="wwwroot\css\bootstrap.blazor.bundle.min.css" />
     <Content Include="wwwroot\js\bootstrap.blazor.bundle.min.js" />
     <Content Include="wwwroot\lib\summernote\font\*.*" />
-    <None Include="bundleconfig.json" />
+    <None Include="*.json" />
     <None Include="wwwroot\**\*.*" />
   </ItemGroup>
 
