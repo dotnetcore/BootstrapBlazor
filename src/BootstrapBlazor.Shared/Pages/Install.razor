@@ -1,11 +1,12 @@
 ﻿@page "/install"
 @inject NugetVersionService VersionManager
+@inject IStringLocalizer<Install> Localizer
 
-<h3>安装</h3>
+<h3>@Localizer["InstallTitle"]</h3>
 
 <h4>Git</h4>
 
-<p>Git 工具有很多种大家比较熟悉的，这里我介绍两款 Git 客户端工具</p>
+<p>@Localizer["GitP1"]</p>
 
 <div class="row mb-sm-3">
     <div class="git col-12 col-sm-6 mb-3 mb-sm-0">
@@ -19,11 +20,11 @@
     </div>
 </div>
 
-<p>推荐使用 <a href="https://fork.dev">Fork</a> 工具进行安装，它能更好地和 <a href="https://visualstudio.microsoft.com/vs/getting-started/" target="_blank">Visutal Studio</a> 开发工具配合使用。</p>
+<p>@((MarkupString)Localizer["GitP2"].Value)</p>
 
-<h4>Nuget 包安装</h4>
+<h4>@Localizer["NugetInstall"]</h4>
 
-<p>使用 <a href="https://www.nuget.org/packages?q=BootstrapBlazor" target="_blank">nuget.org</a> 进行 BootstrapBlazor 组件的安装</p>
+<p>@((MarkupString)Localizer["NugetP1"].Value)</p>
 
 <div class="code-label">.NET CLI</div>
 <Pre class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
@@ -34,12 +35,12 @@
 <div class="code-label">Package Manager</div>
 <Pre class="no-highlight">Install-Package BootstrapBlazor -Version @Version</Pre>
 
-<h4>项目环境搭建</h4>
+<h4>@Localizer["EnvBuildTitle"]</h4>
 
 <ol>
-    <li>安装 .net core sdk <a href="http://www.microsoft.com/net/download" target="_blank">官方网址</a></li>
-    <li>安装 Visual Studio 2019 以上 <a href="https://visualstudio.microsoft.com/vs/getting-started" target="_blank">官方网址</a></li>
-    <li>拉取项目代码 BootstrapBlazor <a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor" target="_blank">仓库网址</a></li>
+    <li>@((MarkupString)Localizer["EnvLi1"].Value)</li>
+    <li>@((MarkupString)Localizer["EnvLi2"].Value)</li>
+    <li>@((MarkupString)Localizer["EnvLi3"].Value)</li>
 </ol>
 
 <Pre class="no-highlight">git clone https://gitee.com/LongbowEnterprise/BootstrapBlazor</Pre>
