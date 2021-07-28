@@ -1,5 +1,6 @@
 ﻿{
   "BootstrapBlazor.Shared.Pages.Index": {
+    "BodyClassString": "welcome-body",
     "Title": "Bootstrap Blazor - 企业级 UI 组件库",
     "HeaderTitle": "Bootstrap 风格的 Blazor UI 组件库",
     "HeaderDesc": "基于 <code>Bootstrap</code> 样式库精心打造，并且额外增加了 {0} 多种常用的组件，为您快速开发项目带来非一般的感觉",

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -17,6 +18,9 @@ namespace BootstrapBlazor.Shared.Pages
     public sealed partial class Index
     {
         private ElementReference TypeElement { get; set; }
+
+        private string? BodyClassString => CssBuilder.Default(Localizer["BodyClassString"])
+            .Build();
 
         [Inject]
         private IJSRuntime? JSRuntime { get; set; }

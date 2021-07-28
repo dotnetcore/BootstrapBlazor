@@ -626,6 +626,18 @@ section {
             animation: none;
         }
 
+.welcome-body-en {
+    font-size: 32px;
+    margin-top: 2rem;
+    line-height: 1.5;
+}
+
+    .welcome-body-en .typed {
+        color: #0073dc;
+        font-weight: 500;
+    }
+
+
 @keyframes flash {
     0%, 100% {
         opacity: 1;
@@ -709,7 +721,6 @@ section {
         list-style: none;
         padding: 0;
         margin: 0;
-        padding-left: 1rem;
     }
 
     .footer-body .footer-link {

@@ -14,7 +14,7 @@
                         @Localizer["HeaderTitle"]
                     </h4>
                     <div>@((MarkupString)Localizer["HeaderDesc", Options.Value.TotalCount].Value)</div>
-                    <div class="welcome-body">
+                    <div class="@BodyClassString">
                         @Localizer["HeaderBody"]<span @ref="TypeElement" class="typed"></span><span class="typed-cursor">|</span>
                         <div>@Localizer["HeaderBody1"]</div>
                     </div>
