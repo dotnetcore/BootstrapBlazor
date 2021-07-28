@@ -3,6 +3,13 @@
         bb_select: function (el, obj, method) {
             var $el = $(el);
             var $search = $el.find('input.search-text');
+
+            $el.on('show.bs.dropdown', function (e) {
+                if ($el.find('.form-select').prop('disabled')) {
+                    e.preventDefault();
+                }
+            });
+
             $el.on('shown.bs.dropdown', function () {
                 if ($search.length > 0) {
                     $search.focus();

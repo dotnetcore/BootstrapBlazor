@@ -28,11 +28,18 @@
             }
             @if (ItemTemplate != null)
             {
-                foreach (var item in DataSource)
+                foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
                 {
-                    <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">
-                        @ItemTemplate.Invoke(item)
-                    </div>
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        <Divider Text="@itemGroup.Key" />
+                    }
+                    @foreach (var item in itemGroup)
+                    {
+                        <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">
+                            @ItemTemplate.Invoke(item)
+                        </div>
+                    }
                 }
             }
             else
@@ -45,7 +52,7 @@
                     }
                     @foreach (var item in itemGroup)
                     {
-                        <div class="@ActiveItem(item)" data-val="@item.Value" @onclick="@(e => OnItemClick(item))">@item.Text</div>
+                        <div class="@ActiveItem(item)" @onclick="@(e => OnItemClick(item))">@item.Text</div>
                     }
                 }
             }

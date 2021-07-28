@@ -229,7 +229,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private async Task OnItemClick(SelectedItem item)
         {
-            if (!item.IsDisabled)
+            if (!IsDisabled && !item.IsDisabled)
             {
                 item.Active = true;
                 SelectedItem = item;
