@@ -3,19 +3,20 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 @inject IOptions<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<HomeLayout> Localizer
 
 @Body
 
 <footer>
     <div class="footer-body">
         <div>
-            <h4>相关作品</h4>
+            <h4 class="text-center">@Localizer["FooterH1"]</h4>
             <ul>
                 <li>
                     <a class="footer-link" href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
                 </li>
                 <li>
-                    <a class="footer-link" href="https://gitee.com/LongbowEnterprise/SliderCaptcha" target="_blank">滑块验证码</a>
+                    <a class="footer-link" href="https://gitee.com/LongbowEnterprise/SliderCaptcha" target="_blank">@Localizer["FooterLi1"]</a>
                 </li>
                 <li>
                     <a class="footer-link" href="https://gitee.com/LongbowEnterprise/longbow-select" target="_blank">Longbow-select</a>
@@ -26,16 +27,16 @@
             </ul>
         </div>
         <div>
-            <h4>友情链接</h4>
-            <ul>
+            <h4 class="text-center">@Localizer["FriendLink"]</h4>
+            <ul class="text-center">
                 <li>
-                    <a class="footer-link" href="https://blog.lindexi.com" target="_blank">林德熙的博客</a>
+                    <a class="footer-link" href="https://blog.lindexi.com" target="_blank">@Localizer["FriendLi1"]</a>
                 </li>
                 <li>
                     <a class="footer-link" href="https://gitee.com/dotnetchina/Furion" target="_blank">Furion</a>
                 </li>
                 <li>
-                    <a class="footer-link" href="http://ccflow.org/?from=blazor" target="_blank">驰骋工作流</a>
+                    <a class="footer-link" href="http://ccflow.org/?from=blazor" target="_blank">@Localizer["FriendLi2"]</a>
                 </li>
                 <li>
                     <a class="footer-link" href="https://gitee.com/loogn/bulmarazor" target="_blank">Bulma</a>
@@ -55,27 +56,27 @@
             </ul>
         </div>
         <div>
-            <h4>社区</h4>
+            <h4 class="text-center">@Localizer["Community"]</h4>
             <ul>
                 <li>
-                    <div class="footer-link">贡献指南</div>
+                    <div class="footer-link">@Localizer["CommunityLi2"]</div>
                 </li>
                 <li>
-                    <div class="footer-link">加入我们</div>
+                    <div class="footer-link">@Localizer["CommunityLi1"]</div>
                 </li>
                 <li>
-                    <div class="footer-link">联系方式</div>
+                    <div class="footer-link">@Localizer["CommunityLi3"]</div>
                 </li>
             </ul>
         </div>
         <div>
-            <h4>特别鸣谢</h4>
+            <h4 class="text-center">@Localizer["SpecialAcknowledgements"]</h4>
             <ul>
                 <li>
                     <div class="footer-link">上海智通建设发展股份有限公司</div>
                 </li>
                 <li>
-                    <div class="footer-link"><a href="http://ccflow.org/?from=blazor">驰骋工作流</a></div>
+                    <div class="footer-link"><a href="http://ccflow.org/?from=blazor">@Localizer["FriendLi2"]</a></div>
                 </li>
             </ul>
         </div>
@@ -84,7 +85,7 @@
         <div>Powered by .NET @Version on Linux</div>
         <div class="ms-1">BB @BBVersion</div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
-            <a class="ms-3 d-none d-md-block" href="@WebsiteOption.Value.BootstrapBlazorLink" target="_blank">码云代码托管平台</a>
+            <a class="ms-3 d-none d-md-block" href="@WebsiteOption.Value.BootstrapBlazorLink" target="_blank">@Localizer["Footer"]</a>
             <div class="mx-3 d-none d-md-block">
                 <img alt="12377@2x" class="footer-logo me-1" src="_content/BootstrapBlazor.Shared/images/12377@2x.png">
                 <a href="https://12377.cn" target="_blank">违法和不良信息举报中心</a>

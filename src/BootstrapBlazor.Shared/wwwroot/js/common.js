@@ -62,7 +62,7 @@
                 }, 600);
             }
         },
-        indexTyper: function (el) {
+        indexTyper: function (el, text1, text2, text3) {
             var $this = $(el);
             var $cursor = $this.next();
 
@@ -100,10 +100,6 @@
                     }, 200);
                 });
             };
-
-            var text1 = ['最', '好', '用', '的'];
-            var text2 = ['最', '好', '看', '的'];
-            var text3 = ['最', '简', '单', '实', '用', '的'];
 
             var loop = function () {
                 var handler = window.setTimeout(function () {

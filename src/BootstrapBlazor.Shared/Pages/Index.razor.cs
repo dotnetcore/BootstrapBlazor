@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<App>? Localizer { get; set; }
+        private IStringLocalizer<Index>? Localizer { get; set; }
 
         [Inject]
         [NotNull]
@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages
 
             if (firstRender && JSRuntime != null)
             {
-                await JSRuntime.InvokeVoidAsync("$.indexTyper", TypeElement);
+                await JSRuntime.InvokeVoidAsync("$.indexTyper", TypeElement, Localizer["DynamicText"].Value.ToCharArray(), Localizer["DynamicText1"].Value.ToCharArray(), Localizer["DynamicText2"].Value.ToCharArray());
             }
         }
     }
