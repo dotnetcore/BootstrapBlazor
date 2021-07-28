@@ -286,7 +286,7 @@
                 @RenderRow.Invoke(item)
                 if (ShowDetails())
                 {
-                    var colspan = Columns.Count(col=>col.Visible);
+                    var colspan = ColumnVisibles.Count(col => col.Visible);
                     if(IsMultipleSelect) colspan++;
                     if(ShowLineNo) colspan++;
                     if(ShowExtendButtons) colspan++;
