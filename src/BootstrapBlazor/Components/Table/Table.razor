@@ -286,7 +286,11 @@
                 @RenderRow.Invoke(item)
                 if (ShowDetails())
                 {
-                    var colspan = IsMultipleSelect ? Columns.Count + 1: Columns.Count;
+                    var colspan = Columns.Count(col=>col.Visible);
+                    if(IsMultipleSelect) colspan++;
+                    if(ShowLineNo) colspan++;
+                    if(ShowExtendButtons) colspan++;
+
                     <tr class="@GetDetailRowClassString(item)">
                         <td>&nbsp;</td>
                         <td colspan="@colspan">
