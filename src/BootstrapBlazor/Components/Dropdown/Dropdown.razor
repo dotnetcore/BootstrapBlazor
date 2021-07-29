@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits DropdownBase<TItem>
+@inherits SelectBase<TItem>
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
     <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" aria-expanded="false">@SelectedItem?.Text</button>
