@@ -54,6 +54,17 @@
     "SpecialAcknowledgements": "Special Thanks",
     "Footer": "Gitee Hosting Platform"
   },
+  "BootstrapBlazor.Shared.Pages.Install": {
+    "InstallTitle": "Install",
+    "GitP1": "There are many kinds of Git tools that everyone is familiar with, here I introduce two Git client tools",
+    "GitP2": "It is recommended to use the <a href='https://fork.dev'>Fork</a> tool to install, it can better and <a href='https://visualstudio.microsoft.com/vs/getting- started/' target='_blank'>Visutal Studio</a> to use with development tools.",
+    "NugetInstall": "Nuget Install",
+    "NugetP1": "Use <a href='https://www.nuget.org/packages?q=BootstrapBlazor' target='_blank'>nuget.org</a> to install BootstrapBlazor components",
+    "EnvBuildTitle": "Project Environment Construction",
+    "EnvLi1": "Install .net core sdk <a href='http://www.microsoft.com/net/download' target='_blan'>Official Website</a>",
+    "EnvLi2": "Install Visual Studio 2019 and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
+    "EnvLi3": "Pull the project code BootstrapBlazor <a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>Warehouse URL</a>"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
@@ -194,7 +205,7 @@
     "Title": "View update log"
   },
   "BootstrapBlazor.Shared.Shared.NavMenu": {
-    "GetStarted": "GETTINGSTARTED",
+    "GetStarted": "GETTING STARTED",
     "Introduction": "Introduction",
     "Install": "Install",
     "ProjectTemplate": "Template",
