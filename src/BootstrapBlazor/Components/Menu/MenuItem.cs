@@ -94,18 +94,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 添加 Menutem 方法 由 MenuItem 方法加载时调用
-        /// </summary>
-        /// <param name="item">Menutem 实例</param>
-        [Obsolete("Items 属性移除只读直接赋值即可，下一个版本移除此方法")]
-        public virtual void AddItem(MenuItem item)
-        {
-            var items = Items.ToList();
-            items.Add(item);
-            Items = items;
-        }
-
-        /// <summary>
         /// 设置当前节点缩进方法
         /// </summary>
         protected internal virtual void SetIndent()

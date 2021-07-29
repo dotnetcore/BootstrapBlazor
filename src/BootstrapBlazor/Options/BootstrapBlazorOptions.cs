@@ -33,12 +33,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 回落默认语言文化 默认为 en 英文
         /// </summary>
-        [Obsolete("请使用 FallbackCulture 属性，此属性下一个版本移除")]
-        public string FallbackCultureName { get; set; } = "en";
-
-        /// <summary>
-        /// 获得/设置 回落默认语言文化 默认为 en 英文
-        /// </summary>
         public string FallbackCulture { get; set; } = "en";
 
         /// <summary>

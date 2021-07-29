@@ -43,13 +43,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 数据集用于 CheckboxList Select 组件 通过 Value 显示 Text 使用 默认 null
         /// </summary>
         [Parameter]
-        [Obsolete("请使用 Lookup 参数，下一个版本删除此参数")]
-        public IEnumerable<SelectedItem>? Data { get { return Lookup; } set { Lookup = value; } }
-
-        /// <summary>
-        /// 获得/设置 数据集用于 CheckboxList Select 组件 通过 Value 显示 Text 使用 默认 null
-        /// </summary>
-        [Parameter]
         public IEnumerable<SelectedItem>? Lookup { get; set; }
 
         /// <summary>

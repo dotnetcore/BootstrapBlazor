@@ -301,19 +301,6 @@ namespace BootstrapBlazor.Components
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// 更改组件数据源方法
-        /// </summary>
-        /// <param name="items"></param>
-        [Obsolete("更改数据源 Items 参数即可，下一个版本移除此方法")]
-        public void SetItems(List<SelectedItem>? items)
-        {
-            Items = items;
-            ResetItems();
-
-            StateHasChanged();
-        }
-
         private void ResetItems()
         {
             LeftItems.Clear();
