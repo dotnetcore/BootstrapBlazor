@@ -587,7 +587,7 @@ RenderFragment<TItem> RenderRow => item =>
                     @BeforeRowButtonTemplate?.Invoke(item)
                     @if (ShowDefaultButtons)
                     {
-                        @if (ShowEditButton)
+                        @if (GetShowEditButton(item))
                         {
                             @if (isInCell)
                             {
@@ -598,7 +598,7 @@ RenderFragment<TItem> RenderRow => item =>
                                 <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
                             }
                         }
-                        @if (ShowDeleteButton)
+                        @if (GetShowDeleteButton(item))
                         {
                             @if (isInCell)
                             {

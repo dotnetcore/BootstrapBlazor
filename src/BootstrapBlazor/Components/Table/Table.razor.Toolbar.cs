@@ -41,16 +41,28 @@ namespace BootstrapBlazor.Components
         public bool ShowAddButton { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否显示编辑按钮 默认为 true 显示
+        /// 获得/设置 是否显示编辑按钮 默认为 true 显示 <see cref="ShowEditButtonCallback" />
         /// </summary>
         [Parameter]
         public bool ShowEditButton { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否显示删除按钮 默认为 true 显示
+        /// 获得/设置 是否显示编辑按钮 设置此参数时 <see cref="ShowEditButton" /> 参数不起作用 默认为 null 
+        /// </summary>
+        [Parameter]
+        public Func<TItem, bool>? ShowEditButtonCallback { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示删除按钮 默认为 true 显示 <see cref="ShowDeleteButtonCallback" />
         /// </summary>
         [Parameter]
         public bool ShowDeleteButton { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示删除按钮  设置此参数时 <see cref="ShowDeleteButton" /> 参数不起作用 默认为 null 
+        /// </summary>
+        [Parameter]
+        public Func<TItem, bool>? ShowDeleteButtonCallback { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示导出按钮 默认为 false 显示
@@ -569,5 +581,17 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         protected IEnumerable<TItem> GetSelectedRows() => SelectedItems;
+
+        /// <summary>
+        /// 是否显示行内编辑按钮
+        /// </summary>
+        /// <returns></returns>
+        protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback == null ? ShowEditButton : ShowEditButtonCallback(item);
+
+        /// <summary>
+        /// 是否显示行内删除按钮
+        /// </summary>
+        /// <returns></returns>
+        protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback == null ? ShowDeleteButton : ShowDeleteButtonCallback(item);
     }
 }
