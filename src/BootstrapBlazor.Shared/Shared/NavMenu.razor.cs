@@ -37,6 +37,10 @@ namespace BootstrapBlazor.Shared.Shared
 
         [Inject]
         [NotNull]
+        private TitleService? TitleService { get; set; }
+
+        [Inject]
+        [NotNull]
         private IStringLocalizer<NavMenu>? Localizer { get; set; }
 
         private string? NavMenuCssClass => CssBuilder.Default("sidebar-content")
@@ -68,7 +72,7 @@ namespace BootstrapBlazor.Shared.Shared
 
             if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
             {
-                await TitleService.SetWebSiteTitle($"{item.Text} - {AppLocalizer["Title"]}");
+                await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
             }
         }
 
