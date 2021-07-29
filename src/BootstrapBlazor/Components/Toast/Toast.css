@@ -3,6 +3,10 @@
     z-index: 1055;
 }
 
+.modal-open .toast-container {
+    z-index: 1090;
+}
+
 .toast {
     width: 246px;
     cursor: pointer;
