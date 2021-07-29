@@ -561,10 +561,10 @@ namespace BootstrapBlazor.Components
                     Columns.Clear();
                     Columns.AddRange(cols);
 
-                    ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
-
                     QueryItems = DynamicContext.GetItems().Cast<TItem>();
                 }
+
+                ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
 
                 // set default sortName
                 var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);

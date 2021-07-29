@@ -205,9 +205,9 @@
            ShowExtendButtons="false" ShowColumnList="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Text="时间" />
-            <TableColumn @bind-Field="@context.Name" Text="姓名" />
-            <TableColumn @bind-Field="@context.Address" Text="地址" Width="290" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Width="290" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Visible="false" />
             <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
