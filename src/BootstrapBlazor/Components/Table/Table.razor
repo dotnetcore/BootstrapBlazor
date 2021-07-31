@@ -584,7 +584,10 @@ RenderFragment<TItem> RenderRow => item =>
         <td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
             <div class="table-cell">
                 <div class="btn-group" @onclick:stopPropagation="true">
-                    @BeforeRowButtonTemplate?.Invoke(item)
+                    @if (!isInCell)
+                    {
+                        @BeforeRowButtonTemplate?.Invoke(item)
+                    }
                     @if (ShowDefaultButtons)
                     {
                         @if (GetShowEditButton(item))
@@ -592,30 +595,27 @@ RenderFragment<TItem> RenderRow => item =>
                             @if (isInCell)
                             {
                                 <Button Size="Size.ExtraSmall" OnClick="@ClickUpdateButtonCallback()" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
+                                <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
                             }
                             else
                             {
                                 <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
                             }
                         }
-                        @if (GetShowDeleteButton(item))
+                        @if (!isInCell && GetShowDeleteButton(item))
                         {
-                            @if (isInCell)
-                            {
-                                <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
-                            }
-                            else
-                            {
-                                <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                                  Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
-                                                  CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
-                                                  ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
-                                                  OnBeforeClick="@ClickBeforeDelete(item)"
-                                                  OnConfirm="@DeleteAsync()" />
-                            }
+                            <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                                Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                                CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
+                                                ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
+                                                OnBeforeClick="@ClickBeforeDelete(item)"
+                                                OnConfirm="@DeleteAsync()" />
                         }
                     }
-                    @RowButtonTemplate?.Invoke(item)
+                    @if (!isInCell)
+                    {
+                        @RowButtonTemplate?.Invoke(item)
+                    }
                 </div>
             </div>
         </td>
