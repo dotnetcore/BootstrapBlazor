@@ -328,7 +328,7 @@ section {
     padding: 0.6rem 1.25rem 0.7rem 1.25rem;
     position: fixed;
     width: 100%;
-    z-index: 1080;
+    z-index: 1095;
 }
 
     #blazor-error-ui .dismiss {
@@ -917,7 +917,7 @@ section {
 }
 
 #components-reconnect-modal {
-    z-index: 1080 !important;
+    z-index: 1090 !important;
 }
 
 .scroll-demo {

@@ -3,8 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared
@@ -14,11 +16,13 @@ namespace BootstrapBlazor.Shared
     /// </summary>
     public sealed partial class App
     {
-        /// <summary>
-        /// 
-        /// </summary>
         [Inject]
+        [NotNull]
         private IJSRuntime? JSRuntime { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<App>? Localizer { get; set; }
 
         /// <summary>
         /// 
@@ -28,9 +32,9 @@ namespace BootstrapBlazor.Shared
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && OperatingSystem.IsBrowser() && JSRuntime != null)
+            if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("$.loading");
+                await JSRuntime.InvokeVoidAsync("$.loading", OperatingSystem.IsBrowser(), Localizer["ErrorMessage"].Value, Localizer["Reload"].Value);
             }
         }
     }

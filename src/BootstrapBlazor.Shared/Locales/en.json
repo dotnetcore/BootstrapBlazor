@@ -1,4 +1,8 @@
 ﻿{
+  "BootstrapBlazor.Shared.App": {
+    "Reload": "Reload",
+    "ErrorMessage": "An unhandled exception has occurred. See browser dev tools for details."
+  },
   "BootstrapBlazor.Shared.Pages.Index": {
     "BodyClassString": "welcome-body-en",
     "Title": "Bootstrap Blazor enterprise-level UI component library",
