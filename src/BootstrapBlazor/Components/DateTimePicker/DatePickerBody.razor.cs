@@ -566,8 +566,9 @@ namespace BootstrapBlazor.Components
         private async Task ClickConfirmButton()
         {
             ShowTimePicker = false;
-            if (ValueChanged.HasDelegate)
+            if (Validate() && ValueChanged.HasDelegate)
             {
+
                 await ValueChanged.InvokeAsync(Value);
             }
             if (OnConfirm != null)
@@ -575,6 +576,8 @@ namespace BootstrapBlazor.Components
                 await OnConfirm.Invoke();
             }
         }
+
+        private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);
 
         /// <summary>
         /// 
