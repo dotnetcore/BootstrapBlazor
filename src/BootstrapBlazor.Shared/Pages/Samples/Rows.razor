@@ -31,6 +31,20 @@
     </Row>
 </Block>
 
+<Block Title="放置表单控件（内联）" Introduction="当放置表单控件时，可以指定 <code>RowType</code> 为 <code>Inline</code>，会将 <b>Label</b> 显示在左边，控件充满剩余空间">
+    <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
+    <ValidateForm Model="@Model">
+        <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.Inline">
+            <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbys" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <DateTimePicker @bind-Value="@Model.DateTime" />
+            <BootstrapInputNumber @bind-Value="@Model.Count" />
+            <Switch @bind-Value="@Model.Complete" />
+            <Select @bind-Value="@Model.Education" />
+        </Row>
+    </ValidateForm>
+</Block>
+
 <Block Title="放置表单控件" Introduction="当放置表单控件时，可以指定 <code>RowType</code> 为 <code>FormRow</code>，会将 <b>Label</b> 显示在上边，控件充满">
     <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
     <ValidateForm Model="@Model">

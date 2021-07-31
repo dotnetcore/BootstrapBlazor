@@ -1,0 +1,21 @@
+﻿@media (min-width: 576px) {
+    .form-inline .form-label {
+        padding: 7px 0;
+        margin-bottom: 0;
+        margin-right: 10px;
+        width: 90px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+        .form-inline .form-label + * {
+            display: inline-block;
+            width: calc(100% - 100px);
+        }
+
+        .form-inline .form-label + .switch {
+            padding: 7px 0;
+        }
+}

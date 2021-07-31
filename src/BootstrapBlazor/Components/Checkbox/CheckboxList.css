@@ -4,10 +4,11 @@
     display: flex;
     flex-flow: row wrap;
     padding-bottom: 0;
+    overflow: hidden;
+    vertical-align: top;
 }
 
     .checkbox-list.is-vertical {
-        display: flex;
         flex-direction: column;
     }
 
@@ -42,9 +43,3 @@
     .checkbox-list.form-control:not(.is-invalid):focus {
         box-shadow: none;
     }
-
-@media (min-width: 576px) {
-    .checkbox-list {
-        display: flex;
-    }
-}

@@ -7,10 +7,11 @@
     var Grid = function (element, options) {
         this.$element = $(element);
         var colSpan = this._getColSpan(this.$element);
+        var rowType = this.$element.data('type');
         var itemsPerRow = parseInt(this.$element.data('items'));
         if (isNaN(itemsPerRow)) itemsPerRow = 12;
 
-        this.options = $.extend({ itemsPerRow, colSpan }, options);
+        this.options = $.extend({ rowType, itemsPerRow, colSpan }, options);
         this.layout();
     };
 
@@ -30,11 +31,13 @@
         },
         _layout_column: function ($target) {
             var $el = this.$element;
+            var rowType = this.options.rowType;
             var itemsPerRow = this.options.itemsPerRow;
             var isLabel = false;
             var $groupCell = null;
             var that = this;
             var $div = $('<div class="row g-3"></div>');
+            if (rowType === "inline") $div.addClass('form-inline');
 
             $el.children().each(function (index, ele) {
                 var $ele = $(ele);
