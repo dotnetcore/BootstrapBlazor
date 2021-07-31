@@ -132,8 +132,14 @@ namespace BootstrapBlazor.Components
                             await option.Dialog.CloseOrPopDialog();
                         }
                     }
-                }))
+                })),
+                new(nameof(RowType), option.RowType)
             };
+
+            if (option.ItemsPerRow.HasValue)
+            {
+                parameters.Add(new(nameof(ItemsPerRow), option.ItemsPerRow));
+            }
 
             if (!string.IsNullOrEmpty(option.CloseButtonText))
             {

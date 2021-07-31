@@ -20,7 +20,7 @@
             <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
         <EditTemplate>
-            <div class="row g-3">
+            <div class="row g-3 form-inline">
                 <div class="col-12 col-sm-6">
                     <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
                 </div>

@@ -33,6 +33,16 @@ namespace BootstrapBlazor.Components
         public bool ShowLabel { get; set; }
 
         /// <summary>
+        /// 获得/设置 每行显示组件数量 默认为 null
+        /// </summary>
+        public int? ItemsPerRow { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置行内组件布局格式 默认 Row 布局
+        /// </summary>
+        public RowType RowType { get; set; }
+
+        /// <summary>
         /// 获得/设置 查询时是否显示正在加载中动画 默认为 false
         /// </summary>
         public bool ShowLoading { get; set; }
