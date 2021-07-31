@@ -68,8 +68,15 @@ namespace BootstrapBlazor.Components
                     {
                         await option.OnSearchClick();
                     }
-                }))
+                })),
+                new(nameof(RowType), option.RowType)
             };
+
+            if (option.ItemsPerRow.HasValue)
+            {
+                parameters.Add(new(nameof(ItemsPerRow), option.ItemsPerRow));
+            }
+
             if (!string.IsNullOrEmpty(option.ResetButtonText))
             {
                 parameters.Add(new(nameof(SearchDialogOption<TModel>.ResetButtonText), option.ResetButtonText));

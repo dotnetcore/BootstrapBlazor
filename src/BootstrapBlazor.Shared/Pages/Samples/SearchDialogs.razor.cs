@@ -62,6 +62,19 @@ namespace BootstrapBlazor.Shared.Pages
             await DialogService.ShowSearchDialog(option);
         }
 
+        private async Task ShowInlineDialog()
+        {
+            var model = new Foo();
+            var option = new SearchDialogOption<Foo>()
+            {
+                Title = "搜索弹出框",
+                RowType = RowType.Inline,
+                Model = model,
+                Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
+            };
+            await DialogService.ShowSearchDialog(option);
+        }
+
         /// <summary>
         /// 获得属性方法
         /// </summary>
@@ -124,6 +137,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "Func<Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "ItemsPerRow",
+                Description = "每行显示组件数量",
+                Type = "int?",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "RowType",
+                Description = "设置组件布局方式",
+                Type = "int?",
+                ValueList = "Row|Inline",
+                DefaultValue = "Row"
             }
         };
     }

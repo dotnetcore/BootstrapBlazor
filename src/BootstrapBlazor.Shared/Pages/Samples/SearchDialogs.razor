@@ -19,4 +19,8 @@
     <Button Text="点击弹出搜索弹窗" OnClickWithoutRender="@ShowColumnsDialog" />
 </Block>
 
+<Block Title="设置搜索弹窗内布局方式" Introduction="通过设定 <code>RowType</code> 参数显式设置弹窗内组件布局方式，默认为上下布局，可设置值 <code>inline</code> 水平布局">
+    <Button Text="点击弹出搜索弹窗" OnClickWithoutRender="@ShowInlineDialog" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" Title="SearchDialogOption 属性" />

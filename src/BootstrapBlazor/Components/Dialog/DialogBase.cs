@@ -40,6 +40,18 @@ namespace BootstrapBlazor.Components
         public bool ShowLabel { get; set; }
 
         /// <summary>
+        /// 获得/设置 每行显示组件数量 默认为 null
+        /// </summary>
+        [Parameter]
+        public int? ItemsPerRow { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置行格式 默认 Row 布局
+        /// </summary>
+        [Parameter]
+        public RowType RowType { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
