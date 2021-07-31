@@ -15,7 +15,8 @@
             width: calc(100% - 100px);
         }
 
-        .form-inline .form-label + .switch {
+        .form-inline .form-label + .switch,
+        .form-inline .form-label + .form-checkbox {
             padding: 7px 0;
         }
 }
