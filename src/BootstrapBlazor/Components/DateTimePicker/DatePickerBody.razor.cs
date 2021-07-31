@@ -572,7 +572,6 @@ namespace BootstrapBlazor.Components
             ShowTimePicker = false;
             if (Validate() && ValueChanged.HasDelegate)
             {
-
                 await ValueChanged.InvokeAsync(Value);
             }
             if (OnConfirm != null)

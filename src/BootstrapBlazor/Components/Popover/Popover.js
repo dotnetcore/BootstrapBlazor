@@ -56,7 +56,7 @@
                         }
                     });
 
-                $('.datetime-picker-input-icon').on('click', function (e) {
+                $el.find('.datetime-picker-input-icon').on('click', function (e) {
                     // handler disabled event
                     if ($(this).hasClass('disabled')) return;
 
@@ -65,9 +65,11 @@
                     $input.trigger('click');
                 });
 
-                $('.disabled .cell').on('click', function (e) {
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
+                $el.find('.date-table .cell').on('click', function (e) {
+                    if ($(e.target).parent().parent().hasClass('disabled')) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    }
                 });
             }
             else $input.popover(method);
