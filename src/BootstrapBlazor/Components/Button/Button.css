@@ -66,3 +66,7 @@
 .btn.is-round {
     border-radius: 20px;
 }
+
+.btn-block {
+    width: 100%
+}

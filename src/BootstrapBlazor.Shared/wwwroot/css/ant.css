@@ -1735,10 +1735,6 @@
     letter-spacing: .34em
 }
 
-.btn-block {
-    width: 100%
-}
-
 .btn:empty {
     display: inline-block;
     width: 0;
