@@ -28,11 +28,21 @@ namespace BootstrapBlazor.Components
             .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Data == null && ItemsPerRow != null && item.Rows == 0)
             .Build();
 
+        private string? FormClassString => CssBuilder.Default("row g-3")
+            .AddClass("form-inline", RowType == RowType.Inline)
+            .Build();
+
         /// <summary>
         /// 获得/设置 每行显示组件数量 默认为 null
         /// </summary>
         [Parameter]
         public int? ItemsPerRow { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置行格式 默认 Row 布局
+        /// </summary>
+        [Parameter]
+        public RowType RowType { get; set; }
 
         /// <summary>
         /// 获得/设置 列模板
