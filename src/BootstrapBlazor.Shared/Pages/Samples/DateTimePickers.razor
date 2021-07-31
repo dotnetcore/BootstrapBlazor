@@ -113,11 +113,11 @@
     </div>
 </Block>
 
-<Block Title="设置值范围" Introduction="设置 <code>MinValue</code> 属性值与 <code>MaxValue</code> 限制可选值范围">
+<Block Title="设置值范围" Introduction="设置 <code>MinValue</code> 属性值与 <code>MaxValue</code> 限制可选值范围，本例中设置范围为 <b>45</b> 天">
     <div class="row g-3">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
-                            MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))" MaxValue="@(DateTime.Today.AddDays(14 - DateTime.Today.Day))" />
+                            MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))" MaxValue="@(DateTime.Today.AddDays(45))" />
         </div>
     </div>
 </Block>
