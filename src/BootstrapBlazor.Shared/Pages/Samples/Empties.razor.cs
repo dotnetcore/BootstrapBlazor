@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "Description",
+                Name = "Text",
                 Description = "自定义描述信息",
                 Type = "string",
                 ValueList = " — ",

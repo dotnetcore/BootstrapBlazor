@@ -293,6 +293,7 @@ namespace BootstrapBlazor.Components
             UnsetText ??= Localizer[nameof(UnsetText)];
             SortAscText ??= Localizer[nameof(SortAscText)];
             SortDescText ??= Localizer[nameof(SortDescText)];
+            EmptyText ??= Localizer[nameof(EmptyText)];
         }
     }
 }

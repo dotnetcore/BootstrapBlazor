@@ -111,7 +111,7 @@
     "PlaceHolderText": "Please input ..."
   },
   "BootstrapBlazor.Components.Empty": {
-    "Description": "No Data"
+    "Text": "No Data"
   },
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
@@ -224,7 +224,8 @@
     "NotSetOnTreeExpandErrorMessage": "not set OnTreeExpand parameter",
     "UnsetText": "Asc",
     "SortAscText": "Desc",
-    "SortDescText": "None"
+    "SortDescText": "None",
+    "EmptyText": "No Data"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

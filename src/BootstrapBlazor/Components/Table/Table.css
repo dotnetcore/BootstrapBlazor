@@ -555,3 +555,7 @@
     --bs-table-accent-bg: var(--bs-table-striped-bg);
     color: var(--bs-table-striped-color);
 }
+
+.table-wrapper .empty-text {
+    padding: 1rem;
+}

@@ -4,13 +4,13 @@
     @if (!string.IsNullOrEmpty(Image))
     {
         <div class="empty-image">
-            <embed src="@Image" type="" width="@Width" height="@Height">
+            <img src="@Image" width="@Width" height="@Height">
         </div>
     }
-    @if (!string.IsNullOrEmpty(Description))
+    @if (!string.IsNullOrEmpty(Text))
     {
-        <div class="empty-description">
-            <span>@Description</span>
+        <div class="empty-text">
+            <span>@Text</span>
         </div>
     }
     @if (Template != null)

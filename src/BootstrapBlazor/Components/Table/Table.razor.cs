@@ -385,6 +385,24 @@ namespace BootstrapBlazor.Components
         public TableSize TableSize { get; set; }
 
         /// <summary>
+        /// 获得/设置 无数据时显示模板 默认 null
+        /// </summary>
+        [Parameter]
+        public RenderFragment? EmptyTemplate { get; set; }
+
+        /// <summary>
+        /// 获得/设置 无数据时显示文本 默认取资源文件 英文 NoData 中文 无数据
+        /// </summary>
+        [Parameter]
+        public string? EmptyText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示无数据空记录 默认 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowEmpty { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示过滤表头 默认 false 不显示
         /// </summary>
         [Parameter]

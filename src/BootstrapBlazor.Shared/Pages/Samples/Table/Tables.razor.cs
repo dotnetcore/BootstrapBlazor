@@ -475,6 +475,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowEmpty",
+                Description = "是否显示无数据提示",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "UseComponentWidth",
                 Description = "组件渲染模式是否使用组件宽度来判断",
                 Type = "boolean",
@@ -629,11 +636,25 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "取消排序"
             },
             new AttributeItem() {
+                Name = "EmptyText",
+                Description = "无数据时显示文本",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "RenderModel",
                 Description = "Table 组件布局模式设置",
                 Type = "TableRenderModel",
                 ValueList = "Auto|Table|CardView",
                 DefaultValue = "Auto"
+            },
+            new AttributeItem() {
+                Name = "EmptyTemplate",
+                Description = "无数据时显示模板",
+                Type = "RenderFragment",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
 

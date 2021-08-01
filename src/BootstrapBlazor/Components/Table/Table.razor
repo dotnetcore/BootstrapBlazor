@@ -162,6 +162,17 @@
                 {
                     @RenderTable.Invoke(true)
                 }
+                if(!RowItems.Any() && ShowEmpty)
+                {
+                    if (EmptyTemplate != null)
+                    {
+                        @EmptyTemplate
+                    }
+                    else
+                    {
+                        <Empty Text="@EmptyText" />
+                    }
+                }
             }
             else
             {
@@ -287,9 +298,9 @@
                 if (ShowDetails())
                 {
                     var colspan = ColumnVisibles.Count(col => col.Visible);
-                    if(IsMultipleSelect) colspan++;
-                    if(ShowLineNo) colspan++;
-                    if(ShowExtendButtons) colspan++;
+                    if (IsMultipleSelect) colspan++;
+                    if (ShowLineNo) colspan++;
+                    if (ShowExtendButtons) colspan++;
 
                     <tr class="@GetDetailRowClassString(item)">
                         <td>&nbsp;</td>

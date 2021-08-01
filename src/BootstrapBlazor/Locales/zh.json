@@ -111,7 +111,7 @@
     "PlaceHolderText": "请输入 ..."
   },
   "BootstrapBlazor.Components.Empty": {
-    "Description": "暂无描述"
+    "Text": "暂无描述"
   },
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "你的输入不相同"
@@ -224,7 +224,8 @@
     "NotSetOnTreeExpandErrorMessage": "未设置 OnTreeExpand 回调委托方法",
     "UnsetText": "点击升序",
     "SortAscText": "点击降序",
-    "SortDescText": "取消排序"
+    "SortDescText": "取消排序",
+    "EmptyText":  "无数据"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

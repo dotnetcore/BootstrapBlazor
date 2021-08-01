@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 空状态描述 默认为 null
         /// </summary>
         [Parameter]
-        public string? Description { get; set; }
+        public string? Text { get; set; }
 
         /// <summary>
         /// 获得/ 设置 图片宽度 默认 100px
@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            Description ??= Localizer[nameof(Description)];
+            Text ??= Localizer[nameof(Text)];
         }
     }
 }
