@@ -114,7 +114,7 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "Row"
             },
             new AttributeItem() {
-                Name = "TextAlign",
+                Name = "LabelAlign",
                 Description = "Inline 布局模式下标签对齐方式",
                 Type = "Alignment",
                 ValueList = "None|Left|Center|Right",

@@ -117,11 +117,11 @@
 
 <Block Title="自定义渲染组件类型" Introduction="通过设置 <code>CompnentType</code> 属性值来控制渲染组件类型">
     <ul class="ul-demo">
-        <li><code>Inline</code> 布局模式下通过设置 <code>TextAlign="Alignment.Right"</code> 使表单内标签右对齐</li>
+        <li><code>Inline</code> 布局模式下通过设置 <code>LabelAlign="Alignment.Right"</code> 使表单内标签右对齐</li>
         <li><code>Buttons</code> 模板内可嵌套 <code>div</code> 并设置样式 <code>text-end</code> 使按钮右侧对齐</li>
     </ul>
     <ValidateForm Model="@Model">
-        <EditorForm Model="@Model" ItemsPerRow="2" RowType="RowType.Inline">
+        <EditorForm Model="@Model" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
             <FieldItems>
                 <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
             </FieldItems>

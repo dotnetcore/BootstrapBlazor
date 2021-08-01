@@ -11,7 +11,8 @@
 </Tips>
 
 <Block Title="基础用法" Introduction="通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单">
-    <Button Text="点击弹出表单编辑弹窗" OnClickWithoutRender="@ShowDialog" />
+    <Button Text="编辑弹窗(左对齐)" OnClickWithoutRender="@ShowDialog" />
+    <Button Text="编辑弹窗(右对齐)" OnClickWithoutRender="@ShowAlignDialog" />
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
