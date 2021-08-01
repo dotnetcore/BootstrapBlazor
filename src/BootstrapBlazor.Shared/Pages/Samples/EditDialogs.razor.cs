@@ -47,6 +47,8 @@ namespace BootstrapBlazor.Shared.Pages
                 Title = "编辑对话框",
                 Model = Model,
                 Items = items,
+                ItemsPerRow = 2,
+                RowType = RowType.Inline,
                 OnCloseAsync = () =>
                 {
                     Trace.Log("关闭按钮被点击");

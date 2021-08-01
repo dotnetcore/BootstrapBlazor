@@ -339,10 +339,10 @@ namespace BootstrapBlazor.Components
             }
             else if (IsValidatableComponent(componentType))
             {
-                builder.AddAttribute(11, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+                builder.AddAttribute(12, nameof(IEditorItem.SkipValidate), item.SkipValidate);
             }
 
-            builder.AddMultipleAttributes(12, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
+            builder.AddMultipleAttributes(13, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
             builder.CloseComponent();
         }
 

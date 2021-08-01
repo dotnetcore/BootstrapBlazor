@@ -98,6 +98,27 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true/false",
                 DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ItemsPerRow",
+                Description = "每行显示组件数量",
+                Type = "int?",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "RowType",
+                Description = "设置组件布局方式",
+                Type = "RowType",
+                ValueList = "Row|Inline",
+                DefaultValue = "Row"
+            },
+            new AttributeItem() {
+                Name = "TextAlign",
+                Description = "Inline 布局模式下标签对齐方式",
+                Type = "Alignment",
+                ValueList = "None|Left|Center|Right",
+                DefaultValue = "None"
             }
         };
 

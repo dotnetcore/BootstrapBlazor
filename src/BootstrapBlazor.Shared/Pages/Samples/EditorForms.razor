@@ -81,10 +81,10 @@
                     <EditorItem @bind-Field="@Model.Address" />
                     <EditorItem @bind-Field="@Model.Count">
                         <EditTemplate Context="value">
-                            <div class="col-6">
+                            <div class="col-12 col-sm-6">
                                 <Select SkipValidate="true" @bind-Value="@Model.Count" Items="@DummyItems" ShowSearch="true" />
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-sm-6">
                                 <BootstrapInput Value="@Model.Count" readonly="true" />
                             </div>
                         </EditTemplate>
@@ -116,14 +116,19 @@
 </Block>
 
 <Block Title="自定义渲染组件类型" Introduction="通过设置 <code>CompnentType</code> 属性值来控制渲染组件类型">
+    <ul class="ul-demo">
+        <li><code>Inline</code> 布局模式下通过设置 <code>TextAlign="Alignment.Right"</code> 使表单内标签右对齐</li>
+        <li><code>Buttons</code> 模板内可嵌套 <code>div</code> 并设置样式 <code>text-end</code> 使按钮右侧对齐</li>
+    </ul>
     <ValidateForm Model="@Model">
-        <EditorForm Model="@Model" ItemsPerRow="2">
+        <EditorForm Model="@Model" ItemsPerRow="2" RowType="RowType.Inline">
             <FieldItems>
-                <EditorItem @bind-Field="@Model.Count" ComponentType="typeof(Select<Int32>)" Data="DummyItems" />
                 <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
             </FieldItems>
             <Buttons>
-                <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                <div class="text-end">
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                </div>
             </Buttons>
         </EditorForm>
     </ValidateForm>

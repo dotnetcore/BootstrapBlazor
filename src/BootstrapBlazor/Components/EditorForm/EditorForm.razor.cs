@@ -24,12 +24,12 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <returns></returns>
         private string? GetCssString(IEditorItem item) => CssBuilder.Default("col-12")
-            .AddClass("col-sm-6", item.Data == null && ItemsPerRow == null && item.Rows == 0)
             .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Data == null && ItemsPerRow != null && item.Rows == 0)
             .Build();
 
         private string? FormClassString => CssBuilder.Default("row g-3")
             .AddClass("form-inline", RowType == RowType.Inline)
+            .AddClass($"is-{TextAlign.ToDescriptionString()}", RowType == RowType.Inline && TextAlign != Alignment.None)
             .Build();
 
         /// <summary>
@@ -43,6 +43,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public RowType RowType { get; set; }
+
+        /// <summary>
+        /// 获得/设置 设置 <see cref="RowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐
+        /// </summary>
+        [Parameter]
+        public Alignment TextAlign { get; set; }
 
         /// <summary>
         /// 获得/设置 列模板

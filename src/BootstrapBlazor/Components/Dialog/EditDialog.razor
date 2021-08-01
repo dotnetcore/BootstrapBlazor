@@ -11,7 +11,7 @@
     else
     {
         <CascadingValue Value="Items" IsFixed="true">
-            <EditorForm TModel="TModel">
+            <EditorForm TModel="TModel" ItemsPerRow="ItemsPerRow" RowType="RowType" >
                 <Buttons>
                     @RenderFooter
                 </Buttons>
@@ -25,7 +25,7 @@
 
 @code {
     RenderFragment RenderFooter =>
-    @<div class="modal-footer table-modal-footer">
+    @<div class="table-modal-footer">
         <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="@(new Func<Task>(OnClose))" />
         <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
     </div>;

@@ -30,6 +30,8 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Title = "搜索弹出框",
                 Model = new Foo(),
+                ItemsPerRow = 2,
+                RowType = RowType.Inline,
                 OnCloseAsync = () =>
                 {
                     Trace.Log("关闭按钮被点击");
@@ -57,6 +59,8 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Title = "搜索弹出框",
                 Model = model,
+                ItemsPerRow = 2,
+                RowType = RowType.Inline,
                 Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
             };
             await DialogService.ShowSearchDialog(option);
@@ -68,6 +72,7 @@ namespace BootstrapBlazor.Shared.Pages
             var option = new SearchDialogOption<Foo>()
             {
                 Title = "搜索弹出框",
+                ItemsPerRow = 2,
                 RowType = RowType.Inline,
                 Model = model,
                 Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))

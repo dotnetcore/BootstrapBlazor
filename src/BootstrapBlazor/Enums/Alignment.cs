@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        [Description("left")]
+        [Description("start")]
         Left,
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        [Description("right")]
+        [Description("end")]
         Right
     }
 }
