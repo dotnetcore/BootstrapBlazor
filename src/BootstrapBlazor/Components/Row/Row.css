@@ -11,9 +11,12 @@
     }
 
         .form-inline .form-label + * {
-            display: inline-block;
             width: calc(100% - 100px);
         }
+
+            .form-inline .form-label + *:not(.input-group) {
+                display: inline-block;
+            }
 
         .form-inline .form-label + .switch,
         .form-inline .form-label + .form-checkbox {

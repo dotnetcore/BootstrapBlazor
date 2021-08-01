@@ -14,7 +14,7 @@
         this.init();
     };
 
-    Tab.VERSION = "3.1.0";
+    Tab.VERSION = "5.1.0";
     Tab.Author = 'argo@163.com';
     Tab.DATA_KEY = "lgb.Tab";
 

@@ -22,13 +22,16 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string? Value1 { get; set; }
 
-        private string Value2 { get; set; } = "#FFF";
+        private string Value2 { get; set; } = "#FFFFFF";
 
-        private string Value3 { get; set; } = "#DDD";
+        private string Value3 { get; set; } = "#DDDDDD";
 
         private string? Value4 { get; set; }
 
         private string? Value5 { get; set; }
+
+        [NotNull]
+        private Foo? Dummy { get; set; } = new Foo() { Name = "#dddddd" };
 
         private Task OnColorChanged(string color)
         {
@@ -42,16 +45,9 @@ namespace BootstrapBlazor.Shared.Pages
         /// <returns></returns>
         private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
-            new AttributeItem(){
-                Name = "ShowBar",
-                Description = "是否显示右侧颜色预览框",
-                Type = "bool",
-                ValueList = "false/true",
-                DefaultValue = "true"
-            },
             new AttributeItem()
             {
-                Name = "ColorChanged",
+                Name = "OnValueChanged",
                 Description = "颜色改变回调委托方法",
                 Type = "Func<string, Task>",
                 ValueList = "",

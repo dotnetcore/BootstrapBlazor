@@ -5,7 +5,7 @@
         this.init();
     };
 
-    SliderCaptcha.VERSION = '3.1.0';
+    SliderCaptcha.VERSION = '5.1.0';
     SliderCaptcha.Author = 'argo@163.com';
     SliderCaptcha.DATA_KEY = "lgb.SliderCaptcha";
 

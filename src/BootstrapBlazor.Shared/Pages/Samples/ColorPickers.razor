@@ -5,26 +5,32 @@
 <h4>选择颜色使用</h4>
 
 <Block Title="基本用法" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
-    <ColorPicker Value="@Value1" ColorChanged="@OnColorChanged" ShowBar="false" />
+    <ColorPicker Value="@Value1" OnValueChanged="@OnColorChanged" />
     <Logger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="设置初始值" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
     <p>设置 <code>Value="@Value2"</code> 初始化默认值</p>
-    <ColorPicker Value="@Value2" ShowBar="false" />
+    <ColorPicker Value="@Value2" />
 </Block>
 
 <Block Title="双向绑定" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
-    <ColorPicker @bind-Value="@Value3" ShowBar="false" />
+    <ColorPicker @bind-Value="@Value3" />
     <div class="mt-3">Value3: @Value3</div>
 </Block>
 
-<Block Title="显示颜色 Bar" Introduction="通过设置 <code>ShowBar</code> 属性开启右侧颜色预览框">
-    <ColorPicker Value="@Value4" ShowBar="true" />
+<Block Title="禁用" Introduction="通过设置 <code>IsDisabled</code> 属性禁用此组件">
+    <ColorPicker Value="@Value5" IsDisabled="true" />
 </Block>
 
-<Block Title="禁用" Introduction="通过设置 <code>IsDisabled</code> 属性禁用此组件">
-    <ColorPicker Value="@Value5" ShowBar="true" IsDisabled="true" />
+<Block Title="验证表单中使用" Introduction="内置于 <code>ValidateForm</code> 中使用">
+    <ValidateForm Model="Dummy">
+        <div class="row g-3 form-inline">
+            <div class="col-6">
+                <ColorPicker @bind-Value="@Dummy.Name" />
+            </div>
+        </div>
+    </ValidateForm>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
