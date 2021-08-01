@@ -69,7 +69,8 @@ namespace BootstrapBlazor.Components
                         await option.OnSearchClick();
                     }
                 })),
-                new(nameof(RowType), option.RowType)
+                new(nameof(SearchDialogOption<TModel>.RowType), option.RowType),
+                new(nameof(SearchDialogOption<TModel>.LabelAlign), option.LabelAlign)
             };
 
             if (option.ItemsPerRow.HasValue)

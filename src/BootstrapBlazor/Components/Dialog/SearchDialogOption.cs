@@ -42,6 +42,11 @@ namespace BootstrapBlazor.Components
         public RowType RowType { get; set; }
 
         /// <summary>
+        /// 获得/设置 设置 <see cref="RowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐
+        /// </summary>
+        public Alignment LabelAlign { get; set; }
+
+        /// <summary>
         /// 获得/设置 编辑框模型
         /// </summary>
         public TModel? Model { get; set; }

@@ -80,6 +80,21 @@ namespace BootstrapBlazor.Shared.Pages
             await DialogService.ShowSearchDialog(option);
         }
 
+        private async Task ShowInlineAlignDialog()
+        {
+            var model = new Foo();
+            var option = new SearchDialogOption<Foo>()
+            {
+                Title = "搜索弹出框",
+                ItemsPerRow = 2,
+                RowType = RowType.Inline,
+                LabelAlign = Alignment.Right,
+                Model = model,
+                Items = Utility.GenerateColumns<Foo>(p => p.GetFieldName() == nameof(Foo.Name) || p.GetFieldName() == nameof(Foo.Address))
+            };
+            await DialogService.ShowSearchDialog(option);
+        }
+
         /// <summary>
         /// 获得属性方法
         /// </summary>
@@ -153,9 +168,16 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "RowType",
                 Description = "设置组件布局方式",
-                Type = "int?",
+                Type = "RowType",
                 ValueList = "Row|Inline",
                 DefaultValue = "Row"
+            },
+            new AttributeItem() {
+                Name = "LabelAlign",
+                Description = "Inline 布局模式下标签对齐方式",
+                Type = "Alignment",
+                ValueList = "None|Left|Center|Right",
+                DefaultValue = "None"
             }
         };
     }
