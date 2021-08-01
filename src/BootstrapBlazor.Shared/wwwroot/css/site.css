@@ -693,6 +693,7 @@ section {
     padding-top: 2rem;
     text-align: center;
     border-top: solid 1px #ddd;
+    position: relative;
 }
 
     .donate h3 {
@@ -1407,7 +1408,7 @@ section {
 
 .ms-learn {
     position: fixed;
-    bottom: 4rem;
+    bottom: 5rem;
     right: 1rem;
     background: #8759ff;
     box-shadow: 0 0 8px #211b50;
@@ -1498,7 +1499,7 @@ section {
     position: fixed;
     z-index: 12;
     right: 1rem;
-    bottom: 8rem;
+    bottom: 9rem;
     background-color: #034995;
     padding: 11px;
 }
@@ -1609,22 +1610,4 @@ section {
 
 .sidebar-content {
     padding: .5rem 0;
-}
-
-.wwads-cn.wwads-horizontal {
-    position: fixed;
-    top: 2.5rem;
-    right: 1rem;
-    z-index: 20;
-    border: 1px solid #c0c4cc;
-}
-
-@media (max-width: 768px) {
-    .wwads-horizontal {
-        display: none !important;
-    }
-}
-
-.is-right .form-label {
-    text-align: right;
 }
