@@ -88,26 +88,6 @@
     </Table>
 </Block>
 
-<Block Title="默认排序功能" Introduction="设置 <code>DefaultSort</code> 属性值为 <code>true</code> 时作为默认排序列">
-    <ul class="ul-demo">
-        <li>设置 <code>DefaultSort=true</code> 开启默认排序功能，当多列设置此属性时，第一列起作用</li>
-        <li>设置 <code>DefaultSortOrder</code> 值，设置默认排序规则</li>
-    </ul>
-    <p>本例中默认排序为最后一列倒序排序</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowSkeleton="true"
-           OnQueryAsync="@OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
-            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" DefaultSort="true" DefaultSortOrder="@SortOrder.Desc" />
-        </TableColumns>
-    </Table>
-</Block>
-
 <Block Title="显示过滤表头" Introduction="设置 <code>ShowFilterHeader</code> 属性值为 <code>true</code> 时显示过滤表头">
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"

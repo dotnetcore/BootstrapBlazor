@@ -1611,3 +1611,20 @@ section {
 .sidebar-content {
     padding: .5rem 0;
 }
+
+.wwads-cn.wwads-horizontal {
+    border: 1px solid #c0c4cc;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .wwads-horizontal {
+        display: none !important;
+    }
+}
+
+.is-right .form-label {
+    text-align: right;
+}
