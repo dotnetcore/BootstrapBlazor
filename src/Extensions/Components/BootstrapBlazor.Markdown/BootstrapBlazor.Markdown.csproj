@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Markdown</PackageTags>
@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="bundleconfig.json" />
+    <Content Remove="*.json" />
     <Content Remove="wwwroot\lib\tui.editor\toastui-jquery-editor.js" />
     <Content Remove="wwwroot\lib\tui.editor\zh-cn.js" />
-    <None Include="bundleconfig.json" />
+    <None Include="*.json" />
     <None Include="wwwroot\lib\tui.editor\toastui-jquery-editor.js" />
     <None Include="wwwroot\lib\tui.editor\zh-cn.js" />
   </ItemGroup>

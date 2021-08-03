@@ -91,6 +91,8 @@ namespace BootstrapBlazor.Components
 
         private readonly MarkdownOption _markdownOption = new();
 
+        private bool IsRender { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -109,6 +111,16 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// OnParametersSetAsync 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            IsRender = true;
+        }
+
+        /// <summary>
         /// OnAfterRenderAsync 方法
         /// </summary>
         /// <param name="firstRender"></param>
@@ -119,12 +131,23 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
+                IsRender = false;
                 if (Interop == null)
                 {
                     Interop = new JSInterop<Markdown>(JSRuntime);
                 }
 
                 await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", _markdownOption, nameof(Update));
+            }
+
+            if (IsRender)
+            {
+                if (Interop == null)
+                {
+                    Interop = new JSInterop<Markdown>(JSRuntime);
+                }
+
+                await Interop.InvokeVoidAsync(this, MarkdownElement, "bb_markdown", Value ?? "", "setMarkdown");
             }
         }
 

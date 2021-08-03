@@ -2,28 +2,20 @@
   {
     "outputFileName": "wwwroot/css/bootstrap.blazor.markdown.min.css",
     "inputFiles": [
-      "wwwroot/lib/tui.editor/codemirror.min.css",
-      "wwwroot/lib/tui.editor/toastui-editor.min.css"
+      "wwwroot/lib/**/*.min.css"
     ]
   },
   {
-    "outputFileName": "Components/Markdown/Markdown.razor.cs.min.js",
+    "outputFileName": "Components/Markdown/Markdown.min.js",
     "inputFiles": [
-      "Components/Markdown/Markdown.razor.cs.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/lib/tui.editor/toastui-jquery-editor.min.js",
-    "inputFiles": [
-      "wwwroot/lib/tui.editor/toastui-jquery-editor.js"
+      "Components/Markdown/Markdown.js"
     ]
   },
   {
     "outputFileName": "wwwroot/js/bootstrap.blazor.markdown.min.js",
     "inputFiles": [
-      "wwwroot/lib/tui.editor/toastui-jquery-editor.min.js",
-      "wwwroot/lib/tui.editor/zh-cn.min.js",
-      "Components/Markdown/Markdown.razor.cs.min.js"
+      "wwwroot/lib/**/*.min.js",
+      "Components/**/*.min.js"
     ],
     "minify": {
       "enabled": false,
