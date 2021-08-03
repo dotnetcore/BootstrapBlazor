@@ -518,7 +518,7 @@
 }
 
 .table-cell.is-incell {
-    margin: -7px -9px;
+    margin: -.5rem;
 }
 
     .table-cell.is-incell .switch {

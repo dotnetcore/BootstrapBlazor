@@ -1,0 +1,11 @@
+<Project>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.449" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="$(USERNAME) == 'Argo' or $(USER) == 'Argo'">
+    <Exec Command="dotnet bundle --no-color" />
+  </Target>
+
+</Project>

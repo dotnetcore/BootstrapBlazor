@@ -1,6 +1,7 @@
 <Project>
 
   <Import Project="..\Directory.Build.props" />
+  <Import Project="bundleconfig.props" />
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
@@ -20,13 +21,5 @@
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
-
-  <ItemGroup>
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.449" />
-  </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="$(USERNAME) == 'Argo' or $(USER) == 'Argo'">
-    <Exec Command="dotnet bundle --no-color" />
-  </Target>
 
 </Project>
