@@ -2,6 +2,12 @@
     display: flex;
 }
 
+.tabs,
+.tabs-body,
+.tabs-body-content {
+    height: 100%;
+}
+
     /*top*/
     .tabs.tabs-top {
         flex-flow: column;
