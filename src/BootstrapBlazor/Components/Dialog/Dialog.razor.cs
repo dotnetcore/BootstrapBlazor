@@ -82,6 +82,11 @@ namespace BootstrapBlazor.Components
                 parameters.Add(new(nameof(ModalDialog.FooterTemplate), option.FooterTemplate));
             }
 
+            if (!string.IsNullOrEmpty(option.Class))
+            {
+                parameters.Add(new(nameof(ModalDialog.Class), option.Class));
+            }
+
             parameters.Add(new(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
             {
                 // 回调 OnClose 方法

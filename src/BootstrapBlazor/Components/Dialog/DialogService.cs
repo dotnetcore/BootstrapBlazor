@@ -49,9 +49,9 @@ namespace BootstrapBlazor.Components
 
             var parameters = new List<KeyValuePair<string, object>>
             {
-                new(nameof(SearchDialogOption<TModel>.ShowLabel), option.ShowLabel),
-                new(nameof(SearchDialogOption<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable)),
-                new(nameof(SearchDialogOption<TModel>.OnResetSearchClick), new Func<Task>(async () =>
+                new(nameof(SearchDialog<TModel>.ShowLabel), option.ShowLabel),
+                new(nameof(SearchDialog<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable)),
+                new(nameof(SearchDialog<TModel>.OnResetSearchClick), new Func<Task>(async () =>
                 {
                     option.OnCloseAsync = null;
                     option.Dialog.RemoveDialog();
@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
                         await option.OnResetSearchClick();
                     }
                 })),
-                new(nameof(SearchDialogOption<TModel>.OnSearchClick), new Func<Task>(async () =>
+                new(nameof(SearchDialog<TModel>.OnSearchClick), new Func<Task>(async () =>
                 {
                     option.OnCloseAsync = null;
                     option.Dialog.RemoveDialog();
@@ -69,8 +69,8 @@ namespace BootstrapBlazor.Components
                         await option.OnSearchClick();
                     }
                 })),
-                new(nameof(SearchDialogOption<TModel>.RowType), option.RowType),
-                new(nameof(SearchDialogOption<TModel>.LabelAlign), option.LabelAlign)
+                new(nameof(SearchDialog<TModel>.RowType), option.RowType),
+                new(nameof(SearchDialog<TModel>.LabelAlign), option.LabelAlign)
             };
 
             if (option.ItemsPerRow.HasValue)
@@ -80,22 +80,22 @@ namespace BootstrapBlazor.Components
 
             if (!string.IsNullOrEmpty(option.ResetButtonText))
             {
-                parameters.Add(new(nameof(SearchDialogOption<TModel>.ResetButtonText), option.ResetButtonText));
+                parameters.Add(new(nameof(SearchDialog<TModel>.ResetButtonText), option.ResetButtonText));
             }
 
             if (!string.IsNullOrEmpty(option.QueryButtonText))
             {
-                parameters.Add(new(nameof(SearchDialogOption<TModel>.QueryButtonText), option.QueryButtonText));
+                parameters.Add(new(nameof(SearchDialog<TModel>.QueryButtonText), option.QueryButtonText));
             }
 
             if (option.Model != null)
             {
-                parameters.Add(new(nameof(SearchDialogOption<TModel>.Model), option.Model));
+                parameters.Add(new(nameof(SearchDialog<TModel>.Model), option.Model));
             }
 
             if (option.DialogBodyTemplate != null)
             {
-                parameters.Add(new(nameof(SearchDialogOption<TModel>.BodyTemplate), option.DialogBodyTemplate));
+                parameters.Add(new(nameof(SearchDialog<TModel>.BodyTemplate), option.DialogBodyTemplate));
             }
 
             option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(parameters);
@@ -236,6 +236,7 @@ namespace BootstrapBlazor.Components
                     option.ReturnTask.SetResult(result);
                 }
             };
+
             await base.Show(option);
             return await option.ReturnTask.Task;
         }
