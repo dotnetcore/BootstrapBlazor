@@ -656,9 +656,9 @@ RenderFragment<TItem> RenderEditForm => item =>
             {
                 <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(SaveAsync))">
                     <CascadingValue Value="@Columns.Where(c => c.Editable)" IsFixed="true">
-                        <EditorForm TModel="TItem">
+                        <EditorForm TModel="TItem" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                             <Buttons>
-                                <div class="modal-footer table-modal-footer">
+                                <div class="table-modal-footer">
                                     <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="@CancelSave()" />
                                     <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
                                 </div>

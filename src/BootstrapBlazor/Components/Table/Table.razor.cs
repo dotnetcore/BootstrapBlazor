@@ -62,6 +62,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-master", ShowDetails())
             .AddClass("is-click", ClickToSelect)
             .AddClass("is-dblclick", DoubleClickToEdit)
+            .AddClass("is-edit", EditInCell)
             .Build();
 
         /// <summary>

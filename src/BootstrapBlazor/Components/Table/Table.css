@@ -202,8 +202,9 @@
     }
 
 .table-hover tbody tr.is-detail:hover,
+.table-hover tbody tr.is-editform,
 .table-hover tbody tr.is-editform:hover {
-    background-color: unset;
+    --bs-table-accent-bg: unset;
 }
 
 .table tbody tr.is-master td:first-child {
@@ -339,12 +340,13 @@
     text-align: right;
 }
 
-.table tbody tr.active,
+.table tbody tr.active:not(.is-edit),
 .table-row.active {
     background-color: var(--bb-table-selected-bg);
 }
 
-.table-hover > tbody > tr.is-detail:hover {
+.table-hover > tbody > tr.is-detail:hover,
+.table-hover > tbody > tr.is-edit.active {
     --bs-table-accent-bg: none;
 }
 
@@ -518,12 +520,16 @@
 }
 
 .table-cell.is-incell {
-    margin: -.5rem;
+    margin: -7px -6px;
 }
 
     .table-cell.is-incell .switch {
         height: 35px;
         padding-left: 9px;
+    }
+
+    .table-cell.is-incell .select {
+        width: 100%;
     }
 
 .table-sm .table-cell.is-incell {
