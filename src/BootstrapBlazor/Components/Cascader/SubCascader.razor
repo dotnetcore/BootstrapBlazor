@@ -6,7 +6,7 @@
     if (item.HasChildren)
     {
         <li>
-            <div class="@ActiveItem("has-leaf nav-link", item)">
+            <div class="@ActiveItem("has-leaf nav-link", item)" @onclick="@(e => OnClick(item))"   >
                 <span>@item.Text</span>
                 <i class="fa fa-angle-down nav-link-right"></i>
                 <ul class="nav sub-menu" @onclick:stopPropagation>
