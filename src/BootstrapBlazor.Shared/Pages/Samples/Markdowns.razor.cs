@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string? Language { get; set; }
 
+        private string? AsyncValue { get; set; }
+
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
@@ -34,6 +37,12 @@ namespace BootstrapBlazor.Shared.Pages
             Language = CultureInfo.CurrentUICulture.Name;
             MarkdownString = "### 测试";
             Version = await VersionManager.GetVersionAsync("bootstrapblazor.markdown");
+        }
+
+        private async Task GetAsyncString()
+        {
+            await Task.Delay(600);
+            AsyncValue = $"### {DateTime.Now}";
         }
 
         private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

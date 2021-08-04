@@ -52,6 +52,11 @@
     </div>
 </Block>
 
+<Block Title="异步加载数据" Introduction="通过 <code>Webapi</code> 获得 <code>Markdown</code> 显示内容">
+    <Button Text="加载" IsAsync="true" OnClick="GetAsyncString" Icon="fa fa-fa" />
+    <Markdown @bind-Value="@AsyncValue"></Markdown>
+</Block>
+
 <Block Title="常用属性" Introduction="更改默认参数">
     <p>设置 <code>Markdown</code> 编辑器最小高度 <code>300px</code>，默认高度 <code>500px</code>，提示信息这是 <code>Markdown</code>，<code>Tab</code> 方式显示，默认显示所见即所得页面</p>
     <Markdown Height="500" MinHeight="300" Placeholder="这是 Markdown" PreviewStyle="PreviewStyle.Tab" InitialEditType="InitialEditType.Wysiwyg" Language="@Language"></Markdown>
