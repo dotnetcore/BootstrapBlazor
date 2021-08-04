@@ -152,6 +152,24 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool? IsDetails { get; set; }
 
+        /// <summary>
+        /// 获得/设置 每行显示组件数量 默认为 2
+        /// </summary>
+        [Parameter]
+        public int EditDialogItemsPerRow { get; set; } = 2;
+
+        /// <summary>
+        /// 获得/设置 设置行内组件布局格式 默认 Inline 布局
+        /// </summary>
+        [Parameter]
+        public RowType EditDialogRowType { get; set; } = RowType.Inline;
+
+        /// <summary>
+        /// 获得/设置 设置 <see cref="EditDialogRowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐
+        /// </summary>
+        [Parameter]
+        public Alignment EditDialogLabelAlign { get; set; }
+
         [NotNull]
         private string? NotSetOnTreeExpandErrorMessage { get; set; }
 

@@ -421,6 +421,9 @@ namespace BootstrapBlazor.Components
             Items = Columns.Where(i => i.Editable),
             SaveButtonText = EditDialogSaveButtonText,
             DialogBodyTemplate = EditTemplate,
+            RowType = EditDialogRowType,
+            ItemsPerRow = EditDialogItemsPerRow,
+            LabelAlign = EditDialogLabelAlign,
             OnCloseAsync = async () =>
             {
                 if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)

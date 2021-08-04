@@ -655,7 +655,29 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "EditDialogItemsPerRow",
+                Description = "每行显示组件数量",
+                Type = "int?",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "EditDialogRowType",
+                Description = "设置组件布局方式",
+                Type = "RowType",
+                ValueList = "Row|Inline",
+                DefaultValue = "Row"
+            },
+            new AttributeItem() {
+                Name = "EditDialogLabelAlign",
+                Description = "Inline 布局模式下标签对齐方式",
+                Type = "Alignment",
+                ValueList = "None|Left|Center|Right",
+                DefaultValue = "None"
             }
+
         };
 
         private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
