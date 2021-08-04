@@ -116,11 +116,9 @@ namespace BootstrapBlazor.Components
 
             await OnSelectedRowsChanged();
 
-            if (EditInCell)
-            {
-                // auto quit edit in cell mode
-                EditInCell = false;
-            }
+            // auto quit edit in cell mode
+            AddInCell = false;
+            EditInCell = false;
 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
             StateHasChanged();

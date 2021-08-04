@@ -196,6 +196,8 @@ namespace BootstrapBlazor.Components
 
         private bool EditInCell { get; set; }
 
+        private bool AddInCell { get; set; }
+
         /// <summary>
         /// 新建按钮方法
         /// </summary>
@@ -229,9 +231,16 @@ namespace BootstrapBlazor.Components
                 {
                     ShowAddForm = true;
                     ShowEditForm = false;
+                    StateHasChanged();
+                }
+                else if (EditMode == EditMode.InCell)
+                {
+                    AddInCell = true;
+                    EditInCell = true;
+                    SelectedItems.Add(EditModel);
+                    StateHasChanged();
                 }
                 await ToggleLoading(false);
-                StateHasChanged();
             }
             else
             {
@@ -285,6 +294,7 @@ namespace BootstrapBlazor.Components
                     }
                     else if (EditMode == EditMode.InCell)
                     {
+                        AddInCell = false;
                         EditInCell = true;
                         StateHasChanged();
                     }
@@ -327,6 +337,7 @@ namespace BootstrapBlazor.Components
             else if (EditMode == EditMode.InCell)
             {
                 SelectedItems.Clear();
+                AddInCell = false;
                 EditInCell = false;
             }
         });
@@ -391,6 +402,11 @@ namespace BootstrapBlazor.Components
                     {
                         SelectedItems.Clear();
                         EditInCell = false;
+                        if (AddInCell)
+                        {
+                            AddInCell = false;
+                            await QueryAsync();
+                        }
                     }
                 }
                 await ToggleLoading(false);

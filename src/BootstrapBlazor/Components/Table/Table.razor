@@ -292,6 +292,10 @@
             {
                 @RenderEditForm.Invoke(EditModel)
             }
+            @if (AddInCell)
+            {
+                @RenderRow(EditModel)
+            }
             @foreach (var item in RowItems)
             {
                 @RenderRow.Invoke(item)

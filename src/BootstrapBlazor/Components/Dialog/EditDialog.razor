@@ -6,7 +6,11 @@
     @if (BodyTemplate != null)
     {
         @BodyTemplate?.Invoke(Model)
-        @RenderFooter
+        <div class="row mt-3">
+            <div class="col-12">
+                @RenderFooter
+            </div>
+        </div>
     }
     else
     {
