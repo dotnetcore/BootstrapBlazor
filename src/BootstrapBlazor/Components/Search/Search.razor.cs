@@ -16,6 +16,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Search
     {
+        private ElementReference SearchElement { get; set; }
+
         [NotNull]
         private string? ButtonIcon { get; set; }
 
@@ -64,6 +66,18 @@ namespace BootstrapBlazor.Components
         public string SeachButtonLoadingIcon { get; set; } = "fa fa-fw fa-spinner fa-spin";
 
         /// <summary>
+        /// 获得/设置 是否自动获得焦点
+        /// </summary>
+        [Parameter]
+        public bool IsAutoFocus { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否自动获得焦点
+        /// </summary>
+        [Parameter]
+        public bool IsAutoClearAfterSearch { get; set; }
+
+        /// <summary>
         /// 获得/设置 搜索按钮文字
         /// </summary>
         [Parameter]
@@ -98,6 +112,21 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender && IsAutoFocus)
+            {
+                await SearchElement.FocusAsync();
+            }
+        }
+
+        /// <summary>
         /// 点击搜索按钮时触发此方法
         /// </summary>
         /// <returns></returns>
@@ -108,6 +137,10 @@ namespace BootstrapBlazor.Components
                 ButtonIcon = SeachButtonLoadingIcon;
                 await OnSearch(CurrentValueAsString);
                 ButtonIcon = SearchButtonIcon;
+            }
+            if (IsAutoClearAfterSearch)
+            {
+                CurrentValueAsString = "";
             }
         }
 
