@@ -124,7 +124,10 @@ namespace BootstrapBlazor.Components
                 Model = SearchModel,
                 DialogBodyTemplate = SearchTemplate,
                 OnResetSearchClick = ResetSearchClick,
-                OnSearchClick = SearchClick
+                OnSearchClick = SearchClick,
+                RowType = EditDialogRowType,
+                ItemsPerRow = EditDialogItemsPerRow,
+                LabelAlign = EditDialogLabelAlign
             };
 
             var columns = Columns.Where(i => i.Searchable || i.SearchTemplate != null).ToList();

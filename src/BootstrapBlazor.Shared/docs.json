@@ -22,7 +22,7 @@
     "export": "Table/TablesExport",
     "filter": "Table/TablesFilter",
     "fix-column": "Table/TablesFixedColumn",
-    "footer": "Table/TablesFooter;Table/TablesBaseQuery",
+    "footer": "Table/TablesFooter",
     "gotops": "GoTops",
     "groupboxs": "GroupBoxs",
     "header": "Table/TablesFixedHeader",
