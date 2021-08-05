@@ -23,7 +23,10 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private Logger? Trace2 { get; set; }
 
-        private Task OnSearch(string searchText)
+        [NotNull]
+        private Logger? Trace3 { get; set; }
+
+        private Task OnSearch1(string searchText)
         {
             Trace.Log($"SearchText: {searchText}");
             return Task.CompletedTask;
@@ -35,9 +38,15 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private Task OnSearch3(string searchText)
+        {
+            Trace3.Log($"SearchText: {searchText}");
+            return Task.CompletedTask;
+        }
+
         private Task OnClear(string searchText)
         {
-            Trace2.Log($"OnClear: {searchText}");
+            Trace3.Log($"OnClear: {searchText}");
             return Task.CompletedTask;
         }
 

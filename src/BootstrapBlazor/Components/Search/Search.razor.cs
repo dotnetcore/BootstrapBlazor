@@ -122,7 +122,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender && IsAutoFocus)
             {
-                await SearchElement.FocusAsync();
+                FocusAsync();
             }
         }
 
@@ -142,7 +142,15 @@ namespace BootstrapBlazor.Components
             {
                 CurrentValueAsString = "";
             }
+
+            await FocusAsync();
         }
+
+        /// <summary>
+        /// 自动获得焦点方法
+        /// </summary>
+        /// <returns></returns>
+        public ValueTask FocusAsync() => SearchElement.FocusAsync();
 
         /// <summary>
         /// 点击搜索按钮时触发此方法
