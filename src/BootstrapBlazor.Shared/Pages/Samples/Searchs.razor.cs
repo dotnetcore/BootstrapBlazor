@@ -78,6 +78,14 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = " — ",
                 DefaultValue = "无匹配数据"
             },
+            new AttributeItem()
+            {
+                Name="SearchButtonLoadingIcon",
+                Description = "正在搜索按钮图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "fa fa-fw fa-spinner fa-spin"
+            },
             new AttributeItem() {
                 Name = "ClearButtonIcon",
                 Description = "清空按钮图标",
@@ -109,6 +117,20 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "IsLikeMatch",
                 Description = "是否开启模糊匹配",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsAutoFocus",
+                Description = "是否自动获得焦点",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsAutoClearAfterSearch",
+                Description = "点击搜索后是否自动清空搜索框",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

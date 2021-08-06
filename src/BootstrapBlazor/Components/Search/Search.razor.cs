@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 正在搜索按钮图标
         /// </summary>
         [Parameter]
-        public string SeachButtonLoadingIcon { get; set; } = "fa fa-fw fa-spinner fa-spin";
+        public string SearchButtonLoadingIcon { get; set; } = "fa fa-fw fa-spinner fa-spin";
 
         /// <summary>
         /// 获得/设置 是否自动获得焦点
@@ -72,7 +72,7 @@ namespace BootstrapBlazor.Components
         public bool IsAutoFocus { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否自动获得焦点
+        /// 获得/设置 点击搜索后是否自动清空搜索框
         /// </summary>
         [Parameter]
         public bool IsAutoClearAfterSearch { get; set; }
@@ -122,7 +122,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender && IsAutoFocus)
             {
-                FocusAsync();
+                await FocusAsync();
             }
         }
 
@@ -134,7 +134,7 @@ namespace BootstrapBlazor.Components
         {
             if (OnSearch != null)
             {
-                ButtonIcon = SeachButtonLoadingIcon;
+                ButtonIcon = SearchButtonLoadingIcon;
                 await OnSearch(CurrentValueAsString);
                 ButtonIcon = SearchButtonIcon;
             }
