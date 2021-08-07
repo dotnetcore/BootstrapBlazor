@@ -1,26 +1,27 @@
 ﻿@page "/template"
 @inject NugetVersionService VersionManager
+@inject IStringLocalizer<Template> Localizer
 
-<h3>项目模板（Project Template）</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>Bootstrap Blazor App 模板</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<p>为了方便大家利用这套组件快速搭建项目，作者制作了 <b>项目模板（<code>Project Templates</code>）</b>，使用 <code>dotnet new</code> 命令行模式，使用步骤如下：</p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>
 
-<p class="code-label">1. 安装项目模板</p>
+<p class="code-label">@Localizer["P2"]</p>
 <Pre class="no-highlight">dotnet new -i Bootstrap.Blazor.Templates::@Version</Pre>
 
-<p class="code-label">2. 创建工程</p>
+<p class="code-label">@Localizer["P3"]</p>
 <Pre>dotnet new bbapp</Pre>
 
-<p>创建工程后在当前文件夹内会生成 <code>BootstrapBlazorApp</code> 解决方案，<code>src</code> 目录内包含 <code>Server-Side</code> <code>Wasm</code> 两种类型的工程，均可以直接 <kbd>F5</kbd> 运行</p>
+<p>@((MarkupString)Localizer["P4"].Value)</p>
 
-<p class="code-label">3. 卸载项目模板</p>
+<p class="code-label">@Localizer["P5"]</p>
 <Pre>dotnet new -u Bootstrap.Blazor.Templates</Pre>
 
-<h4>Bootstrap Blazor App Extension 扩展插件</h4>
+<h4>@Localizer["SubTitle1"]</h4>
 
-<p>为了方便使用 <code>Bootstrap Blazor</code> 组件库，作者制作了 <b>项目模板（<code>Bootstrap Blazor Project Template</code>）</b> 扩展插件，安装此插件可通过 <code>Visual Studio 2019 IDE</code> 新建项目时选择 <code>Bootstrap Blazor 项目模板</code>，解决方案内置 <code>Server-Side</code> 与 <cide>wasm</cide> 两种类型工程</p>
+<p>@((MarkupString)Localizer["P6"].Value)</p>
 
 <p><a href="https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B?sort_id=3059284" target="_blank">安装使用教程链接</a></p>
 

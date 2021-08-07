@@ -69,6 +69,22 @@
     "EnvLi2": "Install Visual Studio 2019 and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
     "EnvLi3": "Pull the project code BootstrapBlazor <a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>Warehouse URL</a>"
   },
+  "BootstrapBlazor.Shared.Pages.Template": {
+    "Title": "Project Template",
+    "SubTitle": "Bootstrap Blazor App Template",
+    "P1": "In order to make it easier for everyone to use this set of components to quickly build projects, the author has made <b>Project Templates</code></b>, using <code>dotnet new</code> command line mode, using Proceed as follows:",
+    "P2": "1. Install the project template",
+    "P3": "2. Create project",
+    "P4": "After the project is created, the <code>BootstrapBlazorApp</code> solution will be generated in the current folder, and the <code>src</code> directory contains <code>Server-Side</code> <code>Wasm</code> Both types of projects can be run directly with <kbd>F5</kbd>",
+    "P5": "3. Uninstall project template",
+    "SubTitle1": "Bootstrap Blazor App Extension",
+    "P6": "In order to facilitate the use of the <code>Bootstrap Blazor</code> component library, the author has created the <b>Project Template (<code>Bootstrap Blazor Project Template</code>)</b> extension plug-in, which can be installed through <code >Visual Studio 2019 IDE</code> When creating a new project, select the <code>Bootstrap Blazor project template</code>, and the solution is built in two types: <code>Server-Side</code> and <cide>wasm</cide> project"
+  },
+  "BootstrapBlazor.Shared.Pages.Golbalization": {
+    "Title": "Globalization",
+    "SubTitle": "ASP.NET Core Blazor Globalization",
+    "P1": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'> before reading the following knowledge points Official document</a>"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

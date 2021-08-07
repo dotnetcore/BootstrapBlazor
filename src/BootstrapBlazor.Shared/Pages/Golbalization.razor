@@ -1,7 +1,8 @@
 ﻿@page "/globalization"
+@inject IStringLocalizer<Golbalization> Localizer
 
-<h3>全球化</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>ASP.NET Core Blazor 全球化</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<p>阅读以下知识点前请先查看 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1" target="_blank">微软官方文档</a></p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>

@@ -73,6 +73,22 @@
     "EnvLi2": "安装 Visual Studio 2019 以上 <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>官方网址</a>",
     "EnvLi3": "拉取项目代码 BootstrapBlazor <a href='https://gitee.com/LongbowEnterprise/BootstrapBlazor' target='_blank'>仓库网址</a>"
   },
+  "BootstrapBlazor.Shared.Pages.Template": {
+    "Title": "项目模板",
+    "SubTitle": "Bootstrap Blazor App 模板",
+    "P1": "为了方便大家利用这套组件快速搭建项目，作者制作了 <b>项目模板（<code>Project Templates</code>）</b>，使用 <code>dotnet new</code> 命令行模式，使用步骤如下：",
+    "P2": "1. 安装项目模板",
+    "P3": "2. 创建工程",
+    "P4": "创建工程后在当前文件夹内会生成 <code>BootstrapBlazorApp</code> 解决方案，<code>src</code> 目录内包含 <code>Server-Side</code> <code>Wasm</code> 两种类型的工程，均可以直接 <kbd>F5</kbd> 运行",
+    "P5": "3. 卸载项目模板",
+    "SubTitle1": "Bootstrap Blazor App Extension 扩展插件",
+    "p6": "为了方便使用 <code>Bootstrap Blazor</code> 组件库，作者制作了 <b>项目模板（<code>Bootstrap Blazor Project Template</code>）</b> 扩展插件，安装此插件可通过 <code>Visual Studio 2019 IDE</code> 新建项目时选择 <code>Bootstrap Blazor 项目模板</code>，解决方案内置 <code>Server-Side</code> 与 <cide>wasm</cide> 两种类型工程"
+  },
+  "BootstrapBlazor.Shared.Pages.Golbalization": {
+    "Title": "全球化",
+    "SubTitle": "ASP.NET Core Blazor 全球化",
+    "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>"
+  },
   "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
     "Title": "Attributes 属性"
   },
