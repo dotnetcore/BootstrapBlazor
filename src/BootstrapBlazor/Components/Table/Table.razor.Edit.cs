@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否正在查询数据
         /// </summary>
-        protected bool IsLoading { get; set; }
+        private bool IsLoading { get; set; }
 
         /// <summary>
         /// 获得 渲染模式
@@ -110,6 +110,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<TItem, string?>? SetRowClassFormatter { get; set; }
+
+        /// <summary>
+        /// 获得/设置 保存后回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<TItem, Task>? OnAfterSaveAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 编辑数据弹窗 Title
@@ -277,8 +283,6 @@ namespace BootstrapBlazor.Components
             StateHasChanged();
         }
 
-        private bool loading = false;
-
         /// <summary>
         /// 显示/隐藏 Loading 遮罩
         /// </summary>
@@ -288,7 +292,7 @@ namespace BootstrapBlazor.Components
         {
             if (ShowLoading)
             {
-                loading = state;
+                IsLoading = state;
                 await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
             }
         }
@@ -300,7 +304,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async ValueTask InternalToggleLoading(bool state)
         {
-            if (ShowLoading && !loading)
+            if (ShowLoading && !IsLoading)
             {
                 await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
             }
@@ -462,6 +466,12 @@ namespace BootstrapBlazor.Components
         {
             var context = new EditContext(EditModel);
             await SaveAsync(context);
+
+            // 回调外部自定义方法
+            if (OnAfterSaveAsync != null)
+            {
+                await OnAfterSaveAsync(EditModel);
+            }
         });
 
         /// <summary>

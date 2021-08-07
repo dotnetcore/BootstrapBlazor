@@ -559,6 +559,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "OnAfterSaveAsync",
+                Description = "保存数据后异步回调方法",
+                Type = "Func<TItem, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "OnTreeExpand",
                 Description = "树形数据节点展开式回调委托方法",
                 Type = "Func<TItem, Task<IEnumerable<TItem>>>",
