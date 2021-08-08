@@ -43,6 +43,10 @@ a {
     height: 35px;
 }
 
+.table-cell .form-control.is-display {
+    background-color: #ebeef5;
+}
+
 input:disabled,
 .btn:disabled,
 .datetime-picker-input-icon.disabled,

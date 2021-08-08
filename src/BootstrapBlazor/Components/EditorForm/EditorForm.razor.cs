@@ -227,7 +227,7 @@ namespace BootstrapBlazor.Components
 
         private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
         {
-            if (IsDisplay)
+            if (IsDisplay || item.Readonly)
             {
                 builder.CreateDisplayByFieldType(this, item, Model, ShowLabel);
             }

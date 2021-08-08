@@ -306,7 +306,9 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <param name="showLabel"></param>
         /// <param name="placeholder"></param>
-        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, string? placeholder = null)
+        /// <param name="addInCell"></param>
+        /// <param name="editInCell"></param>
+        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, string? placeholder = null, bool addInCell = false, bool editInCell = false)
         {
             var fieldType = item.PropertyType;
             var fieldName = item.GetFieldName();
@@ -316,13 +318,30 @@ namespace BootstrapBlazor.Components
             var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
 
+            var editable = item.Editable;
+            var @readonly = item.Readonly;
+
+            if (!addInCell && editInCell && (!editable || @readonly))
+            {
+                item.ComponentType = typeof(Display<>).MakeGenericType(fieldType);
+            }
+            if (addInCell)
+            {
+                @readonly = false;
+            }
+
             var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
             builder.OpenComponent(0, componentType);
             builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
             builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
             builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), item.Readonly);
+
+            if (componentType != typeof(Display<>).MakeGenericType(fieldType))
+            {
+                builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), @readonly);
+            }
+
             if (IsCheckboxList(fieldType) && item.Data != null)
             {
                 builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
