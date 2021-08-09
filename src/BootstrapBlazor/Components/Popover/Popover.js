@@ -14,7 +14,7 @@
         },
         bb_popover: function (id, method, title, content, placement, html, trigger) {
             var $ele = $('#' + id);
-            var op = { html: html, sanitize: false, title: title, content: content, placement: placement, trigger: trigger };
+            var op = { html, sanitize: false, title, content, placement, trigger };
             if (method === "") {
                 if ($ele.data('bs.popover')) $ele.popover('dispose');
                 $ele.popover(op);
