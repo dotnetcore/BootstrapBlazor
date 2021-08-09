@@ -231,16 +231,15 @@ namespace BootstrapBlazor.Components
                 {
                     ShowAddForm = true;
                     ShowEditForm = false;
-                    StateHasChanged();
                 }
                 else if (EditMode == EditMode.InCell)
                 {
                     AddInCell = true;
                     EditInCell = true;
                     SelectedItems.Add(EditModel);
-                    StateHasChanged();
                 }
                 await ToggleLoading(false);
+                StateHasChanged();
             }
             else
             {
