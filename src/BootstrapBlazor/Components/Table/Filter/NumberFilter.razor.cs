@@ -12,13 +12,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 数字类型过滤条件
     /// </summary>
-    public partial class NumberFilter
+    public partial class NumberFilter<TValue>
     {
-        private int? Value1 { get; set; }
+        private TValue? Value1 { get; set; }
 
         private FilterAction Action1 { get; set; } = FilterAction.GreaterThanOrEqual;
 
-        private int? Value2 { get; set; }
+        private TValue? Value2 { get; set; }
 
         private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
 
@@ -52,8 +52,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public override void Reset()
         {
-            Value1 = null;
-            Value2 = null;
+            Value1 = default;
+            Value2 = default;
             Action1 = FilterAction.GreaterThanOrEqual;
             Action2 = FilterAction.LessThanOrEqual;
             Count = 0;

@@ -56,9 +56,13 @@ else
                     <DateTimeFilter Count="Count" />
                     break;
                 case nameof(Int32):
+                    <NumberFilter TValue="int" Count="Count" />
+                    break;
                 case nameof(Double):
+                    <NumberFilter TValue="double" Count="Count" />
+                    break;
                 case nameof(Decimal):
-                    <NumberFilter Count="Count" />
+                    <NumberFilter TValue="Decimal" Count="Count" />
                     break;
                 case nameof(String):
                     <StringFilter Count="Count" />
