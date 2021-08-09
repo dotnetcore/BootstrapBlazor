@@ -501,7 +501,11 @@ namespace BootstrapBlazor.Components
                     case nameof(Decimal):
                         if (item.Step != null)
                         {
-                            ret.Add(new("Step", item.Step));
+                            var step = item.Step.ToString();
+                            if (!string.IsNullOrEmpty(step))
+                            {
+                                ret.Add(new("Step", step));
+                            }
                         }
                         break;
                     default:
