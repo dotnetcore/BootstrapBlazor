@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class CarouselImage : ComponentBase
+    public partial class CarouselImage : ComponentBase
     {
         /// <summary>
         /// 
@@ -27,7 +27,10 @@ namespace BootstrapBlazor.Components
 
         private async Task OnClickImage()
         {
-            if (OnClick != null) await OnClick(ImageUrl ?? "");
+            if (OnClick != null)
+            {
+                await OnClick(ImageUrl ?? "");
+            }
         }
     }
 }

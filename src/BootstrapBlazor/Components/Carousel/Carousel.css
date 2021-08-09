@@ -47,3 +47,7 @@
 .carousel-indicators [data-bs-target] {
     background-color: #606266;
 }
+
+.carousel-item img {
+    width: 100%;
+}
