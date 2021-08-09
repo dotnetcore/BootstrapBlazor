@@ -9,11 +9,6 @@
     margin-right: 6px;
 }
 
-.dropdown-menu {
-    max-height: 186px;
-    overflow: auto;
-}
-
 .dropdown-item {
     cursor: pointer;
 }
