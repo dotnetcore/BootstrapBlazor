@@ -565,3 +565,11 @@
 .table-wrapper .empty-text {
     padding: 1rem;
 }
+
+form .table .table-cell > .form-label {
+    display: none;
+}
+
+form .table .table-cell > textarea {
+    width: 100%;
+}

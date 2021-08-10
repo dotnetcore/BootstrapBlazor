@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Pages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class ValidateForms
     {
@@ -52,6 +52,8 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private ComplexFoo? ComplexModel { get; set; }
 
+        private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
@@ -59,6 +61,8 @@ namespace BootstrapBlazor.Shared.Pages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+
+            Hobbys = Foo.GenerateHobbys(LocalizerFoo);
 
             // 切换线程 模拟异步通过 webapi 加载数据
             await Task.Yield();
@@ -71,6 +75,72 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Dummy = new Dummy1() { Dummy2 = new Dummy2() },
             };
+        }
+        private Task<bool> OnSaveAsync(Foo item)
+        {
+            // 增加数据演示代码
+            if (item.Id == 0)
+            {
+                item.Id = Items.Max(i => i.Id) + 1;
+                Items.Add(item);
+            }
+            else
+            {
+                var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
+                if (oldItem != null)
+                {
+                    oldItem.Name = item.Name;
+                    oldItem.Address = item.Address;
+                    oldItem.DateTime = item.DateTime;
+                    oldItem.Count = item.Count;
+                    oldItem.Complete = item.Complete;
+                    oldItem.Education = item.Education;
+                }
+            }
+            return Task.FromResult(true);
+        }
+
+        private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
+        {
+            items.ToList().ForEach(i => Items.Remove(i));
+            return Task.FromResult(true);
+        }
+
+        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+        {
+            IEnumerable<Foo> items = Items;
+
+            // 过滤
+            var isFiltered = false;
+            if (options.Filters.Any())
+            {
+                items = items.Where(options.Filters.GetFilterFunc<Foo>());
+                isFiltered = true;
+            }
+
+            // 排序
+            var isSorted = false;
+            if (!string.IsNullOrEmpty(options.SortName))
+            {
+                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => LambdaExtensions.GetSortLambda<Foo>().Compile());
+                items = invoker(items, options.SortName, options.SortOrder);
+                isSorted = true;
+            }
+
+            // 设置记录总数
+            var total = items.Count();
+
+            // 内存分页
+            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+            return Task.FromResult(new QueryData<Foo>()
+            {
+                Items = items,
+                TotalCount = total,
+                IsSorted = isSorted,
+                IsFiltered = isFiltered,
+                IsSearch = true
+            });
         }
 
         private Task OnInvalidSubmit1(EditContext context)

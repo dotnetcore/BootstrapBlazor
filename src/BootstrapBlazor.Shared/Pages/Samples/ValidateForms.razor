@@ -28,6 +28,23 @@
                     <BootstrapInput @bind-Value="@Model.Name" />
                 </div>
                 <div class="col-12">
+                    <Table TItem="Foo"
+                           IsPagination="true" PageItemsSource="@PageItemsSource"
+                           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+                           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                           OnQueryAsync="@OnQueryAsync"
+                           OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+                        <TableColumns>
+                            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                            <TableColumn @bind-Field="@context.Name" Readonly="true" />
+                            <TableColumn @bind-Field="@context.Address" Rows="3" />
+                            <TableColumn @bind-Field="@context.Education" />
+                            <TableColumn @bind-Field="@context.Count" Editable="false" />
+                            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
+                        </TableColumns>
+                    </Table>
+                </div>
+                <div class="col-12">
                     <Button ButtonType="ButtonType.Submit" Icon="fa fa-fw fa-save" Text="提交表单" IsAsync="true" />
                 </div>
             </div>
@@ -187,7 +204,7 @@
 <Block Title="表单内设置组件标签右对齐" Introduction="通过样式统一设置全站或者特定表单内标签对齐方式">
     <p>由于 <code>Bootstrap</code> 栅格系统右对齐后可能导致小屏幕下右对齐很丑的问题，请自行解决，拷贝下面 <code>is-right</code> 样式到自己项目样式表中，<code>ValidateForm</code> 自行添加 <code>class="is-right"</code> 即可</p>
     <Pre>.is-right {
-    text-align: right;        
+    text-align: right;
 }</Pre>
     <div class="form-demo">
         <GroupBox Title="右对齐标签示例" style="margin-top: 1.5rem;">
