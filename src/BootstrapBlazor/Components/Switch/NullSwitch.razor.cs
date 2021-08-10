@@ -12,19 +12,22 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class Switch
+    public partial class NullSwitch
     {
+        /// <summary>
+        /// 获得 样式集合
+        /// </summary>
         private string? ClassName => CssBuilder.Default("switch")
-            .AddClass("is-checked", Value)
+            .AddClass("is-checked", ComponentValue)
             .AddClass("is-disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         private string? CoreClassName => CssBuilder.Default("switch-core")
-            .AddClass($"border-{OnColor.ToDescriptionString()}", OnColor != Color.None && Value)
-            .AddClass($"bg-{OnColor.ToDescriptionString()}", OnColor != Color.None && Value)
-            .AddClass($"border-{OffColor.ToDescriptionString()}", OffColor != Color.None && !Value)
-            .AddClass($"bg-{OffColor.ToDescriptionString()}", OffColor != Color.None && !Value)
+            .AddClass($"border-{OnColor.ToDescriptionString()}", OnColor != Color.None && ComponentValue)
+            .AddClass($"bg-{OnColor.ToDescriptionString()}", OnColor != Color.None && ComponentValue)
+            .AddClass($"border-{OffColor.ToDescriptionString()}", OffColor != Color.None && !ComponentValue)
+            .AddClass($"bg-{OffColor.ToDescriptionString()}", OffColor != Color.None && !ComponentValue)
             .Build();
 
         private string? GetInnerText()
@@ -32,16 +35,15 @@ namespace BootstrapBlazor.Components
             string? ret = null;
             if (ShowInnerText)
             {
-                ret = Value ? OnInnerText : OffInnerText;
+                ret = ComponentValue ? OnInnerText : OffInnerText;
             }
-
             return ret;
         }
 
         /// <summary>
         /// 获得 显示文字
         /// </summary>
-        private string? Text => Value ? OnText : OffText;
+        private string? Text => ComponentValue ? OnText : OffText;
 
         /// <summary>
         /// 获得 组件最小宽度
@@ -108,6 +110,17 @@ namespace BootstrapBlazor.Components
         private IStringLocalizer<Switch>? Localizer { get; set; }
 
         /// <summary>
+        /// 获得/设置 绑定值为空时的默认值 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool DefaultValueWhenNull { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件 Value 值
+        /// </summary>
+        protected bool ComponentValue => Value ?? DefaultValueWhenNull;
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -125,12 +138,11 @@ namespace BootstrapBlazor.Components
         {
             if (!IsDisabled)
             {
-                Value = !Value;
+                Value = !ComponentValue;
                 if (ValueChanged.HasDelegate)
                 {
                     await ValueChanged.InvokeAsync(Value);
                 }
-
                 OnValueChanged?.Invoke(Value);
             }
         }

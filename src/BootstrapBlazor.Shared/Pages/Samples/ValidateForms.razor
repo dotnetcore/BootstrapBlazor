@@ -28,23 +28,6 @@
                     <BootstrapInput @bind-Value="@Model.Name" />
                 </div>
                 <div class="col-12">
-                    <Table TItem="Foo"
-                           IsPagination="true" PageItemsSource="@PageItemsSource"
-                           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-                           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-                           OnQueryAsync="@OnQueryAsync"
-                           OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-                        <TableColumns>
-                            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                            <TableColumn @bind-Field="@context.Name" Readonly="true" />
-                            <TableColumn @bind-Field="@context.Address" Rows="3" />
-                            <TableColumn @bind-Field="@context.Education" />
-                            <TableColumn @bind-Field="@context.Count" Editable="false" />
-                            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
-                        </TableColumns>
-                    </Table>
-                </div>
-                <div class="col-12">
                     <Button ButtonType="ButtonType.Submit" Icon="fa fa-fw fa-save" Text="提交表单" IsAsync="true" />
                 </div>
             </div>

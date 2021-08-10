@@ -6,6 +6,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -30,9 +31,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private bool BindValue { get; set; } = true;
 
-        /// <summary>
-        ///
-        /// </summary>
+        [NotNull]
         private Logger? Trace { get; set; }
 
         /// <summary>
@@ -42,14 +41,16 @@ namespace BootstrapBlazor.Shared.Pages
         private void OnValueChanged(bool val)
         {
             BindValue = val;
-            Trace?.Log($"Switch CurrentValue: {val}");
+            Trace.Log($"Switch CurrentValue: {val}");
         }
+
+        private bool? NullValue { get; set; }
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

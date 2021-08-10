@@ -3,32 +3,15 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// Toggle 开关组件
     /// </summary>
-    public class ToggleBase : ValidateBase<bool>
+    public class ToggleBase<TValue> : ValidateBase<TValue>
     {
-        /// <summary>
-        /// 获得 样式集合
-        /// </summary>
-        protected virtual string? ClassName => CssBuilder.Default("btn btn-toggle")
-            .AddClass("btn-default off", !Value)
-            .AddClass("disabled", IsDisabled)
-            .Build();
-
-        /// <summary>
-        /// 获得 ToggleOn 样式
-        /// </summary>
-        protected string? ToggleOnClassString => CssBuilder.Default("toggle-on")
-            .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
-            .Build();
-
         /// <summary>
         /// 获得 Style 集合
         /// </summary>
@@ -55,24 +38,5 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public virtual string? OffText { get; set; }
-
-        /// <summary>
-        /// 获得/设置 组件颜色 默认为 Success 颜色
-        /// </summary>
-        [Parameter]
-        public Color Color { get; set; } = Color.Success;
-
-        /// <summary>
-        /// 点击控件时触发此方法
-        /// </summary>
-        protected virtual async Task OnClick()
-        {
-            if (!IsDisabled)
-            {
-                Value = !Value;
-                if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
-                OnValueChanged?.Invoke(Value);
-            }
-        }
     }
 }

@@ -5,17 +5,33 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Toggle
+    public partial class Toggle
     {
+        private string? ClassName => CssBuilder.Default("btn btn-toggle")
+            .AddClass("btn-default off", !Value)
+            .AddClass("disabled", IsDisabled)
+            .Build();
+
+        private string? ToggleOnClassString => CssBuilder.Default("toggle-on")
+            .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
+            .Build();
+
         private string? WrapperClassString => CssBuilder.Default("toggle")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+
+        /// <summary>
+        /// 获得/设置 组件颜色 默认为 Success 颜色
+        /// </summary>
+        [Parameter]
+        public Color Color { get; set; } = Color.Success;
 
         [Inject]
         [NotNull]
@@ -30,6 +46,19 @@ namespace BootstrapBlazor.Components
 
             OnText ??= Localizer[nameof(OnText)];
             OffText ??= Localizer[nameof(OffText)];
+        }
+
+        /// <summary>
+        /// 点击控件时触发此方法
+        /// </summary>
+        private async Task OnClick()
+        {
+            if (!IsDisabled)
+            {
+                Value = !Value;
+                if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+                OnValueChanged?.Invoke(Value);
+            }
         }
     }
 }
