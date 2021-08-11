@@ -163,7 +163,7 @@
             var $confirm = findConfirmButton($el);
             if ($confirm != null) hide = false;
             if (hide) {
-                var $target = $(e.target);
+                var $target = $el;
                 if ($target.data('bs-toggle') !== 'confirm') {
                     $target = $target.parents('[data-bs-toggle="confirm"][aria-describedby^="popover"]');
                 }
@@ -211,6 +211,7 @@
                 // remove popover
                 var buttonId = $confirm.attr('id');
                 $ele = $('[data-bs-target="' + buttonId + '"]');
+                $('#' + buttonId).removeClass('is-show');
 
                 var $button = this.getAttribute('data-dismiss') === 'confirm'
                     ? $ele.find('.popover-confirm-buttons .btn:first')
