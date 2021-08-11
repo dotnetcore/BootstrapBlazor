@@ -593,6 +593,19 @@ namespace BootstrapBlazor.Components
             StateHasChanged();
         }
 
+        /// <summary>
+        /// 设置指定 TabItem 为激活状态设置指定 TabItem 为激活状态
+        /// </summary>
+        /// <param name="index"></param>
+        public void ActiveTab(int index)
+        {
+            var item = _items.ElementAtOrDefault(index);
+            if (item != null)
+            {
+                ActiveTab(item);
+            }
+        }
+
         private void ActiveTabItem(TabItem item)
         {
             _items.ForEach(i => i.SetActive(false));

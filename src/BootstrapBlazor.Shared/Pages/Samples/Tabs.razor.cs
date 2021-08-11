@@ -62,6 +62,12 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private static Task Active(Tab tabset)
+        {
+            tabset.ActiveTab(0);
+            return Task.CompletedTask;
+        }
+
         private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
 
         private static Task RemoveTab(Tab tabset)

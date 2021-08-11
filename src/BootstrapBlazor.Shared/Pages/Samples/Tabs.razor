@@ -185,7 +185,9 @@
         </Button>
         <Button Color="Color.Danger" Icon="fa fa-minus-circle" IsDisabled="@RemoveEndable" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="移除">
         </Button>
-    </p>
+         <Button Icon="fa fa-fa" OnClickWithoutRender="@(() => Active(TabSet))" Text="激活第一个">
+        </Button>
+   </p>
     <Tab IsBorderCard="true" @ref="TabSet">
         <TabItem Text="用户管理">
             <div>我是用户管理</div>
