@@ -1,37 +1,37 @@
 ﻿@page "/localization"
+@inject IStringLocalizer<Localization> Localizer
 
-<h3>本地化</h3>
+<h3>@Localizer["Title"]</h3>
 
 <p>
-    本地化是为给定语言和地区定制应用程序的过程。<code>BootstrapBlazor</code> 组件允许您将其 UI 元素转换为所需的语言。这包括按钮、过滤器操作符属性等文本。组件内部默认使用当前请求 <code>UI</code> 文化语言，本文将向您展示如何在应用程序中使用此功能：
+    @((MarkupString)Localizer["P1"].Value)
 </p>
 
 <Tips>
-    阅读以下知识点前请先查看 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization" target="_blank">微软官方文档</a>
-    <div>由于 <code>wasm</code> 模式无法获取系统语言文化信息，默认文化信息为 <code>en</code>，<Anchor Target="lang">请查阅文章最后更改默认语言章节</Anchor></div>
+    @((MarkupString)Localizer["Tips"].Value)
 </Tips>
 
-<p><b>本地化在组件中的工作原理</b></p>
+<p><b>@Localizer["P2"]</b></p>
 
 <p>
     <div>
-        <code>BootstrapBlazor</code> 组件额外支持使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href="https://www.nuget.org/packages/BootstrapBlazor/" target="_blank">BootstrapBalzor</a> 包自带中文（zh）、英语（en）两种资源文件。组件内置本地化语言回退机制，如请求文化为 <code>zh-CN</code> 时，如未提供相对应的文化资源文件时，内置逻辑通过父级文化进行尝试本地化，以 <code>zh-CN</code> 为例回退机制如下：
+        @((MarkupString)Localizer["P3D1"].Value)
     </div>
     <div>
-        <code>zh-CN</code> 到 <code>zh</code>
+        @((MarkupString)Localizer["P3D2"].Value)
     </div>
     <div>
-        如果设置的本地化语言未提供资源文件回落后仍无法找到资源文件后，使用 <code>FallbackCulture</code> 参数设置的文化信息进行本地化，默认为 <code>en</code>
+        @((MarkupString)Localizer["P3D3"].Value)
     </div>
 </p>
 
-<p><b>开启本地化功能</b></p>
+<p><b>@Localizer["P4"]</b></p>
 
 <p><b>Server-Side App</b></p>
 
-<p><b>1. 配置文件</b></p>
+<p><b>@Localizer["P5"]</b></p>
 
-<p>通过 <code>FallbackCultureName</code> 设置回退文化信息，即未找到当前请求的文化信息时使用此配置文化，通过 <code>SupportedCultures</code> 设置支持的文化集合</p>
+<p>@((MarkupString)Localizer["P6"].Value)</p>
 
 <Pre>{
   "BootstrapBlazorOptions": {
@@ -44,15 +44,15 @@
 }
 </Pre>
 
-<p><b>2. 启用 .NET 核心本地化服务</b></p>
+<p><b>@Localizer["P7"]</b></p>
 <Pre>public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        // 增加 BootstrapBlazor 组件
+        // @Localizer["CodeComment1"]
         services.AddBootstrapBlazor();
 
-        // 增加本地化服务配置信息
+        // @Localizer["CodeComment2"]
         services.AddRequestLocalization&lt;IOptions&lt;BootstrapBlazorOptions&gt;&gt;((localizerOption, blazorOption) =>
         {
             var supportedCultures = blazorOption.Value.GetSupportedCultures();
@@ -64,12 +64,12 @@
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        // 启用本地化中间件并设置支持的文化信息
+        // @Localizer["CodeComment3"]
         app.UseRequestLocalization(app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;()!.Value);
     }
 }</Pre>
 
-<p><b>3. 实现 UI 本地化信息存储（例如，cookie）</b></p>
+<p><b>@Localizer["P8"]</b></p>
 <Pre>[Route("[controller]/[action]")]
 public class CultureController : Controller
 {
@@ -93,7 +93,7 @@ public class CultureController : Controller
     }
 }</Pre>
 
-<p><b>3. 添加允许用户更改本地化的 UI</b></p>
+<p><b>@Localizer["P9"]</b></p>
 <Pre>@@inherits BootstrapComponentBase
 @@inject IOptions&lt;BootstrapBlazorOptions&gt; BootstrapOptions
 @@inject NavigationManager NavigationManager
@@ -122,7 +122,7 @@ public class CultureController : Controller
     {
         if (CultureStorage.Mode == CultureStorageMode.Webapi)
         {
-            // 使用 api 方式 适用于 Server-Side 模式
+            // @Localizer["CodeComment4"]
             if (SelectedCulture != item.Value)
             {
                 var culture = item.Value;
@@ -149,20 +149,20 @@ public class CultureController : Controller
     }
 }</Pre>
 
-<p><b>4. 附加 <code>Json</code> 资源文件</b></p>
+<p><b>@((MarkupString)Localizer["P10"].Value)</b></p>
 
 <p>
-    <code>BootstrapBlazor</code> 组件库即支持微软默认的 <code>resx</code> 格式资源，也支持嵌入式 <code>json</code> 格式资源，以及特定物理 <code>json</code> 文件
+    @((MarkupString)Localizer["P11"].Value)
 </p>
 
 <p>
-    <div>资源文件为合并关系，寻址规则优先级为</div>
+    <div>@Localizer["P12"]</div>
 
     <ul class="ul-demo mt-3">
-        <li>微软 resx 嵌入式资源文件</li>
-        <li>外置 json 物理文件</li>
-        <li>json 嵌入式资源文件</li>
-        <li>内置 json 资源文件</li>
+        <li>@Localizer["P12Li1"]</li>
+        <li>@Localizer["P12Li2"]</li>
+        <li>@Localizer["P12Li3"]</li>
+        <li>@Localizer["P12Li4"]</li>
     </ul>
 </p>
 
@@ -170,13 +170,13 @@ public class CultureController : Controller
 {
     services.AddBootstrapBlazor(setupAction: options =>
     {
-        // 设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx
+        // @Localizer["CodeComment5"]
         options.ResourceManagerStringLocalizerType = typeof(Program);
 
-        // 设置 Json 格式嵌入式资源文件
+        // @Localizer["CodeComment6"]
         options.AdditionalAssemblies = new[] { typeof(BootstrapBlazor.Shared.App).Assembly };
 
-        // 设置 Json 物理路径文件
+        // @Localizer["CodeComment7"]
         options.AdditionalJsonFiles = new string[]
         {
             @@"D:\Argo\src\BootstrapBlazor\src\BootstrapBlazor.Server\Locales\zh-TW.json",
@@ -188,7 +188,7 @@ public class CultureController : Controller
 
 <p><b>Web Assembly</b></p>
 
-<p><b>1. 启用 .NET 核心本地化服务</b></p>
+<p><b>@Localizer["P13"]</b></p>
 <Pre>public static async Task Main(string[] args)
 {
     var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -197,12 +197,11 @@ public class CultureController : Controller
 
     builder.Services.AddTransient(sp =&gt; new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-    // 增加 BootstrapBlazor 组件
+    // @Localizer["CodeComment8"]
     builder.Services.AddBootstrapBlazor();
 
     builder.Services.AddSingleton&lt;ICultureStorage, DefaultCultureStorage&gt;();
 
-    // 增加本地化
     builder.Services.Configure&lt;BootstrapBlazorOptions&gt;(op =>
     {
         op.ToastDelay = 4000;
@@ -231,15 +230,15 @@ internal class DefaultCultureStorage : ICultureStorage
 }
 </Pre>
 
-<p><b>2. 实现 UI 本地化信息存储（例如，localStorage）</b></p>
+<p><b>@Localizer["P14"]</b></p>
 
-<p>与 Server-Side 一致</p>
+<p>@Localizer["P15"]</p>
 
-<p id="lang"><b>更改默认语言设置</b></p>
+<p id="lang"><b>@Localizer["P16"]</b></p>
 
 <Pre>public static async Task Main(string[] args)
 {
-    // 设置默认文化为 zh-CN
+    // @Localizer["CodeComment10"]
     CultureInfo.CurrentCulture = new CultureInfo("zh-CN");
     CultureInfo.CurrentUICulture = new CultureInfo("zh-CN");
 
