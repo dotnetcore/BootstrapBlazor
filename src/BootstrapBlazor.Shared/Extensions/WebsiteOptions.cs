@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 
         /// </summary>
-        public string WikiUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/Home";
+        public string WikiUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034";
 
         /// <summary>
         /// 获得 QQ 1 群链接地址

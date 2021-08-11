@@ -4,10 +4,6 @@
  * Licensed under MIT (https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
  */
 
-html, body, button, .popover {
-    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-}
-
 body, .form-control, .dropdown-menu, .form-select,
 .btn:not(.btn-xs):not(.btn-sm):not(.btn-md):not(.btn-lg):not(.btn-xl),
 .input-group-text {
