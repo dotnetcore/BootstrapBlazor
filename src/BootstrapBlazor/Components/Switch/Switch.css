@@ -1,6 +1,7 @@
 ﻿.switch {
     display: inline-flex;
     align-items: center;
+    height: 35px;
     width: 100%;
 }
 
@@ -67,10 +68,8 @@
         font-size: 80%;
     }
 
-.switch {
-    height: 35px;
-}
-
-td .switch {
+td :not(.is-incell) .switch {
     height: auto;
+    width: auto;
+    display: block;
 }
