@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.302
+        dotnet-version: 5.0.400
 
     - name: Build
       env: 
