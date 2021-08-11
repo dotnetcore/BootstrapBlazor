@@ -2,15 +2,22 @@
     $.extend({
         bb_confirm: function (id) {
             var $ele = $('[data-bs-target="' + id + '"]');
-            var $button = $('#' + id);
-
-            $button.popover({
+            var showClassName = 'is-show';
+            var button = document.getElementById(id);
+            var popover = bootstrap.Popover.getOrCreateInstance(button, {
                 toggle: 'confirm',
                 html: true,
                 sanitize: false,
                 content: $ele.find('.popover-body').html()
             });
-            $button.popover('show');
+            if (button.classList.contains(showClassName) === false) {
+                popover.show();
+                button.classList.add(showClassName);
+            }
+            else {
+                popover.hide();
+                button.classList.remove(showClassName);
+            }
         },
         bb_popover: function (id, method, title, content, placement, html, trigger) {
             var $ele = $('#' + id);
@@ -155,7 +162,19 @@
             // 判断是否点击 popover 内部
             var $confirm = findConfirmButton($el);
             if ($confirm != null) hide = false;
-            if (hide) $('[data-bs-toggle="confirm"][aria-describedby^="popover"]').popover('hide');
+            if (hide) {
+                var $target = $(e.target);
+                if ($target.data('bs-toggle') !== 'confirm') {
+                    $target = $target.parents('[data-bs-toggle="confirm"][aria-describedby^="popover"]');
+                }
+                $('[data-bs-toggle="confirm"][aria-describedby^="popover"]').each(function (index, ele) {
+                    if ($target[0] !== ele) {
+                        var $ele = $(ele);
+                        $ele.popover('hide');
+                        $ele.removeClass('is-show');
+                    }
+                });
+            }
 
             // datetime picker
             if ($el.parents('.popover-datetime.show').length === 0) {
