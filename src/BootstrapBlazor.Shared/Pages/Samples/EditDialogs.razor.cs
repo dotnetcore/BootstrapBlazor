@@ -93,6 +93,40 @@ namespace BootstrapBlazor.Shared.Pages
             await DialogService.ShowEditDialog(option);
         }
 
+        private async Task ShowEditDialog()
+        {
+            var items = EditorItem<Foo>.GenerateEditorItems();
+            var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
+            item.Data = Foo.GenerateHobbys(Localizer);
+
+            // 设置 地址与数量 不可编辑
+            item = items.First(i => i.GetFieldName() == nameof(Foo.Address));
+            item.Editable = false;
+            item = items.First(i => i.GetFieldName() == nameof(Foo.Count));
+            item.Editable = false;
+
+            var option = new EditDialogOption<Foo>()
+            {
+                Title = "编辑对话框",
+                Model = Model,
+                Items = items,
+                ItemsPerRow = 2,
+                RowType = RowType.Inline,
+                OnCloseAsync = () =>
+                {
+                    Trace.Log("关闭按钮被点击");
+                    return Task.CompletedTask;
+                },
+                OnSaveAsync = context =>
+                {
+                    Trace.Log("保存按钮被点击");
+                    return Task.FromResult(true);
+                }
+            };
+
+            await DialogService.ShowEditDialog(option);
+        }
+
         /// <summary>
         /// 获得属性方法
         /// </summary>
