@@ -1,12 +1,13 @@
 ﻿@page "/install-server"
+@inject IStringLocalizer<Install_Server> Localizer
 
-<InstallContent>
+<InstallContent Title="@Localizer["Title"]">
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
     services.AddRazorPages();
     services.AddServerSideBlazor();
 
-    // 添加本行代码
+    // @Localizer["CodeComment"]
     services.AddBootstrapBlazor(); 
 }</Pre>
 </InstallContent>

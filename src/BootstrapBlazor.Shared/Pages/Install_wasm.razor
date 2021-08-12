@@ -1,6 +1,7 @@
 ﻿@page "/install-wasm"
+@inject IStringLocalizer<Install_wasm> Localizer
 
-<InstallContent Title="客户端渲染模式" HostFile="wwwroot/index.html">
+<InstallContent Title="@Localizer["Title"]" HostFile="wwwroot/index.html">
 <Pre>public class Program
 {
     public static async Task Main(string[] args)
@@ -9,7 +10,7 @@
         builder.RootComponents.Add&lt;App&gt;("app");
         builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-        // 添加本行代码
+        // @Localizer["CodeComment"]
         builder.Services.AddBootstrapBlazor();
 
         await builder.Build().RunAsync();

@@ -58,10 +58,6 @@
     "SpecialAcknowledgements": "特别鸣谢",
     "Footer": "码云托管平台"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Block": {
-    "Title": "未设置",
-    "SubTitle": "示例"
-  },
   "BootstrapBlazor.Shared.Pages.Install": {
     "InstallTitle": "安装",
     "GitP1": "Git 工具有很多种大家比较熟悉的，这里我介绍两款 Git 客户端工具",
@@ -87,7 +83,39 @@
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "全球化",
     "SubTitle": "ASP.NET Core Blazor 全球化",
-    "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>"
+    "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>",
+  },
+  "BootstrapBlazor.Shared.Pages.Components.InstallContent": {
+    "H1": "组件引用",
+    "P1": "组件引用有多种方法，可以参阅 <a href='install'>类库安装</a>",
+    "H2": "CSS 文件",
+    "P2": "将 Bootstrap 的 CSS 文件以 <code>&lt;link&gt;</code> 标签的形式添加到 <code>@HostFile</code> 文件 <code>&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前。",
+    "Tips": "本套组件 <b>5.0.32</b> 版本后移除内置 <code>font-awesome</code> 图标，请自行下载或者使用 <b>CDN</b> 加速服务",
+    "Pre": "&lt;link href='https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'&gt;&lt;link href='_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css' rel='stylesheet'&gt;",
+    "Tips2": "如果是使用 <code>Blazor App</code> 模板创建的工程请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>",
+    "H3": "JS 文件",
+    "P3": "Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code>&lt;script&gt;</code> 标签放到 <code>@HostFile</code> 文件尾部且在 <code>&lt;/body&gt;</code> 标签之前即可起作用。",
+    "Pre2": "&lt;script src='_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js'&gt;&lt;/script&gt;",
+    "H4": "添加命名空间到 <code>_Imports.razor</code> 文件",
+    "H5": "注册服务",
+    "H6": "使用组件",
+    "P4": "在 <code>razor</code>组件中引用 <code>BootstrapBlazor</code> 组件",
+    "Pre3": "&lt;Button Color='Color.Primary'&gt;主要按钮&lt;/Button&gt;"
+  },
+  "BootstrapBlazor.Shared.Pages.Install_Server": {
+    "Title": "服务端渲染模式",
+    "CodeComment": "添加本行代码"
+  },
+  "BootstrapBlazor.Shared.Pages.Install_wasm": {
+    "Title": "客户端渲染模式",
+    "CodeComment": "添加本行代码"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Block": {
+    "Title": "未设置",
+    "SubTitle": "示例"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Tips": {
+    "Title": "小提示"
   },
   "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
     "Title": "Attributes 属性"

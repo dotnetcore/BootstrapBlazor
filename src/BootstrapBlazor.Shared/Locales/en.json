@@ -83,11 +83,39 @@
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "Globalization",
     "SubTitle": "ASP.NET Core Blazor Globalization",
-    "P1": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'> before reading the following knowledge points Official document</a>"
+    "P1": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'> before reading the following knowledge points Official document</a>",
+  },
+  "BootstrapBlazor.Shared.Pages.Components.InstallContent": {
+    "H1": "Component reference",
+    "P1": "There are many ways to reference components, please refer to <a href='install'>Class Library Installation</a>",
+    "H2": "CSS file",
+    "P2": "Add the Bootstrap CSS file in the form of <code>&lt;link&gt;</code> tags to the <code>@HostFile</code> file <code>&lt;head&gt;</code> tags, and place them in all Before other style sheets.",
+    "Tips": "After this set of components version <b>5.0.32</b> remove the built-in <code>font-awesome</code> icon, please download it yourself or use the <b>CDN</b> acceleration service",
+    "Pre": "&lt;link href='https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'&gt;&lt;link href='_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css' rel='stylesheet'&gt;",
+    "Tips2": "If you use the <code>Blazor App</code> template to create a project, please remove the default <code>Bootstrap</code> style link <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap .min.css' /&gt;</code>",
+    "H3": "JS file",
+    "P3": "Many components provided by Bootstrap rely on JavaScript to run. Specifically, these components rely on jQuery, Popper.js, and our own JavaScript plug-ins. Put the following <code>&lt;script&gt;</code> tag at the end of the <code>@HostFile</code> file and before the <code>&lt;/body&gt;</code> tag, it will work.",
+    "Pre2": "&lt;script src='_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js'&gt;&lt;/script&gt;",
+    "H4": "Add the namespace to the <code>_Imports.razor</code> file",
+    "H5": "Registration Service",
+    "H6": "Use components",
+    "P4": "Reference the <code>BootstrapBlazor</code> component in the <code>razor</code> component",
+    "Pre3": "&lt;Button Color='Color.Primary'&gt;Button&lt;/Button&gt;"
+  },
+  "BootstrapBlazor.Shared.Pages.Install_Server": {
+    "Title": "Server Side",
+    "CodeComment": "Add this line of code"
+  },
+  "BootstrapBlazor.Shared.Pages.Install_wasm": {
+    "Title": "Client Side",
+    "CodeComment": "Add this line of code"
   },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Tips": {
+    "Title": "Tips"
   },
   "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
     "Title": "Attributes"

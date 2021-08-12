@@ -1,16 +1,12 @@
 ﻿@inherits BootstrapComponentBase
+@inject IStringLocalizer<Tips> Localizer
 
 <Alert AdditionalAttributes="@AdditionalAttributes" ShowBar="true" Color="@Color">
-    <h4><i class="@Icon"></i>@Title</h4>
+    <h4><i class="@Icon"></i>@Localizer["Title"]</h4>
     @ChildContent
 </Alert>
 
 @code {
-    /// <summary>
-    /// 获得/设置 显示文本
-    /// </summary>
-    [Parameter]
-    public string Title { get; set; } = "小技巧";
 
     /// <summary>
     /// 获得/设置 图标

@@ -1,44 +1,43 @@
 @using Microsoft.Extensions.DependencyInjection
 @inject NugetVersionService VersionManager
+@inject IStringLocalizer<InstallContent> Localizer
 
 <h3>@Title</h3>
 
-<h4>组件引用</h4>
+<h4>@Localizer["H1"]</h4>
 
-<p>组件引用有多种方法，可以参阅 <a href="install">类库安装</a></p>
+<p>@Localizer["P1"]</p>
 
 <div class="code-label">.NET CLI</div>
 <Pre class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
 
-<h5>CSS 文件</h5>
+<h5>@Localizer["H2"]</h5>
 
-<p>将 Bootstrap 的 CSS 文件以 <code>&lt;link&gt;</code> 标签的形式添加到 <code>@HostFile</code> 文件 <code>&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前。</p>
-
-<Tips>
-    <p>本套组件 <b>5.0.32</b> 版本后移除内置 <code>font-awesome</code> 图标，请自行下载或者使用 <b>CDN</b> 加速服务</p>
-</Tips>
-<Pre>&lt;link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"&gt;
-&lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;</Pre>
+<p>@((MarkupString)Localizer["P2"].Value)</p>
 
 <Tips>
-    <p>如果是使用 <code>Blazor App</code> 模板创建的工程请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" /&gt;</code></p>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+<Pre>@((MarkupString)Localizer["Pre"].Value)</Pre>
+
+<Tips>
+    <p>@((MarkupString)Localizer["Tips2"].Value)</p>
 </Tips>
 
-<h5>JS 文件</h5>
+<h5>@Localizer["H3"]</h5>
 
-<p>Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code>&lt;script&gt;</code> 标签放到 <code>@HostFile</code> 文件尾部且在 <code>&lt;/body&gt;</code> 标签之前即可起作用。</p>
-<Pre>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;
-</Pre>
+<p>@((MarkupString)Localizer["P3"].Value)</p>
+<Pre>@((MarkupString)Localizer["Pre2"].Value)</Pre>
 
-<h4>添加命名空间到 <code>_Imports.razor</code> 文件</h4>
+<h4>@((MarkupString)Localizer["H4"].Value)</h4>
 
 <Pre>@@using BootstrapBlazor.Components</Pre>
 
-<h4>注册服务</h4>
+<h4>@Localizer["H5"]</h4>
 
 @ChildContent
 
-<h4>使用组件</h4>
+<h4>@Localizer["H6"]</h4>
 
-<p>在 <code>razor</code>组件中引用 <code>BootstrapBlazor</code> 组件</p>
-<Pre>&lt;Button Color="Color.Primary"&gt;主要按钮&lt;/Button&gt;</Pre>
+<p>@((MarkupString)Localizer["P4"].Value)</p>
+<Pre>@((MarkupString)Localizer["Pre3"].Value)</Pre>
