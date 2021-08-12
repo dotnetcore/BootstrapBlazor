@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="table"></param>
         /// <param name="addAttributesCallback"></param>
-        public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback)
+        public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback = null)
         {
             DataTable = table;
             AddAttributesCallback = addAttributesCallback;
@@ -65,7 +65,12 @@ namespace BootstrapBlazor.Components
                     foreach (DataColumn col in DataTable.Columns)
                     {
                         var invoker = SetPropertyCache.GetOrAdd((dynamicObject.GetType(), col.ColumnName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(dynamicObject, key.PropertyName).Compile());
-                        invoker.Invoke(dynamicObject, row[col]);
+                        var v = row[col];
+                        if (row.IsNull(col))
+                        {
+                            v = null;
+                        }
+                        invoker.Invoke(dynamicObject, v);
                     }
                     if (dynamicObject is IDynamicObject d)
                     {
@@ -78,7 +83,7 @@ namespace BootstrapBlazor.Components
             return Items.Value;
         }
 
-        private ConcurrentDictionary<(Type ModelType, string PropertyName), Action<object, object>> SetPropertyCache { get; } = new();
+        private ConcurrentDictionary<(Type ModelType, string PropertyName), Action<object, object?>> SetPropertyCache { get; } = new();
 
         /// <summary>
         /// GetItems 方法
