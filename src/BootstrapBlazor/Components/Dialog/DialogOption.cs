@@ -82,6 +82,11 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FooterTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 ModalHeader 组件
+        /// </summary>
+        public RenderFragment? HeaderTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 自定义组件
         /// </summary>
         public BootstrapDynamicComponent? Component { get; set; }

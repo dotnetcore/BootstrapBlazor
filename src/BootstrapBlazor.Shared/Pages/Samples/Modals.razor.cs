@@ -57,6 +57,13 @@ namespace BootstrapBlazor.Shared.Pages
             return new AttributeItem[]
             {
                 new AttributeItem() {
+                    Name = "HeaderTemplate",
+                    Description = "模态主体 ModalHeader 模板",
+                    Type = "RenderFragment",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
                     Name = "BodyTemplate",
                     Description = "模态主体 ModalBody 组件",
                     Type = "RenderFragment",

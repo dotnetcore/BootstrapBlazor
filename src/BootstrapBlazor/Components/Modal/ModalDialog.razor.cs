@@ -110,6 +110,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FooterTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 ModalHeader 组件
+        /// </summary>
+        [Parameter]
+        public RenderFragment? HeaderTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 关闭弹窗是回调委托
         /// </summary>
         [Parameter]

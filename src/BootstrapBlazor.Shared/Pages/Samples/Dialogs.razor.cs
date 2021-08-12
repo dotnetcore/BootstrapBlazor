@@ -7,10 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -35,6 +32,30 @@ namespace BootstrapBlazor.Shared.Pages
         {
             IsKeyboard = !IsKeyboard;
         }
+
+        private async Task TriggerUpdateBodyAsync(string val)
+        {
+            if (BodyFooComponent != null)
+            {
+                await BodyFooComponent.UpdateAsync(val);
+            }
+        }
+
+        private DialogBodyFoo? BodyFooComponent { get; set; }
+
+        private Task OnCustomerHeaderClick() => DialogService.Show(new DialogOption()
+        {
+            HeaderTemplate = BootstrapDynamicComponent.CreateComponent<DialogHeaderFoo>(new KeyValuePair<string, object>[]
+            {
+                new(nameof(DialogHeaderFoo.OnValueChanged), new Func<string, Task>(val => TriggerUpdateBodyAsync(val)))
+            }).Render(),
+            BodyTemplate = builder =>
+            {
+                builder.OpenComponent<DialogBodyFoo>(0);
+                builder.AddComponentReferenceCapture(1, obj => BodyFooComponent = (DialogBodyFoo)obj);
+                builder.CloseComponent();
+            },
+        });
 
         /// <summary>
         /// 
@@ -193,6 +214,13 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "BodyContext",
                     Description = "弹窗传参",
                     Type = "object",
+                    ValueList = " — ",
+                    DefaultValue = " — "
+                },
+                new AttributeItem() {
+                    Name = "HeaderTemplate",
+                    Description = "模态主体 ModalHeader 模板",
+                    Type = "RenderFragment",
                     ValueList = " — ",
                     DefaultValue = " — "
                 },

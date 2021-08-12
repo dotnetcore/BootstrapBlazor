@@ -2,30 +2,37 @@
 @inherits BootstrapComponentBase
 
 <div class="@ClassName" role="document" @ref="DialogElement">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">@Title</h5>
-            @if (ShowHeaderCloseButton)
-            {
-                <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickClose"></Button>
-            }
-        </div>
-        <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
-            <div class="modal-body">
-                @BodyTemplate
-            </div>
-            @if (ShowFooter)
-            {
-                <div class="modal-footer">
-                    @if (ShowCloseButton)
-                    {
-                        <Button Color="Color.None" class="btn btn-secondary"
-                                Text="@CloseButtonText" Icon="fa fa-times" OnClickWithoutRender="@OnClickClose">
-                        </Button>
-                    }
-                    @FooterTemplate
-                </div>
-            }
-        </CascadingValue>
-    </div>
+	<div class="modal-content">
+		<div class="modal-header">
+			@if (HeaderTemplate != null)
+			{
+				@HeaderTemplate
+			}
+			else
+			{
+				<h5 class="modal-title">@Title</h5>
+			}
+			@if (ShowHeaderCloseButton)
+			{
+				<Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickClose"></Button>
+			}
+		</div>
+		<CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
+			<div class="modal-body">
+				@BodyTemplate
+			</div>
+			@if (ShowFooter)
+			{
+				<div class="modal-footer">
+					@if (ShowCloseButton)
+					{
+						<Button Color="Color.None" class="btn btn-secondary"
+						Text="@CloseButtonText" Icon="fa fa-times" OnClickWithoutRender="@OnClickClose">
+						</Button>
+					}
+					@FooterTemplate
+				</div>
+			}
+		</CascadingValue>
+	</div>
 </div>
