@@ -84,50 +84,10 @@
     "Title": "Globalization",
     "SubTitle": "ASP.NET Core Blazor Globalization",
     "P1": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'> before reading the following knowledge points Official document</a>"
-  "BootstrapBlazor.Shared.Pages.Localization": {
-    "Title": "Localization",
-    "P1": "Localization is the process of customizing an application for a given language and region. The <code>BootstrapBlazor</code> component allows you to convert its UI elements into the desired language. This includes text such as buttons and filter operator attributes. The component uses the current request <code>UI</code> cultural language by default. This article will show you how to use this feature in your application",
-    "Tips": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization' target='_blank'>Microsoft official documents before reading the following knowledge points</a> <div>Because the <code>wasm</code> mode cannot obtain the system language and culture information, the default culture information is, <code>en</code>, <Anchor Target='lang'> Please refer to the chapter on changing the default language at the end of the article </Anchor></div>",
-    "P2": "How localization works in components",
-    "P3D1": "The <code>BootstrapBlazor</code> component additionally supports the use of key-value information of type <code>Json</code> as a resource file and parses it into a string presented in <code>UI</code>. <a href='https://www.nuget.org/packages/BootstrapBlazor/' target='_blank'>BootstrapBalzor</a> The package comes with two resource files in Chinese (zh) and English (en). The component has a built-in localized language fallback mechanism. For example, when the requested culture is <code>zh-CN</code>, if the corresponding cultural resource file is not provided, the built-in logic will try to localize through the parent culture. >zh-CN</code> as an example, the rollback mechanism is as follows:",
-    "P3D2": "<code>zh-CN</code> to <code>zh</code>",
-    "P3D3": "If the set localization language does not provide the resource file and the resource file cannot be found after returning, use the cultural information set by the <code>FallbackCulture</code> parameter to localize, the default is <code>en</code>",
-    "P4": "Turn on localization",
-    "P5": "1. Configuration file",
-    "P6": "Set the fallback culture information through <code>FallbackCultureName</code>, that is, use this configuration culture when the currently requested culture information is not found, and set the supported culture set through <code>SupportedCultures</code>",
-    "P7": "2. Enable .NET Core Localization Service",
-    "CodeComment1": "Add BootstrapBlazor component",
-    "CodeComment2": "Add localized service configuration information",
-    "CodeComment3": "Enable localization middleware and set supporting cultural information",
-    "P8": "3. Implement UI localization information storage (for example, cookie)",
-    "P9": "3. Add a UI that allows users to change the localization",
-    "CodeComment4": "Use api method for Server-Side mode",
-    "P10": "4. Attach <code>Json</code> resource file",
-    "P11": "The <code>BootstrapBlazor</code> component library supports Microsoft’s default <code>resx</code> format resources, embedded <code>json</code> format resources, and specific physical <code>json</code> code> file",
-    "P12": "Resource files are merged, and the priority of addressing rules is",
-    "P12Li1": "Microsoft resx embedded resource file",
-    "P12Li2": "External json physical file",
-    "P12Li3": "json embedded resource file",
-    "P12Li4": "Built-in json resource file",
-    "CodeComment5": "Set RESX format multi-language resource file such as Program.{CultureName}.resx",
-    "CodeComment6": "Set Json format embedded resource file",
-    "CodeComment7": "Set Json physical path file",
-    "P13": "1. Enable .NET Core Localization Service",
-    "CodeComment8": "Add BootstrapBlazor component",
-    "CodeComment9": "Increase localization",
-    "P14": "2. Implement UI localization information storage (for example, localStorage)",
-    "P15": "Consistent with Server-Side",
-    "P16": "Change the default language setting",
-    "CodeComment10": "Set the default culture to zh-CN"
   },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
-  },
-  "BootstrapBlazor.Shared.Pages.Components.Video": {
-    "Title": "Related Video Links of BiliBili",
-    "D1": "Not yet",
-    "D2": "Portal"
   },
   "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
     "Title": "Attributes"

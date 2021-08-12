@@ -1,15 +1,14 @@
 ﻿@inject IOptions<WebsiteOptions> Options
-@inject IStringLocalizer<Video> Localizer
 
-<p><b>@Localizer["Title"]</b></p>
+<p><b>B 站相关视频链接</b></p>
 
 @if (string.IsNullOrEmpty(VideoUrl))
 {
-    <div class="mb-3">@Localizer["D1"]</div>
+    <div class="mb-3">暂无</div>
 }
 else
 {
-    <a class="fa fa-video-camera mb-3" href="@VideoUrl" target="_blank"><span class="ms-2">@Localizer["D2"]</span></a>
+    <a class="fa fa-video-camera mb-3" href="@VideoUrl" target="_blank"><span class="ms-2">[传送门]</span></a>
 }
 
 @code {

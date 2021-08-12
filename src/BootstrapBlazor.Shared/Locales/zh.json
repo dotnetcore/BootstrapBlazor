@@ -58,6 +58,10 @@
     "SpecialAcknowledgements": "特别鸣谢",
     "Footer": "码云托管平台"
   },
+  "BootstrapBlazor.Shared.Pages.Components.Block": {
+    "Title": "未设置",
+    "SubTitle": "示例"
+  },
   "BootstrapBlazor.Shared.Pages.Install": {
     "InstallTitle": "安装",
     "GitP1": "Git 工具有很多种大家比较熟悉的，这里我介绍两款 Git 客户端工具",
@@ -84,50 +88,6 @@
     "Title": "全球化",
     "SubTitle": "ASP.NET Core Blazor 全球化",
     "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>"
-  "BootstrapBlazor.Shared.Pages.Localization": {
-    "Title": "本地化",
-    "P1": "本地化是为给定语言和地区定制应用程序的过程。<code>BootstrapBlazor</code> 组件允许您将其 UI 元素转换为所需的语言。这包括按钮、过滤器操作符属性等文本。组件内部默认使用当前请求 <code>UI</code> 文化语言，本文将向您展示如何在应用程序中使用此功能",
-    "Tips": "  阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization' target='_blank'>微软官方文档</a> <div>由于<code>wasm</code> 模式无法获取系统语言文化信息，默认文化信息为,<code>en</code>，<Anchor Target='lang'>请查阅文章最后更改默认语言章节</Anchor></div>",
-    "P2": "本地化在组件中的工作原理",
-    "P3D1": "<code>BootstrapBlazor</code> 组件额外支持使用 <code>Json</code> 类型的键值信息作为资源文件，将其解析为 <code>UI</code> 中呈现的字符串。<a href='https://www.nuget.org/packages/BootstrapBlazor/' target='_blank'>BootstrapBalzor</a> 包自带中文（zh）、英语（en）两种资源文件。组件内置本地化语言回退机制，如请求文化为 <code>zh-CN</code> 时，如未提供相对应的文化资源文件时，内置逻辑通过父级文化进行尝试本地化，以 <code>zh-CN</code> 为例回退机制如下：",
-    "P3D2": "<code>zh-CN</code> 到 <code>zh</code>",
-    "P3D3": "如果设置的本地化语言未提供资源文件回落后仍无法找到资源文件后，使用 <code>FallbackCulture</code> 参数设置的文化信息进行本地化，默认为 <code>en</code>",
-    "P4": "开启本地化功能",
-    "P5": "1. 配置文件",
-    "P6": "通过 <code>FallbackCultureName</code> 设置回退文化信息，即未找到当前请求的文化信息时使用此配置文化，通过 <code>SupportedCultures</code> 设置支持的文化集合",
-    "P7": "2. 启用 .NET 核心本地化服务",
-    "CodeComment1": "增加 BootstrapBlazor 组件",
-    "CodeComment2": "增加本地化服务配置信息",
-    "CodeComment3": "启用本地化中间件并设置支持的文化信息",
-    "P8": "3. 实现 UI 本地化信息存储（例如，cookie）",
-    "P9": "3. 添加允许用户更改本地化的 UI",
-    "CodeComment4": "使用 api 方式 适用于 Server-Side 模式",
-    "P10": "4. 附加 <code>Json</code> 资源文件",
-    "P11": "<code>BootstrapBlazor</code> 组件库即支持微软默认的 <code>resx</code> 格式资源，也支持嵌入式 <code>json</code> 格式资源，以及特定物理 <code>json</code> 文件",
-    "P12": "资源文件为合并关系，寻址规则优先级为",
-    "P12Li1": "微软 resx 嵌入式资源文件",
-    "P12Li2": "外置 json 物理文件",
-    "P12Li3": "json 嵌入式资源文件",
-    "P12Li4": "内置 json 资源文件",
-    "CodeComment5": "设置 RESX 格式多语言资源文件 如 Program.{CultureName}.resx",
-    "CodeComment6": "设置 Json 格式嵌入式资源文件",
-    "CodeComment7": "设置 Json 物理路径文件",
-    "P13": "1. 启用 .NET 核心本地化服务",
-    "CodeComment8": "增加 BootstrapBlazor 组件",
-    "CodeComment9": "增加本地化",
-    "P14": "2. 实现 UI 本地化信息存储（例如，localStorage）",
-    "P15": "与 Server-Side 一致",
-    "P16": "更改默认语言设置",
-    "CodeComment10": "设置默认文化为 zh-CN"
-  },
-  "BootstrapBlazor.Shared.Pages.Components.Block": {
-    "Title": "未设置",
-    "SubTitle": "示例"
-  },
-  "BootstrapBlazor.Shared.Pages.Components.Video": {
-    "Title": "B 站相关视频链接",
-    "D1": "暂无",
-    "D2": "传送门"
   },
   "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
     "Title": "Attributes 属性"
