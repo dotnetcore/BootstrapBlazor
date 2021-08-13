@@ -30,8 +30,11 @@ else
                 }
             }
         </CascadingValue>
-        <div class="col-12">
-            @Buttons
-        </div>
+        @if (Buttons != null)
+        {
+            <div class="col-12">
+                @Buttons
+            </div>
+        }
     </div>
 }

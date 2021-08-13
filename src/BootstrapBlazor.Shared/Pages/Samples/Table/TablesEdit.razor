@@ -94,10 +94,11 @@
 
 <Block Title="设置编辑模式" Introduction="通过设置表格的 <code>EditMode</code> 属性，设置组件是弹窗编辑行数据还是行内编辑数据">
     <p><code>EditMode</code> 为枚举类型其值分别为：<code>Popup</code> <code>EditForm</code> <code>InCell</code> 其默认值为 <code>Popup</code> 弹窗编辑行数据</p>
+    <p>本例中设置参数 <code>IsTracking=true</code> 开启跟踪模式，此模式下编辑表单无需保存，直接编辑绑定行模型，特别适用与父子表录入</p>
     <p><code>EditForm</code> 模式示例</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsTracking="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="增加测试数据窗口" EditModalTitle="编辑测试数据窗口"
            OnQueryAsync="@OnQueryAsync" EditMode="EditMode.EditForm"

@@ -142,6 +142,12 @@ namespace BootstrapBlazor.Components
         public Func<TItem, bool>? HasChildrenCallback { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
+        /// </summary>
+        [Parameter]
+        public bool IsTracking { get; set; }
+
+        /// <summary>
         /// 获得/设置 缩进大小 默认为 16 单位 px
         /// </summary>
         [Parameter]

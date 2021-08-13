@@ -189,6 +189,7 @@
     "DeleteButtonText": "删除",
     "CancelButtonText": "取消",
     "SaveButtonText": "保存",
+    "CloseButtonText": "关闭",
     "CancelDeleteButtonText": "取消",
     "ConfirmDeleteButtonText": "删除",
     "ConfirmDeleteContentText": "确认要删除选中的所有行吗？",
@@ -225,7 +226,7 @@
     "UnsetText": "点击升序",
     "SortAscText": "点击降序",
     "SortDescText": "取消排序",
-    "EmptyText":  "无数据"
+    "EmptyText": "无数据"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

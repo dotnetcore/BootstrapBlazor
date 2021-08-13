@@ -276,7 +276,7 @@ namespace BootstrapBlazor.Components
                     }
                     else
                     {
-                        EditModel = Utility.Clone(SelectedItems[0]);
+                        EditModel = IsTracking ? SelectedItems[0] : Utility.Clone(SelectedItems[0]);
                     }
                     EditModalTitleString = EditModalTitle;
 
@@ -429,6 +429,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Task ShowEditDialog() => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
         {
+            IsTracking = IsTracking,
             IsScrolling = ScrollingDialogContent,
             ShowLoading = ShowLoading,
             Title = EditModalTitleString,
@@ -447,6 +448,11 @@ namespace BootstrapBlazor.Components
                     await ToggleLoading(true);
                     await ef.CancelAsync();
                     await ToggleLoading(false);
+                }
+
+                if (IsTracking)
+                {
+                    StateHasChanged();
                 }
             },
             OnSaveAsync = async context =>

@@ -135,8 +135,8 @@ namespace BootstrapBlazor.Components
                     }
                 })),
                 new(nameof(EditDialog<TModel>.RowType), option.RowType),
-                new(nameof(EditDialog<TModel>.LabelAlign), option.LabelAlign)
-
+                new(nameof(EditDialog<TModel>.LabelAlign), option.LabelAlign),
+                new(nameof(EditDialog<TModel>.IsTracking), option.IsTracking)
             };
 
             if (option.ItemsPerRow.HasValue)

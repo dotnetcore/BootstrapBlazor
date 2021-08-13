@@ -189,6 +189,7 @@
     "DeleteButtonText": "Delete",
     "CancelButtonText": "Cancel",
     "SaveButtonText": "Save",
+    "CloseButtonText": "Close",
     "CancelDeleteButtonText": "Cancel",
     "ConfirmDeleteButtonText": "Delete",
     "ConfirmDeleteContentText": "Are you sure to DELETE all selected rows?",

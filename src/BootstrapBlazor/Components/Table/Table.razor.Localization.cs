@@ -64,6 +64,13 @@ namespace BootstrapBlazor.Components
         public string? SaveButtonText { get; set; }
 
         /// <summary>
+        /// 保存按钮文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CloseButtonText { get; set; }
+
+        /// <summary>
         /// 确认删除按钮文本
         /// </summary>
         [Parameter]
@@ -257,6 +264,7 @@ namespace BootstrapBlazor.Components
             DeleteButtonText ??= Localizer[nameof(DeleteButtonText)];
             CancelButtonText ??= Localizer[nameof(CancelButtonText)];
             SaveButtonText ??= Localizer[nameof(SaveButtonText)];
+            CloseButtonText ??= Localizer[nameof(CloseButtonText)];
             CancelDeleteButtonText ??= Localizer[nameof(CancelDeleteButtonText)];
             ConfirmDeleteButtonText ??= Localizer[nameof(ConfirmDeleteButtonText)];
             ConfirmDeleteContentText ??= Localizer[nameof(ConfirmDeleteContentText)];
