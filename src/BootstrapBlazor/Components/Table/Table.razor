@@ -292,7 +292,7 @@
             {
                 @RenderEditForm.Invoke(EditModel)
             }
-            @if (AddInCell)
+            @if (AddInCell && !IsTracking)
             {
                 @RenderRow(EditModel)
             }

@@ -203,7 +203,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task AddAsync()
         {
-            if (UseInjectDataService || OnSaveAsync != null)
+            if (UseInjectDataService || IsTracking || OnSaveAsync != null)
             {
                 await ToggleLoading(true);
                 if (OnAddAsync != null)
@@ -223,6 +223,10 @@ namespace BootstrapBlazor.Components
                 SelectedItems.Clear();
                 EditModalTitleString = AddModalTitle;
 
+                if (IsTracking)
+                {
+                    RowItems.Insert(0, EditModel);
+                }
                 if (EditMode == EditMode.Popup)
                 {
                     await ShowEditDialog();
@@ -231,15 +235,18 @@ namespace BootstrapBlazor.Components
                 {
                     ShowAddForm = true;
                     ShowEditForm = false;
+
+                    await UpdateAsync();
                 }
                 else if (EditMode == EditMode.InCell)
                 {
                     AddInCell = true;
                     EditInCell = true;
                     SelectedItems.Add(EditModel);
+
+                    await UpdateAsync();
                 }
                 await ToggleLoading(false);
-                StateHasChanged();
             }
             else
             {
@@ -260,7 +267,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task EditAsync()
         {
-            if (UseInjectDataService || OnSaveAsync != null)
+            if (UseInjectDataService || IsTracking || OnSaveAsync != null)
             {
                 if (SelectedItems.Count == 1)
                 {
@@ -289,13 +296,15 @@ namespace BootstrapBlazor.Components
                     {
                         ShowEditForm = true;
                         ShowAddForm = false;
-                        StateHasChanged();
+                        await UpdateAsync();
+
                     }
                     else if (EditMode == EditMode.InCell)
                     {
                         AddInCell = false;
                         EditInCell = true;
-                        StateHasChanged();
+                        await UpdateAsync();
+
                     }
                     await ToggleLoading(false);
                 }
@@ -452,7 +461,7 @@ namespace BootstrapBlazor.Components
 
                 if (IsTracking)
                 {
-                    StateHasChanged();
+                    await UpdateAsync();
                 }
             },
             OnSaveAsync = async context =>
@@ -467,6 +476,18 @@ namespace BootstrapBlazor.Components
                 return valid;
             }
         });
+
+        private async Task UpdateAsync()
+        {
+            if (ItemsChanged.HasDelegate)
+            {
+                await ItemsChanged.InvokeAsync(RowItems);
+            }
+            else
+            {
+                StateHasChanged();
+            }
+        }
 
         /// <summary>
         /// 确认删除按钮方法
@@ -498,13 +519,21 @@ namespace BootstrapBlazor.Components
         {
             await ToggleLoading(true);
             var ret = false;
-            if (OnDeleteAsync != null)
+            if (IsTracking)
             {
-                ret = await OnDeleteAsync(SelectedItems);
+                RowItems.RemoveAll(i => SelectedItems.Any(item => item == i));
+                ret = true;
             }
-            else if (UseInjectDataService)
+            else
             {
-                ret = await GetDataService().DeleteAsync(SelectedItems);
+                if (OnDeleteAsync != null)
+                {
+                    ret = await OnDeleteAsync(SelectedItems);
+                }
+                else if (UseInjectDataService)
+                {
+                    ret = await GetDataService().DeleteAsync(SelectedItems);
+                }
             }
 
             var option = new ToastOption()
@@ -525,9 +554,17 @@ namespace BootstrapBlazor.Components
                 PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
 
                 SelectedItems.Clear();
-                await QueryAsync();
+
+                if (!IsTracking)
+                {
+                    await QueryAsync();
+                }
+                else
+                {
+                    await UpdateAsync();
+                }
             }
-            if (ShowErrorToast || ret)
+            if ((ShowErrorToast || ret) && !IsTracking)
             {
                 await Toast.Show(option);
             }
