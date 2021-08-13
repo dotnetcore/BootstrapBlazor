@@ -1,0 +1,73 @@
+﻿@page "/floatinglabels"
+@inject IStringLocalizer<Inputs> Localizer
+
+<h3>FloatingLabel 输入框</h3>
+
+<h4>通过鼠标或键盘输入字符</h4>
+
+<Block Title="基础用法" Introduction="提供基本的文本录入组件">
+	<FloatingLabel LabelText="Text" TValue="string" />
+</Block>
+
+<Block Title="单向绑定数据" Introduction="显示组件内变量值">
+	<FloatingLabel LabelText="Text" Value="@Model.Name" />
+</Block>
+
+<Block Title="客户端验证" Introduction="根据自定义验证规则进行数据有效性检查并自动提示">
+	<ValidateForm Model="@Model">
+		<FloatingLabel LabelText="客户端验证" maxlength="5" @bind-Value="@Model.Name" />
+	</ValidateForm>
+</Block>
+
+<Block Title="密码框" Introduction="通过设置属性 <code>type</code> 值为 <code>password</code> 使输入文字后以 <code>*</code> 进行屏蔽的密码输入框">
+	<p>为了支持更多的文本框属性本组件可以直接写入 <code>type="email"</code> <code>type="number"</code> <code>type="phone"</code> 等 <code>html5</code> 新标准支持的全部属性值，组件未设置 <code>type</code> 值时使用默认的 <code>type="text"</code></p>
+	<FloatingLabel LabelText="密码框" TValue="string" type="password" maxlength="5" style="width: 200px;" />
+</Block>
+
+<Block Title="泛型绑定" Introduction="<code>BootstrapInput</code> 组件双向绑定值是泛型的，本例中双向绑定一个 int 类型数值">
+	<div class="row g-3">
+		<div class="col-12 col-sm-6">
+			<FloatingLabel LabelText="泛型绑定" FormatString="000" step="1" @bind-Value="@Model.Count" />
+		</div>
+		<div class="col-12 col-sm-6 align-self-center">
+			<div class="col-form-label">绑定数值: @Model.Count.ToString("000")</div>
+		</div>
+	</div>
+</Block>
+
+<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
+	<FloatingLabel LabelText="禁用" TValue="string" IsDisabled="true" />
+</Block>
+
+<Block Title="自定义格式" Introduction="设置 <code>FormatString</code> 属性值为 <code>yyyy-MM-dd</code> 时，组件显示的时间格式为年月日">
+	<div class="row g-3">
+		<div class="col-12 col-sm-6 col-form-label align-self-center">设置 <code class="ms-1">FormatString</code></div>
+		<div class="col-12 col-sm-6">
+			<FloatingLabel LabelText="FormatString" Value="DateTime.Now" FormatString="yyyy-MM-dd" IsDisabled="true" />
+		</div>
+		<div class="col-12 col-sm-6 col-form-label align-self-center">设置 <code class="ms-1">Formatter</code></div>
+		<div class="col-12 col-sm-6">
+			<FloatingLabel LabelText="Formatter" Value="DateTime.Now" Formatter="@DateTimeFormatter" IsDisabled="true" />
+		</div>
+	</div>
+	<p class="mt-3"><code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例</p>
+	<div class="row g-3">
+		<div class="col-12 col-sm-6 col-form-label align-self-center">设置 <code class="ms-1">Formatter</code></div>
+		<div class="col-12 col-sm-6">
+			<FloatingLabel LabelText="字节数组" Value="@ByteArray" Formatter="@ByteArrayFormatter" IsDisabled="true" />
+		</div>
+	</div>
+</Block>
+
+<Block Title="密码框" Introduction="使用 <code>BootstrapPassword</code> 组件">
+	<div class="row g-3">
+		<div class="col-auto col-form-label align-self-center">
+			<span>基本用法</span>
+		</div>
+		<div class="col-6">
+			<FloatingLabel LabelText="请输入密码" type="password" TValue="string" />
+		</div>
+	</div>
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

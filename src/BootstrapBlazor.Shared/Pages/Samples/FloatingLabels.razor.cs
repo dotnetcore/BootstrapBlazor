@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Inputs
+    public partial class FloatingLabels
     {
         private string? PlaceHolderText { get; set; }
 

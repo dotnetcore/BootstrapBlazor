@@ -255,6 +255,11 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    Text = Localizer["FloatingLabel"],
+                    Url = "floatinglabels"
+                },
+                new()
+                {
                     Text = Localizer["Input"],
                     Url = "inputs"
                 },

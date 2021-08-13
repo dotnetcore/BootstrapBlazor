@@ -83,7 +83,7 @@
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "全球化",
     "SubTitle": "ASP.NET Core Blazor 全球化",
-    "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>",
+    "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>"
   },
   "BootstrapBlazor.Shared.Pages.Components.InstallContent": {
     "H1": "组件引用",
@@ -288,6 +288,7 @@
     "Dialog": "对话框 Dialog",
     "Drawer": "抽屉 Drawer",
     "EditDialog": "编辑弹窗 EditDialog",
+    "FloatingLabel": "悬浮标签 FloatingLabel",
     "Message": "消息框 Message",
     "Modal": "模态框 Modal",
     "Light": "指示灯 Light",

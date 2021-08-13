@@ -83,7 +83,7 @@
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "Globalization",
     "SubTitle": "ASP.NET Core Blazor Globalization",
-    "P1": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'> before reading the following knowledge points Official document</a>",
+    "P1": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'> before reading the following knowledge points Official document</a>"
   },
   "BootstrapBlazor.Shared.Pages.Components.InstallContent": {
     "H1": "Component reference",
@@ -309,6 +309,7 @@
     "DateTimeRange": "DateTimeRange",
     "Editor": "Editor",
     "EditorForm": "EditorForm",
+    "FloatingLabel": "FloatingLabel",
     "Input": "Input",
     "InputNumber": "InputNumber",
     "Markdown": "Markdown",

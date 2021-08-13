@@ -1,0 +1,8 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits BootstrapInput<TValue>
+
+<div class="form-floating">
+	<input @attributes="@AdditionalAttributes" type="@Type" id="@Id" placeholder="placeholder" class="@ClassName" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange">
+	<label for="@Id">@LabelText</label>
+</div>
