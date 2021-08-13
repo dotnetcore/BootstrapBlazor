@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using System;
+using System.Collections.Generic;
 
 namespace BootstrapBlazor.Shared.Pages
 {
