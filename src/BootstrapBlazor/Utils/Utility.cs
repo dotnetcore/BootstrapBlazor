@@ -347,21 +347,19 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
             }
 
-            //增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
-            if (item.Data != null && item.ComponentType != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
+            // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
+            if (item.Data != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
             {
                 builder.AddAttribute(7, nameof(Select<SelectedItem>.Items), item.Data);
-                builder.AddAttribute(8, nameof(Select<SelectedItem>.Value), fieldValue);
-                builder.AddAttribute(9, nameof(Select<SelectedItem>.ValueChanged), fieldValueChanged);
-                builder.AddAttribute(10, nameof(Select<SelectedItem>.ValueExpression), valueExpression);
-                builder.AddAttribute(11, nameof(Select<SelectedItem>.SkipValidate), false);
-            }
-            else if (IsValidatableComponent(componentType))
-            {
-                builder.AddAttribute(12, nameof(IEditorItem.SkipValidate), item.SkipValidate);
             }
 
-            builder.AddMultipleAttributes(13, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
+            // 设置 SkipValidate 参数
+            if (IsValidatableComponent(componentType))
+            {
+                builder.AddAttribute(8, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            }
+
+            builder.AddMultipleAttributes(9, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
             builder.CloseComponent();
         }
 
@@ -468,49 +466,36 @@ namespace BootstrapBlazor.Components
         {
             var ret = new List<KeyValuePair<string, object>>();
             var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
-            if (type.IsEnum)
+            switch (type.Name)
             {
-                // 枚举类型
-                // 通过字符串转化为枚举类实例
-                var items = type.ToSelectList();
-                if (items != null)
-                {
-                    ret.Add(new("Items", items));
-                }
-            }
-            else
-            {
-                switch (type.Name)
-                {
-                    case nameof(String):
-                        var ph = Utility.GetPlaceHolder(model, fieldName) ?? placeholder;
-                        if (!string.IsNullOrEmpty(ph))
+                case nameof(String):
+                    var ph = Utility.GetPlaceHolder(model, fieldName) ?? placeholder;
+                    if (!string.IsNullOrEmpty(ph))
+                    {
+                        ret.Add(new("placeholder", ph));
+                    }
+                    if (item.Rows != 0)
+                    {
+                        ret.Add(new("rows", item.Rows));
+                    }
+                    break;
+                case nameof(Int16):
+                case nameof(Int32):
+                case nameof(Int64):
+                case nameof(Single):
+                case nameof(Double):
+                case nameof(Decimal):
+                    if (item.Step != null)
+                    {
+                        var step = item.Step.ToString();
+                        if (!string.IsNullOrEmpty(step))
                         {
-                            ret.Add(new("placeholder", ph));
+                            ret.Add(new("Step", step));
                         }
-                        if (item.Rows != 0)
-                        {
-                            ret.Add(new("rows", item.Rows));
-                        }
-                        break;
-                    case nameof(Int16):
-                    case nameof(Int32):
-                    case nameof(Int64):
-                    case nameof(Single):
-                    case nameof(Double):
-                    case nameof(Decimal):
-                        if (item.Step != null)
-                        {
-                            var step = item.Step.ToString();
-                            if (!string.IsNullOrEmpty(step))
-                            {
-                                ret.Add(new("Step", step));
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                    }
+                    break;
+                default:
+                    break;
             }
 
             if (showLabel != null)
