@@ -738,14 +738,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private IEnumerable<TItem>? QueryItems { get; set; }
 
-        private Lazy<IEnumerable<TItem>>? RowItemsCache { get; set; }
+        private Lazy<List<TItem>>? RowItemsCache { get; set; }
 
         private List<TItem> RowItems
         {
             get
             {
-                RowItemsCache ??= new(() => Items ?? QueryItems ?? Enumerable.Empty<TItem>());
-                return IsTree ? GetTreeRows() : RowItemsCache.Value.ToList();
+                RowItemsCache ??= new(() => Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>());
+                return IsTree ? GetTreeRows() : RowItemsCache.Value;
             }
         }
 
