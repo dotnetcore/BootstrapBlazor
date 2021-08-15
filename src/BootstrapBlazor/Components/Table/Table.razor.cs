@@ -840,7 +840,9 @@ namespace BootstrapBlazor.Components
         #endregion
 
         private RenderFragment RenderCell(ITableColumn col) => col.EditTemplate == null
-            ? builder => builder.CreateComponentByFieldType(this, col, EditModel, addInCell: AddInCell, editInCell: EditInCell)
+            ? (col.Readonly
+                ? builder => builder.CreateDisplayByFieldType(this, col, EditModel, false)
+                : builder => builder.CreateComponentByFieldType(this, col, EditModel, false))
             : col.EditTemplate.Invoke(EditModel);
 
         #region Filter

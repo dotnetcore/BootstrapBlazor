@@ -48,7 +48,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             CustomerDataService = new FooDataService<Foo>(Localizer);
         }
 
-        private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
+        private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" });
 
         private Task<bool> OnSaveAsync(Foo item)
         {

@@ -49,7 +49,7 @@
     <p>数据绑定类型为可为空类型时自动允许为空，如日期绑定列为 <code>DateTime?</code> 类型</p>
     <p>数据绑定类型为数值类型时如，如数量绑定列为 <code>int</code> 类型，自动进行数值验证</p>
     <p>表格呈现的有些数据列是计算得到的结果，此种类型的列是无法参与编辑的，通过设置 <code>Editable=false</code> 自动生成编辑 UI 时就不会生成此列编辑组件，如本示例中 <code>Count</code> 列在编辑弹窗中是不出现的</p>
-    <p>通过设置 <code>Readonly=true</code> 自动生成编辑 UI 会将此字段进行只读处理</p>
+    <p>通过设置 <code>Readonly=true</code> 自动生成编辑 UI 会将此字段进行只读处理，新建时请对 <code>Model</code> 进行默认值赋值 </p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -58,8 +58,8 @@
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Readonly="true" />
-            <TableColumn @bind-Field="@context.Address" Rows="3" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Readonly="true" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Editable="false" />
             <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
@@ -68,7 +68,11 @@
 </Block>
 
 <Block Title="自定义列编辑模板" Introduction="当设置列的 <code>EditTemplate</code> 时，组件自动生成表单维护 UI 时使用此模板作为呈现 UI">
-    <p>通过设置姓名列的 <code>EditTemplate</code> 自定义编辑时使用下拉框来选择姓名</p>
+    <p>
+        <div>通过设置姓名列的 <code>EditTemplate</code> 自定义编辑时使用下拉框来选择姓名</div>
+        <div>本例中 <code>Name</code> 列为自定义组件 <code>TableNameDrop</code>，新建时默认为 <code>请选择 ...</code></div>
+    </p>
+
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -84,8 +88,7 @@
                     </div>
                 </EditTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
         </TableColumns>
