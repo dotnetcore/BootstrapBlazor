@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
-        public IEnumerable<TreeItem> Items { get; set; } = Array.Empty<TreeItem>();
+        public List<TreeItem> Items { get; set; } = new List<TreeItem>();
 
         /// <summary>
         /// 获得/设置 是否显示 CheckBox 默认 false 不显示

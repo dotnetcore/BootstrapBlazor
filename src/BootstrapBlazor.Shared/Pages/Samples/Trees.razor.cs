@@ -29,130 +29,47 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Foo Model => Foo.Generate(Localizer);
 
-        private static IEnumerable<TreeItem> GetItems()
+        private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
+
+        private List<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
+
+        private static List<TreeItem> GetCheckedItems()
         {
-            var ret = new List<TreeItem>
-            {
-                new TreeItem() { Text = "导航一" },
-                new TreeItem() { Text = "导航二" },
-                new TreeItem() { Text = "导航三" }
-            };
-
-            ret[0].AddItem(new TreeItem() { Text = "子菜单" });
-
-            ret[1].AddItem(new TreeItem() { Text = "子菜单一" });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单二" });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单三" });
-
-            ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1一" });
-            ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1二" });
-
-            ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2一" });
-            ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单二" });
-
+            var ret = TreeDataFoo.GetTreeItems();
+            ret[1].Items[1].Checked = true;
             return ret;
         }
 
-        private IEnumerable<TreeItem> Items { get; set; } = GetItems();
+        private List<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
 
-        private static IEnumerable<TreeItem> GetCheckedItems()
+        private static List<TreeItem> GetDisabledItems()
         {
-            var ret = new List<TreeItem>
-            {
-                new TreeItem() { Text = "导航一" },
-                new TreeItem() { Text = "导航二", Checked = true, IsExpanded = true },
-                new TreeItem() { Text = "导航三" }
-            };
-
-            ret[1].AddItem(new TreeItem() { Text = "子菜单一" });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单二", IsExpanded = true });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单三" });
-
-            ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1一" });
-            ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1二" });
-
-            ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2一" });
-            ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单二" });
-
+            var ret = TreeDataFoo.GetTreeItems();
+            ret[1].Items[1].Disabled = true;
             return ret;
         }
 
-        private IEnumerable<TreeItem> CheckedItems { get; set; } = GetCheckedItems();
-
-        private static IEnumerable<TreeItem> GetDisabledItems()
+        private static List<TreeItem> GetIconItems()
         {
-            var ret = new List<TreeItem>
-            {
-                new TreeItem() { Text = "导航一" },
-                new TreeItem() { Text = "导航二", Disabled = true },
-                new TreeItem() { Text = "导航三" }
-            };
-
-            ret[1].AddItem(new TreeItem() { Text = "子菜单一" });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单二" });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单三" });
-
-            ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1一" });
-            ret[1].Items.ElementAt(0).AddItem(new TreeItem() { Text = "孙菜单1二" });
-
-            ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2一" });
-            ret[1].Items.ElementAt(1).AddItem(new TreeItem() { Text = "孙菜单2二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾孙菜单二" });
-
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单一" });
-            ret[1].Items.ElementAt(1).Items.ElementAt(1).Items.ElementAt(1).AddItem(new TreeItem() { Text = "曾曾孙菜单二" });
-
+            var ret = TreeDataFoo.GetTreeItems();
+            ret[1].Items[0].Icon = "fa fa-fa";
+            ret[1].Items[1].Icon = "fa fa-fa";
+            ret[1].Items[2].Icon = "fa fa-fa";
             return ret;
         }
 
-        private static IEnumerable<TreeItem> GetIconItems()
+        private static List<TreeItem> GetLazyItems()
         {
-            var ret = new List<TreeItem>
-            {
-                new TreeItem() { Text = "导航一", Icon = "fa fa-fa fa-fw" },
-                new TreeItem() { Text = "导航二", Icon = "fa fa-fa fa-fw" },
-                new TreeItem() { Text = "导航三", Icon = "fa fa-fa fa-fw" }
-            };
-
-            ret[1].AddItem(new TreeItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
-            ret[1].AddItem(new TreeItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw" });
+            var ret = TreeDataFoo.GetTreeItems();
+            ret[1].Items[0].IsExpanded = true;
+            ret[1].Items[1].Text = "懒加载";
+            ret[1].Items[1].HasChildNode = true;
+            ret[1].Items[2].Text = "懒加载延时";
+            ret[1].Items[2].HasChildNode = true;
+            ret[1].Items[2].Key = "Delay";
 
             return ret;
         }
-
-        private static IEnumerable<TreeItem> GetLazyItems()
-        {
-            var ret = new List<TreeItem>
-            {
-                new TreeItem() { Text = "导航一", IsExpanded = true  },
-                new TreeItem() { Text = "懒加载", HasChildNode = true },
-                new TreeItem() { Text = "懒加载延时",  HasChildNode = true , Key = "Delay" }
-            };
-
-            ret[0].AddItem(new TreeItem() { Text = "子菜单一", Icon = "fa fa-fa fa-fw" });
-            ret[0].AddItem(new TreeItem() { Text = "子菜单二", Icon = "fa fa-fa fa-fw" });
-            ret[0].AddItem(new TreeItem() { Text = "子菜单三", Icon = "fa fa-fa fa-fw" });
-
-            return ret;
-        }
-
-
-        private IEnumerable<TreeItem> DisabledItems { get; set; } = GetDisabledItems();
 
         private Task OnTreeItemClick(TreeItem item)
         {
@@ -176,16 +93,18 @@ namespace BootstrapBlazor.Shared.Pages
                 {
                     await Task.Delay(800);
                 }
-                item.AddItem(new TreeItem() {
-                    Text = "懒加载子节点1",
-                    HasChildNode = true
+                item.Items.AddRange(new TreeItem[]
+                {
+                    new TreeItem()
+                    {
+                        Text = "懒加载子节点1",
+                        HasChildNode = true
+                    },
+                    new TreeItem() { Text = "懒加载子节点2" }
                 });
-                item.AddItem(new TreeItem() { Text = "懒加载子节点2" });
                 item.ShowLoading = false;
             }
         }
-
-
 
         /// <summary>
         /// 获得属性方法
