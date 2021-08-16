@@ -43,6 +43,10 @@
                     toggle: 'datetime-picker',
                     placement: placement
                 })
+                    .on('show.bs.popover', function () {
+                        var disabled = $(this).parent().hasClass('disabled');
+                        return !disabled;
+                    })
                     .on('inserted.bs.popover', function () {
                         var pId = this.getAttribute('aria-describedby');
                         if (pId) {

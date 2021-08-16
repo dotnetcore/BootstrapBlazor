@@ -36,6 +36,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private DateTime? BindNullValue { get; set; }
 
+        private bool IsDisabled { get; set; } = true;
+
         /// <summary>
         /// 
         /// </summary>

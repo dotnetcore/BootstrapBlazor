@@ -99,8 +99,11 @@
 
 <Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
     <div class="row g-3">
-        <div class="col-12">
-            <DateTimePicker TValue="DateTime" IsDisabled="true" />
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" IsDisabled="IsDisabled" />
+        </div>
+        <div class="col-12 col-sm-6">
+			<Switch @bind-Value="@IsDisabled" />
         </div>
     </div>
 </Block>
