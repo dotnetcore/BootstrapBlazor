@@ -154,6 +154,11 @@
             return button;
         };
 
+        var disposePopup = function ($ele) {
+            $ele.popover('dispose');
+            $ele.removeClass('is-show');
+        };
+
         $(document).on('click', function (e) {
             // hide popover
             var hide = true;
@@ -170,8 +175,7 @@
                 $('[data-bs-toggle="confirm"][aria-describedby^="popover"]').each(function (index, ele) {
                     if ($target[0] !== ele) {
                         var $ele = $(ele);
-                        $ele.popover('hide');
-                        $ele.removeClass('is-show');
+                        disposePopup($ele);
                     }
                 });
             }
@@ -204,14 +208,13 @@
 
             // 确认弹窗按钮事件
             var $confirm = findConfirmButton($(this));
-            if ($confirm != null) {
+            if ($confirm.length > 0) {
                 // 关闭弹窗
-                $confirm.popover('hide');
+                disposePopup($confirm);
 
                 // remove popover
                 var buttonId = $confirm.attr('id');
                 $ele = $('[data-bs-target="' + buttonId + '"]');
-                $('#' + buttonId).removeClass('is-show');
 
                 var $button = this.getAttribute('data-dismiss') === 'confirm'
                     ? $ele.find('.popover-confirm-buttons .btn:first')
