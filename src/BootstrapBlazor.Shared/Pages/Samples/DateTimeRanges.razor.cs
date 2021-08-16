@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
 
-        private bool IsDisabled { get; set; }
+        private bool IsDisabled { get; set; } = true;
 
         private Task OnConfirm(DateTimeRangeValue value)
         {

@@ -201,8 +201,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                if (!IsDisabled)
-                    await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange");
+                await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange");
             }
         }
 
