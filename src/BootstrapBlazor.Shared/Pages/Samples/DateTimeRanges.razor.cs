@@ -28,6 +28,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private DateTimeRangeValue DateTimeRangeValue4 { get; set; } = new DateTimeRangeValue();
 
+        private bool IsDisabled { get; set; }
+
         private Task OnConfirm(DateTimeRangeValue value)
         {
             DateLogger?.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
@@ -51,7 +53,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnClearValue",
                 Description="清空按钮回调委托",
                 Type ="Action"
-            } 
+            }
         };
 
         /// <summary>

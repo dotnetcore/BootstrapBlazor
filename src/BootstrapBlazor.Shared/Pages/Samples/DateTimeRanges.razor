@@ -30,7 +30,14 @@
 </Block>
 
 <Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
-    <DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="true" />
+	<div class="row g-3">
+		<div class="col-12 col-sm-6">
+			<DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
+		</div>
+		<div class="col-12 col-sm-6">
+			<Switch @bind-Value="@IsDisabled" />
+		</div>
+	</div>
 </Block>
 
 <Block Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏">
