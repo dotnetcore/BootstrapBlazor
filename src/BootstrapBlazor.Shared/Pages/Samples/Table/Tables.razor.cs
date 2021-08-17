@@ -398,18 +398,32 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "ShowResetSearch",
+                Name = "ShowResetButton",
                 Description = "显示清空搜索按钮",
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
-                Name = "ShowAdvancedSearch",
-                Description = "显示高级搜索按钮",
+                Name = "ShowSearchButton",
+                Description = "显示搜索按钮",
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "ShowSearchButton",
+                Description = "显示搜索按钮",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
+                Name = "SearchMode",
+                Description = "搜索栏渲染方式",
+                Type = "SearchMode",
+                ValueList = "Popup / Top",
+                DefaultValue = "Popup"
             },
             new AttributeItem() {
                 Name = "ShowToolbar",
