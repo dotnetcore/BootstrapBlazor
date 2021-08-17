@@ -138,7 +138,7 @@
         }
 
         <div class="@WrapperClassName">
-            @if (ActiveRenderModel == TableRenderModel.Table)
+            @if (ActiveRenderMode == TableRenderMode.Table)
             {
                 if (Height.HasValue)
                 {
@@ -247,7 +247,7 @@
             }
         </div>
 
-        if (ActiveRenderModel == TableRenderModel.Table)
+        if (ActiveRenderMode == TableRenderMode.Table)
         {
             if (FilterColumns == null) FilterColumns = Columns.Where(i => i.Filterable);
             if (FilterColumns.Any())

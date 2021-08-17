@@ -650,9 +650,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = " — "
             },
             new AttributeItem() {
-                Name = "RenderModel",
+                Name = "RenderMode",
                 Description = "Table 组件布局模式设置",
-                Type = "TableRenderModel",
+                Type = "TableRenderMode",
                 ValueList = "Auto|Table|CardView",
                 DefaultValue = "Auto"
             },

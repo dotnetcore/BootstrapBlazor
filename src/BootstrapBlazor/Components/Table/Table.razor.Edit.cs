@@ -52,10 +52,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 渲染模式
         /// </summary>
-        protected TableRenderModel ActiveRenderModel => RenderModel switch
+        protected TableRenderMode ActiveRenderMode => RenderMode switch
         {
-            TableRenderModel.Auto => ScreenSize < RenderModelResponsiveWidth ? TableRenderModel.CardView : TableRenderModel.Table,
-            _ => RenderModel
+            TableRenderMode.Auto => ScreenSize < RenderModelResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table,
+            _ => RenderMode
         };
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 组件布局方式 默认为 Auto
         /// </summary>
         [Parameter]
-        public TableRenderModel RenderModel { get; set; }
+        public TableRenderMode RenderMode { get; set; }
 
         /// <summary>
         /// 获得/设置 组件布局自适应切换阈值 默认为 768
