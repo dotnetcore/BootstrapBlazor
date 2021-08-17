@@ -88,16 +88,16 @@ namespace BootstrapBlazor.Components
         public bool AutoGenerateAllItem { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 级联上下文绑定字段信息集合
+        /// </summary>
+        [Parameter]
+        public IEnumerable<IEditorItem>? Items { get; set; }
+
+        /// <summary>
         /// 获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值
         /// </summary>
         [CascadingParameter]
         private EditContext? CascadedEditContext { get; set; }
-
-        /// <summary>
-        /// 获得/设置 级联上下文绑定字段信息集合
-        /// </summary>
-        [CascadingParameter]
-        private IEnumerable<IEditorItem>? CascadeEditorItems { get; set; }
 
         /// <summary>
         /// 获得 ValidateForm 实例
@@ -177,10 +177,10 @@ namespace BootstrapBlazor.Components
             {
                 FirstRender = false;
 
-                if (CascadeEditorItems != null)
+                if (Items != null)
                 {
                     // 通过级联参数渲染组件
-                    FormItems.AddRange(CascadeEditorItems.Where(i => i.Editable));
+                    FormItems.AddRange(Items.Where(i => i.Editable));
                 }
                 else
                 {

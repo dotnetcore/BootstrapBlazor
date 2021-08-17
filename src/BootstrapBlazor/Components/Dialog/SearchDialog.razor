@@ -13,13 +13,11 @@
 }
 else
 {
-    <CascadingValue Value="Items" IsFixed="true">
-        <EditorForm TModel="TModel" Model="Model" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign">
-            <Buttons>
-                @RenderFooter
-            </Buttons>
-        </EditorForm>
-    </CascadingValue>
+    <EditorForm TModel="TModel" Model="Model" Items="Items" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign">
+        <Buttons>
+            @RenderFooter
+        </Buttons>
+    </EditorForm>
 }
 
 @code {

@@ -17,16 +17,14 @@
 	}
 	else
 	{
-		<CascadingValue Value="Items" IsFixed="true">
-			<EditorForm TModel="TModel" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign">
-				<Buttons>
-					@if (!IsTracking)
-					{
-						@RenderFooter
-					}
+		<EditorForm TModel="TModel" Items="Items" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign">
+			<Buttons>
+				@if (!IsTracking)
+				{
+					@RenderFooter
+				}
 			</Buttons>
 		</EditorForm>
-	</CascadingValue>
 	}
 </ValidateForm>
 <div class="form-loader" @ref="SpinnerElement">
