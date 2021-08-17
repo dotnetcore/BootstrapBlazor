@@ -51,6 +51,10 @@
                     {
                         <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }
+					@if(ShowCardView)
+					{
+                        <Button Icon="fa fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView" />
+					}
                     @if (ShowColumnList)
                     {
                         <div class="btn-group btn-col" role="group">

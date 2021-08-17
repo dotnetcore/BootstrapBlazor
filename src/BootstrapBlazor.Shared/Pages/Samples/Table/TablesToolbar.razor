@@ -19,9 +19,10 @@
 </Block>
 
 <Block Title="带查询的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件">
+	<p>本例中通过设置 <code>ShowCardView</code> 显示 <b>视图</b> 按钮，用于切换 <code>Table</code> 组件渲染方式</p>
     <Table TItem="Foo"
            IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
-           ShowToolbar="true" ShowSearch="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
+           ShowToolbar="true" ShowSearch="true" ShowCardView="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
            OnQueryAsync="@OnSearchQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

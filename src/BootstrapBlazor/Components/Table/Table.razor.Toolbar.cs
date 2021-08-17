@@ -95,6 +95,12 @@ namespace BootstrapBlazor.Components
         public bool ShowRefresh { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 是否显示视图按钮 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool ShowCardView { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示列选择下拉框 默认为 false 不显示
         /// </summary>
         [Parameter]

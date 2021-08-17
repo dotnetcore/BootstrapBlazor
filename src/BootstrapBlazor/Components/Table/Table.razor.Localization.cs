@@ -92,6 +92,13 @@ namespace BootstrapBlazor.Components
         public string? RefreshButtonText { get; set; }
 
         /// <summary>
+        /// 视图按钮文本
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public string? CardViewButtonText { get; set; }
+
+        /// <summary>
         /// 列显示隐藏按钮提示信息文本
         /// </summary>
         [Parameter]
@@ -269,6 +276,7 @@ namespace BootstrapBlazor.Components
             ConfirmDeleteButtonText ??= Localizer[nameof(ConfirmDeleteButtonText)];
             ConfirmDeleteContentText ??= Localizer[nameof(ConfirmDeleteContentText)];
             RefreshButtonText ??= Localizer[nameof(RefreshButtonText)];
+            CardViewButtonText ??= Localizer[nameof(CardViewButtonText)];
             ColumnButtonTitleText ??= Localizer[nameof(ColumnButtonTitleText)];
             ColumnButtonText ??= Localizer[nameof(ColumnButtonText)];
             ExportButtonText ??= Localizer[nameof(ExportButtonText)];

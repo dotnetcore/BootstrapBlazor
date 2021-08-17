@@ -272,6 +272,26 @@ namespace BootstrapBlazor.Components
         protected Task OnClickRefreshAsync() => QueryAsync();
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected void OnClickCardView()
+        {
+            var model = RenderMode;
+            if (model == TableRenderMode.Auto)
+            {
+                model = ActiveRenderMode;
+            }
+            RenderMode = model switch
+            {
+                TableRenderMode.Table => TableRenderMode.CardView,
+                _ => TableRenderMode.Table
+            };
+
+            StateHasChanged();
+        }
+
+        /// <summary>
         /// 查询按钮调用此方法
         /// </summary>
         /// <returns></returns>

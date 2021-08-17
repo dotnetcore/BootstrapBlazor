@@ -194,6 +194,7 @@
     "ConfirmDeleteButtonText": "Delete",
     "ConfirmDeleteContentText": "Are you sure to DELETE all selected rows?",
     "RefreshButtonText": "Refresh",
+    "CardViewButtonText": "View",
     "ColumnButtonTitleText": "Show/Hide Columns",
     "ColumnButtonText": "Columns",
     "ExportButtonText": "Export",

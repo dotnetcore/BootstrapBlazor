@@ -194,6 +194,7 @@
     "ConfirmDeleteButtonText": "删除",
     "ConfirmDeleteContentText": "确认要删除选中的所有行吗？",
     "RefreshButtonText": "刷新",
+    "CardViewButtonText": "视图",
     "ColumnButtonTitleText": "列显示隐藏控制",
     "ColumnButtonText": "列",
     "ExportButtonText": "导出数据",
