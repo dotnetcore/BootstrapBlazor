@@ -134,7 +134,7 @@ namespace BootstrapBlazor.Components
         public string? SearchButtonText { get; set; }
 
         /// <summary>
-        /// 搜索按钮文本
+        /// 搜索弹窗文本
         /// </summary>
         [Parameter]
         [NotNull]

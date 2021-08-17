@@ -21,6 +21,41 @@
     }
     else
     {
+		@if(ShowSearch && SearchMode == SearchMode.Top)
+		{
+			<div class="table-search">
+				@if(SearchTemplate != null)
+				{
+					@SearchTemplate.Invoke(SearchModel)
+				}
+				else
+				{
+					<Card>
+						<CardHeader>
+							<div class="d-flex">
+								<div class="flex-fill">@SearchModalTitle</div>
+								@if(ShowResetButton)
+								{
+									<Button Color="@Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@ClearSearchClick">
+										<span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+									</Button>
+								}
+								@if (ShowSearchButton)
+								{
+									<Button Color="@Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@SearchClick">
+										<span class="d-none d-sm-inline-block">@SearchButtonText</span>
+									</Button>
+								}
+							</div>
+						</CardHeader>
+						<CardBody>
+							<EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
+							</EditorForm>
+						</CardBody>
+					</Card>
+				}
+			</div>
+		}
         <div class="table-toolbar">
             @if (ShowToolbar)
             {
@@ -102,35 +137,35 @@
                     }
                 </div>
             }
-            @if (ShowSearch)
+            @if (ShowSearch && SearchMode == SearchMode.Popup)
             {
-                <div class="float-end table-toolbar-button btn-group">
-                    @if (ShowSearchText)
-                    {
-                        <div class="input-group">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
-                                <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-                            </BootstrapInput>
-                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
-                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </Button>
-                            @if (ShowResetSearch)
-                            {
-                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
-                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                                </Button>
-                            }
-                            @if (ShowAdvancedSearch)
-                            {
-                                @RenderAdvanceSearchButton
-                            }
-                        </div>
-                    }
-                    else if (ShowAdvancedSearch)
-                    {
-                        @RenderAdvanceSearchButton
-                    }
-                </div>
+				<div class="float-end table-toolbar-button btn-group">
+					@if (ShowSearchText)
+					{
+						<div class="input-group">
+							<BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
+								<Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+							</BootstrapInput>
+							<Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+								<span class="d-none d-sm-inline-block">@SearchButtonText</span>
+							</Button>
+							@if (ShowResetButton)
+							{
+								<Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+									<span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+								</Button>
+							}
+							@if (ShowAdvancedSearch)
+							{
+								@RenderAdvanceSearchButton
+							}
+						</div>
+					}
+					else if (ShowAdvancedSearch)
+					{
+						@RenderAdvanceSearchButton
+					}
+				</div>
             }
         </div>
 
@@ -666,23 +701,21 @@ RenderFragment<TItem> RenderEditForm => item =>
             else
             {
                 <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(SaveAsync))">
-                    <CascadingValue Value="@Columns.Where(c => c.Editable)" IsFixed="true">
-                        <EditorForm TModel="TItem" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
-                            <Buttons>
-                                <div class="table-modal-footer">
-                                    @if (IsTracking)
-                                    {
-                                        <Button Color="Color.Primary" Icon="fa fa-save" Text="@CloseButtonText" OnClick="CancelSave()" />
-                                    }
-                                    else
-                                    {
-                                        <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave()" />
-                                        <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
-                                    }
-                                </div>
-                            </Buttons>
-                        </EditorForm>
-                    </CascadingValue>
+                    <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
+                        <Buttons>
+                            <div class="table-modal-footer">
+                                @if (IsTracking)
+                                {
+                                    <Button Color="Color.Primary" Icon="fa fa-save" Text="@CloseButtonText" OnClick="CancelSave()" />
+                                }
+                                else
+                                {
+                                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave()" />
+                                    <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
+                                }
+                            </div>
+                        </Buttons>
+                    </EditorForm>
                 </ValidateForm>
             }
         </div>

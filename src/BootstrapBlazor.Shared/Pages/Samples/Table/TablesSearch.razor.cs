@@ -33,6 +33,24 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private List<Foo>? Items { get; set; }
 
+        private bool SearchModeFlag
+        {
+            get
+            {
+                return SearchModeValue == SearchMode.Popup;
+            }
+            set
+            {
+                SearchModeValue = value ? SearchMode.Popup : SearchMode.Top;
+            }
+        }
+
+        private bool ShowResetButton { get; set; } = true;
+
+        private bool ShowSearchButton { get; set; } = true;
+
+        private SearchMode SearchModeValue { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>

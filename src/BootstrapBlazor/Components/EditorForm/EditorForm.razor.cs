@@ -180,7 +180,7 @@ namespace BootstrapBlazor.Components
                 if (Items != null)
                 {
                     // 通过级联参数渲染组件
-                    FormItems.AddRange(Items.Where(i => i.Editable));
+                    FormItems.AddRange(Items);
                 }
                 else
                 {

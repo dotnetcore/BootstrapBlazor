@@ -573,3 +573,7 @@ form .table .table-cell > .form-label {
 form .table .table-cell > textarea {
     width: 100%;
 }
+
+.table-search {
+    margin-bottom: .5rem;
+}

@@ -63,7 +63,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否显示清空搜索按钮 默认显示 <see cref="ShowSearch" />
         /// </summary>
         [Parameter]
-        public bool ShowResetSearch { get; set; } = true;
+        public bool ShowResetButton { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 是否显示搜索按钮 默认显示 <see cref="ShowSearch" />
+        /// </summary>
+        [Parameter]
+        public bool ShowSearchButton { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 是否显示高级搜索按钮 默认显示 <see cref="ShowSearch" />
@@ -76,6 +82,30 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? SearchText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 搜索栏渲染方式 默认 Popup 弹窗模式
+        /// </summary>
+        [Parameter]
+        public SearchMode SearchMode { get; set; }
+
+        /// <summary>
+        /// 获得/设置 每行显示组件数量 默认为 2
+        /// </summary>
+        [Parameter]
+        public int SearchDialogItemsPerRow { get; set; } = 2;
+
+        /// <summary>
+        /// 获得/设置 设置行内组件布局格式 默认 Inline 布局
+        /// </summary>
+        [Parameter]
+        public RowType SearchDialogRowType { get; set; } = RowType.Inline;
+
+        /// <summary>
+        /// 获得/设置 设置 <see cref="SearchDialogRowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐
+        /// </summary>
+        [Parameter]
+        public Alignment SearchDialogLabelAlign { get; set; }
 
         /// <summary>
         /// 重置搜索按钮异步回调方法
@@ -125,12 +155,12 @@ namespace BootstrapBlazor.Components
                 DialogBodyTemplate = SearchTemplate,
                 OnResetSearchClick = ResetSearchClick,
                 OnSearchClick = SearchClick,
-                RowType = EditDialogRowType,
-                ItemsPerRow = EditDialogItemsPerRow,
-                LabelAlign = EditDialogLabelAlign
+                RowType = SearchDialogRowType,
+                ItemsPerRow = SearchDialogItemsPerRow,
+                LabelAlign = SearchDialogLabelAlign
             };
 
-            var columns = Columns.Where(i => i.Searchable || i.SearchTemplate != null).ToList();
+            var columns = Columns.Where(i => i.Searchable).ToList();
             columns.ForEach(col => col.EditTemplate = col.SearchTemplate);
 
             if (columns.Any())
@@ -165,6 +195,17 @@ namespace BootstrapBlazor.Components
         {
             SearchText = null;
             await ResetSearchClick();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected List<ITableColumn> GetSearchColumns()
+        {
+            var cols = Columns.Where(c => c.Searchable).ToList();
+            cols.ForEach(col => col.EditTemplate = col.SearchTemplate);
+            return cols;
         }
 
         /// <summary>
