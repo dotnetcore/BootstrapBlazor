@@ -39,7 +39,8 @@ a {
     height: 35px;
 }
 
-.table-cell .form-control.is-display {
+.table-cell .form-control.is-display,
+form .form-control.is-display {
     background-color: #ebeef5;
 }
 
