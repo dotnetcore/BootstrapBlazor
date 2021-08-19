@@ -65,6 +65,11 @@ namespace BootstrapBlazor.Shared.Pages
             SelectedItemsValue = "Beijing";
         }
 
+        private void ClearItems()
+        {
+            SelectedItemsValue = "";
+        }
+
         private void AddListItems()
         {
             SelectedArrayValues = "Beijing,Shanghai".Split(',');
@@ -75,6 +80,11 @@ namespace BootstrapBlazor.Shared.Pages
             SelectedArrayValues = new[] { "Beijing" };
         }
 
+        private void ClearListItems()
+        {
+            SelectedArrayValues = Enumerable.Empty<string>();
+        }
+
         private void AddArrayItems()
         {
             SelectedIntArrayValues = new[] { 1, 2, 3, 4 };
@@ -83,6 +93,11 @@ namespace BootstrapBlazor.Shared.Pages
         private void RemoveArrayItems()
         {
             SelectedIntArrayValues = new[] { 1, 2, };
+        }
+
+        private void ClearArrayItems()
+        {
+            SelectedIntArrayValues = new int[0];
         }
 
         private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();

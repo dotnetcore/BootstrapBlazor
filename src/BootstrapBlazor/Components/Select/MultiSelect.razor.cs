@@ -204,22 +204,19 @@ namespace BootstrapBlazor.Components
             await base.OnParametersSetAsync();
 
             // 通过 Value 对集合进行赋值
-            if (!string.IsNullOrEmpty(CurrentValueAsString))
+            var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var item in Items)
             {
-                var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                foreach (var item in Items)
+                item.Active = false;
+                var v = item.Value;
+                if (!string.IsNullOrEmpty(v))
                 {
-                    item.Active = false;
-                    var v = item.Value;
-                    if (!string.IsNullOrEmpty(v))
+                    foreach (var l in list)
                     {
-                        foreach (var l in list)
+                        if (v == l.ToString())
                         {
-                            if (v == l.ToString())
-                            {
-                                item.Active = true;
-                                break;
-                            }
+                            item.Active = true;
+                            break;
                         }
                     }
                 }
