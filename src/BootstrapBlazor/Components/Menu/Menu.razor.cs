@@ -22,6 +22,7 @@ namespace BootstrapBlazor.Components
         /// 获得 组件样式
         /// </summary>
         protected string? ClassString => CssBuilder.Default("menu")
+            .AddClass("is-bottom", IsBottom)
             .AddClass("is-vertical", IsVertical)
             .AddClass("is-collapsed", IsVertical && IsCollapsed)
             .AddClass("accordion", IsVertical && IsAccordion)
@@ -113,6 +114,12 @@ namespace BootstrapBlazor.Components
         /// <value></value>
         [Parameter]
         public bool IsVertical { get; set; }
+
+        /// <summary>
+        /// 获得/设置 侧边栏垂直模式在底部 默认 false
+        /// </summary>
+        [Parameter]
+        public bool IsBottom { get; set; }
 
         /// <summary>
         /// 获得/设置 缩进大小 默认为 16 单位 px

@@ -204,3 +204,26 @@
             padding-left: 0 !important;
         }
 }
+
+.menu.is-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+    .menu.is-bottom .nav {
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        border-bottom: none;
+        border-top: 1px solid var(--bs-gray-400);
+    }
+
+        .menu.is-bottom .nav .dropdown-toggle[aria-expanded="true"] + .dropdown-menu-arrow {
+            display: none;
+        }
+
+    .menu.is-bottom > .nav > li:after,
+    .menu.is-bottom .dropdown-menu-arrow:after {
+        content: none;
+    }

@@ -14,14 +14,27 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class TopMenu
+    public partial class TopMenu
     {
-        private static string? GetDropdownClassString(MenuItem item, string className = "") => CssBuilder.Default(className)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        private string? GetDropdownClassString(MenuItem item, string className = "") => CssBuilder.Default(className)
+            .AddClass("dropdown", string.IsNullOrEmpty(className) && !Parent.IsBottom)
+            .AddClass("dropup", string.IsNullOrEmpty(className) && Parent.IsBottom)
             .AddClass(item.GetDisabledClassString())
             .AddClass("active", item.IsActive)
             .Build();
 
-        private static string? GetIconString(string icon) => icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="icon"></param>
+        /// <returns></returns>
+        protected static string? GetIconString(string icon) => icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
                 ? icon
                 : $"{icon} fa-fw";
 
@@ -38,6 +51,7 @@ namespace BootstrapBlazor.Components
         public Func<MenuItem, Task> OnClick { get; set; } = _ => Task.CompletedTask;
 
         [CascadingParameter]
+        [NotNull]
         private Menu? Parent { get; set; }
 
         [Inject]

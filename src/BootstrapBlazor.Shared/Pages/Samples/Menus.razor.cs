@@ -31,6 +31,9 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<MenuItem>? Items { get; set; }
 
         [NotNull]
+        private IEnumerable<MenuItem>? BottomItems { get; set; }
+
+        [NotNull]
         private IEnumerable<MenuItem>? IconItems { get; set; }
 
         [NotNull]
@@ -58,6 +61,15 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnClickMenu(MenuItem item)
         {
             Trace.Log($"菜单点击项: {item.Text}");
+            return Task.CompletedTask;
+        }
+
+        private string? ClickedMenuItemText { get; set; }
+
+        private Task OnClickBottomMenu(MenuItem item)
+        {
+            ClickedMenuItemText = item.Text;
+            StateHasChanged();
             return Task.CompletedTask;
         }
 
@@ -99,6 +111,7 @@ namespace BootstrapBlazor.Shared.Pages
             CollapsedIconSideMenuItems = await MenusDataGerator.GetCollapsedIconSideMenuItemsAsync(Localizer);
             DisabledMenuItems = await MenusDataGerator.GetDisabledMenuItemsAsync(Localizer);
             DynamicSideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
+            BottomItems = await MenusDataGerator.GetBottomMenuItemsAsync(Localizer);
         }
 
         private async Task UpdateMenu()
@@ -125,6 +138,14 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = "IsVertical",
                 Description = "是否为侧栏",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
+                Name = "IsBottom",
+                Description = "是否为底栏",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -196,6 +217,27 @@ namespace BootstrapBlazor.Shared.Pages
                                     }
                                 }
                             },
+                            new(localizer["SubMenu3"].Value)
+                        }
+                    },
+                    new(localizer["Menu3"].Value)
+                };
+            }
+
+            public static async Task<IEnumerable<MenuItem>> GetBottomMenuItemsAsync(IStringLocalizer localizer)
+            {
+                await Task.Delay(1);
+
+                return new List<MenuItem>
+                {
+                    new(localizer["Menu1"].Value),
+                    new(localizer["Menu2"].Value)
+                    {
+                        IsActive = true,
+                        Items = new List<MenuItem>
+                        {
+                            new(localizer["SubMenu1"].Value),
+                            new(localizer["SubMenu2"].Value),
                             new(localizer["SubMenu3"].Value)
                         }
                     },
