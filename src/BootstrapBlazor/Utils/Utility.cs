@@ -317,11 +317,14 @@ namespace BootstrapBlazor.Components
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
             var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
             builder.OpenComponent(0, componentType);
-            builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
-            builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
-            builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
-            builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), item.Readonly);
+            if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
+            {
+                builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
+                builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
+                builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
+                builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
+                builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), item.Readonly);
+            }
 
             if (IsCheckboxList(fieldType) && item.Data != null)
             {
@@ -341,6 +344,11 @@ namespace BootstrapBlazor.Components
             }
 
             builder.AddMultipleAttributes(9, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
+
+            if (item.ComponentParameters != null)
+            {
+                builder.AddMultipleAttributes(10, item.ComponentParameters);
+            }
             builder.CloseComponent();
         }
 

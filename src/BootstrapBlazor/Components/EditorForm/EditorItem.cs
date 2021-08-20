@@ -90,6 +90,12 @@ namespace BootstrapBlazor.Components
         public Type? ComponentType { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件自定义类型参数集合 默认为 null
+        /// </summary>
+        [Parameter]
+        public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
+
+        /// <summary>
         /// 获得/设置 显示顺序
         /// </summary>
         public int Order { get; set; }

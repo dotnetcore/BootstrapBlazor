@@ -100,6 +100,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public Type? ComponentType { get; set; }
 
+        /// <summary>
+        /// 获得/设置 组件自定义类型参数集合 默认为 null
+        /// </summary>
+        public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
+
         RenderFragment<object>? ITableColumn.Template { get => Template; }
 
         /// <summary>

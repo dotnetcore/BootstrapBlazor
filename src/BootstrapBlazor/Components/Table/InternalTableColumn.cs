@@ -82,6 +82,11 @@ namespace BootstrapBlazor.Components
         public Type? ComponentType { get; set; }
 
         /// <summary>
+        /// 获得/设置 组件自定义类型参数集合 默认为 null
+        /// </summary>
+        public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
+
+        /// <summary>
         /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
         /// </summary>
         public IEnumerable<SelectedItem>? Data { get; set; }
@@ -240,6 +245,7 @@ namespace BootstrapBlazor.Components
             if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
             if (source.Rows > 0) dest.Rows = source.Rows;
             if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
+            if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
         }
     }
 }

@@ -210,6 +210,7 @@ namespace BootstrapBlazor.Components
                                     item.Data = el.Data;
                                     item.Lookup = el.Lookup;
                                     item.ComponentType = el.ComponentType;
+                                    item.ComponentParameters = el.ComponentParameters;
                                     item.SkipValidate = el.SkipValidate;
                                 }
                             }
