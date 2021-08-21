@@ -61,16 +61,18 @@
                 $link.attr('data-bs-toggle', 'collapse');
                 $link.attr('href', '#' + ulId);
             });
-            var collapses = $root.find('.collapse');
-            collapses.each(function (index, ele) {
-                var $ele = $(ele);
-                if (bootstrap.Collapse.getInstance(ele)) {
-                    $ele.collapse('dispose');
-                }
-                var parent = '';
-                if (accordion) parent = $ele.attr('data-bs-parent');
-                $ele.collapse({ parent: parent, toggle: false });
-            });
+            if (accordion) {
+                var collapses = $root.find('.collapse');
+                collapses.each(function (index, ele) {
+                    var $ele = $(ele);
+                    if (bootstrap.Collapse.getInstance(ele)) {
+                        $ele.collapse('dispose');
+                    }
+                    var parent = '';
+                    if (accordion) parent = $ele.attr('data-bs-parent');
+                    $ele.collapse({ parent: parent, toggle: false });
+                });
+            };
         },
         bb_side_menu: function (el) {
             var $el = $(el);
