@@ -142,8 +142,8 @@ namespace BootstrapBlazor.Shared.Pages.Table
             },
             new AttributeItem() {
                 Name = "Formatter",
-                Description = "TableHeader 实例",
-                Type = "RenderFragment<TItem>",
+                Description = "格式化回调委托",
+                Type = "Func<object?, Task<string>>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
@@ -251,9 +251,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "Popup"
             },
             new AttributeItem() {
-                Name = "HeaderTemplate",
-                Description = "TableHeader 实例",
-                Type = "RenderFragment<TItem>",
+                Name = "MultiHeaderTemplate",
+                Description = "表头分组模板",
+                Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },

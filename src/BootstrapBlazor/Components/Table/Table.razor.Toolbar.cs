@@ -464,11 +464,7 @@ namespace BootstrapBlazor.Components
                     await ef.CancelAsync();
                     await ToggleLoading(false);
                 }
-
-                if (IsTracking)
-                {
-                    await UpdateAsync();
-                }
+                await UpdateAsync();
             },
             OnSaveAsync = async context =>
             {
