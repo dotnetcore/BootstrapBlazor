@@ -1,4 +1,4 @@
-@using Microsoft.Extensions.DependencyInjection
+﻿@using Microsoft.Extensions.DependencyInjection
 @inject NugetVersionService VersionManager
 @inject IStringLocalizer<InstallContent> Localizer
 
@@ -6,19 +6,20 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<p>@Localizer["P1"]</p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>
 
 <div class="code-label">.NET CLI</div>
 <Pre class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
 
 <h5>@Localizer["H2"]</h5>
 
-<p>@((MarkupString)Localizer["P2"].Value)</p>
+<p>@((MarkupString)Localizer["P2", HostFile].Value)</p>
 
 <Tips>
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
-<Pre>@((MarkupString)Localizer["Pre"].Value)</Pre>
+<Pre>&lt;link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"&gt;
+&lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;</Pre>
 
 <Tips>
     <p>@((MarkupString)Localizer["Tips2"].Value)</p>
@@ -26,8 +27,8 @@
 
 <h5>@Localizer["H3"]</h5>
 
-<p>@((MarkupString)Localizer["P3"].Value)</p>
-<Pre>@((MarkupString)Localizer["Pre2"].Value)</Pre>
+<p>@((MarkupString)Localizer["P3", HostFile].Value)</p>
+<Pre>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</Pre>
 
 <h4>@((MarkupString)Localizer["H4"].Value)</h4>
 

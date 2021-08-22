@@ -58,7 +58,7 @@
     "SpecialAcknowledgements": "特别鸣谢",
     "Footer": "码云托管平台"
   },
-  "BootstrapBlazor.Shared.Pages.labels": {
+  "BootstrapBlazor.Shared.Pages.Labels": {
     "Title": "组件标签",
     "P1": "本套组件中有 <code>ValidateForm</code> <code>EditorForm</code> 以及多种继承 <code>ValidateBase&lt;TValue&gt;</code> 的 <b>表单组件</b>，这些组件中有一套特殊的显示前置标签逻辑，现在我们统一的梳理一下：",
     "UlLi1": "<a href='/validateforms' target='_blank'>ValidateForm</a> 组件是 <b>可验证的</b> 表单组件，此组件内的表单组件会自动进行数据合规性检查，如果数据不合规将会阻止 <b>提交(Submit)</b> 动作，是数据提交中使用最最最频繁的组件",
@@ -131,17 +131,15 @@
     "H1": "组件引用",
     "P1": "组件引用有多种方法，可以参阅 <a href='install'>类库安装</a>",
     "H2": "CSS 文件",
-    "P2": "将 Bootstrap 的 CSS 文件以 <code>&lt;link&gt;</code> 标签的形式添加到 <code>@HostFile</code> 文件 <code>&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前。",
+    "P2": "将 Bootstrap 的 CSS 文件以 <code>&lt;link&gt;</code> 标签的形式添加到 <code>{0}</code> 文件 <code>&lt;head&gt;</code> 标签中，并放置在所有其它样式表之前。",
     "Tips": "本套组件 <b>5.0.32</b> 版本后移除内置 <code>font-awesome</code> 图标，请自行下载或者使用 <b>CDN</b> 加速服务",
-    "Pre": "&lt;link href='https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'&gt;&lt;link href='_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css' rel='stylesheet'&gt;",
     "Tips2": "如果是使用 <code>Blazor App</code> 模板创建的工程请移除默认的 <code>Bootstrap</code> 样式链接 <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>",
     "H3": "JS 文件",
-    "P3": "Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code>&lt;script&gt;</code> 标签放到 <code>@HostFile</code> 文件尾部且在 <code>&lt;/body&gt;</code> 标签之前即可起作用。",
-    "Pre2": "&lt;script src='_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js'&gt;&lt;/script&gt;",
+    "P3": "Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <code>&lt;script&gt;</code> 标签放到 <code>{0}</code> 文件尾部且在 <code>&lt;/body&gt;</code> 标签之前即可起作用。",
     "H4": "添加命名空间到 <code>_Imports.razor</code> 文件",
     "H5": "注册服务",
     "H6": "使用组件",
-    "P4": "在 <code>razor</code>组件中引用 <code>BootstrapBlazor</code> 组件",
+    "P4": "在 <code>razor</code> 组件中引用 <code>BootstrapBlazor</code> 组件",
     "Pre3": "&lt;Button Color='Color.Primary'&gt;主要按钮&lt;/Button&gt;"
   },
   "BootstrapBlazor.Shared.Pages.Install_Server": {
