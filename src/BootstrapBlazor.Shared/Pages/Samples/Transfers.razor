@@ -4,7 +4,7 @@
 
 <Block Title="基础用法" Introduction="">
     <Transfer TValue="string" Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged" />
-    <Logger @ref="Trace" class="mt-3" />
+    <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="可自定义" Introduction="可以对列表标题文案、按钮文案、数据项的渲染函数、列表底部的勾选状态文案、列表底部的内容区等进行自定义。">

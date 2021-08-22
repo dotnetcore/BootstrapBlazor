@@ -43,7 +43,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<string> Value3 { get; set; } = new string[] { "13", "15" };
 
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

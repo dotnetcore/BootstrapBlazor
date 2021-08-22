@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Shared.Pages
         private bool Show { get; set; }
 
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private void OnShow()
         {

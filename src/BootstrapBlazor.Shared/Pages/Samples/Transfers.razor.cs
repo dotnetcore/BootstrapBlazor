@@ -42,7 +42,7 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<SelectedItem>? Items5 { get; set; }
 
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private IEnumerable<SelectedItem> SelectedValue { get; set; } = Enumerable.Empty<SelectedItem>();
 

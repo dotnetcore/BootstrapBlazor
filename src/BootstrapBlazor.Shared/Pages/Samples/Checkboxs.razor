@@ -13,7 +13,7 @@
             <Checkbox TValue="string" State="CheckboxState.UnChecked" OnStateChanged="@OnStateChanged" DisplayText="未选" ShowLabel="true"></Checkbox>
         </div>
     </div>
-    <Logger @ref="Trace" class="mt-3" />
+    <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="禁用复选框" Introduction="复选框不可用状态，通过 <code>IsDisabled</code> 设置组件是否可用">
@@ -64,7 +64,7 @@
             <BootstrapInput @bind-Value="@BindValue" IsDisabled="true"></BootstrapInput>
         </div>
     </div>
-    <Logger @ref="BinderLog" class="mt-3" />
+    <BlockLogger @ref="BinderLog" class="mt-3" />
 </Block>
 
 <Block Title="双向绑定 string 数据" Introduction="绑定组件内变量，数据自动同步">
@@ -76,7 +76,7 @@
             <BootstrapInput @bind-Value="@BindString"></BootstrapInput>
         </div>
     </div>
-    <Logger @ref="BinderLog" class="mt-3" />
+    <BlockLogger @ref="BinderLog" class="mt-3" />
 </Block>
 
 <Block Title="表单中使用" Introduction="在表单中使用 <code>Checkbox</code> 时，显示标签文字会放置到组件前面">

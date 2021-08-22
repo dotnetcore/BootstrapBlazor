@@ -33,7 +33,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 获得/设置 Logger 实例
         /// </summary>
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         [Inject]
         [NotNull]

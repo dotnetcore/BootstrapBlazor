@@ -14,7 +14,7 @@
         <Button OnClick="@NextStep" IsOutline="true">下一步</Button>
         <Button OnClick="@ResetStep" IsOutline="true">重 置</Button>
     </div>
-    <Logger @ref="Trace" class="mt-3" />
+    <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="基础用法" Introduction="简单的步骤条，组件内部直接使用 <code>Step</code> 组件设置步骤">

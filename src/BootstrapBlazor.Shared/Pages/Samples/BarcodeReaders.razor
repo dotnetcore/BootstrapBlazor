@@ -20,7 +20,7 @@
         <li>点击关闭按钮关闭摄像头</li>
     </ul>
     <BarcodeReader OnInit="@OnInit" OnResult="@OnResult" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" />
-    <Logger @ref="Trace" class="mt-3" />
+    <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="基本用法" Introduction="通过静态图片进行扫码识别">
@@ -31,7 +31,7 @@
         <li>开始识别条码</li>
     </ul>
     <BarcodeReader ScanType="@ScanType.Image" OnResult="@OnImageResult" OnError="@OnImageError" />
-    <Logger @ref="Trace2" class="mt-3" />
+    <BlockLogger @ref="Trace2" class="mt-3" />
 </Block>
 
 <Block Title="自动开始" Introduction="通过设置 <code>AutoStart</code> 参数设置自动开启摄像头">
@@ -42,7 +42,7 @@
         <li>开始识别条码</li>
     </ul>
     <BarcodeReader OnResult="@OnImageResult" OnError="@OnImageError" AutoStart="true" />
-    <Logger @ref="Trace2" class="mt-3" />
+    <BlockLogger @ref="Trace2" class="mt-3" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

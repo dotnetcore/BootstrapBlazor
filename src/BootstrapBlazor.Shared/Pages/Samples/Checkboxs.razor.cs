@@ -27,12 +27,12 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        private Logger? BinderLog { get; set; }
+        private BlockLogger? BinderLog { get; set; }
 
         /// <summary>
         /// 

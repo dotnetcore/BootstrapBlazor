@@ -2,10 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -72,10 +74,8 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<Alerts>? Localizer { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private Logger? Trace { get; set; }
+        [NotNull]
+        private BlockLogger? Trace { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -111,7 +111,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private Task DismissClick()
         {
-            Trace?.Log($"Alert Dismissed");
+            Trace.Log("Alert Dismissed");
             return Task.CompletedTask;
         }
 
@@ -119,7 +119,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -133,7 +133,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

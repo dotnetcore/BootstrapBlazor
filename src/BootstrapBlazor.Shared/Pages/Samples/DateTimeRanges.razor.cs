@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Shared.Pages
     public sealed partial class DateTimeRanges
     {
         [NotNull]
-        private Logger? DateLogger { get; set; }
+        private BlockLogger? DateLogger { get; set; }
 
         private DateTimeRangeValue DateTimeRangeValue1 { get; set; } = new DateTimeRangeValue();
 

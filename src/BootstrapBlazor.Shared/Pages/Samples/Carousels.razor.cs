@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private IEnumerable<string> Images => new List<string>()
         {

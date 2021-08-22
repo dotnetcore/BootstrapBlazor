@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private void OnValueChanged(int val)
         {

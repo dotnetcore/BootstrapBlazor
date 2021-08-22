@@ -16,7 +16,7 @@
     <Transition TransitionType="TransitionType.FadeOut" Show="TransitionEndShow" OnTransitionEnd="OnTransitionEndShow">
         <div class="my-3">FadeOut</div>
     </Transition>
-    <Logger @ref="Trace" />
+    <BlockLogger @ref="Trace" />
 </Block>
 
 <Block Title="设置动画时长" Introduction="通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒">

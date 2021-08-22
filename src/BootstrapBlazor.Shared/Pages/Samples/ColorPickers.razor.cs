@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Shared.Pages
     public partial class ColorPickers
     {
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private string? Value1 { get; set; }
 

@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -14,17 +15,15 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Tags
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private Logger? Trace { get; set; }
+        [NotNull]
+        private BlockLogger? Trace { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         private Task DismissClick()
         {
-            Trace?.Log($"Tag Dismissed");
+            Trace.Log($"Tag Dismissed");
             return Task.CompletedTask;
         }
 

@@ -299,6 +299,7 @@
     "ServerBlazor": "服务器端模式",
     "ClientBlazor": "客户端模式",
     "Labels": "表单标签",
+    "GlobalException": "全局异常",
     "LayoutPage": "后台模拟器",
     "Components": "组件总览",
     "LayoutComponents": "布局组件",

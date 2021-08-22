@@ -11,7 +11,7 @@
 
 <Block Title="顶栏" Introduction="适用广泛的基础用法。">
     <Menu Items="@Items" DisableNavigation="true" OnClick="@OnClickMenu" />
-    <Logger @ref="Trace" class="mt-3" />
+    <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="底栏" Introduction="设置参数 <code>IsBottom</code> 值为 <b>true</b> 菜单栏在容器底部，适用移动端">
@@ -32,7 +32,7 @@
     <div style="width:220px; border-right: 1px solid #e6e6e6; padding-right: 4px;">
         <Menu Items="@SideMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClickSideMenu" />
     </div>
-    <Logger @ref="TraceSideMenu" class="mt-3" />
+    <BlockLogger @ref="TraceSideMenu" class="mt-3" />
 </Block>
 
 <Block Title="带图标的侧栏菜单" Introduction="通过设置菜单项 <code>MenuItem</code> 的 <code>Icon</code> 属性设置菜单图标">
@@ -101,7 +101,7 @@
     <div style="width:220px; border-right: 1px solid #e6e6e6;">
         <Menu Items="@DisabledMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClick2" />
     </div>
-    <Logger @ref="Trace2" class="mt-3" />
+    <BlockLogger @ref="Trace2" class="mt-3" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

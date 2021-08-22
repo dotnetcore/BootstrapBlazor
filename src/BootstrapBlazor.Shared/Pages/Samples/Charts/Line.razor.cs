@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Pages.Charts
         private Chart? LineChart { get; set; }
 
         [NotNull]
-        private Logger? Logger { get; set; }
+        private BlockLogger? Logger { get; set; }
 
         /// <summary>
         /// 

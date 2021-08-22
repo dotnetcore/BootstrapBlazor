@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private DateTime BindValue { get; set; } = DateTime.Today;
 

@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,10 +25,8 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private Foo Model { get; set; } = new Foo();
 
-        /// <summary>
-        /// 获得/设置 Logger 实例
-        /// </summary>
-        private Logger? Trace { get; set; }
+        [NotNull]
+        private BlockLogger? Trace { get; set; }
 
         private static IEnumerable<CascaderItem> GetItems()
         {
@@ -72,7 +71,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="items"></param>
         private Task OnItemChanged(CascaderItem[] items)
         {
-            Trace?.Log($"SelectedItem Text: {items[^1].Text} Value: {items[^1].Value} Selected");
+            Trace.Log($"SelectedItem Text: {items[^1].Text} Value: {items[^1].Value} Selected");
             return Task.CompletedTask;
         }
 

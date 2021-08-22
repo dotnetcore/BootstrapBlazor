@@ -179,6 +179,11 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    Text = Localizer["GlobalException"],
+                    Url = "globalexception"
+                },
+                new()
+                {
                     Text = Localizer["ServerBlazor"],
                     Url = "install-server",
                     Match = NavLinkMatch.All

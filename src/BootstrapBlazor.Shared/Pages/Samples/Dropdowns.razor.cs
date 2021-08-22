@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem("3", "广州")
         };
 
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private Task ShowMessage(SelectedItem e)
         {

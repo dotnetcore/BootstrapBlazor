@@ -18,10 +18,10 @@ namespace BootstrapBlazor.Shared.Pages
     public sealed partial class Radios
     {
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         [NotNull]
-        private Logger? BinderLog { get; set; }
+        private BlockLogger? BinderLog { get; set; }
 
         private IEnumerable<SelectedItem> DemoValues { get; set; } = new List<SelectedItem>(2)
         {

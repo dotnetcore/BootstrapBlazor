@@ -19,10 +19,10 @@ namespace BootstrapBlazor.Shared.Pages
     public partial class MultiSelects
     {
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         [NotNull]
-        private Logger? Trace2 { get; set; }
+        private BlockLogger? Trace2 { get; set; }
 
         /// <summary>
         /// 级联绑定菜单

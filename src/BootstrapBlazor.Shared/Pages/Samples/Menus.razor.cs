@@ -19,13 +19,13 @@ namespace BootstrapBlazor.Shared.Pages
     public sealed partial class Menus
     {
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         [NotNull]
-        private Logger? Trace2 { get; set; }
+        private BlockLogger? Trace2 { get; set; }
 
         [NotNull]
-        private Logger? TraceSideMenu { get; set; }
+        private BlockLogger? TraceSideMenu { get; set; }
 
         [NotNull]
         private IEnumerable<MenuItem>? Items { get; set; }

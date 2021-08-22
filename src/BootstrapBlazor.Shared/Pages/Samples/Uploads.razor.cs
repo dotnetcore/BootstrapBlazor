@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
 
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private List<UploadFile> DefaultFormatFileList { get; } = new List<UploadFile>()
         {
@@ -192,7 +192,7 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         [NotNull]
-        private Logger? AvatarTrace { get; set; }
+        private BlockLogger? AvatarTrace { get; set; }
 
         private Task OnAvatarValidSubmit(EditContext context)
         {

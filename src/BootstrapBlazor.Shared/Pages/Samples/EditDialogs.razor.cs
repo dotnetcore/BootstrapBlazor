@@ -34,7 +34,7 @@ namespace BootstrapBlazor.Shared.Pages
         private IStringLocalizer<Foo>? Localizer { get; set; }
 
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private async Task ShowDialog()
         {

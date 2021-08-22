@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Shared.Pages
             await SwalService.Show(op);
         }
 
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private async Task ShowModal()
         {

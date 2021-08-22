@@ -11,7 +11,7 @@
             <button class="btn btn-primary" @onclick="e => Utility.RemoveData(LineChart, ref LineDataCount)"><i class="fa fa-minus"></i><span>移除数据</span></button>
         </div>
     </div>
-    <Logger @ref="Logger" class="mt-3" />
+    <BlockLogger @ref="Logger" class="mt-3" />
 </Block>
 
 <Block Title="Line 图" Introduction="使用设置 <code>ChartDataset</code> 实例的 <code>Tension</code> 参数，调整折线的曲率，默认位 <b>0.4f</b>">

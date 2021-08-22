@@ -19,9 +19,9 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Trees
     {
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
-        private Logger? TraceChecked { get; set; }
+        private BlockLogger? TraceChecked { get; set; }
 
         [Inject]
         [NotNull]

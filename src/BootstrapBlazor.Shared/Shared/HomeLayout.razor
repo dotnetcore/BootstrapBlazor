@@ -82,7 +82,7 @@
         </div>
     </div>
     <div class="footer-info d-none d-sm-flex">
-        <div>Powered by .NET @Version on Linux</div>
+        <div>Powered by .NET @Version on @OS</div>
         <div class="ms-1">BB @BBVersion</div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
             <a class="ms-3 d-none d-md-block" href="@WebsiteOption.Value.BootstrapBlazorLink" target="_blank">@Localizer["Footer"]</a>
@@ -106,7 +106,11 @@
 @code {
     private string Version => Environment.Version.ToString();
 
-    private string BBVersion { get; set; } = "";
+    [NotNull]
+    private string? OS { get; set; }
+
+    [NotNull]
+    private string? BBVersion { get; set; }
 
     private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
 
@@ -121,6 +125,23 @@
         else
         {
             BBVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion ?? "";
+        }
+
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+        {
+            OS = "Windows";
+        }
+        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+        {
+            OS = "OSX";
+        }
+        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+        {
+            OS = "Linux";
+        }
+        else
+        {
+            OS = "Unknown";
         }
     }
 

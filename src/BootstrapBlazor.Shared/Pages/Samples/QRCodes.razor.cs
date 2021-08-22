@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<QRCodes>? Localizer { get; set; }
 
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
         /// <summary>
         /// OnInitialized 方法
         /// </summary>

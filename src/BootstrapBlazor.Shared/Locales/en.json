@@ -299,6 +299,7 @@
     "ServerBlazor": "Server-side Blazor",
     "ClientBlazor": "Client-side Blazor",
     "Labels": "Labels",
+    "GlobalException": "Global Exception",
     "LayoutPage": "LayoutPage",
     "Components": "COMPONENTS",
     "LayoutComponents": "LAYOUTS",

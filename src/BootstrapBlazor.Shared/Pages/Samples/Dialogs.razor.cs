@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Shared.Pages
     public sealed partial class Dialogs
     {
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         /// <summary>
         /// 获得 弹窗注入服务

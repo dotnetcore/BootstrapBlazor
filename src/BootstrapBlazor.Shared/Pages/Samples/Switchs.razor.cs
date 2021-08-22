@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Shared.Pages
         private bool BindValue { get; set; } = true;
 
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         /// <summary>
         ///

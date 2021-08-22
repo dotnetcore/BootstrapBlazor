@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <summary>
         /// 
         /// </summary>
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         [NotNull]
         private Button? ButtonDisableDemo { get; set; }

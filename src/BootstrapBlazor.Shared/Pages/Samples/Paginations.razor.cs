@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Paginations
     {
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private Task OnPageClick(int pageIndex, int pageItems)
         {

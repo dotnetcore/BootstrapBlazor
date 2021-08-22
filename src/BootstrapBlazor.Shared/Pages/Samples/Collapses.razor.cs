@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages
     public sealed partial class Collapses
     {
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         private Task OnChanged(CollapseItem item)
         {

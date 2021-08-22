@@ -6,7 +6,7 @@
 
 <Block Title="基础用法" Introduction="由于选项默认可见，不宜过多，若选项过多，建议使用 Select 选择器">
     <RadioList TValue="string" Items="@DemoValues" OnSelectedChanged="@OnSelectedChanged"></RadioList>
-    <Logger @ref="Trace" class="mt-3" />
+    <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="禁用单选框" Introduction='通过 <code>IsDisabled="true"</code> 单选框不可用状态'>
@@ -26,7 +26,7 @@
                 <div>Text: @BindRadioItem.Text Value: @BindRadioItem.Value</div>
             </div>
         </div>
-    <Logger @ref="BinderLog" />
+    <BlockLogger @ref="BinderLog" />
 </Block>
 
 <Block Title="竖向排列" Introduction="通过设置 <code>IsVertical</code> 使组件内部竖向排列">

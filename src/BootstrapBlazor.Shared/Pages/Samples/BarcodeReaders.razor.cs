@@ -16,9 +16,9 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class BarcodeReaders
     {
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
-        private Logger? Trace2 { get; set; }
+        private BlockLogger? Trace2 { get; set; }
 
         private Task OnInit(IEnumerable<DeviceItem> devices)
         {

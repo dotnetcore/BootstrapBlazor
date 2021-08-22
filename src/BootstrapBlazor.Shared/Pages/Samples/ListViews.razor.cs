@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class ListViews
     {
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
         private IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
 
         /// <summary>

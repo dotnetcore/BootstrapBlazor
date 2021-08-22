@@ -18,13 +18,13 @@ namespace BootstrapBlazor.Shared.Pages
         private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         [NotNull]
-        private Logger? Trace2 { get; set; }
+        private BlockLogger? Trace2 { get; set; }
 
         [NotNull]
-        private Logger? Trace3 { get; set; }
+        private BlockLogger? Trace3 { get; set; }
 
         private Task OnSearch1(string searchText)
         {

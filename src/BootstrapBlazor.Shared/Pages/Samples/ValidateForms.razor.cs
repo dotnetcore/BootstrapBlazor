@@ -22,16 +22,16 @@ namespace BootstrapBlazor.Shared.Pages
     public partial class ValidateForms
     {
         [NotNull]
-        private Logger? Trace { get; set; }
+        private BlockLogger? Trace { get; set; }
 
         [NotNull]
-        private Logger? Trace2 { get; set; }
+        private BlockLogger? Trace2 { get; set; }
 
         [NotNull]
-        private Logger? Trace3 { get; set; }
+        private BlockLogger? Trace3 { get; set; }
 
         [NotNull]
-        private Logger? Trace4 { get; set; }
+        private BlockLogger? Trace4 { get; set; }
 
         [Inject]
         [NotNull]
@@ -125,7 +125,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         #region 动态更改表单内验证组件
         [NotNull]
-        private Logger? Trace5 { get; set; }
+        private BlockLogger? Trace5 { get; set; }
 
         private bool ShowAddress { get; set; }
 
