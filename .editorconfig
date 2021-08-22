@@ -91,7 +91,7 @@ csharp_style_var_when_type_is_apparent = true:silent
 csharp_style_var_elsewhere = true:silent
 csharp_prefer_static_local_function= true:silent
 # Expression-bodied members 
-csharp_style_expression_bodied_methods = true:silent
+csharp_style_expression_bodied_methods = false:silent
 csharp_style_expression_bodied_constructors = false:silent 
 csharp_style_expression_bodied_operators = false:silent 
 csharp_style_expression_bodied_properties = true:silent 

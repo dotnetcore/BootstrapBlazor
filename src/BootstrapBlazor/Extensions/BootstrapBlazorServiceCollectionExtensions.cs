@@ -4,9 +4,12 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -37,12 +40,48 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddScoped<TabItemTextOptions>();
             services.TryAddScoped<TitleService>();
             services.TryAddScoped<DownloadService>();
+            services.AddHttpContextAccessor();
+            services.TryAddScoped<HttpContextService>();
             services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {
                 configureOptions?.Invoke(options);
             });
             return services;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseBootstrapBlazor(this IApplicationBuilder builder)
+        {
+            // 获得客户端 IP 地址
+            builder.UseWhen(context => context.Request.Path.StartsWithSegments("/ip.axd"), app => app.Run(async context =>
+            {
+                var ip = "";
+                var headers = context.Request.Headers;
+                if (headers.ContainsKey("X-Forwarded-For"))
+                {
+                    var ips = new List<string>();
+                    foreach (var xf in headers["X-Forwarded-For"])
+                    {
+                        if (!string.IsNullOrEmpty(xf))
+                        {
+                            ips.Add(xf);
+                        }
+                    }
+                    ip = string.Join(";", ips);
+                }
+                else
+                {
+                    ip = context.Connection.RemoteIpAddress.ToIPv4String();
+                }
+                context.Response.Headers.Add("Content-Type", new Microsoft.Extensions.Primitives.StringValues("application/json; charset=utf-8"));
+                await context.Response.WriteAsync(ip);
+            }));
+            return builder;
         }
     }
 }

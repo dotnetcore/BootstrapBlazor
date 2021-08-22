@@ -1,0 +1,32 @@
+﻿@page "/client"
+
+<h3>获取客户端连接信息</h3>
+
+<h4>多用系统日志跟踪</h4>
+
+<Block Title="普通用法" Introduction="注入服务显示客户端信息">
+    <GroupBox Title="您的连接信息">
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientContext.Id" DisplayText="连接 ID" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientContext.UserName" DisplayText="当前用户" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientContext.Ip" DisplayText="IP 地址" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientContext.OS" DisplayText="操作系统" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientContext.Browser" DisplayText="浏览器" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientContext.RequestUrl" DisplayText="请求地址" ShowLabel="true" />
+            </div>
+        </div>
+    </GroupBox>
+</Block>
+
+<WebClientInfo />

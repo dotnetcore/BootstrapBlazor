@@ -37,6 +37,9 @@ a {
 
 .form-control.is-display {
     height: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .table-cell .form-control.is-display,

@@ -52,7 +52,17 @@
                 webApp: u.indexOf('Safari') === -1 //是否web应该程序，没有头部与底部
             };
         }(),
-        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        language: (navigator.browserLanguage || navigator.language).toLowerCase(),
+        ip: function (el, obj, url, method) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'text',
+                success: function (data) {
+                    obj.invokeMethodAsync(method, data);
+                }
+            });
+        }
     };
 
     Array.prototype.indexOf = function (val) {

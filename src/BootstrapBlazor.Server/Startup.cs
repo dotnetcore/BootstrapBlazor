@@ -158,6 +158,7 @@ namespace BootstrapBlazor.Server
             app.UseRouting();
             app.UseCors(builder => builder.WithOrigins(Configuration["AllowOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
+            app.UseBootstrapBlazor();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
