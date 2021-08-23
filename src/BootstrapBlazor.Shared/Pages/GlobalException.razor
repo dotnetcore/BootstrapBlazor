@@ -3,4 +3,62 @@
 
 <h3>全局异常</h3>
 
-<p>稍后完善 ...</p>
+<p>增加组件 <code>BlazorLogger</code> 通过本组件可以对全局的日志、异常进行统一输出；目前由于 <code>Blazor</code> 框架并未提供一个类似 <code>MVC</code> 的 <b>全局异常</b> 整体解决方案，暂时还需要在代码块中使用 <code>try/catch</code> 进行异常捕获</p>
+
+<h4>使用方法</h4>
+
+<p>1. <code>Startup</code> 文件中增加 <code>AddLogging</code> 开启 <code>net core</code> 系统日志功能</p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    services.AddLogging(builder => builder.AddConsole());
+}</Pre>
+
+<p>2. 使用 <code>BlazorLogger</code> 对内容进行包裹，如：<code>MainLayout</code> 中对 <code>Body</code> 使用</p>
+
+<Pre>&lt;BlazorLogger&gt;
+    @@Body
+&lt;/BlazorLogger&gt;</Pre>
+
+<p>3. 代码中使用级联参数获取实例</p>
+
+<Pre>[CascadingParameter]
+[NotNull]
+private IBlazorLogger? Logger { get; set; }
+
+private void OnClick()
+{
+    try
+    {
+        var a = 0;
+        var b = 1 / a;
+    }
+    catch(Exception ex)
+    {
+        Logger.Log(ex);
+    }
+}</Pre>
+
+<p>4. 控制台或者 <b>IIS</b> 输出可见日志信息</p>
+<Pre>crit: BootstrapBlazor.Components.BlazorLogger[0]
+      TimeStamp: 8/23/2021 12:20:46 PM
+      MachineName: ECS-A399
+      AppDomainName: BootstrapBlazor.Server
+      OS: Microsoft Windows 10.0.17763
+      OSArchitecture: X64
+      ProcessArchitecture: X64
+      Framework: .NET 5.0.9
+      UserName: Argo
+      EnvironmentName: Development
+      IISRootPath: D:\Argo\src\BB\BootstrapBlazor\src\BootstrapBlazor.Server\
+      VSIDE: Microsoft Visual Studio Enterprise 2019 16.0
+      Exception:: Attempted to divide by zero.
+      *********************************************
+      System.DivideByZeroException: Attempted to divide by zero.
+         at BootstrapBlazor.Shared.Pages.GlobalException.OnClick() in D:\Argo\src\BB\BootstrapBlazor\src\BootstrapBlazor.Shared\Pages\GlobalException.razor.cs:line 30</Pre>
+
+<Block Title="测试" Introduction="本功能是通过级联参数获取到组件实例并使用其功能">
+    <p>本例代码中写了一个除以零的错误代码，由于使用了 <code>try/catch</code> 对异常进行了捕获，将错误信息显示到下面控制台中</p>
+    <Button Icon="fa fa-fa" Text="测试" OnClick="OnClick" />
+    <BlockLogger @ref="Trace" class="mt-3" />
+</Block>

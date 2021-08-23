@@ -4,6 +4,7 @@
 
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -46,5 +47,22 @@ namespace BootstrapBlazor.Components
         /// <param name="args"></param>
         /// <returns></returns>
         Task Log(LogLevel logLevel, Exception exception, string message = "", params object[] args);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        Task Log(LogLevel logLevel, Exception exception, NameValueCollection? collection = null);
+
+        /// <summary>
+        /// 格式化 Exception 信息
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        string FormatException(Exception ex, NameValueCollection? collection = null);
     }
 }

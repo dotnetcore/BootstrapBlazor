@@ -1,12 +1,23 @@
 ﻿<div class="@ClassName">
     @foreach (var m in Message.Reverse())
     {
-        <div class="log-item">@m</div>
+        <div class="log-item">
+            @if (IsHtml)
+            {
+                @((MarkupString)m)
+            }
+            else
+            {
+                @m
+            }
+        </div>
     }
 </div>
 
 @code {
-    protected System.Collections.Concurrent.ConcurrentQueue<string> Message { get; set; } = new System.Collections.Concurrent.ConcurrentQueue<string>();
+    protected System.Collections.Concurrent.ConcurrentQueue<string> Message { get; set; } = new();
+
+    private bool IsHtml { get; set; }
 
     /// <summary>
     /// 获得 按钮样式集合
@@ -25,8 +36,9 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public void Log(string message)
+    public void Log(string message, bool isHtml = false)
     {
+        IsHtml = isHtml;
         Message.Enqueue($"{DateTimeOffset.Now}: {message}");
         Class = "";
         if (Message.Count > 3) Message.TryDequeue(out var s);

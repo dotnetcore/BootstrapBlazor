@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,9 +87,39 @@ namespace BootstrapBlazor.Components
                 logger.AppendFormat("{0}: {1}", "Message", message);
                 logger.AppendLine();
             }
+
+            logger.AppendFormat("{0}: {1}", "Exception:", exception.Message);
+            logger.AppendLine();
+
             logger.Append(new string('*', 45));
             Logger.Log(logLevel, exception, logger.ToString(), args);
             return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        public Task Log(LogLevel logLevel, Exception exception, NameValueCollection? collection = null)
+        {
+            Logger.Log(logLevel, FormatException(exception, collection));
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 格式化异常信息
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        public string FormatException(Exception exception, NameValueCollection? collection = null)
+        {
+            collection ??= new NameValueCollection();
+            collection.Add(Configuration.GetEnvironmentInformation());
+            return exception.Format(collection);
         }
     }
 }
