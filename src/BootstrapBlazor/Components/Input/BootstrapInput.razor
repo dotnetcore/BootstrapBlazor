@@ -1,10 +1,17 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits ValidateBase<TValue>
 
-@if (IsShowLabel && !IsGroup)
+@if (IsShowLabel)
 {
-    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
+    if(IsGroup)
+    {
+        <span class="input-group-text" required="@Required" for="@Id">@DisplayText</span>
+    }
+    else
+    {
+        <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
+    }
 }
 <input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
 <CascadingValue Value="this" IsFixed="true">
