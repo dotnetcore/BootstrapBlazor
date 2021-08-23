@@ -25,7 +25,7 @@
     "footer": "Table/TablesFooter",
     "gotops": "GoTops",
     "groupboxs": "GroupBoxs",
-    "globalexception": "GlobalExpception",
+    "globalexception": "GlobalException",
     "header": "Table/TablesFixedHeader",
     "inputnumbers": "InputNumbers",
     "line": "Charts/Line",
@@ -81,6 +81,7 @@
     "tree": "BV1ap4y1x7Qn?p=14",
     "wrap": "BV1ap4y1x7Qn?p=7",
     "uploads": "BV1hK4y157Rj",
-    "validateforms": "BV1TU4y1Y7CM"
+    "validateforms": "BV1TU4y1Y7CM",
+    "dynamic": "BV1Eb4y1z7cY"
   }
 }

@@ -302,6 +302,7 @@
     "GlobalException": "Global Exception",
     "LayoutPage": "LayoutPage",
     "Components": "COMPONENTS",
+    "Client": "WebClientService",
     "LayoutComponents": "LAYOUTS",
     "Divider": "Divider",
     "Layout": "Layout",
