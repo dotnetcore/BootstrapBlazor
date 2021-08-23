@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -12,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public class WebClientService
+    public class WebClientService : IDisposable
     {
         /// <summary>
         /// 获得/设置 操作日志主键ID
@@ -62,13 +63,15 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 模态弹窗返回值任务实例
         /// </summary>
-        internal TaskCompletionSource<bool> ReturnTask { get; } = new();
+        private TaskCompletionSource<bool>? ReturnTask { get; set; }
 
         private readonly IJSRuntime _runtime;
 
         private readonly NavigationManager _navigation;
 
         private readonly AuthenticationStateProvider _authenticationStateProvider;
+
+        private DotNetObjectReference<WebClientService>? _objRef;
 
         /// <summary>
         /// 
@@ -82,16 +85,17 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task RetrieveRemoteInfo()
+        public async Task<bool> RetrieveRemoteInfo()
         {
-            using var objRef = DotNetObjectReference.Create<WebClientService>(this);
-            await _runtime.InvokeVoidAsync(identifier: "$.browser.ip", objRef, "ip.axd");
+            _objRef ??= DotNetObjectReference.Create<WebClientService>(this);
+            await _runtime.InvokeVoidAsync(identifier: "$.webClient", _objRef, "ip.axd", nameof(SetData));
             RequestUrl = _navigation.Uri;
 
             // UserName
             var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
             UserName = (state.User.Identity?.IsAuthenticated ?? false) ? state.User.Identity.Name : "";
-            await ReturnTask.Task;
+            ReturnTask = new TaskCompletionSource<bool>();
+            return await ReturnTask.Task;
         }
 
         /// <summary>
@@ -110,7 +114,29 @@ namespace BootstrapBlazor.Components
             OS = os;
             Browser = browser;
             UserAgent = agent;
-            ReturnTask.SetResult(true);
+            ReturnTask?.TrySetResult(true);
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _objRef?.Dispose();
+                _objRef = null;
+            }
+        }
+
+        /// <summary>
+        /// Dispose 方法
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

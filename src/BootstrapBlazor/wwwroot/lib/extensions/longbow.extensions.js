@@ -52,16 +52,7 @@
                 webApp: u.indexOf('Safari') === -1 //是否web应该程序，没有头部与底部
             };
         }(),
-        language: (navigator.browserLanguage || navigator.language).toLowerCase(),
-        ip: function (obj, url) {
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (data) {
-                    obj.invokeMethodAsync("SetData", data.Id, data.Ip, data.Os, data.Browser, data.UserAgent);
-                }
-            });
-        }
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
     };
 
     Array.prototype.indexOf = function (val) {
@@ -101,6 +92,15 @@
             do prefix += ~~(Math.random() * 1000000);
             while (document.getElementById(prefix));
             return prefix;
+        },
+        webClient: function (obj, url, method) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    obj.invokeMethodAsync(method, data.Id, data.Ip, data.Os, data.Browser, data.UserAgent);
+                }
+            });
         }
     });
 

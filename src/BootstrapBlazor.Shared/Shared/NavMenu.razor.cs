@@ -179,6 +179,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["GlobalException"],
                     Url = "globalexception"
                 },
