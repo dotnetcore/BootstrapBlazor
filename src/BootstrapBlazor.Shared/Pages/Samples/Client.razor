@@ -5,28 +5,60 @@
 <h4>多用系统日志跟踪</h4>
 
 <Block Title="普通用法" Introduction="注入服务显示客户端信息">
+    <p>用法介绍</p>
+    <div class="mb-3">
+        <p>1. <b>Startup.cs</b> 文件中使用 <code>UseBootstrapBlazor</code> 中间件进行客户端信息收集</p>
+        <Pre>public void Configure(IApplicationBuilder app)
+{
+    // ...
+    // 增加下面这一行
+    app.UseBootstrapBlazor();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapDefaultControllerRoute();
+        endpoints.MapBlazorHub();
+        endpoints.MapFallbackToPage("/_Host");
+    });
+}</Pre>
+    </div>
+    <div class="mb-3">
+        <p>2. 组件中使用注入服务 <code>WebClientService</code> 调用 <code>RetrieveRemoteInfo</code> 方法</p>
+        <Pre>[Inject]
+[NotNull]
+private WebClientService? ClientService { get; set; }
+
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    await base.OnAfterRenderAsync(firstRender);
+
+    if (firstRender)
+    {
+        await ClientService.RetrieveRemoteInfo();
+        StateHasChanged();
+    }
+}
+</Pre>
+    </div>
     <GroupBox Title="您的连接信息">
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
-                <Display Value="ClientContext.Id" DisplayText="连接 ID" ShowLabel="true" />
+                <Display Value="ClientService.Id" DisplayText="连接 ID" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientContext.UserName" DisplayText="当前用户" ShowLabel="true" />
+                <Display Value="ClientService.UserName" DisplayText="当前用户" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientContext.Ip" DisplayText="IP 地址" ShowLabel="true" />
+                <Display Value="ClientService.Ip" DisplayText="IP 地址" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientContext.OS" DisplayText="操作系统" ShowLabel="true" />
+                <Display Value="ClientService.OS" DisplayText="操作系统" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientContext.Browser" DisplayText="浏览器" ShowLabel="true" />
+                <Display Value="ClientService.Browser" DisplayText="浏览器" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
-                <Display Value="ClientContext.RequestUrl" DisplayText="请求地址" ShowLabel="true" />
+                <Display Value="ClientService.RequestUrl" DisplayText="请求地址" ShowLabel="true" />
             </div>
         </div>
     </GroupBox>
 </Block>
-
-<WebClientInfo />

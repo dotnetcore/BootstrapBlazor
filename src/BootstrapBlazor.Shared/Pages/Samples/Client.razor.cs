@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         [Inject]
         [NotNull]
-        private HttpContextService? ClientContext { get; set; }
+        private WebClientService? ClientService { get; set; }
 
         /// <summary>
         /// 
@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Shared.Pages
 
             if (firstRender)
             {
-                await ClientContext.RetrieveRemoteIp();
+                await ClientService.RetrieveRemoteInfo();
 
                 StateHasChanged();
             }

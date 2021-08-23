@@ -239,7 +239,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["DateTimePicker"],
                     Url = "datetimepickers"
                 },
@@ -390,6 +389,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Client"],
+                    Url = "client"
+                },
+                new()
+                {
                     Text = Localizer["Circle"],
                     Url = "circles"
                 },
@@ -466,7 +471,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Transition"],
                     Url = "transitions"
                 },
@@ -549,13 +553,11 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TableDynamic"],
                     Url = "tables/dynamic"
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["TableSearch"],
                     Url = "tables/search"
                 },
@@ -576,7 +578,6 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["TableFixColumn"],
                     Url = "tables/fix-column"
                 },

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -40,8 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddScoped<TabItemTextOptions>();
             services.TryAddScoped<TitleService>();
             services.TryAddScoped<DownloadService>();
-            services.AddHttpContextAccessor();
-            services.TryAddScoped<HttpContextService>();
+            services.TryAddScoped<WebClientService>();
             services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {
@@ -61,6 +61,8 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.UseWhen(context => context.Request.Path.StartsWithSegments("/ip.axd"), app => app.Run(async context =>
             {
                 var ip = "";
+                var os = "";
+                var browser = "";
                 var headers = context.Request.Headers;
                 if (headers.ContainsKey("X-Forwarded-For"))
                 {
@@ -78,8 +80,20 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     ip = context.Connection.RemoteIpAddress.ToIPv4String();
                 }
+
+                // UserAgent
+                var agent = headers["User-Agent"];
+
+                // OS/Browser
+                if (!string.IsNullOrEmpty(agent))
+                {
+                    var at = new UserAgent(agent);
+                    os = $"{at.OS.Name} {at.OS.Version}";
+                    browser = $"{at.Browser.Name} {at.Browser.Version}";
+                }
+
                 context.Response.Headers.Add("Content-Type", new Microsoft.Extensions.Primitives.StringValues("application/json; charset=utf-8"));
-                await context.Response.WriteAsync(ip);
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { Id = context.TraceIdentifier, Ip = ip, Os = os, Browser = browser, UserAgent = agent.ToString() }));
             }));
             return builder;
         }

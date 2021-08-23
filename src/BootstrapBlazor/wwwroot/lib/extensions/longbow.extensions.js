@@ -53,13 +53,12 @@
             };
         }(),
         language: (navigator.browserLanguage || navigator.language).toLowerCase(),
-        ip: function (el, obj, url, method) {
+        ip: function (obj, url) {
             $.ajax({
                 type: "GET",
                 url: url,
-                dataType: 'text',
                 success: function (data) {
-                    obj.invokeMethodAsync(method, data);
+                    obj.invokeMethodAsync("SetData", data.Id, data.Ip, data.Os, data.Browser, data.UserAgent);
                 }
             });
         }
