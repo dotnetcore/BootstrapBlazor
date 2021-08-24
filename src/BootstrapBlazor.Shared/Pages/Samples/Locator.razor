@@ -1,0 +1,58 @@
+﻿@page "/locator"
+
+<h3>获取 IP 地理位置</h3>
+
+<h4>多用系统日志跟踪</h4>
+
+<Block Title="普通用法" Introduction="注入服务显示客户端地理位置信息">
+    <p><b>用法介绍</b></p>
+    <div class="mb-3">
+        <p>组件中使用注入服务 <code>IIPLocatorProvider</code> 调用 <code>Locate</code> 方法</p>
+        <Pre>[Inject]
+[NotNull]
+private IIPLocatorProvider? IPLocator { get; set; }
+</Pre>
+    </div>
+    <Tips>
+        <div>由于地理位置查询接口返回字符集可能是其他字符集如 <code>gbk</code>，程序会报错；</div>
+        <div><b>解决办法：</b></div>
+        <div><code>Startup</code> 文件中 <code>ConfigureServices</code> 方法内增加下面这句话即可解决</div>
+    </Tips>
+    <Pre>Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)</Pre>
+    <div class="mb-2">IP 测试数据</div>
+    <div><code>112.224.74.239</code> 山东省济南市 联通</div>
+    <div class="mb-3"><code>183.160.236.53</code> 安徽省合肥市 电信</div>
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="Ip" DisplayText="Ip 地址" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="Location" DisplayText="地理位置" ShowLabel="true" />
+        </div>
+        <div class="col-12">
+            <Button Icon="fa fa-location" Text="定位" OnClick="OnClick" />
+        </div>
+    </div>
+    <p class="mt-3"><b>扩展自定义地理位置查询接口</b></p>
+    <div>
+        <p><b>1. 实现自定义定位器</b></p>
+        <Pre>private class CustomerLocator : IIPLocator
+{
+    public Task&lt;string&gt; Locate(IPLocatorOption option)
+    {
+        throw new NotImplementedException();
+    }
+}</Pre>
+        <p><b>2. 配置自定义定位器</b></p>
+        <Pre>public void ConfigureServices(IServiceCollection services)
+{
+    services.AddBootstrapBlazor(locatorAction: option =>
+    {
+        option.LocatorName = "CustomerLocator";
+        option.LocatorFactory = name => new CustomerLocator();
+        option.Url = "http://apis.juhe.cn/ip/ipNew?key=f57102d1b9fadd3f4a1c29072d0c0206&ip=";
+    });
+}</Pre>
+        <div>通过 <code>AddBootstrapBlazor</code> 方法的回调委托参数进行自定义定位器 <code>CustomerLocator</code> 配置</div>
+    </div>
+</Block>

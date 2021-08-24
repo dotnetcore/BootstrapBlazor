@@ -24,12 +24,13 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <param name="configureOptions"></param>
-        /// <param name="setupAction"></param>
+        /// <param name="localizationAction"></param>
+        /// <param name="locatorAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? setupAction = null)
+        public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationAction = null, Action<IPLocatorOption>? locatorAction = null)
         {
             services.AddAuthorizationCore();
-            services.AddJsonLocalization(setupAction);
+            services.AddJsonLocalization(localizationAction);
             services.TryAddScoped<IComponentIdGenerator, DefaultIdGenerator>();
             services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
             services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
@@ -46,6 +47,13 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure<BootstrapBlazorOptions>(options =>
             {
                 configureOptions?.Invoke(options);
+            });
+
+            services.AddHttpClient();
+            services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
+            services.Configure<IPLocatorOption>(options =>
+            {
+                locatorAction?.Invoke(options);
             });
             return services;
         }

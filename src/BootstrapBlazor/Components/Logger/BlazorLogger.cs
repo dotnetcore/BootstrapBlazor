@@ -88,7 +88,7 @@ namespace BootstrapBlazor.Components
                 logger.AppendLine();
             }
 
-            logger.AppendFormat("{0}: {1}", "Exception:", exception.Message);
+            logger.AppendFormat("{0}: {1}", "Exception", exception.Message);
             logger.AppendLine();
 
             logger.Append(new string('*', 45));

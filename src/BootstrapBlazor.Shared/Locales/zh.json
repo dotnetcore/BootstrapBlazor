@@ -379,6 +379,7 @@
     "GroupBox": "集合 GroupBox",
     "HandwrittenPage": "手写组件 HandwrittenPage",
     "ListView": "列表组件 ListView",
+    "Locator": "位置定位 Locator",
     "Popover": "弹出窗 Popover",
     "QRCode": "二维码 QRCode",
     "Search": "搜索框 Search",

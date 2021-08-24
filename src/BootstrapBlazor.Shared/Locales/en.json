@@ -379,6 +379,7 @@
     "GroupBox": "GroupBox",
     "HandwrittenPage": "HandwrittenPage",
     "ListView": "ListView",
+    "Locator": "Locator",
     "Popover": "Popover",
     "QRCode": "QRCode",
     "Search": "Search",

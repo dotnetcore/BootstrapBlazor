@@ -12,11 +12,19 @@ namespace BootstrapBlazor.Shared.Pages
     /// <summary>
     /// 
     /// </summary>
-    public partial class Client
+    public partial class Locator
     {
         [Inject]
         [NotNull]
         private WebClientService? ClientService { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IIPLocatorProvider? IPLocator { get; set; }
+
+        private string? Ip { get; set; }
+
+        private string? Location { get; set; }
 
         /// <summary>
         /// 
@@ -30,8 +38,16 @@ namespace BootstrapBlazor.Shared.Pages
             if (firstRender)
             {
                 await ClientService.RetrieveRemoteInfo();
-
+                Ip = ClientService.Ip;
                 StateHasChanged();
+            }
+        }
+
+        private async Task OnClick()
+        {
+            if (!string.IsNullOrEmpty(Ip))
+            {
+                Location = await IPLocator.Locate(Ip);
             }
         }
     }
