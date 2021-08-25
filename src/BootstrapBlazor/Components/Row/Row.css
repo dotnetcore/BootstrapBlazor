@@ -18,6 +18,10 @@
                 display: inline-block;
             }
 
+        .form-inline .form-label + .input-group {
+            display: inline-flex;
+        }
+
         .form-inline .form-label + .switch,
         .form-inline .form-label + .form-checkbox {
             padding: 7px 0;
