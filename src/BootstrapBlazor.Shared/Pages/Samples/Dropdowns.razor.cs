@@ -6,6 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -45,11 +46,53 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem("3", "广州")
         };
 
+        private IEnumerable<SelectedItem>? Items2 { get; set; }
+
+        private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
+        {
+            new SelectedItem ("", "请选择 ..."),
+            new SelectedItem ("Beijing", "北京") { Active = true },
+            new SelectedItem ("Shanghai", "上海"),
+            new SelectedItem ("Hangzhou", "杭州")
+        };
+
+        /// <summary>
+        /// 级联绑定菜单
+        /// </summary>
+        /// <param name="item"></param>
+        private async Task OnCascadeBindSelectClick(SelectedItem item)
+        {
+            // 模拟异步通讯切换线程
+            await Task.Delay(10);
+            if (item.Value == "Beijing")
+            {
+                Items2 = new SelectedItem[]
+                {
+                    new SelectedItem("1","朝阳区") { Active = true},
+                    new SelectedItem("2","海淀区"),
+                };
+            }
+            else if (item.Value == "Shanghai")
+            {
+                Items2 = new SelectedItem[]
+                {
+                    new SelectedItem("1","静安区"),
+                    new SelectedItem("2","黄浦区") { Active = true } ,
+                };
+            }
+            else
+            {
+                Items2 = Enumerable.Empty<SelectedItem>();
+            }
+            StateHasChanged();
+        }
+
+        [NotNull]
         private BlockLogger? Trace { get; set; }
 
         private Task ShowMessage(SelectedItem e)
         {
-            Trace?.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
+            Trace.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
             return Task.CompletedTask;
         }
 

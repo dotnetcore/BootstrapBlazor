@@ -3,6 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class Dropdown<TItem>
+    public partial class Dropdown<TValue>
     {
         /// <summary>
         /// 获得 按钮弹出方向集合
@@ -95,6 +98,9 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public DropdownType DropdownType { get; set; }
 
+        [NotNull]
+        private List<SelectedItem>? DataSource { get; set; }
+
         /// <summary>
         /// OnParametersSet 方法
         /// </summary>
@@ -102,11 +108,19 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
+            // 合并 Items 与 Options 集合
             Items ??= Enumerable.Empty<SelectedItem>();
 
-            SelectedItem = Items.FirstOrDefault(i => i.Value == CurrentValueAsString)
-                ?? Items.FirstOrDefault(i => i.Active)
-                ?? Items.FirstOrDefault();
+            if (!Items.Any() && typeof(TValue).IsEnum())
+            {
+                Items = typeof(TValue).ToSelectList();
+            }
+
+            DataSource = Items.ToList();
+
+            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
+                ?? DataSource.FirstOrDefault(i => i.Active)
+                ?? DataSource.FirstOrDefault();
         }
 
         /// <summary>
@@ -114,15 +128,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task OnItemClick(SelectedItem item)
         {
-            if (!item.IsDisabled)
+            if (!IsDisabled && !item.IsDisabled)
             {
-                var i = Items.FirstOrDefault(i => i.Active);
-                if (i != null)
-                {
-                    i.Active = false;
-                }
                 item.Active = true;
-
                 SelectedItem = item;
                 CurrentValueAsString = item.Value;
 
