@@ -56,12 +56,8 @@
         cursor: pointer;
     }
 
-    .switch.is-disabled {
+    .switch.disabled {
         opacity: 0.6;
-    }
-
-    .switch.is-disabled, .switch.switch.is-disabled .switch-core, .switch.switch.is-disabled .switch-label {
-        cursor: not-allowed;
     }
 
     .switch .switch-inner-text {

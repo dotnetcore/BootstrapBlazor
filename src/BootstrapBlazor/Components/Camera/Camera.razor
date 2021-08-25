@@ -23,8 +23,8 @@
         </div>
         <div class="col-12">
             <div class="btn-group">
-                <Button Text="@PlayText" Color="Color.Success" Icon="fa fa-play-circle" IsDisabled="@Disabled" data-method="play" data-camera="@ActiveCamera?.Value" />
-                <Button Text="@StopText" Color="Color.Danger" Icon="fa fa-stop-circle" IsDisabled="@Disabled" data-method="stop" />
+                <Button Text="@PlayText" Color="Color.Success" Icon="fa fa-play-circle" IsDisabled="@IsDisabled" data-method="play" data-camera="@ActiveCamera?.Value" />
+                <Button Text="@StopText" Color="Color.Danger" Icon="fa fa-stop-circle" IsDisabled="@IsDisabled" data-method="stop" />
                 <Button Text="@PhotoText" Icon="fa fa-camera-retro" IsDisabled="@CaptureDisabled" data-method="capture" />
             </div>
             <a class="d-none download"></a>

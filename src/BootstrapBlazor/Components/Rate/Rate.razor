@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" role="slider" aria-valuetext="" aria-valuemin="1" aria-valuemax="5" tabindex="0" aria-valuenow="@(Value==0 ? 0 : Value-1)" @ref="@RateElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" role="slider" aria-valuetext="" aria-valuemin="1" aria-valuemax="5" tabindex="0" aria-valuenow="@(Value==0 ? 0 : Value - 1)" @ref="@RateElement">
     @for (int i = 1; i < 6; i++)
     {
         <span class="@GetItemClassString(i)">

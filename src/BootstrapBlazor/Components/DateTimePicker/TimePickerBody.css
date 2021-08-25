@@ -125,7 +125,8 @@
         opacity: 1;
     }
 
-    .time-spinner-item.active:not(.disabled), .time-spinner-arrow:hover {
+    .time-spinner-item.active:not(.disabled),
+    .time-spinner-arrow:hover {
         color: #409eff;
     }
 

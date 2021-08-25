@@ -9,18 +9,18 @@
 @if (ShowButton)
 {
     <div class="input-group">
-        <button class="@ButtonClassString" type="button" @onclick="OnClickDec" disabled="@DisabledString">
+        <button class="@ButtonClassString" type="button" @onclick="OnClickDec" disabled="@Disabled">
             <i class="fa fa-fw fa-minus-circle"></i>
         </button>
-        <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
-        <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@DisabledString">
+        <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
+        <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@Disabled">
             <i class="fa fa-fw fa-plus-circle"></i>
         </button>
     </div>
 }
 else
 {
-    <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
+    <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
 }
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent

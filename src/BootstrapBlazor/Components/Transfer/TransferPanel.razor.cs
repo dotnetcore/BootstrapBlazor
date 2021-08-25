@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private string? SearchClass => CssBuilder.Default("input-prefix")
             .AddClass("is-on", !string.IsNullOrEmpty(SearchText))
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件是否被禁用属性值
         /// </summary>
-        private string? DisabledString => IsDisabled ? "disabled" : null;
+        private string? Disabled => IsDisabled ? "disabled" : null;
 
         /// <summary>
         /// 获得/设置 数据集合

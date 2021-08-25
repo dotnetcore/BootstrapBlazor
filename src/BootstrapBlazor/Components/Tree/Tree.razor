@@ -41,7 +41,7 @@ private RenderFragment<TreeItem> RenderTreeItem => item =>
         <i class="@GetCaretClassString(item)" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, () => OnExpandRowAsync(item)))"></i>
         @if (ShowCheckbox)
         {
-            <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.Disabled" SkipValidate="true"
+            <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
                       ShowLabel="false" ShowAfterLabel="false"
                       OnStateChanged="@(new Func<CheckboxState, bool, Task>((state, v) => OnStateChanged(state, item)))" />
         }

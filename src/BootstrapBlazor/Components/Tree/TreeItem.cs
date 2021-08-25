@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -62,7 +63,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否被禁用 默认 false
         /// </summary>
         /// <value></value>
+        [Obsolete("请使用 IsDisabled 属性，本属性已过期", true)]
         public bool Disabled { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否被禁用 默认 false
+        /// </summary>
+        public bool IsDisabled { get; set; }
 
         /// <summary>
         /// 获得/设置 是否展开 默认 false 不展开

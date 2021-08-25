@@ -91,7 +91,7 @@
             transition: border-color .3s linear, color .3s linear;
         }
 
-            .table-filter .card-footer .btn:not(.is-disabled):not(:disabled):hover {
+            .table-filter .card-footer .btn:not(.disabled):not(:disabled):hover {
                 border-color: #409eff;
                 color: #409eff;
             }

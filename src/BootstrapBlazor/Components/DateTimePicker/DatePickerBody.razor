@@ -65,9 +65,18 @@
                             <tr class="date-table-row">
                                 @for (var index = 0; index < 7; index++)
                                 {
-                                    <td class="@GetDayClass(week.AddDays(index))">
+                                    var day = week.AddDays(index);
+                                    var text = GetDayText(day.Day);
+                                    <td class="@GetDayClass(day)">
                                         <div>
-                                            <DatePickerCell Value="@week.AddDays(index)" Text="@GetDayText(week.AddDays(index).Day)" OnClick="@(async d => await OnClickDateTime(d))" />
+                                            @if (IsDisabled(day))
+                                            {
+                                                <span class="cell">@text</span>
+                                            }
+                                            else
+                                            {
+                                                <DatePickerCell Value="@week.AddDays(index)" Text="@text" OnClick="@(async d => await OnClickDateTime(d))" />
+                                            }
                                         </div>
                                     </td>
                                 }

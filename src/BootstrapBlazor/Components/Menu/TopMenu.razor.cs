@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         private string? GetDropdownClassString(MenuItem item, string className = "") => CssBuilder.Default(className)
             .AddClass("dropdown", string.IsNullOrEmpty(className) && !Parent.IsBottom)
             .AddClass("dropup", string.IsNullOrEmpty(className) && Parent.IsBottom)
-            .AddClass(item.GetDisabledClassString())
+            .AddClass("disabled", item.IsDisabled)
             .AddClass("active", item.IsActive)
             .Build();
 

@@ -70,11 +70,11 @@
 
 <Block Title="Cascader 客户端验证" Introduction="级联选择未选择时，点击提交按钮时拦截。">
     <ValidateForm Model="@Model">
-        <div class="row g-3">
+        <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
                 <Cascader Items="@Items" @bind-Value="@Model.Address"></Cascader>
             </div>
-            <div class="col-12 col-sm-6 align-items-end">
+            <div class="col-12 col-sm-6">
                 <Button ButtonType="ButtonType.Submit">提交</Button>
             </div>
         </div>

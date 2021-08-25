@@ -19,7 +19,7 @@
             $el.on('keyup', function (e) {
                 var $this = $(this);
                 if ($this.find('.dropdown-toggle').hasClass('show')) {
-                    var $items = $this.find('.dropdown-menu.show > .dropdown-item').not('.is-disabled, .search');
+                    var $items = $this.find('.dropdown-menu.show > .dropdown-item').not('.disabled, .search');
 
                     var $activeItem = $items.filter(function (index, ele) {
                         return $(ele).hasClass('active');
@@ -28,7 +28,7 @@
                     if ($items.length > 1) {
                         if (e.key === "ArrowUp") {
                             $activeItem.removeClass('active');
-                            var $prev = $activeItem.prev().not('.is-disabled, .search');
+                            var $prev = $activeItem.prev().not('.disabled, .search');
                             if ($prev.length === 0) {
                                 $prev = $items.last();
                             }
@@ -36,7 +36,7 @@
                         }
                         else if (e.key === "ArrowDown") {
                             $activeItem.removeClass('active');
-                            var $next = $activeItem.next().not('.is-disabled, .search');
+                            var $next = $activeItem.next().not('.disabled, .search');
                             if ($next.length === 0) {
                                 $next = $items.first();
                             }
@@ -55,7 +55,7 @@
                 }
             });
 
-            $el.on('click', '.dropdown-item.is-disabled', function (e) {
+            $el.on('click', '.dropdown-item.disabled', function (e) {
                 e.stopImmediatePropagation();
             });
         }

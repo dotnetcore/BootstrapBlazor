@@ -59,7 +59,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 组件是否被禁用属性值
         /// </summary>
-        protected string? DisabledString => IsDisabled ? "disabled" : null;
+        protected string? Disabled => IsDisabled ? "disabled" : null;
 
         /// <summary>
         /// 是否显示 必填项标记

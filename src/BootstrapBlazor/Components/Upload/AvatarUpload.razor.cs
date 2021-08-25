@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-invalid", !IsDisabled && item.IsValid.HasValue && !item.IsValid.Value)
             .AddClass("is-valid", !IsDisabled && !item.IsValid.HasValue && item.Uploaded && item.Code == 0)
             .AddClass("is-invalid", !IsDisabled && !item.IsValid.HasValue && item.Code != 0)
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected override string? ItemClassString => CssBuilder.Default(base.ItemClassString)
             .AddClass("is-circle", IsCircle)
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>

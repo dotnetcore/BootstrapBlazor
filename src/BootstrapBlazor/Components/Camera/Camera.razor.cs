@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Components
 
         private string DeviceId { get; set; } = "";
 
-        private bool Disabled { get; set; } = true;
+        private bool IsDisabled { get; set; } = true;
 
         private bool CaptureDisabled { get; set; } = true;
 
@@ -185,7 +185,7 @@ namespace BootstrapBlazor.Components
         public async Task InitDevices(IEnumerable<DeviceItem> devices)
         {
             Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
-            Disabled = !Devices.Any();
+            IsDisabled = !Devices.Any();
 
             if (OnInit != null)
             {
@@ -202,11 +202,11 @@ namespace BootstrapBlazor.Components
                         d.Label = $"Video device {index + 1}";
                     }
                 }
-                Disabled = false;
+                IsDisabled = false;
                 ActiveCamera = Cameras.First();
             }
 
-            if (Disabled)
+            if (IsDisabled)
             {
                 InitDevicesString = NotFoundDevicesString;
             }

@@ -6,11 +6,6 @@
     min-height: 35px;
 }
 
-    .btn-toggle.disabled .toggle-group label,
-    .btn-toggle.disabled .toggle-group span {
-        cursor: not-allowed;
-    }
-
     .btn-toggle.off .toggle-group {
         left: -100%;
     }

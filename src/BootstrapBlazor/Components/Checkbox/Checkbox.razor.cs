@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
         protected virtual string? ClassString => CssBuilder.Default("form-checkbox")
             .AddClass("is-checked", State == CheckboxState.Checked)
             .AddClass("is-indeterminate", State == CheckboxState.Mixed)
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .AddClass(ValidCss)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();

@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private string? ClassName => CssBuilder.Default("switch")
             .AddClass("is-checked", ComponentValue)
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

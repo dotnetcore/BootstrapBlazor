@@ -10,7 +10,7 @@
         @if (ShowSearch)
         {
             <div class="transfer-panel-filter">
-                <input type="text" autocomplete="off" placeholder="@SearchPlaceHolderString" disabled="@DisabledString" class="input-inner" value="@SearchText" @oninput="@OnSearch" @onkeyup="@OnKeyUp">
+                <input type="text" autocomplete="off" placeholder="@SearchPlaceHolderString" disabled="@Disabled" class="input-inner" value="@SearchText" @oninput="@OnSearch" @onkeyup="@OnKeyUp">
                 <span class="@SearchClass" @onclick="@ClearSearch">
                     <i class="fa fa-search"></i>
                 </span>

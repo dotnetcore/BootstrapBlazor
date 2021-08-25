@@ -25,11 +25,9 @@
         background-color: #c0c4cc;
     }
 
-    .slider-runway.disabled .slider-button-wrapper, .slider-runway.disabled .slider-button.dragging, .slider-runway.disabled .slider-button.hover, .slider-runway.disabled .slider-button:hover {
-        cursor: not-allowed;
-    }
-
-    .slider-runway.disabled .slider-button.dragging, .slider-runway.disabled .slider-button.hover, .slider-runway.disabled .slider-button:hover {
+    .slider-runway.disabled .slider-button.dragging,
+    .slider-runway.disabled .slider-button.hover,
+    .slider-runway.disabled .slider-button:hover {
         transform: scale(1);
     }
 

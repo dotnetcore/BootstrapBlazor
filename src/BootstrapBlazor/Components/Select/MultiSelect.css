@@ -4,10 +4,6 @@
     border-radius: 4px;
 }
 
-    .multi-select.disabled {
-        background-color: #eee;
-    }
-
     .multi-select .dropdown-menu-toggle {
         border: solid 1px #ddd;
         border-radius: 4px;
@@ -18,7 +14,7 @@
     }
 
         .multi-select .dropdown-menu-toggle.disabled {
-            cursor: not-allowed;
+            background-color: #eee;
         }
 
         .multi-select .dropdown-menu-toggle .clear {
@@ -109,10 +105,10 @@
             transition: color .3s linear, background-color .3s linear;
         }
 
-            .multi-select .multi-select-items .multi-select-close:hover {
-                color: #333;
-                background-color: #ddd;
-            }
+    .multi-select :not(.disabled) .multi-select-items .multi-select-close:hover {
+        color: #333;
+        background-color: #ddd;
+    }
 
     .multi-select .dropdown-menu {
         margin-top: 10px;

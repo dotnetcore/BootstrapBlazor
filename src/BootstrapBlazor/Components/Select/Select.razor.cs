@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         private string? ClassName => CssBuilder.Default("select dropdown")
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
             .AddClass("active", () => item.Value == CurrentValueAsString)
-            .AddClass("is-disabled", item.IsDisabled)
+            .AddClass("disabled", item.IsDisabled)
             .Build();
 
         /// <summary>

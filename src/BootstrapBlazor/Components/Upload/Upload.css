@@ -50,14 +50,14 @@
                 }
 
             .upload .upload-body.is-list .upload-item .fa-trash-o,
-            .upload .upload-body.is-list .upload-item:not(.is-disabled):hover .fa-check-circle-o,
+            .upload .upload-body.is-list .upload-item:not(.disabled):hover .fa-check-circle-o,
             .upload .upload-body.is-list .upload-item:hover .fa-times-circle-o,
             .upload .upload-body.is-avatar .upload-item .upload-item-delete,
             .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
             .upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,
             .upload .upload-item.is-invalid .fa-check,
             .upload .upload-item.is-valid .fa-times,
-            .upload .upload-body.is-avatar .upload-item.is-disabled .upload-item-plus {
+            .upload .upload-body.is-avatar .upload-item.disabled .upload-item-plus {
                 display: none;
             }
 
@@ -91,7 +91,7 @@
             .upload .upload-body.is-avatar .upload-item:not(.is-form):hover,
             .upload .upload-body.is-avatar .upload-item:not(.is-form).is-valid,
             .upload .upload-body.is-card .upload-item.is-valid,
-            .upload .upload-body.is-card .upload-item:not(.is-disabled):hover {
+            .upload .upload-body.is-card .upload-item:not(.disabled):hover {
                 border-color: #409eff;
             }
 

@@ -46,12 +46,12 @@
     cursor: pointer;
 }
 
-    [data-bs-toggle="lgbSelect"] .dropdown-menu .dropdown-item.is-disabled {
+    [data-bs-toggle="lgbSelect"] .dropdown-menu .dropdown-item.disabled {
         color: #c0c4cc;
         cursor: not-allowed;
     }
 
-        [data-bs-toggle="lgbSelect"] .dropdown-menu .dropdown-item.is-disabled:active {
+        [data-bs-toggle="lgbSelect"] .dropdown-menu .dropdown-item.disabled:active {
             background-color: #f8f9fa;
         }
 
@@ -111,14 +111,14 @@
     margin-top: 2px;
 }
 
-.is-disabled .form-select {
+.disabled .form-select {
     background-color: #f5f7fa;
     border-color: #e4e7ed;
     color: #c0c4cc;
     cursor: not-allowed;
 }
 
-.is-disabled .form-select-append {
+.disabled .form-select-append {
     color: #c0c4cc;
 }
 

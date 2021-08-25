@@ -15,8 +15,7 @@
                 </a>
                 @if (!menu.IsDisabled)
                 {
-                    <div class="dropdown-menu-arrow"></div>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu shadow">
                         @foreach (var item in menu.Items)
                         {
                             @if (item.Items.Any())

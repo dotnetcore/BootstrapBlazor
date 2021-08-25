@@ -1,14 +1,24 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<NavLink @attributes="@AdditionalAttributes" class="@ClassString" href="@HrefString" target="@TargetString" @onclick="@OnClickLink" Match="@ItemMatch" style="@StyleClassString">
-    <i class="@IconString"></i>
-    <span class="text">@Item.Text</span>
-    @if (Item.Component != null)
-    {
-        <div class="widget">
-            @Item.Component.Render()
-        </div>
-    }
-    <i class="@MenuArrowClassString" />
-</NavLink>
+@if (Item.IsDisabled)
+{
+    <div class="nav-link disabled">
+        <i class="@IconString"></i>
+        <span class="text">@Item.Text</span>
+    </div>
+}
+else
+{
+    <NavLink @attributes="@AdditionalAttributes" class="@ClassString" href="@HrefString" target="@TargetString" @onclick="@OnClickLink" Match="@ItemMatch" style="@StyleClassString">
+        <i class="@IconString"></i>
+        <span class="text">@Item.Text</span>
+        @if (Item.Component != null)
+        {
+            <div class="widget">
+                @Item.Component.Render()
+            </div>
+        }
+        <i class="@MenuArrowClassString" />
+    </NavLink>
+}

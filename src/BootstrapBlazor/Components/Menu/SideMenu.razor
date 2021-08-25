@@ -6,14 +6,17 @@
     {
         if (item.Items.Any())
         {
-            <li class="@item.GetDisabledClassString()">
+            <li>
                 <MenuLink Item="@item" OnClick="@OnClick" />
-                <SideMenu Items="@item.Items" OnClick="@OnClick" class="d-none" />
+                @if (!item.IsDisabled)
+                {
+                    <SideMenu Items="@item.Items" OnClick="@OnClick" class="d-none" />
+                }
             </li>
         }
         else
         {
-            <li class="@item.GetDisabledClassString()">
+            <li>
                 <MenuLink Item="@item" OnClick="@OnClick" />
             </li>
         }

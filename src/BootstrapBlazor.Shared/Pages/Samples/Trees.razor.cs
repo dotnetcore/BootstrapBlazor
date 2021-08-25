@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Shared.Pages
         private static List<TreeItem> GetDisabledItems()
         {
             var ret = TreeDataFoo.GetTreeItems();
-            ret[1].Items[1].Disabled = true;
+            ret[1].Items[1].IsDisabled = true;
             return ret;
         }
 

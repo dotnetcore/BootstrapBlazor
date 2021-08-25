@@ -47,13 +47,11 @@ form .form-control.is-display {
     background-color: #ebeef5;
 }
 
-input:disabled,
-.btn:disabled,
-.datetime-picker-input-icon.disabled,
-.datetime-picker-input.is-disabled,
-.datetime-picker-input:disabled,
-.upload.is-disabled {
-    cursor: not-allowed;
+[disabled],
+:disabled,
+.disabled,
+.disabled > * {
+    cursor: not-allowed !important;
 }
 
 .form-control:focus {

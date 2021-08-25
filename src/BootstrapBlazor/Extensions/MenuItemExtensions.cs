@@ -10,14 +10,6 @@ namespace BootstrapBlazor.Components
     public static class MenuItemExtensions
     {
         /// <summary>
-        /// 通过 MenumItem 获取 IsDisabled 状态字符串
-        /// </summary>
-        /// <returns></returns>
-        public static string? GetDisabledClassString(this MenuItem item) => CssBuilder.Default()
-            .AddClass("disabled", item.IsDisabled)
-            .Build();
-
-        /// <summary>
         /// 级联设置 <see cref="MenuItem"/> Active 状态
         /// </summary>
         /// <param name="item"></param>

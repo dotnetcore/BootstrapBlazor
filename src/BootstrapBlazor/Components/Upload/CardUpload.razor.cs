@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components
         private string? GetDeleteButtonDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
         private string? CardItemClass => CssBuilder.Default("upload-item")
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         private static bool IsImage(UploadFile item)

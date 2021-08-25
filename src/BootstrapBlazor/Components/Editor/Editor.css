@@ -40,10 +40,6 @@
     border-color: #00000032;
 }
 
-    .editor .btn-light:active:focus {
-        box-shadow: none;
-    }
-
     .editor .btn-light:hover {
         background-color: #e2e6ea;
         border-color: #dae0e5;

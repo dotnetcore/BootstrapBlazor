@@ -132,7 +132,7 @@ namespace BootstrapBlazor.Components
         /// 获得 样式集合
         /// </summary>
         private string? ClassName => CssBuilder.Default("dropdown")
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 按钮 disabled 属性
         /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
+        protected string? Disabled => IsDisabled ? "disabled" : null;
 
         /// <summary>
         /// 获得/设置 是否禁用

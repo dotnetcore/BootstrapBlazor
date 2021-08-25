@@ -73,7 +73,11 @@
             margin-left: 10px;
         }
 
-    .transfer-buttons .is-disabled, .transfer-buttons .is-disabled:active, .transfer-buttons .is-disabled:focus, .transfer-buttons .is-disabled:hover, .transfer-buttons [disabled] {
+    .transfer-buttons .disabled,
+    .transfer-buttons .disabled:active,
+    .transfer-buttons .disabled:focus,
+    .transfer-buttons .disabled:hover,
+    .transfer-buttons [disabled] {
         color: #fff;
         background-color: #a0cfff;
         border-color: #a0cfff;
@@ -118,12 +122,12 @@
         color: #c0c4cc;
     }
 
-        .transfer-panel-filter .input-prefix:not(.is-disabled):hover i:before,
+        .transfer-panel-filter .input-prefix:not(.disabled):hover i:before,
         .transfer-panel-filter .input-prefix.is-on i:before {
             cursor: pointer;
             content: "\f057";
         }
 
-        .transfer-panel-filter .input-prefix.is-disabled:hover i:before {
+        .transfer-panel-filter .input-prefix.disabled:hover i:before {
             cursor: not-allowed;
         }

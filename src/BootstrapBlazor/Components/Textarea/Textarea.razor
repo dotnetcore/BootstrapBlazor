@@ -5,7 +5,7 @@
 {
     <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
-<textarea @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange"></textarea>
+<textarea @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange"></textarea>
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>

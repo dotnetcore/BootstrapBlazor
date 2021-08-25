@@ -1,5 +1,4 @@
-﻿/*menu*/
-.menu .nav {
+﻿.menu .nav {
     padding: 0 1rem;
     border-bottom: 1px solid #e6e6e6;
 }
@@ -34,7 +33,7 @@
 }
 
     .menu .nav .nav-link.active,
-    .menu .nav .nav-link:hover {
+    .menu .nav .nav-link:not(.disabled):hover {
         color: #1890ff;
     }
 
@@ -45,13 +44,13 @@
     margin-top: 10px;
 }
 
-    .menu .nav .dropdown-menu .nav-link:hover,
+    .menu .nav .dropdown-menu .nav-link:not(.disabled):hover,
     .menu .nav .dropdown-menu .nav-link.active,
     .menu .submenu .nav-link.active,
-    .menu .submenu .nav-link:hover,
-    .cascade .dropdown-item:hover,
+    .menu .submenu .nav-link:not(.disabled):hover,
+    .cascade .dropdown-item:not(.disabled):hover,
     .cascade .dropdown-item.active,
-    .cascade .nav .nav-link:hover,
+    .cascade .nav .nav-link:not(.disabled):hover,
     .cascade .nav .nav-link.active {
         background-color: #60aff9;
         color: #16181b;
@@ -110,12 +109,9 @@
     overflow: hidden;
 }
 
-.menu li.disabled,
 .menu .nav-link.disabled {
-    cursor: not-allowed;
     color: #ddd;
 }
-/*end menu*/
 
 .menu .nav .nav-link .text {
     margin-left: 4px;

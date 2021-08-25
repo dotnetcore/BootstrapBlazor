@@ -96,23 +96,19 @@
             transform: translate(-50%,-50%) scale(1);
         }
 
-    .form-checkbox.is-disabled, .form-checkbox.is-disabled .radio-inner {
-        cursor: not-allowed;
+    .form-checkbox.disabled .checkbox-input .checkbox-inner,
+    .form-checkbox.disabled .radio-input .radio-inner {
+        background-color: #edf2fc;
+        border-color: #dcdfe6;
     }
 
-        .form-checkbox.is-disabled .checkbox-input .checkbox-inner,
-        .form-checkbox.is-disabled .radio-input .radio-inner {
-            background-color: #edf2fc;
-            border-color: #dcdfe6;
-        }
+    .form-checkbox.disabled .checkbox-label {
+        color: #c0c4cc;
+    }
 
-        .form-checkbox.is-disabled .checkbox-label {
-            color: #c0c4cc;
-        }
-
-        .form-checkbox.is-disabled.is-checked .checkbox-input .checkbox-inner:after {
-            border-color: #c0c4cc;
-        }
+    .form-checkbox.disabled.is-checked .checkbox-input .checkbox-inner:after {
+        border-color: #c0c4cc;
+    }
 
     .form-checkbox.is-indeterminate .checkbox-input .checkbox-inner:before {
         content: "";

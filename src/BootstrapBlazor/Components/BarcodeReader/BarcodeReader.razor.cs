@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
 
         private string AutoStopString => AutoStop ? "true" : "false";
 
-        private bool Disabled { get; set; } = true;
+        private bool IsDisabled { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 扫描按钮文字 默认为 扫描
@@ -162,10 +162,10 @@ namespace BootstrapBlazor.Components
         public async Task InitDevices(IEnumerable<DeviceItem> devices)
         {
             Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
-            Disabled = !Devices.Any();
+            IsDisabled = !Devices.Any();
 
             if (OnInit != null) await OnInit(devices);
-            if (Disabled) InitDevicesString = NotFoundDevicesString;
+            if (IsDisabled) InitDevicesString = NotFoundDevicesString;
             StateHasChanged();
         }
 

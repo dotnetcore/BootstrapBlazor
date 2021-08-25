@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
         protected string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
             .AddClass("is-valid", item.Uploaded && item.Code == 0)
             .AddClass("is-invalid", item.Code != 0)
-            .AddClass("is-disabled", IsDisabled)
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>

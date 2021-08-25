@@ -24,7 +24,6 @@ namespace BootstrapBlazor.Components
             .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline)
             .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass("btn-block", IsBlock)
-            .AddClass("disabled", IsDisabled)
             .AddClass("is-round", ButtonStyle == ButtonStyle.Round)
             .AddClass("is-circle", ButtonStyle == ButtonStyle.Circle)
             .AddClassFromAttributes(AdditionalAttributes)
@@ -33,7 +32,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 按钮 disabled 属性
         /// </summary>
-        protected string? Disabled => IsDisabled ? "true" : null;
+        protected string? Disabled => IsDisabled ? "disabled" : null;
 
         /// <summary>
         /// 获得 按钮 tabindex 属性

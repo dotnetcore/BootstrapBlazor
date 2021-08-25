@@ -6,8 +6,8 @@
     <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div class="input-group color-picker">
-    <input @attributes="@AdditionalAttributes" type="color" class="form-control form-control-color" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
-    <input type="text" class="@ClassName" disabled="@DisabledString" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
+    <input @attributes="@AdditionalAttributes" type="color" class="form-control form-control-color" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
+    <input type="text" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
 </div>
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent

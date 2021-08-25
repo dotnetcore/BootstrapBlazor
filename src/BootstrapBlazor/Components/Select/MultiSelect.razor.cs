@@ -31,7 +31,6 @@ namespace BootstrapBlazor.Components
 
         private string? ClassString => CssBuilder.Default("multi-select")
             .AddClass("show", IsShow)
-            .AddClass("disabled", IsDisabled)
             .Build();
 
         private string? ToggleClassString => CssBuilder.Default("dropdown-menu-toggle")

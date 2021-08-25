@@ -7,8 +7,8 @@
         <div class="row g-3">
             <div class="col-12">
                 <div class="scanner-buttons btn-group">
-                    <Button data-method="scan" Color="Color.Primary" Text="@ButtonScanText" IsDisabled="@Disabled"></Button>
-                    <Button data-method="close" Color="Color.Danger" Text="@ButtonStopText" IsDisabled="@Disabled"></Button>
+                    <Button data-method="scan" Color="Color.Primary" Text="@ButtonScanText" IsDisabled="@IsDisabled"></Button>
+                    <Button data-method="close" Color="Color.Danger" Text="@ButtonStopText" IsDisabled="@IsDisabled"></Button>
                 </div>
 
                 <Checkbox DisplayText="@AutoStopText" ShowAfterLabel="true" @bind-Value="@AutoStop" class="mt-3" />
