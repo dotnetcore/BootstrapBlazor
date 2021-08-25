@@ -147,6 +147,27 @@
     "Title": "Client Side",
     "CodeComment": "Add this line of code"
   },
+  "BootstrapBlazor.Shared.Pages.Scrolls": {
+    "Title": "Scroll",
+    "H1": "Add scroll bars to components whose height or width exceeds the standard",
+    "P1": "Because the scroll bar of the system is shielded internally by the scroll bar component, and <code>overflow: hidden</code> is set, the scroll bar can only be presented when it or its parent element has a fixed height. You can set its <code> through the jacket element height</code> Or directly set the <code>Height</code> property of the <code>Scroll</code> component",
+    "P2": "Pay attention:",
+    "P3": "This component uses the <code>slimscroll</code> script to beautify the scroll bar. Since the mobile terminal and the Apple system do not need the scroll bar to beautify, the <code>IsForce</code> attribute is added.",
+    "Li1": "The default value; when it is true, it will not be judged whether it is a mobile terminal or an Apple system. All use <code>slimscroll</code> for beautification",
+    "Li2": "If it is false, the script internally determines that it is mobile or Apple's system without beautifying and using native styles",
+    "Block1Title": "Common usage",
+    "Block1Intro": "Add a scroll bar to the component. By setting the height of <code>Height</code> to 200px, the scroll bar appears when the height of the inner child element is 400px",
+    "D1": "Please scroll the scroll bar on the right",
+    "D2": "bottom",
+    "Block2Title": "Auto hide",
+    "Blcok2Intro": "The scroll bar is automatically displayed in the mouse <code>hover</code> state, and the scroll bar is automatically hidden when the mouse is removed",
+    "D3": "A scroll bar appears on the right side of the mouse hover",
+    "Desc1": "Subassembly",
+    "Desc2": "Component height",
+    "Desc3": "Component width",
+    "Desc4": "Whether to hide automatically",
+    "Desc5": "Whether to force the use of scroll bars"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

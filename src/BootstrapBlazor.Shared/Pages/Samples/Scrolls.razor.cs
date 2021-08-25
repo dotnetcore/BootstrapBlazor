@@ -21,35 +21,35 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "子组件",
+                Description = Locaizer["Desc1"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = "组件高度",
+                Description = Locaizer["Desc2"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = "组件宽度",
+                Description = Locaizer["Desc3"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "IsAutoHide",
-                Description = "是否自动隐藏",
+                Description = Locaizer["Desc4"]!,
                 Type = "true",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "IsForce",
-                Description = "是否强制使用滚动条",
+                Description = Locaizer["Desc5"]!,
                 Type = "true",
                 ValueList = "true|false",
                 DefaultValue = "true"
