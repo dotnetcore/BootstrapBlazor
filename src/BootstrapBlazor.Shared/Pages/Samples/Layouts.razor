@@ -1,39 +1,39 @@
 ﻿@page "/layouts"
 
-<h3>Layout 布局</h3>
+<h3>@LayoutsLocalizer["Title"]</h3>
 
-<h4>用于布局的容器组件，方便快速搭建页面的基本结构：</h4>
+<h4>@LayoutsLocalizer["H1"]</h4>
 
 <p>
-    <code>Container</code>：外层容器。当子元素中包含 <code>Header</code> 或 <code>Footer</code> 时，全部子元素会垂直上下排列，否则会水平左右排列。<br />
-    <code>Header</code>：顶栏容器<br />
-    <code>Side</code>：侧边栏容器<br />
-    <code>Main</code>：主要区域容器<br />
-    <code>Footer</code>：底栏容器
+    <code>Container</code>：@((MarkupString)LayoutsLocalizer["Code1"].Value)<br />
+    <code>Header</code>：@LayoutsLocalizer["Code2"]<br />
+    <code>Side</code>：@LayoutsLocalizer["Code3"]<br />
+    <code>Main</code>：@LayoutsLocalizer["Code4"]<br />
+    <code>Footer</code>：@LayoutsLocalizer["Code5"]
 </p>
 
-<h4>组件概述</h4>
+<h4>@LayoutsLocalizer["H2"]</h4>
 <p>
-    <code>Layout</code>：布局容器，其下可嵌套 <code>Header</code> <code>Sider</code> <code>Main</code> <code>Footer</code> 或 <code>Layout</code> 本身，可以放在任何父容器中<br />
-    <code>Header</code>：顶部布局，自带默认样式，其下可嵌套任何元素<br />
-    <code>Sider</code>：侧边栏，自带默认样式及基本功能，其下可嵌套任何元素<br />
-    <code>Main</code>：内容部分，自带默认样式，其下可嵌套任何元素<br />
-    <code>Footer</code>：底部布局，自带默认样式，其下可嵌套任何元素
+    <code>Layout</code>：@((MarkupString)LayoutsLocalizer["Code6"].Value)<br />
+    <code>Header</code>：@LayoutsLocalizer["Code7"]<br />
+    <code>Sider</code>：@LayoutsLocalizer["Code8"]<br />
+    <code>Main</code>：@LayoutsLocalizer["Code9"]<br />
+    <code>Footer</code>：@LayoutsLocalizer["Code10"]
 </p>
 
 <Tips>
     <p>
-        以上组件采用了 flex 布局，使用前请确定目标浏览器是否兼容。此外，<code>Layout</code> 的子元素只能是后四者，后四者的父元素也只能是 <code>Layout</code>
+       @((MarkupString)LayoutsLocalizer["P1"].Value)
     </p>
 
-    <b>注意事项</b>
+    <b>@LayoutsLocalizer["b1"]</b>
 
-    <p>为了方便大家利用这套组件快速搭建项目，作者制作了 <b>项目模板（<code>Project Templates</code>）</b>，使用 <code>dotnet new</code> 命令行，与 <code>Bootstrap Blazor App Extension 扩展插件</code> 通过 <code>Visual Studio 2019</code> 新建项目创建，具体使用方法与步骤请点击 <a href="template" target="_blank">传送门</a></p>
+    <p>@((MarkupString)LayoutsLocalizer["P2"].Value)</p>
 </Tips>
 
-<h4>常见页面布局</h4>
+<h4>@LayoutsLocalizer["H3"]</h4>
 
-<Block Title="上中下布局" Introduction="常见于互联网网站布局">
+<Block Title="@LayoutsLocalizer["Block1Title"]" Introduction="@LayoutsLocalizer["Block1Intro"]">
     <Layout ShowFooter="true">
         <Header>
             <div class="text-center header">Header</div>
@@ -47,7 +47,7 @@
     </Layout>
 </Block>
 
-<Block Title="中部左右结构布局" Introduction="中部采用左右结构，多用于后台管理网站布局，当布局模板中增加 <code>Side</code> 组件时默认采用上中下，中部采用左右结构布局">
+<Block Title="@LayoutsLocalizer["Block2Title"]" Introduction="@LayoutsLocalizer["Block2Intro"]">
     <Layout ShowFooter="true">
         <Header>
             <div class="text-center header">Header</div>
@@ -64,7 +64,7 @@
     </Layout>
 </Block>
 
-<Block Title="左右结构" Introduction="右侧采用上中下结构，多用于后台管理网站布局，通过设置 <code>IsFullSide</code> 属性值来控制布局为左右结构">
+<Block Title="@LayoutsLocalizer["Block3title"]" Introduction="@LayoutsLocalizer["Block3Intro"]">
     <Layout ShowFooter="true" IsFullSide="true">
         <Header>
             <div class="text-center header">Header</div>
@@ -81,7 +81,7 @@
     </Layout>
 </Block>
 
-<Block Title="自定义侧边栏宽度支持百分比" Introduction="通过设置 <code>SideWidth</code> 属性控制侧边栏宽度，支持百分比写法，设置 <code>0</code> 时关闭设置宽度功能，采用内部子控件撑满宽度特性">
+<Block Title="@LayoutsLocalizer["Block4Title"]" Introduction="@LayoutsLocalizer["Block4Intro"]">
     <Layout ShowFooter="true" SideWidth="200">
         <Header>
             <div class="text-center header">Header</div>
@@ -98,25 +98,25 @@
     </Layout>
 </Block>
 
-<Block Title="实战应用" Introduction="">
-    <div>实际使用过程中，侧边栏一般有两种用法</div>
+<Block Title="@LayoutsLocalizer["Block5Title"]">
+    <div>@LayoutsLocalizer["D1"]</div>
     <ul class="mt-2">
         <li>
-            <div>侧边栏充满整个屏幕，当菜单总体高度超出屏幕后出现滚动条</div>
+            <div>@LayoutsLocalizer["D2"]</div>
         </li>
         <li>
-            <div>侧边栏不做处理高度由内容自动撑开</div>
+            <div>@LayoutsLocalizer["D3"]</div>
         </li>
     </ul>
-    <div>由于存在多种运用方式，所以本组件未进行封装，由自己决定如何进行布局，下面是实际运用中的实战示例</div>
+    <div>@LayoutsLocalizer["D4"]</div>
     <p>
-        为了方便大家学习与比较以下实战示例中尽量使用 <code>style</code> 内联样式
+       @((MarkupString)LayoutsLocalizer["P3"].Value) 
     </p>
     <p>
-        本例点击左侧菜单展开后出现滚动条
+        @LayoutsLocalizer["P4"]
     </p>
     <Tips>
-        右侧面板中可用区域默认为全部，适用于带 <code>Tab</code> 组件的布局，本例中为了美观 <code>Main</code> 模板中内置了一个 <code>div</code> 并且设置样式为 <code>style="padding: 1rem;"</code>
+        @((MarkupString)LayoutsLocalizer["Tips1"].Value)
     </Tips>
     <div style="width: 100%; height: 300px; border: 1px solid rgba(0,0,0,.125);">
         <Layout ShowFooter="true" SideWidth="160px">
@@ -137,7 +137,7 @@
         </Layout>
     </div>
     <p class="mt-3">
-        本例点击左侧菜单展开后不出现滚动条会撑开父容器高度
+        @LayoutsLocalizer["P5"]
     </p>
     <div style="width: 100%; border: 1px solid rgba(0,0,0,.125);">
         <Layout ShowFooter="true" SideWidth="160px">
@@ -158,15 +158,15 @@
         </Layout>
     </div>
     <p class="mt-3">
-        <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href="/tabs">Tab 组件</a>
+       @((MarkupString)LayoutsLocalizer["P6"].Value)
     </p>
 </Block>
 
-<Block Title="整页面级别的组件" Introduction="">
-    <Tips>通过设置 <code>IsPage</code> 属性设置 <code>Layout</code> 组件是否掌控正页面级别的布局方式，设置为 <code>true</code> 后，本组件采用整屏布局</Tips>
+<Block Title="@LayoutsLocalizer["Block6Title"]" Introduction="">
+    <Tips>@((MarkupString)LayoutsLocalizer["Tips2"].Value)</Tips>
 
     <ul class="page-layout-demo-list">
-        <li><a href="layout-page" target="_blank">整页面组件生成器</a></li>
+        <li><a href="layout-page" target="_blank">@LayoutsLocalizer["Li"]</a></li>
     </ul>
 </Block>
 
