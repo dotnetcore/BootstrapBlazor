@@ -18,14 +18,14 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Text",
-                Description = "页脚组件显示的文字",
+                Description = Localizer["Desc1"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Target",
-                Description = "页脚组件控制的滚动条组件 ID",
+                Description = Localizer["Desc2"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

@@ -259,6 +259,17 @@
     "Desc16": "Contract expand callback delegate",
     "Desc17": "Call back the delegate when the menu item is clicked"
   },
+  "BootstrapBlazor.Shared.Pages.Footers": {
+    "Title": "Footer",
+    "H1": "Displayed at the bottom of the page, with a back to top button",
+    "P1": "When using <code>Footer</code> components, pay attention to the setting of the style sheet <code>position</code> attribute",
+    "BlockTitle": "Basic usage",
+    "BlockIntro": "Pass the ID of the scroll bar component to the footer component",
+    "P2": "The Footer component is displayed at the bottom, and the page will automatically scroll back to the top when you click to return to the top",
+    "P3": "This example passes the component client ID",
+    "Desc1": "The text displayed by the footer component",
+    "Desc2": "The ID of the scroll bar component controlled by the footer component"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
