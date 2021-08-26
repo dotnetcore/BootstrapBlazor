@@ -300,6 +300,25 @@
     "Desc3": "设置子Row跨父Row列数",
     "Desc4": "设置行内最多显示的控件数"
   },
+  "BootstrapBlazor.Shared.Pages.Skeletons": {
+    "Title": "Skeleton 骨架屏",
+    "H1": "在需要等待加载内容的位置提供一个占位图形组合",
+    "b1": "何时使用",
+    "Li1": "网络较慢，需要长时间等待加载处理的情况下",
+    "Li2": "图文信息内容较多的列表/卡片中",
+    "Li3": "只在第一次加载数据的时候使用",
+    "Li4": "可以被 Spin 完全代替，但是在可用的场景下可以比 Spin 提供更好的视觉效果和用户体验",
+    "Block1Title": "图片骨架屏",
+    "Block1Intro": "适用于头像、图片等类型加载时显示",
+    "P1": "通过设置 <code>Circle</code> 属性可以设置为圆形显示",
+    "Block2Title": "段落骨架屏",
+    "Block2Intro": "适用于大段文字等类型加载时显示",
+    "P2": "默认段落骨架屏仅显示三行，如果需要多行占位，请放置多个 <code>SkeletonParagraph</code> 即可",
+    "Block3Title": "表单骨架屏",
+    "Block3Intro": "适用于编辑表单加载时显示",
+    "Block4Title": "表格骨架屏",
+    "Block4Intro": "适用于编辑表格加载时显示"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Tips": {
     "Title": "小提示"
   },
