@@ -23,14 +23,14 @@
         }
 
     .split .split-pane {
-        justify-content: center;
-        align-items: center;
         height: 100%;
-        display: flex;
         overflow: hidden;
     }
 
     .split .split-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 6px;
         width: 100%;
         background: #f8f8f9;
