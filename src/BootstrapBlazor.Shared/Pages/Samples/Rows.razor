@@ -1,11 +1,12 @@
 ﻿@page "/rows"
+@inject IStringLocalizer<Rows> RowsLocalizer
 
-<h3>Row布局组件</h3>
+<h3>@RowsLocalizer["Title"]</h3>
 
-<h4>可简单设置一行显示的组件数量</h4>
+<h4>@RowsLocalizer["H1"]</h4>
 
-<Block Title="放置普通控件" Introduction="将自己的组件放到 <code>Row</code> 内部即可">
-    <p><b>行显示 3 个，采用 <code>Row</code></b></p>
+<Block Title="@RowsLocalizer["Block1Title"]" Introduction="@RowsLocalizer["Block1Intro"]">
+    <p><b>@((MarkupString)RowsLocalizer["b1"].Value)</b></p>
     <Row ItemsPerRow="ItemsPerRow.Three">
         <Card>
             <CardBody>
@@ -52,8 +53,8 @@
     </Row>
 </Block>
 
-<Block Title="放置表单控件（内联）" Introduction="当放置表单控件时，可以指定 <code>RowType</code> 为 <code>Inline</code>，会将 <b>Label</b> 显示在左边，控件充满剩余空间">
-    <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
+<Block Title="@RowsLocalizer["Block2Title"]" Introduction="@RowsLocalizer["Block2Intro"]">
+    <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.Inline">
             <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbys" />
@@ -66,8 +67,8 @@
     </ValidateForm>
 </Block>
 
-<Block Title="放置表单控件" Introduction="当放置表单控件时，可以指定 <code>RowType</code> 为 <code>FormRow</code>，会将 <b>Label</b> 显示在上边，控件充满">
-    <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
+<Block Title="@RowsLocalizer["Block3Title"]" Introduction="@RowsLocalizer["Block3Intro"]">
+    <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.Three">
             <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbys" />
@@ -80,8 +81,8 @@
     </ValidateForm>
 </Block>
 
-<Block Title="嵌套使用" Introduction="<code>Row</code> 组件支持嵌套使用，比如下面最外层的 <code>Row</code> 设置一行显示两个控件，第一个是 <code>TextBox</code>，第二个还是 <code>Row</code>，第二个 <code>Row</code> 继续设置显示两个控件">
-    <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
+<Block Title="@RowsLocalizer["Block4Title"]" Introduction="@RowsLocalizer["Block4Intro"]">
+    <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
     <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Two"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;Row ItemsPerRow="ItemsPerRow.Two"&gt;
@@ -100,10 +101,10 @@
     </ValidateForm>
 </Block>
 
-<Block Title="跨列功能" Introduction="<code>Row</code> 组件可以通过指定 <code>ColSpan</code> 值设置跨列数，组合这些功能可以实现复杂布局">
-    <p>本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签</p>
+<Block Title="@RowsLocalizer["Block5Title"]" Introduction="@RowsLocalizer["Block5Intro"]">
+    <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
 
-    <p><b>行显示 4 个</b></p>
+    <p><b>@RowsLocalizer["b2"]</b></p>
     <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
@@ -119,7 +120,7 @@
         </Row>
     </ValidateForm>
 
-    <p class="mt-3"><b>行显示 2 个</b></p>
+    <p class="mt-3"><b>@RowsLocalizer["b3"]</b></p>
     <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Two"
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Address" /&gt;
@@ -131,7 +132,7 @@
         </Row>
     </ValidateForm>
 
-    <p class="mt-3"><b>行显示 4 个 <code>Address</code> 占 2 列</b></p>
+    <p class="mt-3"><b>@((MarkupString)RowsLocalizer["b4"].Value)</b></p>
     <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;Row ColSpan="2"&gt;
@@ -149,7 +150,7 @@
         </Row>
     </ValidateForm>
 
-    <p class="mt-3"><b>行显示 4 个，第二个组件 <code>ColSpan</code> 设置为 3</b></p>
+    <p class="mt-3"><b>@((MarkupString)RowsLocalizer["b5"].Value)</b></p>
     <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
     &lt;Row ColSpan="3"&gt;
@@ -165,7 +166,7 @@
         </Row>
     </ValidateForm>
 
-    <p class="mt-3"><b>行显示 2 个，第一个组件 <code>ColSpan</code> 设置为 3</b></p>
+    <p class="mt-3"><b>@((MarkupString)RowsLocalizer["b6"].Value)</b></p>
     <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Four"&gt;
     &lt;Row ColSpan="3"&gt;
         &lt;CheckboxList @@bind-Value="@@Model.Hobby" Items="@@Hobbys" /&gt;
@@ -181,7 +182,7 @@
         </Row>
     </ValidateForm>
 
-    <p class="mt-3"><b>行显示一个组件</b></p>
+    <p class="mt-3"><b>@RowsLocalizer["b7"]</b></p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.One">
             <BootstrapInput @bind-Value="@Model.Address" />

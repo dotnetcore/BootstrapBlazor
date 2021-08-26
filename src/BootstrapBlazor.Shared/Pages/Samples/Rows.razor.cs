@@ -45,32 +45,32 @@ namespace BootstrapBlazor.Shared.Pages
             Hobbys = Foo.GenerateHobbys(Localizer);
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "ItemsPerRow",
-                Description = "设置一行显示几个控件",
+                Description = RowsLocalizer["Desc1"]!,
                 Type = "enum",
                 ValueList = " One,Two,Three,Four,Six,Twelve ",
                 DefaultValue = " One "
             },
             new AttributeItem() {
                 Name = "RowType",
-                Description = "设置排版格式，子Row如果不指定，会使用父Row的设置",
+                Description = RowsLocalizer["Desc2"]!,
                 Type = "enum?",
                 ValueList = "Normal, FormInline,FormRow",
                 DefaultValue = "null"
             },
             new AttributeItem() {
                 Name = "ColSpan",
-                Description = "设置子Row跨父Row列数",
+                Description = RowsLocalizer["Desc3"]!,
                 Type = "int?",
                 ValueList = "-",
                 DefaultValue = "null"
             },
             new AttributeItem() {
                 Name = "MaxCount",
-                Description = "设置行内最多显示的控件数",
+                Description = RowsLocalizer["Desc4"]!,
                 Type = "int?",
                 ValueList = "-",
                 DefaultValue = "null"
