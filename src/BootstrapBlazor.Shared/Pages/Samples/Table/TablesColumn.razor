@@ -13,6 +13,7 @@
             <TableColumn @bind-Field="@context.DateTime" Text="自定义列名1" Width="180" />
             <TableColumn @bind-Field="@context.Name" Text="自定义列名2" />
             <TableColumn @bind-Field="@context.Address" Text="自定义列名3" />
+            <TableColumn @bind-Field="@context.Complete" />
         </TableColumns>
     </Table>
 </Block>
@@ -23,6 +24,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Complete" />
         </TableColumns>
     </Table>
 </Block>
@@ -33,6 +35,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Complete" />
         </TableColumns>
     </Table>
 </Block>
@@ -232,7 +235,7 @@
 
 <Block Title="自定义列模板" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度">
     <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">

@@ -241,5 +241,25 @@
                 }
             }
         });
+        $(document).on('click', function (e) {
+            // column list handler
+            var $target = $(e.target);
+
+            // skip click dropdown item
+            var $menu = $target.closest('.dropdown-menu.show');
+            if ($menu.length > 0) {
+                return;
+            }
+
+            // skip click column list button
+            var $button = $target.closest('.btn-col');
+            if ($button.length > 0) {
+                return;
+            }
+
+            $('.table-toolbar > .btn-group > .btn-col > .dropdown-toggle.show').each(function (index, ele) {
+                $(ele).trigger('click');
+            });
+        });
     });
 })(jQuery);
