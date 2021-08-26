@@ -21,35 +21,35 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Text",
-                Description = "设置分割线显示文字",
+                Description = Localizer["Desc1"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Icon",
-                Description = "设置分割线显示图标",
+                Description = Localizer["Desc2"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Alignment",
-                Description = "设置分割线显示文字对齐方式",
+                Description = Localizer["Desc3"]!,
                 Type = "Aligment",
                 ValueList = "Left|Center|Right|Top|Bottom",
                 DefaultValue = "Center"
             },
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = "设置分割线是否为垂直分割",
+                Description = Localizer["Desc4"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "ChildContent 模板",
+                Description = Localizer["Desc5"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
