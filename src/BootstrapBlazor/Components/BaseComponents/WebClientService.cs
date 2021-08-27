@@ -46,6 +46,16 @@ namespace BootstrapBlazor.Components
         public string? OS { get; private set; }
 
         /// <summary>
+        /// 获得/设置 客户端设备类型
+        /// </summary>
+        public string? Device { get; private set; }
+
+        /// <summary>
+        /// 获得/设置 客户端浏览器语言
+        /// </summary>
+        public string? Language { get; private set; }
+
+        /// <summary>
         /// 获取/设置 请求网址
         /// </summary>
         public string? RequestUrl { get; private set; }
@@ -105,14 +115,18 @@ namespace BootstrapBlazor.Components
         /// <param name="ip"></param>
         /// <param name="os"></param>
         /// <param name="browser"></param>
+        /// <param name="device"></param>
+        /// <param name="language"></param>
         /// <param name="agent"></param>
         [JSInvokable]
-        public void SetData(string id, string ip, string os, string browser, string agent)
+        public void SetData(string id, string ip, string os, string browser, string device, string language, string agent)
         {
             Id = id;
             Ip = ip;
             OS = os;
             Browser = browser;
+            Device = device;
+            Language = language;
             UserAgent = agent;
             ReturnTask?.TrySetResult(true);
         }

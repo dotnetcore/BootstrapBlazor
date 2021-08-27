@@ -98,7 +98,12 @@
                 type: "GET",
                 url: url,
                 success: function (data) {
-                    obj.invokeMethodAsync(method, data.Id, data.Ip, data.Os, data.Browser, data.UserAgent);
+                    var browser = new Browser();
+                    data.Browser = browser.browser + ' ' + browser.version;
+                    data.Os = browser.os + ' ' + browser.osVersion;
+                    data.Device = browser.device;
+                    data.Language = browser.language;
+                    obj.invokeMethodAsync(method, data.Id, data.Ip, data.Os, data.Browser, data.Device, data.Language, data.UserAgent);
                 }
             });
         }

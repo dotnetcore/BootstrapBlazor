@@ -69,8 +69,6 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.UseWhen(context => context.Request.Path.StartsWithSegments("/ip.axd"), app => app.Run(async context =>
             {
                 var ip = "";
-                var os = "";
-                var browser = "";
                 var headers = context.Request.Headers;
                 if (headers.ContainsKey("X-Forwarded-For"))
                 {
@@ -89,19 +87,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     ip = context.Connection.RemoteIpAddress.ToIPv4String();
                 }
 
-                // UserAgent
-                var agent = headers["User-Agent"];
-
-                // OS/Browser
-                if (!string.IsNullOrEmpty(agent))
-                {
-                    var at = new UserAgent(agent);
-                    os = $"{at.OS.Name} {at.OS.Version}";
-                    browser = $"{at.Browser.Name} {at.Browser.Version}";
-                }
-
                 context.Response.Headers.Add("Content-Type", new Microsoft.Extensions.Primitives.StringValues("application/json; charset=utf-8"));
-                await context.Response.WriteAsync(JsonSerializer.Serialize(new { Id = context.TraceIdentifier, Ip = ip, Os = os, Browser = browser, UserAgent = agent.ToString() }));
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new { Id = context.TraceIdentifier, Ip = ip }));
             }));
             return builder;
         }
