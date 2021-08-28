@@ -70,6 +70,10 @@ namespace BootstrapBlazor.Shared.Pages.Components
             if (firstRender)
             {
                 await JSRuntime.InvokeVoidAsync("$.initTheme", ThemeElement);
+
+                // TODO: for test Motronic
+                var item = Themes.First(t => t.Text == "Motronic (开发中)");
+                await OnClickTheme(item);
             }
         }
 
