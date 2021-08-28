@@ -930,3 +930,81 @@ form .form-label[required]:before {
     top: 35%;
     width: 100%;
 }
+
+/*pulse*/
+
+.pulse {
+    position: relative
+}
+
+    .pulse.pulse-white .pulse-ring {
+        border-color: #fff
+    }
+
+    .pulse.pulse-light .pulse-ring {
+        border-color: #f5f8fa
+    }
+
+    .pulse.pulse-primary .pulse-ring {
+        border-color: #009ef7
+    }
+
+    .pulse.pulse-secondary .pulse-ring {
+        border-color: #e4e6ef
+    }
+
+    .pulse.pulse-success .pulse-ring {
+        border-color: #50cd89
+    }
+
+    .pulse.pulse-info .pulse-ring {
+        border-color: #7239ea
+    }
+
+    .pulse.pulse-warning .pulse-ring {
+        border-color: #ffc700
+    }
+
+    .pulse.pulse-danger .pulse-ring {
+        border-color: #f1416c
+    }
+
+    .pulse.pulse-dark .pulse-ring {
+        border-color: #181c32
+    }
+
+.pulse-ring {
+    display: block;
+    border-radius: 40px;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    animation: animation-pulse 3.5s ease-out;
+    animation-iteration-count: infinite;
+    opacity: 0;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #a1a5b7
+}
+
+@keyframes animation-pulse {
+    0% {
+        -webkit-transform: scale(.1,.1);
+        opacity: 0
+    }
+
+    60% {
+        -webkit-transform: scale(.1,.1);
+        opacity: 0
+    }
+
+    65% {
+        opacity: 1
+    }
+
+    100% {
+        -webkit-transform: scale(1.2,1.2);
+        opacity: 0
+    }
+}
+/*end pulse*/

@@ -1611,3 +1611,20 @@ section {
 .sidebar-content {
     padding: .5rem 0;
 }
+
+.btn-theme .pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .btn-theme .pulse .pulse-ring {
+        width: 46px;
+        height: 46px;
+        border-radius: 46px;
+    }
