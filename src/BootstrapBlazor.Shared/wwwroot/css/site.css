@@ -1628,3 +1628,7 @@ section {
         height: 46px;
         border-radius: 46px;
     }
+
+.cell-demo {
+    background-color: var(--bs-table-striped-bg) !important;
+}

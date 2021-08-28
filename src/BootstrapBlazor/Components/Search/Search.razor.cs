@@ -66,6 +66,12 @@ namespace BootstrapBlazor.Components
         public string SearchButtonLoadingIcon { get; set; } = "fa fa-fw fa-spinner fa-spin";
 
         /// <summary>
+        /// 获得/设置 搜索模式是否为输入即触发 默认 false 点击搜索按钮触发
+        /// </summary>
+        [Parameter]
+        public bool IsOnInputTrigger { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否自动获得焦点
         /// </summary>
         [Parameter]
@@ -138,7 +144,8 @@ namespace BootstrapBlazor.Components
                 await OnSearch(CurrentValueAsString);
                 ButtonIcon = SearchButtonIcon;
             }
-            if (IsAutoClearAfterSearch)
+
+            if (IsAutoClearAfterSearch && !IsOnInputTrigger)
             {
                 CurrentValueAsString = "";
             }
@@ -175,12 +182,11 @@ namespace BootstrapBlazor.Components
             await base.OnKeyUp(args);
             if (!string.IsNullOrEmpty(CurrentValueAsString))
             {
-                if (args.Key == "Enter")
+                if (IsOnInputTrigger || args.Key == "Enter")
                 {
                     await OnSearchClick();
                 }
-
-                if (args.Key == "Escape")
+                else if (args.Key == "Escape")
                 {
                     await OnClearClick();
                 }
