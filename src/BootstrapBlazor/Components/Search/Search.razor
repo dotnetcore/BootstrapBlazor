@@ -4,12 +4,12 @@
 <div class="search">
     <div class="@ClassString">
         <div class="input-group">
-            <input @attributes="AdditionalAttributes" @ref="SearchElement" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="@OnBlur" @onkeyup="@OnKeyUp" />
+            <input @attributes="AdditionalAttributes" @ref="SearchElement" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
             @if (ShowClearButton)
             {
-                <Button Color="@ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="@OnClearClick" />
+                <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" />
             }
-            <Button Color="@SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="@OnSearchClick" />
+            <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" />
         </div>
         <div class="select-dropdown">
             <ul class="dropdown-list">
@@ -17,7 +17,7 @@
                 {
                     @foreach (var item in FilterItems)
                     {
-                        <li class="@ItemClassString(item)" @onmousedown="@(async e => await OnItemClick(item))">
+                        <li class="@ItemClassString(item)" @onmousedown="e => OnClickItem(item)">
                             <div>@item</div>
                         </li>
                     }
