@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 鼠标点击候选项时回调此方法
         /// </summary>
-        protected Task OnItemClick(string val)
+        protected virtual Task OnClickItem(string val)
         {
             CurrentValue = val;
             return Task.CompletedTask;
