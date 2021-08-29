@@ -1611,6 +1611,7 @@ section {
 
 .sidebar-content {
     padding: .5rem 0;
+    width: 292px;
 }
 
 .btn-theme .pulse {

@@ -29,30 +29,9 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Height",
                 Description = Locaizer["Desc2"]!,
-                Type = "int",
+                Type = "string",
                 ValueList = " — ",
-                DefaultValue = "0"
-            },
-            new AttributeItem() {
-                Name = "Width",
-                Description = Locaizer["Desc3"]!,
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "0"
-            },
-            new AttributeItem() {
-                Name = "IsAutoHide",
-                Description = Locaizer["Desc4"]!,
-                Type = "true",
-                ValueList = "true|false",
-                DefaultValue = "true"
-            },
-            new AttributeItem() {
-                Name = "IsForce",
-                Description = Locaizer["Desc5"]!,
-                Type = "true",
-                ValueList = "true|false",
-                DefaultValue = "true"
+                DefaultValue = " — "
             }
         };
     }
