@@ -1,10 +1,11 @@
 ﻿@page "/components"
+@inject IStringLocalizer<Coms> Localizer
 
 <div class="coms-search">
     <div class="row">
         <div class="col-12">
             <Search IgnoreCase="true" IsLikeMatch="true" IsOnInputTrigger="true"
-                    PlaceHolder="搜索想要的组件" Items="@ComponentItems" OnSearch="@OnSearch"></Search>
+                    PlaceHolder="@Localizer["Search"]" Items="@ComponentItems" OnSearch="@OnSearch"></Search>
         </div>
     </div>
     <div class="coms-search-filter">
@@ -14,96 +15,96 @@
 <CascadingValue Value="ComponentItems" IsFixed="true">
     <CascadingValue Value="@SearchText">
 
-        <ComponentCategory Text="布局组件">
-            <ComponentCard Text="分割线 Divider" Image="Divider.svg" Url="dividers"></ComponentCard>
-            <ComponentCard Text="布局组件 Layout" Image="Layout.svg" Url="layouts"></ComponentCard>
-            <ComponentCard Text="页脚组件 Footer" Image="Footer.jpg" Url="footers"></ComponentCard>
-            <ComponentCard Text="滚动条 Scroll" Image="Scroll.png" Url="scrolls"></ComponentCard>
-            <ComponentCard Text="骨架屏 Skeleton" Image="Skeleton.png" Url="skeletons"></ComponentCard>
-            <ComponentCard Text="分割面板 Split" Image="Split.png" Url="splits"></ComponentCard>
+        <ComponentCategory Text="@Localizer["Text1"]">
+            <ComponentCard Text="@Localizer["DividerText"]" Image="Divider.svg" Url="dividers"></ComponentCard>
+            <ComponentCard Text="@Localizer["LayoutText"]" Image="Layout.svg" Url="layouts"></ComponentCard>
+            <ComponentCard Text="@Localizer["FooterText"]" Image="Footer.jpg" Url="footers"></ComponentCard>
+            <ComponentCard Text="@Localizer["ScorllText"]" Image="Scroll.png" Url="scrolls"></ComponentCard>
+            <ComponentCard Text="@Localizer["SkeletonText"]" Image="Skeleton.png" Url="skeletons"></ComponentCard>
+            <ComponentCard Text="@Localizer["SplitText"]" Image="Split.png" Url="splits"></ComponentCard>
         </ComponentCategory>
 
-        <ComponentCategory Text="导航组件">
-            <ComponentCard Text="锚点 Anchor" Image="Anchor.png" Url="anchors"></ComponentCard>
-            <ComponentCard Text="面包屑 Breadcrumb" Image="Breadcrumb.png" Url="breadcrumbs"></ComponentCard>
-            <ComponentCard Text="菜单 Menu" Image="Menu.svg" Url="menus"></ComponentCard>
-            <ComponentCard Text="导航栏 Nav" Image="Space.svg" Url="navs"></ComponentCard>
-            <ComponentCard Text="下拉菜单 Dropdown" Image="Dropdown.svg" Url="dropdowns"></ComponentCard>
-            <ComponentCard Text="跳转组件 GoTop" Image="GoTop.png" Url="gotops"></ComponentCard>
-            <ComponentCard Text="分页 Pagination" Image="Pagination.svg" Url="paginations"></ComponentCard>
-            <ComponentCard Text="步骤条 Steps" Image="Steps.svg" Url="stepss"></ComponentCard>
-            <ComponentCard Text="标签页 Tab" Image="Tabs.svg" Url="tabs"></ComponentCard>
+        <ComponentCategory Text="@Localizer["Text2"]">
+            <ComponentCard Text="@Localizer["AnchorText"]" Image="Anchor.png" Url="anchors"></ComponentCard>
+            <ComponentCard Text="@Localizer["BreadcrumbText"]" Image="Breadcrumb.png" Url="breadcrumbs"></ComponentCard>
+            <ComponentCard Text="@Localizer["MenuText"]" Image="Menu.svg" Url="menus"></ComponentCard>
+            <ComponentCard Text="@Localizer["NavText"]" Image="Space.svg" Url="navs"></ComponentCard>
+            <ComponentCard Text="@Localizer["DropdownText"]" Image="Dropdown.svg" Url="dropdowns"></ComponentCard>
+            <ComponentCard Text="@Localizer["GoTopText"]" Image="GoTop.png" Url="gotops"></ComponentCard>
+            <ComponentCard Text="@Localizer["PaginationText"]" Image="Pagination.svg" Url="paginations"></ComponentCard>
+            <ComponentCard Text="@Localizer["StepsText"]" Image="Steps.svg" Url="stepss"></ComponentCard>
+            <ComponentCard Text="@Localizer["TabText"]" Image="Tabs.svg" Url="tabs"></ComponentCard>
         </ComponentCategory>
 
-        <ComponentCategory Text="表单组件">
-            <ComponentCard Text="表单组件 EditorForm" Image="EditorForm.png" Url="editorforms"></ComponentCard>
-            <ComponentCard Text="表单组件 ValidateForm" Image="ValidateForm.png" Url="validateforms"></ComponentCard>
-            <ComponentCard Text="自动完成 AutoComplete" Image="AutoComplete.svg" Url="autocompletes"></ComponentCard>
-            <ComponentCard Text="按钮 Button" Image="Button.svg" Url="buttons"></ComponentCard>
-            <ComponentCard Text="级联选择 Cascader" Image="Cascader.png" Url="cascaders"></ComponentCard>
-            <ComponentCard Text="多选框 Checkbox" Image="CheckBox.svg" Url="checkboxs"></ComponentCard>
-            <ComponentCard Text="多选框组 CheckboxList" Image="CheckboxList.png" Url="checkboxlists"></ComponentCard>
-            <ComponentCard Text="颜色拾取器 ColorPicker" Image="ColorPicker.png" Url="colorpickers"></ComponentCard>
-            <ComponentCard Text="时间框 DateTimePicker" Image="DatePicker.svg" Url="datetimepickers"></ComponentCard>
-            <ComponentCard Text="时间范围框 DateTimeRange" Image="DateTimeRange.png" Url="datetimeranges"></ComponentCard>
-            <ComponentCard Text="富文本框 Editor" Image="Editor.png" Url="editors"></ComponentCard>
-            <ComponentCard Text="输入框 Input" Image="Input.svg" Url="inputs"></ComponentCard>
-            <ComponentCard Text="数字框 InputNumber" Image="InputNumber.png" Url="inputnumbers"></ComponentCard>
-            <ComponentCard Text="富文本框 Markdown" Image="Markdown.png" Url="markdowns"></ComponentCard>
-            <ComponentCard Text="单选框 Radio" Image="Radio.svg" Url="radios"></ComponentCard>
-            <ComponentCard Text="评分 Rate" Image="Rate.jpg" Url="rates"></ComponentCard>
-            <ComponentCard Text="选择器 Select" Image="Select.svg" Url="selects"></ComponentCard>
-            <ComponentCard Text="多项选择器 MultiSelect" Image="MultiSelect.png" Url="multiselects"></ComponentCard>
-            <ComponentCard Text="滑块 Slider" Image="Slider.svg" Url="sliders"></ComponentCard>
-            <ComponentCard Text="开关 Switch" Image="Switch.svg" Url="switchs"></ComponentCard>
-            <ComponentCard Text="多行文本框 Textarea" Image="Textarea.png" Url="textareas"></ComponentCard>
-            <ComponentCard Text="开关 Toggle" Image="Toggle.png" Url="toggles"></ComponentCard>
-            <ComponentCard Text="穿梭框 Transfer" Image="Transfer.svg" Url="transfers"></ComponentCard>
-            <ComponentCard Text="上传组件 Upload" Image="Upload.svg" Url="uploads"></ComponentCard>
+        <ComponentCategory Text="@Localizer["Text"]">
+            <ComponentCard Text="@Localizer["EditorFormText"]" Image="EditorForm.png" Url="editorforms"></ComponentCard>
+            <ComponentCard Text="@Localizer["ValidateFormText"]" Image="ValidateForm.png" Url="validateforms"></ComponentCard>
+            <ComponentCard Text="@Localizer["AutoCompleteText"]" Image="AutoComplete.svg" Url="autocompletes"></ComponentCard>
+            <ComponentCard Text="@Localizer["ButtonText"]" Image="Button.svg" Url="buttons"></ComponentCard>
+            <ComponentCard Text="@Localizer["CascaderText"]" Image="Cascader.png" Url="cascaders"></ComponentCard>
+            <ComponentCard Text="@Localizer["CheckboxText"]" Image="CheckBox.svg" Url="checkboxs"></ComponentCard>
+            <ComponentCard Text="@Localizer["CheckboxListText"]" Image="CheckboxList.png" Url="checkboxlists"></ComponentCard>
+            <ComponentCard Text="@Localizer["ColorPickerText"]" Image="ColorPicker.png" Url="colorpickers"></ComponentCard>
+            <ComponentCard Text="@Localizer["DateTimePickerText"]" Image="DatePicker.svg" Url="datetimepickers"></ComponentCard>
+            <ComponentCard Text="@Localizer["DateTimeRangeText"]" Image="DateTimeRange.png" Url="datetimeranges"></ComponentCard>
+            <ComponentCard Text="@Localizer["EditorText"]" Image="Editor.png" Url="editors"></ComponentCard>
+            <ComponentCard Text="@Localizer["InputText"]" Image="Input.svg" Url="inputs"></ComponentCard>
+            <ComponentCard Text="@Localizer["InputNumberText"]" Image="InputNumber.png" Url="inputnumbers"></ComponentCard>
+            <ComponentCard Text="@Localizer["MarkdownText"]" Image="Markdown.png" Url="markdowns"></ComponentCard>
+            <ComponentCard Text="@Localizer["RadioText"]" Image="Radio.svg" Url="radios"></ComponentCard>
+            <ComponentCard Text="@Localizer["RateText"]" Image="Rate.jpg" Url="rates"></ComponentCard>
+            <ComponentCard Text="@Localizer["SelectText"]" Image="Select.svg" Url="selects"></ComponentCard>
+            <ComponentCard Text="@Localizer["MultiSelectText"]" Image="MultiSelect.png" Url="multiselects"></ComponentCard>
+            <ComponentCard Text="@Localizer["SliderText"]" Image="Slider.svg" Url="sliders"></ComponentCard>
+            <ComponentCard Text="@Localizer["SwitchText"]" Image="Switch.svg" Url="switchs"></ComponentCard>
+            <ComponentCard Text="@Localizer["TextareaText"]" Image="Textarea.png" Url="textareas"></ComponentCard>
+            <ComponentCard Text="@Localizer["ToggleText"]" Image="Toggle.png" Url="toggles"></ComponentCard>
+            <ComponentCard Text="@Localizer["TransferText"]" Image="Transfer.svg" Url="transfers"></ComponentCard>
+            <ComponentCard Text="@Localizer["UploadText"]" Image="Upload.svg" Url="uploads"></ComponentCard>
         </ComponentCategory>
 
-        <ComponentCategory Text="数据组件">
-            <ComponentCard Text="头像框 Avatar" Image="Avatar.svg" Url="avatars"></ComponentCard>
-            <ComponentCard Text="徽章 Badge" Image="Badge.svg" Url="badges"></ComponentCard>
-            <ComponentCard Text="卡片 Card" Image="Card.svg" Url="cards"></ComponentCard>
-            <ComponentCard Text="日历框 Calendar" Image="Calendar.svg" Url="calendars"></ComponentCard>
-            <ComponentCard Text="验证码 Captcha" Image="Captcha.png" Url="captchas"></ComponentCard>
-            <ComponentCard Text="走马灯 Carousel" Image="Carousel.svg" Url="carousels"></ComponentCard>
-            <ComponentCard Text="图表 Chart" Image="Chart.png" Url="charts"></ComponentCard>
-            <ComponentCard Text="进度环 Circle" Image="Circle.png" Url="circles"></ComponentCard>
-            <ComponentCard Text="折叠 Collapse" Image="Collapse.svg" Url="collapses"></ComponentCard>
-            <ComponentCard Text="挂件 DropdownWidget" Image="DropdownWidget.png" Url="dropdownwidgets"></ComponentCard>
-            <ComponentCard Text="集合 GroupBox" Image="GroupBox.png" Url="groupboxs"></ComponentCard>
-            <ComponentCard Text="列表组件 ListView" Image="ListView.png" Url="listviews"></ComponentCard>
-            <ComponentCard Text="弹出框 Popover" Image="Popover.svg" Url="popovers"></ComponentCard>
-            <ComponentCard Text="二维码 QRCode" Image="QRCode.png" Url="qrcodes"></ComponentCard>
-            <ComponentCard Text="搜索框 Search" Image="Search.png" Url="searchs"></ComponentCard>
-            <ComponentCard Text="表格 Table" Image="Table.svg" Url="tables"></ComponentCard>
-            <ComponentCard Text="标签 Tag" Image="Tag.svg" Url="tags"></ComponentCard>
-            <ComponentCard Text="时间线 Timeline" Image="Timeline.svg" Url="timelines"></ComponentCard>
-            <ComponentCard Text="工具条 Tooltip" Image="Tooltip.svg" Url="tooltips"></ComponentCard>
-            <ComponentCard Text="树形控件 Tree" Image="Tree.svg" Url="trees"></ComponentCard>
-            <ComponentCard Text="条码扫描 BarcodeReader" Image="BarcodeReader.png" Url="barcodereaders"></ComponentCard>
-            <ComponentCard Text="摄像头组件 Camera" Image="Camera.png" Url="Cameras"></ComponentCard>
-            <ComponentCard Text="手写签名 HandwrittenPage" Image="Handwritten.jpg" Url="handwrittenPage"></ComponentCard>
+        <ComponentCategory Text="@Localizer["Text4"]">
+            <ComponentCard Text="@Localizer["AvatarText"]" Image="Avatar.svg" Url="avatars"></ComponentCard>
+            <ComponentCard Text="@Localizer["BadgeText"]" Image="Badge.svg" Url="badges"></ComponentCard>
+            <ComponentCard Text="@Localizer["CardText"]" Image="Card.svg" Url="cards"></ComponentCard>
+            <ComponentCard Text="@Localizer["CalendarText"]" Image="Calendar.svg" Url="calendars"></ComponentCard>
+            <ComponentCard Text="@Localizer["CaptchaText"]" Image="Captcha.png" Url="captchas"></ComponentCard>
+            <ComponentCard Text="@Localizer["CarouselText"]" Image="Carousel.svg" Url="carousels"></ComponentCard>
+            <ComponentCard Text="@Localizer["ChartText"]" Image="Chart.png" Url="charts"></ComponentCard>
+            <ComponentCard Text="@Localizer["CircleText"]" Image="Circle.png" Url="circles"></ComponentCard>
+            <ComponentCard Text="@Localizer["CollapseText"]" Image="Collapse.svg" Url="collapses"></ComponentCard>
+            <ComponentCard Text="@Localizer["DropdownWidgetText"]" Image="DropdownWidget.png" Url="dropdownwidgets"></ComponentCard>
+            <ComponentCard Text="@Localizer["GroupBoxText"]" Image="GroupBox.png" Url="groupboxs"></ComponentCard>
+            <ComponentCard Text="@Localizer["ListViewText"]" Image="ListView.png" Url="listviews"></ComponentCard>
+            <ComponentCard Text="@Localizer["PopoverText"]" Image="Popover.svg" Url="popovers"></ComponentCard>
+            <ComponentCard Text="@Localizer["QRCodeText"]" Image="QRCode.png" Url="qrcodes"></ComponentCard>
+            <ComponentCard Text="@Localizer["SearchText"]" Image="Search.png" Url="searchs"></ComponentCard>
+            <ComponentCard Text="@Localizer["TableText"]" Image="Table.svg" Url="tables"></ComponentCard>
+            <ComponentCard Text="@Localizer["TagText"]" Image="Tag.svg" Url="tags"></ComponentCard>
+            <ComponentCard Text="@Localizer["TimelineText"]" Image="Timeline.svg" Url="timelines"></ComponentCard>
+            <ComponentCard Text="@Localizer["TooltipText"]" Image="Tooltip.svg" Url="tooltips"></ComponentCard>
+            <ComponentCard Text="@Localizer["TreeText"]" Image="Tree.svg" Url="trees"></ComponentCard>
+            <ComponentCard Text="@Localizer["BarcodeReaderText"]" Image="BarcodeReader.png" Url="barcodereaders"></ComponentCard>
+            <ComponentCard Text="@Localizer["CameraText"]" Image="Camera.png" Url="Cameras"></ComponentCard>
+            <ComponentCard Text="@Localizer["HandwrittenPageText"]" Image="Handwritten.jpg" Url="handwrittenPage"></ComponentCard>
         </ComponentCategory>
 
-        <ComponentCategory Text="消息组件">
-            <ComponentCard Text="警告框 Alert" Image="Alert.svg" Url="alerts"></ComponentCard>
-            <ComponentCard Text="控制台 Console" Image="Console.png" Url="consoles"></ComponentCard>
-            <ComponentCard Text="对话框 Dialog" Image="Notification.svg" Url="dialogs"></ComponentCard>
-            <ComponentCard Text="抽屉 Drawer" Image="Drawer.svg" Url="drawers"></ComponentCard>
-            <ComponentCard Text="编辑弹窗 EditDialog" Image="Notification.svg" Url="editdialogs"></ComponentCard>
-            <ComponentCard Text="消息框 Message" Image="Message.svg" Url="messages"></ComponentCard>
-            <ComponentCard Text="模态框 Modal" Image="Modal.svg" Url="modals"></ComponentCard>
-            <ComponentCard Text="指示灯 Light" Image="Light.png" Url="lights"></ComponentCard>
-            <ComponentCard Text="确认框 Popconfirm" Image="Popconfirm.svg" Url="popconfirms"></ComponentCard>
-            <ComponentCard Text="进度条 Progress" Image="Progress.svg" Url="progresss"></ComponentCard>
-            <ComponentCard Text="旋转图标 Spinner" Image="Spinner.gif" Url="spinners"></ComponentCard>
-            <ComponentCard Text="模态弹窗 SweetAlert" Image="SweetAlert.png" Url="swals"></ComponentCard>
-            <ComponentCard Text="搜索弹窗 SearchDialog" Image="SearchDialog.png" Url="searchdialogs"></ComponentCard>
-            <ComponentCard Text="轻量弹窗 Toast" Image="Toast.png" Url="toasts"></ComponentCard>
-            <ComponentCard Text="计时器 Timer" Image="Timer.png" Url="timers"></ComponentCard>
+        <ComponentCategory Text="@Localizer["Text5"]">
+            <ComponentCard Text="@Localizer["AlertText"]" Image="Alert.svg" Url="alerts"></ComponentCard>
+            <ComponentCard Text="@Localizer["ConsoleText"]" Image="Console.png" Url="consoles"></ComponentCard>
+            <ComponentCard Text="@Localizer["DialogText"]" Image="Notification.svg" Url="dialogs"></ComponentCard>
+            <ComponentCard Text="@Localizer["DrawerText"]" Image="Drawer.svg" Url="drawers"></ComponentCard>
+            <ComponentCard Text="@Localizer["EditDialogText"]" Image="Notification.svg" Url="editdialogs"></ComponentCard>
+            <ComponentCard Text="@Localizer["MessageText"]" Image="Message.svg" Url="messages"></ComponentCard>
+            <ComponentCard Text="@Localizer["ModalText"]" Image="Modal.svg" Url="modals"></ComponentCard>
+            <ComponentCard Text="@Localizer["LightText"]" Image="Light.png" Url="lights"></ComponentCard>
+            <ComponentCard Text="@Localizer["PopconfirmText"]" Image="Popconfirm.svg" Url="popconfirms"></ComponentCard>
+            <ComponentCard Text="@Localizer["ProgressText"]" Image="Progress.svg" Url="progresss"></ComponentCard>
+            <ComponentCard Text="@Localizer["SpinnerText"]" Image="Spinner.gif" Url="spinners"></ComponentCard>
+            <ComponentCard Text="@Localizer["SweetAlertText"]" Image="SweetAlert.png" Url="swals"></ComponentCard>
+            <ComponentCard Text="@Localizer["SearchDialogText"]" Image="SearchDialog.png" Url="searchdialogs"></ComponentCard>
+            <ComponentCard Text="@Localizer["ToastText"]" Image="Toast.png" Url="toasts"></ComponentCard>
+            <ComponentCard Text="@Localizer["TimerText"]" Image="Timer.png" Url="timers"></ComponentCard>
         </ComponentCategory>
 
     </CascadingValue>
