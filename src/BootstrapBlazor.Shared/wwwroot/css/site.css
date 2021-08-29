@@ -80,27 +80,31 @@ section {
     -webkit-font-smoothing: antialiased;
 }
 
-.sidebar .navbar-brand {
-    font-size: 1.1rem;
+.sidebar {
+    overflow-x: hidden !important;
 }
 
-.sidebar .nav-item {
-    font-size: 0.875rem;
-    padding-left: 6px;
-}
-
-    .sidebar .nav-item a {
-        color: #444;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        padding: .25rem 1.5rem;
-        font-weight: 400;
+    .sidebar .navbar-brand {
+        font-size: 1.1rem;
     }
 
-.sidebar .navbar {
-    background-color: rgb(60, 40, 97);
-}
+    .sidebar .nav-item {
+        font-size: 0.875rem;
+        padding-left: 6px;
+    }
+
+        .sidebar .nav-item a {
+            color: #444;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: .25rem 1.5rem;
+            font-weight: 400;
+        }
+
+    .sidebar .navbar {
+        background-color: rgb(60, 40, 97);
+    }
 
 .tabs-body-content > h2,
 .content > h2,
