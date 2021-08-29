@@ -83,6 +83,21 @@ namespace BootstrapBlazor.Components
         });
 
         /// <summary>
+        /// Toast 调用警告信息快捷方法
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="content"></param>
+        /// <param name="autoHide"></param>
+        /// <returns></returns>
+        public Task Warning(string? title = null, string? content = null, bool autoHide = true) => Show(new ToastOption()
+        {
+            Category = ToastCategory.Warning,
+            IsAutoHide = autoHide,
+            Title = title ?? "",
+            Content = content ?? ""
+        });
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="disposing"></param>

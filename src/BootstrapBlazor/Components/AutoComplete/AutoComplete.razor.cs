@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 鼠标点击候选项时回调此方法
         /// </summary>
-        protected virtual Task OnItemClick(string val)
+        protected virtual Task OnClickItem(string val)
         {
             CurrentValue = val;
             return Task.CompletedTask;

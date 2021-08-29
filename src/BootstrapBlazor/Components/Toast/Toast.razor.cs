@@ -49,6 +49,10 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
+        private ToastService? ToastService { get; set; }
+
+        [Inject]
+        [NotNull]
         private IOptions<BootstrapBlazorOptions>? Options { get; set; }
 
         /// <summary>

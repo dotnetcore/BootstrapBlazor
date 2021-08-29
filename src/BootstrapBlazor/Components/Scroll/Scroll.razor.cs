@@ -10,44 +10,27 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Scroll
+    public partial class Scroll
     {
-        /// <summary>
-        /// 获得 组件样式
-        /// </summary>
         private string? ClassString => CssBuilder.Default("scroll")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
-        /// <summary>
-        /// 获得 是否自动隐藏
-        /// </summary>
-        private string AutoHideString => IsAutoHide ? "true" : "false";
+        private string? StyleString => CssBuilder.Default()
+            .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
+            .AddStyleFromAttributes(AdditionalAttributes)
+            .Build();
 
         /// <summary>
-        /// Scroll 组件 DOM 实例
-        /// </summary>
-        private ElementReference ScrollElement { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否强制使用滚动条 默认为 true
+        /// 获得/设置 子组件
         /// </summary>
         [Parameter]
-        public bool IsForce { get; set; } = true;
+        public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// OnAfterRenderAsync 方法
+        /// 获得/设置 组件高度
         /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
-            {
-                await JSRuntime.InvokeVoidAsync(ScrollElement, "bb_scroll", IsForce);
-            }
-        }
+        [Parameter]
+        public string? Height { get; set; }
     }
 }

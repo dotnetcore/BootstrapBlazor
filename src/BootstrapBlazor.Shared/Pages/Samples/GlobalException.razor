@@ -1,26 +1,27 @@
 ﻿@page "/globalexception"
 @layout ComponentLayout
+@inject IStringLocalizer<GlobalException> Localizer
 
-<h3>全局异常</h3>
+<h3>@Localizer["Title"]</h3>
 
-<p>增加组件 <code>BlazorLogger</code> 通过本组件可以对全局的日志、异常进行统一输出；目前由于 <code>Blazor</code> 框架并未提供一个类似 <code>MVC</code> 的 <b>全局异常</b> 整体解决方案，暂时还需要在代码块中使用 <code>try/catch</code> 进行异常捕获</p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>
 
-<h4>使用方法</h4>
+<h4>@Localizer["H1"]</h4>
 
-<p>1. <code>Startup</code> 文件中增加 <code>AddLogging</code> 开启 <code>net core</code> 系统日志功能</p>
+<p>@((MarkupString)Localizer["P2"].Value)</p>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
     services.AddLogging(builder => builder.AddConsole());
 }</Pre>
 
-<p>2. 使用 <code>BlazorLogger</code> 对内容进行包裹，如：<code>MainLayout</code> 中对 <code>Body</code> 使用</p>
+<p>@((MarkupString)Localizer["P3"].Value)</p>
 
 <Pre>&lt;BlazorLogger&gt;
     @@Body
 &lt;/BlazorLogger&gt;</Pre>
 
-<p>3. 代码中使用级联参数获取实例</p>
+<p>@((MarkupString)Localizer["P4"].Value)</p>
 
 <Pre>[CascadingParameter]
 [NotNull]
@@ -39,7 +40,7 @@ private void OnClick()
     }
 }</Pre>
 
-<p>4. 控制台或者 <b>IIS</b> 输出可见日志信息</p>
+<p>@((MarkupString)Localizer["P5"].Value)</p>
 <Pre>crit: BootstrapBlazor.Components.BlazorLogger[0]
       TimeStamp: 8/23/2021 12:20:46 PM
       MachineName: ECS-A399
@@ -57,8 +58,8 @@ private void OnClick()
       System.DivideByZeroException: Attempted to divide by zero.
          at BootstrapBlazor.Shared.Pages.GlobalException.OnClick() in D:\Argo\src\BB\BootstrapBlazor\src\BootstrapBlazor.Shared\Pages\GlobalException.razor.cs:line 30</Pre>
 
-<Block Title="测试" Introduction="本功能是通过级联参数获取到组件实例并使用其功能">
-    <p>本例代码中写了一个除以零的错误代码，由于使用了 <code>try/catch</code> 对异常进行了捕获，将错误信息显示到下面控制台中</p>
-    <Button Icon="fa fa-fa" Text="测试" OnClick="OnClick" />
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+    <p>@((MarkupString)Localizer["P6"].Value)</p>
+    <Button Icon="fa fa-fa" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>

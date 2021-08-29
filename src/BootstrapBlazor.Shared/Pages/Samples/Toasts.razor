@@ -18,19 +18,19 @@
             <ToastBox class="d-block" Options="@Options3" />
         </div>
         <div class="col-12 col-sm-4">
-            <Button Color="Color.Success" OnClick="@OnSuccessClick">成功通知</Button>
+            <Button Color="Color.Success" Icon="fa fa-check-circle" OnClick="@OnSuccessClick" Text="成功通知"></Button>
         </div>
         <div class="col-12 col-sm-4">
-            <Button Color="Color.Danger" OnClick="@OnErrorClick">失败通知</Button>
+            <Button Color="Color.Danger" Icon="fa fa-times-circle" OnClick="@OnErrorClick" Text="失败通知"></Button>
         </div>
         <div class="col-12 col-sm-4">
-            <Button Color="Color.Info" OnClick="@OnInfoClick">信息通知</Button>
+            <Button Color="Color.Info" Icon="fa fa-exclamation-circle" OnClick="@OnInfoClick" Text="信息通知"></Button>
         </div>
     </div>
 </Block>
 
 <Block Title="Toast 手动关闭" Introduction="不会自动关闭，需要人工点击关闭按钮">
-    <Button OnClick="@OnNotAutoHideClick">成功通知</Button>
+    <Button Icon="fa fa-exclamation-triangle" OnClick="@OnNotAutoHideClick" Text="成功通知"></Button>
 </Block>
 
 <Block Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置">
@@ -55,12 +55,13 @@
 
 <p>本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用</p>
 
-<p>注入服务提供三种快捷调用方法</p>
+<p>注入服务提供以下几种快捷调用方法</p>
 
 <ul class="ul-demo">
     <li>Success()</li>
     <li>Error()</li>
     <li>Information()</li>
+    <li>Warning()</li>
 </ul>
 
 <p>示例如下：</p>
