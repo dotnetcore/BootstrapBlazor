@@ -167,15 +167,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 鼠标点击候选项时回调此方法
-        /// </summary>
-        protected override async Task OnItemClick(string val)
-        {
-            CurrentValue = val;
-            await OnSearchClick();
-        }
-
-        /// <summary>
         /// OnKeyUp 方法
         /// </summary>
         /// <param name="args"></param>
