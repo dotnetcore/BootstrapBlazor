@@ -97,10 +97,6 @@
     "P9": "<b>不显示标签</b><div>设置 <code>ShowLabel='false'</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
     "P10": "<b>显示标签</b><div>设置样式 <code>form-inline</code>，组件内的所有表单组件标签前置</div>"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Block": {
-    "Title": "未设置",
-    "SubTitle": "示例"
-  },
   "BootstrapBlazor.Shared.Pages.Install": {
     "InstallTitle": "安装",
     "GitP1": "Git 工具有很多种大家比较熟悉的，这里我介绍两款 Git 客户端工具",
@@ -393,6 +389,23 @@
     "SearchDialogText": "搜索弹窗 SearchDialog",
     "ToastText": "轻量弹窗 Toast",
     "TimerText": "计时器 Timer"
+  },
+  "BootstrapBlazor.Shared.Pages.GlobalException": {
+    "Title": "全局异常",
+    "P1": "增加组件 <code>BlazorLogger</code> 通过本组件可以对全局的日志、异常进行统一输出；目前由于 <code>Blazor</code> 框架并未提供一个类似 <code>MVC</code> 的 <b>全局异常</b> 整体解决方案，暂时还需要在代码块中使用 <code>try/catch</code> 进行异常捕获",
+    "H1": "使用方法",
+    "P2": "1. <code>Startup</code> 文件中增加 <code>AddLogging</code> 开启 <code>net core</code> 系统日志功能",
+    "P3": "2. 使用 <code>BlazorLogger</code> 对内容进行包裹，如：<code>MainLayout</code> 中对 <code>Body</code> 使用",
+    "P4": "3. 代码中使用级联参数获取实例",
+    "P5": "4. 控制台或者 <b>IIS</b> 输出可见日志信息",
+    "Block1Title": "测试",
+    "Block1Intro": "本功能是通过级联参数获取到组件实例并使用其功能",
+    "P6": "本例代码中写了一个除以零的错误代码，由于使用了 <code>try/catch</code> 对异常进行了捕获，将错误信息显示到下面控制台中",
+    "ButtonText": "测试"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Block": {
+    "Title": "未设置",
+    "SubTitle": "示例"
   },
   "BootstrapBlazor.Shared.Pages.Components.Tips": {
     "Title": "小提示"

@@ -390,6 +390,19 @@
     "ToastText": "Toast",
     "TimerText": "Timer"
   },
+  "BootstrapBlazor.Shared.Pages.GlobalException": {
+    "Title": "Global exception",
+    "P1": "Added component <code>BlazorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like < b>Global exception</b> The overall solution, for the time being, you need to use <code>try/catch</code> in the code block for exception capture",
+    "H1": "Instructions",
+    "P2": "1. Add <code>AddLogging</code> to the <code>Startup</code> file to enable the <code>net core</code> system log function",
+    "P3": "2. Use <code>BlazorLogger</code> to wrap the content, such as: <code>Body</code> in <code>MainLayout</code>",
+    "P4": "3. Use cascading parameters in the code to get examples",
+    "P5": "4. Console or <b>IIS</b> output visible log information",
+    "Block1Title": "Test",
+    "Block1Intro": "This function is to obtain the component instance through the cascade parameter and use its function",
+    "P6": "In this example code, an error code that divides by zero is written. Because <code>try/catch</code> is used to capture the exception, the error message is displayed in the console below",
+    "ButtonText": "test"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
