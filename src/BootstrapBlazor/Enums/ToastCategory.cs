@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.ComponentModel;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -10,18 +12,27 @@ namespace BootstrapBlazor.Components
     public enum ToastCategory
     {
         /// <summary>
-        /// 成功
+        /// 成功信息
         /// </summary>
+        [Description("success")]
         Success,
 
         /// <summary>
         /// 提示信息
         /// </summary>
+        [Description("info")]
         Information,
 
         /// <summary>
         /// 错误信息
         /// </summary>
-        Error
+        [Description("danger")]
+        Error,
+
+        /// <summary>
+        /// 警告信息
+        /// </summary>
+        [Description("warning")]
+        Warning
     }
 }

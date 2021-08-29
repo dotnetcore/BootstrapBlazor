@@ -8,6 +8,7 @@
 }
 
 .toast {
+    overflow: hidden;
     width: 246px;
     cursor: pointer;
     display: none;

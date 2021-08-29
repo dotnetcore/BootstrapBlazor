@@ -36,9 +36,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 进度条样式
         /// </summary>
         protected string? ProgressClass => CssBuilder.Default("toast-progress")
-            .AddClass("bg-success", Options.Category == ToastCategory.Success)
-            .AddClass("bg-info", Options.Category == ToastCategory.Information)
-            .AddClass("bg-danger", Options.Category == ToastCategory.Error)
+            .AddClass($"bg-{Options.Category.ToDescriptionString()}")
             .Build();
 
         /// <summary>
@@ -48,6 +46,7 @@ namespace BootstrapBlazor.Components
             .AddClass("fa-check-circle text-success", Options.Category == ToastCategory.Success)
             .AddClass("fa-exclamation-circle text-info", Options.Category == ToastCategory.Information)
             .AddClass("fa-times-circle text-danger", Options.Category == ToastCategory.Error)
+            .AddClass("fa-exclamation-triangle text-warning", Options.Category == ToastCategory.Warning)
             .Build();
 
         /// <summary>

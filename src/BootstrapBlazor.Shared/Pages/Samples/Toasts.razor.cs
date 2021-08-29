@@ -119,7 +119,7 @@ namespace BootstrapBlazor.Shared.Pages
             Toast.SetPlacement(Placement.BottomEnd);
             await ToastService.Show(new ToastOption()
             {
-                Category = ToastCategory.Information,
+                Category = ToastCategory.Warning,
                 IsAutoHide = false,
                 Title = "消息通知",
                 Content = "我不会自动关闭哦，请点击右上角关闭按钮"
