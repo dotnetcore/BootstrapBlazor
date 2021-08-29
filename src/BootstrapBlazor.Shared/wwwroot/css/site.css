@@ -937,7 +937,8 @@ section {
     .coms-cate .badge {
         position: absolute;
         top: 0;
-        margin-left: 7rem;
+        margin-left: 1rem;
+        font-size: .65rem;
     }
 
 .coms-demo {

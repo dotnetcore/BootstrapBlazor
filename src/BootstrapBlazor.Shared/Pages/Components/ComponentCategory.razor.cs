@@ -2,8 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BootstrapBlazor.Shared.Pages.Components
 {
@@ -30,8 +32,30 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Parameter]
         public string? Desc { get; set; }
 
-        private List<ComponentCard> Cards { get; set; } = new List<ComponentCard>();
+        private List<ComponentCard> Cards { get; } = new List<ComponentCard>();
 
         internal void Add(ComponentCard card) => Cards.Add(card);
+
+        private int CardCount => Cards.Where(c => !c.IsHide).Count();
+
+        private bool IsRendered { get; set; }
+
+        private string? ClassString => CssBuilder.Default("coms-cate")
+            .AddClass("d-none", IsRendered && CardCount == 0)
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            if (firstRender)
+            {
+                IsRendered = true;
+            }
+        }
     }
 }

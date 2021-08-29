@@ -1,9 +1,15 @@
-﻿<div class="coms-cate">
+﻿<div class="@ClassString">
     <h3>
         <span>@Text</span>
+        <RenderTemplate>
+            <Badge IsPill="true" Color="Color.Success">@CardCount</Badge>
+        </RenderTemplate>
     </h3>
 
-    <h4>@Desc</h4>
+    @if (!string.IsNullOrEmpty(Desc))
+    {
+        <h4>@Desc</h4>
+    }
 
     <div class="coms-demo">
         <div class="row g-3">
@@ -12,11 +18,4 @@
             </CascadingValue>
         </div>
     </div>
-
-    <RenderTemplate>
-        @if (Cards.Count > 0)
-        {
-            <Badge IsPill="true" Color="Color.Success">@Cards.Count</Badge>
-        }
-    </RenderTemplate>
 </div>

@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 
 namespace BootstrapBlazor.Shared.Pages.Components
@@ -16,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         private string ImageUrl => $"_content/BootstrapBlazor.Shared/images/{Image}";
 
         private string? ClassString => CssBuilder.Default("col-12 col-sm-6 col-md-4 col-lg-3")
-            .AddClass("d-none", !string.IsNullOrEmpty(SearchText) && !Text.Contains(SearchText, System.StringComparison.OrdinalIgnoreCase))
+            .AddClass("d-none", IsHide)
             .Build();
 
         /// <summary>
@@ -56,5 +57,10 @@ namespace BootstrapBlazor.Shared.Pages.Components
             ComponentNames?.Add(Text);
             Parent?.Add(this);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal bool IsHide => !string.IsNullOrEmpty(SearchText) && !Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
     }
 }
