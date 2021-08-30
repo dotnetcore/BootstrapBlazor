@@ -12,7 +12,7 @@
             <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" />
         </div>
         <div class="select-dropdown">
-            <ul class="dropdown-list">
+            <ul class="dropdown-list" @ref="DropdownListElement">
                 @if (FilterItems.Any())
                 {
                     @foreach (var item in FilterItems)
