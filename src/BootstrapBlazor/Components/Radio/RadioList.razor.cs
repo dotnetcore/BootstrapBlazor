@@ -21,6 +21,11 @@ namespace BootstrapBlazor.Components
         public Color Color { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public string? GroupName => Id;
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()

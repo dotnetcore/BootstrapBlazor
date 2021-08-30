@@ -21,41 +21,41 @@
     }
     else
     {
-		@if(ShowSearch && SearchMode == SearchMode.Top)
-		{
-			<div class="table-search">
-				@if(SearchTemplate != null)
-				{
-					@SearchTemplate.Invoke(SearchModel)
-				}
-				else
-				{
-					<Card>
-						<CardHeader>
-							<div class="d-flex">
-								<div class="flex-fill">@SearchModalTitle</div>
-								@if(ShowResetButton)
-								{
-									<Button Color="@Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@ClearSearchClick">
-										<span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-									</Button>
-								}
-								@if (ShowSearchButton)
-								{
-									<Button Color="@Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@SearchClick">
-										<span class="d-none d-sm-inline-block">@SearchButtonText</span>
-									</Button>
-								}
-							</div>
-						</CardHeader>
-						<CardBody>
-							<EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
-							</EditorForm>
-						</CardBody>
-					</Card>
-				}
-			</div>
-		}
+        @if (ShowSearch && SearchMode == SearchMode.Top)
+        {
+            <div class="table-search">
+                @if (SearchTemplate != null)
+                {
+                    @SearchTemplate.Invoke(SearchModel)
+                }
+                else
+                {
+                    <Card>
+                        <CardHeader>
+                            <div class="d-flex">
+                                <div class="flex-fill">@SearchModalTitle</div>
+                                @if (ShowResetButton)
+                                {
+                                    <Button Color="@Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@ClearSearchClick">
+                                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                                    </Button>
+                                }
+                                @if (ShowSearchButton)
+                                {
+                                    <Button Color="@Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@SearchClick">
+                                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                                    </Button>
+                                }
+                            </div>
+                        </CardHeader>
+                        <CardBody>
+                            <EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
+                            </EditorForm>
+                        </CardBody>
+                    </Card>
+                }
+            </div>
+        }
         <div class="table-toolbar">
             @if (ShowToolbar)
             {
@@ -86,10 +86,10 @@
                     {
                         <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }
-					@if(ShowCardView)
-					{
+                    @if (ShowCardView)
+                    {
                         <Button Icon="fa fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView" />
-					}
+                    }
                     @if (ShowColumnList)
                     {
                         <div class="btn-group btn-col" role="group">
@@ -139,33 +139,33 @@
             }
             @if (ShowSearch && SearchMode == SearchMode.Popup)
             {
-				<div class="float-end table-toolbar-button btn-group">
-					@if (ShowSearchText)
-					{
-						<div class="input-group">
-							<BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
-								<Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
-							</BootstrapInput>
-							<Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
-								<span class="d-none d-sm-inline-block">@SearchButtonText</span>
-							</Button>
-							@if (ShowResetButton)
-							{
-								<Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
-									<span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-								</Button>
-							}
-							@if (ShowAdvancedSearch)
-							{
-								@RenderAdvanceSearchButton
-							}
-						</div>
-					}
-					else if (ShowAdvancedSearch)
-					{
-						@RenderAdvanceSearchButton
-					}
-				</div>
+                <div class="float-end table-toolbar-button btn-group">
+                    @if (ShowSearchText)
+                    {
+                        <div class="input-group">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
+                                <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                            </BootstrapInput>
+                            <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                            </Button>
+                            @if (ShowResetButton)
+                            {
+                                <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                                </Button>
+                            }
+                            @if (ShowAdvancedSearch)
+                            {
+                                @RenderAdvanceSearchButton
+                            }
+                        </div>
+                    }
+                    else if (ShowAdvancedSearch)
+                    {
+                        @RenderAdvanceSearchButton
+                    }
+                </div>
             }
         </div>
 

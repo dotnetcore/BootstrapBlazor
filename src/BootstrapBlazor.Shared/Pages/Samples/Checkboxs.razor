@@ -50,6 +50,23 @@
     </div>
 </Block>
 
+<Block Title="大小" Introduction="通过设置 <code>Size</code> 属性改变组件大小">
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Default" ShowLabel="true"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Small" ShowLabel="true" Size="Size.Small"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Medium" ShowLabel="true" Size="Size.Medium"></Checkbox>
+        </div>
+        <div class="col-12 col-md-3">
+            <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="Large" ShowLabel="true" Size="Size.Large"></Checkbox>
+        </div>
+    </div>
+</Block>
+
 <Block Title="Label 文字" Introduction="复选框显示文字，通过 <code>DisplayText</code> 设置组件显示文本，点击显示文字时组件状态也会进行翻转">
     <p>设置<code>DisplayText</code> 属性，或者通过双向绑定均可以显示文本信息</p>
     <Checkbox TValue="string" DisplayText="显示文字" ShowAfterLabel="true"></Checkbox>

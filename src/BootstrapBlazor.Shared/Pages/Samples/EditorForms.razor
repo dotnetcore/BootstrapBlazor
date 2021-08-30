@@ -14,16 +14,16 @@
 </ul>
 
 <Block Title="基础用法" Introduction="通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单">
-    <p>直接绑定模型 <code>Model</code>，设置 <b>Education</b> 字段不显示</p>
+    <p>直接绑定模型 <code>Model</code>，设置 <b>Education</b> <b>Complete</b> 字段不显示</p>
     <GroupBox Title="表单示例" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
             <FieldItems>
-                <EditorItem @bind-Field="@Model.Education" Editable="false" />
-                <EditorItem @bind-Field="@Model.Complete" Editable="false" />
-                <EditorItem @bind-Field="@Model.Hobby">
+                <EditorItem @bind-Field="@context.Education" Editable="false" />
+                <EditorItem @bind-Field="@context.Complete" Editable="false" />
+                <EditorItem @bind-Field="@context.Hobby">
                     <EditTemplate Context="value">
                         <div class="col-12">
-                            <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
+                            <CheckboxList @bind-Value="@context.Hobby" Items="@Hobbys" />
                         </div>
                     </EditTemplate>
                 </EditorItem>
@@ -42,11 +42,11 @@
         <ValidateForm Model="@ValidateModel">
             <EditorForm TModel="Foo">
                 <FieldItems>
-                    <EditorItem @bind-Field="@ValidateModel.DateTime" Readonly="true" />
-                    <EditorItem @bind-Field="@ValidateModel.Hobby">
+                    <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
+                    <EditorItem @bind-Field="@context.Hobby">
                         <EditTemplate Context="value">
                             <div class="col-12">
-                                <CheckboxList @bind-Value="@ValidateModel.Hobby" Items="@Hobbys" />
+                                <CheckboxList @bind-Value="@context.Hobby" Items="@Hobbys" />
                             </div>
                         </EditTemplate>
                     </EditorItem>
@@ -64,8 +64,8 @@
         <p>本例中通过设置 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，关闭自动生成功能，通过手动增加两个 <code>EditorItem</code> 编辑项来呈现表单编辑</p>
         <EditorForm Model="@Model" AutoGenerateAllItem="false">
             <FieldItems>
-                <EditorItem @bind-Field="@Model.Name" />
-                <EditorItem @bind-Field="@Model.Count" />
+                <EditorItem @bind-Field="@context.Name" />
+                <EditorItem @bind-Field="@context.Count" />
             </FieldItems>
         </EditorForm>
     </GroupBox>
@@ -75,21 +75,21 @@
     <GroupBox Title="表单示例">
         <p>在某些情况下表单中有些列的值可能是二级分类等等，需要知道一级分类的信息，这个时候一级分类需要额外的组件来呈现，如果 <code>Select</code>，而这个组件是与当前上下文绑定模型 <code>Model</code> 无关的，这种需求中通过设置 <code>SkipValidate</code> 值为 <code>true</code>，关闭此组件的模型验证功能即可</p>
         <ValidateForm Model="@Model">
-            <EditorForm Model="@Model" AutoGenerateAllItem="false">
+            <EditorForm TModel="Foo" AutoGenerateAllItem="false">
                 <FieldItems>
-                    <EditorItem @bind-Field="@Model.Name" />
-                    <EditorItem @bind-Field="@Model.Address" />
-                    <EditorItem @bind-Field="@Model.Count">
+                    <EditorItem @bind-Field="@context.Name" />
+                    <EditorItem @bind-Field="@context.Address" />
+                    <EditorItem @bind-Field="@context.Count">
                         <EditTemplate Context="value">
                             <div class="col-12 col-sm-6">
-                                <Select SkipValidate="true" @bind-Value="@Model.Count" Items="@DummyItems" ShowSearch="true" />
+                                <Select SkipValidate="true" @bind-Value="@context.Count" Items="@DummyItems" ShowSearch="true" />
                             </div>
                             <div class="col-12 col-sm-6">
-                                <BootstrapInput Value="@Model.Count" readonly="true" />
+                                <BootstrapInput Value="@context.Count" readonly="true" />
                             </div>
                         </EditTemplate>
                     </EditorItem>
-                    <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+                    <EditorItem @bind-Field="@context.Hobby" Data="@Hobbys" />
                 </FieldItems>
                 <Buttons>
                     <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
@@ -103,9 +103,9 @@
     <p>本示例设置 <code>ItemsPerRow=3</code> 每行显示 3 个组件</p>
     <GroupBox Title="布局示例" style="margin-top: 1.5rem;">
         <ValidateForm Model="@Model">
-            <EditorForm Model="@Model" ItemsPerRow="3">
+            <EditorForm TModel="Foo" ItemsPerRow="3">
                 <FieldItems>
-                    <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+                    <EditorItem @bind-Field="@context.Hobby" Data="@Hobbys" />
                 </FieldItems>
                 <Buttons>
                     <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
@@ -121,9 +121,9 @@
         <li><code>Buttons</code> 模板内可嵌套 <code>div</code> 并设置样式 <code>text-end</code> 使按钮右侧对齐</li>
     </ul>
     <ValidateForm Model="@Model">
-        <EditorForm Model="@Model" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
+        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
             <FieldItems>
-                <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+                <EditorItem @bind-Field="@context.Hobby" Data="@Hobbys" />
             </FieldItems>
             <Buttons>
                 <div class="text-end">

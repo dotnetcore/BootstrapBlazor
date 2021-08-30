@@ -196,9 +196,9 @@
 
 <Block Title="表单内设置组件标签右对齐" Introduction="通过样式统一设置全站或者特定表单内标签对齐方式">
     <ValidateForm Model="@Model">
-        <EditorForm Model="@Model" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
+        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
             <FieldItems>
-                <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+                <EditorItem @bind-Field="@context.Hobby" Data="@Hobbys" />
             </FieldItems>
         </EditorForm>
     </ValidateForm>

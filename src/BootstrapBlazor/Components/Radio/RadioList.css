@@ -1,17 +1,18 @@
-﻿.radio-list.is-vertical {
+﻿.radio-list {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
 }
 
-.radio-list .form-checkbox:not(:last-child) {
-    margin-right: 1rem;
-}
-
-.radio-list.is-vertical {
-    height: auto;
-    line-height: unset;
-}
-
-    .radio-list.is-vertical .form-checkbox:not(:last-child) {
-        margin-bottom: 0.5rem;
+    .radio-list .form-check {
+        width: 120px;
     }
+
+    .radio-list.is-vertical {
+        flex-direction: column;
+        height: auto;
+        line-height: unset;
+    }
+
+        .radio-list.is-vertical .form-check:not(:last-child) {
+            margin-bottom: .5rem;
+        }
