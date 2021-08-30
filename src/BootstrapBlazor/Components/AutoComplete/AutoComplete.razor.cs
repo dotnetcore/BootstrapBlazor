@@ -31,6 +31,11 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 SelectDropdown 组件客户端引用实例
+        /// </summary>
+        private ElementReference SelectDropdownElement { get; set; }
+
+        /// <summary>
         /// 获得 最终候选数据源
         /// </summary>
         [NotNull]
@@ -163,6 +168,7 @@ namespace BootstrapBlazor.Components
                         index = source.Count - 1;
                     }
                     _selectedItem = source[index];
+                    await JSRuntime.InvokeVoidAsync(SelectDropdownElement, "bb_selectdropdown", index, args.Key, index == source.Count - 1);
                 }
                 else if (args.Key == "ArrowDown")
                 {
@@ -172,6 +178,7 @@ namespace BootstrapBlazor.Components
                         index = 0;
                     }
                     _selectedItem = source[index];
+                    await JSRuntime.InvokeVoidAsync(SelectDropdownElement, "bb_selectdropdown", index, args.Key);
                 }
                 else if (args.Key == "Escape")
                 {

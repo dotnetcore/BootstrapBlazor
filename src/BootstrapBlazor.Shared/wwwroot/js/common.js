@@ -217,7 +217,38 @@
         },
         bb_tooltip_site: function (el) {
             $(el).tooltip();
+        },
+        bb_selectdropdown: function (el, index, key, scrolltolast = false) {
+            var offset = 50;
+            var $parent = $(el);
+            var activeitem = $parent.find('.active');
+            var activeitemtop = activeitem.offset().top;
+            var parenttop = $parent.offset().top;
+            var parentheight = $parent.height();
+            var absolutetop = activeitemtop - parenttop;
+            console.log('absolutetop', absolutetop, 'parentheight', parentheight, absolutetop >= (parentheight - offset));
+            if (key == "ArrowUp") {
+                if (scrolltolast) {
+                    console.log("AA");
+                    $parent.scrollTop(parentheight + offset);
+                } else if (absolutetop < offset) {
+                    console.log("AB");
+                    $parent.scrollTop(0);
+                }
+            } else if (key == "ArrowDown") {
+                if (index == 0 || absolutetop < 0) {
+                    console.log("A");
+                    $parent.scrollTop(0);
+                } else if ((absolutetop + 15) > parentheight) {
+                    console.log("B");
+                    $parent.scrollTop(parentheight + offset);
+                } else if (absolutetop >= (parentheight - offset)) {
+                    console.log("C");
+                    $parent.scrollTop(absolutetop);
+                }
+           }
         }
+
     });
 
     $(function () {
