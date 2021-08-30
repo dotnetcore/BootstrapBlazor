@@ -17,33 +17,39 @@ namespace BootstrapBlazor.Components
         None,
 
         /// <summary>
-        /// xs 超小设置 576px
+        /// xs 超小设置小于 576px
         /// </summary>
         [Description("xs")]
         ExtraSmall,
 
         /// <summary>
-        /// sm 小设置 576px
+        /// sm 小设置大于等于 576px
         /// </summary>
         [Description("sm")]
         Small,
 
         /// <summary>
-        /// md 中等设置 768px
+        /// md 中等设置大于等于 768px
         /// </summary>
         [Description("md")]
         Medium,
 
         /// <summary>
-        /// lg 大设置 992px
+        /// lg 大设置大于等于 992px
         /// </summary>
         [Description("lg")]
         Large,
 
         /// <summary>
-        /// xl 超大设置 1200px
+        /// xl 超大设置大于等于 1200px
         /// </summary>
         [Description("xl")]
-        ExtraLarge
+        ExtraLarge,
+
+        /// <summary>
+        /// xl 超大设置大于等于 1400px
+        /// </summary>
+        [Description("xxl")]
+        ExtraExtraLarge
     }
 }

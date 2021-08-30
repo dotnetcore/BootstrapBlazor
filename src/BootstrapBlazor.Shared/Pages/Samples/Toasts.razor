@@ -8,23 +8,29 @@
 
 <Block Title="基础用法" Introduction="用户操作时，右下角给予适当的提示信息">
     <div class="row g-3 overflow-hidden">
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-6 col-xl-3">
             <ToastBox class="d-block" Options="@Options1" />
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-6 col-xl-3">
             <ToastBox class="d-block" Options="@Options2" />
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-6 col-xl-3">
             <ToastBox class="d-block" Options="@Options3" />
         </div>
-        <div class="col-12 col-sm-4">
+        <div class="col-12 col-lg-6 col-xl-3">
+            <ToastBox class="d-block" Options="@Options4" />
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
             <Button Color="Color.Success" Icon="fa fa-check-circle" OnClick="@OnSuccessClick" Text="成功通知"></Button>
         </div>
-        <div class="col-12 col-sm-4">
+        <div class="col-12 col-lg-6 col-xl-3">
             <Button Color="Color.Danger" Icon="fa fa-times-circle" OnClick="@OnErrorClick" Text="失败通知"></Button>
         </div>
-        <div class="col-12 col-sm-4">
+        <div class="col-12 col-lg-6 col-xl-3">
             <Button Color="Color.Info" Icon="fa fa-exclamation-circle" OnClick="@OnInfoClick" Text="信息通知"></Button>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <Button Color="Color.Warning" Icon="fa fa-exclamation-triangle" OnClick="@OnWarningClick" Text="警告通知"></Button>
         </div>
     </div>
 </Block>

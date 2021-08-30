@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -18,6 +19,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<SelectedItem, Task>? OnClick { get; set; }
+
+        [CascadingParameter(Name = "GroupName")]
+        [NotNull]
+        private string? GroupName { get; set; }
 
         private void OnClickHandler()
         {

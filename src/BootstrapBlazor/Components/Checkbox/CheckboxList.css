@@ -43,3 +43,7 @@
     .checkbox-list.form-control:not(.is-invalid):focus {
         box-shadow: none;
     }
+
+.checkbox-item .form-check-sm .form-check-input {
+    margin: 3px 0 2px 0;
+}

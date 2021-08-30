@@ -28,6 +28,9 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private ToastOption? Options3 { get; set; }
 
+        [NotNull]
+        private ToastOption? Options4 { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -38,6 +41,7 @@ namespace BootstrapBlazor.Shared.Pages
             Options1 = new ToastOption { Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
             Options2 = new ToastOption { Category = ToastCategory.Error, Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
             Options3 = new ToastOption { Category = ToastCategory.Information, Title = "提示信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
+            Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "警告信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
         }
 
         /// <summary>
@@ -53,10 +57,6 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="placement"></param>
         private async Task OnPlacementClick(Placement placement)
         {
             Toast.SetPlacement(placement);
@@ -69,9 +69,6 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private async Task OnSuccessClick()
         {
             Toast.SetPlacement(Placement.BottomEnd);
@@ -83,9 +80,6 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private async Task OnErrorClick()
         {
             Toast.SetPlacement(Placement.BottomEnd);
@@ -97,9 +91,6 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private async Task OnInfoClick()
         {
             Toast.SetPlacement(Placement.BottomEnd);
@@ -108,6 +99,17 @@ namespace BootstrapBlazor.Shared.Pages
                 Category = ToastCategory.Information,
                 Title = "消息通知",
                 Content = "系统增加新组件啦，4 秒后自动关闭"
+            });
+        }
+
+        private async Task OnWarningClick()
+        {
+            Toast.SetPlacement(Placement.BottomEnd);
+            await ToastService.Show(new ToastOption()
+            {
+                Category = ToastCategory.Warning,
+                Title = "警告通知",
+                Content = "系统发现异常请及时处理，4 秒后自动关闭"
             });
         }
 
@@ -137,7 +139,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Category",
                 Description = "弹出框类型",
                 Type = "ToastCategory",
-                ValueList = "Success/Information/Error",
+                ValueList = "Success/Information/Error/Warning",
                 DefaultValue = "Success"
             },
             new AttributeItem() {

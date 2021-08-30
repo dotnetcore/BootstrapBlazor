@@ -1615,7 +1615,12 @@ section {
 
 .sidebar-content {
     padding: .5rem 0;
-    width: 292px;
+}
+
+@media (min-width: 992px) {
+    .sidebar-content {
+        width: 292px;
+    }
 }
 
 .btn-theme .pulse {

@@ -17,12 +17,22 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 class 样式集合
         /// </summary>
-        protected virtual string? ClassString => CssBuilder.Default("form-checkbox")
+        protected virtual string? ClassString => CssBuilder.Default("form-check")
             .AddClass("is-checked", State == CheckboxState.Checked)
             .AddClass("is-indeterminate", State == CheckboxState.Mixed)
+            .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
+            .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
             .AddClass("disabled", IsDisabled)
             .AddClass(ValidCss)
             .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected virtual string? InputClassString => CssBuilder.Default("form-check-input")
+            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
+            .AddClass("disabled", IsDisabled)
             .Build();
 
         /// <summary>
@@ -43,6 +53,16 @@ namespace BootstrapBlazor.Components
         };
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected string? CheckedString => State switch
+        {
+            CheckboxState.UnChecked => null,
+            CheckboxState.Checked => "checked",
+            _ => "mixed"
+        };
+
+        /// <summary>
         /// 判断双向绑定类型是否为 boolean 类型
         /// </summary>
         private bool IsBoolean { get; set; }
@@ -52,6 +72,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Color Color { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Size 大小
+        /// </summary>
+        [Parameter]
+        public Size Size { get; set; } = Size.None;
 
         /// <summary>
         /// 获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false

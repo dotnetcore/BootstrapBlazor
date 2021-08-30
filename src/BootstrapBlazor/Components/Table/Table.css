@@ -62,6 +62,7 @@
 
     .table thead th {
         white-space: nowrap;
+        vertical-align: top;
     }
 
         .table thead th.sortable:hover,
@@ -547,6 +548,7 @@
 
 .table-bordered thead tr:last-child {
     border-bottom-width: 2px !important;
+    border-bottom-color: #c0c4cc;
 }
 
 .table-striped > tbody > tr.is-master:nth-of-type(odd) {

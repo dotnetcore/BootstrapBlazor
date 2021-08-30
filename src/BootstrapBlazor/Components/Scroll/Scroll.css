@@ -1,4 +1,8 @@
-﻿@media (min-width:992px) {
+﻿.scroll {
+    overflow: auto;
+}
+
+@media (min-width:992px) {
     .scroll {
         height: 100%;
         overflow: hidden;
