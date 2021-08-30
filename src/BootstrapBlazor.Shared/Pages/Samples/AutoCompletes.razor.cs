@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Foo Model { get; set; } = new Foo() { Name = "" };
 
-        private IEnumerable<string> StaticItems => new List<string> { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+        private IEnumerable<string> StaticItems => new List<string> { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG","erty","dfhfgh","87654","09876543","sdhgjhgf","987654345", "second last item", "last item" };
 
         private Task OnValueChanged(string val)
         {
