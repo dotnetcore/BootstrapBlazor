@@ -727,6 +727,31 @@
         color: #0b0e18
     }
 
+.alert.is-bar.alert-info {
+    border-left: 4px solid var(--bs-info);
+    background-color: #e3d7fb;
+}
+
+.alert.is-bar.alert-success {
+    border-left: 4px solid var(--bs-success);
+    background-color: #dcf5e7;
+}
+
+.alert.is-bar.alert-primary {
+    border-left: 4px solid var(--bs-primary);
+    background-color: #ccecfd;
+}
+
+.alert.is-bar.alert-warning {
+    border-left: 4px solid var(--bs-warning);
+    background-color: #fff4cc;
+}
+
+.alert.is-bar.alert-danger {
+    border-left: 4px solid var(--bs-danger);
+    background-color: #fcd9e2;
+}
+
 [data-bs-toggle="lgbSelect"] .form-select {
     box-shadow: none !important;
 }
@@ -794,4 +819,10 @@
     .sidebar {
         background-color: #fff !important;
     }
+}
+
+.content code.highlight,
+.alert-content code,
+.content p code, .content li code {
+    background-color: #fff5f8 !important;
 }

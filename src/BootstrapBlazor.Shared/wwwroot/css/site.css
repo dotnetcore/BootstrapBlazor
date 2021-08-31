@@ -232,7 +232,7 @@ section {
             margin-bottom: 0;
         }
 
-        .content code.highlight, .content p code, .content li code {
+        .content code.highlight, .alert-content code, .content p code, .content li code {
             display: inline-block;
             padding: 0px 8px;
             background-color: #e9ecef;
@@ -557,7 +557,8 @@ section {
         }
 
             .sidebar .sidebar-content.collapse {
-                display: block;
+                display: flex;
+                flex-direction: column;
             }
 
         .sidebar .sidebar-title {
@@ -565,11 +566,17 @@ section {
             display: flex;
             align-items: center;
             padding: 1rem;
+            border-bottom: solid 1px #c0c4cc;
         }
 
-        .sidebar .scroll .menu {
-            width: var(--bs-sidebar-width);
+        .sidebar .scroll {
+            overflow-x: hidden;
+            margin-top: 5px;
         }
+
+            .sidebar .scroll .menu {
+                width: var(--bs-sidebar-width);
+            }
 
     .main {
         width: calc(100% - var(--bs-sidebar-width));

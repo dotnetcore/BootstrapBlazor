@@ -15,26 +15,26 @@
 }
 
 .alert.is-bar.alert-info {
-    border-left: 4px solid #50bfff;
+    border-left: 4px solid var(--bs-info);
     background-color: #ecf8ff;
 }
 
 .alert.is-bar.alert-success {
-    border-left: 4px solid #28a745;
+    border-left: 4px solid var(--bs-success);
     background-color: #c3e6cb;
 }
 
 .alert.is-bar.alert-primary {
-    border-left: 4px solid #007bff;
+    border-left: 4px solid var(--bs-primary);
     background-color: #daeafc;
 }
 
 .alert.is-bar.alert-warning {
-    border-left: 4px solid #ffc107;
+    border-left: 4px solid var(--bs-warning);
     background-color: #fffcf2;
 }
 
 .alert.is-bar.alert-danger {
-    border-left: 4px solid #dc3545;
+    border-left: 4px solid var(--bs-danger);
     background-color: #faeaec;
 }
