@@ -78,6 +78,12 @@ namespace BootstrapBlazor.Components
         public bool IsAutoClearAfterSearch { get; set; }
 
         /// <summary>
+        /// 获得/设置 搜索模式是否为输入即触发 默认 false 点击搜索按钮触发
+        /// </summary>
+        [Parameter]
+        public bool IsOnInputTrigger { get; set; }
+
+        /// <summary>
         /// 获得/设置 搜索按钮文字
         /// </summary>
         [Parameter]
@@ -182,7 +188,10 @@ namespace BootstrapBlazor.Components
                     await OnClearClick();
                 }
 
-                await OnSearchClick();
+                if (IsOnInputTrigger || args.Key == "Enter")
+                {
+                    await OnSearchClick();
+                }
             }
         }
 
@@ -194,7 +203,11 @@ namespace BootstrapBlazor.Components
         protected override async Task OnClickItem(string item)
         {
             await base.OnClickItem(item);
-            await OnSearchClick();
+
+            if (IsOnInputTrigger)
+            {
+                await OnSearchClick();
+            }
         }
     }
 }
