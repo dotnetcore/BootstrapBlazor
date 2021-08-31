@@ -275,7 +275,7 @@
         // scorll
         var prevScrollTop = 0;
         $(document).on('scroll', function () {
-            var $header = $('app > header');
+            var $header = $('app > header, .coms-search');
             var currentScrollTop = $(document).scrollTop();
             if (currentScrollTop > prevScrollTop) {
                 $header.addClass('hide');

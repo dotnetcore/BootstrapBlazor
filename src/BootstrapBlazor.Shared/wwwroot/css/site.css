@@ -1041,6 +1041,10 @@ section {
     .coms-search {
         top: 3rem;
     }
+
+        .coms-search.hide {
+            top: 0;
+        }
 }
 
 .listview-demo {
