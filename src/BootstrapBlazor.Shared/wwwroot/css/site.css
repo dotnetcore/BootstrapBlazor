@@ -571,7 +571,8 @@ section {
 
         .sidebar .scroll {
             overflow-x: hidden;
-            margin-top: 5px;
+            max-height: calc(100% - 36px);
+            padding: 5px 0;
         }
 
             .sidebar .scroll .menu {
@@ -1633,7 +1634,6 @@ section {
     }
 
 .menu-accordion {
-    padding: 0.375rem 0 0.875rem 0;
     display: flex;
     border-bottom: solid 1px #c0c4cc;
     justify-content: center;
@@ -1647,10 +1647,6 @@ section {
     .menu-accordion .switch {
         width: auto;
     }
-
-.sidebar-content {
-    padding: .5rem 0;
-}
 
 .btn-theme .pulse {
     position: absolute;
