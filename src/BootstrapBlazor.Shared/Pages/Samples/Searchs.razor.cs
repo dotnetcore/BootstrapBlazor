@@ -144,6 +144,13 @@ namespace BootstrapBlazor.Shared.Pages
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
+            new AttributeItem() {
+                Name = "IsOnInputTrigger",
+                Description = "搜索模式是否为输入即触发,默认点击搜索按钮触发",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
             new AttributeItem()
             {
                 Name = "IgnoreCase",

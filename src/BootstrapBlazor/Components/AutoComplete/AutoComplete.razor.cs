@@ -93,6 +93,11 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
+        /// 获得 DropdownList 组件客户端引用实例
+        /// </summary>
+        protected ElementReference DropdownListElement { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -155,7 +160,7 @@ namespace BootstrapBlazor.Components
             if (source.Any())
             {
                 // 键盘向上选择
-                if (args.Key == "ArrowUp")
+                if (_isShown && args.Key == "ArrowUp")
                 {
                     var index = source.IndexOf(_selectedItem) - 1;
                     if (index < 0)
@@ -163,8 +168,10 @@ namespace BootstrapBlazor.Components
                         index = source.Count - 1;
                     }
                     _selectedItem = source[index];
+
+                    await ScrollDropdownListElement(index);
                 }
-                else if (args.Key == "ArrowDown")
+                else if (_isShown && args.Key == "ArrowDown")
                 {
                     var index = source.IndexOf(_selectedItem) + 1;
                     if (index > source.Count - 1)
@@ -172,6 +179,8 @@ namespace BootstrapBlazor.Components
                         index = 0;
                     }
                     _selectedItem = source[index];
+
+                    await ScrollDropdownListElement(index);
                 }
                 else if (args.Key == "Escape")
                 {
@@ -186,6 +195,16 @@ namespace BootstrapBlazor.Components
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 控制items滚动条进度
+        /// </summary>
+        /// <param name="index">item 的 index</param>
+        /// <returns></returns>
+        private async Task ScrollDropdownListElement(int index)
+        {
+            await JSRuntime.InvokeVoidAsync(DropdownListElement, "bb_scrollelement", index);
         }
     }
 }
