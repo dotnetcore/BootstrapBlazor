@@ -2,16 +2,23 @@
     background-color: #4a3275;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     font-size: 1rem;
+    transition: transform .3s ease;
 }
 
-    header.navbar {
-        font-size: 1rem;
+@media (min-width: 768px) {
+    header.hide {
+        transform: translate3d(0,calc(-100% - 2px),0);
     }
+}
 
-    header .nav-link img {
-        height: 24px;
-        width: auto;
-    }
+header.navbar {
+    font-size: 1rem;
+}
+
+header .nav-link img {
+    height: 24px;
+    width: auto;
+}
 
 .header-img {
     display: flex;
@@ -80,31 +87,31 @@ section {
     -webkit-font-smoothing: antialiased;
 }
 
-.sidebar {
-    overflow-x: hidden !important;
+.sidebar .navbar-brand {
+    font-size: 1.1rem;
 }
 
-    .sidebar .navbar-brand {
-        font-size: 1.1rem;
+.sidebar .nav-item {
+    font-size: 0.875rem;
+    padding-left: 6px;
+}
+
+    .sidebar .nav-item a {
+        color: #444;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: .25rem 1.5rem;
+        font-weight: 400;
     }
 
-    .sidebar .nav-item {
-        font-size: 0.875rem;
-        padding-left: 6px;
-    }
+.sidebar .navbar {
+    background-color: rgb(60, 40, 97);
+}
 
-        .sidebar .nav-item a {
-            color: #444;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            padding: .25rem 1.5rem;
-            font-weight: 400;
-        }
-
-    .sidebar .navbar {
-        background-color: rgb(60, 40, 97);
-    }
+.sidebar .sidebar-title {
+    display: none;
+}
 
 .tabs-body-content > h2,
 .content > h2,
@@ -508,6 +515,11 @@ section {
 }
 
 @media (min-width: 768px) {
+    :root {
+        --bs-header-height: 50px;
+        --bs-sidebar-width: 300px;
+    }
+
     .header-img span {
         display: none;
     }
@@ -516,7 +528,7 @@ section {
         position: sticky;
         top: 0;
         z-index: 1090;
-        height: 50px;
+        height: var(--bs-header-height);
     }
 
     .modal-open header.navbar {
@@ -529,21 +541,38 @@ section {
     }
 
     .sidebar {
-        width: 300px;
-        height: calc(100vh - 50px);
+        width: var(--bs-sidebar-width);
+        height: calc(100vh);
         position: sticky;
-        top: 50px;
+        top: 0;
         border-right: solid 1px #c0c4cc;
         background-color: #f0f0f0;
-        color: #212529;
+        display: flex;
+        flex-direction: column;
+        margin-top: calc(var(--bs-header-height)*-1);
     }
 
-        .sidebar .sidebar-content.collapse {
-            display: block;
+        .sidebar .sidebar-content {
+            height: calc(100vh - var(--bs-header-height));
+        }
+
+            .sidebar .sidebar-content.collapse {
+                display: block;
+            }
+
+        .sidebar .sidebar-title {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .sidebar .scroll .menu {
+            width: var(--bs-sidebar-width);
         }
 
     .main {
-        width: calc(100% - 300px);
+        width: calc(100% - var(--bs-sidebar-width));
     }
 
         .main .top-row {
@@ -1602,7 +1631,6 @@ section {
     border-bottom: solid 1px #c0c4cc;
     justify-content: center;
     align-items: center;
-    margin-bottom: 0.75rem;
 }
 
     .menu-accordion .form-label {
@@ -1615,12 +1643,6 @@ section {
 
 .sidebar-content {
     padding: .5rem 0;
-}
-
-@media (min-width: 992px) {
-    .sidebar-content {
-        width: 292px;
-    }
 }
 
 .btn-theme .pulse {

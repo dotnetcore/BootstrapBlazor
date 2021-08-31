@@ -13,5 +13,7 @@
         <div style="width:1rem;"></div>
         <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
     </div>
-    <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu" />
+    <div class="scroll">
+        <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu" />
+    </div>
 </div>

@@ -20,4 +20,9 @@
     <BlockLogger @ref="Trace3" class="mt-3" />
 </Block>
 
+<Block Title="键盘输入即时搜索" Introduction="通过设置 <code>IsOnInputTrigger</code> 参数控制是否实时进行搜索操作">
+    <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" IsOnInputTrigger="true" Items="@Items" OnSearch="@OnSearch4"></Search>
+    <BlockLogger @ref="Trace4" class="mt-3" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />

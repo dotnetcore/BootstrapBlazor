@@ -788,3 +788,10 @@
     background-color: transparent;
     color: #009ef7;
 }
+
+/*doc*/
+@media (min-width: 768px) {
+    .sidebar {
+        background-color: #fff !important;
+    }
+}

@@ -271,6 +271,20 @@
                     $('.theme-list.is-open').toggleClass('is-open').slideToggle('fade');
                 }
             });
+
+        // scorll
+        var prevScrollTop = 0;
+        $(document).on('scroll', function () {
+            var $header = $('header');
+            var currentScrollTop = $(document).scrollTop();
+            if (currentScrollTop > prevScrollTop) {
+                $header.addClass('hide');
+            }
+            else {
+                $header.removeClass('hide');
+            }
+            prevScrollTop = currentScrollTop;
+        });
     });
 
     $(function () {
