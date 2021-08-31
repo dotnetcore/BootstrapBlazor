@@ -1,5 +1,7 @@
-﻿<div class="table-attr">
-    <h4>事件 Events</h4>
+﻿@inject IStringLocalizer<EventTable> Localizer
+
+<div class="table-attr">
+    <h4>@Localizer["Title"]</h4>
 
     <Table TItem="BootstrapBlazor.Shared.Common.EventItem" Items="Items">
         <TableColumns>

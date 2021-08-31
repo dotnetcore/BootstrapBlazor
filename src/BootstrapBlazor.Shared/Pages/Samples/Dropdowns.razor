@@ -1,19 +1,20 @@
 ﻿@page "/dropdowns"
+@inject IStringLocalizer<Dropdowns> Localizer 
 
-<h3>Dropdown 下拉菜单</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>将动作或菜单折叠到下拉菜单中</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="基础用法" Introduction="使用 <code>TagName='a'</code> 开启带有 button 标签的下拉表">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
     <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="Dropdown 空下拉菜单" Introduction="允许空 <code>Items</code> 存在的下拉菜单">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
     <Dropdown TValue="string" Items="EmptyList" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
 </Block>
 
-<Block Title="带有颜色的下拉框" Introduction='提供各种颜色的警告信息框 引用 <code>Color="Color.Primary"</code> 等颜色及样式类来定义下拉菜单的外在表现'>
+<Block Title="@Localizer["Blcok3Title"]" Introduction='@Localizer["Block3Intro"]'>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Primary"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Secondary"></Dropdown></div>
@@ -23,7 +24,7 @@
     </div>
 </Block>
 
-<Block Title="分裂式按钮下拉菜单" Introduction='可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 ShowSplit="true"(使用分裂式组件时需要加上 <code>DropdownType="DropdownType.ButtonGroup </code>") 插入此符号为下拉选项作适当的间隔（距）处理。'>
+<Block Title="@Localizer["Block4Title"]" Introduction='@Localizer["Block4Intro"]'>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Primary"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Secondary"></Dropdown></div>
@@ -33,7 +34,7 @@
     </div>
 </Block>
 
-<Block Title="尺寸大小定义" Introduction="下拉菜单有各种大小规格可以选用 <code>Size</code> 属性，包括预设及分裂式按钮下拉菜单。">
+<Block Title="@Localizer["Blcok5Title"]" Introduction="@Localizer["Block5Intro"]">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Size="Size.ExtraSmall"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Size="Size.Small"></Dropdown></div>
@@ -43,7 +44,7 @@
     </div>
 </Block>
 
-<Block Title="展开方向" Introduction='增加 <code>Direction="Direction.Dropup" </code> 样式，使下拉菜单向上展开。'>
+<Block Title="@Localizer["Block6Title"]" Introduction='@Localizer["Block6Intro"]'>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Direction="Direction.Dropleft"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Direction="Direction.Dropup"></Dropdown></div>
@@ -51,26 +52,26 @@
     </div>
 </Block>
 
-<Block Title="菜单对齐" Introduction='默认情况下，通过设置 <code>MenuAlignment=Alignment.Right</code> 使下拉菜单右侧对齐'>
+<Block Title="@Localizer["Block7Title"]" Introduction='@Localizer["Block8Title"]'>
     <div class="row">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Secondary" MenuAlignment="Alignment.Right"></Dropdown></div>
     </div>
 </Block>
 
-<Block Title="绑定数据源" Introduction='点击右侧按钮时，下拉框内菜单项会增加'>
+<Block Title="@Localizer["Block8Title"]" Introduction='@Localizer["Block8Intro"]'>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Dropdown TValue="string" Items="@Foos">
             </Dropdown>
         </div>
         <div class="col-12 col-sm-6">
-            <Button @onclick="@AddItem">添加</Button>
-            <Button @onclick="@RemoveItem" Color="Color.Danger">删除</Button>
+            <Button @onclick="@AddItem">@Localizer["Button2Text"]</Button>
+            <Button @onclick="@RemoveItem" Color="Color.Danger">@Localizer["Button1Text"]</Button>
         </div>
     </div>
 </Block>
 
-<Block Title="绑定数据源" Introduction="改变选项时，下拉框内菜单项会增加">
+<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]">
     <div class="row g-3">
         <div class="col-12">
             <RadioList TValue="SelectedItem" Items="@RadioItems" OnSelectedChanged="@OnRadioItemChanged">
@@ -83,7 +84,7 @@
     </div>
 </Block>
 
-<Block Title="级联绑定" Introduction="通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。">
+<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Dropdown TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />

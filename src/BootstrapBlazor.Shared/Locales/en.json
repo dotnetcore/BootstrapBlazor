@@ -427,6 +427,44 @@
     "Desc3": "First pane template",
     "Desc4": "Second pane template"
   },
+  "BootstrapBlazor.Shared.Pages.Dropdowns": {
+    "Title": "Dropdown",
+    "H1": "Collapse actions or menus into drop-down menus",
+    "Block1Title": "Basic usage",
+    "Block1Intro": "Use <code>TagName='a'</code> to open a drop-down list with a button tag",
+    "Block2Title": "Dropdown empty drop-down menu",
+    "Blcok2Intro": "Allow empty <code>Items</code> drop-down menus",
+    "Blcok3Title": "Drop-down box with color",
+    "Block3Intro": "Provide warning message boxes in various colors. Quote <code>Color='Color.Primary'</code> and other color and style classes to define the appearance of the drop-down menu",
+    "Block4Title": "Split button drop-down menu",
+    "Block4Intro": "You can create a split drop-down menu with tags similar to a single button drop-down menu, and add ShowSplit='true' (you need to add <code>DropdownType='DropdownType.ButtonGroup </code>') when you use a split component. Insert this symbol as a drop-down The options are handled at appropriate intervals (distance).",
+    "Blcok5Title": "Size definition",
+    "Block5Intro": "The drop-down menu has a variety of size specifications to choose from <code>Size</code> attributes, including preset and split button drop-down menus.",
+    "Block6Title": "Expanding direction",
+    "Block6Intro": "Add the style of <code>Direction='Direction.Dropup' </code> to make the drop-down menu expand upward.",
+    "Block7Title": "Menu alignment",
+    "Block7Intro": "By default, the right side of the drop-down menu is aligned by setting <code>MenuAlignment=Alignment.Right</code>",
+    "Block8Title": "Bind data source",
+    "Block8Intro": "When you click the button on the right, the menu items in the drop-down box will increase",
+    "Button1Text": "Add",
+    "Button2Text": "Delete",
+    "Block9Title": "Bind data source",
+    "Block9Intro": "When you change the options, the menu items in the drop-down box will increase",
+    "Block10Title": "Cascade binding",
+    "Block10Intro": "By selecting different options in the first drop-down box, the second drop-down box is filled with content dynamically.",
+    "ADesc1": "Currently selected value",
+    "ADesc2": "Style",
+    "ADesc3": "Color",
+    "ADesc4": "Drop-down box pop-up direction",
+    "ADesc5": "Drop-down box value",
+    "ADesc6": "Menu alignment",
+    "ADesc7": "Menu item rendering label",
+    "ADesc8": "Menu alignment",
+    "ADesc9": "Split button drop-down menu (you need to add MenuType='MenuType.Btngroup' when using split component)",
+    "ADesc10": "Size",
+    "ADesc11": "Label",
+    "EDesc1": "Triggered when the value of the drop-down box changes"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
@@ -796,5 +834,8 @@
     "Group": "QQ Group",
     "Status": " Full",
     "Welcome": "Welcome to join the group discussion"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.EventTable": {
+    "Title": "Event"
   }
 }

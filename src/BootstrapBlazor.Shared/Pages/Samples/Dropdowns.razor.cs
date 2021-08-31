@@ -121,77 +121,77 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "@bind-Value",
-                Description = "当前选中的值",
+                Description = Localizer["ADesc1"]!,
                 Type = " — ",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["ADesc2"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = Localizer["ADesc3"]!,
                 Type = "Color",
                 ValueList = "Primary / Secondary / Info / Warning / Danger ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Direction",
-                Description = "下拉框弹出方向",
+                Description = Localizer["ADesc4"]!,
                 Type = "Direction",
                 ValueList = "Dropup / Dropright /  Dropleft",
                 DefaultValue = " None "
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "下拉框值",
+                Description = Localizer["ADesc5"]!,
                 Type = "list",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "MenuAlignment",
-                Description = "菜单对齐方式",
+                Description = Localizer["ADesc6"]!,
                 Type = "Alignment",
                 ValueList = "None / Left / Center / Right ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "MenuItem",
-                Description = "菜单项渲染标签",
+                Description = Localizer["ADesc7"]!,
                 Type = "string",
                 ValueList = "button / a ",
                 DefaultValue = " a "
             },
             new AttributeItem() {
                 Name = "Responsive",
-                Description = "菜单对齐",
+                Description = Localizer["ADesc8"]!,
                 Type = "string",
                 ValueList = "dropdown-menu-right / dropdown-menu-right / dropdown-menu-{lg | md | sm }-{right | left}",
                 DefaultValue = " - "
             },
             new AttributeItem() {
                 Name = "ShowSplit",
-                Description = "分裂式按钮下拉菜单(使用分裂式组件时需要加上MenuType='MenuType.Btngroup')",
+                Description = Localizer["ADesc9"]!,
                 Type = "bool",
                 ValueList = "true / false ",
                 DefaultValue = " false "
             },
             new AttributeItem() {
                 Name = "Size",
-                Description = "尺寸",
+                Description = Localizer["ADesc10"]!,
                 Type = "Size",
                 ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "TagName",
-                Description = "标签",
+                Description = Localizer["ADesc11"]!,
                 Type = "string",
                 ValueList = " a / button ",
                 DefaultValue = " — "
@@ -203,7 +203,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnSelectedItemChanged",
-                Description="下拉框值发生改变时触发",
+                Description= Localizer["EDesc1"]!,
                 Type ="EventCallback<SelectedItem>"
             }
        };
