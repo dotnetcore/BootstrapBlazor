@@ -26,6 +26,9 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private BlockLogger? Trace3 { get; set; }
 
+        [NotNull]
+        private BlockLogger? Trace4 { get; set; }
+
         private Task OnSearch1(string searchText)
         {
             Trace.Log($"SearchText: {searchText}");
@@ -41,6 +44,12 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnSearch3(string searchText)
         {
             Trace3.Log($"SearchText: {searchText}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnSearch4(string searchText)
+        {
+            Trace4.Log($"SearchText: {searchText}");
             return Task.CompletedTask;
         }
 
@@ -124,6 +133,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "IsAutoFocus",
                 Description = "是否自动获得焦点",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsOnInputTrigger",
+                Description = "搜索模式是否为输入即触发,默认点击搜索按钮触发",
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
