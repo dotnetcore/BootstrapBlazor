@@ -510,6 +510,12 @@
     "Desc3": "偏移量用于调整间隙使用",
     "Desc4": "内容"
   },
+  "BootstrapBlazor.Shared.Pages.Breadcrumbs": {
+    "Title": "Breadcrumb 面包屑",
+    "H1": "显示当前页面的路径，快速返回之前的任意页面。",
+    "Blcok1Title": "基础用法",
+    "Blcok1Intro": "适用广泛的基础用法。"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Foo": {
     "Name": "姓名",
     "DateTime": "日期",

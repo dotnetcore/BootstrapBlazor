@@ -510,6 +510,12 @@
     "Desc3": "The offset is used to adjust the gap use",
     "Desc4": "Content"
   },
+  "BootstrapBlazor.Shared.Pages.Breadcrumbs": {
+    "Title": "Breadcrumb",
+    "H1": "Display the path of the current page and quickly return to any previous page.",
+    "Blcok1Title": "Basic usage",
+    "Blcok1Intro": "Suitable for a wide range of basic usage."
+  },
   "BootstrapBlazor.Shared.Pages.Components.Foo": {
     "Name": "Name",
     "DateTime": "DateTime",
