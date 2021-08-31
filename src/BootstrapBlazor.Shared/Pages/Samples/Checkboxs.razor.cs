@@ -18,8 +18,11 @@ namespace BootstrapBlazor.Shared.Pages
     {
         private class Foo
         {
-            [DisplayName("标签文字")]
+            [DisplayName("标签文字1")]
             public bool BindValue { get; set; }
+
+            [DisplayName("标签文字2")]
+            public bool BindValue1 { get; set; }
         }
 
         private Foo Model { get; set; } = new Foo();

@@ -40,7 +40,11 @@
 .toast,
 .modal-content,
 .table-wrapper,
-[data-bs-toggle="lgbSelect"] .form-select {
+.groupbox,
+.datetime-range,
+.datetime-picker,
+[data-bs-toggle="lgbSelect"] .form-select,
+.multi-select .dropdown-menu-toggle {
     border-radius: var(--bs-border-radius);
 }
 
