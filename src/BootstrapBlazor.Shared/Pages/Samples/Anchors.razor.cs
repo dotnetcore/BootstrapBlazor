@@ -57,33 +57,33 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Target",
-                Description = "锚点目标 Id",
+                Description = Localizer["Desc1"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Container",
-                Description = "滚动条所在元素 Id",
+                Description = Localizer["Desc2"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Offset",
-                Description = "偏移量用于调整间隙使用",
+                Description = Localizer["Desc3"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "内容",
+                Description = Localizer["Desc4"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
