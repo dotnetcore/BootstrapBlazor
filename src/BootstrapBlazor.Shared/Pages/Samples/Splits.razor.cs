@@ -21,28 +21,28 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = "样式",
+                Description = Localizer["Desc1"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Basis",
-                Description = "第一个窗格位置占比",
+                Description = Localizer["Desc2"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "50%"
             },
             new AttributeItem() {
                 Name = "FirstPaneTemplate",
-                Description = "第一个窗格模板",
+                Description = Localizer["Desc3"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "SecondPaneTemplate",
-                Description = "第二个窗格模板",
+                Description = Localizer["Desc4"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

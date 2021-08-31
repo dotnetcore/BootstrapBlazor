@@ -403,9 +403,31 @@
     "P6": "本例代码中写了一个除以零的错误代码，由于使用了 <code>try/catch</code> 对异常进行了捕获，将错误信息显示到下面控制台中",
     "ButtonText": "测试"
   },
+  "BootstrapBlazor.Shared.Pages.Splits": {
+    "Title": "Split 面板分割",
+    "Block1Title": "基础用法",
+    "Block1Intro": "左右分割",
+    "Pannel1": "我是左侧面板",
+    "Pannel2": "我是右侧面板",
+    "Block2Title": "设置初始化百分比",
+    "Block2Intro": "通过设置 <code>Basis</code> 属性来设置初始化位置占比",
+    "Block3Title": "垂直分割",
+    "Blcok3Intro": "通过设置 <code>IsVertical</code> 属性控制垂直分割面板",
+    "Pannel3": "我是上部面板",
+    "Pannel4": "我是底部面板",
+    "Block4Title": "嵌套使用",
+    "Block4Intro": "通过嵌套 <code>Split</code> 组件进行组合布局",
+    "Pannel5": "上边面板",
+    "Pannel6": "下边面板",
+    "Pannel7": "右边面板",
+    "Desc1": "样式",
+    "Desc2": "第一个窗格位置占比",
+    "Desc3": "第一个窗格模板",
+    "Desc4": "第二个窗格模板"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",
-    "SubTitle": "示例"
+    "SubTitle": "示例",
   },
   "BootstrapBlazor.Shared.Pages.Components.Tips": {
     "Title": "小提示"

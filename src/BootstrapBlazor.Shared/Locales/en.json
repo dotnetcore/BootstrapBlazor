@@ -403,6 +403,28 @@
     "P6": "In this example code, an error code that divides by zero is written. Because <code>try/catch</code> is used to capture the exception, the error message is displayed in the console below",
     "ButtonText": "test"
   },
+  "BootstrapBlazor.Shared.Pages.Splits": {
+    "Title": "Split",
+    "Block1Title": "Basic usage",
+    "Block1Intro": "Left and Right",
+    "Pannel1": "I am the left panel",
+    "Pannel2": "I am the right panel",
+    "Block2Title": "Set initialization percentage",
+    "Block2Intro": "Set the proportion of the initial position by setting the <code>Basis</code> attribute",
+    "Block3Title": "Vertical split",
+    "Blcok3Intro": "Control the vertical split panel by setting the <code>IsVertical</code> property",
+    "Pannel3": "I am the upper panel",
+    "Pannel4": "I am the bottom panel",
+    "Block4Title": "Nested use",
+    "Block4Intro": "Combine layout by nesting <code>Split</code> components",
+    "Pannel5": "Upper",
+    "Pannel6": "Lower",
+    "Pannel7": "Right",
+    "Desc1": "style",
+    "Desc2": "Percentage of first pane position",
+    "Desc3": "First pane template",
+    "Desc4": "Second pane template"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

@@ -1,63 +1,62 @@
 ﻿@page "/splits"
+@inject IStringLocalizer<Splits> Localizer
 
-<h3>Split 面板分割</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>Split 面板分割</h4>
-
-<Block Title="基础用法" Introduction="左右分割">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block2Intro"]">
     <div class="border split-demo split-demo-horizontal">
         <Split>
             <FirstPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">我是左侧面板</div>
+                <div class="d-flex justify-content-center align-items-center h-100"></div>
             </FirstPaneTemplate>
             <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">我是右侧面板</div>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel2"]</div>
             </SecondPaneTemplate>
         </Split>
     </div>
 </Block>
 
-<Block Title="设置初始化百分比" Introduction="通过设置 <code>Basis</code> 属性来设置初始化位置占比">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
     <div class="border split-demo split-demo-horizontal">
         <Split Basis="40%">
             <FirstPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">我是左侧面板</div>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel1"]</div>
             </FirstPaneTemplate>
             <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">我是右侧面板</div>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel2"]</div>
             </SecondPaneTemplate>
         </Split>
     </div>
 </Block>
 
-<Block Title="垂直分割" Introduction="通过设置 <code>IsVertical</code> 属性控制垂直分割面板">
+<Block Title="@Localizer["Block3Title"]" Introduction="">
     <div class="border split-demo">
         <Split IsVertical="true">
             <FirstPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">我是上部面板</div>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel3"]</div>
             </FirstPaneTemplate>
             <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">我是底部面板</div>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel4"]</div>
             </SecondPaneTemplate>
         </Split>
     </div>
 </Block>
 
-<Block Title="嵌套使用" Introduction="通过嵌套 <code>Split</code> 组件进行组合布局">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
     <div class="border split-demo">
         <Split>
             <FirstPaneTemplate>
                 <Split IsVertical="true">
                     <FirstPaneTemplate>
-                        <div class="d-flex justify-content-center align-items-center h-100">上边面板</div>
+                        <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel5"]</div>
                     </FirstPaneTemplate>
                     <SecondPaneTemplate>
-                        <div class="d-flex justify-content-center align-items-center h-100">下边面板</div>
+                        <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel6"]</div>
                     </SecondPaneTemplate>
                 </Split>
             </FirstPaneTemplate>
             <SecondPaneTemplate>
-                <div class="d-flex justify-content-center align-items-center h-100">右边面板</div>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["Pannel7"]</div>
             </SecondPaneTemplate>
         </Split>
     </div>
