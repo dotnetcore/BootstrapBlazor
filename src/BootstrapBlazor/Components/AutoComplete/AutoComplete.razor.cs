@@ -93,9 +93,14 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得 DropdownList 组件客户端引用实例
+        /// 
         /// </summary>
-        protected ElementReference DropdownListElement { get; set; }
+        protected ElementReference AutoCompleteElement { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected int? CurrentItemIndex { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -108,6 +113,21 @@ namespace BootstrapBlazor.Components
             PlaceHolder ??= Localizer[nameof(PlaceHolder)];
             Items ??= Enumerable.Empty<string>();
             FilterItems ??= new List<string>();
+        }
+
+        /// <summary>
+        /// firstRender
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (CurrentItemIndex.HasValue)
+            {
+                await JSRuntime.InvokeVoidAsync(AutoCompleteElement, "bb_autoScrollItem", CurrentItemIndex.Value);
+            }
         }
 
         /// <summary>
@@ -168,8 +188,7 @@ namespace BootstrapBlazor.Components
                         index = source.Count - 1;
                     }
                     _selectedItem = source[index];
-
-                    await ScrollDropdownListElement(index);
+                    CurrentItemIndex = index;
                 }
                 else if (_isShown && args.Key == "ArrowDown")
                 {
@@ -179,8 +198,7 @@ namespace BootstrapBlazor.Components
                         index = 0;
                     }
                     _selectedItem = source[index];
-
-                    await ScrollDropdownListElement(index);
+                    CurrentItemIndex = index;
                 }
                 else if (args.Key == "Escape")
                 {
@@ -195,16 +213,6 @@ namespace BootstrapBlazor.Components
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 控制items滚动条进度
-        /// </summary>
-        /// <param name="index">item 的 index</param>
-        /// <returns></returns>
-        private async Task ScrollDropdownListElement(int index)
-        {
-            await JSRuntime.InvokeVoidAsync(DropdownListElement, "bb_scrollelement", index);
         }
     }
 }

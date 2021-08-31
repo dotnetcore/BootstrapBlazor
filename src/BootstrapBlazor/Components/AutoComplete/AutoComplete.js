@@ -1,14 +1,17 @@
 ﻿(function ($) {
     $.extend({
-        bb_scrollelement: function (el, value) {
-            var $parent = $(el);
-            var parentheight = $parent.height();
-            var activeitem = 32.57;// $parent.find('.active').height(); //应该是32.57 存疑怎么查找, 里面一层是21.57
-            console.log('bb_scrollelement', value, 'el.scrollTop', el.scrollTop, 'scrollTop', activeitem * value);
-            if (activeitem * value > parentheight / 2) {
-                $parent.scrollTop(activeitem * (value > 3 ? value - 3 : value));
-            } else if (value <= 4) {
-                $parent.scrollTop(0);
+        bb_autoScrollItem: function (el, index) {
+            var $el = $(el);
+            var $menu = $el.find('.dropdown-list');
+            var maxHeight = parseInt($menu.css('max-height').replace('px', '')) / 2;
+            var itemHeight = $menu.children('li:first').outerHeight();
+            var height = itemHeight * index;
+            var count = Math.floor(maxHeight / itemHeight);
+            if (height > maxHeight) {
+                $menu.scrollTop(itemHeight * (index > count ? index - count : index));
+            }
+            else if (index <= count) {
+                $menu.scrollTop(0);
             }
         }
     });
