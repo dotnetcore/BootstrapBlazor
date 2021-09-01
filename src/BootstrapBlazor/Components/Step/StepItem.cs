@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
+
 namespace BootstrapBlazor.Components
 {
     /// <summary>
@@ -35,8 +37,8 @@ namespace BootstrapBlazor.Components
         public string? Space { get; set; }
 
         /// <summary>
-        /// 获得/设置 进度条是否充满 默认 false
+        /// 获得/设置 每个 step 的模板
         /// </summary>
-        internal bool Line { get; set; }
+        public RenderFragment? Template { get; set; }
     }
 }

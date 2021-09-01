@@ -6,22 +6,23 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// Step 组件基类
+    /// Step 组件类
     /// </summary>
-    public abstract class StepsBase : BootstrapComponentBase
+    public partial class Steps
     {
         /// <summary>
         /// 获得 组件样式字符串
         /// </summary>
-        protected string? ClassString => CssBuilder.Default("steps")
-            .AddClass("steps-horizontal", !IsVertical)
-            .AddClass("steps-vertical", IsVertical)
+        private string? ClassString => CssBuilder.Default("steps")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+
+        private StepItem? CurrentStep { get; set; }
 
         /// <summary>
         /// 获得/设置 步骤集合
@@ -57,7 +58,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 步骤组件状态改变时回调委托
         /// </summary>
         [Parameter]
-        public Action<StepStatus>? OnStatusChanged { get; set; }
+        public Func<StepStatus, Task>? OnStatusChanged { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -67,34 +68,50 @@ namespace BootstrapBlazor.Components
             base.OnInitialized();
 
             var origiContent = ChildContent;
-            if (Items.Any())
+            ChildContent = new RenderFragment(builder =>
             {
-                ChildContent = new RenderFragment(builder =>
+                var index = 0;
+                builder.OpenElement(index++, "div");
+                builder.AddAttribute(index++, "class", CssBuilder.Default("steps-header")
+                    .AddClass("steps-horizontal", !IsVertical)
+                    .AddClass("steps-vertical", IsVertical)
+                    .Build());
+                foreach (var item in Items)
                 {
-                    var index = 0;
-                    foreach (var item in Items)
-                    {
-                        builder.AddContent(index++, RenderStep(item));
-                    }
-                    builder.AddContent(index++, origiContent);
-                });
-            }
+                    builder.AddContent(index++, RenderStep(item));
+                }
+                builder.AddContent(index++, origiContent);
+                builder.CloseElement();
+
+                if (CurrentStep?.Template != null)
+                {
+                    builder.OpenElement(index++, "div");
+                    builder.AddAttribute(index++, "class", "steps-body");
+                    builder.AddContent(index++, CurrentStep.Template);
+                    builder.CloseElement();
+                }
+            });
         }
 
         /// <summary>
-        /// OnParametersSet 方法
+        /// OnParametersSetAsync 方法
         /// </summary>
-        protected override void OnParametersSet()
+        protected override async Task OnParametersSetAsync()
         {
-            base.OnParametersSet();
+            await base.OnParametersSetAsync();
 
+            CurrentStep = null;
             if (Items.Any())
             {
-                var status = Items.Where(i => i.Status != StepStatus.Wait).LastOrDefault()?.Status ?? StepStatus.Wait;
+                CurrentStep = Items.Where(i => i.Status != StepStatus.Wait).LastOrDefault();
+                var status = CurrentStep?.Status ?? StepStatus.Wait;
                 if (Status != status)
                 {
                     Status = status;
-                    OnStatusChanged?.Invoke(Status);
+                    if (OnStatusChanged != null)
+                    {
+                        await OnStatusChanged.Invoke(Status);
+                    }
                 }
             }
         }

@@ -108,7 +108,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 父级组件 Steps 实例
         /// </summary>
         [CascadingParameter]
-        private StepsBase? Steps { get; set; }
+        private Steps? Steps { get; set; }
 
         /// <summary>
         /// 获得/设置 步骤组件状态改变时回调委托
