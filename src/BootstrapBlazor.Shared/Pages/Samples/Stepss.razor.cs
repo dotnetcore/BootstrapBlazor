@@ -8,6 +8,7 @@ using BootstrapBlazor.Shared.Pages.Components;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -60,9 +61,10 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <param name="status"></param>
-        private void OnStatusChanged(StepStatus status)
+        private Task OnStatusChanged(StepStatus status)
         {
             Trace.Log($"Steps Status: {status}");
+            return Task.CompletedTask;
         }
 
         /// <summary>
