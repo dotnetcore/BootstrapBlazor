@@ -1,31 +1,34 @@
 ﻿(function ($) {
     $.extend({
         bb_tooltip: function (id, method, title, placement, html, trigger) {
-            var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
-            var instance = bootstrap.Tooltip.getInstance(document.getElementById(id));
-            if (instance) instance.dispose();
-            var $ele = $('#' + id);
-            if (method === "") {
-                $ele.tooltip(op);
+            var ele = document.getElementById(id);
+            var instance = bootstrap.Tooltip.getInstance(ele);
+            if (method === 'dispose') {
+                if (instance) {
+                    instance.dispose();
+                }
             }
-            else if (method === 'enable') {
-                $ele.tooltip(op);
-                var $ctl = $ele.parents('form').find('.is-invalid:first');
-                if ($ctl.prop("nodeName") === 'INPUT') {
-                    if ($ctl.prop('readonly')) {
+            else {
+                var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
+                instance = new bootstrap.Tooltip(ele, op);
+                var $ele = $(ele);
+                if (method === 'enable') {
+                    var $ctl = $ele.parents('form').find('.is-invalid:first');
+                    if ($ctl.prop("nodeName") === 'INPUT') {
+                        if ($ctl.prop('readonly')) {
+                            $ctl.trigger('focus');
+                        }
+                        else {
+                            $ctl.focus();
+                        }
+                    }
+                    else if ($ctl.prop("nodeName") === 'DIV') {
                         $ctl.trigger('focus');
                     }
-                    else {
-                        $ctl.focus();
-                    }
                 }
-                else if ($ctl.prop("nodeName") === 'DIV') {
-                    $ctl.trigger('focus');
+                else {
+                    $ele.tooltip(method);
                 }
-            }
-            else if (method !== "dispose") {
-                $ele.tooltip(op);
-                $ele.tooltip(method);
             }
         },
     });

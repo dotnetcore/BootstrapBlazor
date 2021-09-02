@@ -49,7 +49,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 Tooltip 命令
         /// </summary>
-        protected string TooltipMethod { get; set; } = "";
+        protected string? TooltipMethod { get; set; }
 
         /// <summary>
         /// 获得/设置 组件是否合规 默认为 null 未检查
@@ -344,7 +344,7 @@ namespace BootstrapBlazor.Components
             if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
             {
                 await ShowTooltip();
-                TooltipMethod = "";
+                TooltipMethod = null;
             }
         }
 
@@ -352,7 +352,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override string RetrieveMethod() => TooltipMethod;
+        protected override string RetrieveMethod() => TooltipMethod ?? "";
 
         /// <summary>
         /// 
@@ -422,9 +422,6 @@ namespace BootstrapBlazor.Components
                     ErrorMessage = messages.First().ErrorMessage;
                     IsValid = false;
 
-                    // 控件自身数据验证时显示 tooltip
-                    // EditForm 数据验证时调用 tooltip('enable') 保证 tooltip 组件生成
-                    // 调用 tooltip('hide') 后导致鼠标悬停时 tooltip 无法正常显示
                     TooltipMethod = validProperty ? "show" : "enable";
                 }
                 else

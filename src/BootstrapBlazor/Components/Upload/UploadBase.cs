@@ -106,9 +106,6 @@ namespace BootstrapBlazor.Components
                     ErrorMessage = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)))?.ErrorMessage;
                     IsValid = string.IsNullOrEmpty(ErrorMessage);
 
-                    // 控件自身数据验证时显示 tooltip
-                    // EditForm 数据验证时调用 tooltip('enable') 保证 tooltip 组件生成
-                    // 调用 tooltip('hide') 后导致鼠标悬停时 tooltip 无法正常显示
                     if (IsValid.HasValue && !IsValid.Value)
                     {
                         TooltipMethod = validProperty ? "show" : "enable";

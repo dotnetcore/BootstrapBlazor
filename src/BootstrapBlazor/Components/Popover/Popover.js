@@ -20,18 +20,19 @@
             }
         },
         bb_popover: function (id, method, title, content, placement, html, trigger) {
-            var $ele = $('#' + id);
-            var op = { html, sanitize: false, title, content, placement, trigger };
-            if (method === "") {
-                if ($ele.data('bs.popover')) $ele.popover('dispose');
-                $ele.popover(op);
-            }
-            else if (method === "dispose") {
-                if ($ele.data('bs.popover')) $ele.popover(method);
+            var ele = document.getElementById(id);
+            var instance = bootstrap.Popover.getInstance(ele);
+            if (method === 'dispose') {
+                if (instance) {
+                    instance.dispose();
+                }
             }
             else {
-                if (!$ele.data('bs.popover')) $ele.popover(op);
-                $ele.popover(method);
+                var op = { html, sanitize: false, title, content, placement, trigger };
+                instance = new bootstrap.Popover(ele, op);
+                if (method !== '') {
+                    $(ele).popover(method);
+                }
             }
         },
         bb_datetimePicker: function (el, method) {
