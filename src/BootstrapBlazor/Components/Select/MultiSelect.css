@@ -190,3 +190,15 @@
         line-height: 35px;
         position: absolute;
     }
+
+    .multi-select .dropdown-item .form-label {
+        display: none;
+    }
+
+    .multi-select .dropdown-item .form-check {
+        width: auto;
+    }
+
+    .multi-select .dropdown-item:hover {
+        background-color: #f1faff;
+    }

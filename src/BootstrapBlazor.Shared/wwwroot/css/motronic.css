@@ -887,3 +887,21 @@
 .content p code, .content li code {
     background-color: #fff5f8 !important;
 }
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    border-color: var(--bs-success);
+}
+
+    .was-validated .form-control:valid:focus, .form-control.is-valid:focus, .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
+        border-color: var(--bs-success);
+        box-shadow: none;
+    }
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    border-color: var(--bs-danger);
+}
+
+    .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus, .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
+        border-color: var(--bs-danger);
+        box-shadow: none;
+    }
