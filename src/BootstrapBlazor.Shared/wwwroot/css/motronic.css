@@ -41,7 +41,7 @@
 .modal-content,
 .table-wrapper,
 .groupbox,
-.popover, .popover-body, .picker-panel,
+.popover, .picker-panel,
 .picker-panel-footer .picker-panel-link-btn,
 .time-panel,
 .datetime-range,
@@ -50,9 +50,63 @@
     border-radius: var(--bs-border-radius);
 }
 
-.picker-panel-footer {
+.popover {
+    border: 1px solid #e4e6ef;
+}
+
+.popover-header {
+    border-bottom: 1px solid #e4e6ef;
+}
+
+.popover-header {
+    background-color: var(--bs-secondary);
+}
+
+.picker-panel-footer,
+.popover-body {
     border-bottom-left-radius: var(--bs-border-radius);
     border-bottom-right-radius: var(--bs-border-radius);
+}
+
+.bs-popover-auto[data-popper-placement^=bottom].has-header > .popover-arrow::after,
+.bs-popover-bottom.has-header > .popover-arrow::after {
+    border-bottom-color: #e4e6ef;
+}
+
+.bs-popover-auto[data-popper-placement^=top] > .popover-arrow::before, .bs-popover-top > .popover-arrow::before {
+    border-top-color: #e4e6ef;
+}
+
+.bs-popover-top > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=top] > .popover-arrow::after {
+    border-top-color: #fff;
+}
+
+.bs-popover-end > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=right] > .popover-arrow::before {
+    border-right-color: #e4e6ef;
+}
+
+.bs-popover-end > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=right] > .popover-arrow::after {
+    border-right-color: #fff;
+}
+
+.bs-popover-bottom > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow::before {
+    border-bottom-color: #e4e6ef;
+}
+
+.bs-popover-bottom > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow::after {
+    border-bottom-color: #fff;
+}
+
+.bs-popover-start > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=left] > .popover-arrow::before {
+    border-left-color: #e4e6ef;
+}
+
+.bs-popover-start > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=left] > .popover-arrow::after {
+    border-left-color: #fff;
+}
+
+.bs-popover-bottom .popover-header::before, .bs-popover-auto[data-popper-placement^=bottom] .popover-header::before {
+    border-bottom: 1px solid #e4e6ef;
 }
 
 .btn {
