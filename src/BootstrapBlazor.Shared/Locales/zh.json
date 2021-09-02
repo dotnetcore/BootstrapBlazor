@@ -465,6 +465,15 @@
     "ADesc11": "标签",
     "EDesc1": "下拉框值发生改变时触发"
   },
+  "BootstrapBlazor.Shared.Pages.GoTops": {
+    "Title": "GoTop 返回顶端组件",
+    "H1": "点击后返回指定容器的顶端",
+    "Block1Title": "基础用法",
+    "Block1Intro": "点击后返回顶端",
+    "P1": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
+    "P2": "本示例传递的是组件客户端 ID",
+    "Desc1": "页脚组件控制的滚动条组件 ID"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",
     "SubTitle": "示例"

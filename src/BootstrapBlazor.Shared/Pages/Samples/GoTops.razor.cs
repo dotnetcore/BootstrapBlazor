@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "Target",
-                Description = "页脚组件控制的滚动条组件 ID",
+                Description = Localizer["Desc1"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

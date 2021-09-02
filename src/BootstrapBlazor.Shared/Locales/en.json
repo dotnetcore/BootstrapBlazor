@@ -465,6 +465,15 @@
     "ADesc11": "Label",
     "EDesc1": "Triggered when the value of the drop-down box changes"
   },
+  "BootstrapBlazor.Shared.Pages.GoTops": {
+    "Title": "GoTop",
+    "H1": "Click to return to the top of the specified container",
+    "Block1Title": "Basic usage",
+    "Block1Intro": "Click to return to the top usage",
+    "P1": "The Footer component appears at the bottom, and the page automatically scrolls back to the top when you click Back to the Top",
+    "P2": "This example passes the component client ID",
+    "Desc1": "The scroll bar component ID controlled by the footer component"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
