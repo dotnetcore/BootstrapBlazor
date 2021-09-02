@@ -8,6 +8,7 @@
     "cell": "Table/TablesCell",
     "checkboxlists": "CheckboxLists",
     "column": "Table/TablesColumn",
+    "colorpickers": "ColorPickers",
     "datetimepickers": "DateTimePickers",
     "datetimeranges": "DateTimeRanges",
     "doughnut": "Charts/Doughnut",
