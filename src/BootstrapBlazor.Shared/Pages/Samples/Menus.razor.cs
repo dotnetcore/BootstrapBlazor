@@ -124,12 +124,12 @@ namespace BootstrapBlazor.Shared.Pages
             DynamicSideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()
             {
                 Name = "Items",
-                Description = "菜单组件数据集合",
+                Description = Localizer["Desc1"]!,
                 Type = "IEnumerable<MenuItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -137,7 +137,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsVertical",
-                Description = "是否为侧栏",
+                Description = Localizer["Desc2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -145,28 +145,28 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsBottom",
-                Description = "是否为底栏",
+                Description = Localizer["Desc3"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsAccordion",
-                Description = "是否手风琴效果",
+                Description = Localizer["Desc4"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisableNavigation",
-                Description = "是否禁止地址栏导航",
+                Description = Localizer["Desc5"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "OnClick",
-                Description = "菜单项被点击时回调此方法",
+                Description = Localizer["Desc6"]!,
                 Type = "Func<MenuItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
