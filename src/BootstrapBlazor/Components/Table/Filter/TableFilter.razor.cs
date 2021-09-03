@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 样式
         /// </summary>
-        private string? ClassString => CssBuilder.Default("card table-filter-item")
+        private string? ClassString => CssBuilder.Default("card table-filter-item shadow")
             .AddClass("show", IsShow)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();

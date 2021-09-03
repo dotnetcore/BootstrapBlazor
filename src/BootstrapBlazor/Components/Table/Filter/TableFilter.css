@@ -8,8 +8,6 @@
 
     .table-filter .table-filter-item {
         min-width: 220px;
-        border-radius: 0.25rem;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.125);
         background-color: #fff;
         border: 1px solid rgba(0,0,0,.125);
         position: absolute;
@@ -84,7 +82,6 @@
         .table-filter .card-footer .btn {
             padding: 7px 15px;
             font-size: 0.875rem;
-            border-radius: 3px;
             line-height: 12px;
             border: 1px solid #dcdfe6;
             color: #606266;
