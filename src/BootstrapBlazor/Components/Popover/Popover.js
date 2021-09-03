@@ -19,6 +19,13 @@
                 button.classList.remove(showClassName);
             }
         },
+        bb_confirm_submit: function (id) {
+            var $ele = $('#' + id);
+            var $submit = $('<button type="submit" hidden />');
+            $submit.appendTo($ele.parent());
+            $submit.trigger('click');
+            $submit.remove();
+        },
         bb_popover: function (id, method, title, content, placement, html, trigger) {
             var ele = document.getElementById(id);
             var instance = bootstrap.Popover.getInstance(ele);

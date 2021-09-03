@@ -4,7 +4,10 @@
 
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
@@ -14,10 +17,30 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class PopoverConfirms
     {
+        [NotNull]
+        private Foo? Model { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
+        [NotNull]
         private BlockLogger? Trace { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotNull]
+        private BlockLogger? Trace1 { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        }
 
         /// <summary>
         /// 
@@ -25,7 +48,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnClose()
         {
             // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
-            Trace?.Log("OnClose Trigger");
+            Trace.Log("OnClose Trigger");
             return Task.CompletedTask;
         }
 
@@ -35,7 +58,27 @@ namespace BootstrapBlazor.Shared.Pages
         private Task OnConfirm()
         {
             // 点击确认按钮后此方法被回调，点击取消按钮时此方法不会被调用
-            Trace?.Log("OnConfirm Trigger");
+            Trace.Log("OnConfirm Trigger");
+            return Task.CompletedTask;
+        }
+
+        private static Task OnAsyncConfirm() => Task.Delay(3000);
+
+        private async Task OnAsyncSubmit()
+        {
+            await Task.Delay(3000);
+            Trace1.Log("异步提交");
+        }
+
+        private Task OnValidSubmit(EditContext context)
+        {
+            Trace1.Log("数据合规");
+            return Task.CompletedTask;
+        }
+
+        private Task OnInValidSubmit(EditContext context)
+        {
+            Trace1.Log("数据非法");
             return Task.CompletedTask;
         }
 
@@ -43,7 +86,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

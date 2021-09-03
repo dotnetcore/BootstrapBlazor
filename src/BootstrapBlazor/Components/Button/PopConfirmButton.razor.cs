@@ -25,6 +25,8 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
+        private bool Submit { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -35,6 +37,22 @@ namespace BootstrapBlazor.Components
             ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
             CloseButtonText ??= Localizer[nameof(CloseButtonText)];
             Content ??= Localizer[nameof(Content)];
+        }
+
+        /// <summary>
+        /// OnAfterRenderAsync 方法
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (Submit)
+            {
+                Submit = false;
+                await JSRuntime.InvokeVoidAsync(Id, "bb_confirm_submit");
+            }
         }
 
         /// <summary>
@@ -75,18 +93,30 @@ namespace BootstrapBlazor.Components
         {
             if (IsAsync)
             {
-                var icon = this.Icon;
-                this.SetDisable(true);
-                this.Icon = this.LoadingIcon;
-                await InvokeAsync(StateHasChanged);
-                await Task.Run(async () => await InvokeAsync(OnConfirm));
-                this.SetDisable(false);
-                this.Icon = icon;
-                await InvokeAsync(StateHasChanged);
+                var icon = Icon;
+                IsDisabled = true;
+                Icon = LoadingIcon;
+                StateHasChanged();
+
+                await OnConfirm();
+
+                IsDisabled = false;
+                Icon = icon;
+
+                if (ButtonType == ButtonType.Submit)
+                {
+                    Submit = true;
+                }
+                StateHasChanged();
             }
             else
             {
                 await OnConfirm();
+                if (ButtonType == ButtonType.Submit)
+                {
+                    Submit = true;
+                    StateHasChanged();
+                }
             }
         }
     }
