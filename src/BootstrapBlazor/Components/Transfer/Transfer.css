@@ -55,9 +55,9 @@
     display: block;
 }
 
-.transfer-panel-item {
-    display: block;
-}
+    .transfer-panel-item .form-check-input {
+        margin: 7px 0;
+    }
 
 .transfer-buttons {
     display: inline-block;
@@ -85,7 +85,7 @@
 
 .transfer-panel-filter {
     text-align: center;
-    margin: 15px;
+    margin: .5rem 1rem 0 1rem;
     display: block;
     width: auto;
     position: relative;
@@ -96,7 +96,7 @@
         line-height: 32px;
         width: 100%;
         display: inline-block;
-        border-radius: 16px;
+        border-radius: var(--bs-border-radius);
         padding-right: 10px;
         padding-left: 30px;
         border: 1px solid #dcdfe6;
@@ -131,3 +131,7 @@
         .transfer-panel-filter .input-prefix.disabled:hover i:before {
             cursor: not-allowed;
         }
+
+.transfer-panel-header .form-check .form-check-input {
+    margin: 12px 0;
+}
