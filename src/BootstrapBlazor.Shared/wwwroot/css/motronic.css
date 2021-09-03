@@ -39,18 +39,13 @@
 .card,
 .toast,
 .modal-content,
-.table-wrapper,
-.groupbox,
-.popover, .picker-panel,
-.picker-panel-footer .picker-panel-link-btn,
-.time-panel,
-.datetime-range,
-[data-bs-toggle="lgbSelect"] .form-select,
-.multi-select .dropdown-menu-toggle {
+.popover,
+.form-select {
     border-radius: var(--bs-border-radius);
 }
 
-.popover {
+.popover,
+.dropdown-menu {
     border: 1px solid var(--bs-secondary);
 }
 

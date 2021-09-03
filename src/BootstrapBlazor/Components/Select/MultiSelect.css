@@ -5,7 +5,7 @@
 
     .multi-select .dropdown-menu-toggle {
         border: solid 1px #ddd;
-        border-radius: 4px;
+        border-radius: var(--bs-border-radius);
         cursor: pointer;
         min-height: 35px;
         max-height: 70px;
@@ -24,7 +24,7 @@
 
             .multi-select .dropdown-menu-toggle .clear:hover {
                 background-color: #ddd;
-                border-radius: 4px;
+                border-radius: var(--bs-border-radius);
             }
 
         .multi-select .dropdown-menu-toggle .dropdown {
@@ -72,7 +72,7 @@
 
         .multi-select .multi-select-items span {
             border: solid 1px #ddd;
-            border-radius: 4px;
+            border-radius: var(--bs-border-radius);
             padding: 2px 6px;
             background-color: #e9ecef;
             margin-bottom: 3px;
@@ -85,6 +85,8 @@
             overflow: hidden;
             white-space: nowrap;
             margin-right: 3px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
         }
 
         .multi-select .multi-select-items .multi-select-item-group {

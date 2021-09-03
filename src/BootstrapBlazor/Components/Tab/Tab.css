@@ -189,13 +189,13 @@
 
     .tabs.tabs-card.tabs-top .tabs-nav-scroll {
         border: solid 1px #ddd;
-        border-radius: 4px 4px 0 0;
+        border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
         border-bottom: none;
     }
 
     .tabs.tabs-card.tabs-bottom .tabs-nav-scroll {
         border: solid 1px #ddd;
-        border-radius: 0 0 4px 4px;
+        border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
         border-top: none;
     }
 

@@ -298,7 +298,7 @@ section {
 .badge-widget {
     display: inline-block;
     border: solid 1px #ddd;
-    border-radius: 4px;
+    border-radius: var(--bs-border-radius);
     padding: 6px 12px;
     position: relative;
     transition: all .25s linear;
@@ -320,7 +320,7 @@ section {
 .card-log {
     overflow: hidden auto;
     border: solid 1px #ddd;
-    border-radius: 4px;
+    border-radius: var(--bs-border-radius);
     padding: 0.5rem 1rem;
     background-color: #174482;
     color: #fff;

@@ -4,6 +4,10 @@
  * Licensed under MIT (https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
  */
 
+:root {
+    --bs-border-radius: .25rem;
+}
+
 body, .form-control, .dropdown-menu, .form-select,
 .btn:not(.btn-xs):not(.btn-sm):not(.btn-md):not(.btn-lg):not(.btn-xl),
 .input-group-text {
