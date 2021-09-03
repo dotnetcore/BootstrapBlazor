@@ -9,6 +9,10 @@
     margin-right: 6px;
 }
 
+.dropdown-menu {
+    border-radius: var(--bs-border-radius);
+}
+
 .dropdown-item {
     cursor: pointer;
 }

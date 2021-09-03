@@ -21,7 +21,6 @@
     padding: 0;
     max-height: none;
     border: none;
-    border-radius: var(--bs-border-radius);
 }
 
     .widget .dropdown-menu .dropdown-arrow {
