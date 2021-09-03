@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components
                     ConfirmButtonText = ConfirmButtonText,
                     ConfirmButtonColor = ConfirmButtonColor,
                     Icon = ConfirmIcon,
-                    OnConfirm = OnConfirm,
+                    OnConfirm = Confirm,
                     OnClose = OnClose,
                     Callback = async () =>
                     {
@@ -64,6 +64,29 @@ namespace BootstrapBlazor.Components
                         await JSRuntime.InvokeVoidAsync(Id, "bb_confirm");
                     }
                 });
+            }
+        }
+
+        /// <summary>
+        /// 确认回调方法
+        /// </summary>
+        /// <returns></returns>
+        private async Task Confirm()
+        {
+            if (IsAsync)
+            {
+                var icon = this.Icon;
+                this.SetDisable(true);
+                this.Icon = this.LoadingIcon;
+                await InvokeAsync(StateHasChanged);
+                await Task.Run(async () => await InvokeAsync(OnConfirm));
+                this.SetDisable(false);
+                this.Icon = icon;
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                await OnConfirm();
             }
         }
     }
