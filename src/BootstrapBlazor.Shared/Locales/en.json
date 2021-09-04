@@ -474,10 +474,6 @@
     "P2": "This example passes the component client ID",
     "Desc1": "The scroll bar component ID controlled by the footer component"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Block": {
-    "Title": "",
-    "SubTitle": "Demo"
-  },
   "BootstrapBlazor.Shared.Pages.Menus": {
     "Title": "Menu",
     "H1": "A list of menus that provide navigation for pages and features.",
@@ -520,6 +516,33 @@
     "Desc4": "Whether the accordion effect",
     "Desc5": "Whether to disable address bar navigation",
     "Desc6": "This method is called back when a menu item is clicked"
+  },
+  "BootstrapBlazor.Shared.Pages.Navs": {
+    "Title": "Nav",
+    "H1": "A menu that provides navigation for your site.",
+    "Block1Title": "Basic navigation style.",
+    "Block1Intro": "In this example, by setting the <code>Items </code> property, the navigation component is assigned through the program api and the <code> NavLink </code> component is written directly to the <code> ChildContext </code> of the navigation component",
+    "Block2Title": "Align",
+    "Block2Intro": "Control component alignment by setting the property of <code>Signment</code>",
+    "Divider": "Split the line",
+    "Block3Title": "Vertical",
+    "Block3Intro": "In this example, you control whether the navigation is vertically distributed by setting the <code> IsVertical </code> property",
+    "Block4Title": "Capsule",
+    "Block4Intro": "Control the background color of the navigation menu by setting the <code> IsPills </code> property",
+    "Block5Title": "Fill and align",
+    "Block5Intro": "By setting the <code> IsFill </code> properties controls that the navigation menu is evenly distributed to fill the entire navigation bar",
+    "Block6Title": "Equal width",
+    "Block6Intro": "By setting the <code> IsIze </code> property so that each navigation item will have the same width.",
+    "Desc1": "Content",
+    "Desc2": "Component alignment",
+    "Desc3": "Vertical distribution",
+    "Desc4": "Capsule",
+    "Desc5": "Padding",
+    "Desc6": "Equal width"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Block": {
+    "Title": "",
+    "SubTitle": "Demo"
   },
   "BootstrapBlazor.Shared.Pages.Components.Tips": {
     "Title": "Tips"

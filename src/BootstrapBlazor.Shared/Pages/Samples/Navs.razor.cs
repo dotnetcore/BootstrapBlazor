@@ -40,47 +40,47 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "内容",
+                Description = Localizer["Desc1"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Alignment",
-                Description = "组件对齐方式",
+                Description = Localizer["Desc2"]!,
                 Type = "Alignment",
                 ValueList = "Left|Center|Right",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = "垂直分布",
+                Description = Localizer["Desc3"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsPills",
-                Description = "胶囊",
+                Description = Localizer["Desc4"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsFill",
-                Description = "填充",
+                Description = Localizer["Desc5"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsJustified",
-                Description = "等宽",
+                Description = Localizer["Desc6"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

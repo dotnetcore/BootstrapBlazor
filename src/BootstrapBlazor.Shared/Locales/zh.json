@@ -474,10 +474,6 @@
     "P2": "本示例传递的是组件客户端 ID",
     "Desc1": "页脚组件控制的滚动条组件 ID"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Block": {
-    "Title": "未设置",
-    "SubTitle": "示例"
-  },
   "BootstrapBlazor.Shared.Pages.Menus": {
     "Title": "Menu 导航菜单",
     "H1": "为页面和功能提供导航的菜单列表。",
@@ -545,6 +541,33 @@
     "SubMenu32": "曾孙菜单 32",
     "SubMenu41": "曾曾孙菜单 41",
     "SubMenu42": "曾曾孙菜单 42"
+  },
+  "BootstrapBlazor.Shared.Pages.Navs": {
+    "Title": "Nav 导航组件",
+    "H1": "为网站提供导航功能的菜单。",
+    "Block1Title": "基本导航样式",
+    "Block1Intro": "本例中通过设置 <code>Items</code> 属性，通过程序 api 对导航组件进行赋值，并且在导航组件的 <code>ChildContext</code> 中直接写入 <code>NavLink</code> 组件",
+    "Block2Title": "对齐",
+    "Block2Intro": "通过设置 <code>Alignment</code> 属性来控制组件对齐方式",
+    "Divider": "分割线",
+    "Block3Title": "垂直",
+    "Block3Intro": "本例中通过设置 <code>IsVertical</code> 属性控制导航是否为垂直分布",
+    "Block4Title": "胶囊式",
+    "Block4Intro": "通过设置 <code>IsPills</code> 属性控制导航菜单背景色",
+    "Block5Title": "填充和对齐",
+    "Block5Intro": "通过设置 <code>IsFill</code> 属性控制导航菜单均匀分布填满整个导航栏",
+    "Block6Title": "等宽",
+    "Block6Intro": "通过设置 <code>IsJustified</code> 属性使每个导航项目将具有相同的宽度。",
+    "Desc1": "内容",
+    "Desc2": "组件对齐方式",
+    "Desc3": "垂直分布",
+    "Desc4": "胶囊",
+    "Desc5": "填充",
+    "Desc6": "等宽"
+  },
+  "BootstrapBlazor.Shared.Pages.Components.Block": {
+    "Title": "未设置",
+    "SubTitle": "示例"
   },
   "BootstrapBlazor.Shared.Pages.Components.Tips": {
     "Title": "小提示"
