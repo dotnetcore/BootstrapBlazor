@@ -7,6 +7,10 @@
             var itemHeight = $menu.children('li:first').outerHeight();
             var height = itemHeight * index;
             var count = Math.floor(maxHeight / itemHeight);
+
+            $menu.children().removeClass('active');
+            $menu.children()[index].classList.add('active');
+
             if (height > maxHeight) {
                 $menu.scrollTop(itemHeight * (index > count ? index - count : index));
             }

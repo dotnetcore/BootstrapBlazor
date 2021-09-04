@@ -17,7 +17,7 @@
                 {
                     @foreach (var item in FilterItems)
                     {
-                        <li class="@ItemClassString(item)" @onmousedown="e => OnClickItem(item)">
+                        <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
                             <div>@item</div>
                         </li>
                     }

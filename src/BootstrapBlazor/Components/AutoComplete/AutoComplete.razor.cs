@@ -83,14 +83,6 @@ namespace BootstrapBlazor.Components
         private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
         private string _selectedItem = "";
-        /// <summary>
-        /// 获得 候选项样式
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        protected string? ItemClassString(string item) => CssBuilder.Default("dropdown-item")
-            .AddClass("active", item == _selectedItem)
-            .Build();
 
         /// <summary>
         /// 
@@ -173,12 +165,13 @@ namespace BootstrapBlazor.Components
                     FilterItems = DisplayCount == null ? items.ToList() : items.Take((int)DisplayCount).ToList();
                 }
                 _isLoading = false;
-                _isShown = true;
             }
 
             var source = FilterItems;
             if (source.Any())
             {
+                _isShown = true;
+
                 // 键盘向上选择
                 if (_isShown && args.Key == "ArrowUp")
                 {
