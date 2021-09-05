@@ -1,4 +1,4 @@
-﻿@page "/uploads"
+@page "/uploads"
 
 <h3>Upload 上传</h3>
 
@@ -89,7 +89,7 @@
             <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
         </div>
         <div class="col-12">
-            <p>通过 <code>DefaultFileList</code> 属性设置预览地址 <code>PreUrl</code> 即可</p>
+            <p>通过 <code>DefaultFileList</code> 属性设置预览地址 <code>PrevUrl</code> 即可</p>
             <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" DefaultFileList="@PreviewFileList"
                           OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))" />
         </div>
