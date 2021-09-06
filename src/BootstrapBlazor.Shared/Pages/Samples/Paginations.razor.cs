@@ -38,35 +38,35 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "PageIndex",
-                Description = "当前页码",
+                Description = Localizer["Desc1"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "1"
             },
             new AttributeItem() {
                 Name = "PageItems",
-                Description = "每页显示数据数量",
+                Description = Localizer["Desc2"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "PageItemsSource",
-                Description = "每页显示数据数量的外部数据源",
+                Description = Localizer["Desc3"]!,
                 Type = "IEnumerable<int>",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "ShowPaginationInfo",
-                Description = "是否显示分页数据汇总信息",
+                Description = Localizer["Desc4"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "TotalCount",
-                Description = "数据总数",
+                Description = Localizer["Desc4"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "—"
@@ -82,13 +82,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnPageClick",
-                Description="第一个参数是当前页码，第二个参数是当前每页设置显示的数据项数量",
+                Description= Localizer["Event1"]!,
                 Type ="Action<int, int>"
             },
             new EventItem()
             {
                 Name = "OnPageItemsChanged",
-                Description="点击设置每页显示数据数量时回调方法",
+                Description= Localizer["Event2"]!,
                 Type ="Action<int>"
             }
         };
