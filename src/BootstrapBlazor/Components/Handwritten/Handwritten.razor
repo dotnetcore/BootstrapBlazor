@@ -3,82 +3,9 @@
 @inject IJSRuntime JsRuntime
 
 <link href="_content/BootstrapBlazor/lib/handwritten/handwritten.css" rel="stylesheet" />
-
-<div class="modal alert-popup" tabindex="-1" style="display:block" role="dialog">
-    <div class="modal-dialog-w100">
-        <div class="modal-content">
-            <!-- Edit form for the current item -->
-            <div class="modal-body">
-                <div id="canvas" style="height: 300px;">
-                </div>
-                <div>
-                    <button class="btn btn-secondary p-2 m-1 w-25" id="clearCanvas">清除</button>
-                    <button class="btn btn-primary p-2 m-1 w-25" id="saveCanvas">保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="canvas" style="height: 300px;">
 </div>
-@Result
-
-
-@code {
-    /// <summary>
-    /// Handwritten 手写签名
-    /// </summary>
-
-
-
-    /// <summary>
-    /// 扫码结果回调方法
-    /// </summary>
-    [Parameter]
-    public EventCallback<string> HandwrittenBase64 { get; set; }
-
-    /// <summary>
-    /// 关闭扫码框回调方法
-    /// </summary>
-    [Parameter]
-    public EventCallback Close { get; set; }
-
-
-    /// <summary>
-    /// 扫码结果
-    /// </summary>
-    [Parameter]
-    public string? Result { get; set; }
-
-    /// <summary>
-    /// 显示扫码框
-    /// </summary>
-    [Parameter]
-    public bool ShowHandwritten { get; set; }
-
-
-    // To prevent making JavaScript interop calls during prerendering
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender) return;
-        await JsRuntime.InvokeAsync<string>("handwritten.start", true, DotNetObjectReference.Create(this));
-    }
-
-    [JSInvokable("invokeFromJS")]
-    public async Task ChangeValue(string val)
-    {
-        Result = val;
-        StateHasChanged();
-        await HandwrittenBase64.InvokeAsync(val);
-        //return Task.CompletedTask;
-    }
-
-    [JSInvokable("invokeFromJSClose")]
-    public async Task CloseScan()
-    {
-        await Close.InvokeAsync(null);
-    }
-
-
-}
-
-
-
+<div>
+	<button class="btn btn-secondary p-2 m-1 w-25" id="clearCanvas">@ClearButtonText</button>
+	<button class="btn btn-primary p-2 m-1 w-25" id="saveCanvas">@SaveButtonText</button>
+</div> 

@@ -277,5 +277,9 @@
     "BrowserButtonText": "Browser",
     "FileExtensions": "File must have one of the following extensions: {0}",
     "FileSizeValidation": "File size must less {0}"
+  },
+  "BootstrapBlazor.Components.Handwritten": {
+    "SaveButtonText": "Save",
+    "ClearButtonText": "Clear"
   }
 }

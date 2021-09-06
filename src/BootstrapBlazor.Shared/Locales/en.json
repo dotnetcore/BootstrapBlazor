@@ -374,7 +374,7 @@
     "TreeText": "Tree",
     "BarcodeReaderText": "BarcodeReader",
     "CameraText": "Camera",
-    "HandwrittenPageText": "HandwrittenPage",
+    "HandwrittenPageText": "Handwritten",
     "Text5": "Message",
     "AlertText": "Alert",
     "ConsoleText": "Console",
@@ -912,5 +912,12 @@
   },
   "BootstrapBlazor.Shared.Pages.Components.EventTable": {
     "Title": "Event"
+  },
+  "BootstrapBlazor.Shared.Pages.HandwrittenPage": {
+    "Title": "Handwritten",
+    "BaseUsageText": "Basic usage",
+    "IntroText1": "Touch device handwritten signature as Base64.",
+    "IntroText2": "For desktop browser testing, please use F12 to simulate a touch device.",
+    "HandwrittenButtonText": "Signature"
   }
 }

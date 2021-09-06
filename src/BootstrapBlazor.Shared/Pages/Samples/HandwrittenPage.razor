@@ -1,119 +1,20 @@
 ﻿@page "/handwrittenPage"
+<h3>@Title</h3>
 
-<h3>Handwritten 手写签名</h3>
-
-<button class="btn btn-primary"
-        type="button"
-        @onclick="(() => ShowHandwritten = !ShowHandwritten)">
-    [签名]
-</button>
-<textarea type="text" class="form-control" style="min-width: 100px;" rows="10"
-          @bind="DrawBase64"
-          placeholder="Base64" />
-@if (ShowHandwritten)
-{
-
-    <Handwritten HandwrittenBase64="((e) => { DrawBase64=e; ShowHandwritten = !ShowHandwritten; })"
-                 ShowHandwritten="ShowHandwritten"
-                 Close="(()=>ShowHandwritten=!ShowHandwritten)" />
-
-}
-<br />
-<br />
-<br />
-<br />
-
-<p><b>桌面浏览器测试请用F12模拟为触摸设备</b></p>
  
-<br />
-<br />
+	<p>@BaseUsageText></p>
 
+	<p><b>@IntroText1</b></p>
 
-<div class="table-attr d-none d-md-block">
-    <!--!-->
-    <!--!--><h4>事件 Events</h4>
+    <Handwritten HandwrittenBase64="((e) => { DrawBase64=e; })" />
+ 
+	<textarea type="text" class="form-control" style="min-width: 100px;" rows="5"
+			  @bind="DrawBase64"
+			  placeholder="Base64" />
 
-    <!--!--><div class="table-container" _bl_79147904-531d-4e31-895f-47eb5e485a57="">
-        <!--!-->
-        <div class="table-toolbar">
-            <!--!-->
-        </div><!--!-->
-        <!--!--><!--!--><!--!-->
-        <div class="table-wrapper">
-            <!--!-->
-            <table class="table is-single table-demo">
-                <!--!-->
-                <!--!-->
-                <!--!--><!--!-->
-                <!--!--><!--!-->
-                <!--!--><!--!-->
-                <!--!-->
-                <colgroup>
-                    <!--!-->
-                    <!--!-->
-                    <col>
-                    <col>
-                    <col><!--!-->
-                </colgroup><!--!-->
-                <tbody>
-                    <!--!-->
-                    <!--!-->
-                    <tr>
-                        <!--!-->
-                        <!--!--><!--!-->
-                        <!--!--><!--!-->
-                        <td><div class="table-cell">HandwrittenBase64</div></td><!--!-->
-                        <td><div class="table-cell">签名结果回调方法</div></td><!--!-->
-                        <td><div class="table-cell">EventCallback&lt;string&gt;</div></td><!--!-->
-                        <!--!-->
-                    </tr><!--!-->
-                    <!--!-->
-                    <!--!-->
-                    <tr>
-                        <!--!-->
-                        <!--!--><!--!-->
-                        <!--!--><!--!-->
-                        <td><div class="table-cell">Close</div></td><!--!-->
-                        <td><div class="table-cell">关闭签名框回调方法</div></td><!--!-->
-                        <td><div class="table-cell">EventCallback</div></td><!--!-->
-                        <!--!-->
-                    </tr><!--!-->
-                    <!--!-->
-                </tbody><!--!-->
-                <thead>
-                    <!--!-->
-                    <tr>
-                        <!--!-->
-                        <!--!-->
-                        <th><div class="table-cell"><span class="table-text">参数</span></div></th>
-                        <th><div class="table-cell"><span class="table-text">说明</span></div></th>
-                        <th><div class="table-cell"><span class="table-text">类型</span></div></th><!--!-->
-                    </tr><!--!-->
-                </thead><!--!-->
-            </table><!--!-->
-        </div><!--!-->
-        <!--!-->
-        <div class="table-filter">
-            <!--!-->
-            <!--!--><!--!-->
-        </div><!--!-->
-        <!--!-->
-        <!--!-->
-    </div><!--!-->
-</div>
+  	<br />
 
-@code{
+	<p><b>@IntroText2</b></p>
 
-    /// <summary>
-    /// 显示签名界面
-    /// </summary>
-    bool ShowHandwritten { get; set; }
-
-    /// <summary>
-    /// 签名Base64
-    /// </summary>
-    public string? DrawBase64 { get; set; }
-
-
-
-} 
+ 
+<AttributeTable Items="@GetAttributes()" /> 

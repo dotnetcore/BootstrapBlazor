@@ -1,11 +1,11 @@
-
+﻿
 #canvas {
+    border: 1px double #DEDEDE;
+    border-radius: 10px;
     width: 99%;
-    /*max-width: 375px;*/
     height: 300px;
     position: relative;
     overflow: hidden;
-    overflow: -Scroll;
 }
 
     #canvas canvas {
