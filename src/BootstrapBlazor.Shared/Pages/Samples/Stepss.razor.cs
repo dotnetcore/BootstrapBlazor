@@ -71,118 +71,118 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "Items",
-                Description = "设置步骤数据集合",
+                Description = Localizer["Desc1"]!,
                 Type = "IEnumerable<StepItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = "显示方向",
+                Description = Localizer["Desc2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsCenter",
-                Description = "进行居中对齐",
+                Description = Localizer["Desc3"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Status",
-                Description = "设置当前步骤的状态",
+                Description = Localizer["Desc4"]!,
                 Type = "StepStatus",
                 ValueList = "Wait|Process|Finish|Error|Success",
                 DefaultValue = "Wait"
             }
         };
 
-        private static IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "IsCenter",
-                Description = "进行居中对齐",
+                Description = Localizer["Att1"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsIcon",
-                Description = "进行使用图标进行步骤显示",
+                Description = Localizer["Att2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsLast",
-                Description = "是否为最后一个步骤",
+                Description = Localizer["Att3"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "StepIndex",
-                Description = "步骤顺序号",
+                Description = Localizer["Att4"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Space",
-                Description = "间距不填写将自适应间距支持百分比",
+                Description = Localizer["Att5"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "Title",
-                Description = "步骤显示文字",
+                Description = Localizer["Att6"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Icon",
-                Description = "步骤显示图标",
+                Description = Localizer["Att7"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Description",
-                Description = "描述信息",
+                Description = Localizer["Att8"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Status",
-                Description = "设置当前步骤的状态",
+                Description = Localizer["Att9"]!,
                 Type = "StepStatus",
                 ValueList = "Wait|Process|Finish|Error|Success",
                 DefaultValue = "Wait"
             },
             new AttributeItem() {
                 Name = "Template",
-                Description = "设置当前步骤的内容模板",
+                Description = Localizer["Att10"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             }
         };
 
-        private static IEnumerable<EventItem> GetEvents() => new List<EventItem>()
+        private IEnumerable<EventItem> GetEvents() => new List<EventItem>()
         {
             new EventItem()
             {
                 Name = "OnStatusChanged",
-                Description="组件状态改变时回调委托",
+                Description = Localizer["Event1"]!,
                 Type ="Func<StepStatus, Task>"
             }
         };
