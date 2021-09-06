@@ -1,112 +1,113 @@
 ﻿@page "/tabs"
+@inject IStringLocalizer<Tabs> Localizer
 
-<h3>Tabs 标签页</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>分隔内容上有关联但属于不同类别的数据集合。</h4>
+<h4>@Localizer["H1"]</h4>
 
-<p>Tab 组件从设计上采用模板的设计形式，使用本组件时通过将 <code>TabItem</code> 子组件添加到 <code>TabItems</code> 模板中即可</p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>
 
 <Tips>
     <p>
-        <code>Tab</code> 组件一般有两种用法：
+        @((MarkupString)Localizer["TipsP"].Value)
         <ul class="ul-demo">
-            <li>作为数据分割</li>
-            <li>页面导航</li>
+            <li>@Localizer["TipsLi1"]</li>
+            <li>@Localizer["TipsLi2"]</li>
         </ul>
-        <div>本组件默认行为为数据分割，点击 <code>TabItem</code> 标题时并不会进行导航行为，如果需要进行地址栏导航时请设置 <code>ClickTabToNavigation</code> 属性为 <code>true</code>，此时点击 <code>TabItem</code> 标题时地址栏将会重定向导航，多用于后台管理系统与 <code>Menu</code> 组件进行联动使用，实战可参考 <a href="layout-page" target="_blank">后台模板模拟器</a> 中的 <code>多标签</code> 模式，如果有 <code>Razor 组件</code> 在额外的程序集中时，请正确设置 <code>AdditionalAssemblies</code> 属性值，以便标签组件内路由正确解析，相关文档 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/fundamentals/routing?WT.mc_id=DT-MVP-5004174&view=aspnetcore-3.1#route-to-components-from-multiple-assemblies" target="_blank">[传送门]</a></div>
+        <div>@((MarkupString)Localizer["TipsDiv"].Value)</div>
     </p>
-    <p>本组件会根据宽度高度等进行自适应适配，适当的时候可以出现左右或者上下的滚动箭头</p>
+    <p>@Localizer["TipsP2"]</p>
 </Tips>
 
-<Block Title="基础用法" Introduction="基础的、简洁的标签页。">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
     <Tab>
-        <TabItem Text="用户管理">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="部门管理">
-            <div>我是部门管理</div>
+        <TabItem Text="@Localizer["TabItem4Text"]">
+            <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="选项卡样式" Introduction='通过 <code>IsCard="true"</code> 设置选项卡样式的标签页。'>
+<Block Title="@Localizer["Blcok2Title"]" Introduction='@Localizer["Block2Intro"]'>
     <Tab IsCard="true">
-        <TabItem Text="用户管理">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="部门管理">
-            <div>我是部门管理</div>
+        <TabItem Text="@Localizer["TabItem4Text"]">
+            <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="卡片化" Introduction='通过 <code>IsBorderCard="true"</code> 设置卡片化的标签页。'>
+<Block Title="@Localizer["Block3Title"]" Introduction='@Localizer["Block3Intro"]'>
     <Tab IsBorderCard="true">
-        <TabItem Text="用户管理">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="部门管理">
-            <div>我是部门管理</div>
+        <TabItem Text="@Localizer["TabItem4Text"]">
+            <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="图标" Introduction='通过设置 <code>TabItem</code> 组件的 <code>Icon</code> 属性对标签页设置图标'>
+<Block Title="@Localizer["Block4Title"]" Introduction='@Localizer["Block4Intro"]'>
     <Tab IsCard="true">
-        <TabItem Text="用户管理" Icon="fa fa-user">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa fa-user">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理" Icon="fa fa-dashboard">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa fa-dashboard">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理" Icon="fa fa-sitemap">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa fa-sitemap">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="部门管理" Icon="fa fa-bank">
-            <div>我是部门管理</div>
+        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa fa-bank">
+            <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="关闭" Introduction='通过设置 <code>ShowClose</code> 属性对标签页显示关闭按钮'>
+<Block Title="@Localizer["Block5Title"]" Introduction='@Localizer["Block5Intro"]'>
     <Tips>
-        <p><code>Tab</code> 组件开启 <code>ShowClose</code> 后，<code>TabItem</code> 属性 <code>Closable</code> 可对标签页单独设置是否可关闭，默认为 <code>true</code>；本例中 <b>用户管理</b> 标签页不提供关闭功能</p>
+        @((MarkupString)Localizer["Tips2"].Value)
     </Tips>
     <Tab IsCard="true" ShowClose="true">
-        <TabItem Text="用户管理" Icon="fa fa-user" Closable="false">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa fa-user" Closable="false">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理" Icon="fa fa-dashboard">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa fa-dashboard">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理" Icon="fa fa-sitemap">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa fa-sitemap">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="部门管理" Icon="fa fa-bank">
-            <div>我是部门管理</div>
+        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa fa-bank">
+            <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="位置" Introduction="通过设置 <code>Placement</code> 属性更改标签位置，更改为左右时会出现上下滚动小箭头进行 <code>TabItem</code> 切换">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
     <p class="text-center">
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => SetPlacement(Placement.Top)">Top</button>
@@ -116,118 +117,118 @@
         </div>
     </p>
     <Tab Placement="@BindPlacement" Height="200">
-        <TabItem Text="用户管理">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="系统日志">
-            <div>我是系统日志</div>
+        <TabItem Text="@Localizer["TabItem5Text"]">
+            <div>@Localizer["TabItem5Content"]</div>
         </TabItem>
-        <TabItem Text="登录日志">
-            <div>我是登录日志</div>
+        <TabItem Text="@Localizer["TabItem6Text"]">
+            <div>@Localizer["TabItem6Content"]</div>
         </TabItem>
-        <TabItem Text="定时任务管理">
-            <div>我是定时任务管理</div>
+        <TabItem Text="@Localizer["TabItem7Text"]">
+            <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
-    <Divider Text="Tab 分割线"></Divider>
+    <Divider Text="@Localizer["DividerText"]"></Divider>
     <Tab Placement="@BindPlacement" IsCard="true" Height="200">
-        <TabItem Text="用户管理">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="系统日志">
-            <div>我是系统日志</div>
+        <TabItem Text="@Localizer["TabItem5Text"]">
+            <div>@Localizer["TabItem5Content"]</div>
         </TabItem>
-        <TabItem Text="登录日志">
-            <div>我是登录日志</div>
+        <TabItem Text="@Localizer["TabItem6Text"]">
+            <div>@Localizer["TabItem6Content"]</div>
         </TabItem>
-        <TabItem Text="定时任务管理">
-            <div>我是定时任务管理</div>
+        <TabItem Text="@Localizer["TabItem7Text"]">
+            <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
-    <Divider Text="Tab 分割线"></Divider>
+    <Divider Text="@Localizer["DividerText"]"></Divider>
     <Tab Placement="@BindPlacement" IsBorderCard="true" Height="200">
-        <TabItem Text="用户管理">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="系统日志">
-            <div>我是系统日志</div>
+        <TabItem Text="@Localizer["TabItem5Text"]">
+            <div>@Localizer["TabItem5Content"]</div>
         </TabItem>
-        <TabItem Text="登录日志">
-            <div>我是登录日志</div>
+        <TabItem Text="@Localizer["TabItem6Text"]">
+            <div>@Localizer["TabItem6Content"]</div>
         </TabItem>
-        <TabItem Text="定时任务管理">
-            <div>我是定时任务管理</div>
+        <TabItem Text="@Localizer["TabItem7Text"]">
+            <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="自定义增加标签页触发器" Introduction="通过调用组件 api 动态添加/删除 <code>TabItem</code>">
+<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">
     <p>
-        <Button Icon="fa fa-plus-circle" OnClickWithoutRender="@(() => AddTab(TabSet))" Text="添加">
+        <Button Icon="fa fa-plus-circle" OnClickWithoutRender="@(() => AddTab(TabSet))" Text="@Localizer["AddButtonText"]">
         </Button>
-        <Button Color="Color.Danger" Icon="fa fa-minus-circle" IsDisabled="@RemoveEndable" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="移除">
+        <Button Color="Color.Danger" Icon="fa fa-minus-circle" IsDisabled="@RemoveEndable" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="@Localizer["RmoveButtonText"]">
         </Button>
-         <Button Icon="fa fa-fa" OnClickWithoutRender="@(() => Active(TabSet))" Text="激活第一个">
+        <Button Icon="fa fa-fa" OnClickWithoutRender="@(() => Active(TabSet))" Text="@Localizer["ActiveButtonText"]">
         </Button>
-   </p>
+    </p>
     <Tab IsBorderCard="true" @ref="TabSet">
-        <TabItem Text="用户管理">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="部门管理">
-            <div>我是部门管理</div>
+        <TabItem Text="@Localizer["TabItem4Text"]">
+            <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
-        <TabItem Text="任务管理">
-            <div>我是任务管理</div>
+        <TabItem Text="@Localizer["TabItem7Text"]">
+            <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="内置其他组件" Introduction="<code>TabItem</code> 中内置其他组件">
+<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]">
     <p>
-        <code>Tab</code> 组件各个面板内的内容默认是保持状态的，本例中面板切换时保持原有数据
+        @((MarkupString)Localizer["P2"].Value)
     </p>
     <Tab IsBorderCard="true">
-        <TabItem Text="计数组件">
+        <TabItem Text="@Localizer["TabItem8Text"]">
             <Counter></Counter>
         </TabItem>
-        <TabItem Text="天气预报">
+        <TabItem Text="@Localizer["TabItem9Text"]">
             <FetchData></FetchData>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="程序动态添加 TabItem 面板" Introduction="通过此功能可以实现侧边栏中点击菜单链接，右侧数据区上部呈现多标签">
+<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]">
     <p>
-        本例中右侧 <code>Tab</code> 面板内状态一直保持，关闭后重新打开时组件重新加载
+        @((MarkupString)Localizer["P3"].Value)
     </p>
     <Layout SideWidth="120px" style="min-height: 180px; border: 1px solid #ddd; border-radius: 4px;">
         <Header>
-            <div class="header">网站 Header</div>
+            <div class="header">@Localizer["Block9Div"]</div>
         </Header>
         <Side>
             <div style="border-right: 1px solid #e6e6e6; height: 100%; overflow: auto; padding: 1rem 0; background-color: #f8f9fa;">
@@ -243,48 +244,48 @@
     </Layout>
 </Block>
 
-<Block Title="实战 Tab 组件" Introduction="通过设置 <code>ShowExtendButtons</code> 属性为 <code>true</code>，开启组件左右移动按钮与关闭下拉菜单，实战中非常实用">
-    <Tips>通过 <b>添加</b> <b>删除</b> 按钮动态调整 <code>TabItem</code> 数量，使其超出容器数量查看，左右移动效果；<b>用户管理</b> 设置为不可关闭；功能按钮无法关闭这个标签页</Tips>
+<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]">
+    <Tips>@((MarkupString)Localizer["Tips3"].Value)</Tips>
     <p>
         <button type="button" class="btn btn-outline-primary" @onclick="@(e => AddTab(TabSet2))">
             <i class="fa fa-plus-circle"></i>
-            <span>添加</span>
+            <span>@Localizer["AddButtonText"]</span>
         </button>
         <button type="button" class="btn btn-outline-danger" disabled="@((TabSet2?.Items.Count() > 4) ? null : "true")" @onclick="@(e => RemoveTab(TabSet2!))">
             <i class="fa fa-minus-circle"></i>
-            <span>移除</span>
+            <span>@Localizer["RmoveButtonText"]</span>
         </button>
     </p>
     <Tab ShowExtendButtons="true" ShowClose="true" @ref="TabSet2">
-        <TabItem Text="用户管理" Closable="false">
-            <div>我是用户管理</div>
+        <TabItem Text="@Localizer["TabItem1Text"]" Closable="false">
+            <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
-        <TabItem Text="菜单管理">
-            <div>我是菜单管理</div>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
         </TabItem>
-        <TabItem Text="角色管理">
-            <div>我是角色管理</div>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
         </TabItem>
-        <TabItem Text="部门管理">
-            <div>我是部门管理</div>
+        <TabItem Text="@Localizer["TabItem4Text"]">
+            <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
-        <TabItem Text="任务管理">
-            <div>我是任务管理</div>
+        <TabItem Text="@Localizer["TabItem7Text"]">
+            <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
 </Block>
 
-<Block Title="仅渲染当前标签" Introduction="通过设置 <code>IsOnlyRenderActiveTab</code> 参数使组件仅渲染当前活动标签">
+<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]">
     <Tab IsBorderCard="true" IsOnlyRenderActiveTab="true">
-        <TabItem Text="计数组件">
+        <TabItem Text="@Localizer["TabItem8Text"]">
             <Counter></Counter>
         </TabItem>
-        <TabItem Text="天气预报">
+        <TabItem Text="@Localizer["TabItem9Text"]">
             <FetchData></FetchData>
         </TabItem>
     </Tab>
 </Block>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Items="@GetAttributes()" Title="@Localizer["AttTitle"]" />
 
-<MethodTable Items="@GetMethods()" />
+<MethodTable Items="@GetMethods()" Title="@Localizer["MethodTitle"]" />

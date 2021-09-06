@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
-        private static Task AddTab(Tab tabset)
+        private Task AddTab(Tab tabset)
         {
             var text = $"Tab {tabset.Items.Count() + 1}";
             tabset.AddTab(new Dictionary<string, object?>
@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Shared.Pages
                 {
                     var index = 0;
                     builder.OpenElement(index++, "div");
-                    builder.AddContent(index++, $"我是新建的 Tab 名称是 {text}");
+                    builder.AddContent(index++, Localizer["BackAddTabText", text]);
                     builder.CloseElement();
                 })
             });
@@ -87,12 +87,12 @@ namespace BootstrapBlazor.Shared.Pages
             BindPlacement = placement;
         }
 
-        private static IEnumerable<MenuItem> GetSideMenuItems()
+        private IEnumerable<MenuItem> GetSideMenuItems()
         {
             return new List<MenuItem>
             {
-                new MenuItem() { Text = "计数器"  },
-                new MenuItem() { Text = "天气预报" }
+                new MenuItem() { Text = Localizer["BackText1"]  },
+                new MenuItem() { Text = Localizer["BackText2"] }
             };
         }
 
@@ -115,103 +115,103 @@ namespace BootstrapBlazor.Shared.Pages
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
-            [nameof(TabItem.ChildContent)] = text == "计数器" ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
+            [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
         });
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "IsBorderCard",
-                Description = "是否为带边框卡片样式",
+                Description = Localizer["Att1"]!,
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsCard",
-                Description = "是否为卡片样式",
+                Description = Localizer["Att2"]!,
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsOnlyRenderActiveTab",
-                Description = "是否仅渲染 Active 标签",
+                Description = Localizer["Att3"]!,
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowClose",
-                Description = "是否显示关闭按钮",
+                Description = Localizer["Att4"]!,
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowExtendButtons",
-                Description = "是否显示扩展按钮",
+                Description = Localizer["Att5"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ClickTabToNavigation",
-                Description = "点击标题时是否导航",
+                Description = Localizer["Att6"]!,
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Placement",
-                Description = "设置标签位置",
+                Description = Localizer["Att7"]!,
                 Type = "Placement",
                 ValueList = "Top|Right|Bottom|Left",
                 DefaultValue = "Top"
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = "设置标签高度",
+                Description = Localizer["Att8"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "TabItem 集合",
+                Description = Localizer["Att9"]!,
                 Type = "IEnumerable<TabItemBase>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "ChildContent 模板",
+                Description = Localizer["Att10"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "AdditionalAssemblies",
-                Description = "额外程序集合，用于初始化路由",
+                Description = Localizer["Att11"]!,
                 Type = "IEnumerable<Assembly>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnClickTab",
-                Description = "点击 TabItem 标题时回调委托方法",
+                Description = Localizer["Att12"]!,
                 Type = "Func<TabItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "TabItemTextDictionary",
-                Description = "设置标签页显示标题集合，未设置时内部尝试使用菜单项数据",
+                Description = Localizer["Att13"]!,
                 Type = "Dictionary<string, string>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -222,54 +222,54 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
         {
             // TODO: 移动到数据库中
             new MethodItem() {
                 Name = "AddTab",
-                Description = "添加 TabItem 到 Tab 中",
+                Description = Localizer["Method1"]!,
                 Parameters = "TabItem",
                 ReturnValue = " — "
             },
             new MethodItem() {
                 Name = "RemoveTab",
-                Description = "移除 TabItem",
+                Description = Localizer["Method2"]!,
                 Parameters = "TabItem",
                 ReturnValue = " — "
             },
             new MethodItem() {
                 Name = "ActiveTab",
-                Description = "设置指定 TabItem 为激活状态",
+                Description = Localizer["Method3"]!,
                 Parameters = "TabItem",
                 ReturnValue = " — "
             },
             new MethodItem() {
                 Name = "ClickPrevTab",
-                Description = "切换到上一个标签方法",
+                Description = Localizer["Method4"]!,
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "ClickNextTab",
-                Description = "切换到下一个标签方法",
+                Description = Localizer["Method5"]!,
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "CloseCurrentTab",
-                Description = "关闭当前标签页方法",
+                Description = Localizer["Method6"]!,
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "CloseOtherTabs",
-                Description = "关闭其他标签页方法",
+                Description = Localizer["Method7"]!,
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "CloseAllTabs",
-                Description = "关闭所有标签页方法",
+                Description = Localizer["Method8"]!,
                 Parameters = "",
                 ReturnValue = "Task"
             },
