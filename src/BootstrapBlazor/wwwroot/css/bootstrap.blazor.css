@@ -8,6 +8,10 @@
     --bs-border-radius: .25rem;
 }
 
+:fullscreen {
+    background-color: #fff;
+}
+
 body, .form-control, .dropdown-menu, .form-select,
 .btn:not(.btn-xs):not(.btn-sm):not(.btn-md):not(.btn-lg):not(.btn-xl),
 .input-group-text {
@@ -820,3 +824,12 @@ form .form-label[required]:before {
     }
 }
 /*end pulse*/
+
+.fs-on,
+.fs-open .fs {
+    display: none;
+}
+
+.fs-open .fs-on {
+    display: block;
+}

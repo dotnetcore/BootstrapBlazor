@@ -762,6 +762,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["FullScreen"],
+                    Url = "fullscreens"
+                },
+                new()
+                {
                     Text = Localizer["GoTop"],
                     Url = "gotops"
                 },

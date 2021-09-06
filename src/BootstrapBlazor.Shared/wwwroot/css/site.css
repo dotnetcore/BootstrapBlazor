@@ -527,7 +527,7 @@ section {
     header.navbar {
         position: sticky;
         top: 0;
-        z-index: 1090;
+        z-index: 1050;
         height: var(--bs-header-height);
     }
 
@@ -1671,4 +1671,10 @@ section {
 
 .cell-demo {
     background-color: var(--bs-table-striped-bg) !important;
+}
+
+header .bb-fs {
+    margin-top: 2px;
+    color: #fff !important;
+    cursor: pointer;
 }

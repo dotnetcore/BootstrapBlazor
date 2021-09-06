@@ -390,7 +390,8 @@
     "SweetAlertText": "SweetAlert",
     "SearchDialogText": "SearchDialog",
     "ToastText": "Toast",
-    "TimerText": "Timer"
+    "TimerText": "Timer",
+    "FullScreenText": "FullScreen"
   },
   "BootstrapBlazor.Shared.Pages.GlobalException": {
     "Title": "Global exception",
@@ -896,6 +897,7 @@
     "Dialog": "Dialog",
     "Drawer": "Drawer",
     "EditDialog": "EditDialog",
+    "FullScreen": "FullScreen",
     "Message": "Message",
     "Modal": "Modal",
     "Light": "Light",

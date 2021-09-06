@@ -390,7 +390,8 @@
     "SweetAlertText": "模态弹窗 SweetAlert",
     "SearchDialogText": "搜索弹窗 SearchDialog",
     "ToastText": "轻量弹窗 Toast",
-    "TimerText": "计时器 Timer"
+    "TimerText": "计时器 Timer",
+    "FullScreenText": "全屏 FullScreen"
   },
   "BootstrapBlazor.Shared.Pages.GlobalException": {
     "Title": "全局异常",
@@ -875,6 +876,7 @@
     "Client": "客户信息服务 Client",
     "Divider": "分割线 Divider",
     "Layout": "布局组件 Layout",
+    "FullScreen": "全屏组件 FullScreen",
     "Footer": "页脚组件 Footer",
     "Row": "行组件 Row",
     "Scroll": "滚动条 Scroll",
