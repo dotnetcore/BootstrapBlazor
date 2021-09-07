@@ -116,6 +116,9 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
   },
+  "BootstrapBlazor.Components.FullScreenService": {
+    "InvalidOperationExceptionMessage": "Please place <FullScreen /> on current razor page"
+  },
   "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "Go top"
   },

@@ -58,6 +58,6 @@ namespace BootstrapBlazor.Components
             ButtonIcon ??= "fa fa-arrows-alt";
         }
 
-        private Task ToggleFullScreen() => FullScrenService.Show();
+        private Task ToggleFullScreen() => FullScrenService.Toggle();
     }
 }

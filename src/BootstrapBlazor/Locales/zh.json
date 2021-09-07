@@ -116,6 +116,9 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "你的输入不相同"
   },
+  "BootstrapBlazor.Components.FullScreenService": {
+    "InvalidOperationExceptionMessage": "请在网页中添加 <FullScreen /> 元素"
+  },
   "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "返回顶端"
   },

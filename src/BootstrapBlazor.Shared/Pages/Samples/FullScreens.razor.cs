@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private async Task ToggleFullScreen()
         {
-            await FullScreenService.Show();
+            await FullScreenService.Toggle();
         }
     }
 }
