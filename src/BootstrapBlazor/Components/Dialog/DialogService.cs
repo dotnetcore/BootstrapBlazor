@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Dialog 组件服务
     /// </summary>
-    public class DialogService : PopupServiceBase<DialogOption>
+    public class DialogService : BootstrapServiceBase<DialogOption>
     {
         private IStringLocalizer<EditDialog<DialogOption>> EditDialogLocalizer { get; set; }
 
@@ -28,15 +28,24 @@ namespace BootstrapBlazor.Components
         /// <param name="editLocalizer"></param>
         /// <param name="seachLocalizer"></param>
         /// <param name="resultDialogLocalizer"></param>
+        /// <param name="localizer"></param>
         public DialogService(
             IStringLocalizer<EditDialog<DialogOption>> editLocalizer,
             IStringLocalizer<SearchDialog<DialogOption>> seachLocalizer,
-            IStringLocalizer<ResultDialogOption> resultDialogLocalizer)
+            IStringLocalizer<ResultDialogOption> resultDialogLocalizer,
+            IStringLocalizer<DialogService> localizer) : base(localizer)
         {
             EditDialogLocalizer = editLocalizer;
             SearchDialogLocalizer = seachLocalizer;
             ResultDialogLocalizer = resultDialogLocalizer;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public Task Show(DialogOption option) => Invoke(option);
 
         /// <summary>
         /// 弹出搜索对话框
@@ -100,7 +109,7 @@ namespace BootstrapBlazor.Components
 
             option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(parameters);
 
-            await base.Show(option);
+            await Invoke(option);
         }
 
         /// <summary>
@@ -166,7 +175,7 @@ namespace BootstrapBlazor.Components
 
             option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters);
 
-            await base.Show(option);
+            await Invoke(option);
         }
 
         /// <summary>
@@ -237,7 +246,7 @@ namespace BootstrapBlazor.Components
                 }
             };
 
-            await base.Show(option);
+            await Invoke(option);
             return await option.ReturnTask.Task;
         }
     }

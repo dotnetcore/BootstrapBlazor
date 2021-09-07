@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -101,13 +100,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<Task>? OnClose { get; set; }
-
-        /// <summary>
-        /// 获得/设置 PopoverConfirm 服务实例
-        /// </summary>
-        [Inject]
-        [NotNull]
-        private PopoverService? PopoverService { get; set; }
 
         /// <summary>
         /// 点击关闭按钮调用此方法

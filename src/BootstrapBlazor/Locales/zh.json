@@ -100,6 +100,9 @@
     "ButtonNoText": "取消",
     "ButtonCloseText": "关闭"
   },
+  "BootstrapBlazor.Components.DialogService": {
+    "InvalidOperationExceptionMessage": "请在网页中添加 <Dialog /> 元素"
+  },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "请选择 ..."
   },
@@ -127,6 +130,9 @@
   },
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "SideMenu 组件不可以独立使用，请使用 Menu 组件设置 IsVertical=true"
+  },
+  "BootstrapBlazor.Components.MessageService": {
+    "InvalidOperationExceptionMessage": "请在网页中添加 <Message /> 元素"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "关闭"
@@ -156,6 +162,9 @@
     "ConfirmButtonText": "确定",
     "Content": "你确定要执行此操作吗？"
   },
+  "BootstrapBlazor.Components.PopoverService": {
+    "InvalidOperationExceptionMessage": "请在网页中添加 <PopoverConfirm /> 元素"
+  },
   "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "请输入内容",
     "ClearButtonText": "清除",
@@ -169,6 +178,9 @@
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "最多可以输入 {{0}} 个字符"
+  },
+  "BootstrapBlazor.Components.SwalService": {
+    "InvalidOperationExceptionMessage": "请在网页中添加 <SweetAlert /> 元素"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "关闭",
@@ -231,6 +243,9 @@
     "SortAscText": "点击降序",
     "SortDescText": "取消排序",
     "EmptyText": "无数据"
+  },
+  "BootstrapBlazor.Components.ToastService": {
+    "InvalidOperationExceptionMessage": "请在网页中添加 <Toast /> 元素"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

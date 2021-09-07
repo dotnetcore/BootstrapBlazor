@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Localization;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,14 @@ namespace BootstrapBlazor.Components
     /// <typeparam name="TOption"></typeparam>
     public abstract class PopupServiceBase<TOption> : BootstrapServiceBase<TOption>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public PopupServiceBase(IStringLocalizer? localizer) : base(localizer)
+        {
+
+        }
+
         /// <summary>
         /// 异步回调方法
         /// </summary>
@@ -29,9 +38,12 @@ namespace BootstrapBlazor.Components
             }
             if (cb == null)
             {
-                cb = Cache.FirstOrDefault().Callback;
+                await base.Invoke(option);
             }
-            await cb.Invoke(option);
+            else
+            {
+                await cb.Invoke(option);
+            }
         }
     }
 }

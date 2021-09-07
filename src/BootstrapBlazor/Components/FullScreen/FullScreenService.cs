@@ -15,29 +15,12 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class FullScreenService : BootstrapServiceBase<FullScreenOption>
     {
-        private IStringLocalizer<FullScreenService> Localizer { get; set; }
-
         /// <summary>
         /// 构造函数
         /// </summary>
-        public FullScreenService(IStringLocalizer<FullScreenService> localizer)
+        public FullScreenService(IStringLocalizer<FullScreenService> localizer) : base(localizer)
         {
-            Localizer = localizer;
-        }
 
-        /// <summary>
-        /// 异步回调方法
-        /// </summary>
-        /// <param name="option"></param>
-        /// <returns></returns>
-        private async Task Invoke(FullScreenOption option)
-        {
-            Func<FullScreenOption, Task>? cb = Cache.FirstOrDefault().Callback;
-            if (cb == null)
-            {
-                throw new InvalidOperationException(Localizer[$"{nameof(InvalidOperationException)}Message"]);
-            }
-            await cb.Invoke(option);
         }
 
         /// <summary>

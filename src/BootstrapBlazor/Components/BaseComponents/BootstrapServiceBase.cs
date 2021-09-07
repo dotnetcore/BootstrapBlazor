@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,32 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 回调委托缓存集合
         /// </summary>
-        protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; private set; } = new List<(ComponentBase, Func<TOption, Task>)>();
+        protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; private set; } = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected IStringLocalizer? Localizer { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BootstrapServiceBase(IStringLocalizer? localizer) => Localizer = localizer;
+
+        /// <summary>
+        /// 异步回调方法
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        protected async Task Invoke(TOption option)
+        {
+            var cb = Cache.FirstOrDefault().Callback;
+            if (cb == null)
+            {
+                throw new InvalidOperationException(Localizer?[$"{nameof(InvalidOperationException)}Message"]?.Value);
+            }
+            await cb.Invoke(option);
+        }
 
         /// <summary>
         /// 注册弹窗事件
