@@ -41,49 +41,49 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = Localizer["Att1"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "内容",
+                Description = Localizer["Att2"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "内容",
+                Description = Localizer["Att3"]!,
                 Type = "IEnumerable<string>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "NoDataTip",
-                Description = "自动完成数据无匹配项时提示信息",
+                Description = Localizer["Att4"]!,
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "无匹配数据"
+                DefaultValue = Localizer["Att4DefaultValue"]!
             },
             new AttributeItem() {
                 Name = "DisplayCount",
-                Description = "匹配数据时显示的数量",
+                Description = Localizer["Att5"]!,
                 Type = "int?",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ValueChanged",
-                Description = "文本框值变化时回调委托方法",
+                Description = Localizer["Att6"]!,
                 Type = "Action<string>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsLikeMatch",
-                Description = "是否开启模糊匹配",
+                Description = Localizer["Att7"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IgnoreCase",
-                Description = "匹配时是否忽略大小写",
+                Description = Localizer["Att8"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
@@ -99,7 +99,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "CustomFilter",
-                Description = "自定义集合过滤规则",
+                Description = Localizer["Att9"]!,
                 Type = "Func<Task<IEnumerable<string>>>",
                 ValueList = " — ",
                 DefaultValue = " — "
