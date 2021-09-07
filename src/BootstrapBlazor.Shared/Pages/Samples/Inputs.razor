@@ -6,12 +6,13 @@
 <h4>通过鼠标或键盘输入字符</h4>
 
 <Block Title="基础用法" Introduction="提供基本的文本录入组件">
+    <p>可通过设置 <code>IsAutoFocus</code> 是否自动获取焦点，多个文本框设置自动获取焦点时最后执行的组件将会获得焦点</p>
     <div class="row g-3">
         <div class="col-auto col-form-label">
             <span>基本用法</span>
         </div>
         <div class="col-6">
-            <BootstrapInput placeholder="@PlaceHolderText" TValue="string" />
+            <BootstrapInput placeholder="@PlaceHolderText" TValue="string" IsAutoFocus="true" />
         </div>
     </div>
 </Block>

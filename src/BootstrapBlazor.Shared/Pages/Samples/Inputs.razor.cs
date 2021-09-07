@@ -86,6 +86,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
+                Name = "IsAutoFocus",
+                Description = "是否自动获取焦点 默认为 fasle",
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
             }
         };
     }

@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -30,6 +31,11 @@ namespace BootstrapBlazor.Components
         protected string? PlaceHolder { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected ElementReference FocusElement { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为 Input-Group 组合
         /// </summary>
         [Parameter]
@@ -46,6 +52,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public string? FormatString { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否自动获取焦点 默认 false 不自动获取焦点
+        /// </summary>
+        [Parameter]
+        public bool IsAutoFocus { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -68,6 +80,27 @@ namespace BootstrapBlazor.Components
                 PlaceHolder = FieldIdentifier.Value.GetPlaceHolder();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender && IsAutoFocus)
+            {
+                await FocusAsync();
+            }
+        }
+
+        /// <summary>
+        /// 自动获得焦点方法
+        /// </summary>
+        /// <returns></returns>
+        public ValueTask FocusAsync() => FocusElement.FocusAsync();
 
         /// <summary>
         /// 数值格式化委托方法

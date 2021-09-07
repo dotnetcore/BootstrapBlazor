@@ -4,7 +4,7 @@
 <div class="search" @ref="AutoCompleteElement">
     <div class="@ClassString">
         <div class="input-group">
-            <input @attributes="AdditionalAttributes" @ref="SearchElement" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
+            <input @attributes="AdditionalAttributes" @ref="FocusElement" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
             @if (ShowClearButton)
             {
                 <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" />

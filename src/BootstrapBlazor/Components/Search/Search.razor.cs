@@ -66,12 +66,6 @@ namespace BootstrapBlazor.Components
         public string SearchButtonLoadingIcon { get; set; } = "fa fa-fw fa-spinner fa-spin";
 
         /// <summary>
-        /// 获得/设置 是否自动获得焦点
-        /// </summary>
-        [Parameter]
-        public bool IsAutoFocus { get; set; }
-
-        /// <summary>
         /// 获得/设置 点击搜索后是否自动清空搜索框
         /// </summary>
         [Parameter]
@@ -118,21 +112,6 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender && IsAutoFocus)
-            {
-                await FocusAsync();
-            }
-        }
-
-        /// <summary>
         /// 点击搜索按钮时触发此方法
         /// </summary>
         /// <returns></returns>
@@ -152,12 +131,6 @@ namespace BootstrapBlazor.Components
 
             await FocusAsync();
         }
-
-        /// <summary>
-        /// 自动获得焦点方法
-        /// </summary>
-        /// <returns></returns>
-        public ValueTask FocusAsync() => SearchElement.FocusAsync();
 
         /// <summary>
         /// 点击搜索按钮时触发此方法
