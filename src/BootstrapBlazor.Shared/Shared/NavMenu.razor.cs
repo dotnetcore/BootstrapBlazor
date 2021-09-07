@@ -442,6 +442,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Print"],
+                    Url = "prints"
+                },
+                new()
+                {
                     Text = Localizer["QRCode"],
                     Url = "qrcodes"
                 },

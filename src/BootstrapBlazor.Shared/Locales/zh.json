@@ -952,6 +952,7 @@
     "ListView": "列表组件 ListView",
     "Locator": "位置定位 Locator",
     "Popover": "弹出窗 Popover",
+    "Print": "打印组件 Print",
     "QRCode": "二维码 QRCode",
     "Search": "搜索框 Search",
     "Tag": "标签 Tag",

@@ -1678,3 +1678,9 @@ header .bb-fs {
     color: #fff !important;
     cursor: pointer;
 }
+
+@media print {
+    .print-header {
+        display: none;
+    }
+}

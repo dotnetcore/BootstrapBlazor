@@ -952,6 +952,7 @@
     "ListView": "ListView",
     "Locator": "Locator",
     "Popover": "Popover",
+    "Print": "Print",
     "QRCode": "QRCode",
     "Search": "Search",
     "Tag": "Tag",

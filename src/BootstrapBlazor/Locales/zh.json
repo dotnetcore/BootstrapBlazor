@@ -165,6 +165,9 @@
   "BootstrapBlazor.Components.PopoverService": {
     "InvalidOperationExceptionMessage": "请在网页中添加 <PopoverConfirm /> 元素"
   },
+  "BootstrapBlazor.Components.PrintService": {
+    "InvalidOperationExceptionMessage": "请在网页中添加 <Print /> 元素"
+  },
   "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "请输入内容",
     "ClearButtonText": "清除",

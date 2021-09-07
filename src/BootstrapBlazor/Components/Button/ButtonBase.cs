@@ -151,16 +151,6 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (AdditionalAttributes == null)
-            {
-                AdditionalAttributes = new Dictionary<string, object>();
-            }
-
-            if (!AdditionalAttributes.TryGetValue("type", out var _))
-            {
-                AdditionalAttributes["type"] = "button";
-            }
-
             ButtonIcon = Icon;
 
             OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>

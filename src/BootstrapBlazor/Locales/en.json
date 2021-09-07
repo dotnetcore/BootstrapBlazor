@@ -165,6 +165,9 @@
   "BootstrapBlazor.Components.PopoverService": {
     "InvalidOperationExceptionMessage": "Please place <PopoverConfirm /> element on current page"
   },
+  "BootstrapBlazor.Components.PrintService": {
+    "InvalidOperationExceptionMessage": "Please place <Print /> element on current page"
+  },
   "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "Please input ...",
     "ClearButtonText": "Clear",
