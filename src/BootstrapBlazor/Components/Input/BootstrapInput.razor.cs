@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Threading.Tasks;
 
@@ -46,6 +47,18 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<TValue, string>? Formatter { get; set; }
+
+        /// <summary>
+        /// 获得/设置 文本框 Enter 键回调委托方法 默认为 null
+        /// </summary>
+        [Parameter]
+        public Func<TValue, Task>? OnEnterAsync { get; set; }
+
+        /// <summary>
+        /// 获得/设置 文本框 Esc 键回调委托方法 默认为 null
+        /// </summary>
+        [Parameter]
+        public Func<TValue, Task>? OnEscAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -112,5 +125,65 @@ namespace BootstrapBlazor.Components
             : (!string.IsNullOrEmpty(FormatString) && value != null
                 ? Utility.Format(value, FormatString)
                 : base.FormatValueAsString(value));
+
+        /// <summary>
+        /// OnKeyUp 方法
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+        {
+            if (args.Key == "Escape" && OnEscAsync != null)
+            {
+                await OnEscAsync(Value);
+            }
+
+            if (args.Key == "Enter" && OnEnterAsync != null)
+            {
+                await OnEnterAsync(Value);
+            }
+        }
+
+        private RenderFragment RenderInput => builder =>
+        {
+            builder.OpenElement(0, "input");
+            builder.AddMultipleAttributes(1, AdditionalAttributes);
+
+            if (!string.IsNullOrEmpty(Type))
+            {
+                builder.AddAttribute(2, "type", Type);
+            }
+
+            if (!string.IsNullOrEmpty(PlaceHolder))
+            {
+                builder.AddAttribute(2, "placeholder", PlaceHolder);
+            }
+
+            if (!string.IsNullOrEmpty(Id))
+            {
+                builder.AddAttribute(3, "id", Id);
+            }
+
+            if (!string.IsNullOrEmpty(ClassName))
+            {
+                builder.AddAttribute(4, "class", ClassName);
+            }
+
+            if (!string.IsNullOrEmpty(Disabled))
+            {
+                builder.AddAttribute(5, "disabled", Disabled);
+            }
+
+            builder.AddAttribute(6, "value", CurrentValueAsString);
+            builder.AddAttribute(7, "onchange", EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+
+            if (OnEnterAsync != null && OnEscAsync != null)
+            {
+                builder.AddAttribute(8, "onkeyup", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyUp));
+            }
+
+            builder.AddElementReferenceCapture(9, e => FocusElement = e);
+            builder.CloseElement();
+        };
     }
 }

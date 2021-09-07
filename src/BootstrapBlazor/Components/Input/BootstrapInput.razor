@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    if(IsGroup)
+    if (IsGroup)
     {
         <span class="input-group-text" required="@Required" for="@Id">@DisplayText</span>
     }
@@ -13,7 +13,7 @@
         <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
     }
 }
-<input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @ref="FocusElement" />
+@RenderInput
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>

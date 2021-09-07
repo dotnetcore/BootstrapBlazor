@@ -145,7 +145,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+        protected override async Task OnKeyUp(KeyboardEventArgs args)
         {
             if (!_isLoading && _lastFilterText != CurrentValueAsString)
             {
@@ -166,6 +166,8 @@ namespace BootstrapBlazor.Components
                 }
                 _isLoading = false;
             }
+
+            await base.OnKeyUp(args);
 
             var source = FilterItems;
             if (source.Any())

@@ -2,10 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -24,6 +28,9 @@ namespace BootstrapBlazor.Shared.Pages
 
         private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
 
+        [NotNull]
+        private BlockLogger? Trace { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -32,6 +39,18 @@ namespace BootstrapBlazor.Shared.Pages
             base.OnInitialized();
 
             PlaceHolderText = Localizer["PlaceHolder"];
+        }
+
+        private Task OnEnterAsync(string val)
+        {
+            Trace.Log($"Enter 按键触发 当前文本框值: {val}");
+            return Task.CompletedTask;
+        }
+
+        private Task OnEscAsync(string val)
+        {
+            Trace.Log($"Esc 按键触发 当前文本框值: {val}");
+            return Task.CompletedTask;
         }
 
         private static IEnumerable<AttributeItem> GetAttributes() => new[]
@@ -78,6 +97,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "string",
                 ValueList = "text / number / email / url / password",
                 DefaultValue = "text"
+            },
+            new AttributeItem() {
+                Name = "OnEnterAsync",
+                Description = "用户按下 Enter 键回调委托",
+                Type = "Func<TValue, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "OnEscAsync",
+                Description = "用户按下 Esc 键回调委托",
+                Type = "Func<TValue, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
