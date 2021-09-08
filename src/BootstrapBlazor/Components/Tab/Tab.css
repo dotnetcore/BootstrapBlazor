@@ -201,13 +201,13 @@
 
     .tabs.tabs-card.tabs-left .tabs-nav-scroll {
         border: solid 1px #ddd;
-        border-radius: 4px 0 0 4px;
+        border-radius: var(--bs-border-radius) 0 0 var(--bs-border-radius);
         border-right: none;
     }
 
     .tabs.tabs-card.tabs-right .tabs-nav-scroll {
         border: solid 1px #ddd;
-        border-radius: 0 4px 4px 0;
+        border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
         border-left: none;
     }
 
@@ -269,17 +269,17 @@
 
     .tabs.tabs-card.tabs-bottom .tabs-body {
         border-bottom-width: 0;
-        border-radius: 4px 4px 0 0;
+        border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
     }
 
     .tabs.tabs-card.tabs-left .tabs-body {
         border-left-width: 0;
-        border-radius: 0 4px 4px 0;
+        border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
     }
 
     .tabs.tabs-card.tabs-right .tabs-body {
         border-right-width: 0;
-        border-radius: 4px 0 0 4px;
+        border-radius: var(--bs-border-radius) 0 0 var(--bs-border-radius);
     }
 
 .is-scrollable .tabs-nav-prev, .is-scrollable .tabs-nav-next {
@@ -347,7 +347,7 @@
 
         .tabs-item .tabs-item-close:hover {
             background-color: #e4e7ed;
-            border-radius: 4px;
+            border-radius: var(--bs-border-radius);
         }
 
 .tabs-content {
@@ -423,7 +423,8 @@
     background: #fff;
     border: 1px solid #dcdfe6;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
-    border-radius: 4px;
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
 }
 
     .tabs-border-card > .tabs-header {

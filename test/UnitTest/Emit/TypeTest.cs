@@ -107,6 +107,8 @@ namespace UnitTest.Emit
 
             public Action<TableCellArgs> OnCellRender { get; set; }
 
+            public IEnumerable<KeyValuePair<string, object>> ComponentParameters { get; set; }
+
             public string GetDisplayName() => Text ?? FieldName;
 
             public string GetFieldName() => FieldName;

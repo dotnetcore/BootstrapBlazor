@@ -219,7 +219,7 @@ namespace BootstrapBlazor.Components
                     }
                     else
                     {
-                        FormItems.AddRange(EditorItems);
+                        FormItems.AddRange(EditorItems.Where(i => i.Editable));
                     }
                 }
                 StateHasChanged();
