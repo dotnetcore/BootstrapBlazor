@@ -168,7 +168,7 @@ namespace BootstrapBlazor.Components
             DataTable.AcceptChanges();
             if (OnChanged != null)
             {
-                await OnChanged(new(new[] { item }, DynamicObjectChangedType.Update));
+                await OnChanged(new(new[] { item }, DynamicItemChangedType.Update));
             }
             Items = null;
             return true;
@@ -192,7 +192,7 @@ namespace BootstrapBlazor.Components
             }
             if (changed && OnChanged != null)
             {
-                await OnChanged(new(items, DynamicObjectChangedType.Delete));
+                await OnChanged(new(items, DynamicItemChangedType.Delete));
             }
             if (changed)
             {

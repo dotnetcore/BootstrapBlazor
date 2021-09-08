@@ -134,6 +134,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 保存按钮异步回调方法
         /// </summary>
         [Parameter]
+        [Obsolete("特别注意：下个版本将做出破坏性更新，本方法签名更改为 Func<TItem, ItemChangedType, Task<bool>> 增加当前保存数据是新建还是更新方便做一些业务逻辑")]
         public Func<TItem, Task<bool>>? OnSaveAsync { get; set; }
 
         /// <summary>

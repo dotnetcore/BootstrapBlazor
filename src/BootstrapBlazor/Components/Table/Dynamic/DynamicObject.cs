@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        [AutoGenerateColumn(Visible = false)]
+        [AutoGenerateColumn(Visible = false, Editable = false)]
         public Guid DynamicObjectPrimaryKey { get; set; }
 
         /// <summary>
