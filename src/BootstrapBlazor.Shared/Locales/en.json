@@ -741,6 +741,20 @@
     "Att8": "whether case is ignored when matching",
     "Att9": "custom collection filtering rules"
   },
+  "BootstrapBlazor.Shared.Pages.FullScreens": {
+    "Title": "FullScreen",
+    "H1": "Human-computer interaction by injecting service calls <code> Show </code> method pop-ups",
+    "Tips": "This component provides functionality in the form of injection services, the user experience is very comfortable to use, anytime, anywhere calls, need to be built into the page using this component <code> FullScreen </code> component, or in the main layout component of <code> MainLayout</code>, the sample code is as follows:",
+    "Block1Title": "Basic usage",
+    "Block1Intro": "The entire page is fully screened by calling the <code>Show </code> method that <code> FullScreenService </code> service instance",
+    "ButtonText1": "FullScreen",
+    "Block2Title": "Button",
+    "Block2Intro": "The full screen of the entire web page is component <code> FullScreenButton</code>",
+    "Li1": "The button default icon can be set through the <code> ButtonIcon </code>, and the full-screen icon can be set through the <code>FullScreenIcon </code> property",
+    "Li2": "Use the <code>Title</code> property to set the prompt bar text when the mouse hovers",
+    "Button1Text": "Tap for a full screen operation",
+    "Pre": "FullScreenButton Title='Click for full screen operation'"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

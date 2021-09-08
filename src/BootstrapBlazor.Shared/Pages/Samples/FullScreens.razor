@@ -1,28 +1,29 @@
 ﻿@page "/fullscreens"
+@inject IStringLocalizer<FullScreens> Localizer
 
-<h3>FullScreen 全屏</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互</h4>
+<h4>@((MarkupString)Localizer["H1"].Value)</h4>
 
 <Tips class="mt-3">
     <p>
-        本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>FullScreen</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：
+        @((MarkupString)Localizer["Tips"].Value)
     </p>
 </Tips>
 
 <Pre>&lt;FullScreen /&gt;</Pre>
 
-<Block Title="基本用法" Introduction="通过调用<code>FullScreenService</code> 服务实例的 <code>Show</code> 方法将整个网页进行全屏化">
-    <Button Text="全屏" OnClick="ToggleFullScreen"></Button>
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+    <Button Text="@Localizer["ButtonText1"]" OnClick="ToggleFullScreen"></Button>
 </Block>
 
-<Block Title="按钮组件" Introduction="通过 <code>FullScreenButton</code> 组件将整个网页进行全屏化">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
     <ul class="ul-demo">
-        <li>可通过 <code>ButtonIcon</code> 设置按钮默认图标，通过 <code>FullScreenIcon</code> 属性设置全屏时图标</li>
-        <li>通过 <code>Title</code> 属性设置鼠标悬浮时提示栏文字</li>
+        <li>@((MarkupString)Localizer["Li1"].Value)</li>
+        <li>@((MarkupString)Localizer["Li2"].Value)</li>
     </ul>
-    <FullScreenButton Title="点击进行全屏操作" FullScreenIcon="fa fa-fa" />
-    <Pre class="mt-3">&lt;FullScreenButton Title="点击进行全屏操作" /&gt;</Pre>
+    <FullScreenButton Title="@Localizer["Button1Text"]" FullScreenIcon="fa fa-fa" />
+    <Pre class="mt-3">&lt;@Localizer["Pre"]" /&gt;</Pre>
 </Block>
 
 <FullScreen />
