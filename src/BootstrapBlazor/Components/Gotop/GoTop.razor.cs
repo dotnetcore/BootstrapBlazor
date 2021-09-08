@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && !string.IsNullOrEmpty(Target)) await JSRuntime.InvokeVoidAsync(GoTopElement, "bb_gotop", Target);
+            if (firstRender) await JSRuntime.InvokeVoidAsync(GoTopElement, "bb_gotop", Target ?? "");
         }
     }
 }

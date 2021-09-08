@@ -22,6 +22,9 @@ namespace BootstrapBlazor.Shared.Pages
         private string? Title { get; set; }
 
         [NotNull]
+        private string? SubTitle { get; set; }
+
+        [NotNull]
         private string? BaseUsageText { get; set; }
 
         [NotNull]
@@ -37,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IStringLocalizer<HandwrittenPage>? Localizer { get; set; }
 
- 
+
         /// <summary>
         /// 签名Base64
         /// </summary>
@@ -51,13 +54,14 @@ namespace BootstrapBlazor.Shared.Pages
             base.OnInitialized();
 
             Title ??= Localizer[nameof(Title)];
+            SubTitle ??= Localizer[nameof(SubTitle)];
             BaseUsageText ??= Localizer[nameof(BaseUsageText)];
             IntroText1 ??= Localizer[nameof(IntroText1)];
             IntroText2 ??= Localizer[nameof(IntroText2)];
             HandwrittenButtonText ??= Localizer[nameof(HandwrittenButtonText)];
         }
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()
             {
@@ -74,7 +78,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "string",
                 ValueList = " - ",
                 DefaultValue = "清除"
-            }, 
+            },
             new AttributeItem()
             {
                 Name = "Result",
@@ -90,8 +94,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "EventCallback<string>",
                 ValueList = " - ",
                 DefaultValue = " - "
-            } 
+            }
         };
-
     }
 }

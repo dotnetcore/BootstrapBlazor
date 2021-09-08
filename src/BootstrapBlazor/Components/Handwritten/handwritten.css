@@ -1,4 +1,15 @@
-﻿
+﻿.handwritten .hw-body {
+    height: 300px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
+}
+
+.handwritten .hw-buttons {
+    margin-top: 1rem;
+    text-align: right;
+}
+
 #canvas {
     border: 1px double #DEDEDE;
     border-radius: 10px;
@@ -12,7 +23,6 @@
         display: block;
     }
 
- 
 #clearCanvas0 {
     width: calc(50% - 5px);
     height: 40px;

@@ -1,20 +1,12 @@
 ﻿@page "/handwrittenPage"
+
 <h3>@Title</h3>
 
- 
-	<p>@BaseUsageText></p>
+<h4>@SubTitle</h4>
 
-	<p><b>@IntroText1</b></p>
+<Block Title="@BaseUsageText" Introduction="@IntroText1">
+    <Handwritten HandwrittenBase64="((e) => { DrawBase64 = e; })" />
+    <textarea type="text" class="form-control mt-3" readonly rows="5" @bind="DrawBase64" />
+</Block>
 
-    <Handwritten HandwrittenBase64="((e) => { DrawBase64=e; })" />
- 
-	<textarea type="text" class="form-control" style="min-width: 100px;" rows="5"
-			  @bind="DrawBase64"
-			  placeholder="Base64" />
-
-  	<br />
-
-	<p><b>@IntroText2</b></p>
-
- 
-<AttributeTable Items="@GetAttributes()" /> 
+<AttributeTable Items="@GetAttributes()" />

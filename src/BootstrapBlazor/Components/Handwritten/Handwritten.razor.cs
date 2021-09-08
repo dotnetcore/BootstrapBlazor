@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Handwritten 手写签名
     /// </summary>
-    public sealed partial class Handwritten
+    public partial class Handwritten : IDisposable
     {
         /// <summary>
         /// 清除按钮文本
@@ -45,6 +46,11 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public string? Result { get; set; }
 
+        [NotNull]
+        private JSInterop<Handwritten>? Interop { get; set; }
+
+        private ElementReference HandwrittenElement { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -52,8 +58,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
             ClearButtonText ??= Localizer[nameof(ClearButtonText)];
-            SaveButtonText ??= Localizer[nameof(SaveButtonText)]; 
-        } 
+            SaveButtonText ??= Localizer[nameof(SaveButtonText)];
+        }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -62,8 +68,13 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (!firstRender) return;
-            await JsRuntime.InvokeAsync<string>("handwrittenv2.start", true, DotNetObjectReference.Create(this));
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                Interop ??= new JSInterop<Handwritten>(JSRuntime);
+                await Interop.InvokeVoidAsync(this, HandwrittenElement, "bb_handwritten", true, nameof(OnValueChanged));
+            }
         }
 
         /// <summary>
@@ -71,15 +82,34 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        [JSInvokable("invokeFromJS")]
-        public async Task ChangeValue(string val)
+        [JSInvokable]
+        public async Task OnValueChanged(string val)
         {
             Result = val;
             StateHasChanged();
             await HandwrittenBase64.InvokeAsync(val);
-            //return Task.CompletedTask;
         }
-         
-    }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Interop?.Dispose();
+                Interop = null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
 }

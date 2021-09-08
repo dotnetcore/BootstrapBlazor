@@ -1,11 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
-@inject IJSRuntime JsRuntime
 
-<link href="_content/BootstrapBlazor/lib/handwritten/handwritten.css" rel="stylesheet" />
-<div id="canvas" style="height: 300px;">
+<div class="handwritten" @ref="HandwrittenElement">
+    <div class="hw-body">
+    </div>
+    <div class="hw-buttons">
+        <button class="btn btn-secondary">@ClearButtonText</button>
+        <button class="btn btn-primary">@SaveButtonText</button>
+    </div>
 </div>
-<div>
-	<button class="btn btn-secondary p-2 m-1 w-25" id="clearCanvas">@ClearButtonText</button>
-	<button class="btn btn-primary p-2 m-1 w-25" id="saveCanvas">@SaveButtonText</button>
-</div> 
