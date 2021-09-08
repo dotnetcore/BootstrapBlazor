@@ -140,12 +140,12 @@ namespace BootstrapBlazor.Components
         public static IEnumerable<ITableColumn> GetProperties(Type type, IEnumerable<ITableColumn>? source = null)
         {
             var cols = new List<ITableColumn>(50);
-            var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>();
+            var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
             var props = type.GetProperties();
             foreach (var prop in props)
             {
                 ITableColumn? tc;
-                var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>();
+                var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
 
                 // Issue: 增加定义设置标签 AutoGenerateClassAttribute
                 // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED

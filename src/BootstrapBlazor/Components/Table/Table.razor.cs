@@ -555,6 +555,44 @@ namespace BootstrapBlazor.Components
 
             OnInitLocalization();
 
+            // 对动态类型 DataTable 支持
+            if (DynamicContext != null)
+            {
+                OnAddAsync ??= async () =>
+                {
+                    var item = await DynamicContext.AddAsync() as TItem;
+                    if (item == null)
+                    {
+                        throw new InvalidCastException();
+                    }
+                    StateHasChanged();
+                    return item;
+                };
+
+                OnSaveAsync ??= async item =>
+                {
+                    var ret = false;
+                    if (item is IDynamicObject d)
+                    {
+                        ret = await DynamicContext.SaveAsync(d);
+                        StateHasChanged();
+                    }
+                    return ret;
+                };
+
+                OnDeleteAsync ??= async items =>
+                {
+                    var ret = false;
+                    var datas = items.OfType<IDynamicObject>();
+                    if (datas.Any())
+                    {
+                        ret = await DynamicContext.DeleteAsync(datas);
+                        StateHasChanged();
+                    }
+                    return ret;
+                };
+            }
+
             // 初始化每页显示数量
             if (IsPagination)
             {

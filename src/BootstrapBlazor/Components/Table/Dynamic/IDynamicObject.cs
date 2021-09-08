@@ -24,5 +24,10 @@ namespace BootstrapBlazor.Components
         /// <param name="propertyName">属性名称</param>
         /// <param name="value">属性值</param>
         void SetValue(string propertyName, object? value);
+
+        /// <summary>
+        /// 获得/设置 数据主键
+        /// </summary>
+        Guid DynamicObjectPrimaryKey { get; set; }
     }
 }

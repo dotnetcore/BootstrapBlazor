@@ -336,6 +336,8 @@ namespace BootstrapBlazor.Components
         protected async Task QueryData()
         {
             SelectedItems.Clear();
+            RowItemsCache = null;
+            Items = null;
 
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
@@ -367,8 +369,6 @@ namespace BootstrapBlazor.Components
 
                 if (queryData != null)
                 {
-                    RowItemsCache = null;
-                    Items = null;
                     QueryItems = queryData.Items;
                     if (IsTree)
                     {

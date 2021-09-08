@@ -103,12 +103,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
             CreateContext();
         }
 
-        private Task<DynamicObject> OnAddAsync() => DataTableDynamicContext.AddAsync();
-
-        private Task<bool> OnSaveAsync(DynamicObject item) => DataTableDynamicContext.SaveAsync(item);
-
-        private Task<bool> OnDeleteAsync(IEnumerable<DynamicObject> items) => DataTableDynamicContext.DeleteAsync(items);
-
         private Task OnAddColumn()
         {
             if (!UserData.Columns.Contains(nameof(Foo.Complete)))

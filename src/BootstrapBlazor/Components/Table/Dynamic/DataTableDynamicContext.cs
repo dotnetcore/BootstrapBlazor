@@ -30,9 +30,9 @@ namespace BootstrapBlazor.Components
 
         private Lazy<IEnumerable<IDynamicObject>>? Items { get; set; }
 
-        private readonly ConcurrentDictionary<int, (IDynamicObject DynamicObject, DataRow Row)> Caches = new();
-
         private Action<DataTableDynamicContext, ITableColumn>? AddAttributesCallback { get; set; }
+
+        private ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> Caches { get; } = new();
 
         /// <summary>
         /// 构造函数
@@ -45,7 +45,12 @@ namespace BootstrapBlazor.Components
             AddAttributesCallback = addAttributesCallback;
 
             var cols = InternalGetColumns();
-            DynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DynamicObject), OnColumnCreating);
+            var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DynamicObject), OnColumnCreating);
+            if (dynamicType == null)
+            {
+                throw new InvalidOperationException();
+            }
+            DynamicObjectType = dynamicType;
             Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols);
         }
 
@@ -61,21 +66,25 @@ namespace BootstrapBlazor.Components
                 var ret = new List<IDynamicObject>();
                 foreach (DataRow row in DataTable.Rows)
                 {
-                    var dynamicObject = Activator.CreateInstance(DynamicObjectType)!;
-                    foreach (DataColumn col in DataTable.Columns)
+                    var dynamicObject = Activator.CreateInstance(DynamicObjectType);
+                    if (dynamicObject != null)
                     {
-                        var invoker = SetPropertyCache.GetOrAdd((dynamicObject.GetType(), col.ColumnName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(dynamicObject, key.PropertyName).Compile());
-                        var v = row[col];
-                        if (row.IsNull(col))
+                        foreach (DataColumn col in DataTable.Columns)
                         {
-                            v = null;
+                            var invoker = SetPropertyCache.GetOrAdd((dynamicObject.GetType(), col.ColumnName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(dynamicObject, key.PropertyName).Compile());
+                            var v = row[col];
+                            if (row.IsNull(col))
+                            {
+                                v = null;
+                            }
+                            invoker.Invoke(dynamicObject, v);
                         }
-                        invoker.Invoke(dynamicObject, v);
-                    }
-                    if (dynamicObject is IDynamicObject d)
-                    {
-                        ret.Add(d);
-                        Caches.TryAdd(d.GetHashCode(), (d, row));
+                        if (dynamicObject is IDynamicObject d)
+                        {
+                            d.DynamicObjectPrimaryKey = Guid.NewGuid();
+                            Caches.TryAdd(d.DynamicObjectPrimaryKey, (d, row));
+                            ret.Add(d);
+                        }
                     }
                 }
                 return ret;
@@ -121,10 +130,18 @@ namespace BootstrapBlazor.Components
         /// 新建方法
         /// </summary>
         /// <returns></returns>
-        public Task<DynamicObject> AddAsync()
+        public override async Task<IDynamicObject> AddAsync()
         {
-            var dynamicObject = Activator.CreateInstance(DynamicObjectType) as DynamicObject;
-            return Task.FromResult(dynamicObject!);
+            var dynamicObject = Activator.CreateInstance(DynamicObjectType) as IDynamicObject;
+            if (dynamicObject == null)
+            {
+                throw new InvalidCastException($"{DynamicObjectType.Name} can not cast to {nameof(IDynamicObject)}");
+            }
+            if (OnChanged != null)
+            {
+                await OnChanged(new(new[] { dynamicObject }));
+            }
+            return dynamicObject;
         }
 
         /// <summary>
@@ -132,10 +149,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public Task<bool> SaveAsync(DynamicObject item)
+        public override async Task<bool> SaveAsync(IDynamicObject item)
         {
             DataRow? row;
-            if (Caches.TryGetValue(item.GetHashCode(), out var cacheItem))
+            if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
             {
                 row = cacheItem.Row;
             }
@@ -149,8 +166,12 @@ namespace BootstrapBlazor.Components
                 row[col] = item.GetValue(col.ColumnName);
             }
             DataTable.AcceptChanges();
+            if (OnChanged != null)
+            {
+                await OnChanged(new(new[] { item }, DynamicObjectChangedType.Update));
+            }
             Items = null;
-            return Task.FromResult(true);
+            return true;
         }
 
         /// <summary>
@@ -158,17 +179,26 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public Task<bool> DeleteAsync(IEnumerable<DynamicObject> items)
+        public override async Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items)
         {
+            var changed = false;
             foreach (var item in items)
             {
-                if (Caches.TryGetValue(item.GetHashCode(), out var row))
+                if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var row))
                 {
+                    changed = true;
                     DataTable.Rows.Remove(row.Row);
                 }
             }
-            Items = null;
-            return Task.FromResult(true);
+            if (changed && OnChanged != null)
+            {
+                await OnChanged(new(items, DynamicObjectChangedType.Delete));
+            }
+            if (changed)
+            {
+                Items = null;
+            }
+            return true;
         }
         #endregion
     }

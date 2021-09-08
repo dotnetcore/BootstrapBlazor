@@ -62,8 +62,8 @@ namespace BootstrapBlazor.Components
                 else if (TryGetProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                 {
                     // 回退查找 Display 标签
-                    dn = propertyInfo.GetCustomAttribute<DisplayAttribute>()?.Name
-                        ?? propertyInfo.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
+                    dn = propertyInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
+                        ?? propertyInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName;
 
                     // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
                     if (!string.IsNullOrEmpty(dn) && !modelType.Assembly.IsDynamic)
@@ -124,7 +124,7 @@ namespace BootstrapBlazor.Components
                     }
                     else if (Utility.TryGetProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
                     {
-                        var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>();
+                        var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
                         if (placeHolderAttribute != null)
                         {
                             placeHolder = placeHolderAttribute.Text;

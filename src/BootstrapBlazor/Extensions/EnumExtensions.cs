@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Components
             if (type != null && !string.IsNullOrEmpty(fieldName))
             {
                 var t = Nullable.GetUnderlyingType(type) ?? type;
-                var attributes = t.GetField(fieldName)?.GetCustomAttribute<DescriptionAttribute>();
+                var attributes = t.GetField(fieldName)?.GetCustomAttribute<DescriptionAttribute>(true);
                 ret = attributes?.Description ?? fieldName;
             }
             return ret;
@@ -81,8 +81,8 @@ namespace BootstrapBlazor.Components
                     else
                     {
                         var field = t.GetField(fieldName);
-                        dn = field?.GetCustomAttribute<DisplayAttribute>()?.Name
-                            ?? field?.GetCustomAttribute<DescriptionAttribute>()?.Description;
+                        dn = field?.GetCustomAttribute<DisplayAttribute>(true)?.Name
+                            ?? field?.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
 
                         // search in Localization again
                         if (!string.IsNullOrEmpty(dn))

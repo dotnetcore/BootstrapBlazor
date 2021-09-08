@@ -142,7 +142,7 @@ namespace BootstrapBlazor.Components
                     .FirstOrDefault();
                 if (pi != null)
                 {
-                    var required = pi.GetCustomAttribute<RequiredAttribute>();
+                    var required = pi.GetCustomAttribute<RequiredAttribute>(true);
                     if (required != null)
                     {
                         Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });

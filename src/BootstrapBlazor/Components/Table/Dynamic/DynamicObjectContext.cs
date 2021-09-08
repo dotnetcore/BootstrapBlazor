@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -74,5 +75,31 @@ namespace BootstrapBlazor.Components
         protected internal virtual IEnumerable<CustomAttributeBuilder> OnColumnCreating(ITableColumn col) => CustomerAttributeBuilderCache.TryGetValue(col.GetFieldName(), out var builders)
             ? builders
             : Enumerable.Empty<CustomAttributeBuilder>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public abstract Task<IDynamicObject> AddAsync();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public abstract Task<bool> SaveAsync(IDynamicObject item);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public abstract Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
     }
 }
