@@ -449,7 +449,7 @@ namespace BootstrapBlazor.Components
             ShowLoading = ShowLoading,
             Title = EditModalTitleString,
             Model = EditModel,
-            Items = Columns.Where(i => i.Editable && i.Visible),
+            Items = Columns.Where(i => i.Editable),
             SaveButtonText = EditDialogSaveButtonText,
             DialogBodyTemplate = EditTemplate,
             RowType = EditDialogRowType,
