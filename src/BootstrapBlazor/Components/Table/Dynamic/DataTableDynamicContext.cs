@@ -39,19 +39,44 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="table"></param>
         /// <param name="addAttributesCallback"></param>
-        public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback = null)
+        /// <param name="shownColumns">显示列集合 默认为 null 全部显示</param>
+        /// <param name="hiddenColumns">隐藏列集合 默认为 null 无隐藏列</param>
+        public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback = null, IEnumerable<string>? shownColumns = null, IEnumerable<string>? hiddenColumns = null)
         {
             DataTable = table;
             AddAttributesCallback = addAttributesCallback;
 
+            // 获得 DataTable 列信息转换为 ITableColumn 集合
             var cols = InternalGetColumns();
+
+            // Emit 生成动态类
             var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DynamicObject), OnColumnCreating);
             if (dynamicType == null)
             {
                 throw new InvalidOperationException();
             }
             DynamicObjectType = dynamicType;
-            Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols);
+
+            // 获得显示列
+            Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col.GetFieldName(), shownColumns, hiddenColumns)).ToList();
+        }
+
+        private static bool GetShownColumns(string columnName, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
+        {
+            var ret = true;
+
+            // 隐藏列优先 移除隐藏列
+            if (hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+            {
+                ret = false;
+            }
+
+            // 显示列不存在时 不显示
+            if (ret && shownColumns != null && !shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+            {
+                ret = false;
+            }
+            return ret;
         }
 
         /// <summary>
@@ -130,18 +155,14 @@ namespace BootstrapBlazor.Components
         /// 新建方法
         /// </summary>
         /// <returns></returns>
-        public override async Task<IDynamicObject> AddAsync()
+        public override Task<IDynamicObject> AddAsync()
         {
             var dynamicObject = Activator.CreateInstance(DynamicObjectType) as IDynamicObject;
             if (dynamicObject == null)
             {
                 throw new InvalidCastException($"{DynamicObjectType.Name} can not cast to {nameof(IDynamicObject)}");
             }
-            if (OnChanged != null)
-            {
-                await OnChanged(new(new[] { dynamicObject }));
-            }
-            return dynamicObject;
+            return Task.FromResult(dynamicObject);
         }
 
         /// <summary>
@@ -152,8 +173,10 @@ namespace BootstrapBlazor.Components
         public override async Task<bool> SaveAsync(IDynamicObject item)
         {
             DataRow? row;
+            var changedType = DynamicItemChangedType.Add;
             if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
             {
+                changedType = DynamicItemChangedType.Update;
                 row = cacheItem.Row;
             }
             else
@@ -168,7 +191,7 @@ namespace BootstrapBlazor.Components
             DataTable.AcceptChanges();
             if (OnChanged != null)
             {
-                await OnChanged(new(new[] { item }, DynamicItemChangedType.Update));
+                await OnChanged(new(new[] { item }, changedType));
             }
             Items = null;
             return true;
