@@ -256,6 +256,10 @@ namespace BootstrapBlazor.Components
                 var value = invoker(context);
                 builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
             });
+            set
+            {
+
+            }
         }
 
         /// <summary>

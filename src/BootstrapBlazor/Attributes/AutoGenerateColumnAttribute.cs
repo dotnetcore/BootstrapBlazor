@@ -105,12 +105,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
-        RenderFragment<object>? ITableColumn.Template { get => Template; }
-
         /// <summary>
         /// 获得/设置 显示模板
         /// </summary>
-        internal RenderFragment<object>? Template { get; set; }
+        public RenderFragment<object>? Template { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索模板
