@@ -56,6 +56,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
             HeaderText ??= Localizer[nameof(HeaderText)];
             Themes = BootstrapOptions.Value.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
             ThemeList = Themes.Select(t => t.Value);
+            SiteOptions.Value.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic (开发中)")?.Value ?? "";
         }
 
         /// <summary>
@@ -70,10 +71,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
             if (firstRender)
             {
                 await JSRuntime.InvokeVoidAsync("$.initTheme", ThemeElement);
-
-                // TODO: for test Motronic
-                var item = Themes.First(t => t.Text == "Motronic (开发中)");
-                await OnClickTheme(item);
             }
         }
 
