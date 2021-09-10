@@ -9,7 +9,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" @bind-SelectedRows="@SelectedRows"
-           ShowDefaultButtons="false"
+           ShowDefaultButtons="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

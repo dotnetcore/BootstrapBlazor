@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private bool _confirm;
 
-        private IEnumerable<Foo> SelectedRows { get; set; } = Enumerable.Empty<Foo>();
+        private List<Foo> SelectedRows { get; set; } = new List<Foo>();
 
         /// <summary>
         /// 

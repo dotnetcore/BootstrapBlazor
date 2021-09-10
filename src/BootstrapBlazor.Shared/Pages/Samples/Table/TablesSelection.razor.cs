@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private List<Foo>? Items { get; set; }
 
-        private IEnumerable<Foo> SelectedRows = new List<Foo>();
+        private List<Foo> SelectedRows = new List<Foo>();
 
         /// <summary>
         /// OnInitialized 方法
@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             base.OnInitialized();
 
             Items = Foo.GenerateFoo(Localizer);
-            SelectedRows = Items.Take(4);
+            SelectedRows = Items.Take(4).ToList();
         }
 
         private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)

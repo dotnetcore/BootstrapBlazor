@@ -18,10 +18,10 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public partial class ResultDialogDemo2 : ComponentBase, IResultDialog
     {
-        private IEnumerable<Foo> SelectedRows { get; set; } = Array.Empty<Foo>();
+        private List<Foo> SelectedRows { get; set; } = new List<Foo>();
 
         [NotNull]
-        private IEnumerable<Foo>? Items { get; set; }
+        private List<Foo>? Items { get; set; }
 
         /// <summary>
         ///
@@ -54,7 +54,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
             Items = GenerateItems(context?.Count ?? 10);
             Emails = context?.Emails?.Split(";") ?? Array.Empty<string>();
 
-            SelectedRows = Items.Where(i => Emails.Any(mail => mail == i.Email));
+            SelectedRows = Items.Where(i => Emails.Any(mail => mail == i.Email)).ToList();
         }
 
         private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions option) => Task.FromResult(new QueryData<Foo>()

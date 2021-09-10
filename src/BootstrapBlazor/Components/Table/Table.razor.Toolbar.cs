@@ -557,6 +557,15 @@ namespace BootstrapBlazor.Components
                 var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedItems.Count));
                 PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
 
+                if (SelectedRows != null && SelectedRows.Any())
+                {
+                    SelectedRows.RemoveAll(item => SelectedItems.Contains(item));
+                    if (SelectedRowsChanged.HasDelegate)
+                    {
+                        await SelectedRowsChanged.InvokeAsync(SelectedRows);
+                    }
+                }
+
                 SelectedItems.Clear();
 
                 if (!IsTracking)
