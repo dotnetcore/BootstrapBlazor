@@ -64,18 +64,18 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnClick",
-                Description="点击按钮时触发此事件",
+                Description = Localizer["EventDesc1"]!,
                 Type ="EventCallback<MouseEventArgs>"
             },
             new EventItem()
             {
                 Name = "OnClickWithoutRender",
-                Description="点击按钮时触发此事件并且不刷新当前组件，用于提高性能时使用",
+                Description = Localizer["EventDesc2"]!,
                 Type ="Func<Task>"
             }
         };
@@ -84,96 +84,96 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = Localizer["Att1"]!,
                 Type = "Color",
                 ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "Icon",
-                Description = "图标",
+                Description = Localizer["Att2"]!,
                 Type = "string",
                 ValueList = "",
                 DefaultValue = ""
             },
             new AttributeItem() {
                 Name = "LoadingIcon",
-                Description = "异步加载时的动画图标",
+                Description = Localizer["Att3"]!,
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "fa fa-fw fa-spin fa-spinner"
             },
             new AttributeItem() {
                 Name = "Text",
-                Description = "显示文字",
+                Description = Localizer["Att4"]!,
                 Type = "string",
                 ValueList = "",
                 DefaultValue = ""
             },
             new AttributeItem() {
                 Name = "Size",
-                Description = "尺寸",
+                Description = Localizer["Att5"]!,
                 Type = "Size",
                 ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["Att6"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsBlock",
-                Description = "填充按钮",
+                Description = Localizer["Att7"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["Att8"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsOutline",
-                Description = "是否边框",
+                Description = Localizer["Att9"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsAsync",
-                Description = "是否为异步按钮",
+                Description = Localizer["Att10"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "内容",
+                Description = Localizer["Att11"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ButtonStyle",
-                Description = "按钮风格",
+                Description = Localizer["Att12"]!,
                 Type = "ButtonStyle",
                 ValueList = "None / Circle / Round",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "ButtonType",
-                Description = "按钮类型",
+                Description = Localizer["Att13"]!,
                 Type = "ButtonType",
                 ValueList = "Button / Submit / Reset",
                 DefaultValue = "Button"
@@ -189,7 +189,7 @@ namespace BootstrapBlazor.Shared.Pages
             new MethodItem()
             {
                 Name = "SetDisable",
-                Description = "设置按钮是否可用",
+                Description = Localizer["MethodDesc1"]!,
                 Parameters = "disable",
                 ReturnValue = " — "
             }
