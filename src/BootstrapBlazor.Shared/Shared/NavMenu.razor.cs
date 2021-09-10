@@ -197,6 +197,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Theme"],
+                    Url = "themes"
+                },
+                new()
+                {
                     Text = Localizer["LayoutPage"],
                     Url = "layout-page"
                 }
