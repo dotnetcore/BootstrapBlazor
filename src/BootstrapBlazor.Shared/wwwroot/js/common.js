@@ -188,7 +188,7 @@
             $('link[rel="stylesheet"]').each(function (index, link) {
                 var theme = $(link).attr('href');
                 var $theme = cssList.filter(function (c) {
-                    return c !== "" && c.indexOf(theme) > -1;
+                    return c !== "" && theme.indexOf(c) > -1;
                 });
                 if ($theme.length > 0) {
                     $(link).remove();
