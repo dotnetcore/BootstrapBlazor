@@ -35,6 +35,11 @@ namespace BootstrapBlazor.Shared.Pages
         private bool ShowFooter { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否固定 TabHeader
+        /// </summary>
+        private bool IsFixedTab { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否固定 Header
         /// </summary>
         private bool IsFixedHeader { get; set; }
@@ -80,6 +85,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Task OnFooterChanged(CheckboxState state, bool val) => UpdateAsync();
 
+        private Task OnTabStateChanged(CheckboxState state, bool val) => UpdateAsync();
+
         private Task OnHeaderStateChanged(CheckboxState state, bool val) => UpdateAsync();
 
         private Task OnFooterStateChanged(CheckboxState state, bool val) => UpdateAsync();
@@ -103,6 +110,7 @@ namespace BootstrapBlazor.Shared.Pages
                 [nameof(RootPage.IsFullSide)] = IsFullSide,
                 [nameof(RootPage.IsFixedFooter)] = IsFixedFooter && ShowFooter,
                 [nameof(RootPage.IsFixedHeader)] = IsFixedHeader,
+                [nameof(RootPage.IsFixedTab)] = IsFixedTab,
                 [nameof(RootPage.ShowFooter)] = ShowFooter,
                 [nameof(RootPage.UseTabSet)] = UseTabSet
             };

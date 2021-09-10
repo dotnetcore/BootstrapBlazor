@@ -36,8 +36,9 @@
 
     <div class="page-layout-demo-option">
         <p>固定调整</p>
-        <Checkbox @bind-Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" ShowAfterLabel="true" DisplayText="固定页头" class="me-3" />
-        <Checkbox @bind-Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" ShowAfterLabel="true" DisplayText="固定页脚" />
+        <Checkbox @bind-Value="@IsFixedTab" OnStateChanged="@OnTabStateChanged" ShowAfterLabel="true" DisplayText="固定标签" />
+        <Checkbox @bind-Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="固定页头" class="me-3" />
+        <Checkbox @bind-Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="固定页脚" />
     </div>
 
     <div class="page-layout-demo-option">

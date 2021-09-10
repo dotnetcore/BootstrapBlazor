@@ -18,9 +18,20 @@ namespace BootstrapBlazor.Shared.Shared
     {
         private bool IsOpen { get; set; }
 
-        private string Theme { get; set; } = "";
+        private string? Theme { get; set; }
+
+        private string? LayoutClassString => CssBuilder.Default()
+            .AddClass(Theme)
+            .AddClass("is-fixed-tab", IsFixedTab)
+            .Build();
 
         private IEnumerable<MenuItem>? Menus { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否固定 TabHeader
+        /// </summary>
+        [Parameter]
+        public bool IsFixedTab { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 是否固定页头

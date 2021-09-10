@@ -1684,3 +1684,8 @@ header .bb-fs {
         display: none;
     }
 }
+
+.is-fixed-tab .tabs-body {
+    height: calc(100vh - 130px);
+    overflow: auto;
+}
