@@ -59,11 +59,11 @@ namespace BootstrapBlazor.Shared.Pages.Table
             return item;
         }
 
-        private async Task<bool> OnSaveAsync(Foo item)
+        private async Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
         {
             // 模拟延时
             await Task.Delay(1000);
-            if (item.Id == 0)
+            if (changedType == ItemChangedType.Add)
             {
                 item.Id = Items.Max(i => i.Id) + 1;
                 Items.Add(item);

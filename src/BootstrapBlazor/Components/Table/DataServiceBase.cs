@@ -30,8 +30,9 @@ namespace BootstrapBlazor.Components
         /// 保存数据操作方法
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public virtual Task<bool> SaveAsync(TModel model) => Task.FromResult(true);
+        public virtual Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(true);
 
         /// <summary>
         /// 查询数据操作方法

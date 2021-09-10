@@ -35,8 +35,9 @@ namespace BootstrapBlazor.Components
         /// 保存方法
         /// </summary>
         /// <param name="item"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        Task<bool> SaveAsync(IDynamicObject item);
+        Task<bool> SaveAsync(IDynamicObject item, ItemChangedType changedType);
 
         /// <summary>
         /// 删除方法

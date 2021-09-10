@@ -50,10 +50,10 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" });
 
-        private Task<bool> OnSaveAsync(Foo item)
+        private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
         {
             // 增加数据演示代码
-            if (item.Id == 0)
+            if (changedType == ItemChangedType.Add)
             {
                 item.Id = Items.Max(i => i.Id) + 1;
                 Items.Add(item);

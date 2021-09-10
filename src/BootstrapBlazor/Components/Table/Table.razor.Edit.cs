@@ -485,7 +485,7 @@ namespace BootstrapBlazor.Components
         private EventCallback<MouseEventArgs> ClickUpdateButtonCallback() => EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
         {
             var context = new EditContext(EditModel);
-            await SaveAsync(context);
+            await SaveAsync(context, ItemChangedType.Update);
 
             // 回调外部自定义方法
             if (OnAfterSaveAsync != null)

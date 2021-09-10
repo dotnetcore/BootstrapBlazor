@@ -569,12 +569,12 @@ namespace BootstrapBlazor.Components
                     return item;
                 };
 
-                OnSaveAsync ??= async item =>
+                OnSaveAsync ??= async (item, changedType) =>
                 {
                     var ret = false;
                     if (item is IDynamicObject d)
                     {
-                        ret = await DynamicContext.SaveAsync(d);
+                        ret = await DynamicContext.SaveAsync(d, changedType);
                         StateHasChanged();
                     }
                     return ret;

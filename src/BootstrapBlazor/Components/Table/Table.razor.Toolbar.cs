@@ -134,8 +134,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 保存按钮异步回调方法
         /// </summary>
         [Parameter]
-        [Obsolete("特别注意：下个版本将做出破坏性更新，本方法签名更改为 Func<TItem, ItemChangedType, Task<bool>> 增加当前保存数据是新建还是更新方便做一些业务逻辑")]
-        public Func<TItem, Task<bool>>? OnSaveAsync { get; set; }
+        public Func<TItem, ItemChangedType, Task<bool>>? OnSaveAsync { get; set; }
 
         /// <summary>
         /// 获得/设置 删除按钮异步回调方法
@@ -236,7 +235,7 @@ namespace BootstrapBlazor.Components
                 }
                 if (EditMode == EditMode.Popup)
                 {
-                    await ShowEditDialog();
+                    await ShowEditDialog(ItemChangedType.Add);
                 }
                 else if (EditMode == EditMode.EditForm)
                 {
@@ -297,7 +296,7 @@ namespace BootstrapBlazor.Components
                     // 显示编辑框
                     if (EditMode == EditMode.Popup)
                     {
-                        await ShowEditDialog();
+                        await ShowEditDialog(ItemChangedType.Update);
                     }
                     else if (EditMode == EditMode.EditForm)
                     {
@@ -361,17 +360,18 @@ namespace BootstrapBlazor.Components
         /// 保存数据方法
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        protected async Task<bool> SaveModelAsync(EditContext context)
+        protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
         {
             var valid = false;
             if (OnSaveAsync != null)
             {
-                valid = await OnSaveAsync((TItem)context.Model);
+                valid = await OnSaveAsync((TItem)context.Model, changedType);
             }
             else
             {
-                valid = await GetDataService().SaveAsync((TItem)context.Model);
+                valid = await GetDataService().SaveAsync((TItem)context.Model, changedType);
             }
 
             if (ShowErrorToast || valid)
@@ -392,12 +392,13 @@ namespace BootstrapBlazor.Components
         /// 保存数据
         /// </summary>
         /// <param name="context"></param>
-        protected async Task SaveAsync(EditContext context)
+        /// <param name="changedType"></param>
+        protected async Task SaveAsync(EditContext context, ItemChangedType changedType)
         {
             if (UseInjectDataService || OnSaveAsync != null)
             {
                 await ToggleLoading(true);
-                if (await SaveModelAsync(context))
+                if (await SaveModelAsync(context, changedType))
                 {
                     if (EditMode == EditMode.Popup)
                     {
@@ -443,7 +444,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        protected Task ShowEditDialog() => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
+        protected Task ShowEditDialog(ItemChangedType changedType) => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
         {
             IsTracking = IsTracking,
             IsScrolling = ScrollingDialogContent,
@@ -470,7 +471,7 @@ namespace BootstrapBlazor.Components
             OnSaveAsync = async context =>
             {
                 await ToggleLoading(true);
-                var valid = await SaveModelAsync(context);
+                var valid = await SaveModelAsync(context, changedType);
                 if (valid)
                 {
                     await QueryAsync();

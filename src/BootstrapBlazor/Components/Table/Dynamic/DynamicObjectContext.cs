@@ -86,8 +86,9 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <param name="item"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public abstract Task<bool> SaveAsync(IDynamicObject item);
+        public abstract Task<bool> SaveAsync(IDynamicObject item, ItemChangedType changedType);
 
         /// <summary>
         /// 

@@ -329,7 +329,7 @@
         <tbody>
             @if (EditMode == EditMode.EditForm && ShowAddForm)
             {
-                @RenderEditForm.Invoke(EditModel)
+                @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
             }
             @if (AddInCell && !IsTracking)
             {
@@ -365,7 +365,7 @@
                 }
                 if (EditMode == EditMode.EditForm && ShowEditForm && SelectedItems.FirstOrDefault() == item)
                 {
-                    @RenderEditForm.Invoke(EditModel)
+                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Update))
                 }
             }
         </tbody>
@@ -683,7 +683,7 @@ RenderFragment<TItem> RenderRow => item =>
     }
 </DynamicElement>;
 
-RenderFragment<TItem> RenderEditForm => item =>
+RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item =>
 @<tr class="is-editform">
     @{
         var colspanCount = Columns.Count;
@@ -696,11 +696,11 @@ RenderFragment<TItem> RenderEditForm => item =>
         <div class="table-cell">
             @if (EditTemplate != null)
             {
-                @EditTemplate.Invoke(item)
+                @EditTemplate.Invoke(item.Item)
             }
             else
             {
-                <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(SaveAsync))">
+                <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(context => SaveAsync(context, item.ChangedType)))">
                     <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                         <Buttons>
                             <div class="table-modal-footer">

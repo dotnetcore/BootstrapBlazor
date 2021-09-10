@@ -169,14 +169,13 @@ namespace BootstrapBlazor.Components
         /// 保存方法
         /// </summary>
         /// <param name="item"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public override async Task<bool> SaveAsync(IDynamicObject item)
+        public override async Task<bool> SaveAsync(IDynamicObject item, ItemChangedType changedType)
         {
             DataRow? row;
-            var changedType = DynamicItemChangedType.Add;
             if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
             {
-                changedType = DynamicItemChangedType.Update;
                 row = cacheItem.Row;
             }
             else
@@ -191,7 +190,7 @@ namespace BootstrapBlazor.Components
             DataTable.AcceptChanges();
             if (OnChanged != null)
             {
-                await OnChanged(new(new[] { item }, changedType));
+                await OnChanged(new(new[] { item }, changedType == ItemChangedType.Add ? DynamicItemChangedType.Add : DynamicItemChangedType.Update));
             }
             Items = null;
             return true;

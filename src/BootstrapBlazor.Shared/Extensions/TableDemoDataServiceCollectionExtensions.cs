@@ -6,6 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,6 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     internal class TableDemoDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
     {
+        [NotNull]
         private List<TModel>? Items { get; set; }
 
         private IStringLocalizer<TModel> Localizer { get; set; }
@@ -68,25 +70,21 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public override Task<bool> SaveAsync(TModel model)
+        public override Task<bool> SaveAsync(TModel model, ItemChangedType changedType)
         {
             var ret = false;
             if (model is Foo foo)
             {
-                var item = Items?.FirstOrDefault(item =>
+                if (changedType == ItemChangedType.Add)
                 {
-                    var f = item as Foo;
-                    return f?.Id == foo.Id;
-                });
-                if (item == null)
-                {
-                    var id = Items!.Count + 1;
+                    var id = Items.Count + 1;
                     while (Items.FirstOrDefault(item => (item as Foo)!.Id == id) != null)
                     {
                         id++;
                     }
-                    item = new Foo()
+                    var item = new Foo()
                     {
                         Id = id,
                         Name = foo.Name,
@@ -97,10 +95,15 @@ namespace Microsoft.Extensions.DependencyInjection
                         Education = foo.Education,
                         Hobby = foo.Hobby
                     } as TModel;
-                    Items?.Add(item!);
+                    Items.Add(item!);
                 }
                 else
                 {
+                    var item = Items.First(item =>
+                    {
+                        var f = item as Foo;
+                        return f?.Id == foo.Id;
+                    });
                     var f = item as Foo;
                     f!.Name = foo.Name;
                     f!.Address = foo.Address;

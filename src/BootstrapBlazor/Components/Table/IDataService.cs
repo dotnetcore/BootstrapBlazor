@@ -23,8 +23,9 @@ namespace BootstrapBlazor.Components
         /// 保存数据方法
         /// </summary>
         /// <param name="model">保存实体类实例</param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        Task<bool> SaveAsync(TModel model);
+        Task<bool> SaveAsync(TModel model, ItemChangedType changedType);
 
         /// <summary>
         /// 删除数据方法
@@ -61,8 +62,9 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public override Task<bool> SaveAsync(TModel model) => Task.FromResult(false);
+        public override Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(false);
 
         /// <summary>
         /// 

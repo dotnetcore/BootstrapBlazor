@@ -61,9 +61,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private Task<EditFooTree> OnAddAsync() => Task.FromResult(new EditFooTree() { AllItems = AllItems, DateTime = DateTime.Now });
 
-        private Task<bool> OnSaveAsync(EditFooTree item)
+        private Task<bool> OnSaveAsync(EditFooTree item, ItemChangedType changedType)
         {
-            if (item.Id == 0)
+            if (changedType == ItemChangedType.Add)
             {
                 item.Id = AllItems.Max(i => i.Id) + 1;
                 AllItems.Add(item);
