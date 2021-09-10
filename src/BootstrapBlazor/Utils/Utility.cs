@@ -458,8 +458,8 @@ namespace BootstrapBlazor.Components
             switch (type.Name)
             {
                 case nameof(String):
-                    var ph = Utility.GetPlaceHolder(model, fieldName) ?? placeholder;
-                    if (!string.IsNullOrEmpty(ph))
+                    var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName) ?? placeholder;
+                    if (ph != null)
                     {
                         ret.Add(new("placeholder", ph));
                     }

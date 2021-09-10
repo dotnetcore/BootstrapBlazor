@@ -55,6 +55,11 @@ namespace BootstrapBlazor.Components
 
         public string? FormatString { get; set; }
 
+        /// <summary>
+        /// 获得/设置 placeholder 文本 默认为 null
+        /// </summary>
+        public string? PlaceHolder { get; set; }
+
         public Func<object?, Task<string>>? Formatter { get; set; }
 
         public Alignment Align { get; set; }

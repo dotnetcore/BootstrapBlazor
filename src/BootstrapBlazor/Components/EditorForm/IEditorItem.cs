@@ -39,6 +39,12 @@ namespace BootstrapBlazor.Components
         string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 placeholder 文本 默认为 null
+        /// </summary>
+        [Parameter]
+        string? PlaceHolder { get; set; }
+
+        /// <summary>
         /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
         /// </summary>
         IEnumerable<SelectedItem>? Data { get; set; }

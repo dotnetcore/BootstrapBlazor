@@ -88,7 +88,7 @@ namespace BootstrapBlazor.Components
             {
                 PlaceHolder = ph?.ToString();
             }
-            if (string.IsNullOrEmpty(PlaceHolder) && FieldIdentifier.HasValue)
+            else if (FieldIdentifier.HasValue)
             {
                 PlaceHolder = FieldIdentifier.Value.GetPlaceHolder();
             }

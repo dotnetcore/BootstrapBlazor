@@ -96,6 +96,12 @@ namespace BootstrapBlazor.Components
         public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
         /// <summary>
+        /// 获得/设置 placeholder 文本 默认为 null
+        /// </summary>
+        [Parameter]
+        public string? PlaceHolder { get; set; }
+
+        /// <summary>
         /// 获得/设置 显示顺序
         /// </summary>
         public int Order { get; set; }

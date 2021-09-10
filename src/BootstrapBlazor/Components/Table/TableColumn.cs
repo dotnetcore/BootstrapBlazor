@@ -135,6 +135,12 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
+        /// 获得/设置 placeholder 文本 默认为 null
+        /// </summary>
+        [Parameter]
+        public string? PlaceHolder { get; set; }
+
+        /// <summary>
         /// 获得/设置 列宽 默认为 auto
         /// </summary>
         [Parameter]
