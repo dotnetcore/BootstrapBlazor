@@ -16,3 +16,7 @@
         .radio-list.is-vertical .form-check:not(:last-child) {
             margin-bottom: .5rem;
         }
+
+.form-inline .radio-list .form-check {
+    display: inline-block;
+}
