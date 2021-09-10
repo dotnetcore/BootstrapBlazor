@@ -1689,3 +1689,8 @@ header .bb-fs {
     height: calc(100vh - 130px);
     overflow: auto;
 }
+
+    .is-fixed-tab .tabs-body .tabs-body-content {
+        height: auto;
+        min-height: 100%;
+    }

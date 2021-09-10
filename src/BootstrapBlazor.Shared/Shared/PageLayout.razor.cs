@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Shared.Shared
         /// 获得/设置 是否固定 TabHeader
         /// </summary>
         [Parameter]
-        public bool IsFixedTab { get; set; } = true;
+        public bool IsFixedTab { get; set; }
 
         /// <summary>
         /// 获得/设置 是否固定页头
