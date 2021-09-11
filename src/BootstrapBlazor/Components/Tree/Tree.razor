@@ -50,7 +50,14 @@ private RenderFragment<TreeItem> RenderTreeItem => item =>
             {
                 <i class="@GetIconClassString(item)"></i>
             }
-            <span>@item.Text</span>
+            @if (item.Template == null)
+            {
+                <span>@item.Text</span>
+            }
+            else
+            {
+                @item.Template    
+            }
         </div>
     </div>
     @if (item.ShowLoading)

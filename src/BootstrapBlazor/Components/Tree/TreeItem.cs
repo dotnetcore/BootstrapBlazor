@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,11 @@ namespace BootstrapBlazor.Components
         /// 获取/设置 是否有子节点 默认 false 
         /// </summary>
         public bool HasChildNode { get; set; }
+
+        /// <summary>
+        /// 获得/设置 当前节点模板
+        /// </summary>
+        public RenderFragment? Template { get; set; }
 
         /// <summary>
         /// 获得 所有子项集合
