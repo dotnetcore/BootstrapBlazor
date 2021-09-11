@@ -622,5 +622,19 @@ namespace BootstrapBlazor.Components
             return Expression.Lambda<Func<object, IFormatProvider?, string>>(body, exp_p1, exp_p2);
         }
         #endregion
+
+        /// <summary>
+        /// 树状数据层次化方法
+        /// </summary>
+        /// <param name="items">数据集合</param>
+        /// <param name="parentItem">父级节点</param>
+        public static void CascadingTree(this List<TreeItem> items, TreeItem? parentItem = null)
+        {
+            items.ForEach(i =>
+            {
+                i.Parent = parentItem;
+                i.Items.CascadingTree(i);
+            });
+        }
     }
 }

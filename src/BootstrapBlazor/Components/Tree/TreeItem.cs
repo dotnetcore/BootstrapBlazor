@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,22 +49,9 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否激活
-        /// </summary>
-        /// <value></value>
-        public bool IsActive { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否被选中
         /// </summary>
         public bool Checked { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否被禁用 默认 false
-        /// </summary>
-        /// <value></value>
-        [Obsolete("请使用 IsDisabled 属性，本属性已过期", true)]
-        public bool Disabled { get; set; }
 
         /// <summary>
         /// 获得/设置 是否被禁用 默认 false

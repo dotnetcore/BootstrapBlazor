@@ -87,11 +87,24 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool ShowSkeleton { get; set; }
 
+        private List<TreeItem>? _items;
+        private bool _itemsChanged;
         /// <summary>
         /// 获得/设置 菜单数据集合
         /// </summary>
         [Parameter]
-        public List<TreeItem> Items { get; set; } = new List<TreeItem>();
+        public List<TreeItem>? Items
+        {
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                _items = value;
+                _itemsChanged = true;
+            }
+        }
 
         /// <summary>
         /// 获得/设置 是否显示 CheckBox 默认 false 不显示
@@ -122,6 +135,20 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<TreeItem, Task>? OnExpandNode { get; set; }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            // 通过 Items 构造层次结构
+            if (_itemsChanged)
+            {
+                Items?.CascadingTree();
+            }
+        }
 
         /// <summary>
         /// OnAfterRenderAsync 方法
@@ -157,7 +184,7 @@ namespace BootstrapBlazor.Components
         {
             if (IsAccordion)
             {
-                if (Items.Contains(item))
+                if (Items != null && Items.Contains(item))
                 {
                     foreach (var rootNode in Items.Where(p => p.IsExpanded && p != item)) rootNode.IsExpanded = false;
                 }

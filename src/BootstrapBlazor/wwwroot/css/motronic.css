@@ -894,3 +894,13 @@
 .table-filter .table-filter-item {
     border-color: var(--bs-secondary);
 }
+
+.tree .tree-item.hover:before,
+.tree .tree-item.active:before {
+    background-color: transparent;
+}
+
+.tree .tree-item > .tree-content > .tree-node:hover,
+.tree .tree-item.active > .tree-content > .tree-node {
+    color: #009ef7;
+}
