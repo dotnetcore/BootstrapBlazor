@@ -15,6 +15,7 @@ namespace BootstrapBlazor.Components
         /// 获得 class 样式集合
         /// </summary>
         protected string? ClassName => CssBuilder.Default("form-control")
+            .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
 
@@ -28,6 +29,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsGroup { get; set; }
+
+        /// <summary>
+        /// 获得/设置 按钮颜色
+        /// </summary>
+        [Parameter]
+        public Color Color { get; set; } = Color.None;
 
         /// <summary>
         /// OnInitialized 方法

@@ -77,6 +77,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "Color",
+                Description = "颜色",
+                Type = "Color",
+                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+                DefaultValue = "Primary"
+            },
+            new AttributeItem() {
                 Name = "FormatString",
                 Description = "数值格式化字符串",
                 Type = "string",
