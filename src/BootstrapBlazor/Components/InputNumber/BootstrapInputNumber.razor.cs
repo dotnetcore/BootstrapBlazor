@@ -73,12 +73,6 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool ShowButton { get; set; }
 
-        /// <summary>
-        /// 获得/设置 按钮颜色
-        /// </summary>
-        [Parameter]
-        public Color Color { get; set; }
-
         [Inject]
         [NotNull]
         private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
