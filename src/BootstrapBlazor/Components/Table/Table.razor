@@ -233,6 +233,10 @@
                                 <span>@(RowItems.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
+                        @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+                        {
+                            @RenderExtendButtons(item)
+                        }
                         @foreach (var col in GetColumns())
                         {
                             <div class="table-cell">
@@ -244,32 +248,9 @@
                                 </span>
                             </div>
                         }
-                        @if (ShowExtendButtons)
+                        @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
                         {
-                            <div class="table-cell">
-                                <label>@ColumnButtonTemplateHeaderText</label>
-                                <span class="btn-group">
-                                    @if (ShowDefaultButtons)
-                                    {
-                                        @if (ShowEditButton)
-                                        {
-                                            <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
-                                        }
-                                        @if (ShowDeleteButton)
-                                        {
-                                            <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                                              Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
-                                                              CloseButtonText="@CancelDeleteButtonText"
-                                                              Content="@ConfirmDeleteContentText"
-                                                              ConfirmButtonColor="Color.Danger"
-                                                              ConfirmButtonText="@ConfirmDeleteButtonText"
-                                                              OnBeforeClick="@ClickBeforeDelete(item)"
-                                                              OnConfirm="@DeleteAsync()" />
-                                        }
-                                    }
-                                    @RowButtonTemplate?.Invoke(item)
-                                </span>
-                            </div>
+                            @RenderExtendButtons(item)
                         }
                     </DynamicElement>
                 }
@@ -411,6 +392,10 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     {
         <col width="60" />
     }
+    @if(ShowExtendButtons && IsExtendButtonsInRowHeader)
+    {
+        <col width="@ExtendButtonColumnWidth" />
+    }
     @foreach (var col in GetColumns())
     {
         @if (CheckShownWithBreakpoint(col))
@@ -418,7 +403,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
             <col width="@col.Width" />
         }
     }
-    @if (ShowExtendButtons)
+    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
         <col width="@ExtendButtonColumnWidth" />
     }
@@ -456,6 +441,10 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 <div class="table-cell">@LineNoText</div>
             </th>
         }
+        @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+        {
+            @RenderExtendButtonsHeader
+        }
         @foreach (var col in GetColumns())
         {
             @if (CheckShownWithBreakpoint(col))
@@ -482,13 +471,9 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 </DynamicElement>
             }
         }
-        @if (ShowExtendButtons)
+        @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
         {
-            <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
-                <div class="table-cell is-button-column">
-                    @ColumnButtonTemplateHeaderText
-                </div>
-            </th>
+            @RenderExtendButtonsHeader
         }
         @if (hasScroll)
         {
@@ -516,6 +501,12 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
+            @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+            {
+                <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
+                    <div class="table-cell">&nbsp;</div>
+                </th>
+            }
             <CascadingValue Value="this" IsFixed="true">
                 @foreach (var col in GetColumns())
                 {
@@ -531,7 +522,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     }
                 }
             </CascadingValue>
-            @if (ShowExtendButtons)
+            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
                 <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
                     <div class="table-cell">&nbsp;</div>
@@ -578,6 +569,10 @@ RenderFragment<TItem> RenderRow => item =>
         var index = 0;
         var prevColspan = 0;
         var isInCell = EditInCell && SelectedItems.FirstOrDefault() == item;
+    }
+    @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+    {
+        @RenderRowExtendButtons(item)
     }
     @foreach (var col in GetColumns())
     {
@@ -633,53 +628,9 @@ RenderFragment<TItem> RenderRow => item =>
             </td>
         }
     }
-    @if (ShowExtendButtons)
+    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
-        <td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
-            <div class="table-cell">
-                <div class="btn-group" @onclick:stopPropagation="true">
-                    @if (!isInCell)
-                    {
-                        @BeforeRowButtonTemplate?.Invoke(item)
-                    }
-                    @if (ShowDefaultButtons)
-                    {
-                        @if (GetShowEditButton(item))
-                        {
-                            @if (isInCell)
-                            {
-                                @if (IsTracking)
-                                {
-                                    <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Success" Icon="fa fa-edit" Text="@CloseButtonText" />
-                                }
-                                else
-                                {
-                                    <Button Size="Size.ExtraSmall" OnClick="@ClickUpdateButtonCallback()" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
-                                    <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
-                                }
-                            }
-                            else
-                            {
-                                <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
-                            }
-                        }
-                        @if (!isInCell && GetShowDeleteButton(item))
-                        {
-                            <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                              Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
-                                              CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
-                                              ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
-                                              OnBeforeClick="@ClickBeforeDelete(item)"
-                                              OnConfirm="@DeleteAsync()" />
-                        }
-                    }
-                    @if (!isInCell)
-                    {
-                        @RowButtonTemplate?.Invoke(item)
-                    }
-                </div>
-            </div>
-        </td>
+        @RenderRowExtendButtons(item)
     }
 </DynamicElement>;
 
@@ -725,5 +676,88 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
 RenderFragment RenderAdvanceSearchButton =>
 @<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@(new Func<Task>(ShowSearchDialog))">
     <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
-</Button>;
+</Button> ;
+
+RenderFragment RenderExtendButtonsHeader =>
+@<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
+    <div class="table-cell is-button-column">
+        @ColumnButtonTemplateHeaderText
+    </div>
+</th>;
+
+RenderFragment<TItem> RenderExtendButtons => item =>
+@<div class="table-cell">
+    <label>@ColumnButtonTemplateHeaderText</label>
+    <span class="btn-group">
+        @if (ShowDefaultButtons)
+        {
+            @if (ShowEditButton)
+            {
+                <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+            }
+            @if (ShowDeleteButton)
+            {
+                <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                    Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                    CloseButtonText="@CancelDeleteButtonText"
+                                    Content="@ConfirmDeleteContentText"
+                                    ConfirmButtonColor="Color.Danger"
+                                    ConfirmButtonText="@ConfirmDeleteButtonText"
+                                    OnBeforeClick="@ClickBeforeDelete(item)"
+                                    OnConfirm="@DeleteAsync()" />
+            }
+        }
+        @RowButtonTemplate?.Invoke(item)
+    </span>
+</div>;
+
+RenderFragment<TItem> RenderRowExtendButtons => item =>
+@<td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
+    <div class="table-cell">
+        <div class="btn-group" @onclick:stopPropagation="true">
+            @{
+                var isInCell = EditInCell && SelectedItems.FirstOrDefault() == item;
+            }
+            @if (!isInCell)
+            {
+                @BeforeRowButtonTemplate?.Invoke(item)
+            }
+            @if (ShowDefaultButtons)
+            {
+                @if (GetShowEditButton(item))
+                {
+                    @if (isInCell)
+                    {
+                        @if (IsTracking)
+                        {
+                            <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Success" Icon="fa fa-edit" Text="@CloseButtonText" />
+                        }
+                        else
+                        {
+                            <Button Size="Size.ExtraSmall" OnClick="@ClickUpdateButtonCallback()" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
+                            <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
+                        }
+                    }
+                    else
+                    {
+                        <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+                    }
+                }
+                @if (!isInCell && GetShowDeleteButton(item))
+                {
+                    <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
+                                        Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                        CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
+                                        ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
+                                        OnBeforeClick="@ClickBeforeDelete(item)"
+                                        OnConfirm="@DeleteAsync()" />
+                }
+            }
+            @if (!isInCell)
+            {
+                @RowButtonTemplate?.Invoke(item)
+            }
+        </div>
+    </div>
+</td>;
 }

@@ -9,7 +9,7 @@
     <Table TItem="Foo" Height="200"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -49,11 +49,12 @@
     <p>数据绑定类型为可为空类型时自动允许为空，如日期绑定列为 <code>DateTime?</code> 类型</p>
     <p>数据绑定类型为数值类型时如，如数量绑定列为 <code>int</code> 类型，自动进行数值验证</p>
     <p>表格呈现的有些数据列是计算得到的结果，此种类型的列是无法参与编辑的，通过设置 <code>Editable=false</code> 自动生成编辑 UI 时就不会生成此列编辑组件，如本示例中 <code>Count</code> 列在编辑弹窗中是不出现的</p>
-    <p>通过设置 <code>Readonly=true</code> 自动生成编辑 UI 会将此字段进行只读处理，新建时请对 <code>Model</code> 进行默认值赋值 </p>
+    <p>通过设置 <code>Readonly=true</code> 自动生成编辑 UI 会将此字段进行只读处理，新建时请对 <code>Model</code> 进行默认值赋值</p>
+    <p>通过设置 <code>IsExtendButtonsInRowHeader=true</code> 使扩展按钮在行前面显示</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
            OnQueryAsync="@OnQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
@@ -75,7 +76,7 @@
 
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFrontExtendButtons="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            OnQueryAsync="@OnQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">

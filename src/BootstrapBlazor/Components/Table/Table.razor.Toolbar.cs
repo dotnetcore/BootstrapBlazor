@@ -77,6 +77,12 @@ namespace BootstrapBlazor.Components
         public bool ShowExtendButtons { get; set; }
 
         /// <summary>
+        /// 获得/设置 扩展按钮是否在前面 默认 false 在行尾
+        /// </summary>
+        [Parameter]
+        public bool IsExtendButtonsInRowHeader { get; set; }
+
+        /// <summary>
         /// 获得/设置 行内操作列宽度 默认为 130
         /// </summary>
         [Parameter]
