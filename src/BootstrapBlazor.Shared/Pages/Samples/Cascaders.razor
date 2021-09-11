@@ -1,7 +1,9 @@
 ﻿@page "/cascaders"
-<h3>Cascader 级联选择</h3>
+@inject IStringLocalizer<Cascaders> Localizer
 
-<Block Title="Cascader 级联选择" Introduction="提供各种颜色的下拉选择框">
+<h3>@Localizer["Title"]</h3>
+
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader TValue="string" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
@@ -31,7 +33,7 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="Cascader 禁用级联选择" Introduction="级联选择不可用状态">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader TValue="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Cascader>
@@ -57,7 +59,7 @@
     </div>
 </Block>
 
-<Block Title="Cascader 双向绑定" Introduction="通过 <code>Select</code> 组件绑定 <code>Value</code> 属性，改变级联选择选项时，文本框内的数值随之改变。">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Value"></Cascader>
@@ -68,20 +70,20 @@
     </div>
 </Block>
 
-<Block Title="Cascader 客户端验证" Introduction="级联选择未选择时，点击提交按钮时拦截。">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
     <ValidateForm Model="@Model">
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
                 <Cascader Items="@Items" @bind-Value="@Model.Address"></Cascader>
             </div>
             <div class="col-12 col-sm-6">
-                <Button ButtonType="ButtonType.Submit">提交</Button>
+                <Button ButtonType="ButtonType.Submit">@Localizer["ButtonText"]</Button>
             </div>
         </div>
     </ValidateForm>
 </Block>
 
-<Block Title="绑定泛型为 Guid 结构" Introduction="组件绑定值为 Guid 结构体示例">
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader Color="Color.Primary" Items="@GuidItems" @bind-Value="@CurrentGuid" />
@@ -92,16 +94,16 @@
     </div>
 </Block>
 
-<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
-    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
-    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
+    <p>@((MarkupString)Localizer["P1"].Value)</p>
+    <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="@Model">
         <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" />
     </ValidateForm>
-    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <Divider Text="@Localizer["Divider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" />
-    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
-    <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" DisplayText="自定义城市" ShowLabel="true" />
+    <Divider Text="@Localizer["Divider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" DisplayText="@Localizer["CascaderText"]" ShowLabel="true" />
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />
