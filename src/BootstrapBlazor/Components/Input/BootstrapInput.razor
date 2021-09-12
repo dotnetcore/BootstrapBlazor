@@ -13,7 +13,8 @@
         <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
     }
 }
-@RenderInput
+<input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@Disabled"
+       @bind-value="CurrentValueAsString" @bind-value:event="onchange" @ref="FocusElement" />
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>

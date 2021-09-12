@@ -16,12 +16,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Search
     {
-        private ElementReference SearchElement { get; set; }
-
         [NotNull]
         private string? ButtonIcon { get; set; }
-
-        private bool IsClear { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示清除按钮 默认为 false 不显示
@@ -109,6 +105,9 @@ namespace BootstrapBlazor.Components
 
             SearchButtonText ??= Localizer[nameof(SearchButtonText)];
             ButtonIcon = SearchButtonIcon;
+
+            SkipEnter = true;
+            SkipEsc = true;
         }
 
         /// <summary>
@@ -158,11 +157,23 @@ namespace BootstrapBlazor.Components
             {
                 if (args.Key == "Escape")
                 {
+                    if (OnEscAsync != null)
+                    {
+                        await OnEscAsync(Value);
+                    }
+
+                    // 清空
                     await OnClearClick();
                 }
 
                 if (IsOnInputTrigger || args.Key == "Enter")
                 {
+                    if (OnEnterAsync != null)
+                    {
+                        await OnEnterAsync(Value);
+                    }
+
+                    // 搜索
                     await OnSearchClick();
                 }
             }

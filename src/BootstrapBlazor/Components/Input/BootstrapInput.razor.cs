@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
 
@@ -79,6 +80,8 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Color Color { get; set; } = Color.None;
 
+        private JSInterop<BootstrapInput<TValue>>? Interop { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -110,9 +113,17 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && IsAutoFocus)
+            if (firstRender)
             {
-                await FocusAsync();
+                if (IsAutoFocus)
+                {
+                    await FocusAsync();
+                }
+                if (OnEnterAsync != null || OnEscAsync != null)
+                {
+                    Interop ??= new JSInterop<BootstrapInput<TValue>>(JSRuntime);
+                    await Interop.InvokeVoidAsync(this, FocusElement, "bb_input", OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
+                }
             }
         }
 
@@ -134,63 +145,45 @@ namespace BootstrapBlazor.Components
                 : base.FormatValueAsString(value));
 
         /// <summary>
-        /// OnKeyUp 方法
+        /// 
         /// </summary>
-        /// <param name="args"></param>
         /// <returns></returns>
-        protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+        [JSInvokable]
+        public async Task EnterCallback()
         {
-            if (args.Key == "Escape" && OnEscAsync != null)
-            {
-                await OnEscAsync(Value);
-            }
-
-            if (args.Key == "Enter" && OnEnterAsync != null)
+            if (OnEnterAsync != null)
             {
                 await OnEnterAsync(Value);
             }
         }
 
-        private RenderFragment RenderInput => builder =>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [JSInvokable]
+        public async Task EscCallback(string val)
         {
-            builder.OpenElement(0, "input");
-            builder.AddMultipleAttributes(1, AdditionalAttributes);
-
-            if (!string.IsNullOrEmpty(Type))
+            if (OnEscAsync != null)
             {
-                builder.AddAttribute(2, "type", Type);
+                CurrentValueAsString = val;
+                await OnEscAsync(Value);
             }
+        }
 
-            if (!string.IsNullOrEmpty(PlaceHolder))
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// <returns></returns>
+        protected override async ValueTask DisposeAsyncCore(bool disposing)
+        {
+            if (disposing)
             {
-                builder.AddAttribute(2, "placeholder", PlaceHolder);
+                Interop?.Dispose();
+                Interop = null;
             }
-
-            if (!string.IsNullOrEmpty(Id))
-            {
-                builder.AddAttribute(3, "id", Id);
-            }
-
-            if (!string.IsNullOrEmpty(ClassName))
-            {
-                builder.AddAttribute(4, "class", ClassName);
-            }
-
-            if (!string.IsNullOrEmpty(Disabled))
-            {
-                builder.AddAttribute(5, "disabled", Disabled);
-            }
-
-            builder.AddAttribute(6, "value", CurrentValueAsString);
-            builder.AddAttribute(7, "onchange", EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
-
-            if (OnEnterAsync != null && OnEscAsync != null)
-            {
-                builder.AddAttribute(8, "onkeyup", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyUp));
-            }
-
-            builder.AddElementReferenceCapture(9, e => FocusElement = e);
-            builder.CloseElement();
-        };
+            await base.DisposeAsyncCore(disposing);
+        }
     }
 }
