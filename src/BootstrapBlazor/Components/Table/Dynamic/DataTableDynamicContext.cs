@@ -39,9 +39,10 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="table"></param>
         /// <param name="addAttributesCallback"></param>
+        /// <param name="invisibleColumns">永远不显示的列集合 默认为 null 全部显示</param>
         /// <param name="shownColumns">显示列集合 默认为 null 全部显示</param>
         /// <param name="hiddenColumns">隐藏列集合 默认为 null 无隐藏列</param>
-        public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback = null, IEnumerable<string>? shownColumns = null, IEnumerable<string>? hiddenColumns = null)
+        public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback = null, IEnumerable<string>? invisibleColumns = null, IEnumerable<string>? shownColumns = null, IEnumerable<string>? hiddenColumns = null)
         {
             DataTable = table;
             AddAttributesCallback = addAttributesCallback;
@@ -58,15 +59,20 @@ namespace BootstrapBlazor.Components
             DynamicObjectType = dynamicType;
 
             // 获得显示列
-            Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col.GetFieldName(), shownColumns, hiddenColumns)).ToList();
+            Columns = InternalTableColumn.GetProperties(DynamicObjectType, cols).Where(col => GetShownColumns(col.GetFieldName(), invisibleColumns, shownColumns, hiddenColumns)).ToList();
         }
 
-        private static bool GetShownColumns(string columnName, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
+        private static bool GetShownColumns(string columnName, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
         {
             var ret = true;
 
+            if (invisibleColumns != null && invisibleColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+            {
+                ret = false;
+            }
+
             // 隐藏列优先 移除隐藏列
-            if (hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+            if (ret && hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
             {
                 ret = false;
             }
