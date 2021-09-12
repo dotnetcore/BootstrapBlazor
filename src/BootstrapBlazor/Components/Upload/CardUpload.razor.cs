@@ -21,15 +21,12 @@ namespace BootstrapBlazor.Components
             .AddClass("disabled", IsDisabled)
             .Build();
 
-        private static bool IsImage(UploadFile item)
-        {
-            return item.File?.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase)
-                ?? Path.GetExtension(item.OriginFileName ?? item.FileName)?.ToLowerInvariant() switch
+        private static bool IsImage(UploadFile item) => item.File?.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase)
+                ?? Path.GetExtension(item.OriginFileName ?? item.FileName ?? item.PrevUrl)?.ToLowerInvariant() switch
                 {
                     ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => true,
                     _ => false
                 };
-        }
 
         private async Task OnCardFileDelete(UploadFile item)
         {

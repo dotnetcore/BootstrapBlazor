@@ -132,6 +132,12 @@ namespace BootstrapBlazor.Components
                     }
                 }
 
+                var folder = Path.GetDirectoryName(fileName);
+                if (!string.IsNullOrEmpty(folder) && !Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
                 if (Code == 0)
                 {
                     using var uploadFile = System.IO.File.OpenWrite(fileName);

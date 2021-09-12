@@ -210,7 +210,7 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "false"
             },
             new AttributeItem() {
-                Name = "Disabled",
+                Name = nameof(TreeItem.IsDisabled),
                 Description = "是否被禁用",
                 Type = "bool",
                 ValueList = "true|false",
@@ -236,14 +236,22 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "bool",
                 ValueList = " true|false ",
                 DefaultValue = " false "
-            },new AttributeItem() {
+            },
+            new AttributeItem() {
                 Name = nameof(TreeItem.ShowLoading),
                 Description = "是否显示子节点加载动画",
                 Type = "bool",
                 ValueList = " true|false ",
                 DefaultValue = " false "
+            },
+            new AttributeItem()
+            {
+                Name = nameof(TreeItem.Template),
+                Description = "子节点模板",
+                Type = nameof(RenderFragment),
+                ValueList = " — ",
+                DefaultValue = " — "
             }
-
         };
     }
 }

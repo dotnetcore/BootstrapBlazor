@@ -1,4 +1,4 @@
-﻿###### -- File Created With Git Source Control Provider 2015 -- ######
+###### -- File Created With Git Source Control Provider 2015 -- ######
 ###### -- From https://github.com/github/gitignore -- ######
 ###### -- Warning Regenerating this file will erase all your custom ignores, unless you add them below the Custom Ignore section at the bottom --  ######
 ## Ignore Visual Studio temporary files, build results, and
@@ -354,3 +354,6 @@ src/**/*.xml
 # Coverage
 coverage*.xml
 tools/
+
+# Upload Folder
+src/**/wwwroot/**/uploader
