@@ -51,7 +51,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 点击删除按钮时回调此方法
         /// </summary>
         [Parameter]
-        public Func<string, Task<bool>>? OnDelete { get; set; }
+        public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
         /// <summary>
         /// 获得/设置 点击浏览按钮时回调此方法
@@ -131,11 +131,7 @@ namespace BootstrapBlazor.Components
             var ret = true;
             if (OnDelete != null)
             {
-                var fileName = item.OriginFileName ?? item.FileName;
-                if (!string.IsNullOrEmpty(fileName))
-                {
-                    ret = await OnDelete(fileName);
-                }
+                ret = await OnDelete(item);
             }
             return ret;
         }

@@ -177,9 +177,9 @@ namespace BootstrapBlazor.Shared.Pages
             return "jpg;png;bmp;gif;jpeg".Split(';').Any(f => format.Contains(f, StringComparison.OrdinalIgnoreCase));
         }
 
-        private Task<bool> OnFileDelete(string fileName)
+        private Task<bool> OnFileDelete(UploadFile item)
         {
-            Trace?.Log($"{fileName} 成功移除");
+            Trace?.Log($"{item.OriginFileName} 成功移除");
             return Task.FromResult(true);
         }
 

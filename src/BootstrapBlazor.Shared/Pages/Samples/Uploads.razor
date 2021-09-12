@@ -1,4 +1,4 @@
-@page "/uploads"
+﻿@page "/uploads"
 
 <h3>Upload 上传</h3>
 
@@ -19,7 +19,7 @@
             <InputUpload TValue="string" Id="text3" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
         </div>
     </div>
-    <BlockLogger @ref="Trace" class="mt3" />
+    <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
 <Block Title="表单应用" Introduction="在表单内使用文件上传组件对文件格式进行约束">
