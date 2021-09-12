@@ -90,28 +90,28 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 new AttributeItem() {
                     Name = "ShowLabel",
-                    Description = "是否显示前置标签",
+                    Description = Localizer["Att1"]!,
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "ShowAfterLabel",
-                    Description = "是否显示后置标签",
+                    Description = Localizer["Att2"]!,
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",
-                    Description = "前置标签显示文本",
+                    Description = Localizer["Att3"]!,
                     Type = "string",
                     ValueList = " — ",
                     DefaultValue = " — "
                 },
                 new AttributeItem(){
                     Name = "IsDisabled",
-                    Description = "是否禁用",
+                    Description = Localizer["Att4"]!,
                     Type = "boolean",
                     ValueList = "true / false",
                     DefaultValue = "false"
@@ -119,7 +119,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem()
                 {
                     Name = "State",
-                    Description = "控件类型",
+                    Description = Localizer["Att5"]!,
                     Type = "CheckboxState",
                     ValueList = "Mixed / Checked / UnChecked",
                     DefaultValue = "UnChecked"
@@ -136,13 +136,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnStateChanged",
-                Description="选择框状态改变时回调此方法",
+                Description = Localizer["Event1"]!, 
                 Type ="Action<CheckboxState, TItem>"
             },
             new EventItem()
             {
                 Name = "StateChanged",
-                Description="State 状态改变回调方法",
+                Description = Localizer["Event2"]!,
                 Type ="EventCallback<CheckboxState>"
             }
         };
