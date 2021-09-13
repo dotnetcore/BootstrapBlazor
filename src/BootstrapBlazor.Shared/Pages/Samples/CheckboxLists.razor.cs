@@ -93,32 +93,32 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Foo Dummy { get; set; } = new Foo() { Name = "张三,李四" };
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "Items",
-                Description = "数据源",
+                Description = LLocalizer["Att1"]!,
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = LLocalizer["Att1"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem(){
                 Name = "Value",
-                Description = "组件值用于双向绑定",
+                Description = LLocalizer["Att1"]!,
                 Type = "TValue",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "IsVertical",
-                Description = "是否竖向排列",
+                Description = LLocalizer["Att1"]!,
                 Type = "boolean",
                 ValueList = " true / false ",
                 DefaultValue = " false "
@@ -129,12 +129,12 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnSelectedChanged",
-                Description="复选框状态改变时回调此方法",
+                Description = LLocalizer["Event1"]!,
                 Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
             }
         };
