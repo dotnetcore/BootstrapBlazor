@@ -14,7 +14,7 @@
             width: calc(100% - 100px);
         }
 
-            .form-inline .form-label + *:not(.input-group) {
+            .form-inline .form-label + *:not(.input-group):not(.switch) {
                 display: inline-block;
             }
 
