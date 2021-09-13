@@ -66,6 +66,4 @@
 
 td :not(.is-incell) .switch {
     height: auto;
-    width: auto;
-    display: block;
 }
