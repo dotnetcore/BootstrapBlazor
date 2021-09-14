@@ -35,6 +35,8 @@
 
 <Block Title="绑定枚举类型" Introduction="通过双向绑定 <code>Value</code> 无需设置 <code>Items</code>">
     <RadioList @bind-Value="@SelectedEnumItem"></RadioList>
+    <p class="mt-3">通过设置 <code>IsAutoAddNullItem</code> 自动添加 <b>空值</b> 选项，通过设置 <code>NullItemText</code> 自定义 <b>空值</b> 选项</p>
+    <RadioList @bind-Value="@SelectedEnumItem" IsAutoAddNullItem="true" NullItemText="空值"></RadioList>
 </Block>
 
 <Block Title="颜色" Introduction="通过设置 <code>Color</code> 属性改变组件背景色">

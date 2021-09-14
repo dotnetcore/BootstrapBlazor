@@ -21,6 +21,18 @@ namespace BootstrapBlazor.Components
         public Color Color { get; set; }
 
         /// <summary>
+        /// 获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/>
+        /// </summary>
+        [Parameter]
+        public bool IsAutoAddNullItem { get; set; }
+
+        /// <summary>
+        /// 获得/设置 空值项显示文字 默认为 null 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/>
+        /// </summary>
+        [Parameter]
+        public string NullItemText { get; set; } = "";
+
+        /// <summary>
         /// 
         /// </summary>
         public string? GroupName => Id;
@@ -35,7 +47,7 @@ namespace BootstrapBlazor.Components
             var t = NullableUnderlyingType ?? typeof(TValue);
             if (t.IsEnum)
             {
-                Items = t.ToSelectList();
+                Items = t.ToSelectList((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
             }
 
             if (!Items.Any(i => i.Value == CurrentValueAsString))

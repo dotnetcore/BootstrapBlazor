@@ -64,6 +64,13 @@ namespace BootstrapBlazor.Shared.Pages
                 DefaultValue = "—"
             },
             new AttributeItem() {
+                Name = "NullItemText",
+                Description = "空值显示文字",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = "—"
+            },
+            new AttributeItem() {
                 Name = "IsDisabled",
                 Description = "是否禁用",
                 Type = "boolean",
@@ -73,6 +80,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "IsVertical",
                 Description = "是否垂直分布",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
+                Name = "IsAutoAddNullItem",
+                Description = "绑定可为空枚举类型时是否自动添加空值",
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
