@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "RowType",
                 Description = RowsLocalizer["Desc2"]!,
                 Type = "enum?",
-                ValueList = "Normal, FormInline,FormRow",
+                ValueList = "Normal, Inline",
                 DefaultValue = "null"
             },
             new AttributeItem() {

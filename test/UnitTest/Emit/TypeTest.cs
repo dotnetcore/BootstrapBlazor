@@ -87,7 +87,7 @@ namespace UnitTest.Emit
 
             public BreakPoint ShownWithBreakPoint { get; set; }
 
-            public RenderFragment<object> Template { get; }
+            public RenderFragment<object> Template { get; set; }
 
             public RenderFragment<object> SearchTemplate { get; set; }
 
@@ -108,6 +108,8 @@ namespace UnitTest.Emit
             public Action<TableCellArgs> OnCellRender { get; set; }
 
             public IEnumerable<KeyValuePair<string, object>> ComponentParameters { get; set; }
+
+            public string PlaceHolder { get; set; }
 
             public string GetDisplayName() => Text ?? FieldName;
 

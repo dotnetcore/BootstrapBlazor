@@ -4,10 +4,6 @@
 
 using BootstrapBlazor.Components;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
 {
@@ -46,8 +42,14 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         {
             if (Model != null)
             {
-                if (_db.Entry(Model).IsKeySet) _db.Entry(Model).State = EntityState.Unchanged;
-                else _db.Entry(Model).State = EntityState.Detached;
+                if (_db.Entry(Model).IsKeySet)
+                {
+                    _db.Entry(Model).State = EntityState.Unchanged;
+                }
+                else
+                {
+                    _db.Entry(Model).State = EntityState.Detached;
+                }
             }
             return Task.CompletedTask;
         }
@@ -78,11 +80,19 @@ namespace BootstrapBlazor.DataAcces.EntityFrameworkCore
         /// 保存方法
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public override async Task<bool> SaveAsync(TModel model)
+        public override async Task<bool> SaveAsync(TModel model, ItemChangedType changedType)
         {
-            if (_db.Entry(model).IsKeySet) _db.Update(model);
-            else await _db.AddAsync(model);
+            if (_db.Entry(model).IsKeySet)
+            {
+                _db.Update(model);
+            }
+            else
+            {
+                await _db.AddAsync(model);
+            }
+
             await _db.SaveChangesAsync();
             return true;
         }

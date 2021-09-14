@@ -271,7 +271,7 @@
     "Block2Title": "Place form controls (inline)",
     "Block2Intro": "When placing form controls, you can specify <code>RowType</code> as <code>Inline</code>, and <b>Label</b> will be displayed on the left, and the control will fill the remaining space",
     "Block3Title": "Place form controls",
-    "Block3Intro": "When placing form controls, you can specify <code>RowType</code> as <code>FormRow</code>, and <b>Label</b> will be displayed on the top, and the control will be full",
+    "Block3Intro": "When placing form controls, you can specify <code>Normal</code> as <code>FormRow</code>, and <b>Label</b> will be displayed on the top, and the control will be full",
     "P1": "In this example, the <code>Row</code> component is built into the <code>ValidateForm</code> component, and the front <code>Label</code> tag is automatically added",
     "Block4Title": "Nested use",
     "Block4Intro": "The <code>Row</code> component supports nested use. For example, the outermost <code>Row</code> below sets a row to display two controls, the first is <code>TextBox</code>, the second One is still <code>Row</code>, and the second <code>Row</code> continues to be set to display two controls",

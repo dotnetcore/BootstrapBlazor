@@ -39,8 +39,9 @@ namespace BootstrapBlazor.DataAcces.FreeSql
         /// 保存方法
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public override async Task<bool> SaveAsync(TModel model)
+        public override async Task<bool> SaveAsync(TModel model, ItemChangedType changedType)
         {
             await _db.GetRepository<TModel>().InsertOrUpdateAsync(model);
             return true;

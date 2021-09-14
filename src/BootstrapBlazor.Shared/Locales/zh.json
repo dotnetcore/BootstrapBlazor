@@ -271,7 +271,7 @@
     "Block2Title": "放置表单控件（内联）",
     "Block2Intro": "当放置表单控件时，可以指定 <code>RowType</code> 为 <code>Inline</code>，会将 <b>Label</b> 显示在左边，控件充满剩余空间",
     "Block3Title": "放置表单控件",
-    "Block3Intro": "当放置表单控件时，可以指定 <code>RowType</code> 为 <code>FormRow</code>，会将 <b>Label</b> 显示在上边，控件充满",
+    "Block3Intro": "当放置表单控件时，可以指定 <code>RowType</code> 为 <code>Normal</code>，会将 <b>Label</b> 显示在上边，控件充满",
     "P1": "本例中 <code>Row</code> 组件内置于 <code>ValidateForm</code> 组件内，自动增加前置 <code>Label</code> 标签",
     "Block4Title": "嵌套使用",
     "Block4Intro": "<code>Row</code> 组件支持嵌套使用，比如下面最外层的 <code>Row</code> 设置一行显示两个控件，第一个是 <code>TextBox</code>，第二个还是 <code>Row</code>，第二个 <code>Row</code> 继续设置显示两个控件",
