@@ -90,13 +90,16 @@ namespace BootstrapBlazor.Components
         {
             var parameters = new List<KeyValuePair<string, object>>
             {
-                new(nameof(Title), Title),
                 new(nameof(Size), Size.Medium),
                 new(nameof(ModalDialog.IsCentered), true),
                 new(nameof(ModalDialog.IsScrolling), false),
                 new(nameof(ModalDialog.ShowCloseButton), false),
                 new(nameof(ShowFooter), false)
             };
+            if (!string.IsNullOrEmpty(Title))
+            {
+                parameters.Add(new(nameof(ModalDialog.Title), Title));
+            }
             if (BodyContext != null)
             {
                 parameters.Add(new(nameof(BodyContext), BodyContext));

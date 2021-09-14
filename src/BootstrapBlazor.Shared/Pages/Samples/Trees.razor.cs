@@ -6,6 +6,8 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -19,8 +21,10 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Trees
     {
+        [NotNull]
         private BlockLogger? Trace { get; set; }
 
+        [NotNull]
         private BlockLogger? TraceChecked { get; set; }
 
         [Inject]
@@ -71,16 +75,46 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
+        private static List<TreeItem> GetTemplateItems()
+        {
+            var ret = TreeDataFoo.GetTreeItems();
+            ret[0].Template = BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>().Render();
+            return ret;
+        }
+
+        private class CustomerTreeItem : ComponentBase
+        {
+            [Inject]
+            [NotNull]
+            private ToastService? ToastService { get; set; }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="builder"></param>
+            protected override void BuildRenderTree(RenderTreeBuilder builder)
+            {
+                builder.OpenComponent<Button>(0);
+                builder.AddAttribute(1, nameof(Button.Icon), "fa fa-fa");
+                builder.AddAttribute(2, nameof(Button.Text), "Click");
+                builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                {
+                    ToastService.Warning("自定义 TreeItem", "测试 TreeItem 按钮点击事件");
+                }));
+                builder.CloseComponent();
+            }
+        }
+
         private Task OnTreeItemClick(TreeItem item)
         {
-            Trace?.Log($"TreeItem: {item.Text} clicked");
+            Trace.Log($"TreeItem: {item.Text} clicked");
             return Task.CompletedTask;
         }
 
         private Task OnTreeItemChecked(TreeItem item)
         {
             var state = item.Checked ? "选中" : "未选中";
-            TraceChecked?.Log($"TreeItem: {item.Text} {state}");
+            TraceChecked.Log($"TreeItem: {item.Text} {state}");
             return Task.CompletedTask;
         }
 

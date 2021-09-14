@@ -560,8 +560,7 @@ namespace BootstrapBlazor.Components
             {
                 OnAddAsync ??= async () =>
                 {
-                    var item = await DynamicContext.AddAsync() as TItem;
-                    if (item == null)
+                    if (await DynamicContext.AddAsync() is not TItem item)
                     {
                         throw new InvalidCastException();
                     }

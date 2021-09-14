@@ -22,7 +22,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 组件类型
         /// </summary>
-        public Type ComponentType { get; set; }
+        private Type ComponentType { get; }
 
         /// <summary>
         /// 构造函数
