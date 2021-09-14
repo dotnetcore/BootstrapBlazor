@@ -43,12 +43,12 @@ namespace BootstrapBlazor.Shared.Pages
         /// 
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private  IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()
             {
                 Name = "OnValueChanged",
-                Description = "颜色改变回调委托方法",
+                Description = Localizer["Event1"]!,
                 Type = "Func<string, Task>",
                 ValueList = "",
                 DefaultValue = ""

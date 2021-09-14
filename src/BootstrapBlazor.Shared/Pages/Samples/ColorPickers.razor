@@ -1,29 +1,30 @@
 ﻿@page "/colorpickers"
+@inject IStringLocalizer<ColorPickers> Localizer
 
-<h3>ColorPicker 颜色拾取器</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>选择颜色使用</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="基本用法" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
     <ColorPicker Value="@Value1" OnValueChanged="@OnColorChanged" />
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="设置初始值" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
-    <p>设置 <code>Value="@Value2"</code> 初始化默认值</p>
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
+    <p>@((MarkupString)Localizer["P1"].Value)</p>
     <ColorPicker Value="@Value2" />
 </Block>
 
-<Block Title="双向绑定" Introduction="通过设置 <code>Value</code> 属性设定颜色值">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
     <ColorPicker @bind-Value="@Value3" />
     <div class="mt-3">Value3: @Value3</div>
 </Block>
 
-<Block Title="禁用" Introduction="通过设置 <code>IsDisabled</code> 属性禁用此组件">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
     <ColorPicker Value="@Value5" IsDisabled="true" />
 </Block>
 
-<Block Title="验证表单中使用" Introduction="内置于 <code>ValidateForm</code> 中使用">
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]">
     <ValidateForm Model="Dummy">
         <div class="row g-3 form-inline">
             <div class="col-6">

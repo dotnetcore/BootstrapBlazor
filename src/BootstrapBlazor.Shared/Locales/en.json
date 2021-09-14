@@ -921,6 +921,22 @@
     "Att4": "Whether to arrange vertically",
     "Event1": "Call back this method when the state of the check box changes"
   },
+  "BootstrapBlazor.Shared.Pages.ColorPickers": {
+    "Title": "ColorPicker Color Picker",
+    "H1": "Select color to use",
+    "Block1Title": "Basic Usage",
+    "Block1Intro": "Set the color value by setting the <code>Value</code> property",
+    "Block2Title": "Set Initial Value",
+    "Block2Intro": "Set the color value by setting the <code>Value</code> property",
+    "P1": "Set <code>Value='@Value2'</code> to initialize the default value",
+    "Block3Title": "Two-way binding",
+    "Block3Intro": "Set the color value by setting the <code>Value</code> property",
+    "Block4Title": "Disabled",
+    "Block4Intro": "Disable this component by setting the <code>IsDisabled</code> property",
+    "Block5Title": "Used in the verification form",
+    "Block5Intro": "Built in <code>ValidateForm</code> to use",
+    "Event1": "Color change callback delegate method"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

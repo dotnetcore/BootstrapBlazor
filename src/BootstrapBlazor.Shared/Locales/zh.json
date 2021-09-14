@@ -921,6 +921,22 @@
     "Att4": "是否竖向排列",
     "Event1": "复选框状态改变时回调此方法"
   },
+  "BootstrapBlazor.Shared.Pages.ColorPickers": {
+    "Title": "ColorPicker 颜色拾取器",
+    "H1": "选择颜色使用",
+    "Block1Title": "基本用法",
+    "Block1Intro": "通过设置 <code>Value</code> 属性设定颜色值",
+    "Block2Title": "设置初始值",
+    "Block2Intro": "通过设置 <code>Value</code> 属性设定颜色值",
+    "P1": "设置 <code>Value='@Value2'</code> 初始化默认值",
+    "Block3Title": "双向绑定",
+    "Block3Intro": "通过设置 <code>Value</code> 属性设定颜色值",
+    "Block4Title": "禁用",
+    "Block4Intro": "通过设置 <code>IsDisabled</code> 属性禁用此组件",
+    "Block5Title": "验证表单中使用",
+    "Block5Intro": "内置于 <code>ValidateForm</code> 中使用",
+    "Event1": "颜色改变回调委托方法"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",
     "SubTitle": "示例"
