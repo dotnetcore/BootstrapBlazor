@@ -31,7 +31,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 弹窗标题
         /// </summary>
-        public string Title { get; set; } = "";
+        public string? Title { get; set; }
 
         /// <summary>
         /// 获得/设置 相关连数据，多用于传值使用

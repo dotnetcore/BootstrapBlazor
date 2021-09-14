@@ -124,13 +124,16 @@ namespace BootstrapBlazor.Components
             var parameters = new List<KeyValuePair<string, object>>()
             {
                 new(nameof(SweetAlertBody.Category) , option.Category),
-                new(nameof(SweetAlertBody.Title) , option.Title),
                 new(nameof(SweetAlertBody.ShowClose), option.ShowClose),
                 new(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
                 new(nameof(SweetAlertBody.ShowFooter), option.ShowFooter),
                 new(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
                 new(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))
             };
+            if (!string.IsNullOrEmpty(option.Title))
+            {
+                parameters.Add(new(nameof(SweetAlertBody.Title), option.Title));
+            }
             if (!string.IsNullOrEmpty(option.Content))
             {
                 parameters.Add(new(nameof(SweetAlertBody.Content), option.Content));

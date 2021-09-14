@@ -27,6 +27,36 @@ namespace BootstrapBlazor.Components
         public Color Color { get; set; } = Color.None;
 
         /// <summary>
+        /// 获得/设置 SWal 图标
+        /// </summary>
+        [Parameter]
+        public SwalCategory SwalCategory { get; set; } = SwalCategory.Question;
+
+        /// <summary>
+        /// 获得/设置 Swal 标题
+        /// </summary>
+        [Parameter]
+        public string? SwalTitle { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Swal 内容
+        /// </summary>
+        [Parameter]
+        public string? SwalContent { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示 Swal Footer
+        /// </summary>
+        [Parameter]
+        public string? SwalFooter { get; set; }
+
+        /// <summary>
+        /// 获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变
+        /// </summary>
+        [Parameter]
+        public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
+
+        /// <summary>
         /// 获得/设置 绑定数据集
         /// </summary>
         [Parameter]

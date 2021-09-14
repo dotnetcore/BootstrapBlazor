@@ -181,6 +181,11 @@ namespace BootstrapBlazor.Shared.Pages
             return SelectedBoolItem.HasValue ? SelectedBoolItem.Value.ToString() : "null";
         }
 
+        private Task<bool> OnBeforeSelectedItemChange(SelectedItem item)
+        {
+            return Task.FromResult(true);
+        }
+
         private EnumEducation SelectedEnumItem { get; set; } = EnumEducation.Primary;
 
         private EnumEducation? SelectedEnumItem1 { get; set; }
@@ -196,6 +201,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnSelectedItemChanged",
                 Description="下拉框选项改变时触发此事件",
                 Type ="Func<SelectedItem, Task>"
+            },
+            new EventItem()
+            {
+                Name = "OnBeforeSelectedItemChange",
+                Description="下拉框选项改变前触发此事件",
+                Type ="Func<SelectedItem, Task<bool>>"
             }
         };
 
@@ -275,6 +286,20 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "Category",
+                Description = "对话框图标",
+                Type = "SwalCategory",
+                ValueList = " — ",
+                DefaultValue = " SwalCategory.Information "
+            },
+            new AttributeItem() {
+                Name = "Content",
+                Description = "对话框内容",
+                Type = "string?",
+                ValueList = " — ",
+                DefaultValue = " 确定改变当前值吗？ "
             }
         };
     }

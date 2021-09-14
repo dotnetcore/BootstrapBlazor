@@ -247,6 +247,17 @@
     </div>
 </Block>
 
+<Block Title="带确认的下拉框" Introduction="通过设置 <code>OnBeforeSelectedItemChange</code> 委托，阻止当前值的改变">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"
+                    SwalTitle="下拉框值变更" SwalContent="您确认要改变选项值吗？" SwalFooter="点击确认改变选项值，选择取消后值不变" />
+        </div>
+    </div>
+</Block>
+
+<SweetAlert />
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
