@@ -92,6 +92,18 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 Header 中是否显示打印按钮 默认 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowPrintView { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印 
+        /// </summary>
+        [Parameter]
+        public string? PrintViewButtonText { get; set; }
+
+        /// <summary>
         /// 获得/设置 弹窗内容相关数据 多用于传值
         /// </summary>
         [Parameter]
@@ -153,6 +165,7 @@ namespace BootstrapBlazor.Components
             }
 
             CloseButtonText ??= Localizer[nameof(CloseButtonText)];
+            PrintViewButtonText ??= Localizer[nameof(PrintViewButtonText)];
 
             Modal.AddDialog(this);
         }

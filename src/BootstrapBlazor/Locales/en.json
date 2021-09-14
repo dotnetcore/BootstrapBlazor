@@ -135,7 +135,8 @@
     "InvalidOperationExceptionMessage": "Please place <Message /> element on current page"
   },
   "BootstrapBlazor.Components.ModalDialog": {
-    "CloseButtonText": "Close"
+    "CloseButtonText": "Close",
+    "PrintViewButtonText": "Print"
   },
   "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "Click for select ...",

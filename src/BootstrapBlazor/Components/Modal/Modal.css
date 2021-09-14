@@ -13,3 +13,30 @@
 .modal-footer {
     padding: 0.25rem 1rem;
 }
+
+.modal-header .btn-print {
+    padding: 3px 8px 4px 8px;
+    margin: 0 6px;
+}
+
+.bb-printview-open app,
+.bb-printview-open .modal-backdrop,
+.bb-printview-open .modal {
+    display: none !important;
+}
+
+body.bb-printview-open {
+    overflow: auto !important;
+}
+
+.aufo-printview {
+    background-color: #fff;
+    padding: 1rem;
+    min-height: calc(100vh);
+}
+
+@media print {
+    .modal-footer {
+        display: none;
+    }
+}

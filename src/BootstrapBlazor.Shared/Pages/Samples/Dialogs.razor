@@ -96,8 +96,13 @@
         <li>更改模态弹窗内数值点击 <code>取消</code> 或者 <code>关闭</code> 按钮时数值 <b>不更新</b></li>
         <li>再次点击弹出模态弹窗时，数值保持一致</li>
     </ul>
-    <Button @onclick="@OnResultDialogClick">点击打开 Dialog</Button>
+    <Button OnClick="@OnResultDialogClick">点击打开 Dialog</Button>
     <BlockLogger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="打印按钮" Introduction="通过设置 <code>ShowPrintView</code> 使 <code>Header</code> 上显示一个打印预览按钮">
+    <p>通过设置 <code>PrintViewButtonText</code> 更改 <b>打印预览</b> 按钮文字</p>
+    <Button OnClick="@OnPrintDialogClick">点击打开 Dialog</Button>
 </Block>
 
 <Block Title="实战演练" Introduction="模拟一个邮件应用，弹窗选择收件人后填入下方的收件人框。">

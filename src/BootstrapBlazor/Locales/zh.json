@@ -135,7 +135,8 @@
     "InvalidOperationExceptionMessage": "请在网页中添加 <Message /> 元素"
   },
   "BootstrapBlazor.Components.ModalDialog": {
-    "CloseButtonText": "关闭"
+    "CloseButtonText": "关闭",
+    "PrintViewButtonText": "打印预览"
   },
   "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "点击进行多选 ...",

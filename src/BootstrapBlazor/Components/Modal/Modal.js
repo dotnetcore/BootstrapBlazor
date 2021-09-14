@@ -1,5 +1,14 @@
 ﻿(function ($) {
     $.extend({
+        bb_printview: function (el) {
+            var $modalBody = $(el).parent().next();
+            var printContenxt = $modalBody.html();
+            var $body = $('body').addClass('bb-printview-open');
+            var $mask = $('<div></div>').addClass('bb-printview').html(printContenxt).appendTo($body);
+            window.print();
+            $body.removeClass('bb-printview-open')
+            $mask.remove();
+        },
         bb_modal_dialog: function (el, obj, method) {
             var $el = $(el);
             $el.data('bb_dotnet_invoker', { obj, method });
