@@ -651,7 +651,7 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
             }
             else
             {
-                <ValidateForm Model="@item" OnValidSubmit="@(new Func<EditContext, Task>(context => SaveAsync(context, item.ChangedType)))">
+                <ValidateForm Model="@item.Item" OnValidSubmit="@(new Func<EditContext, Task>(context => SaveAsync(context, item.ChangedType)))">
                     <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                         <Buttons>
                             <div class="table-modal-footer">
