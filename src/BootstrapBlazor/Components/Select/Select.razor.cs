@@ -244,6 +244,7 @@ namespace BootstrapBlazor.Components
                     ret = await OnBeforeSelectedItemChange(item);
                     if (ret)
                     {
+                        // 返回 True 弹窗提示
                         var option = new SwalOption()
                         {
                             Category = SwalCategory,
@@ -257,6 +258,11 @@ namespace BootstrapBlazor.Components
                             option.FooterTemplate = builder => builder.AddContent(0, SwalFooter);
                         }
                         ret = await SwalService.ShowModal(option);
+                    }
+                    else
+                    {
+                        // 返回 False 直接运行
+                        ret = true;
                     }
                 }
                 if (ret)
