@@ -765,6 +765,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["AnchorLink"],
+                    Url = "anchorlinks"
+                },
+                new()
+                {
                     Text = Localizer["Breadcrumb"],
                     Url = "breadcrumbs"
                 },

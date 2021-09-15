@@ -1,0 +1,15 @@
+﻿.anchor-link {
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .anchor-link > i {
+        opacity: 0;
+        margin-left: .5rem;
+        color: var(--bs-primary);
+        transition: opacity .3s linear;
+    }
+
+    .anchor-link:hover > i {
+        opacity: 1;
+    }

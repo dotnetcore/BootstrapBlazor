@@ -6,44 +6,41 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Pages.Components
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Block
+    public partial class AnchorLink
     {
         /// <summary>
-        /// 获得/设置 组件 Title 属性
+        /// 获得/设置 组件 Id 属性 要求页面内唯一
         /// </summary>
         [Parameter]
-        [NotNull]
-        public string? Title { get; set; }
+        public string? Id { get; set; }
 
         /// <summary>
-        /// 获得/设置 组件说明信息
+        /// 获得/设置 组件 Text 显示文字
         /// </summary>
         [Parameter]
-        public string Introduction { get; set; } = "未设置";
+        public string? Text { get; set; }
 
         /// <summary>
-        /// 获得/设置 组件内容
+        /// 获得/设置 组件 拷贝成功后 显示文字
         /// </summary>
         [Parameter]
-        public RenderFragment? ChildContent { get; set; }
+        public string? TooltipText { get; set; }
 
-        [NotNull]
-        private string? SubTitle { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         [NotNull]
-        private IStringLocalizer<Block>? Localizer { get; set; }
+        private IStringLocalizer<AnchorLink>? Localizer { get; set; }
 
-        /// <summary>
-        /// 获得/设置 友好链接锚点名称
-        /// </summary>
-        [Parameter]
-        public string? Name { get; set; }
+        private string? ClassString => CssBuilder.Default("anchor-link")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
 
         /// <summary>
         /// OnInitialized 方法
@@ -52,8 +49,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         {
             base.OnInitialized();
 
-            Title ??= Localizer[nameof(Title)];
-            SubTitle ??= Localizer[nameof(SubTitle)];
+            TooltipText ??= Localizer[nameof(TooltipText)];
         }
     }
 }

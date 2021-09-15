@@ -1,5 +1,6 @@
 ﻿{
   "src": {
+    "anchorlinks": "AnchorLinks",
     "autocompletes": "AutoCompletes",
     "autorefresh": "Table/TablesAutoRefresh",
     "bar": "Charts/Bar",

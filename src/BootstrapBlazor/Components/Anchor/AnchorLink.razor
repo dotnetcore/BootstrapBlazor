@@ -1,0 +1,10 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-title="@TooltipText">
+    <span class="archor-text">@Text</span>
+    @if (!string.IsNullOrEmpty(Id))
+    {
+        <i class="fa fa-link"></i>
+    }
+</div>

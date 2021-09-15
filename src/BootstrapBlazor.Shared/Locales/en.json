@@ -1114,6 +1114,7 @@
     "Split": "Split",
     "NavigationComponents": "NAVIGATIONS",
     "Anchor": "Anchor",
+    "AnchorLink": "AnchorLink",
     "Breadcrumb": "Breadcrumb",
     "Dropdown": "Dropdown",
     "GoTop": "GoTop",

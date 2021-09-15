@@ -118,8 +118,9 @@ section {
 .tabs-body-content > h3,
 .content > h3,
 .tabs-body-content > h4,
+.anchor-link,
 .content > h4 {
-    font-weight: 400;
+    font-weight: 500;
     color: #1f2f3d;
 }
 
@@ -128,6 +129,7 @@ section {
     }
 
 .tabs-body-content > h4,
+.anchor-link,
 .content > h4 {
     margin-top: 1.5rem;
     font-size: 1.2rem;
@@ -1694,3 +1696,11 @@ header .bb-fs {
         height: auto;
         min-height: 100%;
     }
+
+.anchor-link {
+    margin-bottom: .5rem;
+}
+
+.anchor-link-demo {
+    margin: 0 !important;
+}

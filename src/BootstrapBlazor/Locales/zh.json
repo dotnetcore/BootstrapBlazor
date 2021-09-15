@@ -1,4 +1,7 @@
 ﻿{
+  "BootstrapBlazor.Components.AnchorLink": {
+    "TooltipText": "拷贝成功"
+  },
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "无匹配数据",
     "PlaceHolder": "请输入"
