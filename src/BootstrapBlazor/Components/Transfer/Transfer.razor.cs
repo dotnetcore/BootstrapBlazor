@@ -165,7 +165,7 @@ namespace BootstrapBlazor.Components
                 var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 foreach (var item in Items)
                 {
-                    item.Active = list.Any(i => i.Contains(item.Value, StringComparison.OrdinalIgnoreCase));
+                    item.Active = list.Any(i => i.Equals(item.Value, StringComparison.OrdinalIgnoreCase));
                 }
             }
 
