@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components
@@ -20,7 +22,9 @@ namespace BootstrapBlazor.Components
 
         [Inject]
         [NotNull]
-        private PrintService? PrintService { get; set; }
+        private IStringLocalizer<Print>? Localizer { get; set; }
+
+        private string? Target { get; set; }
 
         /// <summary>
         /// 
@@ -30,6 +34,33 @@ namespace BootstrapBlazor.Components
             // 不需要走 base.OnInitialized 方法
 
             ButtonIcon = Icon;
+            Text ??= Localizer[nameof(Text)];
+        }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            // 不需要走 base.OnParametersSet 方法
+
+            if (string.IsNullOrEmpty(PreviewUrl))
+            {
+                AdditionalAttributes ??= new Dictionary<string, object>();
+                AdditionalAttributes.Add("onclick", "$.bb_printview(this)");
+                Target = null;
+            }
+            else
+            {
+                AdditionalAttributes ??= new Dictionary<string, object>();
+                AdditionalAttributes.Remove("onclick", out _);
+                Target = "_blank";
+            }
+
+            if (string.IsNullOrEmpty(ButtonIcon))
+            {
+                ButtonIcon = "fa fa-print";
+            }
         }
     }
 }

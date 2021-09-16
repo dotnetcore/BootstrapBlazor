@@ -12,12 +12,9 @@
             {
                 <h5 class="modal-title flex-fill">@Title</h5>
             }
-            @if (ShowPrintView)
+            @if (ShowPrintButton && ShowPrintButtonInHeader)
             {
-                <button class="btn btn-primary btn-print" onclick="$.bb_printview(this)">
-                    <i class="fa fa-print"></i>
-                    <span>@PrintViewButtonText</span>
-                </button>
+                <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
             }
             @if (ShowHeaderCloseButton)
             {
@@ -33,9 +30,11 @@
                 <div class="modal-footer">
                     @if (ShowCloseButton)
                     {
-                        <Button Color="Color.None" class="btn btn-secondary"
-                        Text="@CloseButtonText" Icon="fa fa-times" OnClickWithoutRender="@OnClickClose">
-                        </Button>
+                        <Button Color="Color.None" class="btn btn-secondary" Text="@CloseButtonText" Icon="fa fa-times" OnClickWithoutRender="@OnClickClose" />
+                    }
+                    @if (ShowPrintButton && !ShowPrintButtonInHeader)
+                    {
+                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
                     }
                     @FooterTemplate
                 </div>

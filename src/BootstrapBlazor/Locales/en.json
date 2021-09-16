@@ -139,7 +139,7 @@
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Close",
-    "PrintViewButtonText": "Print"
+    "PrintButtonText": "Print"
   },
   "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "Click for select ...",
@@ -168,6 +168,9 @@
   },
   "BootstrapBlazor.Components.PopoverService": {
     "InvalidOperationExceptionMessage": "Please place <PopoverConfirm /> element on current page"
+  },
+  "BootstrapBlazor.Components.Print": {
+    "Text": "Print"
   },
   "BootstrapBlazor.Components.PrintService": {
     "InvalidOperationExceptionMessage": "Please place <Print /> element on current page"

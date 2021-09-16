@@ -67,14 +67,19 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 Header 中是否显示打印按钮 默认 false 不显示
+        /// 获得/设置 是否显示打印按钮 默认 false 不显示
         /// </summary>
-        public bool ShowPrintView { get; set; }
+        public bool ShowPrintButton { get; set; }
+
+        /// <summary>
+        /// 获得/设置 打印按钮是否显示在 Header 中 默认 false 不显示
+        /// </summary>
+        public bool ShowPrintButtonInHeader { get; set; }
 
         /// <summary>
         /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印 
         /// </summary>
-        public string? PrintViewButtonText { get; set; }
+        public string? PrintButtonText { get; set; }
 
         /// <summary>
         /// 获得/设置 相关连数据，多用于传值使用
@@ -120,12 +125,13 @@ namespace BootstrapBlazor.Components
                 new(nameof(ShowCloseButton), ShowCloseButton),
                 new(nameof(ShowHeaderCloseButton), ShowHeaderCloseButton),
                 new(nameof(ShowFooter), ShowFooter),
-                new(nameof(ShowPrintView), ShowPrintView),
+                new(nameof(ShowPrintButton), ShowPrintButton),
+                new(nameof(ShowPrintButtonInHeader), ShowPrintButtonInHeader),
                 new(nameof(IsKeyboard), IsKeyboard)
             };
-            if (!string.IsNullOrEmpty(PrintViewButtonText))
+            if (!string.IsNullOrEmpty(PrintButtonText))
             {
-                ret.Add(new(nameof(PrintViewButtonText), PrintViewButtonText));
+                ret.Add(new(nameof(PrintButtonText), PrintButtonText));
             }
             if (!string.IsNullOrEmpty(Title))
             {

@@ -29,14 +29,26 @@ body.bb-printview-open {
     overflow: auto !important;
 }
 
-.aufo-printview {
+.bb-printview {
     background-color: #fff;
     padding: 1rem;
     min-height: calc(100vh);
 }
 
+.bb-print-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: #ddd;
+    overflow: hidden;
+}
+
 @media print {
-    .modal-footer {
+    .modal-footer,
+    .bb-print-mask {
         display: none;
     }
 }

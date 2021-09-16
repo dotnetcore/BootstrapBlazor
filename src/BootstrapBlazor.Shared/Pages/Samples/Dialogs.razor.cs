@@ -169,7 +169,8 @@ namespace BootstrapBlazor.Shared.Pages
             var op = new DialogOption()
             {
                 Title = "数据查询窗口",
-                ShowPrintView = true,
+                ShowPrintButton = true,
+                ShowPrintButtonInHeader = true,
                 ShowFooter = false,
                 BodyContext = DataPrimaryId
             };
@@ -182,6 +183,7 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         private string? InputValue { get; set; }
+
         private IEnumerable<string> Emails { get; set; } = Array.Empty<string>();
 
         private async Task OnEmailButtonClick()
@@ -294,8 +296,15 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = "true"
                 },
                 new AttributeItem() {
-                    Name = nameof(DialogOption.ShowPrintView),
+                    Name = nameof(DialogOption.ShowPrintButton),
                     Description = "是否显示打印按钮",
+                    Type = "boolean",
+                    ValueList = "true|false",
+                    DefaultValue = "false"
+                },
+                new AttributeItem() {
+                    Name = nameof(DialogOption.ShowPrintButtonInHeader),
+                    Description = "打印按钮是否显示在 Header 中",
                     Type = "boolean",
                     ValueList = "true|false",
                     DefaultValue = "false"
@@ -315,7 +324,7 @@ namespace BootstrapBlazor.Shared.Pages
                     DefaultValue = " 未设置 "
                 },
                 new AttributeItem() {
-                    Name = nameof(DialogOption.PrintViewButtonText),
+                    Name = nameof(DialogOption.PrintButtonText),
                     Description = "打印按钮显示文字",
                     Type = "string",
                     ValueList = " — ",
