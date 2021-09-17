@@ -16,12 +16,9 @@
                 var $body = $('body').addClass('bb-printview-open');
                 var $dialog = $('<div></div>').addClass('bb-printview').html(printContenxt).appendTo($body);
 
-                // create mask
-                var $mask = $('<div class="bb-print-mask"></div>').appendTo($body);
                 window.print();
                 $body.removeClass('bb-printview-open')
                 $dialog.remove();
-                $mask.remove();
             }
             else {
                 window.print();

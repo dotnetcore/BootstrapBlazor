@@ -19,36 +19,27 @@
     margin: 0 6px;
 }
 
-.bb-printview-open app,
-.bb-printview-open .modal-backdrop,
-.bb-printview-open .modal {
-    display: none !important;
-}
-
-body.bb-printview-open {
-    overflow: auto !important;
-}
-
 .bb-printview {
     background-color: #fff;
     padding: 1rem;
     min-height: calc(100vh);
 }
 
-.bb-print-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
-    background-color: #ddd;
-    overflow: hidden;
+@media screen {
+    .bb-printview {
+        display: none;
+    }
 }
 
 @media print {
-    .modal-footer,
-    .bb-print-mask {
-        display: none;
+    body.bb-printview-open {
+        overflow: auto !important;
     }
+
+        body.bb-printview-open app,
+        body.bb-printview-open .modal,
+        body.bb-printview-open .modal-footer,
+        body.bb-printview-open .modal-backdrop {
+            display: none !important;
+        }
 }
