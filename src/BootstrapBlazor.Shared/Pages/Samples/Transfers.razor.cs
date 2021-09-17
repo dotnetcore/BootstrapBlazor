@@ -58,25 +58,25 @@ namespace BootstrapBlazor.Shared.Pages
             // 模拟异步加载数据源
             await Task.Delay(100);
 
-            Items = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            Items = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
                 Text = $"备选 {i:d2}",
                 Value = i.ToString()
             });
 
-            Items1 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            Items1 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
             });
 
-            Items2 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            Items2 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
             });
 
-            Items3 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            Items3 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
                 Text = $"备选 {i:d2}",
                 Value = i.ToString()
@@ -84,13 +84,13 @@ namespace BootstrapBlazor.Shared.Pages
 
             SelectedValue = Items3.Take(2);
 
-            Items4 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            Items4 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()
             });
 
-            Items5 = Enumerable.Range(1, 5).Select(i => new SelectedItem()
+            Items5 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
                 Text = $"数据 {i:d2}",
                 Value = i.ToString()

@@ -38,7 +38,8 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Panel 样式
         /// </summary>
-        private string? PanelListClassString => CssBuilder.Default("checkbox-group transfer-panel-list")
+        private string? PanelListClassString => CssBuilder.Default("transfer-panel-list scroll")
+            .AddClass("search", ShowSearch)
             .AddClass("disabled", IsDisabled)
             .Build();
 

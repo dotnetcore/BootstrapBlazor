@@ -44,8 +44,8 @@
     height: 246px;
 }
 
-    .transfer-panel-list:not(.disabled) {
-        overflow: auto;
+    .transfer-panel-list.search {
+        height: 214px;
     }
 
 .transfer-panel-item {
