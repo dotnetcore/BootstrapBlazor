@@ -73,7 +73,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private void InitDataTableContext()
         {
-            DataTableDynamicContext = new(UserData);
+            DataTableDynamicContext = new(UserData, (context, col) =>
+            {
+                if (col.GetFieldName() == nameof(Foo.Complete))
+                {
+                    col.Align = Alignment.Center;
+                }
+            });
 
             var method = DataTableDynamicContext.OnValueChanged;
             DataTableDynamicContext.OnValueChanged = async (model, col, val) =>

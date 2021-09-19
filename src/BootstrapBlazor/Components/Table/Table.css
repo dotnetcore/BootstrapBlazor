@@ -596,8 +596,9 @@ form .table .table-cell > textarea {
 }
 
 .table-excel tbody .table-cell .switch {
-    padding-left: 0;
     height: 35px;
+    padding: .375rem .1875rem;
+    width: auto;
 }
 
 .table-excel .form-control {
