@@ -617,6 +617,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["TableExcel"],
+                    Url = "tables/excel"
+                },
+                new()
+                {
                     Text = Localizer["TableExport"],
                     Url = "tables/export"
                 },

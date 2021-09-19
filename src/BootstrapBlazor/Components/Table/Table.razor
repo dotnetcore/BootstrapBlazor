@@ -57,24 +57,24 @@
             </div>
         }
         <div class="table-toolbar">
-            @if (ShowToolbar)
+            @if (IsExcel || ShowToolbar)
             {
                 <TableToolbar TItem="TItem" OnGetSelectedRows="@GetSelectedRows">
-                    @if (ShowDefaultButtons)
+                    @if (IsExcel || ShowDefaultButtons)
                     {
                         @if (ShowAddButton)
                         {
-                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="@AddAsync" Icon="fa fa-plus" Text="@AddButtonText" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="fa fa-plus" Text="@AddButtonText" />
                         }
-                        @if (ShowEditButton)
+                        @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="@EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
                                                           Icon="fa fa-remove" Text="@DeleteButtonText"
-                                                          OnBeforeClick="@ConfirmDelete" OnConfirm="@DeleteAsync()"
+                                                          OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync()"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
                         }
@@ -82,11 +82,11 @@
                     @TableToolbarTemplate
                 </TableToolbar>
                 <div class="float-end table-toolbar-button btn-group table-column-right">
-                    @if (ShowRefresh)
+                    @if (!IsExcel && ShowRefresh)
                     {
                         <Button Icon="fa fa-refresh" Text="@RefreshButtonText" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync" />
                     }
-                    @if (ShowCardView)
+                    @if (!IsExcel && ShowCardView)
                     {
                         <Button Icon="fa fa-bars" Text="@CardViewButtonText" Color="@Color.Secondary" OnClick="@OnClickCardView" />
                     }
@@ -98,13 +98,13 @@
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-end shadow">
+                            <div class="dropdown-menu dropdown-menu-right">
                                 @foreach (var item in Columns)
                                 {
                                     var poco = ColumnVisibles.First(i => i.FieldName == item.GetFieldName());
                                     <div class="dropdown-item">
                                         <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
+                                                    DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible">
                                         </Checkbox>
                                     </div>
                                 }
@@ -175,7 +175,6 @@
                 <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
         }
-
         <div class="@WrapperClassName">
             @if (ActiveRenderMode == TableRenderMode.Table)
             {
@@ -233,7 +232,7 @@
                                 <span>@(RowItems.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
                             </div>
                         }
-                        @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+                        @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
                         {
                             @RenderExtendButtons(item)
                         }
@@ -248,7 +247,7 @@
                                 </span>
                             </div>
                         }
-                        @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+                        @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
                         {
                             @RenderExtendButtons(item)
                         }
@@ -308,7 +307,7 @@
             @RenderHeader.Invoke(false)
         }
         <tbody>
-            @if (EditMode == EditMode.EditForm && ShowAddForm)
+            @if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
             {
                 @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
             }
@@ -319,7 +318,7 @@
             @foreach (var item in RowItems)
             {
                 @RenderRow.Invoke(item)
-                if (ShowDetails())
+                if (!IsExcel && ShowDetails())
                 {
                     var colspan = ColumnVisibles.Count(col => col.Visible);
                     if (IsMultipleSelect) colspan++;
@@ -344,7 +343,7 @@
                         </td>
                     </tr>
                 }
-                if (EditMode == EditMode.EditForm && ShowEditForm && SelectedItems.FirstOrDefault() == item)
+                if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedItems.FirstOrDefault() == item)
                 {
                     @RenderEditForm.Invoke((EditModel, ItemChangedType.Update))
                 }
@@ -392,7 +391,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     {
         <col width="60" />
     }
-    @if(ShowExtendButtons && IsExtendButtonsInRowHeader)
+    @if(!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
         <col width="@ExtendButtonColumnWidth" />
     }
@@ -403,7 +402,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
             <col width="@col.Width" />
         }
     }
-    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+    @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
         <col width="@ExtendButtonColumnWidth" />
     }
@@ -441,7 +440,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 <div class="table-cell">@LineNoText</div>
             </th>
         }
-        @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+        @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
         {
             @RenderExtendButtonsHeader
         }
@@ -471,7 +470,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 </DynamicElement>
             }
         }
-        @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+        @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
         {
             @RenderExtendButtonsHeader
         }
@@ -501,7 +500,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
-            @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+            @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
             {
                 <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
                     <div class="table-cell">&nbsp;</div>
@@ -522,7 +521,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     }
                 }
             </CascadingValue>
-            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+            @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
                 <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
                     <div class="table-cell">&nbsp;</div>
@@ -540,7 +539,7 @@ RenderFragment<TItem> RenderRow => item =>
 @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
                  TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="@ClickRow(item)"
                  TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="@DoubleClickRow(item)">
-    @if (ShowDetails())
+    @if (!IsExcel && ShowDetails())
     {
         <td>
             <div class="@GetDetailBarClassString(item)">
@@ -570,7 +569,7 @@ RenderFragment<TItem> RenderRow => item =>
         var prevColspan = 0;
         var isInCell = EditInCell && SelectedItems.FirstOrDefault() == item;
     }
-    @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+    @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
         @RenderRowExtendButtons(item)
     }
@@ -609,9 +608,13 @@ RenderFragment<TItem> RenderRow => item =>
                             <i class="@GetTreeClassString(item)"></i>
                         </div>
                     }
-                    @if (isInCell)
+                    @if (IsExcel)
                     {
-                        @RenderCell(col)
+                        @RenderExcelCell(col, item)
+                    }
+                    else if(isInCell)
+                    {
+                        @RenderCell(col, EditModel)
                     }
                     else
                     {
@@ -628,7 +631,7 @@ RenderFragment<TItem> RenderRow => item =>
             </td>
         }
     }
-    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+    @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
     {
         @RenderRowExtendButtons(item)
     }

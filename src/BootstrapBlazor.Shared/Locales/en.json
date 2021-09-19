@@ -1208,6 +1208,7 @@
     "TablePage": "Pagination",
     "TableToolbar": "Toolbar",
     "TableEdit": "Edit",
+    "TableExcel": "Excel",
     "TableExport": "Export",
     "TableSelection": "Selection",
     "TableAutoRefresh": "AutoRefresh",

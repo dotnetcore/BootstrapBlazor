@@ -12,11 +12,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -328,13 +330,15 @@ namespace BootstrapBlazor.Components
 
             if (IsCheckboxList(fieldType) && item.Data != null)
             {
-                builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Data);
+                var data = item.Data.Select(d => new SelectedItem(d.Value, d.Text)).ToList();
+                builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), data);
             }
 
             // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
             if (item.Data != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
             {
-                builder.AddAttribute(7, nameof(Select<SelectedItem>.Items), item.Data);
+                var data = item.Data.Select(d => new SelectedItem(d.Value, d.Text)).ToList();
+                builder.AddAttribute(7, nameof(Select<SelectedItem>.Items), data);
             }
 
             // 设置 SkipValidate 参数
@@ -517,6 +521,24 @@ namespace BootstrapBlazor.Components
             var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
 
             return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
+        }
+
+        private static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
+
+        /// <summary>
+        /// 创建 OnValueChanged 回调委托
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <returns></returns>
+        public static Expression<Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object>> CreateOnValueChanged<TModel>(Type fieldType)
+        {
+            var method = typeof(Utility).GetMethod(nameof(CreateOnValueChangedCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(typeof(TModel), fieldType);
+            var exp_p1 = Expression.Parameter(typeof(TModel));
+            var exp_p2 = Expression.Parameter(typeof(ITableColumn));
+            var exp_p3 = Expression.Parameter(typeof(Func<,,,>).MakeGenericType(typeof(TModel), typeof(ITableColumn), typeof(object), typeof(Task)));
+            var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
+
+            return Expression.Lambda<Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
         }
         #endregion
 

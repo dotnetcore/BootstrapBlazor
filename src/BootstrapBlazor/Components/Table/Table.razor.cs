@@ -34,6 +34,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private string? TableClassName => CssBuilder.Default("table")
             .AddClass("table-sm", TableSize == TableSize.Compact)
+            .AddClass("table-excel", IsExcel)
             .AddClass("table-bordered", IsBordered)
             .AddClass("table-striped table-hover", IsStriped)
             .Build();
@@ -48,6 +49,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-fixed", Height.HasValue)
             .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
             .AddClass("table-resize", AllowResizing)
+            .AddClass("position-relative", IsExcel && ActiveRenderMode == TableRenderMode.Table)
             .Build();
 
         /// <summary>
@@ -146,6 +148,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsTracking { get; set; }
+
+        /// <summary>
+        /// 获得/设置 组件工作模式为 Excel 模式 默认 false
+        /// </summary>
+        [Parameter]
+        public bool IsExcel { get; set; }
 
         /// <summary>
         /// 获得/设置 缩进大小 默认为 16 单位 px
@@ -410,6 +418,12 @@ namespace BootstrapBlazor.Components
         public EventCallback<IEnumerable<TItem>> ItemsChanged { get; set; }
 
         /// <summary>
+        /// 获得/设置 单元格变化时回调委托 仅 <see cref="IsExcel"/> 模式下生效
+        /// </summary>
+        [Parameter]
+        public Func<TItem, ITableColumn, object?, Task>? OnCellValueChanged { get; set; }
+
+        /// <summary>
         /// 获得/设置 表格组件大小 默认为 Normal 正常模式
         /// </summary>
         [Parameter]
@@ -555,43 +569,6 @@ namespace BootstrapBlazor.Components
 
             OnInitLocalization();
 
-            // 对动态类型 DataTable 支持
-            if (DynamicContext != null)
-            {
-                OnAddAsync ??= async () =>
-                {
-                    if (await DynamicContext.AddAsync() is not TItem item)
-                    {
-                        throw new InvalidCastException();
-                    }
-                    StateHasChanged();
-                    return item;
-                };
-
-                OnSaveAsync ??= async (item, changedType) =>
-                {
-                    var ret = false;
-                    if (item is IDynamicObject d)
-                    {
-                        ret = await DynamicContext.SaveAsync(d, changedType);
-                        StateHasChanged();
-                    }
-                    return ret;
-                };
-
-                OnDeleteAsync ??= async items =>
-                {
-                    var ret = false;
-                    var datas = items.OfType<IDynamicObject>();
-                    if (datas.Any())
-                    {
-                        ret = await DynamicContext.DeleteAsync(datas);
-                        StateHasChanged();
-                    }
-                    return ret;
-                };
-            }
-
             // 初始化每页显示数量
             if (IsPagination)
             {
@@ -639,16 +616,7 @@ namespace BootstrapBlazor.Components
             if (!FirstRender)
             {
                 // 动态列模式
-                if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
-                {
-                    AutoGenerateColumns = false;
-
-                    var cols = DynamicContext.GetColumns();
-                    Columns.Clear();
-                    Columns.AddRange(cols);
-
-                    QueryItems = DynamicContext.GetItems().Cast<TItem>();
-                }
+                ResetDynamicContext();
 
                 ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();
 
@@ -758,17 +726,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
-        protected bool CheckShownWithBreakpoint(ITableColumn col)
+        protected bool CheckShownWithBreakpoint(ITableColumn col) => col.ShownWithBreakPoint switch
         {
-            return col.ShownWithBreakPoint switch
-            {
-                BreakPoint.Small => ScreenSize >= 576,
-                BreakPoint.Medium => ScreenSize >= 768,
-                BreakPoint.Large => ScreenSize >= 992,
-                BreakPoint.ExtraLarge => ScreenSize >= 1200,
-                _ => true
-            };
-        }
+            BreakPoint.Small => ScreenSize >= 576,
+            BreakPoint.Medium => ScreenSize >= 768,
+            BreakPoint.Large => ScreenSize >= 992,
+            BreakPoint.ExtraLarge => ScreenSize >= 1200,
+            _ => true
+        };
 
         /// <summary>
         /// OnQueryAsync 查询结果数据集合
@@ -876,11 +841,30 @@ namespace BootstrapBlazor.Components
         private static ConcurrentDictionary<(Type Type, string PropertyName), Func<TItem, object?>> GetPropertyCache { get; } = new();
         #endregion
 
-        private RenderFragment RenderCell(ITableColumn col) => col.EditTemplate == null
+        private RenderFragment RenderCell(ITableColumn col, TItem item) => col.EditTemplate == null
             ? (col.Readonly
-                ? builder => builder.CreateDisplayByFieldType(this, col, EditModel, false)
-                : builder => builder.CreateComponentByFieldType(this, col, EditModel, false))
-            : col.EditTemplate.Invoke(EditModel);
+                ? builder => builder.CreateDisplayByFieldType(this, col, item, false)
+                : builder => builder.CreateComponentByFieldType(this, col, item, false))
+            : col.EditTemplate.Invoke(item);
+
+        private RenderFragment RenderExcelCell(ITableColumn col, TItem item)
+        {
+            if (DynamicContext != null && col.EditTemplate == null)
+            {
+                col.EditTemplate = row => builder =>
+                {
+                    var onValueChanged = Utility.CreateOnValueChanged<IDynamicObject>(col.PropertyType).Compile();
+                    if (DynamicContext.OnValueChanged != null && row is IDynamicObject m)
+                    {
+                        var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
+                        parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(m, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
+                        col.ComponentParameters = parameters;
+                    }
+                    builder.CreateComponentByFieldType(this, col, row, false, "");
+                };
+            }
+            return RenderCell(col, item);
+        }
 
         #region Filter
         /// <summary>

@@ -347,7 +347,8 @@
 }
 
 .table-hover > tbody > tr.is-detail:hover,
-.table-hover > tbody > tr.is-edit.active {
+.table-hover > tbody > tr.is-edit.active,
+.table-excel > tbody > tr:hover {
     --bs-table-accent-bg: none;
 }
 
@@ -517,8 +518,7 @@
 }
 
     .table-cell.is-incell .switch {
-        height: 35px;
-        padding-left: 9px;
+        padding-left: 6px;
     }
 
     .table-cell.is-incell .select {
@@ -570,4 +570,50 @@ form .table .table-cell > textarea {
 
 .table-search {
     margin-bottom: .5rem;
+}
+
+.table-excel .table-cell > input.form-control,
+.table-excel .table-cell .datetime-picker,
+.table-excel .table-cell .select {
+    min-width: 120px;
+}
+
+.table-excel tbody .table-cell textarea.form-control {
+    min-width: 200px;
+}
+
+.table-excel-toolbar {
+    display: none;
+    position: absolute;
+}
+
+.table-excel.table > :not(caption):not(thead) > * > * {
+    padding: 0;
+}
+
+.table-excel tbody .table-cell > .form-check {
+    padding: 6px 8px;
+}
+
+.table-excel tbody .table-cell .switch {
+    padding-left: 0;
+    height: 35px;
+}
+
+.table-excel .form-control {
+    border: none;
+    border-radius: 0;
+    padding: .375rem .1875rem;
+}
+
+.table-excel .datetime-picker-input {
+    padding-left: 2rem;
+}
+
+.table-excel .datetime-picker-input-icon {
+    line-height: 32px;
+}
+
+.table-excel.table tbody tr.active {
+    background-color: transparent;
 }

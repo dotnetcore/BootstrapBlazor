@@ -97,12 +97,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否显示刷新按钮 默认为 true
         /// </summary>
+        /// <remarks><see cref="IsExcel"/> 模式下此设置无效</remarks>
         [Parameter]
         public bool ShowRefresh { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 是否显示视图按钮 默认为 false
         /// </summary>
+        /// <remarks><see cref="IsExcel"/> 模式下此设置无效</remarks>
         [Parameter]
         public bool ShowCardView { get; set; }
 
@@ -215,7 +217,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task AddAsync()
         {
-            if (UseInjectDataService || IsTracking || OnSaveAsync != null)
+            if (IsExcel && DynamicContext != null)
+            {
+                await DynamicContext.AddAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
+                ResetDynamicContext();
+                StateHasChanged();
+            }
+            else if (UseInjectDataService || IsTracking || OnSaveAsync != null)
             {
                 await ToggleLoading(true);
                 if (OnAddAsync != null)
@@ -529,20 +537,60 @@ namespace BootstrapBlazor.Components
         {
             await ToggleLoading(true);
             var ret = false;
-            if (IsTracking)
+            if (IsExcel && DynamicContext != null)
             {
-                RowItems.RemoveAll(i => SelectedItems.Any(item => item == i));
-                ret = true;
+                ret = await DynamicContext.DeleteAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
+                ResetDynamicContext();
+                StateHasChanged();
             }
             else
             {
-                if (OnDeleteAsync != null)
+                if (IsTracking)
                 {
-                    ret = await OnDeleteAsync(SelectedItems);
+                    RowItems.RemoveAll(i => SelectedItems.Any(item => item == i));
+                    ret = true;
                 }
-                else if (UseInjectDataService)
+                else
                 {
-                    ret = await GetDataService().DeleteAsync(SelectedItems);
+                    if (OnDeleteAsync != null)
+                    {
+                        ret = await OnDeleteAsync(SelectedItems);
+                    }
+                    else if (UseInjectDataService)
+                    {
+                        ret = await GetDataService().DeleteAsync(SelectedItems);
+                    }
+                }
+
+                if (ret)
+                {
+                    // 删除成功 重新查询
+                    // 由于数据删除导致页码会改变，尤其是最后一页
+                    // 重新计算页码
+                    // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
+                    PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedItems.Count) * 1d / PageItems).ToString())));
+                    var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedItems.Count));
+                    PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+
+                    if (SelectedRows != null && SelectedRows.Any())
+                    {
+                        SelectedRows.RemoveAll(item => SelectedItems.Contains(item));
+                        if (SelectedRowsChanged.HasDelegate)
+                        {
+                            await SelectedRowsChanged.InvokeAsync(SelectedRows);
+                        }
+                    }
+
+                    SelectedItems.Clear();
+
+                    if (!IsTracking)
+                    {
+                        await QueryAsync();
+                    }
+                    else
+                    {
+                        await UpdateAsync();
+                    }
                 }
             }
 
@@ -553,43 +601,29 @@ namespace BootstrapBlazor.Components
             option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
             option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
 
-            if (ret)
-            {
-                // 删除成功 重新查询
-                // 由于数据删除导致页码会改变，尤其是最后一页
-                // 重新计算页码
-                // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedItems.Count) * 1d / PageItems).ToString())));
-                var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedItems.Count));
-                PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
-
-                if (SelectedRows != null && SelectedRows.Any())
-                {
-                    SelectedRows.RemoveAll(item => SelectedItems.Contains(item));
-                    if (SelectedRowsChanged.HasDelegate)
-                    {
-                        await SelectedRowsChanged.InvokeAsync(SelectedRows);
-                    }
-                }
-
-                SelectedItems.Clear();
-
-                if (!IsTracking)
-                {
-                    await QueryAsync();
-                }
-                else
-                {
-                    await UpdateAsync();
-                }
-            }
             if ((ShowErrorToast || ret) && !IsTracking)
             {
                 await Toast.Show(option);
             }
-
             await ToggleLoading(false);
         };
+
+        private void ResetDynamicContext()
+        {
+            if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            {
+                AutoGenerateColumns = false;
+
+                var cols = DynamicContext.GetColumns();
+                Columns.Clear();
+                Columns.AddRange(cols);
+
+                SelectedItems.Clear();
+                SelectedRows?.Clear();
+                QueryItems = DynamicContext.GetItems().Cast<TItem>();
+                RowItemsCache = null;
+            }
+        }
 
         /// <summary>
         /// 确认导出按钮方法

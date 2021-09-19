@@ -3,6 +3,21 @@
         bb_table_search: function (el, obj, searchMethod, clearSearchMethod) {
             $(el).data('bb_table_search', { obj: obj, searchMethod, clearSearchMethod });
         },
+        bb_table_row_hover: function ($ele) {
+            var $toolbar = $ele.find('.table-excel-toolbar');
+
+            var $rows = $ele.find('tbody > tr').each(function (index, row) {
+                $(row).hover(
+                    function () {
+                        var top = $(this).position().top;
+                        $toolbar.css({ 'top': top + 'px', 'display': 'block' });
+                    },
+                    function () {
+                        $toolbar.css({ 'top': top + 'px', 'display': 'none' });
+                    }
+                );
+            });
+        },
         bb_table_resize: function ($ele) {
             var resizer = $ele.find('.col-resizer');
             if (resizer.length > 0) {
@@ -211,6 +226,8 @@
                 });
 
                 $.bb_table_resize($ele);
+
+                $.bb_table_row_hover($ele);
             }
             else if (method === 'width') {
                 var width = 0;

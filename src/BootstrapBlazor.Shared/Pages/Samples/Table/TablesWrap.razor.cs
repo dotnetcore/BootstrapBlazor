@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
-            CellItems = Foo.GenerateWrapFoo(Localizer);
+            CellItems = Foo.GenerateFoo(Localizer, 4);
         }
 
         /// <summary>

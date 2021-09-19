@@ -20,6 +20,7 @@
     "dialog": "Table/TablesDialog",
     "dynamic": "Table/TablesDynamic",
     "edit": "Table/TablesEdit",
+    "excel": "Table/TablesExcel",
     "editdialogs": "EditDialogs",
     "editorforms": "EditorForms",
     "export": "Table/TablesExport",
