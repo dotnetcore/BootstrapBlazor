@@ -1047,7 +1047,8 @@
     "Foo.Address2": "地球、中国、上海市普陀区金沙江路 {0} 弄 这里是超长单元格示例",
     "Foo.BindValue": "绑定值",
     "True": "通过",
-    "False": "未通过"
+    "False": "未通过",
+    "NullItemText": "未设置"
   },
   "BootstrapBlazor.Shared.Pages.ValidateForms.ComplexFoo": {
     "Name": "姓名",

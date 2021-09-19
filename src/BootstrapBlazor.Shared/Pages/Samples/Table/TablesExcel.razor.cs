@@ -75,9 +75,20 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             DataTableDynamicContext = new(UserData, (context, col) =>
             {
+                // 设置 bool 类型渲染成 Switch
                 if (col.GetFieldName() == nameof(Foo.Complete))
                 {
                     col.Align = Alignment.Center;
+                }
+
+                // 设置 Enum 类型渲染成 Select
+                if (col.GetFieldName() == nameof(Foo.Education))
+                {
+                    col.ComponentType = typeof(Select<>).MakeGenericType(typeof(string));
+                    col.ComponentParameters = new List<KeyValuePair<string, object>>(new KeyValuePair<string, object>[]
+                    {
+                        new(nameof(Select<string>.Items), typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value)))
+                    });
                 }
             });
 

@@ -385,7 +385,7 @@ namespace BootstrapBlazor.Components
         /// 通过指定类型生成组件类型
         /// </summary>
         /// <param name="fieldType"></param>
-        /// <param name="hasRows"></param>
+        /// <param name="hasRows">是否为 Textarea 组件</param>
         /// <returns></returns>
         private static Type GenerateComponentType(Type fieldType, bool hasRows)
         {

@@ -601,7 +601,8 @@ form .table .table-cell > textarea {
     width: auto;
 }
 
-.table-excel .form-control {
+.table-excel .form-control,
+.table-excel .table-cell .select .form-select {
     border: none;
     border-radius: 0;
     padding: .375rem .1875rem;

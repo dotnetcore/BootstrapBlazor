@@ -853,30 +853,20 @@ namespace BootstrapBlazor.Components
             {
                 col.EditTemplate = row => builder =>
                 {
+                    // 设置 bool 类型渲染成 Switch
+                    if (col.PropertyType == typeof(bool))
+                    {
+                        col.ComponentType = typeof(Switch);
+                    }
                     var d = (IDynamicObject)row;
-                    var propertyName = col.GetFieldName();
-                    var v = d.GetValue(propertyName);
-                    if (v is bool val)
+                    var onValueChanged = Utility.CreateOnValueChanged<IDynamicObject>(col.PropertyType).Compile();
+                    if (DynamicContext.OnValueChanged != null)
                     {
-                        builder.OpenComponent<Switch>(0);
-                        builder.AddAttribute(1, nameof(Switch.Value), val);
-                        if (DynamicContext.OnValueChanged != null)
-                        {
-                            builder.AddAttribute(2, nameof(Switch.OnValueChanged), new Func<bool, Task>(v => DynamicContext.OnValueChanged(d, col, v)));
-                        }
-                        builder.CloseComponent();
+                        var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
+                        parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
+                        col.ComponentParameters = parameters;
                     }
-                    else
-                    {
-                        var onValueChanged = Utility.CreateOnValueChanged<IDynamicObject>(col.PropertyType).Compile();
-                        if (DynamicContext.OnValueChanged != null)
-                        {
-                            var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
-                            parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
-                            col.ComponentParameters = parameters;
-                        }
-                        builder.CreateComponentByFieldType(this, col, row, false, "");
-                    }
+                    builder.CreateComponentByFieldType(this, col, row, false, "");
                 };
             }
             return RenderCell(col, item);
