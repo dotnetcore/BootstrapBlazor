@@ -195,10 +195,17 @@ namespace BootstrapBlazor.Components
         public RenderFragment<TableColumnContext<object, TType>>? Template { get; set; }
 
         /// <summary>
+        /// 获得/设置 额外数据源一般用于 Select 或者 CheckboxList 这种需要额外配置数据源组件使用
+        /// </summary>
+        [Parameter]
+        [Obsolete("过期属性，请更改为 Items")]
+        public IEnumerable<SelectedItem>? Data { get { return Items; } set { Items = value; } }
+
+        /// <summary>
         /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
         /// </summary>
         [Parameter]
-        public IEnumerable<SelectedItem>? Data { get; set; }
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 编辑模板

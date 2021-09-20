@@ -47,7 +47,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
         /// </summary>
-        IEnumerable<SelectedItem>? Data { get; set; }
+        [Obsolete("过期属性，请更改为 Items")]
+        IEnumerable<SelectedItem>? Data { get { return Items; } set { Items = value; } }
+
+        /// <summary>
+        /// 获得/设置 额外数据源一般用于 Select 或者 CheckboxList 这种需要额外配置数据源组件使用
+        /// </summary>
+        IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 步长 默认为 null

@@ -94,7 +94,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
         /// </summary>
-        public IEnumerable<SelectedItem>? Data { get; set; }
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 显示顺序
@@ -238,7 +238,7 @@ namespace BootstrapBlazor.Components
             if (source.Sortable) dest.Sortable = source.Sortable;
             if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
             if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
-            if (source.Data != null) dest.Data = source.Data;
+            if (source.Items != null) dest.Items = source.Items;
             if (source.Lookup != null) dest.Lookup = source.Lookup;
             if (source.Template != null)
             {

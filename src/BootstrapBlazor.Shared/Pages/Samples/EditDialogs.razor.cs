@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             var items = EditorItem<Foo>.GenerateEditorItems();
             var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-            item.Data = Foo.GenerateHobbys(Localizer);
+            item.Items = Foo.GenerateHobbys(Localizer);
 
             var option = new EditDialogOption<Foo>()
             {
@@ -68,7 +68,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             var items = EditorItem<Foo>.GenerateEditorItems();
             var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-            item.Data = Foo.GenerateHobbys(Localizer);
+            item.Items = Foo.GenerateHobbys(Localizer);
 
             var option = new EditDialogOption<Foo>()
             {
@@ -97,7 +97,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             var items = EditorItem<Foo>.GenerateEditorItems();
             var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-            item.Data = Foo.GenerateHobbys(Localizer);
+            item.Items = Foo.GenerateHobbys(Localizer);
 
             // 设置 地址与数量 不可编辑
             item = items.First(i => i.GetFieldName() == nameof(Foo.Address));

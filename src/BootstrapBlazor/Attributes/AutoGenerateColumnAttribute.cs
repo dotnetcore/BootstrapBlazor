@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public SortOrder DefaultSortOrder { get; set; }
 
-        IEnumerable<SelectedItem>? IEditorItem.Data { get; set; }
+        IEnumerable<SelectedItem>? IEditorItem.Items { get; set; }
 
         /// <summary>
         /// 获得/设置 列宽

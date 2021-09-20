@@ -328,17 +328,15 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), item.Readonly);
             }
 
-            if (IsCheckboxList(fieldType) && item.Data != null)
+            if (IsCheckboxList(fieldType) && item.Items != null)
             {
-                var data = item.Data.Select(d => new SelectedItem(d.Value, d.Text)).ToList();
-                builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), data);
+                builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
             }
 
             // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
-            if (item.Data != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
+            if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
             {
-                var data = item.Data.Select(d => new SelectedItem(d.Value, d.Text)).ToList();
-                builder.AddAttribute(7, nameof(Select<SelectedItem>.Items), data);
+                builder.AddAttribute(7, nameof(Select<SelectedItem>.Items), item.Items.Clone());
             }
 
             // 设置 SkipValidate 参数
@@ -355,6 +353,13 @@ namespace BootstrapBlazor.Components
             }
             builder.CloseComponent();
         }
+
+        private static List<SelectedItem> Clone(this IEnumerable<SelectedItem> source) => source.Select(d => new SelectedItem(d.Value, d.Text)
+        {
+            Active = d.Active,
+            IsDisabled = d.IsDisabled,
+            GroupName = d.GroupName
+        }).ToList();
 
         private static object? GenerateValue(object model, string fieldName)
         {
