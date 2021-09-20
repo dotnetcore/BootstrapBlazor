@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-sm", TableSize == TableSize.Compact)
             .AddClass("table-excel", IsExcel)
             .AddClass("table-bordered", IsBordered)
-            .AddClass("table-striped table-hover", IsStriped && !IsExcel)
+            .AddClass("table-striped table-hover", IsStriped)
             .Build();
 
         /// <summary>
@@ -417,12 +417,6 @@ namespace BootstrapBlazor.Components
         public EventCallback<IEnumerable<TItem>> ItemsChanged { get; set; }
 
         /// <summary>
-        /// 获得/设置 单元格变化时回调委托 仅 <see cref="IsExcel"/> 模式下生效
-        /// </summary>
-        [Parameter]
-        public Func<TItem, ITableColumn, object?, Task>? OnCellValueChanged { get; set; }
-
-        /// <summary>
         /// 获得/设置 表格组件大小 默认为 Normal 正常模式
         /// </summary>
         [Parameter]
@@ -467,6 +461,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否斑马线样式 默认为 false
         /// </summary>
+        /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
         [Parameter]
         public bool IsStriped { get; set; }
 
@@ -479,6 +474,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否自动刷新表格 默认为 false
         /// </summary>
+        /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
         [Parameter]
         public bool IsAutoRefresh { get; set; }
 
@@ -509,26 +505,28 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否显示每行的明细行展开图标
         /// </summary>
+        /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
         [Parameter]
         public Func<TItem, bool>? ShowDetailRow { get; set; }
 
         /// <summary>
         /// 获得/设置 是否为树形数据 默认为 false
         /// </summary>
-        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置树状数据关联列，是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置</remarks>
+        /// <remarks>通过 <see cref="ChildrenColumnName"/> 参数设置树状数据关联列，是否有子项请使用 <seealso cref="HasChildrenColumnName"/> 树形进行设置，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
         [Parameter]
         public bool IsTree { get; set; }
 
         /// <summary>
         /// 获得/设置 树形数据模式子项字段 默认为 Children
         /// </summary>
-        /// <remarks>通过 <see cref="HasChildrenColumnName"/> 参数判断是否有子项</remarks>
+        /// <remarks>通过 <see cref="HasChildrenColumnName"/> 参数判断是否有子项，此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
         [Parameter]
         public string ChildrenColumnName { get; set; } = "Children";
 
         /// <summary>
         /// 获得/设置 树形数据模式子项字段是否有子节点属性名称 默认为 HasChildren 无法提供时请设置 <see cref="HasChildrenCallback"/> 回调方法
         /// </summary>
+        /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
         [Parameter]
         public string HasChildrenColumnName { get; set; } = "HasChildren";
 
@@ -611,6 +609,14 @@ namespace BootstrapBlazor.Components
             base.OnParametersSet();
 
             RowItemsCache = null;
+
+            if (IsExcel)
+            {
+                IsStriped = false;
+                IsMultipleSelect = true;
+                IsTree = false;
+                IsDetails = false;
+            }
 
             if (!FirstRender)
             {
@@ -848,7 +854,21 @@ namespace BootstrapBlazor.Components
 
         private RenderFragment RenderExcelCell(ITableColumn col, TItem item)
         {
-            if (DynamicContext != null && col.EditTemplate == null)
+            col.PlaceHolder ??= "";
+            if (col.EditTemplate == null)
+            {
+                if (DynamicContext != null)
+                {
+                    SetDynamicEditTemplate();
+                }
+                else
+                {
+                    SetEditTemplate();
+                }
+            }
+            return RenderCell(col, item);
+
+            void SetDynamicEditTemplate()
             {
                 col.EditTemplate = row => builder =>
                 {
@@ -865,10 +885,20 @@ namespace BootstrapBlazor.Components
                         parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                         col.ComponentParameters = parameters;
                     }
-                    builder.CreateComponentByFieldType(this, col, row, false, "");
+                    builder.CreateComponentByFieldType(this, col, row, false);
                 };
             }
-            return RenderCell(col, item);
+
+            void SetEditTemplate()
+            {
+                if (OnSaveAsync != null)
+                {
+                    var onValueChanged = Utility.CreateOnValueChanged<TItem>(col.PropertyType).Compile();
+                    var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
+                    parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(item, col, (model, column, val) => OnSaveAsync(model, ItemChangedType.Update))));
+                    col.ComponentParameters = parameters;
+                }
+            }
         }
 
         #region Filter

@@ -92,36 +92,26 @@ namespace BootstrapBlazor.Shared.Pages.Table
             // Excel 模式下新建要求更改数据源
             var foo = new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" };
             Items.Insert(0, foo);
+
+            // 输出日志信息
+            Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Add");
             return Task.FromResult(foo);
         }
 
         private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
         {
-            // 增加数据演示代码
-            if (changedType == ItemChangedType.Add)
-            {
-                item.Id = Items.Max(i => i.Id) + 1;
-                Items.Add(item);
-            }
-            else
-            {
-                var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
-                if (oldItem != null)
-                {
-                    oldItem.Name = item.Name;
-                    oldItem.Address = item.Address;
-                    oldItem.DateTime = item.DateTime;
-                    oldItem.Count = item.Count;
-                    oldItem.Complete = item.Complete;
-                    oldItem.Education = item.Education;
-                }
-            }
+            // 对象已经更新
+            // 输出日志信息
+            Trace.Log($"单元格变化通知 类: Foo - 值: 单元格");
             return Task.FromResult(true);
         }
 
         private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
         {
             Items.RemoveAll(i => items.Contains(i));
+
+            // 输出日志信息
+            Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
             return Task.FromResult(true);
         }
     }

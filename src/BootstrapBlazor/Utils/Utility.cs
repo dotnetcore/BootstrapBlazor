@@ -345,7 +345,7 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(8, nameof(IEditorItem.SkipValidate), item.SkipValidate);
             }
 
-            builder.AddMultipleAttributes(9, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel, placeholder));
+            builder.AddMultipleAttributes(9, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel));
 
             if (item.ComponentParameters != null)
             {
@@ -458,16 +458,15 @@ namespace BootstrapBlazor.Components
         /// <param name="fieldName">字段名称</param>
         /// <param name="item">IEditorItem 实例</param>
         /// <param name="showLabel"></param>
-        /// <param name="placeholder"></param>
         /// <returns></returns>
-        private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item, bool? showLabel = null, string? placeholder = null)
+        private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item, bool? showLabel = null)
         {
             var ret = new List<KeyValuePair<string, object>>();
             var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
             switch (type.Name)
             {
                 case nameof(String):
-                    var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName) ?? placeholder;
+                    var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
                     if (ph != null)
                     {
                         ret.Add(new("placeholder", ph));

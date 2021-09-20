@@ -41,7 +41,6 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 placeholder 文本 默认为 null
         /// </summary>
-        [Parameter]
         string? PlaceHolder { get; set; }
 
         /// <summary>

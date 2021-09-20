@@ -1230,7 +1230,7 @@
     "ChartPie": "饼图",
     "ChartDoughnut": "圆环图",
     "ChartBubble": "气泡图",
-    "Transition": "过渡效果"
+    "Transition": "过渡效果 Transition"
   },
   "BootstrapBlazor.Shared.Pages.Empties": {
     "Title": "Empty 空状态",

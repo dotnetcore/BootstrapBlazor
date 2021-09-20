@@ -204,9 +204,9 @@ namespace BootstrapBlazor.Components
         /// <param name="inCell"></param>
         /// <returns></returns>
         protected string? GetCellClassString(ITableColumn col, bool hasChildren, bool inCell) => CssBuilder.Default("table-cell")
-            .AddClass("justify-content-start text-star", col.Align == Alignment.Left)
-            .AddClass("justify-content-end text-end", col.Align == Alignment.Right)
-            .AddClass("justify-content-center text-center", col.Align == Alignment.Center)
+            .AddClass("text-star", col.Align == Alignment.Left)
+            .AddClass("text-end", col.Align == Alignment.Right)
+            .AddClass("text-center", col.Align == Alignment.Center)
             .AddClass("is-wrap", col.AllowTextWrap)
             .AddClass("is-ellips", col.TextEllipsis)
             .AddClass("is-tips", col.ShowTips)

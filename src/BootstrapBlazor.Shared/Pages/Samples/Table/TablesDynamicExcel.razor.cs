@@ -78,7 +78,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 // 设置 Enum 类型渲染成 Select
                 if (col.GetFieldName() == nameof(Foo.Education))
                 {
-                    col.ComponentType = typeof(Select<>).MakeGenericType(typeof(string));
+                    col.ComponentType = typeof(Select<string>);
                     col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value));
                 }
             });

@@ -59,7 +59,9 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否为多选模式 默认为 false
         /// </summary>
-        [Parameter] public bool IsMultipleSelect { get; set; }
+        /// <remarks>此参数在 <see cref="IsExcel"/> 模式下为 true</remarks>
+        [Parameter]
+        public bool IsMultipleSelect { get; set; }
 
         /// <summary>
         /// 获得/设置 是否显示选择框文字

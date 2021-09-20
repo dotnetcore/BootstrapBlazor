@@ -622,3 +622,11 @@ form .table .table-cell > textarea {
 .table-excel.table tbody tr.active {
     background-color: transparent;
 }
+
+.table-cell.text-center input {
+    text-align: center;
+}
+
+.table-cell.text-end input {
+    text-align: right;
+}

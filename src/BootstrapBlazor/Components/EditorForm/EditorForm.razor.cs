@@ -145,6 +145,7 @@ namespace BootstrapBlazor.Components
                 throw new ArgumentNullException(nameof(Model));
             }
 
+            // 统一设置所有 IEditorItem 的 PlaceHolder
             PlaceHolderText ??= Localizer[nameof(PlaceHolderText)];
         }
 
@@ -234,7 +235,8 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                builder.CreateComponentByFieldType(this, item, Model, ShowLabel, PlaceHolderText);
+                item.PlaceHolder ??= PlaceHolderText;
+                builder.CreateComponentByFieldType(this, item, Model, ShowLabel);
             }
         };
     }
