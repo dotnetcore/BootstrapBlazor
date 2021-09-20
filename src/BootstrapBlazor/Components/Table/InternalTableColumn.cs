@@ -251,6 +251,7 @@ namespace BootstrapBlazor.Components
             if (source.Rows > 0) dest.Rows = source.Rows;
             if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
             if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
+            if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
         }
     }
 }

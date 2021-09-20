@@ -618,7 +618,7 @@ RenderFragment<TItem> RenderRow => item =>
                     }
                     else
                     {
-                        @if (string.IsNullOrEmpty(value))
+                        @if (value == null)
                         {
                             @GetValue(col, item)
                         }
