@@ -51,7 +51,7 @@ namespace UnitTest.Emit
 
             public string Text { get; set; }
 
-            public IEnumerable<SelectedItem> Data { get; set; }
+            public IEnumerable<SelectedItem> Items { get; set; }
 
             public object Step { get; set; }
 

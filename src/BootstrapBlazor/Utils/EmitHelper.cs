@@ -18,6 +18,11 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 通过 ITableColumn 创建动态类
         /// </summary>
+        /// <param name="typeName">动态类名称</param>
+        /// <param name="cols">ITableColumn 集合</param>
+        /// <param name="parent">父类类型</param>
+        /// <param name="creatingCallback">回调委托</param>
+        /// <returns></returns>
         public static Type? CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
         {
             var typeBuilder = CreateTypeBuilderByName(typeName, parent);
