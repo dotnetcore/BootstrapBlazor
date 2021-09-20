@@ -91,15 +91,15 @@ namespace BootstrapBlazor.Components
         public abstract Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items);
 
         /// <summary>
-        /// 动态类型增加删除时触发
-        /// </summary>
-        /// <returns></returns>
-        public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
-
-        /// <summary>
-        /// 动态类型变更回调方法
+        /// 动态类型集合变化时回调方法
         /// </summary>
         /// <returns></returns>
         public Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
+
+        /// <summary>
+        /// 动态类型属性值变化时回调方法
+        /// </summary>
+        /// <returns></returns>
+        public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
     }
 }

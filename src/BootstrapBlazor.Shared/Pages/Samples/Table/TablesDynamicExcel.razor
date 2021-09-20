@@ -1,0 +1,27 @@
+﻿@page "/tables/dynamicexcel"
+
+<h3>Table 表格</h3>
+
+<h4>常用于大数据单表维护</h4>
+
+<Block Title="Excel 模式" Introduction="通过设置表格的 <code>IsExcel</code> 属性，使组件呈现为类似 <code>Excel</code>" Name="Excel">
+    <p><code>Excel</code> 模式下绑定是 <b>动态类型</b> 时，无法使用 <code>TableColumn</code> 对列属性进行设置，本例中使用 <code>DynamicContext</code> 实例对象 <code>DataTableDynamicContext</code> 构造函数进行设置</p>
+    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+           IsBordered="true" IsMultipleSelect="true" IsExcel="true">
+    </Table>
+    <BlockLogger @ref="Trace" class="mt-3" />
+</Block>
+
+<Block Title="枚举类型" Introduction="设置列 <code>Data</code> 值，将枚举类型渲染成 <code>Select</code> 组件" Name="Enum">
+    <Pre>DataTableDynamicContext = new(UserData, (context, col) =>
+{
+    if (col.GetFieldName() == nameof(Foo.Education))
+    {
+        col.ComponentType = typeof(Select&lt;&gt;).MakeGenericType(typeof(string));
+        col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", "请选择"));
+    }
+});</Pre>
+    <div>
+        通过上面代码将 <code>Education</code> 列使用 <code>Select</code> 组件渲染
+    </div>
+</Block>

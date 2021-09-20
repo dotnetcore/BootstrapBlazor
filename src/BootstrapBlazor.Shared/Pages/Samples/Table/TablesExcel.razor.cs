@@ -6,11 +6,12 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Table
@@ -20,11 +21,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     partial class TablesExcel
     {
-        [NotNull]
-        private DataTableDynamicContext? DataTableDynamicContext { get; set; }
-
-        private DataTable UserData { get; } = new DataTable();
-
         [Inject]
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
@@ -32,10 +28,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [Inject]
         [NotNull]
         private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
-
-        private string? ButtonAddColumnText { get; set; }
-
-        private string? ButtonRemoveColumnText { get; set; }
 
         [NotNull]
         private BlockLogger? Trace { get; set; }
@@ -47,64 +39,90 @@ namespace BootstrapBlazor.Shared.Pages.Table
         {
             base.OnInitialized();
 
-            ButtonAddColumnText ??= TablesLocalizer[nameof(ButtonAddColumnText)];
-            ButtonRemoveColumnText ??= TablesLocalizer[nameof(ButtonRemoveColumnText)];
-
-            // 初始化 DataTable
-            InitDataTable();
-
-            // 初始化 DataTableContext 绑定 Table 组件
-            InitDataTableContext();
+            Items = Foo.GenerateFoo(Localizer);
         }
 
-        private void InitDataTable()
-        {
-            UserData.Columns.Add(new DataColumn(nameof(Foo.DateTime), typeof(DateTime)) { DefaultValue = DateTime.Now });
-            UserData.Columns.Add(nameof(Foo.Name), typeof(string));
-            UserData.Columns.Add(nameof(Foo.Complete), typeof(bool));
-            UserData.Columns.Add(nameof(Foo.Education), typeof(string));
-            UserData.Columns.Add(nameof(Foo.Count), typeof(int));
+        // 绑定数据源代码
+        private static IEnumerable<int> PageItemsSource => new int[] { 10, 20, 40 };
 
-            Foo.GenerateFoo(Localizer, 10).ForEach(f =>
+        [NotNull]
+        private List<Foo>? Items { get; set; }
+
+        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>>> SortLambdaCache = new();
+
+        private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+        {
+            IEnumerable<Foo> items = Items;
+
+            // 过滤
+            var isFiltered = false;
+            if (options.Filters.Any())
             {
-                UserData.Rows.Add(f.DateTime, f.Name, f.Complete, f.Education, f.Count);
+                items = items.Where(options.Filters.GetFilterFunc<Foo>());
+                isFiltered = true;
+            }
+
+            // 排序
+            var isSorted = false;
+            if (!string.IsNullOrEmpty(options.SortName))
+            {
+                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => LambdaExtensions.GetSortLambda<Foo>().Compile());
+                items = invoker(items, options.SortName, options.SortOrder);
+                isSorted = true;
+            }
+
+            // 设置记录总数
+            var total = items.Count();
+
+            // 内存分页
+            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+            return Task.FromResult(new QueryData<Foo>()
+            {
+                Items = items,
+                TotalCount = total,
+                IsSorted = isSorted,
+                IsFiltered = isFiltered,
+                IsSearch = true
             });
         }
 
-        private void InitDataTableContext()
+        private Task<Foo> OnAddAsync()
         {
-            DataTableDynamicContext = new(UserData, (context, col) =>
+            // Excel 模式下新建要求更改数据源
+            var foo = new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" };
+            Items.Insert(0, foo);
+            return Task.FromResult(foo);
+        }
+
+        private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
+        {
+            // 增加数据演示代码
+            if (changedType == ItemChangedType.Add)
             {
-                // 设置 bool 类型渲染成 Switch
-                if (col.GetFieldName() == nameof(Foo.Complete))
-                {
-                    col.Align = Alignment.Center;
-                }
-
-                // 设置 Enum 类型渲染成 Select
-                if (col.GetFieldName() == nameof(Foo.Education))
-                {
-                    col.ComponentType = typeof(Select<>).MakeGenericType(typeof(string));
-                    col.ComponentParameters = new List<KeyValuePair<string, object>>(new KeyValuePair<string, object>[]
-                    {
-                        new(nameof(Select<string>.Items), typeof(EnumEducation).ToSelectList(new SelectedItem("", Localizer["NullItemText"].Value)))
-                    });
-                }
-            });
-
-            var method = DataTableDynamicContext.OnValueChanged;
-            DataTableDynamicContext.OnValueChanged = async (model, col, val) =>
+                item.Id = Items.Max(i => i.Id) + 1;
+                Items.Add(item);
+            }
+            else
             {
-                // 调用内部提供的方法
-                if (method != null)
+                var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
+                if (oldItem != null)
                 {
-                    // 内部方法会更新原始数据源 DataTable
-                    await method(model, col, val);
+                    oldItem.Name = item.Name;
+                    oldItem.Address = item.Address;
+                    oldItem.DateTime = item.DateTime;
+                    oldItem.Count = item.Count;
+                    oldItem.Complete = item.Complete;
+                    oldItem.Education = item.Education;
                 }
+            }
+            return Task.FromResult(true);
+        }
 
-                // 输出日志信息
-                Trace.Log($"FieldName: {col.GetFieldName()} - Value: {val?.ToString()}");
-            };
+        private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
+        {
+            Items.RemoveAll(i => items.Contains(i));
+            return Task.FromResult(true);
         }
     }
 }

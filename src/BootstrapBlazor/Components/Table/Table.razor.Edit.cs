@@ -250,8 +250,7 @@ namespace BootstrapBlazor.Components
 
         private async Task OnSelectedRowsChanged()
         {
-            var rows = new List<TItem>(SelectedItems);
-            SelectedRows = rows;
+            SelectedRows = new List<TItem>(SelectedItems);
             if (SelectedRowsChanged.HasDelegate)
             {
                 await SelectedRowsChanged.InvokeAsync(SelectedRows);

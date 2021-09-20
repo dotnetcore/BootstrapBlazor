@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace BootstrapBlazor.Shared.Shared
 {
     /// <summary>
-    ///
+    /// 
     /// </summary>
     public sealed partial class NavMenu
     {
@@ -620,6 +620,12 @@ namespace BootstrapBlazor.Shared.Shared
                     IsNew = true,
                     Text = Localizer["TableExcel"],
                     Url = "tables/excel"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["TableDynamicExcel"],
+                    Url = "tables/dynamicexcel"
                 },
                 new()
                 {

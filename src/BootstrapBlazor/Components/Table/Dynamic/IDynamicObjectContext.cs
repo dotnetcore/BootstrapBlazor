@@ -40,13 +40,13 @@ namespace BootstrapBlazor.Components
         Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items);
 
         /// <summary>
-        /// 动态类型变更回调方法
+        /// 动态类型属性值变化时回调方法
         /// </summary>
         /// <returns></returns>
         Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
 
         /// <summary>
-        /// 
+        /// 动态类型集合变化时回调方法
         /// </summary>
         Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
     }

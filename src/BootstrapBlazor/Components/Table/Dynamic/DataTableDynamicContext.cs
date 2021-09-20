@@ -125,13 +125,12 @@ namespace BootstrapBlazor.Components
                 {
                     foreach (DataColumn col in DataTable.Columns)
                     {
-                        var invoker = SetPropertyCache.GetOrAdd((d.GetType(), col.ColumnName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(d, key.PropertyName).Compile());
-                        var v = row[col];
-                        if (row.IsNull(col))
+                        if (!row.IsNull(col))
                         {
-                            v = null;
+                            var invoker = SetPropertyCache.GetOrAdd((d.GetType(), col.ColumnName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(d, key.PropertyName).Compile());
+                            var v = row[col];
+                            invoker.Invoke(d, v);
                         }
-                        invoker.Invoke(d, v);
                     }
 
                     d.Row = row;
@@ -201,7 +200,7 @@ namespace BootstrapBlazor.Components
 
                 if (item != null && Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var c))
                 {
-                    indexOfRow = Math.Max(0, DataTable.Rows.IndexOf(c.Row) - 1);
+                    indexOfRow = DataTable.Rows.IndexOf(c.Row);
                 }
 
                 // DataTable 数据源增加数据
@@ -224,6 +223,12 @@ namespace BootstrapBlazor.Components
 
                 // 缓存更新数据
                 Caches.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
+
+                // 触发 Changed 回调
+                if (OnChanged != null)
+                {
+                    await OnChanged(new(new[] { dynamicObject }, DynamicItemChangedType.Add));
+                }
             }
         }
 
@@ -277,22 +282,11 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private Task OnCellValueChanged(IDynamicObject item, ITableColumn column, object? val)
         {
-            DataRow? row;
+            // 更新内部 DataRow
             if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
             {
-                row = cacheItem.Row;
-                row[column.GetFieldName()] = val;
+                cacheItem.Row[column.GetFieldName()] = val;
             }
-            else
-            {
-                row = DataTable.NewRow();
-                DataTable.Rows.InsertAt(row, 0);
-                foreach (DataColumn col in DataTable.Columns)
-                {
-                    row[col] = item.GetValue(col.ColumnName);
-                }
-            }
-            DataTable.AcceptChanges();
             return Task.CompletedTask;
         }
         #endregion

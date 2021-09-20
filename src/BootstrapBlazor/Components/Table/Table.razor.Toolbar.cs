@@ -217,13 +217,31 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task AddAsync()
         {
-            if (IsExcel && DynamicContext != null)
+            if (IsExcel)
             {
-                await DynamicContext.AddAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
-                ResetDynamicContext();
-                StateHasChanged();
+                await AddDynamicOjbectExcelModelAsync();
             }
             else if (UseInjectDataService || IsTracking || OnSaveAsync != null)
+            {
+                await AddItemAsync();
+            }
+            else
+            {
+                await ShowAddToastAsync(SaveButtonToastContent);
+            }
+
+            async Task ShowAddToastAsync(string content)
+            {
+                var option = new ToastOption
+                {
+                    Category = ToastCategory.Error,
+                    Title = AddButtonToastTitle,
+                    Content = content
+                };
+                await Toast.Show(option);
+            }
+
+            async Task AddItemAsync()
             {
                 await ToggleLoading(true);
                 if (OnAddAsync != null)
@@ -242,7 +260,6 @@ namespace BootstrapBlazor.Components
 
                 SelectedItems.Clear();
                 EditModalTitleString = AddModalTitle;
-
                 if (IsTracking)
                 {
                     RowItems.Insert(0, EditModel);
@@ -268,15 +285,33 @@ namespace BootstrapBlazor.Components
                 }
                 await ToggleLoading(false);
             }
-            else
+
+            async Task AddDynamicOjbectExcelModelAsync()
             {
-                var option = new ToastOption
+                if (DynamicContext != null)
                 {
-                    Category = ToastCategory.Error,
-                    Title = AddButtonToastTitle,
-                    Content = AddButtonToastContent
-                };
-                await Toast.Show(option);
+                    // 数据源为 DataTable 新建后重建行与列
+                    await DynamicContext.AddAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
+                    ResetDynamicContext();
+                    if (SelectedRows != null)
+                    {
+                        SelectedItems.AddRange(RowItems.Where(i => SelectedRows.Contains(i)));
+                    }
+                    StateHasChanged();
+                }
+                else
+                {
+                    if (OnAddAsync != null)
+                    {
+                        // TODO: 新建模式下插入新行位置如何判断？
+                        await OnAddAsync();
+                        await QueryAsync();
+                    }
+                    else
+                    {
+                        await ShowAddToastAsync(AddButtonToastContent);
+                    }
+                }
             }
         }
 
@@ -535,33 +570,47 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected Func<Task> DeleteAsync() => async () =>
         {
-            await ToggleLoading(true);
-            var ret = false;
-            if (IsExcel && DynamicContext != null)
+            if (IsExcel)
             {
-                ret = await DynamicContext.DeleteAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
-                ResetDynamicContext();
-                StateHasChanged();
+                await DeleteDynamicObjectExcelModelAsync();
+            }
+            else if (IsTracking)
+            {
+                RowItems.RemoveAll(i => SelectedItems.Contains(i));
+                SelectedItems.Clear();
+                await OnSelectedRowsChanged();
+                await UpdateAsync();
             }
             else
             {
-                if (IsTracking)
-                {
-                    RowItems.RemoveAll(i => SelectedItems.Any(item => item == i));
-                    ret = true;
-                }
-                else
-                {
-                    if (OnDeleteAsync != null)
-                    {
-                        ret = await OnDeleteAsync(SelectedItems);
-                    }
-                    else if (UseInjectDataService)
-                    {
-                        ret = await GetDataService().DeleteAsync(SelectedItems);
-                    }
-                }
+                await ToggleLoading(true);
+                var ret = await DelteItemsAsync();
 
+                var option = new ToastOption()
+                {
+                    Title = DeleteButtonToastTitle
+                };
+                option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
+                option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
+
+                if ((ShowErrorToast || ret) && !IsTracking)
+                {
+                    await Toast.Show(option);
+                }
+                await ToggleLoading(false);
+            }
+
+            async Task<bool> DelteItemsAsync()
+            {
+                var ret = false;
+                if (OnDeleteAsync != null)
+                {
+                    ret = await OnDeleteAsync(SelectedItems);
+                }
+                else if (UseInjectDataService)
+                {
+                    ret = await GetDataService().DeleteAsync(SelectedItems);
+                }
                 if (ret)
                 {
                     // 删除成功 重新查询
@@ -582,30 +631,28 @@ namespace BootstrapBlazor.Components
                     }
 
                     SelectedItems.Clear();
+                    await QueryAsync();
+                }
+                return ret;
+            }
 
-                    if (!IsTracking)
+            async Task DeleteDynamicObjectExcelModelAsync()
+            {
+                if (DynamicContext != null)
+                {
+                    await DynamicContext.DeleteAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
+                    ResetDynamicContext();
+                    StateHasChanged();
+                }
+                else
+                {
+                    if (OnDeleteAsync != null)
                     {
+                        await OnDeleteAsync(SelectedItems);
                         await QueryAsync();
-                    }
-                    else
-                    {
-                        await UpdateAsync();
                     }
                 }
             }
-
-            var option = new ToastOption()
-            {
-                Title = DeleteButtonToastTitle
-            };
-            option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
-            option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
-
-            if ((ShowErrorToast || ret) && !IsTracking)
-            {
-                await Toast.Show(option);
-            }
-            await ToggleLoading(false);
         };
 
         private void ResetDynamicContext()
@@ -619,7 +666,6 @@ namespace BootstrapBlazor.Components
                 Columns.AddRange(cols);
 
                 SelectedItems.Clear();
-                SelectedRows?.Clear();
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
                 RowItemsCache = null;
             }

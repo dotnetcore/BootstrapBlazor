@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Components
             .AddClass("table-sm", TableSize == TableSize.Compact)
             .AddClass("table-excel", IsExcel)
             .AddClass("table-bordered", IsBordered)
-            .AddClass("table-striped table-hover", IsStriped)
+            .AddClass("table-striped table-hover", IsStriped && !IsExcel)
             .Build();
 
         /// <summary>
@@ -49,7 +49,6 @@ namespace BootstrapBlazor.Components
             .AddClass("table-fixed", Height.HasValue)
             .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
             .AddClass("table-resize", AllowResizing)
-            .AddClass("position-relative", IsExcel && ActiveRenderMode == TableRenderMode.Table)
             .Build();
 
         /// <summary>
@@ -740,14 +739,14 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private IEnumerable<TItem>? QueryItems { get; set; }
 
-        private Lazy<List<TItem>>? RowItemsCache { get; set; }
+        private List<TItem>? RowItemsCache { get; set; }
 
         private List<TItem> RowItems
         {
             get
             {
-                RowItemsCache ??= new(() => Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>());
-                return IsTree ? GetTreeRows() : RowItemsCache.Value;
+                RowItemsCache ??= Items?.ToList() ?? QueryItems?.ToList() ?? new List<TItem>();
+                return IsTree ? GetTreeRows() : RowItemsCache;
             }
         }
 
@@ -842,7 +841,7 @@ namespace BootstrapBlazor.Components
         #endregion
 
         private RenderFragment RenderCell(ITableColumn col, TItem item) => col.EditTemplate == null
-            ? (col.Readonly
+            ? (col.Readonly || !col.Editable
                 ? builder => builder.CreateDisplayByFieldType(this, col, item, false)
                 : builder => builder.CreateComponentByFieldType(this, col, item, false))
             : col.EditTemplate.Invoke(item);

@@ -596,9 +596,8 @@ form .table .table-cell > textarea {
 }
 
 .table-excel tbody .table-cell .switch {
-    height: 35px;
     padding: .375rem .1875rem;
-    width: auto;
+    justify-content: center;
 }
 
 .table-excel .form-control,
@@ -606,6 +605,10 @@ form .table .table-cell > textarea {
     border: none;
     border-radius: 0;
     padding: .375rem .1875rem;
+}
+
+.table-excel .table-cell .select {
+    width: 100%;
 }
 
 .table-excel .datetime-picker-input {
