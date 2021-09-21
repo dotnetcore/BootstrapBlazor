@@ -1,11 +1,11 @@
 ﻿{
   "BootstrapBlazor.Shared.App": {
+    "Title": "Bootstrap Blazor - 企业级 UI 组件库",
     "Reload": "重新加载",
     "ErrorMessage": "发生了未处理的异常。有关详细信息，请参见浏览器开发工具。"
   },
   "BootstrapBlazor.Shared.Pages.Index": {
     "BodyClassString": "welcome-body",
-    "Title": "Bootstrap Blazor - 企业级 UI 组件库",
     "HeaderTitle": "Bootstrap 风格的 Blazor UI 组件库",
     "HeaderDesc": "基于 <code>Bootstrap</code> 样式库精心打造，并且额外增加了 {0} 多种常用的组件，为您快速开发项目带来非一般的感觉",
     "HeaderBody": "致力于打造全网",

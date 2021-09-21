@@ -12,13 +12,13 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="枚举类型" Introduction="设置列 <code>Data</code> 值，将枚举类型渲染成 <code>Select</code> 组件" Name="Enum">
+<Block Title="枚举类型" Introduction="设置列 <code>Items</code> 值，将枚举类型渲染成 <code>Select</code> 组件" Name="Enum">
     <Pre>DataTableDynamicContext = new(UserData, (context, col) =>
 {
     if (col.GetFieldName() == nameof(Foo.Education))
     {
         col.ComponentType = typeof(Select&lt;string&gt;);
-        col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", "请选择"));
+        col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", "未设置"));
     }
 });</Pre>
     <div>
@@ -77,6 +77,9 @@
 
 <Pre>protected override void OnInitialized()
 {
+    // 获得内置 OnValueChanged 回调
+    var method = DataTableDynamicContext.OnValueChanged;
+
     DataTableDynamicContext.OnValueChanged = async (model, col, val) =>
     {
         // 调用内部提供的方法

@@ -1,11 +1,11 @@
 ﻿{
   "BootstrapBlazor.Shared.App": {
+    "Title": "Bootstrap Blazor enterprise-level UI component library",
     "Reload": "Reload",
     "ErrorMessage": "An unhandled exception has occurred. See browser dev tools for details."
   },
   "BootstrapBlazor.Shared.Pages.Index": {
     "BodyClassString": "welcome-body-en",
-    "Title": "Bootstrap Blazor enterprise-level UI component library",
     "HeaderTitle": "Bootstrap style Blazor UI component library",
     "HeaderDesc": "Based on the <code>Bootstrap</code> style library, it is carefully built, and {0} a variety of commonly used components have been added to bring you an extraordinary feeling for rapid development projects",
     "HeaderBody": "The ",
