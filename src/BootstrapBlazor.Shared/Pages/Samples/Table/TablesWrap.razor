@@ -52,7 +52,7 @@
             <TableColumn @bind-Field="@context.Address" Text="地址" Width="200" TextEllipsis="true" ShowTips="true" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)" />
+            <TableColumn @bind-Field="@context.Complete" />
         </TableColumns>
     </Table>
 </Block>
@@ -65,7 +65,7 @@
             <TableColumn @bind-Field="@context.Address" Text="地址" Width="200" TextEllipsis="true" ShowTips="true" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" ComponentType="@typeof(Switch)">
+            <TableColumn @bind-Field="@context.Complete">
                 <Template Context="v">
                     <div>
                         <div>状态:@v.Value</div>

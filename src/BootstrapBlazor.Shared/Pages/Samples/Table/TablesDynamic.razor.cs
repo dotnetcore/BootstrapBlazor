@@ -80,7 +80,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 else if (propertyName == nameof(Foo.Complete))
                 {
                     col.Filterable = true;
-                    col.ComponentType = typeof(Switch);
                     // 使用 DisplayAttribute 设置显示名称示例
                     context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
                         new(nameof(DisplayAttribute.Name), Localizer[nameof(Foo.Complete)].Value)

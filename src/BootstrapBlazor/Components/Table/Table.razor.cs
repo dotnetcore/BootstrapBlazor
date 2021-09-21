@@ -872,11 +872,6 @@ namespace BootstrapBlazor.Components
             {
                 col.EditTemplate = row => builder =>
                 {
-                    // 设置 bool 类型渲染成 Switch
-                    if (col.PropertyType == typeof(bool))
-                    {
-                        col.ComponentType = typeof(Switch);
-                    }
                     var d = (IDynamicObject)row;
                     var onValueChanged = Utility.CreateOnValueChanged<IDynamicObject>(col.PropertyType).Compile();
                     if (DynamicContext.OnValueChanged != null)

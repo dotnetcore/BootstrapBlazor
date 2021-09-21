@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         ///
         /// </summary>
         [Display(Name = "是/否")]
-        [AutoGenerateColumn(Order = 50, ComponentType = typeof(Switch))]
+        [AutoGenerateColumn(Order = 50)]
         public bool Complete { get; set; }
 
         /// <summary>

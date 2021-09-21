@@ -409,7 +409,7 @@ namespace BootstrapBlazor.Components
                 switch (type.Name)
                 {
                     case nameof(Boolean):
-                        ret = typeof(Checkbox<>).MakeGenericType(fieldType);
+                        ret = typeof(Switch);
                         break;
                     case nameof(DateTime):
                         ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
