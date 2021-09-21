@@ -433,7 +433,7 @@ namespace BootstrapBlazor.Shared.Shared
                 new()
                 {
                     Text = Localizer["HandwrittenPage"],
-                    Url = "handwrittenPage"
+                    Url = "handwrittenpage"
                 },
                 new()
                 {
