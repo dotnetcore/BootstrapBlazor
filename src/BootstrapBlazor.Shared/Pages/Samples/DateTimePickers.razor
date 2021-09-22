@@ -1,34 +1,34 @@
 ﻿@page "/datetimepickers"
 
-<h3>DatePicker 日期选择器</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>用于选择或输入日期</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="选择日" Introduction="以「日」为基本单位，基础的日期选择控件">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
     <div style="width: 320px;">
         <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" ShowFooter="false" />
     </div>
     <BlockLogger @ref="DateLogger" class="mt-3" />
 </Block>
 
-<Block Title="选择任意时间点" Introduction="可以选择任意时间">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
     <TimePickerBody Value="@TimeNow" ValueChanged="@TimeValueChanged" />
 
     <BlockLogger @ref="TimeLogger" class="mt-3" />
 </Block>
 
-<Block Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <div class="d-flex flex-column">
-                <div class="mb-1"><code>TimeSpan</code> 类型</div>
+                <div class="mb-1"><code>TimeSpan</code> @Localizer["codetext"]</div>
                 <TimePickerBody @bind-Value="@SpanValue" />
                 <BootstrapInput @bind-Value="@SpanValue" Formatter="@FormatterSpanString" style="width: 180px; margin-top: 0.5rem;" />
             </div>
         </div>
         <div class="col-12 col-sm-6">
             <div class="d-flex flex-column">
-                <div class="mb-1"><code>string</code> 类型</div>
+                <div class="mb-1"><code>string</code> @Localizer["codetext"]</div>
                 <TimePickerBody Value="@TimeNow" ValueChanged="@OnValueChange" />
                 <BootstrapInput @bind-Value="@SpanValue2" style="width: 180px; margin-top: 0.5rem;" />
             </div>
@@ -36,7 +36,7 @@
     </div>
 </Block>
 
-<Block Title="客户端验证" Introduction="根据自定义验证规则进行数据有效性检查并自动提示">
+<Block Title="@Localizer["Blcok4Title"]" Introduction="@Localizer["Block4Intro"]">
     <ValidateForm Model="this">
         <div class="row g-3">
             <div class="col-12 col-sm-auto">
@@ -49,7 +49,7 @@
     </ValidateForm>
 </Block>
 
-<Block Title="点击弹出日期框" Introduction="以「日」为基本单位，基础的日期选择控件">
+<Block Title="" Introduction="">
     <div class="row g-3">
         <div class="col-sm-4">
             <DateTimePicker TValue="DateTime" Value="@DateTime.Today" />
@@ -59,7 +59,7 @@
     <BlockLogger @ref="DateTimeLogger" class="mt-3" />
 </Block>
 
-<Block Title="数据双向绑定" Introduction="日期组件时间改变时文本框内的数值也跟着改变">
+<Block Title="" Introduction="">
     <div class="row g-3">
         <div class="col-sm-6">
             <DateTimePicker TValue="DateTime?" Value="@BindValue" ValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
@@ -70,13 +70,13 @@
     </div>
 </Block>
 
-<Block Title="带时间的选择器" Introduction="在同一个选择器里选择日期和时间，点击确认按钮后关闭弹窗">
-    <p>设置 <code>ViewModel</code> 属性值为 <code>DatePickerViewModel.DateTime</code></p>
+<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">
+    <p>@((MarkupString)Localizer["P1"].Value)</p>
     <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.DateTime" />
 </Block>
 
-<Block Title="允许空时间" Introduction="多用于条件选择">
-    <p>绑定值为可为空类型 <code>DateTime?</code> 时自动出现 <b>清空</b> 按钮</p>
+<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Blcok8Intro"]">
+    <p>@((MarkupString)Localizer["P2"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-8">
             <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" />
@@ -87,17 +87,17 @@
     </div>
 </Block>
 
-<Block Title="显示标签" Introduction="作为表单组件时，显示组件前方标签">
-    <p>设置 <code>DisplayText</code> 属性值为 <code>选择时间</code></p>
-    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
+<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]">
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
-            <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="选择时间" ShowLabel="true" />
+            <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="@Localizer["DisplayText"]" ShowLabel="true" />
         </div>
     </div>
 </Block>
 
-<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
+<Block Title="" Introduction="">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimePicker TValue="DateTime" IsDisabled="IsDisabled" />
@@ -108,7 +108,7 @@
     </div>
 </Block>
 
-<Block Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏">
+<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block12Title"]">
     <div class="row g-3">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewModel="DatePickerViewModel.DateTime" />
@@ -116,7 +116,7 @@
     </div>
 </Block>
 
-<Block Title="设置值范围" Introduction="设置 <code>MinValue</code> 属性值与 <code>MaxValue</code> 限制可选值范围，本例中设置范围为 <b>45</b> 天">
+<Block Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]">
     <div class="row g-3">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"

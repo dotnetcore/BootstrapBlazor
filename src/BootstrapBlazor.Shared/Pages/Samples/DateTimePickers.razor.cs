@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string? SubmitText { get; set; }
 
-        private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : "空值";
+        private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : " ";
 
         [Inject]
         [NotNull]
@@ -90,7 +90,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="d"></param>
         private Task DateValueChanged(DateTime d)
         {
-            DateLogger.Log($"选择的日期为: {d:yyyy-MM-dd}");
+            DateLogger.Log($"{Localizer["Log1Text"]}: {d:yyyy-MM-dd}");
             return Task.CompletedTask;
         }
 
@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="d"></param>
         private void TimeValueChanged(TimeSpan d)
         {
-            TimeLogger.Log($"选择的时间为: {d:hh\\:mm\\:ss}");
+            TimeLogger.Log($"{Localizer["Log2Text"]}: {d:hh\\:mm\\:ss}");
         }
 
         /// <summary>
@@ -139,13 +139,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnClickConfirm",
-                Description="确认按钮回调委托",
+                Description = Localizer["Event1"]!,
                 Type ="Action"
             },
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description="组件值改变时回调委托供双向绑定使用",
+                Description = Localizer["Event2"]!,
                 Type ="EventCallback<DateTime?>"
             },
         };
@@ -158,35 +158,35 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = Localizer["Att1"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowSidebar",
-                Description = "是否显示快捷侧边栏",
+                Description = Localizer["Att2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "前置标签显示文本",
+                Description = Localizer["Att3"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Format",
-                Description = "日期格式字符串 默认为 yyyy-MM-dd",
+                Description = Localizer["Att4"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "yyyy-MM-dd"
             },
             new AttributeItem() {
                 Name = "IsShown",
-                Description = "是否显示本组件",
+                Description = Localizer["Att5"]!,
                 Type = "boolean",
                 ValueList = "",
                 DefaultValue = "false"
@@ -194,28 +194,28 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = "是否禁用 默认为 fasle",
+                Description = Localizer["Att6"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "TimeFormat",
-                Description = "时间格式字符串 默认为 hh:mm:ss",
+                Description = Localizer["Att7"]!,
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "hh:mm:ss"
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = "组件值与 ValueChanged 作为双向绑定的值",
+                Description = Localizer["Att8"]!,
                 Type = "TValue",
                 ValueList = "DateTime | DateTime?",
                 DefaultValue = " — "
             },
              new AttributeItem() {
                 Name = "ViewModel",
-                Description = "获得/设置 组件显示模式 默认为显示年月日模式",
+                Description = Localizer["Att9"]!,
                 Type = "DatePickerViewModel",
                 ValueList = " Date / DateTime / Year / Month",
                 DefaultValue = "Date"
