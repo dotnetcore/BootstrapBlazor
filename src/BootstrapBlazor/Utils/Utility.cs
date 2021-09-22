@@ -325,7 +325,11 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
                 builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
                 builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
-                builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), item.Readonly);
+
+                if (!item.IsEditable())
+                {
+                    builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
+                }
             }
 
             if (IsCheckboxList(fieldType) && item.Items != null)

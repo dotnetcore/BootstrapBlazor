@@ -179,5 +179,12 @@ namespace BootstrapBlazor.Components
             >= 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
             _ => $"{fileSize} B"
         };
+
+        /// <summary>
+        /// 判断当前 IEditorItem 实例是否可以编辑
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static bool IsEditable(this IEditorItem item) => !item.Readonly && item.Editable;
     }
 }

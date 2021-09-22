@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Components
         bool Editable { get; set; }
 
         /// <summary>
-        /// 获得/设置 当前列编辑时是否只读 默认为 false
+        /// 获得/设置 当前列编辑时是否只读 默认为 false 自动生成 UI 为不可编辑 div
         /// </summary>
         bool Readonly { get; set; }
 

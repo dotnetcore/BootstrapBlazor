@@ -846,16 +846,18 @@ namespace BootstrapBlazor.Components
         private static ConcurrentDictionary<(Type Type, string PropertyName), Func<TItem, object?>> GetPropertyCache { get; } = new();
         #endregion
 
-        private RenderFragment RenderCell(ITableColumn col, TItem item) => col.EditTemplate == null
-            ? (col.Readonly || !col.Editable
-                ? builder => builder.CreateDisplayByFieldType(this, col, item, false)
-                : builder => builder.CreateComponentByFieldType(this, col, item, false))
-            : col.EditTemplate.Invoke(item);
+        private RenderFragment RenderCell(ITableColumn col, TItem item) => col.IsEditable()
+            ? (col.EditTemplate == null
+                ? builder => builder.CreateComponentByFieldType(this, col, item, false)
+                : col.EditTemplate(item))
+            : builder => builder.CreateDisplayByFieldType(this, col, item, false);
 
         private RenderFragment RenderExcelCell(ITableColumn col, TItem item)
         {
             col.PlaceHolder ??= "";
-            if (col.EditTemplate == null)
+
+            // 可编辑列未设置模板
+            if (col.IsEditable() && col.EditTemplate == null)
             {
                 if (DynamicContext != null)
                 {
