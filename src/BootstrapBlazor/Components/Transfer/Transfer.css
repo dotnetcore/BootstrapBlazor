@@ -135,3 +135,7 @@
 .transfer-panel-header .form-check .form-check-input {
     margin: 12px 0;
 }
+
+.transfer-panel-body .form-check-label {
+    max-width: 160px;
+}
