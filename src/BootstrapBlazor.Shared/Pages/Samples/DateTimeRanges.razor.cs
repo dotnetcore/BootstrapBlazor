@@ -53,6 +53,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnClearValue",
                 Description="清空按钮回调委托",
                 Type ="Action"
+            },
+            new EventItem()
+            {
+                Name = "OnValueChanged",
+                Description="值改变回调委托",
+                Type ="Func<DateTimeRangeValue,Task>"
             }
         };
 

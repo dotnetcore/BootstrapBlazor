@@ -241,6 +241,10 @@ namespace BootstrapBlazor.Components
             {
                 await ValueChanged.InvokeAsync(Value);
             }
+            if (OnValueChanged != null)
+            {
+                await OnValueChanged(Value);
+            }
             if (OnClearValue != null) await OnClearValue(Value);
 
             StartValue = DateTime.Today;
@@ -274,6 +278,10 @@ namespace BootstrapBlazor.Components
             if (ValueChanged.HasDelegate)
             {
                 await ValueChanged.InvokeAsync(Value);
+            }
+            if (OnValueChanged != null)
+            {
+                await OnValueChanged(Value);
             }
             if (OnConfirm != null) await OnConfirm(Value);
             await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
