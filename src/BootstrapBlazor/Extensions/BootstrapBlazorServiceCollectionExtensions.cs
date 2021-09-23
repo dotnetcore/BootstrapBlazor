@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.Json;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -49,6 +50,14 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure<BootstrapBlazorOptions>(options =>
             {
                 configureOptions?.Invoke(options);
+
+                // 设置默认文化信息
+                if (options.DefaultCultureInfo != null)
+                {
+                    var culture = new CultureInfo(options.DefaultCultureInfo);
+                    CultureInfo.DefaultThreadCurrentCulture = culture;
+                    CultureInfo.DefaultThreadCurrentUICulture = culture;
+                }
             });
 
             services.AddHttpClient();

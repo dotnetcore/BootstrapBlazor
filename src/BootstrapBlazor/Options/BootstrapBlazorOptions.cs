@@ -51,6 +51,12 @@ namespace BootstrapBlazor.Components
         public bool FallBackToParentUICultures { get; set; } = true;
 
         /// <summary>
+        /// 获得/设置 默认文化信息
+        /// </summary>
+        /// <remarks>开启多文化时此参数无效</remarks>
+        public string? DefaultCultureInfo { get; set; }
+
+        /// <summary>
         /// 获得/设置 网站主题集合
         /// </summary>
         [NotNull]
