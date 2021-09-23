@@ -74,13 +74,13 @@ namespace BootstrapBlazor.Components
         public bool IsDraggable { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示关闭按钮
+        /// 获得/设置 是否显示关闭按钮 默认为 true 显示
         /// </summary>
         [Parameter]
         public bool ShowCloseButton { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否显示打印按钮
+        /// 获得/设置 是否显示打印按钮 默认为 false 不显示
         /// </summary>
         [Parameter]
         public bool ShowPrintButton { get; set; }

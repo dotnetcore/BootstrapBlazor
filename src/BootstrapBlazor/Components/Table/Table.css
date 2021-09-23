@@ -1,5 +1,6 @@
 ﻿.table-container {
     position: relative;
+    height: 100%;
 }
 
 .table-wrapper {
@@ -280,8 +281,8 @@
 }
 
 .table-fixed-body {
-    overflow-x: auto;
-    overflow-y: scroll;
+    overflow-x: auto !important;
+    overflow-y: scroll !important;
 }
 
 .table-scroll {

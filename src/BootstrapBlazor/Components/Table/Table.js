@@ -67,7 +67,7 @@
                                     $table.width(tableWidth + marginX);
                                 }
                                 else {
-                                    $table.width(tableWidth + marginX - 17);
+                                    $table.width(tableWidth + marginX - 6);
                                 }
                             });
                         },
@@ -159,7 +159,7 @@
                                 margin = (parseFloat(margin) - 2) + 'px';
                             }
                             else if ($.browser.versions.mobile) {
-                                margin = (parseFloat(margin) - 17) + 'px';
+                                margin = (parseFloat(margin) - 6) + 'px';
                             }
                             $prev.css({ 'right': margin }).addClass('modified');
                             $prev = $prev.prev();
@@ -173,6 +173,20 @@
                         $fs.remove();
                     }
                 }
+
+                // 尝试自适应高度
+                var paginationHeight = $ele.find('.table-pagination:first').outerHeight();
+                if (!paginationHeight) {
+                    paginationHeight = 0;
+                }
+                var toolbarHeight = $ele.find('.table-toolbar:first').outerHeight();
+                var bodyHeight = paginationHeight + toolbarHeight;
+                if (bodyHeight > 0) {
+                    $body.parent().css({ height: "calc(100% - " + bodyHeight + "px)" });
+                }
+
+                var headerHeight = $thead.outerHeight();
+                $body.css({ height: "calc(100% - " + headerHeight + "px)" })
 
                 // 固定表头的最后一列禁止列宽调整
                 $ele.find('.col-resizer:last').remove();

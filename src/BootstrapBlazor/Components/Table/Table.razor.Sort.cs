@@ -110,7 +110,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         protected string? GetFixedExtendButtonsColumnStyleString(int margin = 0) => CssBuilder.Default()
-            .AddClass($"right: {(Height.HasValue ? margin : 0)}px;", FixedExtendButtonsColumn)
+            .AddClass($"right: {(IsFixedHeader ? margin : 0)}px;", FixedExtendButtonsColumn)
             .Build();
 
         private bool IsTail(ITableColumn col)

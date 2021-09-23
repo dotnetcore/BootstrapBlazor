@@ -178,7 +178,7 @@
         <div class="@WrapperClassName">
             @if (ActiveRenderMode == TableRenderMode.Table)
             {
-                if (Height.HasValue)
+                if (IsFixedHeader)
                 {
                     <div class="table-fixed-header">
                         <table class="@TableClassName">
@@ -186,7 +186,7 @@
                             @RenderHeader.Invoke(true)
                         </table>
                     </div>
-                    <div class="table-fixed-body" style="@FixedHeaderStyleName">
+                    <div class="table-fixed-body scroll" style="@FixedHeaderStyleName">
                         @RenderTable.Invoke(false)
                     </div>
                 }
@@ -408,7 +408,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     }
     @if (hasScroll)
     {
-        <col width="17" />
+        <col width="6" />
     }
 </colgroup>;
 

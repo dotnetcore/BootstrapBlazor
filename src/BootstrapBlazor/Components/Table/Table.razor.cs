@@ -45,8 +45,8 @@ namespace BootstrapBlazor.Components
         protected string? WrapperClassName => CssBuilder.Default()
             .AddClass("table-wrapper", IsBordered)
             .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
-            .AddClass("table-scroll", !Height.HasValue)
-            .AddClass("table-fixed", Height.HasValue)
+            .AddClass("table-scroll", !IsFixedHeader)
+            .AddClass("table-fixed", IsFixedHeader)
             .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
             .AddClass("table-resize", AllowResizing)
             .Build();
@@ -653,7 +653,7 @@ namespace BootstrapBlazor.Components
                 }
 
                 FirstRender = false;
-                methodName = Height.HasValue ? "fixTableHeader" : "init";
+                methodName = IsFixedHeader ? "fixTableHeader" : "init";
 
                 ScreenSize = await RetrieveWidth();
 

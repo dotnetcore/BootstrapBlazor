@@ -25,7 +25,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 Table 高度
         /// </summary>
-        [Parameter] public int? Height { get; set; }
+        [Parameter]
+        public int? Height { get; set; }
+
+        /// <summary>
+        /// 获得/设置 固定表头 默认 false
+        /// </summary>
+        [Parameter]
+        public bool IsFixedHeader { get; set; }
 
         /// <summary>
         /// 获得/设置 多表头模板
