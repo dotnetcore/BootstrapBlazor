@@ -157,7 +157,7 @@ namespace BootstrapBlazor.Components
         private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
 
         /// <summary>
-        /// OnInitialized
+        /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
@@ -169,6 +169,17 @@ namespace BootstrapBlazor.Components
             if (StartValue == DateTime.MinValue) StartValue = DateTime.Now;
             if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
 
+            SelectedValue.Start = Value.Start;
+            SelectedValue.End = Value.End;
+        }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
             StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
             EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
             SeparateText ??= Localizer[nameof(SeparateText)];
@@ -178,6 +189,11 @@ namespace BootstrapBlazor.Components
             TodayButtonText ??= Localizer[nameof(TodayButtonText)];
 
             DateFormat ??= Localizer[nameof(DateFormat)];
+
+            if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
+            {
+                StartValue = StartValue.AddMonths(-1);
+            }
 
             if (SidebarItems == null)
             {
