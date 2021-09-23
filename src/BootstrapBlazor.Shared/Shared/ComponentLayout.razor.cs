@@ -76,7 +76,8 @@ namespace BootstrapBlazor.Shared.Shared
             base.OnParametersSet();
 
             var page = Navigator.ToBaseRelativePath(Navigator.Uri);
-            var comName = page.Split("/").LastOrDefault() ?? string.Empty;
+            var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
+            var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;
 
             if (!string.IsNullOrEmpty(comName) && SiteOptions.Value.SourceCodes.TryGetValue(comName, out var fileName))
             {
