@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName" @ref="TableElement">
+<div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" @ref="TableElement">
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
@@ -186,7 +186,7 @@
                             @RenderHeader.Invoke(true)
                         </table>
                     </div>
-                    <div class="table-fixed-body scroll" style="@FixedHeaderStyleName">
+                    <div class="table-fixed-body scroll">
                         @RenderTable.Invoke(false)
                     </div>
                 }
@@ -408,7 +408,7 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
     }
     @if (hasScroll)
     {
-        <col width="6" />
+        <col width="7" />
     }
 </colgroup>;
 
@@ -450,7 +450,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             {
                 var fieldName = col.GetFieldName();
                 var displayName = col.GetDisplayName();
-                <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 17)"
+                <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
                                 TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                     <div class="@GetHeaderWrapperClassString(col)">
                         <span class="@GetHeaderTextClassString(col)">@displayName</span>
@@ -513,7 +513,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
-                        <th style="@GetFixedCellStyleString(col, 17)">
+                        <th style="@GetFixedCellStyleString(col, 6)">
                             <div class="tabel-cell">
                                 <TableFilter Column="col" IsHeaderRow="true" />
                             </div>

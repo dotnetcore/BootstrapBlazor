@@ -5,8 +5,7 @@
 <h4>常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能</h4>
 
 <Block Title="具有单表维护功能的表格" Introduction="设置 <code>ShowSearch</code> 显示查询组件" Name="ShowSearch">
-    <p id="anchor1">本例中设置了 <code>Height</code> 高度为 <b>200</b> 最终渲染代码为 <code>max-height: 200px;</code>，可通过切换每页显示数据行数体验不同效果</p>
-    <Table TItem="Foo" Height="200"
+    <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"

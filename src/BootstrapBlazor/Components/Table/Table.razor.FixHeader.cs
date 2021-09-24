@@ -9,28 +9,22 @@ namespace BootstrapBlazor.Components
     public partial class Table<TItem>
     {
         /// <summary>
-        /// 获得 wrapper 样式表集合
-        /// </summary>
-        protected string? FixedHeaderStyleName => CssBuilder.Default()
-            .AddClass($"height: {Height}px;", Height.HasValue && !IsPagination)
-            .AddClass($"max-height: {Height}px;", Height.HasValue && IsPagination)
-            .Build();
-
-        /// <summary>
         /// 获得/设置 Table 组件引用
         /// </summary>
         /// <value></value>
         protected ElementReference TableElement { get; set; }
 
         /// <summary>
-        /// 获得/设置 Table 高度
+        /// 获得/设置 Table 高度 默认为 null
         /// </summary>
+        /// <remarks>开启固定表头功能时生效 <see cref="IsFixedHeader"/></remarks>
         [Parameter]
         public int? Height { get; set; }
 
         /// <summary>
         /// 获得/设置 固定表头 默认 false
         /// </summary>
+        /// <remarks>固定表头时设置 <see cref="Height"/> 即可出现滚动条，未设置时尝试自适应</remarks>
         [Parameter]
         public bool IsFixedHeader { get; set; }
 

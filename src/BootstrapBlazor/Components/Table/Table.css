@@ -1,6 +1,5 @@
 ﻿.table-container {
     position: relative;
-    height: 100%;
 }
 
 .table-wrapper {
@@ -272,9 +271,13 @@
         padding: 1px 6px;
     }
 
-.table-fixed .table {
-    table-layout: fixed;
+.table-fixed {
+    height: 100%;
 }
+
+    .table-fixed .table {
+        table-layout: fixed;
+    }
 
 .table-fixed-header {
     overflow: hidden;

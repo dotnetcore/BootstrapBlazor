@@ -156,7 +156,7 @@ namespace BootstrapBlazor.Components
                     }
 
                     // 如果是固定表头时增加滚动条位置
-                    if (Height.HasValue && (index + 1) == Columns.Count)
+                    if (IsFixedHeader && (index + 1) == Columns.Count)
                     {
                         width += margin;
                     }

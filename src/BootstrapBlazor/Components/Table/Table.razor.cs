@@ -26,7 +26,13 @@ namespace BootstrapBlazor.Components
         /// 获得 Table 组件样式表
         /// </summary>
         private string? ClassName => CssBuilder.Default("table-container")
+            .AddClass("table-fixed", IsFixedHeader && !Height.HasValue)
             .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
+
+        private string? StyleString => CssBuilder.Default()
+            .AddClass($"height: {Height}px;", IsFixedHeader && Height.HasValue)
+            .AddStyleFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>

@@ -186,7 +186,9 @@
                 }
 
                 var headerHeight = $thead.outerHeight();
-                $body.css({ height: "calc(100% - " + headerHeight + "px)" })
+                if (headerHeight > 0) {
+                    $body.css({ height: "calc(100% - " + headerHeight + "px)" })
+                }
 
                 // 固定表头的最后一列禁止列宽调整
                 $ele.find('.col-resizer:last').remove();
