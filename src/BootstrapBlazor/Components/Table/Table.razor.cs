@@ -782,18 +782,18 @@ namespace BootstrapBlazor.Components
                     ? dynamicObject.GetValue(col.GetFieldName())
                     : Table<TItem>.GetItemValue(col.GetFieldName(), item);
 
-                // 自动化处理 bool 值
-                if (val is bool && col.ComponentType != null)
+                if (val is bool v1)
                 {
-                    builder.OpenComponent(0, col.ComponentType);
-                    builder.AddAttribute(1, "Value", val);
+                    // 自动化处理 bool 值
+                    builder.OpenComponent(0, typeof(Switch));
+                    builder.AddAttribute(1, "Value", v1);
                     builder.AddAttribute(2, "IsDisabled", true);
                     builder.CloseComponent();
                     return;
                 }
-                // 转化 Lookup 数据源
                 if (col.Lookup != null && val != null)
                 {
+                    // 转化 Lookup 数据源
                     var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), StringComparison.OrdinalIgnoreCase));
                     if (lookupVal != null)
                     {

@@ -627,10 +627,20 @@ form .table .table-cell > textarea {
     background-color: transparent;
 }
 
-.table-cell.text-center input {
-    text-align: center;
+.table-cell.text-center,
+.table-cell.text-center .switch {
+    justify-content: center;
 }
 
-.table-cell.text-end input {
-    text-align: right;
+    .table-cell.text-center input {
+        text-align: center;
+    }
+
+.table-cell.text-end,
+.table-cell.text-end .switch {
+    justify-content: end;
 }
+
+    .table-cell.text-end input {
+        text-align: right;
+    }
