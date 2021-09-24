@@ -5,7 +5,7 @@
 <button type="button" class="btn btn-filter dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="fa fa-filter" />
 </button>
-<div class="dropdown-menu">
+<div class="dropdown-menu shadow">
     @foreach (var item in Items)
     {
         <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>

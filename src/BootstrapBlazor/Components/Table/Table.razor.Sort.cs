@@ -79,9 +79,10 @@ namespace BootstrapBlazor.Components
         /// 获取指定列头样式字符串
         /// </summary>
         /// <param name="col"></param>
+        /// <param name="isFilterHeader"></param>
         /// <returns></returns>
-        protected string? GetHeaderClassString(ITableColumn col) => CssBuilder.Default()
-            .AddClass("sortable", col.Sortable)
+        protected string? GetHeaderClassString(ITableColumn col, bool isFilterHeader = false) => CssBuilder.Default()
+            .AddClass("sortable", col.Sortable && !isFilterHeader)
             .AddClass("filterable", col.Filterable)
             .AddClass(GetFixedCellClassString(col))
             .Build();
