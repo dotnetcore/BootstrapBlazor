@@ -68,10 +68,12 @@ namespace BootstrapBlazor.Components
         private string? GetDayClass(DateTime day) => CssBuilder.Default("")
             .AddClass("prev-month", day.Month < CurrentDate.Month)
             .AddClass("next-month", day.Month > CurrentDate.Month)
-            .AddClass("current", day == OriginaValue && !IsRange && day.Month == CurrentDate.Month)
-            .AddClass("start", IsRange && day == Ranger!.SelectedValue.Start)
-            .AddClass("end", IsRange && day == Ranger!.SelectedValue!.End.Date)
-            .AddClass("range", IsRange && CurrentDate.Month >= Ranger!.SelectedValue.Start.Month && (Ranger!.SelectedValue.Start != DateTime.MinValue) && (Ranger!.SelectedValue.End != DateTime.MinValue) && (day.Ticks >= Ranger!.SelectedValue.Start.Ticks) && (day.Ticks <= Ranger!.SelectedValue.End.Ticks))
+            .AddClass("current", day == OriginaValue && Ranger == null && day.Month == CurrentDate.Month)
+            .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
+            .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
+            .AddClass("range", Ranger != null && CurrentDate.Month >= Ranger.SelectedValue.Start.Month
+                && Ranger.SelectedValue.Start != DateTime.MinValue && Ranger.SelectedValue.End != DateTime.MinValue
+                && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
             .AddClass("today", day == DateTime.Today)
             .AddClass("disabled", IsDisabled(day))
             .Build();
@@ -156,8 +158,6 @@ namespace BootstrapBlazor.Components
         /// 获得 日期数值字符串
         /// </summary>
         private string? TimeValueString => CurrentTime.ToString(TimeFormat);
-
-        private bool IsRange { get; set; }
 
         /// <summary>
         /// 获得/设置 组件显示模式 默认为显示年月日模式
@@ -306,7 +306,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否为 Range 内使用 默认为 false
         /// </summary>
         [CascadingParameter]
-        public DateTimeRange? Ranger { get; set; }
+        private DateTimeRange? Ranger { get; set; }
 
         [Inject]
         [NotNull]
@@ -348,8 +348,6 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            IsRange = Ranger != null;
 
             CurrentViewModel = ViewModel;
 
@@ -435,9 +433,13 @@ namespace BootstrapBlazor.Components
             CurrentDate = d;
             OriginaValue = d;
             Ranger?.UpdateValue(d);
-            if (!IsRange)
+            if (Ranger == null)
             {
-                if (!ShowFooter) await ClickConfirmButton();
+                if (!ShowFooter)
+                {
+                    await ClickConfirmButton();
+                }
+
                 StateHasChanged();
             }
         }
@@ -446,7 +448,10 @@ namespace BootstrapBlazor.Components
         {
             await OnClickDateTime(d);
 
-            if (ShowFooter) await ClickConfirmButton();
+            if (ShowFooter)
+            {
+                await ClickConfirmButton();
+            }
         }
 
         /// <summary>

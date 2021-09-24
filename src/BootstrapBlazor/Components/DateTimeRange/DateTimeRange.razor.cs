@@ -157,11 +157,11 @@ namespace BootstrapBlazor.Components
         private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
+        /// OnParametersSet 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
-            base.OnInitialized();
+            base.OnParametersSet();
 
             StartValue = Value.Start;
             EndValue = Value.End;
@@ -169,16 +169,8 @@ namespace BootstrapBlazor.Components
             if (StartValue == DateTime.MinValue) StartValue = DateTime.Now;
             if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
 
-            SelectedValue.Start = Value.Start;
-            SelectedValue.End = Value.End;
-        }
-
-        /// <summary>
-        /// OnParametersSet 方法
-        /// </summary>
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
+            SelectedValue.Start = StartValue;
+            SelectedValue.End = EndValue;
 
             StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
             EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
@@ -270,6 +262,18 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private async Task ClickConfirmButton()
         {
+            if (SelectedValue.End == DateTime.MinValue)
+            {
+                if (SelectedValue.Start < DateTime.Now)
+                {
+                    SelectedValue.End = DateTime.Now;
+                }
+                else
+                {
+                    SelectedValue.End = SelectedValue.Start;
+                    SelectedValue.Start = DateTime.Now;
+                }
+            }
             Value = SelectedValue;
             if (Value.End.Hour == 0)
             {
