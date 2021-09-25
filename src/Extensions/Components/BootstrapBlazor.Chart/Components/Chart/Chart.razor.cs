@@ -113,7 +113,11 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                if (OnInitAsync == null) throw new InvalidOperationException("OnInit paramenter must be set");
+                if (OnInitAsync == null)
+                {
+                    throw new InvalidOperationException("OnInit paramenter must be set");
+                }
+
                 Interop ??= new JSInterop<Chart>(JSRuntime);
                 var ds = await OnInitAsync.Invoke();
                 await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, "", ChartType.ToDescriptionString(), Angle);

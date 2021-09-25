@@ -2,6 +2,7 @@
     window.chartOption = {
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             plugins: {
                 title: {
                     display: true,
@@ -155,6 +156,7 @@
                 },
                 options: {
                     responsive: option.options.responsive,
+                    maintainAspectRatio: option.options.maintainAspectRatio,
                     plugins: {
                         title: {
                             display: option.options.title != null,

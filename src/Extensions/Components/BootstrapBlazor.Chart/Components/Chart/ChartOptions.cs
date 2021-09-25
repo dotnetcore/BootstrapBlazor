@@ -33,6 +33,11 @@ namespace BootstrapBlazor.Components
         public bool Responsive { get; set; } = true;
 
         /// <summary>
+        /// 获取/设置 是否 约束图表比例 默认为 true
+        /// </summary>
+        public bool MaintainAspectRatio { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 数据显示颜色
         /// </summary>
         public Dictionary<string, string> Colors { get; set; } = new Dictionary<string, string>()
