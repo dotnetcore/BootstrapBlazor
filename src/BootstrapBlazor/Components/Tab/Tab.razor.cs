@@ -606,6 +606,12 @@ namespace BootstrapBlazor.Components
             }
         }
 
+        /// <summary>
+        /// 获得当前活动 Tab
+        /// </summary>
+        /// <returns></returns>
+        public TabItem? GetActiveTab() => _items.FirstOrDefault(s => s.IsActive);
+
         private void ActiveTabItem(TabItem item)
         {
             _items.ForEach(i => i.SetActive(false));

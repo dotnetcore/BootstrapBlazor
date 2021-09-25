@@ -701,6 +701,7 @@
     "Method6": "关闭当前标签页方法",
     "Method7": "关闭其他标签页方法",
     "Method8": "关闭所有标签页方法",
+    "Method9": "获得当前标签页方法",
     "BackAddTabText": "我是新建的 Tab, 名称是 {0}",
     "BackText1": "计数器",
     "BackText2": "天气预报",

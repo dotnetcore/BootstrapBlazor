@@ -701,6 +701,7 @@
     "Method6": "Close the current tab method",
     "Method7": "Close other tab methods",
     "Method8": "Close all tab methods",
+    "Method9": "Get current tab methods",
     "BackAddTabText": "I am a new Tab with the name {0}",
     "BackText1": "Counter",
     "BackText2": "Weather forecast",

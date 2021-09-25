@@ -273,6 +273,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Parameters = "",
                 ReturnValue = "Task"
             },
+            new MethodItem() {
+                Name = nameof(Tab.GetActiveTab),
+                Description = Localizer["Method9"]!,
+                Parameters = "",
+                ReturnValue = "Tabitem"
+            },
         };
     }
 }
