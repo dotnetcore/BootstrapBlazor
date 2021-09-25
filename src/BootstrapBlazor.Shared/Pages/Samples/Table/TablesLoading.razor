@@ -11,7 +11,7 @@
            OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Data="@Hobbys" />
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
         </TableColumns>
     </Table>
 </Block>

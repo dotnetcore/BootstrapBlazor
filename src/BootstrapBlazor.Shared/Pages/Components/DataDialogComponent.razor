@@ -12,7 +12,7 @@
         <EditorForm TModel="Foo">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Id" Editable="false" />
-                <EditorItem @bind-Field="@context.Hobby" Data="@Hobbys" />
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
             </FieldItems>
         </EditorForm>
         <div class="modal-footer table-modal-footer mt-3">

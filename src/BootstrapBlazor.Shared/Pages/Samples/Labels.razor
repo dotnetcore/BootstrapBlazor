@@ -75,7 +75,7 @@
     <GroupBox>
         <EditorForm Model="@Dummy">
             <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(Localizer)">
                 </EditorItem>
             </FieldItems>
         </EditorForm>
@@ -85,7 +85,7 @@
     <GroupBox>
         <EditorForm Model="@Dummy" ShowLabel="false">
             <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(Localizer)">
                 </EditorItem>
             </FieldItems>
         </EditorForm>
@@ -98,7 +98,7 @@
         <ValidateForm Model="@Dummy">
             <EditorForm TModel="Foo">
                 <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(Localizer)">
                     </EditorItem>
                 </FieldItems>
             </EditorForm>
@@ -110,7 +110,7 @@
         <ValidateForm Model="@Dummy" ShowLabel="false">
             <EditorForm TModel="Foo">
                 <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Data="@Foo.GenerateHobbys(Localizer)">
+                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(Localizer)">
                     </EditorItem>
                 </FieldItems>
             </EditorForm>

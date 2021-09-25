@@ -29,6 +29,7 @@ namespace BootstrapBlazor.Components
     {
         private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new();
         private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> PropertyInfoCache { get; } = new();
+
         private static ConcurrentDictionary<(Type ModelType, string FieldName), string> PlaceHolderCache { get; } = new();
 
         private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object?>> GetPropertyValueLambdaCache { get; } = new();
@@ -290,13 +291,24 @@ namespace BootstrapBlazor.Components
             var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
 
-            builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
-            builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
-            builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
-            builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
-            builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(5, nameof(ValidateBase<string>.ShowLabel), showLabel ?? true);
-            builder.CloseComponent();
+            var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
+            if (type == typeof(bool) || fieldValue?.GetType() == typeof(bool))
+            {
+                builder.OpenComponent<Switch>(0);
+                builder.AddAttribute(1, nameof(Switch.Value), fieldValue);
+                builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
+                builder.CloseComponent();
+            }
+            else
+            {
+                builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
+                builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
+                builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
+                builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
+                builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
+                builder.AddAttribute(5, nameof(ValidateBase<string>.ShowLabel), showLabel ?? true);
+                builder.CloseComponent();
+            }
         }
 
         /// <summary>

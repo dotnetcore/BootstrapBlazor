@@ -74,7 +74,7 @@
 <Block Title="表单内使用" Introduction="<code>Display</code> 组件在表单组件 <code>EditorForm</code> 中使用，多用于明细页，不可编辑模式">
     <EditorForm Model="@Model" ItemsPerRow="3" IsDisplay="true">
         <FieldItems>
-            <EditorItem @bind-Field="@Model.Hobby" Data="@Hobbys" />
+            <EditorItem @bind-Field="@Model.Hobby" Items="@Hobbys" />
         </FieldItems>
     </EditorForm>
 </Block>

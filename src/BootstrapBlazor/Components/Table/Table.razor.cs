@@ -856,7 +856,9 @@ namespace BootstrapBlazor.Components
             ? (col.EditTemplate == null
                 ? builder => builder.CreateComponentByFieldType(this, col, item, false)
                 : col.EditTemplate(item))
-            : builder => builder.CreateDisplayByFieldType(this, col, item, false);
+            : (col.Template == null
+                ? builder => builder.CreateDisplayByFieldType(this, col, item, false)
+                : col.Template(item));
 
         private RenderFragment RenderExcelCell(ITableColumn col, TItem item)
         {
