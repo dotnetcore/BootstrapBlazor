@@ -103,10 +103,10 @@
 }
 
 .menu .text {
-    flex: 1;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
+    vertical-align: top;
+    display: inline-block;
+    transition: width .3s linear;
 }
 
 .menu .nav-link.disabled {
@@ -133,6 +133,10 @@
     color: inherit;
     transition: background-color .3s linear, color .3s linear;
 }
+
+    .menu .nav-link > div {
+        white-space: nowrap;
+    }
 
 .menu .widget > .badge:not(:first-child) {
     margin-left: 4px;
@@ -181,24 +185,9 @@
 
 
 @media (min-width: 768px) {
-    .layout-side.is-collapsed:not(:hover) .menu.is-collapsed {
-        padding: 0;
+    .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .submenu .text {
+        width: 0;
     }
-
-        .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .nav-link {
-            justify-content: center;
-            border-radius: 0;
-        }
-
-        .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .submenu .text {
-            margin: 0;
-            width: 0;
-            max-width: 0;
-        }
-
-        .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .nav-link {
-            padding-left: 0 !important;
-        }
 }
 
 .menu.is-bottom {

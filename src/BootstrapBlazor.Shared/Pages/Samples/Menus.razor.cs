@@ -85,18 +85,6 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private bool IsCollapsed { get; set; }
-
-        private string? ClassString => CssBuilder.Default("menu-demo-bar")
-            .AddClass("is-collapsed", IsCollapsed)
-            .Build();
-
-        private Task CollapseMenu()
-        {
-            IsCollapsed = !IsCollapsed;
-            return Task.CompletedTask;
-        }
-
         /// <summary>
         /// OnInitialized 方法
         /// </summary>

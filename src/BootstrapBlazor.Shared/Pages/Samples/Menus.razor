@@ -48,27 +48,30 @@
 </Block>
 
 <Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">
-    <Alert ShowBar="true">@Localizer["AlertText"]</Alert>
+    <Tips>
+        <p>@(new MarkupString(Localizer["AlertText"].Value))</p>
+    </Tips>
     <p>@((MarkupString)Localizer["P1"].Value)</p>
-    <Layout SideWidth="0" IsFullSide="true" ShowFooter="true">
+    <Layout SideWidth="0" IsFullSide="true" ShowFooter="true" ShowCollapseBar="true" class="layout-menu-demo"
+            Menus="IconSideMenuItems">
         <Header>
-            <div class="d-flex align-items-center ps-3" style="background-color: #17a2b8; height: 50px; color: #fff;">
-                <a style="padding: 4px 12px; color: #fff; background-color: #1ab394; border-color: #1ab394; border-radius: 4px;" class="@ClassString" title="@Localizer["Block7aTitle"]" @onclick="@CollapseMenu">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <span class="ms-3">@Localizer["Block7Span"]</span>
+            <div class="menu-demo-header">
+                @Localizer["Block7Span"]
             </div>
         </Header>
         <Side>
-            <div class="menu-demo" style="background-color: #2f4050; color: #dcdfe6; height: 100%; padding: 6px 0;">
-                <Menu Items="@IconSideMenuItems" DisableNavigation="true" IsVertical="true" IsCollapsed="@IsCollapsed" />
+            <div class="layout-banner">
+                <img class="layout-logo" src="_content/BootstrapBlazor.Shared/images/brand.png" />
+                <div class="layout-title">
+                    <span>后台管理</span>
+                </div>
             </div>
         </Side>
         <Main>
             <div style="padding: 10rem 1rem;">Main</div>
         </Main>
         <Footer>
-            <div class="d-flex justify-content-center align-items-center" style="height: 30px; color: #fff; background-color: #5b6e84;"><a href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank" style="color: #fff;">Bootstrap Admin</a></div>
+            <a href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
         </Footer>
     </Layout>
 </Block>
