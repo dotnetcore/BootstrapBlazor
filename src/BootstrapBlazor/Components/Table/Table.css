@@ -615,6 +615,12 @@ form .table .table-cell > textarea {
     width: 100%;
 }
 
+.table-excel .table-cell > .disabled {
+    background-color: #f5f8fa;
+    width: 100%;
+    padding: .375rem .1875rem;
+}
+
 .table-excel .datetime-picker-input {
     padding-left: 2rem;
 }
@@ -644,3 +650,7 @@ form .table .table-cell > textarea {
     .table-cell.text-end input {
         text-align: right;
     }
+
+.table-cell > .progress {
+    flex: 1;
+}

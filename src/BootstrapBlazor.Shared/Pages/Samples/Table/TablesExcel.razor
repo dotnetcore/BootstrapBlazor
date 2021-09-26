@@ -78,3 +78,44 @@
     Trace.Log($"单元格变化通知 类: Foo - 值: 单元格");
     return Task.FromResult(true);
 }</Pre>
+
+<Block Title="通过编辑模板单独控制单元格渲染方式" Introduction="高级用法" Name="CellRender">
+    <ul class="ul-demo">
+        <li><code>IsFixedHeader</code> 固定表头 高度设定为 <code>Height="500px"</code></li>
+        <li><code>Name</code> 不可编辑显示头像</li>
+    </ul>
+    <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="200">
+                <EditTemplate Context="value">
+                    @{
+                        var row = (Foo)value;
+                    }
+                    <div class="d-flex disabled">
+                        <div>
+                            <img src="@Foo.GetAvatarUrl(row.Id)" />
+                        </div>
+                        <div class="ps-2">
+                            <div>@row.Name</div>
+                            <div class="address">@GetTitle(row.Id)</div>
+                        </div>
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" Width="160" />
+            <TableColumn @bind-Field="@context.Count" Width="160">
+                <EditTemplate Context="value">
+                    @{
+                        var row = (Foo)value;
+                    }
+                    <div class="disabled">
+                        <div>@row.Count %</div>
+                        <Progress Value="@row.Count" Color="@Foo.GetProgressColor(row.Count)"></Progress>
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
+        </TableColumns>
+    </Table>
+</Block>

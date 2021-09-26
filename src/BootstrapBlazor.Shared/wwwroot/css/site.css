@@ -1764,3 +1764,20 @@ header .bb-fs {
 .anchor-link-demo {
     margin: 0 !important;
 }
+
+.table-cell img {
+    width: 46px;
+    border-radius: var(--bs-border-radius);
+}
+
+.table-cell .progress {
+    height: 6px;
+    margin-top: 9px;
+    margin-bottom: 10px;
+}
+
+.table-cell .address {
+    margin-top: .25rem;
+    font-size: 86%;
+    color: #c0c4cc;
+}

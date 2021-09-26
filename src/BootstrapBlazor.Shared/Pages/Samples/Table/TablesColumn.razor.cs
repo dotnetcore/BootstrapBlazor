@@ -33,7 +33,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private ToastService? ToastService { get; set; }
 
-        private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+        private static IEnumerable<int> PageItemsSource => new int[] { 5, 10, 20 };
 
         /// <summary>
         /// OnInitialized 方法

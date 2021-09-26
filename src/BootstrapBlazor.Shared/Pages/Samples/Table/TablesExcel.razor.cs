@@ -114,5 +114,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
             Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
             return Task.FromResult(true);
         }
+
+        private ConcurrentDictionary<int, string> TitleCache { get; } = new();
+
+        private string GetTitle(int id) => TitleCache.GetOrAdd(id, key => Foo.GetTitle());
     }
 }
