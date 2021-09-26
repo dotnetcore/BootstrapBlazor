@@ -176,6 +176,10 @@ namespace BootstrapBlazor.Components
             {
                 await dialog.Close();
             }
+            else
+            {
+                await CloseOrPopDialog();
+            }
         }
 
         /// <summary>
