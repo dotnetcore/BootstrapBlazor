@@ -121,7 +121,17 @@
                     $arrow = $body.find('.card-arrow');
                     $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
                 }
-                $body.css({ "top": position.top + marginTop + rowHeight + 50, "left": left - marginRight });
+
+                // 计算 toolbar 高度
+                var toolHeight = $ele.find('.table-toolbar').outerHeight();
+                var searchHeight = $ele.find('.table-search').outerHeight();
+                if (searchHeight === undefined) {
+                    searchHeight = 0;
+                }
+                if (searchHeight > 0) {
+                    searchHeight += 8;
+                }
+                $body.css({ "top": position.top + marginTop + rowHeight + toolHeight + searchHeight, "left": left - marginRight });
             };
 
             // 点击 filter 小按钮时计算弹出位置
