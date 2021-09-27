@@ -7,6 +7,7 @@
 :root {
     --bs-border-radius: .25rem;
     --bs-bg-disabled: #ebeef5;
+    --bs-border-color: #ebeef5;
 }
 
 :fullscreen {
