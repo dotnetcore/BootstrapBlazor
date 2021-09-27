@@ -157,17 +157,9 @@ namespace BootstrapBlazor.Components
                 OnSearchClick = SearchClick,
                 RowType = SearchDialogRowType,
                 ItemsPerRow = SearchDialogItemsPerRow,
-                LabelAlign = SearchDialogLabelAlign
+                LabelAlign = SearchDialogLabelAlign,
+                Items = Columns.Where(i => i.Searchable)
             };
-
-            var columns = Columns.Where(i => i.Searchable).ToList();
-            columns.ForEach(col => col.EditTemplate = col.SearchTemplate);
-
-            if (columns.Any())
-            {
-                option.Items = columns;
-            }
-
             await DialogService.ShowSearchDialog(option);
         }
 
@@ -201,12 +193,7 @@ namespace BootstrapBlazor.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected List<ITableColumn> GetSearchColumns()
-        {
-            var cols = Columns.Where(c => c.Searchable).ToList();
-            cols.ForEach(col => col.EditTemplate = col.SearchTemplate);
-            return cols;
-        }
+        private IEnumerable<ITableColumn> GetSearchColumns() => Columns.Where(c => c.Searchable);
 
         /// <summary>
         /// 客户端 SearchTextbox 文本框内按回车时调用此方法

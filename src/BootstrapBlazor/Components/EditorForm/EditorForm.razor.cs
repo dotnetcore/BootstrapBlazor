@@ -82,6 +82,13 @@ namespace BootstrapBlazor.Components
         public bool IsDisplay { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否使用 SearchTemplate 默认 false 使用 EditTemplate 模板
+        /// </summary>
+        /// <remarks>多用于表格组件传递 <see cref="ITableColumn"/> 集合给参数 <see cref="Items"/> 时</remarks>
+        [Parameter]
+        public bool IsSearch { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否自动生成模型的所有属性 默认为 true 生成所有属性
         /// </summary>
         [Parameter]
@@ -239,5 +246,9 @@ namespace BootstrapBlazor.Components
                 builder.CreateComponentByFieldType(this, item, Model, ShowLabel);
             }
         };
+
+        private RenderFragment<object>? GetRenderTemplate(IEditorItem item) => IsSearch && item is ITableColumn col
+            ? col.SearchTemplate
+            : item.EditTemplate;
     }
 }

@@ -240,11 +240,7 @@ namespace BootstrapBlazor.Components
             if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
             if (source.Items != null) dest.Items = source.Items;
             if (source.Lookup != null) dest.Lookup = source.Lookup;
-            if (source.Template != null)
-            {
-                if (dest is InternalTableColumn d) d.Template = source.Template;
-                else if (dest is AutoGenerateColumnAttribute attr) attr.Template = source.Template;
-            }
+            if (source.Template != null) dest.Template = source.Template;
             if (!source.Visible) dest.Visible = source.Visible;
             if (source.Width != null) dest.Width = source.Width;
             if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;

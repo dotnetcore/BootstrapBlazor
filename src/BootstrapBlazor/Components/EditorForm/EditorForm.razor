@@ -18,9 +18,10 @@ else
         <CascadingValue Value="this" Name="EidtorForm">
             @foreach (var item in FormItems)
             {
-                @if (item.EditTemplate != null)
+                var render = GetRenderTemplate(item);
+                @if (render != null)
                 {
-                    @item.EditTemplate.Invoke(Model)
+                    @render(Model)
                 }
                 else
                 {

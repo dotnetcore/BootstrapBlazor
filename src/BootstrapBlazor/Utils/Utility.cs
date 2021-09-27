@@ -319,8 +319,7 @@ namespace BootstrapBlazor.Components
         /// <param name="component"></param>
         /// <param name="item"></param>
         /// <param name="showLabel"></param>
-        /// <param name="placeholder"></param>
-        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, string? placeholder = null)
+        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null)
         {
             var fieldType = item.PropertyType;
             var fieldName = item.GetFieldName();
