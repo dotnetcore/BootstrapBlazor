@@ -6,6 +6,7 @@
 
 :root {
     --bs-border-radius: .25rem;
+    --bs-bg-disabled: #ebeef5;
 }
 
 :fullscreen {
@@ -52,7 +53,7 @@ a {
 
 .table-cell .form-control.is-display,
 form .form-control.is-display {
-    background-color: #ebeef5;
+    background-color: var(--bs-bg-disabled);
 }
 
 [disabled],

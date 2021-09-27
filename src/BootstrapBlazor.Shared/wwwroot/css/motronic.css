@@ -21,7 +21,7 @@
 }
 
 .tabs-body {
-    background-color: #f5f8fa;
+    background-color: var(--bs-bg-disabled);
 }
 
 .tabs-body-content {

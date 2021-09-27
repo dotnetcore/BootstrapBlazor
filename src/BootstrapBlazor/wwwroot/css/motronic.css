@@ -31,6 +31,7 @@
     --bs-body-rgb: 24,28,50;
     --bs-body-color: #181C32;
     --bs-border-radius: .475rem;
+    --bs-bg-disabled: #f5f8fa;
 }
 
 .btn,
