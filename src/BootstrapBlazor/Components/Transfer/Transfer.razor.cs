@@ -49,12 +49,12 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 左侧数据集合
         /// </summary>
-        private List<SelectedItem> LeftItems { get; set; } = new List<SelectedItem>();
+        private List<SelectedItem> LeftItems { get; } = new List<SelectedItem>();
 
         /// <summary>
         /// 获得/设置 右侧数据集合
         /// </summary>
-        private List<SelectedItem> RightItems { get; set; } = new List<SelectedItem>();
+        private List<SelectedItem> RightItems { get; } = new List<SelectedItem>();
 
         /// <summary>
         /// 获得/设置 组件绑定数据项集合
@@ -124,15 +124,6 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            LeftPanelText ??= Localizer[nameof(LeftPanelText)];
-            RightPanelText ??= Localizer[nameof(RightPanelText)];
-
-            // 如果未设置 Value 取 Items Active 值
-            if (Items != null && string.IsNullOrEmpty(CurrentValueAsString))
-            {
-                CurrentValueAsString = string.Join(",", Items.Where(i => i.Active));
-            }
-
             // 处理 Required 标签
             if (EditContext != null && FieldIdentifier != null)
             {
@@ -158,18 +149,29 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
-            // 通过 Value 对集合进行赋值
-            if (Items != null && !string.IsNullOrEmpty(CurrentValueAsString))
+            LeftPanelText ??= Localizer[nameof(LeftPanelText)];
+            RightPanelText ??= Localizer[nameof(RightPanelText)];
+
+            var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            LeftItems.Clear();
+            RightItems.Clear();
+
+            if (Items != null)
             {
-                Items = Items.ToList();
-                var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                foreach (var item in Items)
+                // 左侧移除
+                LeftItems.AddRange(Items);
+                LeftItems.RemoveAll(i => list.Any(l => l == i.Value));
+
+                // 右侧插入
+                foreach (var t in list)
                 {
-                    item.Active = list.Any(i => i.Equals(item.Value, StringComparison.OrdinalIgnoreCase));
+                    var item = Items.FirstOrDefault(i => i.Value == t);
+                    if (item != null)
+                    {
+                        RightItems.Add(item);
+                    }
                 }
             }
-
-            ResetItems();
         }
 
         /// <summary>
@@ -180,32 +182,16 @@ namespace BootstrapBlazor.Components
             if (!IsDisabled && Items != null)
             {
                 var items = source.Where(i => i.Active).ToList();
+                items.ForEach(i => i.Active = false);
+
                 source.RemoveAll(i => items.Contains(i));
                 target.AddRange(items);
 
-                LeftItems.ForEach(i =>
-                {
-                    var item = Items.FirstOrDefault(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
-                    if (item != null)
-                    {
-                        item.Active = false;
-                    }
-                });
-                RightItems.ForEach(i =>
-                {
-                    var item = Items.FirstOrDefault(item => item.Value == i.Value && item.Text == i.Text && item.GroupName == i.GroupName);
-                    if (item != null)
-                    {
-                        item.Active = true;
-                    }
-                });
-
-                Value = default;
                 CurrentValueAsString = string.Join(",", RightItems.Select(i => i.Value));
 
                 if (OnSelectedItemsChanged != null)
                 {
-                    await OnSelectedItemsChanged.Invoke(RightItems);
+                    await OnSelectedItemsChanged(RightItems);
                 }
             }
         }
@@ -299,17 +285,6 @@ namespace BootstrapBlazor.Components
         {
             StateHasChanged();
             return Task.CompletedTask;
-        }
-
-        private void ResetItems()
-        {
-            LeftItems.Clear();
-            RightItems.Clear();
-            if (Items != null)
-            {
-                LeftItems.AddRange(Items.Where(i => !i.Active));
-                RightItems.AddRange(Items.Where(i => i.Active));
-            }
         }
 
         /// <summary>

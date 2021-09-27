@@ -24,7 +24,7 @@
 <Block Title="双向绑定" Introduction="组件数据发生变化时，双向绑定 <code>bind_Value</code> 值同步变化" Name="Bind">
     <p><code>Transfer</code> 组件为泛型组件，支持三种绑定类型 <code>string</code> <code>IEnumerable&lt;string&gt;</code> <code>IEnumerable&lt;SelectedItem&gt;</code> 本例中双向绑定 <code>SelectedValue</code> 类型为 <code>IEnumerable&lt;SelectedItem&gt;</code></p>
     <Transfer Items="@Items3" @bind-Value="@SelectedValue" />
-    <div class="mb-3">Value：@string.Join(";", SelectedValue.Select(i => i.Text))</div>
+    <div class="my-3">Value：@string.Join(";", SelectedValue.Select(i => i.Text))</div>
     <Button Text="增加" OnClick="@OnAddItem" />
 </Block>
 
@@ -32,15 +32,15 @@
     <p><code>Transfer</code> 组件内置于 <code>ValidateForm</code> 组件即开启客户端验证，本例中组件双向绑定 <code>Model.Hobby</code> 类型为 <code>IEnumerable&lt;string&gt;</code></p>
     <ValidateForm Model="@Model">
         <div class="row g-3">
-            <div class="col-12 col-sm-8">
+            <div class="col-12">
                 <Transfer Items="@Items5" @bind-Value="@Model.Hobby" />
             </div>
-            <div class="col-12 col-sm-4 align-items-end">
+            <div class="col-12">
                 <Button ButtonType="ButtonType.Submit">提交</Button>
             </div>
         </div>
     </ValidateForm>
-    <div>Hobby: @string.Join(",", Model.Hobby)</div>
+    <div class="mt-3">Hobby: @string.Join(",", Model.Hobby)</div>
 </Block>
 
 <Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disable">

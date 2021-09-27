@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private BlockLogger? Trace { get; set; }
 
-        private IEnumerable<SelectedItem> SelectedValue { get; set; } = Enumerable.Empty<SelectedItem>();
+        private List<SelectedItem> SelectedValue { get; set; } = new();
 
         private Foo Model { get; set; } = new();
 
@@ -82,7 +82,8 @@ namespace BootstrapBlazor.Shared.Pages
                 Value = i.ToString()
             }).ToList();
 
-            SelectedValue = Items3.Take(2);
+            SelectedValue.AddRange(Items3.Take(2));
+            SelectedValue.AddRange(Items3.Skip(4).Take(1));
 
             Items4 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
@@ -109,7 +110,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// <param name="items"></param>
         private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
         {
-            Trace?.Log(string.Join(" ", items.Where(i => i.Active).Select(i => i.Text)));
+            Trace?.Log(string.Join(" ", items.Select(i => i.Text)));
             return Task.CompletedTask;
         }
 

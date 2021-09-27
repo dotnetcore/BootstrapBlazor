@@ -2,10 +2,10 @@
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@PanelClassString">
-    <p class="transfer-panel-header">
+    <div class="transfer-panel-header">
         <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false"
                   State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
-    </p>
+    </div>
     <div class="transfer-panel-body">
         @if (ShowSearch)
         {

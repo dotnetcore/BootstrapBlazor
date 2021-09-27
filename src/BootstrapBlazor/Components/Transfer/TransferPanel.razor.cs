@@ -91,11 +91,11 @@ namespace BootstrapBlazor.Components
         private IStringLocalizer<Transfer<string>>? Localizer { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
+        /// OnParametersSet 方法
         /// </summary>
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
-            base.OnInitialized();
+            base.OnParametersSet();
 
             SearchPlaceHolderString ??= Localizer[nameof(SearchPlaceHolderString)];
             Text ??= Localizer[nameof(Text)];
@@ -137,7 +137,7 @@ namespace BootstrapBlazor.Components
 
                 if (OnSelectedItemsChanged != null)
                 {
-                    await OnSelectedItemsChanged.Invoke();
+                    await OnSelectedItemsChanged();
                 }
             }
         }
@@ -154,7 +154,7 @@ namespace BootstrapBlazor.Components
             // set header
             if (OnSelectedItemsChanged != null)
             {
-                await OnSelectedItemsChanged.Invoke();
+                await OnSelectedItemsChanged();
             }
         }
 
