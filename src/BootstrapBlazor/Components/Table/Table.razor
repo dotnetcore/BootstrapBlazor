@@ -750,13 +750,13 @@ RenderFragment RenderSearch =>
             <div class="table-search-buttons">
                 @if (ShowResetButton)
                 {
-                    <Button Color="@Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@(new Func<Task>(ClearSearchClick))">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="@Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@SearchClick">
+                    <Button Color="Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@(new Func<Task>(SearchClick))">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }
