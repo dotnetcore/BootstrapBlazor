@@ -4,49 +4,48 @@
 
 .accordion .accordion-button-primary {
     color: #fff;
-    background-color: #0d6efd;
+    background-color: var(--bs-primary);
     border-color: #0d6efd;
 }
 
 .accordion .accordion-button-secondary {
     color: #fff;
-    background-color: #6c757d;
+    background-color: var(--bs-secondary);
     border-color: #6c757d;
 }
 
 .accordion .accordion-button-success {
     color: #fff;
-    background-color: #198754;
+    background-color: var(--bs-success);
     border-color: #198754;
 }
 
 .accordion .accordion-button-info {
-    color: #000;
-    background-color: #0dcaf0;
+    color: #fff;
+    background-color: var(--bs-info);
     border-color: #0dcaf0;
 }
 
 .accordion .accordion-button-warning {
-    color: #000;
-    background-color: #ffc107;
+    color: #fff;
+    background-color: var(--bs-warning);
     border-color: #ffc107;
 }
 
 .accordion .accordion-button-danger {
     color: #fff;
-    background-color: #dc3545;
+    background-color: var(--bs-danger);
     border-color: #dc3545;
 }
 
 .accordion .accordion-button-light {
-    color: #000;
-    background-color: #f8f9fa;
+    background-color: var(--bs-light);
     border-color: #f8f9fa;
 }
 
 .accordion .accordion-button-dark {
     color: #fff;
-    background-color: #212529;
+    background-color: var(--bs-dark);
     border-color: #212529;
 }
 
@@ -68,4 +67,8 @@
 .accordion .accordion-button-warning:after,
 .accordion .accordion-button-info:after {
     color: #000;
+}
+
+.accordion .accordion-button {
+    border-radius: 0;
 }
