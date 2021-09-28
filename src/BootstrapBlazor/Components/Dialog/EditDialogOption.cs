@@ -38,6 +38,11 @@ namespace BootstrapBlazor.Components
         public bool ShowLabel { get; set; }
 
         /// <summary>
+        /// 获得/设置 实体类编辑模式 Add 还是 Update
+        /// </summary>
+        public ItemChangedType ItemChangedType { get; set; }
+
+        /// <summary>
         /// 获得/设置 每行显示组件数量 默认为 null
         /// </summary>
         public int? ItemsPerRow { get; set; }

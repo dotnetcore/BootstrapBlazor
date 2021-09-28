@@ -30,29 +30,7 @@
                 }
                 else
                 {
-                    <Card>
-                        <CardHeader>
-                            <div class="d-flex">
-                                <div class="flex-fill">@SearchModalTitle</div>
-                                @if (ShowResetButton)
-                                {
-                                    <Button Color="@Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@ClearSearchClick">
-                                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                                    </Button>
-                                }
-                                @if (ShowSearchButton)
-                                {
-                                    <Button Color="@Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@SearchClick">
-                                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                                    </Button>
-                                }
-                            </div>
-                        </CardHeader>
-                        <CardBody>
-                            <EditorForm Model="SearchModel" Items="GetSearchColumns()" IsSearch="true" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
-                            </EditorForm>
-                        </CardBody>
-                    </Card>
+                    @RenderSearch
                 }
             </div>
         }
@@ -610,11 +588,11 @@ RenderFragment<TItem> RenderRow => item =>
                     }
                     @if (IsExcel)
                     {
-                        @RenderExcelCell(col, item)
+                        @RenderExcelCell(col, item, ItemChangedType.Update)
                     }
                     else if(isInCell)
                     {
-                        @RenderCell(col, EditModel)
+                        @RenderCell(col, EditModel, ItemChangedType.Update)
                     }
                     else
                     {
@@ -763,4 +741,31 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
         </div>
     </div>
 </td>;
+
+RenderFragment RenderSearch =>
+@<Card>
+    <CardHeader>
+        <div class="d-flex">
+            <div class="table-search-title">@SearchModalTitle</div>
+            <div class="table-search-buttons">
+                @if (ShowResetButton)
+                {
+                    <Button Color="@Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@ClearSearchClick">
+                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                    </Button>
+                }
+                @if (ShowSearchButton)
+                {
+                    <Button Color="@Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@SearchClick">
+                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                    </Button>
+                }
+            </div>
+        </div>
+    </CardHeader>
+    <CardBody>
+        <EditorForm Model="SearchModel" Items="GetSearchColumns()" IsSearch="true" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
+        </EditorForm>
+    </CardBody>
+</Card>;
 }

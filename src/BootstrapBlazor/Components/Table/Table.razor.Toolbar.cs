@@ -506,6 +506,7 @@ namespace BootstrapBlazor.Components
             RowType = EditDialogRowType,
             ItemsPerRow = EditDialogItemsPerRow,
             LabelAlign = EditDialogLabelAlign,
+            ItemChangedType = changedType,
             OnCloseAsync = async () =>
             {
                 if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)

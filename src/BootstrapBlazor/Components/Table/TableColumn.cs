@@ -119,8 +119,21 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 当前列编辑时是否为只读模式 默认为 false
         /// </summary>
+        /// <remarks>此属性覆盖 <see cref="IsReadonlyWhenAdd"/> 与 <see cref="IsReadonlyWhenEdit"/> 即新建与编辑时均只读</remarks>
         [Parameter]
         public bool Readonly { get; set; }
+
+        /// <summary>
+        /// 获得/设置 新建时此列只读 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsReadonlyWhenAdd { get; set; }
+
+        /// <summary>
+        /// 获得/设置 编辑时此列只读 默认为 false
+        /// </summary>
+        [Parameter]
+        public bool IsReadonlyWhenEdit { get; set; }
 
         /// <summary>
         /// 获得/设置 是否不进行验证 默认为 false

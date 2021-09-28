@@ -26,7 +26,18 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 当前列编辑时是否只读 默认为 false 自动生成 UI 为不可编辑 div
         /// </summary>
+        /// <remarks>此属性覆盖 <see cref="IsReadonlyWhenAdd"/> 与 <see cref="IsReadonlyWhenEdit"/> 即新建与编辑时均只读</remarks>
         bool Readonly { get; set; }
+
+        /// <summary>
+        /// 获得/设置 新建时此列只读 默认为 false
+        /// </summary>
+        bool IsReadonlyWhenAdd { get; set; }
+
+        /// <summary>
+        /// 获得/设置 编辑时此列只读 默认为 false
+        /// </summary>
+        bool IsReadonlyWhenEdit { get; set; }
 
         /// <summary>
         /// 获得/设置 是否不进行验证 默认为 false

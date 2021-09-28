@@ -184,7 +184,13 @@ namespace BootstrapBlazor.Components
         /// 判断当前 IEditorItem 实例是否可以编辑
         /// </summary>
         /// <param name="item"></param>
+        /// <param name="changedType"></param>
         /// <returns></returns>
-        public static bool IsEditable(this IEditorItem item) => !item.Readonly && item.Editable;
+        public static bool IsEditable(this IEditorItem item, ItemChangedType changedType) => item.Editable
+            && !item.Readonly && changedType switch
+            {
+                ItemChangedType.Add => !item.IsReadonlyWhenAdd,
+                _ => !item.IsReadonlyWhenEdit
+            };
     }
 }

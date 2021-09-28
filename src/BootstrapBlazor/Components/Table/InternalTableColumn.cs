@@ -41,6 +41,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public bool SkipValidate { get; set; }
 
+        /// <summary>
+        /// 获得/设置 新建时此列只读 默认为 false
+        /// </summary>
+        public bool IsReadonlyWhenAdd { get; set; }
+
+        /// <summary>
+        /// 获得/设置 编辑时此列只读 默认为 false
+        /// </summary>
+        public bool IsReadonlyWhenEdit { get; set; }
+
         public string? CssClass { get; set; }
 
         public BreakPoint ShownWithBreakPoint { get; set; }
@@ -248,6 +258,8 @@ namespace BootstrapBlazor.Components
             if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
             if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
             if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
+            if (!source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
+            if (!source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         }
     }
 }

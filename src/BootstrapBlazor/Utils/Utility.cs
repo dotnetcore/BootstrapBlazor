@@ -319,7 +319,8 @@ namespace BootstrapBlazor.Components
         /// <param name="component"></param>
         /// <param name="item"></param>
         /// <param name="showLabel"></param>
-        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null)
+        /// <param name="changedType"></param>
+        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, ItemChangedType changedType = ItemChangedType.Update)
         {
             var fieldType = item.PropertyType;
             var fieldName = item.GetFieldName();
@@ -337,7 +338,7 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
                 builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
 
-                if (!item.IsEditable())
+                if (!item.IsEditable(changedType))
                 {
                     builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
                 }

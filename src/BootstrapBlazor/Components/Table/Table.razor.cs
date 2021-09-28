@@ -852,20 +852,20 @@ namespace BootstrapBlazor.Components
         private static ConcurrentDictionary<(Type Type, string PropertyName), Func<TItem, object?>> GetPropertyCache { get; } = new();
         #endregion
 
-        private RenderFragment RenderCell(ITableColumn col, TItem item) => col.IsEditable()
+        private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.IsEditable(changedType)
             ? (col.EditTemplate == null
-                ? builder => builder.CreateComponentByFieldType(this, col, item, false)
+                ? builder => builder.CreateComponentByFieldType(this, col, item, false, changedType)
                 : col.EditTemplate(item))
             : (col.Template == null
                 ? builder => builder.CreateDisplayByFieldType(this, col, item, false)
                 : col.Template(item));
 
-        private RenderFragment RenderExcelCell(ITableColumn col, TItem item)
+        private RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
         {
             col.PlaceHolder ??= "";
 
             // 可编辑列未设置模板
-            if (col.IsEditable() && col.EditTemplate == null)
+            if (col.IsEditable(changedType) && col.EditTemplate == null)
             {
                 if (DynamicContext != null)
                 {
@@ -876,7 +876,7 @@ namespace BootstrapBlazor.Components
                     SetEditTemplate();
                 }
             }
-            return RenderCell(col, item);
+            return RenderCell(col, item, changedType);
 
             void SetDynamicEditTemplate()
             {
@@ -890,7 +890,7 @@ namespace BootstrapBlazor.Components
                         parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                         col.ComponentParameters = parameters;
                     }
-                    builder.CreateComponentByFieldType(this, col, row, false);
+                    builder.CreateComponentByFieldType(this, col, row, false, changedType);
                 };
             }
 

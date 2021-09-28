@@ -43,6 +43,16 @@ namespace BootstrapBlazor.Components
         public bool SkipValidate { get; set; }
 
         /// <summary>
+        /// 获得/设置 新建时此列只读 默认为 false
+        /// </summary>
+        public bool IsReadonlyWhenAdd { get; set; }
+
+        /// <summary>
+        /// 获得/设置 编辑时此列只读 默认为 false
+        /// </summary>
+        public bool IsReadonlyWhenEdit { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
         /// </summary>
         public SortOrder DefaultSortOrder { get; set; }

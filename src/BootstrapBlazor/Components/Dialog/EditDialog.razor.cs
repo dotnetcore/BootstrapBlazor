@@ -46,6 +46,12 @@ namespace BootstrapBlazor.Components
         public bool IsTracking { get; set; }
 
         /// <summary>
+        /// 获得/设置 实体类编辑模式 Add 还是 Update
+        /// </summary>
+        [Parameter]
+        public ItemChangedType ItemChangedType { get; set; }
+
+        /// <summary>
         /// 获得/设置 查询按钮文本
         /// </summary>
         [Parameter]

@@ -39,6 +39,12 @@ namespace BootstrapBlazor.Components
         public int? ItemsPerRow { get; set; }
 
         /// <summary>
+        /// 获得/设置 实体类编辑模式 Add 还是 Update
+        /// </summary>
+        [Parameter]
+        public ItemChangedType ItemChangedType { get; set; }
+
+        /// <summary>
         /// 获得/设置 设置行格式 默认 Row 布局
         /// </summary>
         [Parameter]
@@ -236,14 +242,14 @@ namespace BootstrapBlazor.Components
 
         private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
         {
-            if (IsDisplay || !item.IsEditable())
+            if (IsDisplay || !item.IsEditable(ItemChangedType))
             {
                 builder.CreateDisplayByFieldType(this, item, Model, ShowLabel);
             }
             else
             {
                 item.PlaceHolder ??= PlaceHolderText;
-                builder.CreateComponentByFieldType(this, item, Model, ShowLabel);
+                builder.CreateComponentByFieldType(this, item, Model, ShowLabel, ItemChangedType);
             }
         };
 

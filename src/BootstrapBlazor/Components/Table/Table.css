@@ -576,6 +576,23 @@ form .table .table-cell > textarea {
     margin-bottom: .5rem;
 }
 
+    .table-search .card-header {
+        padding: 0;
+    }
+
+        .table-search .card-header .table-search-title {
+            padding: .5rem 1rem;
+            flex: 1;
+        }
+
+        .table-search .card-header .table-search-buttons {
+            padding: .25rem 1rem;
+        }
+
+            .table-search .card-header .table-search-buttons .btn {
+                padding: .275rem .5rem;
+            }
+
 .table-excel .table-cell > input.form-control,
 .table-excel .table-cell .datetime-picker,
 .table-excel .table-cell .select {
