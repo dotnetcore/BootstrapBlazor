@@ -20,6 +20,7 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
     {
+        [NotNull]
         private JSInterop<Table<TItem>>? Interop { get; set; }
 
         /// <summary>
@@ -572,6 +573,8 @@ namespace BootstrapBlazor.Components
 
             OnInitLocalization();
 
+            Interop = new JSInterop<Table<TItem>>(JSRuntime);
+
             // 初始化每页显示数量
             if (IsPagination)
             {
@@ -654,7 +657,6 @@ namespace BootstrapBlazor.Components
                 if (ShowSearch)
                 {
                     // 注册 SeachBox 回调事件
-                    Interop = new JSInterop<Table<TItem>>(JSRuntime);
                     await Interop.InvokeVoidAsync(this, TableElement, "bb_table_search", nameof(OnSearch), nameof(OnClearSearch));
                 }
 
@@ -705,7 +707,7 @@ namespace BootstrapBlazor.Components
 
                 if (!string.IsNullOrEmpty(methodName))
                 {
-                    await JSRuntime.InvokeVoidAsync(TableElement, "bb_table", methodName, new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
+                    await Interop.InvokeVoidAsync(this, TableElement, "bb_table", methodName, new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
                     methodName = null;
                 }
 
@@ -730,7 +732,7 @@ namespace BootstrapBlazor.Components
         /// 获得 Table 组件客户端宽度
         /// </summary>
         /// <returns></returns>
-        protected ValueTask<decimal> RetrieveWidth() => JSRuntime.InvokeAsync<decimal>(TableElement, "bb_table", "width", UseComponentWidth);
+        protected ValueTask<decimal> RetrieveWidth() => Interop.InvokeAsync<decimal>(this, TableElement, "bb_table", "width", UseComponentWidth);
 
         /// <summary>
         /// 检查当前列是否显示方法

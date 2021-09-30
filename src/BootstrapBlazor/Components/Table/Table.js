@@ -86,60 +86,57 @@
             else
                 $loader.removeClass('show');
         },
-        bb_table_filter: function ($ele) {
+        bb_table_filter_calc: function ($ele) {
             // filter
             var $toolbar = $ele.find('.table-toolbar');
             var marginTop = 0;
             if ($toolbar.length > 0) marginTop = $toolbar.outerHeight();
 
-            var calcPosition = function () {
-                // position
-                var $this = $(this);
-                var position = $this.position();
-                var field = $this.attr('data-field');
-                var $body = $ele.find('.table-filter-item[data-field="' + field + '"]');
-                var $th = $this.closest('th');
-                var $thead = $th.closest('thead');
-                var rowHeight = $thead.outerHeight() - $th.outerHeight();
-                var left = $th.outerWidth() + $th.position().left - $body.outerWidth() / 2;
-                var marginRight = 0;
-                var isFixed = $th.hasClass('fixed');
-                if ($th.hasClass('sortable')) marginRight = 24;
-                if ($th.hasClass('filterable')) marginRight = marginRight + 12;
+            // position
+            var $this = $(this);
+            var position = $this.position();
+            var field = $this.attr('data-field');
+            var $body = $ele.find('.table-filter-item[data-field="' + field + '"]');
+            var $th = $this.closest('th');
+            var $thead = $th.closest('thead');
+            var rowHeight = $thead.outerHeight() - $th.outerHeight();
+            var left = $th.outerWidth() + $th.position().left - $body.outerWidth() / 2;
+            var marginRight = 0;
+            var isFixed = $th.hasClass('fixed');
+            if ($th.hasClass('sortable')) marginRight = 24;
+            if ($th.hasClass('filterable')) marginRight = marginRight + 12;
 
-                // 判断是否越界
-                var scrollLeft = 0;
-                if (!isFixed) {
-                    scrollLeft = $th.closest('table').parent().scrollLeft();
-                }
-                var margin = $th.offset().left + $th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
-                marginRight = marginRight + scrollLeft;
-                if (margin > 0) {
-                    left = left - margin - 16;
+            // 判断是否越界
+            var scrollLeft = 0;
+            if (!isFixed) {
+                scrollLeft = $th.closest('table').parent().scrollLeft();
+            }
+            var margin = $th.offset().left + $th.outerWidth() - marginRight + $body.outerWidth() / 2 - $(window).width();
+            marginRight = marginRight + scrollLeft;
+            if (margin > 0) {
+                left = left - margin - 16;
 
-                    // set arrow
-                    $arrow = $body.find('.card-arrow');
-                    $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
-                }
+                // set arrow
+                $arrow = $body.find('.card-arrow');
+                $arrow.css({ 'left': 'calc(50% - 0.5rem + ' + (margin + 16) + 'px)' });
+            }
 
-                // 计算 toolbar 高度
-                var toolHeight = $ele.find('.table-toolbar').outerHeight();
-                var searchHeight = $ele.find('.table-search').outerHeight();
-                if (searchHeight === undefined) {
-                    searchHeight = 0;
-                }
-                if (searchHeight > 0) {
-                    searchHeight += 8;
-                }
-                $body.css({ "top": position.top + marginTop + rowHeight + toolHeight + searchHeight, "left": left - marginRight });
-            };
-
+            var searchHeight = $ele.find('.table-search').outerHeight();
+            if (searchHeight === undefined) {
+                searchHeight = 0;
+            }
+            else {
+                searchHeight += 8;
+            }
+            $body.css({ "top": position.top + marginTop + rowHeight + searchHeight + 50, "left": left - marginRight });
+        },
+        bb_table_filter: function ($ele) {
             // 点击 filter 小按钮时计算弹出位置
             $ele.on('click', '.filterable .fa-filter', function () {
-                calcPosition.call(this);
+                $.bb_table_filter_calc.call(this, $ele);
             });
         },
-        bb_table: function (el, method, args) {
+        bb_table: function (el, obj, method, args) {
             var $ele = $(el);
 
             var tooltip = function () {
@@ -246,8 +243,8 @@
                 $ele.children('.table-scroll').scroll(function () {
                     $ele.find('.table-filter-item.show').each(function () {
                         var fieldName = $(this).attr('data-field');
-                        var filter = $ele.find('.fa-filter[data-field="' + fieldName + '"]')[0];
-                        calcPosition.call(filter);
+                        var icon = $ele.find('.fa-filter[data-field="' + fieldName + '"]')[0];
+                        $.bb_table_filter_calc.call(icon, $ele);
                     });
                 });
 
