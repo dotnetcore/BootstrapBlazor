@@ -26,6 +26,13 @@
     </div>
 </Block>
 
+<Block Title="键盘支持" Introduction="本示例用于测试 <code>Excel</code> 模式下键盘支持" Name="Keyboard">
+    <p>目前支持 <kbd><i class="fa fa-arrow-up"></i></kbd> <kbd><i class="fa fa-arrow-down"></i></kbd> <kbd><i class="fa fa-arrow-left"></i></kbd> <kbd><i class="fa fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
+    <Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
+           IsBordered="true" IsMultipleSelect="true" IsExcel="true">
+    </Table>
+</Block>
+
 <Tips class="mt-3">
     <p>开启 <code>IsExcel</code> 模式后，部分参数将不再生效，斑马线 <code>IsStriped</code> 树形表格 <code>IsTree</code> 明细行 <code>IsDetails</code> 多选栏 <code>IsMultipleSelect</code></p>
 </Tips>

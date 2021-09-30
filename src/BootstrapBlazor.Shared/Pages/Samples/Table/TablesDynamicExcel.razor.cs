@@ -23,7 +23,12 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
+        [NotNull]
+        private DataTableDynamicContext? DataTableKeyboardDynamicContext { get; set; }
+
         private DataTable UserData { get; } = new DataTable();
+
+        private DataTable KeyboardData { get; } = new DataTable();
 
         [Inject]
         [NotNull]
@@ -55,6 +60,9 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
             // 初始化 DataTableContext 绑定 Table 组件
             InitDataTableContext();
+
+            // 键盘支持示例
+            InitDataTableKeyboard();
         }
 
         private void InitDataTable()
@@ -102,6 +110,24 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 Trace.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
                 return Task.CompletedTask;
             };
+        }
+
+        private void InitDataTableKeyboard()
+        {
+            KeyboardData.Columns.Add("Column 1", typeof(string));
+            KeyboardData.Columns.Add("Column 2", typeof(string));
+            KeyboardData.Columns.Add("Column 3", typeof(string));
+            KeyboardData.Columns.Add("Column 4", typeof(string));
+            KeyboardData.Columns.Add("Column 5", typeof(string));
+
+            var index = 0;
+            Foo.GenerateFoo(Localizer, 9).ForEach(f =>
+            {
+                index++;
+                KeyboardData.Rows.Add($"Cell {index}1", $"Cell {index}2", $"Cell {index}3", $"Cell {index}4", $"Cell {index}5");
+            });
+
+            DataTableKeyboardDynamicContext = new(KeyboardData);
         }
     }
 }

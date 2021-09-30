@@ -136,6 +136,113 @@
                 $.bb_table_filter_calc.call(this, $ele);
             });
         },
+        bb_table_getCaretPosition: function (ele) {
+            var result = -1;
+            var startPosition = ele.selectionStart;
+            var endPosition = ele.selectionEnd;
+            if (startPosition == endPosition) {
+                if (startPosition == ele.value.length)
+                    result = 1;
+                else if (startPosition == 0) {
+                    result = 0;
+                }
+            }
+            return result;
+        },
+        bb_table_excel_keybord: function ($ele) {
+            var isExcel = $ele.find('.table-excel').length > 0;
+            if (isExcel) {
+                var KeyCodes = {
+                    TAB: 9,
+                    ENTER: 13,
+                    SHIFT: 16,
+                    CTRL: 17,
+                    ALT: 18,
+                    ESCAPE: 27,
+                    SPACE: 32,
+                    PAGE_UP: 33,
+                    PAGE_DOWN: 34,
+                    END: 35,
+                    HOME: 36,
+                    LEFT_ARROW: 37,
+                    UP_ARROW: 38,
+                    RIGHT_ARROW: 39,
+                    DOWN_ARROW: 40
+                };
+
+                var setFocus = function ($target) {
+                    var handler = window.setTimeout(function () {
+                        window.clearTimeout(handler);
+                        $target.focus();
+                        $target.select();
+                    }, 10);
+                }
+
+                var activeCell = function ($cells, index) {
+                    var ret = false;
+                    var td = $cells[index];
+                    var $target = $(td).find('input.form-control:not([readonly]');
+                    if ($target.length > 0) {
+                        setFocus($target);
+                        ret = true;
+                    }
+                    return ret;
+                };
+                var moveCell = function ($input, keyCode) {
+                    var $td = $input.closest('td');
+                    var $tr = $td.closest('tr');
+                    var $cells = $tr.children('td');
+                    var index = $cells.index($td);
+                    if (keyCode == KeyCodes.LEFT_ARROW) {
+                        while (index-- > 0) {
+                            if (activeCell($cells, index)) {
+                                break;
+                            }
+                        }
+                    }
+                    else if (keyCode == KeyCodes.RIGHT_ARROW) {
+                        while (index++ < $cells.length) {
+                            if (activeCell($cells, index)) {
+                                break;
+                            }
+                        }
+                    }
+                    else if (keyCode == KeyCodes.UP_ARROW) {
+                        $cells = $tr.prev().children('td');
+                        while (index < $cells.length) {
+                            if (activeCell($cells, index)) {
+                                break;
+                            }
+                        }
+                    }
+                    else if (keyCode == KeyCodes.DOWN_ARROW) {
+                        $cells = $tr.next().children('td');
+                        while (index < $cells.length) {
+                            if (activeCell($cells, index)) {
+                                break;
+                            }
+                        }
+                    }
+                }
+                $ele.on('keydown', function (e) {
+                    var $input = $(e.target);
+                    switch (e.keyCode) {
+                        case KeyCodes.UP_ARROW:
+                        case KeyCodes.LEFT_ARROW:
+                            if ($.bb_table_getCaretPosition(e.target) == 0) {
+                                moveCell($input, e.keyCode);
+                            }
+                            break;
+                        case KeyCodes.DOWN_ARROW:
+                        case KeyCodes.RIGHT_ARROW:
+                            if ($.bb_table_getCaretPosition(e.target) == 1) {
+                                moveCell($input, e.keyCode);
+                            }
+                            break;
+                    };
+                });
+            }
+        },
         bb_table: function (el, obj, method, args) {
             var $ele = $(el);
 
@@ -203,6 +310,8 @@
                 $.bb_table_filter($ele);
 
                 $.bb_table_resize($ele);
+
+                $.bb_table_excel_keybord($ele);
             }
             else if (method === 'init') {
                 // sort
@@ -251,6 +360,8 @@
                 $.bb_table_resize($ele);
 
                 $.bb_table_row_hover($ele);
+
+                $.bb_table_excel_keybord($ele);
             }
             else if (method === 'width') {
                 var width = 0;
