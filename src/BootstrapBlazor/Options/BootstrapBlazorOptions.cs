@@ -11,7 +11,7 @@ using System.Linq;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// Delay 配置类
+    /// 组件全局配置类
     /// </summary>
     public class BootstrapBlazorOptions
     {
@@ -57,11 +57,17 @@ namespace BootstrapBlazor.Components
         public string? DefaultCultureInfo { get; set; }
 
         /// <summary>
-        /// 获得/设置 网站主题集合
+        /// 获得/设置 表格设置实例
         /// </summary>
         [NotNull]
-        public List<KeyValuePair<string, string>> Themes { get; private set; } = new List<KeyValuePair<string, string>>() {
-            new KeyValuePair<string, string>("Bootstrap", "")
+        public TableSettings? TableSettings { get; set; }
+
+        /// <summary>
+        /// 获得/设置 网站主题集合
+        /// </summary>
+        public List<KeyValuePair<string, string>> Themes { get; private set; } = new()
+        {
+            new("Bootstrap", "")
         };
 
         private Lazy<List<CultureInfo>>? _cultures;
@@ -72,7 +78,8 @@ namespace BootstrapBlazor.Components
         public IList<CultureInfo> GetSupportedCultures()
         {
             // 用户设置时使用用户设置，未设置时使用内置中英文文化
-            _cultures ??= new Lazy<List<CultureInfo>>(() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList() ?? new List<CultureInfo> { new("zh"), new("en") });
+            _cultures ??= new Lazy<List<CultureInfo>>(() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList()
+                ?? new List<CultureInfo> { new("zh"), new("en") });
             return _cultures.Value;
         }
     }

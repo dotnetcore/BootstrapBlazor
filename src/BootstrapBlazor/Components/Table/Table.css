@@ -593,16 +593,6 @@ form .table .table-cell > textarea {
                 padding: .275rem .5rem;
             }
 
-.table-excel .table-cell > input.form-control,
-.table-excel .table-cell .datetime-picker,
-.table-excel .table-cell .select {
-    min-width: 120px;
-}
-
-.table-excel tbody .table-cell textarea.form-control {
-    min-width: 200px;
-}
-
 .table-excel-toolbar {
     display: none;
     position: absolute;

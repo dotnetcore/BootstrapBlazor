@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -190,6 +191,34 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Alignment EditDialogLabelAlign { get; set; }
+
+        /// <summary>
+        /// 获得/设置 明细行 Row Header 宽度 默认 24
+        /// </summary>
+        [Parameter]
+        public int DetailColumnWidth { get; set; }
+
+        /// <summary>
+        /// 获得/设置 显示文字的复选框列宽度 默认 80
+        /// </summary>
+        [Parameter]
+        public int ShowCheckboxTextColumnWidth { get; set; }
+
+        /// <summary>
+        /// 获得/设置 复选框宽度 默认 36
+        /// </summary>
+        [Parameter]
+        public int CheckboxColumnWidth { get; set; }
+
+        /// <summary>
+        /// 获得/设置 行号列宽度 默认 60
+        /// </summary>
+        [Parameter]
+        public int LineNoColumnWidth { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IOptions<BootstrapBlazorOptions>? Options { get; set; }
 
         [NotNull]
         private string? NotSetOnTreeExpandErrorMessage { get; set; }
@@ -573,6 +602,8 @@ namespace BootstrapBlazor.Components
 
             OnInitLocalization();
 
+            OnInitParameters();
+
             Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
             // 初始化每页显示数量
@@ -598,6 +629,29 @@ namespace BootstrapBlazor.Components
                 {
                     HasChildren = CheckTreeChildren(item)
                 }).ToList();
+            }
+        }
+
+        private void OnInitParameters()
+        {
+            if (ShowCheckboxTextColumnWidth == 0)
+            {
+                ShowCheckboxTextColumnWidth = Options.Value.TableSettings.ShowCheckboxTextColumnWidth;
+            }
+
+            if (DetailColumnWidth == 0)
+            {
+                DetailColumnWidth = Options.Value.TableSettings.DetailColumnWidth;
+            }
+
+            if (LineNoColumnWidth == 0)
+            {
+                LineNoColumnWidth = Options.Value.TableSettings.LineNoColumnWidth;
+            }
+
+            if (CheckboxColumnWidth == 0)
+            {
+                CheckboxColumnWidth = Options.Value.TableSettings.CheckboxColumnWidth;
             }
         }
 

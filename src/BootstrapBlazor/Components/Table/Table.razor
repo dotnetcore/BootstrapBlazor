@@ -352,22 +352,22 @@ RenderFragment<bool> RenderColgroup => hasScroll =>
 @<colgroup>
     @if (ShowDetails())
     {
-        <col width="24" />
+        <col width="@DetailColumnWidth" />
     }
     @if (IsMultipleSelect)
     {
         @if (ShowCheckboxText)
         {
-            <col width="80" />
+            <col width="@ShowCheckboxTextColumnWidth" />
         }
         else
         {
-            <col width="36" />
+            <col width="@CheckboxColumnWidth" />
         }
     }
     @if (ShowLineNo)
     {
-        <col width="60" />
+        <col width="@LineNoColumnWidth" />
     }
     @if(!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
