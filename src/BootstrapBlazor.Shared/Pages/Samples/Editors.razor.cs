@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Editors
     {
-        private string EditorValue { get; set; } = "初始值 <b>Test</b>";
+        private string? EditorValue { get; set; }
 
         private Task OnValueChanged(string val)
         {
@@ -24,55 +24,66 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void SetValue()
         {
-            EditorValue = "更改后的值";
+            EditorValue = Localizer["UpdateValue"];
         }
 
-        private List<EditorToolbarButton> EditorPluginItems { get; } = new List<EditorToolbarButton>()
-        {
-            new EditorToolbarButton()
-            {
-                IconClass = "fa fa-pencil",
-                ButtonName = "plugin1",
-                Tooltip = "这是 plugin1 的提示"
-            },
-            new EditorToolbarButton()
-            {
-                IconClass = "fa fa-home",
-                ButtonName = "plugin2",
-                Tooltip = "这是 plugin2 提示"
-            }
-        };
+        private List<EditorToolbarButton>? EditorPluginItems { get; set; }
 
-        private async Task<string> PluginClick(string pluginItemName)
+        private async Task<string?> PluginClick(string pluginItemName)
         {
             var ret = "";
             if (pluginItemName == "plugin1")
             {
                 var op = new SwalOption()
                 {
-                    Title = "点击plugin1按钮后弹窗",
-                    Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
+                    Title = Localizer["SwalTitle"],
+                    Content = Localizer["SwalContent"],
                     IsConfirm = true
                 };
                 if (await SwalService.ShowModal(op))
                 {
-                    ret = "<div class='text-danger'>从plugin1返回的数据</div>";
+                    ret = Localizer["Ret1"];
                 }
             }
             if (pluginItemName == "plugin2")
             {
                 var op = new SwalOption()
                 {
-                    Title = "点击plugin2按钮后弹窗",
-                    Content = "点击插件按钮后弹窗并确认后才进行下一步处理",
+                    Title = Localizer["Swal2Title"],
+                    Content = Localizer["Swal2Content"],
                     IsConfirm = true
                 };
                 if (await SwalService.ShowModal(op))
                 {
-                    ret = "从plugin2返回的数据";
+                    ret = Localizer["Ret2"];
                 }
             }
             return ret;
+        }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            EditorValue = Localizer["InitValue"];
+            EditorPluginItems = new List<EditorToolbarButton>()
+        {
+            new EditorToolbarButton()
+            {
+                IconClass = "fa fa-pencil",
+                ButtonName = "plugin1",
+                Tooltip = Localizer["ToolTip1"]
+            },
+            new EditorToolbarButton()
+            {
+                IconClass = "fa fa-home",
+                ButtonName = "plugin2",
+                Tooltip = Localizer["ToolTip2"]
+            }
+        };
         }
 
         private List<object> ToolbarItems { get; } = new List<object>
@@ -86,21 +97,21 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Placeholder",
-                Description = "空值时的提示信息",
+                Description = Localizer["Att1"]!,
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "点击后进行编辑"
+                DefaultValue = Localizer["Att1DefaultValue"]!
             },
             new AttributeItem() {
                 Name = "IsEditor",
-                Description = "是否直接显示为富文本编辑框",
+                Description = Localizer["Att2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = "组件高度",
+                Description = Localizer["Att3"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -108,7 +119,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "ToolbarItems",
-                Description = "富文本框工具栏工具",
+                Description = Localizer["Att4"]!,
                 Type = "IEnumerable<object>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -116,7 +127,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "CustomerToolbarButtons",
-                Description = "自定义按钮",
+                Description = Localizer["Att5"]!,
                 Type = "IEnumerable<EditorToolbarButton>",
                 ValueList = " — ",
                 DefaultValue = " — "
