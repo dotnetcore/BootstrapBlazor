@@ -62,7 +62,7 @@ WTM 快速开发框架，设计的核心理念就是”尽一切可能提高开�
 
 ## QQ交流群
 
-[![QQ](https://img.shields.io/badge/QQ-795206915(满)-red.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=1-jF9-5WA_3GFiJgXem2U_AQfqbdyOlV&jump_from=webapi) [![QQ](https://img.shields.io/badge/QQ-675147445-green.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi)
+[![QQ](https://img.shields.io/badge/QQ-795206915-green.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=1-jF9-5WA_3GFiJgXem2U_AQfqbdyOlV&jump_from=webapi) [![QQ](https://img.shields.io/badge/QQ-675147445-green.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi)
 
 ## 视频教程
 
