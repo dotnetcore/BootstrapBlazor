@@ -110,19 +110,28 @@ namespace BootstrapBlazor.Components
         /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
         public void SetError<TModel>(Expression<Func<TModel, object?>> expression, string errorMessage)
         {
-            if (expression.Body is MemberExpression exp)
+            if (expression.Body is UnaryExpression unary && unary.Operand is MemberExpression mem)
             {
-                var fieldName = exp.Member.Name;
-                var modelType = exp.Expression?.Type;
-                var validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
-                if (validator != null)
-                {
-                    var results = new List<ValidationResult>
+                InternalSetError(mem, errorMessage);
+            }
+            else if (expression.Body is MemberExpression exp)
+            {
+                InternalSetError(exp, errorMessage);
+            }
+        }
+
+        private void InternalSetError(MemberExpression exp, string errorMessage)
+        {
+            var fieldName = exp.Member.Name;
+            var modelType = exp.Expression?.Type;
+            var validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
+            if (validator != null)
+            {
+                var results = new List<ValidationResult>
                     {
                         new ValidationResult(errorMessage, new string[] { fieldName })
                     };
-                    validator.ToggleMessage(results, true);
-                }
+                validator.ToggleMessage(results, true);
             }
         }
 
