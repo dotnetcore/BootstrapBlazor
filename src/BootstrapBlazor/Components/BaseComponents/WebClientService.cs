@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Components
 
             // UserName
             var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            UserName = (state.User.Identity?.IsAuthenticated ?? false) ? state.User.Identity.Name : "";
+            UserName = (state.User.Identity?.IsAuthenticated ?? false) ? state.User.Identity.Name : null;
             ReturnTask = new TaskCompletionSource<bool>();
             return await ReturnTask.Task;
         }

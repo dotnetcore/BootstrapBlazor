@@ -109,6 +109,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{8AB9DB
 		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Middleware", "Middleware", "{4A7F4513-C515-40DD-A217-169E1CBB2827}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Middleware", "src\Middleware\BootstrapBlazor.Middleware\BootstrapBlazor.Middleware.csproj", "{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +167,10 @@ Global
 		{FFFD2EB7-AE88-4DAD-A825-528B2CEFB4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFFD2EB7-AE88-4DAD-A825-528B2CEFB4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFFD2EB7-AE88-4DAD-A825-528B2CEFB4B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +197,8 @@ Global
 		{1ED371F3-2B28-4B2D-91B8-0C00DA42CB65} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{0556D9AB-8673-4248-8817-4D99F4DCC568} = {C8E79F4C-8C55-4E13-96B5-3D2BD6A07B74}
 		{FFFD2EB7-AE88-4DAD-A825-528B2CEFB4B5} = {C8E79F4C-8C55-4E13-96B5-3D2BD6A07B74}
+		{4A7F4513-C515-40DD-A217-169E1CBB2827} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{59B49D4C-05FB-4E51-AB40-9498ADC71DD0} = {4A7F4513-C515-40DD-A217-169E1CBB2827}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

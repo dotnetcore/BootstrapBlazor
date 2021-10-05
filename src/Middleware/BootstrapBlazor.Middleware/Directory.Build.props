@@ -1,0 +1,19 @@
+<Project>
+
+  <Import Project="..\..\Directory.Build.props" />
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

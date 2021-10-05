@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.Middleware" Version="1.*" />
     <PackageReference Include="Longbow.Tasks" Version="5.*" />
   </ItemGroup>
 
