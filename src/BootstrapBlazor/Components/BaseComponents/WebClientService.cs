@@ -66,9 +66,9 @@ namespace BootstrapBlazor.Components
         public string? UserAgent { get; private set; }
 
         /// <summary>
-        /// 获得/设置 客户端 Referer
+        /// 获得/设置 浏览器引擎信息
         /// </summary>
-        public string? Referer { get; private set; }
+        public string? Engine { get; private set; }
 
         /// <summary>
         /// 获得/设置 模态弹窗返回值任务实例
@@ -117,9 +117,10 @@ namespace BootstrapBlazor.Components
         /// <param name="browser"></param>
         /// <param name="device"></param>
         /// <param name="language"></param>
+        /// <param name="engine"></param>
         /// <param name="agent"></param>
         [JSInvokable]
-        public void SetData(string id, string ip, string os, string browser, string device, string language, string agent)
+        public void SetData(string id, string ip, string os, string browser, string device, string language, string engine, string agent)
         {
             Id = id;
             Ip = ip;
@@ -127,6 +128,7 @@ namespace BootstrapBlazor.Components
             Browser = browser;
             Device = device;
             Language = language;
+            Engine = engine;
             UserAgent = agent;
             ReturnTask?.TrySetResult(true);
         }

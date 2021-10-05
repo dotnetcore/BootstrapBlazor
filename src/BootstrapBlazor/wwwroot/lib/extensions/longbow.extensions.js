@@ -94,16 +94,25 @@
             return prefix;
         },
         webClient: function (obj, url, method) {
+            var data = {};
+            var browser = new Browser();
+            data.Browser = browser.browser + ' ' + browser.version;
+            data.Os = browser.os + ' ' + browser.osVersion;
+            data.Device = browser.device;
+            data.Language = browser.language;
+            data.Engine = browser.engine;
+            data.UserAgent = navigator.userAgent;
+
             $.ajax({
                 type: "GET",
                 url: url,
-                success: function (data) {
-                    var browser = new Browser();
-                    data.Browser = browser.browser + ' ' + browser.version;
-                    data.Os = browser.os + ' ' + browser.osVersion;
-                    data.Device = browser.device;
-                    data.Language = browser.language;
-                    obj.invokeMethodAsync(method, data.Id, data.Ip, data.Os, data.Browser, data.Device, data.Language, data.UserAgent);
+                success: function (result) {
+                    obj.invokeMethodAsync(method, result.Id, result.Ip, data.Os, data.Browser, data.Device, data.Language, data.UserAgent);
+                },
+                error: function (xhr, state, errorThrown) {
+                    console.log(browser);
+                    console.error('Please add UseBootstrapBlazor middleware');
+                    obj.invokeMethodAsync(method, '', '', data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
                 }
             });
         }

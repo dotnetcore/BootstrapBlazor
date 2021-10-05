@@ -63,13 +63,19 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
                 <Display Value="ClientService.Browser" DisplayText="浏览器" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
+                <Display Value="ClientService.Engine" DisplayText="浏览器引擎" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
                 <Display Value="ClientService.Device" DisplayText="设备" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
                 <Display Value="ClientService.Language" DisplayText="语言" ShowLabel="true" />
             </div>
-            <div class="col-12 col-sm-6">
+            <div class="col-12">
                 <Display Value="ClientService.RequestUrl" DisplayText="请求地址" ShowLabel="true" />
+            </div>
+            <div class="col-12">
+                <BootstrapInput Value="ClientService.UserAgent" DisplayText="UserAgent" ShowLabel="true" readonly />
             </div>
         </div>
     </GroupBox>
