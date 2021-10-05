@@ -1,21 +1,21 @@
 ﻿@page "/editorforms"
 
-<h3>EditorForm 表单组件</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>通过绑定数据模型自动呈现编辑表单</h4>
+<h4>@Localizer["H1"]</h4>
 
-<p><code>EditorForm</code> 组件是一个非常实用的组件，当进行数据编辑时，仅需要将 <code>Model</code> 属性赋值即可。</p>
+<p>@((MarkupString)Localizer["P1"].Value)</p>
 
 <ul class="ul-demo">
-    <li>绑定模型默认自动生成全部属性，可以通过设置 <code>AutoGenerateAllItem</code> 更改为不自动生成</li>
-    <li>如不需要编辑列，设置 <code>Editable</code> 即可，默认值为 <code>true</code> 生成编辑组件</li>
-    <li>复杂编辑列，设置 <code>EditTemplate</code> 模板，进行自定义组件进行编辑</li>
-    <li>表单内按钮可以设置多个，设置 <code>Buttons</code> 模板即可</li>
+    <li>@((MarkupString)Localizer["Li1"].Value)</li>
+    <li>@((MarkupString)Localizer["Li2"].Value)</li>
+    <li>@((MarkupString)Localizer["Li3"].Value)</li>
+    <li>@((MarkupString)Localizer["Li4"].Value)</li>
 </ul>
 
-<Block Title="基础用法" Introduction="通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单">
-    <p>直接绑定模型 <code>Model</code>，设置 <b>Education</b> <b>Complete</b> 字段不显示</p>
-    <GroupBox Title="表单示例" style="margin-top: 1.5rem;">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]">
+    <p>@((MarkupString)Localizer["P2"].Value)</p>
+    <GroupBox Title="@Localizer["GroupBox1"]" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Education" Editable="false" />
@@ -29,16 +29,16 @@
                 </EditorItem>
             </FieldItems>
             <Buttons>
-                <Button Icon="fa fa-save" Text="提交" />
+                <Button Icon="fa fa-save" Text="@Localizer["ButtonText"]" />
             </Buttons>
         </EditorForm>
     </GroupBox>
 </Block>
 
-<Block Title="开启数据验证" Introduction="通过嵌套 <code>ValidateForm</code> 组件实现数据合规检查功能">
-    <p>组件内置到 <code>ValidateForm</code> 内开启数据合规检查功能，<b>爱好</b> 字段使用 <code>EditTemplate</code> 模板自定义组件呈现数据</p>
-    <p>通过设置 <code>Readonly</code> 属性，使 <code>生日</code> 字段为只读</p>
-    <GroupBox Title="表单示例" style="margin-top: 1.5rem;">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
+    <GroupBox Title="@Localizer["GroupBox2"]" style="margin-top: 1.5rem;">
         <ValidateForm Model="@ValidateModel">
             <EditorForm TModel="Foo">
                 <FieldItems>
@@ -52,16 +52,16 @@
                     </EditorItem>
                 </FieldItems>
                 <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text='@Localizer["ButtonText"]' />
                 </Buttons>
             </EditorForm>
         </ValidateForm>
     </GroupBox>
 </Block>
 
-<Block Title="默认不自动生成" Introduction="通过设置属性 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，禁止自动生成属性，通过设置 <code>FieldItems</code> 内部集合来控制显示属性">
-    <GroupBox Title="表单示例">
-        <p>本例中通过设置 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，关闭自动生成功能，通过手动增加两个 <code>EditorItem</code> 编辑项来呈现表单编辑</p>
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
+    <GroupBox Title="@Localizer["GroupBox3"]">
+        <p>@((MarkupString)Localizer["P5"].Value)</p>
         <EditorForm Model="@Model" AutoGenerateAllItem="false">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Name" />
@@ -71,9 +71,9 @@
     </GroupBox>
 </Block>
 
-<Block Title="表单组件内的组件绑定与模型无关的字段" Introduction="通过设置属性 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，禁止自动生成属性，通过设置 <code>FieldItems</code> 内部集合来控制显示属性">
-    <GroupBox Title="表单示例">
-        <p>在某些情况下表单中有些列的值可能是二级分类等等，需要知道一级分类的信息，这个时候一级分类需要额外的组件来呈现，如果 <code>Select</code>，而这个组件是与当前上下文绑定模型 <code>Model</code> 无关的，这种需求中通过设置 <code>SkipValidate</code> 值为 <code>true</code>，关闭此组件的模型验证功能即可</p>
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
+    <GroupBox Title="@Localizer["GroupBox4"]">
+        <p>@((MarkupString)Localizer["P6"].Value)</p>
         <ValidateForm Model="@Model">
             <EditorForm TModel="Foo" AutoGenerateAllItem="false">
                 <FieldItems>
@@ -92,33 +92,33 @@
                     <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
                 </FieldItems>
                 <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@Localizer["ButtonText"]" />
                 </Buttons>
             </EditorForm>
         </ValidateForm>
     </GroupBox>
 </Block>
 
-<Block Title="设置每行显示控件数量" Introduction="通过设置 <code>ItemsPerRow</code> 属性值来控制布局">
-    <p>本示例设置 <code>ItemsPerRow=3</code> 每行显示 3 个组件</p>
-    <GroupBox Title="布局示例" style="margin-top: 1.5rem;">
+<Block Title="@Localizer["Blcok5Title"]" Introduction="@Localizer["Block5Intro"]">
+    <p>@((MarkupString)Localizer["P7"].Value)</p>
+    <GroupBox Title="@Localizer["GroupBox5"]" style="margin-top: 1.5rem;">
         <ValidateForm Model="@Model">
             <EditorForm TModel="Foo" ItemsPerRow="3">
                 <FieldItems>
                     <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
                 </FieldItems>
                 <Buttons>
-                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@Localizer["ButtonText"]" />
                 </Buttons>
             </EditorForm>
         </ValidateForm>
     </GroupBox>
 </Block>
 
-<Block Title="自定义渲染组件类型" Introduction="通过设置 <code>CompnentType</code> 属性值来控制渲染组件类型">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
     <ul class="ul-demo">
-        <li><code>Inline</code> 布局模式下通过设置 <code>LabelAlign="Alignment.Right"</code> 使表单内标签右对齐</li>
-        <li><code>Buttons</code> 模板内可嵌套 <code>div</code> 并设置样式 <code>text-end</code> 使按钮右侧对齐</li>
+        <li>@((MarkupString)Localizer["Li5"].Value)</li>
+        <li>@((MarkupString)Localizer["Li6"].Value)</li>
     </ul>
     <ValidateForm Model="@Model">
         <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
@@ -127,7 +127,7 @@
             </FieldItems>
             <Buttons>
                 <div class="text-end">
-                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="提交" />
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@Localizer["ButtonText"]" />
                 </div>
             </Buttons>
         </EditorForm>
@@ -136,4 +136,4 @@
 
 <AttributeTable Items="@GetAttributes()" />
 
-<AttributeTable Title="EditorItem 属性" Items="@GetEditorItemAttributes()" />
+<AttributeTable Title="@Localizer["AttrAttributeTitle"]" Items="@GetEditorItemAttributes()" />

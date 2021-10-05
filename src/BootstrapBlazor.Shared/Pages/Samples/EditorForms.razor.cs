@@ -20,24 +20,17 @@ namespace BootstrapBlazor.Shared.Pages
     {
         [Inject]
         [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
-        private Foo Model { get; } = new Foo()
-        {
-            Name = "张三",
-            Count = 23,
-            Address = "测试地址",
-            DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middel
-        };
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<EditorForms>? Localizer { get; set; }
 
-        private Foo ValidateModel { get; } = new Foo()
-        {
-            Name = "张三",
-            Count = 23,
-            DateTime = new DateTime(1997, 12, 05),
-            Education = EnumEducation.Middel
-        };
+        [NotNull]
+        private Foo? Model { get; set; }
+
+        [NotNull]
+        private Foo? ValidateModel { get; set; }
 
         [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
@@ -58,111 +51,126 @@ namespace BootstrapBlazor.Shared.Pages
         {
             base.OnInitialized();
 
-            Hobbys = Foo.GenerateHobbys(Localizer);
+            Hobbys = Foo.GenerateHobbys(FooLocalizer);
+            Model = new Foo()
+            {
+                Name = Localizer["TestAddr"],
+                Count = 23,
+                Address = Localizer["TestAddr"],
+                DateTime = new DateTime(1997, 12, 05),
+                Education = EnumEducation.Middel
+            };
+            ValidateModel = new Foo()
+            {
+                Name = Localizer["TestName"],
+                Count = 23,
+                DateTime = new DateTime(1997, 12, 05),
+                Education = EnumEducation.Middel
+            };
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Model",
-                Description = "当前绑定数据模型",
+                Description = Localizer["Att1"]!,
                 Type = "TModel",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "FieldItems",
-                Description = "绑定列模板",
+                Description = Localizer["Att2"]!,
                 Type = "RenderFragment<TModel>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Buttons",
-                Description = "按钮模板",
+                Description = Localizer["Att3"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示 Label",
+                Description = Localizer["Att4"]!,
                 Type = "bool",
                 ValueList = "true/false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "AutoGenerateAllItem",
-                Description = "是否生成所有属性",
+                Description = Localizer["Att5"]!,
                 Type = "bool",
                 ValueList = "true/false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ItemsPerRow",
-                Description = "每行显示组件数量",
+                Description = Localizer["Att6"]!,
                 Type = "int?",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RowType",
-                Description = "设置组件布局方式",
+                Description = Localizer["Att7"]!,
                 Type = "RowType",
                 ValueList = "Row|Inline",
                 DefaultValue = "Row"
             },
             new AttributeItem() {
                 Name = "LabelAlign",
-                Description = "Inline 布局模式下标签对齐方式",
+                Description = Localizer["Att8"]!,
                 Type = "Alignment",
                 ValueList = "None|Left|Center|Right",
                 DefaultValue = "None"
             }
         };
 
-        private static IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Field",
-                Description = "当前绑定数据值",
+                Description = Localizer["Att9"]!,
                 Type = "TValue",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "FieldType",
-                Description = "绑定列数据类型",
+                Description = Localizer["Att10"]!,
                 Type = "Type",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Editable",
-                Description = "是否允许编辑",
+                Description = Localizer["Att11"]!,
                 Type = "bool",
                 ValueList = "true/false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "Readonly",
-                Description = "是否只读",
+                Description = Localizer["Att12"]!,
                 Type = "bool",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Text",
-                Description = "编辑列前置标签名",
+                Description = Localizer["Att13"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "EditTemplate",
-                Description = "列编辑模板",
+                Description = Localizer["Att14"]!,
                 Type = "RenderFragment<object>",
                 ValueList = " — ",
                 DefaultValue = " — "
