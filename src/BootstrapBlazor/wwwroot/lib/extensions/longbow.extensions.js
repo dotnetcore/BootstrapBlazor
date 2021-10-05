@@ -107,10 +107,9 @@
                 type: "GET",
                 url: url,
                 success: function (result) {
-                    obj.invokeMethodAsync(method, result.Id, result.Ip, data.Os, data.Browser, data.Device, data.Language, data.UserAgent);
+                    obj.invokeMethodAsync(method, result.Id, result.Ip, data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
                 },
                 error: function (xhr, state, errorThrown) {
-                    console.log(browser);
                     console.error('Please add UseBootstrapBlazor middleware');
                     obj.invokeMethodAsync(method, '', '', data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
                 }
