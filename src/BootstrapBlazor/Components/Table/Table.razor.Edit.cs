@@ -94,6 +94,12 @@ namespace BootstrapBlazor.Components
         public bool ScrollingDialogContent { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持
+        /// </summary>
+        [Parameter]
+        public bool IsKeyboard { get; set; } = true;
+
+        /// <summary>
         /// 获得/设置 被选中的数据集合
         /// </summary>
         [Parameter]

@@ -497,6 +497,7 @@ namespace BootstrapBlazor.Components
         {
             IsTracking = IsTracking,
             IsScrolling = ScrollingDialogContent,
+            IsKeyboard = IsKeyboard,
             ShowLoading = ShowLoading,
             Title = EditModalTitleString,
             Model = EditModel,
