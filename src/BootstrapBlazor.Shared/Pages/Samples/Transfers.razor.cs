@@ -6,9 +6,7 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -114,6 +112,15 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
+        private string? SetItemClass(SelectedItem item) => item.Value switch
+        {
+            "2" => "bg-success text-white",
+            "4" => "bg-info text-white",
+            "6" => "bg-primary text-white",
+            "8" => "bg-warning text-white",
+            _ => null
+        };
+
         /// <summary>
         /// 获得属性方法
         /// </summary>
@@ -197,6 +204,12 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnItemsChanged",
                 Description="组件绑定数据项集合选项变化时回调方法",
                 Type ="Action<IEnumerable<SelectedItem>>"
+            },
+            new EventItem()
+            {
+                Name = "OnSetItemClass",
+                Description="设置 Item 样式回调方法",
+                Type ="Func<SelectedItem, string?>"
             }
         };
     }

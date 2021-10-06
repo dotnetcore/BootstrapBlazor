@@ -43,6 +43,10 @@ namespace BootstrapBlazor.Components
             .AddClass("disabled", IsDisabled)
             .Build();
 
+        private string? GetItemClass(SelectedItem item) => CssBuilder.Default("transfer-panel-item")
+            .AddClass(OnSetItemClass?.Invoke(item))
+            .Build();
+
         /// <summary>
         /// 获得 组件是否被禁用属性值
         /// </summary>
@@ -53,6 +57,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public List<SelectedItem>? Items { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据样式回调方法 默认为 null
+        /// </summary>
+        [Parameter]
+        public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
 
         /// <summary>
         /// 获得/设置 面板显示文字

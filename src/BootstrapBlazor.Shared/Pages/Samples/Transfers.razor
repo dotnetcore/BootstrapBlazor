@@ -51,6 +51,10 @@
               ShowSearch="true" />
 </Block>
 
+<Block Title="设置 Item 样式" Introduction="通过设置 <code>OnSetItemClass</code> 回调方法根据 <code>SelectedItem</code> 值设置选项样式" Name="ItemClass">
+    <Transfer TValue="string" Items="@Items4" OnSetItemClass="SetItemClass" />
+</Block>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

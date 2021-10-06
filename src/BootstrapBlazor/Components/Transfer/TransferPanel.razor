@@ -21,7 +21,7 @@
                 foreach (var item in GetShownItems())
                 {
                     var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
-                    <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="transfer-panel-item"
+                    <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="@GetItemClass(item)"
                               DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
                               State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
                 }

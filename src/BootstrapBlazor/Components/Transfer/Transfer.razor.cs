@@ -111,6 +111,13 @@ namespace BootstrapBlazor.Components
         public string? RightPannelSearchPlaceHolderString { get; set; }
 
         /// <summary>
+        /// 获得/设置 数据样式回调方法 默认为 null
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
+
+        /// <summary>
         /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
         /// </summary>
         [Inject]
