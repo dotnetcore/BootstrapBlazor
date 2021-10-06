@@ -6,6 +6,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Pages.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -20,7 +21,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
 
-        private Foo Model { get; set; } = new Foo() { Name = "张三" };
+        [NotNull]
+        private Foo? Model { get; set; }
 
         private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
 
@@ -32,41 +34,42 @@ namespace BootstrapBlazor.Shared.Pages
             base.OnInitialized();
 
             PlaceHolderText = Localizer["PlaceHolder"];
+            Model = new Foo() { Name = FLocalizer["TestName"] };
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "验证控件",
+                Description = FLocalizer["Att1"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = FLocalizer["Att2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "前置标签显示文本",
+                Description = FLocalizer["Att3"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "FormatString",
-                Description = "数值格式化字符串",
+                Description = FLocalizer["Att4"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Formatter",
-                Description = "TableHeader 实例",
+                Description = FLocalizer["Att5"]!,
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -74,7 +77,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "type",
-                Description = "控件类型",
+                Description = FLocalizer["Att6"]!,
                 Type = "string",
                 ValueList = "text / number / email / url / password",
                 DefaultValue = "text"
@@ -82,7 +85,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = "是否禁用 默认为 fasle",
+                Description = FLocalizer["Att7"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
