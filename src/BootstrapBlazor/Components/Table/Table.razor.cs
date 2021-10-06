@@ -216,6 +216,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public int LineNoColumnWidth { get; set; }
 
+        /// <summary>
+        /// 获得/设置 Table 组件渲染完毕回调
+        /// </summary>
+        [Parameter]
+        public Func<Table<TItem>, Task>? OnAfterRenderCallback { get; set; }
+
         [Inject]
         [NotNull]
         private IOptions<BootstrapBlazorOptions>? Options { get; set; }
@@ -594,6 +600,12 @@ namespace BootstrapBlazor.Components
         public string? SortDescText { get; set; }
 
         /// <summary>
+        /// 获得/设置 OnAfterRenderCallback 是否已经触发 默认 false
+        /// </summary>
+        /// <remarks>与 <see cref="OnAfterRenderCallback"/> 回调配合</remarks>
+        private bool OnAfterRenderIsTriggered { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
@@ -763,6 +775,12 @@ namespace BootstrapBlazor.Components
                 {
                     await Interop.InvokeVoidAsync(this, TableElement, "bb_table", methodName, new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
                     methodName = null;
+                }
+
+                if (!OnAfterRenderIsTriggered && OnAfterRenderCallback != null)
+                {
+                    OnAfterRenderIsTriggered = true;
+                    await OnAfterRenderCallback(this);
                 }
 
                 // 增加去重保护 _loop 为 false 时执行

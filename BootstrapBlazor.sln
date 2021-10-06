@@ -109,7 +109,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{8AB9DB
 		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Middleware", "Middleware", "{4A7F4513-C515-40DD-A217-169E1CBB2827}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "middleware", "middleware", "{4A7F4513-C515-40DD-A217-169E1CBB2827}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Middleware", "src\Middleware\BootstrapBlazor.Middleware\BootstrapBlazor.Middleware.csproj", "{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}"
 EndProject

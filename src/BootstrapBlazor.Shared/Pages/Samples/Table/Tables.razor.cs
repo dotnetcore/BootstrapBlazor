@@ -580,6 +580,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = nameof(BootstrapBlazor.Components.Table<Foo>.OnAfterRenderCallback),
+                Description = "表格渲染完毕后回调方法",
+                Type = "Func<Table<TItem>, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "OnTreeExpand",
                 Description = "树形数据节点展开式回调委托方法",
                 Type = "Func<TItem, Task<IEnumerable<TItem>>>",
