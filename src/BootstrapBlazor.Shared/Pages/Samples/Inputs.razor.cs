@@ -24,7 +24,8 @@ namespace BootstrapBlazor.Shared.Pages
 
         private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
 
-        private Foo Model { get; set; } = new Foo() { Name = "张三" };
+        [NotNull]
+        private Foo? Model { get; set; }
 
         private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
 
@@ -39,60 +40,61 @@ namespace BootstrapBlazor.Shared.Pages
             base.OnInitialized();
 
             PlaceHolderText = Localizer["PlaceHolder"];
+            Model = new Foo() { Name = Localizer["TestName"] };
         }
 
         private Task OnEnterAsync(string val)
         {
-            Trace.Log($"Enter 按键触发 当前文本框值: {val}");
+            Trace.Log($"Enter {Localizer["Log"]}: {val}");
             return Task.CompletedTask;
         }
 
         private Task OnEscAsync(string val)
         {
-            Trace.Log($"Esc 按键触发 当前文本框值: {val}");
+            Trace.Log($"Esc {Localizer["Log"]}: {val}");
             return Task.CompletedTask;
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private  IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "验证控件",
+                Description = Localizer["Att1"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = Localizer["Att2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "前置标签显示文本",
+                Description = Localizer["Att3"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = Localizer["Att4"]!,
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "FormatString",
-                Description = "数值格式化字符串",
+                Description = Localizer["Att5"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Formatter",
-                Description = "TableHeader 实例",
+                Description = Localizer["Att6"]!,
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -100,21 +102,21 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "type",
-                Description = "控件类型",
+                Description = Localizer["Att7"]!,
                 Type = "string",
                 ValueList = "text / number / email / url / password",
                 DefaultValue = "text"
             },
             new AttributeItem() {
                 Name = "OnEnterAsync",
-                Description = "用户按下 Enter 键回调委托",
+                Description = Localizer["Att8"]!,
                 Type = "Func<TValue, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnEscAsync",
-                Description = "用户按下 Esc 键回调委托",
+                Description = Localizer["Att9"]!,
                 Type = "Func<TValue, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -122,7 +124,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = "是否禁用 默认为 fasle",
+                Description = Localizer["Att10"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -130,7 +132,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsAutoFocus",
-                Description = "是否自动获取焦点 默认为 fasle",
+                Description = Localizer["Att11"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

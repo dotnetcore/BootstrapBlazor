@@ -1,15 +1,15 @@
 ﻿@page "/inputs"
 @inject IStringLocalizer<Inputs> Localizer
 
-<h3>Input 输入框</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>通过鼠标或键盘输入字符</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="基础用法" Introduction="提供基本的文本录入组件">
-    <p>可通过设置 <code>IsAutoFocus</code> 是否自动获取焦点，多个文本框设置自动获取焦点时最后执行的组件将会获得焦点</p>
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+    <p>@((MarkupString)Localizer["P1"].Value)</p>
     <div class="row g-3">
         <div class="col-auto col-form-label">
-            <span>基本用法</span>
+            <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
             <BootstrapInput placeholder="@PlaceHolderText" TValue="string" IsAutoFocus="true" />
@@ -17,7 +17,7 @@
     </div>
 </Block>
 
-<Block Title="颜色" Introduction="通过设置 <code>Color</code> 更改文本框边框颜色">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <BootstrapInput TValue="string" Color="Color.Primary" />
@@ -40,25 +40,25 @@
     </div>
 </Block>
 
-<Block Title="键盘响应" Introduction="使用 <code>OnEnterAsync</code> <code>OnEscAsync</code> 回调委托对 <kbd>Enter</kbd> <kbd>ESC</kbd> 按键进行回调响应">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
     <div class="row g-3">
         <div class="col-auto col-form-label">
-            <span>基本用法</span>
+            <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
             <BootstrapInput TValue="string" placeholder="@PlaceHolderText" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync" />
         </div>
         <div class="col-12">
-            <div>请按键盘 <kbd>Enter</kbd> 或者 <kbd>Esc</kbd> 进行测试</div>
+            <div>@((MarkupString)Localizer["Div1"].Value)</div>
         </div>
     </div>
     <BlockLogger class="mt-3" @ref="Trace" />
 </Block>
 
-<Block Title="单向绑定数据" Introduction="显示组件内变量值">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
     <div class="row g-3">
         <div class="col-auto col-form-label">
-            <span>单向绑定</span>
+            <span>@Localizer["Span2"]</span>
         </div>
         <div class="col-6">
             <BootstrapInput placeholder="@PlaceHolderText" Value="@Model.Name" />
@@ -66,26 +66,26 @@
     </div>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步">
-    <p><code>BootstrapInput</code> 组件开启双向绑定时，会根据绑定的 <code>Model</code> 属性值去自动获取 <code>Display/DisplayName</code> 标签值并且显示为前置 <code>Label</code>，通过 <code>DisplayText</code> 属性可以自定义显示前置标签，或者通过 <code>ShowLabel</code> 属性关闭前置标签是否显示</p>
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]">
+    <p>@((MarkupString)Localizer["P2"].Value)</p>
     <div class="row g-3">
-        <Divider Text="自定义标签" />
+        <Divider Text="@Localizer["Divider1"]" />
         <div class="col-12">
-            <p>设置 <code>DisplayText</code> 值为 <b>自定义标签</b></p>
+            <p>@((MarkupString)Localizer["P3"].Value)</p>
         </div>
         <div class="col-12">
-            <BootstrapInput placeholder="@PlaceHolderText" @bind-Value="@Model.Name" DisplayText="自定义标签" ShowLabel="true" />
+            <BootstrapInput placeholder="@PlaceHolderText" @bind-Value="@Model.Name" DisplayText="@Localizer["InputText1"]" ShowLabel="true" />
         </div>
-        <Divider Text="占位" />
+        <Divider Text="@Localizer["Divider2"]" />
         <div class="col-12">
-            <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示</p>
+            <p>@((MarkupString)Localizer["P4"].Value)</p>
         </div>
         <div class="col-12">
             <BootstrapInput placeholder="@PlaceHolderText" @bind-Value="@Model.Name" ShowLabel="true" />
         </div>
-        <Divider Text="不占位" />
+        <Divider Text="@Localizer["Divider3"]" />
         <div class="col-12">
-            <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示</p>
+            <p>@((MarkupString)Localizer["P5"].Value)</p>
         </div>
         <div class="col-12">
             <BootstrapInput placeholder="@PlaceHolderText" @bind-Value="@Model.Name" />
@@ -93,57 +93,57 @@
     </div>
 </Block>
 
-<Block Title="客户端验证" Introduction="根据自定义验证规则进行数据有效性检查并自动提示">
-    <Tips>使用双向绑定时会自动寻找资源文件中 <code>Key</code> 值为 <code>{FieldName}.PlaceHolder</code> 对应值作为 <code>placeholder</code> 显示，本例中 <code>placeholder</code> 值为资源文件中 <code>Name.PlaceHolder</code> 键对应值 <code>required/不可为空</code></Tips>
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
+    <Tips>@((MarkupString)Localizer["Tips1"].Value)</Tips>
     <ValidateForm Model="@Model">
         <BootstrapInput maxlength="5" @bind-Value="@Model.Name" />
     </ValidateForm>
 </Block>
 
-<Block Title="密码框" Introduction="通过设置属性 <code>type</code> 值为 <code>password</code> 使输入文字后以 <code>*</code> 进行屏蔽的密码输入框">
-    <p>为了支持更多的文本框属性本组件可以直接写入 <code>type="email"</code> <code>type="number"</code> <code>type="phone"</code> 等 <code>html5</code> 新标准支持的全部属性值，组件未设置 <code>type</code> 值时使用默认的 <code>type="text"</code></p>
+<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">
+    <p>@((MarkupString)Localizer["P6"].Value)</p>
     <BootstrapInput TValue="string" placeholder="@PlaceHolderText" type="password" maxlength="5" style="width: 200px;" />
 </Block>
 
-<Block Title="泛型绑定" Introduction="<code>BootstrapInput</code> 组件双向绑定值是泛型的，本例中双向绑定一个 int 类型数值">
+<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <BootstrapInput FormatString="000" step="1" placeholder="@PlaceHolderText" @bind-Value="@Model.Count" />
         </div>
         <div class="col-12 col-sm-6">
-            <div class="col-form-label">绑定数值: @Model.Count.ToString("000")</div>
+            <div class="col-form-label">@Localizer["Div2"]: @Model.Count.ToString("000")</div>
         </div>
     </div>
 </Block>
 
-<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入">
+<Block Title="@Localizer["禁用"]" Introduction="@Localizer["Block9Intro"]">
     <BootstrapInput TValue="string" IsDisabled="true" />
 </Block>
 
-<Block Title="自定义格式" Introduction="设置 <code>FormatString</code> 属性值为 <code>yyyy-MM-dd</code> 时，组件显示的时间格式为年月日">
+<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]">
     <div class="row g-3">
-        <div class="col-12 col-sm-6 col-form-label">设置 <code class="ms-1">FormatString</code></div>
+        <div class="col-12 col-sm-6 col-form-label">@Localizer["Div3"] <code class="ms-1">FormatString</code></div>
         <div class="col-12 col-sm-6">
             <BootstrapInput Value="DateTime.Now" FormatString="yyyy-MM-dd" IsDisabled="true" />
         </div>
-        <div class="col-12 col-sm-6 col-form-label">设置 <code class="ms-1">Formatter</code></div>
+        <div class="col-12 col-sm-6 col-form-label">@Localizer["Div3"] <code class="ms-1">Formatter</code></div>
         <div class="col-12 col-sm-6">
             <BootstrapInput Value="DateTime.Now" Formatter="@DateTimeFormatter" IsDisabled="true" />
         </div>
     </div>
-    <p class="mt-3"><code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例</p>
+    <p class="mt-3">@((MarkupString)Localizer["P7"].Value)</p>
     <div class="row g-3">
-        <div class="col-12 col-sm-6 col-form-label">设置 <code class="ms-1">Formatter</code></div>
+        <div class="col-12 col-sm-6 col-form-label">@Localizer["Div3"] <code class="ms-1">Formatter</code></div>
         <div class="col-12 col-sm-6">
             <BootstrapInput Value="@ByteArray" Formatter="@ByteArrayFormatter" IsDisabled="true" />
         </div>
     </div>
 </Block>
 
-<Block Title="密码框" Introduction="使用 <code>BootstrapPassword</code> 组件">
+<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]">
     <div class="row g-3">
         <div class="col-auto col-form-label">
-            <span>基本用法</span>
+            <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
             <BootstrapPassword placeholder="@PlaceHolderText" />
@@ -151,10 +151,10 @@
     </div>
 </Block>
 
-<Block Title="密码框" Introduction="使用 <code>BootstrapPassword</code> 组件">
+<Block Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]">
     <div class="row g-3">
         <div class="col-auto col-form-label">
-            <span>基本用法</span>
+            <span>@Localizer["Span1"]</span>
         </div>
         <div class="col-6">
             <BootstrapPassword placeholder="@PlaceHolderText" />
