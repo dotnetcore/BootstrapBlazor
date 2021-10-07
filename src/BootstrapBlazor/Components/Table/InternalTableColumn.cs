@@ -230,6 +230,9 @@ namespace BootstrapBlazor.Components
         {
             if (source.Align != Alignment.None) dest.Align = source.Align;
             if (source.AllowTextWrap) dest.AllowTextWrap = source.AllowTextWrap;
+            if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
+            if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
+            if (!string.IsNullOrEmpty(source.CssClass)) dest.CssClass = source.CssClass;
             if (source.DefaultSort) dest.DefaultSort = source.DefaultSort;
             if (source.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = source.DefaultSortOrder;
             if (!source.Editable) dest.Editable = source.Editable;
@@ -240,26 +243,24 @@ namespace BootstrapBlazor.Components
             if (source.Fixed) dest.Fixed = source.Fixed;
             if (source.FormatString != null) dest.FormatString = source.FormatString;
             if (source.Formatter != null) dest.Formatter = source.Formatter;
+            if (source.Items != null) dest.Items = source.Items;
+            if (source.Lookup != null) dest.Lookup = source.Lookup;
+            if (!source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
+            if (!source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
+            if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
             if (source.Readonly) dest.Readonly = source.Readonly;
+            if (source.Rows > 0) dest.Rows = source.Rows;
             if (source.Searchable) dest.Searchable = source.Searchable;
             if (source.SearchTemplate != null) dest.SearchTemplate = source.SearchTemplate;
             if (source.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = source.ShownWithBreakPoint;
             if (source.ShowTips) dest.ShowTips = source.ShowTips;
-            if (source.Sortable) dest.Sortable = source.Sortable;
-            if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
             if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
-            if (source.Items != null) dest.Items = source.Items;
-            if (source.Lookup != null) dest.Lookup = source.Lookup;
+            if (source.Sortable) dest.Sortable = source.Sortable;
             if (source.Template != null) dest.Template = source.Template;
+            if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
+            if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
             if (!source.Visible) dest.Visible = source.Visible;
             if (source.Width != null) dest.Width = source.Width;
-            if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
-            if (source.Rows > 0) dest.Rows = source.Rows;
-            if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
-            if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
-            if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
-            if (!source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
-            if (!source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         }
     }
 }
