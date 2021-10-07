@@ -131,6 +131,11 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            if (OnSetItemClass == null)
+            {
+                OnSetItemClass = _ => null;
+            }
+
             // 处理 Required 标签
             if (EditContext != null && FieldIdentifier != null)
             {
