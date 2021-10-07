@@ -22,6 +22,9 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private Modal? ModalContainer { get; set; }
 
+        [CascadingParameter(Name = "TableDialogTrigger")]
+        private long TableDialogTrigger { get; set; }
+
         /// <summary>
         /// 获得/设置 弹出对话框实例集合
         /// </summary>

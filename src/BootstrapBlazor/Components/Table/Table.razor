@@ -273,8 +273,11 @@
 </div>
 
 <Toast />
-<Dialog />
 <PopoverConfirm />
+
+<CascadingValue Value="DateTime.Now.Ticks" Name="TableDialogTrigger">
+    <Dialog />
+</CascadingValue>
 
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>
