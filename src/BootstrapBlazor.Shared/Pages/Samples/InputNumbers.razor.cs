@@ -58,20 +58,20 @@ namespace BootstrapBlazor.Shared.Pages
 
         private static string Formatter(double val) => val.ToString("0.0");
 
-        private static IEnumerable<AttributeItem> GetAttributes()
+        private IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
                 new AttributeItem() {
                     Name = "Value",
-                    Description = "当前值",
+                    Description = Localizer["Att1"]!,
                     Type = "sbyte|byte|int|long|short|float|double|decimal",
                     ValueList = " — ",
                     DefaultValue = "0"
                 },
                 new AttributeItem() {
                     Name = "Max",
-                    Description = "可允许最大值",
+                    Description = Localizer["Att2"]!,
                     Type = "string",
                     ValueList = " - ",
                     DefaultValue = " - "
@@ -79,7 +79,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem()
                 {
                     Name = "Min",
-                    Description = "可允许最小值",
+                    Description = Localizer["Att3"]!,
                     Type = "string",
                     ValueList = " - ",
                     DefaultValue = " - "
@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem()
                 {
                     Name = "Step",
-                    Description = "步长",
+                    Description = Localizer["Att4"]!,
                     Type = "int|long|short|float|double|decimal",
                     ValueList = " - ",
                     DefaultValue = "1"
@@ -95,21 +95,21 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem()
                 {
                     Name = "IsDisabled",
-                    Description = "是否禁用 默认为 fasle",
+                    Description = Localizer["Att5"]!,
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "ShowLabel",
-                    Description = "是否显示前置标签",
+                    Description = Localizer["Att6"]!,
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",
-                    Description = "前置标签显示文本",
+                    Description = Localizer["Att7"]!,
                     Type = "string",
                     ValueList = " — ",
                     DefaultValue = " — "
