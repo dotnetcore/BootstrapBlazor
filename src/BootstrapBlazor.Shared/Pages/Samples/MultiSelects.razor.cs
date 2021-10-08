@@ -106,13 +106,13 @@ namespace BootstrapBlazor.Shared.Pages
 
         private IEnumerable<SelectedItem> OnSearch(string searchText)
         {
-            Trace.Log($"搜索文字：{searchText}");
+            Trace.Log($"{Localizer["Log1"]}：{searchText}");
             return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
         }
 
         private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
         {
-            Trace.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
+            Trace.Log($"{Localizer["Log2"]}：{string.Join(",", items.Select(i => i.Value))}");
             return Task.CompletedTask;
         }
 
@@ -297,19 +297,19 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new[]
+        private IEnumerable<EventItem> GetEvents() => new[]
         {
             new EventItem()
             {
                 Name = "OnSelectedItemChanged",
-                Description="下拉框选项改变时触发此事件",
-                Type ="Func<SelectedItem, Task>"
+                Description = Localizer["Event1"]!,
+                Type = "Func<SelectedItem, Task>"
             },
             new EventItem()
             {
                 Name = "OnSearchTextChanged",
-                Description="搜索文本发生变化时回调此方法",
-                Type ="Func<string, IEnumerable<SelectedItem>>"
+                Description = Localizer["Event2"]!,
+                Type = "Func<string, IEnumerable<SelectedItem>>"
             }
         };
 
@@ -317,82 +317,82 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = Localizer["Att1"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowCloseButton",
-                Description = "是否显示前置标签关闭按钮",
+                Description = Localizer["Att2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowToolbar",
-                Description = "是否显示功能按钮",
+                Description = Localizer["Att3"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowDefaultButtons",
-                Description = "是否显示默认功能按钮",
+                Description = Localizer["Att4"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "前置标签显示文本",
+                Description = Localizer["Att5"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "PlaceHolder",
-                Description = "未选择时的占位显示文字",
+                Description = Localizer["Att6"]!,
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "点击进行多选 ..."
+                DefaultValue = Localizer["Att1DefaultValue"]!
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["Att7"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = Localizer["Att8"]!,
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["Att9"]!,
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "数据集合",
+                Description = Localizer["Att10"]!,
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ButtonTemplate",
-                Description = "扩展按钮模板",
+                Description = Localizer["Att11"]!,
                 Type = "RenderFragment<IEnumerable<SelectedItem>>",
                 ValueList = " — ",
                 DefaultValue = " — "
