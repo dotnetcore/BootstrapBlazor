@@ -11,6 +11,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="" />
+    <None Include="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
