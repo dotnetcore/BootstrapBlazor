@@ -169,26 +169,21 @@
                 $theme.toggleClass('is-open').slideToggle('fade');
             });
         },
-        setTheme: function (css, cssList) {
-            $('link[rel="stylesheet"]').each(function (index, link) {
-                var theme = $(link).attr('href');
-                var $theme = cssList.filter(function (c) {
-                    return c !== "" && theme.indexOf(c) > -1;
-                });
-                if ($theme.length > 0) {
-                    $(link).remove();
-                    return false;
-                }
+        setTheme: function (css) {
+            var $links = $('link');
+            var $link = $links.filter(function (index, link) {
+                var href = $(link).attr('href');
+                return href.indexOf('_content/BootstrapBlazor.Shared/css/site.css') > -1;
             });
 
-            if (css !== "") {
-                var $link = $('link').filter(function (index, link) {
-                    var href = $(link).attr('href');
-                    return href.indexOf('_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css') > -1;
-                });
-                // append
-                $link.after('<link rel="stylesheet" href="' + css + '">');
+            while ($link.next().length === 1) {
+                var $item = $link.next();
+                $item.remove();
             }
+
+            css.forEach(function (c) {
+                $link.after('<link rel="stylesheet" href="' + c + '">');
+            });
         },
         bb_open: function (method) {
             if (method === 'dispose') {

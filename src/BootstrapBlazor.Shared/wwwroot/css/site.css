@@ -1602,7 +1602,7 @@ section {
 .btn-theme {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     box-shadow: 0px 1px 20px 0px rgba(0,0,0,0.1),inset 0px -1px 0px 0px rgba(0,0,0,0.1);
     position: fixed;
     z-index: 12;
@@ -1610,6 +1610,13 @@ section {
     bottom: 9rem;
     background-color: #034995;
     padding: 11px;
+}
+
+.m-logo {
+    position: absolute;
+    width: 17px;
+    top: 10px;
+    left: 11px;
 }
 
 .theme-bar {

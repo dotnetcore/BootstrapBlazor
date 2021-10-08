@@ -30,9 +30,6 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [NotNull]
         private string? HeaderText { get; set; }
 
-        [NotNull]
-        private IEnumerable<string>? ThemeList { get; set; }
-
         [Inject]
         [NotNull]
         private IStringLocalizer<ThemeChooser>? Localizer { get; set; }
@@ -55,8 +52,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
             Title ??= Localizer[nameof(Title)];
             HeaderText ??= Localizer[nameof(HeaderText)];
             Themes = BootstrapOptions.Value.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
-            ThemeList = Themes.Select(t => t.Value);
-            SiteOptions.Value.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic (开发中)")?.Value ?? "";
+            SiteOptions.Value.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic")?.Value ?? "";
         }
 
         /// <summary>
@@ -78,11 +74,23 @@ namespace BootstrapBlazor.Shared.Pages.Components
         {
             SiteOptions.Value.CurrentTheme = item.Value;
 
-            await JSRuntime.InvokeVoidAsync("$.setTheme", item.Value, ThemeList);
+            await JSRuntime.InvokeVoidAsync("$.setTheme", LinksCache[item.Value]);
         }
 
         private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
             .AddClass("active", SiteOptions.Value.CurrentTheme == item.Value)
             .Build();
+
+        private Dictionary<string, ICollection<string>> LinksCache { get; } = new(new KeyValuePair<string, ICollection<string>>[]
+        {
+            new("bootstrap.blazor.bundle.min.css", new List<string>()),
+            new("motronic.min.css", new string[]
+            {
+                "_content/BootstrapBlazor/css/motronic.min.css",
+                "_content/BootstrapBlazor.Shared/css/motronic.css"
+            }),
+            new("ant", new List<string>()),
+            new("layui", new List<string>())
+        });
     }
 }

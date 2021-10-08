@@ -67,7 +67,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public List<KeyValuePair<string, string>> Themes { get; private set; } = new()
         {
-            new("Bootstrap", "")
+            new("Bootstrap", "bootstrap.blazor.bundle.min.css"),
+            new("Motronic", "motronic.min.css")
         };
 
         private Lazy<List<CultureInfo>>? _cultures;
