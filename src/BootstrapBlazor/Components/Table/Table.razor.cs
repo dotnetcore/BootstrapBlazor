@@ -683,6 +683,8 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
+            ActiveDialog?.Render();
+
             RowItemsCache = null;
 
             if (IsExcel)

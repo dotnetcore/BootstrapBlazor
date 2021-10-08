@@ -488,49 +488,56 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private readonly DialogOption DialogOption = new();
+        private Modal? ActiveDialog { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        protected Task ShowEditDialog(ItemChangedType changedType) => DialogService.ShowEditDialog(new EditDialogOption<TItem>()
+        protected async Task ShowEditDialog(ItemChangedType changedType)
         {
-            IsTracking = IsTracking,
-            IsScrolling = ScrollingDialogContent,
-            IsKeyboard = IsKeyboard,
-            ShowLoading = ShowLoading,
-            Title = EditModalTitleString,
-            Model = EditModel,
-            Items = Columns.Where(i => i.Editable),
-            SaveButtonText = EditDialogSaveButtonText,
-            DialogBodyTemplate = EditTemplate,
-            RowType = EditDialogRowType,
-            ItemsPerRow = EditDialogItemsPerRow,
-            LabelAlign = EditDialogLabelAlign,
-            ItemChangedType = changedType,
-            OnCloseAsync = async () =>
+            var option = new EditDialogOption<TItem>()
             {
-                if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
+                IsTracking = IsTracking,
+                IsScrolling = ScrollingDialogContent,
+                IsKeyboard = IsKeyboard,
+                ShowLoading = ShowLoading,
+                Title = EditModalTitleString,
+                Model = EditModel,
+                Items = Columns.Where(i => i.Editable),
+                SaveButtonText = EditDialogSaveButtonText,
+                DialogBodyTemplate = EditTemplate,
+                RowType = EditDialogRowType,
+                ItemsPerRow = EditDialogItemsPerRow,
+                LabelAlign = EditDialogLabelAlign,
+                ItemChangedType = changedType,
+                OnCloseAsync = async () =>
                 {
-                    // EFCore
+                    ActiveDialog = null;
+                    if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
+                    {
+                        // EFCore
+                        await ToggleLoading(true);
+                        await ef.CancelAsync();
+                        await ToggleLoading(false);
+                    }
+                    await UpdateAsync();
+                },
+                OnSaveAsync = async context =>
+                {
+                    ActiveDialog = null;
                     await ToggleLoading(true);
-                    await ef.CancelAsync();
+                    var valid = await SaveModelAsync(context, changedType);
+                    if (valid)
+                    {
+                        await QueryAsync();
+                    }
                     await ToggleLoading(false);
+                    return valid;
                 }
-                await UpdateAsync();
-            },
-            OnSaveAsync = async context =>
-            {
-                await ToggleLoading(true);
-                var valid = await SaveModelAsync(context, changedType);
-                if (valid)
-                {
-                    await QueryAsync();
-                }
-                await ToggleLoading(false);
-                return valid;
-            }
-        });
+            };
+            await DialogService.ShowEditDialog(option);
+            ActiveDialog = option.Dialog;
+        }
 
         private async Task UpdateAsync()
         {
