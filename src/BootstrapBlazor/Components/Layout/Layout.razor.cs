@@ -31,6 +31,7 @@ namespace BootstrapBlazor.Components
         private string? ClassString => CssBuilder.Default("layout")
             .AddClass("has-sidebar", Side != null && IsFullSide)
             .AddClass("is-page", IsPage)
+            .AddClass("has-footer", ShowFooter)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 

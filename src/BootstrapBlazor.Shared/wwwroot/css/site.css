@@ -1754,8 +1754,16 @@ header .bb-fs {
     }
 }
 
+.layout {
+    --bb-footer-height: 0px;
+}
+
+    .layout.has-footer {
+        --bb-footer-height: 40px;
+    }
+
 .is-fixed-tab .tabs-body {
-    height: calc(100vh - 130px);
+    height: calc(100vh - 90px - var(--bb-footer-height));
     overflow: auto;
 }
 
