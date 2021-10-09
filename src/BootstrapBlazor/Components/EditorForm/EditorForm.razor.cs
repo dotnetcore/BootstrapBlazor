@@ -229,7 +229,7 @@ namespace BootstrapBlazor.Components
                                 }
                             }
                         }
-                        FormItems.AddRange(items);
+                        FormItems.AddRange(items.Where(i => i.Editable));
                     }
                     else
                     {
