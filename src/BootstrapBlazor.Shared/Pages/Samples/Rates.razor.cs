@@ -27,19 +27,19 @@ namespace BootstrapBlazor.Shared.Pages
         private void OnValueChanged(int val)
         {
             BindValue = val;
-            Trace?.Log($"评星: {val}");
+            Trace?.Log($"{Localizer["Log"]} {val}");
         }
 
         /// <summary>
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description="值改变时回调委托",
+                Description =Localizer["Event1"]!,
                 Type ="EventCallback<int>"
             }
         };
@@ -48,12 +48,12 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Value",
-                Description = "组件值",
+                Description = Localizer["Att1"]!,
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = "是否禁用 默认为 fasle",
+                Description = Localizer["Att2"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

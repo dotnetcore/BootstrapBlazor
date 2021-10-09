@@ -40,7 +40,8 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private IEnumerable<SelectedItem> Items { get; set; }
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items { get; set; }
 
         private SelectedItem BindRadioItem { get; set; } = new SelectedItem();
 
