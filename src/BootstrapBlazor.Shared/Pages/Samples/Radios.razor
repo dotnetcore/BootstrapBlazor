@@ -1,23 +1,24 @@
 ﻿@page "/radios"
+@inject IStringLocalizer<Radios> Localizer
 
-<h3>Radio 单选框</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>在一组备选项中进行单选</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="基础用法" Introduction="由于选项默认可见，不宜过多，若选项过多，建议使用 Select 选择器">
+<Block Title="" Introduction="">
     <RadioList TValue="string" Items="@DemoValues" OnSelectedChanged="@OnSelectedChanged"></RadioList>
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="禁用单选框" Introduction='通过 <code>IsDisabled="true"</code> 单选框不可用状态'>
+<Block Title="@Localizer["Blcok2Title"]" Introduction='@Localizer["Block2Intro"]'>
     <RadioList TValue="string" Items="@DemoValues" IsDisabled="true" ShowBorder="false"></RadioList>
 </Block>
 
-<Block Title="Label 文字" Introduction="单选框显示文字">
-    <RadioList TValue="string" Items="@DemoValues" ShowLabel="true" DisplayText="按钮组"></RadioList>
+<Block Title="@Localizer["Blcok3Title"]" Introduction="@Localizer["Block3Intro"]">
+    <RadioList TValue="string" Items="@DemoValues" ShowLabel="true" DisplayText="@Localizer["RadioText"]"></RadioList>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步，绑定数据类型为 SelectedItem 类型数组">
+<Block Title="@Localizer["Blcok4Title"]" Introduction="@Localizer["Block4Intro"]">
     <div class="row g-3">
         <div class="col-12">
             <RadioList Items="@Items" @bind-Value="@BindRadioItem" OnSelectedChanged="@OnItemChanged"></RadioList>
@@ -29,17 +30,17 @@
     <BlockLogger @ref="BinderLog" />
 </Block>
 
-<Block Title="竖向排列" Introduction="通过设置 <code>IsVertical</code> 使组件内部竖向排列">
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]">
     <RadioList TValue="string" Items="@DemoValues" IsVertical="true"></RadioList>
 </Block>
 
-<Block Title="绑定枚举类型" Introduction="通过双向绑定 <code>Value</code> 无需设置 <code>Items</code>">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
     <RadioList @bind-Value="@SelectedEnumItem"></RadioList>
-    <p class="mt-3">通过设置 <code>IsAutoAddNullItem</code> 自动添加 <b>空值</b> 选项，通过设置 <code>NullItemText</code> 自定义 <b>空值</b> 选项</p>
-    <RadioList @bind-Value="@SelectedEnumItem" IsAutoAddNullItem="true" NullItemText="空值"></RadioList>
+    <p class="mt-3">@((MarkupString)Localizer["P1"].Value)</p>
+    <RadioList @bind-Value="@SelectedEnumItem" IsAutoAddNullItem="true" NullItemText="@Localizer["RadioText2"]"></RadioList>
 </Block>
 
-<Block Title="颜色" Introduction="通过设置 <code>Color</code> 属性改变组件背景色">
+<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">
     <div class="row g-3">
         <div class="col-12">
             <RadioList TValue="string" Items="@DemoValues" Color="@Color.Primary"></RadioList>

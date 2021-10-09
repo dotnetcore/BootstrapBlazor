@@ -23,77 +23,89 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private BlockLogger? BinderLog { get; set; }
 
-        private IEnumerable<SelectedItem> DemoValues { get; set; } = new List<SelectedItem>(2)
-        {
-            new SelectedItem("1", "选项一"),
-            new SelectedItem("2", "选项二"),
-        };
+        [NotNull]
+        private IEnumerable<SelectedItem>? DemoValues { get; set; }
 
         private Task OnSelectedChanged(IEnumerable<SelectedItem> values, string val)
         {
             var value = values.FirstOrDefault();
-            Trace.Log($"组件选中值: {value?.Value} 显示值: {value?.Text} 组件 Value 值: {val}");
+            Trace.Log($"{Localizer["Log1"]} {value?.Value}  {Localizer["Log1"]}{value?.Text}  {Localizer["Log3"]}{val}");
             return Task.CompletedTask;
         }
 
         private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
         {
             var value = values.FirstOrDefault();
-            BinderLog.Log($"组件选中值: {value?.Value} 显示值: {value?.Text}");
+            BinderLog.Log($"{Localizer["Log1"]} {value?.Value} {Localizer["Log1"]} {value?.Text}");
             return Task.CompletedTask;
         }
 
-        private IEnumerable<SelectedItem> Items { get; set; } = new SelectedItem[]
-        {
-            new SelectedItem("1", "北京") { Active = true },
-            new SelectedItem("2", "上海")
-        };
+        private IEnumerable<SelectedItem> Items { get; set; }
 
         private SelectedItem BindRadioItem { get; set; } = new SelectedItem();
 
         [NotNull]
         private EnumEducation? SelectedEnumItem { get; set; }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            DemoValues = new List<SelectedItem>(2)
+            {
+                new SelectedItem("1", Localizer["Item1"]!),
+                new SelectedItem("2", Localizer["Item2"]!),
+            };
+            Items = new SelectedItem[]
+            {
+                new SelectedItem("1", Localizer["Add1"]!) { Active = true },
+                new SelectedItem("2", Localizer["Add2"]!)
+            };
+        }
+
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "显示文字",
+                Description = Localizer["Att1"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "NullItemText",
-                Description = "空值显示文字",
+                Description = Localizer["Att2"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["Att3"]!,
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = "是否垂直分布",
+                Description = Localizer["Att4"]!,
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsAutoAddNullItem",
-                Description = "绑定可为空枚举类型时是否自动添加空值",
+                Description = Localizer["Att5"]!,
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "绑定数据源",
+                Description = Localizer["Att6"]!,
                 Type = "IEnumerable<TItem>",
                 ValueList = " — ",
                 DefaultValue = "—"
@@ -104,12 +116,12 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnSelectedChanged",
-                Description="复选框状态改变时回调此方法",
+                Description = Localizer["Event1"]!,
                 Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
             }
         };
