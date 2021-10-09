@@ -221,6 +221,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["AutoFill"],
+                    Url = "autofills"
+                },
+                new()
+                {
                     Text = Localizer["Button"],
                     Url = "buttons"
                 },

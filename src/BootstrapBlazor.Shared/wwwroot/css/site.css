@@ -1780,7 +1780,7 @@ header .bb-fs {
     margin: 0 !important;
 }
 
-.table-cell img {
+.bb-avatar {
     width: 46px;
     border-radius: var(--bs-border-radius);
 }
@@ -1791,7 +1791,7 @@ header .bb-fs {
     margin-bottom: 10px;
 }
 
-.table-cell .address {
+.bb-sub {
     margin-top: .25rem;
     font-size: 86%;
     color: #c0c4cc;

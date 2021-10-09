@@ -1571,6 +1571,7 @@
     "Toast": "轻量弹窗 Toast",
     "FormsComponents": "表单组件",
     "AutoComplete": "自动完成 AutoComplete",
+    "AutoFill": "自动填充 AutoFill",
     "Button": "按钮 Button",
     "Cascader": "级联选择 Cascader",
     "Checkbox": "多选框 Checkbox",
