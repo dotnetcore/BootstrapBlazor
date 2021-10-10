@@ -1,6 +1,6 @@
 ﻿@inherits FilterBase
 
-<Select Items="@Items" @bind-Value="@Value"></Select>
+<Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()"></Select>
 
 @code {
     private List<SelectedItem> Items { get; set; } = new List<SelectedItem>();
