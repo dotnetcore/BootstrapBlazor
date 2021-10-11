@@ -36,6 +36,8 @@ namespace BootstrapBlazor.Components
 
         private static ConcurrentDictionary<(Type ModelType, string FieldName), Action<object, object?>> SetPropertyValueLambdaCache { get; } = new();
 
+        private static ConcurrentQueue<(Type ModelType, DateTime CacheTime)> DynamicModelCacheQueue { get; } = new();
+
         /// <summary>
         /// 获取资源文件中 DisplayAttribute/DisplayNameAttribute 标签名称方法
         /// </summary>
@@ -155,12 +157,48 @@ namespace BootstrapBlazor.Components
                 propertyInfo = metadataType?.MetadataClassType.GetProperties().Where(x => x.Name == cacheKey.FieldName).FirstOrDefault()
                     ?? cacheKey.ModelType.GetProperties().Where(x => x.Name == cacheKey.FieldName).FirstOrDefault();
 
-                if (propertyInfo != null)
+                // TODO: 针对动态类型进行缓存治理防止内存溢出
+                //if (modelType.Assembly.IsDynamic)
+                //{
+                //    DynamicModelCacheQueue.Enqueue((modelType, DateTime.Now));
+                //    _ = ClearCache();
+                //}
+
+                if (!modelType.Assembly.IsDynamic && propertyInfo != null)
                 {
                     PropertyInfoCache[cacheKey] = propertyInfo;
                 }
             }
             return propertyInfo != null;
+        }
+
+        private static bool _clearing;
+        private static async Task ClearCache(int interval = 10)
+        {
+            if (!_clearing)
+            {
+                _clearing = true;
+                await Task.Delay(1000 * 60 * interval);
+                while (DynamicModelCacheQueue.TryDequeue(out var cache))
+                {
+                    if (cache.CacheTime.AddMinutes(interval) > DateTime.Now)
+                    {
+
+                        break;
+                    }
+
+                    // clear
+                    var key = cache.ModelType;
+                    foreach (var kv in PropertyInfoCache)
+                    {
+                        if (kv.Key.ModelType == key)
+                        {
+                            PropertyInfoCache.TryRemove(kv);
+                        }
+                    }
+                }
+                _clearing = false;
+            }
         }
 
         /// <summary>
