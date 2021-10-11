@@ -6,6 +6,8 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -14,29 +16,30 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Messages
     {
-#nullable disable
-        private Message MessageElement { get; set; }
-#nullable restore
+        [NotNull]
+        private Message? MessageElement { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Inject] public MessageService? MessageService { get; set; }
+        [Inject]
+        [NotNull]
+        public MessageService? MessageService { get; set; }
 
-        private void ShowMessage()
+        private async Task ShowMessage()
         {
             MessageElement.SetPlacement(Placement.Top);
-            MessageService?.Show(new MessageOption()
+            await MessageService.Show(new MessageOption()
             {
                 Host = MessageElement,
                 Content = "这是一条提示消息"
             });
         }
 
-        private void ShowIconMessage()
+        private async Task ShowIconMessage()
         {
             MessageElement.SetPlacement(Placement.Top);
-            MessageService?.Show(new MessageOption()
+            await MessageService.Show(new MessageOption()
             {
                 Host = MessageElement,
                 Content = "这是一条提示消息",
@@ -44,10 +47,10 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        private void ShowCloseMessage()
+        private async Task ShowCloseMessage()
         {
             MessageElement.SetPlacement(Placement.Top);
-            MessageService?.Show(new MessageOption()
+            await MessageService.Show(new MessageOption()
             {
                 Host = MessageElement,
                 Content = "这是一条提示消息",
@@ -56,10 +59,10 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        private void ShowBarMessage()
+        private async Task ShowBarMessage()
         {
             MessageElement.SetPlacement(Placement.Top);
-            MessageService?.Show(new MessageOption()
+            await MessageService.Show(new MessageOption()
             {
                 Host = MessageElement,
                 Content = "这是一条提示消息",
@@ -68,10 +71,10 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        private void ShowColorMessage(Color color)
+        private async Task ShowColorMessage(Color color)
         {
             MessageElement.SetPlacement(Placement.Top);
-            MessageService?.Show(new MessageOption()
+            await MessageService.Show(new MessageOption()
             {
                 Host = MessageElement,
                 Content = "这是带颜色的消息",
@@ -80,10 +83,10 @@ namespace BootstrapBlazor.Shared.Pages
             });
         }
 
-        private void ShowBottomMessage()
+        private async Task ShowBottomMessage()
         {
             MessageElement.SetPlacement(Placement.Bottom);
-            MessageService?.Show(new MessageOption()
+            await MessageService.Show(new MessageOption()
             {
                 Host = MessageElement,
                 Content = "这是一条提示消息",

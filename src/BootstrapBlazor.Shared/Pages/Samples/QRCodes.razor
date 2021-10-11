@@ -2,11 +2,17 @@
 
 <h3>@Title</h3>
 
-<h4>@SubTitle</h4> 
+<h4>@SubTitle</h4>
 
 <Block Title="@BaseUsageText" Introduction="@IntroText1">
-    <QRCode OnGenerated="@OnGenerated"></QRCode>
+    <QRCode OnGenerated="@OnGenerated" ShowButtons="true"></QRCode>
     <BlockLogger @ref="Trace" class="mt-3" />
+    <Pre class="mt-3">&lt;QRCode OnGenerated="@@OnGenerated" ShowButtons="true"&gt;&lt;QRCode&gt;</Pre>
+</Block>
+
+<Block Title="直接生成" Introduction="通过 <code>Content</code> 参数指定二维码内容">
+    <QRCode Content="https://www.blazor.zone"></QRCode>
+    <Pre class="mt-3">&lt;QRCode Content="https://www.blazor.zone"&gt;&lt;QRCode&gt;</Pre>
 </Block>
 
 <AttributeTable Items="@GetAttributes()" />

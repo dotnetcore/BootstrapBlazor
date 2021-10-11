@@ -18,6 +18,7 @@ namespace BootstrapBlazor.Components
     {
         private ElementReference QRCodeElement { get; set; }
 
+        [NotNull]
         private JSInterop<QRCode>? Interop { get; set; }
 
         /// <summary>
@@ -34,6 +35,12 @@ namespace BootstrapBlazor.Components
         public string? PlaceHolder { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否显示工具按钮 默认 false
+        /// </summary>
+        [Parameter]
+        public bool ShowButtons { get; set; }
+
+        /// <summary>
         /// 获得/设置 清除按钮文字
         /// </summary>
         [Parameter]
@@ -47,9 +54,17 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public string? GenerateButtonText { get; set; }
 
+        /// <summary>
+        /// 获得/设置 二维码内容信息
+        /// </summary>
+        [Parameter]
+        public string? Content { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<QRCode>? Localizer { get; set; }
+
+        private string? MethodName { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -61,21 +76,42 @@ namespace BootstrapBlazor.Components
             PlaceHolder ??= Localizer[nameof(PlaceHolder)];
             ClearButtonText ??= Localizer[nameof(ClearButtonText)];
             GenerateButtonText ??= Localizer[nameof(GenerateButtonText)];
+
+            Interop = new JSInterop<QRCode>(JSRuntime);
         }
 
-        private async Task Clear()
+        /// <summary>
+        /// OnParametersSetAsync 方法
+        /// </summary>
+        protected override async Task OnParametersSetAsync()
         {
-            await JSRuntime.InvokeVoidAsync(QRCodeElement, "bb_qrcode", "clear");
+            await base.OnParametersSetAsync();
+
+            await Generate();
         }
 
-        private async Task Generate()
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (Interop == null)
+            if (!string.IsNullOrEmpty(MethodName))
             {
-                Interop = new JSInterop<QRCode>(JSRuntime);
+                await Interop.InvokeVoidAsync(this, QRCodeElement, "bb_qrcode", MethodName, Content ?? "");
+                MethodName = null;
             }
+        }
 
-            await Interop.InvokeVoidAsync(this, QRCodeElement, "bb_qrcode", "generate");
+        private Task Clear()
+        {
+            MethodName = "clear";
+            return Task.CompletedTask;
+        }
+
+        private Task Generate()
+        {
+            MethodName = string.IsNullOrEmpty(Content) ? "clear" : "generate";
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -97,7 +133,6 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-
             if (disposing && Interop != null)
             {
                 Interop.Dispose();
