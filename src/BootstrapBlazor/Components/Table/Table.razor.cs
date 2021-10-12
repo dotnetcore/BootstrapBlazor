@@ -24,6 +24,9 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private JSInterop<Table<TItem>>? Interop { get; set; }
 
+        [NotNull]
+        private Dialog? TableDialog { get; set; }
+
         /// <summary>
         /// 获得 Table 组件样式表
         /// </summary>
@@ -682,8 +685,6 @@ namespace BootstrapBlazor.Components
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-
-            ActiveDialog?.Render();
 
             RowItemsCache = null;
 

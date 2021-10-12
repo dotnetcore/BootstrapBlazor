@@ -116,7 +116,8 @@ namespace BootstrapBlazor.Components
         /// 弹出编辑对话框
         /// </summary>
         /// <param name="option">EditDialogOption 配置类实例</param>
-        public async Task ShowEditDialog<TModel>(EditDialogOption<TModel> option)
+        /// <param name="dialog"></param>
+        public async Task ShowEditDialog<TModel>(EditDialogOption<TModel> option, ComponentBase? dialog = null)
         {
             option.CloseButtonText ??= EditDialogLocalizer[nameof(option.CloseButtonText)];
             option.SaveButtonText ??= EditDialogLocalizer[nameof(option.SaveButtonText)];
@@ -176,7 +177,7 @@ namespace BootstrapBlazor.Components
 
             option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters);
 
-            await Invoke(option);
+            await Invoke(option, dialog);
         }
 
         /// <summary>

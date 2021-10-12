@@ -488,10 +488,8 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private Modal? ActiveDialog { get; set; }
-
         /// <summary>
-        /// 
+        /// 弹出编辑对话框方法
         /// </summary>
         protected async Task ShowEditDialog(ItemChangedType changedType)
         {
@@ -512,7 +510,6 @@ namespace BootstrapBlazor.Components
                 ItemChangedType = changedType,
                 OnCloseAsync = async () =>
                 {
-                    ActiveDialog = null;
                     if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
                     {
                         // EFCore
@@ -524,7 +521,6 @@ namespace BootstrapBlazor.Components
                 },
                 OnSaveAsync = async context =>
                 {
-                    ActiveDialog = null;
                     await ToggleLoading(true);
                     var valid = await SaveModelAsync(context, changedType);
                     if (valid)
@@ -535,8 +531,7 @@ namespace BootstrapBlazor.Components
                     return valid;
                 }
             };
-            await DialogService.ShowEditDialog(option);
-            ActiveDialog = option.Dialog;
+            await DialogService.ShowEditDialog(option, TableDialog);
         }
 
         private async Task UpdateAsync()

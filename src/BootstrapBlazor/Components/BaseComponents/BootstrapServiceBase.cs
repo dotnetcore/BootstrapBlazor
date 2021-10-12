@@ -35,10 +35,13 @@ namespace BootstrapBlazor.Components
         /// 异步回调方法
         /// </summary>
         /// <param name="option"></param>
+        /// <param name="component"></param>
         /// <returns></returns>
-        protected async Task Invoke(TOption option)
+        protected async Task Invoke(TOption option, ComponentBase? component = null)
         {
-            var cb = Cache.FirstOrDefault().Callback;
+            var cb = (component != null
+                ? Cache.FirstOrDefault(k => k.Key == component)
+                : Cache.FirstOrDefault()).Callback;
             if (cb == null)
             {
                 throw new InvalidOperationException(Localizer?[$"{nameof(InvalidOperationException)}Message"]?.Value);
