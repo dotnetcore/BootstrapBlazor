@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Components
         public static RouteContext Create(IEnumerable<Assembly> assemblies, string url)
         {
             RefreshRouteTable(assemblies);
-
+            if (url.IndexOf("?") > 0) url = url.Substring(0, url.IndexOf("?"));
             var routeContext = new Routing.RouteContext(url);
             Routes.Route(routeContext);
             return new RouteContext()
