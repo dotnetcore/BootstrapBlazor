@@ -111,6 +111,11 @@ namespace BootstrapBlazor.Components
         RenderFragment<object>? IEditorItem.EditTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 表头模板
+        /// </summary>
+        public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件类型 默认为 null
         /// </summary>
         public Type? ComponentType { get; set; }

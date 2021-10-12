@@ -233,6 +233,12 @@ namespace BootstrapBlazor.Components
         public RenderFragment? FilterTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 表头模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
         /// </summary>
         [Parameter]

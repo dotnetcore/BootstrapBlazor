@@ -89,6 +89,11 @@ namespace BootstrapBlazor.Components
         RenderFragment? FilterTemplate { get; set; }
 
         /// <summary>
+        /// 获得/设置 表头模板
+        /// </summary>
+        RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 列过滤器
         /// </summary>
         IFilter? Filter { get; set; }

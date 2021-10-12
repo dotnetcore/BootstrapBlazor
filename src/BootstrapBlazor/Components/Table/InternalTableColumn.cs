@@ -61,6 +61,11 @@ namespace BootstrapBlazor.Components
 
         public RenderFragment? FilterTemplate { get; set; }
 
+        /// <summary>
+        /// 获得/设置 表头模板
+        /// </summary>
+        public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
+
         public IFilter? Filter { get; set; }
 
         public string? FormatString { get; set; }
@@ -243,6 +248,7 @@ namespace BootstrapBlazor.Components
             if (source.Fixed) dest.Fixed = source.Fixed;
             if (source.FormatString != null) dest.FormatString = source.FormatString;
             if (source.Formatter != null) dest.Formatter = source.Formatter;
+            if (source.HeaderTemplate != null) dest.HeaderTemplate = source.HeaderTemplate;
             if (source.Items != null) dest.Items = source.Items;
             if (source.Lookup != null) dest.Lookup = source.Lookup;
             if (!source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;

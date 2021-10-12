@@ -433,7 +433,14 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                 <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
                                 TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                     <div class="@GetHeaderWrapperClassString(col)">
-                        <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                        @if(col.HeaderTemplate != null)
+                        {
+                            @col.HeaderTemplate(col)
+                        }
+                        else
+                        {
+                            <span class="@GetHeaderTextClassString(col)">@displayName</span>
+                        }
                         @if (col.Filterable && !ShowFilterHeader)
                         {
                             <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@OnFilterClick(col)"></i>

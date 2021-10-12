@@ -103,6 +103,8 @@ namespace UnitTest.Emit
 
             public RenderFragment FilterTemplate { get; set; }
 
+            public RenderFragment<ITableColumn> HeaderTemplate { get; set; }
+
             public IFilter Filter { get; set; }
 
             public string FormatString { get; set; }
