@@ -637,6 +637,7 @@
     "InfoItem1": "Use the <code>TabLink</code> component to set parameters <code>Text</code> <code>Url</code> <code>Icon</code> after clicking, it will automatically navigate to the TabItem",
     "InfoItem2": "Tab properties can be set when navigating using the built-in extension method <code>Navigator.NavigateTo(\"url\", \"text\", \"icon\", \"closable\")</code>",
     "InfoItem3": "Setting <code>TabItemTextDictionary</code> parameter of <code>Tab</code> component",
+    "InfoItem4": "Setting <code>@attribute [TabItemOption(Text = \"LayoutPage\", Icon = \"fa fa-fa\")]</code> in <code>razor</code> page",
     "TabItem1Text": "User",
     "TabItem1Content": "I am a user manager",
     "TabItem2Text": "Menu",

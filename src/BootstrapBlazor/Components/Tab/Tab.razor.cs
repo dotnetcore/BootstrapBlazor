@@ -465,27 +465,23 @@ namespace BootstrapBlazor.Components
 
         private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = null, bool? closable = null)
         {
-            if (TryGetTabItemText(url, out var tabText))
-            {
-                text = tabText;
-            }
-            text ??= Options.Text;
-            icon ??= Options.Icon ?? string.Empty;
-            active ??= Options.IsActive ?? true;
-            closable ??= Options.Closable ?? true;
-            Options.Reset();
-
-            var parameters = new Dictionary<string, object?>()
-            {
-                [nameof(TabItem.Url)] = url,
-                [nameof(TabItem.Icon)] = icon,
-                [nameof(TabItem.Closable)] = closable,
-                [nameof(TabItem.IsActive)] = active
-            };
+            var parameters = new Dictionary<string, object?>();
             var context = RouteTableFactory.Create(AdditionalAssemblies, url);
             if (context.Handler != null)
             {
-                parameters.Add(nameof(TabItem.Text), GetTabText(text, context.Segments));
+                var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
+                if (option != null)
+                {
+                    parameters.Add(nameof(TabItem.Icon), option.Icon);
+                    parameters.Add(nameof(TabItem.Closable), option.Closable);
+                    parameters.Add(nameof(TabItem.Text), option.Text);
+                    parameters.Add(nameof(TabItem.IsActive), active ?? true);
+                }
+                else
+                {
+                    AddParameters();
+                }
+
                 parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
                 {
                     builder.OpenComponent<BootstrapBlazorAuthorizeView>(0);
@@ -504,6 +500,26 @@ namespace BootstrapBlazor.Components
             }
 
             AddTabItem(parameters);
+
+            void AddParameters()
+            {
+                if (TryGetTabItemText(url, out var tabText))
+                {
+                    text = tabText;
+                }
+
+                text ??= Options.Text;
+                icon ??= Options.Icon ?? string.Empty;
+                active ??= Options.IsActive ?? true;
+                closable ??= Options.Closable ?? true;
+                Options.Reset();
+
+                parameters.Add(nameof(TabItem.Url), url);
+                parameters.Add(nameof(TabItem.Icon), icon);
+                parameters.Add(nameof(TabItem.Closable), closable);
+                parameters.Add(nameof(TabItem.IsActive), active);
+                parameters.Add(nameof(TabItem.Text), GetTabText(text, context.Segments));
+            }
         }
 
         private string GetTabText(string? text, string[]? segments)

@@ -637,6 +637,7 @@
     "InfoItem1": "使用 <code>TabLink</code> 组件，设置其参数 <code>Text</code> <code>Url</code> <code>Icon</code> 点击后将自动导航到标签页上",
     "InfoItem2": "使用内置扩展方法 <code>Navigator.NavigateTo(\"url\", \"text\", \"icon\", \"closable\")</code> 导航时即可设置标签页属性",
     "InfoItem3": "通过 <code>Tab</code> 组件 <code>TabItemTextDictionary</code> 参数设置",
+    "InfoItem4": "通过设置 <code>razor</code> 页面标签 <code>@attribute [TabItemOption(Text = \"LayoutPage\", Icon = \"fa fa-fa\")]</code>",
     "TabItem1Text": "用户管理",
     "TabItem1Content": "我是用户管理",
     "TabItem2Text": "菜单管理",
