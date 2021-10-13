@@ -160,6 +160,13 @@ namespace BootstrapBlazor.Shared.Pages
                 Type = "Func<bool, MenuItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "TabDefaultUrl",
+                Description =  LayoutsLocalizer["TabDefaultUrl"]!,
+                Type = "string?",
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

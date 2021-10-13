@@ -28,6 +28,10 @@ else
                             @ChildContent
                         </CascadingValue>
                         <RenderTemplate>
+                            @if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
+                            {
+                                AddTabItem(DefaultUrl);
+                            }
                             @if (FirstRender)
                             {
                                 if (!Items.Any(t => t.IsActive))
@@ -75,25 +79,25 @@ else
         <div class="tabs-body">
             <CascadingValue Value="this" IsFixed="true">
                 @if (IsOnlyRenderActiveTab)
+            {
+                var item = Items.FirstOrDefault(i => i.IsActive);
+                if (item != null)
                 {
-                    var item = Items.FirstOrDefault(i => i.IsActive);
-                    if (item != null)
-                    {
-                        <div class="@GetContentClassString(item)">
-                            @item.ChildContent
-                        </div>
-                    }
+                    <div class="@GetContentClassString(item)">
+                        @item.ChildContent
+                    </div>
                 }
-                else
+            }
+            else
+            {
+                foreach (var item in Items)
                 {
-                    foreach (var item in Items)
-                    {
-                        <div @key="@item" class="@GetContentClassString(item)">
-                            @item.ChildContent
-                        </div>
-                    }
+                    <div @key="@item" class="@GetContentClassString(item)">
+                        @item.ChildContent
+                    </div>
                 }
-            </CascadingValue>
-        </div>
+            }
+        </CascadingValue>
     </div>
+</div>
 }

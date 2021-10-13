@@ -249,7 +249,8 @@
     "Desc14": "是否开启多标签模式",
     "Desc15": "额外程序集合，传递给 Tab 组件使用",
     "Desc16": "收缩展开回调委托",
-    "Desc17": "点击菜单项时回调委托"
+    "Desc17": "点击菜单项时回调委托",
+    "TabDefaultUrl": "设置 Tab 组件默认标签页"
   },
   "BootstrapBlazor.Shared.Pages.Footers": {
     "Title": "Footer 页脚组件",
@@ -711,7 +712,8 @@
     "BackText1": "计数器",
     "BackText2": "天气预报",
     "AttTitle": "Attributes 属性",
-    "MethodTitle": "Method 方法"
+    "MethodTitle": "Method 方法",
+    "DefaultUrl":  "默认标签页关闭所有标签页时默认显现此页面"
   },
   "BootstrapBlazor.Shared.Pages.AutoCompletes": {
     "Title": "AutoComplete 自动完成",

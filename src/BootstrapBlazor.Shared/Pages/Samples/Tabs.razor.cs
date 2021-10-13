@@ -127,91 +127,98 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "IsBorderCard",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsCard",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsOnlyRenderActiveTab",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowClose",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowExtendButtons",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ClickTabToNavigation",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Placement",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "Placement",
                 ValueList = "Top|Right|Bottom|Left",
                 DefaultValue = "Top"
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = Localizer["Att8"]!,
+                Description = Localizer["Att8"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Att9"]!,
+                Description = Localizer["Att9"],
                 Type = "IEnumerable<TabItemBase>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = "DefaultUrl",
+                Description = Localizer["DefaultUrl"],
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
                 Name = "ChildContent",
-                Description = Localizer["Att10"]!,
+                Description = Localizer["Att10"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "AdditionalAssemblies",
-                Description = Localizer["Att11"]!,
+                Description = Localizer["Att11"],
                 Type = "IEnumerable<Assembly>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnClickTab",
-                Description = Localizer["Att12"]!,
+                Description = Localizer["Att12"],
                 Type = "Func<TabItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "TabItemTextDictionary",
-                Description = Localizer["Att13"]!,
+                Description = Localizer["Att13"],
                 Type = "Dictionary<string, string>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -227,55 +234,55 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new MethodItem() {
                 Name = "AddTab",
-                Description = Localizer["Method1"]!,
+                Description = Localizer["Method1"],
                 Parameters = "TabItem",
                 ReturnValue = " — "
             },
             new MethodItem() {
                 Name = "RemoveTab",
-                Description = Localizer["Method2"]!,
+                Description = Localizer["Method2"],
                 Parameters = "TabItem",
                 ReturnValue = " — "
             },
             new MethodItem() {
                 Name = "ActiveTab",
-                Description = Localizer["Method3"]!,
+                Description = Localizer["Method3"],
                 Parameters = "TabItem",
                 ReturnValue = " — "
             },
             new MethodItem() {
                 Name = "ClickPrevTab",
-                Description = Localizer["Method4"]!,
+                Description = Localizer["Method4"],
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "ClickNextTab",
-                Description = Localizer["Method5"]!,
+                Description = Localizer["Method5"],
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "CloseCurrentTab",
-                Description = Localizer["Method6"]!,
+                Description = Localizer["Method6"],
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "CloseOtherTabs",
-                Description = Localizer["Method7"]!,
+                Description = Localizer["Method7"],
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = "CloseAllTabs",
-                Description = Localizer["Method8"]!,
+                Description = Localizer["Method8"],
                 Parameters = "",
                 ReturnValue = "Task"
             },
             new MethodItem() {
                 Name = nameof(Tab.GetActiveTab),
-                Description = Localizer["Method9"]!,
+                Description = Localizer["Method9"],
                 Parameters = "",
                 ReturnValue = "Tabitem"
             },

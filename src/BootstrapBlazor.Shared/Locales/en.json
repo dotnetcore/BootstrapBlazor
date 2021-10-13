@@ -249,7 +249,8 @@
     "Desc14": "Whether to open multi-label mode",
     "Desc15": "Collection of additional programs, passed to the Tab component for use",
     "Desc16": "Contract expand callback delegate",
-    "Desc17": "Call back the delegate when the menu item is clicked"
+    "Desc17": "Call back the delegate when the menu item is clicked",
+    "TabDefaultUrl": "Set the default url of Tab"
   },
   "BootstrapBlazor.Shared.Pages.Footers": {
     "Title": "Footer",
@@ -711,7 +712,8 @@
     "BackText1": "Counter",
     "BackText2": "Weather forecast",
     "AttTitle": "Attributes",
-    "MethodTitle": "Method"
+    "MethodTitle": "Method",
+    "DefaultUrl": "Default page"
   },
   "BootstrapBlazor.Shared.Pages.AutoCompletes": {
     "Title": "AutoComplete",

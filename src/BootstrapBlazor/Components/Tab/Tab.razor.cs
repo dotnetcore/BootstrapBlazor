@@ -148,6 +148,12 @@ namespace BootstrapBlazor.Components
         public IEnumerable<string>? ExcludeUrls { get; set; }
 
         /// <summary>
+        /// 获得/设置 默认标签页 关闭所以标签页时自动打开此地址 默认 null 未设置
+        /// </summary>
+        [Parameter]
+        public string? DefaultUrl { get; set; }
+
+        /// <summary>
         /// 获得/设置 点击 TabItem 时回调方法
         /// </summary>
         [Parameter]
@@ -476,6 +482,7 @@ namespace BootstrapBlazor.Components
                     parameters.Add(nameof(TabItem.Closable), option.Closable);
                     parameters.Add(nameof(TabItem.Text), option.Text);
                     parameters.Add(nameof(TabItem.IsActive), active ?? true);
+                    parameters.Add(nameof(TabItem.Url), url);
                 }
                 else
                 {

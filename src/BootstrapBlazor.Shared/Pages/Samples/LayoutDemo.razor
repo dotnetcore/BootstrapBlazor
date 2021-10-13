@@ -1,5 +1,6 @@
 ﻿@page "/layout-demo/{text?}"
 @layout PageLayout
+@attribute [TabItemOption(Text = "示例网页", Icon = "fa fa-fw fa-laptop")]
 
 <p>已支持路由参数: @Text</p>
 
@@ -17,12 +18,4 @@
 
     [Parameter]
     public string? Text { get; set; }
-
-    /// <summary>
-    ///
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
 }
