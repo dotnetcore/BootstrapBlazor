@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否为竖向排列 默认为 false
         /// </summary>
         [Parameter]
-        public bool IsVertical { get; set; } = false;
+        public bool IsVertical { get; set; }
 
         /// <summary>
         /// 获得/设置 SelectedItemChanged 方法
