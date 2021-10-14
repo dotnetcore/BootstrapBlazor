@@ -470,5 +470,40 @@ namespace BootstrapBlazor.Components
             await base.DisposeAsyncCore(disposing);
         }
         #endregion
+
+        /// <summary>
+        /// 设置是否可用状态
+        /// </summary>
+        /// <param name="disable"></param>
+        public void SetDisable(bool disable)
+        {
+            IsDisabled = disable;
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// 设置 Value 值
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetValue(TValue value)
+        {
+            CurrentValue = value;
+
+            // 未双向绑定时手动刷新 UI
+            if (!ValueChanged.HasDelegate)
+            {
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
+        /// 设置 Label 值
+        /// </summary>
+        /// <param name="label"></param>
+        public void SetLabel(string label)
+        {
+            DisplayText = label;
+            StateHasChanged();
+        }
     }
 }
