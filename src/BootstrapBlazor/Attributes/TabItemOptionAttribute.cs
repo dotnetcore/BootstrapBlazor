@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// TabItem 标签页配置属性类
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
     public class TabItemOptionAttribute : Attribute
     {
         /// <summary>
