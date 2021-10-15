@@ -70,13 +70,14 @@ header .nav-link img {
     }
 }
 
-.btn-bd-download {
+.btn.btn-bd-download {
     font-weight: 600;
     color: #ffe484;
     border-color: #ffe484;
 }
 
-    .btn-bd-download:active, .btn-bd-download:hover {
+    .btn.btn-bd-download:active,
+    .btn.btn-bd-download:hover {
         color: #2a2730;
         background-color: #ffe484;
         border-color: #ffe484;
