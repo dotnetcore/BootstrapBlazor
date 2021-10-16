@@ -1,0 +1,16 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ValidateBase<string>
+
+@if (IsShowLabel)
+{
+    <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
+}
+<div @attributes="@AdditionalAttributes" class="@ClassName" id="@Id" @ref="IPAddressElement">
+    <input type="number" class="input-number-fix ipv4-cell" min="0" max="255" disabled="@Disabled" value="@Value1" @onchange="ValueChanged1" />
+    <span>.</span>
+    <input type="number" class="input-number-fix ipv4-cell" min="0" max="255" disabled="@Disabled" value="@Value2" @onchange="ValueChanged2" />
+    <span>.</span>
+    <input type="number" class="input-number-fix ipv4-cell" min="0" max="255" disabled="@Disabled" value="@Value3" @onchange="ValueChanged3" />
+    <span>.</span>
+    <input type="number" class="input-number-fix ipv4-cell" min="0" max="255" disabled="@Disabled" value="@Value4" @onchange="ValueChanged4" />
+</div>

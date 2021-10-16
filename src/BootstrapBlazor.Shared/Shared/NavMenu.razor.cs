@@ -455,6 +455,12 @@ namespace BootstrapBlazor.Shared.Shared
                 new()
                 {
                     IsNew = true,
+                    Text = Localizer["Ip"],
+                    Url = "ips"
+                },
+                new()
+                {
+                    IsNew = true,
                     Text = Localizer["Print"],
                     Url = "prints"
                 },
