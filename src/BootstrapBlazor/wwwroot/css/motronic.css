@@ -861,7 +861,7 @@
 }
 
     .table > :not(:last-child) > :last-child > * {
-        border-bottom-color: var(--bs-primary);
+        border-bottom-color: var(--bs-secondary);
     }
 
 .menu .nav-link {

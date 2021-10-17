@@ -168,7 +168,7 @@
                         @RenderTable.Invoke(false)
                     </div>
                 }
-                else if (Columns.Any(col => col.Fixed))
+                else if (FixedExtendButtonsColumn || Columns.Any(col => col.Fixed))
                 {
                     <div class="overflow-auto">
                         @RenderTable.Invoke(true)
@@ -489,7 +489,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             }
             @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
             {
-                <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
+                <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(CalcMargin(0))">
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
@@ -510,7 +510,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             </CascadingValue>
             @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
-                <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
+                <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
                     <div class="table-cell">&nbsp;</div>
                 </th>
             }
@@ -669,7 +669,7 @@ RenderFragment RenderAdvanceSearchButton =>
 </Button> ;
 
 RenderFragment RenderExtendButtonsHeader =>
-@<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(17)">
+@<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
     <div class="table-cell is-button-column">
         @ColumnButtonTemplateHeaderText
     </div>

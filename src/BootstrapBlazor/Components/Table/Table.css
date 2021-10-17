@@ -7,10 +7,6 @@
     border: 1px solid #dee2e6;
 }
 
-    .table-wrapper .table-fixed-header {
-        border-radius: var(--bs-border-radius);
-    }
-
     .table-wrapper thead tr:first-child {
         border-top: none;
     }
@@ -281,6 +277,8 @@
 
 .table-fixed-header {
     overflow: hidden;
+    border-top-left-radius: var(--bs-border-radius);
+    border-top-right-radius: var(--bs-border-radius);
 }
 
 .table-fixed-body {
@@ -542,9 +540,9 @@
         padding-left: 4px;
     }
 
-.table-bordered thead tr:last-child {
+.table-bordered thead tr:last-child > th {
     border-bottom-width: 2px !important;
-    border-bottom-color: #c0c4cc;
+    border-bottom-color: var(--bs-secondary);
 }
 
 .table-striped > tbody > tr.is-master:nth-of-type(odd) {

@@ -17,22 +17,6 @@ namespace BootstrapBlazor.Components
     public partial class Table<TItem>
     {
         /// <summary>
-        /// 获得 按钮列样式表集合
-        /// </summary>
-        /// <returns></returns>
-        protected string? ExtendButtonsColumnClass => CssBuilder.Default("table-th-button")
-            .AddClass("fixed fixed-right", FixedExtendButtonsColumn)
-            .Build();
-
-        /// <summary>
-        /// 获得 按钮列样式表集合
-        /// </summary>
-        /// <returns></returns>
-        protected string? FixedExtendButtonsHeaderStyleString => CssBuilder.Default()
-            .AddClass("right: 0;", FixedExtendButtonsColumn)
-            .Build();
-
-        /// <summary>
         /// 获得/设置 编辑弹窗 Title 文字
         /// </summary>
         [NotNull]

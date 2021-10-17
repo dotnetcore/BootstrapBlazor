@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Components
             .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
             .AddClass("table-scroll", !IsFixedHeader)
             .AddClass("table-fixed", IsFixedHeader)
-            .AddClass("table-fixed-column", Columns.Any(c => c.Fixed))
+            .AddClass("table-fixed-column", Columns.Any(c => c.Fixed) || FixedExtendButtonsColumn)
             .AddClass("table-resize", AllowResizing)
             .Build();
 

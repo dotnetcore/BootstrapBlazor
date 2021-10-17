@@ -40,27 +40,40 @@
            ShowExtendButtons="true" FixedExtendButtonsColumn="true"
            class="table-fixed-column-demo">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Address" Width="900" />
             <TableColumn @bind-Field="@context.Education" Width="100" />
             <TableColumn @bind-Field="@context.Count" Width="100" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" />
         </TableColumns>
     </Table>
 </Block>
 
 <Block Title="固定表头与按钮操作列" Introduction="设置 <code>Height=200</code> 固定表头，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定">
     <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
-           ShowExtendButtons="true" FixedExtendButtonsColumn="true"
-           Height="200" class="table-fixed-column-demo2">
+           IsFixedHeader="true" FixedExtendButtonsColumn="true" Height="200"
+           ShowExtendButtons="true" class="table-fixed-column-demo2">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Address" Width="900" />
             <TableColumn @bind-Field="@context.Education" Width="100" />
             <TableColumn @bind-Field="@context.Count" Width="100" />
-            <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" />
+        </TableColumns>
+    </Table>
+
+    <Table TItem="Foo" Items="@Items.Take(10)" IsBordered="true" IsStriped="true" IsMultipleSelect="true"
+           IsFixedHeader="true" FixedExtendButtonsColumn="true" IsExtendButtonsInRowHeader="true"
+           ShowExtendButtons="true" Height="200" class="table-fixed-column-demo mt-3">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" Width="900" />
+            <TableColumn @bind-Field="@context.Education" Width="100" />
+            <TableColumn @bind-Field="@context.Count" Width="100" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" />
         </TableColumns>
     </Table>
 </Block>

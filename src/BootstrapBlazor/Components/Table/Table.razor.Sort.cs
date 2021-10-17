@@ -103,7 +103,17 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default()
-            .AddClass("fixed fixed-right", FixedExtendButtonsColumn)
+            .AddClass("fixed", FixedExtendButtonsColumn)
+            .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
+            .Build();
+
+        /// <summary>
+        /// 获得 按钮列样式表集合
+        /// </summary>
+        /// <returns></returns>
+        protected string? ExtendButtonsColumnClass => CssBuilder.Default("table-th-button")
+            .AddClass("fixed", FixedExtendButtonsColumn)
+            .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
             .Build();
 
         /// <summary>
@@ -111,8 +121,26 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         protected string? GetFixedExtendButtonsColumnStyleString(int margin = 0) => CssBuilder.Default()
-            .AddClass($"right: {(IsFixedHeader ? margin : 0)}px;", FixedExtendButtonsColumn)
+            .AddClass($"right: {(IsFixedHeader ? margin : 0)}px;", FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader)
+            .AddClass("left: 0px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
             .Build();
+
+        private int CalcMargin(int margin)
+        {
+            if (ShowDetails())
+            {
+                margin += DetailColumnWidth;
+            }
+            if (IsMultipleSelect)
+            {
+                margin += ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
+            }
+            if (ShowLineNo)
+            {
+                margin += LineNoColumnWidth;
+            }
+            return margin;
+        }
 
         private bool IsTail(ITableColumn col)
         {
