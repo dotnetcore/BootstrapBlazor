@@ -269,10 +269,7 @@
                         if ($prev.hasClass('fixed-right') && !$prev.hasClass('modified')) {
                             var margin = $prev.css('right');
                             margin = margin.replace('px', '');
-                            if ($.browser.versions.mac) {
-                                margin = (parseFloat(margin) - 2) + 'px';
-                            }
-                            else if ($.browser.versions.mobile) {
+                            if ($.browser.versions.mobile) {
                                 margin = (parseFloat(margin) - 6) + 'px';
                             }
                             $prev.css({ 'right': margin }).addClass('modified');
