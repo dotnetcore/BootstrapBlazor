@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits BootstrapInput<TValue>
+@inherits BootstrapInputBase<TValue>
 
 @if (IsShowLabel)
 {
     <label class="form-label" required="@Required" for="@Id">@DisplayText</label>
 }
 <div class="@ClassString" @ref="AutoFillElement">
-    <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="text" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" @ref="FocusElement" />
+    <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" @ref="FocusElement" />
     <i class="fa fa-fw fa-spinner fa-spin"></i>
     <div class="select-dropdown">
         <ul class="dropdown-list">

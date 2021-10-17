@@ -2,19 +2,21 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// BootstrapInputTextBase 组件
+    /// BootstrapPassword 组件
     /// </summary>
-    public partial class BootstrapInput<TValue>
+    public class BootstrapPassword : BootstrapInput<string>
     {
         /// <summary>
-        /// 获得/设置 是否为 Input-Group 组合中的 input 组件 默认 false
+        /// OnInitialized 方法
         /// </summary>
-        [Parameter]
-        public bool IsGroup { get; set; }
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Type = "password";
+        }
     }
 }

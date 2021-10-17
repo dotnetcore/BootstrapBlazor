@@ -496,6 +496,13 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 DefaultValue = "false"
             },
             new AttributeItem() {
+                Name = "ShowToastAfterSaveOrDeleteModel",
+                Description = "保存/删除失败后是否显示 Toast 提示框 ",
+                Type = "boolean",
+                ValueList = "true / false",
+                DefaultValue = "true"
+            },
+            new AttributeItem() {
                 Name = "UseComponentWidth",
                 Description = "组件渲染模式是否使用组件宽度来判断",
                 Type = "boolean",

@@ -15,8 +15,6 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class FloatingLabels
     {
-        private string? PlaceHolderText { get; set; }
-
         private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
 
         private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
@@ -33,43 +31,42 @@ namespace BootstrapBlazor.Shared.Pages
         {
             base.OnInitialized();
 
-            PlaceHolderText = Localizer["PlaceHolder"];
-            Model = new Foo() { Name = FLocalizer["TestName"] };
+            Model = new Foo() { Name = Localizer["TestName"] };
         }
 
         private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = FLocalizer["Att1"]!,
+                Description = Localizer["Att1"].Value,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = FLocalizer["Att2"]!,
+                Description = Localizer["Att2"].Value,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = FLocalizer["Att3"]!,
+                Description = Localizer["Att3"].Value,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "FormatString",
-                Description = FLocalizer["Att4"]!,
+                Description = Localizer["Att4"].Value,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Formatter",
-                Description = FLocalizer["Att5"]!,
+                Description = Localizer["Att5"].Value,
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -77,7 +74,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "type",
-                Description = FLocalizer["Att6"]!,
+                Description = Localizer["Att6"].Value,
                 Type = "string",
                 ValueList = "text / number / email / url / password",
                 DefaultValue = "text"
@@ -85,7 +82,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = FLocalizer["Att7"]!,
+                Description = Localizer["Att7"].Value,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

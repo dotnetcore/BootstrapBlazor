@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits BootstrapInput<TValue>
+@inherits BootstrapInputBase<TValue>
 
 @if (IsShowLabel)
 {
@@ -12,7 +12,7 @@
         <button class="@ButtonClassString" type="button" @onclick="OnClickDec" disabled="@Disabled">
             <i class="fa fa-fw fa-minus-circle"></i>
         </button>
-        <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
+        <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" @ref="FocusElement" />
         <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@Disabled">
             <i class="fa fa-fw fa-plus-circle"></i>
         </button>
@@ -20,7 +20,7 @@
 }
 else
 {
-    <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" />
+    <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" @ref="FocusElement" />
 }
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
