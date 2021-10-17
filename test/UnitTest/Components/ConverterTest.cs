@@ -6,6 +6,8 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTest.Components
@@ -15,6 +17,13 @@ namespace UnitTest.Components
     /// </summary>
     public class ConverterTest
     {
+        [Fact]
+        public async Task Task_Test()
+        {
+            CancellationTokenSource cts = new(500);
+
+            await Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(1000, cts.Token));
+        }
         /// <summary>
         /// 
         /// </summary>

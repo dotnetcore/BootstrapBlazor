@@ -765,7 +765,7 @@ namespace BootstrapBlazor.Components
                 IsRendered = true;
             }
 
-            if (IsRendered)
+            if (IsRendered && Interop != null)
             {
                 // fix: https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2AYEH
                 // PR: https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/818
@@ -790,13 +790,24 @@ namespace BootstrapBlazor.Components
                 if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
                 {
                     _loop = true;
-                    // 自动刷新功能
-                    await Task.Delay(AutoRefreshInterval);
 
-                    // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
-                    await QueryData();
-                    StateHasChanged();
-                    _loop = false;
+                    AutoRefreshCancelTokenSource ??= new();
+
+                    try
+                    {
+                        AutoRefreshInterval = 3000;
+                        // 自动刷新功能
+                        await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+
+                        // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
+                        await QueryData();
+                        StateHasChanged();
+                        _loop = false;
+                    }
+                    catch (TaskCanceledException)
+                    {
+
+                    }
                 }
             }
         }
