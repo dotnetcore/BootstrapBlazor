@@ -115,10 +115,22 @@ namespace BootstrapBlazor.Components
         public bool ShowColumnList { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示保存、删除失败后的吐司提示 默认为 true 显示
+        /// 获得/设置 保存、删除失败后是否显示 Toast 提示框 默认为 true 显示
+        /// </summary>
+        /// <remarks>已过期请使用 <see cref="ShowToastAfterSaveOrDeleteModel"/></remarks>
+        [Parameter]
+        [Obsolete("请使用 ShowToastAfterSaveOrDeleteModel")]
+        public bool ShowErrorToast
+        {
+            get => ShowToastAfterSaveOrDeleteModel;
+            set => ShowToastAfterSaveOrDeleteModel = value;
+        }
+
+        /// <summary>
+        /// 获得/设置 保存、删除失败后是否显示 Toast 提示框 默认为 true 显示
         /// </summary>
         [Parameter]
-        public bool ShowErrorToast { get; set; } = true;
+        public bool ShowToastAfterSaveOrDeleteModel { get; set; } = true;
 
         /// <summary>
         /// 获得/设置 表格 Toolbar 按钮模板
@@ -423,7 +435,7 @@ namespace BootstrapBlazor.Components
                 valid = await GetDataService().SaveAsync((TItem)context.Model, changedType);
             }
 
-            if (ShowErrorToast || valid)
+            if (ShowToastAfterSaveOrDeleteModel && valid)
             {
                 var option = new ToastOption
                 {
@@ -590,15 +602,15 @@ namespace BootstrapBlazor.Components
                 await ToggleLoading(true);
                 var ret = await DelteItemsAsync();
 
-                var option = new ToastOption()
+                if (ret && ShowToastAfterSaveOrDeleteModel && !IsTracking)
                 {
-                    Title = DeleteButtonToastTitle
-                };
-                option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
-                option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
+                    var option = new ToastOption()
+                    {
+                        Title = DeleteButtonToastTitle,
+                        Category = ret ? ToastCategory.Success : ToastCategory.Error
+                    };
+                    option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
 
-                if ((ShowErrorToast || ret) && !IsTracking)
-                {
                     await Toast.Show(option);
                 }
                 await ToggleLoading(false);
