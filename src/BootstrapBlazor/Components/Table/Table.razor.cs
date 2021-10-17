@@ -369,7 +369,7 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), HasChildrenColumnName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
+                var invoker = GetPropertyCache.GetOrAdd((item.GetType(), HasChildrenColumnName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
                 var v = invoker.Invoke(item);
                 if (v is bool b)
                 {
@@ -926,7 +926,7 @@ namespace BootstrapBlazor.Components
             object? ret = null;
             if (item != null)
             {
-                var invoker = GetPropertyCache.GetOrAdd((typeof(TItem), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
+                var invoker = GetPropertyCache.GetOrAdd((item.GetType(), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
                 ret = invoker(item);
 
                 if (ret?.GetType().IsEnum ?? false)
