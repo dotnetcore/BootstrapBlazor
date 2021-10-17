@@ -591,6 +591,24 @@ form .table .table-cell > textarea {
                 padding: .275rem .5rem;
             }
 
+    .table-search .table-search-collapse {
+        padding: .5rem 0 .5rem 1rem;
+    }
+
+    .table-search .table-search-arrow {
+        cursor: pointer;
+        transition: .3s transform linear;
+        transform: rotate(0);
+    }
+
+    .table-search .is-open .table-search-arrow {
+        transform: rotate(90deg);
+    }
+
+    .table-search .collapsed .card-header {
+        border-bottom-color: transparent;
+    }
+
 .table-excel-toolbar {
     display: none;
     position: absolute;

@@ -303,12 +303,6 @@
 
                 // 固定表头的最后一列禁止列宽调整
                 $ele.find('.col-resizer:last').remove();
-
-                $.bb_table_filter($ele);
-
-                $.bb_table_resize($ele);
-
-                $.bb_table_excel_keybord($ele);
             }
             else if (method === 'init') {
                 // sort
@@ -342,10 +336,7 @@
                     }
                 });
 
-                $.bb_table_filter($ele);
-
                 tooltip();
-
                 $ele.children('.table-scroll').scroll(function () {
                     $ele.find('.table-filter-item.show').each(function () {
                         var fieldName = $(this).attr('data-field');
@@ -353,12 +344,7 @@
                         $.bb_table_filter_calc.call(icon, $ele);
                     });
                 });
-
-                $.bb_table_resize($ele);
-
                 $.bb_table_row_hover($ele);
-
-                $.bb_table_excel_keybord($ele);
             }
             else if (method === 'width') {
                 var width = 0;
@@ -368,6 +354,28 @@
             }
             else if (method === 'tooltip') {
                 tooltip();
+            }
+
+            if (method === 'fixTableHeader' || method === 'init') {
+                $.bb_table_filter($ele);
+                $.bb_table_resize($ele);
+                $.bb_table_excel_keybord($ele);
+
+                $ele.on('click', '.table-search-collapse', function () {
+                    var $card = $(this).toggleClass('is-open');
+                    var $body = $card.closest('.card').find('.card-body');
+                    if ($body.length === 1) {
+                        if ($body.is(':hidden')) {
+                            $body.parent().toggleClass('collapsed')
+                        }
+                        $body.slideToggle('fade', function () {
+                            var $this = $(this);
+                            if ($this.is(':hidden')) {
+                                $this.parent().toggleClass('collapsed')
+                            }
+                        });
+                    }
+                });
             }
         }
     });
