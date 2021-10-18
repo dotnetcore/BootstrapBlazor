@@ -123,7 +123,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 组件自定义类型参数集合 默认为 null
         /// </summary>
-        public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
+        IEnumerable<KeyValuePair<string, object>>? IEditorItem.ComponentParameters { get; set; }
 
         /// <summary>
         /// 获得/设置 显示模板
@@ -153,7 +153,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 列过滤器
         /// </summary>
-        public IFilter? Filter { get; set; }
+        IFilter? ITableColumn.Filter { get; set; }
 
         /// <summary>
         /// 获得 属性类型
@@ -181,6 +181,11 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 单元格回调方法
         /// </summary>
         Action<TableCellArgs>? ITableColumn.OnCellRender { get; set; }
+
+        /// <summary>
+        /// 获得/设置 自定义验证集合
+        /// </summary>
+        List<IValidator>? IEditorItem.ValidateRules { get; set; }
 
         /// <summary>
         /// 

@@ -8,13 +8,23 @@ using System.Globalization;
 
 namespace BootstrapBlazor.Components
 {
-    class MaxValidator : IValidator
+    /// <summary>
+    /// 最大值验证实现类
+    /// </summary>
+    class MaxValidator : ValidatorBase
     {
+        /// <summary>
+        /// 获得/设置 值
+        /// </summary>
         public int Value { get; set; }
 
-        public string? ErrorMessage { get; set; }
-
-        public void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+        /// <summary>
+        /// 验证方法
+        /// </summary>
+        /// <param name="propertyValue">待校验值</param>
+        /// <param name="context">ValidateContext 实例</param>
+        /// <param name="results">ValidateResult 集合实例</param>
+        public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
             if (propertyValue != null && propertyValue is int v)
             {

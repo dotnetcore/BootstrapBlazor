@@ -131,6 +131,12 @@ namespace BootstrapBlazor.Components
         public IEnumerable<SelectedItem>? Lookup { get; set; }
 
         /// <summary>
+        /// 获得/设置 自定义验证集合
+        /// </summary>
+        [Parameter]
+        public List<IValidator>? ValidateRules { get; set; }
+
+        /// <summary>
         /// 获得/设置 IEditorItem 集合实例
         /// </summary>
         /// <remarks>EditorForm 组件级联传参下来的值</remarks>

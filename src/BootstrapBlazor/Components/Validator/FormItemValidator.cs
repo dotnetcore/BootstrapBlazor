@@ -4,15 +4,28 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 最小值验证实现类
+    /// 自定义验证类
     /// </summary>
-    class MinValidator : MaxValidator
+    public class FormItemValidator : ValidatorBase
     {
+        /// <summary>
+        /// 获得 ValidationAttribute 实例
+        /// </summary>
+        public ValidationAttribute Validator { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attribute"></param>
+        public FormItemValidator(ValidationAttribute attribute)
+        {
+            Validator = attribute;
+        }
+
         /// <summary>
         /// 验证方法
         /// </summary>
@@ -21,13 +34,10 @@ namespace BootstrapBlazor.Components
         /// <param name="results">ValidateResult 集合实例</param>
         public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
-            if (propertyValue != null && propertyValue is int v)
+            var result = Validator.GetValidationResult(propertyValue, context);
+            if (result != null)
             {
-                if (v < Value)
-                {
-                    var errorMessage = string.Format(CultureInfo.CurrentCulture, ErrorMessage ?? "", Value);
-                    results.Add(new ValidationResult(errorMessage, new string[] { context.MemberName ?? "" }));
-                }
+                results.Add(result);
             }
         }
     }

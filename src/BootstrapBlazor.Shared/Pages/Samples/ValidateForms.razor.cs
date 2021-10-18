@@ -52,6 +52,18 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private ComplexFoo? ComplexModel { get; set; }
 
+        private List<IValidator> CustomerRules { get; } = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            CustomerRules.Add(new FormItemValidator(new EmailAddressAttribute()));
+        }
+
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>

@@ -195,12 +195,41 @@
 </Block>
 
 <Block Title="表单内设置组件标签右对齐" Introduction="通过样式统一设置全站或者特定表单内标签对齐方式">
+    <p>地址文本框增加了 <b>邮件地址</b> 验证规则</p>
+    <Pre>&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
     <ValidateForm Model="@Model">
         <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
             <FieldItems>
+                <EditorItem @bind-Field="@context.Address" ValidateRules="@CustomerRules" />
                 <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
             </FieldItems>
         </EditorForm>
+    </ValidateForm>
+</Block>
+
+<Block Title="自定义验证表单" Introduction="通过设置 <code>Rules</code> 添加自定义验证规则">
+    <p>地址文本框增加了 <b>邮件地址</b> 验证规则，点击提交时验证</p>
+    <Pre>protected override void OnInitialized()
+{
+    base.OnInitialized();
+    // 增加邮箱验证规则
+    CustomerRules.Add(new CustomerValidator(new EmailAddressAttribute()));
+
+    // Razor 文件中使用
+    // &lt;BootstrapInput @@bind-Value="@@Model.Address" ValidateRules="@@CustomerRules" /&gt;
+}</Pre>
+    <ValidateForm Model="@Model">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Address" ValidateRules="@CustomerRules" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+            </div>
+        </div>
     </ValidateForm>
 </Block>
 

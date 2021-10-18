@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 Rules 集合
         /// </summary>
-        ICollection<IValidator> Rules { get; }
+        List<IValidator> Rules { get; }
 
         /// <summary>
         /// 验证组件添加时回调此方法

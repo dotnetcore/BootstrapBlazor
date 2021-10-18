@@ -364,7 +364,13 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 数据验证方法集合
         /// </summary>
-        public ICollection<IValidator> Rules { get; } = new HashSet<IValidator>();
+        public List<IValidator> Rules { get; } = new();
+
+        /// <summary>
+        /// 获得/设置 自定义验证集合
+        /// </summary>
+        [Parameter]
+        public List<IValidator>? ValidateRules { get; set; }
 
         /// <summary>
         /// 验证组件添加时调用此方法
@@ -372,7 +378,7 @@ namespace BootstrapBlazor.Components
         /// <param name="validator"></param>
         public virtual void OnRuleAdded(IValidator validator)
         {
-
+            Rules.Add(validator);
         }
 
         /// <summary>
@@ -389,7 +395,31 @@ namespace BootstrapBlazor.Components
                 // 增加数值类型验证如 泛型 TValue 为 int 输入为 Empty 时
                 ValidateType(context, results);
 
-                Rules.ToList().ForEach(validator => validator.Validate(propertyValue, context, results));
+                // 接口验证规则
+                if (results.Count == 0)
+                {
+                    foreach (var validator in Rules)
+                    {
+                        validator.Validate(propertyValue, context, results);
+                        if (results.Count > 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                // 自定义验证集合
+                if (results.Count == 0 && ValidateRules != null)
+                {
+                    foreach (var validator in ValidateRules)
+                    {
+                        validator.Validate(propertyValue, context, results);
+                        if (results.Count > 0)
+                        {
+                            break;
+                        }
+                    }
+                }
             }
         }
 

@@ -127,6 +127,11 @@ namespace BootstrapBlazor.Components
         public Action<TableCellArgs>? OnCellRender { get; set; }
 
         /// <summary>
+        /// 获得/设置 自定义验证集合
+        /// </summary>
+        public List<IValidator>? ValidateRules { get; set; }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="fieldName">字段名称</param>
@@ -267,6 +272,7 @@ namespace BootstrapBlazor.Components
             if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
             if (!source.Visible) dest.Visible = source.Visible;
             if (source.Width != null) dest.Width = source.Width;
+            if (source.ValidateRules != null) dest.ValidateRules = source.ValidateRules;
         }
     }
 }

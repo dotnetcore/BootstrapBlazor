@@ -263,6 +263,12 @@ namespace BootstrapBlazor.Components
         public Action<TableCellArgs>? OnCellRender { get; set; }
 
         /// <summary>
+        /// 获得/设置 自定义验证集合
+        /// </summary>
+        [Parameter]
+        public List<IValidator>? ValidateRules { get; set; }
+
+        /// <summary>
         /// 获得/设置 Table 实例
         /// </summary>
         [CascadingParameter]

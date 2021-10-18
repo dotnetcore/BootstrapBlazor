@@ -226,6 +226,7 @@ namespace BootstrapBlazor.Components
                                     item.ComponentType = el.ComponentType;
                                     item.ComponentParameters = el.ComponentParameters;
                                     item.SkipValidate = el.SkipValidate;
+                                    item.ValidateRules = el.ValidateRules;
                                 }
                             }
                         }

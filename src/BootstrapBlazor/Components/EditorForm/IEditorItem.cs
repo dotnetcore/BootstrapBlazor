@@ -90,6 +90,11 @@ namespace BootstrapBlazor.Components
         IEnumerable<SelectedItem>? Lookup { get; set; }
 
         /// <summary>
+        /// 获得/设置 自定义验证集合
+        /// </summary>
+        List<IValidator>? ValidateRules { get; set; }
+
+        /// <summary>
         /// 获取绑定字段显示名称方法
         /// </summary>
         string? GetDisplayName();

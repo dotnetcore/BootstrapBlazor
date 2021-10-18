@@ -123,6 +123,11 @@ namespace UnitTest.Emit
 
             public string PlaceHolder { get; set; }
 
+            /// <summary>
+            /// 获得/设置 自定义验证集合
+            /// </summary>
+            public List<IValidator> ValidateRules { get; set; }
+
             public string GetDisplayName() => Text ?? FieldName;
 
             public string GetFieldName() => FieldName;

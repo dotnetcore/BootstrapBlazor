@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// Required 验证实现类
     /// </summary>
     class RequiredValidator : ValidatorBase
     {
@@ -31,11 +31,11 @@ namespace BootstrapBlazor.Components
         public JsonLocalizationOptions? Options { get; set; }
 
         /// <summary>
-        /// 数据验证方法
+        /// 验证方法
         /// </summary>
-        /// <param name="propertyValue"></param>
-        /// <param name="context"></param>
-        /// <param name="results"></param>
+        /// <param name="propertyValue">待校验值</param>
+        /// <param name="context">ValidateContext 实例</param>
+        /// <param name="results">ValidateResult 集合实例</param>
         public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
             var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);

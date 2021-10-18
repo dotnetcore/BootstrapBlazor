@@ -384,30 +384,35 @@ namespace BootstrapBlazor.Components
                 {
                     builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
                 }
+
+                if(item.ValidateRules != null)
+                {
+                    builder.AddAttribute(6, nameof(ValidateBase<string>.ValidateRules), item.ValidateRules);
+                }
             }
 
             if (IsCheckboxList(fieldType) && item.Items != null)
             {
-                builder.AddAttribute(6, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
+                builder.AddAttribute(7, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
             }
 
             // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
             if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
             {
-                builder.AddAttribute(7, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+                builder.AddAttribute(8, nameof(Select<SelectedItem>.Items), item.Items.Clone());
             }
 
             // 设置 SkipValidate 参数
             if (IsValidatableComponent(componentType))
             {
-                builder.AddAttribute(8, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+                builder.AddAttribute(9, nameof(IEditorItem.SkipValidate), item.SkipValidate);
             }
 
-            builder.AddMultipleAttributes(9, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel));
+            builder.AddMultipleAttributes(10, CreateMultipleAttributes(fieldType, model, fieldName, item, showLabel));
 
             if (item.ComponentParameters != null)
             {
-                builder.AddMultipleAttributes(10, item.ComponentParameters);
+                builder.AddMultipleAttributes(11, item.ComponentParameters);
             }
             builder.CloseComponent();
         }
