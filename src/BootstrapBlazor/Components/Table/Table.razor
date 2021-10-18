@@ -759,6 +759,23 @@ RenderFragment RenderSearch =>
                 <i class="table-search-arrow fa fa-chevron-circle-right"></i>
             </div>
             <div class="table-search-title">@SearchModalTitle</div>
+            @if (ShowSearchText)
+            {
+                <div class="input-group">
+                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
+                        <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
+                    </BootstrapInput>
+                    <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                    </Button>
+                    @if (ShowResetButton)
+                    {
+                        <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                            <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                        </Button>
+                    }
+                </div>
+            }
             <div class="table-search-buttons">
                 @if (ShowResetButton)
                 {

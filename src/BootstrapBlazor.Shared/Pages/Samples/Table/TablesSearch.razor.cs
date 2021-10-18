@@ -49,6 +49,8 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private bool ShowSearchButton { get; set; } = true;
 
+        private bool ShowSearchText { get; set; }
+
         private SearchMode SearchModeValue { get; set; }
 
         /// <summary>

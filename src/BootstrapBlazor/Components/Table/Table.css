@@ -609,6 +609,25 @@ form .table .table-cell > textarea {
         border-bottom-color: transparent;
     }
 
+    .table-search .card-header .input-group,
+    .table-search .collapsed .input-group + .table-search-buttons {
+        display: none;
+    }
+
+    .table-search .card-header .input-group {
+        width: auto;
+        padding: 2px;
+    }
+
+        .table-search .card-header .input-group .table-toolbar-search,
+        .table-search .card-header .input-group .btn {
+            height: 34px;
+        }
+
+    .table-search .collapsed .input-group {
+        display: flex;
+    }
+
 .table-excel-toolbar {
     display: none;
     position: absolute;
