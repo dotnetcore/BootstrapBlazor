@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -86,12 +87,12 @@ namespace BootstrapBlazor.Components
         /// 选中日期时回调此方法
         /// </summary>
         /// <param name="value"></param>
-        protected EventCallback<MouseEventArgs> OnCellClickCallback(DateTime value) => EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+        protected async Task OnCellClickCallback(DateTime value)
         {
             Value = value;
             if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
             StateHasChanged();
-        });
+        }
 
         /// <summary>
         /// 右侧快捷切换年按钮回调此方法

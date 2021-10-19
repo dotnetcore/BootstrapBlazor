@@ -255,7 +255,7 @@ namespace BootstrapBlazor.Components
         /// 明细行功能中切换行状态时调用此方法
         /// </summary>
         /// <param name="item"></param>
-        protected EventCallback<MouseEventArgs> ExpandDetailRow(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, () =>
+        protected void ExpandDetailRow(TItem item)
         {
             DetailRows.Add(item);
             if (ExpandRows.Contains(item))
@@ -266,7 +266,7 @@ namespace BootstrapBlazor.Components
             {
                 ExpandRows.Add(item);
             }
-        });
+        }
 
         /// <summary>
         /// 展开收缩树形数据节点方法
@@ -1016,10 +1016,7 @@ namespace BootstrapBlazor.Components
         /// 点击 过滤小图标方法
         /// </summary>
         /// <param name="col"></param>
-        protected EventCallback<MouseEventArgs> OnFilterClick(ITableColumn col) => EventCallback.Factory.Create<MouseEventArgs>(this, () =>
-        {
-            col.Filter?.Show();
-        });
+        protected void OnFilterClick(ITableColumn col) => col.Filter?.Show();
         #endregion
 
         #region Dispose

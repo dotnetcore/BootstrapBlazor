@@ -207,7 +207,7 @@ namespace BootstrapBlazor.Components
         /// 单选模式下选择行时调用此方法
         /// </summary>
         /// <param name="val"></param>
-        protected Func<Task> ClickRow(TItem val) => async () =>
+        protected async Task ClickRow(TItem val)
         {
             if (ClickToSelect)
             {
@@ -236,7 +236,7 @@ namespace BootstrapBlazor.Components
             {
                 await OnClickRowCallback(val);
             }
-        };
+        }
 
         private async Task OnSelectedRowsChanged()
         {
@@ -465,29 +465,23 @@ namespace BootstrapBlazor.Components
             await EditAsync();
         }
 
-        /// <summary>
-        /// 行尾列编辑按钮点击回调此方法
-        /// </summary>
-        /// <param name="item"></param>
-        protected EventCallback<MouseEventArgs> ClickEditButtonCallback(TItem item) => EventCallback.Factory.Create<MouseEventArgs>(this, () => ClickEditButton(item));
-
-        private EventCallback<MouseEventArgs> ClickUpdateButtonCallback() => EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+        private async Task ClickUpdateButtonCallback()
         {
             var context = new EditContext(EditModel);
-            await SaveAsync(context, ItemChangedType.Update);
+            await SaveAsync(context, AddInCell ? ItemChangedType.Add : ItemChangedType.Update);
 
             // 回调外部自定义方法
             if (OnAfterSaveAsync != null)
             {
                 await OnAfterSaveAsync(EditModel);
             }
-        });
+        }
 
         /// <summary>
         /// 双击行回调此方法
         /// </summary>
         /// <param name="item"></param>
-        protected Func<Task> DoubleClickRow(TItem item) => async () =>
+        protected async Task DoubleClickRow(TItem item)
         {
             if (DoubleClickToEdit)
             {
@@ -500,7 +494,7 @@ namespace BootstrapBlazor.Components
             }
 
             StateHasChanged();
-        };
+        }
 
         /// <summary>
         /// 行尾列按钮点击回调此方法

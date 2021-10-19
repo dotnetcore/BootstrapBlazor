@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -402,7 +401,7 @@ namespace BootstrapBlazor.Components
         /// 取消保存方法
         /// </summary>
         /// <returns></returns>
-        protected EventCallback<MouseEventArgs> CancelSave() => EventCallback.Factory.Create<MouseEventArgs>(this, _ =>
+        protected void CancelSave()
         {
             if (EditMode == EditMode.EditForm)
             {
@@ -415,7 +414,7 @@ namespace BootstrapBlazor.Components
                 AddInCell = false;
                 EditInCell = false;
             }
-        });
+        }
 
         /// <summary>
         /// 保存数据方法
@@ -584,7 +583,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 删除数据方法
         /// </summary>
-        protected Func<Task> DeleteAsync() => async () =>
+        protected async Task DeleteAsync()
         {
             if (IsExcel)
             {
@@ -669,7 +668,7 @@ namespace BootstrapBlazor.Components
                     }
                 }
             }
-        };
+        }
 
         private void ResetDynamicContext()
         {

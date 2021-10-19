@@ -52,7 +52,7 @@
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
                                                           Icon="fa fa-remove" Text="@DeleteButtonText"
-                                                          OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync()"
+                                                          OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
                         }
@@ -195,12 +195,12 @@
                 foreach (var item in RowItems)
                 {
                     <DynamicElement class="@GetRowClassString(item, "table-row")"
-                                    TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="@ClickRow(item)">
+                                    TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
                         @if (IsMultipleSelect)
                         {
                             <div class="table-cell">
                                 <label>@CheckboxDisplayText</label>
-                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck()" @onclick:stopPropagation></Checkbox>
+                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
                             </div>
                         }
                         @if (ShowLineNo)
@@ -443,7 +443,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
                         }
                         @if (col.Filterable && !ShowFilterHeader)
                         {
-                            <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="@OnFilterClick(col)"></i>
+                            <i class="@GetFilterClassString(fieldName)" data-field="@fieldName" @onclick:stopPropagation @onclick="() => OnFilterClick(col)"></i>
                         }
                         @if (col.Sortable)
                         {
@@ -524,15 +524,15 @@ RenderFragment<bool> RenderHeader => hasScroll =>
 
 RenderFragment<TItem> RenderRow => item =>
 @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
-                 TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="@ClickRow(item)"
-                 TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="@DoubleClickRow(item)">
+                 TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
+                 TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
     @if (!IsExcel && ShowDetails())
     {
         <td>
             <div class="@GetDetailBarClassString(item)">
                 @if (ShowDetailRow == null ? true : ShowDetailRow.Invoke(item))
                 {
-                    <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="@ExpandDetailRow(item)"></i>
+                    <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="() => ExpandDetailRow(item)"></i>
                 }
             </div>
         </td>
@@ -541,7 +541,7 @@ RenderFragment<TItem> RenderRow => item =>
     {
         <td>
             <div class="table-cell">
-                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="@OnCheck()" @onclick:stopPropagation></Checkbox>
+                <Checkbox TValue="TItem" Value="@item" State="RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
             </div>
         </td>
     }
@@ -647,11 +647,11 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
                             <div class="table-modal-footer">
                                 @if (IsTracking)
                                 {
-                                    <Button Color="Color.Primary" Icon="fa fa-save" Text="@CloseButtonText" OnClick="CancelSave()" />
+                                    <Button Color="Color.Primary" Icon="fa fa-save" Text="@CloseButtonText" OnClick="CancelSave" />
                                 }
                                 else
                                 {
-                                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave()" />
+                                    <Button Color="Color.Secondary" Icon="fa fa-times" Text="@CancelDeleteButtonText" OnClick="CancelSave" />
                                     <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
                                 }
                             </div>
@@ -683,7 +683,7 @@ RenderFragment<TItem> RenderExtendButtons => item =>
         {
             @if (ShowEditButton)
             {
-                <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+                <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa fa-edit" Text="@EditButtonText" />
             }
             @if (ShowDeleteButton)
             {
@@ -694,7 +694,7 @@ RenderFragment<TItem> RenderExtendButtons => item =>
                                     ConfirmButtonColor="Color.Danger"
                                     ConfirmButtonText="@ConfirmDeleteButtonText"
                                     OnBeforeClick="@ClickBeforeDelete(item)"
-                                    OnConfirm="@DeleteAsync()" />
+                                    OnConfirm="DeleteAsync" />
             }
         }
         @RowButtonTemplate?.Invoke(item)
@@ -720,17 +720,17 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
                     {
                         @if (IsTracking)
                         {
-                            <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Success" Icon="fa fa-edit" Text="@CloseButtonText" />
+                            <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Success" Icon="fa fa-edit" Text="@CloseButtonText" />
                         }
                         else
                         {
-                            <Button Size="Size.ExtraSmall" OnClick="@ClickUpdateButtonCallback()" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
-                            <Button Size="Size.ExtraSmall" OnClick="@CancelSave()" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
+                            <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="fa fa-edit" Text="@UpdateButtonText" />
+                            <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="fa fa-times" Text="@CancelButtonText" />
                         }
                     }
                     else
                     {
-                        <Button Size="Size.ExtraSmall" OnClick="@ClickEditButtonCallback(item)" Icon="fa fa-edit" Text="@EditButtonText" />
+                        <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="fa fa-edit" Text="@EditButtonText" />
                     }
                 }
                 @if (!isInCell && GetShowDeleteButton(item))
@@ -740,7 +740,7 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
                                         CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                         ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
                                         OnBeforeClick="@ClickBeforeDelete(item)"
-                                        OnConfirm="@DeleteAsync()" />
+                                        OnConfirm="DeleteAsync" />
                 }
             }
             @if (!isInCell)

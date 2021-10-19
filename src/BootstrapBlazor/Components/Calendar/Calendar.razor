@@ -102,7 +102,7 @@
         .Build();
 
     RenderFragment<CalendarCell> RenderCell => item =>
-    @<td class="@GetCalendarCellString(item)" @onclick="@OnCellClickCallback(item.Value)">
+    @<td class="@GetCalendarCellString(item)" @onclick="() => OnCellClickCallback(item.Value)">
         <div class="calendar-day">
             <span>@item.Value.Day</span>
         </div>

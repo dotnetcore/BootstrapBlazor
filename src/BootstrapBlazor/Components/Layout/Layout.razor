@@ -70,7 +70,7 @@
     @<header class="@HeaderClassString">
         @if (collapse)
         {
-            <a title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="@(EventCallback.Factory.Create<MouseEventArgs>(this, e => CollapseMenu()))">
+            <a title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="CollapseMenu">
                 <i class="fa fa-bars"></i>
             </a>
         }

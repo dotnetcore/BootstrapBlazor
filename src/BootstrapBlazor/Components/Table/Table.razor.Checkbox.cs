@@ -111,7 +111,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 点击选择复选框时触发此方法
         /// </summary>
-        protected Func<CheckboxState, TItem, Task> OnCheck() => async (state, val) =>
+        protected async Task OnCheck(CheckboxState state, TItem val)
         {
             if (state == CheckboxState.Checked) SelectedItems.Add(val);
             else SelectedItems.Remove(val);
@@ -124,6 +124,6 @@ namespace BootstrapBlazor.Components
 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UYQG
             StateHasChanged();
-        };
+        }
     }
 }
