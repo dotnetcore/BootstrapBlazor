@@ -1,12 +1,12 @@
 ﻿@page "/selects"
 @inject DialogService Dialog
 
-<h3>Select 选择器</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>当选项过多时，使用下拉菜单展示并选择内容</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="Select 下拉选择框" Introduction="提供各种颜色的下拉选择框">
-    <p>本例中，第一个下拉框没有进行 <code>Value</code> 双向绑定，所以选择不同选项时仅自己变化，其余下拉框共用同一数据源 <code>Items</code> 并且双向绑定 <code>Value</code> 值，选择不同选项时一同变化</p>
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+    <p>@((MarkupString)Localizer["P1"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
@@ -36,7 +36,7 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="Select 禁用下拉框" Introduction="选择器不可用状态">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Color="Color.Primary" Items="Items" IsDisabled="true"></Select>
@@ -60,7 +60,7 @@
             <Select TValue="string" Color="Color.Dark" Items="Items" IsDisabled="true"></Select>
         </div>
     </div>
-    <p class="mt-3">下拉框内选项 <b>禁用</b> 示例</p>
+    <p class="mt-3">@((MarkupString)Localizer["P2"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items4" />
@@ -68,7 +68,7 @@
     </div>
 </Block>
 
-<Block Title="Select 双向绑定" Introduction="通过 <code>Select</code> 组件绑定 <code>Model.Name</code> 属性，改变下拉框选项时，文本框内的数值随之改变。">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Blcok3Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name"></Select>
@@ -79,7 +79,7 @@
     </div>
 </Block>
 
-<Block Title="Select 级联绑定" Introduction="通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />
@@ -88,32 +88,32 @@
             <Select TValue="string" Items="Items2" />
         </div>
         <div class="col-12">
-            <Button Text="弹窗中级联示例" OnClickWithoutRender="OnShowDialog" />
+            <Button Text="@Localizer["ButtonText1"]" OnClickWithoutRender="OnShowDialog" />
         </div>
     </div>
 </Block>
 
-<Block Title="Select 客户端验证" Introduction="下拉框未选择时，点击提交按钮时拦截。">
+<Block Title="" Introduction="">
     <ValidateForm Model="BindModel">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
                 <Select @bind-Value="BindModel.Name">
                     <Options>
-                        <SelectOption Text="请选择 ..." Value="" />
-                        <SelectOption Text="北京" Value="1" />
-                        <SelectOption Text="上海" Value="2" />
-                        <SelectOption Text="广州" Value="3" />
+                        <SelectOption Text="@Localizer["Option1"]" Value="" />
+                        <SelectOption Text="@Localizer["Option2"]" Value="1" />
+                        <SelectOption Text="@Localizer["Option3"]" Value="2" />
+                        <SelectOption Text="@Localizer["Option4"]" Value="3" />
                     </Options>
                 </Select>
             </div>
             <div class="col-12 col-sm-6 align-self-end">
-                <Button ButtonType="ButtonType.Submit">提交</Button>
+                <Button ButtonType="ButtonType.Submit">@Localizer["ButtonText2"]</Button>
             </div>
         </div>
     </ValidateForm>
 </Block>
 
-<Block Title="分组" Introduction="备选项进行分组展示">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Blcok6Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Color="Color.Primary" Items="GroupItems">
@@ -122,7 +122,7 @@
     </div>
 </Block>
 
-<Block Title="绑定泛型为 Guid 结构" Introduction="组件绑定值为 Guid 结构体示例">
+<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Color="Color.Primary" Items="GuidItems" @bind-Value="CurrentGuid" />
@@ -133,9 +133,9 @@
     </div>
 </Block>
 
-<Block Title="显示标签" Introduction="组件双向绑定时会根据条件自动判断是否显示标签文字">
-    <p>前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href="inputs">[传送门]</a></p>
-    <Divider Text="双向绑定显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+<Block Title="@Localizer["Blcok8Title"]" Introduction="@Localizer["Blcok8Intro"]">
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
+    <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="Model">
         <div class="row g-3">
             <div class="col-12">
@@ -143,48 +143,48 @@
             </div>
         </div>
     </ValidateForm>
-    <Divider Text="双向绑定不显示标签" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <Divider Text="@Localizer["Divider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <div class="row g-3">
         <div class="col-12">
             <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name" />
         </div>
     </div>
-    <Divider Text="自定义 DisplayText" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <Divider Text="@Localizer["Divider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <div class="row g-3">
         <div class="col-12">
-            <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name" DisplayText="自定义城市" ShowLabel="true" />
+            <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name" DisplayText="@Localizer["SelectText"]" ShowLabel="true" />
         </div>
     </div>
 </Block>
 
-<Block Title="静态数据" Introduction="直接在 <code>Select</code> 组件内部进行硬编码书写，适用于静态数据下拉框">
+<Block Title="@Localizer["Blcok9Title"]" Introduction="@Localizer["Block9Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string">
                 <Options>
-                    <SelectOption Text="北京" Value="1" />
-                    <SelectOption Text="上海" Value="2" Active="true" />
-                    <SelectOption Text="广州" Value="3" />
+                    <SelectOption Text="@Localizer["Option1"]" Value="1" />
+                    <SelectOption Text="@Localizer["Option2"]" Value="2" Active="true" />
+                    <SelectOption Text="@Localizer["Option3"]" Value="3" />
                 </Options>
             </Select>
         </div>
     </div>
 </Block>
 
-<Block Title="枚举数据" Introduction="<code>Select</code> 组件绑定枚举类型示例">
-    <p>当绑定值为可为空枚举类型时，组件内部自动通过 <code>PlaceHolder</code> 值添加首选项，未设置 <code>PlaceHolder</code> 值时，使用资源文件中的 <b>请选择 ...</b> 作为首选项，本示例绑定 <code>EnumEducation</code> 枚举类型</p>
-    <p>绑定值为枚举类型时，设置 <code>PalceHolder</code> 无效</p>
+<Block Title="@Localizer["Blcok10Title"]" Introduction="@Localizer["Blcok10Intro"]">
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
+    <p>@((MarkupString)Localizer["P5"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="SelectedEnumItem1" PlaceHolder="@Localizer["PlaceHolder"]" ShowLabel="true" DisplayText="可为空">
+            <Select @bind-Value="SelectedEnumItem1" PlaceHolder="@Localizer["PlaceHolder"]" ShowLabel="true" DisplayText="@Localizer["SelectText1"]">
             </Select>
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="SelectedEnumItem1" ShowLabel="true" DisplayText="可为空">
+            <Select @bind-Value="SelectedEnumItem1" ShowLabel="true" DisplayText="@Localizer["SelectText1"]">
             </Select>
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="SelectedEnumItem" ShowLabel="true" DisplayText="不为空">
+            <Select @bind-Value="SelectedEnumItem" ShowLabel="true" DisplayText="@Localizer["SelectText2"]">
             </Select>
         </div>
         <div class="col-12 col-sm-6 align-self-end">
@@ -193,8 +193,8 @@
     </div>
 </Block>
 
-<Block Title="绑定可为空类型" Introduction="<code>Select</code> 组件绑定 <code>int?</code> 类型示例">
-    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Blcok11Intro"]">
+    <p>@((MarkupString)Localizer["P6"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="NullableIntItems" @bind-Value="SelectedIntItem">
@@ -206,9 +206,9 @@
     </div>
 </Block>
 
-<Block Title="绑定可为空布尔类型" Introduction="<code>Select</code> 组件绑定 <code>bool?</code> 类型示例">
-    <p>可为空布尔类型多用于条件搜索框中</p>
-    <p>选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code></p>
+<Block Title="@Localizer["Blcok12Title"]" Introduction="@Localizer["Block12Intro"]">
+    <p>@((MarkupString)Localizer["P7"].Value)</p>
+    <p>@((MarkupString)Localizer["P8"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="NullableBoolItems" @bind-Value="SelectedBoolItem">
@@ -220,7 +220,7 @@
     </div>
 </Block>
 
-<Block Title="自定义选项模板" Introduction="通过设置 <code>ItemTemplate</code> 可以自定义选项渲染样式">
+<Block Title="@Localizer["Block13Title"]" Introduction="@Localizer["Block13Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items">
@@ -236,7 +236,7 @@
     </div>
 </Block>
 
-<Block Title="带搜索框的下拉框" Introduction="通过设置 <code>ShowSearchBox</code> 属性控制是否显示搜索框，默认为 false 不显示搜索框">
+<Block Title="@Localizer["Block14Title"]" Introduction="@Localizer["Blcok14Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" ShowSearch="true" />
@@ -247,11 +247,11 @@
     </div>
 </Block>
 
-<Block Title="带确认的下拉框" Introduction="通过设置 <code>OnBeforeSelectedItemChange</code> 委托，阻止当前值的改变">
+<Block Title="@Localizer["Blcok15Title"]" Introduction="@Localizer["Blcok15Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"
-                    SwalTitle="下拉框值变更" SwalContent="您确认要改变选项值吗？" SwalFooter="点击确认改变选项值，选择取消后值不变" />
+                    SwalTitle="@Localizer["SwalTitle"]" SwalContent="@Localizer["SwalContent"]" SwalFooter="@Localizer["SwalFooter"]" />
         </div>
     </div>
 </Block>

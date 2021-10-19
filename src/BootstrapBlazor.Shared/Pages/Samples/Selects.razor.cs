@@ -194,19 +194,19 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnSelectedItemChanged",
-                Description="下拉框选项改变时触发此事件",
-                Type ="Func<SelectedItem, Task>"
+                Description = Localizer["OnSelectedItemChanged"]!,
+                Type = "Func<SelectedItem, Task>"
             },
             new EventItem()
             {
                 Name = "OnBeforeSelectedItemChange",
-                Description="下拉框选项改变前触发此事件",
-                Type ="Func<SelectedItem, Task<bool>>"
+                Description = Localizer["OnBeforeSelectedItemChange"]!,
+                Type = "Func<SelectedItem, Task<bool>>"
             }
         };
 
@@ -214,92 +214,92 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = Localizer["ShowLabel"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowSearch",
-                Description = "是否显示搜索框",
+                Description = Localizer["ShowSearch"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "前置标签显示文本",
+                Description = Localizer["DisplayText"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["Class"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = Localizer["Color"]!,
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["IsDisabled"]!,
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = "数据集合",
+                Description = Localizer["Items"]!,
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "SelectItems",
-                Description = "静态数据模板",
+                Description = Localizer["SelectItems"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ItemTemplate",
-                Description = "数据选项模板",
+                Description = Localizer["ItemTemplate"]!,
                 Type = "RenderFragment<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "数据模板",
+                Description = Localizer["ChildContent"]!,
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Category",
-                Description = "对话框图标",
+                Description = Localizer["Category"]!,
                 Type = "SwalCategory",
                 ValueList = " — ",
                 DefaultValue = " SwalCategory.Information "
             },
             new AttributeItem() {
                 Name = "Content",
-                Description = "对话框内容",
+                Description = Localizer["Content"]!,
                 Type = "string?",
                 ValueList = " — ",
-                DefaultValue = " 确定改变当前值吗？ "
+                DefaultValue = Localizer["ContentDefaultValue"]!
             }
         };
     }
