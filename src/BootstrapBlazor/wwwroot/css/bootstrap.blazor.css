@@ -771,3 +771,23 @@ form .form-label[required]:before {
 .fs-open .fs-on {
     display: block;
 }
+
+.arrow-danger {
+    border-color: transparent transparent var(--bs-danger);
+}
+
+.arrow-success {
+    border-color: transparent transparent var(--bs-success);
+}
+
+.arrow-primary {
+    border-color: transparent transparent var(--bs-primary);
+}
+
+.arrow-warning {
+    border-color: transparent transparent var(--bs-warning);
+}
+
+.arrow-info {
+    border-color: transparent transparent var(--bs-info);
+}
