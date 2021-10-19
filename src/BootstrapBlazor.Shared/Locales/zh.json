@@ -713,7 +713,7 @@
     "BackText2": "天气预报",
     "AttTitle": "Attributes 属性",
     "MethodTitle": "Method 方法",
-    "DefaultUrl":  "默认标签页关闭所有标签页时默认显现此页面"
+    "DefaultUrl": "默认标签页关闭所有标签页时默认显现此页面"
   },
   "BootstrapBlazor.Shared.Pages.AutoCompletes": {
     "Title": "AutoComplete 自动完成",
@@ -1447,6 +1447,21 @@
     "OnSelectedItemChanged": "下拉框选项改变时触发此事件",
     "OnBeforeSelectedItemChange": "下拉框选项改变前触发此事件",
     "PlaceHolder": "未选择"
+  },
+  "BootstrapBlazor.Shared.Pages.Sliders": {
+    "Title": "Slider 滑块",
+    "H1": "通过拖动滑块在一个固定区间内进行选择",
+    "Block1Title": "基础用法",
+    "Blcok1Intro": "在拖动滑块时，改变当前值",
+    "Slider1Label": "自定义初始值",
+    "Slider2Label": "禁用",
+    "Blcok2Title": "Slider 双向绑定",
+    "Blcok2Intro": "通过拖动滑块在一个固定区间内进行选择",
+    "Slider3Label": "自定义初始值",
+    "Class": "样式",
+    "IsDisabled": "是否禁用",
+    "Value": "组件当前值",
+    "ValueChanged": "ValueChanged 回调方法"
   },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "未设置",

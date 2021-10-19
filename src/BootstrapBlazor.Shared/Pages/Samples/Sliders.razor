@@ -1,19 +1,20 @@
 ﻿@page "/sliders"
+@inject IStringLocalizer<Sliders> Localizer
 
-<h3>Slider 滑块</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>通过拖动滑块在一个固定区间内进行选择</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="基础用法" Introduction="在拖动滑块时，改变当前值">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Blcok1Intro"]">
     <Slider></Slider>
-    <Slider Value="50" Label="自定义初始值"></Slider>
-    <Slider Value="42" IsDisabled="true" Label="禁用"></Slider>
+    <Slider Value="50" Label="@Localizer["Slider1Label"]"></Slider>
+    <Slider Value="42" IsDisabled="true" Label="@Localizer["Slider2Label"]"></Slider>
 </Block>
 
-<Block Title="Slider 双向绑定" Introduction="通过拖动滑块在一个固定区间内进行选择">
+<Block Title="@Localizer["Blcok2Title"]" Introduction="@Localizer["Blcok2Intro"]">
     <div class="row g-3">
         <div class="col-12 col-sm-8">
-            <Slider @bind-Value="@BindValue" Label="自定义初始值"></Slider>
+            <Slider @bind-Value="@BindValue" Label="@Localizer["Slider3Label"]"></Slider>
         </div>
         <div class="col-12 col-sm-4">
             <BootstrapInput @bind-Value="@BindValue" readonly></BootstrapInput>

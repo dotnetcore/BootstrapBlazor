@@ -1447,6 +1447,21 @@
     "OnBeforeSelectedItemChange": "This event is triggered before the drop-down option changes",
     "PlaceHolder": "Not selected"
   },
+  "BootstrapBlazor.Shared.Pages.Sliders": {
+    "Title": "Slider",
+    "H1": "Select within a fixed interval by dragging the slider",
+    "Block1Title": "Basic usage",
+    "Blcok1Intro": "Change the current value as you drag the slider",
+    "Slider1Label": "Customize the initial value",
+    "Slider2Label": "Disable",
+    "Blcok2Title": "Slider bidirectional binding",
+    "Blcok2Intro": "Select within a fixed interval by dragging the slider",
+    "Slider3Label": "Customize the initial value",
+    "Class": "Style",
+    "IsDisabled": "Whether to disable it",
+    "Value": "The current value of the component",
+    "ValueChanged": "ValueChanged callback method"
+  },
   "BootstrapBlazor.Shared.Pages.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

@@ -23,21 +23,21 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["Class"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["IsDisabled"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = "组件当前值",
+                Description = Localizer["Value"]!,
                 Type = "int",
                 ValueList = "—",
                 DefaultValue = "—"
@@ -53,7 +53,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description=" ValueChanged 回调方法",
+                Description = Localizer["ValueChanged"]!,
                 Type ="EventCallback<int>"
             }
         };
