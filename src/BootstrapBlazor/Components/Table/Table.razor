@@ -410,7 +410,7 @@ RenderFragment<bool> RenderHeader => hasScroll =>
             <th class="@CheckboxColumnClass">
                 <div class="table-cell">
                     <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowAfterLabel="@ShowCheckboxText"
-                              State="@HeaderCheckState()" OnStateChanged="@(new Func<CheckboxState, TItem, Task>(OnHeaderCheck))"></Checkbox>
+                              State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck"></Checkbox>
                 </div>
             </th>
         }
@@ -641,7 +641,7 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
             }
             else
             {
-                <ValidateForm Model="@item.Item" OnValidSubmit="@(new Func<EditContext, Task>(context => SaveAsync(context, item.ChangedType)))">
+                <ValidateForm Model="@item.Item" OnValidSubmit="context => SaveAsync(context, item.ChangedType)">
                     <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
                         <Buttons>
                             <div class="table-modal-footer">
@@ -664,7 +664,7 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
 </tr>;
 
 RenderFragment RenderAdvanceSearchButton =>
-@<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="@(new Func<Task>(ShowSearchDialog))">
+@<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="ShowSearchDialog">
     <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
 </Button> ;
 
@@ -765,12 +765,12 @@ RenderFragment RenderSearch =>
                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                     </BootstrapInput>
-                    <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
+                    <Button Color="Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                     @if (ShowResetButton)
                     {
-                        <Button Color="@Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="@ClearSearchClick">
+                        <Button Color="Color.Secondary" Icon="fa fa-trash" OnClickWithoutRender="ClearSearchClick">
                             <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                         </Button>
                     }
@@ -779,13 +779,13 @@ RenderFragment RenderSearch =>
             <div class="table-search-buttons">
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="@(new Func<Task>(ClearSearchClick))">
+                    <Button Color="Color.Secondary" Icon="fa fa-trash" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="@(new Func<Task>(SearchClick))">
+                    <Button Color="Color.Primary" Icon="fa fa-search" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }
