@@ -17,10 +17,11 @@ jobs:
       with:
         dotnet-version: 2.1.x
 
-    - name: Setup .NET Core 5
+    - name: Setup .NET Core 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
+        include-prerelease: true
 
     - name: Publish to Nuget
       env: 

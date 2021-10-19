@@ -12,6 +12,7 @@
         white-space: nowrap;
         overflow: hidden;
         vertical-align: top;
+        display: inline-block;
     }
 
         .form-inline .form-label + * {
