@@ -385,7 +385,7 @@ namespace BootstrapBlazor.Components
                     builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
                 }
 
-                if(item.ValidateRules != null)
+                if (item.ValidateRules != null)
                 {
                     builder.AddAttribute(6, nameof(ValidateBase<string>.ValidateRules), item.ValidateRules);
                 }

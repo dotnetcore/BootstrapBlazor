@@ -31,6 +31,12 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IEnumerable<SelectedItem>? Items4 { get; set; }
 
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items5 { get; set; }
+
+        [NotNull]
+        private IEnumerable<SelectedItem>? Items6 { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
@@ -83,6 +89,22 @@ namespace BootstrapBlazor.Shared.Pages
                 new SelectedItem { Text = "Item 15", Value = "15" },
                 new SelectedItem { Text = "Item 16", Value = "16" },
             });
+
+            Items5 = new List<SelectedItem>(new List<SelectedItem>
+            {
+                new SelectedItem { Text = "张三", Value = "张三" },
+                new SelectedItem { Text = "李四", Value = "李四" },
+                new SelectedItem { Text = "王五", Value = "王五" },
+                new SelectedItem { Text = "赵六", Value = "赵六" },
+            });
+
+            Items6 = new List<SelectedItem>(new List<SelectedItem>
+            {
+                new SelectedItem { Text = "张三", Value = "张三" },
+                new SelectedItem { Text = "李四", Value = "李四" },
+                new SelectedItem { Text = "王五", Value = "王五" },
+                new SelectedItem { Text = "赵六", Value = "赵六" },
+            });
         }
 
         private Task OnSelectedChanged(IEnumerable<SelectedItem> items, string value)
@@ -92,6 +114,10 @@ namespace BootstrapBlazor.Shared.Pages
         }
 
         private Foo Dummy { get; set; } = new Foo() { Name = "张三,李四" };
+
+        private Foo Dummy1 { get; set; } = new Foo() { Name = "张三,李四" };
+
+        private Foo Dummy2 { get; set; } = new Foo() { Name = "张三,李四" };
 
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {

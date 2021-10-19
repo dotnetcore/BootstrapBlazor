@@ -80,6 +80,31 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
+            // 处理 Required 标签
+            if (EditContext != null && FieldIdentifier != null)
+            {
+                var pi = FieldIdentifier.Value.Model.GetType()
+                    .GetProperties()
+                    .Where(p => p.Name == FieldIdentifier.Value.FieldName)
+                    .FirstOrDefault();
+                if (pi != null)
+                {
+                    var required = pi.GetCustomAttribute<RequiredAttribute>(true);
+                    if (required != null)
+                    {
+                        Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
             if (Items == null)
             {
                 Type? innerType = null;
@@ -98,23 +123,6 @@ namespace BootstrapBlazor.Components
             }
 
             InitValue();
-
-            // 处理 Required 标签
-            if (EditContext != null && FieldIdentifier != null)
-            {
-                var pi = FieldIdentifier.Value.Model.GetType()
-                    .GetProperties()
-                    .Where(p => p.Name == FieldIdentifier.Value.FieldName)
-                    .FirstOrDefault();
-                if (pi != null)
-                {
-                    var required = pi.GetCustomAttribute<RequiredAttribute>(true);
-                    if (required != null)
-                    {
-                        Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
-                    }
-                }
-            }
         }
 
         private void InitValue()
