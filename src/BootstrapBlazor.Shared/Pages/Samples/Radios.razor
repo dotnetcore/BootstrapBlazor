@@ -36,8 +36,9 @@
 
 <Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
     <RadioList @bind-Value="@SelectedEnumItem"></RadioList>
-    <p class="mt-3">@((MarkupString)Localizer["P1"].Value)</p>
-    <RadioList @bind-Value="@SelectedEnumItem" IsAutoAddNullItem="true" NullItemText="@Localizer["RadioText2"]"></RadioList>
+    <p class="mt-2">@SelectedEnumItem</p>
+    <p>@((MarkupString)Localizer["P1"].Value)</p>
+    <RadioList @bind-Value="@SelectedEnumItem2" IsAutoAddNullItem="true" NullItemText="@Localizer["RadioText2"]"></RadioList>
 </Block>
 
 <Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">

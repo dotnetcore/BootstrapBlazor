@@ -143,29 +143,39 @@ namespace BootstrapBlazor.Components
                 }
                 else if (typeValue.IsGenericType)
                 {
-                    var t = typeValue.GenericTypeArguments;
-                    var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
-                    if (instance != null)
+                    ProcessGenericItems(typeValue, list);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typeValue"></param>
+        /// <param name="list"></param>
+        protected virtual void ProcessGenericItems(Type typeValue, IEnumerable? list)
+        {
+            var t = typeValue.GenericTypeArguments;
+            var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
+            if (instance != null)
+            {
+                var mi = instance.GetType().GetMethod("AddRange");
+                if (mi != null)
+                {
+                    mi.Invoke(instance, new object[] { Value });
+                }
+                list = instance as IEnumerable;
+                if (list != null)
+                {
+                    foreach (var item in Items)
                     {
-                        var mi = instance.GetType().GetMethod("AddRange");
-                        if (mi != null)
+                        item.Active = false;
+                        foreach (var v in list)
                         {
-                            mi.Invoke(instance, new object[] { Value });
-                        }
-                        list = instance as IEnumerable;
-                        if (list != null)
-                        {
-                            foreach (var item in Items)
+                            item.Active = item.Value.Equals(v!.ToString(), StringComparison.OrdinalIgnoreCase);
+                            if (item.Active)
                             {
-                                item.Active = false;
-                                foreach (var v in list)
-                                {
-                                    item.Active = item.Value.Equals(v!.ToString(), StringComparison.OrdinalIgnoreCase);
-                                    if (item.Active)
-                                    {
-                                        break;
-                                    }
-                                }
+                                break;
                             }
                         }
                     }

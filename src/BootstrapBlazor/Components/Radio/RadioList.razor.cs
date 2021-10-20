@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,6 +51,14 @@ namespace BootstrapBlazor.Components
             {
                 Items = t.ToSelectList((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
             }
+        }
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
 
             if (!Items.Any(i => i.Value == CurrentValueAsString))
             {
@@ -56,6 +66,16 @@ namespace BootstrapBlazor.Components
                     ?? Items.FirstOrDefault()?.Value
                     ?? "";
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typeValue"></param>
+        /// <param name="list"></param>
+        protected override void ProcessGenericItems(Type typeValue, IEnumerable? list)
+        {
+
         }
 
         /// <summary>
@@ -73,7 +93,10 @@ namespace BootstrapBlazor.Components
                 {
                     CurrentValueAsString = item.Value;
                 }
-                if (OnSelectedChanged != null) await OnSelectedChanged.Invoke(new SelectedItem[] { item }, Value);
+                if (OnSelectedChanged != null)
+                {
+                    await OnSelectedChanged.Invoke(new SelectedItem[] { item }, Value);
+                }
 
                 StateHasChanged();
             }

@@ -48,6 +48,9 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private EnumEducation? SelectedEnumItem { get; set; }
 
+        [NotNull]
+        private EnumEducation? SelectedEnumItem2 { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
