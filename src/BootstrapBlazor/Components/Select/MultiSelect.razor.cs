@@ -372,6 +372,8 @@ namespace BootstrapBlazor.Components
                 item.Active = false;
             }
 
+            SetValue();
+
             await TriggerSelectedItemChanged();
         }
 
@@ -382,6 +384,8 @@ namespace BootstrapBlazor.Components
                 item.Active = true;
             }
 
+            SetValue();
+
             await TriggerSelectedItemChanged();
         }
 
@@ -391,6 +395,8 @@ namespace BootstrapBlazor.Components
             {
                 item.Active = !item.Active;
             }
+
+            SetValue();
 
             await TriggerSelectedItemChanged();
         }
