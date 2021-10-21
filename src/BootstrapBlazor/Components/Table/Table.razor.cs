@@ -929,7 +929,7 @@ namespace BootstrapBlazor.Components
                 var invoker = GetPropertyCache.GetOrAdd((item.GetType(), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
                 ret = invoker(item);
 
-                if (ret?.GetType().IsEnum ?? false)
+                if (ret != null && !ret.GetType().Assembly.IsDynamic && ret.GetType().IsEnum)
                 {
                     ret = ret.GetType().ToEnumDisplayName(ret.ToString());
                 }
