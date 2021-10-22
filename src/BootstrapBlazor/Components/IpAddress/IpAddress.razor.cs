@@ -26,6 +26,7 @@ namespace BootstrapBlazor.Components
         /// 获得 class 样式集合
         /// </summary>
         protected string? ClassName => CssBuilder.Default("ipaddress form-control")
+            .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
         /// <summary>
