@@ -183,11 +183,12 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.FromResult(true);
         }
 
-        [NotNull]
-        private Person? Foo { get; set; } = new Person();
+        private Person Foo { get; set; } = new Person();
 
-        private static Task OnSubmit(EditContext context)
+        private Task OnSubmit(EditContext context)
         {
+            // 示例代码请根据业务情况自行更改
+            var fileName = Foo.Picture?.Name;
             return Task.CompletedTask;
         }
 

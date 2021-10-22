@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 
         /// </summary>
-        public string RepositoryUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/dev/src/BootstrapBlazor.Shared/Pages/Samples/";
+        public string RepositoryUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/main/src/BootstrapBlazor.Shared/Pages/Samples/";
 
         /// <summary>
         /// 
