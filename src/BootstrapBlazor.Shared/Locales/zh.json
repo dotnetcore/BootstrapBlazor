@@ -454,6 +454,8 @@
     "Block9Intro": "改变选项时，下拉框内菜单项会增加",
     "Block10Title": "级联绑定",
     "Block10Intro": "通过选择第一个下拉框不同选项，第二个下拉框动态填充内容。",
+    "FixedButtonTextTitle": "固定按钮文本",
+    "FixedButtonTextIntro": "通过设置 <code>IsFixedButtonText</code> 使更改下拉选项时按钮文本不变",
     "ADesc1": "当前选中的值",
     "ADesc2": "样式",
     "ADesc3": "颜色",

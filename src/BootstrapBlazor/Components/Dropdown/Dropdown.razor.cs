@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 设置当前项是否 Active 方法
+        /// 获得/设置 设置当前项是否 Active 方法
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
@@ -69,37 +69,45 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 是否开启分裂式
+        /// 获得/设置 是否开启分裂式 默认 false
         /// </summary>
         [Parameter]
         public bool ShowSplit { get; set; }
 
         /// <summary>
-        /// 获取菜单对齐方式
+        /// 获得/设置 获取菜单对齐方式 默认 none 未设置
         /// </summary>
         [Parameter]
         public Alignment MenuAlignment { get; set; }
 
         /// <summary>
-        /// 下拉选项方向 
+        /// 获得/设置 下拉选项方向 默认 Dropdown 向下
         /// </summary>
         [Parameter]
         public Direction Direction { get; set; }
 
         /// <summary>
-        /// 组件尺寸
+        /// 获得/设置 组件尺寸 默认 none 未设置
         /// </summary>
         [Parameter]
         public Size Size { get; set; }
 
         /// <summary>
-        /// 下拉框渲染类型
+        /// 获得/设置 默认 false 不固定
+        /// </summary>
+        [Parameter]
+        public bool IsFixedButtonText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 下拉框渲染类型 默认 DropdownMenu 下拉菜单
         /// </summary>
         [Parameter]
         public DropdownType DropdownType { get; set; }
 
         [NotNull]
         private List<SelectedItem>? DataSource { get; set; }
+
+        private string? ButtonText { get; set; }
 
         /// <summary>
         /// OnParametersSet 方法
@@ -121,6 +129,8 @@ namespace BootstrapBlazor.Components
             SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
+
+            ButtonText ??= SelectedItem?.Text;
         }
 
         /// <summary>
@@ -141,5 +151,7 @@ namespace BootstrapBlazor.Components
                 }
             }
         }
+
+        private string? GetText => IsFixedButtonText ? ButtonText : SelectedItem?.Text;
     }
 }

@@ -454,6 +454,8 @@
     "Block9Intro": "When you change the options, the menu items in the drop-down box will increase",
     "Block10Title": "Cascade binding",
     "Block10Intro": "By selecting different options in the first drop-down box, the second drop-down box is filled with content dynamically.",
+    "FixedButtonTextTitle": "Fixed Button Text",
+    "FixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</true> make the ButtonText to const",
     "ADesc1": "Currently selected value",
     "ADesc2": "Style",
     "ADesc3": "Color",
