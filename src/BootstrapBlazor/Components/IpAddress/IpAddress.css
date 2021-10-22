@@ -4,6 +4,11 @@
     min-width: 138px;
 }
 
+    .ipaddress.disabled {
+        background-color: #efefef;
+        cursor: not-allowed;
+    }
+
     .ipaddress .ipv4-cell {
         border: none;
         max-width: 26px;
