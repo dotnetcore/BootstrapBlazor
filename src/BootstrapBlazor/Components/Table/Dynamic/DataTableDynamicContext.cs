@@ -286,6 +286,7 @@ namespace BootstrapBlazor.Components
             if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
             {
                 cacheItem.Row[column.GetFieldName()] = val;
+                Items = null;
             }
             return Task.CompletedTask;
         }

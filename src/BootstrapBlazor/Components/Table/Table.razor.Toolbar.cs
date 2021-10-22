@@ -228,7 +228,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task AddAsync()
         {
-            if (IsExcel)
+            if (IsExcel || DynamicContext != null)
             {
                 await AddDynamicOjbectExcelModelAsync();
             }
@@ -333,7 +333,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public async Task EditAsync()
         {
-            if (UseInjectDataService || IsTracking || OnSaveAsync != null)
+            if (UseInjectDataService || IsTracking || OnSaveAsync != null || DynamicContext != null)
             {
                 if (SelectedItems.Count == 1)
                 {
@@ -425,7 +425,13 @@ namespace BootstrapBlazor.Components
         protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
         {
             var valid = false;
-            if (OnSaveAsync != null)
+            if (DynamicContext != null)
+            {
+                await DynamicContext.SetValue(context.Model);
+                RowItemsCache = null;
+                valid = true;
+            }
+            else if (OnSaveAsync != null)
             {
                 valid = await OnSaveAsync((TItem)context.Model, changedType);
             }
@@ -455,7 +461,7 @@ namespace BootstrapBlazor.Components
         /// <param name="changedType"></param>
         protected async Task SaveAsync(EditContext context, ItemChangedType changedType)
         {
-            if (UseInjectDataService || OnSaveAsync != null)
+            if (UseInjectDataService || OnSaveAsync != null || DynamicContext != null)
             {
                 await ToggleLoading(true);
                 if (await SaveModelAsync(context, changedType))

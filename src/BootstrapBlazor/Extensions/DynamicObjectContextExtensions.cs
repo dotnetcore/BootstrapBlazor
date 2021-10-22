@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -87,6 +89,26 @@ namespace BootstrapBlazor.Components
         {
             var type = typeof(DescriptionAttribute);
             context.AddAttribute(columnName, type, new Type[] { typeof(string) }, new object?[] { description });
+        }
+
+        /// <summary>
+        /// 扩展方法将指定模型赋值给 context 实例
+        /// </summary>
+        /// <param name="context">DynamicObjectContext 实例</param>
+        /// <param name="model">模型实例</param>
+        public static async Task SetValue(this IDynamicObjectContext context, object model)
+        {
+            if (model is IDynamicObject v)
+            {
+                var item = context.GetItems().FirstOrDefault(i => i.DynamicObjectPrimaryKey == v.DynamicObjectPrimaryKey);
+                if (item != null && context.OnValueChanged != null)
+                {
+                    foreach (var col in context.GetColumns())
+                    {
+                        await context.OnValueChanged(item, col, v.GetValue(col.GetFieldName()));
+                    }
+                }
+            }
         }
     }
 }

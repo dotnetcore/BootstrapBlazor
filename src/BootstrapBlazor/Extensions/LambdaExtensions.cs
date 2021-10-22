@@ -382,7 +382,7 @@ namespace System.Linq
             return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
         }
 
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object>> PropertyValueInvokerCache = new();
+        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object?>> PropertyValueInvokerCache = new();
 
         /// <summary>
         /// 获取 指定对象的属性值
@@ -390,11 +390,27 @@ namespace System.Linq
         /// <param name="model"></param>
         /// <param name="fieldName"></param>
         /// <returns></returns>
-        public static object GetPropertyValue(object model, string fieldName)
+        public static object? GetPropertyValue(object model, string fieldName)
         {
-            var cacheKey = (model.GetType(), fieldName);
-            var invoker = PropertyValueInvokerCache.GetOrAdd(cacheKey, key => GetPropertyValueLambda<object, object>(model, key.FieldName).Compile());
-            return invoker.Invoke(model);
+            return model.GetType().Assembly.IsDynamic ? ReflectionInvoke() : LambdaInvoke();
+
+            object? ReflectionInvoke()
+            {
+                object? ret = null;
+                var propertyInfo = model.GetType().GetProperties().FirstOrDefault(i => i.Name == fieldName);
+                if (propertyInfo != null)
+                {
+                    ret = propertyInfo.GetValue(model);
+                }
+                return ret;
+            }
+
+            object? LambdaInvoke()
+            {
+                var cacheKey = (model.GetType(), fieldName);
+                var invoker = PropertyValueInvokerCache.GetOrAdd(cacheKey, key => GetPropertyValueLambda<object, object?>(model, key.FieldName).Compile());
+                return invoker.Invoke(model);
+            }
         }
 
         #region TryParse
