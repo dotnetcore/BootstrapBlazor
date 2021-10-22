@@ -870,7 +870,7 @@ namespace BootstrapBlazor.Components
                     ? dynamicObject.GetValue(col.GetFieldName())
                     : Table<TItem>.GetItemValue(col.GetFieldName(), item);
 
-                if (val is bool v1)
+                if (col.Lookup == null && val is bool v1)
                 {
                     // 自动化处理 bool 值
                     builder.OpenComponent(0, typeof(Switch));

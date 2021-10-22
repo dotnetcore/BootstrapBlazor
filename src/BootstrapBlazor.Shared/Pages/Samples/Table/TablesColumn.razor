@@ -219,6 +219,7 @@
 </Block>
 
 <Block Title="允许列调整" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度">
+    <p>屏幕过小出现滚动条时才可以进行列调整</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
            IsStriped="true" IsBordered="true"
@@ -233,7 +234,7 @@
     </Table>
 </Block>
 
-<Block Title="自定义列模板" Introduction="通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度">
+<Block Title="自定义列模板" Introduction="通过指定 <code>Template</code> 设置最后一列内显示为自定义按钮">
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"

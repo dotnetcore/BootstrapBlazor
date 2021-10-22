@@ -256,8 +256,8 @@ namespace BootstrapBlazor.Components
             if (source.HeaderTemplate != null) dest.HeaderTemplate = source.HeaderTemplate;
             if (source.Items != null) dest.Items = source.Items;
             if (source.Lookup != null) dest.Lookup = source.Lookup;
-            if (!source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
-            if (!source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
+            if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
+            if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
             if (source.OnCellRender != null) dest.OnCellRender = source.OnCellRender;
             if (source.Readonly) dest.Readonly = source.Readonly;
             if (source.Rows > 0) dest.Rows = source.Rows;
