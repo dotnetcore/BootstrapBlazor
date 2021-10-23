@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Components
         internal static string ToEnumDisplayName(this Type? type, string? fieldName)
         {
             string? dn = null;
-            if (type != null && !string.IsNullOrEmpty(fieldName))
+            if (type != null && !type.Assembly.IsDynamic && !string.IsNullOrEmpty(fieldName))
             {
                 var t = Nullable.GetUnderlyingType(type) ?? type;
 
