@@ -314,8 +314,16 @@ namespace BootstrapBlazor.Components
                 {
                     if (OnAddAsync != null)
                     {
-                        // TODO: 新建模式下插入新行位置如何判断？
                         await OnAddAsync();
+                        SelectedItems.Clear();
+                        RowItemsCache = null;
+                        await QueryAsync();
+                    }
+                    else if (UseInjectDataService)
+                    {
+                        var item = new TItem();
+                        await GetDataService().AddAsync(item);
+                        SelectedItems.Clear();
                         await QueryAsync();
                     }
                     else

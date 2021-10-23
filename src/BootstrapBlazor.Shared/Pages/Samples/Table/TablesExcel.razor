@@ -84,7 +84,7 @@
         <li><code>IsFixedHeader</code> 固定表头 高度设定为 <code>Height="500px"</code></li>
         <li><code>Name</code> 不可编辑显示头像</li>
     </ul>
-    <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500">
+    <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500" ShowAddButton="false" ShowDeleteButton="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="200">
                 <EditTemplate Context="value">
