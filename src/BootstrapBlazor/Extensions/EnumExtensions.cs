@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Components
         internal static string ToEnumDisplayName(this Type? type, string? fieldName)
         {
             string? dn = null;
-            if (type != null && !type.Assembly.IsDynamic && !string.IsNullOrEmpty(fieldName))
+            if (type != null && !string.IsNullOrEmpty(fieldName))
             {
                 var t = Nullable.GetUnderlyingType(type) ?? type;
 
@@ -101,7 +101,7 @@ namespace BootstrapBlazor.Components
                     }
 
                     // add display name into cache
-                    if (!string.IsNullOrEmpty(dn))
+                    if (!string.IsNullOrEmpty(dn) && !type.Assembly.IsDynamic)
                     {
                         DisplayNameCache.GetOrAdd(cacheKey, key => dn);
                     }
@@ -119,7 +119,10 @@ namespace BootstrapBlazor.Components
         public static IEnumerable<SelectedItem> ToSelectList(this Type type, SelectedItem? addtionalItem = null)
         {
             var ret = new List<SelectedItem>();
-            if (addtionalItem != null) ret.Add(addtionalItem);
+            if (addtionalItem != null)
+            {
+                ret.Add(addtionalItem);
+            }
 
             if (type.IsEnum())
             {
@@ -127,7 +130,11 @@ namespace BootstrapBlazor.Components
                 foreach (var field in Enum.GetNames(t))
                 {
                     var desc = t.ToEnumDisplayName(field);
-                    if (string.IsNullOrEmpty(desc)) desc = field;
+                    if (string.IsNullOrEmpty(desc))
+                    {
+                        desc = field;
+                    }
+
                     ret.Add(new SelectedItem(field, desc));
                 }
             }
