@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -29,6 +30,23 @@ namespace BootstrapBlazor.Components
             .AddClass("disabled", IsDisabled)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+
+        /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            var ipSegments = CurrentValueAsString.SpanSplit(".", System.StringSplitOptions.RemoveEmptyEntries);
+            if (ipSegments.Count == 4)
+            {
+                Value1 = ipSegments[0];
+                Value2 = ipSegments[1];
+                Value3 = ipSegments[2];
+                Value4 = ipSegments[3];
+            }
+        }
 
         /// <summary>
         /// 
