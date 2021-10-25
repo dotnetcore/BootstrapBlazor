@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
@@ -224,6 +225,26 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Func<Table<TItem>, Task>? OnAfterRenderCallback { get; set; }
+
+        /// <summary>
+        /// 获得/设置 数据滚动模式
+        /// </summary>
+        [Parameter]
+        public ScrollMode ScrollMode { get; set; }
+
+        /// <summary>
+        /// 获得/设置 虚拟滚动行高 默认为 39.5
+        /// </summary>
+        /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
+        [Parameter]
+        public float RowHeight { get; set; } = 39.5f;
+
+        /// <summary>
+        /// 获得/设置 滚动时是否显示虚拟行 默认为 true 显示
+        /// </summary>
+        /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
+        [Parameter]
+        public bool ShowVirtualRowMask { get; set; } = true;
 
         [Inject]
         [NotNull]
@@ -686,6 +707,12 @@ namespace BootstrapBlazor.Components
         {
             base.OnParametersSet();
 
+            if (ScrollMode == ScrollMode.Virtual)
+            {
+                IsFixedHeader = true;
+                Height ??= 400;
+            }
+
             RowItemsCache = null;
 
             if (IsExcel)
@@ -1022,6 +1049,17 @@ namespace BootstrapBlazor.Components
         /// <param name="col"></param>
         protected void OnFilterClick(ITableColumn col) => col.Filter?.Show();
         #endregion
+
+        private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
+        {
+            StartIndex = request.StartIndex;
+            if (TotalCount > 0)
+            {
+                PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
+            }
+            await QueryData();
+            return new ItemsProviderResult<TItem>(QueryItems ?? Enumerable.Empty<TItem>(), TotalCount);
+        }
 
         #region Dispose
         /// <summary>

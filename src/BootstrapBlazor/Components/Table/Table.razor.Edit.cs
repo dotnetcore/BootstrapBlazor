@@ -329,6 +329,7 @@ namespace BootstrapBlazor.Components
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
+                TotalCount = QueryItems.Count();
             }
             else
             {
@@ -343,7 +344,8 @@ namespace BootstrapBlazor.Components
                     SortName = SortName,
                     Filters = Filters.Values,
                     Searchs = GetSearchs(),
-                    SearchModel = SearchModel
+                    SearchModel = SearchModel,
+                    StartIndex = StartIndex
                 };
                 if (OnQueryAsync != null)
                 {

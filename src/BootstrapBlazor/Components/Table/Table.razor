@@ -295,37 +295,62 @@
             {
                 @RenderRow(EditModel)
             }
-            @foreach (var item in RowItems)
+            @if(ScrollMode == ScrollMode.Virtual)
             {
-                @RenderRow.Invoke(item)
-                if (!IsExcel && ShowDetails())
+                if(Items != null)
                 {
-                    var colspan = ColumnVisibles.Count(col => col.Visible);
-                    if (IsMultipleSelect) colspan++;
-                    if (ShowLineNo) colspan++;
-                    if (ShowExtendButtons) colspan++;
-
-                    <tr class="@GetDetailRowClassString(item)">
-                        <td>&nbsp;</td>
-                        <td colspan="@colspan">
-                            <div class="table-cell is-wrap">
-                                @if (DetailRows.Contains(item))
-                                {
-                                    @DetailRowTemplate?.Invoke(item)
-                                }
-                                else
-                                {
-                                    <div class="table-loading">
-                                        <Spinner Color="Color.Primary" />
-                                    </div>
-                                }
-                            </div>
-                        </td>
-                    </tr>
+                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize
+                        ItemSize="RowHeight" OverscanCount="10" Context="row" Items="@Items.ToList()">
+                        @RenderRow(row)
+                    </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
                 }
-                if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedItems.FirstOrDefault() == item)
+                else
                 {
-                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Update))
+                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize
+                        ItemSize="RowHeight" OverscanCount="10" Context="row" ItemsProvider="@LoadItems">
+                        <ItemContent>
+                            @RenderRow(row)
+                        </ItemContent>
+                        <Placeholder>
+                            @RenderPlaceHolderRow
+                        </Placeholder>
+                    </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+                }
+            }
+            else
+            {
+                @foreach (var item in RowItems)
+                {
+                    @RenderRow(item)
+                    if (!IsExcel && ShowDetails())
+                    {
+                        var colspan = ColumnVisibles.Count(col => col.Visible);
+                        if (IsMultipleSelect) colspan++;
+                        if (ShowLineNo) colspan++;
+                        if (ShowExtendButtons) colspan++;
+
+                        <tr class="@GetDetailRowClassString(item)">
+                            <td>&nbsp;</td>
+                            <td colspan="@colspan">
+                                <div class="table-cell is-wrap">
+                                    @if (DetailRows.Contains(item))
+                                    {
+                                        @DetailRowTemplate?.Invoke(item)
+                                    }
+                                    else
+                                    {
+                                        <div class="table-loading">
+                                            <Spinner Color="Color.Primary" />
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedItems.FirstOrDefault() == item)
+                    {
+                        @RenderEditForm((EditModel, ItemChangedType.Update))
+                    }
                 }
             }
         </tbody>
@@ -336,7 +361,7 @@
                     <CascadingValue Value="@RowItems" Name="TableFooterContext">
                         @if (FooterTemplate != null)
                         {
-                            @FooterTemplate.Invoke(RowItems)
+                            @FooterTemplate(RowItems)
                         }
                         else
                         {
@@ -624,6 +649,30 @@ RenderFragment<TItem> RenderRow => item =>
     }
 </DynamicElement>;
 
+RenderFragment RenderPlaceHolderRow =>
+@<tr>
+    @if (IsMultipleSelect)
+    {
+        <td>
+            <div class="table-cell">
+                <Checkbox TValue="TItem" State="CheckboxState.UnChecked"></Checkbox>
+            </div>
+        </td>
+    }
+    @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
+    {
+        <td><div class="table-cell is-ph"></div></td>
+    }
+    @foreach (var col in GetColumns())
+    {
+        <td><div class="table-cell is-ph"></div></td>
+    }
+    @if (!IsExcel && ShowExtendButtons && !IsExtendButtonsInRowHeader)
+    {
+        <td><div class="table-cell is-ph"></div></td>
+    }
+</tr>;
+
 RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item =>
 @<tr class="is-editform">
     @{
@@ -666,7 +715,7 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
 RenderFragment RenderAdvanceSearchButton =>
 @<Button class="@AdvanceSearchClass" Icon="fa fa-search-plus" OnClickWithoutRender="ShowSearchDialog">
     <span class="d-none d-sm-inline-block">@AdvanceButtonText</span>
-</Button> ;
+</Button>;
 
 RenderFragment RenderExtendButtonsHeader =>
 @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">

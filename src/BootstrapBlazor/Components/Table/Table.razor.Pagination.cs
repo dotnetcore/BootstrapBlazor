@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 数据总条目
         /// </summary>
-        protected long TotalCount { get; set; }
+        protected int TotalCount { get; set; }
 
         /// <summary>
         /// 获得/设置 当前页码
@@ -58,9 +58,15 @@ namespace BootstrapBlazor.Components
         protected int PageIndex { get; set; } = 1;
 
         /// <summary>
+        /// 获得/设置 当前行
+        /// </summary>
+        protected int StartIndex { get; set; }
+
+        /// <summary>
         /// 获得/设置 每页数据数量
         /// </summary>
-        protected int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
+        [Parameter]
+        public int PageItems { get; set; } = QueryPageOptions.DefaultPageItems;
 
         /// <summary>
         /// 点击页码调用此方法

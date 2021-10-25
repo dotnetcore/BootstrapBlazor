@@ -53,6 +53,12 @@ namespace BootstrapBlazor.Components
         public int PageIndex { get; set; } = 1;
 
         /// <summary>
+        /// 获得/设置 请求读取数据开始行 默认 1
+        /// </summary>
+        /// <remarks><see cref="Table{TItem}.ScrollMode"/> 开启虚拟滚动时使用</remarks>
+        public int StartIndex { get; set; }
+
+        /// <summary>
         /// 获得/设置 每页条目数量
         /// </summary>
         public int PageItems { get; set; } = DefaultPageItems;

@@ -1,0 +1,38 @@
+﻿@inherits BootstrapComponentBase
+@page "/tables/virtualization"
+
+<h3>Table 虚拟滚动行</h3>
+
+<h4>Table 组件显示大数据时分页是一中表现方式，还有一种虚拟行的技术</h4>
+
+<Block Title="正常使用" Introduction="无需分页滚动数据时后台按需加载">
+    <p>需要设置 <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> 参数对虚拟滚动进行设置</p>
+    <div class="table-wrap-header-demo">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" Readonly="true" />
+                <TableColumn @bind-Field="@context.Education" />
+                <TableColumn @bind-Field="@context.Count" Editable="false" />
+                <TableColumn @bind-Field="@context.Complete" />
+            </TableColumns>
+        </Table>
+    </div>
+</Block>
+
+<Block Title="动态获取数据" Introduction="无需分页滚动数据时后台按需加载">
+    <p>快速滚动时显示行占位，提升用户体验</p>
+    <div class="table-wrap-header-demo">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" Readonly="true" />
+                <TableColumn @bind-Field="@context.Education" />
+                <TableColumn @bind-Field="@context.Count" Editable="false" />
+                <TableColumn @bind-Field="@context.Complete" />
+            </TableColumns>
+        </Table>
+    </div>
+</Block>

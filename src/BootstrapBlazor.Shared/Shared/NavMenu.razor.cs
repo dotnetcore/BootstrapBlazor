@@ -678,6 +678,11 @@ namespace BootstrapBlazor.Shared.Shared
                 {
                     Text = Localizer["TableLaoding"],
                     Url = "tables/loading"
+                },
+                new()
+                {
+                    Text = Localizer["TableVirtualization"],
+                    Url = "tables/virtualization"
                 }
             };
 
