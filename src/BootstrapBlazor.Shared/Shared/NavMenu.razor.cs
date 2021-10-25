@@ -681,6 +681,7 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["TableVirtualization"],
                     Url = "tables/virtualization"
                 }

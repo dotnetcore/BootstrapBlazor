@@ -297,20 +297,16 @@
             }
             @if(ScrollMode == ScrollMode.Virtual)
             {
-                if(Items != null)
+                @if(Items != null)
                 {
                     <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize
-                        ItemSize="RowHeight" OverscanCount="10" Context="row" Items="@Items.ToList()">
-                        @RenderRow(row)
-                    </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+                        ItemSize="RowHeight" OverscanCount="10" Items="@Items.ToList()" ChildContent="RenderRow" />
                 }
                 else
                 {
                     <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize
-                        ItemSize="RowHeight" OverscanCount="10" Context="row" ItemsProvider="@LoadItems">
-                        <ItemContent>
-                            @RenderRow(row)
-                        </ItemContent>
+                        ItemSize="RowHeight" OverscanCount="10"
+                        ItemsProvider="LoadItems" ItemContent="RenderRow">
                         <Placeholder>
                             @RenderPlaceHolderRow
                         </Placeholder>
