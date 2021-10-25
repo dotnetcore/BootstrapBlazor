@@ -46,6 +46,13 @@ namespace BootstrapBlazor.Components
                 Value3 = ipSegments[2];
                 Value4 = ipSegments[3];
             }
+            else
+            {
+                Value1 = "0";
+                Value2 = "0";
+                Value3 = "0";
+                Value4 = "0";
+            }
         }
 
         /// <summary>
