@@ -115,5 +115,11 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Action<StepStatus>? OnStatusChanged { get; set; }
+
+        /// <summary>
+        /// 获得/设置 每个 step 的模板
+        /// </summary>
+        [Parameter]
+        public RenderFragment? Template { get; set; }
     }
 }
