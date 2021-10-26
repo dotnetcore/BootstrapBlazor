@@ -93,10 +93,16 @@ namespace BootstrapBlazor.Components
         public Size Size { get; set; }
 
         /// <summary>
-        /// 获得/设置 默认 false 不固定
+        /// 获得/设置 是否固定按钮文字 更改下拉框选项时按钮文字保持不变 默认 false 不固定
         /// </summary>
         [Parameter]
         public bool IsFixedButtonText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 下拉菜单中是否显示固定文字 默认 false 不显示
+        /// </summary>
+        [Parameter]
+        public bool ShowFixedButtonTextInDropdown { get; set; }
 
         /// <summary>
         /// 获得/设置 下拉框渲染类型 默认 DropdownMenu 下拉菜单
@@ -132,6 +138,10 @@ namespace BootstrapBlazor.Components
 
             ButtonText ??= SelectedItem?.Text;
         }
+
+        private IEnumerable<SelectedItem> GetItems() => (IsFixedButtonText && !ShowFixedButtonTextInDropdown)
+            ? Items.Where(i => i.Text != ButtonText)
+            : Items;
 
         /// <summary>
         /// 下拉框选项点击时调用此方法
