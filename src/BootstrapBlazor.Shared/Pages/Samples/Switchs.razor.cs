@@ -50,110 +50,110 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["Class"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = "控件高度",
+                Description = Localizer["Height"]!,
                 Type = "int",
                 ValueList = "—",
                 DefaultValue = "20"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["IsDisabled"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "OffColor",
-                Description = "关颜色设置",
+                Description = Localizer["OffColor"]!,
                 Type = "Color",
                 ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "OnColor",
-                Description = "开颜色设置",
+                Description = Localizer["OnColor"]!,
                 Type = "Color",
                 ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
                 DefaultValue = "Color.Success"
             },
             new AttributeItem() {
                 Name = "OnText",
-                Description = "组件 On 时显示文本",
+                Description = Localizer["OnTextAttr"]!,
                 Type = "string",
                 ValueList = "—",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "OffText",
-                Description = "组件 Off 时显示文本",
+                Description = Localizer["OffTextAttr"]!,
                 Type = "string",
                 ValueList = "—",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "OnInnerText",
-                Description = "组件 On 时内置显示文本",
+                Description = Localizer["OnInnerTextAttr"]!,
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "开"
+                DefaultValue = Localizer["OnInnerTextDefaultValue"]!
             },
             new AttributeItem() {
                 Name = "OffInnerText",
-                Description = "组件 Off 时内置显示文本",
+                Description = Localizer["OffInnerTextAttr"]!,
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "关"
+                DefaultValue = Localizer["OffInnerTextDefaultValue"]!
             },
             new AttributeItem() {
                 Name = "ShowInnerText",
-                Description = "是否显示内置显示文本",
+                Description = Localizer["ShowInnerText"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = "组件宽度",
+                Description = Localizer["Width"]!,
                 Type = "int",
                 ValueList = "—",
                 DefaultValue = "40"
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = "获取值",
+                Description = Localizer["Value"]!,
                 Type = "boolean",
                 ValueList = " ",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = Localizer["ShowLabel"]!,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "前置标签显示文本",
+                Description = Localizer["DisplayText"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnValueChanged",
-                Description = "值发生改变时回调委托方法",
+                Description = Localizer["OnValueChanged"]!,
                 Type = "Func<bool, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -169,8 +169,8 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description="获取选择改变的值",
-                Type ="EventCallback<bool>"
+                Description = Localizer["ValueChanged"]!,
+                Type = "EventCallback<bool>"
             }
         };
     }
