@@ -38,7 +38,7 @@
                 }, 500);
             };
 
-            $el.on('click', '.close', function (e) {
+            $el.on('click', '.btn-close', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
