@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 页码总数
         /// </summary>
-        public int PageCount => (int)Math.Ceiling(TotalCount * 1.0 / PageItems);
+        public int PageCount => Math.Max(1, (int)Math.Ceiling(TotalCount * 1.0 / PageItems));
 
         /// <summary>
         /// 获得 Pagination 样式
