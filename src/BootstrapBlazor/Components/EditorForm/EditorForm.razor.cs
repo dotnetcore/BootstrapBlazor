@@ -91,8 +91,9 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否使用 SearchTemplate 默认 false 使用 EditTemplate 模板
         /// </summary>
         /// <remarks>多用于表格组件传递 <see cref="ITableColumn"/> 集合给参数 <see cref="Items"/> 时</remarks>
-        [Parameter]
-        public bool IsSearch { get; set; }
+        [CascadingParameter(Name = "IsSearch")]
+        [NotNull]
+        private bool? IsSearch { get; set; }
 
         /// <summary>
         /// 获得/设置 是否自动生成模型的所有属性 默认为 true 生成所有属性
@@ -160,6 +161,8 @@ namespace BootstrapBlazor.Components
 
             // 统一设置所有 IEditorItem 的 PlaceHolder
             PlaceHolderText ??= Localizer[nameof(PlaceHolderText)];
+
+            IsSearch ??= false;
         }
 
         /// <summary>
@@ -243,18 +246,18 @@ namespace BootstrapBlazor.Components
 
         private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
         {
-            if (IsDisplay || !item.IsEditable(ItemChangedType))
+            if (IsDisplay || !item.IsEditable(ItemChangedType, IsSearch.Value))
             {
                 builder.CreateDisplayByFieldType(this, item, Model, ShowLabel);
             }
             else
             {
                 item.PlaceHolder ??= PlaceHolderText;
-                builder.CreateComponentByFieldType(this, item, Model, ShowLabel, ItemChangedType);
+                builder.CreateComponentByFieldType(this, item, Model, ShowLabel, ItemChangedType, IsSearch.Value);
             }
         };
 
-        private RenderFragment<object>? GetRenderTemplate(IEditorItem item) => IsSearch && item is ITableColumn col
+        private RenderFragment<object>? GetRenderTemplate(IEditorItem item) => IsSearch.Value && item is ITableColumn col
             ? col.SearchTemplate
             : item.EditTemplate;
     }

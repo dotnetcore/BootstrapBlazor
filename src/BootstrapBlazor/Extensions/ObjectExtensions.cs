@@ -185,12 +185,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <param name="changedType"></param>
+        /// <param name="search"></param>
         /// <returns></returns>
-        public static bool IsEditable(this IEditorItem item, ItemChangedType changedType) => item.Editable
+        public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => item.Editable
             && !item.Readonly && changedType switch
             {
                 ItemChangedType.Add => !item.IsReadonlyWhenAdd,
                 _ => !item.IsReadonlyWhenEdit
-            };
+            } || search;
     }
 }

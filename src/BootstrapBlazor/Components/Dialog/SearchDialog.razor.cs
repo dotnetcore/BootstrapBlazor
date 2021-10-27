@@ -59,8 +59,15 @@ namespace BootstrapBlazor.Components
             ResetButtonText ??= Localizer[nameof(ResetButtonText)];
             QueryButtonText ??= Localizer[nameof(QueryButtonText)];
 
-            if (OnSearchClick == null) OnSearchClick = () => Task.CompletedTask;
-            if (OnResetSearchClick == null) OnResetSearchClick = () => Task.CompletedTask;
+            if (OnSearchClick == null)
+            {
+                OnSearchClick = () => Task.CompletedTask;
+            }
+
+            if (OnResetSearchClick == null)
+            {
+                OnResetSearchClick = () => Task.CompletedTask;
+            }
         }
     }
 }

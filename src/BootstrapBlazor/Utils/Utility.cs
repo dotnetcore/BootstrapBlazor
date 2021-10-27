@@ -362,7 +362,19 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         /// <param name="showLabel"></param>
         /// <param name="changedType"></param>
-        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, ItemChangedType changedType = ItemChangedType.Update)
+        public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, ItemChangedType changedType = ItemChangedType.Update) => CreateComponentByFieldType(builder, component, item, model, showLabel, changedType, false);
+
+        /// <summary>
+        /// RenderTreeBuilder 扩展方法，通过指定模型与属性生成编辑组件
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="model"></param>
+        /// <param name="component"></param>
+        /// <param name="item"></param>
+        /// <param name="showLabel"></param>
+        /// <param name="changedType"></param>
+        /// <param name="search"></param>
+        internal static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, bool? showLabel = null, ItemChangedType changedType = ItemChangedType.Update, bool search = false)
         {
             var fieldType = item.PropertyType;
             var fieldName = item.GetFieldName();
@@ -380,7 +392,7 @@ namespace BootstrapBlazor.Components
                 builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
                 builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
 
-                if (!item.IsEditable(changedType))
+                if (!item.IsEditable(changedType, search))
                 {
                     builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
                 }
