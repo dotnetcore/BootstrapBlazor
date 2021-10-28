@@ -710,7 +710,7 @@ namespace BootstrapBlazor.Components
             if (ScrollMode == ScrollMode.Virtual)
             {
                 IsFixedHeader = true;
-                Height ??= 400;
+                RenderMode = TableRenderMode.Table;
             }
 
             RowItemsCache = null;

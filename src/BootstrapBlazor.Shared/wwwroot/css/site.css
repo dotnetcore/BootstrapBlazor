@@ -1187,6 +1187,20 @@ section {
     text-overflow: ellipsis;
 }
 
+.table-virtualize-demo {
+    height: 400px;
+}
+
+    .table-virtualize-demo .table-cell {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .table-virtualize-demo .table-fixed-body {
+        overflow-x: hidden !important;
+    }
+
 .install-prompt {
     position: fixed;
     bottom: 0.5rem;
