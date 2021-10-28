@@ -45,7 +45,7 @@ WTM 快速开发框架，设计的核心理念就是”尽一切可能提高开�
 
 ## 开发环境搭建
 1. 安装 .net core sdk 最新版 [官方网址](http://www.microsoft.com/net/download)
-2. 安装 Visual Studio 2019 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
+2. 安装 Visual Studio 2022 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
 3. 获取本项目代码 [BootstrapBlazor](https://gitee.com/LongbowEnterprise/BootstrapBlazor)
 
 ## 相关资源
@@ -89,7 +89,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 - 其他 均为临时分支
 
 ## 演示地址
-[![website](https://img.shields.io/badge/Github-海外-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io) [![website](https://img.shields.io/badge/linux-备站-success.svg?logo=buzzfeed&logoColor=green)](https://blazor.zylweb.cn) [![website](https://img.shields.io/badge/linux-主站-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/Github-海外-success.svg?logo=buzzfeed&logoColor=red&color=red)](https://argozhang.github.io) [![website](https://img.shields.io/badge/linux-主站-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
 
 ## GVP 奖杯
 ![项目奖杯](https://images.gitee.com/uploads/images/2021/0112/120620_e596ac3c_554725.png "GVP.png")
