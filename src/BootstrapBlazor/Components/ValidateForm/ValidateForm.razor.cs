@@ -271,6 +271,15 @@ namespace BootstrapBlazor.Components
         private void ValidateDataAnnotations(object? value, ValidationContext context, ICollection<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
         {
             var rules = propertyInfo.GetCustomAttributes(true).OfType<ValidationAttribute>();
+            var metadataType = context.ObjectType.GetCustomAttribute<MetadataTypeAttribute>(false);
+            if (metadataType != null)
+            {
+                var p = metadataType.MetadataClassType.GetProperties().FirstOrDefault(p => p.Name == propertyInfo.Name);
+                if (p != null)
+                {
+                    rules = rules.Concat(p.GetCustomAttributes(true).OfType<ValidationAttribute>());
+                }
+            }
             var displayName = context.DisplayName;
             memberName ??= propertyInfo.Name;
             var attributeSpan = nameof(Attribute).AsSpan();

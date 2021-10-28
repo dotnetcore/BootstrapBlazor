@@ -150,19 +150,18 @@ namespace BootstrapBlazor.Components
             var cacheKey = (ModelType: modelType, FieldName: fieldName);
             if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))
             {
+                var props = cacheKey.ModelType.GetProperties();
+
                 // 支持 MetadataType
                 var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
-
-                // Validator.TryValidateProperty 只能对 Public 属性生效
-                propertyInfo = metadataType?.MetadataClassType.GetProperties().Where(x => x.Name == cacheKey.FieldName).FirstOrDefault()
-                    ?? cacheKey.ModelType.GetProperties().Where(x => x.Name == cacheKey.FieldName).FirstOrDefault();
-
-                // TODO: 针对动态类型进行缓存治理防止内存溢出
-                //if (modelType.Assembly.IsDynamic)
-                //{
-                //    DynamicModelCacheQueue.Enqueue((modelType, DateTime.Now));
-                //    _ = ClearCache();
-                //}
+                if (metadataType == null)
+                {
+                    propertyInfo = props.Where(x => x.Name == cacheKey.FieldName).FirstOrDefault();
+                }
+                else
+                {
+                    propertyInfo = props.Concat(metadataType.MetadataClassType.GetProperties()).Where(x => x.Name == cacheKey.FieldName).FirstOrDefault();
+                }
 
                 if (!modelType.Assembly.IsDynamic && propertyInfo != null)
                 {
