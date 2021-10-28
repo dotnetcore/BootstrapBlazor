@@ -69,6 +69,11 @@ namespace BootstrapBlazor.Components
         public bool HasChildNode { get; set; }
 
         /// <summary>
+        /// 获取/设置 节点样色样式 默认 null 未设置
+        /// </summary>
+        public string? CssClass { get; set; }
+
+        /// <summary>
         /// 获得/设置 当前节点模板
         /// </summary>
         public RenderFragment? Template { get; set; }

@@ -54,7 +54,8 @@
     "toolbar": "Table/TablesToolbar",
     "tree": "Table/TablesTree",
     "validateforms": "ValidateForms",
-    "wrap": "Table/TablesWrap"
+    "wrap": "Table/TablesWrap",
+    "virtualization": "Table/TablesVirtualization"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

@@ -82,6 +82,15 @@ namespace BootstrapBlazor.Shared.Pages
             return ret;
         }
 
+        private static List<TreeItem> GetColorItems()
+        {
+            var ret = TreeDataFoo.GetTreeItems();
+            ret[0].CssClass = "text-primary";
+            ret[1].CssClass = "text-success";
+            ret[2].CssClass = "text-danger";
+            return ret;
+        }
+
         private class CustomerTreeItem : ComponentBase
         {
             [Inject]
@@ -232,6 +241,13 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem() {
                 Name = "Icon",
                 Description = "显示图标",
+                Type = "string",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new AttributeItem() {
+                Name = "CssClass",
+                Description = "节点自定义样式",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

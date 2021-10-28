@@ -52,7 +52,7 @@ private RenderFragment<TreeItem> RenderTreeItem => item =>
             }
             @if (item.Template == null)
             {
-                <span>@item.Text</span>
+                <span class="@item.CssClass">@item.Text</span>
             }
             else
             {
