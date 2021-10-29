@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BootstrapBlazor.Shared.Pages.Components
+namespace BootstrapBlazor.Shared.Components
 {
     /// <summary>
     /// 

@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Options;
@@ -185,10 +185,10 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Person Foo { get; set; } = new Person();
 
-        private Task OnSubmit(EditContext context)
+        private static Task OnSubmit(EditContext context)
         {
             // 示例代码请根据业务情况自行更改
-            var fileName = Foo.Picture?.Name;
+            // var fileName = Foo.Picture?.Name;
             return Task.CompletedTask;
         }
 

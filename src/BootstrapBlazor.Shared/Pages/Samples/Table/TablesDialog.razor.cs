@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public sealed partial class TablesDialog
     {
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
 
         [Inject]
         [NotNull]

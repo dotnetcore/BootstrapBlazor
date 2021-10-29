@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
@@ -181,7 +181,7 @@ namespace BootstrapBlazor.Shared.Pages
             return SelectedBoolItem.HasValue ? SelectedBoolItem.Value.ToString() : "null";
         }
 
-        private Task<bool> OnBeforeSelectedItemChange(SelectedItem item)
+        private static Task<bool> OnBeforeSelectedItemChange(SelectedItem item)
         {
             return Task.FromResult(true);
         }

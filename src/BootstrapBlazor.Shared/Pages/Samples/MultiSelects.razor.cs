@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -97,7 +97,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void ClearArrayItems()
         {
-            SelectedIntArrayValues = new int[0];
+            SelectedIntArrayValues = Array.Empty<int>();
         }
 
         private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
@@ -110,12 +110,6 @@ namespace BootstrapBlazor.Shared.Pages
             return Items.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
         }
 
-        private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
-        {
-            Trace.Log($"{Localizer["Log2"]}：{string.Join(",", items.Select(i => i.Value))}");
-            return Task.CompletedTask;
-        }
-
         private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)
         {
             Trace2.Log($"选中项集合：{string.Join(",", items.Select(i => i.Value))}");
@@ -126,7 +120,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Foo Foo { get; set; } = new Foo();
 
-        private void OnClickButton()
+        private static void OnClickButton()
         {
 
         }

@@ -126,7 +126,7 @@
     "SubTitle": "ASP.NET Core Blazor 全球化",
     "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>"
   },
-  "BootstrapBlazor.Shared.Pages.Components.InstallContent": {
+  "BootstrapBlazor.Shared.Components.InstallContent": {
     "H1": "组件引用",
     "P1": "组件引用有多种方法，可以参阅 <a href='install'>类库安装</a>",
     "H2": "CSS 文件",
@@ -1519,17 +1519,17 @@
     "OnValueChanged": "值发生改变时回调委托方法",
     "ValueChanged": "获取选择改变的值"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Block": {
+  "BootstrapBlazor.Shared.Components.Block": {
     "Title": "未设置",
     "SubTitle": "示例"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Tips": {
+  "BootstrapBlazor.Shared.Components.Tips": {
     "Title": "小提示"
   },
-  "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
+  "BootstrapBlazor.Shared.Components.AttributeTable": {
     "Title": "Attributes 属性"
   },
-  "BootstrapBlazor.Shared.Pages.Components.MethodTable": {
+  "BootstrapBlazor.Shared.Components.MethodTable": {
     "Title": "Methods 方法"
   },
   "BootstrapBlazor.Shared.Common.AttributeItem": {
@@ -1602,7 +1602,7 @@
     "Block1Title": "基础用法",
     "Block1Intro": "适用广泛的基础用法。"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Foo": {
+  "BootstrapBlazor.Shared.Components.Foo": {
     "Name": "姓名",
     "DateTime": "日期",
     "Address": "地址",
@@ -1632,12 +1632,12 @@
     "Name": "姓名",
     "Name.Required": "Dummy2 {0} 值是必填项"
   },
-  "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
+  "BootstrapBlazor.Shared.Components.EnumEducation": {
     "PlaceHolder": "请选择 ...",
     "Primary": "小学",
     "Middel": "中学"
   },
-  "BootstrapBlazor.Shared.Pages.Components.ThemeChooser": {
+  "BootstrapBlazor.Shared.Components.ThemeChooser": {
     "Title": "点击切换主题",
     "HeaderText": "请选择主题"
   },
@@ -1647,7 +1647,7 @@
     "Picture": "上传文件",
     "Picture.Required": "上传文件不能为空"
   },
-  "BootstrapBlazor.Shared.Pages.Components.CultureChooser": {
+  "BootstrapBlazor.Shared.Components.CultureChooser": {
     "Label": "语言："
   },
   "BootstrapBlazor.Shared.Shared.BaseLayout": {
@@ -1856,12 +1856,12 @@
     "AdvantageLi5": "组件支持组合",
     "Community": "交流群"
   },
-  "BootstrapBlazor.Shared.Pages.Components.QQGroup": {
+  "BootstrapBlazor.Shared.Components.QQGroup": {
     "Group": "QQ群",
     "Status": "满",
     "Welcome": "欢迎加群讨论"
   },
-  "BootstrapBlazor.Shared.Pages.Components.EventTable": {
+  "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "事件 Event"
   },
   "BootstrapBlazor.Shared.Pages.HandwrittenPage": {

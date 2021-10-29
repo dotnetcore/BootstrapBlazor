@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Shared.Pages
     public partial class DropdownWidgets
     {
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

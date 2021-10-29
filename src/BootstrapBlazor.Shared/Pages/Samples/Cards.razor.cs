@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// Card属性
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "CardBody",

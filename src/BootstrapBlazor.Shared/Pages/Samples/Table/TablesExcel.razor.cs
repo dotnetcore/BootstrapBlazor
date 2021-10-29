@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
@@ -24,10 +24,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [Inject]
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
-
-        [Inject]
-        [NotNull]
-        private IStringLocalizer<Tables>? TablesLocalizer { get; set; }
 
         [NotNull]
         private BlockLogger? Trace { get; set; }

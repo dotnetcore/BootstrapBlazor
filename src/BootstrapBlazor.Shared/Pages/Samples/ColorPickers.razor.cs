@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -25,8 +25,6 @@ namespace BootstrapBlazor.Shared.Pages
         private string Value2 { get; set; } = "#FFFFFF";
 
         private string Value3 { get; set; } = "#DDDDDD";
-
-        private string? Value4 { get; set; }
 
         private string? Value5 { get; set; }
 

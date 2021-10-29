@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -36,8 +36,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         private static void OnCellRenderHandler(TableCellArgs args)
         {
-            var foo = args.Row as Foo;
-            if (foo != null && args.ColumnName == "Name")
+            if (args.Row is Foo foo && args.ColumnName == "Name")
             {
                 if (foo.Name == "张三 0002" || foo.Name == "Zhangsan 0002")
                 {

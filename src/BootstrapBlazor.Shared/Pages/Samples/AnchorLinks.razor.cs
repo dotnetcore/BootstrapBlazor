@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public partial class AnchorLinks
     {
-        private IEnumerable<AttributeItem> GetAttributes() => new[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

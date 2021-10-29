@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using System;
 using System.Collections.Generic;
 
@@ -26,13 +26,13 @@ namespace BootstrapBlazor.Shared.Pages
             Trace?.Log($"{ts:yyyy-MM-dd}");
         }
 
-        private string Formatter(DateTime ts) => ts.ToString("yyyy-MM-dd");
+        private static string Formatter(DateTime ts) => ts.ToString("yyyy-MM-dd");
 
         /// <summary>
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
@@ -46,7 +46,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

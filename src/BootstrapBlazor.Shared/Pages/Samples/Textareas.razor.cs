@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Shared.Pages
     {
         private string Text { get; set; } = "";
 
-        private IEnumerable<AttributeItem> GetAttributes()
+        private static IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {

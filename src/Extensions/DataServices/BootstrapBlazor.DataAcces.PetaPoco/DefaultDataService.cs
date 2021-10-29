@@ -69,7 +69,7 @@ namespace BootstrapBlazor.DataAcces.PetaPoco
             {
                 var items = await _db.PageAsync<TModel>(option.PageIndex, option.PageItems, option.Filters.Concat(option.Searchs), option.SortName, option.SortOrder);
 
-                ret.TotalCount = items.TotalItems;
+                ret.TotalCount = int.Parse(items.TotalItems.ToString());
                 ret.Items = items.Items;
             }
             else

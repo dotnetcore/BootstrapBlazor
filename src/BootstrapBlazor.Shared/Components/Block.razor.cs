@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Pages.Components
+namespace BootstrapBlazor.Shared.Components
 {
     /// <summary>
     /// 

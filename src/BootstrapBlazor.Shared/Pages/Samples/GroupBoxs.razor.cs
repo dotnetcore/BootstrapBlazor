@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class GroupBoxs
     {
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "Title",

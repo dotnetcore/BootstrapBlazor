@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,13 +14,13 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class AutoCompletes
     {
-        private readonly List<string> _items = new List<string>();
+        private readonly List<string> _items = new();
 
         private IEnumerable<string> Items => _items;
 
         private Foo Model { get; set; } = new Foo() { Name = "" };
 
-        private IEnumerable<string> StaticItems => new List<string> { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+        private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
 
         private Task OnValueChanged(string val)
         {

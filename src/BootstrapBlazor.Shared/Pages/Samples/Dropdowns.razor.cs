@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Pages
             new SelectedItem{ Text="广州",Value="2"},
         };
 
-        private List<SelectedItem> EmptyList => new List<SelectedItem> { };
+        private static List<SelectedItem> EmptyList => new();
 
         private List<SelectedItem> Foos { get; set; } = new List<SelectedItem>
         {
@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private void AddItem()
         {
-            Foos.Add(new SelectedItem($"{Foos.Count()}", $"城市 {Foos.Count()}"));
+            Foos.Add(new SelectedItem($"{Foos.Count}", $"城市 {Foos.Count}"));
         }
 
         private void RemoveItem()
@@ -111,7 +111,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Task OnRadioItemChanged(IEnumerable<SelectedItem> values, SelectedItem item)
         {
-            RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count() + 1}", $"城市 {RadioDropDownItems.Count()}"));
+            RadioDropDownItems.Add(new SelectedItem($"{RadioDropDownItems.Count + 1}", $"城市 {RadioDropDownItems.Count}"));
             StateHasChanged();
             return Task.CompletedTask;
         }

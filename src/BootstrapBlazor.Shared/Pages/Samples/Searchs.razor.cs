@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Searchs
     {
-        private IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+        private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
 
         [NotNull]
         private BlockLogger? Trace { get; set; }
@@ -63,7 +63,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

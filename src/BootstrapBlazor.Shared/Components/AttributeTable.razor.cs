@@ -2,28 +2,34 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Common;
 using Microsoft.AspNetCore.Components;
-using System;
+using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Pages.Components
+namespace BootstrapBlazor.Shared.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class DialogDemo
+    public sealed partial class AttributeTable
     {
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<AttributeTable>? Localizer { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
+        [Parameter]
         [NotNull]
-        public string? Value { get; set; }
+        public string? Title { get; set; }
 
-        [Inject]
-        [NotNull]
-        private DialogService? DialogService { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter] public IEnumerable<AttributeItem>? Items { get; set; }
 
         /// <summary>
         /// OnInitialized 方法
@@ -32,13 +38,8 @@ namespace BootstrapBlazor.Shared.Pages.Components
         {
             base.OnInitialized();
 
-            Value = DateTime.Now.ToString();
-        }
+            Title ??= Localizer[nameof(Title)];
 
-        private Task OnClickButton() => DialogService.Show(new DialogOption()
-        {
-            Title = $"弹窗 {Value}",
-            Component = BootstrapDynamicComponent.CreateComponent<DialogDemo>()
-        });
+        }
     }
 }

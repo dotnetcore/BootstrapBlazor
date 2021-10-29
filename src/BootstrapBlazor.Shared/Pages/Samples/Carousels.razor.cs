@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// </summary>
         private BlockLogger? Trace { get; set; }
 
-        private IEnumerable<string> Images => new List<string>()
+        private static List<string> Images => new()
         {
             "_content/BootstrapBlazor.Shared/images/Pic0.jpg",
             "_content/BootstrapBlazor.Shared/images/Pic1.jpg",
@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

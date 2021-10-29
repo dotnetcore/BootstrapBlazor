@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Shared.Pages.Components
+namespace BootstrapBlazor.Shared.Components
 {
     /// <summary>
     /// 

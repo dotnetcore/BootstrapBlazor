@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Shared.Pages.Components
+namespace BootstrapBlazor.Shared.Components
 {
     /// <summary>
     /// 

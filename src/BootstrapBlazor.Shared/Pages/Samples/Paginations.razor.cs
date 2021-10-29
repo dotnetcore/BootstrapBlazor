@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private IEnumerable<int> PageItems => new int[] { 3, 10, 20, 40 };
+        private static IEnumerable<int> PageItems => new int[] { 3, 10, 20, 40 };
 
         /// <summary>
         /// 获得属性方法

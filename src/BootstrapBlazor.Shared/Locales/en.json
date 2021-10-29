@@ -126,7 +126,7 @@
     "SubTitle": "ASP.NET Core Blazor Globalization",
     "P1": "Please check <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'> before reading the following knowledge points Official document</a>"
   },
-  "BootstrapBlazor.Shared.Pages.Components.InstallContent": {
+  "BootstrapBlazor.Shared.Components.InstallContent": {
     "H1": "Component reference",
     "P1": "There are many ways to reference components, please refer to <a href='install'>Installation</a>",
     "H2": "CSS file",
@@ -1518,17 +1518,17 @@
     "OnValueChanged": "Call back the delegate method when the value changes",
     "ValueChanged": "Gets the value of the selection change"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Block": {
+  "BootstrapBlazor.Shared.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"
   },
-  "BootstrapBlazor.Shared.Pages.Components.Tips": {
+  "BootstrapBlazor.Shared.Components.Tips": {
     "Title": "Tips"
   },
-  "BootstrapBlazor.Shared.Pages.Components.AttributeTable": {
+  "BootstrapBlazor.Shared.Components.AttributeTable": {
     "Title": "Attributes"
   },
-  "BootstrapBlazor.Shared.Pages.Components.MethodTable": {
+  "BootstrapBlazor.Shared.Components.MethodTable": {
     "Title": "Methods"
   },
   "BootstrapBlazor.Shared.Common.AttributeItem": {
@@ -1601,7 +1601,7 @@
     "Block1Title": "Basic usage",
     "Block1Intro": "Suitable for a wide range of basic usage."
   },
-  "BootstrapBlazor.Shared.Pages.Components.Foo": {
+  "BootstrapBlazor.Shared.Components.Foo": {
     "Name": "Name",
     "DateTime": "DateTime",
     "Address": "Address",
@@ -1631,12 +1631,12 @@
     "Name": "Name",
     "Name.Required": "Dummy2 {0} is required"
   },
-  "BootstrapBlazor.Shared.Pages.Components.EnumEducation": {
+  "BootstrapBlazor.Shared.Components.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
     "Middel": "Middel"
   },
-  "BootstrapBlazor.Shared.Pages.Components.ThemeChooser": {
+  "BootstrapBlazor.Shared.Components.ThemeChooser": {
     "Title": "Click to choose theme",
     "HeaderText": "Themes"
   },
@@ -1646,7 +1646,7 @@
     "Picture": "File",
     "Picture.Required": "{0} is required"
   },
-  "BootstrapBlazor.Shared.Pages.Components.CultureChooser": {
+  "BootstrapBlazor.Shared.Components.CultureChooser": {
     "Label": "Language："
   },
   "BootstrapBlazor.Shared.Shared.BaseLayout": {
@@ -1855,12 +1855,12 @@
     "AdvantageLi5": "Component support combination",
     "Community": "Community"
   },
-  "BootstrapBlazor.Shared.Pages.Components.QQGroup": {
+  "BootstrapBlazor.Shared.Components.QQGroup": {
     "Group": "QQ Group",
     "Status": " Full",
     "Welcome": "Welcome to join the group discussion"
   },
-  "BootstrapBlazor.Shared.Pages.Components.EventTable": {
+  "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "Event"
   },
   "BootstrapBlazor.Shared.Pages.HandwrittenPage": {

@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private List<Foo>? Items { get; set; }
 
-        private List<Foo> SelectedRows = new List<Foo>();
+        private List<Foo> SelectedRows = new();
 
         /// <summary>
         /// OnInitialized 方法

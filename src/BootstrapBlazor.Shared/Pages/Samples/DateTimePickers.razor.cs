@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
@@ -28,9 +28,6 @@ namespace BootstrapBlazor.Shared.Pages
 
         [NotNull]
         private BlockLogger? TimeLogger { get; set; }
-
-        [NotNull]
-        private BlockLogger? DateTimeLogger { get; set; }
 
         private DateTime? BindValue { get; set; } = DateTime.Today;
 
@@ -94,7 +91,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private string FormatterSpanString(TimeSpan ts)
+        private static string FormatterSpanString(TimeSpan ts)
         {
             return ts.ToString("hh\\:mm\\:ss");
         }

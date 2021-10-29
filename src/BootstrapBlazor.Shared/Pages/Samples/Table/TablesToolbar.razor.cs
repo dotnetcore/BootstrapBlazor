@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -132,7 +132,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             }
         }
 
-        private async Task MockDownLoadAsync()
+        private static async Task MockDownLoadAsync()
         {
             // 此处模拟打包下载数据耗时 5 秒
             await Task.Delay(5000);

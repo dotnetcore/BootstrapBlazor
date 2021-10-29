@@ -12,17 +12,17 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Popovers
     {
-        private string ValueString => "弹出框";
+        private static readonly string ValueString = "弹出框";
 
-        private string Title => "弹出框标题";
+        private static readonly string Title = "弹出框标题";
 
-        private string Content => "这里是弹出框正文，此处支持 <code>html</code> 标签，也可以内置一个 <code>Table</code>";
+        private static readonly string Content = "这里是弹出框正文，此处支持 <code>html</code> 标签，也可以内置一个 <code>Table</code>";
 
         /// <summary>
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {

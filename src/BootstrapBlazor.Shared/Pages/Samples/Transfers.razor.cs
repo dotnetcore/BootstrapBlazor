@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -112,7 +112,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private string? SetItemClass(SelectedItem item) => item.Value switch
+        private static string? SetItemClass(SelectedItem item) => item.Value switch
         {
             "2" => "bg-success text-white",
             "4" => "bg-info text-white",

@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Pages.Components;
+using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
@@ -53,8 +53,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
         private static Task<string> IntFormatter(object? d)
         {
             var ret = "";
-            var data = d as TableColumnContext<Foo, object?>;
-            if (data != null && data.Value != null)
+            if (d is TableColumnContext<Foo, object?> data && data.Value != null)
             {
                 var val = (int)data.Value;
                 ret = val.ToString("0.00");
