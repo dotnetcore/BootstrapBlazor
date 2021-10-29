@@ -13,7 +13,7 @@
     <li>@((MarkupString)Localizer["Li4"].Value)</li>
 </ul>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]" Name="Normal">
     <p>@((MarkupString)Localizer["P2"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox1"]" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
@@ -35,7 +35,7 @@
     </GroupBox>
 </Block>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValidateForm">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox2"]" style="margin-top: 1.5rem;">
@@ -59,7 +59,7 @@
     </GroupBox>
 </Block>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="EditorForm">
     <GroupBox Title="@Localizer["GroupBox3"]">
         <p>@((MarkupString)Localizer["P5"].Value)</p>
         <EditorForm Model="@Model" AutoGenerateAllItem="false">
@@ -71,7 +71,7 @@
     </GroupBox>
 </Block>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="SkipValidate">
     <GroupBox Title="@Localizer["GroupBox4"]">
         <p>@((MarkupString)Localizer["P6"].Value)</p>
         <ValidateForm Model="@Model">
@@ -99,7 +99,7 @@
     </GroupBox>
 </Block>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]">
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ItemsPerRow">
     <p>@((MarkupString)Localizer["P7"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox5"]" style="margin-top: 1.5rem;">
         <ValidateForm Model="@Model">
@@ -115,7 +115,7 @@
     </GroupBox>
 </Block>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Alignment">
     <ul class="ul-demo">
         <li>@((MarkupString)Localizer["Li5"].Value)</li>
         <li>@((MarkupString)Localizer["Li6"].Value)</li>

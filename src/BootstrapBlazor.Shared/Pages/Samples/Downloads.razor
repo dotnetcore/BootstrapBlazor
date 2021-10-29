@@ -12,7 +12,7 @@
 
 <Pre>&lt;Download /&gt;</Pre>
 
-<Block Title="基本用法" Introduction="调用注入服务 <code>DownloadService</code>">
+<Block Title="基本用法" Introduction="调用注入服务 <code>DownloadService</code>" Name="Normal">
     <p>
         <b>特别注意：</b>
         <div>
@@ -44,12 +44,12 @@
 }</Pre>
 </Block>
 
-<Block Title="大文件下载测试" Introduction="这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>56M</b>，可以自行测试">
+<Block Title="大文件下载测试" Introduction="这里模拟生成了一个 <code>100万行</code> 的文本文件，大概 <b>56M</b>，可以自行测试" Name="BigFile">
     <p>按钮设置 <code>IsAsync</code> 值为 <code>true</code> 进行异步下载操作</p>
     <Button IsAsync="true" Icon="fa fa-download" Text="大文件下载" OnClickWithoutRender="DownloadLargeFileAsync"></Button>
 </Block>
 
-<Block Title="获取图片并显示" Introduction="模拟直接由前端页面生成验证码或者上传图片不保存直接显示的情况。">
+<Block Title="获取图片并显示" Introduction="模拟直接由前端页面生成验证码或者上传图片不保存直接显示的情况。" Name="Image">
     <p>由于测试使用了wwwroot下的文件，没有代码生成，wasm无法访问wwwroot文件夹，故此测试只有ssr模式可用。wasm请自行测试。</p>
     <img src="@TempUrl" style="width: 120px; height: auto;" />
 </Block>

@@ -4,15 +4,15 @@
 
 <h4>在有限空间内，循环播放同一类型的图片、文字等内容</h4>
 
-<Block Title="基础用法" Introduction="适用广泛的基础用法，通过设置 <code>Items</code> 属性值对组件进行图片的绑定，值为图片路径数组">
+<Block Title="基础用法" Introduction="适用广泛的基础用法，通过设置 <code>Items</code> 属性值对组件进行图片的绑定，值为图片路径数组" Name="Normal">
     <Carousel Images="@Images" Width="280"></Carousel>
 </Block>
 
-<Block Title="淡入淡出" Introduction="通过设置 <code>IsFade</code> 属性，图片切换时采用淡入淡出效果">
+<Block Title="淡入淡出" Introduction="通过设置 <code>IsFade</code> 属性，图片切换时采用淡入淡出效果" Name="Fade">
     <Carousel Images="@Images" Width="280" IsFade="true"></Carousel>
 </Block>
 
-<Block Title="点击图片回调事件" Introduction="通过设置 <code>OnClick</code> 属性后，点击 <code>Image</code> 后触发 <code>OnClick</code> 回调委托">
+<Block Title="点击图片回调事件" Introduction="通过设置 <code>OnClick</code> 属性后，点击 <code>Image</code> 后触发 <code>OnClick</code> 回调委托" Name="OnClick">
     <Carousel Images="@Images" Width="280" IsFade="true" OnClick="@OnClick"></Carousel>
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>

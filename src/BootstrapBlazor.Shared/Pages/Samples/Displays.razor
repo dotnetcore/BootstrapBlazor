@@ -4,7 +4,7 @@
 
 <h4>显示静态文本数据</h4>
 
-<Block Title="基础用法" Introduction="仅显示">
+<Block Title="基础用法" Introduction="仅显示" Name="Normal">
     <div class="row g-3">
         <div class="col-auto col-form-label">
             <span>基本用法</span>
@@ -15,7 +15,7 @@
     </div>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="通过双向绑定可以自动获取资源文件中的显示标签">
+<Block Title="双向绑定数据" Introduction="通过双向绑定可以自动获取资源文件中的显示标签" Name="Labels">
     <p><code>Display</code> 组件开启双向绑定时，会根据绑定的 <code>Model</code> 属性值去自动获取 <code>Display/DisplayName</code> 标签值并且显示为前置 <code>Label</code>，通过 <code>DisplayText</code> 属性可以自定义显示前置标签，或者通过 <code>ShowLabel</code> 属性关闭前置标签是否显示</p>
     <div class="row g-3">
         <div class="col-12">
@@ -48,7 +48,7 @@
     </div>
 </Block>
 
-<Block Title="泛型绑定" Introduction="<code>Display</code> 组件内置对 <code>枚举</code> <code>集合</code> <code>数组</code> 进行处理，如不符合条件时，请自定义格式化或者回调委托方法">
+<Block Title="泛型绑定" Introduction="<code>Display</code> 组件内置对 <code>枚举</code> <code>集合</code> <code>数组</code> 进行处理，如不符合条件时，请自定义格式化或者回调委托方法" Name="DataType">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Display FormatString="000" @bind-Value="@Model.Count" ShowLabel="true" DisplayText="整型" />
@@ -71,7 +71,7 @@
     </div>
 </Block>
 
-<Block Title="表单内使用" Introduction="<code>Display</code> 组件在表单组件 <code>EditorForm</code> 中使用，多用于明细页，不可编辑模式">
+<Block Title="表单内使用" Introduction="<code>Display</code> 组件在表单组件 <code>EditorForm</code> 中使用，多用于明细页，不可编辑模式" Name="EditorForm">
     <EditorForm Model="@Model" ItemsPerRow="3" IsDisplay="true">
         <FieldItems>
             <EditorItem @bind-Field="@Model.Hobby" Items="@Hobbys" />
@@ -79,7 +79,7 @@
     </EditorForm>
 </Block>
 
-<Block Title="自定义格式" Introduction="设置 <code>FormatString</code> 属性值为 <code>yyyy-MM-dd</code> 时，组件显示的时间格式为年月日">
+<Block Title="自定义格式" Introduction="设置 <code>FormatString</code> 属性值为 <code>yyyy-MM-dd</code> 时，组件显示的时间格式为年月日" Name="FormatString">
     <div class="row g-3">
         <div class="col-12 col-sm-6">设置 <code class="ms-1">FormatString</code></div>
         <div class="col-12 col-sm-6">
@@ -99,7 +99,7 @@
     </div>
 </Block>
 
-<Block Title="自动翻译为 Text" Introduction="设置 <code>Lookup</code> 值为 <code>IEnumerable&lt;SelectedItem&gt;</code> 集合，组件将通过此数据集，进行通过 <code>Value</code> 显示 <code>Text</code> 翻译工作">
+<Block Title="自动翻译为 Text" Introduction="设置 <code>Lookup</code> 值为 <code>IEnumerable&lt;SelectedItem&gt;</code> 集合，组件将通过此数据集，进行通过 <code>Value</code> 显示 <code>Text</code> 翻译工作" Name="Lookup">
     <p>
         <div>本例中组件 <code>Value="@@IntValue"</code> 设置 <code>Lookup="@@IntValueSource"</code> 组件将 <code>Value</code> 值对应的 <code>Text</code> 显示出来</div>
         <div><b>InitValue</b>: 1,2,3</div>

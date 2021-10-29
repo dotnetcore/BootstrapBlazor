@@ -4,23 +4,23 @@
 
 <h4>用于数据搜索</h4>
 
-<Block Title="基本用法" Introduction="输入部分数据进行搜索">
+<Block Title="基本用法" Introduction="输入部分数据进行搜索" Name="Normal">
     <p>请输入 <code>1234</code> 获取智能提示，通过设置 <code>IsAutoFocus="true"</code> 开启自动获得焦点功能</p>
     <Search IgnoreCase="true" IsLikeMatch="true" IsAutoFocus="true" PlaceHolder="搜索示例" Items="@Items" OnSearch="@OnSearch1"></Search>
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="搜索后自动清空值" Introduction="通过设置 <code>IsAutoClearAfterSearch=&quot;true&quot;</code> 开启搜索后自动清空搜索框功能">
+<Block Title="搜索后自动清空值" Introduction="通过设置 <code>IsAutoClearAfterSearch=&quot;true&quot;</code> 开启搜索后自动清空搜索框功能"  Name="ClearValue">
     <Search IgnoreCase="true" IsLikeMatch="true" IsAutoClearAfterSearch="true" PlaceHolder="搜索示例" Items="@Items" OnSearch="@OnSearch2"></Search>
     <BlockLogger @ref="Trace2" class="mt-3" />
 </Block>
 
-<Block Title="显示清空按钮" Introduction="通过设置 <code>ShowClearButton</code> 参数控制是否显示清空按钮">
+<Block Title="显示清空按钮" Introduction="通过设置 <code>ShowClearButton</code> 参数控制是否显示清空按钮" Name="DispalyButton">
     <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" ShowClearButton="true" Items="@Items" OnSearch="@OnSearch3" OnClear="@OnClear"></Search>
     <BlockLogger @ref="Trace3" class="mt-3" />
 </Block>
 
-<Block Title="键盘输入即时搜索" Introduction="通过设置 <code>IsOnInputTrigger</code> 参数控制是否实时进行搜索操作">
+<Block Title="键盘输入即时搜索" Introduction="通过设置 <code>IsOnInputTrigger</code> 参数控制是否实时进行搜索操作"  Name="keyboards">
     <Search IgnoreCase="true" IsLikeMatch="true" PlaceHolder="搜索示例" IsOnInputTrigger="true" Items="@Items" OnSearch="@OnSearch4"></Search>
     <BlockLogger @ref="Trace4" class="mt-3" />
 </Block>

@@ -5,7 +5,7 @@
 
 <h4>@RowsLocalizer["H1"]</h4>
 
-<Block Title="@RowsLocalizer["Block1Title"]" Introduction="@RowsLocalizer["Block1Intro"]">
+<Block Title="@RowsLocalizer["Block1Title"]" Introduction="@RowsLocalizer["Block1Intro"]" Name="Common">
     <p><b>@((MarkupString)RowsLocalizer["b1"].Value)</b></p>
     <Row ItemsPerRow="ItemsPerRow.Three">
         <Card>
@@ -53,7 +53,7 @@
     </Row>
 </Block>
 
-<Block Title="@RowsLocalizer["Block2Title"]" Introduction="@RowsLocalizer["Block2Intro"]">
+<Block Title="@RowsLocalizer["Block2Title"]" Introduction="@RowsLocalizer["Block2Intro"]" Name="FormInline">
     <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.Inline">
@@ -67,7 +67,7 @@
     </ValidateForm>
 </Block>
 
-<Block Title="@RowsLocalizer["Block3Title"]" Introduction="@RowsLocalizer["Block3Intro"]">
+<Block Title="@RowsLocalizer["Block3Title"]" Introduction="@RowsLocalizer["Block3Intro"]" Name="Form">
     <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.Three">
@@ -81,7 +81,7 @@
     </ValidateForm>
 </Block>
 
-<Block Title="@RowsLocalizer["Block4Title"]" Introduction="@RowsLocalizer["Block4Intro"]">
+<Block Title="@RowsLocalizer["Block4Title"]" Introduction="@RowsLocalizer["Block4Intro"]" Name="Nested">
     <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
     <Pre>&lt;Row ItemsPerRow="ItemsPerRow.Two"&gt;
     &lt;BootstrapInput @@bind-Value="@@Model.Name" /&gt;
@@ -101,7 +101,7 @@
     </ValidateForm>
 </Block>
 
-<Block Title="@RowsLocalizer["Block5Title"]" Introduction="@RowsLocalizer["Block5Intro"]">
+<Block Title="@RowsLocalizer["Block5Title"]" Introduction="@RowsLocalizer["Block5Intro"]"   Name="Rowspan">
     <p>@((MarkupString)RowsLocalizer["P1"].Value)</p>
 
     <p><b>@RowsLocalizer["b2"]</b></p>

@@ -6,7 +6,7 @@
 
 <h4>提供轻量级 Toast 弹窗</h4>
 
-<Block Title="基础用法" Introduction="用户操作时，右下角给予适当的提示信息">
+<Block Title="基础用法" Introduction="用户操作时，右下角给予适当的提示信息" Name="Normal">
     <div class="row g-3 overflow-hidden">
         <div class="col-12 col-lg-6 col-xl-3">
             <ToastBox class="d-block" Options="@Options1" />
@@ -35,11 +35,11 @@
     </div>
 </Block>
 
-<Block Title="Toast 手动关闭" Introduction="不会自动关闭，需要人工点击关闭按钮">
+<Block Title="Toast 手动关闭" Introduction="不会自动关闭，需要人工点击关闭按钮"  Name="Close">
     <Button Icon="fa fa-exclamation-triangle" OnClick="@OnNotAutoHideClick" Text="成功通知"></Button>
 </Block>
 
-<Block Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置">
+<Block Title="Toast 显示位置" Introduction="提供设置 Toast 弹窗出现位置" Name="Position">
     <p>通过设置 <code>Toast</code> 组件的 <code>Placement</code> 值来设置弹窗出现的位置，默认值为 <code>BottomEnd</code> 除此之外的值均为右上角</p>
     <div class="row g-3">
         <div class="col-6 col-md-3">

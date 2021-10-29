@@ -5,7 +5,7 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]">
+<Block Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <p>@Localizer["P1"]</p>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
@@ -30,15 +30,15 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="@Localizer["DisableTitle"]" Introduction="@Localizer["DisableIntro"]">
+<Block Title="@Localizer["DisableTitle"]" Introduction="@Localizer["DisableIntro"]" Name="Disable">
     <Switch OnColor="Color.Primary" IsDisabled="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]"></Switch>
 </Block>
 
-<Block Title="@Localizer["ColorTitle"]" Introduction="@Localizer["ColorIntro"]">
+<Block Title="@Localizer["ColorTitle"]" Introduction="@Localizer["ColorIntro"]" Name="Color">
     <Switch OnColor="Color.Danger" OffColor="Color.Success" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]"></Switch>
 </Block>
 
-<Block Title="@Localizer["BindingTitle"]" Introduction="@Localizer["BindingIntro"]">
+<Block Title="@Localizer["BindingTitle"]" Introduction="@Localizer["BindingIntro"]" Name="Binding">
     <p>@((MarkupString)Localizer["P2"].Value)</p>
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <div class="row g-3">
@@ -72,7 +72,7 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["InnerTextTitle"]" Introduction="@Localizer["InnerTextIntro"]">
+<Block Title="@Localizer["InnerTextTitle"]" Introduction="@Localizer["InnerTextIntro"]" Name="InnerText">
     <p>@((MarkupString)Localizer["P7"].Value)</p>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
@@ -86,7 +86,7 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["NullableTitle"]" Introduction="@Localizer["NullableIntro"]">
+<Block Title="@Localizer["NullableTitle"]" Introduction="@Localizer["NullableIntro"]"  Name="Nuallable">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
             <NullSwitch @bind-Value="@NullValue" OnColor="Color.Dark" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]"></NullSwitch>

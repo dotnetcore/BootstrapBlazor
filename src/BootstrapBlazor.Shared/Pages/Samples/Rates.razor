@@ -5,12 +5,12 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <Rate Value="@BindValue" ValueChanged="@OnValueChanged" />
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
     <div class="row g-3">
         <div class="col-6">
             <Rate Value="@BindValue1" IsDisable="IsDisable" />

@@ -4,7 +4,7 @@
 
 <h4>提供最普通的开关应用，值为 <code>true</code> <code>false</code></h4>
 
-<Block Title="基础用法" Introduction="点击按钮切换状态">
+<Block Title="基础用法" Introduction="点击按钮切换状态"  Name="Normal">
     <p>点击第一个开关有值输出日志</p>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
@@ -35,7 +35,7 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="禁用状态" Introduction="开关不可用状态。">
+<Block Title="禁用状态" Introduction="开关不可用状态。" Name="Disable">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
             <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Primary" />
@@ -64,7 +64,7 @@
     </div>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步">
+<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步" Name="BindToWay">
     <p>
         <code>Switch</code> 组件开启双向绑定时，会根据绑定的 <code>Model</code> 属性值去自动获取 <code>DisplayName</code> 标签值并且显示为前置 <code>Label</code>，通过 <code>DisplayText</code> 属性可以自定义显示前置标签，或者通过 <code>ShowLabel</code> 属性关闭前置标签是否显示
     </p>

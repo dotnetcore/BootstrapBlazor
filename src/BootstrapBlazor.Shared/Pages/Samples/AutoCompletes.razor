@@ -5,35 +5,35 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <p>@Localizer["P1"]</p>
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" />
     </div>
 </Block>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="LikeMatch">
     <p>@Localizer["P2"]</p>
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
     </div>
 </Block>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="NoDataTip">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" NoDataTip="@Localizer["AutoTip"]" />
     </div>
 </Block>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValueChanged">
     <p>@Localizer["P4"]</p>
     <div style="width: 200px;">
         <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" />
     </div>
 </Block>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]">
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ShowLabel">
     <p>@((MarkupString)Localizer["P5"].Value)</p>
     <Divider Text="@Localizer["Divider1Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="@Model">

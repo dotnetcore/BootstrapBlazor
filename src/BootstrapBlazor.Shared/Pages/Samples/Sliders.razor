@@ -5,13 +5,13 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]"  Name="Normal">
     <Slider></Slider>
     <Slider Value="50" Label="@Localizer["Slider1Label"]"></Slider>
     <Slider Value="42" IsDisabled="true" Label="@Localizer["Slider2Label"]"></Slider>
 </Block>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Binding">
     <div class="row g-3">
         <div class="col-12 col-sm-8">
             <Slider @bind-Value="@BindValue" Label="@Localizer["Slider3Label"]"></Slider>

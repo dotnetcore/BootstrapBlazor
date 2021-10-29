@@ -4,20 +4,20 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]">
+<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <div style="width: 320px;">
         <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" ShowFooter="false" />
     </div>
     <BlockLogger @ref="DateLogger" class="mt-3" />
 </Block>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]">
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValueChanged">
     <TimePickerBody Value="@TimeNow" ValueChanged="@TimeValueChanged" />
 
     <BlockLogger @ref="TimeLogger" class="mt-3" />
 </Block>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Time">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <div class="d-flex flex-column">
@@ -36,7 +36,7 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValidateForm">
     <ValidateForm Model="this">
         <div class="row g-3">
             <div class="col-12 col-sm-auto">
@@ -49,7 +49,7 @@
     </ValidateForm>
 </Block>
 
-<Block Title="" Introduction="">
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Date">
     <div class="row g-3">
         <div class="col-sm-4">
             <DateTimePicker TValue="DateTime" Value="@DateTime.Today" />
@@ -57,7 +57,7 @@
     </div>
 </Block>
 
-<Block Title="" Introduction="">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Placement">
     <div class="row g-3">
         <div class="col-sm-6">
             <DateTimePicker TValue="DateTime?" Value="@BindValue" ValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
@@ -68,12 +68,12 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]">
+<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ViewModel">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.DateTime" />
 </Block>
 
-<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]">
+<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="NullValue">
     <p>@((MarkupString)Localizer["P2"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-8">
@@ -85,7 +85,7 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]">
+<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="ShowLabel">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <div class="row g-3">
@@ -95,7 +95,7 @@
     </div>
 </Block>
 
-<Block Title="" Introduction="">
+<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="Disalbed">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimePicker TValue="DateTime" IsDisabled="IsDisabled" />
@@ -106,7 +106,7 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block12Title"]">
+<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block12Title"]" Name="ViewModel">
     <div class="row g-3">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewModel="DatePickerViewModel.DateTime" />
@@ -114,7 +114,7 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]">
+<Block Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="MinValue">
     <div class="row g-3">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
