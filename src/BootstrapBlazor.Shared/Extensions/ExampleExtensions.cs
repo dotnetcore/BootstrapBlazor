@@ -5,7 +5,6 @@
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -23,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddExampleService(this IServiceCollection services)
         {
-            services.AddScoped<ExampleService>();
+            services.AddTransient<ExampleService>();
             return services;
         }
     }
@@ -36,8 +35,6 @@ namespace Microsoft.Extensions.DependencyInjection
         private HttpClient Client { get; set; }
 
         private string ServerUrl { get; set; }
-        static private Dictionary<string, string> RazorFileCache { get; set; } = new Dictionary<string, string>();
-        private int BlockIndex = 0;  //服务注册成scoped后，访问第二个Page不会清零，所以加了个ResetCache函数。TODO:多人不知道是否有bug
 
         /// <summary>
         /// 构造方法
@@ -51,81 +48,72 @@ namespace Microsoft.Extensions.DependencyInjection
             Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
 
             ServerUrl = options.Value.ServerUrl;
+        }
 
-            //BlockIndex = 0;//TODO:测试一次请求是否从0开始，
-        }
-        public void ResetCache()
-        {
-            BlockIndex = 0;
-            //FileCacheName = string.Empty;
-            //FileCacheContent = string.Empty;
-        }
         /// <summary>
-        /// 获得组件代码段的方法
+        /// 获得组件版本号方法
         /// </summary>
-        /// <param name="CodeFile">*.razor文件名</param>
-        /// <param name="BlockTitle">Block的标题，优先使用，但是有些是变量计算出来的就找不到了</param>
         /// <returns></returns>
-        public async Task<string> GetCodeAsync(string CodeFile,string ? BlockTitle)
+        public async Task<string> GetCodeAsync(string codeFile, string? blockTitle)
         {
-            var content = string.Empty;
-            int myBlockIndex = 0;
-            if (!string.IsNullOrWhiteSpace(BlockTitle))
-            {
-                myBlockIndex = BlockIndex++; //提前+1, 渲染整个文件的时候不会到这里。
-            }
+            var content = "";
             try
             {
-                if(CodeFile.EndsWith(".razor"))
+                if (OperatingSystem.IsBrowser())
                 {
-                    //RazorCodeFileName = System.IO.Path.ChangeExtension(RazorCodeFileName, ".txt");
-                    if(RazorFileCache.ContainsKey(CodeFile))
-                    {
-                        content = RazorFileCache[CodeFile];
-                    }
+                    Client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                    content = await Client.GetStringAsync($"Code?fileName={codeFile}");
                 }
-                if(content==string.Empty)
+                else
                 {
-                    if (OperatingSystem.IsBrowser())
-                    {
-                        Client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                        content = await Client.GetStringAsync($"Code?fileName={CodeFile}");
-                    }
-                    else
-                    {
-                        content = await Client.GetStringAsync(CodeFile);
-                    }
-                    //if (RazorCodeFileName.EndsWith(".txt"))
-                    if (CodeFile.EndsWith(".razor"))
-                    {
-                        //lock(this)
-                        {
-                            if (!RazorFileCache.ContainsKey(CodeFile))
-                            {
-                                RazorFileCache[CodeFile] = content  ;
-                                //BlockIndex = 0;//BlockTitle==null?0:1;
-                            }
-                        }
-                    }
+                    content = await Client.GetStringAsync(codeFile);
                 }
-                if(!string.IsNullOrWhiteSpace(BlockTitle))
+
+                if (codeFile.EndsWith(".razor", StringComparison.OrdinalIgnoreCase))
                 {
-                    string[] segments = content.Split(new string[] { "<Block ", "</Block>" }, StringSplitOptions.None);
-                    for(int i=1;i<segments.Length;i+=2)
-                    {
-                        string codeSeg = CodeFile+"("+ myBlockIndex.ToString()+")"+ BlockTitle + "\r\n"+ "<Block " + segments[i]+ "</Block>";
-                        if (codeSeg.Contains("Title=\"" + BlockTitle + "\""))
-                            return codeSeg;
-                    }
-                    if(BlockIndex*2-1<segments.Length)
-                        return CodeFile + "[" + myBlockIndex.ToString() + "]" + BlockTitle + "\r\n" + "<Block " + segments[myBlockIndex * 2+1] + "</Block>";
-                    //按BlockIndex匹配失败，暂时先返回所有的内容。
-                    return CodeFile + "{" + myBlockIndex.ToString() + "}" + BlockTitle + "\r\n" + content;
+                    content = Filter(content, blockTitle);
                 }
             }
             catch (HttpRequestException) { content = "网络错误"; }
             catch (TaskCanceledException) { }
             catch (Exception) { }
+            return content;
+        }
+
+        private static string Filter(string content, string? blockTitle)
+        {
+            if (!string.IsNullOrEmpty(blockTitle))
+            {
+                var beginFlag = "<Block ";
+                var endFlag = "</Block>";
+                var endLength = endFlag.Length;
+                while (content.Length > 0)
+                {
+                    var span = content.AsSpan();
+                    var index = span.IndexOf(beginFlag);
+                    if (index == -1)
+                    {
+                        break;
+                    }
+
+                    var length = span.IndexOf(endFlag);
+                    if (length == -1)
+                    {
+                        break;
+                    }
+
+                    var seg = span[index..(length + endLength)];
+                    if (seg.IndexOf(blockTitle) > -1)
+                    {
+                        content = seg.ToString();
+                        break;
+                    }
+                    else
+                    {
+                        content = span[(length + endLength)..].ToString();
+                    }
+                }
+            }
             return content;
         }
     }

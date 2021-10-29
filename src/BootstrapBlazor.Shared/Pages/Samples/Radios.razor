@@ -10,15 +10,15 @@
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="@Localizer["Blcok2Title"]" Introduction='@Localizer["Block2Intro"]'>
+<Block Title="@Localizer["Block2Title"]" Introduction='@Localizer["Block2Intro"]'>
     <RadioList TValue="string" Items="@DemoValues" IsDisabled="true" ShowBorder="false"></RadioList>
 </Block>
 
-<Block Title="@Localizer["Blcok3Title"]" Introduction="@Localizer["Block3Intro"]">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
     <RadioList TValue="string" Items="@DemoValues" ShowLabel="true" DisplayText="@Localizer["RadioText"]"></RadioList>
 </Block>
 
-<Block Title="@Localizer["Blcok4Title"]" Introduction="@Localizer["Block4Intro"]">
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]">
     <div class="row g-3">
         <div class="col-12">
             <RadioList Items="@Items" @bind-Value="@BindRadioItem" OnSelectedChanged="@OnItemChanged"></RadioList>

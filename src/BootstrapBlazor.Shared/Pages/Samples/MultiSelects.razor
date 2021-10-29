@@ -51,7 +51,7 @@
     <div class="mt-3">@SelectedItemsValue</div>
 </Block>
 
-<Block Title="@Localizer["Blcok3Title"]" Introduction="@Localizer["Block3Intro"]">
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
@@ -87,7 +87,7 @@
     <div>@(string.Join(",", SelectedEnumValues))</div>
 </Block>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Blcok6Intro"]">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]">
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <MultiSelect Items="@Items6" @bind-Value="@SelectedItemsValue6" ShowSearch="true" OnSearchTextChanged="@OnSearch"></MultiSelect>
     <div>@SelectedItemsValue6</div>
@@ -99,7 +99,7 @@
     <MultiSelect Items="@Items7" Value="@SelectedItemsValue7" IsDisabled="true" />
 </Block>
 
-<Block Title="@Localizer["Blcok8Title"]" Introduction="@Localizer["Block8Intro"]">
+<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]">
     <MultiSelect Items="@Items8" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedItemsValue8" />
     <BlockLogger @ref="Trace2" />
 </Block>
@@ -147,7 +147,7 @@
     </div>
 </Block>
 
-<Block Title="@Localizer["Block13Title"]" Introduction="@Localizer["Blcok13Intro"]">
+<Block Title="@Localizer["Block13Title"]" Introduction="@Localizer["Block13Intro"]">
     <div style="max-width: 300px">
         <p>@Localizer["P8"]</p>
         <MultiSelect Items="@LongItems3" @bind-Value="@SelectedMaxItemsValue" Max="2"></MultiSelect>

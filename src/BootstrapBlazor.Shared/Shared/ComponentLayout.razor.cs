@@ -6,7 +6,6 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -49,15 +48,6 @@ namespace BootstrapBlazor.Shared.Shared
         [NotNull]
         private NavigationManager? Navigator { get; set; }
 
-        [Inject]
-        [NotNull]
-        private IJSRuntime? JSRuntime { get; set; }
-
-
-        [Inject]
-        [NotNull]
-        private Microsoft.Extensions.DependencyInjection.ExampleService? ExampleSvc { get; set; }
-
         [NotNull]
         private Tab? TabSet { get; set; }
 
@@ -79,7 +69,7 @@ namespace BootstrapBlazor.Shared.Shared
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            ExampleSvc.ResetCache();
+
             var page = Navigator.ToBaseRelativePath(Navigator.Uri);
             var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
             var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;

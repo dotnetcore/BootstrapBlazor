@@ -61,12 +61,11 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Parameter]
         public string? CodeFile { get; set; }
 
-
         /// <summary>
         /// 获得/设置 代码段的标题
         /// </summary>
         [Parameter]
-        public string? BlockTitle { get; set; } = null;
+        public string? BlockTitle { get; set; }
 
         /// <summary>
         /// OnInitializedAsync 方法
