@@ -215,11 +215,17 @@ section {
     }
 
     .content .card-footer .card-footer-code {
-        background-color: #fafafa;
-        margin: -12px -20px 12px -20px;
-        padding: 1rem;
+        margin: -.5rem -1rem 0 -1rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     }
+
+        .content .card-footer .card-footer-code code {
+            border: none;
+        }
+
+        .content .card-footer .card-footer-code.show + a {
+            margin-top: .5rem;
+        }
 
     .content .code-label {
         font-weight: bold;
