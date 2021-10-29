@@ -62,6 +62,7 @@ namespace BootstrapBlazor.Server
             services.AddServerSideBlazor();
 
             services.AddBlazorBackgroundTask();
+            services.AddMemoryCache();
 
             // 增加 BootstrapBlazor 组件
             services.AddBootstrapBlazor(options =>

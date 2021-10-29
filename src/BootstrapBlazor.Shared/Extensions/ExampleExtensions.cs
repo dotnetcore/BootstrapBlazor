@@ -3,9 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -38,15 +38,23 @@ namespace Microsoft.Extensions.DependencyInjection
         private string ServerUrl { get; set; }
 
         /// <summary>
+        /// 获得/设置 IJSRuntime 实例
+        /// </summary>
+        private IMemoryCache MemoryCache { get; set; }
+
+        /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="client"></param>
         /// <param name="options"></param>
-        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options)
+        /// <param name="memoryCache"></param>
+        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options, IMemoryCache memoryCache)
         {
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);
             Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
+
+            MemoryCache = memoryCache;
 
             ServerUrl = options.Value.ServerUrl;
         }
@@ -60,19 +68,35 @@ namespace Microsoft.Extensions.DependencyInjection
             var content = "";
             try
             {
-                if (OperatingSystem.IsBrowser())
+                var data = await MemoryCache.GetOrCreateAsync(codeFile, async item =>
                 {
-                    Client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                    content = await Client.GetStringAsync($"Code?fileName={codeFile}");
+                    var payload = "";
+                    if (OperatingSystem.IsBrowser())
+                    {
+                        Client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                        payload = await Client.GetStringAsync($"Code?fileName={codeFile}");
+                    }
+                    else
+                    {
+                        payload = await Client.GetStringAsync(codeFile);
+                    }
+                    item.SlidingExpiration = TimeSpan.FromMinutes(10);
+                    return payload;
+                });
+
+                if (blockTitle != null)
+                {
+                    content = MemoryCache.GetOrCreate($"{codeFile}-{blockTitle}", entry =>
+                    {
+                        data = Filter(data, blockTitle);
+
+                        entry.SlidingExpiration = TimeSpan.FromMinutes(10);
+                        return data;
+                    });
                 }
                 else
                 {
-                    content = await Client.GetStringAsync(codeFile);
-                }
-
-                if (codeFile.EndsWith(".razor", StringComparison.OrdinalIgnoreCase))
-                {
-                    content = Filter(content, blockTitle);
+                    content = data;
                 }
             }
             catch (HttpRequestException) { content = "网络错误"; }

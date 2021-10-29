@@ -110,7 +110,7 @@ namespace BootstrapBlazor.Shared.Components
                         builder.AddContent(0, code);
                     };
                 }
-                CanCopy = !string.IsNullOrEmpty(code) && code != "无";
+                CanCopy = !string.IsNullOrEmpty(code) && code != "网络错误";
                 Loaded = true;
             }
             else
