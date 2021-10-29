@@ -197,6 +197,14 @@
         },
         bb_tooltip_site: function (el) {
             $(el).tooltip();
+        },
+        bb_block: function (el) {
+            var $el = $(el);
+            var id = $.getUID();
+            var $footer = $el.children('.card-footer-code');
+            var $footerBar = $el.children('.card-footer-control');
+            $footer.attr('id', id);
+            $footerBar.attr('href', '#' + id);
         }
     });
 

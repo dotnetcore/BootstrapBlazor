@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace BootstrapBlazor.Shared.Pages.Components
     /// </summary>
     public sealed partial class Block
     {
+        private ElementReference BlockElement { get; set; }
+
         /// <summary>
         /// 获得/设置 组件 Title 属性
         /// </summary>
@@ -31,7 +34,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// 文件名 从ComponentLayout传递过来的razor文件名
         /// </summary>
         [CascadingParameter(Name = "RazorFileName")]
-        public string? RazorFileName { get;set;}
+        public string? RazorFileName { get; set; }
 
         /// <summary>
         /// 获得/设置 组件内容
@@ -61,6 +64,21 @@ namespace BootstrapBlazor.Shared.Pages.Components
 
             Title ??= Localizer[nameof(Title)];
             SubTitle ??= Localizer[nameof(SubTitle)];
+        }
+
+        /// <summary>
+        /// OnAfterRenderAsync
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("$.bb_block", BlockElement);
+            }
         }
     }
 }
