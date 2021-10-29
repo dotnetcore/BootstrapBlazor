@@ -17,7 +17,9 @@
 
 <Tab IsBorderCard="true" @ref="TabSet">
     <TabItem Text="@Example" Icon="fa fa-desktop">
-        @Body
+		<CascadingValue Value="@RazorFileName" Name="RazorFileName" IsFixed="true">
+			@Body
+		</CascadingValue>
     </TabItem>
     <TabItem Text="Razor" Icon="fa fa-html5">
         <Pre @key="@RazorFileName" CodeFile="@RazorFileName"></Pre>

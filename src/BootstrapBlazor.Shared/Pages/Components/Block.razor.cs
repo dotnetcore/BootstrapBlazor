@@ -2,9 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Pages.Components
 {
@@ -25,6 +27,11 @@ namespace BootstrapBlazor.Shared.Pages.Components
         /// </summary>
         [Parameter]
         public string Introduction { get; set; } = "未设置";
+        /// <summary>
+        /// 文件名 从ComponentLayout传递过来的razor文件名
+        /// </summary>
+        [CascadingParameter(Name = "RazorFileName")]
+        public string? RazorFileName { get;set;}
 
         /// <summary>
         /// 获得/设置 组件内容

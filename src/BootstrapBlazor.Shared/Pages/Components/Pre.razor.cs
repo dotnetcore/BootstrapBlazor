@@ -61,6 +61,13 @@ namespace BootstrapBlazor.Shared.Pages.Components
         [Parameter]
         public string? CodeFile { get; set; }
 
+
+        /// <summary>
+        /// 获得/设置 代码段的标题
+        /// </summary>
+        [Parameter]
+        public string? BlockTitle { get; set; } = null;
+
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
@@ -96,7 +103,7 @@ namespace BootstrapBlazor.Shared.Pages.Components
         {
             if (!string.IsNullOrEmpty(CodeFile))
             {
-                var code = await Example.GetCodeAsync(CodeFile);
+                var code = await Example.GetCodeAsync(CodeFile, BlockTitle);
                 if (!string.IsNullOrEmpty(code))
                 {
                     ChildContent = builder =>
