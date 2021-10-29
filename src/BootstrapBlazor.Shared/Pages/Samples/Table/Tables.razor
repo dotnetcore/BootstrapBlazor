@@ -16,7 +16,7 @@
 
 <p><code>Table</code> 组件有一个 <code>UseComponentWidth</code> 属性，其默认值为 <code>false</code>，表示使用 <code>window</code> 宽度来进行判断，当设置值为 <code>true</code> 时，表示使用组件自身宽度进行判断</p>
 
-<Block Title="基础表格" Introduction="基础的表格展示用法。">
+<Block Title="基础表格" Introduction="基础的表格展示用法。" Name="Normal">
     <div>点击按钮时更新数据源 <code>Items</code> 组件 <code>Table</code> 显示数据自动更新</div>
     <Button Icon="fa fa-refresh" Text="@RefreshText" OnClick="OnClick" class="my-2" />
     <Table TItem="Foo" Items="@Items.Take(3)">
@@ -28,7 +28,7 @@
     </Table>
 </Block>
 
-<Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可">
+<Block Title="带斑马纹表格" Introduction="使用带斑马纹的表格，可以更容易区分出不同行的数据。设置 <code>IsStriped=true</code> 即可" Name="Striped">
     <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -38,7 +38,7 @@
     </Table>
 </Block>
 
-<Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果">
+<Block Title="带边框表格" Introduction="通过设置 <code>IsBordered</code> 属性，增加表格表框效果" Name="Bordered">
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -48,7 +48,7 @@
     </Table>
 </Block>
 
-<Block Title="紧凑型表格" Introduction="通过设置 <code>TableSize</code> 属性，设定表格内间隙变小适合大数据展示">
+<Block Title="紧凑型表格" Introduction="通过设置 <code>TableSize</code> 属性，设定表格内间隙变小适合大数据展示" Name="Size">
     <p><code>TableSize</code> 为表格大小枚举类型，默认值为 <code>Normal</code>，紧奏型值为 <code>Compact</code></p>
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
         <TableColumns>
@@ -59,7 +59,7 @@
     </Table>
 </Block>
 
-<Block Title="表头样式" Introduction="通过设置 <code>HeaderStyle</code> 属性，">
+<Block Title="表头样式" Introduction="通过设置 <code>HeaderStyle</code> 属性，" Name="HeaderStyle">
     <p><code>HeaderStyle</code> 为表格表头样式，默认值为 <code>None</code></p>
     <div class="code-label"><code>Light</code> 模式</div>
     <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">

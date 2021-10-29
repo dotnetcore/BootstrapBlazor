@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -82,10 +83,12 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static string Filter(string content, string? blockTitle)
         {
+            var beginFlag = "<Block ";
+            var endFlag = "</Block>";
+            var lineFlag = "\n";
             if (!string.IsNullOrEmpty(blockTitle))
             {
-                var beginFlag = "<Block ";
-                var endFlag = "</Block>";
+                var findStrings = new string[] { $"Name=\"{blockTitle}\"", $"Title=\"{blockTitle}\"" };
                 var endLength = endFlag.Length;
                 while (content.Length > 0)
                 {
@@ -103,9 +106,9 @@ namespace Microsoft.Extensions.DependencyInjection
                     }
 
                     var seg = span[index..(length + endLength)];
-                    if (seg.IndexOf(blockTitle) > -1)
+                    if (seg.IndexOf(findStrings[0]) > -1 || seg.IndexOf(findStrings[1]) > -1)
                     {
-                        content = seg.ToString();
+                        content = TrimBlock(seg);
                         break;
                     }
                     else
@@ -115,6 +118,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
             }
             return content;
+
+            string TrimBlock(ReadOnlySpan<char> content)
+            {
+                var star = content.IndexOf(lineFlag);
+                var end = content.IndexOf(endFlag);
+                var data = content[star..end].ToString();
+                return data.Replace("\n    ", "\n").TrimStart('\n');
+            }
         }
     }
 }

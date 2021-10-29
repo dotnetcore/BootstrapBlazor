@@ -55,6 +55,8 @@ namespace BootstrapBlazor.Shared.Components
         [Parameter]
         public string? Name { get; set; }
 
+        private string BlockTitle => Name ?? Title;
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
