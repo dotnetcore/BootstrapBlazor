@@ -24,7 +24,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 侧边栏状态
         /// </summary>
-        protected bool IsCollapsed { get; set; }
+        [Parameter]
+        public bool IsCollapsed { get; set; }
+
+        /// <summary>
+        /// 获得/设置 侧边栏状态
+        /// </summary>
+        [Parameter]
+        public EventCallback<bool> IsCollapsedChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 Header 模板
@@ -161,7 +168,15 @@ namespace BootstrapBlazor.Components
         protected async Task CollapseMenu()
         {
             IsCollapsed = !IsCollapsed;
-            if (OnCollapsed != null) await OnCollapsed(IsCollapsed);
+            if (IsCollapsedChanged.HasDelegate)
+            {
+                await IsCollapsedChanged.InvokeAsync(IsCollapsed);
+            }
+
+            if (OnCollapsed != null)
+            {
+                await OnCollapsed(IsCollapsed);
+            }
         }
 
         /// <summary>
@@ -171,9 +186,15 @@ namespace BootstrapBlazor.Components
         protected Func<MenuItem, Task> ClickMenu() => async item =>
         {
             // 小屏幕时生效
-            if (IsSmallScreen && !item.Items.Any()) await CollapseMenu();
+            if (IsSmallScreen && !item.Items.Any())
+            {
+                await CollapseMenu();
+            }
 
-            if (OnClickMenu != null) await OnClickMenu(item);
+            if (OnClickMenu != null)
+            {
+                await OnClickMenu(item);
+            }
         };
     }
 }
