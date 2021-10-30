@@ -838,8 +838,10 @@ RenderFragment RenderSearch =>
         </div>
     </CardHeader>
     <CardBody>
-        <EditorForm Model="SearchModel" Items="GetSearchColumns()" IsSearch="true" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
-        </EditorForm>
+        <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
+            <EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
+            </EditorForm>
+        </CascadingValue>
     </CardBody>
 </Card>;
 }
