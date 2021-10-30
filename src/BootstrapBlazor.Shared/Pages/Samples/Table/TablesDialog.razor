@@ -4,7 +4,7 @@
 
 <h4>用于带层级关系的数据选择中</h4>
 
-<Block Title="弹窗中数据联动" Introduction="点击工具栏中的选择按钮弹出对话框选择候选数据">
+<Block Title="弹窗中数据联动" Introduction="点击工具栏中的选择按钮弹出对话框选择候选数据" Name="TableDialog">
     <p>本例中展示如果通过 <code>Modal</code> 组件与 <code>Table</code> 进行联动，通过弹窗中选择数据，然后再进行编辑</p>
     <ul class="ul-demo">
         <li>点击 <code>选择</code> 按钮弹出对话框选择产品 <code>Product</code></li>
@@ -24,23 +24,23 @@
             <TableColumn @bind-Field="@context.Count" Width="80" />
         </TableColumns>
     </Table>
-</Block>
 
-<Modal @ref="Modal">
-    <ModalDialog Title="选择项目" IsCentered="true">
-        <BodyTemplate>
-            <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
-                   ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
-                   OnQueryAsync="@OnQueryProductAsync" HeaderStyle="TableHeaderStyle.Light">
-                <TableColumns>
-                    <TableColumn @bind-Field="@context.DateTime" />
-                    <TableColumn @bind-Field="@context.Name" />
-                    <TableColumn @bind-Field="@context.Count" />
-                </TableColumns>
-            </Table>
-        </BodyTemplate>
-        <FooterTemplate>
-            <Button Text="确定" Icon="fa fa-check-square-o" OnClick="@OnConfirm" />
-        </FooterTemplate>
-    </ModalDialog>
-</Modal>
+    <Modal @ref="Modal">
+        <ModalDialog Title="选择项目" IsCentered="true">
+            <BodyTemplate>
+                <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
+                       ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
+                       OnQueryAsync="@OnQueryProductAsync" HeaderStyle="TableHeaderStyle.Light">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.DateTime" />
+                        <TableColumn @bind-Field="@context.Name" />
+                        <TableColumn @bind-Field="@context.Count" />
+                    </TableColumns>
+                </Table>
+            </BodyTemplate>
+            <FooterTemplate>
+                <Button Text="确定" Icon="fa fa-check-square-o" OnClick="@OnConfirm" />
+            </FooterTemplate>
+        </ModalDialog>
+    </Modal>
+</Block>

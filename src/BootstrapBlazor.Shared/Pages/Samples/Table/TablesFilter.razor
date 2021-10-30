@@ -9,7 +9,7 @@
     <li>对某一列数据进行排序，通过指定列的 <code>Sortable</code> 属性来指定需要排序的列，通过多次点击更改排序规则</li>
 </ul>
 
-<Block Title="可筛选数据的表格" Introduction="设置 <code>TableColumn</code> 列的 <code>Filterable</code> 属性，控制列头是否开启数据筛选功能">
+<Block Title="可筛选数据的表格" Introduction="设置 <code>TableColumn</code> 列的 <code>Filterable</code> 属性，控制列头是否开启数据筛选功能" Name="Filterable">
     <p>
         <code>Filterable</code> 目前支持两种应用方式：
     </p>
@@ -39,7 +39,7 @@
     </Table>
 </Block>
 
-<Block Title="自定义筛选模板" Introduction="设置 <code>FilterTemplate</code> 模板值，自定义列筛选模板，非常适用于复杂类型的筛选弹窗">
+<Block Title="自定义筛选模板" Introduction="设置 <code>FilterTemplate</code> 模板值，自定义列筛选模板，非常适用于复杂类型的筛选弹窗" Name="FilterTemplate">
     <p>
         <code>FilterTemplate</code> 类型为 <code>RenderFragment</code>：
         <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>
@@ -68,7 +68,7 @@
     </Table>
 </Block>
 
-<Block Title="默认排序功能" Introduction="设置 <code>DefaultSort</code> 属性值为 <code>true</code> 时作为默认排序列">
+<Block Title="默认排序功能" Introduction="设置 <code>DefaultSort</code> 属性值为 <code>true</code> 时作为默认排序列" Name="DefaultSort">
     <ul class="ul-demo">
         <li>设置 <code>DefaultSort=true</code> 开启默认排序功能，当多列设置此属性时，第一列起作用</li>
         <li>设置 <code>DefaultSortOrder</code> 值，设置默认排序规则</li>
@@ -88,7 +88,7 @@
     </Table>
 </Block>
 
-<Block Title="显示过滤表头" Introduction="设置 <code>ShowFilterHeader</code> 属性值为 <code>true</code> 时显示过滤表头">
+<Block Title="显示过滤表头" Introduction="设置 <code>ShowFilterHeader</code> 属性值为 <code>true</code> 时显示过滤表头" Name="ShowFilterHeader">
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
