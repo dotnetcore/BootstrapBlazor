@@ -227,6 +227,10 @@ section {
             margin-top: .5rem;
         }
 
+        .content .card-footer .card-footer-code .loading {
+            padding: .5rem;
+        }
+
     .content .code-label {
         font-weight: bold;
         color: #333;

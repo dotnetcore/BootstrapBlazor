@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        private IStringLocalizer<CheckboxLists>? Localizer { get; set; }
 
         private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation> { EnumEducation.Middel, EnumEducation.Primary };
 
@@ -123,28 +123,28 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "Items",
-                Description = LLocalizer["Att1"]!,
+                Description = Localizer["Att1"]!,
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = LLocalizer["Att1"]!,
+                Description = Localizer["Att1"]!,
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem(){
                 Name = "Value",
-                Description = LLocalizer["Att1"]!,
+                Description = Localizer["Att1"]!,
                 Type = "TValue",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "IsVertical",
-                Description = LLocalizer["Att1"]!,
+                Description = Localizer["Att1"]!,
                 Type = "boolean",
                 ValueList = " true / false ",
                 DefaultValue = " false "
@@ -160,7 +160,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnSelectedChanged",
-                Description = LLocalizer["Event1"]!,
+                Description = Localizer["Event1"]!,
                 Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
             }
         };

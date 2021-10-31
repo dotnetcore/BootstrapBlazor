@@ -16,7 +16,11 @@ namespace BootstrapBlazor.Shared.Pages
     {
         [Inject]
         [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Labels>? Localizer { get; set; }
 
         [NotNull]
         private Foo? Dummy { get; set; }
@@ -28,7 +32,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             base.OnInitialized();
 
-            Dummy = Foo.Generate(Localizer);
+            Dummy = Foo.Generate(LocalizerFoo);
         }
     }
 }

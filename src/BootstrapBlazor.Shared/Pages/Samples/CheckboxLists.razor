@@ -1,26 +1,25 @@
 ﻿@page "/checkboxlists"
-@inject IStringLocalizer<CheckboxLists> LLocalizer
 
-<h3>@LLocalizer["Title"]</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>@LLocalizer["H1"]</h4>
+<h4>@Localizer["H1"]</h4>
 
-<Block Title="@LLocalizer["Blok1Title"]" Introduction="@LLocalizer["Block1Intro"]" Name="Normal">
+<Block Title="@Localizer["Blok1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <p></p>
     <ul class="ul-demo">
-        <li>@((MarkupString)LLocalizer["Li1"].Value)</li>
-        <li>@((MarkupString)LLocalizer["Li2"].Value)</li>
-        <li>@((MarkupString)LLocalizer["Li3"].Value)</li>
+        <li>@((MarkupString)Localizer["Li1"].Value)</li>
+        <li>@((MarkupString)Localizer["Li2"].Value)</li>
+        <li>@((MarkupString)Localizer["Li3"].Value)</li>
     </ul>
     <CheckboxList @bind-Value="@Value1" Items="@Items1" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]"
                   OnSelectedChanged="@OnSelectedChanged"></CheckboxList>
     <BlockLogger class="mt-3" @ref="Trace" />
 </Block>
 
-<Block Title="@LLocalizer["Block2Title"]" Introduction="@LLocalizer["Block2Intro"]" Name="ValidateForm">
-    <p>@((MarkupString)LLocalizer["P2"].Value)</p>
-    <p>@((MarkupString)LLocalizer["P3"].Value)</p>
-    <p>@((MarkupString)LLocalizer["P4"].Value)</p>
+<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValidateForm">
+    <p>@((MarkupString)Localizer["P2"].Value)</p>
+    <p>@((MarkupString)Localizer["P3"].Value)</p>
+    <p>@((MarkupString)Localizer["P4"].Value)</p>
     <ValidateForm Model="@Dummy">
         <div class="row g-3">
             <div class="col-12">
@@ -34,8 +33,8 @@
     </ValidateForm>
 </Block>
 
-<Block Title="@LLocalizer["Block3Title"]" Introduction="@LLocalizer["Block3Intro"]" Name="ShowLabel">
-    <p>@((MarkupString)LLocalizer["P5"].Value)</p>
+<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="ShowLabel">
+    <p>@((MarkupString)Localizer["P5"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
             <CheckboxList TValue="IEnumerable<int>" Items="@Items3" @bind-Value="@Value2" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
@@ -45,7 +44,7 @@
             <div class="form-control">@(string.Join(",", Value2))</div>
         </div>
     </div>
-    <p class="mt-3">@((MarkupString)LLocalizer["P6"].Value)</p>
+    <p class="mt-3">@((MarkupString)Localizer["P6"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
             <CheckboxList TValue="IEnumerable<string>" Items="@Items4" @bind-Value="@Value3" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
@@ -57,8 +56,8 @@
     </div>
 </Block>
 
-<Block Title="@LLocalizer["Block4Title"]" Introduction="@LLocalizer["Block4Intro"]" Name="Enum">
-    <p>@((MarkupString)LLocalizer["P7"].Value)</p>
+<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Enum">
+    <p>@((MarkupString)Localizer["P7"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
             <CheckboxList @bind-Value="@SelectedEnumValues" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
@@ -70,18 +69,18 @@
     </div>
 </Block>
 
-<Block Title="@LLocalizer["Block5Title"]" Introduction="@LLocalizer["Block5Intro"]" Name="NoBorder">
-    <p>@LLocalizer["P8"]</p>
+<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="NoBorder">
+    <p>@Localizer["P8"]</p>
     <ValidateForm Model="@Dummy">
         <CheckboxList @bind-Value="@Dummy.Name" ShowBorder="false" Items="@Items2" />
     </ValidateForm>
 </Block>
 
-<Block Title="@LLocalizer["Block6Title"]" Introduction="@LLocalizer["Block6Intro"]" Name="Vertical">
+<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Vertical">
     <CheckboxList @bind-Value="@Dummy1.Name" IsVertical="true" ShowBorder="false" Items="@Items5" />
 </Block>
 
-<Block Title="@LLocalizer["Block7Title"]" Introduction="@LLocalizer["Block7Intro"]" Name="Disabled">
+<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Disabled">
     <CheckboxList @bind-Value="@Dummy2.Name" IsDisabled="true" ShowBorder="false" Items="@Items6" />
 </Block>
 

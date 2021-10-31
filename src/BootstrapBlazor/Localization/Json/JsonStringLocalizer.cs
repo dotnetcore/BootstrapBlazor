@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -227,98 +228,15 @@ namespace BootstrapBlazor.Localization.Json
             return resources?.Select(r => r.Key) ?? Enumerable.Empty<string>();
         }
 
-        private static StringSegment GetParentCultureName(StringSegment cultureInfoName)
-        {
-            var ret = new StringSegment();
-            var index = cultureInfoName.IndexOf('-');
-            if (index > 0)
-            {
-                ret = cultureInfoName.Subsegment(0, index);
-            }
-            return ret;
-        }
-
-        private List<Stream> GetLangHandlers(string cultureInfoName)
-        {
-            // 获取程序集中的资源文件
-            var langHandler = GetResourceStream(_assembly, cultureInfoName);
-
-            // 获取外部设置程序集中的资源文件
-            if (_options.AdditionalJsonAssemblies != null)
-            {
-                foreach (var assembly in _options.AdditionalJsonAssemblies)
-                {
-                    langHandler.AddRange(GetResourceStream(assembly, cultureInfoName));
-                }
-            }
-            return langHandler;
-        }
-
-        private List<Stream> GetResourceStream(Assembly assembly, string cultureInfoName)
-        {
-            var ret = new List<Stream>();
-            if (_options.FallBackToParentUICultures)
-            {
-                // 查找回落资源
-                var parentName = GetParentCultureName(cultureInfoName).Value;
-                if (!string.IsNullOrEmpty(parentName))
-                {
-                    _searchedLocation = $"{assembly.GetName().Name}.{_options.ResourcesPath}.{parentName}.json";
-                    var stream = assembly.GetManifestResourceStream(_searchedLocation);
-                    if (stream != null)
-                    {
-                        ret.Add(stream);
-                    }
-                }
-            }
-
-            // 当前文化资源
-            _searchedLocation = $"{assembly.GetName().Name}.{_options.ResourcesPath}.{cultureInfoName}.json";
-            var s = assembly.GetManifestResourceStream(_searchedLocation);
-            if (s != null)
-            {
-                ret.Add(s);
-            }
-            return ret;
-        }
-
         private void BuildResourcesCache(string cultureInfoName)
         {
             _resourcesCache.GetOrAdd(cultureInfoName, key =>
             {
                 // 获得程序集中的资源文件 stream
-                var langHandler = GetLangHandlers(key);
-
-                var builder = new ConfigurationBuilder();
-                foreach (var h in langHandler)
-                {
-                    builder.AddJsonStream(h);
-                }
-
-                // 获得配置外置资源文件
-                if (_options.AdditionalJsonFiles != null)
-                {
-                    var file = _options.AdditionalJsonFiles.FirstOrDefault(f =>
-                    {
-                        var fileName = Path.GetFileNameWithoutExtension(f);
-                        return fileName.Equals(key, StringComparison.OrdinalIgnoreCase);
-                    });
-                    if (!string.IsNullOrEmpty(file))
-                    {
-                        builder.AddJsonFile(file, true, true);
-                    }
-                }
-
-                var config = builder.Build();
-                var v = config.GetChildren().FirstOrDefault(c => _typeName.Equals(c.Key, StringComparison.OrdinalIgnoreCase))?
+                var v = JsonHelper.GetConfigurationSections(_options).FirstOrDefault(c => _typeName.Equals(c.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
                     .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
 
-                // dispose json stream
-                foreach (var h in langHandler)
-                {
-                    h.Dispose();
-                }
                 return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
             });
         }
