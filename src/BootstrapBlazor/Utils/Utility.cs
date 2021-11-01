@@ -243,7 +243,7 @@ namespace BootstrapBlazor.Components
             var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
 
             var fieldValue = GenerateValue(model, fieldName);
-            var fieldValueChanged = CacheManager.GenerateValueChanged(component, model, fieldName, fieldType);
+            var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
 
             var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
@@ -294,7 +294,7 @@ namespace BootstrapBlazor.Components
             var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
 
             var fieldValue = GenerateValue(model, fieldName);
-            var fieldValueChanged = CacheManager.GenerateValueChanged(component, model, fieldName, fieldType);
+            var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
             var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
             builder.OpenComponent(0, componentType);
@@ -575,5 +575,24 @@ namespace BootstrapBlazor.Components
             }
             return ret;
         }
+
+        internal static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
+        {
+            var valueChangedInvoker = CreateLambda(fieldType).Compile();
+            return valueChangedInvoker(component, model, fieldName);
+
+            static Expression<Func<ComponentBase, object, string, object>> CreateLambda(Type fieldType)
+            {
+                var exp_p1 = Expression.Parameter(typeof(ComponentBase));
+                var exp_p2 = Expression.Parameter(typeof(object));
+                var exp_p3 = Expression.Parameter(typeof(string));
+                var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
+                var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
+
+                return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
+            }
+        }
+
+        private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
     }
 }

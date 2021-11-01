@@ -56,8 +56,13 @@ namespace BootstrapBlazor.Components
         public static T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.Value.GetOrCreate(key, entry =>
         {
 #if DEBUG
-            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
+            entry.SlidingExpiration = TimeSpan.FromSeconds(5);
 #endif
+
+            if (key is not string)
+            {
+                entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
+            }
             return factory(entry);
         });
 
@@ -67,10 +72,23 @@ namespace BootstrapBlazor.Components
         public static Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.Value.GetOrCreateAsync(key, async entry =>
         {
 #if DEBUG
-            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
+            entry.SlidingExpiration = TimeSpan.FromSeconds(5);
 #endif
+
+            if (key is not string)
+            {
+                entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
+            }
             return await factory(entry);
         });
+
+        private static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+        {
+            if (type?.Assembly.IsDynamic ?? false)
+            {
+                entry.SetSlidingExpiration(TimeSpan.FromSeconds(10));
+            }
+        }
 
         #region Localizer
         /// <summary>
@@ -104,7 +122,7 @@ namespace BootstrapBlazor.Components
         internal static string? GetEnumDisplayName(Type type, string fieldName)
         {
             var t = Nullable.GetUnderlyingType(type) ?? type;
-            var cacheKey = $"EnumDisplayName-{CultureInfo.CurrentCulture.Name}-{t.Name}-{fieldName}";
+            var cacheKey = $"EnumDisplayName-{CultureInfo.CurrentCulture.Name}-{t.FullName}-{fieldName}";
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 var dn = "";
@@ -134,13 +152,15 @@ namespace BootstrapBlazor.Components
                     entry.SetSlidingExpirationForDynamicAssembly();
                 }
 
+                entry.SetDynamicAssemblyPolicy(type);
+
                 return dn;
             });
         }
 
         internal static string GetDisplayName(Type modelType, string fieldName)
         {
-            var cacheKey = $"DisplayName-{CultureInfo.CurrentUICulture.Name}-{modelType.Name}-{fieldName}";
+            var cacheKey = $"DisplayName-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
             var displayName = CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 string? dn = null;
@@ -155,8 +175,12 @@ namespace BootstrapBlazor.Components
                 {
                     dn = FindDisplayAttribute(propertyInfo);
                 }
+
+                entry.SetDynamicAssemblyPolicy(modelType);
+
                 return dn;
             });
+
             return displayName ?? fieldName;
 
             static string? FindDisplayAttribute(PropertyInfo propertyInfo)
@@ -201,7 +225,7 @@ namespace BootstrapBlazor.Components
 
         internal static string? GetPlaceholder(Type modelType, string fieldName)
         {
-            var cacheKey = $"Placeholder-{modelType.Name}-{fieldName}";
+            var cacheKey = $"Placeholder-{modelType.FullName}-{fieldName}";
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 string? ret = null;
@@ -220,6 +244,9 @@ namespace BootstrapBlazor.Components
                         ret = placeHolderAttribute.Text;
                     }
                 }
+
+                entry.SetDynamicAssemblyPolicy(modelType);
+
                 return ret;
             });
         }
@@ -234,7 +261,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         internal static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
         {
-            var cacheKey = $"GetProperty-{modelType.Name}-{fieldName}";
+            var cacheKey = $"GetProperty-{modelType.FullName}-{fieldName}";
             propertyInfo = CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 var props = modelType.GetProperties().AsEnumerable();
@@ -247,10 +274,9 @@ namespace BootstrapBlazor.Components
                 }
 
                 var pi = props.Where(p => p.Name == fieldName).FirstOrDefault();
-                if (modelType.Assembly.IsDynamic)
-                {
-                    entry.SetSlidingExpirationForDynamicAssembly();
-                }
+
+                entry.SetDynamicAssemblyPolicy(modelType);
+
                 return pi;
             });
             return propertyInfo != null;
@@ -258,15 +284,25 @@ namespace BootstrapBlazor.Components
 
         internal static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
         {
-            var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetPropertyValueLambda)}-{typeof(TModel).Name}-{fieldName}";
-            var invoker = CacheManager.GetOrCreate(cacheKey, entry => LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile());
+            var type = model is object o ? o.GetType() : typeof(TModel);
+            var cacheKey = ("Lambda-Get", model, fieldName);
+            var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
+                return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
+            });
             return invoker(model);
         }
 
         internal static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
         {
-            var cacheKey = $"Lambda-{nameof(LambdaExtensions.SetPropertyValueLambda)}-{typeof(TModel).Name}-{fieldName}";
-            var invoker = CacheManager.GetOrCreate(cacheKey, entry => LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile());
+            var type = model is object o ? o.GetType() : typeof(TModel);
+            var cacheKey = ("Lambda-Set", model, fieldName, typeof(TValue));
+            var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
+                return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
+            });
             invoker(model, value);
         }
         #endregion
@@ -274,15 +310,19 @@ namespace BootstrapBlazor.Components
         #region Lambda Sort
         internal static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
         {
-            var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).Name}";
-            return CacheManager.GetOrCreate(cacheKey, entry => LambdaExtensions.GetSortLambda<T>().Compile());
+            var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).FullName}";
+            return CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(typeof(T));
+                return LambdaExtensions.GetSortLambda<T>().Compile();
+            });
         }
         #endregion
 
         #region Lambda ConvertTo
         internal static Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
         {
-            var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.Name}";
+            var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.FullName}";
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 var method = typeof(Utility)
@@ -292,6 +332,8 @@ namespace BootstrapBlazor.Components
                 var para_exp = Expression.Parameter(typeof(object));
                 var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
                 var body = Expression.Call(method, convert);
+
+                entry.SetDynamicAssemblyPolicy(type);
                 return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
 
                 static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
@@ -304,8 +346,12 @@ namespace BootstrapBlazor.Components
         #region Format
         internal static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
         {
-            var cacheKey = $"Lambda-{nameof(GetFormatLambda)}-{type.Name}";
-            return CacheManager.GetOrCreate(cacheKey, entry => GetFormatLambda(type).Compile());
+            var cacheKey = $"Lambda-{nameof(GetFormatLambda)}-{type.FullName}";
+            return CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
+                return GetFormatLambda(type).Compile();
+            });
 
             static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(Type type)
             {
@@ -339,8 +385,12 @@ namespace BootstrapBlazor.Components
 
         internal static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
         {
-            var cacheKey = $"Lambda-{nameof(GetFormatProviderLambda)}-{type.Name}";
-            return CacheManager.GetOrCreate(cacheKey, entry => GetFormatProviderLambda(type).Compile());
+            var cacheKey = $"Lambda-{nameof(GetFormatProviderLambda)}-{type.FullName}";
+            return CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                entry.SetDynamicAssemblyPolicy(type);
+                return GetFormatProviderLambda(type).Compile();
+            });
 
             static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(Type type)
             {
@@ -362,33 +412,6 @@ namespace BootstrapBlazor.Components
                 }
                 return Expression.Lambda<Func<object, IFormatProvider?, string>>(body, exp_p1, exp_p2);
             }
-        }
-        #endregion
-
-        #region GenerateValueChanged
-        internal static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
-        {
-            var cacheKey = $"Lambda-{nameof(GenerateValueChanged)}-{model.GetType().Name}-{fieldName}";
-            var valueChangedInvoker = CacheManager.GetOrCreate(cacheKey, entry => CreateLambda(fieldType).Compile());
-            return valueChangedInvoker(component, model, fieldName);
-
-            static Expression<Func<ComponentBase, object, string, object>> CreateLambda(Type fieldType)
-            {
-                var exp_p1 = Expression.Parameter(typeof(ComponentBase));
-                var exp_p2 = Expression.Parameter(typeof(object));
-                var exp_p3 = Expression.Parameter(typeof(string));
-                var method = typeof(CacheManager).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
-                var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
-
-                return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
-            }
-
-            static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t =>
-            {
-                var key = $"Lambda-{nameof(CreateCallback)}-{model.GetType().Name}-{fieldName}";
-                var invoker = CacheManager.GetOrCreate(key, entry => LambdaExtensions.SetPropertyValueLambda<object, object?>(model, fieldName).Compile());
-                invoker.Invoke(model, t);
-            });
         }
         #endregion
     }
