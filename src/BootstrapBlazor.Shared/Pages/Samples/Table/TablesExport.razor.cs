@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Components;
+using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -35,7 +36,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
 
         [Inject]
         [NotNull]
-        private NugetVersionService? VersionManager { get; set; }
+        private VersionService? VersionManager { get; set; }
 
         /// <summary>
         /// OnInitialized 方法

@@ -3,8 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -33,7 +33,7 @@ namespace BootstrapBlazor.Shared.Components
 
         [Inject]
         [NotNull]
-        private ExampleService? Example { get; set; }
+        private CodeSnippetService? Example { get; set; }
 
         /// <summary>
         /// 获得/设置 IJSRuntime 实例

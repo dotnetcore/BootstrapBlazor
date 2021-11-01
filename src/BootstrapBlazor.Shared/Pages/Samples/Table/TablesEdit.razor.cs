@@ -4,8 +4,8 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Components;
+using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;

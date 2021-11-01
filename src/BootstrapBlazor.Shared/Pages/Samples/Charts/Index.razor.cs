@@ -2,12 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.JSInterop;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -21,7 +18,7 @@ namespace BootstrapBlazor.Shared.Pages.Charts
     {
         [Inject]
         [NotNull]
-        private NugetVersionService? VersionManager { get; set; }
+        private VersionService? VersionManager { get; set; }
 
         private string Version { get; set; } = "fetching";
 

@@ -20,7 +20,6 @@
     <PackageReference Include="BootstrapBlazor.Chart" Version="5.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="5.*" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="5.*" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">

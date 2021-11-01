@@ -10,25 +10,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace BootstrapBlazor.Shared.Services
 {
-    /// <summary>
-    /// BootstrapBlazor 服务扩展类
-    /// </summary>
-    public static class TableDemoDataServiceCollectionExtensions
-    {
-        /// <summary>
-        /// 增加 演示数据库操作服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddTableDemoDataService(this IServiceCollection services)
-        {
-            services.AddScoped(typeof(IDataService<>), typeof(TableDemoDataService<>));
-            return services;
-        }
-    }
-
     /// <summary>
     /// 演示网站示例数据注入服务实现类
     /// </summary>

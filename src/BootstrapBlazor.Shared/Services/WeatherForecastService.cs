@@ -6,14 +6,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared
+namespace BootstrapBlazor.Shared.Services
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class WeatherForecastService
+    internal class WeatherForecastService
     {
-        private static readonly string[] Summaries = new[]
+        private string[] Summaries { get; } = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };

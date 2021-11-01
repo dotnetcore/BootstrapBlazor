@@ -76,6 +76,12 @@ namespace BootstrapBlazor.Shared
         public string? WebRootPath { get; set; }
 
         /// <summary>
+        /// 获得/设置 当前程序文件夹
+        /// </summary>
+        [NotNull]
+        public string? ContentRootPath { get; set; }
+
+        /// <summary>
         /// 获得/设置 视频地址
         /// </summary>
         public string VideoUrl { get; set; } = "https://www.bilibili.com/video/";
@@ -101,6 +107,11 @@ namespace BootstrapBlazor.Shared
         /// 获得/设置 组件总数
         /// </summary>
         public int TotalCount { get; set; }
+
+        /// <summary>
+        /// 获得 当前环境配置
+        /// </summary>
+        public bool IsDevelopment { get; set; }
 
         /// <summary>
         /// 构造函数

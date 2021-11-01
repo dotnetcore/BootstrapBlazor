@@ -4,68 +4,44 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Shared;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace BootstrapBlazor.Shared.Services
 {
-    /// <summary>
-    /// 示例代码获取服务
-    /// </summary>
-    public static class ExampleExtensions
-    {
-        /// <summary>
-        /// 注入版本获取服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddExampleService(this IServiceCollection services)
-        {
-            services.AddScoped<ExampleService>();
-            return services;
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    internal class ExampleService
+    internal class CodeSnippetService
     {
         private HttpClient Client { get; set; }
 
         private string ServerUrl { get; set; }
 
-        private IWebHostEnvironment WebHost { get; set; }
-
         private IEnumerable<IConfigurationSection> Sections { get; set; }
+
+        private bool IsDevelopment { get; }
+
+        private string ContentRootPath { get; }
 
         /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="client"></param>
         /// <param name="options"></param>
-        /// <param name="host"></param>
         /// <param name="option"></param>
-        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options, IWebHostEnvironment host, IOptions<JsonLocalizationOptions> option)
+        public CodeSnippetService(HttpClient client, IOptions<WebsiteOptions> options, IOptions<JsonLocalizationOptions> option)
         {
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);
             Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
 
-            WebHost = host;
+            IsDevelopment = options.Value.IsDevelopment;
+            ContentRootPath = options.Value.ContentRootPath;
             ServerUrl = options.Value.ServerUrl;
-
             Sections = JsonStringConfigHelper.GetJsonStringConfig(option.Value);
         }
 
@@ -103,7 +79,8 @@ namespace Microsoft.Extensions.DependencyInjection
         private Task<string> GetContentFromFile(string codeFile) => CacheManagerHelper.GetContentFromFileAsync(codeFile, async entry =>
         {
             var payload = "";
-            if (WebHost.IsDevelopment())
+
+            if (IsDevelopment)
             {
                 payload = await ReadFileTextAsync(codeFile);
             }
@@ -119,7 +96,6 @@ namespace Microsoft.Extensions.DependencyInjection
                     payload = await Client.GetStringAsync(codeFile);
                 }
             }
-
             if (Path.GetExtension(codeFile) == ".razor")
             {
                 // 将资源文件信息替换
@@ -146,7 +122,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var payload = "";
             var paths = new string[] { "..", "BootstrapBlazor.Shared", "Pages", "Samples" };
-            var folder = Path.Combine(WebHost.ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
+            var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
             var file = Path.Combine(folder, codeFile);
             if (File.Exists(file))
             {

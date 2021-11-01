@@ -9,26 +9,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace BootstrapBlazor.Shared.Services
 {
-    /// <summary>
-    /// 版本获取服务
-    /// </summary>
-    public static class VesionManagerExtensions
-    {
-        /// <summary>
-        /// 注入版本获取服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddVersionManager(this IServiceCollection services)
-        {
-            services.AddScoped<NugetVersionService>();
-            return services;
-        }
-    }
-
-    internal class NugetVersionService
+    internal class VersionService
     {
         private HttpClient Client { get; set; }
 
@@ -38,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 构造方法
         /// </summary>
         /// <param name="client"></param>
-        public NugetVersionService(HttpClient client)
+        public VersionService(HttpClient client)
         {
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);

@@ -61,8 +61,11 @@ namespace BootstrapBlazor.Server
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddBlazorBackgroundTask();
-            services.AddMemoryCache();
+            // 增加后台任务服务
+            services.AddHostedTaskServices();
+
+            // 增加演示网站服务
+            services.AddWebSiteServices();
 
             // 增加 BootstrapBlazor 组件
             services.AddBootstrapBlazor(options =>
@@ -90,9 +93,6 @@ namespace BootstrapBlazor.Server
                 localizerOption.SupportedCultures = supportedCultures;
                 localizerOption.SupportedUICultures = supportedCultures;
             });
-
-            // 增加 Table Excel 导出服务
-            services.AddBootstrapBlazorTableExcelExport();
 
             // 增加 PetaPoco ORM 数据服务操作类
             // 需要时打开下面代码
@@ -128,9 +128,6 @@ namespace BootstrapBlazor.Server
             //    // 需要引用 Microsoft.EntityFrameworkCore.Sqlite 包，操作 SQLite 数据库
             //    option.UseSqlite(Configuration.GetConnectionString("bb"));
             //});
-
-            // 增加 Table 数据服务操作类
-            services.AddTableDemoDataService();
         }
 
         /// <summary>
@@ -162,7 +159,9 @@ namespace BootstrapBlazor.Server
             app.UseRouting();
             app.UseCors(builder => builder.WithOrigins(Configuration["AllowOrigins"].Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
+            // 获取连接客户端 IP 组件使用此中间件
             app.UseBootstrapBlazor();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

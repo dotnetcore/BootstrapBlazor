@@ -37,7 +37,7 @@ namespace BootstrapBlazor.WebAssembly.ServerHost
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddBootstrapBlazor();
+            services.AddWasmServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
