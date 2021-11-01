@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -21,11 +20,11 @@ namespace BootstrapBlazor.Shared.Services
 
         private string ServerUrl { get; set; }
 
-        private IEnumerable<IConfigurationSection> Sections { get; set; }
-
         private bool IsDevelopment { get; }
 
         private string ContentRootPath { get; }
+
+        private JsonLocalizationOptions Option { get; }
 
         /// <summary>
         /// 构造方法
@@ -42,7 +41,8 @@ namespace BootstrapBlazor.Shared.Services
             IsDevelopment = options.Value.IsDevelopment;
             ContentRootPath = options.Value.ContentRootPath;
             ServerUrl = options.Value.ServerUrl;
-            Sections = JsonStringConfigHelper.GetJsonStringConfig(option.Value);
+
+            Option = option.Value;
         }
 
         /// <summary>
@@ -114,7 +114,15 @@ namespace BootstrapBlazor.Shared.Services
             List<KeyValuePair<string, string>> GetLocalizers() => CacheManagerHelper.GetLocalizers(codeFile, entry =>
             {
                 var typeName = Path.GetFileNameWithoutExtension(codeFile);
-                return Sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Pages.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?.GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) }).ToList() ?? new List<KeyValuePair<string, string>>();
+                var sections = CacheManager.GetJsonStringConfig(Option);
+                var v = sections
+                    .FirstOrDefault(s => $"BootstrapBlazor.Shared.Pages.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
+                    .GetChildren()
+                    .SelectMany(c => new KeyValuePair<string, string>[]
+                    {
+                        new KeyValuePair<string, string>(c.Key, c.Value)
+                    }).ToList();
+                return v ?? new List<KeyValuePair<string, string>>();
             });
         });
 

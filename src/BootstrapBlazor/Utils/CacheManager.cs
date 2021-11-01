@@ -5,6 +5,7 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
@@ -25,6 +26,28 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public static class CacheManager
     {
+        // 为方便统一维护缓存键值
+        //$"Localizer-{CultureInfo.CurrentUICulture.Name}-{nameof(GetJsonStringConfig)}";
+        //$"Localizer-{cultureName}-{typeName}";
+
+        //$"EnumDisplayName-{CultureInfo.CurrentCulture.Name}-{t.Name}-{fieldName}";
+        //$"DisplayName-{CultureInfo.CurrentUICulture.Name}-{modelType.Name}-{fieldName}";
+
+        //$"Placeholder-{modelType.Name}-{fieldName}";
+
+        //$"GetProperty-{modelType.Name}-{fieldName}";
+        //$"Lambda-{nameof(LambdaExtensions.GetPropertyValueLambda)}-{typeof(TModel).Name}-{fieldName}";
+        //$"Lambda-{nameof(LambdaExtensions.SetPropertyValueLambda)}-{typeof(TModel).Name}-{fieldName}";
+
+        //$"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).Name}";
+        //$"Lambda-{nameof(CreateConverterInvoker)}-{type.Name}";
+
+        //$"Lambda-{nameof(GenerateValueChanged)}-{model.GetType().Name}-{fieldName}";
+        //$"Lambda-{nameof(CreateCallback)}-{model.GetType().Name}-{fieldName}";
+
+        //$"Lambda-{nameof(GetFormatLambda)}-{type.Name}";
+        //$"Lambda-{nameof(GetFormatProviderLambda)}-{type.Name}";
+
         private static Lazy<IMemoryCache> Cache { get; } = new(() => ServiceProviderHelper.ServiceProvider?.GetRequiredService<IMemoryCache>() ?? new MemoryCache(new MemoryCacheOptions()));
 
         /// <summary>
@@ -33,9 +56,7 @@ namespace BootstrapBlazor.Components
         public static T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.Value.GetOrCreate(key, entry =>
         {
 #if DEBUG
-            entry.SlidingExpiration = TimeSpan.FromSeconds(30);
-#else
-            entry.SlidingExpiration = TimeSpan.FromMinutes(10);
+            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
 #endif
             return factory(entry);
         });
@@ -46,24 +67,40 @@ namespace BootstrapBlazor.Components
         public static Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.Value.GetOrCreateAsync(key, async entry =>
         {
 #if DEBUG
-            entry.SlidingExpiration = TimeSpan.FromSeconds(30);
-#else
-            entry.SlidingExpiration = TimeSpan.FromMinutes(10);
+            entry.SlidingExpiration = TimeSpan.FromMinutes(5);
 #endif
             return await factory(entry);
         });
 
-        internal static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName, JsonLocalizationOptions option, Assembly assembly, string typeName) => CacheManager.GetOrCreate($"Localizer-{cultureName}-{assembly.GetName().Name}-{typeName}", key =>
+        #region Localizer
+        /// <summary>
+        /// 通过 JsonLocalizationOptions 配置项实例获取资源文件配置集合
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(JsonLocalizationOptions option)
         {
-            // 获得程序集中的资源文件 stream
-            var v = JsonStringConfigHelper.GetJsonStringConfig(option)
-                .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                .GetChildren()
-                .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
+            var cacheKey = $"Localizer-{CultureInfo.CurrentUICulture.Name}-{nameof(GetJsonStringConfig)}";
+            return GetOrCreate(cacheKey, entry => JsonStringConfigHelper.GetJsonStringConfig(option));
+        }
 
-            return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
-        });
+        internal static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName, JsonLocalizationOptions option, string typeName)
+        {
+            var cacheKey = $"Localizer-{cultureName}-{typeName}";
+            return CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                // 获得程序集中的资源文件 stream
+                var v = GetJsonStringConfig(option)
+                    .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                    .GetChildren()
+                    .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
 
+                return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
+            });
+        }
+        #endregion
+
+        #region DisplayName
         internal static string? GetEnumDisplayName(Type type, string fieldName)
         {
             var t = Nullable.GetUnderlyingType(type) ?? type;
@@ -138,6 +175,57 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 通过指定 Key 获取资源文件中的键值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private static string? GetLocalizerValueByKey(string key)
+        {
+            string? dn = null;
+            var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            if (resxType?.Value.ResourceManagerStringLocalizerType != null)
+            {
+                var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
+                if (localizer != null)
+                {
+                    var stringLocalizer = localizer[key];
+                    if (!stringLocalizer.ResourceNotFound)
+                    {
+                        dn = stringLocalizer.Value;
+                    }
+                }
+            }
+            return dn;
+        }
+        #endregion
+
+        internal static string? GetPlaceholder(Type modelType, string fieldName)
+        {
+            var cacheKey = $"Placeholder-{modelType.Name}-{fieldName}";
+            return CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                string? ret = null;
+                // 通过资源文件查找 FieldName 项
+                var localizer = JsonStringLocalizerFactory.CreateLocalizer(modelType);
+                var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
+                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+                {
+                    ret = stringLocalizer.Value;
+                }
+                else if (Utility.TryGetProperty(modelType, fieldName, out var propertyInfo))
+                {
+                    var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
+                    if (placeHolderAttribute != null)
+                    {
+                        ret = placeHolderAttribute.Text;
+                    }
+                }
+                return ret;
+            });
+        }
+
+        #region Lambda Property
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="modelType"></param>
@@ -168,55 +256,6 @@ namespace BootstrapBlazor.Components
             return propertyInfo != null;
         }
 
-        internal static string? GetPlaceholder(Type modelType, string fieldName)
-        {
-            var cacheKey = $"Placeholder-{modelType.Name}-{fieldName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
-            {
-                string? ret = null;
-                // 通过资源文件查找 FieldName 项
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(modelType);
-                var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
-                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
-                {
-                    ret = stringLocalizer.Value;
-                }
-                else if (Utility.TryGetProperty(modelType, fieldName, out var propertyInfo))
-                {
-                    var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
-                    if (placeHolderAttribute != null)
-                    {
-                        ret = placeHolderAttribute.Text;
-                    }
-                }
-                return ret;
-            });
-        }
-
-        /// <summary>
-        /// 通过指定 Key 获取资源文件中的键值
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        private static string? GetLocalizerValueByKey(string key)
-        {
-            string? dn = null;
-            var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-            if (resxType?.Value.ResourceManagerStringLocalizerType != null)
-            {
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                if (localizer != null)
-                {
-                    var stringLocalizer = localizer[key];
-                    if (!stringLocalizer.ResourceNotFound)
-                    {
-                        dn = stringLocalizer.Value;
-                    }
-                }
-            }
-            return dn;
-        }
-
         internal static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
         {
             var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetPropertyValueLambda)}-{typeof(TModel).Name}-{fieldName}";
@@ -230,35 +269,37 @@ namespace BootstrapBlazor.Components
             var invoker = CacheManager.GetOrCreate(cacheKey, entry => LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile());
             invoker(model, value);
         }
+        #endregion
 
+        #region Lambda Sort
         internal static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
         {
-            var key = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).Name}";
-            return CacheManager.GetOrCreate(key, entry => LambdaExtensions.GetSortLambda<T>().Compile());
+            var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).Name}";
+            return CacheManager.GetOrCreate(cacheKey, entry => LambdaExtensions.GetSortLambda<T>().Compile());
         }
+        #endregion
 
-        internal static Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type) => CacheManager.GetOrCreate($"Lambda-{nameof(CreateConverterInvoker)}-{type.Name}", entry =>
+        #region Lambda ConvertTo
+        internal static Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
         {
-            var method = typeof(Utility)
-                .GetMethod(nameof(ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(type);
+            var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.Name}";
+            return CacheManager.GetOrCreate(cacheKey, entry =>
+            {
+                var method = typeof(Utility)
+                    .GetMethod(nameof(ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
+                    .MakeGenericMethod(type);
 
-            var para_exp = Expression.Parameter(typeof(object));
-            var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
-            var body = Expression.Call(method, convert);
-            return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
+                var para_exp = Expression.Parameter(typeof(object));
+                var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
+                var body = Expression.Call(method, convert);
+                return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
 
-            static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
-                ? list.Select(i => i.Value)
-                : source.Select(i => i?.ToString());
-        });
-
-        private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t =>
-        {
-            var key = $"Lambda-{nameof(CreateCallback)}-{model.GetType().Name}-{fieldName}";
-            var invoker = CacheManager.GetOrCreate(key, entry => LambdaExtensions.SetPropertyValueLambda<object, object?>(model, fieldName).Compile());
-            invoker.Invoke(model, t);
-        });
+                static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
+                    ? list.Select(i => i.Value)
+                    : source.Select(i => i?.ToString());
+            });
+        }
+        #endregion
 
         #region Format
         internal static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
@@ -324,6 +365,7 @@ namespace BootstrapBlazor.Components
         }
         #endregion
 
+        #region GenerateValueChanged
         internal static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
         {
             var cacheKey = $"Lambda-{nameof(GenerateValueChanged)}-{model.GetType().Name}-{fieldName}";
@@ -340,6 +382,14 @@ namespace BootstrapBlazor.Components
 
                 return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
             }
+
+            static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t =>
+            {
+                var key = $"Lambda-{nameof(CreateCallback)}-{model.GetType().Name}-{fieldName}";
+                var invoker = CacheManager.GetOrCreate(key, entry => LambdaExtensions.SetPropertyValueLambda<object, object?>(model, fieldName).Compile());
+                invoker.Invoke(model, t);
+            });
         }
+        #endregion
     }
 }

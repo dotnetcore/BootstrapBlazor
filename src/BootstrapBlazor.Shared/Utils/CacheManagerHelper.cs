@@ -24,19 +24,19 @@ namespace BootstrapBlazor.Shared
 
         public static List<KeyValuePair<string, string>> GetLocalizers(string codeFile, Func<ICacheEntry, List<KeyValuePair<string, string>>> factory)
         {
-            var key = $"Localizer-{CultureInfo.CurrentUICulture.Name}-{codeFile}";
+            var key = $"Localizer-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizers)}-{codeFile}";
             return GetOrCreate(key, entry => factory(entry));
         }
 
         public static string GetCode(string codeFile, string blockTitle, Func<ICacheEntry, string> factory)
         {
-            var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{codeFile}-{blockTitle}";
+            var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetCode)}-{codeFile}-{blockTitle}";
             return GetOrCreate(key, entry => factory(entry));
         }
 
         public static Task<string> GetContentFromFileAsync(string codeFile, Func<ICacheEntry, Task<string>> factory)
         {
-            var key = $"{CultureInfo.CurrentUICulture.Name}-{codeFile}";
+            var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetContentFromFileAsync)}-{codeFile}";
             return GetOrCreateAsync(key, entry => factory(entry));
         }
 
