@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
 using Xunit.Abstractions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UnitTest.Performance
 {
@@ -108,14 +110,11 @@ namespace UnitTest.Performance
             sw.Stop();
             Logger.WriteLine($"Reflection: {sw.Elapsed}");
 
-            var target = Expression.Parameter(typeof(Dummy));
-            Expression expression = Expression.Call(target, mi);
-            var func = Expression.Lambda<Func<Dummy, string>>(expression, target).Compile();
-
+            var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(s1, "Name").Compile();
             sw = Stopwatch.StartNew();
             for (var i = 0; i < count; i++)
             {
-                func.Invoke(s1);
+                invoker.Invoke(s1);
             }
             sw.Stop();
             Logger.WriteLine($"Expression: {sw.Elapsed}");
@@ -127,14 +126,14 @@ namespace UnitTest.Performance
         {
             var test = new Dummy { Name = "Test" };
             var count = 10000000;
-            var obj = LambdaExtensions.GetPropertyValue(test, "Name");
+            var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(test, "Name").Compile();
             var stopWatch = Stopwatch.StartNew();
             for (int i = 0; i < count; i++)
             {
-                LambdaExtensions.GetPropertyValue(test, "Name");
+                invoker(test);
             }
             stopWatch.Stop();
-            Logger.WriteLine($"Expression: {stopWatch.ElapsedMilliseconds}");
+            Logger.WriteLine($"Expression: {stopWatch.Elapsed}");
 
             var objectType = test.GetType();
             var method = objectType.GetProperty("Name")?.GetGetMethod(false);
@@ -145,7 +144,7 @@ namespace UnitTest.Performance
                 proxy(test);
             }
             stopWatch.Stop();
-            Logger.WriteLine($"Delegate: {stopWatch.ElapsedMilliseconds}");
+            Logger.WriteLine($"Delegate: {stopWatch.Elapsed}");
         }
 
         private class Dummy

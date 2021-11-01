@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,8 +35,8 @@ namespace BootstrapBlazor.Components
         //$"Placeholder-{modelType.Name}-{fieldName}";
 
         //$"GetProperty-{modelType.Name}-{fieldName}";
-        //$"Lambda-{nameof(LambdaExtensions.GetPropertyValueLambda)}-{typeof(TModel).Name}-{fieldName}";
-        //$"Lambda-{nameof(LambdaExtensions.SetPropertyValueLambda)}-{typeof(TModel).Name}-{fieldName}";
+        //("Lambda-Get", model, fieldName);
+        //("Lambda-Set", model, fieldName, typeof(TValue));
 
         //$"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).Name}";
         //$"Lambda-{nameof(CreateConverterInvoker)}-{type.Name}";
@@ -252,13 +251,6 @@ namespace BootstrapBlazor.Components
         }
 
         #region Lambda Property
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="modelType"></param>
-        /// <param name="fieldName"></param>
-        /// <param name="propertyInfo"></param>
-        /// <returns></returns>
         internal static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
         {
             var cacheKey = $"GetProperty-{modelType.FullName}-{fieldName}";
@@ -285,7 +277,7 @@ namespace BootstrapBlazor.Components
         internal static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
         {
             var type = model is object o ? o.GetType() : typeof(TModel);
-            var cacheKey = ("Lambda-Get", model, fieldName);
+            var cacheKey = ("Lambda-Get", type, fieldName, typeof(TResult));
             var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -297,7 +289,7 @@ namespace BootstrapBlazor.Components
         internal static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
         {
             var type = model is object o ? o.GetType() : typeof(TModel);
-            var cacheKey = ("Lambda-Set", model, fieldName, typeof(TValue));
+            var cacheKey = ("Lambda-Set", type, fieldName, typeof(TValue));
             var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -325,8 +317,8 @@ namespace BootstrapBlazor.Components
             var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.FullName}";
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
-                var method = typeof(Utility)
-                    .GetMethod(nameof(ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
+                var method = typeof(CacheManager)
+                    .GetMethod(nameof(CacheManager.ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
                     .MakeGenericMethod(type);
 
                 var para_exp = Expression.Parameter(typeof(object));
@@ -336,11 +328,12 @@ namespace BootstrapBlazor.Components
                 entry.SetDynamicAssemblyPolicy(type);
                 return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
 
-                static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
-                    ? list.Select(i => i.Value)
-                    : source.Select(i => i?.ToString());
             });
         }
+
+        private static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
+            ? list.Select(i => i.Value)
+            : source.Select(i => i?.ToString());
         #endregion
 
         #region Format

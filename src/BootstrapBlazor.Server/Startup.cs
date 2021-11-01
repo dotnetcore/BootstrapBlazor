@@ -54,6 +54,7 @@ namespace BootstrapBlazor.Server
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
+            services.AddLogging();
             services.AddCors();
             services.AddResponseCompression();
 
