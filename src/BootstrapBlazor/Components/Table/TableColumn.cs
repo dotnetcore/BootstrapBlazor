@@ -5,10 +5,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -282,9 +280,8 @@ namespace BootstrapBlazor.Components
             get => Template == null ? null : new RenderFragment<object>(context => builder =>
             {
                 // 此处 context 为行数据
-                // 将绑定字段值放入上下文中
-                var invoker = GetPropertyCache.GetOrAdd((context.GetType(), GetFieldName()), key => LambdaExtensions.GetPropertyValueLambda<object, TType>(context, key.FieldName).Compile());
-                var value = invoker(context);
+                var fieldName = GetFieldName();
+                var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
                 builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
             });
             set
@@ -318,7 +315,5 @@ namespace BootstrapBlazor.Components
         /// 获取绑定字段信息方法
         /// </summary>
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? "";
-
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, TType>> GetPropertyCache = new();
     }
 }

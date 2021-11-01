@@ -6,8 +6,6 @@ using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -20,8 +18,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public partial class TablesFilter
     {
-        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>>> SortLambdaCache = new();
-
         private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
         [NotNull]
@@ -58,7 +54,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             if (!string.IsNullOrEmpty(options.SortName))
             {
                 // 外部未进行排序，内部自动进行排序处理
-                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => LambdaExtensions.GetSortLambda<Foo>().Compile());
+                var invoker = Foo.GetNameSortFunc();
                 items = invoker(items, options.SortName, options.SortOrder);
                 isSorted = true;
             }

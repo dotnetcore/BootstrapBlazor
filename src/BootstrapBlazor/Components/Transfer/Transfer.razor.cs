@@ -5,12 +5,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -245,50 +243,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected override string? FormatValueAsString(TValue value) => value == null
             ? null
-            : ConvertValueToString(value);
-
-        private string? ConvertValueToString(TValue value)
-        {
-            var ret = "";
-            var typeValue = typeof(TValue);
-            if (typeValue == typeof(string))
-            {
-                ret = value!.ToString();
-            }
-            else if (typeValue.IsGenericType || typeValue.IsArray)
-            {
-                var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
-                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
-                var mi = instance.GetType().GetMethod("AddRange");
-                if (mi != null)
-                {
-                    mi.Invoke(instance, new object[] { value! });
-                }
-
-                var invoker = ConverterCache.GetOrAdd(t, key => CreateConverterInvoker(key));
-                var v = invoker.Invoke(instance);
-                ret = string.Join(",", v);
-            }
-            return ret;
-        }
-
-        private static ConcurrentDictionary<Type, Func<object, IEnumerable<string?>>> ConverterCache { get; set; } = new();
-
-        private Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
-        {
-            var method = this.GetType()
-                .GetMethod(nameof(ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(type);
-
-            var para_exp = Expression.Parameter(typeof(object));
-            var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
-            var body = Expression.Call(method, convert);
-            return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
-        }
-
-        private static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => typeof(TSource) == typeof(SelectedItem)
-            ? source.Select(o => (o as SelectedItem)!.Value)
-            : source.Select(o => o?.ToString());
+            : Utility.ConvertValueToString(value);
 
         /// <summary>
         /// 选项状态改变时回调此方法

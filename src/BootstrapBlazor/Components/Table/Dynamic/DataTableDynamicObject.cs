@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Data;
-using System.Linq;
 
 namespace BootstrapBlazor.Components
 {
@@ -29,7 +28,7 @@ namespace BootstrapBlazor.Components
             {
                 ret = Row[propertyName];
             }
-            return ret ?? LambdaExtensions.GetPropertyValue(this, propertyName);
+            return ret ?? Utility.GetPropertyValue(this, propertyName);
         }
 
         /// <summary>

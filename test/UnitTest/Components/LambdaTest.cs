@@ -45,19 +45,19 @@ namespace UnitTest.Components
         public void GetPropertyValue_Test()
         {
             var dog = new Dog() { Foo = "test" };
-            var v1 = LambdaExtensions.GetPropertyValue(dog, nameof(dog.Foo));
+            var v1 = Utility.GetPropertyValue(dog, nameof(dog.Foo));
             Assert.Equal(dog.Foo, v1);
 
             var cat = new Cat() { Foo = 1 };
-            var v2 = LambdaExtensions.GetPropertyValue(cat, nameof(cat.Foo));
+            var v2 = Utility.GetPropertyValue(cat, nameof(cat.Foo));
             Assert.Equal(cat.Foo, v2);
 
             var fish = new Fish() { Foo = "test" };
-            var v3 = LambdaExtensions.GetPropertyValue(fish, nameof(fish.Foo));
+            var v3 = Utility.GetPropertyValue(fish, nameof(fish.Foo));
             Assert.Equal(fish.Foo, v3);
 
             var persian = new Persian() { Foo = 1 };
-            var v4 = LambdaExtensions.GetPropertyValue(persian, nameof(persian.Foo));
+            var v4 = Utility.GetPropertyValue(persian, nameof(persian.Foo));
             Assert.Equal(persian.Foo, v4);
         }
 

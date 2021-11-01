@@ -221,7 +221,7 @@ namespace BootstrapBlazor.Components
                             };
 
                             // 设置其关联属性字段
-                            var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+                            var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
                             Validate(validator, propertyValidateContext, messages, pi, propertyValue);
                         }
@@ -250,7 +250,7 @@ namespace BootstrapBlazor.Components
                     var pi = fieldIdentifier.Model.GetType().GetProperties().Where(p => p.Name == fieldName).FirstOrDefault();
                     if (pi != null)
                     {
-                        var propertyValue = LambdaExtensions.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+                        var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
                         Validate(validator, context, results, pi, propertyValue);
                     }
 
@@ -359,7 +359,7 @@ namespace BootstrapBlazor.Components
             foreach (var pi in properties)
             {
                 // 设置其关联属性字段
-                var propertyValue = LambdaExtensions.GetPropertyValue(context.ObjectInstance, pi.Name);
+                var propertyValue = Utility.GetPropertyValue(context.ObjectInstance, pi.Name);
 
                 // 检查当前值是否为 Class 不是 string 不是集合
                 if (propertyValue != null && propertyValue is not string

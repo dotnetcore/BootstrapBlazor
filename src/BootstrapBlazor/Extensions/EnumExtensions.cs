@@ -3,10 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -20,8 +17,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public static class EnumExtensions
     {
-        private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new ConcurrentDictionary<(string, Type, string), string>();
-
         /// <summary>
         /// 获取 DescriptionAttribute 标签方法
         /// </summary>
@@ -63,51 +58,12 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         internal static string ToEnumDisplayName(this Type? type, string? fieldName)
         {
-            string? dn = null;
+            string? displayName = null;
             if (type != null && !string.IsNullOrEmpty(fieldName))
             {
-                var t = Nullable.GetUnderlyingType(type) ?? type;
-
-                var cacheKey = (CultureInfoName: CultureInfo.CurrentUICulture.Name, Type: t, FieldName: fieldName);
-                if (!DisplayNameCache.TryGetValue(cacheKey, out dn))
-                {
-                    // search in Localization
-                    var localizer = JsonStringLocalizerFactory.CreateLocalizer(t);
-                    var stringLocalizer = localizer?[fieldName];
-                    if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
-                    {
-                        dn = stringLocalizer.Value;
-                    }
-                    else
-                    {
-                        var field = t.GetField(fieldName);
-                        dn = field?.GetCustomAttribute<DisplayAttribute>(true)?.Name
-                            ?? field?.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
-
-                        // search in Localization again
-                        if (!string.IsNullOrEmpty(dn))
-                        {
-                            var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-                            if (resxType?.Value.ResourceManagerStringLocalizerType != null)
-                            {
-                                localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                                stringLocalizer = localizer?[dn];
-                                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
-                                {
-                                    dn = stringLocalizer.Value;
-                                }
-                            }
-                        }
-                    }
-
-                    // add display name into cache
-                    if (!string.IsNullOrEmpty(dn) && !type.Assembly.IsDynamic)
-                    {
-                        DisplayNameCache.GetOrAdd(cacheKey, key => dn);
-                    }
-                }
+                displayName = CacheManager.GetEnumDisplayName(type, fieldName);
             }
-            return dn ?? fieldName ?? string.Empty;
+            return displayName ?? fieldName ?? string.Empty;
         }
 
         /// <summary>

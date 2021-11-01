@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
@@ -20,7 +20,7 @@
     <PackageReference Include="BootstrapBlazor.Chart" Version="5.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="5.*" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="5.*" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">

@@ -38,10 +38,6 @@ namespace BootstrapBlazor.Shared.Pages
             Items = Foo.GenerateFoo(LocalizerFoo).Select(i => Dummy.ConvertFromFoo(i));
         }
 
-        private ConcurrentDictionary<int, string> TitleCache { get; } = new();
-
-        private string GetTitle(int id) => TitleCache.GetOrAdd(id, key => Foo.GetTitle());
-
         private Task OnSelectedItemChanged(Dummy dummy)
         {
             Model = Utility.Clone(dummy);

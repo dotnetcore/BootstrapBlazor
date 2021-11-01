@@ -3,7 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Pages
 {
@@ -12,6 +15,12 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     public sealed partial class Footers
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Inject]
+        [NotNull]
+        public IStringLocalizer<Footers>? Localizer { get; set; }
 
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {

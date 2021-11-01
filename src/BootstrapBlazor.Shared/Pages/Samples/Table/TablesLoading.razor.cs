@@ -7,7 +7,6 @@ using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -20,8 +19,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
     /// </summary>
     public partial class TablesLoading
     {
-        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>>> SortLambdaCache = new();
-
         [Inject]
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
@@ -140,7 +137,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             var isSorted = false;
             if (!string.IsNullOrEmpty(options.SortName))
             {
-                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => LambdaExtensions.GetSortLambda<Foo>().Compile());
+                var invoker = Foo.GetNameSortFunc();
                 items = invoker(items, options.SortName, options.SortOrder);
                 isSorted = true;
             }

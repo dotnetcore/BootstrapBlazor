@@ -48,11 +48,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private IWebHostEnvironment WebHost { get; set; }
 
-        /// <summary>
-        /// 获得/设置 IJSRuntime 实例
-        /// </summary>
-        private IMemoryCache MemoryCache { get; set; }
-
         private IEnumerable<IConfigurationSection> Sections { get; set; }
 
         /// <summary>
@@ -60,24 +55,22 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="client"></param>
         /// <param name="options"></param>
-        /// <param name="memoryCache"></param>
         /// <param name="host"></param>
         /// <param name="option"></param>
-        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options, IMemoryCache memoryCache, IWebHostEnvironment host, IOptions<JsonLocalizationOptions> option)
+        public ExampleService(HttpClient client, IOptions<WebsiteOptions> options, IWebHostEnvironment host, IOptions<JsonLocalizationOptions> option)
         {
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);
             Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
 
-            MemoryCache = memoryCache;
             WebHost = host;
             ServerUrl = options.Value.ServerUrl;
 
-            Sections = JsonHelper.GetConfigurationSections(option.Value);
+            Sections = JsonStringConfigHelper.GetJsonStringConfig(option.Value);
         }
 
         /// <summary>
-        /// 获得组件版本号方法
+        /// 获得示例源码方法
         /// </summary>
         /// <returns></returns>
         public async Task<string> GetCodeAsync(string codeFile, string? blockTitle)
@@ -90,7 +83,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 if (blockTitle != null)
                 {
                     // 生成资源文件
-                    content = MemoryCache.GetOrCreate($"Snippet-{CultureInfo.CurrentUICulture.Name}-{codeFile}-{blockTitle}", entry =>
+                    content = CacheManagerHelper.GetCode(codeFile, blockTitle, entry =>
                     {
                         payload = Filter(codeFile, payload, blockTitle);
 
@@ -107,7 +100,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return content;
         }
 
-        private Task<string> GetContentFromFile(string codeFile) => MemoryCache.GetOrCreateAsync($"{CultureInfo.CurrentUICulture.Name}-{codeFile}", async item =>
+        private Task<string> GetContentFromFile(string codeFile) => CacheManagerHelper.GetContentFromFileAsync(codeFile, async entry =>
         {
             var payload = "";
             if (WebHost.IsDevelopment())
@@ -142,7 +135,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             return payload;
 
-            List<KeyValuePair<string, string>> GetLocalizers() => MemoryCache.GetOrCreate($"Localizer-{CultureInfo.CurrentUICulture.Name}-{codeFile}", entry =>
+            List<KeyValuePair<string, string>> GetLocalizers() => CacheManagerHelper.GetLocalizers(codeFile, entry =>
             {
                 var typeName = Path.GetFileNameWithoutExtension(codeFile);
                 return Sections.FirstOrDefault(s => $"BootstrapBlazor.Shared.Pages.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?.GetChildren().SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) }).ToList() ?? new List<KeyValuePair<string, string>>();

@@ -77,7 +77,7 @@ namespace BootstrapBlazor.Shared.Components
 
             if (ChildContent == null)
             {
-                await ReloadExampleCodeAsync();
+                await GetCodeAsync();
             }
             else
             {
@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Shared.Components
             }
         }
 
-        private async Task ReloadExampleCodeAsync()
+        private async Task GetCodeAsync()
         {
             if (!string.IsNullOrEmpty(CodeFile))
             {

@@ -4,9 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -408,7 +406,7 @@ namespace BootstrapBlazor.Components
                     // 外部未处理排序，内部自行排序
                     if (!IsSorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
                     {
-                        var invoker = SortLambdaCache.GetOrAdd(typeof(TItem), key => LambdaExtensions.GetSortLambda<TItem>().Compile());
+                        var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, SortName, SortOrder);
                     }
                 }
@@ -455,8 +453,6 @@ namespace BootstrapBlazor.Components
                 parentNode.Children.Add(node);
             }
         }
-
-        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> SortLambdaCache = new();
 
         private async Task ClickEditButton(TItem item)
         {

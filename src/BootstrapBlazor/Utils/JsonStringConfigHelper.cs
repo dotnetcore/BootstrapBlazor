@@ -17,14 +17,14 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public static class JsonHelper
+    public static class JsonStringConfigHelper
     {
         /// <summary>
-        /// 
+        /// 通过系统 JsonLocalizationOptions 获取当前 Json 格式资源配置集合
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static IEnumerable<IConfigurationSection> GetConfigurationSections(JsonLocalizationOptions option)
+        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(JsonLocalizationOptions option)
         {
             var cultureName = CultureInfo.CurrentUICulture.Name;
             var langHandler = GetLangHandlers(cultureName, option);
@@ -62,7 +62,7 @@ namespace BootstrapBlazor.Components
         private static List<Stream> GetLangHandlers(string cultureInfoName, JsonLocalizationOptions option)
         {
             // 获取程序集中的资源文件
-            var langHandler = GetResourceStream(typeof(JsonHelper).Assembly, option, cultureInfoName);
+            var langHandler = GetResourceStream(typeof(JsonStringConfigHelper).Assembly, option, cultureInfoName);
 
             // 获取外部设置程序集中的资源文件
             if (option.AdditionalJsonAssemblies != null)

@@ -44,8 +44,6 @@ namespace BootstrapBlazor.Shared.Pages.Table
         [NotNull]
         private List<Foo>? Items { get; set; }
 
-        private static readonly ConcurrentDictionary<Type, Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>>> SortLambdaCache = new();
-
         private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
         {
             IEnumerable<Foo> items = Items;
@@ -62,7 +60,7 @@ namespace BootstrapBlazor.Shared.Pages.Table
             var isSorted = false;
             if (!string.IsNullOrEmpty(options.SortName))
             {
-                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => LambdaExtensions.GetSortLambda<Foo>().Compile());
+                var invoker = Foo.GetNameSortFunc();
                 items = invoker(items, options.SortName, options.SortOrder);
                 isSorted = true;
             }
@@ -110,9 +108,5 @@ namespace BootstrapBlazor.Shared.Pages.Table
             Trace.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
             return Task.FromResult(true);
         }
-
-        private ConcurrentDictionary<int, string> TitleCache { get; } = new();
-
-        private string GetTitle(int id) => TitleCache.GetOrAdd(id, key => Foo.GetTitle());
     }
 }

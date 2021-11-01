@@ -146,7 +146,7 @@ namespace BootstrapBlazor.Shared.Components
         /// 通过 Id 获取 Title
         /// </summary>
         /// <returns></returns>
-        public static string GetTitle() => random.Next(1, 80) switch
+        private static string GetTitle() => random.Next(1, 80) switch
         {
             >= 1 and < 10 => "Clerk",
             >= 10 and < 50 => "Engineer",
@@ -154,6 +154,19 @@ namespace BootstrapBlazor.Shared.Components
             >= 60 and < 70 => "Chief",
             _ => "General Manager"
         };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static string GetTitle(int id) => CacheManagerHelper.GetTitle(id, key => GetTitle());
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>> GetNameSortFunc() => Utility.GetSortFunc<Foo>();
     }
 
     /// <summary>

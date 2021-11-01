@@ -23,7 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddVersionManager(this IServiceCollection services)
         {
-            services.AddTransient<NugetVersionService>();
+            services.AddScoped<NugetVersionService>();
             return services;
         }
     }
@@ -75,7 +75,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
                     var package = await Client.GetFromJsonAsync<NugetPackage>(url);
-                    if (package != null) Version = package.GetVersion();
+                    if (package != null)
+                    {
+                        Version = package.GetVersion();
+                    }
                 }
                 catch { }
             }

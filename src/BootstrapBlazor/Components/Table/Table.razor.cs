@@ -3,11 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -390,8 +388,7 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                var invoker = GetPropertyCache.GetOrAdd((item.GetType(), HasChildrenColumnName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
-                var v = invoker.Invoke(item);
+                var v = Utility.GetPropertyValue<TItem, object?>(item, HasChildrenColumnName);
                 if (v is bool b)
                 {
                     ret = b;
@@ -953,8 +950,7 @@ namespace BootstrapBlazor.Components
             object? ret = null;
             if (item != null)
             {
-                var invoker = GetPropertyCache.GetOrAdd((item.GetType(), fieldName), key => LambdaExtensions.GetPropertyValueLambda<TItem, object>(item, key.PropertyName).Compile());
-                ret = invoker(item);
+                ret = Utility.GetPropertyValue<TItem, object?>(item, fieldName);
 
                 if (ret != null)
                 {
@@ -967,8 +963,6 @@ namespace BootstrapBlazor.Components
             }
             return ret;
         }
-
-        private static ConcurrentDictionary<(Type Type, string PropertyName), Func<TItem, object?>> GetPropertyCache { get; } = new();
         #endregion
 
         private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.IsEditable(changedType)

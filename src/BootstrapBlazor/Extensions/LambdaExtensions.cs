@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -332,19 +331,19 @@ namespace System.Linq
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="item"></param>
-        /// <param name="name"></param>
+        /// <param name="propertyName"></param>
         /// <returns></returns>
-        public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel item, string name)
+        public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel item, string propertyName)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var p = item.GetType().GetProperties().FirstOrDefault(p => p.Name == name);
+            var p = item.GetType().GetProperties().FirstOrDefault(p => p.Name == propertyName);
             if (p == null)
             {
-                throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {name} 属性，无法获取其值");
+                throw new InvalidOperationException($"类型 {item.GetType().Name} 未找到 {propertyName} 属性，无法获取其值");
             }
 
             var param_p1 = Expression.Parameter(typeof(TModel));
@@ -358,19 +357,19 @@ namespace System.Linq
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TValue"></typeparam>
         /// <param name="model"></param>
-        /// <param name="name"></param>
+        /// <param name="propertyName"></param>
         /// <returns></returns>
-        public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string name)
+        public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var p = model.GetType().GetProperties().FirstOrDefault(p => p.Name == name);
+            var p = model.GetType().GetProperties().FirstOrDefault(p => p.Name == propertyName);
             if (p == null)
             {
-                throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {name} 属性，无法设置其值");
+                throw new InvalidOperationException($"类型 {typeof(TModel).Name} 未找到 {propertyName} 属性，无法设置其值");
             }
 
             var param_p1 = Expression.Parameter(typeof(TModel));
@@ -380,37 +379,6 @@ namespace System.Linq
             var mi = p.GetSetMethod(true);
             var body = Expression.Call(Expression.Convert(param_p1, model.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
             return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
-        }
-
-        private static readonly ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object?>> PropertyValueInvokerCache = new();
-
-        /// <summary>
-        /// 获取 指定对象的属性值
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
-        public static object? GetPropertyValue(object model, string fieldName)
-        {
-            return model.GetType().Assembly.IsDynamic ? ReflectionInvoke() : LambdaInvoke();
-
-            object? ReflectionInvoke()
-            {
-                object? ret = null;
-                var propertyInfo = model.GetType().GetProperties().FirstOrDefault(i => i.Name == fieldName);
-                if (propertyInfo != null)
-                {
-                    ret = propertyInfo.GetValue(model);
-                }
-                return ret;
-            }
-
-            object? LambdaInvoke()
-            {
-                var cacheKey = (model.GetType(), fieldName);
-                var invoker = PropertyValueInvokerCache.GetOrAdd(cacheKey, key => GetPropertyValueLambda<object, object?>(model, key.FieldName).Compile());
-                return invoker.Invoke(model);
-            }
         }
 
         #region TryParse

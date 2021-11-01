@@ -2,19 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -27,17 +20,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public static class Utility
     {
-        private static ConcurrentDictionary<(string CultureInfoName, Type ModelType, string FieldName), string> DisplayNameCache { get; } = new();
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), PropertyInfo> PropertyInfoCache { get; } = new();
-
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), string> PlaceHolderCache { get; } = new();
-
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), Func<object, object?>> GetPropertyValueLambdaCache { get; } = new();
-
-        private static ConcurrentDictionary<(Type ModelType, string FieldName), Action<object, object?>> SetPropertyValueLambdaCache { get; } = new();
-
-        private static ConcurrentQueue<(Type ModelType, DateTime CacheTime)> DynamicModelCacheQueue { get; } = new();
-
         /// <summary>
         /// 获取资源文件中 DisplayAttribute/DisplayNameAttribute 标签名称方法
         /// </summary>
@@ -52,51 +34,58 @@ namespace BootstrapBlazor.Components
         /// <param name="modelType">模型类型</param>
         /// <param name="fieldName">字段名称</param>
         /// <returns></returns>
-        public static string GetDisplayName(Type modelType, string fieldName)
+        public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(modelType, fieldName);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => CacheManager.GetPropertyValue<TModel, TResult>(model, fieldName);
+
+        /// <summary>
+        /// 获取 指定对象的属性值
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        public static object? GetPropertyValue(object model, string fieldName)
         {
-            var cacheKey = (CultureInfoName: CultureInfo.CurrentUICulture.Name, Type: modelType, FieldName: fieldName);
-            if (!DisplayNameCache.TryGetValue(cacheKey, out var dn))
+            return model.GetType().Assembly.IsDynamic ? ReflectionInvoke() : LambdaInvoke();
+
+            object? ReflectionInvoke()
             {
-                // 显示名称为空时通过资源文件查找 FieldName 项
-                var localizer = modelType.Assembly.IsDynamic ? null : JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                var stringLocalizer = localizer?[fieldName];
-                if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
+                object? ret = null;
+                var propertyInfo = model.GetType().GetProperties().FirstOrDefault(i => i.Name == fieldName);
+                if (propertyInfo != null)
                 {
-                    dn = stringLocalizer.Value;
+                    ret = propertyInfo.GetValue(model);
                 }
-                else if (TryGetProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
-                {
-                    // 回退查找 Display 标签
-                    dn = propertyInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
-                        ?? propertyInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName;
-
-                    // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
-                    if (!string.IsNullOrEmpty(dn) && !modelType.Assembly.IsDynamic)
-                    {
-                        var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-                        if (resxType?.Value.ResourceManagerStringLocalizerType != null)
-                        {
-                            localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                            if (localizer != null)
-                            {
-                                stringLocalizer = localizer[dn];
-                                if (!stringLocalizer.ResourceNotFound)
-                                {
-                                    dn = stringLocalizer.Value;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // add display name into cache
-                if (!string.IsNullOrEmpty(dn))
-                {
-                    DisplayNameCache.GetOrAdd(cacheKey, key => dn);
-                }
+                return ret;
             }
-            return dn ?? cacheKey.FieldName;
+
+            object? LambdaInvoke() => GetPropertyValue<object, object?>(model, fieldName);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value) => CacheManager.SetPropertyValue(model, fieldName, value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>() => CacheManager.GetSortFunc<T>();
 
         /// <summary>
         /// 获取 PlaceHolder 方法
@@ -112,93 +101,18 @@ namespace BootstrapBlazor.Components
         /// <param name="modelType">模型类型</param>
         /// <param name="fieldName">字段名称</param>
         /// <returns></returns>
-        public static string? GetPlaceHolder(Type modelType, string fieldName)
-        {
-            string? placeHolder = null;
-            if (!modelType.Assembly.IsDynamic)
-            {
-                var cacheKey = (Type: modelType, FieldName: fieldName);
-                if (!PlaceHolderCache.TryGetValue(cacheKey, out placeHolder))
-                {
-                    // 通过资源文件查找 FieldName 项
-                    var localizer = JsonStringLocalizerFactory.CreateLocalizer(cacheKey.Type);
-                    var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
-                    if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
-                    {
-                        placeHolder = stringLocalizer.Value;
-                    }
-                    else if (Utility.TryGetProperty(cacheKey.Type, cacheKey.FieldName, out var propertyInfo))
-                    {
-                        var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
-                        if (placeHolderAttribute != null)
-                        {
-                            placeHolder = placeHolderAttribute.Text;
-                        }
-                        if (!string.IsNullOrEmpty(placeHolder))
-                        {
-                            // add display name into cache
-                            PlaceHolderCache.GetOrAdd(cacheKey, key => placeHolder);
-                        }
-                    }
-                }
-            }
-            return placeHolder;
-        }
+        public static string? GetPlaceHolder(Type modelType, string fieldName) => modelType.Assembly.IsDynamic
+            ? null
+            : CacheManager.GetPlaceholder(modelType, fieldName);
 
-        private static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
-        {
-            var cacheKey = (ModelType: modelType, FieldName: fieldName);
-            if (!PropertyInfoCache.TryGetValue(cacheKey, out propertyInfo))
-            {
-                var props = cacheKey.ModelType.GetProperties();
-
-                // 支持 MetadataType
-                var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
-                if (metadataType == null)
-                {
-                    propertyInfo = props.Where(x => x.Name == cacheKey.FieldName).FirstOrDefault();
-                }
-                else
-                {
-                    propertyInfo = props.Concat(metadataType.MetadataClassType.GetProperties()).Where(x => x.Name == cacheKey.FieldName).FirstOrDefault();
-                }
-
-                if (!modelType.Assembly.IsDynamic && propertyInfo != null)
-                {
-                    PropertyInfoCache[cacheKey] = propertyInfo;
-                }
-            }
-            return propertyInfo != null;
-        }
-
-        private static bool _clearing;
-        private static async Task ClearCache(int interval = 10)
-        {
-            if (!_clearing)
-            {
-                _clearing = true;
-                await Task.Delay(1000 * 60 * interval);
-                while (DynamicModelCacheQueue.TryDequeue(out var cache))
-                {
-                    if (cache.CacheTime.AddMinutes(interval) > DateTime.Now)
-                    {
-
-                        break;
-                    }
-
-                    // clear
-                    var key = cache.ModelType;
-                    foreach (var kv in PropertyInfoCache)
-                    {
-                        if (kv.Key.ModelType == key)
-                        {
-                            PropertyInfoCache.TryRemove(kv);
-                        }
-                    }
-                }
-                _clearing = false;
-            }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="propertyInfo"></param>
+        /// <returns></returns>
+        public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo) => CacheManager.TryGetProperty(modelType, fieldName, out propertyInfo);
 
         /// <summary>
         /// 重置对象属性值到默认值方法
@@ -329,7 +243,7 @@ namespace BootstrapBlazor.Components
             var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
 
             var fieldValue = GenerateValue(model, fieldName);
-            var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
+            var fieldValueChanged = CacheManager.GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
 
             var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
@@ -380,7 +294,7 @@ namespace BootstrapBlazor.Components
             var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
 
             var fieldValue = GenerateValue(model, fieldName);
-            var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
+            var fieldValueChanged = CacheManager.GenerateValueChanged(component, model, fieldName, fieldType);
             var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
             var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0);
             builder.OpenComponent(0, componentType);
@@ -435,22 +349,7 @@ namespace BootstrapBlazor.Components
             GroupName = d.GroupName
         }).ToList();
 
-        private static object? GenerateValue(object model, string fieldName)
-        {
-            // FieldValue
-            var valueInvoker = GetPropertyValueLambdaCache.GetOrAdd(
-                key: (model.GetType(), fieldName),
-                valueFactory: key => LambdaExtensions.GetPropertyValueLambda<object, object?>(model, key.FieldName).Compile()
-            );
-            return valueInvoker.Invoke(model);
-        }
-
-        private static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
-        {
-            // ValueChanged
-            var valueChangedInvoker = CreateLambda(fieldType).Compile();
-            return valueChangedInvoker(component, model, fieldName);
-        }
+        private static object? GenerateValue(object model, string fieldName) => Utility.GetPropertyValue<object, object?>(model, fieldName);
 
         private static object GenerateValueExpression(object model, string fieldName, Type fieldType)
         {
@@ -576,31 +475,6 @@ namespace BootstrapBlazor.Components
             return ret;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TType"></typeparam>
-        /// <param name="component"></param>
-        /// <param name="model"></param>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
-        private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t =>
-        {
-            var invoker = SetPropertyValueLambdaCache.GetOrAdd((model.GetType(), fieldName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(model, key.FieldName).Compile());
-            invoker.Invoke(model, t);
-        });
-
-        private static Expression<Func<ComponentBase, object, string, object>> CreateLambda(Type fieldType)
-        {
-            var exp_p1 = Expression.Parameter(typeof(ComponentBase));
-            var exp_p2 = Expression.Parameter(typeof(object));
-            var exp_p3 = Expression.Parameter(typeof(string));
-            var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
-            var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
-
-            return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
-        }
-
         private static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
 
         /// <summary>
@@ -621,8 +495,6 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Format
-        private static readonly ConcurrentDictionary<Type, Func<object, string, IFormatProvider?, string>> FormatLambdaCache = new();
-
         /// <summary>
         /// 任意类型格式化方法
         /// </summary>
@@ -635,48 +507,11 @@ namespace BootstrapBlazor.Components
             var ret = string.Empty;
             if (source != null)
             {
-                var invoker = FormatLambdaCache.GetOrAdd(source.GetType(), key => GetFormatLambda(source).Compile());
+                var invoker = CacheManager.GetFormatInvoker(source.GetType());
                 ret = invoker(source, format, provider);
             }
             return ret;
         }
-
-        /// <summary>
-        /// 获取 Format 方法的 Lambda 表达式
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        private static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(object source)
-        {
-            var type = source.GetType();
-            var exp_p1 = Expression.Parameter(typeof(object));
-            var exp_p2 = Expression.Parameter(typeof(string));
-            var exp_p3 = Expression.Parameter(typeof(IFormatProvider));
-            Expression? body = null;
-            if (type.IsSubclassOf(typeof(IFormattable)))
-            {
-                // 通过 IFormattable 接口格式化
-                var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
-                if (mi != null)
-                {
-                    body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2, exp_p3);
-                }
-            }
-            else
-            {
-                // 通过 ToString(string format) 方法格式化
-                var mi = type.GetMethod("ToString", new Type[] { typeof(string) });
-                if (mi != null)
-                {
-                    body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2);
-                }
-            }
-            return body == null
-                ? (s, f, provider) => s.ToString() ?? ""
-                : Expression.Lambda<Func<object, string, IFormatProvider?, string>>(body, exp_p1, exp_p2, exp_p3);
-        }
-
-        private static readonly ConcurrentDictionary<Type, Func<object, IFormatProvider?, string>> FormatProviderLambdaCache = new();
 
         /// <summary>
         /// 任意类型格式化方法
@@ -689,37 +524,10 @@ namespace BootstrapBlazor.Components
             var ret = string.Empty;
             if (source != null)
             {
-                var invoker = FormatProviderLambdaCache.GetOrAdd(source.GetType(), key => GetFormatProviderLambda(source).Compile());
+                var invoker = CacheManager.GetFormatProviderInvoker(source.GetType());
                 ret = invoker(source, provider);
             }
             return ret;
-        }
-
-        /// <summary>
-        /// 获取 Format 方法的 Lambda 表达式
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        private static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(object source)
-        {
-            var type = source.GetType();
-            var exp_p1 = Expression.Parameter(typeof(object));
-            var exp_p2 = Expression.Parameter(typeof(IFormatProvider));
-            Expression? body;
-
-            var mi = type.GetMethod("ToString", new Type[] { typeof(IFormatProvider) });
-            if (mi != null)
-            {
-                // 通过 ToString(IFormatProvider? provider) 接口格式化
-                body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2);
-            }
-            else
-            {
-                // 通过 ToString() 方法格式化
-                mi = type.GetMethod("ToString", new Type[] { typeof(string) });
-                body = Expression.Call(Expression.Convert(exp_p1, type), mi!);
-            }
-            return Expression.Lambda<Func<object, IFormatProvider?, string>>(body, exp_p1, exp_p2);
         }
         #endregion
 
@@ -735,6 +543,37 @@ namespace BootstrapBlazor.Components
                 i.Parent = parentItem;
                 i.Items.CascadingTree(i);
             });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string? ConvertValueToString<TValue>(TValue value)
+        {
+            var ret = "";
+            var typeValue = typeof(TValue);
+            if (typeValue == typeof(string))
+            {
+                ret = value!.ToString();
+            }
+            else if (typeValue.IsGenericType || typeValue.IsArray)
+            {
+                var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
+                var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t))!;
+                var mi = instance.GetType().GetMethod("AddRange");
+                if (mi != null)
+                {
+                    mi.Invoke(instance, new object[] { value! });
+                }
+
+                var invoker = CacheManager.CreateConverterInvoker(t);
+                var v = invoker.Invoke(instance);
+                ret = string.Join(",", v);
+            }
+            return ret;
         }
     }
 }

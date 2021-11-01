@@ -127,9 +127,7 @@ namespace BootstrapBlazor.Components
                     {
                         if (!row.IsNull(col))
                         {
-                            var invoker = SetPropertyCache.GetOrAdd((d.GetType(), col.ColumnName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(d, key.PropertyName).Compile());
-                            var v = row[col];
-                            invoker.Invoke(d, v);
+                            Utility.SetPropertyValue<object, object?>(d, col.ColumnName, row[col]);
                         }
                     }
 
@@ -141,8 +139,6 @@ namespace BootstrapBlazor.Components
             }
             return ret;
         }
-
-        private ConcurrentDictionary<(Type ModelType, string PropertyName), Action<object, object?>> SetPropertyCache { get; } = new();
 
         /// <summary>
         /// GetItems 方法
@@ -212,8 +208,7 @@ namespace BootstrapBlazor.Components
                 {
                     if (col.DefaultValue != DBNull.Value)
                     {
-                        var invoker = SetPropertyCache.GetOrAdd((dynamicObject.GetType(), col.ColumnName), key => LambdaExtensions.SetPropertyValueLambda<object, object?>(dynamicObject, key.PropertyName).Compile());
-                        invoker.Invoke(dynamicObject, col.DefaultValue);
+                        Utility.SetPropertyValue<object, object?>(dynamicObject, col.ColumnName, col.DefaultValue);
                     }
                 }
                 dynamicObject.Row = row;
