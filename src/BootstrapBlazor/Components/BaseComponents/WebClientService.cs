@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
@@ -19,11 +18,6 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 操作日志主键ID
         /// </summary>
         public string? Id { get; private set; }
-
-        /// <summary>
-        /// 获得/设置 用户名称
-        /// </summary>
-        public string? UserName { get; private set; }
 
         /// <summary>
         /// 获得/设置 客户端IP
@@ -79,8 +73,6 @@ namespace BootstrapBlazor.Components
 
         private readonly NavigationManager _navigation;
 
-        private readonly AuthenticationStateProvider _authenticationStateProvider;
-
         private DotNetObjectReference<WebClientService>? _objRef;
 
         /// <summary>
@@ -88,8 +80,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="runtime"></param>
         /// <param name="navigation"></param>
-        /// <param name="authenticationStateProvider"></param>
-        public WebClientService(IJSRuntime runtime, NavigationManager navigation, AuthenticationStateProvider authenticationStateProvider) => (_runtime, _navigation, _authenticationStateProvider) = (runtime, navigation, authenticationStateProvider);
+        public WebClientService(IJSRuntime runtime, NavigationManager navigation) => (_runtime, _navigation) = (runtime, navigation);
 
         /// <summary>
         /// 
@@ -101,9 +92,7 @@ namespace BootstrapBlazor.Components
             await _runtime.InvokeVoidAsync(identifier: "$.webClient", _objRef, "ip.axd", nameof(SetData));
             RequestUrl = _navigation.Uri;
 
-            // UserName
-            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            UserName = (state.User.Identity?.IsAuthenticated ?? false) ? state.User.Identity.Name : null;
+            // 等待 SetData 方法执行完毕
             ReturnTask = new TaskCompletionSource<bool>();
             return await ReturnTask.Task;
         }

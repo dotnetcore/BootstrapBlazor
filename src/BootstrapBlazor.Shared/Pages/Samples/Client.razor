@@ -50,8 +50,8 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
             <div class="col-12 col-sm-6">
                 <Display Value="ClientService.Id" DisplayText="连接 ID" ShowLabel="true" />
             </div>
-            <div class="col-12 col-sm-6">
-                <Display Value="GetUserName()" DisplayText="当前用户" ShowLabel="true" />
+            <div class="col-12">
+                <Display Value="ClientService.RequestUrl" DisplayText="请求地址" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
                 <Display Value="ClientService.Ip" DisplayText="IP 地址" ShowLabel="true" />
@@ -70,9 +70,6 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
             </div>
             <div class="col-12 col-sm-6">
                 <Display Value="ClientService.Language" DisplayText="语言" ShowLabel="true" />
-            </div>
-            <div class="col-12">
-                <Display Value="ClientService.RequestUrl" DisplayText="请求地址" ShowLabel="true" />
             </div>
             <div class="col-12">
                 <BootstrapInput Value="ClientService.UserAgent" DisplayText="UserAgent" ShowLabel="true" readonly />

@@ -34,7 +34,5 @@ namespace BootstrapBlazor.Shared.Pages
                 StateHasChanged();
             }
         }
-
-        private string GetUserName() => ClientService.UserName ?? "未登录";
     }
 }
