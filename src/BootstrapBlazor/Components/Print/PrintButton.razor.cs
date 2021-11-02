@@ -15,14 +15,14 @@ namespace BootstrapBlazor.Components
     public partial class PrintButton
     {
         /// <summary>
-        /// 获得/设置 预览模板地址 必填项 默认为空
+        /// 获得/设置 预览模板地址 默认为空
         /// </summary>
         [Parameter]
         public string? PreviewUrl { get; set; }
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Print>? Localizer { get; set; }
+        private IStringLocalizer<PrintButton>? Localizer { get; set; }
 
         private string? Target { get; set; }
 
@@ -32,7 +32,6 @@ namespace BootstrapBlazor.Components
         protected override void OnInitialized()
         {
             // 不需要走 base.OnInitialized 方法
-
             ButtonIcon = Icon;
             Text ??= Localizer[nameof(Text)];
         }
@@ -43,7 +42,6 @@ namespace BootstrapBlazor.Components
         protected override void OnParametersSet()
         {
             // 不需要走 base.OnParametersSet 方法
-
             if (string.IsNullOrEmpty(PreviewUrl))
             {
                 AdditionalAttributes ??= new Dictionary<string, object>();

@@ -24,6 +24,13 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private DialogService? DialogService { get; set; }
 
+        /// <summary>
+        /// 获得 弹窗注入服务
+        /// </summary>
+        [Inject]
+        [NotNull]
+        private PrintService? PrintService { get; set; }
+
         private async Task OnClickPrint()
         {
             var op = new DialogOption()
@@ -41,5 +48,21 @@ namespace BootstrapBlazor.Shared.Pages
 
             await DialogService.Show(op);
         }
+
+        private Task OnClickPrintService() => PrintService.PrintAsync<DataDialogComponent>(op =>
+        {
+            // 弹窗配置
+            op.Title = "数据查询窗口";
+            op.ShowPrintButton = true;
+            op.ShowPrintButtonInHeader = true;
+            op.ShowFooter = false;
+            op.BodyContext = 2;
+
+            // 弹窗组件所需参数
+            return new KeyValuePair<string, object>[]
+            {
+                new(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
+            };
+        });
     }
 }

@@ -13,9 +13,9 @@ namespace BootstrapBlazor.Components
     /// 
     /// </summary>
     /// <summary>
-    /// FullScreen 组件部分类
+    /// 打印组件类
     /// </summary>
-    public partial class Print : BootstrapComponentBase, IDisposable
+    public class Print : BootstrapComponentBase, IDisposable
     {
         /// <summary>
         /// PrintService 服务实例
@@ -25,38 +25,26 @@ namespace BootstrapBlazor.Components
         private PrintService? PrintService { get; set; }
 
         /// <summary>
+        /// 获得 弹窗注入服务
+        /// </summary>
+        [Inject]
+        [NotNull]
+        private DialogService? DialogService { get; set; }
+
+        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            // 注册 FullScreen 弹窗事件
-            PrintService.Register(this, PrintDocument);
+            // 注册 打印弹窗事件
+            PrintService.Register(this, PrintDialogAsync);
         }
 
-        /// <summary>
-        /// OnAfterRenderAsync 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        private Task PrintDialogAsync(DialogOption option)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (Option != null)
-            {
-                await JSRuntime.InvokeVoidAsync();
-                Option = null;
-            }
-        }
-
-        private PrintOption? Option { get; set; }
-
-        private Task PrintDocument(PrintOption option)
-        {
-            Option = option;
-            StateHasChanged();
+            DialogService.Show(option);
             return Task.CompletedTask;
         }
 

@@ -2,7 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -10,7 +13,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Print 服务
     /// </summary>
-    public class PrintService : BootstrapServiceBase<PrintOption>
+    public class PrintService : BootstrapServiceBase<DialogOption>
     {
         /// <summary>
         /// 构造函数
@@ -25,6 +28,23 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        public Task Print(PrintOption? option = null) => Invoke(option ?? new());
+        public Task PrintAsync(DialogOption option) => Invoke(option);
+
+        /// <summary>
+        /// 打印方法
+        /// </summary>
+        /// <typeparam name="TComponent"></typeparam>
+        /// <param name="parametersFactory"></param>
+        /// <returns></returns>
+        public async Task PrintAsync<TComponent>(Func<DialogOption, IEnumerable<KeyValuePair<string, object>>> parametersFactory) where TComponent : ComponentBase
+        {
+            var option = new DialogOption();
+            var parameters = parametersFactory(option);
+            if (option.Component == null)
+            {
+                option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
+            }
+            await PrintAsync(option);
+        }
     }
 }

@@ -169,7 +169,7 @@
   "BootstrapBlazor.Components.PopoverService": {
     "InvalidOperationExceptionMessage": "请在网页中添加 <PopoverConfirm /> 元素"
   },
-  "BootstrapBlazor.Components.Print": {
+  "BootstrapBlazor.Components.PrintButton": {
     "Text": "打印"
   },
   "BootstrapBlazor.Components.PrintService": {
