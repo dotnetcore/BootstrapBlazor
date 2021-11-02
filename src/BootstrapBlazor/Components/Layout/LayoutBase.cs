@@ -108,6 +108,12 @@ namespace BootstrapBlazor.Components
         public bool UseTabSet { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否仅渲染 Active 标签
+        /// </summary>
+        [Parameter]
+        public bool IsOnlyRenderActiveTab { get; set; }
+
+        /// <summary>
         /// 获得/设置 TabItem 显示文本字典 默认 null 未设置时取侧边栏菜单显示文本
         /// </summary>
         [Parameter]
