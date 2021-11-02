@@ -277,7 +277,7 @@ namespace BootstrapBlazor.Components
         internal static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
         {
             var type = model is object o ? o.GetType() : typeof(TModel);
-            var cacheKey = ("Lambda-Get", type, fieldName, typeof(TResult));
+            var cacheKey = ($"Lambda-Get-{type.Name}", typeof(TModel), fieldName, typeof(TResult));
             var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -289,7 +289,7 @@ namespace BootstrapBlazor.Components
         internal static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
         {
             var type = model is object o ? o.GetType() : typeof(TModel);
-            var cacheKey = ("Lambda-Set", type, fieldName, typeof(TValue));
+            var cacheKey = ($"Lambda-Set-{type.Name}", typeof(TModel), fieldName, typeof(TValue));
             var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
