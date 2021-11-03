@@ -222,7 +222,7 @@ namespace BootstrapBlazor.Components
         {
             if (source.Align != Alignment.None) dest.Align = source.Align;
             if (source.AllowTextWrap) dest.AllowTextWrap = source.AllowTextWrap;
-            if (source.Editable) dest.Editable = source.Editable;
+            if (!source.Editable) dest.Editable = source.Editable;
             if (source.Filterable) dest.Filterable = source.Filterable;
             if (source.Readonly) dest.Readonly = source.Readonly;
             if (source.Searchable) dest.Searchable = source.Searchable;
