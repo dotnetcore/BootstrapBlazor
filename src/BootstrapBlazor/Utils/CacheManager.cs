@@ -218,7 +218,7 @@ namespace BootstrapBlazor.Components
                     }
                 }
             }
-            return dn;
+            return dn ?? key;
         }
         #endregion
 
