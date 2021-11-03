@@ -20,8 +20,6 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
         {
-            services.AddMemoryCache();
-
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<VersionService>();
             services.AddSingleton<CodeSnippetService>();
