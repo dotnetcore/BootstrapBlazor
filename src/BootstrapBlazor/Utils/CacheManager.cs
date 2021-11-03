@@ -170,7 +170,7 @@ namespace BootstrapBlazor.Components
                 {
                     dn = stringLocalizer.Value;
                 }
-                else if (!modelType.Assembly.IsDynamic && TryGetProperty(modelType, fieldName, out var propertyInfo))
+                else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
                 {
                     dn = FindDisplayAttribute(propertyInfo);
                 }
@@ -182,14 +182,14 @@ namespace BootstrapBlazor.Components
 
             return displayName ?? fieldName;
 
-            static string? FindDisplayAttribute(PropertyInfo propertyInfo)
+            string? FindDisplayAttribute(PropertyInfo propertyInfo)
             {
                 // 回退查找 Display 标签
                 var dn = propertyInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
                     ?? propertyInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName;
 
                 // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
-                if (!string.IsNullOrEmpty(dn))
+                if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
                 {
                     dn = GetLocalizerValueByKey(dn);
                 }
