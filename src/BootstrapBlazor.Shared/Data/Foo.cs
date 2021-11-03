@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace BootstrapBlazor.Shared.Components
+namespace BootstrapBlazor.Shared
 {
     /// <summary>
     ///
@@ -77,7 +77,7 @@ namespace BootstrapBlazor.Shared.Components
         /// </summary>
         [Required(ErrorMessage = "请选择一种{0}")]
         [Display(Name = "爱好")]
-        [AutoGenerateColumn(Order = 70)]
+        [AutoGenerateColumn(Order = 70, Editable = false)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
         private static readonly Random random = new();

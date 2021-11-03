@@ -3,9 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace BootstrapBlazor.Shared.Pages
 {

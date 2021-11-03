@@ -5,7 +5,6 @@
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components

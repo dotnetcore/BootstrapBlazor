@@ -5,7 +5,6 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAcces.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection

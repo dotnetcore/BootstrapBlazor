@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;

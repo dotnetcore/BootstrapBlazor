@@ -1601,7 +1601,7 @@
     "Block1Title": "Basic usage",
     "Block1Intro": "Suitable for a wide range of basic usage."
   },
-  "BootstrapBlazor.Shared.Components.Foo": {
+  "BootstrapBlazor.Shared.Foo": {
     "Name": "Name",
     "DateTime": "DateTime",
     "Address": "Address",

@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
