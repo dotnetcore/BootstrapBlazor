@@ -50,11 +50,6 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 configureOptions?.Invoke(options);
 
-                if (options.TableSettings == null)
-                {
-                    options.TableSettings = new TableSettings();
-                }
-
                 // 设置默认文化信息
                 if (options.DefaultCultureInfo != null)
                 {

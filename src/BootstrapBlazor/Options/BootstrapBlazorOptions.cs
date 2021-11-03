@@ -60,7 +60,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 表格设置实例
         /// </summary>
         [NotNull]
-        public TableSettings? TableSettings { get; set; }
+        public TableSettings TableSettings { get; set; } = new();
 
         /// <summary>
         /// 获得/设置 网站主题集合
