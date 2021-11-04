@@ -93,21 +93,23 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 通过 JsonLocalizationOptions 配置项实例获取资源文件配置集合
         /// </summary>
+        /// <param name="assembly"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(JsonLocalizationOptions option)
+        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(Assembly assembly, JsonLocalizationOptions option)
         {
-            var cacheKey = $"Localizer-{CultureInfo.CurrentUICulture.Name}-{nameof(GetJsonStringConfig)}";
-            return GetOrCreate(cacheKey, entry => JsonStringConfigHelper.GetJsonStringConfig(option));
+            var cacheKey = $"Localizer-Sections-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{nameof(GetJsonStringConfig)}";
+            return GetOrCreate(cacheKey, entry => JsonStringConfigHelper.GetJsonStringConfig(assembly, option));
         }
 
-        internal static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName, JsonLocalizationOptions option, string typeName)
+        internal static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName, JsonLocalizationOptions option, Assembly assembly, string typeName)
         {
-            var cacheKey = $"Localizer-{cultureName}-{typeName}";
+            var cacheKey = $"Localizer-{cultureName}-{assembly.GetName().Name}-{typeName}";
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 // 获得程序集中的资源文件 stream
-                var v = GetJsonStringConfig(option)
+                var sections = JsonStringConfigHelper.GetJsonStringConfig(assembly, option);
+                var v = sections
                     .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
                     .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });

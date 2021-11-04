@@ -216,6 +216,6 @@ namespace BootstrapBlazor.Localization.Json
             return resources.Select(r => r.Key);
         }
 
-        private IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName) => CacheManager.GetJsonStringByCulture(cultureName, _options, _typeName);
+        private IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName) => CacheManager.GetJsonStringByCulture(cultureName, _options, _assembly, _typeName);
     }
 }

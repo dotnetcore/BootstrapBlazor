@@ -114,7 +114,7 @@ namespace BootstrapBlazor.Shared.Services
             List<KeyValuePair<string, string>> GetLocalizers() => CacheManagerHelper.GetLocalizers(codeFile, entry =>
             {
                 var typeName = Path.GetFileNameWithoutExtension(codeFile);
-                var sections = CacheManager.GetJsonStringConfig(Option);
+                var sections = CacheManager.GetJsonStringConfig(typeof(CodeSnippetService).Assembly, Option);
                 var v = sections
                     .FirstOrDefault(s => $"BootstrapBlazor.Shared.Pages.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
