@@ -1493,8 +1493,7 @@ section {
     background-color: #4b0cb3;
 }
 
-.layout.is-page .layout-right,
-.layout-is-page .layout-main {
+.layout.is-page .layout-right {
     background-color: #fff;
 }
 
@@ -1788,7 +1787,7 @@ header .bb-fs {
     }
 
 .is-fixed-tab .tabs-body {
-    height: calc(100vh - 90px - var(--bb-footer-height));
+    height: calc(100vh - 89px - var(--bb-footer-height));
     overflow: auto;
 }
 
