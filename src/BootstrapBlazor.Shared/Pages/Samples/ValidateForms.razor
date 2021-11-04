@@ -161,6 +161,14 @@
         </div>
     </ValidateForm>
     <BlockLogger @ref="Trace4" class="mt-3" />
+    <p class=mt-3>
+        @foreach (var key in GetValueChagnedFieldCollection())
+        {
+            <div>
+                <span>@key.Key.Model.GetType().Name</span>.<span>@key.Key.FieldName</span>: <span>@key.Value</span>
+            </div>
+        }
+    </p>
 </Block>
 
 <Block Title="动态调整表单内组件" Introduction="通过代码更改表单内组件，验证表单仍然可以正确的进行验证" Name="DynamicForm">

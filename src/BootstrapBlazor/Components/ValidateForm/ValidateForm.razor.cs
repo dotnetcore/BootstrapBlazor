@@ -450,6 +450,22 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldIdentifier"></param>
+        /// <param name="value"></param>
+        public void NotifyFieldChanged(in FieldIdentifier fieldIdentifier, object? value)
+        {
+            ValueChagnedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
+        }
+
+        /// <summary>
+        /// 获取 当前表单值改变的属性集合
+        /// </summary>
+        /// <returns></returns>
+        public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();
+
+        /// <summary>
         /// DisposeAsyncCore 方法
         /// </summary>
         /// <param name="disposing"></param>

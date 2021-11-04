@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
@@ -134,6 +135,8 @@ namespace BootstrapBlazor.Shared.Pages
             FooForm.SetError<Foo>(f => f.Name, "数据库中已存在");
             return Task.CompletedTask;
         }
+
+        private ConcurrentDictionary<FieldIdentifier, object?> GetValueChagnedFieldCollection() => ComplexForm?.ValueChagnedFields ?? new ConcurrentDictionary<FieldIdentifier, object?>();
 
         #region 动态更改表单内验证组件
         [NotNull]
