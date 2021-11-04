@@ -17,10 +17,11 @@ namespace BootstrapBlazor.Shared.Pages
     /// </summary>
     partial class AutoFills
     {
-        private Dummy Model { get; set; } = new Dummy();
+        [NotNull]
+        private Foo Model { get; set; } = new();
 
         [NotNull]
-        private IEnumerable<Dummy>? Items { get; set; }
+        private IEnumerable<Foo>? Items { get; set; }
 
         [Inject]
         [NotNull]
@@ -33,68 +34,16 @@ namespace BootstrapBlazor.Shared.Pages
         {
             base.OnInitialized();
 
-            Items = Foo.GenerateFoo(LocalizerFoo).Select(i => Dummy.ConvertFromFoo(i));
+            Items = Foo.GenerateFoo(LocalizerFoo);
         }
 
-        private Task OnSelectedItemChanged(Dummy dummy)
+        private Task OnSelectedItemChanged(Foo foo)
         {
-            Model = Utility.Clone(dummy);
+            Model = Utility.Clone(foo);
             StateHasChanged();
             return Task.CompletedTask;
         }
 
-        private class Dummy : Foo, ISelectedItem
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            [AutoGenerateColumn(Editable = false)]
-            public string Text { get; set; } = "";
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [AutoGenerateColumn(Editable = false)]
-            public string Value { get; set; } = "";
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [AutoGenerateColumn(Editable = false)]
-            public bool Active { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [AutoGenerateColumn(Editable = false)]
-            public bool IsDisabled { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            [AutoGenerateColumn(Editable = false)]
-            public string GroupName { get; set; } = "";
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="foo"></param>
-            /// <returns></returns>
-            public static Dummy ConvertFromFoo(Foo foo)
-            {
-                return new Dummy()
-                {
-                    Address = foo.Address,
-                    Complete = foo.Complete,
-                    Count = foo.Count,
-                    DateTime = foo.DateTime,
-                    Education = foo.Education,
-                    Id = foo.Id,
-                    Name = foo.Name,
-                    Text = foo.Name ?? string.Empty,
-                    Value = foo.Id.ToString()
-                };
-            }
-        }
+        private string OnGetDisplayText(Foo foo) => foo.Name ?? "";
     }
 }

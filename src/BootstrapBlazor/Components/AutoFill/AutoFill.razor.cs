@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// AutoComplete 组件基类
     /// </summary>
-    public partial class AutoFill<TValue> where TValue : ISelectedItem
+    public partial class AutoFill<TValue>
     {
         private bool _isLoading;
         private bool _isShown;
@@ -82,6 +82,13 @@ namespace BootstrapBlazor.Components
         public RenderFragment<TValue>? Template { get; set; }
 
         /// <summary>
+        /// 获得/设置 通过模型获得显示文本方法 默认使用 ToString 重载方法
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public Func<TValue, string>? OnGetDisplayText { get; set; }
+
+        /// <summary>
         /// 获得/设置 选项改变回调方法 默认 null
         /// </summary>
         [Parameter]
@@ -93,6 +100,8 @@ namespace BootstrapBlazor.Components
         [Inject]
         [NotNull]
         private IStringLocalizer<AutoComplete>? Localizer { get; set; }
+
+        private string InputString { get; set; } = "";
 
         private TValue? ActiveSelectedItem { get; set; }
 
@@ -117,6 +126,7 @@ namespace BootstrapBlazor.Components
             PlaceHolder ??= Localizer[nameof(PlaceHolder)];
             Items ??= Enumerable.Empty<TValue>();
             FilterItems ??= new List<TValue>();
+            OnGetDisplayText ??= v => v?.ToString() ?? "";
         }
 
         /// <summary>
@@ -177,10 +187,10 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected virtual async Task OnKeyUp(KeyboardEventArgs args)
         {
-            if (!_isLoading && _lastFilterText != CurrentValueAsString)
+            if (!_isLoading && _lastFilterText != InputString)
             {
                 _isLoading = true;
-                _lastFilterText = CurrentValueAsString;
+                _lastFilterText = InputString;
                 if (CustomFilter != null)
                 {
                     var items = await CustomFilter();
@@ -244,7 +254,7 @@ namespace BootstrapBlazor.Components
                     }
                     if (ActiveSelectedItem != null)
                     {
-                        CurrentValueAsString = ActiveSelectedItem.Text;
+                        InputString = OnGetDisplayText(ActiveSelectedItem);
                     }
                     await OnBlur();
                     if (!SkipEnter && OnEnterAsync != null)
@@ -258,31 +268,9 @@ namespace BootstrapBlazor.Components
             {
                 var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
                 return IsLikeMatch ?
-                    Items.Where(s => s.Text.Contains(CurrentValueAsString, comparison)) :
-                    Items.Where(s => s.Text.StartsWith(CurrentValueAsString, comparison));
+                    Items.Where(s => OnGetDisplayText(s).Contains(InputString, comparison)) :
+                    Items.Where(s => OnGetDisplayText(s).StartsWith(InputString, comparison));
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected override string? FormatValueAsString(TValue value) => value.Text;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="result"></param>
-        /// <param name="validationErrorMessage"></param>
-        /// <returns></returns>
-        protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
-        {
-            CurrentValue.Text = value;
-            result = CurrentValue;
-            validationErrorMessage = null;
-            return true;
         }
     }
 }
