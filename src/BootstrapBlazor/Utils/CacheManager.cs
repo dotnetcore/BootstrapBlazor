@@ -222,6 +222,7 @@ namespace BootstrapBlazor.Components
         }
         #endregion
 
+        #region Placeholder
         internal static string? GetPlaceholder(Type modelType, string fieldName)
         {
             var cacheKey = $"Placeholder-{modelType.FullName}-{fieldName}";
@@ -249,6 +250,7 @@ namespace BootstrapBlazor.Components
                 return ret;
             });
         }
+        #endregion
 
         #region Lambda Property
         internal static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
