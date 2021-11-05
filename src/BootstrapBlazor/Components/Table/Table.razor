@@ -682,7 +682,7 @@ RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item
         <div class="table-cell">
             @if (EditTemplate != null)
             {
-                @EditTemplate.Invoke(item.Item)
+                @EditTemplate(new EditTemplateContext<TItem>(item.Item, item.ChangedType))
             }
             else
             {

@@ -968,7 +968,7 @@ namespace BootstrapBlazor.Components
         private RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.IsEditable(changedType)
             ? (col.EditTemplate == null
                 ? builder => builder.CreateComponentByFieldType(this, col, item, false, changedType)
-                : col.EditTemplate(item))
+                : col.EditTemplate(new EditTemplateContext<TItem>(item, changedType)))
             : (col.Template == null
                 ? builder => builder.CreateDisplayByFieldType(this, col, item, false)
                 : col.Template(item));

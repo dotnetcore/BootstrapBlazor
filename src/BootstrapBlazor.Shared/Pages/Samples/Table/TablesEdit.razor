@@ -22,22 +22,22 @@
         <EditTemplate>
             <div class="row g-3 form-inline">
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Name" placeholder="不可为空，50字以内" maxlength="50" />
+                    <BootstrapInput @bind-Value="@context.Model.Name" placeholder="不可为空，50字以内" maxlength="50" />
                 </div>
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Address" placeholder="不可为空，50字以内" maxlength="50" />
+                    <BootstrapInput @bind-Value="@context.Model.Address" placeholder="不可为空，50字以内" maxlength="50" />
                 </div>
                 <div class="col-12 col-sm-6">
-                    <DateTimePicker @bind-Value="@context.DateTime" />
+                    <DateTimePicker @bind-Value="@context.Model.DateTime" />
                 </div>
                 <div class="col-12 col-sm-6">
-                    <Select @bind-Value="@context.Education" />
+                    <Select @bind-Value="@context.Model.Education" />
                 </div>
                 <div class="col-12 col-sm-6">
-                    <BootstrapInputNumber @bind-Value="@context.Count" ShowButton="true" />
+                    <BootstrapInputNumber @bind-Value="@context.Model.Count" ShowButton="true" />
                 </div>
                 <div class="col-12 col-sm-6">
-                    <Switch @bind-Value="@context.Complete" ShowInnerText="true" />
+                    <Switch @bind-Value="@context.Model.Complete" ShowInnerText="true" />
                 </div>
             </div>
         </EditTemplate>
@@ -85,7 +85,7 @@
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
                     <div class="col-12 col-sm-6">
-                        <TablesNameDrop Model="@((Foo)value)" />
+                        <TablesNameDrop Model="@(((EditTemplateContext<Foo>)value).Model)" />
                     </div>
                 </EditTemplate>
             </TableColumn>

@@ -528,7 +528,7 @@ namespace BootstrapBlazor.Components
                 Model = EditModel,
                 Items = Columns.Where(i => i.Editable),
                 SaveButtonText = EditDialogSaveButtonText,
-                DialogBodyTemplate = EditTemplate,
+                DialogBodyTemplate = EditTemplate == null ? null : new RenderFragment<TItem>(item => builder => builder.AddContent(0, EditTemplate?.Invoke(new(item, changedType)))),
                 RowType = EditDialogRowType,
                 ItemsPerRow = EditDialogItemsPerRow,
                 LabelAlign = EditDialogLabelAlign,
