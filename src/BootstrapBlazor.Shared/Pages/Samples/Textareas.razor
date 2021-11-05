@@ -1,37 +1,38 @@
 ﻿@page "/textareas"
+@inject IStringLocalizer<Textareas> Localizer
 
-<h3>Textarea 多行文本框</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>用于录入大量文字</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<Block Title="基本用法" Introduction="可接受大量文字" Name="Normal">
-    <label class="form-label">基本用法</label>
-    <Textarea placeholder="请输入 ..." rows="4"></Textarea>
+<Block Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
+    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4"></Textarea>
 </Block>
 
-<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disable">
-    <label class="form-label">基本用法</label>
-    <Textarea placeholder="请输入 ..." rows="4" IsDisabled="true"></Textarea>
+<Block Title="@Localizer["DisableTitle"]" Introduction="@Localizer["DisableIntro"]" Name="Disable">
+    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
+    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4" IsDisabled="true"></Textarea>
 </Block>
 
-<Block Title="只读" Introduction="设置 <code>readonly</code> 属性时，组件禁止输入"  Name="Readonly">
-    <label class="form-label">基本用法</label>
-    <Textarea placeholder="请输入 ..." rows="4" readonly></Textarea>
+<Block Title="@Localizer["ReadonlyTitle"]" Introduction="@Localizer["ReadonlyIntro"]"  Name="Readonly">
+    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
+    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4" readonly></Textarea>
 </Block>
 
-<Block Title="高度" Introduction="设置 <code>rows</code> 属性时，组件初始化显示固定行数高度"  Name="Height">
-    <label class="form-label">基本用法</label>
-    <Textarea placeholder="请输入 ..." rows="4"></Textarea>
+<Block Title="@Localizer["HeightTitle"]" Introduction="@Localizer["HeightIntro"]"  Name="Height">
+    <label class="form-label">@Localizer["BasicUsageLabel"]</label>
+    <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4"></Textarea>
 </Block>
 
-<Block Title="双向绑定" Introduction="绑定组件内变量，数据自动同步"  Name="BindToWay">
+<Block Title="@Localizer["BindWayTitle"]" Introduction="@Localizer["BindWayIntro"]"  Name="BindToWay">
     <div class="row g-3">
         <div class="col-12">
-            <label class="form-label">基本用法</label>
-            <Textarea placeholder="请输入 ..." rows="4" @bind-Value="@Text"></Textarea>
+            <label class="form-label">@Localizer["BasicUsageLabel"]</label>
+            <Textarea placeholder="@Localizer["PlaceHolder"]" rows="4" @bind-Value="@Text"></Textarea>
         </div>
         <div class="col-12">
-            <label class="form-label">绑定值</label>
+            <label class="form-label">@Localizer["BindValue"]</label>
             <div class="form-control textarea-demo">@Text</div>
         </div>
     </div>

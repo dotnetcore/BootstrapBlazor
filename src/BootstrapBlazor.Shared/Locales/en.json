@@ -1518,6 +1518,26 @@
     "OnValueChanged": "Call back the delegate method when the value changes",
     "ValueChanged": "Gets the value of the selection change"
   },
+  "BootstrapBlazor.Shared.Pages.Textareas": {
+    "PlaceHolder": "Please enter ...",
+    "Title": "Textarea",
+    "SubTitle": "Used to enter a large amount of text",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "A large amount of text is acceptable",
+    "BasicUsageLabel": "Basic usage",
+    "DisableTitle": "Disable",
+    "DisableIntro": "When you set the <code>IsDisabled </code> property value to <code>true </code>, the component suppresses input",
+    "BindValue": "The binding value",
+    "ReadonlyTitle": "Readonly",
+    "ReadonlyIntro": "When you set the <code>readonly </code> property, the component prohibits input",
+    "HeightTitle": "height",
+    "HeightIntro": "When you set the <code>rows </code> property, component initialization displays a fixed row height",
+    "BindWayTitle": "Two-way binding",
+    "BindWayIntro": "Binding variables within a component, data is automatically synchronized",
+    "ShowLabel": "Whether to display the front label",
+    "DisplayText": "The front label displays text",
+    "IsDisabled": "Whether to disable Default is fasle"
+  },
   "BootstrapBlazor.Shared.Components.Block": {
     "Title": "",
     "SubTitle": "Demo"

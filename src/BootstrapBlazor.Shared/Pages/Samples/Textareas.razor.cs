@@ -14,20 +14,20 @@ namespace BootstrapBlazor.Shared.Pages
     {
         private string Text { get; set; } = "";
 
-        private static IEnumerable<AttributeItem> GetAttributes()
+        private IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
                 new AttributeItem() {
                     Name = "ShowLabel",
-                    Description = "是否显示前置标签",
+                    Description = Localizer["ShowLabel"]!,
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",
-                    Description = "前置标签显示文本",
+                    Description = Localizer["DisplayText"]!,
                     Type = "string",
                     ValueList = " — ",
                     DefaultValue = " — "
@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem()
                 {
                     Name = "IsDisabled",
-                    Description = "是否禁用 默认为 fasle",
+                    Description = Localizer["IsDisabled"]!,
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
