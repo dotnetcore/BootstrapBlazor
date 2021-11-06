@@ -52,7 +52,6 @@ namespace BootstrapBlazor.Shared.Pages
             ContentText1 = new MarkupString(Localizer[nameof(ContentText1)]?.Value ?? "");
         }
 
-
         /// <summary>
         /// 获得属性方法
         /// </summary>

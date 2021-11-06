@@ -23,4 +23,22 @@
     <EditorForm Model="@Model" RowType="RowType.Inline" ItemsPerRow="2" />
 </Block>
 
-<div style="height: 300px"></div>
+<Block Title="自定义过滤条件" Introduction="通过设置自定义过滤条件回调委托 <code>OnCustomFilter</code> 过滤数据" Name="CustomFilter">
+    <div class="mb-3">录入 <code>Name</code> 姓名智能提示，通过设置自定义过滤条件回调委托 <code>OnCustomFilter</code> 过滤数据，当前过滤条件为 <code>Name</code> 包含输入字符串 <b>并且</b> <code>Count</code> 值大于 50</div>
+    <AutoFill TValue="Foo" Value="Model" Items="Items" OnCustomFilter="OnCustomFilter"  OnSelectedItemChanged="OnSelectedItemChanged" OnGetDisplayText="OnGetDisplayText" class="mb-3">
+        <Template>
+            <div class="d-flex">
+                <div>
+                    <img src="@Foo.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                </div>
+                <div class="ps-2">
+                    <div>@context.Name</div>
+                    <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
+                </div>
+            </div>
+        </Template>
+    </AutoFill>
+    <EditorForm Model="@Model" RowType="RowType.Inline" ItemsPerRow="2" />
+</Block>
+
+<AttributeTable Items="@GetAttributes()" />

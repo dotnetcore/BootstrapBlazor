@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Components
         protected List<TValue>? FilterItems { get; private set; }
 
         /// <summary>
-        /// 获得/设置 通过输入字符串获得匹配数据集合
+        /// 获得/设置 组件数据集合
         /// </summary>
         [Parameter]
         [NotNull]
@@ -51,7 +51,7 @@ namespace BootstrapBlazor.Components
         public string? NoDataTip { get; set; }
 
         /// <summary>
-        /// 获得/设置 匹配数据时显示的数量
+        /// 获得/设置 匹配数据时显示的数量 默认 null 未设置
         /// </summary>
         [Parameter]
         [NotNull]
@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 是否开启模糊查询，默认为 false
         /// </summary>
         [Parameter]
-        public bool IsLikeMatch { get; set; } = false;
+        public bool IsLikeMatch { get; set; }
 
         /// <summary>
         /// 获得/设置 匹配时是否忽略大小写，默认为 true
@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 自定义集合过滤规则
         /// </summary>
         [Parameter]
-        public Func<Task<IEnumerable<TValue>>>? CustomFilter { get; set; }
+        public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
 
         /// <summary>
         /// 获得/设置 候选项模板
@@ -191,15 +191,15 @@ namespace BootstrapBlazor.Components
             {
                 _isLoading = true;
                 _lastFilterText = InputString;
-                if (CustomFilter != null)
+                if (OnCustomFilter != null)
                 {
-                    var items = await CustomFilter();
+                    var items = await OnCustomFilter(InputString);
                     FilterItems = items.ToList();
                 }
                 else
                 {
                     var items = FindItem();
-                    FilterItems = DisplayCount == null ? items.ToList() : items.Take((int)DisplayCount).ToList();
+                    FilterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
                 }
                 _isLoading = false;
             }
