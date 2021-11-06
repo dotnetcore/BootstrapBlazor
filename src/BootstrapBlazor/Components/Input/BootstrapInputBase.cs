@@ -70,6 +70,12 @@ namespace BootstrapBlazor.Components
         public bool IsAutoFocus { get; set; }
 
         /// <summary>
+        /// 获得/设置 获得焦点后自动选择输入框内所有字符串
+        /// </summary>
+        [Parameter]
+        public bool IsSelectAllTextOnFocus { get; set; }
+
+        /// <summary>
         /// 获得 input 组件类型 默认 text
         /// </summary>
         protected string Type { get; set; } = "text";
