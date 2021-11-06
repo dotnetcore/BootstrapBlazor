@@ -46,9 +46,10 @@ namespace BootstrapBlazor.Components
         protected virtual async ValueTask ShowTooltip()
         {
             var id = RetrieveId();
-            if (!string.IsNullOrEmpty(id))
+            var method = RetrieveMethod();
+            if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(method))
             {
-                await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, RetrieveMethod(), RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
+                await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, method, RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
             }
         }
 
@@ -59,9 +60,10 @@ namespace BootstrapBlazor.Components
         protected virtual async ValueTask ShowPopover()
         {
             var id = RetrieveId();
-            if (!string.IsNullOrEmpty(id))
+            var method = RetrieveMethod();
+            if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(method))
             {
-                await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, RetrieveMethod(), RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
+                await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, method, RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
             }
         }
 
