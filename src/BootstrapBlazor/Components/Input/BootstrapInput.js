@@ -10,6 +10,12 @@
                     obj.invokeMethodAsync(escCallbackMethod, $el.val());
                 }
             });
+        },
+        bb_input_selectAll: function (el) {
+            var $el = $(el);
+            $el.on('focus', function () {
+                $(this).select();
+            });
         }
     });
 })(jQuery);

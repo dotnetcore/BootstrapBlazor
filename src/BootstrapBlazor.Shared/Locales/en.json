@@ -1184,7 +1184,8 @@
     "Att8": "The user presses enter to call back the delegate",
     "Att9": "The user presses the Esc key to call back the delegate",
     "Att10": "Whether to disable Fasle by default",
-    "Att11": "Whether to get the focus automatically Default is fasle"
+    "Att11": "Whether to get the focus automatically Default is fasle",
+    "IsSelectAllTextOnFocus": "Whether auto select the all text after focus"
   },
   "BootstrapBlazor.Shared.Pages.InputNumbers": {
     "Title": "InputNumber",

@@ -70,7 +70,7 @@ namespace BootstrapBlazor.Components
         public bool IsAutoFocus { get; set; }
 
         /// <summary>
-        /// 获得/设置 获得焦点后自动选择输入框内所有字符串
+        /// 获得/设置 获得焦点后自动选择输入框内所有字符串 默认 false 未启用
         /// </summary>
         [Parameter]
         public bool IsSelectAllTextOnFocus { get; set; }
@@ -134,6 +134,10 @@ namespace BootstrapBlazor.Components
                 {
                     Interop ??= new JSInterop<BootstrapInputBase<TValue>>(JSRuntime);
                     await Interop.InvokeVoidAsync(this, FocusElement, "bb_input", OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
+                }
+                if (IsSelectAllTextOnFocus)
+                {
+                    await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll");
                 }
             }
         }

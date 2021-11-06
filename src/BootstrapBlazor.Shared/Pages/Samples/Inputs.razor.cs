@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
 using System;
@@ -53,7 +54,7 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        private  IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             new AttributeItem() {
                 Name = "ChildContent",
@@ -131,6 +132,14 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = "IsAutoFocus",
                 Description = Localizer["Att11"]!,
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
+                Name = nameof(BootstrapInput<string>.IsSelectAllTextOnFocus),
+                Description = Localizer[nameof(BootstrapInput<string>.IsSelectAllTextOnFocus)].Value,
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
