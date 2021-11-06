@@ -163,6 +163,7 @@ namespace BootstrapBlazor.Components
         protected virtual async Task OnClickItem(TValue val)
         {
             CurrentValue = val;
+            InputString = OnGetDisplayText(val);
             ActiveSelectedItem = default;
             if (OnSelectedItemChanged != null)
             {
