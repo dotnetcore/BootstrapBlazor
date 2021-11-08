@@ -80,7 +80,7 @@ namespace BootstrapBlazor.Shared.Pages
         private Task<bool> OnQueryUser(string name) => Task.FromResult(IsAuth);
         #endregion
 
-        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()
             {

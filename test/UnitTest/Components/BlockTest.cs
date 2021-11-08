@@ -19,7 +19,7 @@ namespace UnitTest.Components
             using var ctx = new TestContext();
             var cut = ctx.RenderComponent<Block>(new ComponentParameter[]
             {
-                ComponentParameter.CreateParameter(nameof(Block.OnQueryCondition), new Func<Task<bool>>(()=>Task.FromResult(true))),
+                ComponentParameter.CreateParameter(nameof(Block.OnQueryCondition), new Func<string, Task<bool>>(_ => Task.FromResult(true))),
                 ComponentParameter.CreateParameter(nameof(Block.ChildContent), BuildComponent())
             });
 
@@ -32,7 +32,7 @@ namespace UnitTest.Components
             using var ctx = new TestContext();
             var cut = ctx.RenderComponent<Block>(new ComponentParameter[]
             {
-                ComponentParameter.CreateParameter(nameof(Block.OnQueryCondition), new Func<Task<bool>>(()=>Task.FromResult(false))),
+                ComponentParameter.CreateParameter(nameof(Block.OnQueryCondition), new Func<string, Task<bool>>(_ => Task.FromResult(false))),
                 ComponentParameter.CreateParameter(nameof(Block.ChildContent), BuildComponent())
             });
 
