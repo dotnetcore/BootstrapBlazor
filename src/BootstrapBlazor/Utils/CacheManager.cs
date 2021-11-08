@@ -207,19 +207,23 @@ namespace BootstrapBlazor.Components
         private static string? GetLocalizerValueByKey(string key)
         {
             string? dn = null;
-            var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-            if (resxType?.Value.ResourceManagerStringLocalizerType != null)
+            try
             {
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                if (localizer != null)
+                var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+                if (resxType?.Value.ResourceManagerStringLocalizerType != null)
                 {
-                    var stringLocalizer = localizer[key];
-                    if (!stringLocalizer.ResourceNotFound)
+                    var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
+                    if (localizer != null)
                     {
-                        dn = stringLocalizer.Value;
+                        var stringLocalizer = localizer[key];
+                        if (!stringLocalizer.ResourceNotFound)
+                        {
+                            dn = stringLocalizer.Value;
+                        }
                     }
                 }
             }
+            catch (ObjectDisposedException) { }
             return dn ?? key;
         }
         #endregion
