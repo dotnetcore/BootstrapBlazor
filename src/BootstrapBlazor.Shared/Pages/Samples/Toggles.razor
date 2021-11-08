@@ -1,100 +1,99 @@
 ﻿@page "/toggles"
+@inject IStringLocalizer<Toggles> Localizer
 
-<h3>Toggle 开关</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>提供最普通的开关应用，值为 <code>true</code> <code>false</code></h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<Block Title="基础用法" Introduction="点击按钮切换状态"  Name="Normal">
-    <p>点击第一个开关有值输出日志</p>
+<Block Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <p>@Localizer["BasicUsageP"]</p>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="@BindValue" ValueChanged="@OnValueChanged" OnText="开启" OffText="关闭" Color="Color.Primary" />
+            <Toggle Value="@BindValue" ValueChanged="@OnValueChanged" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Primary" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Secondary" />
+            <Toggle Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Secondary" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Success" />
+            <Toggle Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Success" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Danger" />
+            <Toggle Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Danger" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Warning" />
+            <Toggle Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Warning" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Info" />
+            <Toggle Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Info" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="true" OnText="开启" OffText="关闭" Color="Color.Dark" />
+            <Toggle Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Dark" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle Value="false" OnText="开启" OffText="关闭" Color="Color.Success" />
+            <Toggle Value="false" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Success" />
         </div>
     </div>
     <BlockLogger @ref="Trace" class="mt-3" />
 </Block>
 
-<Block Title="禁用状态" Introduction="开关不可用状态。" Name="Disable">
+<Block Title="@Localizer["DisableTitle"]" Introduction="@Localizer["DisableIntro"]" Name="Disable">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Primary" />
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Primary" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Secondary" />
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Secondary" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Success" />
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Success" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Danger" />
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Danger" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Warning" />
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Warning" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Info" />
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Info" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="true" OnText="开启" OffText="关闭" Color="Color.Dark" />
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Dark" />
         </div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-            <Toggle IsDisabled="true" Value="false" OnText="开启" OffText="关闭" Color="Color.Success" />
+            <Toggle IsDisabled="true" Value="false" OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" Color="Color.Success" />
         </div>
     </div>
 </Block>
 
-<Block Title="双向绑定数据" Introduction="绑定组件内变量，数据自动同步" Name="BindToWay">
-    <p>
-        <code>Switch</code> 组件开启双向绑定时，会根据绑定的 <code>Model</code> 属性值去自动获取 <code>DisplayName</code> 标签值并且显示为前置 <code>Label</code>，通过 <code>DisplayText</code> 属性可以自定义显示前置标签，或者通过 <code>ShowLabel</code> 属性关闭前置标签是否显示
-    </p>
+<Block Title="@Localizer["BindToWayTitle"]" Introduction="@Localizer["BindToWayIntro"]" Name="BindToWay">
+    <p>@((MarkupString)Localizer["BindToWayP1"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
-            <Toggle OnText="开启" OffText="关闭" @bind-Value="@Model.BindValue" DisplayText="双向绑定示例" />
+            <Toggle OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["BindToWayDiaspalyText1"]" />
         </div>
         <div class="col-12">
-            <div>绑定数值: @Model.BindValue</div>
+            <div>@Localizer["BindToWayDiv"] @Model.BindValue</div>
         </div>
-        <Divider Text="自定义标签" />
+        <Divider Text="@Localizer["CustomLabelText"]" />
         <div class="col-12">
-            <p>设置 <code>DisplayText</code> 值为 <b>自定义标签</b></p>
-        </div>
-        <div class="col-12">
-            <Toggle OnText="开启" OffText="关闭" @bind-Value="@Model.BindValue" DisplayText="自定义标签" ShowLabel="true" />
-        </div>
-        <Divider Text="占位" />
-        <div class="col-12">
-            <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示</p>
+            <p>@((MarkupString)Localizer["BindToWayP2"].Value)</p>
         </div>
         <div class="col-12">
-            <Toggle OnText="开启" OffText="关闭" @bind-Value="@Model.BindValue" ShowLabel="true" />
+            <Toggle OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["CustomLabelText"]" ShowLabel="true" />
         </div>
-        <Divider Text="不占位" />
+        <Divider Text="@Localizer["OccupantsText"]" />
         <div class="col-12">
-            <p>无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示</p>
+            <p>@((MarkupString)Localizer["BindToWayP3"].Value)</p>
         </div>
         <div class="col-12">
-            <Toggle OnText="开启" OffText="关闭" @bind-Value="@Model.BindValue" DisplayText="不显示" ShowLabel="false" />
+            <Toggle OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" @bind-Value="@Model.BindValue" ShowLabel="true" />
+        </div>
+        <Divider Text="@Localizer["NotOccupantsText"]" />
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["BindToWayP4"].Value)</p>
+        </div>
+        <div class="col-12">
+            <Toggle OnText="@Localizer["OnText"]" OffText="@Localizer["OffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["NotDisplayText"]" ShowLabel="false" />
         </div>
     </div>
 </Block>
