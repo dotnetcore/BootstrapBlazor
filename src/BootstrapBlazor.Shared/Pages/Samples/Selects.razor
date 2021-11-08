@@ -5,7 +5,7 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
@@ -34,9 +34,9 @@
         </div>
     </div>
     <BlockLogger @ref="Trace" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Color="Color.Primary" Items="Items" IsDisabled="true"></Select>
@@ -66,9 +66,9 @@
             <Select TValue="string" Items="Items4" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Binding">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Binding">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name"></Select>
@@ -77,9 +77,9 @@
             <BootstrapInput readonly @bind-Value="Model.Name" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Cascading">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Cascading">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />
@@ -91,9 +91,9 @@
             <Button Text="@Localizer["ButtonText1"]" OnClickWithoutRender="OnShowDialog" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ClientValidation">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ClientValidation">
     <ValidateForm Model="BindModel">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
@@ -111,18 +111,18 @@
             </div>
         </div>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]"  Name="Group">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]"  Name="Group">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Color="Color.Primary" Items="GroupItems">
             </Select>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Guid">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Guid">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Color="Color.Primary" Items="GuidItems" @bind-Value="CurrentGuid" />
@@ -131,9 +131,9 @@
             <div class="form-control">@CurrentGuid</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]"  Name="DispalyLabel">
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]"  Name="DispalyLabel">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="Model">
@@ -155,9 +155,9 @@
             <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name" DisplayText="@Localizer["SelectText"]" ShowLabel="true" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Static">
+<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Static">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string">
@@ -169,9 +169,9 @@
             </Select>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]"  Name="Enum">
+<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]"  Name="Enum">
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <p>@((MarkupString)Localizer["P5"].Value)</p>
     <div class="row g-3">
@@ -191,9 +191,9 @@
             <div class="form-control">@SelectedEnumItem</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="Nullable">
+<DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="Nullable">
     <p>@((MarkupString)Localizer["P6"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
@@ -204,9 +204,9 @@
             <div class="form-control">@GetSelectedIntItemString()</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="NullableBoolean">
+<DemoBlock Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="NullableBoolean">
     <p>@((MarkupString)Localizer["P7"].Value)</p>
     <p>@((MarkupString)Localizer["P8"].Value)</p>
     <div class="row g-3">
@@ -218,9 +218,9 @@
             <div class="form-control">@GetSelectedBoolItemString()</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block13Title"]" Introduction="@Localizer["Block13Intro"]" Name="CunstomTemplate">
+<DemoBlock Title="@Localizer["Block13Title"]" Introduction="@Localizer["Block13Intro"]" Name="CunstomTemplate">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items">
@@ -234,9 +234,9 @@
             </Select>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block14Title"]" Introduction="@Localizer["Block14Intro"]"  Name="ShowSearchBox">
+<DemoBlock Title="@Localizer["Block14Title"]" Introduction="@Localizer["Block14Intro"]"  Name="ShowSearchBox">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" ShowSearch="true" />
@@ -245,16 +245,16 @@
             <Select TValue="string" Items="StringItems" ShowSearch="true" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block15Title"]" Introduction="@Localizer["Block15Intro"]"  Name="ConfirmSelect">
+<DemoBlock Title="@Localizer["Block15Title"]" Introduction="@Localizer["Block15Intro"]"  Name="ConfirmSelect">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"
                     SwalTitle="@Localizer["SwalTitle"]" SwalContent="@Localizer["SwalContent"]" SwalFooter="@Localizer["SwalFooter"]" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
 <SweetAlert />
 

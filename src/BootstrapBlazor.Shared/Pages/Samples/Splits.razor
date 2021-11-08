@@ -3,7 +3,7 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block2Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block2Intro"]" Name="Normal">
     <div class="border split-demo split-demo-horizontal">
         <Split>
             <FirstPaneTemplate>
@@ -14,9 +14,9 @@
             </SecondPaneTemplate>
         </Split>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Percent">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Percent">
     <div class="border split-demo split-demo-horizontal">
         <Split Basis="40%">
             <FirstPaneTemplate>
@@ -27,9 +27,9 @@
             </SecondPaneTemplate>
         </Split>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Vertical">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Vertical">
     <div class="border split-demo">
         <Split IsVertical="true">
             <FirstPaneTemplate>
@@ -40,9 +40,9 @@
             </SecondPaneTemplate>
         </Split>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Nested">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Nested">
     <div class="border split-demo">
         <Split>
             <FirstPaneTemplate>
@@ -60,6 +60,6 @@
             </SecondPaneTemplate>
         </Split>
     </div>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

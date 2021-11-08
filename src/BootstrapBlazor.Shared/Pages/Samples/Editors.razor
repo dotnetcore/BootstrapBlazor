@@ -8,26 +8,26 @@
 
 <p>@((MarkupString)Localizer["P1"].Value)</p>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <p>@((MarkupString)Localizer["P2"].Value)</p>
     <div class="form-control mb-3">@((MarkupString)Localizer["Div1"].Value)</div>
     <Editor></Editor>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Placeholder">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Placeholder">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <Editor Placeholder="@Localizer["Placeholder1"]"></Editor>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="IsEditor">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="IsEditor">
     <Editor IsEditor="true"></Editor>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Height">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Height">
     <Editor IsEditor="true" Height="400"></Editor>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="OnValueChanged">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="OnValueChanged">
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <Editor @bind-Value="@EditorValue" OnValueChanged="@OnValueChanged"></Editor>
 
@@ -36,17 +36,17 @@
     <div class="mt-3">
         <Button OnClick="SetValue">Reset</Button>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="CustomerToolbarButtons">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="CustomerToolbarButtons">
     <p>@((MarkupString)Localizer["P5"].Value)</p>
     <Editor IsEditor="true" OnClickButton="@PluginClick" CustomerToolbarButtons="@EditorPluginItems"></Editor>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ToolbarItems">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ToolbarItems">
     <p>@((MarkupString)Localizer["P6"].Value)</p>
     <Editor IsEditor="true" ToolbarItems="@ToolbarItems"></Editor>
-</Block>
+</DemoBlock>
 
 <SweetAlert />
 

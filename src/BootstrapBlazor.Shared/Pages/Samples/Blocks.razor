@@ -1,0 +1,35 @@
+﻿@page "/blocks"
+
+<h3>Block 条件块</h3>
+
+<h4>根据参数条件决定是否显示块内容，通常与权限授权配合使用</h4>
+
+<DemoBlock Title="普通用法" Introduction="通过设置 <code>OnQueryCondition</code> 回调方法返回值判断是否显示组件内容" Name="Normal">
+    <div class="mb-3" style="height: 21px;">
+        <Block OnQueryCondition="OnQueryCondition">
+            <div>我是组件内容</div>
+        </Block>
+    </div>
+    <Button Icon="@GetIcon()" Text="@GetText()" OnClick="ToggleCondition" />
+</DemoBlock>
+
+<DemoBlock Title="通过权限判断" Introduction="本例模拟用户登录来控制 <code>Block</code> 内容是否显示，使用比 <code>AuthorizeView</code> 简单" Name="Authorizate">
+    <div class="mb-3" style="height: 21px;">
+        <Block OnQueryCondition="OnQueryUser">
+            <div>我是 <code>CondtionBlock</code> 组件内容，当前登录用户：<code>@UserName</code></div>
+        </Block>
+    </div>
+    <Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+        <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+            <Authorized>
+                <div>我是 <code>AuthorizeView</code> 组件内容，当前登录用户：<code>@context.User.Identity?.Name</code></div>
+            </Authorized>
+            <NotAuthorized>
+                <div>我是 <code>AuthorizeView</code> 组件内容，当前未登录</div>
+            </NotAuthorized>
+        </Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+    </Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+    <Button Icon="@GetUser()" Text="@GetUserText()" OnClick="ToggleAuthor" class="mt-3" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

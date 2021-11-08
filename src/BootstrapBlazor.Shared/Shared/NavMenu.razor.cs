@@ -377,6 +377,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Block"],
+                    Url = "blocks"
+                },
+                new()
+                {
                     Text = Localizer["Card"],
                     Url = "cards"
                 },

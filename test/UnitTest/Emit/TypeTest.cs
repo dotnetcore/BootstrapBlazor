@@ -32,7 +32,7 @@ namespace UnitTest.Emit
             Assert.NotNull(instance);
 
             var properties = instance.GetType().GetProperties().Select(p => p.Name);
-            Assert.True(cols.Select(c => c.FieldName).SequenceEqual(properties));
+            Assert.Contains(nameof(DynamicObject.DynamicObjectPrimaryKey), properties);
         }
 
         private class Foo : ITableColumn

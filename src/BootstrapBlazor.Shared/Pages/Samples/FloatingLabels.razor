@@ -5,26 +5,26 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Normal"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Normal"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <FloatingLabel DisplayText="Text" TValue="string" IsSelectAllTextOnFocus="true" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["DisplayTitle"]" Introduction="@Localizer["DisplayIntro"]" Name="DisplayText">
+<DemoBlock Title="@Localizer["DisplayTitle"]" Introduction="@Localizer["DisplayIntro"]" Name="DisplayText">
     <FloatingLabel DisplayText="Text" Value="@Model.Name" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="BindValue">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="BindValue">
     <ValidateForm Model="@Model">
         <FloatingLabel DisplayText="@Localizer["DisplayText1"]" maxlength="5" @bind-Value="@Model.Name" />
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Password">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Password">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <FloatingLabel DisplayText="@Localizer["DisplayText2"]" TValue="string" type="password" maxlength="5" style="width: 200px;" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="FormatString">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="FormatString">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <FloatingLabel DisplayText="@Localizer["DisplayText3"]" FormatString="000" step="1" @bind-Value="@Model.Count" />
@@ -33,13 +33,13 @@
             <div class="col-form-label">@Localizer["Div1", @Model.Count.ToString("000")]</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Disabled">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Disabled">
     <FloatingLabel DisplayText="@Localizer["DisplayText4"]" TValue="string" IsDisabled="true" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Title"]" Name="Formatter">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Title"]" Name="Formatter">
     <div class="row g-3">
         <div class="col-12 col-sm-6 col-form-label align-self-center">@Localizer["Div2"] <code class="ms-1">FormatString</code></div>
         <div class="col-12 col-sm-6">
@@ -57,6 +57,6 @@
             <FloatingLabel DisplayText="@Localizer["DisplayText5"]" Value="@ByteArray" Formatter="@ByteArrayFormatter" IsDisabled="true" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

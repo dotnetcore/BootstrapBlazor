@@ -35,10 +35,6 @@ namespace BootstrapBlazor.Shared.Pages
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         private  IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()

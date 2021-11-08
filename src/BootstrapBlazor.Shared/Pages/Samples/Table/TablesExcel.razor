@@ -4,7 +4,7 @@
 
 <h4>常用于大数据单表维护</h4>
 
-<Block Title="绑定集合" Introduction="通过 <code>OnQueryAsync</code> 回调获得数据集合" Name="OnQuery">
+<DemoBlock Title="绑定集合" Introduction="通过 <code>OnQueryAsync</code> 回调获得数据集合" Name="OnQuery">
     <Table TItem="Foo" ShowColumnList="true"
            IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
@@ -19,7 +19,7 @@
     </Table>
 
     <BlockLogger @ref="Trace" class="mt-3" />
-</Block>
+</DemoBlock>
 
 <p class="mt-3">使用 <code>List&lt;TItem&gt;</code> 泛型集合作为数据源时，需要按照下面的步骤进行设置</p>
 
@@ -79,7 +79,7 @@
     return Task.FromResult(true);
 }</Pre>
 
-<Block Title="通过编辑模板单独控制单元格渲染方式" Introduction="高级用法" Name="CellRender">
+<DemoBlock Title="通过编辑模板单独控制单元格渲染方式" Introduction="高级用法" Name="CellRender">
     <ul class="ul-demo">
         <li><code>IsFixedHeader</code> 固定表头 高度设定为 <code>Height="500px"</code></li>
         <li><code>Name</code> 不可编辑显示头像</li>
@@ -118,4 +118,4 @@
             <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
         </TableColumns>
     </Table>
-</Block>
+</DemoBlock>

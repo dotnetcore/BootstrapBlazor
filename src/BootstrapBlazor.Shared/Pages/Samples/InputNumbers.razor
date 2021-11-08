@@ -5,26 +5,26 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <div class="demo-inputnumber">
         <BootstrapInputNumber Value="@BindValue" IsSelectAllTextOnFocus="true" />
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Range">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Range">
     <div class="demo-inputnumber">
         <BootstrapInputNumber Value="@BindValue" Max="10" Min="1" />
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="ShowButton">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="ShowButton">
     <p>@Localizer["P1"]</p>
     <div class="demo-inputnumber">
         <BootstrapInputNumber ShowButton="true" Value="@BindValue" Max="10" Min="0" />
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Step">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Step">
     <div class="demo-inputnumber">
         <p>@Localizer["P2"]</p>
         <BootstrapInputNumber ShowButton="true" Value="5" Color="Color.Danger" />
@@ -37,9 +37,9 @@
         <p>@Localizer["P2"]</p>
         <BootstrapInputNumber ShowButton="true" Value="0.5" Step="0.1" Formatter="@Formatter" Color="Color.Warning" />
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Color">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Color">
     <p>@Localizer["P5"]</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
@@ -126,9 +126,9 @@
             </div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="DateType">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="DateType">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <div class="demo-inputnumber">
@@ -161,9 +161,9 @@
             </div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Disabled">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Disabled">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <BootstrapInputNumber Value="10" IsDisabled="true" />
@@ -172,9 +172,9 @@
             <BootstrapInputNumber Value="20" IsDisabled="true" ShowButton="true" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="ValidateForm">
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="ValidateForm">
     <p>@((MarkupString)Localizer["p7"].Value)</p>
     <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="@Model">
@@ -184,6 +184,6 @@
     <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="false" />
     <Divider Text="@Localizer["Divider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="true" DisplayText="@Localizer["InputText"]" />
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

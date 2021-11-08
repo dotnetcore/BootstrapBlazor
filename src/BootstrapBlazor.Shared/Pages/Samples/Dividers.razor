@@ -5,13 +5,13 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <p>@Localizer["P1"]</p>
     <Divider></Divider>
     <p>@Localizer["P2"]</p>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Alignment">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Alignment">
     <p>@Localizer["P3"]</p>
     <Divider Text="@Localizer["D1"]" Alignment="Alignment.Left"></Divider>
     <p>@Localizer["P4"]</p>
@@ -19,9 +19,9 @@
     <p>@Localizer["P5"]</p>
     <Divider Text="@Localizer["D3"]" Alignment="Alignment.Right"></Divider>
     <p>@Localizer["P6"]</p>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Icon">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Icon">
     <p>@Localizer["P3"]</p>
     <Divider Icon="fa fa-fw fa-at" Alignment="Alignment.Left"></Divider>
     <p>@Localizer["P4"]</p>
@@ -29,9 +29,9 @@
     <p>@Localizer["P5"]</p>
     <Divider Icon="fa fa-fw fa-bookmark" Text="@Localizer["D4"]" Alignment="Alignment.Right"></Divider>
     <p>@Localizer["P6"]</p>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Vertical">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Vertical">
     <div class="d-flex">
         <span>@Localizer["S1"]</span>
         <Divider IsVertical="true"></Divider>
@@ -55,14 +55,14 @@
         <Divider IsVertical="true" Text="@Localizer["D5"]"></Divider>
         <div class="border border-info" style="width:100px; height:200px;"></div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ChildContent">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ChildContent">
     <p>@Localizer["P3"]</p>
     <Divider>
         <div class="text-dagner">@((MarkupString)Localizer["Div"].Value)</div>
     </Divider>
     <p>@Localizer["P4"]</p>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

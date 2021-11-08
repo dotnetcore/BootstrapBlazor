@@ -4,7 +4,7 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Blok1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Blok1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <p></p>
     <ul class="ul-demo">
         <li>@((MarkupString)Localizer["Li1"].Value)</li>
@@ -14,9 +14,9 @@
     <CheckboxList @bind-Value="@Value1" Items="@Items1" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]"
                   OnSelectedChanged="@OnSelectedChanged"></CheckboxList>
     <BlockLogger class="mt-3" @ref="Trace" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValidateForm">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValidateForm">
     <p>@((MarkupString)Localizer["P2"].Value)</p>
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <p>@((MarkupString)Localizer["P4"].Value)</p>
@@ -31,9 +31,9 @@
             </div>
         </div>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="ShowLabel">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="ShowLabel">
     <p>@((MarkupString)Localizer["P5"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
@@ -54,9 +54,9 @@
             <div class="form-control flex-fill">@(string.Join(",", Value3))</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Enum">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Enum">
     <p>@((MarkupString)Localizer["P7"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
@@ -67,22 +67,22 @@
             <div class="form-control">@(string.Join(",", SelectedEnumValues))</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="NoBorder">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="NoBorder">
     <p>@Localizer["P8"]</p>
     <ValidateForm Model="@Dummy">
         <CheckboxList @bind-Value="@Dummy.Name" ShowBorder="false" Items="@Items2" />
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Vertical">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Vertical">
     <CheckboxList @bind-Value="@Dummy1.Name" IsVertical="true" ShowBorder="false" Items="@Items5" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Disabled">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Disabled">
     <CheckboxList @bind-Value="@Dummy2.Name" IsDisabled="true" ShowBorder="false" Items="@Items6" />
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

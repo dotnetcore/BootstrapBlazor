@@ -141,8 +141,8 @@ namespace BootstrapBlazor.Shared.Services
 
         private string Filter(string codeFile, string content, string? blockTitle)
         {
-            var beginFlag = "<Block ";
-            var endFlag = "</Block>";
+            var beginFlag = "<DemoBlock ";
+            var endFlag = "</DemoBlock>";
             if (!string.IsNullOrEmpty(blockTitle))
             {
                 var findStrings = new string[] { $"Name=\"{blockTitle}\"", $"Title=\"{blockTitle}\"" };
@@ -179,7 +179,7 @@ namespace BootstrapBlazor.Shared.Services
 
         private string TrimBlock(string codeFile, string content)
         {
-            var endFlag = "</Block>";
+            var endFlag = "</DemoBlock>";
             var lineFlag = "\n";
             var star = content.IndexOf(lineFlag);
             var end = content.IndexOf(endFlag);

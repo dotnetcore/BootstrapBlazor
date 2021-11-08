@@ -1,6 +1,6 @@
 ﻿@page "/charts/bubble"
 
-<Block Title="Bubble 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图" Name="Bubble">
+<DemoBlock Title="Bubble 图" Introduction="通过设置 <code>ChartType</code> 更改图表为 <code>bubble</code> 图" Name="Bubble">
     <Chart ChartType="ChartType.Bubble" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BubbleChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
@@ -12,6 +12,6 @@
         </div>
     </div>
     <BlockLogger @ref="Logger" class="mt-3" />
-</Block>
+</DemoBlock>
 
 <ChartToast />

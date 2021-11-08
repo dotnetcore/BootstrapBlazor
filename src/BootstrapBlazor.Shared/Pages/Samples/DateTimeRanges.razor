@@ -4,12 +4,12 @@
 
 <h4>在同一个选择器里选择一段日期</h4>
 
-<Block Title="基本功能" Introduction="以「日」为基本单位，选择一段时间" Name="Normal">
+<DemoBlock Title="基本功能" Introduction="以「日」为基本单位，选择一段时间" Name="Normal">
     <DateTimeRange @bind-Value="@DateTimeRangeValue1" OnConfirm="OnConfirm" />
     <BlockLogger @ref="DateLogger" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致" Name="BindValue">
+<DemoBlock Title="数据双向绑定" Introduction="点击确认按钮时间选择框值与文本框值一致" Name="BindValue">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimeRange @bind-Value="@DateTimeRangeValue2" />
@@ -27,9 +27,9 @@
             </div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disabled">
+<DemoBlock Title="禁用" Introduction="设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入" Name="Disabled">
 	<div class="row g-3">
 		<div class="col-12 col-sm-6">
 			<DateTimeRange Value="@DateTimeRangeValue3" IsDisabled="@IsDisabled" />
@@ -38,17 +38,17 @@
 			<Switch @bind-Value="@IsDisabled" />
 		</div>
 	</div>
-</Block>
+</DemoBlock>
 
-<Block Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏" Name="Sidebar">
+<DemoBlock Title="带快捷键侧边栏" Introduction="设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏" Name="Sidebar">
     <p>通过设置 <code>ShowSidebar</code> 参数开启显示侧边栏快捷选项功能，通过设置 <code>SidebarItems</code> 参数集合替换组件内置的默认快捷项</p>
     <DateTimeRange Value="@DateTimeRangeValue4" ShowSidebar="true" />
-</Block>
+</DemoBlock>
 
-<Block Title="显示今天按钮" Introduction="设置 <code>ShowToday</code> 属性值为 <code>true</code> 时，组件下方显示今天快捷按钮" Name="Today">
+<DemoBlock Title="显示今天按钮" Introduction="设置 <code>ShowToday</code> 属性值为 <code>true</code> 时，组件下方显示今天快捷按钮" Name="Today">
     <p>点击 <code>今天</code> 按钮时，时间范围为 <code>yyyy-MM-dd 00:00:00 到 yyyy-MM-dd 23:59:59</code></p>
     <DateTimeRange Value="@DateTimeRangeValue4" ShowToday="true" />
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

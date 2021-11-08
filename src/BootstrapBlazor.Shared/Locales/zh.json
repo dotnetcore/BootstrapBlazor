@@ -1576,7 +1576,7 @@
     "ValueChanged": "获取选择改变的值",
     "DisplayName": "绑定标签"
   },
-  "BootstrapBlazor.Shared.Components.Block": {
+  "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"
   },
@@ -1774,6 +1774,7 @@
     "AutoComplete": "自动完成 AutoComplete",
     "AutoFill": "自动填充 AutoFill",
     "Button": "按钮 Button",
+    "Block": "条件块 Block",
     "Cascader": "级联选择 Cascader",
     "Checkbox": "多选框 Checkbox",
     "CheckboxList": "多选框组 CheckboxList",

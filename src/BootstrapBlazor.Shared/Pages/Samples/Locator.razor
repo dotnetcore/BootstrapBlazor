@@ -4,7 +4,7 @@
 
 <h4>多用于系统日志跟踪与分析</h4>
 
-<Block Title="普通用法" Introduction="注入服务显示客户端地理位置信息" Name="Normal">
+<DemoBlock Title="普通用法" Introduction="注入服务显示客户端地理位置信息" Name="Normal">
     <p><b>用法介绍</b></p>
     <div class="mb-3">
         <p>组件中使用注入服务 <code>IIPLocatorProvider</code> 调用 <code>Locate</code> 方法</p>
@@ -55,4 +55,4 @@ private IIPLocatorProvider? IPLocator { get; set; }
 }</Pre>
         <div>通过 <code>AddBootstrapBlazor</code> 方法的回调委托参数进行自定义定位器 <code>CustomerLocator</code> 配置</div>
     </div>
-</Block>
+</DemoBlock>

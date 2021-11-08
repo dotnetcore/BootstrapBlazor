@@ -30,7 +30,7 @@
     <li>@((MarkupString)Localizer["InfoItem4"].Value)</li>
 </ul>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <Tab>
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
@@ -45,9 +45,9 @@
             <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Card">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Card">
     <Tab IsCard="true">
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
@@ -62,9 +62,9 @@
             <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Border">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Border">
     <Tab IsBorderCard="true">
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
@@ -79,9 +79,9 @@
             <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Icon">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Icon">
     <Tab IsCard="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa fa-user">
             <div>@Localizer["TabItem1Content"]</div>
@@ -96,9 +96,9 @@
             <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Closable">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Closable">
     <Tips>
         @((MarkupString)Localizer["Tips2"].Value)
     </Tips>
@@ -116,9 +116,9 @@
             <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Placement">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Placement">
     <p class="text-center">
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => SetPlacement(Placement.Top)">Top</button>
@@ -189,9 +189,9 @@
             <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="AddTabItem">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="AddTabItem">
     <p>
         <Button Icon="fa fa-plus-circle" OnClickWithoutRender="@(() => AddTab(TabSet))" Text="@Localizer["AddButtonText"]">
         </Button>
@@ -217,9 +217,9 @@
             <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="Component">
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="Component">
     <p>
         @((MarkupString)Localizer["P2"].Value)
     </p>
@@ -231,9 +231,9 @@
             <FetchData></FetchData>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="DynamicTabItem">
+<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="DynamicTabItem">
     <p>
         @((MarkupString)Localizer["P3"].Value)
     </p>
@@ -253,9 +253,9 @@
             </div>
         </Main>
     </Layout>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="App">
+<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="App">
     <Tips>@((MarkupString)Localizer["Tips3"].Value)</Tips>
     <p>
         <button type="button" class="btn btn-outline-primary" @onclick="@(e => AddTab(TabSet2))">
@@ -284,9 +284,9 @@
             <div>@Localizer["TabItem7Content"]</div>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="IsOnlyRenderActive">
+<DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block11Intro"]" Name="IsOnlyRenderActive">
     <Tab IsBorderCard="true" IsOnlyRenderActiveTab="true">
         <TabItem Text="@Localizer["TabItem8Text"]">
             <Counter></Counter>
@@ -295,7 +295,7 @@
             <FetchData></FetchData>
         </TabItem>
     </Tab>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["AttTitle"]" />
 

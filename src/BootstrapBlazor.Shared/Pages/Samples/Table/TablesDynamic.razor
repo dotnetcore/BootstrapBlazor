@@ -4,17 +4,17 @@
 
 <h4>支持动态添加列</h4>
 
-<Block Title="普通用法" Introduction="仅展示 <code>DataTable</code> 数据" Name="DataTable">
+<DemoBlock Title="普通用法" Introduction="仅展示 <code>DataTable</code> 数据" Name="DataTable">
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" />
-</Block>
+</DemoBlock>
 
-<Block Title="编辑功能" Introduction="增加编辑维护功能" Name="Edit">
+<DemoBlock Title="编辑功能" Introduction="增加编辑维护功能" Name="Edit">
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
            IsMultipleSelect="true" IsBordered="true" IsStriped="true"
            ShowToolbar="true" ShowExtendButtons="true" />
-</Block>
+</DemoBlock>
 
-<Block Title="动态列" Introduction="通过代码动态调整 <code>DataTable</code> 表格组件自动更新" Name="DynamicCol">
+<DemoBlock Title="动态列" Introduction="通过代码动态调整 <code>DataTable</code> 表格组件自动更新" Name="DynamicCol">
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
            IsMultipleSelect="true" IsBordered="true" IsStriped="true"
            ShowToolbar="true" ShowExtendButtons="true">
@@ -23,4 +23,4 @@
             <TableToolbarButton TItem="DynamicObject" Color="Color.Secondary" Icon="fa fa-fw fa-minus-circle" Text="@ButtonRemoveColumnText" OnClick="OnRemoveColumn" />
         </TableToolbarTemplate>
     </Table>
-</Block>
+</DemoBlock>

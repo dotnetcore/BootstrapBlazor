@@ -4,20 +4,20 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <div style="width: 320px;">
         <DatePickerBody IsShown="true" ValueChanged="@DateValueChanged" ShowFooter="false" />
     </div>
     <BlockLogger @ref="DateLogger" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValueChanged">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValueChanged">
     <TimePickerBody Value="@TimeNow" ValueChanged="@TimeValueChanged" />
 
     <BlockLogger @ref="TimeLogger" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Time">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Time">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <div class="d-flex flex-column">
@@ -34,9 +34,9 @@
             </div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValidateForm">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValidateForm">
     <ValidateForm Model="this">
         <div class="row g-3">
             <div class="col-12 col-sm-auto">
@@ -47,17 +47,17 @@
             </div>
         </div>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Date">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Date">
     <div class="row g-3">
         <div class="col-sm-4">
             <DateTimePicker TValue="DateTime" Value="@DateTime.Today" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Placement">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Placement">
     <div class="row g-3">
         <div class="col-sm-6">
             <DateTimePicker TValue="DateTime?" Value="@BindValue" ValueChanged="@DateTimeValueChanged" Placement="Placement.Right" />
@@ -66,14 +66,14 @@
             <input class="form-control" @bind="@BindValueString" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ViewModel">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="ViewModel">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.DateTime" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="NullValue">
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="NullValue">
     <p>@((MarkupString)Localizer["P2"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-8">
@@ -83,9 +83,9 @@
             <div class="form-control">@GetNullValueString</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="ShowLabel">
+<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="ShowLabel">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <div class="row g-3">
@@ -93,9 +93,9 @@
             <DateTimePicker TValue="DateTime?" @bind-Value="@BindNullValue" DisplayText="@Localizer["DisplayText"]" ShowLabel="true" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="Disalbed">
+<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="Disalbed">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimePicker TValue="DateTime" IsDisabled="IsDisabled" />
@@ -104,24 +104,24 @@
 			<Switch @bind-Value="@IsDisabled" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block12Title"]" Name="ViewModel">
+<DemoBlock Title="@Localizer["Block11Title"]" Introduction="@Localizer["Block12Title"]" Name="ViewModel">
     <div class="row g-3">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewModel="DatePickerViewModel.DateTime" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="MinValue">
+<DemoBlock Title="@Localizer["Block12Title"]" Introduction="@Localizer["Block12Intro"]" Name="MinValue">
     <div class="row g-3">
         <div class="col-12">
             <DateTimePicker TValue="DateTime" ViewModel="DatePickerViewModel.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
                             MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))" MaxValue="@(DateTime.Today.AddDays(46 - DateTime.Today.Day))" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

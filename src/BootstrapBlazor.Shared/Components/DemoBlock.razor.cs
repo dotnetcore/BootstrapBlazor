@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Shared.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class Block
+    public sealed partial class DemoBlock
     {
         private ElementReference BlockElement { get; set; }
 
@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Shared.Components
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Block>? Localizer { get; set; }
+        private IStringLocalizer<DemoBlock>? Localizer { get; set; }
 
         /// <summary>
         /// 获得/设置 友好链接锚点名称

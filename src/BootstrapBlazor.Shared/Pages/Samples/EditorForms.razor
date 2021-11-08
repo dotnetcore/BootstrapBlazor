@@ -13,7 +13,7 @@
     <li>@((MarkupString)Localizer["Li4"].Value)</li>
 </ul>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]" Name="Normal">
     <p>@((MarkupString)Localizer["P2"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox1"]" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
@@ -33,9 +33,9 @@
             </Buttons>
         </EditorForm>
     </GroupBox>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValidateForm">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="ValidateForm">
     <p>@((MarkupString)Localizer["P3"].Value)</p>
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox2"]" style="margin-top: 1.5rem;">
@@ -57,9 +57,9 @@
             </EditorForm>
         </ValidateForm>
     </GroupBox>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="EditorForm">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="EditorForm">
     <GroupBox Title="@Localizer["GroupBox3"]">
         <p>@((MarkupString)Localizer["P5"].Value)</p>
         <EditorForm Model="@Model" AutoGenerateAllItem="false">
@@ -69,9 +69,9 @@
             </FieldItems>
         </EditorForm>
     </GroupBox>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="SkipValidate">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="SkipValidate">
     <GroupBox Title="@Localizer["GroupBox4"]">
         <p>@((MarkupString)Localizer["P6"].Value)</p>
         <ValidateForm Model="@Model">
@@ -97,9 +97,9 @@
             </EditorForm>
         </ValidateForm>
     </GroupBox>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ItemsPerRow">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ItemsPerRow">
     <p>@((MarkupString)Localizer["P7"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox5"]" style="margin-top: 1.5rem;">
         <ValidateForm Model="@Model">
@@ -113,9 +113,9 @@
             </EditorForm>
         </ValidateForm>
     </GroupBox>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Alignment">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Alignment">
     <ul class="ul-demo">
         <li>@((MarkupString)Localizer["Li5"].Value)</li>
         <li>@((MarkupString)Localizer["Li6"].Value)</li>
@@ -132,7 +132,7 @@
             </Buttons>
         </EditorForm>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

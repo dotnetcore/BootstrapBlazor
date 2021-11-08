@@ -5,20 +5,20 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Title"]" Name="Normal">
     <RadioList TValue="string" Items="@DemoValues" OnSelectedChanged="@OnSelectedChanged"></RadioList>
     <BlockLogger @ref="Trace" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction='@Localizer["Block2Intro"]' Name="Disable">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction='@Localizer["Block2Intro"]' Name="Disable">
     <RadioList TValue="string" Items="@DemoValues" IsDisabled="true" ShowBorder="false"></RadioList>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Label">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Label">
     <RadioList TValue="string" Items="@DemoValues" ShowLabel="true" DisplayText="@Localizer["RadioText"]"></RadioList>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Binding">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Binding">
     <div class="row g-3">
         <div class="col-12">
             <RadioList Items="@Items" @bind-Value="@BindRadioItem" OnSelectedChanged="@OnItemChanged"></RadioList>
@@ -28,20 +28,20 @@
         </div>
     </div>
     <BlockLogger @ref="BinderLog" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Vertical">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Vertical">
     <RadioList TValue="string" Items="@DemoValues" IsVertical="true"></RadioList>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Enum">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Enum">
     <RadioList @bind-Value="@SelectedEnumItem"></RadioList>
     <p class="mt-2">@SelectedEnumItem</p>
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <RadioList @bind-Value="@SelectedEnumItem2" IsAutoAddNullItem="true" NullItemText="@Localizer["RadioText2"]"></RadioList>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Color">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12">
             <RadioList TValue="string" Items="@DemoValues" Color="@Color.Primary"></RadioList>
@@ -62,7 +62,7 @@
             <RadioList TValue="string" Items="@DemoValues" Color="@Color.Secondary"></RadioList>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

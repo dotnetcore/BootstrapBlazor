@@ -5,7 +5,7 @@
 
 <h4>Table 组件显示大数据时通常采用分页加载数据，还有一种虚拟行的技术类似手机滚动到底部时后台自动加载数据</h4>
 
-<Block Title="正常使用" Introduction="无需分页滚动数据时后台按需加载" Name="Normal">
+<DemoBlock Title="正常使用" Introduction="无需分页滚动数据时后台按需加载" Name="Normal">
     <p>需要设置 <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> 参数对虚拟滚动进行设置</p>
     <div class="table-virtualize-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual">
@@ -19,9 +19,9 @@
             </TableColumns>
         </Table>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="动态获取数据" Introduction="无需分页滚动数据时后台按需加载" Name="Dynamic">
+<DemoBlock Title="动态获取数据" Introduction="无需分页滚动数据时后台按需加载" Name="Dynamic">
     <p>快速滚动时显示行占位，提升用户体验</p>
     <div class="table-virtualize-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
@@ -35,4 +35,4 @@
             </TableColumns>
         </Table>
     </div>
-</Block>
+</DemoBlock>

@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
 using BootstrapBlazor.Shared.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -25,6 +26,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<CodeSnippetService>();
             services.AddSingleton<IConfigureOptions<WebsiteOptions>, ConfigureOptions<WebsiteOptions>>();
             services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+
+            // 增加模拟登录服务
+            services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
             // 增加 Table Excel 导出服务
             services.AddBootstrapBlazorTableExcelExport();

@@ -9,16 +9,16 @@
 
 <p>@((MarkupString)Localizer["p2"].Value)</p>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <Steps Items="@Items" OnStatusChanged="@OnStatusChanged" />
     <div class="mt-1">
         <Button OnClick="@NextStep" IsOutline="true">@Localizer["Button1Text"]</Button>
         <Button OnClick="@ResetStep" IsOutline="true">@Localizer["Button2Text"]</Button>
     </div>
     <BlockLogger @ref="Trace" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Step">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Step">
     <Steps>
         <Step Title="@Localizer["Step1Title"]" Space="25%" Status="StepStatus.Success"></Step>
         <Step Title="@Localizer["Step2Title"]" Space="25%" Status="StepStatus.Process" StepIndex="1"></Step>
@@ -26,34 +26,34 @@
         <Step Title="@Localizer["Step4Title"]" Space="25%" Status="StepStatus.Finish" StepIndex="3"></Step>
         <Step Title="@Localizer["Step5Title"]" Space="25%" StepIndex="4" IsLast="true"></Step>
     </Steps>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Desc">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Desc">
     <Steps>
         <Step Title="@Localizer["Step1Title"]" Space="33.33%" Status="StepStatus.Finish" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step2Title"]" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step3Title"]" Space="33.33%" StepIndex="3" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step4Title"]" Space="33.33%" StepIndex="4" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
     </Steps>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Middle">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="Middle">
     <Steps IsCenter="true">
         <Step Title="@Localizer["Step1Title"]" Space="33.33%" Status="StepStatus.Finish" StepIndex="0" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step2Title"]" Space="33.33%" Status="StepStatus.Success" StepIndex="1" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step3Title"]" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step4Title"]" Space="33.33%" StepIndex="3" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
     </Steps>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="TitleCenter">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="TitleCenter">
     <Steps IsCenter="true">
         <Step Title="@Localizer["Step1Title"]" Space="33.33%" IsIcon="true" Icon="fa fa-user" Status="StepStatus.Success" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step2Title"]" Space="33.33%" IsIcon="true" Icon="fa fa-user-plus" Status="StepStatus.Process" StepIndex="1" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step3Title"]" Space="33.33%" IsIcon="true" Icon="fa fa-users" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
         <Step Title="@Localizer["Step4Title"]" Space="33.33%" IsIcon="true" Icon="fa fa-user-secret" StepIndex="3" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
     </Steps>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

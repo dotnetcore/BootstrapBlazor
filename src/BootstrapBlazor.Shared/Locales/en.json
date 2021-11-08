@@ -1575,7 +1575,7 @@
     "ValueChanged": "Gets the value of the selection change",
     "DisplayName": "Binding label"
   },
-  "BootstrapBlazor.Shared.Components.Block": {
+  "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
   },
@@ -1771,6 +1771,7 @@
     "FormsComponents": "FORMS",
     "AutoComplete": "AutoComplete",
     "AutoFill": "AutoFill",
+    "Block": "Block",
     "Button": "Button",
     "Cascader": "Cascader",
     "Checkbox": "Checkbox",

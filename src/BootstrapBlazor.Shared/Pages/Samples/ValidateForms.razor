@@ -4,7 +4,7 @@
 
 <h4>可供数据合规检查的表单组件</h4>
 
-<Block Title="基础用法" Introduction="放置到 <code>ValidateForm</code> 中的组件提交时自动进行数据合规检查" Name="Normal">
+<DemoBlock Title="基础用法" Introduction="放置到 <code>ValidateForm</code> 中的组件提交时自动进行数据合规检查" Name="Normal">
     <p>组件说明：</p>
     <ul class="ul-demo">
         <li><code>ValidateForm</code> 组件支持异步设置 <code>Model</code> 值</li>
@@ -36,9 +36,9 @@
         </ValidateForm>
         <BlockLogger @ref="Trace" class="mt-3" />
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="内置组件" Introduction="放置支持表单组件到 <code>ValidateForm</code> 中" Name="InnerComponent">
+<DemoBlock Title="内置组件" Introduction="放置支持表单组件到 <code>ValidateForm</code> 中" Name="InnerComponent">
     <div class="form-demo">
         <label class="legend">支持表单验证的组件示例</label>
         <p>示例说明</p>
@@ -75,9 +75,9 @@
         </ValidateForm>
         <BlockLogger @ref="Trace2" class="mt-3" />
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="自定义显示错误信息" Introduction="通过调用 <code>SetError</code> 方法设置自定义错误信息" Name="CustomDisplsyError">
+<DemoBlock Title="自定义显示错误信息" Introduction="通过调用 <code>SetError</code> 方法设置自定义错误信息" Name="CustomDisplsyError">
     <p>
         <b>应用场景</b>
         <div>
@@ -107,9 +107,9 @@
             </div>
         </div>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="验证所有字段值" Introduction="此组件默认检查表单内模型绑定字段值，如需要检查模型所有字段值时设置 <code>ValidateAllProperties</code> 值" Name="ValidatorAllField">
+<DemoBlock Title="验证所有字段值" Introduction="此组件默认检查表单内模型绑定字段值，如需要检查模型所有字段值时设置 <code>ValidateAllProperties</code> 值" Name="ValidatorAllField">
     <p>
         本例中未放置 <code>Address</code>，由于设置 <code>ValidateAllProperties</code> 参数值为 <code>true</code>，所以
         <code>Address</code> 字段仍然被检查，及时表单内所有数据均合法后，提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托
@@ -138,9 +138,9 @@
         </div>
     </ValidateForm>
     <BlockLogger @ref="Trace3" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="复杂类型支持" Introduction="支持任意复杂类型的绑定与验证" Name="ComplexValidation">
+<DemoBlock Title="复杂类型支持" Introduction="支持任意复杂类型的绑定与验证" Name="ComplexValidation">
     <p>
         本示例中第二个绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用
         <code>SetError</code> 再次显示错误提示
@@ -169,9 +169,9 @@
             </div>
         }
     </p>
-</Block>
+</DemoBlock>
 
-<Block Title="动态调整表单内组件" Introduction="通过代码更改表单内组件，验证表单仍然可以正确的进行验证" Name="DynamicForm">
+<DemoBlock Title="动态调整表单内组件" Introduction="通过代码更改表单内组件，验证表单仍然可以正确的进行验证" Name="DynamicForm">
     <p>
         点击 <b>更改组件</b> 按钮后 <code>地址</code> 组件变更为 <code>数量</code> 组件，<b>重置组件</b> 按钮恢复，<code>姓名</code> <code>地址</code>
         组件为必填项，<code>数量</code> 组件有默认值 <code>0</code> 所以可以通过数据检查
@@ -200,9 +200,9 @@
         </div>
     </ValidateForm>
     <BlockLogger @ref="Trace5" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="表单内设置组件标签右对齐" Introduction="通过样式统一设置全站或者特定表单内标签对齐方式" Name="InnerFormLabel">
+<DemoBlock Title="表单内设置组件标签右对齐" Introduction="通过样式统一设置全站或者特定表单内标签对齐方式" Name="InnerFormLabel">
     <p>地址文本框增加了 <b>邮件地址</b> 验证规则</p>
     <Pre>&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
     <ValidateForm Model="@Model">
@@ -213,9 +213,9 @@
             </FieldItems>
         </EditorForm>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="自定义验证表单" Introduction="通过设置 <code>Rules</code> 添加自定义验证规则" Name="CustomValidationForm">
+<DemoBlock Title="自定义验证表单" Introduction="通过设置 <code>Rules</code> 添加自定义验证规则" Name="CustomValidationForm">
     <p>地址文本框增加了 <b>邮件地址</b> 验证规则，点击提交时验证</p>
     <Pre>protected override void OnInitialized()
 {
@@ -239,7 +239,7 @@
             </div>
         </div>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

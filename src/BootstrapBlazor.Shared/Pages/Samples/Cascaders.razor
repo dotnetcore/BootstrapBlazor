@@ -3,7 +3,7 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader TValue="string" Items="@Items" OnSelectedItemChanged="@OnItemChanged"></Cascader>
@@ -31,9 +31,9 @@
         </div>
     </div>
     <BlockLogger @ref="Trace" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disabled">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disabled">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader TValue="string" Color="Color.Primary" Items="@Items" IsDisabled="true"></Cascader>
@@ -57,9 +57,9 @@
             <Cascader TValue="string" Color="Color.Dark" Items="@Items" IsDisabled="true"></Cascader>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Bind">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Bind">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Value"></Cascader>
@@ -68,9 +68,9 @@
             <BootstrapInput readonly @bind-Value="@Value" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValidateForm">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValidateForm">
     <ValidateForm Model="@Model">
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
@@ -81,9 +81,9 @@
             </div>
         </div>
     </ValidateForm>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Color">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Cascader Color="Color.Primary" Items="@GuidItems" @bind-Value="@CurrentGuid" />
@@ -92,9 +92,9 @@
             <div class="form-control">@CurrentGuid</div>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Labels">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Labels">
     <p>@((MarkupString)Localizer["P1"].Value)</p>
     <Divider Text="@Localizer["Divider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="@Model">
@@ -104,7 +104,7 @@
     <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" />
     <Divider Text="@Localizer["Divider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <Cascader Color="Color.Primary" Items="@Items" @bind-Value="@Model.Address" DisplayText="@Localizer["CascaderText"]" ShowLabel="true" />
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

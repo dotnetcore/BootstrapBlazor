@@ -4,7 +4,7 @@
 
 <h4>数据结构比较复杂的时候，可使用多级表头来展现数据的层次关系</h4>
 
-<Block Title="基础用法" Introduction="设置 <code>MultiHeaderTemplate</code> 模板即可" Name="MultiHeaderTemplate">
+<DemoBlock Title="基础用法" Introduction="设置 <code>MultiHeaderTemplate</code> 模板即可" Name="MultiHeaderTemplate">
     <Table TItem="Foo" OnQueryAsync="@OnQueryAsync" IsBordered="true" IsStriped="true">
         <MultiHeaderTemplate>
             <tr>
@@ -22,4 +22,4 @@
             <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
         </TableColumns>
     </Table>
-</Block>
+</DemoBlock>

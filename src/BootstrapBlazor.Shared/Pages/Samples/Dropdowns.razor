@@ -5,16 +5,16 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
     <BlockLogger @ref="Trace" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Null">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Null">
     <Dropdown TValue="string" Items="EmptyList" OnSelectedItemChanged="@ShowMessage" Color="Color.Secondary"></Dropdown>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block3Title"]" Introduction='@Localizer["Block3Intro"]' Name="Color">
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction='@Localizer["Block3Intro"]' Name="Color">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Primary"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Secondary"></Dropdown></div>
@@ -22,9 +22,9 @@
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Warning"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Danger"></Dropdown></div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block4Title"]" Introduction='@Localizer["Block4Intro"]' Name="Split">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction='@Localizer["Block4Intro"]' Name="Split">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Primary"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Secondary"></Dropdown></div>
@@ -32,9 +32,9 @@
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Warning"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Danger"></Dropdown></div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Size">
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="Size">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Size="Size.ExtraSmall"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Size="Size.Small"></Dropdown></div>
@@ -42,23 +42,23 @@
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Size="Size.Large"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Size="Size.ExtraLarge"></Dropdown></div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block6Title"]" Introduction='@Localizer["Block6Intro"]' Name="Direction">
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction='@Localizer["Block6Intro"]' Name="Direction">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Direction="Direction.Dropleft"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Direction="Direction.Dropup"></Dropdown></div>
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Direction="Direction.Dropright"></Dropdown></div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block7Title"]" Introduction='@Localizer["Block8Title"]' Name="Alignment">
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction='@Localizer["Block8Title"]' Name="Alignment">
     <div class="row">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Dropdown TValue="string" Items="Items" Color="Color.Secondary" MenuAlignment="Alignment.Right"></Dropdown></div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block8Title"]" Introduction='@Localizer["Block8Intro"]' Name="Items">
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction='@Localizer["Block8Intro"]' Name="Items">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Dropdown TValue="string" Items="@Foos">
@@ -69,9 +69,9 @@
             <Button @onclick="@RemoveItem" Color="Color.Danger">@Localizer["Button1Text"]</Button>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Radio">
+<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Radio">
     <div class="row g-3">
         <div class="col-12">
             <RadioList TValue="SelectedItem" Items="@RadioItems" OnSelectedChanged="@OnRadioItemChanged">
@@ -82,9 +82,9 @@
             </Dropdown>
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="Cascade">
+<DemoBlock Title="@Localizer["Block10Title"]" Introduction="@Localizer["Block10Intro"]" Name="Cascade">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Dropdown TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />
@@ -93,11 +93,11 @@
             <Dropdown TValue="string" Items="Items2" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["FixedButtonTextTitle"]" Introduction="@Localizer["FixedButtonTextIntro"]" Name="FixedButtonText">
+<DemoBlock Title="@Localizer["FixedButtonTextTitle"]" Introduction="@Localizer["FixedButtonTextIntro"]" Name="FixedButtonText">
     <Dropdown TValue="string" Items="RadioItems" IsFixedButtonText="true" />
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

@@ -5,12 +5,12 @@
 
 <h4>@Localizer["H1"]</h4>
 
-<Block Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <Rate Value="@BindValue" ValueChanged="@OnValueChanged" />
     <BlockLogger @ref="Trace" class="mt-3" />
-</Block>
+</DemoBlock>
 
-<Block Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Disable">
     <div class="row g-3">
         <div class="col-6">
             <Rate Value="@BindValue1" IsDisable="IsDisable" />
@@ -19,7 +19,7 @@
             <Switch @bind-Value="IsDisable" OnText="@Localizer["SwitchOn"]" OnColor="Color.Danger" OffText="@Localizer["SwitchOff"]" OffColor="@Color.Success" />
         </div>
     </div>
-</Block>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
