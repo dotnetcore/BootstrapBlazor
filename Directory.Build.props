@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
     <Copyright>Argo Zhang</Copyright>
     <Authors>Argo Zhang(argo@163.com)</Authors>
     <Company>Longbow</Company>

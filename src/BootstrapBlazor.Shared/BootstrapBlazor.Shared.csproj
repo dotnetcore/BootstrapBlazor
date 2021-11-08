@@ -1,10 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <IsPackable>true</IsPackable>
-    <Version>5.0.0</Version>
-  </PropertyGroup>
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -27,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0-rc.*" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.*" />
   </ItemGroup>
 
   <ItemGroup>
