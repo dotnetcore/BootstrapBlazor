@@ -29,6 +29,18 @@ namespace BootstrapBlazor.Shared.Pages
         private Task<bool> OnQueryCondition() => Task.FromResult(IsShow);
 
         #region 示例二
+        private bool IsShow2 { get; set; } = true;
+
+        private void ToggleCondition2() => IsShow2 = !IsShow2;
+
+        private string GetIcon2() => IsShow2 ? "fa fa-eye-slash" : "fa fa-eye";
+
+        private string GetText2() => IsShow2 ? "隐藏" : "显示";
+
+        private Task<bool> OnQueryCondition2() => Task.FromResult(IsShow2);
+        #endregion
+
+        #region 示例三
         [Inject]
         [NotNull]
         private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
@@ -78,6 +90,22 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = nameof(Block.ChildContent),
                 Description = "Block 块内显示内容",
+                Type = "RenderFragment",
+                ValueList = " - ",
+                DefaultValue = " - "
+            },
+            new AttributeItem()
+            {
+                Name = nameof(Block.Authorized),
+                Description = "Block 块内符合条件显示内容",
+                Type = "RenderFragment",
+                ValueList = " - ",
+                DefaultValue = " - "
+            },
+            new AttributeItem()
+            {
+                Name = nameof(Block.NotAuthorized),
+                Description = "Block 块内不符合条件显示内容",
                 Type = "RenderFragment",
                 ValueList = " - ",
                 DefaultValue = " - "

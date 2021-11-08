@@ -28,6 +28,18 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
 
+        /// <summary>
+        /// 获得/设置 符合条件显示的内容
+        /// </summary>
+        [Parameter]
+        public RenderFragment? Authorized { get; set; }
+
+        /// <summary>
+        /// 获得/设置 不符合条件显示的内容
+        /// </summary>
+        [Parameter]
+        public RenderFragment? NotAuthorized { get; set; }
+
         private bool IsShow { get; set; }
 
         /// <summary>
@@ -52,14 +64,18 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// BuildRenderTree 方法
         /// </summary>
         /// <param name="builder"></param>
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             if (IsShow)
             {
-                builder.AddContent(0, ChildContent);
+                builder.AddContent(0, Authorized ?? ChildContent);
+            }
+            else
+            {
+                builder.AddContent(0, NotAuthorized);
             }
         }
     }

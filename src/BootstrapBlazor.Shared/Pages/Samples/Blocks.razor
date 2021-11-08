@@ -13,6 +13,20 @@
     <Button Icon="@GetIcon()" Text="@GetText()" OnClick="ToggleCondition" />
 </DemoBlock>
 
+<DemoBlock Title="模板" Introduction="通过设置 <code>Authorized</code> <code>NotAuthorized</code> 可以分别设置符合条件与不符合条件时显示的内容" Name="Normal">
+    <div class="mb-3" style="height: 21px;">
+        <Block OnQueryCondition="OnQueryCondition2">
+            <Authorized>
+                <div>我是 <b>符合</b> 条件显示的组件内容</div>
+            </Authorized>
+            <NotAuthorized>
+                <div>我是 <b>不符合</b> 条件显示的组件内容</div>
+            </NotAuthorized>
+        </Block>
+    </div>
+    <Button Icon="@GetIcon2()" Text="@GetText2()" OnClick="ToggleCondition2" />
+</DemoBlock>
+
 <DemoBlock Title="通过权限判断" Introduction="本例模拟用户登录来控制 <code>Block</code> 内容是否显示，使用比 <code>AuthorizeView</code> 简单" Name="Authorizate">
     <div class="mb-3" style="height: 21px;">
         <Block OnQueryCondition="OnQueryUser">
