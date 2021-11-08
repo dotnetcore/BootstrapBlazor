@@ -3,9 +3,12 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -16,11 +19,29 @@ namespace BootstrapBlazor.Components
     public class Block : BootstrapComponentBase
     {
         /// <summary>
+        /// 获得/设置 Block 名字 此名字通过 <see cref="OnQueryCondition"/> 第一个参数传递给使用者
+        /// </summary>
+        [Parameter]
+        public string? Name { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Block 允许的角色集合
+        /// </summary>
+        [Parameter]
+        public IEnumerable<string>? Roles { get; set; }
+
+        /// <summary>
+        /// 获得/设置 Block 允许的用户集合
+        /// </summary>
+        [Parameter]
+        public IEnumerable<string>? Users { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示此 Block 默认显示
         /// </summary>
         [Parameter]
         [NotNull]
-        public Func<Task<bool>>? OnQueryCondition { get; set; }
+        public Func<string?, Task<bool>>? OnQueryCondition { get; set; }
 
         /// <summary>
         /// 获得/设置 子组件内容
@@ -40,17 +61,13 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public RenderFragment? NotAuthorized { get; set; }
 
-        private bool IsShow { get; set; }
+        [CascadingParameter]
+        private Task<AuthenticationState>? AuthenticationState { get; set; }
 
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
+        [Inject]
+        private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
 
-            OnQueryCondition ??= () => Task.FromResult(true);
-        }
+        private bool IsShow { get; set; } = true;
 
         /// <summary>
         /// OnParametersSetAsync 方法
@@ -60,7 +77,41 @@ namespace BootstrapBlazor.Components
         {
             await base.OnParametersSetAsync();
 
-            IsShow = await OnQueryCondition();
+            if (Users != null || Roles != null)
+            {
+                IsShow = await ProcessAuthorizeAsync();
+            }
+            if (OnQueryCondition != null)
+            {
+                IsShow = await OnQueryCondition(Name);
+            }
+        }
+
+        private async Task<bool> ProcessAuthorizeAsync()
+        {
+            AuthenticationState? state = null;
+            if (AuthenticationState != null)
+            {
+                state = await AuthenticationState;
+            }
+            else if (AuthenticationStateProvider != null)
+            {
+                state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            }
+            var isAuthenticated = state?.User.Identity?.IsAuthenticated ?? false;
+            if (isAuthenticated)
+            {
+                if (Users?.Any() ?? false)
+                {
+                    var userName = state?.User.Identity?.Name;
+                    isAuthenticated = Users.Any(i => i.Equals(userName, StringComparison.OrdinalIgnoreCase));
+                }
+                if (Roles?.Any() ?? false)
+                {
+                    isAuthenticated = Roles.Any(i => state?.User.IsInRole(i) ?? false);
+                }
+            }
+            return isAuthenticated;
         }
 
         /// <summary>

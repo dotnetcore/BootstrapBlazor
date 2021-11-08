@@ -26,7 +26,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string GetText() => IsShow ? "隐藏" : "显示";
 
-        private Task<bool> OnQueryCondition() => Task.FromResult(IsShow);
+        private Task<bool> OnQueryCondition(string name) => Task.FromResult(IsShow);
 
         #region 示例二
         private bool IsShow2 { get; set; } = true;
@@ -37,7 +37,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private string GetText2() => IsShow2 ? "隐藏" : "显示";
 
-        private Task<bool> OnQueryCondition2() => Task.FromResult(IsShow2);
+        private Task<bool> OnQueryCondition2(string name) => Task.FromResult(IsShow2);
         #endregion
 
         #region 示例三
@@ -69,11 +69,15 @@ namespace BootstrapBlazor.Shared.Pages
             }
         }
 
+        private IEnumerable<string> Users { get; } = new string[] { "BootstrapBlazor" };
+
+        private IEnumerable<string> Roles { get; } = new string[] { "User" };
+
         private string GetUser() => IsAuth ? "fa fa-user-secret" : "fa fa-user";
 
         private string GetUserText() => IsAuth ? "登出" : "登入";
 
-        private Task<bool> OnQueryUser() => Task.FromResult(IsAuth);
+        private Task<bool> OnQueryUser(string name) => Task.FromResult(IsAuth);
         #endregion
 
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
