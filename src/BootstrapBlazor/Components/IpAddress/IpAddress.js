@@ -138,48 +138,6 @@
                     }
                 });
             });
-
-            var process = function (act, v) {
-                if (act == "rwd") {
-                    (v === undefined) ? this.toggleClass("rwd") : this.toggleClass("rwd", v);
-                }
-
-                if (act == "value") {
-                    if (v === undefined)	// get func
-                        return getCurIPStr.call(this);
-
-                    // set func
-                    if (!isValidIPStr(v)) throw new Error("invalid ip address");
-
-                    var strArray = v.split(".");
-                    this.find(".ipv4-cell").each(function (index, cell) {
-                        $(cell).val(strArray[index]);
-                    });
-                }
-
-                if (act == "valid") {
-                    return isValidIPStr(getCurIPStr.call(this));
-                }
-
-                if (act == "clear") {
-                    this.find(".ipv4-cell").each(function (index, cell) {
-                        $(cell).val("");
-                    });
-                }
-                return this;
-            }
-
-            var rtn = this;
-            if ($.type(action) === "object") { // set multiple values
-                var props = action;
-                for (var prop in props)
-                    process.call(this, prop, action[prop]);
-            } else { // set one value
-                rtn = process.call(this, action, value);
-            }
-
-            return rtn;
         }
     });
-
 }(jQuery));
