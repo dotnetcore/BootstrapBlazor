@@ -3,11 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 
-namespace UnitTest.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     internal static class IServiceCollectionExtensions
     {

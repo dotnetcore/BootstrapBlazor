@@ -4,19 +4,51 @@
 
 using BootstrapBlazor.Components;
 using Bunit;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
-using UnitTest.Extensions;
+using System;
 using UnitTest.Services;
 
 namespace UnitTest
 {
-    internal class BlazorTestContext : TestContext
+    internal class BlazorTestContext : IDisposable
     {
-        public BlazorTestContext() : base()
+        private TestContext Context { get; set; }
+
+        public IServiceProvider Services => Context.Services;
+
+        public BlazorTestContext()
         {
-            Services.AddBootstrapBlazor();
-            Services.AddConfiguration();
-            Services.AddFallbackServiceProvider(new FallbackServiceProvider());
+            Context = new TestContext();
+            Context.JSInterop.Mode = JSRuntimeMode.Loose;
+            Context.JSInterop.SetupVoid("$.bb_modal", _ => true);
+
+            Context.Services.AddBootstrapBlazor();
+            Context.Services.AddConfiguration();
+            Context.Services.AddFallbackServiceProvider(new FallbackServiceProvider());
+            Context.RenderComponent<BootstrapBlazorRoot>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Context.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

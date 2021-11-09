@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 选项类
     /// </summary>
-    public class SelectedItem : ISelectedItem
+    public class SelectedItem
     {
         /// <summary>
         /// 构造函数

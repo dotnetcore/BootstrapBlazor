@@ -47,7 +47,7 @@ namespace BootstrapBlazor.Components
         //$"Lambda-{nameof(GetFormatLambda)}-{type.Name}";
         //$"Lambda-{nameof(GetFormatProviderLambda)}-{type.Name}";
 
-        private static IMemoryCache Cache => ServiceProviderHelper.ServiceProvider.GetRequiredService<IMemoryCache>();
+        private static IMemoryCache Cache => ServiceProviderFactory.Services.GetRequiredService<IMemoryCache>();
 
         /// <summary>
         /// 获得或者创建指定 Key 缓存项
@@ -99,7 +99,7 @@ namespace BootstrapBlazor.Components
         public static IEnumerable<IConfigurationSection> GetJsonStringConfig(Assembly assembly, JsonLocalizationOptions option)
         {
             var cacheKey = $"Localizer-Sections-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{nameof(GetJsonStringConfig)}";
-            return GetOrCreate(cacheKey, entry => JsonStringConfigHelper.GetJsonStringConfig(assembly, option));
+            return GetOrCreate(cacheKey, entry => JsonStringConfig.GetJsonStringConfig(assembly, option));
         }
 
         internal static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName, JsonLocalizationOptions option, Assembly assembly, string typeName)
@@ -108,7 +108,7 @@ namespace BootstrapBlazor.Components
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 // 获得程序集中的资源文件 stream
-                var sections = JsonStringConfigHelper.GetJsonStringConfig(assembly, option);
+                var sections = JsonStringConfig.GetJsonStringConfig(assembly, option);
                 var v = sections
                     .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
@@ -207,7 +207,7 @@ namespace BootstrapBlazor.Components
         private static string? GetLocalizerValueByKey(string key)
         {
             string? dn = null;
-            var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            var resxType = ServiceProviderFactory.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>();
             if (resxType.Value.ResourceManagerStringLocalizerType != null)
             {
                 var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);

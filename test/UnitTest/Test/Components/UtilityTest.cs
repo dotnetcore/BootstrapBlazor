@@ -15,27 +15,33 @@ using Xunit;
 
 namespace UnitTest.Components
 {
-    public class UtilityTest
+    public class UtilityTest : IDisposable
     {
+        private BlazorTestContext Context { get; }
+
+        private IStringLocalizer<Foo> Localizer { get; }
+
+        public UtilityTest()
+        {
+            Context = new BlazorTestContext();
+            Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        }
+
         [Fact]
         public void GetDisplayName_Ok()
         {
-            using var ctx = new BlazorTestContext();
-            ctx.RenderComponent<BootstrapBlazorRoot>();
-            var localizer = ctx.Services.GetRequiredService<IStringLocalizer<Foo>>();
-
             var fooData = new DataTable();
             fooData.Columns.Add(new DataColumn(nameof(Foo.DateTime), typeof(DateTime)) { DefaultValue = DateTime.Now });
             fooData.Columns.Add(nameof(Foo.Name), typeof(string));
             fooData.Columns.Add(nameof(Foo.Complete), typeof(bool));
             fooData.Columns.Add(nameof(Foo.Education), typeof(string));
             fooData.Columns.Add(nameof(Foo.Count), typeof(int));
-            Foo.GenerateFoo(localizer, 10).ForEach(f =>
+            Foo.GenerateFoo(Localizer, 10).ForEach(f =>
             {
                 fooData.Rows.Add(f.DateTime, f.Name, f.Complete, f.Education, f.Count);
             });
 
-            Assert.Equal("日期", localizer[nameof(Foo.DateTime)]);
+            Assert.Equal("日期", Localizer[nameof(Foo.DateTime)]);
 
             var context = new DataTableDynamicContext(fooData, (context, col) =>
             {
@@ -45,27 +51,27 @@ namespace UnitTest.Components
                     context.AddRequiredAttribute(nameof(Foo.DateTime));
                     // 使用 AutoGenerateColumnAttribute 设置显示名称示例
                     context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] {
-                        new(nameof(AutoGenerateColumnAttribute.Text), localizer[nameof(Foo.DateTime)].Value)
+                        new(nameof(AutoGenerateColumnAttribute.Text), Localizer[nameof(Foo.DateTime)].Value)
                     });
                 }
                 else if (propertyName == nameof(Foo.Name))
                 {
-                    context.AddRequiredAttribute(nameof(Foo.Name), localizer["Name.Required"].Value);
+                    context.AddRequiredAttribute(nameof(Foo.Name), Localizer["Name.Required"].Value);
                     // 使用 Text 设置显示名称示例
-                    col.Text = localizer[nameof(Foo.Name)];
+                    col.Text = Localizer[nameof(Foo.Name)];
                 }
                 else if (propertyName == nameof(Foo.Count))
                 {
                     context.AddRequiredAttribute(nameof(Foo.Count));
                     // 使用 DisplayNameAttribute 设置显示名称示例
-                    context.AddDisplayNameAttribute(nameof(Foo.Count), localizer[nameof(Foo.Count)].Value);
+                    context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
                 }
                 else if (propertyName == nameof(Foo.Complete))
                 {
                     col.Filterable = true;
                     // 使用 DisplayAttribute 设置显示名称示例
                     context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] {
-                        new(nameof(DisplayAttribute.Name), localizer[nameof(Foo.Complete)].Value)
+                        new(nameof(DisplayAttribute.Name), Localizer[nameof(Foo.Complete)].Value)
                     });
                 }
             });
@@ -82,10 +88,6 @@ namespace UnitTest.Components
         [Fact]
         public void GetPropertyValue_Ok()
         {
-            using var ctx = new BlazorTestContext();
-            ctx.RenderComponent<BootstrapBlazorRoot>();
-            var Localizer = ctx.Services.GetRequiredService<IStringLocalizer<Foo>>();
-
             var foo = Foo.Generate(Localizer);
 
             var v1 = Utility.GetPropertyValue<Foo, string>(foo, nameof(Foo.Name));
@@ -101,10 +103,6 @@ namespace UnitTest.Components
         [Fact]
         public void SetPropertyValue_Ok()
         {
-            using var ctx = new BlazorTestContext();
-            ctx.RenderComponent<BootstrapBlazorRoot>();
-            var Localizer = ctx.Services.GetRequiredService<IStringLocalizer<Foo>>();
-
             var foo = Foo.Generate(Localizer);
             var v1 = "张三";
             var val = "李四";
@@ -127,13 +125,17 @@ namespace UnitTest.Components
         [Fact]
         public void TryGetProperty_Ok()
         {
-            using var ctx = new BlazorTestContext();
-            ctx.RenderComponent<BootstrapBlazorRoot>();
             var condition = Utility.TryGetProperty(typeof(Foo), nameof(Foo.Name), out _);
             Assert.True(condition);
 
             condition = Utility.TryGetProperty(typeof(Foo), "Test1", out _);
             Assert.False(condition);
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

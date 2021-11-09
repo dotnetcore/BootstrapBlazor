@@ -27,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddBootstrapBlazor(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null, Action<JsonLocalizationOptions>? localizationAction = null, Action<IPLocatorOption>? locatorAction = null)
         {
             services.AddMemoryCache();
+            services.AddHttpClient();
 
             services.AddAuthorizationCore();
             services.AddJsonLocalization(localizationAction);
@@ -34,6 +35,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
             services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
             services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
+            services.TryAddScoped<TabItemTextOptions>();
+
             services.TryAddScoped<DialogService>();
             services.TryAddScoped<MessageService>();
             services.TryAddScoped<PopoverService>();
@@ -41,10 +44,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddScoped<SwalService>();
             services.TryAddScoped<FullScreenService>();
             services.TryAddScoped<PrintService>();
-            services.TryAddScoped<TabItemTextOptions>();
             services.TryAddScoped<TitleService>();
             services.TryAddScoped<DownloadService>();
             services.TryAddScoped<WebClientService>();
+
             services.TryAddSingleton<IConfigureOptions<BootstrapBlazorOptions>, ConfigureOptions<BootstrapBlazorOptions>>();
             services.Configure<BootstrapBlazorOptions>(options =>
             {
@@ -59,7 +62,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
             });
 
-            services.AddHttpClient();
             services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
             services.Configure<IPLocatorOption>(options =>
             {

@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public static class JsonStringConfigHelper
+    public static class JsonStringConfig
     {
         /// <summary>
         /// 通过系统 JsonLocalizationOptions 获取当前 Json 格式资源配置集合

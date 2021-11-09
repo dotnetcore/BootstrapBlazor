@@ -28,7 +28,7 @@ namespace BootstrapBlazor.Components
         {
             await base.SetParametersAsync(parameters);
 
-            ServiceProviderHelper.Configure(Provider);
+            ServiceProviderFactory.Configure(Provider);
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace BootstrapBlazor.Components
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             var index = 0;
-            builder.OpenComponent<Dialog>(index++);
-            builder.CloseComponent();
+            //builder.OpenComponent<Dialog>(index++);
+            //builder.CloseComponent();
 
             builder.OpenComponent<Title>(index++);
             builder.CloseComponent();
@@ -60,6 +60,9 @@ namespace BootstrapBlazor.Components
             builder.CloseComponent();
 
             builder.OpenComponent<PopoverConfirm>(index++);
+            builder.CloseComponent();
+
+            builder.OpenComponent<Download>(index++);
             builder.CloseComponent();
         }
     }

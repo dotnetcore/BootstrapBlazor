@@ -108,7 +108,7 @@ namespace BootstrapBlazor.Localization.Json
         /// <returns></returns>
         public static IStringLocalizer? CreateLocalizer(Type resourceSource) => resourceSource.Assembly.IsDynamic
             ? null
-            : ServiceProviderHelper.ServiceProvider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
+            : ServiceProviderFactory.Services.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
         /// <summary>
         /// 获取指定 Type 的资源文件
