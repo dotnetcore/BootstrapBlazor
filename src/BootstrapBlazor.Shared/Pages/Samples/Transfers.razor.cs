@@ -58,25 +58,25 @@ namespace BootstrapBlazor.Shared.Pages
 
             Items = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
-                Text = $"备选 {i:d2}",
+                Text = $"{Localizer["Data"]} {i:d2}",
                 Value = i.ToString()
             });
 
             Items1 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
-                Text = $"数据 {i:d2}",
+                Text = $"{Localizer["Data"]} {i:d2}",
                 Value = i.ToString()
             });
 
             Items2 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
-                Text = $"数据 {i:d2}",
+                Text = $"{Localizer["Data"]} {i:d2}",
                 Value = i.ToString()
             });
 
             Items3 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
-                Text = $"备选 {i:d2}",
+                Text = $"{Localizer["Backup"]} {i:d2}",
                 Value = i.ToString()
             }).ToList();
 
@@ -85,13 +85,13 @@ namespace BootstrapBlazor.Shared.Pages
 
             Items4 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
-                Text = $"数据 {i:d2}",
+                Text = $"{Localizer["Data"]} {i:d2}",
                 Value = i.ToString()
             });
 
             Items5 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
             {
-                Text = $"数据 {i:d2}",
+                Text = $"{Localizer["Data"]} {i:d2}",
                 Value = i.ToString()
             });
         }
@@ -99,7 +99,7 @@ namespace BootstrapBlazor.Shared.Pages
         private void OnAddItem()
         {
             var count = Items3.Count + 1;
-            Items3.Add(new SelectedItem(count.ToString(), $"备选 {count:d2}"));
+            Items3.Add(new SelectedItem(count.ToString(), $"{Localizer["Backup"]} {count:d2}"));
         }
 
         /// <summary>
@@ -125,68 +125,68 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Items",
-                Description = "组件绑定数据项集合",
+                Description = Localizer["Items"]!,
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftButtonText",
-                Description = "左侧按钮显示文本",
+                Description = Localizer["LeftButtonTextAttr"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftPanelText",
-                Description = "左侧面板 Header 显示文本",
+                Description = Localizer["LeftPanelTextAttr"]!,
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "列表 1"
+                DefaultValue = Localizer["LeftPanelDefaultValue"]!
             },
             new AttributeItem() {
                 Name = "RightButtonText",
-                Description = "右侧按钮显示文本",
+                Description = Localizer["RightButtonTextAttr"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RightPanelText",
-                Description = "右侧面板 Header 显示文本",
+                Description = Localizer["RightPanelTextAttr"]!,
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "列表 2"
+                DefaultValue = Localizer["RightPanelTextDefaultValue"]!
             },
             new AttributeItem() {
                 Name = "ShowSearch",
-                Description = "是否显示搜索框",
+                Description = "",
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "LeftPannelSearchPlaceHolderString",
-                Description = "左侧面板中的搜索框 placeholder 字符串",
+                Description = Localizer["LeftPannelSearchPlaceHolderString"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RightPannelSearchPlaceHolderString",
-                Description = "右侧面板中的搜索框 placeholder 字符串",
+                Description = Localizer["RightPannelSearchPlaceHolderString"]!,
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["IsDisabled"]!,
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
@@ -197,19 +197,19 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "OnItemsChanged",
-                Description="组件绑定数据项集合选项变化时回调方法",
-                Type ="Action<IEnumerable<SelectedItem>>"
+                Description = Localizer["OnItemsChanged"]!,
+                Type = "Action<IEnumerable<SelectedItem>>"
             },
             new EventItem()
             {
                 Name = "OnSetItemClass",
-                Description="设置 Item 样式回调方法",
-                Type ="Func<SelectedItem, string?>"
+                Description = Localizer["OnSetItemClass"]!,
+                Type = "Func<SelectedItem, string?>"
             }
         };
     }
