@@ -54,7 +54,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description = Localizer["ValueChanged"]!,
+                Description = Localizer["ValueChanged"],
                 Type = "EventCallback<bool>"
             }
         };
@@ -68,63 +68,63 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Color",
-                Description = Localizer["Color"]!,
+                Description = Localizer["Color"],
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Success"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["IsDisabled"]!,
+                Description = Localizer["IsDisabled"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "OffText",
-                Description = Localizer["OffTextAttr"]!,
+                Description = Localizer["OffTextAttr"],
                 Type = "string",
                 ValueList = "—",
                 DefaultValue = Localizer["OffTextDefautValue"]!
             },
             new AttributeItem() {
                 Name = "OnText",
-                Description = Localizer["OnTextAttr"]!,
+                Description = Localizer["OnTextAttr"],
                 Type = "string",
                 ValueList = "—",
                 DefaultValue = Localizer["OnTextDefautValue"]!
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = Localizer["Width"]!,
+                Description = Localizer["Width"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "120"
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = Localizer["Value"]!,
+                Description = Localizer["Value"],
                 Type = "boolean",
                 ValueList = " ",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["ShowLabel"]!,
+                Description = Localizer["ShowLabel"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["DisplayText"]!,
+                Description = Localizer["DisplayText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnValueChanged",
-                Description = Localizer["OnValueChanged"]!,
+                Description = Localizer["OnValueChanged"],
                 Type = "Func<bool, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "

@@ -133,7 +133,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "InitDevicesString",
                 Description = "初始化设备列表文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "正在识别摄像头"
             },
             new AttributeItem()
@@ -141,7 +141,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "NotFoundDevicesString",
                 Description = "未找到视频相关设备文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "未找到视频相关设备"
             },
             new AttributeItem() {

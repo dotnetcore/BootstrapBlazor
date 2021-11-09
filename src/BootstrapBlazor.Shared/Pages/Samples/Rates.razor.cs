@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description =Localizer["Event1"]!,
+                Description =Localizer["Event1"],
                 Type ="EventCallback<int>"
             }
         };
@@ -53,7 +53,7 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Value",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

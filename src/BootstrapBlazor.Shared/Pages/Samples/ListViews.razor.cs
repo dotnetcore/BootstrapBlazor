@@ -118,7 +118,7 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 Name = "QueryAsync",
                 Description = "手工查询数据方法",
-                Parameters = " - ",
+                Parameters = " — ",
                 ReturnValue = "Task"
             },
         };

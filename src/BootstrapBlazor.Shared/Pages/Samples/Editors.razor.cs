@@ -97,21 +97,21 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Placeholder",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["Att1DefaultValue"]!
             },
             new AttributeItem() {
                 Name = "IsEditor",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -119,7 +119,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "ToolbarItems",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "IEnumerable<object>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -127,7 +127,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "CustomerToolbarButtons",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "IEnumerable<EditorToolbarButton>",
                 ValueList = " — ",
                 DefaultValue = " — "

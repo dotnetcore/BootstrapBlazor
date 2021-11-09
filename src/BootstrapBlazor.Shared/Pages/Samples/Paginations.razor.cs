@@ -38,35 +38,35 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "PageIndex",
-                Description = Localizer["Desc1"]!,
+                Description = Localizer["Desc1"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "1"
             },
             new AttributeItem() {
                 Name = "PageItems",
-                Description = Localizer["Desc2"]!,
+                Description = Localizer["Desc2"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "PageItemsSource",
-                Description = Localizer["Desc3"]!,
+                Description = Localizer["Desc3"],
                 Type = "IEnumerable<int>",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "ShowPaginationInfo",
-                Description = Localizer["Desc4"]!,
+                Description = Localizer["Desc4"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "TotalCount",
-                Description = Localizer["Desc4"]!,
+                Description = Localizer["Desc4"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "—"
@@ -82,13 +82,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnPageClick",
-                Description= Localizer["Event1"]!,
+                Description= Localizer["Event1"],
                 Type ="Action<int, int>"
             },
             new EventItem()
             {
                 Name = "OnPageItemsChanged",
-                Description= Localizer["Event2"]!,
+                Description= Localizer["Event2"],
                 Type ="Action<int>"
             }
         };

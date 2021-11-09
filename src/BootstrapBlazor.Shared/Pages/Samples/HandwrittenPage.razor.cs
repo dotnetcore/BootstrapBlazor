@@ -65,7 +65,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "SaveButtonText",
                 Description = "保存按钮文本",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "保存"
             },
             new AttributeItem()
@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "ClearButtonText",
                 Description = "清除按钮文本",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "清除"
             },
             new AttributeItem()
@@ -81,16 +81,16 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Result",
                 Description = "手写签名imgBase64字符串",
                 Type = "string",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
                 Name = "HandwrittenBase64",
                 Description = "手写结果回调方法",
                 Type = "EventCallback<string>",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

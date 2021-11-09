@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = nameof(Block.OnQueryCondition),
                 Description = "是否显示此 Block",
                 Type = "Func<Task<bool>>",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "true"
             },
             new AttributeItem()
@@ -95,24 +95,24 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = nameof(Block.ChildContent),
                 Description = "Block 块内显示内容",
                 Type = "RenderFragment",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
                 Name = nameof(Block.Authorized),
                 Description = "Block 块内符合条件显示内容",
                 Type = "RenderFragment",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
                 Name = nameof(Block.NotAuthorized),
                 Description = "Block 块内不符合条件显示内容",
                 Type = "RenderFragment",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

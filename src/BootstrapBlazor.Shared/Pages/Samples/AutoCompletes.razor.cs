@@ -40,49 +40,49 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "IEnumerable<string>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "NoDataTip",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["Att4DefaultValue"]!
             },
             new AttributeItem() {
                 Name = "DisplayCount",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "int?",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ValueChanged",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "Action<string>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsLikeMatch",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -90,7 +90,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IgnoreCase",
-                Description = Localizer["Att8"]!,
+                Description = Localizer["Att8"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "CustomFilter",
-                Description = Localizer["Att9"]!,
+                Description = Localizer["Att9"],
                 Type = "Func<Task<IEnumerable<string>>>",
                 ValueList = " — ",
                 DefaultValue = " — "

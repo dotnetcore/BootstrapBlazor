@@ -90,28 +90,28 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 new AttributeItem() {
                     Name = "ShowLabel",
-                    Description = Localizer["Att1"]!,
+                    Description = Localizer["Att1"],
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "ShowAfterLabel",
-                    Description = Localizer["Att2"]!,
+                    Description = Localizer["Att2"],
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",
-                    Description = Localizer["Att3"]!,
+                    Description = Localizer["Att3"],
                     Type = "string",
                     ValueList = " — ",
                     DefaultValue = " — "
                 },
                 new AttributeItem(){
                     Name = "IsDisabled",
-                    Description = Localizer["Att4"]!,
+                    Description = Localizer["Att4"],
                     Type = "boolean",
                     ValueList = "true / false",
                     DefaultValue = "false"
@@ -119,7 +119,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem()
                 {
                     Name = "State",
-                    Description = Localizer["Att5"]!,
+                    Description = Localizer["Att5"],
                     Type = "CheckboxState",
                     ValueList = "Mixed / Checked / UnChecked",
                     DefaultValue = "UnChecked"
@@ -136,13 +136,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnStateChanged",
-                Description = Localizer["Event1"]!, 
+                Description = Localizer["Event1"], 
                 Type ="Action<CheckboxState, TItem>"
             },
             new EventItem()
             {
                 Name = "StateChanged",
-                Description = Localizer["Event2"]!,
+                Description = Localizer["Event2"],
                 Type ="EventCallback<CheckboxState>"
             }
         };

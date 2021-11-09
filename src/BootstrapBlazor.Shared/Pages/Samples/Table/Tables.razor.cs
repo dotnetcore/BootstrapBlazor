@@ -720,21 +720,21 @@ namespace BootstrapBlazor.Shared.Pages.Table
             {
                 Name = "AddAsync",
                 Description = "手工添加数据方法",
-                Parameters = " - ",
+                Parameters = " — ",
                 ReturnValue = "Task"
             },
             new()
             {
                 Name = "Edit",
                 Description = "手工编辑数据方法",
-                Parameters = " - ",
-                ReturnValue = " - "
+                Parameters = " — ",
+                ReturnValue = " — "
             },
             new()
             {
                 Name = "QueryAsync",
                 Description = "手工查询数据方法",
-                Parameters = " - ",
+                Parameters = " — ",
                 ReturnValue = "Task"
             },
         };

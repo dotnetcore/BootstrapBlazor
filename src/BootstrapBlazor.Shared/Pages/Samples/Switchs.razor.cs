@@ -55,105 +55,105 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Class",
-                Description = Localizer["Class"]!,
+                Description = Localizer["Class"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = Localizer["Height"]!,
+                Description = Localizer["Height"],
                 Type = "int",
                 ValueList = "—",
                 DefaultValue = "20"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["IsDisabled"]!,
+                Description = Localizer["IsDisabled"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "OffColor",
-                Description = Localizer["OffColor"]!,
+                Description = Localizer["OffColor"],
                 Type = "Color",
                 ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "OnColor",
-                Description = Localizer["OnColor"]!,
+                Description = Localizer["OnColor"],
                 Type = "Color",
                 ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
                 DefaultValue = "Color.Success"
             },
             new AttributeItem() {
                 Name = "OnText",
-                Description = Localizer["OnTextAttr"]!,
+                Description = Localizer["OnTextAttr"],
                 Type = "string",
                 ValueList = "—",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "OffText",
-                Description = Localizer["OffTextAttr"]!,
+                Description = Localizer["OffTextAttr"],
                 Type = "string",
                 ValueList = "—",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "OnInnerText",
-                Description = Localizer["OnInnerTextAttr"]!,
+                Description = Localizer["OnInnerTextAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["OnInnerTextDefaultValue"]!
             },
             new AttributeItem() {
                 Name = "OffInnerText",
-                Description = Localizer["OffInnerTextAttr"]!,
+                Description = Localizer["OffInnerTextAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["OffInnerTextDefaultValue"]!
             },
             new AttributeItem() {
                 Name = "ShowInnerText",
-                Description = Localizer["ShowInnerText"]!,
+                Description = Localizer["ShowInnerText"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = Localizer["Width"]!,
+                Description = Localizer["Width"],
                 Type = "int",
                 ValueList = "—",
                 DefaultValue = "40"
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = Localizer["Value"]!,
+                Description = Localizer["Value"],
                 Type = "boolean",
                 ValueList = " ",
                 DefaultValue = "None"
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["ShowLabel"]!,
+                Description = Localizer["ShowLabel"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["DisplayText"]!,
+                Description = Localizer["DisplayText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnValueChanged",
-                Description = Localizer["OnValueChanged"]!,
+                Description = Localizer["OnValueChanged"],
                 Type = "Func<bool, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -169,7 +169,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description = Localizer["ValueChanged"]!,
+                Description = Localizer["ValueChanged"],
                 Type = "EventCallback<bool>"
             }
         };

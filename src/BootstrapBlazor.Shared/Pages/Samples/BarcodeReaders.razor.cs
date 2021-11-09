@@ -74,7 +74,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "ButtonScanText",
                 Description = "扫描按钮文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "扫描"
             },
             new AttributeItem()
@@ -82,7 +82,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "ButtonStopText",
                 Description = "关闭按钮文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "关闭"
             },
             new AttributeItem()
@@ -90,7 +90,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "AutoStopText",
                 Description = "自动关闭按钮文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "自动关闭"
             },
             new AttributeItem()
@@ -98,7 +98,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "DeviceLabel",
                 Description = "设备列表前置标签文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "摄像头"
             },
             new AttributeItem()
@@ -106,7 +106,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "InitDevicesString",
                 Description = "初始化设备列表文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "正在识别摄像头"
             },
             new AttributeItem()
@@ -114,7 +114,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "NotFoundDevicesString",
                 Description = "未找到视频相关设备文字",
                 Type = "string",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "未找到视频相关设备"
             },
             new AttributeItem()
@@ -146,40 +146,40 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "OnInit",
                 Description = "初始化摄像头回调方法",
                 Type = "Func<IEnumerable<Camera>, Task>",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
                 Name = "OnResult",
                 Description = "扫描到条码回调方法",
                 Type = "Func<string, Task>",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
                 Name = "OnStart",
                 Description = "打开摄像头回调方法",
                 Type = "Func<Task>",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
                 Name = "OnClose",
                 Description = "关闭摄像头回调方法",
                 Type = "Func<Task>",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem()
             {
                 Name = "OnError",
                 Description = "发生错误回调方法",
                 Type = "Func<string, Task>",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

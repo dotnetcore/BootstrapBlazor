@@ -130,35 +130,35 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Items"]!,
+                Description = Localizer["Items"],
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftButtonText",
-                Description = Localizer["LeftButtonTextAttr"]!,
+                Description = Localizer["LeftButtonTextAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "LeftPanelText",
-                Description = Localizer["LeftPanelTextAttr"]!,
+                Description = Localizer["LeftPanelTextAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["LeftPanelDefaultValue"]!
             },
             new AttributeItem() {
                 Name = "RightButtonText",
-                Description = Localizer["RightButtonTextAttr"]!,
+                Description = Localizer["RightButtonTextAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RightPanelText",
-                Description = Localizer["RightPanelTextAttr"]!,
+                Description = Localizer["RightPanelTextAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["RightPanelTextDefaultValue"]!
@@ -172,21 +172,21 @@ namespace BootstrapBlazor.Shared.Pages
             },
             new AttributeItem() {
                 Name = "LeftPannelSearchPlaceHolderString",
-                Description = Localizer["LeftPannelSearchPlaceHolderString"]!,
+                Description = Localizer["LeftPannelSearchPlaceHolderString"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "RightPannelSearchPlaceHolderString",
-                Description = Localizer["RightPannelSearchPlaceHolderString"]!,
+                Description = Localizer["RightPannelSearchPlaceHolderString"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["IsDisabled"]!,
+                Description = Localizer["IsDisabled"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
@@ -202,13 +202,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnItemsChanged",
-                Description = Localizer["OnItemsChanged"]!,
+                Description = Localizer["OnItemsChanged"],
                 Type = "Action<IEnumerable<SelectedItem>>"
             },
             new EventItem()
             {
                 Name = "OnSetItemClass",
-                Description = Localizer["OnSetItemClass"]!,
+                Description = Localizer["OnSetItemClass"],
                 Type = "Func<SelectedItem, string?>"
             }
         };

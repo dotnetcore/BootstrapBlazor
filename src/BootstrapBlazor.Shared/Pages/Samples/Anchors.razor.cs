@@ -61,28 +61,28 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Target",
-                Description = Localizer["Desc1"]!,
+                Description = Localizer["Desc1"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Container",
-                Description = Localizer["Desc2"]!,
+                Description = Localizer["Desc2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Offset",
-                Description = Localizer["Desc3"]!,
+                Description = Localizer["Desc3"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = Localizer["Desc4"]!,
+                Description = Localizer["Desc4"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

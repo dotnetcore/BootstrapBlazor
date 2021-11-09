@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+  </PropertyGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -15,14 +19,6 @@
     <PackageReference Include="BootstrapBlazor.Chart" Version="5.*" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="5.*" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="5.*" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.*" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.*" />
   </ItemGroup>
 
   <ItemGroup>

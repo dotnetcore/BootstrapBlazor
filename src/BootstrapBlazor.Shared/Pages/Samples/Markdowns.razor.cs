@@ -49,49 +49,49 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem(){
                 Name = "Height",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "300"
             },
             new AttributeItem(){
                 Name = "MinHeight",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "200"
             },
             new AttributeItem(){
                 Name = "InitialEditType",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "InitialEditType",
                 ValueList = "Markdown/Wysiwyg",
                 DefaultValue = "Markdown"
             },
             new AttributeItem(){
                 Name = "PreviewStyle",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "PreviewStyle",
                 ValueList = "Tab/Vertical",
                 DefaultValue = "Vertical"
             },
             new AttributeItem(){
                 Name = "Language",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "Placeholder",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "IsViewer",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "bool",
                 ValueList = " true/false ",
                 DefaultValue = " false "

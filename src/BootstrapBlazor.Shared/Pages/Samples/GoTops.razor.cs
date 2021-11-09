@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "Target",
-                Description = Localizer["Desc1"]!,
+                Description = Localizer["Desc1"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

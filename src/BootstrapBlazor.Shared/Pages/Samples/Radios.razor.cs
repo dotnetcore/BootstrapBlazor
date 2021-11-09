@@ -74,42 +74,42 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "NullItemText",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsAutoAddNullItem",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "IEnumerable<TItem>",
                 ValueList = " — ",
                 DefaultValue = "—"
@@ -125,7 +125,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnSelectedChanged",
-                Description = Localizer["Event1"]!,
+                Description = Localizer["Event1"],
                 Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
             }
         };

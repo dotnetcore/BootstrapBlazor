@@ -82,15 +82,15 @@ namespace BootstrapBlazor.Shared.Pages
                 Name = "Duration",
                 Description = "控制动画时长",
                 Type = "int",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "OnTransitionEnd",
                 Description = "动画执行完成回调",
                 Type = "Func<Task>",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

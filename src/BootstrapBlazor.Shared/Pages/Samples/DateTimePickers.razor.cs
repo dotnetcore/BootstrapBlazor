@@ -136,13 +136,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnClickConfirm",
-                Description = Localizer["Event1"]!,
+                Description = Localizer["Event1"],
                 Type ="Action"
             },
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description = Localizer["Event2"]!,
+                Description = Localizer["Event2"],
                 Type ="EventCallback<DateTime?>"
             },
         };
@@ -155,35 +155,35 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowSidebar",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Format",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "yyyy-MM-dd"
             },
             new AttributeItem() {
                 Name = "IsShown",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "boolean",
                 ValueList = "",
                 DefaultValue = "false"
@@ -191,28 +191,28 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "TimeFormat",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "hh:mm:ss"
             },
             new AttributeItem() {
                 Name = "Value",
-                Description = Localizer["Att8"]!,
+                Description = Localizer["Att8"],
                 Type = "TValue",
                 ValueList = "DateTime | DateTime?",
                 DefaultValue = " — "
             },
              new AttributeItem() {
                 Name = "ViewModel",
-                Description = Localizer["Att9"]!,
+                Description = Localizer["Att9"],
                 Type = "DatePickerViewModel",
                 ValueList = " Date / DateTime / Year / Month",
                 DefaultValue = "Date"

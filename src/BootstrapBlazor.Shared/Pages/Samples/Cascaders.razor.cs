@@ -84,7 +84,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = nameof(Cascader<string>.OnSelectedItemChanged),
-                Description = Localizer["Event1"]!,
+                Description = Localizer["Event1"],
                 Type ="Func<CascaderItem[], Task>"
             }
         };
@@ -98,49 +98,49 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "PlaceHolder",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["Att3Default"]!
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "IEnumerable<CascaderItem>",
                 ValueList = " — ",
                 DefaultValue = " — "

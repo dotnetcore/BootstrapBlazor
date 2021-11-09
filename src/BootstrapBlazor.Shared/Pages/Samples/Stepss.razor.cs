@@ -75,28 +75,28 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Desc1"]!,
+                Description = Localizer["Desc1"],
                 Type = "IEnumerable<StepItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = Localizer["Desc2"]!,
+                Description = Localizer["Desc2"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsCenter",
-                Description = Localizer["Desc3"]!,
+                Description = Localizer["Desc3"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Status",
-                Description = Localizer["Desc4"]!,
+                Description = Localizer["Desc4"],
                 Type = "StepStatus",
                 ValueList = "Wait|Process|Finish|Error|Success",
                 DefaultValue = "Wait"
@@ -107,70 +107,70 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "IsCenter",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsIcon",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsLast",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "StepIndex",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Space",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "Title",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Icon",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Description",
-                Description = Localizer["Att8"]!,
+                Description = Localizer["Att8"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Status",
-                Description = Localizer["Att9"]!,
+                Description = Localizer["Att9"],
                 Type = "StepStatus",
                 ValueList = "Wait|Process|Finish|Error|Success",
                 DefaultValue = "Wait"
             },
             new AttributeItem() {
                 Name = "Template",
-                Description = Localizer["Att10"]!,
+                Description = Localizer["Att10"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -182,7 +182,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnStatusChanged",
-                Description = Localizer["Event1"]!,
+                Description = Localizer["Event1"],
                 Type ="Func<StepStatus, Task>"
             }
         };

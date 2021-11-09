@@ -123,28 +123,28 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem(){
                 Name = "Value",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "TValue",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "IsVertical",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "boolean",
                 ValueList = " true / false ",
                 DefaultValue = " false "
@@ -160,7 +160,7 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnSelectedChanged",
-                Description = Localizer["Event1"]!,
+                Description = Localizer["Event1"],
                 Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
             }
         };

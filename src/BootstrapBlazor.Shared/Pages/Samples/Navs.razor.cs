@@ -45,42 +45,42 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = Localizer["Desc1"]!,
+                Description = Localizer["Desc1"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Alignment",
-                Description = Localizer["Desc2"]!,
+                Description = Localizer["Desc2"],
                 Type = "Alignment",
                 ValueList = "Left|Center|Right",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = Localizer["Desc3"]!,
+                Description = Localizer["Desc3"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsPills",
-                Description = Localizer["Desc4"]!,
+                Description = Localizer["Desc4"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsFill",
-                Description = Localizer["Desc5"]!,
+                Description = Localizer["Desc5"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsJustified",
-                Description = Localizer["Desc6"]!,
+                Description = Localizer["Desc6"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

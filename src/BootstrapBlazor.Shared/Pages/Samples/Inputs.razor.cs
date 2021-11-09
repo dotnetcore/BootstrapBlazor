@@ -58,42 +58,42 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "FormatString",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Formatter",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -101,21 +101,21 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "type",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "string",
                 ValueList = "text / number / email / url / password",
                 DefaultValue = "text"
             },
             new AttributeItem() {
                 Name = "OnEnterAsync",
-                Description = Localizer["Att8"]!,
+                Description = Localizer["Att8"],
                 Type = "Func<TValue, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnEscAsync",
-                Description = Localizer["Att9"]!,
+                Description = Localizer["Att9"],
                 Type = "Func<TValue, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -123,7 +123,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsDisabled",
-                Description = Localizer["Att10"]!,
+                Description = Localizer["Att10"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -131,7 +131,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "IsAutoFocus",
-                Description = Localizer["Att11"]!,
+                Description = Localizer["Att11"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"

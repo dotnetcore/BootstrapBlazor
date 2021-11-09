@@ -20,14 +20,14 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 new AttributeItem() {
                     Name = "ShowLabel",
-                    Description = Localizer["ShowLabel"]!,
+                    Description = Localizer["ShowLabel"],
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",
-                    Description = Localizer["DisplayText"]!,
+                    Description = Localizer["DisplayText"],
                     Type = "string",
                     ValueList = " — ",
                     DefaultValue = " — "
@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Shared.Pages
                 new AttributeItem()
                 {
                     Name = "IsDisabled",
-                    Description = Localizer["IsDisabled"]!,
+                    Description = Localizer["IsDisabled"],
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"

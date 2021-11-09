@@ -21,14 +21,14 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = Locaizer["Desc1"]!,
+                Description = Locaizer["Desc1"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = Locaizer["Desc2"]!,
+                Description = Locaizer["Desc2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

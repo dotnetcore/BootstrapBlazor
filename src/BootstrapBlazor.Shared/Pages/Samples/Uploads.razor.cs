@@ -244,7 +244,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "上传接收的文件格式",
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "BrowserButtonClass",
@@ -293,14 +293,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "点击删除按钮时回调此方法",
                 Type = "Func<string, Task<bool>>",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnChange",
                 Description = "点击浏览按钮时回调此方法",
                 Type = "Func<UploadFile, Task>",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
         };
 
@@ -339,7 +339,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "上传接收的文件格式",
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "BrowserButtonClass",
@@ -381,14 +381,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "点击删除按钮时回调此方法",
                 Type = "Func<string, Task<bool>>",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnChange",
                 Description = "点击浏览按钮时回调此方法",
                 Type = "Func<UploadFile, Task>",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
         };
 
@@ -434,7 +434,7 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "上传接收的文件格式",
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "DefaultFileList",
@@ -448,14 +448,14 @@ namespace BootstrapBlazor.Shared.Pages
                 Description = "点击删除按钮时回调此方法",
                 Type = "Func<string, Task<bool>>",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnChange",
                 Description = "点击浏览按钮时回调此方法",
                 Type = "Func<UploadFile, Task>",
                 ValueList = " — ",
-                DefaultValue = " - "
+                DefaultValue = " — "
             },
         };
 

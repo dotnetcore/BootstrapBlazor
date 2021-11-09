@@ -62,52 +62,52 @@ namespace BootstrapBlazor.Shared.Pages
             {
                 new AttributeItem() {
                     Name = "Value",
-                    Description = Localizer["Att1"]!,
+                    Description = Localizer["Att1"],
                     Type = "sbyte|byte|int|long|short|float|double|decimal",
                     ValueList = " — ",
                     DefaultValue = "0"
                 },
                 new AttributeItem() {
                     Name = "Max",
-                    Description = Localizer["Att2"]!,
+                    Description = Localizer["Att2"],
                     Type = "string",
-                    ValueList = " - ",
-                    DefaultValue = " - "
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 },
                 new AttributeItem()
                 {
                     Name = "Min",
-                    Description = Localizer["Att3"]!,
+                    Description = Localizer["Att3"],
                     Type = "string",
-                    ValueList = " - ",
-                    DefaultValue = " - "
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 },
                 new AttributeItem()
                 {
                     Name = "Step",
-                    Description = Localizer["Att4"]!,
+                    Description = Localizer["Att4"],
                     Type = "int|long|short|float|double|decimal",
-                    ValueList = " - ",
+                    ValueList = " — ",
                     DefaultValue = "1"
                 },
                 new AttributeItem()
                 {
                     Name = "IsDisabled",
-                    Description = Localizer["Att5"]!,
+                    Description = Localizer["Att5"],
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "ShowLabel",
-                    Description = Localizer["Att6"]!,
+                    Description = Localizer["Att6"],
                     Type = "bool",
                     ValueList = "true|false",
                     DefaultValue = "false"
                 },
                 new AttributeItem() {
                     Name = "DisplayText",
-                    Description = Localizer["Att7"]!,
+                    Description = Localizer["Att7"],
                     Type = "string",
                     ValueList = " — ",
                     DefaultValue = " — "

@@ -21,28 +21,28 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "IsVertical",
-                Description = Localizer["Desc1"]!,
+                Description = Localizer["Desc1"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Basis",
-                Description = Localizer["Desc2"]!,
+                Description = Localizer["Desc2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "50%"
             },
             new AttributeItem() {
                 Name = "FirstPaneTemplate",
-                Description = Localizer["Desc3"]!,
+                Description = Localizer["Desc3"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "SecondPaneTemplate",
-                Description = Localizer["Desc4"]!,
+                Description = Localizer["Desc4"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

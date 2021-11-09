@@ -48,28 +48,28 @@ namespace BootstrapBlazor.Shared.Pages
         {
             new AttributeItem() {
                 Name = "ItemsPerRow",
-                Description = RowsLocalizer["Desc1"]!,
+                Description = RowsLocalizer["Desc1"],
                 Type = "enum",
                 ValueList = " One,Two,Three,Four,Six,Twelve ",
                 DefaultValue = " One "
             },
             new AttributeItem() {
                 Name = "RowType",
-                Description = RowsLocalizer["Desc2"]!,
+                Description = RowsLocalizer["Desc2"],
                 Type = "enum?",
                 ValueList = "Normal, Inline",
                 DefaultValue = "null"
             },
             new AttributeItem() {
                 Name = "ColSpan",
-                Description = RowsLocalizer["Desc3"]!,
+                Description = RowsLocalizer["Desc3"],
                 Type = "int?",
                 ValueList = "-",
                 DefaultValue = "null"
             },
             new AttributeItem() {
                 Name = "MaxCount",
-                Description = RowsLocalizer["Desc4"]!,
+                Description = RowsLocalizer["Desc4"],
                 Type = "int?",
                 ValueList = "-",
                 DefaultValue = "null"

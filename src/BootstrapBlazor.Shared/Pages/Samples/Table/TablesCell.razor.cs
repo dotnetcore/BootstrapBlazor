@@ -52,36 +52,36 @@ namespace BootstrapBlazor.Shared.Pages.Table
                 Name = "Row",
                 Description = "当前单元格行数据 请自行转化为绑定模型",
                 Type = "object",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "<TModel>"
             },
             new AttributeItem() {
                 Name = "ColumnName",
                 Description = "当前单元格绑定列名称",
                 Type = "string",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Colspan",
                 Description = "合并单元格数量",
                 Type = "int",
-                ValueList = " - ",
+                ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Class",
                 Description = "当前单元格样式",
                 Type = "string",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Value",
                 Description = "当前单元格显示内容",
                 Type = "string",
-                ValueList = " - ",
-                DefaultValue = " - "
+                ValueList = " — ",
+                DefaultValue = " — "
             }
         };
     }

@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Shared.Pages
             new AttributeItem()
             {
                 Name = "OnValueChanged",
-                Description = Localizer["Event1"]!,
+                Description = Localizer["Event1"],
                 Type = "Func<string, Task>",
                 ValueList = "",
                 DefaultValue = ""

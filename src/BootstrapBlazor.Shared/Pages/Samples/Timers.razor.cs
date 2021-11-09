@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "Width",
                     Description = "组件宽度",
                     Type = "int",
-                    ValueList = " - ",
+                    ValueList = " — ",
                     DefaultValue = "300"
                 },
                 new AttributeItem()
@@ -49,7 +49,7 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "StrokeWidth",
                     Description = "进度条宽度",
                     Type = "int",
-                    ValueList = " - ",
+                    ValueList = " — ",
                     DefaultValue = "6"
                 },
                 new AttributeItem()
@@ -65,8 +65,8 @@ namespace BootstrapBlazor.Shared.Pages
                     Name = "Value",
                     Description = "倒计时时间",
                     Type = "Timespan",
-                    ValueList = " - ",
-                    DefaultValue = " - "
+                    ValueList = " — ",
+                    DefaultValue = " — "
                 },
                 new AttributeItem()
                 {

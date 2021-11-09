@@ -199,13 +199,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnSelectedItemChanged",
-                Description = Localizer["OnSelectedItemChanged"]!,
+                Description = Localizer["OnSelectedItemChanged"],
                 Type = "Func<SelectedItem, Task>"
             },
             new EventItem()
             {
                 Name = "OnBeforeSelectedItemChange",
-                Description = Localizer["OnBeforeSelectedItemChange"]!,
+                Description = Localizer["OnBeforeSelectedItemChange"],
                 Type = "Func<SelectedItem, Task<bool>>"
             }
         };
@@ -219,84 +219,84 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["ShowLabel"]!,
+                Description = Localizer["ShowLabel"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowSearch",
-                Description = Localizer["ShowSearch"]!,
+                Description = Localizer["ShowSearch"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["DisplayText"]!,
+                Description = Localizer["DisplayText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = Localizer["Class"]!,
+                Description = Localizer["Class"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = Localizer["Color"]!,
+                Description = Localizer["Color"],
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["IsDisabled"]!,
+                Description = Localizer["IsDisabled"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Items"]!,
+                Description = Localizer["Items"],
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "SelectItems",
-                Description = Localizer["SelectItems"]!,
+                Description = Localizer["SelectItems"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ItemTemplate",
-                Description = Localizer["ItemTemplate"]!,
+                Description = Localizer["ItemTemplate"],
                 Type = "RenderFragment<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = Localizer["ChildContent"]!,
+                Description = Localizer["ChildContent"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Category",
-                Description = Localizer["Category"]!,
+                Description = Localizer["Category"],
                 Type = "SwalCategory",
                 ValueList = " — ",
                 DefaultValue = " SwalCategory.Information "
             },
             new AttributeItem() {
                 Name = "Content",
-                Description = Localizer["Content"]!,
+                Description = Localizer["Content"],
                 Type = "string?",
                 ValueList = " — ",
                 DefaultValue = Localizer["ContentDefaultValue"]!

@@ -296,13 +296,13 @@ namespace BootstrapBlazor.Shared.Pages
             new EventItem()
             {
                 Name = "OnSelectedItemChanged",
-                Description = Localizer["Event1"]!,
+                Description = Localizer["Event1"],
                 Type = "Func<SelectedItem, Task>"
             },
             new EventItem()
             {
                 Name = "OnSearchTextChanged",
-                Description = Localizer["Event2"]!,
+                Description = Localizer["Event2"],
                 Type = "Func<string, IEnumerable<SelectedItem>>"
             }
         };
@@ -316,77 +316,77 @@ namespace BootstrapBlazor.Shared.Pages
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = Localizer["Att1"]!,
+                Description = Localizer["Att1"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowCloseButton",
-                Description = Localizer["Att2"]!,
+                Description = Localizer["Att2"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ShowToolbar",
-                Description = Localizer["Att3"]!,
+                Description = Localizer["Att3"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowDefaultButtons",
-                Description = Localizer["Att4"]!,
+                Description = Localizer["Att4"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = Localizer["Att5"]!,
+                Description = Localizer["Att5"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "PlaceHolder",
-                Description = Localizer["Att6"]!,
+                Description = Localizer["Att6"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = Localizer["Att1DefaultValue"]!
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = Localizer["Att7"]!,
+                Description = Localizer["Att7"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = Localizer["Att8"]!,
+                Description = Localizer["Att8"],
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = Localizer["Att9"]!,
+                Description = Localizer["Att9"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Items",
-                Description = Localizer["Att10"]!,
+                Description = Localizer["Att10"],
                 Type = "IEnumerable<SelectedItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ButtonTemplate",
-                Description = Localizer["Att11"]!,
+                Description = Localizer["Att11"],
                 Type = "RenderFragment<IEnumerable<SelectedItem>>",
                 ValueList = " — ",
                 DefaultValue = " — "
