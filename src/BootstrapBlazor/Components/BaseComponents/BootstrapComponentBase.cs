@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -27,18 +26,5 @@ namespace BootstrapBlazor.Components
         [Inject]
         [NotNull]
         protected IJSRuntime? JSRuntime { get; set; }
-
-        [Inject]
-        private IServiceProvider? Provider { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            ServiceProviderHelper.RegisterProvider(Provider);
-        }
     }
 }

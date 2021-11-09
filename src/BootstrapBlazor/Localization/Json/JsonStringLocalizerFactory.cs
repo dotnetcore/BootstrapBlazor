@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Localization.Json
             if (typeInfo.IsGenericType)
             {
                 var index = typeName.IndexOf('`');
-                typeName = typeName.Substring(0, index);
+                typeName = typeName[..index];
             }
             _typeName = TryFixInnerClassPath(typeName);
 
@@ -106,18 +106,9 @@ namespace BootstrapBlazor.Localization.Json
         /// </summary>
         /// <param name="resourceSource"></param>
         /// <returns></returns>
-        public static IStringLocalizer? CreateLocalizer(Type resourceSource)
-        {
-            IStringLocalizer? localizer = null;
-            try
-            {
-                localizer = resourceSource.Assembly.IsDynamic
-                    ? null
-                    : ServiceProviderHelper.ServiceProvider?.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
-            }
-            catch (ObjectDisposedException) { }
-            return localizer;
-        }
+        public static IStringLocalizer? CreateLocalizer(Type resourceSource) => resourceSource.Assembly.IsDynamic
+            ? null
+            : ServiceProviderHelper.ServiceProvider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
         /// <summary>
         /// 获取指定 Type 的资源文件

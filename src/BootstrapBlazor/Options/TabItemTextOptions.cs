@@ -30,6 +30,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public bool? Closable { get; set; }
 
+
+
         public void Reset()
         {
             Text = null;

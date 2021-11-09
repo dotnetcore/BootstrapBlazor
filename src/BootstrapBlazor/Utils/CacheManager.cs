@@ -47,12 +47,12 @@ namespace BootstrapBlazor.Components
         //$"Lambda-{nameof(GetFormatLambda)}-{type.Name}";
         //$"Lambda-{nameof(GetFormatProviderLambda)}-{type.Name}";
 
-        private static Lazy<IMemoryCache> Cache { get; } = new(() => ServiceProviderHelper.ServiceProvider?.GetRequiredService<IMemoryCache>() ?? new MemoryCache(new MemoryCacheOptions()));
+        private static IMemoryCache Cache => ServiceProviderHelper.ServiceProvider.GetRequiredService<IMemoryCache>();
 
         /// <summary>
         /// 获得或者创建指定 Key 缓存项
         /// </summary>
-        public static T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.Value.GetOrCreate(key, entry =>
+        public static T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.GetOrCreate(key, entry =>
         {
 #if DEBUG
             entry.SlidingExpiration = TimeSpan.FromSeconds(5);
@@ -68,7 +68,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得或者创建指定 Key 缓存项 异步重载方法
         /// </summary>
-        public static Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.Value.GetOrCreateAsync(key, async entry =>
+        public static Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.GetOrCreateAsync(key, async entry =>
         {
 #if DEBUG
             entry.SlidingExpiration = TimeSpan.FromSeconds(5);
@@ -207,23 +207,19 @@ namespace BootstrapBlazor.Components
         private static string? GetLocalizerValueByKey(string key)
         {
             string? dn = null;
-            try
+            var resxType = ServiceProviderHelper.ServiceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            if (resxType.Value.ResourceManagerStringLocalizerType != null)
             {
-                var resxType = ServiceProviderHelper.ServiceProvider?.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-                if (resxType?.Value.ResourceManagerStringLocalizerType != null)
+                var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
+                if (localizer != null)
                 {
-                    var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
-                    if (localizer != null)
+                    var stringLocalizer = localizer[key];
+                    if (!stringLocalizer.ResourceNotFound)
                     {
-                        var stringLocalizer = localizer[key];
-                        if (!stringLocalizer.ResourceNotFound)
-                        {
-                            dn = stringLocalizer.Value;
-                        }
+                        dn = stringLocalizer.Value;
                     }
                 }
             }
-            catch (ObjectDisposedException) { }
             return dn ?? key;
         }
         #endregion

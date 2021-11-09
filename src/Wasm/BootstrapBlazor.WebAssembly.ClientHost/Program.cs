@@ -32,6 +32,8 @@ namespace BootstrapBlazor.WebAssembly.ClientHost
 
             var host = builder.Build();
 
+            host.Services.ConfigureProvider();
+
             await SetCultureAsync(host);
 
             await host.RunAsync();

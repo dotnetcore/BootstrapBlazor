@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -95,7 +96,6 @@ namespace BootstrapBlazor.Server
                 .AllowAnyMethod()
                 .AllowCredentials());
 
-            // 获取连接客户端 IP 组件使用此中间件
             app.UseBootstrapBlazor();
 
             app.UseEndpoints(endpoints =>

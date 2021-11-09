@@ -21,9 +21,8 @@ namespace UnitTest.Components
         public void GetDisplayName_Ok()
         {
             using var ctx = new BlazorTestContext();
+            ctx.RenderComponent<BootstrapBlazorRoot>();
             var localizer = ctx.Services.GetRequiredService<IStringLocalizer<Foo>>();
-
-            ctx.RenderComponent<Alert>();
 
             var fooData = new DataTable();
             fooData.Columns.Add(new DataColumn(nameof(Foo.DateTime), typeof(DateTime)) { DefaultValue = DateTime.Now });
@@ -84,6 +83,7 @@ namespace UnitTest.Components
         public void GetPropertyValue_Ok()
         {
             using var ctx = new BlazorTestContext();
+            ctx.RenderComponent<BootstrapBlazorRoot>();
             var Localizer = ctx.Services.GetRequiredService<IStringLocalizer<Foo>>();
 
             var foo = Foo.Generate(Localizer);
@@ -102,6 +102,7 @@ namespace UnitTest.Components
         public void SetPropertyValue_Ok()
         {
             using var ctx = new BlazorTestContext();
+            ctx.RenderComponent<BootstrapBlazorRoot>();
             var Localizer = ctx.Services.GetRequiredService<IStringLocalizer<Foo>>();
 
             var foo = Foo.Generate(Localizer);
@@ -126,6 +127,8 @@ namespace UnitTest.Components
         [Fact]
         public void TryGetProperty_Ok()
         {
+            using var ctx = new BlazorTestContext();
+            ctx.RenderComponent<BootstrapBlazorRoot>();
             var condition = Utility.TryGetProperty(typeof(Foo), nameof(Foo.Name), out _);
             Assert.True(condition);
 
