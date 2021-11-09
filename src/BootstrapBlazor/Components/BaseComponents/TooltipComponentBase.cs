@@ -17,6 +17,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public ITooltip? Tooltip { get; set; }
 
+        private bool IsInited { get; set; }
+
         /// <summary>
         /// OnAfterRenderAsync
         /// </summary>
@@ -36,6 +38,7 @@ namespace BootstrapBlazor.Components
                 {
                     await ShowPopover();
                 }
+                IsInited = true;
             }
         }
 
@@ -115,7 +118,7 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected virtual async ValueTask DisposeAsyncCore(bool disposing)
         {
-            if (disposing && Tooltip != null)
+            if (disposing && Tooltip != null && IsInited)
             {
                 var id = RetrieveId();
                 if (!string.IsNullOrEmpty(id))
