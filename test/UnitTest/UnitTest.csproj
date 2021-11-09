@@ -19,14 +19,16 @@
     </PackageReference>
   </ItemGroup>
 
-  <!--<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.*" />
+  <ItemGroup>
+    <Content Remove="Locales\*.json" />
+    <EmbeddedResource Include="Locales\*.json" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.*" />
-  </ItemGroup>-->
-  
+  <ItemGroup>
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Foo.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Utils\CacheManagerHelper.cs" Link="CacheManagerHelper.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
