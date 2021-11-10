@@ -76,6 +76,12 @@ namespace BootstrapBlazor.Components
         public bool IsSelectAllTextOnFocus { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否自动修剪空白 默认 false 未启用
+        /// </summary>
+        [Parameter]
+        public bool IsTrim { get; set; }
+
+        /// <summary>
         /// 获得 input 组件类型 默认 text
         /// </summary>
         protected string Type { get; set; } = "text";
@@ -138,6 +144,10 @@ namespace BootstrapBlazor.Components
                 if (IsSelectAllTextOnFocus)
                 {
                     await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll");
+                }
+                if (IsTrim)
+                {
+                    await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_trim");
                 }
             }
         }

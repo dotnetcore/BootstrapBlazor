@@ -16,6 +16,12 @@
             $el.on('focus', function () {
                 $(this).select();
             });
+        },
+        bb_input_trim: function (el) {
+            var $el = $(el);
+            $el.on('change', function () {
+                $(this).val($(this).val().trim());
+            });
         }
     });
 })(jQuery);

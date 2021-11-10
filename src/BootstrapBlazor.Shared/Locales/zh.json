@@ -1172,6 +1172,8 @@
     "P7": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
     "Block11Title": "密码框",
     "Block11Intro": "使用 <code>BootstrapPassword</code> 组件",
+    "Block12Title": "修剪空白",
+    "Block12Intro": "使用 <code>IsTrim=\"true\"</code> 可在输入内容的时候自动修剪空白",
     "PlaceHolder": "请输入 ...",
     "TestName": "张三",
     "Log": "按键触发 当前文本框值",

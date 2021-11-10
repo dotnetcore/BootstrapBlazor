@@ -143,6 +143,14 @@ namespace BootstrapBlazor.Shared.Samples
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
+            },
+            new AttributeItem()
+            {
+                Name = nameof(BootstrapInput<string>.IsTrim),
+                Description = Localizer[nameof(BootstrapInput<string>.IsTrim)].Value,
+                Type = "bool",
+                ValueList = "true|false",
+                DefaultValue = "false"
             }
         };
     }
