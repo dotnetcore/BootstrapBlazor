@@ -76,7 +76,7 @@ namespace BootstrapBlazor.Shared.Shared
 
             if (!string.IsNullOrEmpty(comName) && SiteOptions.Value.SourceCodes.TryGetValue(comName, out var fileName))
             {
-                if (fileName.Contains(";"))
+                if (fileName.Contains(';'))
                 {
                     var segs = fileName.Split(';', System.StringSplitOptions.RemoveEmptyEntries);
                     RazorFileName = $"{segs[0]}.razor";

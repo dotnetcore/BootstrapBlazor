@@ -26,6 +26,7 @@ namespace UnitTest
             Context.Services.AddBootstrapBlazor();
             Context.Services.AddConfiguration();
             Context.Services.AddFallbackServiceProvider(new FallbackServiceProvider());
+            Context.Services.RegisterProvider();
             Context.RenderComponent<BootstrapBlazorRoot>();
         }
 

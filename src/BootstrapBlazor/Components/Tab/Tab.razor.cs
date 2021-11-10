@@ -256,7 +256,7 @@ namespace BootstrapBlazor.Components
                 var startIndex = rule.IndexOf("/*");
                 if (startIndex > 0)
                 {
-                    checkUrl = rule.Substring(0, startIndex).Trim();
+                    checkUrl = rule[..startIndex].Trim();
                     if (url.StartsWith(checkUrl, StringComparison.OrdinalIgnoreCase))
                     {
                         ret = true;
