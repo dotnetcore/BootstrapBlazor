@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,10 @@ namespace BootstrapBlazor.Shared.Pages
         [NotNull]
         private IOptions<WebsiteOptions>? SiteOptions { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Uploads>? Localizer { get; set; }
+
         private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
 
         private BlockLogger? Trace { get; set; }
@@ -56,7 +61,7 @@ namespace BootstrapBlazor.Shared.Pages
         {
             // 未真正保存文件
             // file.SaveToFile()
-            Trace?.Log($"{file.File!.Name} 上传成功");
+            Trace?.Log($"{file.File!.Name} {Localizer["Success"]}");
             return Task.FromResult("");
         }
 
@@ -67,7 +72,7 @@ namespace BootstrapBlazor.Shared.Pages
             if (error)
             {
                 file.Code = 1;
-                file.Error = "模拟上传失败";
+                file.Error = Localizer["Error"] ;
             }
             else
             {
@@ -103,12 +108,12 @@ namespace BootstrapBlazor.Shared.Pages
                 else
                 {
                     file.Code = 1;
-                    file.Error = "文件格式不正确";
+                    file.Error = Localizer["FormatError"];
                 }
 
                 if (file.Code != 0)
                 {
-                    await ToastService.Error("头像上传", $"{file.Error} {format}");
+                    await ToastService.Error(Localizer["AvatarMsg"], $"{file.Error} {format}");
                 }
             }
         }
@@ -124,9 +129,9 @@ namespace BootstrapBlazor.Shared.Pages
                 // 服务器端验证当文件大于 2MB 时提示文件太大信息
                 if (file.Size > MaxFileLength)
                 {
-                    await ToastService.Information("上传文件", $"文件大小超过 200MB");
+                    await ToastService.Information(Localizer["FileMsg"], Localizer["FileError"]);
                     file.Code = 1;
-                    file.Error = "文件大小超过 200MB";
+                    file.Error = Localizer["FileError"];
                 }
                 else
                 {
@@ -157,17 +162,17 @@ namespace BootstrapBlazor.Shared.Pages
                 }
                 else
                 {
-                    var errorMessage = $"保存文件失败 {file.OriginFileName}";
+                    var errorMessage = $"{Localizer["SaveFileError"]} {file.OriginFileName}";
                     file.Code = 1;
                     file.Error = errorMessage;
-                    await ToastService.Error("上传文件", errorMessage);
+                    await ToastService.Error(Localizer["UploadFile"], errorMessage);
                 }
             }
             else
             {
                 file.Code = 1;
-                file.Error = "Wasm 模式未实现保存代码";
-                await ToastService.Information("保存文件", "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中");
+                file.Error = Localizer["WasmError"];
+                await ToastService.Information(Localizer["SaveFile"],Localizer["SaveFileMsg"]);
             }
             return ret;
         }
@@ -179,7 +184,7 @@ namespace BootstrapBlazor.Shared.Pages
 
         private Task<bool> OnFileDelete(UploadFile item)
         {
-            Trace?.Log($"{item.OriginFileName} 成功移除");
+            Trace?.Log($"{item.OriginFileName} {Localizer["RemoveMsg"]}");
             return Task.FromResult(true);
         }
 
@@ -216,243 +221,243 @@ namespace BootstrapBlazor.Shared.Pages
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "ShowDeleteButton",
-                Description = "是否显示删除按钮",
+                Description = Localizer["ShowDeleteButton"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsDisabled",
-                Description = "是否禁用",
+                Description = Localizer["IsDisabled"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "PlaceHolder",
-                Description = "占位字符串",
+                Description = Localizer["PlaceHolder"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Accept",
-                Description = "上传接收的文件格式",
+                Description = Localizer["Accept"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "BrowserButtonClass",
-                Description = "上传按钮样式",
+                Description = Localizer["BrowserButtonClass"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "btn-primary"
             },
             new AttributeItem() {
                 Name = "BrowserButtonIcon",
-                Description = "浏览按钮图标",
+                Description = Localizer["BrowserButtonIcon"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-folder-open-o"
             },
             new AttributeItem() {
                 Name = "BrowserButtonText",
-                Description = "浏览按钮显示文字",
+                Description = Localizer["BrowserButtonText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = ""
             },
             new AttributeItem() {
                 Name = "DeleteButtonClass",
-                Description = "删除按钮样式",
+                Description = Localizer["DeleteButtonClass"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "btn-danger"
             },
             new AttributeItem() {
                 Name = "DeleteButtonIcon",
-                Description = "删除按钮图标",
+                Description = Localizer["DeleteButtonIcon"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-trash-o"
             },
             new AttributeItem() {
                 Name = "DeleteButtonText",
-                Description = "删除按钮文字",
+                Description = Localizer["DeleteButtonText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "删除"
+                DefaultValue = Localizer["DeleteButtonTextDefaultValue"]
             },
             new AttributeItem() {
                 Name = "OnDelete",
-                Description = "点击删除按钮时回调此方法",
+                Description = Localizer["OnDelete"],
                 Type = "Func<string, Task<bool>>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnChange",
-                Description = "点击浏览按钮时回调此方法",
+                Description = Localizer["OnChange"],
                 Type = "Func<UploadFile, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
         };
 
-        private static IEnumerable<AttributeItem> GetButtonAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetButtonAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "IsDirectory",
-                Description = "是否上传整个目录",
+                Description = Localizer["IsDirectory"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsMultiple",
-                Description = "是否允许多文件上传",
+                Description = Localizer["IsMultiple"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsSingle",
-                Description = "是否仅上传一次",
+                Description = Localizer["IsSingle"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowProgress",
-                Description = "是否显示上传进度",
+                Description = Localizer["ShowProgress"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Accept",
-                Description = "上传接收的文件格式",
+                Description = Localizer["Accept"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "BrowserButtonClass",
-                Description = "上传按钮样式",
+                Description = Localizer["BrowserButtonClass"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "btn-primary"
             },
             new AttributeItem() {
                 Name = "BrowserButtonIcon",
-                Description = "浏览按钮图标",
+                Description = Localizer["BrowserButtonIcon"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-folder-open-o"
             },
             new AttributeItem() {
                 Name = "BrowserButtonText",
-                Description = "浏览按钮显示文字",
+                Description = Localizer["BrowserButtonText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = ""
             },
             new AttributeItem() {
                 Name = "DefaultFileList",
-                Description = "已上传文件集合",
+                Description = Localizer["DefaultFileList"],
                 Type = "List<UploadFile>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnGetFileFormat",
-                Description = "设置文件格式图标回调委托",
+                Description = Localizer["OnGetFileFormat"],
                 Type = "Func<string, string>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnDelete",
-                Description = "点击删除按钮时回调此方法",
+                Description = Localizer["OnDelete"],
                 Type = "Func<string, Task<bool>>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnChange",
-                Description = "点击浏览按钮时回调此方法",
+                Description = Localizer["OnChange"],
                 Type = "Func<UploadFile, Task>",
                 ValueList = " — ",
-                DefaultValue = " — "
-            },
+                DefaultValue = " - "
+            }
         };
 
-        private static IEnumerable<AttributeItem> GetAvatarAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAvatarAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "Width",
-                Description = "预览框宽度",
+                Description = Localizer["Width"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = "预览框高度",
+                Description = Localizer["Height"],
                 Type = "int",
                 ValueList = "—",
                 DefaultValue = "0"
             },
             new AttributeItem() {
                 Name = "IsCircle",
-                Description = "是否为圆形头像模式",
+                Description = Localizer["IsCircle"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsSingle",
-                Description = "是否仅上传一次",
+                Description = Localizer["IsSingle"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowProgress",
-                Description = "是否显示上传进度",
+                Description = Localizer["ShowProgress"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Accept",
-                Description = "上传接收的文件格式",
+                Description = Localizer["Accept"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "DefaultFileList",
-                Description = "已上传文件集合",
+                Description = Localizer["DefaultFileList"],
                 Type = "List<UploadFile>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnDelete",
-                Description = "点击删除按钮时回调此方法",
+                Description = Localizer["OnDelete"],
                 Type = "Func<string, Task<bool>>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnChange",
-                Description = "点击浏览按钮时回调此方法",
+                Description = Localizer["OnChange"],
                 Type = "Func<UploadFile, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
