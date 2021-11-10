@@ -236,6 +236,13 @@ namespace BootstrapBlazor.Components
         {
             if (!item.IsDisabled)
             {
+                if (!DisableNavigation && !item.Items.Any())
+                {
+                    Options.Text = item.Text;
+                    Options.Icon = item.Icon;
+                    Options.IsActive = true;
+                }
+
                 // 回调委托
                 if (OnClick != null)
                 {
@@ -266,12 +273,6 @@ namespace BootstrapBlazor.Components
 
                     // 刷新 UI
                     StateHasChanged();
-                }
-                else if (!item.Items.Any())
-                {
-                    Options.Text = item.Text;
-                    Options.Icon = item.Icon;
-                    Options.IsActive = true;
                 }
             }
         }
