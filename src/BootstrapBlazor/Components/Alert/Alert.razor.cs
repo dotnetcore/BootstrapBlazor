@@ -11,8 +11,18 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Alert
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override string? ClassName => CssBuilder.Default(base.ClassName)
+            .AddClass("d-none", !IsShown)
+            .Build();
+
+        private bool IsShown { get; set; } = true;
+
         private async Task OnClick()
         {
+            IsShown = !IsShown;
             if (OnDismiss != null) await OnDismiss();
         }
     }
