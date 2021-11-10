@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
         {
             var id = RetrieveId();
             var method = RetrieveMethod();
-            if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(method))
+            if (!string.IsNullOrEmpty(id))
             {
                 await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, method, RetrieveTitle(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
             }
@@ -64,7 +64,7 @@ namespace BootstrapBlazor.Components
         {
             var id = RetrieveId();
             var method = RetrieveMethod();
-            if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(method))
+            if (!string.IsNullOrEmpty(id))
             {
                 await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, method, RetrieveTitle(), RetrieveContent(), RetrievePlacement(), RetrieveIsHtml(), RetrieveTrigger());
             }

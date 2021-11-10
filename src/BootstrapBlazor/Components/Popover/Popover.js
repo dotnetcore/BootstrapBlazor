@@ -36,7 +36,9 @@
             }
             else {
                 var op = { html, sanitize: false, title, content, placement, trigger };
-                instance = new bootstrap.Popover(ele, op);
+                if (instance == null) {
+                    instance = new bootstrap.Popover(ele, op);
+                }
                 if (method !== '') {
                     $(ele).popover(method);
                 }

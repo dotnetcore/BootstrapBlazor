@@ -10,7 +10,9 @@
             }
             else {
                 var op = { html: html, sanitize: !html, title: title, placement: placement, trigger: trigger };
-                instance = new bootstrap.Tooltip(ele, op);
+                if (instance == null) {
+                    instance = new bootstrap.Tooltip(ele, op);
+                }
                 var $ele = $(ele);
                 if (method === 'enable') {
                     var $ctl = $ele.parents('form').find('.is-invalid:first');
@@ -26,7 +28,7 @@
                         $ctl.trigger('focus');
                     }
                 }
-                else {
+                else if (method !== '') {
                     $ele.tooltip(method);
                 }
             }

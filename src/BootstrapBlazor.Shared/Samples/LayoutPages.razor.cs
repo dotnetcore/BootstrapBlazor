@@ -116,8 +116,7 @@ namespace BootstrapBlazor.Shared.Samples
                 [nameof(RootPage.UseTabSet)] = UseTabSet
             };
 
-            // TODO: NET6.0 移除 ! 断言
-            await RootPage.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+            await RootPage.SetParametersAsync(ParameterView.FromDictionary(parameters));
 
             // 获得 Razor 示例代码
             RootPage.Update();
