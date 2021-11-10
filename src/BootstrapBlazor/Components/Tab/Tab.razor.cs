@@ -458,8 +458,12 @@ namespace BootstrapBlazor.Components
         /// <param name="closable"></param>
         public void AddTab(string url, string text, string? icon = null, bool active = true, bool closable = true)
         {
-            AddTabItem(url, text, icon, active, closable);
+            Options.Text = text;
+            Options.Icon = icon;
+            Options.IsActive = active;
+            Options.Closable = closable;
 
+            AddTabItem(url);
             StateHasChanged();
         }
 
@@ -469,24 +473,28 @@ namespace BootstrapBlazor.Components
             return TabItemTextDictionary != null && TabItemTextDictionary.TryGetValue(url, out text);
         }
 
-        private void AddTabItem(string url, string? text = null, string? icon = null, bool? active = null, bool? closable = null)
+        private void AddTabItem(string url)
         {
             var parameters = new Dictionary<string, object?>();
             var context = RouteTableFactory.Create(AdditionalAssemblies, url);
             if (context.Handler != null)
             {
-                var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
-                if (option != null)
+                // 检查 Options 优先
+                if (Options.Valid())
                 {
-                    parameters.Add(nameof(TabItem.Icon), option.Icon);
-                    parameters.Add(nameof(TabItem.Closable), option.Closable);
-                    parameters.Add(nameof(TabItem.Text), option.Text);
-                    parameters.Add(nameof(TabItem.IsActive), active ?? true);
-                    parameters.Add(nameof(TabItem.Url), url);
+                    AddParameters();
                 }
                 else
                 {
-                    AddParameters();
+                    var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
+                    if (option != null)
+                    {
+                        parameters.Add(nameof(TabItem.Icon), option.Icon);
+                        parameters.Add(nameof(TabItem.Closable), option.Closable);
+                        parameters.Add(nameof(TabItem.Text), option.Text);
+                        parameters.Add(nameof(TabItem.IsActive), true);
+                        parameters.Add(nameof(TabItem.Url), url);
+                    }
                 }
 
                 parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
@@ -499,7 +507,7 @@ namespace BootstrapBlazor.Components
             }
             else
             {
-                parameters.Add(nameof(TabItem.Text), text ?? NotFoundTabText);
+                parameters.Add(nameof(TabItem.Text), NotFoundTabText);
                 parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
                 {
                     builder.AddContent(0, NotFound);
@@ -510,16 +518,16 @@ namespace BootstrapBlazor.Components
 
             void AddParameters()
             {
-                if (TryGetTabItemText(url, out var tabText))
+                var text = Options.Text;
+                var icon = Options.Icon ?? string.Empty;
+                var active = Options.IsActive ?? true;
+                var closable = Options.Closable ?? true;
+                Options.Reset();
+
+                if (string.IsNullOrEmpty(text) && TryGetTabItemText(url, out var tabText))
                 {
                     text = tabText;
                 }
-
-                text ??= Options.Text;
-                icon ??= Options.Icon ?? string.Empty;
-                active ??= Options.IsActive ?? true;
-                closable ??= Options.Closable ?? true;
-                Options.Reset();
 
                 parameters.Add(nameof(TabItem.Url), url);
                 parameters.Add(nameof(TabItem.Icon), icon);

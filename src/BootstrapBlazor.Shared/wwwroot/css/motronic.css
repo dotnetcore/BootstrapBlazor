@@ -21,14 +21,17 @@
 }
 
 .tabs-body {
-    background-color: #f5f8fa;
+    background-color: #fff;
 }
 
 .tabs-body-content {
     border-radius: var(--bs-border-radius);
     padding: 1rem;
-    background-color: #fff;
 }
+
+    .tabs-body-content .tabs-body-content {
+        background-color: #f5f8fa;
+    }
 
 .layout.is-page .layout-footer {
     background-color: #e9ecef;

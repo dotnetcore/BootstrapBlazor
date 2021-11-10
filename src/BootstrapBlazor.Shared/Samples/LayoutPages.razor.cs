@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Shared;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -121,6 +122,10 @@ namespace BootstrapBlazor.Shared.Samples
             // 获得 Razor 示例代码
             RootPage.Update();
         }
+
+        [Inject]
+        [NotNull]
+        private IServiceProvider? Provider { get; set; }
 
         private Task OnNavigation()
         {

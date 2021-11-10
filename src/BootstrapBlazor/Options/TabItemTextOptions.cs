@@ -30,8 +30,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public bool? Closable { get; set; }
 
-
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Reset()
         {
             Text = null;
@@ -39,5 +40,11 @@ namespace BootstrapBlazor.Components
             IsActive = null;
             Closable = null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool Valid() => Text != null;
     }
 }

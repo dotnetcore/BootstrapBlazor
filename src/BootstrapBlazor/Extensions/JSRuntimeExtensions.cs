@@ -38,6 +38,10 @@ namespace BootstrapBlazor.Components
             {
                 await jsRuntime.InvokeVoidAsync($"$.{func}", paras.ToArray()).ConfigureAwait(false);
             }
+#if NET6_0_OR_GREATER
+            catch (JSDisconnectedException) { }
+#endif
+            catch (AggregateException) { }
             catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
         }
@@ -67,6 +71,10 @@ namespace BootstrapBlazor.Components
             {
                 ret = await jsRuntime.InvokeAsync<TValue>($"$.{func}", paras.ToArray()).ConfigureAwait(false);
             }
+#if NET6_0_OR_GREATER
+            catch (JSDisconnectedException) { }
+#endif
+            catch (AggregateException) { }
             catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
             return ret;
