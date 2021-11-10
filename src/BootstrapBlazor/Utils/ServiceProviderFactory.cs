@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// ServiceProviderHelper 注入服务扩展类
     /// </summary>
-    internal static class ServiceProviderFactory
+    public static class ServiceProviderFactory
     {
         private static IServiceProvider? _provider;
 
@@ -18,13 +18,13 @@ namespace BootstrapBlazor.Components
         /// 获取系统 IServiceProvider 接口
         /// </summary>
         [NotNull]
-        public static IServiceProvider? Services => _provider ?? throw new InvalidOperationException($"Please add app.ApplicationServices.ConfigureProvider() in Configure function of Startup");
+        public static IServiceProvider? Services => _provider ?? throw new InvalidOperationException($"{nameof(ServiceProviderFactory.Services)} is null");
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="provider"></param>
-        internal static void Configure(IServiceProvider provider)
+        public static void Configure(this IServiceProvider provider)
         {
             _provider = provider;
         }

@@ -116,7 +116,7 @@ namespace BootstrapBlazor.Shared.Services
                 var typeName = Path.GetFileNameWithoutExtension(codeFile);
                 var sections = CacheManager.GetJsonStringConfig(typeof(CodeSnippetService).Assembly, Option);
                 var v = sections
-                    .FirstOrDefault(s => $"BootstrapBlazor.Shared.Pages.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
+                    .FirstOrDefault(s => $"BootstrapBlazor.Shared.Samples.{typeName}".Equals(s.Key, StringComparison.OrdinalIgnoreCase))?
                     .GetChildren()
                     .SelectMany(c => new KeyValuePair<string, string>[]
                     {
@@ -129,7 +129,7 @@ namespace BootstrapBlazor.Shared.Services
         private async Task<string> ReadFileTextAsync(string codeFile)
         {
             var payload = "";
-            var paths = new string[] { "..", "BootstrapBlazor.Shared", "Pages", "Samples" };
+            var paths = new string[] { "..", "BootstrapBlazor.Shared", "Samples" };
             var folder = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths));
             var file = Path.Combine(folder, codeFile);
             if (File.Exists(file))

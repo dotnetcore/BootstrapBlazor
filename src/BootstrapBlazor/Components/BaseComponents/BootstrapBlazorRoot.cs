@@ -4,9 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -15,22 +12,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class BootstrapBlazorRoot : ComponentBase
     {
-        [Inject]
-        [NotNull]
-        private IServiceProvider? Provider { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters);
-
-            ServiceProviderFactory.Configure(Provider);
-        }
-
         /// <summary>
         /// BuildRenderTree 方法
         /// </summary>

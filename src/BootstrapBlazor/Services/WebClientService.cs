@@ -73,7 +73,7 @@ namespace BootstrapBlazor.Components
 
         private readonly NavigationManager _navigation;
 
-        private DotNetObjectReference<WebClientService>? _objRef;
+        private JSInterop<WebClientService>? Interop { get; set; }
 
         /// <summary>
         /// 
@@ -88,8 +88,8 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async Task<bool> RetrieveRemoteInfo()
         {
-            _objRef ??= DotNetObjectReference.Create<WebClientService>(this);
-            await _runtime.InvokeVoidAsync(identifier: "$.webClient", _objRef, "ip.axd", nameof(SetData));
+            Interop ??= new JSInterop<WebClientService>(_runtime);
+            await Interop.InvokeVoidAsync(this, null, "$.webClient", "ip.axd", nameof(SetData));
             RequestUrl = _navigation.Uri;
 
             // 等待 SetData 方法执行完毕
@@ -130,8 +130,8 @@ namespace BootstrapBlazor.Components
         {
             if (disposing)
             {
-                _objRef?.Dispose();
-                _objRef = null;
+                Interop?.Dispose();
+                Interop = null;
             }
         }
 

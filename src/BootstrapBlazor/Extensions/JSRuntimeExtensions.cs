@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -37,6 +38,7 @@ namespace BootstrapBlazor.Components
             {
                 await jsRuntime.InvokeVoidAsync($"$.{func}", paras.ToArray()).ConfigureAwait(false);
             }
+            catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
         }
 
@@ -65,6 +67,7 @@ namespace BootstrapBlazor.Components
             {
                 ret = await jsRuntime.InvokeAsync<TValue>($"$.{func}", paras.ToArray()).ConfigureAwait(false);
             }
+            catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
             return ret;
         }
