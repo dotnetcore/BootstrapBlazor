@@ -22,15 +22,10 @@ namespace BootstrapBlazor.Components
         public static IServiceProvider? Services => _provider ?? throw new InvalidOperationException($"{nameof(ServiceProviderFactory.Services)} is null");
 
         /// <summary>
-        /// 获取当前 Scope IServiceProvider 接口
-        /// </summary>
-        public static IServiceProvider ScopeServices => Services.CreateScope().ServiceProvider;
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="provider"></param>
-        public static void Configure(this IServiceProvider provider)
+        public static void RegisterProvider(this IServiceProvider provider)
         {
             _provider = provider;
         }

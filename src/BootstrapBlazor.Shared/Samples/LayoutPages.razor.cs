@@ -129,7 +129,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private Task OnNavigation()
         {
-            Navigator.NavigateTo("layout-page1", "代码导航");
+            Navigator.NavigateTo(Provider, "layout-page1", "代码导航");
             return Task.CompletedTask;
         }
     }
