@@ -143,6 +143,7 @@
   },
   "BootstrapBlazor.Shared.Pages.Install_Server": {
     "Title": "服务端渲染模式",
+    "Configure": "配置服务",
     "CodeComment": "添加本行代码"
   },
   "BootstrapBlazor.Shared.Pages.Install_wasm": {

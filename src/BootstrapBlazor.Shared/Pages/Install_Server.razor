@@ -8,6 +8,14 @@
     services.AddServerSideBlazor();
 
     // @Localizer["CodeComment"]
-    services.AddBootstrapBlazor(); 
+    <b><i>services.AddBootstrapBlazor();</i></b>
 }</Pre>
+
+<h4>@Localizer["Configure"]</h4>
+<Pre>public void Configure(IApplicationBuilder app)
+{
+    // @Localizer["CodeComment"]
+    <b><i>app.ApplicationServices.RegisterProvider();</i></b>
+}</Pre>
+
 </InstallContent>

@@ -143,6 +143,7 @@
   },
   "BootstrapBlazor.Shared.Pages.Install_Server": {
     "Title": "Server Side",
+    "Configure": "Configure Service",
     "CodeComment": "Add this line of code"
   },
   "BootstrapBlazor.Shared.Pages.Install_wasm": {

@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Components
         /// 获取系统 Root IServiceProvider 接口
         /// </summary>
         [NotNull]
-        public static IServiceProvider? Services => _provider ?? throw new InvalidOperationException($"{nameof(ServiceProviderFactory.Services)} is null");
+        public static IServiceProvider? Services => _provider ?? throw new InvalidOperationException($"{nameof(ServiceProviderFactory.Services)} is null. 请添加 app.ApplicationServices.RegisterProvider(); 语句到 Startup 文件中的 Configure 方法内");
 
         /// <summary>
         /// 

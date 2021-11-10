@@ -11,9 +11,14 @@
         builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
         // @Localizer["CodeComment"]
-        builder.Services.AddBootstrapBlazor();
+        <b><i>builder.Services.AddBootstrapBlazor();</i></b>
 
-        await builder.Build().RunAsync();
+        var host = builder.Build();
+
+        // @Localizer["CodeComment"]
+        <b><i>host.Services.RegisterProvider();</i></b>
+
+        await host.RunAsync();
     }
 }</Pre>
 </InstallContent>
