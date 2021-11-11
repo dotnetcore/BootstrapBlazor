@@ -88,51 +88,51 @@ namespace BootstrapBlazor.Shared.Samples
 
         private Task OnInvalidSubmit1(EditContext context)
         {
-            Trace.Log("OnInvalidSubmit 回调委托: 验证未通过");
+            Trace.Log(Localizer["OnInvalidSubmitLog"]);
             return Task.CompletedTask;
         }
 
         private async Task OnValidSubmit1(EditContext context)
         {
             await Task.Delay(1000);
-            Trace.Log("OnValidSubmit 回调委托: 验证通过");
+            Trace.Log(Localizer["OnValidSubmitLog"]);
         }
 
         private async Task OnValidSubmit(EditContext context)
         {
-            Trace2.Log("OnValidSubmit 回调委托: Starting ...");
+            Trace2.Log(Localizer["OnValidSubmitSatringLog"]);
             await Task.Delay(3000);
-            Trace2.Log("OnValidSubmit 回调委托: Done!");
+            Trace2.Log(Localizer["OnValidSubmitDoneLog"]);
         }
 
         private Task OnInvalidSubmit(EditContext context)
         {
-            Trace2.Log("OnInvalidSubmit 回调委托");
+            Trace2.Log(Localizer["OnInvalidSubmitCallBackLog"]);
             return Task.CompletedTask;
         }
 
         private Task OnInvalidSubmitAddress(EditContext context)
         {
-            Trace3.Log("OnInvalidSubmit 回调委托");
+            Trace3.Log(Localizer["OnInvalidSubmitCallBackLog"]);
             return Task.CompletedTask;
         }
 
         private Task OnInvalidComplexModel(EditContext context)
         {
-            Trace4.Log("OnInvalidSubmit 回调委托");
+            Trace4.Log(Localizer["OnInvalidSubmitCallBackLog"]);
             return Task.CompletedTask;
         }
 
         private Task OnValidComplexModel(EditContext context)
         {
-            Trace4.Log("OnValidSubmit 回调委托");
-            ComplexForm.SetError("Dummy.Dummy2.Name", "数据库中已存在");
+            Trace4.Log(Localizer["OnValidSubmitCallBackLog"]);
+            ComplexForm.SetError("Dummy.Dummy2.Name", Localizer["DatabaseExistLog"]);
             return Task.CompletedTask;
         }
 
         private Task OnValidSetError(EditContext context)
         {
-            FooForm.SetError<Foo>(f => f.Name, "数据库中已存在");
+            FooForm.SetError<Foo>(f => f.Name, Localizer["DatabaseExistLog"]);
             return Task.CompletedTask;
         }
 
@@ -148,13 +148,13 @@ namespace BootstrapBlazor.Shared.Samples
 
         private Task OnInvalidDynamicModel(EditContext context)
         {
-            Trace5.Log("OnInvalidSubmit 回调委托");
+            Trace5.Log(Localizer["OnInvalidSubmitCallBackLog"]);
             return Task.CompletedTask;
         }
 
         private Task OnValidDynamicModel(EditContext context)
         {
-            Trace5.Log("OnValidSubmit 回调委托");
+            Trace5.Log(Localizer["OnValidSubmitCallBackLog"]);
             return Task.CompletedTask;
         }
 
@@ -188,47 +188,47 @@ namespace BootstrapBlazor.Shared.Samples
         }
 
         #region 参数说明
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Model",
-                Description = "表单组件绑定的数据模型，必填属性",
+                Description = Localizer["Model"],
                 Type = "object",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ValidateAllProperties",
-                Description = "是否检查所有字段",
+                Description = Localizer["ValidateAllProperties"],
                 Type = "bool",
                 ValueList = "true/false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowRequiredMark",
-                Description = "表单内必填项是否显示 * 标记",
+                Description = Localizer["ShowRequiredMark"],
                 Type = "bool",
                 ValueList = "true/false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "子组件模板实例",
+                Description = Localizer["ChildContent"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnValidSubmit",
-                Description = "表单提交时数据合规检查通过时的回调委托",
+                Description = Localizer["OnValidSubmit"],
                 Type = "EventCallback<EditContext>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnInvalidSubmit",
-                Description = "表单提交时数据合规检查未通过时的回调委托",
+                Description = Localizer["OnInvalidSubmit"],
                 Type = "EventCallback<EditContext>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -239,13 +239,13 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
         {
             new MethodItem()
             {
                 Name = "SetError",
-                Description="设置验证失败方法",
-                Parameters ="PropertyName, ErrorMessage",
+                Description = Localizer["SetError"],
+                Parameters = "PropertyName, ErrorMessage",
                 ReturnValue = " — "
             }
         };

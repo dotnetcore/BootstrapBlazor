@@ -1,26 +1,24 @@
 ﻿@page "/validateforms"
+@inject IStringLocalizer<ValidateForms> Localizer
 
-<h3>ValidateForm 表单组件</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>可供数据合规检查的表单组件</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="基础用法" Introduction="放置到 <code>ValidateForm</code> 中的组件提交时自动进行数据合规检查" Name="Normal">
-    <p>组件说明：</p>
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <p>@Localizer["BasicUsageP1"]</p>
     <ul class="ul-demo">
-        <li><code>ValidateForm</code> 组件支持异步设置 <code>Model</code> 值</li>
-        <li>表单事件为 <code>OnValidSubmit</code> <code>OnInvalidSubmit</code></li>
-        <li><code>Model</code> 参数为必填项不允许为空</li>
-        <li>表单内可以放置多个按钮，通过设置 <code>ButtonType="ButtonType.Submit"</code> 参数是否提交表单</li>
-        <li>客户端验证机制支持模型的 <code>Required</code> 标签，通过设置 <code>ErrorMessage</code> 参数设置提示信息，未设置时使用默认的英文提示信息</li>
-        <li>表单默认检查表单内绑定字段值是否合法，如需要检查模型所有字段时可设置 <code>ValidateAllProperties</code> 属性值为 <code>true</code></li>
-        <li>通过设置提交按钮 <code>Button</code> 属性 <code>IsAsync</code> 值，设置异步提交表单</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi2"].Value)</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi3"].Value)</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi4"].Value)</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi5"].Value)</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi6"].Value)</li>
+        <li>@((MarkupString)Localizer["BasicUsageLi7"].Value)</li>
     </ul>
-    <p>注意事项：</p>
+    <p>@Localizer["BasicUsageP2"]</p>
     <ul class="ul-demo">
-        <li>
-            表单内组件通常用法都是使用双向绑定技术对 <code>Model</code> 的属性值进行双向绑定，当其值改变时会导致所在组件 <code>StateHasChanged</code>
-            方法被调用，即其所在组件或者页面进行刷新重新渲染
-        </li>
+        <li>@((MarkupString)Localizer["BasicUsageLi8"].Value)</li>
     </ul>
     <div class="form-demo">
         <ValidateForm Model="@Model" OnInvalidSubmit="@OnInvalidSubmit1"
@@ -30,7 +28,7 @@
                     <BootstrapInput @bind-Value="@Model.Name" />
                 </div>
                 <div class="col-12">
-                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-fw fa-save" Text="提交表单" IsAsync="true" />
+                    <Button ButtonType="ButtonType.Submit" Icon="fa fa-fw fa-save" Text="@Localizer["ButtonText"]" IsAsync="true" />
                 </div>
             </div>
         </ValidateForm>
@@ -38,18 +36,18 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="内置组件" Introduction="放置支持表单组件到 <code>ValidateForm</code> 中" Name="InnerComponent">
+<DemoBlock Title="@Localizer["InnerComponentTitle"]" Introduction="@Localizer["InnerComponentIntro"]" Name="InnerComponent">
     <div class="form-demo">
-        <label class="legend">支持表单验证的组件示例</label>
-        <p>示例说明</p>
+        <label class="legend">@Localizer["InnerComponentLabel"]</label>
+        <p>@Localizer["InnerComponentP1"]</p>
         <ul>
-            <li>姓名为字符串类型</li>
-            <li>年龄为整数类型</li>
-            <li>生日为时间类型</li>
-            <li>教育为枚举类型</li>
-            <li>爱好为集合类型</li>
+            <li>@Localizer["InnerComponentLi1"]</li>
+            <li>@Localizer["InnerComponentLi2"]</li>
+            <li>@Localizer["InnerComponentLi3"]</li>
+            <li>@Localizer["InnerComponentLi4"]</li>
+            <li>@Localizer["InnerComponentLi5"]</li>
         </ul>
-        <p>本例中通过设置 <b>提交按钮</b> 属性 <code>IsAsync</code> 来异步提交表单，点击提交后禁用自身，异步操作完毕后恢复</p>
+        <p>@((MarkupString)Localizer["InnerComponentP2"].Value)</p>
         <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmit"
                       OnInvalidSubmit="@OnInvalidSubmit">
             <div class="row g-3">
@@ -69,7 +67,7 @@
                     <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
                 </div>
                 <div class="col-12">
-                    <Button ButtonType="@ButtonType.Submit" Icon="fa fa-fw fa-save" IsAsync="true" Text="提交表单" />
+                    <Button ButtonType="@ButtonType.Submit" Icon="fa fa-fw fa-save" IsAsync="true" Text="@Localizer["ButtonText"]" />
                 </div>
             </div>
         </ValidateForm>
@@ -77,14 +75,8 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="自定义显示错误信息" Introduction="通过调用 <code>SetError</code> 方法设置自定义错误信息" Name="CustomDisplsyError">
-    <p>
-        <b>应用场景</b>
-        <div>
-            客户端验证通过后进行数据库保存操作，如果出现其他问题，后仍然可以进行表单自定义错误提示，本例中数据验证合法后，点击 <code>提交表单</code> 按钮后，姓名字段会显示 <code>数据库中已存在</code>
-            这样的自定义提示信息
-        </div>
-    </p>
+<DemoBlock Title="@Localizer["CustomDisplsyErrorTitle"]" Introduction="@Localizer["CustomDisplsyErrorIntro"]" Name="CustomDisplsyError">
+    <p>@((MarkupString)Localizer["CustomDisplsyErrorP1"].Value)</p>
     <ValidateForm @ref="FooForm" Model="@Model" OnValidSubmit="@OnValidSetError">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
@@ -103,17 +95,14 @@
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
             </div>
             <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
             </div>
         </div>
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="验证所有字段值" Introduction="此组件默认检查表单内模型绑定字段值，如需要检查模型所有字段值时设置 <code>ValidateAllProperties</code> 值" Name="ValidatorAllField">
-    <p>
-        本例中未放置 <code>Address</code>，由于设置 <code>ValidateAllProperties</code> 参数值为 <code>true</code>，所以
-        <code>Address</code> 字段仍然被检查，及时表单内所有数据均合法后，提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托
-    </p>
+<DemoBlock Title="@Localizer["ValidatorAllFieldTitle"]" Introduction="@Localizer["ValidatorAllFieldIntro"]" Name="ValidatorAllField">
+    <p>@((MarkupString)Localizer["ValidatorAllFieldP1"].Value)</p>
     <ValidateForm Model="@Model" OnInvalidSubmit="@OnInvalidSubmitAddress"
                   ValidateAllProperties="true">
         <div class="row g-3">
@@ -133,19 +122,16 @@
                 <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
             </div>
             <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
             </div>
         </div>
     </ValidateForm>
     <BlockLogger @ref="Trace3" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="复杂类型支持" Introduction="支持任意复杂类型的绑定与验证" Name="ComplexValidation">
-    <p>
-        本示例中第二个绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用
-        <code>SetError</code> 再次显示错误提示
-    </p>
-    <Pre>ComplexForm.SetError("Dummy.Dummy2.Name", "数据库中已存在");</Pre>
+<DemoBlock Title="@Localizer["ComplexValidationTitle"]" Introduction="@Localizer["ComplexValidationIntro"]" Name="ComplexValidation">
+    <p>@((MarkupString)Localizer["ComplexValidationP1"].Value)</p>
+    <Pre>@Localizer["ComplexValidationPre"]</Pre>
     <ValidateForm @ref="ComplexForm" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel"
                   OnValidSubmit="@OnValidComplexModel">
         <div class="row g-3">
@@ -156,7 +142,7 @@
                 <BootstrapInput @bind-Value="@ComplexModel.Dummy.Dummy2.Name" />
             </div>
             <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
             </div>
         </div>
     </ValidateForm>
@@ -171,11 +157,8 @@
     </p>
 </DemoBlock>
 
-<DemoBlock Title="动态调整表单内组件" Introduction="通过代码更改表单内组件，验证表单仍然可以正确的进行验证" Name="DynamicForm">
-    <p>
-        点击 <b>更改组件</b> 按钮后 <code>地址</code> 组件变更为 <code>数量</code> 组件，<b>重置组件</b> 按钮恢复，<code>姓名</code> <code>地址</code>
-        组件为必填项，<code>数量</code> 组件有默认值 <code>0</code> 所以可以通过数据检查
-    </p>
+<DemoBlock Title="@Localizer["DynamicFormTitle"]" Introduction="@Localizer["DynamicFormIntro"]" Name="DynamicForm">
+    <p>@((MarkupString)Localizer["DynamicFormP1"].Value)</p>
     <ValidateForm Model="@DynamicModel" OnInvalidSubmit="@OnInvalidDynamicModel"
                   OnValidSubmit="@OnValidDynamicModel">
         <div class="row g-3">
@@ -193,17 +176,17 @@
                 }
             </div>
             <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
-                <Button Text="更改组件" OnClick="OnValidateChange" class="ms-3" />
-                <Button Text="重置组件" OnClick="OnValidateReset" class="ms-3" />
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
+                <Button Text="@Localizer["ChangeButtonText"]" OnClick="OnValidateChange" class="ms-3" />
+                <Button Text="@Localizer["ResetButtonText"]" OnClick="OnValidateReset" class="ms-3" />
             </div>
         </div>
     </ValidateForm>
     <BlockLogger @ref="Trace5" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="表单内设置组件标签右对齐" Introduction="通过样式统一设置全站或者特定表单内标签对齐方式" Name="InnerFormLabel">
-    <p>地址文本框增加了 <b>邮件地址</b> 验证规则</p>
+<DemoBlock Title="@Localizer["InnerFormLabelTitle"]" Introduction="@Localizer["InnerFormLabelIntro"]" Name="InnerFormLabel">
+    <p>@((MarkupString)Localizer["InnerFormLabelP1"].Value)</p>
     <Pre>&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
     <ValidateForm Model="@Model">
         <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
@@ -215,15 +198,15 @@
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="自定义验证表单" Introduction="通过设置 <code>Rules</code> 添加自定义验证规则" Name="CustomValidationForm">
-    <p>地址文本框增加了 <b>邮件地址</b> 验证规则，点击提交时验证</p>
+<DemoBlock Title="@Localizer["CustomValidationFormTitle"]" Introduction="@Localizer["CustomValidationFormIntro"]" Name="CustomValidationForm">
+    <p>@((MarkupString)Localizer["CustomValidationFormP1"].Value)</p>
     <Pre>protected override void OnInitialized()
 {
     base.OnInitialized();
-    // 增加邮箱验证规则
+    // @Localizer["CustomValidationFormComment1"]
     CustomerRules.Add(new CustomerValidator(new EmailAddressAttribute()));
 
-    // Razor 文件中使用
+    // @Localizer["CustomValidationFormComment2"]
     // &lt;BootstrapInput @@bind-Value="@@Model.Address" ValidateRules="@@CustomerRules" /&gt;
 }</Pre>
     <ValidateForm Model="@Model">
@@ -235,7 +218,7 @@
                 <BootstrapInput @bind-Value="@Model.Address" ValidateRules="@CustomerRules" />
             </div>
             <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="提交表单" />
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ButtonText"]" />
             </div>
         </div>
     </ValidateForm>
