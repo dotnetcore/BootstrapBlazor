@@ -89,7 +89,7 @@ namespace BootstrapBlazor.Components
         public async Task<bool> RetrieveRemoteInfo()
         {
             Interop ??= new JSInterop<WebClientService>(_runtime);
-            await Interop.InvokeVoidAsync(this, null, "$.webClient", "ip.axd", nameof(SetData));
+            await Interop.InvokeVoidAsync(this, null, "webClient", "ip.axd", nameof(SetData));
             RequestUrl = _navigation.Uri;
 
             // 等待 SetData 方法执行完毕
