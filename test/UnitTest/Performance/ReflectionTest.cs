@@ -34,22 +34,27 @@ namespace UnitTest.Performance
             };
 
             var pi = s1.GetType().GetProperty("Name");
-            var sw = Stopwatch.StartNew();
-            for (var i = 0; i < count; i++)
-            {
-                pi.GetValue(s1);
-            }
-            sw.Stop();
-            Logger.WriteLine($"Reflection: {sw.Elapsed}");
+            Assert.NotNull(pi);
 
-            var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(s1, "Name").Compile();
-            sw = Stopwatch.StartNew();
-            for (var i = 0; i < count; i++)
+            if (pi != null)
             {
-                invoker(s1);
+                var sw = Stopwatch.StartNew();
+                for (var i = 0; i < count; i++)
+                {
+                    pi.GetValue(s1);
+                }
+                sw.Stop();
+                Logger.WriteLine($"Reflection: {sw.Elapsed}");
+
+                var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(s1, "Name").Compile();
+                sw = Stopwatch.StartNew();
+                for (var i = 0; i < count; i++)
+                {
+                    invoker(s1);
+                }
+                sw.Stop();
+                Logger.WriteLine($"Expression: {sw.Elapsed}");
             }
-            sw.Stop();
-            Logger.WriteLine($"Expression: {sw.Elapsed}");
         }
 
         [Fact]
@@ -63,6 +68,8 @@ namespace UnitTest.Performance
 
             var sw = Stopwatch.StartNew();
             var pi = s1.GetType().GetProperty("Name");
+            Assert.NotNull(pi);
+
             for (var i = 0; i < count; i++)
             {
                 if (pi != null && pi.CanWrite)
@@ -95,6 +102,7 @@ namespace UnitTest.Performance
                 Name = "Argo"
             };
             var mi = s1.GetType().GetMethod("Method");
+            Assert.NotNull(mi);
 
             var sw = Stopwatch.StartNew();
             for (var i = 0; i < count; i++)
@@ -134,11 +142,14 @@ namespace UnitTest.Performance
 
             var objectType = test.GetType();
             var method = objectType.GetProperty("Name")?.GetGetMethod(false);
-            var proxy = (DummyCallback<Dummy>)Delegate.CreateDelegate(typeof(DummyCallback<Dummy>), method);
-            stopWatch.Restart();
-            for (int i = 0; i < count; i++)
+            if (method != null)
             {
-                proxy(test);
+                var proxy = (DummyCallback<Dummy>)Delegate.CreateDelegate(typeof(DummyCallback<Dummy>), method);
+                stopWatch.Restart();
+                for (int i = 0; i < count; i++)
+                {
+                    proxy(test);
+                }
             }
             stopWatch.Stop();
             Logger.WriteLine($"Delegate: {stopWatch.Elapsed}");
@@ -149,13 +160,13 @@ namespace UnitTest.Performance
             /// <summary>
             /// 
             /// </summary>
-            public string Name { get; set; }
+            public string? Name { get; set; }
 
             /// <summary>
             /// 
             /// </summary>
             /// <returns></returns>
-            public string Method()
+            public string? Method()
             {
                 return Name;
             }

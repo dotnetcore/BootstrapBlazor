@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Utils
 {
     /// <summary>
     /// 

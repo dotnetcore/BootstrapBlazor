@@ -25,14 +25,22 @@ namespace UnitTest.Emit
 
             // 创建动态类型基类是 DynamicObject
             var instanceType = EmitHelper.CreateTypeByName("Test", cols, typeof(DynamicObject));
-            Assert.Equal(typeof(DynamicObject), instanceType.BaseType);
+            Assert.NotNull(instanceType);
 
-            // 创建动态类型实例
-            var instance = Activator.CreateInstance(instanceType);
-            Assert.NotNull(instance);
+            if (instanceType != null)
+            {
+                Assert.Equal(typeof(DynamicObject), instanceType.BaseType);
 
-            var properties = instance.GetType().GetProperties().Select(p => p.Name);
-            Assert.Contains(nameof(DynamicObject.DynamicObjectPrimaryKey), properties);
+                // 创建动态类型实例
+                var instance = Activator.CreateInstance(instanceType);
+                Assert.NotNull(instance);
+
+                if (instance != null)
+                {
+                    var properties = instance.GetType().GetProperties().Select(p => p.Name);
+                    Assert.Contains(nameof(DynamicObject.DynamicObjectPrimaryKey), properties);
+                }
+            }
         }
 
         private class Foo : ITableColumn
@@ -59,19 +67,19 @@ namespace UnitTest.Emit
 
             public bool SkipValidate { get; set; }
 
-            public string Text { get; set; }
+            public string? Text { get; set; }
 
-            public IEnumerable<SelectedItem> Items { get; set; }
+            public IEnumerable<SelectedItem>? Items { get; set; }
 
-            public object Step { get; set; }
+            public object? Step { get; set; }
 
             public int Rows { get; set; }
 
-            public RenderFragment<object> EditTemplate { get; set; }
+            public RenderFragment<object>? EditTemplate { get; set; }
 
-            public System.Type ComponentType { get; set; }
+            public System.Type? ComponentType { get; set; }
 
-            public IEnumerable<SelectedItem> Lookup { get; set; }
+            public IEnumerable<SelectedItem>? Lookup { get; set; }
 
             public bool Sortable { get; set; }
 
@@ -93,23 +101,23 @@ namespace UnitTest.Emit
 
             public bool TextEllipsis { get; set; }
 
-            public string CssClass { get; set; }
+            public string? CssClass { get; set; }
 
             public BreakPoint ShownWithBreakPoint { get; set; }
 
-            public RenderFragment<object> Template { get; set; }
+            public RenderFragment<object>? Template { get; set; }
 
-            public RenderFragment<object> SearchTemplate { get; set; }
+            public RenderFragment<object>? SearchTemplate { get; set; }
 
-            public RenderFragment FilterTemplate { get; set; }
+            public RenderFragment? FilterTemplate { get; set; }
 
-            public RenderFragment<ITableColumn> HeaderTemplate { get; set; }
+            public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
 
-            public IFilter Filter { get; set; }
+            public IFilter? Filter { get; set; }
 
-            public string FormatString { get; set; }
+            public string? FormatString { get; set; }
 
-            public Func<object, Task<string>> Formatter { get; set; }
+            public Func<object?, Task<string>>? Formatter { get; set; }
 
             public Alignment Align { get; set; }
 
@@ -117,16 +125,16 @@ namespace UnitTest.Emit
 
             public int Order { get; set; }
 
-            public Action<TableCellArgs> OnCellRender { get; set; }
+            public Action<TableCellArgs>? OnCellRender { get; set; }
 
-            public IEnumerable<KeyValuePair<string, object>> ComponentParameters { get; set; }
+            public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
-            public string PlaceHolder { get; set; }
+            public string? PlaceHolder { get; set; }
 
             /// <summary>
             /// 获得/设置 自定义验证集合
             /// </summary>
-            public List<IValidator> ValidateRules { get; set; }
+            public List<IValidator>? ValidateRules { get; set; }
 
             public string GetDisplayName() => Text ?? FieldName;
 

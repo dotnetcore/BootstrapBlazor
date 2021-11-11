@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Utils
 {
     /// <summary>
     /// 
@@ -20,10 +20,14 @@ namespace UnitTest.Components
         {
             var exp = Expression.Parameter(typeof(int?));
             var pi = typeof(int?).GetProperty("HasValue");
-            var exp_p = Expression.Property(exp, pi);
 
-            var func = Expression.Lambda<Func<int?, bool>>(exp_p, exp).Compile();
-            var b = func.Invoke(10);
+            if (pi != null)
+            {
+                var exp_p = Expression.Property(exp, pi);
+
+                var func = Expression.Lambda<Func<int?, bool>>(exp_p, exp).Compile();
+                var b = func.Invoke(10);
+            }
         }
 
         [Fact]
@@ -43,12 +47,12 @@ namespace UnitTest.Components
 
         private class Dummy
         {
-            public virtual string Foo { get; set; }
+            public virtual string? Foo { get; set; }
         }
 
         private class Dog : Dummy
         {
-            public override string Foo { get; set; }
+            public override string? Foo { get; set; }
         }
 
         private class Cat : Dummy
