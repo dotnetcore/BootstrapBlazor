@@ -48,7 +48,10 @@
         },
         bb_create_url: function (filename, contentType, content) {
             // Blazor marshall byte[] to a base64 string, so we first need to convert the string (content) to a Uint8Array to create the File
-            var data = $.base64DecToArr(content);
+            if (typeof (content) === 'string') {
+                content = $.base64DecToArr(content);
+            }
+            var data = content;
 
             // Create the URL
             var file = new File([data], filename, { type: contentType });
