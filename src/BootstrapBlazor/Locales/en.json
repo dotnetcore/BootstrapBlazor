@@ -278,6 +278,10 @@
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All"
   },
+  "BootstrapBlazor.Components.FilterLogicItem": {
+    "And": "And",
+    "Or": "Or"
+  },
   "BootstrapBlazor.Components.SearchDialog": {
     "ResetButtonText": "Reset",
     "QueryButtonText": "Query"

@@ -278,6 +278,10 @@
     "NotContains": "不包含",
     "EnumFilter.AllText": "全选"
   },
+  "BootstrapBlazor.Components.FilterLogicItem": {
+    "And": "并且",
+    "Or": "或者"
+  },
   "BootstrapBlazor.Components.SearchDialog": {
     "ResetButtonText": "重置",
     "QueryButtonText": "查询"

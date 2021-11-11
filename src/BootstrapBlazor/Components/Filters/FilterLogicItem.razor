@@ -1,28 +1,3 @@
 ﻿@namespace BootstrapBlazor.Components
 
 <Select Items="@Items" Color="@Color.Info" class="is-condition" @bind-Value="Value"></Select>
-
-@code {
-    private FilterLogic _value;
-    private FilterLogic Value
-    {
-        get
-        {
-            _value = Logic;
-            return _value;
-        }
-        set
-        {
-            _value = value;
-            if (LogicChanged.HasDelegate) LogicChanged.InvokeAsync(value);
-        }
-    }
-
-    [Parameter]
-    public FilterLogic Logic { get; set; }
-
-    [Parameter]
-    public EventCallback<FilterLogic> LogicChanged { get; set; }
-
-    private IEnumerable<SelectedItem> Items => typeof(FilterLogic).ToSelectList();
-}
