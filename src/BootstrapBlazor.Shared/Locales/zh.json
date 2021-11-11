@@ -737,6 +737,9 @@
     "Block5Title": "显示标签",
     "Block5Intro": "组件双向绑定时会根据条件自动判断是否显示标签文字",
     "P5": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
+    "Block6Title": "开启js防抖",
+    "Block6Intro": "通过设置 <code>Debounce</code> 毫秒，来开启js防抖",
+    "P6": "本例中请键入任意字符串显示查看效果，自动完成组件在防抖时间内，只在最后一次录入后将结果发送到后端，这将大大提高性能",
     "Divider1Text": "双向绑定显示标签",
     "Divider2Text": "双向绑定不显示标签",
     "Divider3Text": "自定义 DisplayText",
@@ -750,7 +753,8 @@
     "Att6": "文本框值变化时回调委托方法",
     "Att7": "是否开启模糊匹配",
     "Att8": "匹配时是否忽略大小写",
-    "Att9": "自定义集合过滤规则"
+    "Att9": "自定义集合过滤规则",
+    "Att10": "js防抖时间，毫秒"
   },
   "BootstrapBlazor.Shared.Samples.FullScreens": {
     "Title": "FullScreen 全屏",

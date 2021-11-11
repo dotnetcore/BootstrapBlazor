@@ -102,6 +102,14 @@ namespace BootstrapBlazor.Shared.Samples
                 Type = "Func<Task<IEnumerable<string>>>",
                 ValueList = " — ",
                 DefaultValue = " — "
+            },
+            new AttributeItem()
+            {
+                Name = "Debounce",
+                Description = Localizer["Att10"],
+                Type = "int",
+                ValueList = " — ",
+                DefaultValue = "0"
             }
         };
     }

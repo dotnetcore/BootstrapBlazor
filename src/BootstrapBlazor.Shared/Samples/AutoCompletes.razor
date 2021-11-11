@@ -45,4 +45,11 @@
     <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" DisplayText="@Localizer["AutoText"]" ShowLabel="true" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Debounce">
+    <p>@Localizer["P6"]</p>
+    <div style="width: 200px;">
+        <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" Debounce="500" />
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

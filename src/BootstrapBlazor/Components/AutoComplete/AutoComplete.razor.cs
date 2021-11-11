@@ -73,7 +73,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 自定义集合过滤规则
         /// </summary>
         [Parameter]
-        public Func<Task<IEnumerable<string>>>? CustomFilter { get; set; }
+        public Func<string,Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
+
+        /// <summary>
+        /// 获得/设置 js防抖时间，默认为 0,即不开启
+        /// </summary>
+        [Parameter]
+        public int Debounce { get; set; }
 
         /// <summary>
         /// 
@@ -120,6 +126,14 @@ namespace BootstrapBlazor.Components
             {
                 await JSRuntime.InvokeVoidAsync(AutoCompleteElement, "bb_autoScrollItem", CurrentItemIndex.Value);
             }
+
+            if (firstRender)
+            {
+                if (Debounce > 0)
+                {
+                    await JSRuntime.InvokeVoidAsync(FocusElement, "bb_setDebounce", Debounce);
+                }
+            }
         }
 
         /// <summary>
@@ -161,9 +175,9 @@ namespace BootstrapBlazor.Components
             {
                 _isLoading = true;
                 _lastFilterText = CurrentValueAsString;
-                if (CustomFilter != null)
+                if (OnCustomFilter != null)
                 {
-                    var items = await CustomFilter();
+                    var items = await OnCustomFilter(CurrentValueAsString);
                     FilterItems = items.ToList();
                 }
                 else
