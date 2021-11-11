@@ -162,10 +162,9 @@ namespace BootstrapBlazor.Shared.Services
                     }
 
                     var seg = content[star..(length + endLength)];
-
                     if (seg.IndexOf(findStrings[0]) > -1 || seg.IndexOf(findStrings[1]) > -1)
                     {
-                        content = TrimBlock(codeFile, seg);
+                        TrimBlock(seg);
                         break;
                     }
                     else
@@ -174,18 +173,33 @@ namespace BootstrapBlazor.Shared.Services
                     }
                 }
             }
+            TrimTips();
             return content;
-        }
 
-        private string TrimBlock(string codeFile, string content)
-        {
-            var endFlag = "</DemoBlock>";
-            var lineFlag = "\n";
-            var star = content.IndexOf(lineFlag);
-            var end = content.IndexOf(endFlag);
-            var data = content[star..end];
-            data = data.Replace("\n    ", "\n").TrimStart('\n');
-            return data;
+            void TrimBlock(string seg)
+            {
+                var lineFlag = "\n";
+                var star = seg.IndexOf(lineFlag);
+                var end = seg.IndexOf(endFlag);
+                var data = seg[star..end];
+                content = data.Replace("\n    ", "\n").TrimStart('\n');
+            }
+
+            void TrimTips()
+            {
+                beginFlag = "<Tips>";
+                endFlag = $"</Tips>{Environment.NewLine}";
+                var endLength = endFlag.Length;
+                var star = content.IndexOf(beginFlag);
+                if (star > -1)
+                {
+                    var length = content.IndexOf(endFlag);
+                    if (length > -1)
+                    {
+                        content = $"{content[..star]}{content[(length + endLength)..]}";
+                    }
+                }
+            }
         }
     }
 }
