@@ -1,8 +1,10 @@
-﻿<Router AppAssembly="@typeof(MainLayout).Assembly" PreferExactMatches="@true">
+﻿<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
+        <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
             <p>正在玩命开发中 ...</p>
         </LayoutView>
