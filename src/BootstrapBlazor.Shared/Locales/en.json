@@ -1172,6 +1172,8 @@
     "P7": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string",
     "Block11Title": "The password box",
     "Block11Intro": "Use the <code>BootstrapPassword</code> component",
+    "IsTrimTitle": "Trim",
+    "IsTrimIntro": "Use <code>IsTrim=\"true\"</code> to automatically trim white space when entering content",
     "PlaceHolder": "Please enter ...",
     "TestName": "Tom",
     "Log": "The key triggers the current text box value",

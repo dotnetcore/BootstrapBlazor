@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -145,10 +146,6 @@ namespace BootstrapBlazor.Components
                 {
                     await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll");
                 }
-                if (IsTrim)
-                {
-                    await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_trim");
-                }
             }
         }
 
@@ -162,6 +159,15 @@ namespace BootstrapBlazor.Components
             : (!string.IsNullOrEmpty(FormatString) && value != null
                 ? Utility.Format(value, FormatString)
                 : base.FormatValueAsString(value));
+
+        /// <summary>
+        /// TryParseValueFromString
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="result"></param>
+        /// <param name="validationErrorMessage"></param>
+        /// <returns></returns>
+        protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => base.TryParseValueFromString(IsTrim ? value.Trim() : value, out result, out validationErrorMessage);
 
         /// <summary>
         /// 
