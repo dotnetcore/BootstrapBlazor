@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
+using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
@@ -11,9 +12,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
+using UnitTest.Services;
 using Xunit;
 
-namespace UnitTest.Components
+namespace UnitTest.Utils
 {
     public class UtilityTest : IDisposable
     {
