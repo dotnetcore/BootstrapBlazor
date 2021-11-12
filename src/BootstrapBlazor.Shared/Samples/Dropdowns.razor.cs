@@ -120,9 +120,9 @@ namespace BootstrapBlazor.Shared.Samples
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
-                Name = "@bind-Value",
+                Name = "Value",
                 Description = Localizer["ADesc1"],
-                Type = " — ",
+                Type = "TValue",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
