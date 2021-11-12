@@ -23,68 +23,68 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Size",
-                Description = "头像框大小",
+                Description = Localizer["Size"],
                 Type = "Size",
                 ValueList = "ExtraSmall|Small|Medium|Large|ExtraLarge",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsBorder",
-                Description = "是否显示边框",
+                Description = Localizer["IsBorder"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsCircle",
-                Description = "是否为圆形",
+                Description = Localizer["IsCircle"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsIcon",
-                Description = "是否为图标",
+                Description = Localizer["IsIcon"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsText",
-                Description = "是否为显示为文字",
+                Description = Localizer["IsText"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Icon",
-                Description = "头像框显示图标",
+                Description = Localizer["Icon"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-user"
             },
             new AttributeItem() {
                 Name = "Text",
-                Description = "头像框显示文字",
+                Description = Localizer["Text"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Url",
-                Description = "Image 头像路径地址",
+                Description = Localizer["Url"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "GetUrlAsync",
-                Description = "获取 Image 头像路径地址异步回调委托",
+                Description = Localizer["GetUrlAsync"],
                 Type = "Func<Task<string>>",
                 ValueList = " — ",
                 DefaultValue = " — "

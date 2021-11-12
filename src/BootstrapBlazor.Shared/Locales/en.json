@@ -1761,6 +1761,30 @@
     "OnValidSubmitCallBackLog": "OnValidSubmit callback delegate",
     "DatabaseExistLog": "Exists in the database"
   },
+  "BootstrapBlazor.Shared.Samples.Avatars": {
+    "Title": "Avatar",
+    "SubTitle": "Present user or thing information as icons, pictures, or characters.",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Set the shape and size of your avatar <code> is </code> and <code>Size </code>.",
+    "BasicUsageDivider": "Split the line",
+    "IconTitle": "The type of presentation",
+    "IconIntro": "Three types are supported: icons, pictures, and characters",
+    "BorderTitle": "Border",
+    "BorderIntro": "By setting the <code> IsBorder </code> whether to display the avatar border, the border in this mode when the picture fails to load is <code>border-danger</code> style, and when the load is successful, the border is <code>border-success</code>; The borders in the remaining modes are <code>border-info </code>",
+    "BorderDiv1": "The first fillet square avatar box is loaded correctly, so the border is <b class='text-info' > blue </b>",
+    "BorderDiv2": "The second circular avatar loads the picture path incorrectly, so the border is <b class='text-danger'> red </b> and the picture appears as the default icon",
+    "CircletTitle": "Asynchronous loading",
+    "CircleIntro": "Suitable for scenarios where the picture address is obtained asynchronously by interfaces such as <code>webapi</code>",
+    "Size": "The size of the avatar box",
+    "IsBorder": "Whether the border is displayed",
+    "IsCircle": "Whether it is a circle",
+    "IsIcon": "Whether it is an icon",
+    "IsText": "Whether to display as text",
+    "Icon": "The avatar box displays an icon",
+    "Text": "The avatar box displays text",
+    "Url": "Image avatar path address",
+    "GetUrlAsync": "Gets the Image avatar path address asynchronous callback delegate"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
