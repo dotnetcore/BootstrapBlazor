@@ -686,6 +686,11 @@ namespace BootstrapBlazor.Components
             {
                 CheckboxColumnWidth = Options.Value.TableSettings.CheckboxColumnWidth;
             }
+
+            if (Options.Value.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)
+            {
+                RenderMode = Options.Value.TableSettings.TableRenderMode.Value;
+            }
         }
 
         private string? methodName;

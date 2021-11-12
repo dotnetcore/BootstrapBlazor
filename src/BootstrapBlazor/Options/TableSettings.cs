@@ -28,5 +28,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 行号列宽度 默认 60
         /// </summary>
         public int LineNoColumnWidth { get; set; } = 60;
+
+        /// <summary>
+        /// 获得/设置 表格渲染模式
+        /// </summary>
+        public TableRenderMode? TableRenderMode { get; set; }
     }
 }
