@@ -149,7 +149,7 @@
 
         @if (ShowTopPagination && TotalCount > 0 && IsPagination)
         {
-            <div class="table-pagination">
+            <div class="table-pagination is-top">
                 <Pagination PageItemsSource="@PageItemsSource" PageItems="@PageItems" TotalCount="@TotalCount" PageIndex="@PageIndex" OnPageClick="@OnPageClick" OnPageItemsChanged="@OnPageItemsChanged"></Pagination>
             </div>
         }
@@ -271,10 +271,6 @@
         </div>
     }
 </div>
-
-<CascadingValue Value="DateTime.Now.Ticks" Name="TableDialogTrigger">
-    <Dialog @ref="TableDialog" />
-</CascadingValue>
 
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>

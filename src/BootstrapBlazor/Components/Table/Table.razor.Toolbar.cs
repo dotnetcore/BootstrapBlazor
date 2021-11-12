@@ -556,7 +556,7 @@ namespace BootstrapBlazor.Components
                     return valid;
                 }
             };
-            await DialogService.ShowEditDialog(option, TableDialog);
+            await DialogService.ShowEditDialog(option);
         }
 
         private async Task UpdateAsync()

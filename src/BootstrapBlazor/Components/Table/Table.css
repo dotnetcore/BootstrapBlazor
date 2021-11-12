@@ -234,7 +234,11 @@
     background-color: #007bff;
 }
 
-.table-pagination {
+.table-pagination.is-top {
+    margin-bottom: 0.5rem;
+}
+
+.table-pagination:not(.is-top) {
     margin-top: 0.5rem;
 }
 

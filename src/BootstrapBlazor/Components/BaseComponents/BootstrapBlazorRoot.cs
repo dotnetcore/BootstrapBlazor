@@ -19,22 +19,16 @@ namespace BootstrapBlazor.Components
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             var index = 0;
-            //builder.OpenComponent<Dialog>(index++);
-            //builder.CloseComponent();
-
-            builder.OpenComponent<Title>(index++);
+            builder.OpenComponent<Dialog>(index++);
             builder.CloseComponent();
 
-            builder.OpenComponent<Message>(index++);
-            builder.CloseComponent();
-
-            builder.OpenComponent<Toast>(index++);
-            builder.CloseComponent();
-
-            builder.OpenComponent<SweetAlert>(index++);
+            builder.OpenComponent<Download>(index++);
             builder.CloseComponent();
 
             builder.OpenComponent<FullScreen>(index++);
+            builder.CloseComponent();
+
+            builder.OpenComponent<Message>(index++);
             builder.CloseComponent();
 
             builder.OpenComponent<Print>(index++);
@@ -43,7 +37,13 @@ namespace BootstrapBlazor.Components
             builder.OpenComponent<PopoverConfirm>(index++);
             builder.CloseComponent();
 
-            builder.OpenComponent<Download>(index++);
+            builder.OpenComponent<SweetAlert>(index++);
+            builder.CloseComponent();
+
+            builder.OpenComponent<Title>(index++);
+            builder.CloseComponent();
+
+            builder.OpenComponent<Toast>(index++);
             builder.CloseComponent();
         }
     }
