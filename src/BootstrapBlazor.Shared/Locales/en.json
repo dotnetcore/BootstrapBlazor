@@ -1788,6 +1788,21 @@
     "Url": "Image avatar path address",
     "GetUrlAsync": "Gets the Image avatar path address asynchronous callback delegate"
   },
+  "BootstrapBlazor.Shared.Samples.Badges": {
+    "Title": "Badge",
+    "SubTitle": "A number or status tag that appears next to a button, icon, or icon",
+    "BasicusageTitle": "Basic usage",
+    "BasicusageIntro": "Small badge assembly in a variety of colors is available",
+    "PillTitle": "Capsule badge",
+    "PillIntro": "Set the badge pendant with the  of the property <code> IsPill='true'</code> to set the fillet",
+    "ButtonTitle": "The badge inside the button",
+    "ButtonIntro": "Button internal badge",
+    "ButtonSpan": "The primary button",
+    "ChildContent": "Content",
+    "Class": "Style",
+    "Color": "Color",
+    "IsPill": "Capsule style"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"

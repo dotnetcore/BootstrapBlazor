@@ -16,33 +16,33 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "内容",
+                Description = Localizer["ChildContent"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["Class"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Color",
-                Description = "颜色",
+                Description = Localizer["Color"],
                 Type = "Color",
                 ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "IsPill",
-                Description = "胶囊样式",
+                Description = Localizer["IsPill"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"

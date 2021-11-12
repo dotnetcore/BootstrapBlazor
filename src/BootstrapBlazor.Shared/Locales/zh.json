@@ -1790,6 +1790,21 @@
     "Url": "Image 头像路径地址",
     "GetUrlAsync": "获取 Image 头像路径地址异步回调委托"
   },
+  "BootstrapBlazor.Shared.Samples.Badges": {
+    "Title": "Badge 徽章组件",
+    "SubTitle": "出现在按钮、图标旁的数字或状态标记",
+    "BasicusageTitle": "基础用法",
+    "BasicusageIntro": "提供各种颜色的徽章小挂件组件",
+    "PillTitle": "胶囊徽章",
+    "PillIntro": "通过属性 <code>IsPill='true'</code> 设置圆角的徽章挂件",
+    "ButtonTitle": "按钮内徽章",
+    "ButtonIntro": "按钮内部徽章",
+    "ButtonSpan": "主要按钮",
+    "ChildContent": "内容",
+    "Class": "样式",
+    "Color": "颜色",
+    "IsPill": "胶囊样式"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"
