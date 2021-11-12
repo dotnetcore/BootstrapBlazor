@@ -73,10 +73,10 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 自定义集合过滤规则
         /// </summary>
         [Parameter]
-        public Func<string,Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
+        public Func<string, Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
 
         /// <summary>
-        /// 获得/设置 js防抖时间，默认为 0,即不开启
+        /// 获得/设置 防抖时间 默认为 0 即不开启
         /// </summary>
         [Parameter]
         public int Debounce { get; set; }
