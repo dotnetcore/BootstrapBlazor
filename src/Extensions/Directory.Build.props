@@ -1,11 +1,12 @@
 <Project>
 
   <Import Project="..\Directory.Build.props" />
+  <Import Project="..\BootstrapBlazor\Directory.Build.targets" />
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>5.3.0</Version>
+    <Version>6.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

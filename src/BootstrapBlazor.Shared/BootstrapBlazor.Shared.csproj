@@ -1,8 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
-  <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
-  </PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  
+  <Import Project="..\WebConsole.props" />
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
