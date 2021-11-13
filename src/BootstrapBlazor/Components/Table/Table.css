@@ -585,6 +585,7 @@ form .table .table-cell > textarea {
         .table-search .card-header .table-search-title {
             padding: .5rem 1rem;
             flex: 1;
+            cursor: pointer;
         }
 
         .table-search .card-header .table-search-buttons {
@@ -595,42 +596,51 @@ form .table .table-cell > textarea {
                 padding: .275rem .5rem;
             }
 
-    .table-search .table-search-collapse {
-        padding: .5rem 0 .5rem 1rem;
-    }
+.table-search-collapse {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
 
-    .table-search .table-search-arrow {
+    .table-search-collapse .table-search-collapse-arrow {
         cursor: pointer;
         transition: .3s transform linear;
         transform: rotate(0);
     }
 
-    .table-search .is-open .table-search-arrow {
+    .table-search-collapse.is-open .table-search-collapse-arrow {
         transform: rotate(90deg);
     }
 
-    .table-search .collapsed .card-header {
-        border-bottom-color: transparent;
+    .table-search-collapse .table-search-collapse-title {
+        cursor: pointer;
+        margin-left: .5rem;
+        flex: 1;
     }
 
-    .table-search .card-header .input-group,
-    .table-search .collapsed .input-group + .table-search-buttons {
-        display: none;
+.table-search .collapsed .card-header {
+    border-bottom-color: transparent;
+}
+
+.table-search .card-header .input-group,
+.table-search .collapsed .input-group + .table-search-buttons {
+    display: none;
+}
+
+.table-search .card-header .input-group {
+    width: auto;
+    padding: 2px;
+}
+
+    .table-search .card-header .input-group .table-toolbar-search,
+    .table-search .card-header .input-group .btn {
+        height: 34px;
     }
 
-    .table-search .card-header .input-group {
-        width: auto;
-        padding: 2px;
-    }
-
-        .table-search .card-header .input-group .table-toolbar-search,
-        .table-search .card-header .input-group .btn {
-            height: 34px;
-        }
-
-    .table-search .collapsed .input-group {
-        display: flex;
-    }
+.table-search .collapsed .input-group {
+    display: flex;
+}
 
 .table-excel-toolbar {
     display: none;

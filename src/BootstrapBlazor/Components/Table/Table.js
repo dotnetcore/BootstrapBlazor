@@ -361,7 +361,7 @@
                 $.bb_table_resize($ele);
                 $.bb_table_excel_keybord($ele);
 
-                $ele.on('click', '.table-search-collapse', function () {
+                $ele.on('click', '.table-search-collapse', function (e) {
                     var $card = $(this).toggleClass('is-open');
                     var $body = $card.closest('.card').find('.card-body');
                     if ($body.length === 1) {

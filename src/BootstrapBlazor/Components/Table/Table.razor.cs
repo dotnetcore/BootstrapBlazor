@@ -428,11 +428,6 @@ namespace BootstrapBlazor.Components
         protected IEnumerable<ITableColumn>? FilterColumns { get; set; }
 
         /// <summary>
-        /// 获得/设置 组件是否渲染完毕 默认 false
-        /// </summary>
-        public bool IsRendered { get; set; }
-
-        /// <summary>
         /// 获得 表头集合
         /// </summary>
         public List<ITableColumn> Columns { get; } = new List<ITableColumn>(50);
@@ -759,7 +754,6 @@ namespace BootstrapBlazor.Components
                 }
 
                 FirstRender = false;
-                methodName = IsFixedHeader ? "fixTableHeader" : "init";
 
                 ScreenSize = await RetrieveWidth();
 
@@ -790,53 +784,45 @@ namespace BootstrapBlazor.Components
                     SortName = col.GetFieldName();
                     SortOrder = col.DefaultSortOrder;
                 }
+
+                var method = IsFixedHeader ? "fixTableHeader" : "init";
+                _ = Interop.InvokeVoidAsync(this, TableElement, "bb_table", method, new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
+
                 await QueryAsync();
-                IsRendered = true;
             }
 
-            if (IsRendered && Interop != null)
+            if (!OnAfterRenderIsTriggered && OnAfterRenderCallback != null)
             {
-                // fix: https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2AYEH
-                // PR: https://gitee.com/LongbowEnterprise/BootstrapBlazor/pulls/818
-                if (Columns.Any(col => col.ShowTips) && string.IsNullOrEmpty(methodName))
+                OnAfterRenderIsTriggered = true;
+                await OnAfterRenderCallback(this);
+            }
+
+            if (Columns.Any(col => col.ShowTips))
+            {
+                _ = Interop.InvokeVoidAsync(this, TableElement, "bb_table", "tooltip", new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
+            }
+
+            // 增加去重保护 _loop 为 false 时执行
+            if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
+            {
+                _loop = true;
+
+                AutoRefreshCancelTokenSource ??= new();
+
+                try
                 {
-                    methodName = "tooltip";
+                    AutoRefreshInterval = 3000;
+                    // 自动刷新功能
+                    await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
+
+                    // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
+                    await QueryData();
+                    StateHasChanged();
+                    _loop = false;
                 }
-
-                if (!string.IsNullOrEmpty(methodName))
+                catch (TaskCanceledException)
                 {
-                    await Interop.InvokeVoidAsync(this, TableElement, "bb_table", methodName, new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
-                    methodName = null;
-                }
 
-                if (!OnAfterRenderIsTriggered && OnAfterRenderCallback != null)
-                {
-                    OnAfterRenderIsTriggered = true;
-                    await OnAfterRenderCallback(this);
-                }
-
-                // 增加去重保护 _loop 为 false 时执行
-                if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
-                {
-                    _loop = true;
-
-                    AutoRefreshCancelTokenSource ??= new();
-
-                    try
-                    {
-                        AutoRefreshInterval = 3000;
-                        // 自动刷新功能
-                        await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
-
-                        // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
-                        await QueryData();
-                        StateHasChanged();
-                        _loop = false;
-                    }
-                    catch (TaskCanceledException)
-                    {
-
-                    }
                 }
             }
         }
