@@ -43,9 +43,9 @@ namespace BootstrapBlazor.Components
         /// 通过字段名称获取 DisplayAttribute/DescriptionAttribute 标签值
         /// </summary>
         /// <typeparam name="TEnum"></typeparam>
-        /// <param name="fieldName"></param>
+        /// <param name="enum"></param>
         /// <returns></returns>
-        public static string ToEnumDisplayName<TEnum>(string? fieldName) => ToEnumDisplayName(typeof(TEnum), fieldName);
+        public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => ToEnumDisplayName(typeof(TEnum), @enum.ToString());
 
         /// <summary>
         /// 通过字段名称获取 DisplayAttribute/DescriptionAttribute 标签值

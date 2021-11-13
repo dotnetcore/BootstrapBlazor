@@ -20,5 +20,10 @@
     "True": "通过",
     "False": "未通过",
     "NullItemText": "未设置"
+  },
+  "BootstrapBlazor.Shared.EnumEducation": {
+    "PlaceHolder": "请选择 ...",
+    "Primary": "小学",
+    "Middel": "中学"
   }
 }

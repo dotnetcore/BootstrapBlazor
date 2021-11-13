@@ -25,28 +25,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public static class CacheManager
     {
-        // 为方便统一维护缓存键值
-        //$"Localizer-{CultureInfo.CurrentUICulture.Name}-{nameof(GetJsonStringConfig)}";
-        //$"Localizer-{cultureName}-{typeName}";
-
-        //$"EnumDisplayName-{CultureInfo.CurrentCulture.Name}-{t.Name}-{fieldName}";
-        //$"DisplayName-{CultureInfo.CurrentUICulture.Name}-{modelType.Name}-{fieldName}";
-
-        //$"Placeholder-{modelType.Name}-{fieldName}";
-
-        //$"GetProperty-{modelType.Name}-{fieldName}";
-        //("Lambda-Get", model, fieldName);
-        //("Lambda-Set", model, fieldName, typeof(TValue));
-
-        //$"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).Name}";
-        //$"Lambda-{nameof(CreateConverterInvoker)}-{type.Name}";
-
-        //$"Lambda-{nameof(GenerateValueChanged)}-{model.GetType().Name}-{fieldName}";
-        //$"Lambda-{nameof(CreateCallback)}-{model.GetType().Name}-{fieldName}";
-
-        //$"Lambda-{nameof(GetFormatLambda)}-{type.Name}";
-        //$"Lambda-{nameof(GetFormatProviderLambda)}-{type.Name}";
-
         private static IMemoryCache Cache => ServiceProviderFactory.Services.GetRequiredService<IMemoryCache>();
 
         /// <summary>
@@ -123,7 +101,7 @@ namespace BootstrapBlazor.Components
         internal static string? GetEnumDisplayName(Type type, string fieldName)
         {
             var t = Nullable.GetUnderlyingType(type) ?? type;
-            var cacheKey = $"EnumDisplayName-{CultureInfo.CurrentCulture.Name}-{t.FullName}-{fieldName}";
+            var cacheKey = $"EnumDisplayName-{CultureInfo.CurrentUICulture.Name}-{t.FullName}-{fieldName}";
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 var dn = "";
@@ -227,7 +205,7 @@ namespace BootstrapBlazor.Components
         #region Placeholder
         internal static string? GetPlaceholder(Type modelType, string fieldName)
         {
-            var cacheKey = $"Placeholder-{modelType.FullName}-{fieldName}";
+            var cacheKey = $"Placeholder-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
             return CacheManager.GetOrCreate(cacheKey, entry =>
             {
                 string? ret = null;

@@ -1916,7 +1916,7 @@
     "Name": "Name",
     "Name.Required": "Dummy2 {0} is required"
   },
-  "BootstrapBlazor.Shared.Components.EnumEducation": {
+  "BootstrapBlazor.Shared.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
     "Middel": "Middel"

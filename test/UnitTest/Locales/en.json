@@ -20,5 +20,10 @@
     "True": "Pass",
     "False": "Failed",
     "NullItemText": "Not Set"
+  },
+  "BootstrapBlazor.Shared.EnumEducation": {
+    "PlaceHolder": "Click to select ...",
+    "Primary": "Primary",
+    "Middel": "Middel"
   }
 }

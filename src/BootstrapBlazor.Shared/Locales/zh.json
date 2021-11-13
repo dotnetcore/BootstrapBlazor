@@ -1918,7 +1918,7 @@
     "Name": "姓名",
     "Name.Required": "Dummy2 {0} 值是必填项"
   },
-  "BootstrapBlazor.Shared.Components.EnumEducation": {
+  "BootstrapBlazor.Shared.EnumEducation": {
     "PlaceHolder": "请选择 ...",
     "Primary": "小学",
     "Middel": "中学"

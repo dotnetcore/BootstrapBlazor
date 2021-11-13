@@ -85,6 +85,18 @@ namespace UnitTest.Utils
             // 动态类
             dn = Utility.GetDisplayName(context.GetItems().First(), nameof(Foo.Count));
             Assert.Equal("数量", dn);
+
+            // 静态类
+            dn = Utility.GetDisplayName(typeof(Foo), nameof(Foo.Education));
+            Assert.Equal("学历", dn);
+
+            // 静态类
+            dn = Utility.GetDisplayName(new Foo() { Education = EnumEducation.Middel }, nameof(Foo.Education));
+            Assert.Equal("学历", dn);
+
+            // 动态类
+            dn = Utility.GetDisplayName(context.GetItems().First(), nameof(Foo.Education));
+            Assert.Equal("Education", dn);
         }
 
         [Fact]
