@@ -35,6 +35,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private Task OnStart()
         {
+            ImageUrl = null;
             Trace.Log("打开摄像头");
             return Task.CompletedTask;
         }
@@ -45,9 +46,13 @@ namespace BootstrapBlazor.Shared.Samples
             return Task.CompletedTask;
         }
 
-        private Task OnCapture()
+        private string? ImageUrl { get; set; }
+
+        private Task OnCapture(string url)
         {
+            ImageUrl = url;
             Trace.Log("拍照完成");
+            StateHasChanged();
             return Task.CompletedTask;
         }
 
@@ -168,7 +173,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem() {
                 Name = "OnCapture",
                 Description = "扫码成功回调方法",
-                Type = "Func<Task>",
+                Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             }

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -103,7 +104,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 扫码成功回调方法
         /// </summary>
         [Parameter]
-        public Func<Task>? OnCapture { get; set; }
+        public Func<string, Task>? OnCapture { get; set; }
 
         /// <summary>
         /// 获得/设置 开启按钮显示文本 默认为开启
@@ -260,16 +261,26 @@ namespace BootstrapBlazor.Components
             StateHasChanged();
         }
 
+        private StringBuilder _sb = new();
         /// <summary>
         /// 拍照回调方法
         /// </summary>
         /// <returns></returns>
         [JSInvokable]
-        public async Task Capture()
+        public async Task Capture(string payload)
         {
-            if (OnCapture != null)
+            if (payload == "__BB__%END%__BB__")
             {
-                await OnCapture.Invoke();
+                var data = _sb.ToString();
+                _sb.Clear();
+                if (OnCapture != null)
+                {
+                    await OnCapture(data);
+                }
+            }
+            else
+            {
+                _sb.Append(payload);
             }
         }
 

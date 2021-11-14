@@ -34,7 +34,7 @@
                 var context = canvas.getContext('2d');
                 var mediaStreamTrack;
 
-                $el.on('click', 'button[data-method]', function () {
+                $el.on('click', 'button[data-method]', async function () {
                     var data_method = $(this).attr('data-method');
                     if (data_method === 'play') {
                         var front = $(this).attr('data-camera');
@@ -61,18 +61,18 @@
                     else if (data_method === 'capture') {
                         context.drawImage(video, 0, 0, 300, 200);
                         var url = canvas.toDataURL();
-                        console.log(url);
-                        obj.invokeMethodAsync("Capture");
-
-                        var $img = $el.find('img');
-                        if ($img.length === 1) {
-                            $img.attr('src', url);
+                        var maxLength = 30 * 1024;
+                        while (url.length > maxLength) {
+                            var data = url.substr(0, maxLength);
+                            console.log(data);
+                            await obj.invokeMethodAsync("Capture", data);
+                            url = url.substr(data.length);
                         }
 
-                        var link = $el.find('a.download');
-                        link.attr('href', url);
-                        link.attr('download', new Date().format('yyyyMMddHHmmss') + '.png');
-                        link[0].click();
+                        if (url.length > 0) {
+                            await obj.invokeMethodAsync("Capture", url);
+                        }
+                        await obj.invokeMethodAsync("Capture", "__BB__%END%__BB__");
                     }
                 });
             });
