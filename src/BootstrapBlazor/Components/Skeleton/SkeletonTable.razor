@@ -1,10 +1,16 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits SkeletonBase
 
-<div @attributes="@AdditionalAttributes" class="skeleton">
+<div @attributes="@AdditionalAttributes" class="skeleton skeleton-table">
     <div class="@ClassString">
-        <div class="skeleton-row"></div>
-        <div class="skeleton-row"></div>
-        <div class="skeleton-row"></div>
+        @for (var rowIndex = 0; rowIndex < Rows; rowIndex++)
+        {
+            <div class="skeleton-row">
+                @for (var colIndex = 0; colIndex < Columns; colIndex++)
+                {
+                    <div class="skeleton-col"></div>
+                }
+            </div>
+        }
     </div>
 </div>
