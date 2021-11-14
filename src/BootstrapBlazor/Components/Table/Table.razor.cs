@@ -753,7 +753,7 @@ namespace BootstrapBlazor.Components
 
                 FirstRender = false;
 
-                ScreenSize = await RetrieveWidth();
+                ScreenSize = await JSRuntime.InvokeAsync<decimal>(TableElement, "bb_table_width", UseComponentWidth);
 
                 // 动态列模式
                 if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
@@ -783,10 +783,10 @@ namespace BootstrapBlazor.Components
                     SortOrder = col.DefaultSortOrder;
                 }
 
-                var method = IsFixedHeader ? "fixTableHeader" : "init";
-                _ = Interop.InvokeVoidAsync(this, TableElement, "bb_table", method, new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
-
                 await QueryAsync();
+
+                // 设置 init 执行客户端脚本
+                _init = true;
             }
 
             if (!OnAfterRenderIsTriggered && OnAfterRenderCallback != null)
@@ -797,7 +797,13 @@ namespace BootstrapBlazor.Components
 
             if (Columns.Any(col => col.ShowTips))
             {
-                _ = Interop.InvokeVoidAsync(this, TableElement, "bb_table", "tooltip", new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
+                await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_tooltip");
+            }
+
+            if (_init)
+            {
+                _init = false;
+                await Interop.InvokeVoidAsync(this, TableElement, "bb_table", "init", new { unset = UnsetText, sortAsc = SortAscText, sortDesc = SortDescText });
             }
 
             // 增加去重保护 _loop 为 false 时执行
@@ -826,12 +832,7 @@ namespace BootstrapBlazor.Components
         }
 
         private bool _loop;
-
-        /// <summary>
-        /// 获得 Table 组件客户端宽度
-        /// </summary>
-        /// <returns></returns>
-        protected ValueTask<decimal> RetrieveWidth() => Interop.InvokeAsync<decimal>(this, TableElement, "bb_table", "width", UseComponentWidth);
+        private bool _init;
 
         /// <summary>
         /// 检查当前列是否显示方法

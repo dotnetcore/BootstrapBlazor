@@ -19,7 +19,7 @@ namespace BootstrapBlazor.Server.Services
     /// </summary>
     internal class ClearUploadFilesService : BackgroundService
     {
-        private readonly IWebHostEnvironment? _env;
+        private readonly IWebHostEnvironment _env;
 
         /// <summary>
         /// 

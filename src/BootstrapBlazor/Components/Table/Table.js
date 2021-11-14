@@ -243,19 +243,26 @@
                 });
             }
         },
+        bb_table_width: function (el, args) {
+            var $ele = $(el);
+            var width = 0;
+            if (args) width = $ele.outerWidth(true);
+            else width = $(window).outerWidth(true);
+            return width;
+        },
+        bb_table_tooltip: function (el) {
+            var $ele = $(el);
+            $ele.find('.is-tips').tooltip({
+                container: 'body',
+                title: function () {
+                    return $(this).text();
+                }
+            });
+        },
         bb_table: function (el, obj, method, args) {
             var $ele = $(el);
-
-            var tooltip = function () {
-                $ele.find('.is-tips').tooltip({
-                    container: 'body',
-                    title: function () {
-                        return $(this).text();
-                    }
-                });
-            }
-
-            if (method === 'fixTableHeader') {
+            var fixedHeader = $ele.find('.table-fixed').length > 0;
+            if (fixedHeader) {
                 var $thead = $ele.find('.table-fixed-header');
                 var $body = $ele.find('.table-fixed-body');
                 $body.on('scroll', function () {
@@ -304,79 +311,67 @@
                 // 固定表头的最后一列禁止列宽调整
                 $ele.find('.col-resizer:last').remove();
             }
-            else if (method === 'init') {
-                // sort
-                var $tooltip = $ele.find('.table-cell.is-sort .table-text');
-                var tooltipTitle = args;
 
-                $tooltip.each(function () {
-                    var $sortIcon = $(this).parent().find('.fa:last');
-                    if ($sortIcon.length > 0) {
-                        var defaultTitle = tooltipTitle.unset;
-                        if ($sortIcon.hasClass('fa-sort-asc')) defaultTitle = tooltipTitle.sortAsc;
-                        else if ($sortIcon.hasClass('fa-sort-desc')) defaultTitle = tooltipTitle.sortDesc;
-                        $(this).tooltip({
-                            container: 'body',
-                            title: defaultTitle
-                        });
-                    }
-                });
+            // sort
+            var $tooltip = $ele.find('.table-cell.is-sort .table-text');
+            var tooltipTitle = args;
 
-                $tooltip.on('click', function () {
-                    var $this = $(this);
-                    var $fa = $this.parent().find('.fa:last');
-                    var sortOrder = 'sortAsc';
-                    if ($fa.hasClass('fa-sort-asc')) sortOrder = "sortDesc";
-                    else if ($fa.hasClass('fa-sort-desc')) sortOrder = "unset";
-                    var $tooltip = $('#' + $this.attr('aria-describedby'));
-                    if ($tooltip.length > 0) {
-                        var $tooltipBody = $tooltip.find(".tooltip-inner");
-                        $tooltipBody.html(tooltipTitle[sortOrder]);
-                        $this.attr('data-original-title', tooltipTitle[sortOrder]);
-                    }
-                });
-
-                tooltip();
-                $ele.children('.table-scroll').scroll(function () {
-                    $ele.find('.table-filter-item.show').each(function () {
-                        var fieldName = $(this).attr('data-field');
-                        var icon = $ele.find('.fa-filter[data-field="' + fieldName + '"]')[0];
-                        $.bb_table_filter_calc.call(icon, $ele);
+            $tooltip.each(function () {
+                var $sortIcon = $(this).parent().find('.fa:last');
+                if ($sortIcon.length > 0) {
+                    var defaultTitle = tooltipTitle.unset;
+                    if ($sortIcon.hasClass('fa-sort-asc')) defaultTitle = tooltipTitle.sortAsc;
+                    else if ($sortIcon.hasClass('fa-sort-desc')) defaultTitle = tooltipTitle.sortDesc;
+                    $(this).tooltip({
+                        container: 'body',
+                        title: defaultTitle
                     });
+                }
+            });
+
+            $tooltip.on('click', function () {
+                var $this = $(this);
+                var $fa = $this.parent().find('.fa:last');
+                var sortOrder = 'sortAsc';
+                if ($fa.hasClass('fa-sort-asc')) sortOrder = "sortDesc";
+                else if ($fa.hasClass('fa-sort-desc')) sortOrder = "unset";
+                var $tooltip = $('#' + $this.attr('aria-describedby'));
+                if ($tooltip.length > 0) {
+                    var $tooltipBody = $tooltip.find(".tooltip-inner");
+                    $tooltipBody.html(tooltipTitle[sortOrder]);
+                    $this.attr('data-original-title', tooltipTitle[sortOrder]);
+                }
+            });
+
+            $ele.children('.table-scroll').scroll(function () {
+                $ele.find('.table-filter-item.show').each(function () {
+                    var fieldName = $(this).attr('data-field');
+                    var icon = $ele.find('.fa-filter[data-field="' + fieldName + '"]')[0];
+                    $.bb_table_filter_calc.call(icon, $ele);
                 });
-                $.bb_table_row_hover($ele);
-            }
-            else if (method === 'width') {
-                var width = 0;
-                if (args) width = $ele.outerWidth(true);
-                else width = $(window).outerWidth(true);
-                return width;
-            }
-            else if (method === 'tooltip') {
-                tooltip();
-            }
+            });
+            $.bb_table_row_hover($ele);
 
-            if (method === 'fixTableHeader' || method === 'init') {
-                $.bb_table_filter($ele);
-                $.bb_table_resize($ele);
-                $.bb_table_excel_keybord($ele);
+            $.bb_table_tooltip(el);
+            $.bb_table_filter($ele);
+            $.bb_table_resize($ele);
+            $.bb_table_excel_keybord($ele);
 
-                $ele.on('click', '.table-search-collapse', function (e) {
-                    var $card = $(this).toggleClass('is-open');
-                    var $body = $card.closest('.card').find('.card-body');
-                    if ($body.length === 1) {
-                        if ($body.is(':hidden')) {
-                            $body.parent().toggleClass('collapsed')
-                        }
-                        $body.slideToggle('fade', function () {
-                            var $this = $(this);
-                            if ($this.is(':hidden')) {
-                                $this.parent().toggleClass('collapsed')
-                            }
-                        });
+            $ele.on('click', '.table-search-collapse', function (e) {
+                var $card = $(this).toggleClass('is-open');
+                var $body = $card.closest('.card').find('.card-body');
+                if ($body.length === 1) {
+                    if ($body.is(':hidden')) {
+                        $body.parent().toggleClass('collapsed')
                     }
-                });
-            }
+                    $body.slideToggle('fade', function () {
+                        var $this = $(this);
+                        if ($this.is(':hidden')) {
+                            $this.parent().toggleClass('collapsed')
+                        }
+                    });
+                }
+            });
         }
     });
 
