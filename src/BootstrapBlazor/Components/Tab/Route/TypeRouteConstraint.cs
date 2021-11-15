@@ -1,11 +1,13 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components.Routing
 {
+#if NET5_0
     /// <summary>
     /// A route constraint that requires the value to be parseable as a specified type.
     /// </summary>
@@ -48,4 +50,5 @@ namespace BootstrapBlazor.Components.Routing
             var x => x.Name.ToLowerInvariant()
         };
     }
+#endif
 }

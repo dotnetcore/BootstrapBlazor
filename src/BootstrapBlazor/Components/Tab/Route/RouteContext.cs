@@ -1,8 +1,11 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Components.Routing
 {
@@ -24,6 +27,9 @@ namespace BootstrapBlazor.Components.Routing
 
         public string[] Segments { get; }
 
+#if NET6_0_OR_GREATER
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+#endif
         public Type? Handler { get; set; }
 
         public IReadOnlyDictionary<string, object>? Parameters { get; set; }
