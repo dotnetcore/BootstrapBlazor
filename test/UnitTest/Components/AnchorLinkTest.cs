@@ -11,11 +11,6 @@ namespace UnitTest.Components
 {
     public class AnchorLinkTest : BootstrapBlazorTestBase
     {
-        public AnchorLinkTest(BootstrapBlazorTestHost host) : base(host)
-        {
-
-        }
-
         [Fact]
         public void Id_Ok()
         {

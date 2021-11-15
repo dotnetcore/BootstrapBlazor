@@ -5,22 +5,15 @@
 using BootstrapBlazor.Components;
 using Bunit;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Threading.Tasks;
+using UnitTest.Core;
 using Xunit;
 
 namespace UnitTest.Components
 {
-    public class AlertTest : IDisposable
+    public class AlertTest : TestBase
     {
-        private TestContext Context { get; }
-
-        public AlertTest()
-        {
-            Context = new TestContext();
-        }
-
         [Fact]
         public void ShowDismiss_Ok()
         {
@@ -125,12 +118,6 @@ namespace UnitTest.Components
             });
 
             Assert.Contains("fa fa-check-circle", cut.Markup);
-        }
-
-        public void Dispose()
-        {
-            Context.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

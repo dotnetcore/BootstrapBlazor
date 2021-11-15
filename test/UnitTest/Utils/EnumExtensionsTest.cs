@@ -12,15 +12,6 @@ namespace UnitTest.Utils
 {
     public class EnumExtensionsTest : BootstrapBlazorTestBase
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="host"></param>
-        public EnumExtensionsTest(BootstrapBlazorTestHost host) : base(host)
-        {
-
-        }
-
         [Fact]
         public void ToDisplayName_Ok()
         {

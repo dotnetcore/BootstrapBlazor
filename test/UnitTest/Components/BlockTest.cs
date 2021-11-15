@@ -7,17 +7,17 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
+using UnitTest.Core;
 using Xunit;
 
 namespace UnitTest.Components
 {
-    public class BlockTest
+    public class BlockTest : TestBase
     {
         [Fact]
         public void Show_Ok()
         {
-            using var ctx = new TestContext();
-            var cut = ctx.RenderComponent<Block>(new ComponentParameter[]
+            var cut = Context.RenderComponent<Block>(new ComponentParameter[]
             {
                 ComponentParameter.CreateParameter(nameof(Block.OnQueryCondition), new Func<string, Task<bool>>(_ => Task.FromResult(true))),
                 ComponentParameter.CreateParameter(nameof(Block.ChildContent), BuildComponent())
@@ -29,8 +29,7 @@ namespace UnitTest.Components
         [Fact]
         public void Hide_Ok()
         {
-            using var ctx = new TestContext();
-            var cut = ctx.RenderComponent<Block>(new ComponentParameter[]
+            var cut = Context.RenderComponent<Block>(new ComponentParameter[]
             {
                 ComponentParameter.CreateParameter(nameof(Block.OnQueryCondition), new Func<string, Task<bool>>(_ => Task.FromResult(false))),
                 ComponentParameter.CreateParameter(nameof(Block.ChildContent), BuildComponent())

@@ -20,7 +20,7 @@ namespace UnitTest.Utils
     {
         private IStringLocalizer<Foo> Localizer { get; }
 
-        public UtilityTest(BootstrapBlazorTestHost host) : base(host)
+        public UtilityTest() : base()
         {
             Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         }

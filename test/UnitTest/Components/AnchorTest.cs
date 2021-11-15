@@ -5,26 +5,16 @@
 using BootstrapBlazor.Components;
 using Bunit;
 using Microsoft.AspNetCore.Components;
-using System;
+using UnitTest.Core;
 using Xunit;
 
 namespace UnitTest.Components
 {
-    public class AnchorTest : IDisposable
+    public class AnchorTest : TestBase
     {
-        private TestContext Context { get; }
-
-        public AnchorTest()
-        {
-            Context = new TestContext();
-
-            Context.JSInterop.Mode = JSRuntimeMode.Loose;
-        }
-
         [Fact]
         public void Target_Ok()
         {
-
             var cut = Context.RenderComponent<Anchor>(new ComponentParameter[]
             {
                  ComponentParameter.CreateParameter(nameof(Anchor.Target), "anchor")
@@ -36,7 +26,6 @@ namespace UnitTest.Components
         [Fact]
         public void Container_Ok()
         {
-
             var cut = Context.RenderComponent<Anchor>(new ComponentParameter[]
             {
                 ComponentParameter.CreateParameter(nameof(Anchor.Container), "anchor"),
@@ -54,21 +43,12 @@ namespace UnitTest.Components
         [Fact]
         public void Offset_Ok()
         {
-
             var cut = Context.RenderComponent<Anchor>(new ComponentParameter[]
             {
                 ComponentParameter.CreateParameter(nameof(Anchor.Offset), 20)
             });
 
             Assert.Contains("data-offset=\"20\"", cut.Markup);
-        }
-
-
-
-        public void Dispose()
-        {
-            Context.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

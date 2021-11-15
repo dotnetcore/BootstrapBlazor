@@ -2,43 +2,41 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using Bunit;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace UnitTest.Core
 {
-    [Collection("BlazorTestContext")]
-    public class BootstrapBlazorTestBase
+    [Collection("TestContext")]
+    public class TestBase
     {
         protected TestContext Context { get; }
 
-        public BootstrapBlazorTestBase()
+        public TestBase()
         {
-            Context = BootstrapBlazorTestHost.Instance;
+            Context = TestHost.Instance;
         }
     }
 
-    [CollectionDefinition("BlazorTestContext")]
-    public class BootstrapBlazorTestCollection : ICollectionFixture<BootstrapBlazorTestHost>
+    /// <summary>
+    /// 
+    /// </summary>
+    [CollectionDefinition("TestContext")]
+    public class TestCollection : ICollectionFixture<TestHost>
     {
 
     }
 
-    public class BootstrapBlazorTestHost : IDisposable
+    public class TestHost : IDisposable
     {
         [NotNull]
         internal static TestContext? Instance { get; private set; }
 
-        public BootstrapBlazorTestHost()
+        public TestHost()
         {
             Instance = new TestContext();
-            Instance.Services.AddBootstrapBlazor();
-            Instance.Services.AddConfiguration();
-            Instance.Services.RegisterProvider();
             Instance.JSInterop.Mode = JSRuntimeMode.Loose;
         }
 
