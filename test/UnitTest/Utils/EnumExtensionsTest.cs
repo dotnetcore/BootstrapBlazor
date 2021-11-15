@@ -4,24 +4,21 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
-using System;
 using System.Globalization;
+using UnitTest.Core;
 using Xunit;
 
 namespace UnitTest.Utils
 {
-    public class EnumExtensionsTest : IDisposable
+    public class EnumExtensionsTest : BootstrapBlazorTestBase
     {
-        private BlazorTestContext Context { get; }
-
-        private IStringLocalizer<Foo> Localizer { get; }
-
-        public EnumExtensionsTest()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host"></param>
+        public EnumExtensionsTest(BootstrapBlazorTestHost host) : base(host)
         {
-            Context = new BlazorTestContext();
-            Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+
         }
 
         [Fact]
@@ -33,12 +30,6 @@ namespace UnitTest.Utils
             CultureInfo.CurrentUICulture = new CultureInfo("en-US");
             dn = EnumEducation.Middel.ToDisplayName();
             Assert.Equal(EnumEducation.Middel.ToString(), dn);
-        }
-
-        public void Dispose()
-        {
-            Context.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

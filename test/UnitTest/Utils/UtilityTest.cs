@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
-using Bunit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System;
@@ -12,20 +11,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
-using UnitTest.Services;
+using UnitTest.Core;
 using Xunit;
 
 namespace UnitTest.Utils
 {
-    public class UtilityTest : IDisposable
+    public class UtilityTest : BootstrapBlazorTestBase
     {
-        private BlazorTestContext Context { get; }
-
         private IStringLocalizer<Foo> Localizer { get; }
 
-        public UtilityTest()
+        public UtilityTest(BootstrapBlazorTestHost host) : base(host)
         {
-            Context = new BlazorTestContext();
             Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         }
 
@@ -144,12 +140,6 @@ namespace UnitTest.Utils
 
             condition = Utility.TryGetProperty(typeof(Foo), "Test1", out _);
             Assert.False(condition);
-        }
-
-        public void Dispose()
-        {
-            Context.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

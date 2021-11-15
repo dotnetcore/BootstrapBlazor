@@ -5,13 +5,18 @@
 using BootstrapBlazor.Components;
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
-using UnitTest.Services;
 
-namespace UnitTest
+namespace UnitTest.Core
 {
-    internal class BlazorTestContext : TestContext
+    /// <summary>
+    /// 
+    /// </summary>
+    internal class BootstrapBlazorTestContext : TestContext
     {
-        public BlazorTestContext()
+        /// <summary>
+        /// 
+        /// </summary>
+        public BootstrapBlazorTestContext()
         {
             Services.AddBootstrapBlazor();
             Services.AddConfiguration();
