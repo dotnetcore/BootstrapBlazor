@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,6 +48,12 @@ namespace BootstrapBlazor.Components
         [Inject]
         private IAuthorizationService? AuthorizationService { get; set; }
 
+#if NET6_0_OR_GREATER
+        [Inject]
+        [NotNull]
+        private NavigationManager? NavigationManager { get; set; }
+#endif
+
         private bool Authorized { get; set; }
 
         /// <summary>
@@ -79,12 +86,31 @@ namespace BootstrapBlazor.Components
                 {
                     builder.AddAttribute(index++, kv.Key, kv.Value);
                 }
+#if NET6_0_OR_GREATER
+                BuildQueryParameters();
+#endif
                 builder.CloseComponent();
             }
             else
             {
                 builder.AddContent(0, NotAuthorized);
             }
+
+#if NET6_0_OR_GREATER
+            void BuildQueryParameters()
+            {
+                var queryParameterSupplier = QueryParameterValueSupplier.ForType(RouteContext.Handler);
+                if (queryParameterSupplier is not null)
+                {
+                    // Since this component does accept some parameters from query, we must supply values for all of them,
+                    // even if the querystring in the URI is empty. So don't skip the following logic.
+                    var url = NavigationManager.Uri;
+                    var queryStartPos = url.IndexOf('?');
+                    var query = queryStartPos < 0 ? default : url.AsMemory(queryStartPos);
+                    queryParameterSupplier.RenderParametersFromQueryString(builder, query);
+                }
+            }
+#endif
         }
 
         public static async Task<bool> IsAuthorizedAsync(Type type, Task<AuthenticationState>? authenticateState, IAuthorizationPolicyProvider? authorizePolicy, IAuthorizationService? authorizeService, object? resource = null)

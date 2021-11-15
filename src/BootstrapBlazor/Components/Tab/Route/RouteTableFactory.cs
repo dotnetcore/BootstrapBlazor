@@ -10,7 +10,7 @@ using System.Linq;
 using System.Reflection;
 using IComponent = Microsoft.AspNetCore.Components.IComponent;
 
-namespace BootstrapBlazor.Components.Routing
+namespace Microsoft.AspNetCore.Components.Routing
 {
 #if NET5_0
     /// <summary>

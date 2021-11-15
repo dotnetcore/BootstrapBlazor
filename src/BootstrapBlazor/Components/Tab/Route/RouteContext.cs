@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Components.Routing
+namespace Microsoft.AspNetCore.Components.Routing
 {
     internal class RouteContext
     {

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace BootstrapBlazor.Components.Routing
+namespace Microsoft.AspNetCore.Components.Routing
 {
 #if NET6_0_OR_GREATER
     internal readonly struct RouteKey : IEquatable<RouteKey>

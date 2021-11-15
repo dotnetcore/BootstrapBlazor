@@ -1,8 +1,21 @@
-﻿@page "/layout-demo/{text?}"
+﻿@page "/layout-demo"
+@page "/layout-demo/{title?}"
 @layout PageLayout
 @attribute [TabItemOption(Text = "示例网页", Icon = "fa fa-fw fa-laptop")]
 
+<p>测试路径：</p>
+
+<p>
+    <a href="/layout-demo?text=Parameter">layout-demo?text=Parameter</a>
+</p>
+
+<p>
+    <a href="/layout-demo/text=Parameter">layout-demo/text=Parameter</a>
+</p>
+
 <p>已支持路由参数: @Text</p>
+
+<p>已支持路由参数: @Title</p>
 
 <div>
     精彩从这里开始
@@ -10,12 +23,10 @@
 
 
 @code {
-    [CascadingParameter]
-    private Tab? TabSet { get; set; }
-
-    [CascadingParameter]
-    private Layout? Layout { get; set; }
+    [Parameter]
+    [SupplyParameterFromQuery()]
+    public string? Text { get; set; }
 
     [Parameter]
-    public string? Text { get; set; }
+    public string? Title { get; set; }
 }

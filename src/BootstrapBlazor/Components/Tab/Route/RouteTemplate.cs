@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using System.Linq;
 
-namespace BootstrapBlazor.Components.Routing
+namespace Microsoft.AspNetCore.Components.Routing
 {
     [DebuggerDisplay("{TemplateText}")]
     internal class RouteTemplate

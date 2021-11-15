@@ -6,7 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Globalization;
 
-namespace BootstrapBlazor.Components.Routing
+namespace Microsoft.AspNetCore.Components.Routing
 {
 #if NET5_0
     internal abstract class RouteConstraint

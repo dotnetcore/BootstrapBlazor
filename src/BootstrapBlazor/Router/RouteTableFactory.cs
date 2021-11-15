@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components.Routing;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -13,7 +12,7 @@ namespace BootstrapBlazor.Components
     internal static class RouteTableFactory
     {
         [NotNull]
-        private static Routing.IRouteTable? Routes { get; set; }
+        private static Microsoft.AspNetCore.Components.Routing.IRouteTable? Routes { get; set; }
         private static readonly HashSet<Assembly> _assemblies = new();
 
         /// <summary>
@@ -26,7 +25,7 @@ namespace BootstrapBlazor.Components
         {
             RefreshRouteTable(assemblies);
             if (url.IndexOf("?") > 0) url = url[..url.IndexOf("?")];
-            var routeContext = new Routing.RouteContext(url);
+            var routeContext = new Microsoft.AspNetCore.Components.Routing.RouteContext(url);
             Routes.Route(routeContext);
             return new RouteContext()
             {
@@ -41,7 +40,7 @@ namespace BootstrapBlazor.Components
             var assembliesSet = new HashSet<Assembly>(assemblies);
             if (!_assemblies.SetEquals(assembliesSet))
             {
-                Routes = Routing.RouteTableFactory.Create(assemblies);
+                Routes = Microsoft.AspNetCore.Components.Routing.RouteTableFactory.Create(assemblies);
                 _assemblies.Clear();
                 _assemblies.UnionWith(assembliesSet);
             }
@@ -51,7 +50,7 @@ namespace BootstrapBlazor.Components
     internal static class RouteTableFactory
     {
         [NotNull]
-        private static Routing.RouteTable? Routes { get; set; }
+        private static Microsoft.AspNetCore.Components.Routing.RouteTable? Routes { get; set; }
         private static readonly HashSet<Assembly> _assemblies = new();
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace BootstrapBlazor.Components
         {
             RefreshRouteTable(assemblies);
             if (url.IndexOf("?") > 0) url = url[..url.IndexOf("?")];
-            var routeContext = new Routing.RouteContext(url);
+            var routeContext = new Microsoft.AspNetCore.Components.Routing.RouteContext(url);
             Routes.Route(routeContext);
             return new RouteContext()
             {
@@ -79,7 +78,7 @@ namespace BootstrapBlazor.Components
             var assembliesSet = new HashSet<Assembly>(assemblies);
             if (!_assemblies.SetEquals(assembliesSet))
             {
-                Routes = Routing.RouteTableFactory.Create(new RouteKey(null, assemblies));
+                Routes = Microsoft.AspNetCore.Components.Routing.RouteTableFactory.Create(new Microsoft.AspNetCore.Components.Routing.RouteKey(null, assemblies));
                 _assemblies.Clear();
                 _assemblies.UnionWith(assembliesSet);
             }

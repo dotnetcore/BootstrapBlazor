@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components.Routing
+namespace Microsoft.AspNetCore.Components.Routing
 {
 #if NET6_0_OR_GREATER
     // This is very similar to Microsoft.Extensions.Primitives.StringValues, except it works in terms

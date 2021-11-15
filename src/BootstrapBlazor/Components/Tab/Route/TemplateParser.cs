@@ -4,7 +4,7 @@
 
 using System;
 
-namespace BootstrapBlazor.Components.Routing
+namespace Microsoft.AspNetCore.Components.Routing
 {
     // This implementation is temporary, in the future we'll want to have
     // a more performant/properly designed routing set of abstractions.
