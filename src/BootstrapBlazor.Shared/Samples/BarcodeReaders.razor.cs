@@ -23,43 +23,43 @@ namespace BootstrapBlazor.Shared.Samples
         private Task OnInit(IEnumerable<DeviceItem> devices)
         {
             var cams = string.Join("", devices.Select(i => i.Label));
-            Trace?.Log($"初始化摄像头完成 {cams}");
+            Trace?.Log($"{Localizer["InitLog"]} {cams}");
             return Task.CompletedTask;
         }
 
         private Task OnImageResult(string barcode)
         {
-            Trace2?.Log($"扫描到条码 {barcode}");
+            Trace2?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
             return Task.CompletedTask;
         }
 
         private Task OnImageError(string err)
         {
-            Trace2?.Log($"发生错误 {err}");
+            Trace2?.Log($"{Localizer["ErrorLog"]} {err}");
             return Task.CompletedTask;
         }
 
         private Task OnResult(string barcode)
         {
-            Trace?.Log($"扫描到条码 {barcode}");
+            Trace?.Log($"{Localizer["ScanCodeLog"]} {barcode}");
             return Task.CompletedTask;
         }
 
         private Task OnError(string error)
         {
-            Trace?.Log($"发生错误 {error}");
+            Trace?.Log($"{Localizer["ErrorLog"]} {error}");
             return Task.CompletedTask;
         }
 
         private Task OnStart()
         {
-            Trace?.Log($"打开摄像头");
+            Trace?.Log(Localizer["OpenCameraLog"]);
             return Task.CompletedTask;
         }
 
         private Task OnClose()
         {
-            Trace?.Log($"关闭摄像头");
+            Trace?.Log(Localizer["CloseCameraLog"]);
             return Task.CompletedTask;
         }
 
@@ -67,60 +67,60 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()
             {
                 Name = "ButtonScanText",
-                Description = "扫描按钮文字",
+                Description = Localizer["ButtonScanText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "扫描"
+                DefaultValue = Localizer["ButtonScanTextDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "ButtonStopText",
-                Description = "关闭按钮文字",
+                Description = Localizer["ButtonStopText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "关闭"
+                DefaultValue = Localizer["ButtonStopTextDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "AutoStopText",
-                Description = "自动关闭按钮文字",
+                Description = Localizer["AutoStopText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "自动关闭"
+                DefaultValue = Localizer["AutoStopTextDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "DeviceLabel",
-                Description = "设备列表前置标签文字",
+                Description = Localizer["DeviceLabel"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "摄像头"
+                DefaultValue = Localizer["DeviceLabelDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "InitDevicesString",
-                Description = "初始化设备列表文字",
+                Description = Localizer["InitDevicesString"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "正在识别摄像头"
+                DefaultValue = Localizer["InitDevicesStringDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "NotFoundDevicesString",
-                Description = "未找到视频相关设备文字",
+                Description = Localizer["NotFoundDevicesString"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "未找到视频相关设备"
+                DefaultValue = Localizer["NotFoundDevicesStringDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "AutoStart",
-                Description = "组件初始化时是否自动开启摄像头",
+                Description = Localizer["AutoStart"],
                 Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -128,7 +128,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "AutoStop",
-                Description = "扫描到条码后是否自动停止",
+                Description = Localizer["AutoStart"],
                 Type = "boolean",
                 ValueList = "true|false",
                 DefaultValue = "false"
@@ -136,7 +136,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "ScanType",
-                Description = "扫描方式摄像头或者图片",
+                Description = "",
                 Type = "ScanType",
                 ValueList = "Camera|Image",
                 DefaultValue = "Camera"
@@ -144,7 +144,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "OnInit",
-                Description = "初始化摄像头回调方法",
+                Description = Localizer["OnInit"],
                 Type = "Func<IEnumerable<Camera>, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -152,7 +152,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "OnResult",
-                Description = "扫描到条码回调方法",
+                Description = Localizer["OnResult"],
                 Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -160,7 +160,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "OnStart",
-                Description = "打开摄像头回调方法",
+                Description = Localizer["OnStart"],
                 Type = "Func<Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -168,7 +168,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "OnClose",
-                Description = "关闭摄像头回调方法",
+                Description = Localizer["OnClose"],
                 Type = "Func<Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -176,7 +176,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "OnError",
-                Description = "发生错误回调方法",
+                Description = Localizer["OnError"],
                 Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
