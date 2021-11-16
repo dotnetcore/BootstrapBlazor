@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private string GetIcon() => IsShow ? "fa fa-eye-slash" : "fa fa-eye";
 
-        private string GetText() => IsShow ? "隐藏" : "显示";
+        private string GetText() => IsShow ? Localizer["IsHide"] : Localizer["IsShow"];
 
         private Task<bool> OnQueryCondition(string name) => Task.FromResult(IsShow);
 
@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private string GetIcon2() => IsShow2 ? "fa fa-eye-slash" : "fa fa-eye";
 
-        private string GetText2() => IsShow2 ? "隐藏" : "显示";
+        private string GetText2() => IsShow2 ? Localizer["IsHide"] : Localizer["IsShow"];
 
         private Task<bool> OnQueryCondition2(string name) => Task.FromResult(IsShow2);
         #endregion
@@ -47,6 +47,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private bool IsAuth { get; set; }
 
+        [NotNull]
         private string? UserName { get; set; }
 
         private async Task ToggleAuthor()
@@ -75,17 +76,17 @@ namespace BootstrapBlazor.Shared.Samples
 
         private string GetUser() => IsAuth ? "fa fa-user-secret" : "fa fa-user";
 
-        private string GetUserText() => IsAuth ? "登出" : "登入";
+        private string GetUserText() => IsAuth ? Localizer["Logout"] : Localizer["Login"];
 
         private Task<bool> OnQueryUser(string name) => Task.FromResult(IsAuth);
         #endregion
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()
             {
                 Name = nameof(Block.OnQueryCondition),
-                Description = "是否显示此 Block",
+                Description = Localizer["OnQueryCondition"],
                 Type = "Func<Task<bool>>",
                 ValueList = " — ",
                 DefaultValue = "true"
@@ -93,7 +94,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = nameof(Block.ChildContent),
-                Description = "Block 块内显示内容",
+                Description = Localizer["ChildContent"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -101,7 +102,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = nameof(Block.Authorized),
-                Description = "Block 块内符合条件显示内容",
+                Description = Localizer["Authorized"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -109,7 +110,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = nameof(Block.NotAuthorized),
-                Description = "Block 块内不符合条件显示内容",
+                Description = Localizer["NotAuthorized"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
