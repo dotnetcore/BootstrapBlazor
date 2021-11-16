@@ -1,39 +1,39 @@
 ﻿@page "/layouts"
 
-<h3>@LayoutsLocalizer["Title"]</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>@LayoutsLocalizer["H1"]</h4>
+<h4>@Localizer["H1"]</h4>
 
 <p>
-    <code>Container</code>：@((MarkupString)LayoutsLocalizer["Code1"].Value)<br />
-    <code>Header</code>：@LayoutsLocalizer["Code2"]<br />
-    <code>Side</code>：@LayoutsLocalizer["Code3"]<br />
-    <code>Main</code>：@LayoutsLocalizer["Code4"]<br />
-    <code>Footer</code>：@LayoutsLocalizer["Code5"]
+    <code>Container</code>：@((MarkupString)Localizer["Code1"].Value)<br />
+    <code>Header</code>：@Localizer["Code2"]<br />
+    <code>Side</code>：@Localizer["Code3"]<br />
+    <code>Main</code>：@Localizer["Code4"]<br />
+    <code>Footer</code>：@Localizer["Code5"]
 </p>
 
-<h4>@LayoutsLocalizer["H2"]</h4>
+<h4>@Localizer["H2"]</h4>
 <p>
-    <code>Layout</code>：@((MarkupString)LayoutsLocalizer["Code6"].Value)<br />
-    <code>Header</code>：@LayoutsLocalizer["Code7"]<br />
-    <code>Sider</code>：@LayoutsLocalizer["Code8"]<br />
-    <code>Main</code>：@LayoutsLocalizer["Code9"]<br />
-    <code>Footer</code>：@LayoutsLocalizer["Code10"]
+    <code>Layout</code>：@((MarkupString)Localizer["Code6"].Value)<br />
+    <code>Header</code>：@Localizer["Code7"]<br />
+    <code>Sider</code>：@Localizer["Code8"]<br />
+    <code>Main</code>：@Localizer["Code9"]<br />
+    <code>Footer</code>：@Localizer["Code10"]
 </p>
 
 <Tips>
     <p>
-        @((MarkupString)LayoutsLocalizer["P1"].Value)
+        @((MarkupString)Localizer["P1"].Value)
     </p>
 
-    <b>@LayoutsLocalizer["b1"]</b>
+    <b>@Localizer["b1"]</b>
 
-    <p>@((MarkupString)LayoutsLocalizer["P2"].Value)</p>
+    <p>@((MarkupString)Localizer["P2"].Value)</p>
 </Tips>
 
-<h4>@LayoutsLocalizer["H3"]</h4>
+<h4>@Localizer["H3"]</h4>
 
-<DemoBlock Title="@LayoutsLocalizer["Block1Title"]" Introduction="@LayoutsLocalizer["Block1Intro"]" Name="UpAndDown">
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="UpAndDown">
     <Layout ShowFooter="true">
         <Header>
             <div class="text-center header">Header</div>
@@ -47,7 +47,7 @@
     </Layout>
 </DemoBlock>
 
-<DemoBlock Title="@LayoutsLocalizer["Block2Title"]" Introduction="@LayoutsLocalizer["Block2Intro"]" Name="middleLeftRight">
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="middleLeftRight">
     <Layout ShowFooter="true">
         <Header>
             <div class="text-center header">Header</div>
@@ -64,7 +64,7 @@
     </Layout>
 </DemoBlock>
 
-<DemoBlock Title="@LayoutsLocalizer["Block3title"]" Introduction="@LayoutsLocalizer["Block3Intro"]" Name="LeftRight">
+<DemoBlock Title="@Localizer["Block3title"]" Introduction="@Localizer["Block3Intro"]" Name="LeftRight">
     <Layout ShowFooter="true" IsFullSide="true">
         <Header>
             <div class="text-center header">Header</div>
@@ -81,7 +81,7 @@
     </Layout>
 </DemoBlock>
 
-<DemoBlock Title="@LayoutsLocalizer["Block4Title"]" Introduction="@LayoutsLocalizer["Block4Intro"]" Name="CuntomPercent">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="CuntomPercent">
     <Layout ShowFooter="true" SideWidth="200">
         <Header>
             <div class="text-center header">Header</div>
@@ -98,25 +98,25 @@
     </Layout>
 </DemoBlock>
 
-<DemoBlock Title="@LayoutsLocalizer["Block5Title"]" Name="app">
-    <div>@LayoutsLocalizer["D1"]</div>
+<DemoBlock Title="@Localizer["Block5Title"]" Name="app">
+    <div>@Localizer["D1"]</div>
     <ul class="mt-2">
         <li>
-            <div>@LayoutsLocalizer["D2"]</div>
+            <div>@Localizer["D2"]</div>
         </li>
         <li>
-            <div>@LayoutsLocalizer["D3"]</div>
+            <div>@Localizer["D3"]</div>
         </li>
     </ul>
-    <div>@LayoutsLocalizer["D4"]</div>
+    <div>@Localizer["D4"]</div>
     <p>
-        @((MarkupString)LayoutsLocalizer["P3"].Value)
+        @((MarkupString)Localizer["P3"].Value)
     </p>
     <p>
-        @LayoutsLocalizer["P4"]
+        @Localizer["P4"]
     </p>
     <Tips>
-        @((MarkupString)LayoutsLocalizer["Tips1"].Value)
+        @((MarkupString)Localizer["Tips1"].Value)
     </Tips>
     <div style="width: 100%; height: 300px; border: 1px solid rgba(0,0,0,.125);">
         <Layout ShowFooter="true" SideWidth="160px">
@@ -137,7 +137,7 @@
         </Layout>
     </div>
     <p class="mt-3">
-        @LayoutsLocalizer["P5"]
+        @Localizer["P5"]
     </p>
     <div style="width: 100%; border: 1px solid rgba(0,0,0,.125);">
         <Layout ShowFooter="true" SideWidth="160px">
@@ -158,15 +158,15 @@
         </Layout>
     </div>
     <p class="mt-3">
-        @((MarkupString)LayoutsLocalizer["P6"].Value)
+        @((MarkupString)Localizer["P6"].Value)
     </p>
 </DemoBlock>
 
-<DemoBlock Title="@LayoutsLocalizer["Block6Title"]" Name="Page">
-    <Tips>@((MarkupString)LayoutsLocalizer["Tips2"].Value)</Tips>
+<DemoBlock Title="@Localizer["Block6Title"]" Name="Page">
+    <Tips>@((MarkupString)Localizer["Tips2"].Value)</Tips>
 
     <ul class="page-layout-demo-list">
-        <li><a href="layout-page" target="_blank">@LayoutsLocalizer["Li"]</a></li>
+        <li><a href="layout-page" target="_blank">@Localizer["Li"]</a></li>
     </ul>
 </DemoBlock>
 

@@ -19,11 +19,11 @@ namespace BootstrapBlazor.Shared.Samples
     {
         [Inject]
         [NotNull]
-        private IStringLocalizer<Menus>? Localizer { get; set; }
+        private IStringLocalizer<Menus>? LocalizerMenu { get; set; }
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Layouts>? LayoutsLocalizer { get; set; }
+        private IStringLocalizer<Layouts>? Localizer { get; set; }
 
         private IEnumerable<MenuItem>? IconSideMenuItems { get; set; }
 
@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Shared.Samples
         {
             await base.OnInitializedAsync();
 
-            IconSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(Localizer);
+            IconSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(LocalizerMenu);
         }
 
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
@@ -43,126 +43,126 @@ namespace BootstrapBlazor.Shared.Samples
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Header",
-                Description = LayoutsLocalizer["Desc1"],
+                Description = Localizer["Desc1"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Side",
-                Description = LayoutsLocalizer["Desc2"],
+                Description = Localizer["Desc2"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "SideWidth",
-                Description = LayoutsLocalizer["Desc3"],
+                Description = Localizer["Desc3"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "300px"
             },
             new AttributeItem() {
                 Name = "Main",
-                Description = LayoutsLocalizer["Desc4"],
+                Description = Localizer["Desc4"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Footer",
-                Description = LayoutsLocalizer["Desc2"],
+                Description = Localizer["Desc2"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Menus",
-                Description = LayoutsLocalizer["Desc6"],
+                Description = Localizer["Desc6"],
                 Type = "IEnumerable<MenuItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsFullSide",
-                Description = LayoutsLocalizer["Desc7"],
+                Description = Localizer["Desc7"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsPage",
-                Description = LayoutsLocalizer["Desc8"],
+                Description = Localizer["Desc8"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsFixedFooter",
-                Description = LayoutsLocalizer["Desc9"],
+                Description = Localizer["Desc9"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "IsFixedHeader",
-                Description = LayoutsLocalizer["Desc10"],
+                Description = Localizer["Desc10"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowCollapseBar",
-                Description =  LayoutsLocalizer["Desc11"],
+                Description =  Localizer["Desc11"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowFooter",
-                Description =  LayoutsLocalizer["Desc12"],
+                Description =  Localizer["Desc12"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "ShowGotoTop",
-                Description =  LayoutsLocalizer["Desc13"],
+                Description =  Localizer["Desc13"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "UseTabSet",
-                Description =  LayoutsLocalizer["Desc14"],
+                Description =  Localizer["Desc14"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "AdditionalAssemblies",
-                Description =  LayoutsLocalizer["Desc15"],
+                Description =  Localizer["Desc15"],
                 Type = "IEnumerable<Assembly>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnCollapsed",
-                Description =  LayoutsLocalizer["Desc16"],
+                Description =  Localizer["Desc16"],
                 Type = "Func<bool, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnClickMenu",
-                Description =  LayoutsLocalizer["Desc17"],
+                Description =  Localizer["Desc17"],
                 Type = "Func<bool, MenuItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "TabDefaultUrl",
-                Description =  LayoutsLocalizer["TabDefaultUrl"],
+                Description =  Localizer["TabDefaultUrl"],
                 Type = "string?",
                 ValueList = " — ",
                 DefaultValue = " — "
