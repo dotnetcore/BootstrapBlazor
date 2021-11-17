@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Services
@@ -62,7 +61,7 @@ namespace BootstrapBlazor.Shared.Services
                     // 生成资源文件
                     content = CacheManagerHelper.GetCode(codeFile, blockTitle, entry =>
                     {
-                        payload = Filter(payload.AsMemory(), blockTitle.AsMemory());
+                        payload = Filter(payload);
 
                         entry.SlidingExpiration = TimeSpan.FromMinutes(10);
                         return payload;
@@ -75,6 +74,64 @@ namespace BootstrapBlazor.Shared.Services
             }
             catch (Exception ex) { content = $"Error: {ex.Message}"; }
             return content;
+
+            string Filter(string content)
+            {
+                var beginFlag = "<DemoBlock ";
+                var endFlag = "</DemoBlock>";
+                if (!string.IsNullOrEmpty(blockTitle))
+                {
+                    var findStrings = new string[] { $"Name=\"{blockTitle}\"", $"Title=\"{blockTitle}\"" };
+                    var endLength = endFlag.Length;
+                    while (content.Length > 0)
+                    {
+                        var star = content.IndexOf(beginFlag);
+                        if (star == -1)
+                        {
+                            break;
+                        }
+
+                        var length = content.IndexOf(endFlag);
+                        if (length == -1)
+                        {
+                            break;
+                        }
+
+                        var seg = content[star..(length + endLength)];
+                        if (seg.IndexOf(findStrings[0]) > -1 || seg.IndexOf(findStrings[1]) > -1)
+                        {
+                            var lineFlag = "\n";
+                            var seqStar = seg.IndexOf(lineFlag);
+                            var end = seg.IndexOf(endFlag);
+                            var data = seg[seqStar..end];
+                            content = data.Replace("\n    ", "\n").TrimStart('\n');
+                            break;
+                        }
+                        else
+                        {
+                            content = content[(length + endLength)..];
+                        }
+                    }
+                }
+                TrimTips();
+                return content;
+
+                void TrimTips()
+                {
+                    beginFlag = "<Tips>";
+                    endFlag = $"</Tips>{Environment.NewLine}";
+                    var endLength = endFlag.Length;
+                    var star = content.IndexOf(beginFlag);
+                    if (star > -1)
+                    {
+                        var length = content.IndexOf(endFlag);
+                        if (length > -1)
+                        {
+                            content = $"{content[..star]}{content[(length + endLength)..]}";
+                        }
+                    }
+                }
+            }
         }
 
         private Task<string> GetContentFromFile(string codeFile) => CacheManagerHelper.GetContentFromFileAsync(codeFile, async entry =>
@@ -138,86 +195,6 @@ namespace BootstrapBlazor.Shared.Services
                 payload = await File.ReadAllTextAsync(file);
             }
             return payload;
-        }
-
-        private string Filter(ReadOnlyMemory<char> content, ReadOnlyMemory<char> blockTitle)
-        {
-            var beginFlag = "<DemoBlock ";
-            var endFlag = "</DemoBlock>";
-            var endLength = endFlag.Length;
-
-            var findStrings = new string[] { $"Name=\"{blockTitle}\"", $"Title=\"{blockTitle}\"" };
-            while (!content.IsEmpty)
-            {
-                var star = content.Span.IndexOf(beginFlag);
-                if (star == -1)
-                {
-                    break;
-                }
-
-                var length = content.Span.IndexOf(endFlag);
-                if (length == -1)
-                {
-                    break;
-                }
-
-                // 获得 DemoBlock 代码块
-                var seg = content[star..length];
-                if (seg.Span.IndexOf(findStrings[0]) > -1 || seg.Span.IndexOf(findStrings[1]) > -1)
-                {
-                    FormatIndent(seg);
-                    break;
-                }
-
-                // 处理后续字符串
-                content = content[(length + endLength)..];
-            }
-            TrimTips();
-            return content.ToString();
-
-            void FormatIndent(ReadOnlyMemory<char> seg)
-            {
-                var lineFlag = "\n";
-                var star = seg.Span.IndexOf(lineFlag);
-                var data = seg[star..];
-
-                var sb = new StringBuilder();
-                while (!data.IsEmpty)
-                {
-                    var index = data.Span.IndexOf("\n    ");
-                    if (index == 0)
-                    {
-                        data = data[5..];
-                    }
-                    else if (index > 0)
-                    {
-                        sb.Append(data.Span[..(index + 1)]);
-                        data = data[(index + 5)..];
-                    }
-                    else
-                    {
-                        sb.Append(data);
-                        data = default;
-                    }
-                }
-                content = sb.ToString().AsMemory();
-            }
-
-            void TrimTips()
-            {
-                var beginFlag = "<Tips>";
-                var endFlag = $"</Tips>{Environment.NewLine}";
-                var endLength = endFlag.Length;
-                var star = content.Span.IndexOf(beginFlag);
-                if (star > -1)
-                {
-                    var length = content.Span.IndexOf(endFlag);
-                    if (length > -1)
-                    {
-                        content = $"{content[..star]}{content[(length + endLength)..]}".AsMemory();
-                    }
-                }
-            }
         }
     }
 }

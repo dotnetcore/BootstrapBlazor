@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components
+namespace BootstrapBlazor.Components.Extensions
 {
     /// <summary>
     /// 
@@ -44,8 +44,8 @@ namespace BootstrapBlazor.Components
                 }
 
                 ret.Add(stringSplitOptions == StringSplitOptions.None
-                    ? sourceSpan.Slice(0, n).ToString()
-                    : sourceSpan.Slice(0, n).Trim().ToString());
+                    ? sourceSpan[..n].ToString()
+                    : sourceSpan[..n].Trim().ToString());
                 sourceSpan = sourceSpan[Math.Min(sourceSpan.Length, n + splitSpan.Length)..];
             }
             while (sourceSpan.Length > 0);
@@ -87,8 +87,8 @@ namespace BootstrapBlazor.Components
                 if (n > 0)
                 {
                     ret.Add(stringSplitOptions == StringSplitOptions.None
-                     ? sourceSpan.Slice(0, n).ToString()
-                     : sourceSpan.Slice(0, n).Trim().ToString());
+                     ? sourceSpan[..n].ToString()
+                     : sourceSpan[..n].Trim().ToString());
                 }
 
                 sourceSpan = sourceSpan[Math.Min(sourceSpan.Length, n + 1)..];
