@@ -15,42 +15,9 @@ namespace BootstrapBlazor.Shared.Samples
     /// </summary>
     public sealed partial class Anchors
     {
-        [NotNull]
-        private string? Title { get; set; }
-
-        [NotNull]
-        private string? SubTitle { get; set; }
-
-        [NotNull]
-        private string? BaseUsageText { get; set; }
-
-        [NotNull]
-        private string? IntroText1 { get; set; }
-
-        [NotNull]
-        private MarkupString IntroText2 { get; set; }
-
-        [NotNull]
-        private MarkupString ContentText1 { get; set; }
-
         [Inject]
         [NotNull]
         private IStringLocalizer<Anchors>? Localizer { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            Title ??= Localizer[nameof(Title)];
-            SubTitle ??= Localizer[nameof(SubTitle)];
-            BaseUsageText ??= Localizer[nameof(BaseUsageText)];
-            IntroText1 ??= Localizer[nameof(IntroText1)];
-            IntroText2 = new MarkupString(Localizer[nameof(IntroText2)]?.Value ?? "");
-            ContentText1 = new MarkupString(Localizer[nameof(ContentText1)]?.Value ?? "");
-        }
 
         /// <summary>
         /// 获得属性方法

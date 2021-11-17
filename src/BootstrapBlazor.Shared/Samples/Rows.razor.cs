@@ -20,7 +20,11 @@ namespace BootstrapBlazor.Shared.Samples
     {
         [Inject]
         [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Rows>? Localizer { get; set; }
 
         private RowFoo Model { get; } = new()
         {
@@ -41,35 +45,35 @@ namespace BootstrapBlazor.Shared.Samples
         {
             base.OnInitialized();
 
-            Hobbys = Foo.GenerateHobbys(Localizer);
+            Hobbys = Foo.GenerateHobbys(LocalizerFoo);
         }
 
         private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "ItemsPerRow",
-                Description = RowsLocalizer["Desc1"],
+                Description = Localizer["Desc1"],
                 Type = "enum",
                 ValueList = " One,Two,Three,Four,Six,Twelve ",
                 DefaultValue = " One "
             },
             new AttributeItem() {
                 Name = "RowType",
-                Description = RowsLocalizer["Desc2"],
+                Description = Localizer["Desc2"],
                 Type = "enum?",
                 ValueList = "Normal, Inline",
                 DefaultValue = "null"
             },
             new AttributeItem() {
                 Name = "ColSpan",
-                Description = RowsLocalizer["Desc3"],
+                Description = Localizer["Desc3"],
                 Type = "int?",
                 ValueList = "-",
                 DefaultValue = "null"
             },
             new AttributeItem() {
                 Name = "MaxCount",
-                Description = RowsLocalizer["Desc4"],
+                Description = Localizer["Desc4"],
                 Type = "int?",
                 ValueList = "-",
                 DefaultValue = "null"

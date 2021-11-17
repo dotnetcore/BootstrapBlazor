@@ -3,7 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Shared.Samples
 {
@@ -12,6 +15,10 @@ namespace BootstrapBlazor.Shared.Samples
     /// </summary>
     public sealed partial class Scrolls
     {
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Scrolls>? Localizer { get; set; }
+
         /// <summary>
         /// 获得属性方法
         /// </summary>
@@ -21,14 +28,14 @@ namespace BootstrapBlazor.Shared.Samples
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = Locaizer["Desc1"],
+                Description = Localizer["Desc1"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = Locaizer["Desc2"],
+                Description = Localizer["Desc2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

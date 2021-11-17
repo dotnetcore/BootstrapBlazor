@@ -1,11 +1,11 @@
 ﻿@page "/anchors"
 
-<h3>@Title</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>@SubTitle</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@BaseUsageText" Introduction="@IntroText1" Name="Normal">
-    <p>@IntroText2</p>
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal">
+    <p>@((MarkupString)Localizer["IntroText2"].Value)</p>
     <ul class="demo-ul">
         <li><Anchor Target="anchor1" Offset="50">Anchor1</Anchor></li>
         <li><Anchor Target="anchor2" Offset="50">Anchor2</Anchor></li>
@@ -14,13 +14,13 @@
     </ul>
 
     <h4 id="anchor1">Archor1</h4>
-    <div>@ContentText1</div>
+    <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
     <h4 id="anchor2">Archor2</h4>
-    <div>@ContentText1</div>
+    <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
     <h4 id="anchor3">Archor3</h4>
-    <div>@ContentText1</div>
+    <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
     <h4 id="anchor4">Archor4</h4>
-    <div>@ContentText1</div>
+    <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
