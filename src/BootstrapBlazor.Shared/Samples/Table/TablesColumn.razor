@@ -272,6 +272,24 @@
     </Table>
 </DemoBlock>
 
+<DemoBlock Title="设置当前列属性" Introduction="通过指定 <code>OnColumnCreating</code>回调，对列集合进行数据二次更改" Name="OnColumnCreating">
+    <Tips>
+        <p>通过 <code>OnColumnCreating</code> 回调方法中的参数既可以对现有列进行扩展：</p>
+        <ol>
+            <li>根据业务逻辑移除一些列的显示</li>
+            <li>根据业务逻辑对特定列进行组件渲染，对 <code>ComponentType</code> <code>ComponentParameters</code> 进行赋值操作</li>
+        </ol>
+        <p>也可以根据自己的业务逻辑实现一些特殊功能；本例中通过回调函数对 <code>Name</code> 列进行了 <code>只读</code> 设置</p>
+    </Tips>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="true"
+           ShowDefaultButtons="true" OnSaveAsync="@OnSaveAsync"
+           OnQueryAsync="@OnQueryAsync" OnColumnCreating="@OnColumnCreating" ShowEditButton="true">
+    </Table>
+</DemoBlock>
+
 <DemoBlock Title="实战示例" Introduction="通过显示模板 <code>Template</code> 对各列进行自定义渲染" Name="Advance">
     <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" RenderMode="TableRenderMode.Table"
            IsStriped="true" IsBordered="true" UseInjectDataService="true" OnQueryAsync="OnQueryAsync">

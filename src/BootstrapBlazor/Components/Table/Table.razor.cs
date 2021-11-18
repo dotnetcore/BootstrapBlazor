@@ -430,7 +430,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 表头集合
         /// </summary>
-        public List<ITableColumn> Columns { get; } = new List<ITableColumn>(50);
+        public List<ITableColumn> Columns { get; } = new(50);
 
         /// <summary>
         /// 获得/设置 是否使用注入的数据服务
@@ -616,6 +616,12 @@ namespace BootstrapBlazor.Components
         public string? SortDescText { get; set; }
 
         /// <summary>
+        /// 获得/设置 列创建时回调委托方法
+        /// </summary>
+        [Parameter]
+        public Func<List<ITableColumn>, Task>? OnColumnCreating { get; set; }
+
+        /// <summary>
         /// 获得/设置 OnAfterRenderCallback 是否已经触发 默认 false
         /// </summary>
         /// <remarks>与 <see cref="OnAfterRenderCallback"/> 回调配合</remarks>
@@ -771,6 +777,11 @@ namespace BootstrapBlazor.Components
                     var cols = InternalTableColumn.GetProperties<TItem>(Columns);
                     Columns.Clear();
                     Columns.AddRange(cols);
+                }
+
+                if (OnColumnCreating != null)
+                {
+                    await OnColumnCreating(Columns);
                 }
 
                 ColumnVisibles = Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }).ToList();

@@ -538,6 +538,20 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 DefaultValue = " — "
             },
             new() {
+                Name = nameof(Table<Foo>.OnColumnCreating),
+                Description = "列创建时回调委托方法",
+                Type = "Func<List<ITableColumn>,Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new() {
+                Name = "OnDeleteAsync",
+                Description = "删除按钮异步回调方法",
+                Type = "Func<IEnumerable<TItem>, Task<bool>>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new() {
                 Name = "OnEditAsync",
                 Description = "编辑按钮异步回调方法",
                 Type = "Func<TItem, Task>",
@@ -548,13 +562,6 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 Name = "OnSaveAsync",
                 Description = "保存按钮异步回调方法",
                 Type = "Func<TItem, Task>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new() {
-                Name = "OnDeleteAsync",
-                Description = "删除按钮异步回调方法",
-                Type = "Func<IEnumerable<TItem>, Task<bool>>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },

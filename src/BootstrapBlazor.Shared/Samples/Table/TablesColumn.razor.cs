@@ -134,5 +134,22 @@ namespace BootstrapBlazor.Shared.Samples.Table
             SelectedRows.Add(item);
             await TableRows.QueryAsync();
         }
+
+        private static Task<bool> OnSaveAsync(Foo foo, ItemChangedType changedType)
+        {
+            return Task.FromResult(true);
+        }
+
+        private static Task OnColumnCreating(List<ITableColumn> columns)
+        {
+            foreach (var item in columns)
+            {
+                if (item.GetFieldName() == nameof(Foo.Name))
+                {
+                    item.Readonly = true;
+                }
+            }
+            return Task.CompletedTask;
+        }
     }
 }
