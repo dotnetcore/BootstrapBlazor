@@ -76,6 +76,16 @@ namespace BootstrapBlazor.Components
         internal void AddItem(CollapseItem item) => _items.Add(item);
 
         /// <summary>
+        /// OnParametersSet 方法
+        /// </summary>
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            _items.Clear();
+        }
+
+        /// <summary>
         /// OnAfterRender 方法
         /// </summary>
         /// <param name="firstRender"></param>
