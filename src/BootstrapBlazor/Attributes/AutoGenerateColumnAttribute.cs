@@ -113,7 +113,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 表头模板
         /// </summary>
-        public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
+        RenderFragment<ITableColumn>? ITableColumn.HeaderTemplate { get; set; }
 
         /// <summary>
         /// 获得/设置 组件类型 默认为 null
@@ -128,7 +128,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 显示模板
         /// </summary>
-        public RenderFragment<object>? Template { get; set; }
+        RenderFragment<object>? ITableColumn.Template { get; set; }
 
         /// <summary>
         /// 获得/设置 搜索模板
