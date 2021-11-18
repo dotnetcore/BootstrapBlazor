@@ -620,14 +620,19 @@ RenderFragment<TItem> RenderRow => item =>
                     }
                     else
                     {
-                        @if (value == null)
-                        {
-                            @GetValue(col, item)
-                        }
-                        else
-                        {
-                            @value
-                        }
+                        var triggerDoubleClick = OnDoubleClickCellCallback != null;
+                        <DynamicElement TagName="div" TriggerDoubleClick="triggerDoubleClick"
+                                        OnDoubleClick="TriggerDoubleClickCell(col, item)" StopPropagation="true"
+                                        class="@GetDoubleClickCellClassString(triggerDoubleClick)">
+                            @if (value == null)
+                            {
+                                @GetValue(col, item)
+                            }
+                            else
+                            {
+                                @value
+                            }
+                        </DynamicElement>
                     }
                 </DynamicElement>
             </td>
@@ -727,13 +732,13 @@ RenderFragment<TItem> RenderExtendButtons => item =>
             @if (ShowDeleteButton)
             {
                 <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                    Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
-                                    CloseButtonText="@CancelDeleteButtonText"
-                                    Content="@ConfirmDeleteContentText"
-                                    ConfirmButtonColor="Color.Danger"
-                                    ConfirmButtonText="@ConfirmDeleteButtonText"
-                                    OnBeforeClick="@ClickBeforeDelete(item)"
-                                    OnConfirm="DeleteAsync" />
+                                  Color="Color.Danger" Icon="fa fa-remove" Text="@DeleteButtonText"
+                                  CloseButtonText="@CancelDeleteButtonText"
+                                  Content="@ConfirmDeleteContentText"
+                                  ConfirmButtonColor="Color.Danger"
+                                  ConfirmButtonText="@ConfirmDeleteButtonText"
+                                  OnBeforeClick="@ClickBeforeDelete(item)"
+                                  OnConfirm="DeleteAsync" />
             }
         }
         @RowButtonTemplate?.Invoke(item)

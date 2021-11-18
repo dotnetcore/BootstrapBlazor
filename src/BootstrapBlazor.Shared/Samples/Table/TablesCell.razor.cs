@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Samples.Table
 {
@@ -19,6 +20,10 @@ namespace BootstrapBlazor.Shared.Samples.Table
         [Inject]
         [NotNull]
         private IStringLocalizer<Foo>? Localizer { get; set; }
+
+        [Inject]
+        [NotNull]
+        private ToastService? ToastService { get; set; }
 
         [NotNull]
         private List<Foo>? Items { get; set; }
@@ -44,6 +49,12 @@ namespace BootstrapBlazor.Shared.Samples.Table
                     args.Value = $"{foo.Name} -- {foo.Address} -- {foo.Count}";
                 }
             }
+        }
+
+        private async Task OnDoubleClickCellCallback(string columnName, object row, object value)
+        {
+            var displayName = Utility.GetDisplayName(typeof(Foo), columnName);
+            await ToastService.Show(new ToastOption() { Title = "双击单元格回调", Content = $"当前单元格名称：{displayName} 当前值：{value}" });
         }
 
         private static IEnumerable<AttributeItem> GetAttributes() => new[]

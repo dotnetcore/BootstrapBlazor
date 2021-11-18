@@ -18,4 +18,18 @@
     </Table>
 </DemoBlock>
 
+<DemoBlock Title="双击单元格" Introduction="通过设置 <code>OnDoubleClickColumn</code> 回调，设置当前单元格的双击事件" Name="OnDoubleClickCell">
+    <Tips>
+        <p>设置双击单元格回调后，鼠标悬停单元格后单元格出现下标横线，以作提示可通过 <code>.table-cell .is-dbcell</code> 样式覆盖</p>
+    </Tips>
+    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" OnDoubleClickCellCallback="@OnDoubleClickCellCallback">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
 <AttributeTable Items="GetAttributes()" Title="TableCellArgs"></AttributeTable>

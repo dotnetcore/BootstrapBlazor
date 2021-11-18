@@ -545,6 +545,13 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 DefaultValue = " — "
             },
             new() {
+                Name = nameof(Table<Foo>.OnDoubleClickCellCallback),
+                Description = "设置单元格双击事件",
+                Type = "Func<string, object, object?, Task>",
+                ValueList = " — ",
+                DefaultValue = " — "
+            },
+            new() {
                 Name = "OnDeleteAsync",
                 Description = "删除按钮异步回调方法",
                 Type = "Func<IEnumerable<TItem>, Task<bool>>",

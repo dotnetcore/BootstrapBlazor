@@ -225,6 +225,12 @@ namespace BootstrapBlazor.Components
         public Func<Table<TItem>, Task>? OnAfterRenderCallback { get; set; }
 
         /// <summary>
+        /// 获得/设置 双击单元格回调委托
+        /// </summary>
+        [Parameter]
+        public Func<string, TItem, object?, Task>? OnDoubleClickCellCallback { get; set; }
+
+        /// <summary>
         /// 获得/设置 数据滚动模式
         /// </summary>
         [Parameter]
@@ -891,9 +897,7 @@ namespace BootstrapBlazor.Components
             else
             {
                 var content = "";
-                var val = (item is IDynamicObject dynamicObject)
-                    ? dynamicObject.GetValue(col.GetFieldName())
-                    : Table<TItem>.GetItemValue(col.GetFieldName(), item);
+                var val = GetItemValue(col.GetFieldName(), item);
 
                 if (col.Lookup == null && val is bool v1)
                 {
@@ -951,14 +955,21 @@ namespace BootstrapBlazor.Components
             object? ret = null;
             if (item != null)
             {
-                ret = Utility.GetPropertyValue<TItem, object?>(item, fieldName);
-
-                if (ret != null)
+                if (item is IDynamicObject dynamicObject)
                 {
-                    var t = ret.GetType();
-                    if (t.IsEnum)
+                    ret = dynamicObject.GetValue(fieldName);
+                }
+                else
+                {
+                    ret = Utility.GetPropertyValue<TItem, object?>(item, fieldName);
+
+                    if (ret != null)
                     {
-                        ret = t.ToEnumDisplayName(ret.ToString());
+                        var t = ret.GetType();
+                        if (t.IsEnum)
+                        {
+                            ret = t.ToEnumDisplayName(ret.ToString());
+                        }
                     }
                 }
             }
@@ -1055,6 +1066,19 @@ namespace BootstrapBlazor.Components
             await QueryData();
             return new ItemsProviderResult<TItem>(QueryItems ?? Enumerable.Empty<TItem>(), TotalCount);
         }
+
+        private Func<Task> TriggerDoubleClickCell(ITableColumn col, TItem item) => async () =>
+        {
+            if (OnDoubleClickCellCallback != null)
+            {
+                var val = GetItemValue(col.GetFieldName(), item);
+                await OnDoubleClickCellCallback(col.GetFieldName(), item, val);
+            }
+        };
+
+        private static string? GetDoubleClickCellClassString(bool trigger) => CssBuilder.Default()
+            .AddClass("is-dbcell", trigger)
+            .Build();
 
         #region Dispose
         /// <summary>

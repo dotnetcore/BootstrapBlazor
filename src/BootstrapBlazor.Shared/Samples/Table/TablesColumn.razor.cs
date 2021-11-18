@@ -114,6 +114,7 @@ namespace BootstrapBlazor.Shared.Samples.Table
 
         [NotNull]
         private Table<Foo>? TableRows { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

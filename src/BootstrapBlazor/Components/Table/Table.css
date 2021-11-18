@@ -717,3 +717,18 @@ form .table .table-cell > textarea {
     border-radius: var(--bs-border-radius);
     margin: 5px 0;
 }
+
+.table-cell .is-dbcell {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+}
+
+    .table-cell .is-dbcell:hover:before {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        height: 1px;
+        width: 100%;
+        background-color: var(--bs-primary);
+    }
