@@ -1,5 +1,6 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 #if NET6_0_OR_GREATER
 using System;
@@ -91,11 +92,13 @@ namespace Microsoft.AspNetCore.Internal
 
             private static ReadOnlyMemory<char> Decode(ReadOnlyMemory<char> chars)
             {
+                return Uri.UnescapeDataString(chars.ToString()).AsMemory();
+
                 // If the value is short, it's cheap to check up front if it really needs decoding. If it doesn't,
                 // then we can save some allocations.
-                return chars.Length < 16 && chars.Span.IndexOfAny('%', '+') < 0
-                    ? chars
-                    : Uri.UnescapeDataString(SpanHelper.ReplacePlusWithSpace(chars.Span)).AsMemory();
+                //return chars.Length < 16 && chars.Span.IndexOfAny('%', '+') < 0
+                //    ? chars
+                //    : Uri.UnescapeDataString(chars.Span.ToString().Replace("+", " ")).AsMemory();
             }
         }
 
@@ -132,8 +135,8 @@ namespace Microsoft.AspNetCore.Internal
                     var delimiterIndex = _query.Span.IndexOf('&');
                     if (delimiterIndex >= 0)
                     {
-                        segment = _query.Slice(0, delimiterIndex);
-                        _query = _query.Slice(delimiterIndex + 1);
+                        segment = _query[..delimiterIndex];
+                        _query = _query[(delimiterIndex + 1)..];
                     }
                     else
                     {
@@ -146,8 +149,8 @@ namespace Microsoft.AspNetCore.Internal
                     if (equalIndex >= 0)
                     {
                         Current = new EncodedNameValuePair(
-                            segment.Slice(0, equalIndex),
-                            segment.Slice(equalIndex + 1));
+                            segment[..equalIndex],
+                            segment[(equalIndex + 1)..]);
                         return true;
                     }
                     else if (!segment.IsEmpty)
@@ -159,59 +162,6 @@ namespace Microsoft.AspNetCore.Internal
 
                 Current = default;
                 return false;
-            }
-        }
-
-        private static class SpanHelper
-        {
-            private static readonly SpanAction<char, IntPtr> s_replacePlusWithSpace = ReplacePlusWithSpaceCore;
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public static unsafe string ReplacePlusWithSpace(ReadOnlySpan<char> span)
-            {
-                fixed (char* ptr = &MemoryMarshal.GetReference(span))
-                {
-                    return string.Create(span.Length, (IntPtr)ptr, s_replacePlusWithSpace);
-                }
-            }
-
-            private static unsafe void ReplacePlusWithSpaceCore(Span<char> buffer, IntPtr state)
-            {
-                fixed (char* ptr = &MemoryMarshal.GetReference(buffer))
-                {
-                    var input = (ushort*)state.ToPointer();
-                    var output = (ushort*)ptr;
-
-                    var i = (nint)0;
-                    var n = (nint)(uint)buffer.Length;
-
-                    if (Sse41.IsSupported && n >= Vector128<ushort>.Count)
-                    {
-                        var vecPlus = Vector128.Create('+');
-                        var vecSpace = Vector128.Create(' ');
-
-                        do
-                        {
-                            var vec = Sse2.LoadVector128(input + i);
-                            var mask = Sse2.CompareEqual(vec, vecPlus);
-                            var res = Sse41.BlendVariable(vec, vecSpace, mask);
-                            Sse2.Store(output + i, res);
-                            i += Vector128<ushort>.Count;
-                        } while (i <= n - Vector128<ushort>.Count);
-                    }
-
-                    for (; i < n; ++i)
-                    {
-                        if (input[i] != '+')
-                        {
-                            output[i] = input[i];
-                        }
-                        else
-                        {
-                            output[i] = ' ';
-                        }
-                    }
-                }
             }
         }
     }

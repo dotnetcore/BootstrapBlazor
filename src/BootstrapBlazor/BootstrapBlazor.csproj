@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <Version>6.0.3</Version>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
