@@ -21,12 +21,7 @@
 
     $.extend(Grid.prototype, {
         layout: function () {
-            if (this.options.colSpan !== 0 || this.$element.data('target')) {
-                this._layout_parent_row();
-            }
-            else {
-                this._layout_column(null);
-            }
+            this._layout_column(null);
             this.$element.removeClass('d-none');
         },
         _layout_column: function ($target) {
@@ -44,11 +39,7 @@
                 var isRow = $ele.data('toggle') === 'row';
                 var colSpan = that._getColSpan($ele);
                 if (isRow) {
-                    var uId = $.getUID();
-
-                    // 设置目标地址元素
-                    $ele.attr('data-target', uId);
-                    $('<div></div>').attr('data-uid', uId).addClass(that._calc(colSpan)).appendTo($div);
+                    $('<div></div>').addClass(that._calc(colSpan)).appendTo($div).append($ele);
                 }
                 else {
                     isLabel = $ele.prop('tagName') === 'LABEL';
@@ -82,7 +73,6 @@
             var $target = $('[data-uid="' + uid + '"]');
             var $row = $('<div class="row"></div>').appendTo($target);
             this._layout_column($row);
-            $('[data-target="' + uid + '"]').remove();
         },
         _calc: function (colSpan) {
             var itemsPerRow = this.options.itemsPerRow;
