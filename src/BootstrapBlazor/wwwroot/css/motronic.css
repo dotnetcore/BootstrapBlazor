@@ -637,7 +637,7 @@
         background-color: #fff;
     }
 
-.input-group .form-control:hover {
+.input-group .form-control:not(.invalid):not(.valid):hover {
     border-color: #b5b5c3;
 }
 

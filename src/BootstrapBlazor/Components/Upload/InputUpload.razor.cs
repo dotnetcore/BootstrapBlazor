@@ -5,7 +5,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -134,6 +137,32 @@ namespace BootstrapBlazor.Components
                     CurrentValue = default;
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="validProperty"></param>
+        public override void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+        {
+            if (results.Any())
+            {
+                ErrorMessage = results.FirstOrDefault()?.ErrorMessage;
+                IsValid = string.IsNullOrEmpty(ErrorMessage);
+
+                if (IsValid.HasValue && !IsValid.Value)
+                {
+                    TooltipMethod = validProperty ? "show" : "enable";
+                }
+            }
+            else
+            {
+                ErrorMessage = null;
+                IsValid = true;
+                TooltipMethod = "dispose";
+            }
+            OnValidate(IsValid ?? true);
         }
     }
 }

@@ -291,7 +291,7 @@ namespace BootstrapBlazor.Components
                     // 查找 resx 资源文件中的 ErrorMessage
                     var ruleNameSpan = rule.GetType().Name.AsSpan();
                     var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
-                    var ruleName = rule.GetType().Name.AsSpan().Slice(0, index);
+                    var ruleName = ruleNameSpan[..index];
                     var find = false;
                     if (!string.IsNullOrEmpty(rule.ErrorMessage))
                     {
@@ -399,12 +399,20 @@ namespace BootstrapBlazor.Components
             // 单独处理 Upload 组件
             if (validator is IUpload uploader)
             {
-                // 处理多个上传文件
-                uploader.UploadFiles.ForEach(file =>
+                if (uploader.UploadFiles.Count > 0)
                 {
-                    // 优先检查 File 流，如果没有检查 FileName
-                    ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
-                });
+                    // 处理多个上传文件
+                    uploader.UploadFiles.ForEach(file =>
+                    {
+                        // 优先检查 File 流，如果没有检查 FileName
+                        ValidateDataAnnotations((object?)file.File ?? file.FileName, context, messages, pi, file.ValidateId);
+                    });
+                }
+                else
+                {
+                    // 未选择文件
+                    ValidateDataAnnotations(null, context, messages, pi);
+                }
             }
             else
             {

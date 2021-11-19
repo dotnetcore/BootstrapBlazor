@@ -29,12 +29,10 @@
         bb_popover: function (id, method, title, content, placement, html, trigger) {
             var ele = document.getElementById(id);
             var instance = bootstrap.Popover.getInstance(ele);
-            if (method === 'dispose') {
-                if (instance) {
-                    instance.dispose();
-                }
+            if (instance) {
+                instance.dispose();
             }
-            else {
+            if (method !== 'dispose') {
                 var op = { html, sanitize: false, title, content, placement, trigger };
                 if (instance == null) {
                     instance = new bootstrap.Popover(ele, op);
