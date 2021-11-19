@@ -16,46 +16,46 @@ namespace BootstrapBlazor.Shared.Samples
         /// Card属性
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "CardBody",
-                Description = "获得/设置 CardBody",
+                Description = Localizer["CardBody"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "CardFooter",
-                Description = "获得/设置 CardFooter",
+                Description = Localizer["CardFooter"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "CardHeader",
-                Description = "获得/设置 CardHeader",
+                Description = Localizer["CardHeader"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Class",
-                Description = "样式",
+                Description = Localizer["Class"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem{
                 Name = "Color",
-                Description = "设置卡片边框颜色",
+                Description = Localizer["Color"],
                 Type = "Color",
                 ValueList = "None / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark",
                 DefaultValue = " — "
             },
             new AttributeItem{
                 Name = "IsCenter",
-                Description = "通过设置,IsCenter=true 使内容居中",
+                Description = Localizer["IsCenter"],
                 Type = "boolean",
                 ValueList = "true / false",
                 DefaultValue = "false"

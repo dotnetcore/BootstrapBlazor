@@ -1,10 +1,11 @@
 ﻿@page "/cards"
+@inject IStringLocalizer<Cards> Localizer
 
-<h3>Card 卡片</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>将信息聚合在卡片容器中展示</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="Card 卡片组件" Introduction="Card简单示例" Name="Normal">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <Card>
         <CardBody>
             <h5 class="card-title">Card title</h5>
@@ -14,7 +15,7 @@
     </Card>
 </DemoBlock>
 
-<DemoBlock Title="Header 和 Footer" Introduction="通过添加 CardHeader 与 CardFooter 元素即可展示相关内容" Name="Footer">
+<DemoBlock Title="@Localizer["FooterTitle"]" Introduction="@Localizer["FooterIntro"]" Name="Footer">
     <Card>
         <CardHeader>
             Featured
@@ -30,7 +31,7 @@
     </Card>
 </DemoBlock>
 
-<DemoBlock Title="内容居中" Introduction="通过设置，<code>IsCenter=true</code> 使内容居中" Name="IsCenter">
+<DemoBlock Title="@Localizer["IsCenterTitle"]" Introduction="@Localizer["IsCenterIntro"]" Name="IsCenter">
     <Card IsCenter="true">
         <CardHeader>
             Featured
@@ -46,7 +47,7 @@
     </Card>
 </DemoBlock>
 
-<DemoBlock Title="带有边框颜色的卡片" Introduction="通过设置，<code>Color</code> 使border和Body具有相应的颜色" Name="Color">
+<DemoBlock Title="@Localizer["ColorTitle"]" Introduction="@Localizer["ColorIntro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-6 col-lg-4 col-xl-2">
             <Card Color="Color.Primary" IsCenter="true">

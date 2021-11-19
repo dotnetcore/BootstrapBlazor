@@ -1885,6 +1885,24 @@
     "Login": "登入",
     "Logout": "登出"
   },
+  "BootstrapBlazor.Shared.Samples.Cards": {
+    "Title": "Card 卡片",
+    "SubTitle": "将信息聚合在卡片容器中展示",
+    "BasicUsageTitle": "Card 卡片组件",
+    "BasicUsageIntro": "Card简单示例",
+    "FooterTitle": "Header 和 Footer",
+    "FooterIntro": "通过添加 CardHeader 与 CardFooter 元素即可展示相关内容",
+    "IsCenterTitle": "内容居中",
+    "IsCenterIntro": "通过设置，<code>IsCenter=true</code> 使内容居中",
+    "ColorTitle": "带有边框颜色的卡片",
+    "ColorIntro": "通过设置，<code>Color</code> 使border和Body具有相应的颜色",
+    "CardBody": "获得/设置 CardBody",
+    "CardFooter": "获得/设置 CardFooter",
+    "CardHeader": "获得/设置 CardHeader",
+    "Class": "样式",
+    "Color": "设置卡片边框颜色",
+    "IsCenter": "通过设置,IsCenter=true 使内容居中"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

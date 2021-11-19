@@ -1883,6 +1883,24 @@
     "Login": "Login",
     "Logout": "Logout"
   },
+  "BootstrapBlazor.Shared.Samples.Cards": {
+    "Title": "Card",
+    "SubTitle": "Aggregate information to display in a card container",
+    "BasicUsageTitle": "Card card components",
+    "BasicUsageIntro": "Card is a simple example",
+    "FooterTitle": "Header 和 Footer",
+    "FooterIntro": "You can show the content by adding the CardHeader and CardFooter elements",
+    "IsCenterTitle": "The content is centered",
+    "IsCenterIntro": "By setting, <code> IsCenter-true </code> center the content",
+    "ColorTitle": "A card with a border color",
+    "ColorIntro": "By setting, <code> The </code> makes the border and Body color appropriate",
+    "CardBody": "Get/set up CardBody",
+    "CardFooter": "Get/set up CardFooter",
+    "CardHeader": "Get/set up CardHeader",
+    "Class": "Style",
+    "Color": "Set the color of the card border",
+    "IsCenter": "By setting, IsCenter-true centers the content"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
