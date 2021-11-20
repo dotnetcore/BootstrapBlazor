@@ -100,21 +100,17 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Searchable="true">
-                <SearchTemplate Context="value">
+                <SearchTemplate Context="model">
                     @{
-                        var model = value as Foo;
-                        if (model != null)
+                        var items = new List<SelectedItem>()
                         {
-                            var items = new List<SelectedItem>()
-                    {
-                    new SelectedItem { Text = "请选择 ...", Value = "" },
-                    new SelectedItem { Text = "姓名1", Value = "姓名1" },
-                    new SelectedItem { Text = "姓名2", Value = "姓名2" },
-                    };
-                            <div class="col-12 col-sm-6">
-                                <Select Items="items" @bind-Value="@model.Name" ShowLabel="true" DisplayText="姓名" />
-                            </div>
-                        }
+                            new SelectedItem { Text = "请选择 ...", Value = "" },
+                            new SelectedItem { Text = "姓名1", Value = "姓名1" },
+                            new SelectedItem { Text = "姓名2", Value = "姓名2" },
+                        };
+                        <div class="col-12 col-sm-6">
+                            <Select Items="items" @bind-Value="@model!.Name" ShowLabel="true" DisplayText="姓名" />
+                        </div>
                     }
                 </SearchTemplate>
             </TableColumn>

@@ -18,6 +18,9 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Table 组件基类
     /// </summary>
+#if NET6_0_OR_GREATER
+    [CascadingTypeParameter(nameof(TItem))]
+#endif
     public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable where TItem : class, new()
     {
         [NotNull]

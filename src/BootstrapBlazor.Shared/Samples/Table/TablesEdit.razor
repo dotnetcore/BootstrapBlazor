@@ -85,7 +85,7 @@
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
                     <div class="col-12 col-sm-6">
-                        <TablesNameDrop Model="@((Foo)value)" />
+                        <TablesNameDrop Model="value" />
                     </div>
                 </EditTemplate>
             </TableColumn>
@@ -112,7 +112,7 @@
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
                     <div class="col-12 col-sm-6">
-                        <TablesNameDrop Model="@((Foo)value)" />
+                        <TablesNameDrop Model="value" />
                     </div>
                 </EditTemplate>
             </TableColumn>
@@ -135,7 +135,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="value">
-                    <TablesNameDrop Model="@((Foo)value)" />
+                    <TablesNameDrop Model="value" />
                 </EditTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Readonly="true" />

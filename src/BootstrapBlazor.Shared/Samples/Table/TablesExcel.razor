@@ -87,17 +87,14 @@
     <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500" ShowAddButton="false" ShowDeleteButton="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="200">
-                <EditTemplate Context="value">
-                    @{
-                        var row = (Foo)value;
-                    }
+                <EditTemplate Context="row">
                     <div class="d-flex disabled">
                         <div>
-                            <img src="@Foo.GetAvatarUrl(row.Id)" class="bb-avatar" />
+                            <img src="@Foo.GetAvatarUrl(row!.Id)" class="bb-avatar" />
                         </div>
                         <div class="ps-2">
                             <div>@row.Name</div>
-                            <div class="bb-sub">@Foo.GetTitle(row.Id)</div>
+                            <div class="bb-sub">@Foo.GetTitle(row!.Id)</div>
                         </div>
                     </div>
                 </EditTemplate>
@@ -105,12 +102,9 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Education" Width="160" />
             <TableColumn @bind-Field="@context.Count" Width="160">
-                <EditTemplate Context="value">
-                    @{
-                        var row = (Foo)value;
-                    }
+                <EditTemplate Context="row">
                     <div class="disabled">
-                        <div>@row.Count %</div>
+                        <div>@row!.Count %</div>
                         <Progress Value="@row.Count" Color="@Foo.GetProgressColor(row.Count)"></Progress>
                     </div>
                 </EditTemplate>

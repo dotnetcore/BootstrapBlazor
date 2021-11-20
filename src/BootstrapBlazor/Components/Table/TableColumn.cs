@@ -12,11 +12,20 @@ using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
+#if NET5_0
     /// <summary>
     /// 表头组件
     /// </summary>
     /// <typeparam name="TType">绑定字段值类型</typeparam>
     public class TableColumn<TType> : BootstrapComponentBase, ITableColumn
+#elif NET6_0_OR_GREATER
+    /// <summary>
+    /// 表头组件
+    /// </summary>
+    /// <typeparam name="TItem">模型泛型</typeparam>
+    /// <typeparam name="TType">绑定字段值类型</typeparam>
+    public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
+#endif    
     {
         /// <summary>
         /// 获得/设置 相关过滤器
@@ -203,26 +212,96 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 显示模板
         /// </summary>
         [Parameter]
+#if NET5_0
         public RenderFragment<TableColumnContext<object, TType>>? Template { get; set; }
 
         /// <summary>
-        /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
+        /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
         /// </summary>
-        [Parameter]
-        public IEnumerable<SelectedItem>? Items { get; set; }
+        RenderFragment<object>? ITableColumn.Template
+        {
+            get => Template == null ? null : new RenderFragment<object>(context => builder =>
+            {
+                // 此处 context 为行数据
+                var fieldName = GetFieldName();
+                var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
+            });
+            set
+            {
+
+            }
+        }
+#elif NET6_0_OR_GREATER
+        public RenderFragment<TableColumnContext<TItem, TType>>? Template { get; set; }
+
+        /// <summary>
+        /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
+        /// </summary>
+        RenderFragment<object>? ITableColumn.Template
+        {
+            get => Template == null ? null : new RenderFragment<object>(context => builder =>
+            {
+                // 此处 context 为行数据
+                var fieldName = GetFieldName();
+                var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType>((TItem)context, value)));
+            });
+            set
+            {
+
+            }
+        }
+#endif
 
         /// <summary>
         /// 获得/设置 编辑模板
         /// </summary>
         [Parameter]
+#if NET5_0
         public RenderFragment<object>? EditTemplate { get; set; }
+#elif NET6_0_OR_GREATER
+        public RenderFragment<TItem>? EditTemplate { get; set; }
+
+        RenderFragment<object>? IEditorItem.EditTemplate
+        {
+            get
+            {
+                return EditTemplate == null ? null : new RenderFragment<object>(item => builder =>
+                {
+                    builder.AddContent(0, EditTemplate((TItem)item));
+                });
+            }
+            set
+            {
+            }
+        }
+#endif
 
         /// <summary>
         /// 获得/设置 搜索模板
         /// </summary>
         /// <value></value>
         [Parameter]
+#if NET5_0
         public RenderFragment<object>? SearchTemplate { get; set; }
+#elif NET6_0_OR_GREATER
+        public RenderFragment<TItem>? SearchTemplate { get; set; }
+
+        RenderFragment<object>? ITableColumn.SearchTemplate
+        {
+            get
+            {
+                return SearchTemplate == null ? null : new RenderFragment<object>(item => builder =>
+                {
+                    builder.AddContent(0, SearchTemplate((TItem)item));
+                });
+            }
+            set
+            {
+            }
+        }
+#endif
 
         /// <summary>
         /// 获得/设置 过滤模板
@@ -241,6 +320,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public BreakPoint ShownWithBreakPoint { get; set; }
+
+        /// <summary>
+        /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
+        /// </summary>
+        [Parameter]
+        public IEnumerable<SelectedItem>? Items { get; set; }
 
         /// <summary>
         /// 获得/设置 显示顺序
@@ -271,24 +356,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [CascadingParameter]
         protected ITable? Table { get; set; }
-
-        /// <summary>
-        /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
-        /// </summary>
-        RenderFragment<object>? ITableColumn.Template
-        {
-            get => Template == null ? null : new RenderFragment<object>(context => builder =>
-            {
-                // 此处 context 为行数据
-                var fieldName = GetFieldName();
-                var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
-                builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
-            });
-            set
-            {
-
-            }
-        }
 
         /// <summary>
         /// 组件初始化方法

@@ -104,7 +104,7 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180">
                 <Template Context="value">
-                    @if (((Foo)value.Row).Complete)
+                    @if (value.Row.Complete)
                     {
                         <div class="text-success">@value.Value</div>
                     }
