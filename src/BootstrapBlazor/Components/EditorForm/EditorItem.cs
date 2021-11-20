@@ -15,7 +15,11 @@ namespace BootstrapBlazor.Components
     /// EditorItem 组件
     /// </summary>
     /// <remarks>用于 EditorForm 的 FieldItems 模板内</remarks>
+#if NET5_0
     public class EditorItem<TValue> : ComponentBase, IEditorItem
+#elif NET6_0_OR_GREATER
+    public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
+#endif
     {
         /// <summary>
         /// 获得/设置 绑定字段值
@@ -92,7 +96,25 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 编辑模板
         /// </summary>
         [Parameter]
+#if NET5_0
         public RenderFragment<object>? EditTemplate { get; set; }
+#elif NET6_0_OR_GREATER
+        public RenderFragment<TModel>? EditTemplate { get; set; }
+
+        RenderFragment<object>? IEditorItem.EditTemplate
+        {
+            get
+            {
+                return EditTemplate == null ? null : new RenderFragment<object>(item => builder =>
+                {
+                    builder.AddContent(0, EditTemplate((TModel)item));
+                });
+            }
+            set
+            {
+            }
+        }
+#endif
 
         /// <summary>
         /// 获得/设置 组件类型 默认为 null
@@ -170,11 +192,5 @@ namespace BootstrapBlazor.Components
         /// 获取绑定字段信息方法
         /// </summary>
         public string GetFieldName() => _fieldIdentifier?.FieldName ?? string.Empty;
-
-        /// <summary>
-        /// 获得指定泛型的 IEditorItem 集合
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<IEditorItem> GenerateEditorItems() => InternalTableColumn.GetProperties<TValue>();
     }
 }

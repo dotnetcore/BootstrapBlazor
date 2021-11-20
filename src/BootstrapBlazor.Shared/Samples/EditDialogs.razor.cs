@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private async Task ShowDialog()
         {
-            var items = EditorItem<Foo>.GenerateEditorItems();
+            var items = Utility.GenerateEditorItems<Foo>();
             var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
             item.Items = Foo.GenerateHobbys(Localizer);
 
@@ -66,7 +66,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private async Task ShowAlignDialog()
         {
-            var items = EditorItem<Foo>.GenerateEditorItems();
+            var items = Utility.GenerateEditorItems<Foo>();
             var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
             item.Items = Foo.GenerateHobbys(Localizer);
 
@@ -95,7 +95,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         private async Task ShowEditDialog()
         {
-            var items = EditorItem<Foo>.GenerateEditorItems();
+            var items = Utility.GenerateEditorItems<Foo>();
             var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
             item.Items = Foo.GenerateHobbys(Localizer);
 

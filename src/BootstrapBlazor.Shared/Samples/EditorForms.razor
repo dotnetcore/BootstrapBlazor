@@ -23,7 +23,7 @@
                 <EditorItem @bind-Field="@context.Hobby">
                     <EditTemplate Context="value">
                         <div class="col-12">
-                            <CheckboxList @bind-Value="@context.Hobby" Items="@Hobbys" />
+                            <CheckboxList @bind-Value="@value.Hobby" Items="@Hobbys" />
                         </div>
                     </EditTemplate>
                 </EditorItem>
@@ -40,13 +40,13 @@
     <p>@((MarkupString)Localizer["P4"].Value)</p>
     <GroupBox Title="@Localizer["GroupBox2"]" style="margin-top: 1.5rem;">
         <ValidateForm Model="@ValidateModel">
-            <EditorForm TModel="Foo">
+            <EditorForm Model="@ValidateModel">
                 <FieldItems>
                     <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
                     <EditorItem @bind-Field="@context.Hobby">
                         <EditTemplate Context="value">
                             <div class="col-12">
-                                <CheckboxList @bind-Value="@context.Hobby" Items="@Hobbys" />
+                                <CheckboxList @bind-Value="@value.Hobby" Items="@Hobbys" />
                             </div>
                         </EditTemplate>
                     </EditorItem>
@@ -74,18 +74,18 @@
 <DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="SkipValidate">
     <GroupBox Title="@Localizer["GroupBox4"]">
         <p>@((MarkupString)Localizer["P6"].Value)</p>
-        <ValidateForm Model="@Model">
-            <EditorForm TModel="Foo" AutoGenerateAllItem="false">
+        <ValidateForm Model="Model">
+            <EditorForm Model="Model" AutoGenerateAllItem="false">
                 <FieldItems>
                     <EditorItem @bind-Field="@context.Name" />
                     <EditorItem @bind-Field="@context.Address" />
                     <EditorItem @bind-Field="@context.Count">
                         <EditTemplate Context="value">
                             <div class="col-12 col-sm-6">
-                                <Select SkipValidate="true" @bind-Value="@context.Count" Items="@DummyItems" ShowSearch="true" />
+                                <Select SkipValidate="true" @bind-Value="@value.Count" Items="@DummyItems" ShowSearch="true" />
                             </div>
                             <div class="col-12 col-sm-6">
-                                <BootstrapInput Value="@context.Count" readonly="true" />
+                                <BootstrapInput Value="@value.Count" readonly="true" />
                             </div>
                         </EditTemplate>
                     </EditorItem>

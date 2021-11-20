@@ -583,5 +583,11 @@ namespace BootstrapBlazor.Components
         }
 
         private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
+
+        /// <summary>
+        /// 获得指定泛型的 IEditorItem 集合
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>() => InternalTableColumn.GetProperties<TModel>();
     }
 }
