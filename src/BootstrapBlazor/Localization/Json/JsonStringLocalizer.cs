@@ -38,7 +38,14 @@ namespace BootstrapBlazor.Localization.Json
         /// <param name="logger"></param>
         /// <param name="options"></param>
         /// <param name="provider"></param>
-        public JsonStringLocalizer(JsonStringLocalizerFactory factory, Assembly assembly, string typeName, string baseName, ILogger logger, JsonLocalizationOptions options, IServiceProvider provider) : base(new ResourceManager(baseName, assembly), assembly, baseName, factory.GetCache(), logger)
+        public JsonStringLocalizer(
+            JsonStringLocalizerFactory factory,
+            Assembly assembly,
+            string typeName,
+            string baseName,
+            ILogger logger,
+            JsonLocalizationOptions options,
+            IServiceProvider provider) : base(new ResourceManager(baseName, assembly), assembly, baseName, factory.GetCache(), logger)
         {
             _assembly = assembly;
             _typeName = typeName;
@@ -216,6 +223,8 @@ namespace BootstrapBlazor.Localization.Json
             return resources.Select(r => r.Key);
         }
 
-        private IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName) => CacheManager.GetJsonStringByCulture(cultureName, _options, _assembly, _typeName);
+        private IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName) =>
+            _provider.GetRequiredService<ICacheManager>()
+            .GetJsonStringByCulture(cultureName, _options, _assembly, _typeName);
     }
 }

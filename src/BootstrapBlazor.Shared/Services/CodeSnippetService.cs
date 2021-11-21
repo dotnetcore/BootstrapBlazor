@@ -26,14 +26,22 @@ namespace BootstrapBlazor.Shared.Services
 
         private JsonLocalizationOptions Option { get; }
 
+        private ICacheManager CacheManager { get; set; }
+
         /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="client"></param>
+        /// <param name="cacheManager"></param>
         /// <param name="options"></param>
         /// <param name="option"></param>
-        public CodeSnippetService(HttpClient client, IOptions<WebsiteOptions> options, IOptions<JsonLocalizationOptions> option)
+        public CodeSnippetService(
+            HttpClient client,
+            ICacheManager cacheManager,
+            IOptions<WebsiteOptions> options,
+            IOptions<JsonLocalizationOptions> option)
         {
+            CacheManager = cacheManager;
             Client = client;
             Client.Timeout = TimeSpan.FromSeconds(5);
             Client.BaseAddress = new Uri(options.Value.RepositoryUrl);
@@ -59,7 +67,7 @@ namespace BootstrapBlazor.Shared.Services
                 if (blockTitle != null)
                 {
                     // 生成资源文件
-                    content = CacheManagerHelper.GetCode(codeFile, blockTitle, entry =>
+                    content = CacheManager.GetCode(codeFile, blockTitle, entry =>
                     {
                         payload = Filter(payload);
 
@@ -134,7 +142,7 @@ namespace BootstrapBlazor.Shared.Services
             }
         }
 
-        private Task<string> GetContentFromFile(string codeFile) => CacheManagerHelper.GetContentFromFileAsync(codeFile, async entry =>
+        private Task<string> GetContentFromFile(string codeFile) => CacheManager.GetContentFromFileAsync(codeFile, async entry =>
         {
             var payload = "";
 
@@ -169,7 +177,7 @@ namespace BootstrapBlazor.Shared.Services
             }
             return payload;
 
-            List<KeyValuePair<string, string>> GetLocalizers() => CacheManagerHelper.GetLocalizers(codeFile, entry =>
+            List<KeyValuePair<string, string>> GetLocalizers() => CacheManager.GetLocalizers(codeFile, entry =>
             {
                 var typeName = Path.GetFileNameWithoutExtension(codeFile);
                 var sections = CacheManager.GetJsonStringConfig(typeof(CodeSnippetService).Assembly, Option);

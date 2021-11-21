@@ -6,6 +6,7 @@ using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,38 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 缓存操作类
     /// </summary>
-    public static class CacheManager
+    internal class CacheManager : ICacheManager
     {
-        private static IMemoryCache Cache => ServiceProviderFactory.Services.GetRequiredService<IMemoryCache>();
+        private IMemoryCache Cache { get; set; }
+
+        private IStringLocalizerFactory Localizer { get; set; }
+
+        private IServiceProvider Provider { get; set; }
+
+        [NotNull]
+        private static CacheManager? Instance { get; set; }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="memoryCache"></param>
+        /// <param name="localizerFactory"></param>
+        public CacheManager(
+            IServiceProvider provider,
+            IMemoryCache memoryCache,
+            IStringLocalizerFactory localizerFactory)
+        {
+            Provider = provider;
+            Cache = memoryCache;
+            Localizer = localizerFactory;
+            Instance = this;
+        }
 
         /// <summary>
         /// 获得或者创建指定 Key 缓存项
         /// </summary>
-        public static T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.GetOrCreate(key, entry =>
+        public T GetOrCreate<T>(object key, Func<ICacheEntry, T> factory) => Cache.GetOrCreate(key, entry =>
         {
 #if DEBUG
             entry.SlidingExpiration = TimeSpan.FromSeconds(5);
@@ -46,7 +71,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得或者创建指定 Key 缓存项 异步重载方法
         /// </summary>
-        public static Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.GetOrCreateAsync(key, async entry =>
+        public Task<T> GetOrCreateAsync<T>(object key, Func<ICacheEntry, Task<T>> factory) => Cache.GetOrCreateAsync(key, async entry =>
         {
 #if DEBUG
             entry.SlidingExpiration = TimeSpan.FromSeconds(5);
@@ -59,54 +84,56 @@ namespace BootstrapBlazor.Components
             return await factory(entry);
         });
 
-        private static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+        /// <summary>
+        /// 设置 App 开始时间
+        /// </summary>
+        public void SetStartTime()
         {
-            if (type?.Assembly.IsDynamic ?? false)
+            GetOrCreate("BootstrapBlazor_StartTime", entry => DateTimeOffset.Now);
+        }
+
+        /// <summary>
+        /// 获取 App 开始时间
+        /// </summary>
+        /// <returns></returns>
+        public DateTimeOffset GetStartTime()
+        {
+            var ret = DateTimeOffset.MinValue;
+            if (Cache.TryGetValue("BootstrapBlazor_StartTime", out var v) && v is DateTimeOffset d)
             {
-                entry.SetSlidingExpiration(TimeSpan.FromSeconds(10));
+                ret = d;
             }
+            return ret;
         }
 
         #region Localizer
         /// <summary>
-        /// 通过 JsonLocalizationOptions 配置项实例获取资源文件配置集合
+        /// 通过指定类型创建 IStringLocalizer 实例
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="option"></param>
+        /// <typeparam name="TType"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(Assembly assembly, JsonLocalizationOptions option)
-        {
-            var cacheKey = $"Localizer-Sections-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{nameof(GetJsonStringConfig)}";
-            return GetOrCreate(cacheKey, entry => JsonStringConfig.GetJsonStringConfig(assembly, option));
-        }
+        public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizerByType(typeof(TType));
 
-        internal static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(string cultureName, JsonLocalizationOptions option, Assembly assembly, string typeName)
-        {
-            var cacheKey = $"Localizer-{cultureName}-{assembly.GetName().Name}-{typeName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
-            {
-                // 获得程序集中的资源文件 stream
-                var sections = JsonStringConfig.GetJsonStringConfig(assembly, option);
-                var v = sections
-                    .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                    .GetChildren()
-                    .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
-
-                return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
-            });
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceSource"></param>
+        /// <returns></returns>
+        public static IStringLocalizer? CreateLocalizerByType(Type resourceSource) => resourceSource.Assembly.IsDynamic
+            ? null
+            : Instance.Localizer.Create(resourceSource);
         #endregion
 
         #region DisplayName
-        internal static string? GetEnumDisplayName(Type type, string fieldName)
+        public static string? GetEnumDisplayName(Type type, string fieldName)
         {
             var t = Nullable.GetUnderlyingType(type) ?? type;
             var cacheKey = $"EnumDisplayName-{CultureInfo.CurrentUICulture.Name}-{t.FullName}-{fieldName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
+            return Instance.GetOrCreate(cacheKey, entry =>
             {
                 var dn = "";
                 // search in Localization
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(t);
+                var localizer = CreateLocalizerByType(t);
                 var stringLocalizer = localizer?[fieldName];
                 if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
@@ -137,14 +164,14 @@ namespace BootstrapBlazor.Components
             });
         }
 
-        internal static string GetDisplayName(Type modelType, string fieldName)
+        public static string GetDisplayName(Type modelType, string fieldName)
         {
             var cacheKey = $"DisplayName-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
-            var displayName = CacheManager.GetOrCreate(cacheKey, entry =>
+            var displayName = Instance.GetOrCreate(cacheKey, entry =>
             {
                 string? dn = null;
                 // 显示名称为空时通过资源文件查找 FieldName 项
-                var localizer = modelType.Assembly.IsDynamic ? null : JsonStringLocalizerFactory.CreateLocalizer(modelType);
+                var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
                 var stringLocalizer = localizer?[fieldName];
                 if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
@@ -185,10 +212,10 @@ namespace BootstrapBlazor.Components
         private static string? GetLocalizerValueByKey(string key)
         {
             string? dn = null;
-            var resxType = ServiceProviderFactory.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+            var resxType = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
             if (resxType.Value.ResourceManagerStringLocalizerType != null)
             {
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(resxType.Value.ResourceManagerStringLocalizerType);
+                var localizer = CreateLocalizerByType(resxType.Value.ResourceManagerStringLocalizerType);
                 if (localizer != null)
                 {
                     var stringLocalizer = localizer[key];
@@ -203,14 +230,14 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Placeholder
-        internal static string? GetPlaceholder(Type modelType, string fieldName)
+        public static string? GetPlaceholder(Type modelType, string fieldName)
         {
             var cacheKey = $"Placeholder-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
+            return Instance.GetOrCreate(cacheKey, entry =>
             {
                 string? ret = null;
                 // 通过资源文件查找 FieldName 项
-                var localizer = JsonStringLocalizerFactory.CreateLocalizer(modelType);
+                var localizer = CreateLocalizerByType(modelType);
                 var stringLocalizer = localizer?[$"{fieldName}.PlaceHolder"];
                 if (stringLocalizer != null && !stringLocalizer.ResourceNotFound)
                 {
@@ -233,10 +260,10 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Lambda Property
-        internal static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
+        public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
         {
             var cacheKey = $"GetProperty-{modelType.FullName}-{fieldName}";
-            propertyInfo = CacheManager.GetOrCreate(cacheKey, entry =>
+            propertyInfo = Instance.GetOrCreate(cacheKey, entry =>
             {
                 var props = modelType.GetProperties().AsEnumerable();
 
@@ -256,11 +283,11 @@ namespace BootstrapBlazor.Components
             return propertyInfo != null;
         }
 
-        internal static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
+        public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
         {
             var type = model is object o ? o.GetType() : typeof(TModel);
             var cacheKey = ($"Lambda-Get-{type.FullName}", typeof(TModel), fieldName, typeof(TResult));
-            var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
@@ -268,11 +295,11 @@ namespace BootstrapBlazor.Components
             return invoker(model);
         }
 
-        internal static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
+        public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
         {
             var type = model is object o ? o.GetType() : typeof(TModel);
             var cacheKey = ($"Lambda-Set-{type.FullName}", typeof(TModel), fieldName, typeof(TValue));
-            var invoker = CacheManager.GetOrCreate(cacheKey, entry =>
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
@@ -282,10 +309,10 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Lambda Sort
-        internal static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
+        public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
         {
             var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).FullName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
+            return Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(typeof(T));
                 return LambdaExtensions.GetSortLambda<T>().Compile();
@@ -294,13 +321,13 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Lambda ConvertTo
-        internal static Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
+        public static Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
         {
             var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.FullName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
+            return Instance.GetOrCreate(cacheKey, entry =>
             {
                 var method = typeof(CacheManager)
-                    .GetMethod(nameof(CacheManager.ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
+                    .GetMethod(nameof(ConvertToString), BindingFlags.NonPublic | BindingFlags.Static)!
                     .MakeGenericMethod(type);
 
                 var para_exp = Expression.Parameter(typeof(object));
@@ -319,10 +346,10 @@ namespace BootstrapBlazor.Components
         #endregion
 
         #region Format
-        internal static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
+        public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
         {
             var cacheKey = $"Lambda-{nameof(GetFormatLambda)}-{type.FullName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
+            return Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return GetFormatLambda(type).Compile();
@@ -358,10 +385,10 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        internal static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
+        public static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
         {
             var cacheKey = $"Lambda-{nameof(GetFormatProviderLambda)}-{type.FullName}";
-            return CacheManager.GetOrCreate(cacheKey, entry =>
+            return Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
                 return GetFormatProviderLambda(type).Compile();
@@ -389,5 +416,49 @@ namespace BootstrapBlazor.Components
             }
         }
         #endregion
+    }
+
+    /// <summary>
+    /// ICacheManager 扩展操作类
+    /// </summary>
+    public static class ICacheManagerExtensions
+    {
+        /// <summary>
+        /// 通过 JsonLocalizationOptions 配置项实例获取资源文件配置集合
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <param name="assembly"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(this ICacheManager cache, Assembly assembly, JsonLocalizationOptions option)
+        {
+            var cacheKey = $"Localizer-Sections-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{nameof(GetJsonStringConfig)}";
+            return cache.GetOrCreate(cacheKey, entry => option.GetJsonStringConfig(assembly));
+        }
+
+        /// <summary>
+        /// 获取指定文化本地化资源集合
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <param name="cultureName"></param>
+        /// <param name="option"></param>
+        /// <param name="assembly"></param>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        public static IEnumerable<KeyValuePair<string, string>> GetJsonStringByCulture(this ICacheManager cache, string cultureName, JsonLocalizationOptions option, Assembly assembly, string typeName)
+        {
+            var cacheKey = $"Localizer-{cultureName}-{assembly.GetName().Name}-{typeName}";
+            return cache.GetOrCreate(cacheKey, entry =>
+            {
+                // 获得程序集中的资源文件 stream
+                var sections = option.GetJsonStringConfig(assembly);
+                var v = sections
+                    .FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                    .GetChildren()
+                    .SelectMany(c => new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(c.Key, c.Value) });
+
+                return v ?? Enumerable.Empty<KeyValuePair<string, string>>();
+            });
+        }
     }
 }

@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Components
                     if (options != null && options.ResourceManagerStringLocalizerType != null)
                     {
                         var localizer = localizerFactory.Create(options.ResourceManagerStringLocalizerType);
-                        if (JsonStringLocalizerFactory.TryGetLocalizerString(localizer, errorMesssage, out var resx))
+                        if (localizer.TryGetLocalizerString(errorMesssage, out var resx))
                         {
                             errorMesssage = resx;
                             isResx = true;
@@ -66,7 +66,7 @@ namespace BootstrapBlazor.Components
                     }
 
                     // 查找 json 格式资源文件
-                    if (!isResx && JsonStringLocalizerFactory.TryGetLocalizerString(localizerFactory.Create(context.ObjectType), $"{memberName}.{GetRuleKey()}", out var msg))
+                    if (!isResx && localizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{GetRuleKey()}", out var msg))
                     {
                         errorMesssage = msg;
                     }

@@ -297,9 +297,7 @@ namespace BootstrapBlazor.Components
                     {
                         var resxType = Options.Value.ResourceManagerStringLocalizerType;
                         if (resxType != null
-                            && JsonStringLocalizerFactory.TryGetLocalizerString(
-                                localizer: LocalizerFactory.Create(resxType),
-                                key: rule.ErrorMessage, out var resx))
+                            && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
                         {
                             rule.ErrorMessage = resx;
                             find = true;
@@ -307,27 +305,25 @@ namespace BootstrapBlazor.Components
                     }
 
                     // 通过设置 ErrorMessage 检索
-                    if (!context.ObjectType.Assembly.IsDynamic && !find && !string.IsNullOrEmpty(rule.ErrorMessage) && JsonStringLocalizerFactory.TryGetLocalizerString(
-                            localizer: LocalizerFactory.Create(context.ObjectType),
-                            key: rule.ErrorMessage, out var msg))
+                    if (!context.ObjectType.Assembly.IsDynamic && !find
+                        && !string.IsNullOrEmpty(rule.ErrorMessage)
+                        && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(rule.ErrorMessage, out var msg))
                     {
                         rule.ErrorMessage = msg;
                         find = true;
                     }
 
                     // 通过 Attribute 检索
-                    if (!rule.GetType().Assembly.IsDynamic && !find && JsonStringLocalizerFactory.TryGetLocalizerString(
-                        localizer: LocalizerFactory.Create(rule.GetType()),
-                        key: nameof(rule.ErrorMessage), out msg))
+                    if (!rule.GetType().Assembly.IsDynamic && !find
+                        && LocalizerFactory.Create(rule.GetType()).TryGetLocalizerString(nameof(rule.ErrorMessage), out msg))
                     {
                         rule.ErrorMessage = msg;
                         find = true;
                     }
 
                     // 通过 字段.规则名称 检索
-                    if (!context.ObjectType.Assembly.IsDynamic && !find && JsonStringLocalizerFactory.TryGetLocalizerString(
-                            localizer: LocalizerFactory.Create(context.ObjectType),
-                            key: $"{memberName}.{ruleName.ToString()}", out msg))
+                    if (!context.ObjectType.Assembly.IsDynamic && !find
+                        && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{ruleName.ToString()}", out msg))
                     {
                         rule.ErrorMessage = msg;
                         find = true;

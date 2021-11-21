@@ -8,9 +8,9 @@ using System;
 namespace BootstrapBlazor.Components
 {
     /// <summary>
-    /// 
+    /// ICacheEntry 扩展类
     /// </summary>
-    public static class ICacheEntryExtensions
+    internal static class ICacheEntryExtensions
     {
         /// <summary>
         /// 
@@ -22,6 +22,19 @@ namespace BootstrapBlazor.Components
         {
             entry.SlidingExpiration = offset ?? TimeSpan.FromMinutes(5);
             return entry;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <param name="type"></param>
+        internal static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+        {
+            if (type?.Assembly.IsDynamic ?? false)
+            {
+                entry.SetSlidingExpiration(TimeSpan.FromSeconds(10));
+            }
         }
     }
 }

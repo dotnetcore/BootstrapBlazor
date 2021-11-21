@@ -31,6 +31,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddAuthorizationCore();
             services.AddJsonLocalization(localizationAction);
+            services.AddSingleton<ICacheManager, CacheManager>();
 
             services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
             services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();

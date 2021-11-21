@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System;
@@ -45,7 +44,7 @@ namespace BootstrapBlazor.Components
                 var file = (IBrowserFile?)value;
                 if (file != null)
                 {
-                    Localizer = JsonStringLocalizerFactory.CreateLocalizer<Upload<object>>();
+                    Localizer = CacheManager.CreateLocalizer<Upload<object>>();
                     if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
                     {
                         var errorMessage = Localizer?["FileExtensions", string.Join(", ", Extensions)];

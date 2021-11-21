@@ -20,8 +20,6 @@ builder.Services.AddWasmServices();
 
 var host = builder.Build();
 
-host.Services.RegisterProvider();
-
 await SetCultureAsync(host);
 
 await builder.Build().RunAsync();

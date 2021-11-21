@@ -31,9 +31,6 @@ builder.Services.AddBootstrapBlazorServices(builder.Configuration.GetSection("Th
 
 var app = builder.Build();
 
-// 注册容器
-app.Services.RegisterProvider();
-
 // 启用本地化
 var option = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 if (option != null)

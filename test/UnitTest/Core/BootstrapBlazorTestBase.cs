@@ -38,8 +38,10 @@ namespace UnitTest.Core
             Instance = new TestContext();
             Instance.Services.AddBootstrapBlazor();
             Instance.Services.AddConfiguration();
-            Instance.Services.RegisterProvider();
             Instance.JSInterop.Mode = JSRuntimeMode.Loose;
+
+            // Init ICacheManager
+            Instance.Services.GetRequiredService<ICacheManager>();
         }
 
         public void Dispose()

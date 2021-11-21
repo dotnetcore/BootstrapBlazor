@@ -5,6 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -160,13 +161,15 @@ namespace BootstrapBlazor.Shared
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static string GetTitle(int id) => CacheManagerHelper.GetTitle(id, key => GetTitle());
+        public static string GetTitle(int id) => Cache.GetOrAdd(id, key => GetTitle());
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public static Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>> GetNameSortFunc() => Utility.GetSortFunc<Foo>();
+
+        private static ConcurrentDictionary<int, string> Cache { get; } = new();
     }
 
     /// <summary>

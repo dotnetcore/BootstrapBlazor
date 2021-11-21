@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Foo.cs" />
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Utils\CacheManagerHelper.cs" Link="CacheManagerHelper.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -17,15 +17,15 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 
     /// </summary>
-    public static class JsonStringConfig
+    public static class LocalizationOptionsExtensions
     {
         /// <summary>
         /// 通过系统 JsonLocalizationOptions 获取当前 Json 格式资源配置集合
         /// </summary>
-        /// <param name="assembly"></param>
         /// <param name="option"></param>
+        /// <param name="assembly"></param>
         /// <returns></returns>
-        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(Assembly assembly, JsonLocalizationOptions option)
+        public static IEnumerable<IConfigurationSection> GetJsonStringConfig(this JsonLocalizationOptions option, Assembly assembly)
         {
             var cultureName = CultureInfo.CurrentUICulture.Name;
             var langHandler = GetLangHandlers(cultureName);
