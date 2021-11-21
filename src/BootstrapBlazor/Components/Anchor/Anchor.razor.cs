@@ -47,7 +47,15 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender && !string.IsNullOrEmpty(Target)) await JSRuntime.InvokeVoidAsync(AnchorElement, "bb_anchor");
+            if (firstRender)
+            {
+                if (!string.IsNullOrEmpty(Target))
+                {
+                    await JSRuntime.InvokeVoidAsync(AnchorElement, "bb_anchor");
+                }
+            }
         }
+
+        private string? GetTargetString => string.IsNullOrEmpty(Target) ? null : $"#{Target}";
     }
 }
