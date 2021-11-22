@@ -14,6 +14,7 @@
     display: none;
     transition: transform .3s linear, opacity .3s linear;
     transform: translateX(100%);
+    background-color: #fff;
 }
 
     .toast.show {

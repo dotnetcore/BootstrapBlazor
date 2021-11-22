@@ -2081,6 +2081,7 @@
     "Alert": "Alert",
     "Console": "Console",
     "Dialog": "Dialog",
+    "Dispatch": "Dispatch",
     "Drawer": "Drawer",
     "EditDialog": "EditDialog",
     "FullScreen": "FullScreen",

@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Shared.Components
     /// <summary>
     /// 
     /// </summary>
-    public partial class NotificationItem
+    public partial class CommitItem
     {
         /// <summary>
         /// 

@@ -22,7 +22,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
         {
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<NotificationService>();
             services.AddSingleton<VersionService>();
             services.AddSingleton<CodeSnippetService>();
             services.AddSingleton<IConfigureOptions<WebsiteOptions>, ConfigureOptions<WebsiteOptions>>();

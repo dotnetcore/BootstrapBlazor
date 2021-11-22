@@ -10,13 +10,16 @@
     <div class="card-body">
         @ChildContent
     </div>
-    <div class="card-footer" @ref="BlockElement">
-        <div class="card-footer-code collapse">
-            <Pre @key="@RazorFileName" CodeFile="@RazorFileName" BlockTitle="@BlockTitle"></Pre>
+    @if (ShowCode)
+    {
+        <div class="card-footer" @ref="BlockElement">
+            <div class="card-footer-code collapse">
+                <Pre @key="@RazorFileName" CodeFile="@RazorFileName" BlockTitle="@BlockTitle"></Pre>
+            </div>
+            <a class="card-footer-control collapsed" data-bs-toggle="collapse">
+                <i class="fa fa-caret-up"></i>
+                <span class="card-demo-text"></span>
+            </a>
         </div>
-        <a class="card-footer-control collapsed" data-bs-toggle="collapse">
-            <i class="fa fa-caret-up"></i>
-            <span class="card-demo-text"></span>
-        </a>
-    </div>
+    }
 </div>

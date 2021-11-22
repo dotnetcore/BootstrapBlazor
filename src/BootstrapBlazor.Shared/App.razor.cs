@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Components;
-using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -30,7 +29,7 @@ namespace BootstrapBlazor.Shared
 
         [Inject]
         [NotNull]
-        private NotificationService? Notification { get; set; }
+        private IDispatchService<GiteePostBody>? DispatchService { get; set; }
 
         [Inject]
         [NotNull]
@@ -43,7 +42,7 @@ namespace BootstrapBlazor.Shared
         {
             base.OnInitialized();
 
-            Notification.Subscribe(Notify);
+            DispatchService.Subscribe(Notify);
         }
 
         /// <summary>
@@ -60,18 +59,24 @@ namespace BootstrapBlazor.Shared
             }
         }
 
-        private async Task Notify(GiteePostBody payload)
+        private async Task Notify(DispatchEntry<GiteePostBody> payload)
         {
-            var option = new ToastOption()
+            if (payload.Entry != null)
             {
-                Category = ToastCategory.Information,
-                Title = "代码提交推送通知",
-                ChildContent = BootstrapDynamicComponent.CreateComponent<NotificationItem>(new Dictionary<string, object>
+                var option = new ToastOption()
                 {
-                    [nameof(NotificationItem.Item)] = payload
-                }).Render()
-            };
-            await Toast.Show(option);
+                    Category = ToastCategory.Information,
+                    Title = "代码提交推送通知",
+#if DEBUG
+                    IsAutoHide = false,
+#endif
+                    ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object>
+                    {
+                        [nameof(CommitItem.Item)] = payload.Entry
+                    }).Render()
+                };
+                await Toast.Show(option);
+            }
         }
 
         /// <summary>
@@ -82,7 +87,7 @@ namespace BootstrapBlazor.Shared
         {
             if (disposing)
             {
-                Notification.UnSubscribe(Notify);
+                DispatchService.UnSubscribe(Notify);
             }
         }
 

@@ -34,6 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICacheManager, CacheManager>();
 
             services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
+            services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
             services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
             services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
             services.TryAddScoped<TabItemTextOptions>();

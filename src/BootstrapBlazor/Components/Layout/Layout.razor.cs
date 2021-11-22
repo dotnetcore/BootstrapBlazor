@@ -154,7 +154,7 @@ namespace BootstrapBlazor.Components
                 var context = RouteTableFactory.Create(AdditionalAssemblies, url);
                 if (context.Handler != null)
                 {
-                    IsAuthenticated = await BootstrapBlazorAuthorizeView.IsAuthorizedAsync(context.Handler, AuthenticationStateTask, AuthorizationPolicyProvider, AuthorizationService);
+                    IsAuthenticated = await context.Handler.IsAuthorizedAsync(AuthenticationStateTask, AuthorizationPolicyProvider, AuthorizationService);
                 }
             }
             else

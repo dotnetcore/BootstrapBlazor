@@ -718,6 +718,12 @@ namespace BootstrapBlazor.Shared.Shared
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Dispatch"],
+                    Url = "dispatchs"
+                },
+                new()
+                {
                     Text = Localizer["Drawer"],
                     Url = "drawers"
                 },

@@ -30,6 +30,7 @@ namespace BootstrapBlazor.Shared.Components
         /// </summary>
         [Parameter]
         public string Introduction { get; set; } = "未设置";
+
         /// <summary>
         /// 文件名 从ComponentLayout传递过来的razor文件名
         /// </summary>
@@ -41,6 +42,12 @@ namespace BootstrapBlazor.Shared.Components
         /// </summary>
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示代码块 默认 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowCode { get; set; } = true;
 
         [NotNull]
         private string? SubTitle { get; set; }

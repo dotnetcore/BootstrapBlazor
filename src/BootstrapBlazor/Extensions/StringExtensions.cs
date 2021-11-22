@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BootstrapBlazor.Components.Extensions
+namespace BootstrapBlazor.Components
 {
     /// <summary>
     /// 

@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared;
-using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
@@ -20,21 +20,22 @@ namespace BootstrapBlazor.Server.Controllers.Api
         /// <summary>
         /// Gitee Webhook
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="query"></param>
-        /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Webhook([FromQuery] string id, [FromServices] IConfiguration config, [FromServices] NotificationService notification, [FromBody] GiteePostBody payload)
+        public IActionResult Webhook([FromQuery] string? id, [FromServices] IConfiguration config, [FromServices] IDispatchService<GiteePostBody> dispatch, [FromBody] GiteePostBody payload)
         {
             bool ret = false;
-            if (id == config.GetValue<string>("WebHooks:Gitee:Id", null) && Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
+            if (!string.IsNullOrEmpty(id) && id == config.GetValue<string>("WebHooks:Gitee:Id") && Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
             {
                 var token = vals.FirstOrDefault();
-                if (config.GetValue<string>("WebHooks:Gitee:Token", "").Equals(token))
+                if (!string.IsNullOrEmpty(token) && token == config.GetValue<string>("WebHooks:Gitee:Token"))
                 {
                     // 全局推送
-                    notification.Dispatch(payload);
+                    dispatch.Dispatch(new DispatchEntry<GiteePostBody>()
+                    {
+                        Name = "Gitee",
+                        Entry = payload
+                    });
                     ret = true;
                 }
             }

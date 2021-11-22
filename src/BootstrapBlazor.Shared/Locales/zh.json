@@ -2084,6 +2084,7 @@
     "Alert": "警告框 Alert",
     "Console": "控制台 Console",
     "Dialog": "对话框 Dialog",
+    "Dispatch": "消息分发 Dispatch",
     "Drawer": "抽屉 Drawer",
     "EditDialog": "编辑弹窗 EditDialog",
     "FloatingLabel": "悬浮标签 FloatingLabel",

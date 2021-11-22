@@ -20,7 +20,7 @@ namespace BootstrapBlazor.Components
         public bool IsAutoHide { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 自动隐藏时间间隔
+        /// 获得/设置 自动隐藏时间间隔 单位毫秒 默认 4000 可通过全局配置进行统一更改
         /// </summary>
         public int Delay { get; set; } = 4000;
 
