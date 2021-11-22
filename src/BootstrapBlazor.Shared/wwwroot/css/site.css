@@ -1546,7 +1546,7 @@ section {
     box-shadow: 0 0 8px #211b50;
     overflow: hidden;
     border-radius: 50%;
-    z-index: 2000;
+    z-index: 15;
     width: 40px;
     height: 40px;
     display: flex;

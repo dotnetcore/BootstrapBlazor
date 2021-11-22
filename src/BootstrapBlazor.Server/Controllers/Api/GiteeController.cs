@@ -18,20 +18,20 @@ namespace BootstrapBlazor.Server.Controllers.Api
     public class GiteeController : ControllerBase
     {
         /// <summary>
-        /// Appveyor 私有服务器 Webhook
+        /// Gitee Webhook
         /// </summary>
         /// <param name="client"></param>
         /// <param name="query"></param>
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Webhook([FromServices] IConfiguration config, [FromServices] NotificationService notification, [FromBody] GiteePostBody payload)
+        public IActionResult Webhook([FromQuery] string id, [FromServices] IConfiguration config, [FromServices] NotificationService notification, [FromBody] GiteePostBody payload)
         {
             bool ret = false;
-            if (Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
+            if (id == config.GetValue<string>("WebHooks:Gitee:Id", null) && Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
             {
                 var token = vals.FirstOrDefault();
-                if (config.GetValue<string>("WebHooks:GiteeToken", "").Equals(token))
+                if (config.GetValue<string>("WebHooks:Gitee:Token", "").Equals(token))
                 {
                     // 全局推送
                     notification.Dispatch(payload);
@@ -42,13 +42,20 @@ namespace BootstrapBlazor.Server.Controllers.Api
         }
 
         /// <summary>
+        /// Webhook 测试接口
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Webhook()
+        {
+            return Ok(new { Message = "Ok" });
+        }
+
+        /// <summary>
         /// 跨域握手协议
         /// </summary>
         /// <returns></returns>
         [HttpOptions]
-        public string Options()
-        {
-            return string.Empty;
-        }
+        public string Options() => string.Empty;
     }
 }

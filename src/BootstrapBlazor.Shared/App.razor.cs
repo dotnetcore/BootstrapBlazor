@@ -66,7 +66,6 @@ namespace BootstrapBlazor.Shared
             {
                 Category = ToastCategory.Information,
                 Title = "代码提交推送通知",
-                IsAutoHide = false,
                 ChildContent = BootstrapDynamicComponent.CreateComponent<NotificationItem>(new Dictionary<string, object>
                 {
                     [nameof(NotificationItem.Item)] = payload

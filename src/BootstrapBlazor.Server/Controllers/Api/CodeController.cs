@@ -45,6 +45,6 @@ namespace BootstrapBlazor.Server.Controllers.Api
         /// </summary>
         /// <returns></returns>
         [HttpOptions]
-        public string Options() => "";
+        public string Options() => string.Empty;
     }
 }
