@@ -1,0 +1,49 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+
+namespace BootstrapBlazor.Shared.Components
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public partial class NotificationItem
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        [EditorRequired]
+        public GiteePostBody? Item { get; set; }
+
+        private string? Author { get; set; }
+
+        private string? Timestamp { get; set; }
+
+        private string? Message { get; set; }
+
+        private string? Url { get; set; }
+
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            var commit = Item.Commits.LastOrDefault();
+            if (commit != null)
+            {
+                Timestamp = commit.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+                Author = commit.Author.Name;
+                Message = commit.Message;
+                Url = commit.Url;
+            }
+        }
+    }
+}
