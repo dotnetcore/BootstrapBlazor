@@ -77,11 +77,6 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (Options == null)
-            {
-                throw new InvalidOperationException("the Parameter Options must be set.");
-            }
-
             Options.ToastBox = this;
         }
 

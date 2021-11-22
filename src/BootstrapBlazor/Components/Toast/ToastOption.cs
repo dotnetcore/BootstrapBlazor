@@ -28,6 +28,11 @@ namespace BootstrapBlazor.Components
         public string? Title { get; set; }
 
         /// <summary>
+        /// 获得/设置 子组件
+        /// </summary>
+        public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件主体用于指定弹窗组件 默认为空
         /// </summary>
         /// <remarks>设置此属性值可指定弹窗主体组件</remarks>

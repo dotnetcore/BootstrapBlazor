@@ -9,6 +9,15 @@
         <strong class="me-auto">@Options.Title</strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-    <div class="toast-body">@MarkupContent</div>
+    <div class="toast-body">
+        @if (Options.ChildContent != null)
+        {
+            @Options.ChildContent
+        }
+        else
+        {
+            @MarkupContent
+        }
+    </div>
     <div class="@ProgressClass"></div>
 </div>
