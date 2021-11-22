@@ -41,9 +41,9 @@ namespace BootstrapBlazor.Shared.Samples
                 ShowFooter = false,
                 BodyContext = 1
             };
-            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new KeyValuePair<string, object>[]
+            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object>
             {
-                new(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
+                [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
             }).Render();
 
             await DialogService.Show(op);
@@ -59,9 +59,9 @@ namespace BootstrapBlazor.Shared.Samples
             op.BodyContext = 2;
 
             // 弹窗组件所需参数
-            return new KeyValuePair<string, object>[]
+            return new Dictionary<string, object>
             {
-                new(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
+                [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
             };
         });
     }

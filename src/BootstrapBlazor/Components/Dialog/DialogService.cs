@@ -56,55 +56,55 @@ namespace BootstrapBlazor.Components
             option.ResetButtonText ??= SearchDialogLocalizer[nameof(option.ResetButtonText)];
             option.QueryButtonText ??= SearchDialogLocalizer[nameof(option.QueryButtonText)];
 
-            var parameters = new List<KeyValuePair<string, object>>
+            var parameters = new Dictionary<string, object>
             {
-                new(nameof(SearchDialog<TModel>.ShowLabel), option.ShowLabel),
-                new(nameof(SearchDialog<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable)),
-                new(nameof(SearchDialog<TModel>.OnResetSearchClick), new Func<Task>(async () =>
+                [nameof(SearchDialog<TModel>.ShowLabel)] = option.ShowLabel,
+                [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
+                [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
+                 {
+                     option.OnCloseAsync = null;
+                     option.Dialog.RemoveDialog();
+                     if (option.OnResetSearchClick != null)
+                     {
+                         await option.OnResetSearchClick();
+                     }
+                 }),
+                [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
                 {
                     option.OnCloseAsync = null;
                     option.Dialog.RemoveDialog();
-                    if(option.OnResetSearchClick != null)
-                    {
-                        await option.OnResetSearchClick();
-                    }
-                })),
-                new(nameof(SearchDialog<TModel>.OnSearchClick), new Func<Task>(async () =>
-                {
-                    option.OnCloseAsync = null;
-                    option.Dialog.RemoveDialog();
-                    if(option.OnSearchClick != null)
+                    if (option.OnSearchClick != null)
                     {
                         await option.OnSearchClick();
                     }
-                })),
-                new(nameof(SearchDialog<TModel>.RowType), option.RowType),
-                new(nameof(SearchDialog<TModel>.LabelAlign), option.LabelAlign)
+                }),
+                [nameof(SearchDialog<TModel>.RowType)] = option.RowType,
+                [nameof(SearchDialog<TModel>.LabelAlign)] = option.LabelAlign
             };
 
             if (option.ItemsPerRow.HasValue)
             {
-                parameters.Add(new(nameof(ItemsPerRow), option.ItemsPerRow));
+                parameters.Add(nameof(ItemsPerRow), option.ItemsPerRow);
             }
 
             if (!string.IsNullOrEmpty(option.ResetButtonText))
             {
-                parameters.Add(new(nameof(SearchDialog<TModel>.ResetButtonText), option.ResetButtonText));
+                parameters.Add(nameof(SearchDialog<TModel>.ResetButtonText), option.ResetButtonText);
             }
 
             if (!string.IsNullOrEmpty(option.QueryButtonText))
             {
-                parameters.Add(new(nameof(SearchDialog<TModel>.QueryButtonText), option.QueryButtonText));
+                parameters.Add(nameof(SearchDialog<TModel>.QueryButtonText), option.QueryButtonText);
             }
 
             if (option.Model != null)
             {
-                parameters.Add(new(nameof(SearchDialog<TModel>.Model), option.Model));
+                parameters.Add(nameof(SearchDialog<TModel>.Model), option.Model);
             }
 
             if (option.DialogBodyTemplate != null)
             {
-                parameters.Add(new(nameof(SearchDialog<TModel>.BodyTemplate), option.DialogBodyTemplate));
+                parameters.Add(nameof(SearchDialog<TModel>.BodyTemplate), option.DialogBodyTemplate);
             }
 
             option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(parameters);
@@ -122,57 +122,57 @@ namespace BootstrapBlazor.Components
             option.CloseButtonText ??= EditDialogLocalizer[nameof(option.CloseButtonText)];
             option.SaveButtonText ??= EditDialogLocalizer[nameof(option.SaveButtonText)];
 
-            var parameters = new List<KeyValuePair<string, object>>
+            var parameters = new Dictionary<string, object>
             {
-                new(nameof(EditDialog<TModel>.ShowLoading), option.ShowLoading),
-                new(nameof(EditDialog<TModel>.ShowLabel), option.ShowLabel),
-                new(nameof(EditDialog<TModel>.Items), option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable)),
-                new(nameof(EditDialog<TModel>.OnCloseAsync), new Func<Task>(async () =>
+                [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
+                [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
+                [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable),
+                [nameof(EditDialog<TModel>.OnCloseAsync)] = new Func<Task>(async () =>
                 {
                     option.Dialog.RemoveDialog();
                     await option.Dialog.CloseOrPopDialog();
-                })),
-                new(nameof(EditDialog<TModel>.OnSaveAsync), new Func<EditContext, Task>(async context =>
+                }),
+                [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
                 {
-                    if(option.OnSaveAsync != null)
+                    if (option.OnSaveAsync != null)
                     {
                         var ret = await option.OnSaveAsync(context);
-                        if(ret)
+                        if (ret)
                         {
                             option.Dialog.RemoveDialog();
                             await option.Dialog.CloseOrPopDialog();
                         }
                     }
-                })),
-                new(nameof(EditDialog<TModel>.RowType), option.RowType),
-                new(nameof(EditDialog<TModel>.LabelAlign), option.LabelAlign),
-                new(nameof(EditDialog<TModel>.IsTracking), option.IsTracking),
-                new(nameof(EditDialog<TModel>.ItemChangedType), option.ItemChangedType)
+                }),
+                [nameof(EditDialog<TModel>.RowType)] = option.RowType,
+                [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
+                [nameof(EditDialog<TModel>.IsTracking)] = option.IsTracking,
+                [nameof(EditDialog<TModel>.ItemChangedType)] = option.ItemChangedType
             };
 
             if (option.ItemsPerRow.HasValue)
             {
-                parameters.Add(new(nameof(ItemsPerRow), option.ItemsPerRow));
+                parameters.Add(nameof(ItemsPerRow), option.ItemsPerRow);
             }
 
             if (!string.IsNullOrEmpty(option.CloseButtonText))
             {
-                parameters.Add(new(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText));
+                parameters.Add(nameof(EditDialog<TModel>.CloseButtonText), option.CloseButtonText);
             }
 
             if (!string.IsNullOrEmpty(option.SaveButtonText))
             {
-                parameters.Add(new(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText));
+                parameters.Add(nameof(EditDialog<TModel>.SaveButtonText), option.SaveButtonText);
             }
 
             if (option.Model != null)
             {
-                parameters.Add(new(nameof(EditDialog<TModel>.Model), option.Model));
+                parameters.Add(nameof(EditDialog<TModel>.Model), option.Model);
             }
 
             if (option.DialogBodyTemplate != null)
             {
-                parameters.Add(new(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate));
+                parameters.Add(nameof(EditDialog<TModel>.BodyTemplate), option.DialogBodyTemplate);
             }
 
             option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters);
@@ -199,34 +199,37 @@ namespace BootstrapBlazor.Components
                 builder.CloseComponent();
             };
 
-            option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new KeyValuePair<string, object>[]
+            option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object>
             {
-                new(nameof(ResultDialogFooter.ShowCloseButton), option.ShowCloseButton),
-                new(nameof(ResultDialogFooter.ButtonCloseColor), option.ButtonCloseColor),
-                new(nameof(ResultDialogFooter.ButtonCloseIcon), option.ButtonCloseIcon),
-                new(nameof(ResultDialogFooter.ButtonCloseText), option.ButtonCloseText ?? ResultDialogLocalizer[nameof(option.ButtonCloseText)]?.Value ?? ""),
-                new(nameof(ResultDialogFooter.OnClickClose), new Func<Task>(async () => {
+                [nameof(ResultDialogFooter.ShowCloseButton)] = option.ShowCloseButton,
+                [nameof(ResultDialogFooter.ButtonCloseColor)] = option.ButtonCloseColor,
+                [nameof(ResultDialogFooter.ButtonCloseIcon)] = option.ButtonCloseIcon,
+                [nameof(ResultDialogFooter.ButtonCloseText)] = option.ButtonCloseText ?? ResultDialogLocalizer[nameof(option.ButtonCloseText)]?.Value ?? "",
+                [nameof(ResultDialogFooter.OnClickClose)] = new Func<Task>(async () =>
+                {
                     result = DialogResult.Close;
-                    if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
-                })),
+                    if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
+                }),
 
-                new(nameof(ResultDialogFooter.ShowYesButton), option.ShowYesButton),
-                new(nameof(ResultDialogFooter.ButtonYesColor), option.ButtonYesColor),
-                new(nameof(ResultDialogFooter.ButtonYesIcon), option.ButtonYesIcon),
-                new(nameof(ResultDialogFooter.ButtonYesText), option.ButtonYesText ?? ResultDialogLocalizer[nameof(option.ButtonYesText)]?.Value ?? ""),
-                new(nameof(ResultDialogFooter.OnClickYes), new Func<Task>(async () => {
+                [nameof(ResultDialogFooter.ShowYesButton)] = option.ShowYesButton,
+                [nameof(ResultDialogFooter.ButtonYesColor)] = option.ButtonYesColor,
+                [nameof(ResultDialogFooter.ButtonYesIcon)] = option.ButtonYesIcon,
+                [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText ?? ResultDialogLocalizer[nameof(option.ButtonYesText)]?.Value ?? "",
+                [nameof(ResultDialogFooter.OnClickYes)] = new Func<Task>(async () =>
+                {
                     result = DialogResult.Yes;
-                    if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
-                })),
+                    if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
+                }),
 
-                new(nameof(ResultDialogFooter.ShowNoButton), option.ShowNoButton),
-                new(nameof(ResultDialogFooter.ButtonNoColor), option.ButtonNoColor),
-                new(nameof(ResultDialogFooter.ButtonNoIcon), option.ButtonNoIcon),
-                new(nameof(ResultDialogFooter.ButtonNoText), option.ButtonNoText ?? ResultDialogLocalizer[nameof(option.ButtonNoText)]?.Value ?? ""),
-                new(nameof(ResultDialogFooter.OnClickNo), new Func<Task>(async () => {
+                [nameof(ResultDialogFooter.ShowNoButton)] = option.ShowNoButton,
+                [nameof(ResultDialogFooter.ButtonNoColor)] = option.ButtonNoColor,
+                [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon,
+                [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText ?? ResultDialogLocalizer[nameof(option.ButtonNoText)]?.Value ?? "",
+                [nameof(ResultDialogFooter.OnClickNo)] = new Func<Task>(async () =>
+                {
                     result = DialogResult.No;
-                    if(option.OnCloseAsync !=null) { await option.OnCloseAsync(); }
-                }))
+                    if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
+                })
             }).Render();
 
             var closeCallback = option.OnCloseAsync;

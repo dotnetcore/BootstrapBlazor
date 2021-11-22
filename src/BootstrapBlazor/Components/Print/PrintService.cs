@@ -36,7 +36,7 @@ namespace BootstrapBlazor.Components
         /// <typeparam name="TComponent"></typeparam>
         /// <param name="parametersFactory"></param>
         /// <returns></returns>
-        public async Task PrintAsync<TComponent>(Func<DialogOption, IEnumerable<KeyValuePair<string, object>>> parametersFactory) where TComponent : ComponentBase
+        public async Task PrintAsync<TComponent>(Func<DialogOption, IDictionary<string, object>> parametersFactory) where TComponent : ComponentBase
         {
             var option = new DialogOption();
             var parameters = parametersFactory(option);

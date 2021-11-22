@@ -119,36 +119,36 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        internal static IEnumerable<KeyValuePair<string, object>> Parse(SwalOption option)
+        internal static IDictionary<string, object> Parse(SwalOption option)
         {
-            var parameters = new List<KeyValuePair<string, object>>()
+            var parameters = new Dictionary<string, object>()
             {
-                new(nameof(SweetAlertBody.Category) , option.Category),
-                new(nameof(SweetAlertBody.ShowClose), option.ShowClose),
-                new(nameof(SweetAlertBody.IsConfirm), option.IsConfirm),
-                new(nameof(SweetAlertBody.ShowFooter), option.ShowFooter),
-                new(nameof(SweetAlertBody.OnClose), new Action(async () => await option.Close(false))),
-                new(nameof(SweetAlertBody.OnConfirm), new Action(async () => await option.Close(true)))
+                [nameof(SweetAlertBody.Category)] = option.Category,
+                [nameof(SweetAlertBody.ShowClose)] = option.ShowClose,
+                [nameof(SweetAlertBody.IsConfirm)] = option.IsConfirm,
+                [nameof(SweetAlertBody.ShowFooter)] = option.ShowFooter,
+                [nameof(SweetAlertBody.OnClose)] = new Action(async () => await option.Close(false)),
+                [nameof(SweetAlertBody.OnConfirm)] = new Action(async () => await option.Close(true))
             };
             if (!string.IsNullOrEmpty(option.Title))
             {
-                parameters.Add(new(nameof(SweetAlertBody.Title), option.Title));
+                parameters.Add(nameof(SweetAlertBody.Title), option.Title);
             }
             if (!string.IsNullOrEmpty(option.Content))
             {
-                parameters.Add(new(nameof(SweetAlertBody.Content), option.Content));
+                parameters.Add(nameof(SweetAlertBody.Content), option.Content);
             }
             if (option.BodyTemplate != null)
             {
-                parameters.Add(new(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate));
+                parameters.Add(nameof(SweetAlertBody.BodyTemplate), option.BodyTemplate);
             }
             if (option.FooterTemplate != null)
             {
-                parameters.Add(new(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate));
+                parameters.Add(nameof(SweetAlertBody.FooterTemplate), option.FooterTemplate);
             }
             if (option.ButtonTemplate != null)
             {
-                parameters.Add(new(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate));
+                parameters.Add(nameof(SweetAlertBody.ButtonTemplate), option.ButtonTemplate);
             }
             return parameters;
         }

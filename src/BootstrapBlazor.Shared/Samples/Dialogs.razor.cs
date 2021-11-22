@@ -48,9 +48,9 @@ namespace BootstrapBlazor.Shared.Samples
 
         private Task OnCustomerHeaderClick() => DialogService.Show(new DialogOption()
         {
-            HeaderTemplate = BootstrapDynamicComponent.CreateComponent<DialogHeaderFoo>(new KeyValuePair<string, object>[]
+            HeaderTemplate = BootstrapDynamicComponent.CreateComponent<DialogHeaderFoo>(new Dictionary<string, object>
             {
-                new(nameof(DialogHeaderFoo.OnValueChanged), new Func<string, Task>(val => TriggerUpdateBodyAsync(val)))
+                [nameof(DialogHeaderFoo.OnValueChanged)] = new Func<string, Task>(val => TriggerUpdateBodyAsync(val))
             }).Render(),
             BodyTemplate = builder =>
             {
@@ -68,9 +68,9 @@ namespace BootstrapBlazor.Shared.Samples
         {
             IsKeyboard = IsKeyboard,
             Title = "我是服务创建的弹出框",
-            BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>
             {
-                new(nameof(Button.ChildContent), new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮")))
+                [nameof(Button.ChildContent)] = new RenderFragment(builder => builder.AddContent(0, "我是服务创建的按钮"))
             })
             .Render()
         });
@@ -81,10 +81,10 @@ namespace BootstrapBlazor.Shared.Samples
             {
                 Title = "利用代码关闭弹出框",
             };
-            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>
             {
-                new(nameof(Button.Text), "点击关闭弹窗"),
-                new(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
+                [nameof(Button.Text)] = "点击关闭弹窗",
+                [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close())
             }).Render();
             await DialogService.Show(option);
         }
@@ -96,10 +96,10 @@ namespace BootstrapBlazor.Shared.Samples
                 Title = "Header 中无关闭按钮",
                 ShowHeaderCloseButton = false
             };
-            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new KeyValuePair<string, object>[]
+            option.BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>
             {
-                new(nameof(Button.Text), "点击关闭弹窗"),
-                new(nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close()))
+                [nameof(Button.Text)] = "点击关闭弹窗",
+                [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, async () => await option.Dialog.Close())
             }).Render();
             await DialogService.Show(option);
         }
@@ -140,9 +140,9 @@ namespace BootstrapBlazor.Shared.Samples
                 ShowFooter = false,
                 BodyContext = DataPrimaryId
             };
-            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new KeyValuePair<string, object>[]
+            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object>
             {
-                new(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
+                [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
             }).Render();
 
             await DialogService.Show(op);
@@ -174,9 +174,9 @@ namespace BootstrapBlazor.Shared.Samples
                 ShowFooter = false,
                 BodyContext = DataPrimaryId
             };
-            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new KeyValuePair<string, object>[]
+            op.BodyTemplate = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>(new Dictionary<string, object>
             {
-                new(nameof(DataDialogComponent.OnClose), new Action(async () => await op.Dialog.Close()))
+                [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.Dialog.Close())
             }).Render();
 
             await DialogService.Show(op);

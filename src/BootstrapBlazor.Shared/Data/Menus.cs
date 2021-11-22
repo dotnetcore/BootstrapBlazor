@@ -185,15 +185,15 @@ namespace BootstrapBlazor.Shared
             };
         }
 
-        private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new KeyValuePair<string, object>[]
+        private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new Dictionary<string, object>
         {
-            new(nameof(Badge.Color), Color.Danger),
-            new(nameof(Badge.IsPill), true),
-            new(nameof(Badge.ChildContent), new RenderFragment(builder =>
+            [nameof(Badge.Color)] = Color.Danger,
+            [nameof(Badge.IsPill)] = true,
+            [nameof(Badge.ChildContent)] = new RenderFragment(builder =>
             {
                 var index = 0;
                 builder.AddContent(index++, "10");
-            }))
+            })
         });
 
         public static async Task<IEnumerable<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
