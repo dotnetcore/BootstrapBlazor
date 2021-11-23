@@ -36,7 +36,11 @@ namespace UnitTest.Core
         public BootstrapBlazorTestHost()
         {
             Instance = new TestContext();
-            Instance.Services.AddBootstrapBlazor();
+            Instance.Services.AddLocalization(option => option.ResourcesPath = "Resources");
+            Instance.Services.AddBootstrapBlazor(localizationAction: options =>
+            {
+                options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorTestHost);
+            });
             Instance.Services.AddConfiguration();
             Instance.JSInterop.Mode = JSRuntimeMode.Loose;
 

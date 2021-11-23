@@ -20,9 +20,6 @@ namespace UnitTest.Core
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [CollectionDefinition("TestContext")]
     public class TestCollection : ICollectionFixture<TestHost>
     {
