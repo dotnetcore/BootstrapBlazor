@@ -21,13 +21,37 @@ namespace BootstrapBlazor.Shared.Components
         ///
         /// </summary>
         [Parameter]
-        public string Title { get; set; } = "服务器端渲染模式";
+        public string Title { get; set; } = "服务器端 Blazor 安装教程";
 
         /// <summary>
         /// 
         /// </summary>
         [Parameter]
         public string HostFile { get; set; } = "Pages/_Host.cshtml";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        public RenderFragment? ChooseTemplate { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        public RenderFragment? SheetTemplate { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        public RenderFragment? ScriptsTemplate { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        public RenderFragment? ServicesTemplate { get; set; }
 
         /// <summary>
         /// 

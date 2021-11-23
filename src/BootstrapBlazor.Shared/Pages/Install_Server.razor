@@ -1,21 +1,53 @@
 ﻿@page "/install-server"
 @inject IStringLocalizer<Install_Server> Localizer
 
-<InstallContent Title="@Localizer["Title"]">
-<Pre>public void ConfigureServices(IServiceCollection services)
+<InstallContent Title="服务器端 Blazor 安装教程">
+    <ChooseTemplate>
+        <div class="mt-3 mb-2">4. 选择 <b>Blazor Server App</b> 项目类型，然后点击 <b>Create</b></div>
+        <img src="images/choose-project-template-server-blazor.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-3" />
+    </ChooseTemplate>
+    <SheetTemplate>
+        <ul>
+            <li><code>~/Pages/_Host.cshtml</code> <b>.NET5</b></li>
+            <li><code>~/Pages/_Layout.cshtml</code> <b>.NET6</b></li>
+        </ul>
+    </SheetTemplate>
+    <ScriptsTemplate>
+        <ul>
+            <li><code>~/Pages/_Host.cshtml</code> <b>.NET5</b></li>
+            <li><code>~/Pages/_Layout.cshtml</code> <b>.NET6</b></li>
+        </ul>
+    </ScriptsTemplate>
+    <ServicesTemplate>
+        <ul>
+            <li><code>Starup.cs</code> <b>.NET5</b></li>
+            <li><code>Program.cs</code> <b>.NET6</b></li>
+        </ul>
+        <div class="mb-2"><b>Startup.cs</b></div>
+        <Pre>namespace MyBlazorAppName
 {
-    services.AddRazorPages();
-    services.AddServerSideBlazor();
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddServerSideBlazor();
 
-    // @Localizer["CodeComment"]
-    <b><i>services.AddBootstrapBlazor();</i></b>
+            // @Localizer["CodeComment"]
+            <i>services.AddBootstrapBlazor();</i>
+        }
+    }
 }</Pre>
 
-<h4>@Localizer["Configure"]</h4>
-<Pre>public void Configure(IApplicationBuilder app)
-{
-    // @Localizer["CodeComment"]
-    <b><i>app.ApplicationServices.RegisterProvider();</i></b>
-}</Pre>
+        <div class="mb-2"><b>Program.cs</b></div>
+        <Pre>var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+builder.Services.AddServerSideBlazor();
+
+// @Localizer["CodeComment"]
+<i>builder.Services.AddBootstrapBlazor();</i>
+
+var app = builder.Build();
+//more code may be present here</Pre>
+    </ServicesTemplate>
 </InstallContent>

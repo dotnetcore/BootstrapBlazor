@@ -1,24 +1,29 @@
 ﻿@page "/install-wasm"
 @inject IStringLocalizer<Install_wasm> Localizer
 
-<InstallContent Title="@Localizer["Title"]" HostFile="wwwroot/index.html">
-<Pre>public class Program
-{
-    public static async Task Main(string[] args)
-    {
-        var builder = WebAssemblyHostBuilder.CreateDefault(args);
-        builder.RootComponents.Add&lt;App&gt;("app");
-        builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+<InstallContent Title="客户端 Blazor 安装教程">
+    <ChooseTemplate>
+        <div class="mt-3 mb-2">4. 选择 <b>Blazor WebAssembly App</b> 项目类型，然后点击 <b>Create</b></div>
+        <img src="images/choose-project-template.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-3" />
+    </ChooseTemplate>
+    <SheetTemplate>
+        <div class="mb-2"><code>wwwroot/index.html</code></div>
+    </SheetTemplate>
+    <ScriptsTemplate>
+        <div class="mb-2"><code>wwwroot/index.html</code></div>
+    </ScriptsTemplate>
+    <ServicesTemplate>
+        <Pre>var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add&lt;App&gt;("app");
+builder.RootComponents.Add&lt;HeadOutlet&gt;("head::after");
 
-        // @Localizer["CodeComment"]
-        <b><i>builder.Services.AddBootstrapBlazor();</i></b>
+// @Localizer["CodeComment"]
+<i>builder.Services.AddBootstrapBlazor();</i>
 
-        var host = builder.Build();
+var host = builder.Build();
 
-        // @Localizer["CodeComment"]
-        <b><i>host.Services.RegisterProvider();</i></b>
+await SetCultureAsync(host);
 
-        await host.RunAsync();
-    }
-}</Pre>
+await builder.Build().RunAsync();</Pre>
+    </ServicesTemplate>
 </InstallContent>
