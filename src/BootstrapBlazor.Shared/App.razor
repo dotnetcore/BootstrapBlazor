@@ -1,17 +1,18 @@
 ﻿@inject IStringLocalizer<App> AppLocalizer
 
-<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <PageTitle>@AppLocalizer["Title"]</PageTitle>
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p>正在玩命开发中 ...</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+<BootstrapBlazorRoot>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <PageTitle>@AppLocalizer["Title"]</PageTitle>
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>正在玩命开发中 ...</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</BootstrapBlazorRoot>
 
-<BootstrapBlazorRoot />

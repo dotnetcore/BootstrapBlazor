@@ -261,7 +261,7 @@ namespace BootstrapBlazor.Components
             StateHasChanged();
         }
 
-        private StringBuilder _sb = new();
+        private readonly StringBuilder _sb = new();
         /// <summary>
         /// 拍照回调方法
         /// </summary>

@@ -1,0 +1,18 @@
+﻿@inherits ComponentBase
+@namespace BootstrapBlazor.Components
+
+<app>
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</app>
+
+<Dialog />
+<Download />
+<FullScreen />
+<Message @ref="MessageContainer" />
+<PopoverConfirm />
+<Print />
+<SweetAlert />
+<Title />
+<Toast @ref="ToastContainer" />

@@ -137,8 +137,6 @@
     <CardUpload TValue="string" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
 </DemoBlock>
 
-<Toast />
-
 <AttributeTable Items="@GetInputAttributes()" Title="InputUpload" />
 
 <AttributeTable Items="@GetButtonAttributes()" Title="ButtonUpload/CardUpload" />

@@ -60,22 +60,21 @@
 <Pre><b>@@using BootstrapBlazor.Components</b></Pre>
 
 <div class="mb-2">7. 增加 <code>BootstrapBlazorRoot</code> 组件到 <code>~/App.razor</code> 文件中</div>
-<Pre>&lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
-    &lt;Found Context="routeData"&gt;
-        &lt;PageTitle&gt;Title&lt;/PageTitle&gt;
-        &lt;RouteView RouteData="@@routeData" DefaultLayout="@typeof(MainLayout)" /&gt;
-        &lt;FocusOnNavigate RouteData="@@routeData" Selector="h1" /&gt;
-    &lt;/Found&gt;
-    &lt;NotFound&gt;
-        &lt;PageTitle&gt;Not found&lt;/PageTitle&gt;
-        &lt;LayoutView Layout="@@typeof(MainLayout)"&gt;
-            &lt;p&gt;正在玩命开发中 ...&lt;/p&gt;
-        &lt;/LayoutView&gt;
-    &lt;/NotFound&gt;
-&lt;/Router&gt;
-
-// @Localizer["CodeComment"]
-&lt;BootstrapBlazorRoot /&gt;</Pre>
+<Pre>&lt;BootstrapBlazorRoot&gt;
+    &lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
+        &lt;Found Context="routeData"&gt;
+            &lt;PageTitle&gt;Title&lt;/PageTitle&gt;
+            &lt;RouteView RouteData="@@routeData" DefaultLayout="@typeof(MainLayout)" /&gt;
+            &lt;FocusOnNavigate RouteData="@@routeData" Selector="h1" /&gt;
+        &lt;/Found&gt;
+        &lt;NotFound&gt;
+            &lt;PageTitle&gt;Not found&lt;/PageTitle&gt;
+            &lt;LayoutView Layout="@@typeof(MainLayout)"&gt;
+                &lt;p&gt;正在玩命开发中 ...&lt;/p&gt;
+            &lt;/LayoutView&gt;
+        &lt;/NotFound&gt;
+    &lt;/Router&gt;
+&lt;/BootstrapBlazorRoot&gt;</Pre>
 
 <h5 class="mb-3">步骤三、页面中使用组件</h5>
 <div class="mb-1">最后一步是在页面中使用 <code>BootstrapBlazor</code> 组件并在浏览器中运行它。例如：</div>

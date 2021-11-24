@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -31,6 +32,10 @@ namespace BootstrapBlazor.Shared.Samples
         [NotNull]
         private ToastOption? Options4 { get; set; }
 
+        [CascadingParameter]
+        [NotNull]
+        private BootstrapBlazorRoot? Root { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -42,6 +47,8 @@ namespace BootstrapBlazor.Shared.Samples
             Options2 = new ToastOption { Category = ToastCategory.Error, Title = "保存数据", IsAutoHide = false, Content = "保存数据成功，4 秒后自动关闭" };
             Options3 = new ToastOption { Category = ToastCategory.Information, Title = "提示信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
             Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "警告信息", IsAutoHide = false, Content = "信息提示弹窗，4 秒后自动关闭" };
+
+            Toast = Root.ToastContainer;
         }
 
         /// <summary>

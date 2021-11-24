@@ -5,14 +5,6 @@
 
 <h4>@((MarkupString)Localizer["H1"].Value)</h4>
 
-<Tips class="mt-3">
-    <p>
-        @((MarkupString)Localizer["Tips"].Value)
-    </p>
-</Tips>
-
-<Pre>&lt;FullScreen /&gt;</Pre>
-
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <Button Text="@Localizer["ButtonText1"]" OnClick="ToggleFullScreen"></Button>
 </DemoBlock>
@@ -25,5 +17,3 @@
     <FullScreenButton Title="@Localizer["Button1Text"]" FullScreenIcon="fa fa-fa" />
     <Pre class="mt-3">&lt;@Localizer["Pre"]" /&gt;</Pre>
 </DemoBlock>
-
-<FullScreen />

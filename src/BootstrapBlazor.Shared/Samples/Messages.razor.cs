@@ -17,7 +17,11 @@ namespace BootstrapBlazor.Shared.Samples
     public sealed partial class Messages
     {
         [NotNull]
-        private Message? MessageElement { get; set; }
+        private Message? Message { get; set; }
+
+        [CascadingParameter]
+        [NotNull]
+        private BootstrapBlazorRoot? Root { get; set; }
 
         /// <summary>
         /// 
@@ -26,22 +30,32 @@ namespace BootstrapBlazor.Shared.Samples
         [NotNull]
         public MessageService? MessageService { get; set; }
 
+        /// <summary>
+        /// OnInitialized 方法
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Message = Root.MessageContainer;
+        }
+
         private async Task ShowMessage()
         {
-            MessageElement.SetPlacement(Placement.Top);
+            Message.SetPlacement(Placement.Top);
             await MessageService.Show(new MessageOption()
             {
-                Host = MessageElement,
+                Host = Message,
                 Content = "这是一条提示消息"
             });
         }
 
         private async Task ShowIconMessage()
         {
-            MessageElement.SetPlacement(Placement.Top);
+            Message.SetPlacement(Placement.Top);
             await MessageService.Show(new MessageOption()
             {
-                Host = MessageElement,
+                Host = Message,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle"
             });
@@ -49,10 +63,10 @@ namespace BootstrapBlazor.Shared.Samples
 
         private async Task ShowCloseMessage()
         {
-            MessageElement.SetPlacement(Placement.Top);
+            Message.SetPlacement(Placement.Top);
             await MessageService.Show(new MessageOption()
             {
-                Host = MessageElement,
+                Host = Message,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle",
                 ShowDismiss = true,
@@ -61,10 +75,10 @@ namespace BootstrapBlazor.Shared.Samples
 
         private async Task ShowBarMessage()
         {
-            MessageElement.SetPlacement(Placement.Top);
+            Message.SetPlacement(Placement.Top);
             await MessageService.Show(new MessageOption()
             {
-                Host = MessageElement,
+                Host = Message,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle",
                 ShowBar = true,
@@ -73,10 +87,10 @@ namespace BootstrapBlazor.Shared.Samples
 
         private async Task ShowColorMessage(Color color)
         {
-            MessageElement.SetPlacement(Placement.Top);
+            Message.SetPlacement(Placement.Top);
             await MessageService.Show(new MessageOption()
             {
-                Host = MessageElement,
+                Host = Message,
                 Content = "这是带颜色的消息",
                 Icon = "fa fa-info-circle",
                 Color = color
@@ -85,10 +99,10 @@ namespace BootstrapBlazor.Shared.Samples
 
         private async Task ShowBottomMessage()
         {
-            MessageElement.SetPlacement(Placement.Bottom);
+            Message.SetPlacement(Placement.Bottom);
             await MessageService.Show(new MessageOption()
             {
-                Host = MessageElement,
+                Host = Message,
                 Content = "这是一条提示消息",
                 Icon = "fa fa-info-circle",
             });

@@ -44,7 +44,7 @@ namespace BootstrapBlazor.Components
                 : Cache.FirstOrDefault()).Callback;
             if (cb == null)
             {
-                throw new InvalidOperationException(Localizer?[$"{nameof(InvalidOperationException)}Message"]?.Value);
+                throw new InvalidOperationException();
             }
             await cb.Invoke(option);
         }

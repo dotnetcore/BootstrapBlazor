@@ -103,9 +103,6 @@
     "ButtonNoText": "No",
     "ButtonCloseText": "Close"
   },
-  "BootstrapBlazor.Components.DialogService": {
-    "InvalidOperationExceptionMessage": "Please palce <Dialog /> element on current page"
-  },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Please select ..."
   },
@@ -122,9 +119,6 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
   },
-  "BootstrapBlazor.Components.FullScreenService": {
-    "InvalidOperationExceptionMessage": "Please place <FullScreen /> element on current page"
-  },
   "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "Go top"
   },
@@ -133,9 +127,6 @@
   },
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "Sidemenu component cannot be used independently. Please use Menu component to set IsVertical = true"
-  },
-  "BootstrapBlazor.Components.MessageService": {
-    "InvalidOperationExceptionMessage": "Please place <Message /> element on current page"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Close",
@@ -166,14 +157,8 @@
     "ConfirmButtonText": "Ok",
     "Content": "Are you sure you want to perform this operation?"
   },
-  "BootstrapBlazor.Components.PopoverService": {
-    "InvalidOperationExceptionMessage": "Please place <PopoverConfirm /> element on current page"
-  },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Print"
-  },
-  "BootstrapBlazor.Components.PrintService": {
-    "InvalidOperationExceptionMessage": "Please place <Print /> element on current page"
   },
   "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "Please input ...",
@@ -188,9 +173,6 @@
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Please enter a value less than or equal to {{0}}"
-  },
-  "BootstrapBlazor.Components.SwalService": {
-    "InvalidOperationExceptionMessage": "Please place <SweetAlert /> element on current page"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Close",
@@ -253,9 +235,6 @@
     "SortAscText": "Desc",
     "SortDescText": "None",
     "EmptyText": "No Data"
-  },
-  "BootstrapBlazor.Components.ToastService": {
-    "InvalidOperationExceptionMessage": "Please place <Toast /> element on current page"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

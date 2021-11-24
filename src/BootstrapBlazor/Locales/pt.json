@@ -103,9 +103,6 @@
     "ButtonNoText": "Não",
     "ButtonCloseText": "Fechar"
   },
-  "BootstrapBlazor.Components.DialogService": {
-    "InvalidOperationExceptionMessage": "Insira um elemento <Dialog /> na página atual"
-  },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "Selecione ..."
   },
@@ -122,9 +119,6 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Entre com o mesmo valor"
   },
-  "BootstrapBlazor.Components.FullScreenService": {
-    "InvalidOperationExceptionMessage": "Insira um elemento <FullScreen /> na página atual"
-  },
   "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "Topo"
   },
@@ -133,9 +127,6 @@
   },
   "BootstrapBlazor.Components.Menu": {
     "InvalidOperationExceptionMessage": "O componente sidemenu não pode ser usado isoladamente. Use o componente Menu para IsVertical = true"
-  },
-  "BootstrapBlazor.Components.MessageService": {
-    "InvalidOperationExceptionMessage": "Insira um elemento <Message /> na página atual"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Fechar",
@@ -166,14 +157,8 @@
     "ConfirmButtonText": "Ok",
     "Content": "Confirma a operação ?"
   },
-  "BootstrapBlazor.Components.PopoverService": {
-    "InvalidOperationExceptionMessage": "Insira um elemento <PopoverConfirm /> na página atual"
-  },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Imprimir"
-  },
-  "BootstrapBlazor.Components.PrintService": {
-    "InvalidOperationExceptionMessage": "Insira um elemento <Print /> na página atual"
   },
   "BootstrapBlazor.Components.QRCode": {
     "PlaceHolder": "Digite ...",
@@ -188,9 +173,6 @@
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Entre com um valor menor ou igual a {{0}}"
-  },
-  "BootstrapBlazor.Components.SwalService": {
-    "InvalidOperationExceptionMessage": "Insira um elemento <SweetAlert /> na página atual"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Fechar",
@@ -253,9 +235,6 @@
     "SortAscText": "Desc",
     "SortDescText": "Nenhum",
     "EmptyText": "Vazio"
-  },
-  "BootstrapBlazor.Components.ToastService": {
-    "InvalidOperationExceptionMessage": "Insira um elemento <Toast /> na página atual"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Fechar",
