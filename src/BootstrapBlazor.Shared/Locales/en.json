@@ -1094,7 +1094,8 @@
     "Att11": "Whether to allow editing",
     "Att12": "Whether to read only",
     "Att13": "Edit the column's front label name",
-    "Att14": "Column editing template"
+    "Att14": "Column editing template",
+    "IsDisplay": "Shown as Display component"
   },
   "BootstrapBlazor.Shared.Samples.FloatingLabels": {
     "Title": "FloatingLabel",

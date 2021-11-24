@@ -93,6 +93,13 @@ namespace BootstrapBlazor.Shared.Samples
                 DefaultValue = " — "
             },
             new AttributeItem() {
+                Name = nameof(EditorForm<Foo>.IsDisplay),
+                Description = Localizer["IsDisplay"],
+                Type = "bool",
+                ValueList = "true/false",
+                DefaultValue = "false"
+            },
+            new AttributeItem() {
                 Name = "ShowLabel",
                 Description = Localizer["Att4"],
                 Type = "bool",

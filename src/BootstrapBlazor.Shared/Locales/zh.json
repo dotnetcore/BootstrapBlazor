@@ -1095,7 +1095,8 @@
     "Att11": "是否允许编辑",
     "Att12": "是否只读",
     "Att13": "编辑列前置标签名",
-    "Att14": "列编辑模板"
+    "Att14": "列编辑模板",
+    "IsDisplay": "是否显示为 Display 组件"
   },
   "BootstrapBlazor.Shared.Samples.FloatingLabels": {
     "Title": "FloatingLabel 输入框",
