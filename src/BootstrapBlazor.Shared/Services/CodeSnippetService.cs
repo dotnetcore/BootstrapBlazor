@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Localization.Json;
+using BootstrapBlazor.Shared.Exntensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;

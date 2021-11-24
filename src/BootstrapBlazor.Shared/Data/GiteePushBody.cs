@@ -4,6 +4,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Shared
 {
@@ -15,7 +17,28 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 获得/设置 提交分支信息
         /// </summary>
-        public string Ref { get; set; } = "";
+        public string? Ref { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? Id { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? Sign { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string GetBranchName() => Ref?.Replace("refs/heads/", "") ?? "";
     }
 
     /// <summary>
@@ -26,12 +49,19 @@ namespace BootstrapBlazor.Shared
         /// <summary>
         /// 获得/设置 提交信息集合
         /// </summary>
-        public ICollection<GiteeCommit> Commits { get; set; } = new HashSet<GiteeCommit>();
+        public ICollection<GiteeCommit>? Commits { get; set; }
 
         /// <summary>
         /// 获得/设置 提交信息数量
         /// </summary>
-        public int Total_Commits_Count { get; set; }
+        [JsonPropertyName("total_commits_count")]
+        public int? TotalCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonPropertyName("head_commit")]
+        public GiteeCommit? HeadCommit { get; set; }
     }
 
     /// <summary>

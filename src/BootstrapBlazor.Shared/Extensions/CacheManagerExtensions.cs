@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared
+namespace BootstrapBlazor.Shared.Exntensions
 {
     /// <summary>
     /// CacheManager 扩展类

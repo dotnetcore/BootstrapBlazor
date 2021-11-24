@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Components;
+using BootstrapBlazor.Shared.Exntensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -61,7 +62,7 @@ namespace BootstrapBlazor.Shared
 
         private async Task Notify(DispatchEntry<GiteePostBody> payload)
         {
-            if (payload.Entry != null)
+            if (payload.CanDispatch())
             {
                 var option = new ToastOption()
                 {
@@ -72,7 +73,7 @@ namespace BootstrapBlazor.Shared
 #endif
                     ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object>
                     {
-                        [nameof(CommitItem.Item)] = payload.Entry
+                        [nameof(CommitItem.Item)] = payload.Entry!
                     }).Render()
                 };
                 await Toast.Show(option);

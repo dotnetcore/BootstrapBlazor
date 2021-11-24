@@ -19,10 +19,6 @@ namespace BootstrapBlazor.Shared.Samples
         [NotNull]
         private Message? Message { get; set; }
 
-        [CascadingParameter]
-        [NotNull]
-        private BootstrapBlazorRoot? Root { get; set; }
-
         /// <summary>
         /// 
         /// </summary>

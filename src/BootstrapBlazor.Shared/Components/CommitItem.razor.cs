@@ -29,6 +29,10 @@ namespace BootstrapBlazor.Shared.Components
 
         private string? Url { get; set; }
 
+        private string? Branch { get; set; }
+
+        private string? TotalCount { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -36,13 +40,15 @@ namespace BootstrapBlazor.Shared.Components
         {
             base.OnInitialized();
 
-            var commit = Item.Commits.LastOrDefault();
+            var commit = Item.HeadCommit;
+            TotalCount = Item.Commits?.Count.ToString() ?? Item.TotalCount?.ToString() ?? "1";
             if (commit != null)
             {
                 Timestamp = commit.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
                 Author = commit.Author.Name;
                 Message = commit.Message;
                 Url = commit.Url;
+                Branch = Item.GetBranchName();
             }
         }
     }

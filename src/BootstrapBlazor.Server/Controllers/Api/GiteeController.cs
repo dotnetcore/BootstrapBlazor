@@ -25,21 +25,33 @@ namespace BootstrapBlazor.Server.Controllers.Api
         public IActionResult Webhook([FromQuery] string? id, [FromServices] IConfiguration config, [FromServices] IDispatchService<GiteePostBody> dispatch, [FromBody] GiteePostBody payload)
         {
             bool ret = false;
-            if (!string.IsNullOrEmpty(id) && id == config.GetValue<string>("WebHooks:Gitee:Id") && Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
+            if (Check())
             {
-                var token = vals.FirstOrDefault();
-                if (!string.IsNullOrEmpty(token) && token == config.GetValue<string>("WebHooks:Gitee:Token"))
+                // 全局推送
+                if (payload.HeadCommit != null || payload.Commits?.Count > 0)
                 {
-                    // 全局推送
                     dispatch.Dispatch(new DispatchEntry<GiteePostBody>()
                     {
                         Name = "Gitee",
                         Entry = payload
                     });
-                    ret = true;
                 }
+                ret = true;
             }
             return ret ? Ok() : Unauthorized();
+
+            bool Check()
+            {
+                var configId = config.GetValue<string>("WebHooks:Gitee:Id");
+                var configToken = config.GetValue<string>("WebHooks:Gitee:Token");
+                var token = "";
+                if (Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
+                {
+                    token = vals.FirstOrDefault() ?? string.Empty;
+                }
+                return id == configId && token == configToken
+                        && payload.Id == configId && payload.Password == configToken;
+            }
         }
 
         /// <summary>
