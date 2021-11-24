@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +18,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 回调委托缓存集合
         /// </summary>
-        protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; private set; } = new();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected IStringLocalizer? Localizer { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public BootstrapServiceBase(IStringLocalizer? localizer) => Localizer = localizer;
+        protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; } = new();
 
         /// <summary>
         /// 异步回调方法
@@ -39,9 +28,10 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected async Task Invoke(TOption option, ComponentBase? component = null)
         {
-            var cb = (component != null
+            var (Key, Callback) = component != null
                 ? Cache.FirstOrDefault(k => k.Key == component)
-                : Cache.FirstOrDefault()).Callback;
+                : Cache.FirstOrDefault();
+            var cb = Callback;
             if (cb == null)
             {
                 throw new InvalidOperationException();

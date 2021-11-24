@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
@@ -12,17 +11,16 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Toast 弹出窗服务类
     /// </summary>
-    public class ToastService : PopupServiceBase<ToastOption>, IDisposable
+    public class ToastService : BootstrapServiceBase<ToastOption>, IDisposable
     {
-        private IDisposable? _optionsReloadToken;
+        private readonly IDisposable _optionsReloadToken;
         private BootstrapBlazorOptions _option;
 
         /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="option"></param>
-        /// <param name="localizer"></param>
-        public ToastService(IOptionsMonitor<BootstrapBlazorOptions> option, IStringLocalizer<ToastService> localizer) : base(localizer)
+        public ToastService(IOptionsMonitor<BootstrapBlazorOptions> option)
         {
             _option = option.CurrentValue;
             _optionsReloadToken = option.OnChange(op => _option = op);
@@ -32,14 +30,14 @@ namespace BootstrapBlazor.Components
         /// Show 方法
         /// </summary>
         /// <param name="option"></param>
-        public override async Task Show(ToastOption option)
+        /// <param name="toast">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+        public async Task Show(ToastOption option, Toast? toast = null)
         {
             if (!option.ForceDelay && _option.ToastDelay != 0)
             {
                 option.Delay = _option.ToastDelay;
             }
-
-            await base.Show(option);
+            await Invoke(option, toast);
         }
 
         /// <summary>
@@ -110,8 +108,7 @@ namespace BootstrapBlazor.Components
         {
             if (disposing)
             {
-                _optionsReloadToken?.Dispose();
-                _optionsReloadToken = null;
+                _optionsReloadToken.Dispose();
             }
         }
 

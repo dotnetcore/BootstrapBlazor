@@ -4,7 +4,7 @@
 
 <h4>常用于主动操作后的反馈提示。与 Toast 的区别是后者更多用于系统级通知的被动提醒</h4>
 
-<DemoBlock Title="基础用法" Introduction="从顶部出现，4 秒后自动消失"  Name="Normal">
+<DemoBlock Title="基础用法" Introduction="从顶部出现，4 秒后自动消失" Name="Normal">
     <button class="btn btn-primary" @onclick="@ShowMessage">打开消息提示</button>
 </DemoBlock>
 
@@ -12,7 +12,7 @@
     <button class="btn btn-primary" @onclick="@ShowIconMessage">打开消息提示</button>
 </DemoBlock>
 
-<DemoBlock Title="带关闭按钮的消息框" Introduction="通过设置 <code>MessageOption</code> 的 <code>ShowDismiss</code> 属性，更改消息框右侧出现关闭按钮"  Name="CloseButton">
+<DemoBlock Title="带关闭按钮的消息框" Introduction="通过设置 <code>MessageOption</code> 的 <code>ShowDismiss</code> 属性，更改消息框右侧出现关闭按钮" Name="CloseButton">
     <button class="btn btn-primary" @onclick="@ShowCloseMessage">打开消息提示</button>
 </DemoBlock>
 
@@ -43,8 +43,9 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="消息框弹出位置" Introduction="通过设置 <code>Message</code> 组件的 <code>Placement</code> 属性，更改消息框弹出位置" Name="Position">
+<DemoBlock Title="消息框弹出位置" Introduction="通过设置 <code>MessageService</code> 服务的组件参数，指定已经设置底部显示位置的 <code>Message</code> 组件" Name="Position">
     <button class="btn btn-primary" @onclick="@ShowBottomMessage">打开消息提示</button>
+    <Message @ref="Message" Placement="Placement.Bottom" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

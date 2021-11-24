@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components
 {
@@ -13,14 +12,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class FullScreenService : BootstrapServiceBase<FullScreenOption>
     {
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        public FullScreenService(IStringLocalizer<FullScreenService> localizer) : base(localizer)
-        {
-
-        }
-
         /// <summary>
         /// 全屏方法，已经全屏时再次调用后退出全屏
         /// </summary>

@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,14 +14,6 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public class PrintService : BootstrapServiceBase<DialogOption>
     {
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        public PrintService(IStringLocalizer<PrintService> localizer) : base(localizer)
-        {
-
-        }
-
         /// <summary>
         /// 打印方法
         /// </summary>

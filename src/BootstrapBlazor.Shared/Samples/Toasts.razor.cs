@@ -69,7 +69,6 @@ namespace BootstrapBlazor.Shared.Samples
             Toast.SetPlacement(placement);
             await ToastService.Show(new ToastOption()
             {
-                Host = Toast,
                 Category = ToastCategory.Information,
                 Title = "消息通知",
                 Content = "<b>Toast</b> 组件更改位置啦，4 秒后自动关闭"

@@ -107,7 +107,6 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-
             if (disposing && Interop != null)
             {
                 Interop.Dispose();
