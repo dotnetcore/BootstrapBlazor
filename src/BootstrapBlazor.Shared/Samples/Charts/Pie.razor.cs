@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Shared.Samples.Charts
         private Task<ChartDataSource> OnInit()
         {
             var ds = new ChartDataSource();
-            ds.Options.Title = "Pie 折线图";
+            ds.Options.Title = "Pie 饼图";
             ds.Labels = Utility.Colors.Take(PieDataCount);
             for (var index = 0; index < PieDatasetCount; index++)
             {

@@ -51,7 +51,7 @@ namespace BootstrapBlazor.Shared.Samples.Charts
         private Task<ChartDataSource> OnInit(bool stacked)
         {
             var ds = new ChartDataSource();
-            ds.Options.Title = "Bar 折线图";
+            ds.Options.Title = "Bar 柱状图";
             ds.Options.X.Title = "天数";
             ds.Options.Y.Title = "数值";
             ds.Options.X.Stacked = stacked;

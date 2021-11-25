@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Shared.Samples.Charts
             {
                 Labels = Enumerable.Range(1, BubbleDataCount).Select(i => i.ToString())
             };
-            ds.Options.Title = "Bubble 折线图";
+            ds.Options.Title = "Bubble 气泡图";
 
             for (var index = 0; index < BubbleDatasetCount; index++)
             {

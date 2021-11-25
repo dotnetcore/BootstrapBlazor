@@ -55,7 +55,7 @@ namespace BootstrapBlazor.Shared.Samples.Charts
         private Task<ChartDataSource> OnInit()
         {
             var ds = new ChartDataSource();
-            ds.Options.Title = "Doughnut 折线图";
+            ds.Options.Title = "Doughnut 圆环图";
             ds.Labels = Utility.Colors.Take(DoughnutDataCount);
             for (var index = 0; index < DoughnutDatasetCount; index++)
             {
