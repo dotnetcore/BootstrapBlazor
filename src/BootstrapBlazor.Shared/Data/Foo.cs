@@ -8,6 +8,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 
 namespace BootstrapBlazor.Shared
@@ -81,6 +82,7 @@ namespace BootstrapBlazor.Shared
         [AutoGenerateColumn(Order = 70, Editable = false)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
+        #region Static methods
         private static readonly Random random = new();
 
         /// <summary>
@@ -170,6 +172,7 @@ namespace BootstrapBlazor.Shared
         public static Func<IEnumerable<Foo>, string, SortOrder, IEnumerable<Foo>> GetNameSortFunc() => Utility.GetSortFunc<Foo>();
 
         private static ConcurrentDictionary<int, string> Cache { get; } = new();
+        #endregion
     }
 
     /// <summary>

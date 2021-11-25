@@ -1,11 +1,16 @@
 ﻿@inherits ComponentBase
 @namespace BootstrapBlazor.Components
 
-<app>
-    <CascadingValue Value="this" IsFixed="true">
-        @ChildContent
-    </CascadingValue>
-</app>
+@if (OperatingSystem.IsBrowser())
+{
+    @RenderChildContent
+}
+else
+{
+    <app>
+        @RenderChildContent
+    </app>
+}
 
 <Dialog />
 <Download />
@@ -16,3 +21,10 @@
 <SweetAlert />
 <Title />
 <Toast @ref="ToastContainer" />
+
+@code {
+    RenderFragment RenderChildContent =>
+    @<CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>;
+}
