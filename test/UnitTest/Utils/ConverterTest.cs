@@ -12,21 +12,16 @@ using Xunit;
 
 namespace UnitTest.Utils
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class ConverterTest
     {
         [Fact]
         public async Task Task_Test()
         {
-            CancellationTokenSource cts = new(500);
+            CancellationTokenSource cts = new(50);
 
-            await Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(1000, cts.Token));
+            await Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(60, cts.Token));
         }
-        /// <summary>
-        /// 
-        /// </summary>
+
         [Fact]
         public void NullableBool_Test()
         {

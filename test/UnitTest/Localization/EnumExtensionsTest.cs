@@ -8,7 +8,7 @@ using System.Globalization;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Utils
+namespace UnitTest.Localization
 {
     public class EnumExtensionsTest : BootstrapBlazorTestBase
     {

@@ -10,15 +10,12 @@ using Xunit.Abstractions;
 
 namespace UnitTest.Performance
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class ReflectionTest
     {
-        private readonly ITestOutputHelper Logger;
-        /// <summary>
-        /// 
-        /// </summary>
+        private ITestOutputHelper Logger { get; }
+
+        private int Count { get; } = 1000;
+
         public ReflectionTest(ITestOutputHelper logger)
         {
             Logger = logger;
@@ -27,7 +24,6 @@ namespace UnitTest.Performance
         [Fact]
         public void GetProperty()
         {
-            var count = 10000000;
             var s1 = new Dummy()
             {
                 Name = "Argo"
@@ -39,7 +35,7 @@ namespace UnitTest.Performance
             if (pi != null)
             {
                 var sw = Stopwatch.StartNew();
-                for (var i = 0; i < count; i++)
+                for (var i = 0; i < Count; i++)
                 {
                     pi.GetValue(s1);
                 }
@@ -48,7 +44,7 @@ namespace UnitTest.Performance
 
                 var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(s1, "Name").Compile();
                 sw = Stopwatch.StartNew();
-                for (var i = 0; i < count; i++)
+                for (var i = 0; i < Count; i++)
                 {
                     invoker(s1);
                 }
@@ -60,7 +56,6 @@ namespace UnitTest.Performance
         [Fact]
         public void SetProperty()
         {
-            var count = 10000000;
             var s1 = new Dummy()
             {
                 Name = "Argo"
@@ -70,7 +65,7 @@ namespace UnitTest.Performance
             var pi = s1.GetType().GetProperty("Name");
             Assert.NotNull(pi);
 
-            for (var i = 0; i < count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 if (pi != null && pi.CanWrite)
                 {
@@ -85,7 +80,7 @@ namespace UnitTest.Performance
 
             sw = Stopwatch.StartNew();
             var invoker = LambdaExtensions.SetPropertyValueLambda<Dummy, object>(s1, "Name").Compile();
-            for (var i = 0; i < count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 invoker(s1, "Dummy");
             }
@@ -96,7 +91,6 @@ namespace UnitTest.Performance
         [Fact]
         public void InvokeMethod()
         {
-            var count = 10000000;
             var s1 = new Dummy()
             {
                 Name = "Argo"
@@ -105,7 +99,7 @@ namespace UnitTest.Performance
             Assert.NotNull(mi);
 
             var sw = Stopwatch.StartNew();
-            for (var i = 0; i < count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 if (mi != null)
                 {
@@ -117,7 +111,7 @@ namespace UnitTest.Performance
 
             var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(s1, "Name").Compile();
             sw = Stopwatch.StartNew();
-            for (var i = 0; i < count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 invoker.Invoke(s1);
             }
@@ -130,10 +124,9 @@ namespace UnitTest.Performance
         public void Delegate_Test()
         {
             var test = new Dummy { Name = "Test" };
-            var count = 10000000;
             var invoker = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(test, "Name").Compile();
             var stopWatch = Stopwatch.StartNew();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 invoker(test);
             }
@@ -146,7 +139,7 @@ namespace UnitTest.Performance
             {
                 var proxy = (DummyCallback<Dummy>)Delegate.CreateDelegate(typeof(DummyCallback<Dummy>), method);
                 stopWatch.Restart();
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < Count; i++)
                 {
                     proxy(test);
                 }

@@ -68,6 +68,8 @@ namespace BootstrapBlazor.Shared
                 {
                     Category = ToastCategory.Information,
                     Title = "代码提交推送通知",
+                    Delay = 30 * 1000,
+                    ForceDelay = true,
 #if DEBUG
                     IsAutoHide = false,
 #endif

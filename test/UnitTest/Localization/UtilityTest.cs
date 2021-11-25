@@ -14,28 +14,15 @@ using System.Linq;
 using UnitTest.Core;
 using Xunit;
 
-namespace UnitTest.Utils
+namespace UnitTest.Localization
 {
     public class UtilityTest : BootstrapBlazorTestBase
     {
         private IStringLocalizer<Foo> Localizer { get; }
 
-        public UtilityTest() : base()
+        public UtilityTest()
         {
             Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        }
-
-        [Fact]
-        public void GetDisplay_Ok()
-        {
-            var val = Utility.GetDisplayName(typeof(Dummy), nameof(Dummy.Name));
-            Assert.Equal("姓名", val);
-
-            var model = new Dummy() { Name = "Name", Address = "Address" };
-            val = Utility.GetDisplayName(model, nameof(Dummy.Address));
-            Assert.Equal("Address1", val);
-            Assert.Equal("Name", model.Name);
-            Assert.Equal("Address", model.Address);
         }
 
         [Fact]
@@ -155,14 +142,5 @@ namespace UnitTest.Utils
             condition = Utility.TryGetProperty(typeof(Foo), "Test1", out _);
             Assert.False(condition);
         }
-    }
-
-    class Dummy
-    {
-        [Display(Name = "Name1")]
-        public string? Name { get; set; }
-
-        [Display(Name = "Address1")]
-        public string? Address { get; set; }
     }
 }

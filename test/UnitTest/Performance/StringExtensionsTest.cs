@@ -20,7 +20,7 @@ namespace UnitTest.Performance
 
         private ITestOutputHelper Logger { get; }
 
-        private const int Count = 100;
+        private const int Count = 2;
 
         public StringExtensionsTest(ReadRazorFile reader, ITestOutputHelper logger)
         {
@@ -32,12 +32,6 @@ namespace UnitTest.Performance
         [Fact]
         public void Replace_Ok()
         {
-
-        }
-
-        [Fact]
-        public void ReplaceString()
-        {
             var sw = Stopwatch.StartNew();
             for (var index = 0; index < Count; index++)
             {
@@ -45,15 +39,6 @@ namespace UnitTest.Performance
             }
             sw.Stop();
             Logger.WriteLine($"String: {sw.Elapsed}");
-
-            var segment = Payload.AsMemory();
-            sw.Restart();
-            for (var index = 0; index < Count; index++)
-            {
-                LoopSpan(segment);
-            }
-            sw.Stop();
-            Logger.WriteLine($"Span: {sw.Elapsed}");
 
             void Loop(string payload)
             {
@@ -67,6 +52,19 @@ namespace UnitTest.Performance
                 payload = payload.Replace("&lt;", "<");
                 payload = payload.Replace("&gt;", ">");
             }
+        }
+
+        [Fact()]
+        public void Replace_Bad()
+        {
+            var segment = Payload.AsMemory();
+            var sw = Stopwatch.StartNew();
+            for (var index = 0; index < Count; index++)
+            {
+                LoopSpan(segment);
+            }
+            sw.Stop();
+            Logger.WriteLine($"Span: {sw.Elapsed}");
 
             void LoopSpan(ReadOnlyMemory<char> payload)
             {

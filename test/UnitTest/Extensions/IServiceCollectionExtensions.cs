@@ -4,22 +4,26 @@
 
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     internal static class IServiceCollectionExtensions
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static IServiceCollection AddConfiguration(this IServiceCollection services)
+        public static IServiceCollection AddConfiguration(this IServiceCollection services, string? cultureName = null)
         {
             var builder = new ConfigurationBuilder();
             var dirSeparator = Path.DirectorySeparatorChar;
             var file = Path.Combine(AppContext.BaseDirectory, $"..{dirSeparator}..{dirSeparator}..{dirSeparator}appsettings.json");
             builder.AddJsonFile(file, true, true);
+            if (cultureName != null)
+            {
+                builder.AddInMemoryCollection(new KeyValuePair<string, string>[]
+                {
+                new("BootstrapBlazorOptions:DefaultCultureInfo", cultureName)
+                });
+            }
             var config = builder.Build();
             services.AddSingleton<IConfiguration>(config);
             return services;

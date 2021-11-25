@@ -36,16 +36,32 @@ namespace UnitTest.Core
         public BootstrapBlazorTestHost()
         {
             Instance = new TestContext();
-            Instance.Services.AddLocalization(option => option.ResourcesPath = "Resources");
-            Instance.Services.AddBootstrapBlazor(localizationAction: options =>
+
+            // Mock 脚本
+            Instance.JSInterop.Mode = JSRuntimeMode.Loose;
+
+            ConfigureServices(Instance.Services);
+
+            ConfigureConfigration(Instance.Services);
+
+            // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
+            Instance.RenderComponent<BootstrapBlazorRoot>();
+        }
+
+        protected virtual void ConfigureServices(IServiceCollection services)
+        {
+            // 支持 微软 resx 格式资源文件
+            services.AddLocalization(option => option.ResourcesPath = "Resources");
+            services.AddBootstrapBlazor(localizationAction: options =>
             {
                 options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorTestHost);
             });
-            Instance.Services.AddConfiguration();
-            Instance.JSInterop.Mode = JSRuntimeMode.Loose;
+        }
 
-            // Init ICacheManager
-            Instance.Services.GetRequiredService<ICacheManager>();
+        protected virtual void ConfigureConfigration(IServiceCollection services)
+        {
+            // 增加单元测试 appsettings.json 配置文件
+            services.AddConfiguration();
         }
 
         public void Dispose()
@@ -54,4 +70,32 @@ namespace UnitTest.Core
             GC.SuppressFinalize(this);
         }
     }
+
+    #region 英文环境
+    [Collection("BlazorEnTestContext")]
+    public class BootstrapBlazorEnTestBase
+    {
+        protected TestContext Context { get; }
+
+        public BootstrapBlazorEnTestBase()
+        {
+            Context = BootstrapBlazorEnTestHost.Instance;
+        }
+    }
+
+    [CollectionDefinition("BlazorEnTestContext")]
+    public class BootstrapBlazorEnTestCollection : ICollectionFixture<BootstrapBlazorEnTestHost>
+    {
+
+    }
+
+    public class BootstrapBlazorEnTestHost : BootstrapBlazorTestHost
+    {
+        protected override void ConfigureConfigration(IServiceCollection services)
+        {
+            // 增加单元测试 appsettings.json 配置文件
+            services.AddConfiguration("en-US");
+        }
+    }
+    #endregion
 }
