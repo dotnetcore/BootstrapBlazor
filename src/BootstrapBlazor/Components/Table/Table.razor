@@ -621,7 +621,7 @@ RenderFragment<TItem> RenderRow => item =>
                     else
                     {
                         var triggerDoubleClick = OnDoubleClickCellCallback != null;
-                        <DynamicElement TagName="div" TriggerDoubleClick="triggerDoubleClick"
+                        <DynamicElement TagName="div" TriggerDoubleClick="triggerDoubleClick" GenerateElement="false"
                                         OnDoubleClick="TriggerDoubleClickCell(col, item)" StopPropagation="true"
                                         class="@GetDoubleClickCellClassString(triggerDoubleClick)">
                             @if (value == null)

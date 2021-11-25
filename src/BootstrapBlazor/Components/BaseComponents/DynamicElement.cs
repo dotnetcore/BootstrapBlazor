@@ -66,19 +66,38 @@ namespace BootstrapBlazor.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否生成指定 Tag 元素 默认 true 生成
+        /// </summary>
+        [Parameter]
+        public bool GenerateElement { get; set; } = true;
+
+        /// <summary>
         /// BuildRenderTree 方法
         /// </summary>
         /// <param name="builder"></param>
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            builder.OpenElement(0, TagName);
-            if (AdditionalAttributes != null) builder.AddMultipleAttributes(1, AdditionalAttributes);
-            if (TriggerClick && OnClick != null) builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick()));
-            if (TriggerDoubleClick && OnDoubleClick != null) builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnDoubleClick()));
-            builder.AddEventPreventDefaultAttribute(4, "onclick", PreventDefault);
-            builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
+            if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
+            {
+                builder.OpenElement(0, TagName);
+                if (AdditionalAttributes != null) builder.AddMultipleAttributes(1, AdditionalAttributes);
+            }
+            if (IsTriggerClick()) builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick!()));
+            if (IsTriggerDoubleClick()) builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnDoubleClick!()));
+            if (IsTriggerClick() || IsTriggerDoubleClick())
+            {
+                builder.AddEventPreventDefaultAttribute(4, "onclick", PreventDefault);
+                builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
+            }
             builder.AddContent(6, ChildContent);
-            builder.CloseElement();
+            if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
+            {
+                builder.CloseElement();
+            }
+
+            bool IsTriggerClick() => (TriggerClick && OnClick != null) || (TriggerDoubleClick && OnDoubleClick != null);
+
+            bool IsTriggerDoubleClick() => (TriggerDoubleClick && OnDoubleClick != null);
         }
     }
 }
