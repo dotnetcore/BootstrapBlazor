@@ -50,12 +50,7 @@ namespace UnitTest.Core
 
         protected virtual void ConfigureServices(IServiceCollection services)
         {
-            // 支持 微软 resx 格式资源文件
-            services.AddLocalization(option => option.ResourcesPath = "Resources");
-            services.AddBootstrapBlazor(localizationAction: options =>
-            {
-                options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorTestHost);
-            });
+            services.AddBootstrapBlazor();
         }
 
         protected virtual void ConfigureConfigration(IServiceCollection services)
@@ -70,32 +65,4 @@ namespace UnitTest.Core
             GC.SuppressFinalize(this);
         }
     }
-
-    #region 英文环境
-    [Collection("BlazorEnTestContext")]
-    public class BootstrapBlazorEnTestBase
-    {
-        protected TestContext Context { get; }
-
-        public BootstrapBlazorEnTestBase()
-        {
-            Context = BootstrapBlazorEnTestHost.Instance;
-        }
-    }
-
-    [CollectionDefinition("BlazorEnTestContext")]
-    public class BootstrapBlazorEnTestCollection : ICollectionFixture<BootstrapBlazorEnTestHost>
-    {
-
-    }
-
-    public class BootstrapBlazorEnTestHost : BootstrapBlazorTestHost
-    {
-        protected override void ConfigureConfigration(IServiceCollection services)
-        {
-            // 增加单元测试 appsettings.json 配置文件
-            services.AddConfiguration("en-US");
-        }
-    }
-    #endregion
 }

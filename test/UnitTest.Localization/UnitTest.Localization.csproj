@@ -1,17 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <IsPackable>false</IsPackable>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\UnitTest\Core\BootstrapBlazorTestBase.cs" Link="Mics\BootstrapBlazorTestBase.cs" />
+    <Compile Include="..\UnitTest\Core\TestBase.cs" Link="Mics\TestBase.cs" />
+    <Compile Include="..\UnitTest\Extensions\IServiceCollectionExtensions.cs" Link="Mics\IServiceCollectionExtensions.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.3.42" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="coverlet.collector" Version="3.1.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,11 +33,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Foo.cs" />
+    <None Remove="Locales\en.json" />
+    <None Remove="Locales\zh.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Mics\Foo.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Mics\" />
   </ItemGroup>
 
 </Project>
