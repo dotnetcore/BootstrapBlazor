@@ -41,7 +41,7 @@ namespace BootstrapBlazor.Shared.Components
             base.OnInitialized();
 
             var commit = Item.HeadCommit;
-            TotalCount = Item.Commits?.Count.ToString() ?? Item.TotalCount?.ToString() ?? "1";
+            TotalCount = Item.Commits?.Count.ToString() ?? "1";
             if (commit != null)
             {
                 Timestamp = commit.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");

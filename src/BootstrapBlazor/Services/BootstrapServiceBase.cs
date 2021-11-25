@@ -31,12 +31,11 @@ namespace BootstrapBlazor.Components
             var (Key, Callback) = component != null
                 ? Cache.FirstOrDefault(k => k.Key == component)
                 : Cache.FirstOrDefault();
-            var cb = Callback;
-            if (cb == null)
+            if (Callback == null)
             {
                 throw new InvalidOperationException();
             }
-            await cb.Invoke(option);
+            await Callback.Invoke(option);
         }
 
         /// <summary>

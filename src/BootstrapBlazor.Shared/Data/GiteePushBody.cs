@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Shared
@@ -50,12 +49,6 @@ namespace BootstrapBlazor.Shared
         /// 获得/设置 提交信息集合
         /// </summary>
         public ICollection<GiteeCommit>? Commits { get; set; }
-
-        /// <summary>
-        /// 获得/设置 提交信息数量
-        /// </summary>
-        [JsonPropertyName("total_commits_count")]
-        public int? TotalCount { get; set; }
 
         /// <summary>
         /// 
