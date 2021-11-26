@@ -1978,6 +1978,33 @@
     "OnClose": "关闭扫码回调方法",
     "OnCapture": "扫码成功回调方法"
   },
+  "BootstrapBlazor.Shared.Samples.Captchas": {
+    "Title": "Captchas 滑块验证码",
+    "SubTitle": "通过拖动滑块进行人机识别",
+    "BasicUsageTitle": "基础功能",
+    "BasicUsageIntro": "进行简单的人机识别",
+    "ImageTitle": "指定图床路径与名称",
+    "ImageIntro": "通过 <code>ImagesPath</code> 设置图床路径，通过 <code>ImagesName</code> 设置图片名称，后台通过计算拼接随机图片全路径名称",
+    "ImageCallbackTitle": "指定图床委托方法",
+    "ImageCallbackIntro": "通过 <code>GetImageName</code> 设置自定义方法拼接随机图片全路径名称",
+    "ImagesPath": "图床路径",
+    "ImagesName": "滑块背景图文件名称",
+    "HeaderText": "组件 Header 显示文字",
+    "HeaderTextDefaultValue": "请完成安全验证",
+    "BarText": "拖动滑块显示文字",
+    "BarTextDefaultValue": "向右滑动填充拼图",
+    "FailedText": "背景图加载失败显示文字",
+    "FailedTextDefaultValue": "加载失败",
+    "LoadText": "背景图加载时显示文字",
+    "LoadTextDefaultValue": "正在加载 ...",
+    "TryText": "拼图失败滑块显示文字",
+    "TryTextDefaultValue": "再试一次",
+    "Offset": "拼图对齐偏移量",
+    "Width": "拼图宽度",
+    "Height": "拼图高度",
+    "OnValid": "滑块验证码进行验证结果判断后回调此方法",
+    "GetImageName": "自定义获取背景图文件名称方法"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

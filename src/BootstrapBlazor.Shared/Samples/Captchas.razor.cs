@@ -70,75 +70,75 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ImagesPath",
-                Description = "图床路径",
+                Description = Localizer["ImagesPath"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "images"
             },
             new AttributeItem() {
                 Name = "ImagesName",
-                Description = "滑块背景图文件名称",
+                Description = Localizer["ImagesName"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "Pic.jpg"
             },
             new AttributeItem() {
                 Name = "HeaderText",
-                Description = "组件 Header 显示文字",
+                Description = Localizer["HeaderText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "请完成安全验证"
+                DefaultValue = Localizer["HeaderTextDefaultValue"]
             },
             new AttributeItem() {
                 Name = "BarText",
-                Description = "拖动滑块显示文字",
+                Description = Localizer["BarText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "向右滑动填充拼图"
+                DefaultValue = Localizer["BarTextDefaultValue"]
             },
             new AttributeItem() {
                 Name = "FailedText",
-                Description = "背景图加载失败显示文字",
+                Description = Localizer["FailedText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "加载失败"
+                DefaultValue = Localizer["FailedTextDefaultValue"]
             },
             new AttributeItem() {
                 Name = "LoadText",
-                Description = "背景图加载时显示文字",
+                Description = Localizer["LoadText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "正在加载 ..."
+                DefaultValue = Localizer["LoadTextDefaultValue"]
             },
             new AttributeItem() {
                 Name = "TryText",
-                Description = "拼图失败滑块显示文字",
+                Description = Localizer["TryText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "再试一次"
+                DefaultValue = Localizer["TryTextDefaultValue"]
             },
             new AttributeItem() {
                 Name = "Offset",
-                Description = "拼图对齐偏移量",
+                Description = Localizer["Offset"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "5"
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = "拼图宽度",
+                Description = Localizer["Width"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "280"
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = "拼图高度",
+                Description = Localizer["Height"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "155"
@@ -149,12 +149,12 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new[]
+        private IEnumerable<EventItem> GetEvents() => new[]
         {
             new EventItem()
             {
                 Name = "OnValid",
-                Description="滑块验证码进行验证结果判断后回调此方法",
+                Description = Localizer["OnValid"],
                 Type ="Action<bool>"
             }
         };
@@ -163,12 +163,12 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<MethodItem> GetMethods() => new[]
+        private IEnumerable<MethodItem> GetMethods() => new[]
         {
             new MethodItem()
             {
                 Name = "GetImageName",
-                Description="自定义获取背景图文件名称方法",
+                Description = Localizer["GetImageName"],
                 Parameters =" — ",
                 ReturnValue = "string"
             }

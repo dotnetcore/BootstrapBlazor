@@ -1975,6 +1975,33 @@
     "OnClose": "Turn off the scan code callback method",
     "OnCapture": "Callback method for successful scan code"
   },
+  "BootstrapBlazor.Shared.Samples.Captchas": {
+    "Title": "Captchas",
+    "SubTitle": "Human-machine recognition by dragging the slider",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Simple human-machine identification",
+    "ImageTitle": "Specify the path and name of the graph bed",
+    "ImageIntro": "Set the map bed path <code> ImagesPath</code>, the picture name by <code> ImagesName </code>, and the background by calculating the full path name of the stitched random picture",
+    "ImageCallbackTitle": "Specify the graph bed delegate method",
+    "ImageCallbackIntro": "Set a custom method to stitch the full path name of a random picture by <code> GetImageName </code>",
+    "ImagesPath": "Figure the path of the bed",
+    "ImagesName": "The name of the slider background file",
+    "HeaderText": "Component Header displays text",
+    "HeaderTextDefaultValue": "Please complete the security verification",
+    "BarText": "Drag the slider to display the text",
+    "BarTextDefaultValue": "Swipe right to fill the puzzle",
+    "FailedText": "The background map failed to load to display text",
+    "FailedTextDefaultValue": "The load failed",
+    "LoadText": "The background map displays text when it loads",
+    "LoadTextDefaultValue": "Loading ...",
+    "TryText": "The puzzle failure slider displays text",
+    "TryTextDefaultValue": "Try again",
+    "Offset": "Puzzle alignment offset",
+    "Width": "Puzzle width",
+    "Height": "Puzzle height",
+    "OnValid": "The slider verification code calls back this method after the validation results are determined",
+    "GetImageName": "Custom method for getting the name of the background map file"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
