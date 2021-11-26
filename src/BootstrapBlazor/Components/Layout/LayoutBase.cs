@@ -144,7 +144,7 @@ namespace BootstrapBlazor.Components
         public bool ShowFooter { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否显示返回顶端按钮
+        /// 获得/设置 是否显示返回顶端按钮 默认为 false 不显示
         /// </summary>
         [Parameter]
         public bool ShowGotoTop { get; set; }

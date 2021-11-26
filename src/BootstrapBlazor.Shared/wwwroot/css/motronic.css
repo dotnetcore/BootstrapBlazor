@@ -20,28 +20,23 @@
     color: #3f4254;
 }
 
-.tabs-body {
-    background-color: #fff;
-}
-
-.tabs-body-content {
-    border-radius: var(--bs-border-radius);
-    padding: 1rem;
-}
-
-    .tabs-body-content .tabs-body-content {
-        background-color: #f5f8fa;
-    }
-
 .layout.is-page .layout-footer {
-    background-color: #e9ecef;
-}
-
-.page-layout-demo-footer-link {
-    color: #3f4254;
+    background-color: #f8f9fa;
 }
 
 .layout-gotop {
     background: #e9ecef;
+    color: #3f4254;
+}
+
+    .layout-gotop:hover {
+        background-color: #dee2e6;
+    }
+
+.tabs-body {
+    background-color: #fff;
+}
+
+.page-layout-demo-footer-link {
     color: #3f4254;
 }
