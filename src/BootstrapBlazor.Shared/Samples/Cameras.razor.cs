@@ -60,119 +60,104 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "ShowPreview",
-                Description = "是否显示 照片预览",
+                Description = Localizer["ShowPreview"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "AutoStart",
-                Description = "是否直接开启摄像头",
+                Description = Localizer["AutoStart"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DeviceLabel",
-                Description = "设备列表前置标签文字",
+                Description = Localizer["DeviceLabel"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "FrontText",
-                Description = "前置显示文字",
+                Description = Localizer["FrontText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "BackText",
-                Description = "后置显示文字",
+                Description = Localizer["FrontText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "PlayText",
-                Description = "开启按钮显示文本",
+                Description = "",
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "StopText",
-                Description = "关闭按钮显示文本",
+                Description = Localizer["FrontText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "PhotoText",
-                Description = "拍照按钮显示文本",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "DeviceLabel",
-                Description = "设备列表前置标签文字",
+                Description = Localizer["FrontText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "InitDevicesString",
-                Description = "初始化设备列表文字",
+                Description = Localizer["InitDevicesString"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "InitDevicesString",
-                Description = "初始化设备列表文字",
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = "正在识别摄像头"
+                DefaultValue = Localizer["InitDevicesStringDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "NotFoundDevicesString",
-                Description = "未找到视频相关设备文字",
+                Description = Localizer["NotFoundDevicesString"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "未找到视频相关设备"
+                DefaultValue = Localizer["NotFoundDevicesStringDefaultValue"]
             },
             new AttributeItem() {
                 Name = "OnInit",
-                Description = "初始化摄像头回调方法",
+                Description = Localizer["OnInit"],
                 Type = "Func<IEnumerable<DeviceItem>, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnStart",
-                Description = "开始扫码回调方法",
+                Description = Localizer["OnStart"],
                 Type = "Func<Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnClose",
-                Description = "关闭扫码回调方法",
+                Description = Localizer["OnClose"],
                 Type = "Func<Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnCapture",
-                Description = "扫码成功回调方法",
+                Description = Localizer["OnCapture"],
                 Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
