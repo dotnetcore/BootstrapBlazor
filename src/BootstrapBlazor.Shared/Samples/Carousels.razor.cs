@@ -41,33 +41,33 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Images",
-                Description = "Images 集合",
+                Description = Localizer["Images"],
                 Type = "IEnumerable<string>",
                 ValueList = "—",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "IsFade",
-                Description = "是否淡入淡出",
+                Description = Localizer["IsFade"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = "设置图片宽度",
+                Description = Localizer["Width"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "—"
             },
             new AttributeItem() {
                 Name = "OnClick",
-                Description = "点击图片回调委托",
+                Description = Localizer["OnClick"],
                 Type = "Func<string, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "

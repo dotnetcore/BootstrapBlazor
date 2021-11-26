@@ -2005,6 +2005,20 @@
     "OnValid": "滑块验证码进行验证结果判断后回调此方法",
     "GetImageName": "自定义获取背景图文件名称方法"
   },
+  "BootstrapBlazor.Shared.Samples.Carousels": {
+    "Title": "Carousel 走马灯",
+    "SubTitle": "在有限空间内，循环播放同一类型的图片、文字等内容",
+    "BasicUsageTitle": "基础用法",
+    "BasicUsageIntro": "适用广泛的基础用法，通过设置 <code>Items</code> 属性值对组件进行图片的绑定，值为图片路径数组",
+    "FadeTitle": "淡入淡出",
+    "FadeIntro": "通过设置 <code>IsFade</code> 属性，图片切换时采用淡入淡出效果",
+    "OnClickTitle": "点击图片回调事件",
+    "OnClickIntro": "通过设置 <code>OnClick</code> 属性后，点击 <code>Image</code> 后触发 <code>OnClick</code> 回调委托",
+    "Images": "Images 集合",
+    "IsFade": "是否淡入淡出",
+    "Width": "设置图片宽度",
+    "OnClick": "点击图片回调委托"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

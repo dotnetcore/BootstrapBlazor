@@ -2002,6 +2002,20 @@
     "OnValid": "The slider verification code calls back this method after the validation results are determined",
     "GetImageName": "Custom method for getting the name of the background map file"
   },
+  "BootstrapBlazor.Shared.Samples.Carousels": {
+    "Title": "Carousel",
+    "SubTitle": "In limited space, loop through the same type of pictures, text, and more",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "A wide range of basic usages are used to bind components to an array of picture paths by setting the <code>Items </code> property values",
+    "FadeTitle": "Fade in and out",
+    "FadeIntro": "By setting the <code> IsFade </code> property, the picture switches with a fade-in and fade-out effect",
+    "OnClickTitle": "Click on the image to call back the event",
+    "OnClickIntro": "After you set the <code> OnClick </code> property by setting, click <code> Image </code> to trigger the <code>OnClick </code> callback delegate",
+    "Images": "Images collection",
+    "IsFade": "Whether to fade in and out",
+    "Width": "Set the width of the picture",
+    "OnClick": "Click on the image to call back the delegate"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
