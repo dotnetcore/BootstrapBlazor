@@ -1926,6 +1926,28 @@
     "Color": "设置卡片边框颜色",
     "IsCenter": "通过设置,IsCenter=true 使内容居中"
   },
+  "BootstrapBlazor.Shared.Samples.Calendars": {
+    "Title": "Calendar 日历框",
+    "SubTitle": "按照日历形式展示数据的容器。当数据是日期或按照日期划分时，例如日程、课表、价格日历等，农历等。目前支持年/月切换。",
+    "BasicUsageTitle": "基础用法",
+    "BasicUsageIntro": "基础的日历显示。",
+    "BindTitle": "数据双向绑定",
+    "BindIntro": "日历框选择时间时数据自动更新文本框",
+    "ViewModelTitle": "按周展示",
+    "ViewModelIntro": "通过设置属性 <code>CalendarViewModel.Week</code>",
+    "AppTitle": "实战应用",
+    "AppIntro": "课堂表",
+    "AppText": "目前按周内组件暂时为统一使用 <code>ChildContext</code> 来进行渲染，所有单元格内的数据相关操作组件均未进行封装，稍后完善",
+    "None": "无",
+    "Chinese": "语文",
+    "Math": "数学",
+    "English": "英语",
+    "Study": "自习",
+    "Siesta": "午休",
+    "Value": "组件值",
+    "ChildContent": "子组件",
+    "ValueChanged": "值改变时回调委托"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

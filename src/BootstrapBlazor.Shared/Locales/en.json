@@ -1924,6 +1924,28 @@
     "Color": "Set the color of the card border",
     "IsCenter": "By setting, IsCenter-true centers the content"
   },
+  "BootstrapBlazor.Shared.Samples.Calendars": {
+    "Title": "Calendar",
+    "SubTitle": "Containers that display data as calendars. When the data is date or by date, such as schedule, schedule, price calendar, etc., lunar calendar, etc. Year/month switching is currently supported.",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "The underlying calendar is displayed.",
+    "BindTitle": "Data is bound in both directions",
+    "BindIntro": "The calendar box automatically updates the text box when the time is selected",
+    "ViewModelTitle": "Show by week",
+    "ViewModelIntro": "By setting the property <code> CalendarViewModel.Week </code>",
+    "AppTitle": "Practical applications",
+    "AppIntro": "Curriculum",
+    "AppText": "Currently, the <code>ChildContext </code> is temporarily rendered by the week component, and the data-related operating components in all cells are not encapsulated and will be refined later",
+    "None": "None",
+    "Chinese": "Chinese",
+    "Math": "Math",
+    "English": "English",
+    "Study": "Study",
+    "Siesta": "Siesta",
+    "Value": "The component value",
+    "ChildContent": "Subcomponents",
+    "ValueChanged": "Call back the delegate when the value changes"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"

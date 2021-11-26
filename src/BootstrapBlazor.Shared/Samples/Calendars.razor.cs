@@ -32,12 +32,12 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得事件方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+        private IEnumerable<EventItem> GetEvents() => new EventItem[]
         {
             new EventItem()
             {
                 Name = "ValueChanged",
-                Description="值改变时回调委托",
+                Description = Localizer["ValueChanged"],
                 Type ="EventCallback<DateTime>"
             }
         };
@@ -46,19 +46,19 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Value",
-                Description = "组件值",
+                Description = Localizer["Value"],
                 Type = "DateTime",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "子组件",
+                Description = Localizer["ChildContent"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
