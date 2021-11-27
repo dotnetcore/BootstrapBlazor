@@ -5,7 +5,6 @@
 using BootstrapBlazor.Components;
 using Bunit;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Threading.Tasks;
 using UnitTest.Core;
 using Xunit;
@@ -17,44 +16,20 @@ namespace UnitTest.Components
         [Fact]
         public void ShowDismiss_Ok()
         {
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
-            {
-               ComponentParameter.CreateParameter(nameof(Alert.ShowDismiss), true)
-            });
-
+            var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowDismiss, true));
             Assert.Contains("button", cut.Markup);
-        }
 
-        [Fact]
-        public void DisableShowDismiss_Ok()
-        {
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
-            {
-               ComponentParameter.CreateParameter(nameof(Alert.ShowDismiss), false)
-            });
-
+            cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowDismiss, false));
             Assert.DoesNotContain("button", cut.Markup);
         }
 
         [Fact]
         public void ShowBar_Ok()
         {
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
-            {
-               ComponentParameter.CreateParameter(nameof(Alert.ShowBar), true)
-            });
-
+            var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, true));
             Assert.Contains("is-bar", cut.Markup);
-        }
 
-        [Fact]
-        public void DisableShowBar_Ok()
-        {
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
-            {
-               ComponentParameter.CreateParameter(nameof(Alert.ShowBar), false)
-            });
-
+            cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, false));
             Assert.DoesNotContain("is-bar", cut.Markup);
         }
 
@@ -62,20 +37,17 @@ namespace UnitTest.Components
         public void OnDismissHandle_Ok()
         {
             string message = "";
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
+            var cut = Context.RenderComponent<Alert>(builder =>
             {
-               ComponentParameter.CreateParameter(nameof(Alert.ShowDismiss), true),
-               ComponentParameter.CreateParameter(nameof(Alert.OnDismiss), new Func<Task>(()=>
-               {
-                   message = "Alert Dismissed";
-                   return  Task.CompletedTask;
-                }))
+                builder.Add(a => a.ShowDismiss, true);
+                builder.Add(a => a.OnDismiss, () =>
+                {
+                    message = "Alert Dismissed";
+                    return Task.CompletedTask;
+                });
             });
-
             cut.Find("button").Click();
-
             Assert.Equal("Alert Dismissed", message);
-
             //判断是否关闭
             Assert.Contains("d-none", cut.Markup);
         }
@@ -83,11 +55,7 @@ namespace UnitTest.Components
         [Fact]
         public void ChildContent_Ok()
         {
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
-            {
-                ComponentParameter.CreateParameter(nameof(Alert.ChildContent), BuildeComponent()),
-            });
-
+            var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ChildContent, BuildeComponent()));
             Assert.Contains("I am Alert", cut.Markup);
 
             RenderFragment BuildeComponent() => builder =>
@@ -101,22 +69,14 @@ namespace UnitTest.Components
         [Fact]
         public void Color_Ok()
         {
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
-            {
-                ComponentParameter.CreateParameter(nameof(Alert.Color), Color.Primary),
-            });
-
+            var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.Color, Color.Primary));
             Assert.Contains("alert-primary", cut.Markup);
         }
 
         [Fact]
         public void Icon_Ok()
         {
-            var cut = Context.RenderComponent<Alert>(new ComponentParameter[]
-            {
-                ComponentParameter.CreateParameter(nameof(Alert.Icon), "fa fa-check-circle"),
-            });
-
+            var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.Icon, "fa fa-check-circle"));
             Assert.Contains("fa fa-check-circle", cut.Markup);
         }
     }
