@@ -2016,6 +2016,25 @@
     "Width": "Set the width of the picture",
     "OnClick": "Click on the image to call back the delegate"
   },
+  "BootstrapBlazor.Shared.Samples.Client": {
+    "Title": "Get client connection information",
+    "SubTitle": "More for system log tracking",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "The injection service displays client information",
+    "BasicUsageP1": "Introduction to usage",
+    "BasicUsageP2": "1.The <code> UseBootstrapBlazor </code> middleware in the <b> Startup.cs </b> file that client information collection is performed.",
+    "BasicUsageTips": "<code>app. UseBootstrapBlazor </code> Middleware is located assembly <code> BootstrapBlazor.Middleware </code>, please refer to this package yourself for proper use",
+    "BasicUsageP3": "2. The component uses the injection service <code> WebClientService </code> to call the <code> Retrieve RemoteInfo </code> method.",
+    "GroupBoxTitle": "Connection information",
+    "Id": "Connection ID",
+    "RequestUrl": "RequestUrl",
+    "Ip": "Ip",
+    "OS": "OS",
+    "Browser": "Browser",
+    "Engine": "Engine",
+    "Device": "Device",
+    "Language": "Language"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"

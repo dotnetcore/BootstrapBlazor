@@ -2019,6 +2019,25 @@
     "Width": "设置图片宽度",
     "OnClick": "点击图片回调委托"
   },
+  "BootstrapBlazor.Shared.Samples.Client": {
+    "Title": "获取客户端连接信息",
+    "SubTitle": "多用于系统日志跟踪",
+    "BasicUsageTitle": "普通用法",
+    "BasicUsageIntro": "注入服务显示客户端信息",
+    "BasicUsageP1": "用法介绍",
+    "BasicUsageP2": "1. <b>Startup.cs</b> 文件中使用 <code>UseBootstrapBlazor</code> 中间件进行客户端信息收集",
+    "BasicUsageTips": "<code>app.UseBootstrapBlazor</code> 中间件位于程序集 <code>BootstrapBlazor.Middleware</code>，请自行引用此包才能正常使用",
+    "BasicUsageP3": "2. 组件中使用注入服务 <code>WebClientService</code> 调用 <code>RetrieveRemoteInfo</code> 方法",
+    "GroupBoxTitle": "您的连接信息",
+    "Id": "连接 ID",
+    "RequestUrl": "请求地址",
+    "Ip": "IP 地址",
+    "OS": "操作系统",
+    "Browser": "浏览器",
+    "Engine": "浏览器引擎",
+    "Device": "设备",
+    "Language": "语言"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"
