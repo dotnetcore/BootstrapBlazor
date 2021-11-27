@@ -19,9 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.AddJsonFile(file, true, true);
             if (cultureName != null)
             {
-                builder.AddInMemoryCollection(new KeyValuePair<string, string>[]
+                builder.AddInMemoryCollection(new Dictionary<string, string>()
                 {
-                new("BootstrapBlazorOptions:DefaultCultureInfo", cultureName)
+                    ["BootstrapBlazorOptions:DefaultCultureInfo"] = cultureName
                 });
             }
             var config = builder.Build();

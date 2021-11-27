@@ -1,13 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Mics\Foo.cs" />
     <Compile Include="..\UnitTest\Core\BootstrapBlazorTestBase.cs" Link="Mics\BootstrapBlazorTestBase.cs" />
     <Compile Include="..\UnitTest\Core\TestBase.cs" Link="Mics\TestBase.cs" />
     <Compile Include="..\UnitTest\Extensions\IServiceCollectionExtensions.cs" Link="Mics\IServiceCollectionExtensions.cs" />
@@ -33,20 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Locales\en.json" />
-    <None Remove="Locales\zh.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Mics\Foo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mics\" />
   </ItemGroup>
 
 </Project>

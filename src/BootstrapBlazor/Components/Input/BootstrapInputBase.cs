@@ -102,11 +102,6 @@ namespace BootstrapBlazor.Components
         {
             base.OnInitialized();
 
-            if (string.IsNullOrEmpty(PlaceHolder) && AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph))
-            {
-                PlaceHolder = ph?.ToString();
-            }
-
             if (string.IsNullOrEmpty(PlaceHolder) && FieldIdentifier.HasValue)
             {
                 PlaceHolder = FieldIdentifier.Value.GetPlaceHolder();
@@ -114,7 +109,7 @@ namespace BootstrapBlazor.Components
 
             if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("type", out var t))
             {
-                var type = t?.ToString();
+                var type = t.ToString();
                 if (!string.IsNullOrEmpty(type))
                 {
                     Type = type;

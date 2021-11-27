@@ -340,7 +340,14 @@ namespace BootstrapBlazor.Components
 
         private static object? GenerateValue(object model, string fieldName) => Utility.GetPropertyValue<object, object?>(model, fieldName);
 
-        private static object GenerateValueExpression(object model, string fieldName, Type fieldType)
+        /// <summary>
+        /// 通过指定类型实例获取属性 Lambda 表达式
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="fieldType"></param>
+        /// <returns></returns>
+        public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
         {
             // ValueExpression
             var body = Expression.Property(Expression.Constant(model), model.GetType(), fieldName);
