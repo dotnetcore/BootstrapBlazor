@@ -14,33 +14,21 @@ namespace UnitTest.Components
         [Fact]
         public void Id_Ok()
         {
-            var cut = Context.RenderComponent<AnchorLink>(new ComponentParameter[]
-            {
-                ComponentParameter.CreateParameter(nameof(AnchorLink.Id), "anchorlink")
-            });
-
+            var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Id, "anchorlink"));
             Assert.Contains("id=\"anchorlink\"", cut.Markup);
         }
 
         [Fact]
         public void Text_Ok()
         {
-            var cut = Context.RenderComponent<AnchorLink>(new ComponentParameter[]
-            {
-                ComponentParameter.CreateParameter(nameof(AnchorLink.Text), "anchorlink")
-            });
-
+            var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.Text, "anchorlink"));
             Assert.Contains("anchorlink", cut.Markup);
         }
 
         [Fact]
         public void TooltipText_Ok()
         {
-            var cut = Context.RenderComponent<AnchorLink>(new ComponentParameter[]
-            {
-                ComponentParameter.CreateParameter(nameof(AnchorLink.TooltipText), "anchorlink")
-            });
-
+            var cut = Context.RenderComponent<AnchorLink>(builder => builder.Add(a => a.TooltipText, "anchorlink"));
             Assert.Contains("anchorlink", cut.Markup);
         }
     }

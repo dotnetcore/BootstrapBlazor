@@ -16,44 +16,33 @@ namespace UnitTest.Components
         [Fact]
         public void Target_Ok()
         {
-            var cut = Context.RenderComponent<Anchor>(new ComponentParameter[]
-            {
-                 ComponentParameter.CreateParameter(nameof(Anchor.Target), "anchor")
-            });
+            var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, "anchor"));
             Assert.Contains("data-target=\"#anchor\"", cut.Markup);
 
-            cut = Context.RenderComponent<Anchor>(new ComponentParameter[]
-            {
-                 ComponentParameter.CreateParameter(nameof(Anchor.Target), "")
-            });
+            cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, ""));
             Assert.DoesNotContain("data-target", cut.Markup);
         }
 
         [Fact]
         public void Container_Ok()
         {
-            var cut = Context.RenderComponent<Anchor>(new ComponentParameter[]
+            var cut = Context.RenderComponent<Anchor>(builder =>
             {
-                ComponentParameter.CreateParameter(nameof(Anchor.Container), "anchor"),
-                ComponentParameter.CreateParameter(nameof(Anchor.ChildContent), new RenderFragment(builder=>
+                builder.Add(a => a.Container, "anchor");
+                builder.Add(a => a.ChildContent, new RenderFragment(builder =>
                 {
                     builder.OpenElement(1, "div");
                     builder.AddAttribute(2, "id", "anchor");
                     builder.CloseElement();
-                }))
+                }));
             });
-
             Assert.Contains("data-container=\"anchor\"", cut.Markup);
         }
 
         [Fact]
         public void Offset_Ok()
         {
-            var cut = Context.RenderComponent<Anchor>(new ComponentParameter[]
-            {
-                ComponentParameter.CreateParameter(nameof(Anchor.Offset), 20)
-            });
-
+            var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Offset, 20));
             Assert.Contains("data-offset=\"20\"", cut.Markup);
         }
     }
