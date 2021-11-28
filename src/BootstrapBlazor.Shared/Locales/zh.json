@@ -2038,6 +2038,30 @@
     "Device": "设备",
     "Language": "语言"
   },
+  "BootstrapBlazor.Shared.Samples.Circles": {
+    "Title": "Circle 进度环",
+    "SubTitle": "图表类组件。一般有两种用途：",
+    "Li1": "显示某项任务进度的百分比",
+    "Li2": "统计某些指标的占比。",
+    "BasicUsageTitle": "基本用法",
+    "BasicUsageIntro": "通过设置 <code>Value</code> 属性设定圆形进度",
+    "IncreaseSpan": "增加",
+    "DecreaseSpan": "减少",
+    "ColorTitle": "颜色",
+    "ColorIntro": "通过设置 <code>Color</code> 属性设定圆形进度条颜色",
+    "StrokeWidthTitle": "进度条宽度",
+    "StrokeWidthIntro": "通过设置 <code>StrokeWidth</code> 属性设定圆形进度条宽度",
+    "ChildContentTitle": "自定义显示内容",
+    "ChildContentIntro": "通过自定义子组件自定义显示内容",
+    "ChildContentP1": "消费人群规模",
+    "ChildContentSpan": "总占人数",
+    "Width": "组件宽度",
+    "StrokeWidth": "进度条宽度",
+    "Value": "当前进度",
+    "Color": "进度条颜色",
+    "ShowProgress": "是否显示进度条信息",
+    "ChildContent": "子组件"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

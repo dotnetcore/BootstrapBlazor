@@ -25,20 +25,20 @@ namespace BootstrapBlazor.Shared.Samples
         /// 
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes()
+        private IEnumerable<AttributeItem> GetAttributes()
         {
             return new AttributeItem[]
             {
                 new AttributeItem(){
                     Name = "Width",
-                    Description = "组件宽度",
+                    Description = Localizer["Width"],
                     Type = "int",
                     ValueList = "",
                     DefaultValue = "120"
                 },
                 new AttributeItem(){
                     Name = "StrokeWidth",
-                    Description = "进度条宽度",
+                    Description = Localizer["StrokeWidth"],
                     Type = "int",
                     ValueList = "",
                     DefaultValue = "2"
@@ -46,14 +46,14 @@ namespace BootstrapBlazor.Shared.Samples
                 new AttributeItem()
                 {
                     Name = "Value",
-                    Description = "当前进度",
+                    Description = Localizer["Value"],
                     Type = "int",
                     ValueList = "0-100",
                     DefaultValue = "0"
                 },
                 new AttributeItem(){
                     Name = "Color",
-                    Description = "进度条颜色",
+                    Description = Localizer["Color"],
                     Type = "Color",
                     ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                     DefaultValue = "Primary"
@@ -61,7 +61,7 @@ namespace BootstrapBlazor.Shared.Samples
                 new AttributeItem()
                 {
                     Name = "ShowProgress",
-                    Description = "是否显示进度条信息",
+                    Description = Localizer["ShowProgress"],
                     Type = "bool",
                     ValueList = "true / false",
                     DefaultValue = "true"
@@ -69,7 +69,7 @@ namespace BootstrapBlazor.Shared.Samples
                 new AttributeItem()
                 {
                     Name = "ChildContent",
-                    Description = "子组件",
+                    Description = Localizer["ChildContent"],
                     Type = "RenderFragment",
                     ValueList = "",
                     DefaultValue = ""

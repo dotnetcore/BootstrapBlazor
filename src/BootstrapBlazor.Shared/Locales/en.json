@@ -2035,6 +2035,30 @@
     "Device": "Device",
     "Language": "Language"
   },
+  "BootstrapBlazor.Shared.Samples.Circles": {
+    "Title": "Circle",
+    "SubTitle": "Chart class components. There are generally two uses:",
+    "Li1": "Displays the percentage of progress for a task",
+    "Li2": "Count the proportion of certain indicators.",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Set the circular progress by setting the <code>Value </code> property",
+    "IncreaseSpan": "Increase",
+    "DecreaseSpan": "Decrease",
+    "ColorTitle": "Color",
+    "ColorIntro": "Set the color of the circular progress bar by setting the <code>Color </code> property",
+    "StrokeWidthTitle": "The width of the progress bar",
+    "StrokeWidthIntro": "Set the width of the circular progress bar by setting the <code>StrokeWidth </code> property",
+    "ChildContentTitle": "Customize the display",
+    "ChildContentIntro": "Customize the display content with custom subcomponents",
+    "ChildContentP1": "The size of the consumer population",
+    "ChildContentSpan": "Total number of people",
+    "Width": "The width of the component",
+    "StrokeWidth": "The width of the progress bar",
+    "Value": "Current progress",
+    "Color": "The color of the progress bar",
+    "ShowProgress": "Whether to display progress bar information",
+    "ChildContent": "ChildContent"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
