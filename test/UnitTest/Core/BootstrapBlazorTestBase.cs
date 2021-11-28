@@ -45,7 +45,7 @@ namespace UnitTest.Core
             ConfigureConfigration(Instance.Services);
 
             // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
-            Instance.RenderComponent<BootstrapBlazorRoot>();
+            Instance.RenderTree.Add<BootstrapBlazorRoot>();
         }
 
         protected virtual void ConfigureServices(IServiceCollection services)

@@ -92,7 +92,12 @@ namespace BootstrapBlazor.Components
                     var required = pi.GetCustomAttribute<RequiredAttribute>(true);
                     if (required != null)
                     {
-                        Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
+                        Rules.Add(new RequiredValidator()
+                        {
+                            LocalizerFactory = LocalizerFactory,
+                            ErrorMessage = required.ErrorMessage,
+                            AllowEmptyString = required.AllowEmptyStrings
+                        });
                     }
                 }
             }

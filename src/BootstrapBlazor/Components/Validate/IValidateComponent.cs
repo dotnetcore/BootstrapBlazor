@@ -15,12 +15,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 是否不进行验证 默认为 false
         /// </summary>
-        public bool SkipValidate { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否禁用 默认为 false
-        /// </summary>
-        public bool IsDisabled { get; set; }
+        public bool IsNeedValidate { get; }
 
         /// <summary>
         /// 数据验证方法

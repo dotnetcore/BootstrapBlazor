@@ -117,7 +117,7 @@ namespace BootstrapBlazor.Components
                     IsValid = true;
                     TooltipMethod = "dispose";
                 }
-                OnValidate(IsValid ?? true);
+                OnValidate(IsValid);
             }
         }
 

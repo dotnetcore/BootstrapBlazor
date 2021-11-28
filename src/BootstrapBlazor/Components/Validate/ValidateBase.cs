@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 支持客户端验证的文本框基类
     /// </summary>
-    public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent, IValidateRules
+    public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent
     {
         private ValidationMessageStore? _parsingValidationMessages;
 
@@ -91,7 +91,7 @@ namespace BootstrapBlazor.Components
                     {
                         _ = OnValueChanged.Invoke(value);
                     }
-                    if (!SkipValidate && FieldIdentifier != null)
+                    if (IsNeedValidate && FieldIdentifier != null)
                     {
                         EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
                     }
@@ -209,7 +209,7 @@ namespace BootstrapBlazor.Components
         protected ValidateForm? ValidateForm { get; set; }
 
         /// <summary>
-        /// 获得 ValidateFormBase 实例
+        /// 获得 IShowLabel 实例
         /// </summary>
         [CascadingParameter(Name = "EidtorForm")]
         protected IShowLabel? EditorForm { get; set; }
@@ -226,22 +226,14 @@ namespace BootstrapBlazor.Components
         {
             var ret = false;
             validationErrorMessage = null;
-            try
+            if (value.TryConvertTo<TValue>(out result))
             {
-                if (value.TryConvertTo<TValue>(out result))
-                {
-                    ret = true;
-                }
-                else
-                {
-                    result = default!;
-                    validationErrorMessage = FormatParsingErrorMessage();
-                }
+                ret = true;
             }
-            catch (Exception ex)
+            else
             {
-                validationErrorMessage = ex.Message;
                 result = default!;
+                validationErrorMessage = FormatParsingErrorMessage();
             }
             return ret;
         }
@@ -253,8 +245,7 @@ namespace BootstrapBlazor.Components
         protected virtual string? FormatParsingErrorMessage() => ParsingErrorMessage;
 
         private bool HasRequired() => FieldIdentifier?.Model.GetType()
-            .GetProperties().Where(x => x.Name == FieldIdentifier.Value.FieldName).FirstOrDefault()
-            ?.GetCustomAttribute<RequiredAttribute>(true) != null
+            .GetProperty(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
             || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
 
         /// <summary>
@@ -269,7 +260,7 @@ namespace BootstrapBlazor.Components
         /// 'class' attribute.
         /// </summary>
         protected string? CssClass => CssBuilder.Default()
-            .AddClass(FieldClass, !SkipValidate)
+            .AddClass(FieldClass, IsNeedValidate)
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
 
@@ -317,7 +308,7 @@ namespace BootstrapBlazor.Components
             // 显式设置显示标签时一定显示
             var showLabel = ShowLabel;
 
-            // 组件自身未设置 ShowLabel 取 EditorForm 值
+            // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
             if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
             {
                 showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
@@ -336,7 +327,7 @@ namespace BootstrapBlazor.Components
                 DisplayText = "　";
             }
 
-            Required = (!string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && !IsDisabled && !SkipValidate && HasRequired()) ? "true" : null;
+            Required = (IsNeedValidate && !string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && HasRequired()) ? "true" : null;
         }
 
         /// <summary>
@@ -370,7 +361,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 数据验证方法集合
         /// </summary>
-        public List<IValidator> Rules { get; } = new();
+        protected List<IValidator> Rules { get; } = new();
 
         /// <summary>
         /// 获得/设置 自定义验证集合
@@ -379,13 +370,9 @@ namespace BootstrapBlazor.Components
         public List<IValidator>? ValidateRules { get; set; }
 
         /// <summary>
-        /// 验证组件添加时调用此方法
+        /// 获得/设置 是否不进行验证 默认为 false
         /// </summary>
-        /// <param name="validator"></param>
-        public virtual void OnRuleAdded(IValidator validator)
-        {
-            Rules.Add(validator);
-        }
+        public bool IsNeedValidate => !IsDisabled && !SkipValidate;
 
         /// <summary>
         /// 属性验证方法
@@ -396,7 +383,7 @@ namespace BootstrapBlazor.Components
         public void ValidateProperty(object? propertyValue, ValidationContext context, List<ValidationResult> results)
         {
             // 如果禁用移除验证信息
-            if (!IsDisabled && !SkipValidate)
+            if (IsNeedValidate)
             {
                 // 增加数值类型验证如 泛型 TValue 为 int 输入为 Empty 时
                 ValidateType(context, results);
@@ -437,7 +424,7 @@ namespace BootstrapBlazor.Components
             {
                 if (PreviousParsingAttemptFailed)
                 {
-                    var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
+                    var memberNames = new string[] { context.MemberName! };
                     results.Add(new ValidationResult(PreviousErrorMessage, memberNames));
                 }
             }
@@ -472,7 +459,7 @@ namespace BootstrapBlazor.Components
                     Tooltip.Title = ErrorMessage;
                 }
 
-                OnValidate(IsValid ?? true);
+                OnValidate(IsValid);
             }
         }
 
@@ -480,11 +467,12 @@ namespace BootstrapBlazor.Components
         /// 客户端检查完成时调用此方法
         /// </summary>
         /// <param name="valid">检查结果</param>
-        protected virtual void OnValidate(bool valid)
+        protected virtual void OnValidate(bool? valid)
         {
-            if (AdditionalAttributes != null)
+            if (valid.HasValue)
             {
-                AdditionalAttributes["aria-invalid"] = !valid;
+                AdditionalAttributes ??= new Dictionary<string, object>();
+                AdditionalAttributes["aria-invalid"] = valid.Value ? "false" : "true";
             }
         }
 

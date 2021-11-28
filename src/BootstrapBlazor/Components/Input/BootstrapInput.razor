@@ -14,8 +14,7 @@
     }
 }
 
-<input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@Disabled"
-       @bind-value="CurrentValueAsString" @bind-value:event="onchange" @ref="FocusElement" />
+<input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" class="@ClassName" disabled="@Disabled" @bind-value="CurrentValueAsString" @bind-value:event="onchange" @ref="FocusElement" />
 
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent

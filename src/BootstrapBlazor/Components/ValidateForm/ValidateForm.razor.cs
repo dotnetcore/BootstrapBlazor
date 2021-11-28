@@ -68,10 +68,10 @@ namespace BootstrapBlazor.Components
         public bool ShowRequiredMark { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 是否显示验证表单内的 Label 默认为 null 未设置时默认显示
+        /// 获得/设置 是否显示验证表单内的 Label 默认为 显示
         /// </summary>
         [Parameter]
-        public bool? ShowLabel { get; set; } = true;
+        public bool ShowLabel { get; set; } = true;
 
         [Inject]
         [NotNull]
@@ -208,7 +208,7 @@ namespace BootstrapBlazor.Components
                     var validatorValue = ValidatorCache[key];
                     var validator = validatorValue.ValidateComponent;
                     var fieldIdentifier = validatorValue.FieldIdentifier;
-                    if (!validator.IsDisabled && !validator.SkipValidate)
+                    if (validator.IsNeedValidate)
                     {
                         var messages = new List<ValidationResult>();
                         var pi = key.ModelType.GetProperties().Where(p => p.Name == key.FieldName).FirstOrDefault();
@@ -244,7 +244,7 @@ namespace BootstrapBlazor.Components
             if (ValidatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
             {
                 var validator = v.ValidateComponent;
-                if (validator != null && !validator.IsDisabled && !validator.SkipValidate)
+                if (validator.IsNeedValidate)
                 {
                     var fieldName = fieldIdentifier.FieldName;
                     var pi = fieldIdentifier.Model.GetType().GetProperties().Where(p => p.Name == fieldName).FirstOrDefault();
@@ -376,7 +376,7 @@ namespace BootstrapBlazor.Components
                     if (ValidatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v) && v.ValidateComponent != null)
                     {
                         var validator = v.ValidateComponent;
-                        if (!validator.IsDisabled && !validator.SkipValidate)
+                        if (validator.IsNeedValidate)
                         {
                             // 组件进行验证
                             Validate(validator, context, messages, pi, propertyValue);

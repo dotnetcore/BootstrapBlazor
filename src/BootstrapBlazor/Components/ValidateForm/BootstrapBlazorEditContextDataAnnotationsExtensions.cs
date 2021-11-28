@@ -22,11 +22,6 @@ namespace BootstrapBlazor.Components
         /// <param name="editForm"></param>
         public static EditContext AddEditContextDataAnnotationsValidation(this EditContext editContext, ValidateForm editForm)
         {
-            if (editContext == null)
-            {
-                throw new ArgumentNullException(nameof(editContext));
-            }
-
             var messages = new ValidationMessageStore(editContext);
 
             editContext.OnValidationRequested +=

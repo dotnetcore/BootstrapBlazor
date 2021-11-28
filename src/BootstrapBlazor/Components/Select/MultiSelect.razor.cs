@@ -395,9 +395,12 @@ namespace BootstrapBlazor.Components
         /// 客户端检查完成时调用此方法
         /// </summary>
         /// <param name="valid"></param>
-        protected override void OnValidate(bool valid)
+        protected override void OnValidate(bool? valid)
         {
-            Color = valid ? Color.Success : Color.Danger;
+            if (valid != null)
+            {
+                Color = valid.Value ? Color.Success : Color.Danger;
+            }
         }
 
         private void ResetItems()
