@@ -50,7 +50,10 @@ namespace UnitTest.Core
 
         protected virtual void ConfigureServices(IServiceCollection services)
         {
-            services.AddBootstrapBlazor();
+            services.AddBootstrapBlazor(localizationAction: options =>
+            {
+                options.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly };
+            });
         }
 
         protected virtual void ConfigureConfigration(IServiceCollection services)
