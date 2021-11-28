@@ -36,19 +36,19 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "CollapseItems",
-                Description = "内容",
+                Description = Localizer["CollapseItems"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "IsAccordion",
-                Description = "是否手风琴效果",
+                Description = Localizer["IsAccordion"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
