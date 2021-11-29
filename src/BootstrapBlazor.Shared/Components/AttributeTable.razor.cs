@@ -39,7 +39,6 @@ namespace BootstrapBlazor.Shared.Components
             base.OnInitialized();
 
             Title ??= Localizer[nameof(Title)];
-
         }
     }
 }

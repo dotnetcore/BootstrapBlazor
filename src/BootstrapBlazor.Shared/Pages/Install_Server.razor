@@ -4,7 +4,7 @@
 <InstallContent Title="服务器端 Blazor 安装教程">
     <ChooseTemplate>
         <div class="mt-3 mb-2">4. 选择 <b>Blazor Server App</b> 项目类型，然后点击 <b>Create</b></div>
-        <img src="images/choose-project-template-server-blazor.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-3" />
+        <img src="_content/BootstrapBlazor.Shared/images/choose-project-template-server-blazor.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-3" />
     </ChooseTemplate>
     <SheetTemplate>
         <ul>
@@ -33,7 +33,7 @@
             services.AddServerSideBlazor();
 
             // @Localizer["CodeComment"]
-            <i>services.AddBootstrapBlazor();</i>
+            <b><i>services.AddBootstrapBlazor();</i></b>
         }
     }
 }</Pre>
@@ -45,7 +45,7 @@
 builder.Services.AddServerSideBlazor();
 
 // @Localizer["CodeComment"]
-<i>builder.Services.AddBootstrapBlazor();</i>
+<b><i>builder.Services.AddBootstrapBlazor();</i></b>
 
 var app = builder.Build();
 //more code may be present here</Pre>
