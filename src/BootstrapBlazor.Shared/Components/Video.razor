@@ -2,18 +2,23 @@
 
 <p><b>B 站相关视频链接</b></p>
 
-@if (string.IsNullOrEmpty(VideoUrl))
+@if (VideoUrl.Any())
 {
-    <div class="mb-3">暂无</div>
+    foreach (var url in VideoUrl)
+    {
+        <div class="mb-3">
+            <a class="fa fa-video-camera" href="@url" target="_blank"><span class="ms-2">[传送门]</span></a>
+        </div>
+    }
 }
 else
 {
-    <a class="fa fa-video-camera mb-3" href="@VideoUrl" target="_blank"><span class="ms-2">[传送门]</span></a>
+    <div class="mb-3">暂无</div>
 }
 
 @code {
     [NotNull]
-    private string? VideoUrl { get; set; }
+    private List<string> VideoUrl { get; } = new List<string>();
 
     [Parameter]
     public string? Name { get; set; }
@@ -27,7 +32,7 @@ else
 
         if (!string.IsNullOrEmpty(Name) && Options.Value.Videos.TryGetValue(Name, out var url))
         {
-            VideoUrl = $"{Options.Value.VideoUrl}{url}";
+            VideoUrl.AddRange(url.Split(';').Select(a => $"{Options.Value.VideoUrl}{a}"));
         }
     }
 }

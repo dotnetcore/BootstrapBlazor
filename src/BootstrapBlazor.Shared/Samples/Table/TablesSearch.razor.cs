@@ -105,30 +105,11 @@ namespace BootstrapBlazor.Shared.Samples.Table
         {
             IEnumerable<Foo> items = Items;
 
-            // 处理高级搜索
-            if (!string.IsNullOrEmpty(SearchModel.Name))
-            {
-                items = items.Where(item => item.Name?.Contains(SearchModel.Name, StringComparison.OrdinalIgnoreCase) ?? false);
-            }
-
-            if (!string.IsNullOrEmpty(SearchModel.Address))
-            {
-                items = items.Where(item => item.Address?.Contains(SearchModel.Address, StringComparison.OrdinalIgnoreCase) ?? false);
-            }
-
             // 处理 Searchable=true 列与 SeachText 模糊搜索
+            // CustomerSearchModel 过滤条件已经内置到 Searchs 无需额外代码处理
             if (options.Searchs.Any())
             {
-                items = items.Where(options.Searchs.GetFilterFunc<Foo>(FilterLogic.Or));
-            }
-            else
-            {
-                // 处理 SearchText 模糊搜索
-                if (!string.IsNullOrEmpty(options.SearchText))
-                {
-                    items = items.Where(item => (item.Name?.Contains(options.SearchText) ?? false)
-                        || (item.Address?.Contains(options.SearchText) ?? false));
-                }
+                items = items.Where(options.Searchs.GetFilterFunc<Foo>());
             }
 
             // 过滤
@@ -160,7 +141,7 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 TotalCount = total,
                 IsSorted = isSorted,
                 IsFiltered = isFiltered,
-                IsSearch = !string.IsNullOrEmpty(SearchModel.Name) || !string.IsNullOrEmpty(SearchModel.Address)
+                IsSearch = options.Searchs.Any()
             });
         }
     }

@@ -345,6 +345,10 @@ namespace BootstrapBlazor.Components
                     SearchModel = SearchModel,
                     StartIndex = StartIndex
                 };
+                if (CustomerSearchModel != null)
+                {
+                    queryOption.SearchModel = CustomerSearchModel;
+                }
                 if (OnQueryAsync != null)
                 {
                     queryData = await OnQueryAsync(queryOption);
@@ -397,7 +401,7 @@ namespace BootstrapBlazor.Components
                     IsSearch = queryData.IsSearch;
 
                     // 处理搜索模型
-                    if (CustomerSearchModel != null)
+                    if (!IsSearch && CustomerSearchModel != null && CustomerSearchModel.GetSearchs().Any())
                     {
                         QueryItems = QueryItems.Where(CustomerSearchModel.GetSearchs().GetFilterFunc<TItem>());
                         IsSearch = true;

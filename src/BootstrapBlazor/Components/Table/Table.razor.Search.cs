@@ -131,7 +131,11 @@ namespace BootstrapBlazor.Components
         protected async Task ResetSearchClick()
         {
             await ToggleLoading(true);
-            if (OnResetSearchAsync != null)
+            if (CustomerSearchModel != null)
+            {
+                CustomerSearchModel.Reset();
+            }
+            else if (OnResetSearchAsync != null)
             {
                 await OnResetSearchAsync(SearchModel);
             }
@@ -197,7 +201,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 通过列集合中的 Searchable 列与 SearchText 拼装 IFilterAction 集合 
+        /// 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合 可获得 <see cref="CustomerSearchModel"/> 中过滤条件 <see cref="SearchTemplate"/> 模板中的条件无法获得
         /// </summary>
         /// <returns></returns>
         protected IEnumerable<IFilterAction> GetSearchs()
@@ -205,10 +209,15 @@ namespace BootstrapBlazor.Components
             var columns = Columns.Where(col => col.Searchable);
 
             // 处理 SearchText
-            var searchs = new List<InternalSearchAction>();
+            var searchs = new List<IFilterAction>();
             if (!string.IsNullOrEmpty(SearchText))
             {
-                searchs.AddRange(columns.Where(col => col.PropertyType == typeof(string)).Select(col => new InternalSearchAction() { FieldKey = col.GetFieldName(), Value = SearchText }));
+                searchs.AddRange(columns.Where(col => col.PropertyType == typeof(string)).Select(col => new SearchFilterAction(col.GetFieldName(), SearchText)));
+            }
+            // 处理自定义 SearchModel 条件
+            if (CustomerSearchModel != null)
+            {
+                searchs.AddRange(CustomerSearchModel.GetSearchs());
             }
             return searchs;
         }

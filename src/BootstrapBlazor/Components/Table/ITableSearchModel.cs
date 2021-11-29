@@ -15,5 +15,10 @@ namespace BootstrapBlazor.Components
         /// 获得 搜索集合
         /// </summary>
         IEnumerable<IFilterAction> GetSearchs();
+
+        /// <summary>
+        /// 重置操作
+        /// </summary>
+        void Reset();
     }
 }

@@ -57,5 +57,14 @@ namespace BootstrapBlazor.Shared
             }
             return ret;
         }
+
+        /// <summary>
+        /// 重置操作
+        /// </summary>
+        public void Reset()
+        {
+            Name = null;
+            Count = null;
+        }
     }
 }
