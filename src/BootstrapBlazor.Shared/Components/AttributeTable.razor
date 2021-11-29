@@ -4,9 +4,9 @@
     <Table TItem="BootstrapBlazor.Shared.Common.AttributeItem" Items="Items">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Description" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.Description" TextWrap="true" />
             <TableColumn @bind-Field="@context.Type" />
-            <TableColumn @bind-Field="@context.ValueList" AllowTextWrap="true" />
+            <TableColumn @bind-Field="@context.ValueList" TextWrap="true" />
             <TableColumn @bind-Field="@context.DefaultValue" />
         </TableColumns>
     </Table>

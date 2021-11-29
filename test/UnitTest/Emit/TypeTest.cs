@@ -97,7 +97,7 @@ namespace UnitTest.Emit
 
             public bool Visible { get; set; }
 
-            public bool AllowTextWrap { get; set; }
+            public bool TextWrap { get; set; }
 
             public bool TextEllipsis { get; set; }
 

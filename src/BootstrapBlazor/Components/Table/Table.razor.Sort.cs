@@ -236,7 +236,7 @@ namespace BootstrapBlazor.Components
             .AddClass("text-star", col.Align == Alignment.Left)
             .AddClass("text-end", col.Align == Alignment.Right)
             .AddClass("text-center", col.Align == Alignment.Center)
-            .AddClass("is-wrap", col.AllowTextWrap)
+            .AddClass("is-wrap", col.TextWrap)
             .AddClass("is-ellips", col.TextEllipsis)
             .AddClass("is-tips", col.ShowTips)
             .AddClass("is-resizable", AllowResizing)

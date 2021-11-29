@@ -32,7 +32,7 @@ namespace BootstrapBlazor.Components
 
         public bool Visible { get; set; } = true;
 
-        public bool AllowTextWrap { get; set; }
+        public bool TextWrap { get; set; }
 
         public bool TextEllipsis { get; set; }
 
@@ -221,7 +221,7 @@ namespace BootstrapBlazor.Components
         private static void InheritValue(AutoGenerateClassAttribute source, ITableColumn dest)
         {
             if (source.Align != Alignment.None) dest.Align = source.Align;
-            if (source.AllowTextWrap) dest.AllowTextWrap = source.AllowTextWrap;
+            if (source.TextWrap) dest.TextWrap = source.TextWrap;
             if (!source.Editable) dest.Editable = source.Editable;
             if (source.Filterable) dest.Filterable = source.Filterable;
             if (source.Readonly) dest.Readonly = source.Readonly;
@@ -239,7 +239,7 @@ namespace BootstrapBlazor.Components
         private static void CopyValue(ITableColumn source, ITableColumn dest)
         {
             if (source.Align != Alignment.None) dest.Align = source.Align;
-            if (source.AllowTextWrap) dest.AllowTextWrap = source.AllowTextWrap;
+            if (source.TextWrap) dest.TextWrap = source.TextWrap;
             if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
             if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
             if (!string.IsNullOrEmpty(source.CssClass)) dest.CssClass = source.CssClass;

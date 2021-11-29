@@ -39,7 +39,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 本列是否允许换行 默认为 false
         /// </summary>
-        public bool AllowTextWrap { get; set; }
+        public bool TextWrap { get; set; }
 
         /// <summary>
         /// 获得/设置 本列文本超出省略 默认为 false

@@ -76,10 +76,17 @@ namespace BootstrapBlazor.Components
         public bool DefaultSort { get; set; }
 
         /// <summary>
+        /// 获得/设置 本列是否允许换行 默认为 false 已过期改用 <see cref="TextWrap"/>
+        /// </summary>
+        [Parameter]
+        [Obsolete("请使用 TextWrap 参数代替")]
+        public bool AllowTextWrap { get { return TextWrap; } set { TextWrap = value; } }
+
+        /// <summary>
         /// 获得/设置 本列是否允许换行 默认为 false
         /// </summary>
         [Parameter]
-        public bool AllowTextWrap { get; set; }
+        public bool TextWrap { get; set; }
 
         /// <summary>
         /// 获得/设置 本列文本超出省略 默认为 false

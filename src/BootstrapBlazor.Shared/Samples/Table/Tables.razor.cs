@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Shared.Samples.Table
         private static IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
         {
             new() {
-                Name = "AllowTextWrap",
+                Name = "TextWrap",
                 Description = "是否允许换行",
                 Type = "boolean",
                 ValueList = "true|false",
