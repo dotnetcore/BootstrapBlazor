@@ -9,9 +9,8 @@
 [![Github](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
 [![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)
 [![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
-
+[![codecov](https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/master/graph/badge.svg?token=5SXIWHXZC3)](https://codecov.io/gh/dotnetcore/BootstrapBlazor)
 </div>
-
 ---
 
 <a href="README.md">English</a> | <span>中文</span>

@@ -113,7 +113,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "middleware", "middleware", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Middleware", "src\Middleware\BootstrapBlazor.Middleware\BootstrapBlazor.Middleware.csproj", "{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Localization", "test\UnitTest.Localization\UnitTest.Localization.csproj", "{99B55645-0E89-43F8-938F-2304B486AD2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Localization", "test\UnitTest.Localization\UnitTest.Localization.csproj", "{99B55645-0E89-43F8-938F-2304B486AD2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

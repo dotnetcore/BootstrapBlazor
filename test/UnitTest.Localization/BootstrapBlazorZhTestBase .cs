@@ -34,7 +34,7 @@ namespace UnitTest.Localization
             services.AddLocalization(option => option.ResourcesPath = "Resources");
             services.AddBootstrapBlazor(localizationAction: options =>
             {
-                options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorEnTestHost);
+                options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorZhTestHost);
             });
         }
 

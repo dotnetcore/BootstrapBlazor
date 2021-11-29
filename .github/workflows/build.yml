@@ -30,3 +30,14 @@ jobs:
       run: |
         dotnet restore src/BootstrapBlazor --no-cache
         dotnet build src/BootstrapBlazor
+
+    - name: Test
+      run: |
+        dotnet test test/UnitTest -c Release -f net6.0 --collect:"XPlat Code Coverage" -r ./coverage
+        #dotnet test test/UnitTest.Localization -c Release -f net6.0 --collect:"XPlat Code Coverage" -r ./coverage
+
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./coverage/
