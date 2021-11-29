@@ -396,6 +396,13 @@ namespace BootstrapBlazor.Components
                     IsSorted = queryData.IsSorted;
                     IsSearch = queryData.IsSearch;
 
+                    // 处理搜索模型
+                    if (CustomerSearchModel != null)
+                    {
+                        QueryItems = QueryItems.Where(CustomerSearchModel.GetSearchs().GetFilterFunc<TItem>());
+                        IsSearch = true;
+                    }
+
                     // 外部未过滤，内部自行过滤
                     if (!IsFiltered && Filters.Any())
                     {

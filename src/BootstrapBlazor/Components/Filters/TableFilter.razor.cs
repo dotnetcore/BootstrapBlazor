@@ -66,7 +66,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 当前过滤条件是否激活
         /// </summary>
-        internal bool HasFilter => (Table != null && Column != null) ? Table.Filters.ContainsKey(Column.GetFieldName()) : false;
+        internal bool HasFilter => (Table != null && Column != null) && Table.Filters.ContainsKey(Column.GetFieldName());
 
         /// <summary>
         /// 获得 相关联 ITableColumn 实例

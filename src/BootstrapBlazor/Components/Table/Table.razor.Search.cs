@@ -48,6 +48,18 @@ namespace BootstrapBlazor.Components
         public TItem SearchModel { get; set; } = new TItem();
 
         /// <summary>
+        /// 获得/设置 自定义搜索模型 <see cref="CustomerSearchTemplate"/>
+        /// </summary>
+        [Parameter]
+        public ITableSearchModel? CustomerSearchModel { get; set; }
+
+        /// <summary>
+        /// 获得/设置 自定义搜索模型模板 <see cref="CustomerSearchModel"/>
+        /// </summary>
+        [Parameter]
+        public RenderFragment<ITableSearchModel>? CustomerSearchTemplate { get; set; }
+
+        /// <summary>
         /// 获得/设置 是否显示搜索框 默认为 false 不显示搜索框
         /// </summary>
         [Parameter]
@@ -147,7 +159,16 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task ShowSearchDialog()
         {
-            var option = new SearchDialogOption<TItem>()
+            if (CustomerSearchModel != null && CustomerSearchTemplate != null)
+            {
+                await DialogService.ShowSearchDialog(CreateCustomerModelDialog());
+            }
+            else
+            {
+                await DialogService.ShowSearchDialog(CreateModelDialog());
+            }
+
+            SearchDialogOption<TItem> CreateModelDialog() => new()
             {
                 IsScrolling = ScrollingDialogContent,
                 Title = SearchModalTitle,
@@ -160,7 +181,19 @@ namespace BootstrapBlazor.Components
                 LabelAlign = SearchDialogLabelAlign,
                 Items = Columns.Where(i => i.Searchable)
             };
-            await DialogService.ShowSearchDialog(option);
+
+            SearchDialogOption<ITableSearchModel> CreateCustomerModelDialog() => new()
+            {
+                IsScrolling = ScrollingDialogContent,
+                Title = SearchModalTitle,
+                Model = CustomerSearchModel,
+                DialogBodyTemplate = CustomerSearchTemplate,
+                OnResetSearchClick = ResetSearchClick,
+                OnSearchClick = SearchClick,
+                RowType = SearchDialogRowType,
+                ItemsPerRow = SearchDialogItemsPerRow,
+                LabelAlign = SearchDialogLabelAlign
+            };
         }
 
         /// <summary>

@@ -24,13 +24,20 @@
         @if (ShowSearch && SearchMode == SearchMode.Top)
         {
             <div class="table-search">
-                @if (SearchTemplate != null)
+                @if(CustomerSearchModel != null)
                 {
-                    @SearchTemplate.Invoke(SearchModel)
+                    @CustomerSearchTemplate?.Invoke(CustomerSearchModel)
                 }
                 else
                 {
-                    @RenderSearch
+                    @if (SearchTemplate != null)
+                    {
+                        @SearchTemplate(SearchModel)
+                    }
+                    else
+                    {
+                        @RenderSearch
+                    }
                 }
             </div>
         }

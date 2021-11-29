@@ -49,6 +49,9 @@ namespace BootstrapBlazor.Shared.Samples.Table
 
         private SearchMode SearchModeValue { get; set; }
 
+        [NotNull]
+        private ITableSearchModel CustomerSearchModel { get; set; } = new FooSearchModel();
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
