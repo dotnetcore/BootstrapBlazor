@@ -7,6 +7,7 @@ using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using UnitTest.Core;
 using Xunit;
 
@@ -32,6 +33,8 @@ namespace UnitTest.Localization
         [Fact]
         public void Dummy_Resource_Ok()
         {
+            Assert.Equal("en-US", CultureInfo.CurrentUICulture.Name);
+
             var val = Utility.GetDisplayName(typeof(DummyEn), nameof(DummyEn.Name));
             Assert.Equal("TestName", val);
 

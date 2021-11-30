@@ -9,9 +9,8 @@
 [![Github](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
 [![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)
 [![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
-[![codecov](https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/master/graph/badge.svg?token=5SXIWHXZC3)](https://codecov.io/gh/dotnetcore/BootstrapBlazor)
+[![codecov](https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3)](https://codecov.io/gh/dotnetcore/BootstrapBlazor)
 </div>
----
 
 <a href="README.md">English</a> | <span>中文</span>
 
@@ -38,11 +37,14 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 
 ## 生态伙伴
 
-WTM 快速开发框架，设计的核心理念就是”尽一切可能提高开发效率“。WTM框架把常规编码结构化，重复编码自动化，它不仅是一个框架，它是强有力的生产力工具！目前 WTM 快速开发框架已深度集成 Blazor 欢迎大家使用 [传送门](https://wtmdoc.walkingtec.cn)
+WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开发效率"。WTM框架把常规编码结构化，重复编码自动化，它不仅是一个框架，它是强有力的生产力工具！目前 WTM 快速开发框架已深度集成 Blazor 欢迎大家使用 [传送门](https://wtmdoc.walkingtec.cn)
 
 <a href="https://wtmdoc.walkingtec.cn" target="_blank"><img src="http://images.gitee.com/uploads/images/2021/0718/194451_5b6cff04_554725.png" width="100px" /></a>
 
+WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开发效率"。WTM框架把常规编码结构化，重复编码自动化，它不仅是一个框架，它是强有力的生产力工具！目前 WTM 快速开发框架已深度集成 Blazor 欢迎大家使用 [传送门](https://wtmdoc.walkingtec.cn)
+
 ## 开发环境搭建
+
 1. 安装 .net core sdk 最新版 [官方网址](http://www.microsoft.com/net/download)
 2. 安装 Visual Studio 2022 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
 3. 获取本项目代码 [BootstrapBlazor](https://gitee.com/LongbowEnterprise/BootstrapBlazor)
