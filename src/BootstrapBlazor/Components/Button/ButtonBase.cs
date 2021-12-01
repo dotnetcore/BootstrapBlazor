@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Button 按钮组件
     /// </summary>
-    public abstract class ButtonBase : TooltipComponentBase
+    public abstract class ButtonBase : TooltipComponentBase, IHandleEvent
     {
         /// <summary>
         /// 获得 按钮样式集合
@@ -143,6 +143,8 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected bool IsAsyncLoading { get; set; }
 
+        private bool IsNotRender { get; set; }
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -180,6 +182,7 @@ namespace BootstrapBlazor.Components
             {
                 if (OnClickWithoutRender != null)
                 {
+                    IsNotRender = true;
                     await OnClickWithoutRender.Invoke();
                 }
                 if (OnClick.HasDelegate)
@@ -252,6 +255,56 @@ namespace BootstrapBlazor.Components
         {
             IsDisabled = disable;
             StateHasChanged();
+        }
+
+        private async Task CallStateHasChangedOnAsyncCompletion(Task task)
+        {
+            try
+            {
+                await task;
+            }
+            catch // avoiding exception filters for AOT runtime support
+            {
+                // Ignore exceptions from task cancellations, but don't bother issuing a state change.
+                if (task.IsCanceled)
+                {
+                    return;
+                }
+
+                throw;
+            }
+
+            if (!IsNotRender)
+            {
+                StateHasChanged();
+            }
+            else
+            {
+                IsNotRender = false;
+            }
+        }
+
+        Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+        {
+            var task = callback.InvokeAsync(arg);
+            var shouldAwaitTask = task.Status != TaskStatus.RanToCompletion &&
+                task.Status != TaskStatus.Canceled;
+
+            // After each event, we synchronously re-render (unless !ShouldRender())
+            // This just saves the developer the trouble of putting "StateHasChanged();"
+            // at the end of every event callback.
+            if (!IsNotRender)
+            {
+                StateHasChanged();
+            }
+            else
+            {
+                IsNotRender = false;
+            }
+
+            return shouldAwaitTask ?
+                CallStateHasChangedOnAsyncCompletion(task) :
+                Task.CompletedTask;
         }
     }
 }

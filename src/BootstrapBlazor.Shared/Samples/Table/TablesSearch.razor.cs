@@ -108,7 +108,7 @@ namespace BootstrapBlazor.Shared.Samples.Table
             // CustomerSearchModel 过滤条件已经内置到 Searchs 无需额外代码处理
             if (options.CustomerSearchs.Any())
             {
-                items = items.Where(options.Searchs.GetFilterFunc<Foo>());
+                items = items.Where(options.CustomerSearchs.GetFilterFunc<Foo>());
             }
 
             // 处理 Searchable=true 列与 SeachText 模糊搜索
