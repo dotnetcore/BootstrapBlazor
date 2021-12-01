@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Shared.Samples
 
         [Inject]
         [NotNull]
-        private IStringLocalizer<Foo>? Localizer { get; set; }
+        private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
         [NotNull]
         private IEnumerable<SelectedItem>? Hobbys { get; set; }
@@ -55,37 +55,37 @@ namespace BootstrapBlazor.Shared.Samples
         {
             base.OnInitialized();
 
-            Model = Foo.Generate(Localizer);
-            Model.Hobby = Foo.GenerateHobbys(Localizer).Take(3).Select(i => i.Text);
-            Hobbys = Foo.GenerateHobbys(Localizer);
+            Model = Foo.Generate(FooLocalizer);
+            Model.Hobby = Foo.GenerateHobbys(FooLocalizer).Take(3).Select(i => i.Text);
+            Hobbys = Foo.GenerateHobbys(FooLocalizer);
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             new AttributeItem() {
                 Name = "ShowLabel",
-                Description = "是否显示前置标签",
+                Description = Localizer["ShowLabel"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem() {
                 Name = "DisplayText",
-                Description = "前置标签显示文本",
+                Description = Localizer["DisplayText"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "FormatString",
-                Description = "数值格式化字符串",
+                Description = Localizer["FormatString"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Formatter",
-                Description = "TableHeader 实例",
+                Description = Localizer["Formatter"],
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
