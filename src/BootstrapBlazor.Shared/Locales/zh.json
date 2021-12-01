@@ -119,7 +119,7 @@
     "P6": "注:此命令为检查是否有可用于当前安装的模板包的更新并安装这些更新。",
     "P7": "4. 卸载项目模板",
     "SubTitle1": "Bootstrap Blazor App Extension 扩展插件",
-    "P8": "为了方便使用 <code>Bootstrap Blazor</code> 组件库，作者制作了 <b>项目模板（<code>Bootstrap Blazor Project Template</code>）</b> 扩展插件，安装此插件可通过 <code>Visual Studio 2019 IDE</code> 新建项目时选择 <code>Bootstrap Blazor 项目模板</code>，解决方案内置 <code>Server-Side</code> 与 <cide>wasm</cide> 两种类型工程"
+    "P8": "为了方便使用 <code>Bootstrap Blazor</code> 组件库，作者制作了 <b>项目模板（<code>Bootstrap Blazor Project Template</code>）</b> 扩展插件，安装此插件可通过 <code>Visual Studio 2022 IDE</code> 新建项目时选择 <code>Bootstrap Blazor 项目模板</code>，解决方案内置 <code>Server-Side</code> 与 <cide>wasm</cide> 两种类型工程"
   },
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "全球化",

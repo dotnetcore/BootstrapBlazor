@@ -119,7 +119,7 @@
     "P6": "The dotnet new --update-apply option checks if there are updates available for the template packages that are currently installed and installs them.",
     "P7": "3. Uninstall project template",
     "SubTitle1": "Bootstrap Blazor App Extension",
-    "P8": "In order to facilitate the use of the <code>Bootstrap Blazor</code> component library, the author has created the <b>Project Template (<code>Bootstrap Blazor Project Template</code>)</b> extension plug-in, which can be installed through <code >Visual Studio 2019 IDE</code> When creating a new project, select the <code>Bootstrap Blazor project template</code>, and the solution is built in two types: <code>Server-Side</code> and <cide>wasm</cide> project"
+    "P8": "In order to facilitate the use of the <code>Bootstrap Blazor</code> component library, the author has created the <b>Project Template (<code>Bootstrap Blazor Project Template</code>)</b> extension plug-in, which can be installed through <code >Visual Studio 2022 IDE</code> When creating a new project, select the <code>Bootstrap Blazor project template</code>, and the solution is built in two types: <code>Server-Side</code> and <cide>wasm</cide> project"
   },
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "Globalization",
