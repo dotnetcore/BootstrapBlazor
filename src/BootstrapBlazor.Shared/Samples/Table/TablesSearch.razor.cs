@@ -105,11 +105,16 @@ namespace BootstrapBlazor.Shared.Samples.Table
         {
             IEnumerable<Foo> items = Items;
 
-            // 处理 Searchable=true 列与 SeachText 模糊搜索
             // CustomerSearchModel 过滤条件已经内置到 Searchs 无需额外代码处理
-            if (options.Searchs.Any())
+            if (options.CustomerSearchs.Any())
             {
                 items = items.Where(options.Searchs.GetFilterFunc<Foo>());
+            }
+
+            // 处理 Searchable=true 列与 SeachText 模糊搜索
+            if (options.Searchs.Any())
+            {
+                items = items.Where(options.Searchs.GetFilterFunc<Foo>(FilterLogic.Or));
             }
 
             // 过滤
@@ -141,7 +146,7 @@ namespace BootstrapBlazor.Shared.Samples.Table
                 TotalCount = total,
                 IsSorted = isSorted,
                 IsFiltered = isFiltered,
-                IsSearch = options.Searchs.Any()
+                IsSearch = options.CustomerSearchs.Any()
             });
         }
     }

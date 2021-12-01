@@ -24,21 +24,7 @@
         @if (ShowSearch && SearchMode == SearchMode.Top)
         {
             <div class="table-search">
-                @if(CustomerSearchModel != null)
-                {
-                    @CustomerSearchTemplate?.Invoke(CustomerSearchModel)
-                }
-                else
-                {
-                    @if (SearchTemplate != null)
-                    {
-                        @SearchTemplate(SearchModel)
-                    }
-                    else
-                    {
-                        @RenderSearch
-                    }
-                }
+                @RenderSearch
             </div>
         }
         <div class="table-toolbar">
@@ -844,10 +830,21 @@ RenderFragment RenderSearch =>
         </div>
     </CardHeader>
     <CardBody>
-        <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
-            <EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
-            </EditorForm>
-        </CascadingValue>
+        @if(CustomerSearchModel != null && CustomerSearchTemplate != null)
+        {
+            @CustomerSearchTemplate(CustomerSearchModel)
+        }
+        else if(SearchTemplate != null)
+        {
+            @SearchTemplate(SearchModel)
+        }
+        else
+        {
+            <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
+                <EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow" RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign">
+                </EditorForm>
+            </CascadingValue>
+        }
     </CardBody>
 </Card>;
 }

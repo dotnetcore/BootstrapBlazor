@@ -123,14 +123,14 @@
 <DemoBlock Title="自定义搜索模型" Introduction="设置了 <code>CustomerSearchModel</code> 与 <code>CustomerSearchTemplate</code>，完全自主控制搜索条件 UI" Name="CustomerSearchModel">
     <p>由于某种应用场景我们的表格实体类 <code>TItem</code> 来充当搜索模型时并不理想，比如我们有一个属性是 <code>int</code> 或者 <code>enum</code> 时，我们作为搜索条件时需要有一个 <b>全部</b> 或者 <b>请选择 ...</b> 的空白条件项。此时使用默认模型时非常难用，就可以使用自定义搜索模型 <code>CustomerModel</code> 与 <code>CustomerSearchTemplate</code> 来自定义控制搜索界面</p>
     <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" CustomerSearchModel="@CustomerSearchModel" ShowSearch="true" ShowSearchText="false"
+           IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
+           IsStriped="true" IsBordered="true" CustomerSearchModel="@CustomerSearchModel" ShowSearch="true" ShowSearchText="true"
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Education" />
         </TableColumns>

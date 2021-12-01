@@ -23,9 +23,14 @@ namespace BootstrapBlazor.Components
         public string? SearchText { get; set; }
 
         /// <summary>
-        /// 获得/设置 搜索条件集合
+        /// 获得/设置 SearchText 搜索条件集合
         /// </summary>
         public IEnumerable<IFilterAction> Searchs { get; set; } = Enumerable.Empty<IFilterAction>();
+
+        /// <summary>
+        /// 获得/设置 CustomerSearch 搜索条件集合
+        /// </summary>
+        public IEnumerable<IFilterAction> CustomerSearchs { get; set; } = Enumerable.Empty<IFilterAction>();
 
         /// <summary>
         /// 获得/设置 排序字段名称

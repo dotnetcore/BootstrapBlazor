@@ -342,6 +342,7 @@ namespace BootstrapBlazor.Components
                     SortName = SortName,
                     Filters = Filters.Values,
                     Searchs = GetSearchs(),
+                    CustomerSearchs = GetCustomerSearchs(),
                     SearchModel = SearchModel,
                     StartIndex = StartIndex
                 };
