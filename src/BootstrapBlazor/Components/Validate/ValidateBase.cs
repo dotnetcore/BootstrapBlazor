@@ -244,8 +244,8 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         protected virtual string? FormatParsingErrorMessage() => ParsingErrorMessage;
 
-        private bool HasRequired() => FieldIdentifier?.Model.GetType()
-            .GetProperty(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
+        private bool IsRequired() => FieldIdentifier?.Model.GetType()
+            .GetProperty(FieldIdentifier.Value.FieldName)?.GetCustomAttribute<RequiredAttribute>(true) != null
             || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
 
         /// <summary>
@@ -327,7 +327,7 @@ namespace BootstrapBlazor.Components
                 DisplayText = "　";
             }
 
-            Required = (IsNeedValidate && !string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && HasRequired()) ? "true" : null;
+            Required = (IsNeedValidate && !string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && IsRequired()) ? "true" : null;
         }
 
         /// <summary>

@@ -209,6 +209,41 @@ namespace UnitTest.Components
             Assert.True(valid);
         }
 
+        [Required]
+        private string? Test { get; set; }
+        [Fact]
+        public void IsRequired_Ok()
+        {
+            // 组件绑定非公开模型属性
+            Test = "test";
+            var model = new Foo() { Name = "Name-Test" };
+            var cut = Context.RenderComponent<ValidateForm>(builder =>
+            {
+                builder.Add(a => a.Model, model);
+                builder.AddChildContent<BootstrapInput<string>>(p =>
+                {
+                    p.Add(a => a.Value, Test);
+                    p.Add(a => a.ValueChanged, v => Test = v);
+                    p.Add(a => a.ValueExpression, Utility.GenerateValueExpression(this, nameof(Test), typeof(string)));
+                });
+                builder.AddChildContent<BootstrapInput<int>>(p =>
+                {
+                    p.Add(a => a.Value, model.Count);
+                    p.Add(a => a.ValueExpression, model.GenerateValueExpression(nameof(Foo.Count), typeof(int)));
+                });
+            });
+            var input = cut.FindComponent<BootstrapInput<string>>();
+            Assert.DoesNotContain("required", input.Markup);
+
+            // 更改值测试
+            input.Find("input").Change("test1");
+            Assert.Equal(Test, input.Instance.Value);
+            Assert.Equal("test1", input.Instance.Value);
+
+            var number = cut.FindComponent<BootstrapInput<int>>();
+            Assert.Contains("required=\"true\"", number.Markup);
+        }
+
         [Fact]
         public void SetDisable_Ok()
         {
