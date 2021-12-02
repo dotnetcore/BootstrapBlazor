@@ -11,13 +11,13 @@
 else
 {
     <NavLink @attributes="@AdditionalAttributes" class="@ClassString" href="@HrefString" target="@TargetString" Match="@ItemMatch" style="@StyleClassString">
-        <div class="flex-fill" @onclick:stopPropagation @onclick="@OnClickLink">
+        <div class="flex-fill">
             <i class="@IconString"></i>
             <span class="text">@Item.Text</span>
         </div>
         @if (Item.Component != null)
         {
-            <div class="widget">
+            <div class="widget" @onclick:stopPropagation>
                 @Item.Component.Render()
             </div>
         }

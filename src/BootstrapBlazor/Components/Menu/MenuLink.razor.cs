@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -39,23 +38,9 @@ namespace BootstrapBlazor.Components
         [NotNull]
         public MenuItem? Item { get; set; }
 
-        /// <summary>
-        /// 获得/设置 点击菜单回调委托方法
-        /// </summary>
-        [Parameter]
-        public Func<MenuItem, Task>? OnClick { get; set; }
-
         [CascadingParameter]
         [NotNull]
         private Menu? Parent { get; set; }
-
-        private async Task OnClickLink()
-        {
-            if (OnClick != null)
-            {
-                await OnClick(Item);
-            }
-        }
 
         private NavLinkMatch ItemMatch => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
 

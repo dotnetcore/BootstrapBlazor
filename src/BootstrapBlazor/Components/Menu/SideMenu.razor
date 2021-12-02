@@ -7,7 +7,7 @@
         if (item.Items.Any())
         {
             <li>
-                <MenuLink Item="@item" OnClick="@OnClick" />
+                <MenuLink Item="@item" />
                 @if (!item.IsDisabled)
                 {
                     <SideMenu Items="@item.Items" OnClick="@OnClick" class="d-none" />
@@ -16,8 +16,8 @@
         }
         else
         {
-            <li>
-                <MenuLink Item="@item" OnClick="@OnClick" />
+            <li @onclick:stopPropagation @onclick="() => OnClickItem(item)">
+                <MenuLink Item="@item" />
             </li>
         }
     }
