@@ -182,7 +182,10 @@ namespace BootstrapBlazor.Components
             {
                 if (OnClickWithoutRender != null)
                 {
-                    IsNotRender = true;
+                    if (!IsAsync)
+                    {
+                        IsNotRender = true;
+                    }
                     await OnClickWithoutRender.Invoke();
                 }
                 if (OnClick.HasDelegate)
