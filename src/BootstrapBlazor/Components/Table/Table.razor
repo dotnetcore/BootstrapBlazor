@@ -39,12 +39,12 @@
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" IsDisabled="!SelectedItems.Any()" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
-                                                          Icon="fa fa-remove" Text="@DeleteButtonText"
+                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="!SelectedItems.Any()"
                                                           OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
