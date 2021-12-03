@@ -22,6 +22,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="themes"></param>
         public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, IEnumerable<KeyValuePair<string, string>> themes)
         {
+            // 增加错误日志
+            services.AddLogging(logging => logging.AddFileLogger());
+
             // 增加后台任务服务
             services.AddTaskServices();
             services.AddHostedService<ClearUploadFilesService>();

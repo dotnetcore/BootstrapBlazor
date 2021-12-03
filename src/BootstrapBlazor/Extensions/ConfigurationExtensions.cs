@@ -15,17 +15,18 @@ namespace Microsoft.Extensions.Configuration
     {
         public static NameValueCollection GetEnvironmentInformation(this IConfiguration configuration)
         {
-            var nv = new NameValueCollection();
+            var nv = new NameValueCollection
+            {
+                ["TimeStamp"] = DateTime.Now.ToString(),
+                ["MachineName"] = Environment.MachineName,
+                ["AppDomainName"] = AppDomain.CurrentDomain.FriendlyName,
 
-            nv["TimeStamp"] = DateTime.Now.ToString();
-            nv["MachineName"] = Environment.MachineName;
-            nv["AppDomainName"] = AppDomain.CurrentDomain.FriendlyName;
-
-            // 收集环境变量信息
-            nv["OS"] = GetOS();
-            nv["OSArchitecture"] = RuntimeInformation.OSArchitecture.ToString();
-            nv["ProcessArchitecture"] = RuntimeInformation.ProcessArchitecture.ToString();
-            nv["Framework"] = RuntimeInformation.FrameworkDescription;
+                // 收集环境变量信息
+                ["OS"] = GetOS(),
+                ["OSArchitecture"] = RuntimeInformation.OSArchitecture.ToString(),
+                ["ProcessArchitecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
+                ["Framework"] = RuntimeInformation.FrameworkDescription
+            };
 
             // 当前用户
             var userName = configuration.GetUserName();

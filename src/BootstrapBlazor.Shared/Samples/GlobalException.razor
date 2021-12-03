@@ -4,43 +4,34 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<p>@((MarkupString)Localizer["P1"].Value)</p>
+@((MarkupString)Localizer["Introduce"].Value)
 
 <h4>@Localizer["H1"]</h4>
 
-<p>@((MarkupString)Localizer["P2"].Value)</p>
+<p>@((MarkupString)Localizer["Step1"].Value)</p>
+
+<div class="mb-2">@((MarkupString)Localizer["Step1Introduce"].Value)</div>
 
 <Pre>public void ConfigureServices(IServiceCollection services)
 {
-    services.AddLogging(builder => builder.AddConsole());
+    services.AddLogging(builder => builder.AddFileLogger());
 }</Pre>
 
-<p>@((MarkupString)Localizer["P3"].Value)</p>
+<p>@((MarkupString)Localizer["Step2"].Value)</p>
 
-<Pre>&lt;BlazorLogger&gt;
+<Pre>&lt;ErrorLogger&gt;
     @@Body
-&lt;/BlazorLogger&gt;</Pre>
+&lt;/ErrorLogger&gt;</Pre>
 
-<p>@((MarkupString)Localizer["P4"].Value)</p>
+<p>@((MarkupString)Localizer["Step3"].Value)</p>
 
-<Pre>[CascadingParameter]
-[NotNull]
-private IBlazorLogger? Logger { get; set; }
-
-private void OnClick()
+<Pre>private void OnClick()
 {
-    try
-    {
-        var a = 0;
-        var b = 1 / a;
-    }
-    catch(Exception ex)
-    {
-        Logger.Log(ex);
-    }
+    var a = 0;
+    _ = 1 / a;
 }</Pre>
 
-<p>@((MarkupString)Localizer["P5"].Value)</p>
+<p>@((MarkupString)Localizer["Step4"].Value)</p>
 <Pre>crit: BootstrapBlazor.Components.BlazorLogger[0]
       TimeStamp: 8/23/2021 12:20:46 PM
       MachineName: ECS-A399
@@ -58,8 +49,17 @@ private void OnClick()
       System.DivideByZeroException: Attempted to divide by zero.
          at BootstrapBlazor.Shared.Pages.GlobalException.OnClick() in D:\Argo\src\BB\BootstrapBlazor\src\BootstrapBlazor.Shared\Pages\GlobalException.razor.cs:line 30</Pre>
 
+<p>@((MarkupString)Localizer["Step5"].Value)</p>
+
+<div class="mb-2">@((MarkupString)Localizer["Step5Intro"].Value)</div>
+
+<Pre>{
+    "DetailedErrors": true
+}</Pre>
+
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <p>@((MarkupString)Localizer["P6"].Value)</p>
+    <p>@((MarkupString)Localizer["ExceptionTestIntroduce"].Value)</p>
     <Button Icon="fa fa-fa" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
-    <BlockLogger @ref="Trace" class="mt-3" />
 </DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
