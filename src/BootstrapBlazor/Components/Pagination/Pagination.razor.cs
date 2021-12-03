@@ -74,13 +74,13 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         private IEnumerable<SelectedItem> GetPageItems()
         {
-            var pages = PageItemsSource ?? new List<int>() { 20, 40, 80, 100, 200 };
             var ret = new List<SelectedItem>();
-            for (var i = 0; i < pages.Count(); i++)
+            for (var i = 0; i < PageItemsSource.Count(); i++)
             {
-                var item = new SelectedItem(pages.ElementAt(i).ToString(), string.Format(SelectItemsText, pages.ElementAt(i)));
+                var v = PageItemsSource.ElementAt(i);
+                var item = new SelectedItem(v.ToString(), string.Format(SelectItemsText, v));
                 ret.Add(item);
-                if (pages.ElementAt(i) >= TotalCount) break;
+                if (v >= TotalCount) break;
             }
             return ret;
         }

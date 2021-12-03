@@ -57,7 +57,7 @@
     }
 
     RenderFragment<PaginationItem> RenderPaginationItem => item =>
-    @<li class="@GetPaginationItemClassName(item.Active)">
+    @<li class="@PaginationBase.GetPaginationItemClassName(item.Active)">
         <a class="page-link" aria-label="@GetLabelString" @onclick:preventDefault @onclick="e => OnPageItemClick(item.PageIndex)">@item.PageIndex</a>
     </li>;
 }

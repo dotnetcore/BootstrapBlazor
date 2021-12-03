@@ -57,7 +57,7 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 每页显示数据数量的外部数据源
         /// </summary>
         [Parameter]
-        public IEnumerable<int>? PageItemsSource { get; set; }
+        public IEnumerable<int> PageItemsSource { get; set; } = new int[] { 20, 50, 100, 200, 500, 1000 };
 
         /// <summary>
         /// 获得/设置 分组名称
@@ -107,7 +107,7 @@ namespace BootstrapBlazor.Components
             // 初始化每页显示数量
             if (Pageable)
             {
-                PageItems = PageItemsSource?.FirstOrDefault() ?? QueryPageOptions.DefaultPageItems;
+                PageItems = PageItemsSource.FirstOrDefault();
 
                 if (Items != null) throw new InvalidOperationException($"Please set {nameof(OnQueryAsync)} instead set {nameof(Items)} property when {nameof(Pageable)} be set True.");
             }
@@ -116,7 +116,7 @@ namespace BootstrapBlazor.Components
             if (Items == null)
             {
                 await QueryData();
-                if (Items == null) Items = new TItem[0];
+                if (Items == null) Items = Array.Empty<TItem>();
             }
         }
 

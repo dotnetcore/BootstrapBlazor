@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -40,7 +40,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="active"></param>
         /// <returns></returns>
-        protected string? GetPaginationItemClassName(bool active) => CssBuilder.Default("page-item")
+        protected static string? GetPaginationItemClassName(bool active) => CssBuilder.Default("page-item")
             .AddClass("active", active)
             .Build();
 
@@ -92,7 +92,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 每页显示数据数量的外部数据源
         /// </summary>
         /// <value></value>
-        [Parameter] public IEnumerable<int>? PageItemsSource { get; set; }
+        [Parameter]
+        public IEnumerable<int> PageItemsSource { get; set; } = new int[] { 20, 50, 100, 200, 500, 1000 };
 
         /// <summary>
         /// 点击页码时回调方法
