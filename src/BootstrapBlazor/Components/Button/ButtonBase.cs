@@ -103,7 +103,7 @@ namespace BootstrapBlazor.Components
         public string? Text { get; set; }
 
         /// <summary>
-        /// 获得/设置 Outline 样式
+        /// 获得/设置 Outline 样式 默认 false
         /// </summary>
         [Parameter]
         public bool IsOutline { get; set; }
@@ -219,18 +219,19 @@ namespace BootstrapBlazor.Components
             if (!firstRender && Tooltip != null)
             {
                 var id = RetrieveId();
-                if (!string.IsNullOrEmpty(id) && _prevDisable != IsDisabled)
+                if (_prevDisable != IsDisabled)
                 {
                     _prevDisable = IsDisabled;
                     if (IsDisabled)
                     {
+                        // TODO: id 不可为空整理 主要是 AvatarUpload 的 Id 处理
                         if (Tooltip.PopoverType == PopoverType.Tooltip)
                         {
-                            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id, "dispose");
+                            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", id!, "dispose");
                         }
                         else
                         {
-                            await JSRuntime.InvokeVoidAsync(null, "bb_popover", id, "dispose");
+                            await JSRuntime.InvokeVoidAsync(null, "bb_popover", id!, "dispose");
                         }
                     }
                     else
