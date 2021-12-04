@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -99,6 +100,18 @@ namespace BootstrapBlazor.Components
         [Parameter]
         [NotNull]
         public string? TooltipText { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否启用全局异常捕获 默认 true 启用
+        /// </summary>
+        [Parameter]
+        public bool IsErrorHandler { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 自定义错误处理回调方法
+        /// </summary>
+        [Parameter]
+        public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
         [Inject]
         [NotNull]

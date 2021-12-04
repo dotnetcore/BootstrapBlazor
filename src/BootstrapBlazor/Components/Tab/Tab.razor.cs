@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// Tab 组件基类
     /// </summary>
-    public sealed partial class Tab : BootstrapComponentBase
+    public partial class Tab
     {
         private bool FirstRender { get; set; } = true;
 
@@ -199,6 +199,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public Dictionary<string, string>? TabItemTextDictionary { get; set; }
+
+        /// <summary>
+        /// 获得/设置 父级容器 Layout 实例
+        /// </summary>
+        [CascadingParameter]
+        private Layout? Layout { get; set; }
 
         [Inject]
         [NotNull]
@@ -656,5 +662,19 @@ namespace BootstrapBlazor.Components
                 item.SetText(tabText);
             }
         }
+
+        private RenderFragment? RenderTabItemContent(RenderFragment? content) => Layout != null && Layout.IsErrorHandler
+            ? builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<ErrorLogger>(index++);
+                if (Layout.OnErrorHandleAsync != null)
+                {
+                    builder.AddAttribute(index++, nameof(BootstrapBlazor.Components.ErrorLogger.OnErrorHandleAsync), Layout.OnErrorHandleAsync);
+                }
+                builder.AddAttribute(index++, nameof(BootstrapBlazor.Components.ErrorLogger.ChildContent), content);
+                builder.CloseComponent();
+            }
+            : content;
     }
 }
