@@ -431,7 +431,9 @@
     "Block1Title": "测试",
     "Block1Intro": "本功能是通过代码产生异常信息，由全局捕获组件统一处理",
     "ExceptionTestIntroduce": "本例代码中写了一个除以零的错误代码，并且未使用 <code>try/catch</code> 对异常进行捕获，系统并不会崩溃导致不可用，<ul class='ul-demo'><li><code>Debug</code> 模式下会显示错误的 <b>描述信息</b> 与 <b>堆栈信息</b></li><li><code>Release</code> 模式下默认使用 <code>Toast</code> 进行弹窗提示</li></ul><div>可通过设置 <code>ErrorContent</code> 对 <b>异常信息</b> 进行自定义布局显示</div>",
-    "ButtonText": "测试"
+    "ButtonText": "测试",
+    "Block2Title": "自定义错误处理",
+    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑",
   },
   "BootstrapBlazor.Shared.Samples.Splits": {
     "Title": "Split 面板分割",

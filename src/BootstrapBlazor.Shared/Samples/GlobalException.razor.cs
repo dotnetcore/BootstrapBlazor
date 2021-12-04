@@ -5,8 +5,12 @@
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Shared.Common;
 using BootstrapBlazor.Shared.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Samples
 {
@@ -15,12 +19,25 @@ namespace BootstrapBlazor.Shared.Samples
     /// </summary>
     public partial class GlobalException
     {
+        [Inject]
+        [NotNull]
+        private SwalService? SwalService { get; set; }
+
         private static void OnClick()
         {
             // NET6.0 采用 ErrorLogger 统一处理
             var a = 0;
             _ = 1 / a;
         }
+
+        private Task OnErrorHandleAsync(ILogger logger, Exception ex) => SwalService.Show(new SwalOption()
+        {
+            Category = SwalCategory.Error,
+            Title = "Oops...",
+            Content = ex.Message,
+            ShowFooter = true,
+            FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
+        });
 
         /// <summary>
         /// 获得属性方法

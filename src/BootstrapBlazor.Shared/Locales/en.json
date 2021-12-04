@@ -431,7 +431,9 @@
     "Block1Title": "Test",
     "Block1Intro": "This function is to obtain the component instance through the cascade parameter and use its function",
     "ExceptionTestIntroduce": "In this example code, an error code that divides by zero is written. Because <code>try/catch</code> is used to capture the exception, the error message is displayed in the console below",
-    "ButtonText": "test"
+    "ButtonText": "test",
+    "Block2Title": "自定义错误处理",
+    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑"
   },
   "BootstrapBlazor.Shared.Samples.Splits": {
     "Title": "Split",

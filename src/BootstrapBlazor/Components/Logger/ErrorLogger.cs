@@ -48,6 +48,12 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public bool ShowToast { get; set; } = true;
 
+        /// <summary>
+        /// 获得/设置 自定义错误处理回调方法
+        /// </summary>
+        [Parameter]
+        public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
+
 #if NET5_0
         /// <summary>
         /// 
@@ -134,7 +140,7 @@ namespace BootstrapBlazor.Components
         }
 
         /// <summary>
-        /// 
+        /// 由接口调用
         /// </summary>
         /// <param name="exception"></param>
         /// <returns></returns>
@@ -142,7 +148,7 @@ namespace BootstrapBlazor.Components
         {
             await OnErrorAsync(exception);
 
-            if (ShowErrorDetails)
+            if (OnErrorHandleAsync is null && ShowErrorDetails)
             {
                 Exception = exception;
                 StateHasChanged();
@@ -160,15 +166,23 @@ namespace BootstrapBlazor.Components
         protected override async Task OnErrorAsync(Exception exception)
 #endif
         {
-            if (ShowToast)
+            // 由框架调用
+            if (OnErrorHandleAsync != null)
             {
-                await ToastService.Error("Application Error", exception.Message);
+                await OnErrorHandleAsync(Logger, exception);
             }
+            else
+            {
+                if (ShowToast)
+                {
+                    await ToastService.Error("Application Error", exception.Message);
+                }
 
 #if NET6_0_OR_GREATER
-            await ErrorBoundaryLogger.LogErrorAsync(exception);
+                await ErrorBoundaryLogger.LogErrorAsync(exception);
 #endif
-            Logger.LogError(FormatException(exception));
+                Logger.LogError(FormatException(exception));
+            }
         }
 
         /// <summary>
