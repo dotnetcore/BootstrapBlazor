@@ -66,12 +66,16 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 当前过滤条件是否激活
         /// </summary>
-        internal bool HasFilter => (Table != null && Column != null) && Table.Filters.ContainsKey(Column.GetFieldName());
+        internal bool HasFilter => (Table != null) && Table.Filters.ContainsKey(Column.GetFieldName());
 
         /// <summary>
         /// 获得 相关联 ITableColumn 实例
         /// </summary>
         [Parameter]
+        [NotNull]
+#if NET6_0_OR_GREATER
+        [EditorRequired]
+#endif
         public ITableColumn? Column { get; set; }
 
         /// <summary>
@@ -104,6 +108,8 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
+        private string? Step => Column.Step?.ToString() ?? "0.01";
+
         /// <summary>
         /// OnInitialized 方法
         /// </summary>
@@ -115,12 +121,9 @@ namespace BootstrapBlazor.Components
             FilterButtonText ??= Localizer[nameof(FilterButtonText)];
             ClearButtonText ??= Localizer[nameof(ClearButtonText)];
 
-            if (Column != null)
-            {
-                Title = Column.GetDisplayName();
-                FieldKey = Column.GetFieldName();
-                Column.Filter = this;
-            }
+            Title = Column.GetDisplayName();
+            FieldKey = Column.GetFieldName();
+            Column.Filter = this;
         }
 
         /// <summary>

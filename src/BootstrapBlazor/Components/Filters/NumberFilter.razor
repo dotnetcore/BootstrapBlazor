@@ -1,11 +1,18 @@
 ﻿@namespace BootstrapBlazor.Components
-@typeparam TValue
+@typeparam TType
 @inherits FilterBase
 
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <BootstrapInput @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
+        @if (typeof(TType).IsNumber())
+        {
+            <BootstrapInputNumber @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()" Step="@Step"></BootstrapInputNumber>
+        }
+        else
+        {
+            <BootstrapInput @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
+        }
         <FilterButton Items="Items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
     </div>
 }
@@ -13,7 +20,14 @@ else
 {
     <Select Items="@Items" @bind-Value="@Action1"></Select>
 
-    <BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
+    @if (typeof(TType).IsNumber())
+    {
+        <BootstrapInputNumber @bind-Value="@Value1" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
+    }
+    else
+    {
+        <BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
+    }
 
     @if (Count > 0)
     {
@@ -21,6 +35,13 @@ else
 
         <Select Items="@Items" @bind-Value="@Action2"></Select>
 
-        <BootstrapInput @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
+        @if (typeof(TType).IsNumber())
+        {
+            <BootstrapInputNumber @bind-Value="@Value1" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
+        }
+        else
+        {
+            <BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
+        }
     }
 }

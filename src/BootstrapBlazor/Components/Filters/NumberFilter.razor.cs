@@ -12,13 +12,13 @@ namespace BootstrapBlazor.Components
     /// <summary>
     /// 数字类型过滤条件
     /// </summary>
-    public partial class NumberFilter<TValue>
+    public partial class NumberFilter<TType>
     {
-        private TValue? Value1 { get; set; }
+        private TType? Value1 { get; set; }
 
         private FilterAction Action1 { get; set; } = FilterAction.GreaterThanOrEqual;
 
-        private TValue? Value2 { get; set; }
+        private TType? Value2 { get; set; }
 
         private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
 
@@ -28,6 +28,12 @@ namespace BootstrapBlazor.Components
 
         [NotNull]
         private IEnumerable<SelectedItem>? Items { get; set; }
+
+        /// <summary>
+        /// 获得/设置 步长 默认 0.01
+        /// </summary>
+        [Parameter]
+        public string Step { get; set; } = "0.01";
 
         /// <summary>
         /// OnInitialized 方法

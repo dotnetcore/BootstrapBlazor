@@ -3,10 +3,7 @@
 
 @if (IsHeaderRow)
 {
-    @if (Column != null)
-    {
-        @RenderFilter(Column)
-    }
+    @RenderFilter(Column)
 }
 else
 {
@@ -14,10 +11,7 @@ else
         <div class="card-arrow"></div>
         <div class="card-header"><span>@Title</span></div>
         <div class="card-body">
-            @if (Column != null)
-            {
-                @RenderFilter(Column)
-            }
+            @RenderFilter(Column)
         </div>
         <div class="card-footer">
             <div class="d-flex flex-fill">
@@ -37,40 +31,49 @@ else
     RenderFragment<ITableColumn> RenderFilter => Column =>
     @<CascadingValue Value="this" IsFixed="true">
         @if (Column.FilterTemplate != null)
-        {
-            @Column.FilterTemplate
-        }
-        else if (Column.PropertyType.IsEnum())
-        {
-            <EnumFilter Type="Column.PropertyType"></EnumFilter>
-        }
-        else
-        {
-            var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
-            switch (fieldType?.Name)
             {
-                case nameof(Boolean):
-                    <BoolFilter />
-                    break;
-                case nameof(DateTime):
-                    <DateTimeFilter Count="Count" />
-                    break;
-                case nameof(Int32):
-                    <NumberFilter TValue="int" Count="Count" />
-                    break;
-                case nameof(Double):
-                    <NumberFilter TValue="double" Count="Count" />
-                    break;
-                case nameof(Decimal):
-                    <NumberFilter TValue="Decimal" Count="Count" />
-                    break;
-                case nameof(String):
-                    <StringFilter Count="Count" />
-                    break;
-                default:
-                    <div>不支持的类型</div>
-                    break;
-            };
-        }
-    </CascadingValue>;
+                @Column.FilterTemplate
+            }
+            else if (Column.PropertyType.IsEnum())
+            {
+                <EnumFilter Type="Column.PropertyType"></EnumFilter>
+            }
+            else
+            {
+                var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
+                switch (fieldType?.Name)
+                {
+                    case nameof(Boolean):
+                        <BoolFilter />
+                        break;
+                    case nameof(DateTime):
+                        <DateTimeFilter Count="Count" />
+                        break;
+                    case nameof(Int16):
+                        <NumberFilter TType="Int16" Count="@Count" Step="@Step" />
+                        break;
+                    case nameof(Int32):
+                        <NumberFilter TType="Int32" Count="@Count" Step="@Step" />
+                        break;
+                    case nameof(Int64):
+                        <NumberFilter TType="Int64" Count="@Count" Step="@Step" />
+                        break;
+                    case nameof(Single):
+                        <NumberFilter TType="Single" Count="@Count" Step="@Step" />
+                        break;
+                    case nameof(Double):
+                        <NumberFilter TType="Double" Count="@Count" Step="@Step" />
+                        break;
+                    case nameof(Decimal):
+                        <NumberFilter TType="Decimal" Count="@Count" Step="@Step" />
+                        break;
+                    case nameof(String):
+                        <StringFilter Count="Count" />
+                        break;
+                    default:
+                        <div>不支持的类型</div>
+                        break;
+                };
+            }
+        </CascadingValue>;
 }
