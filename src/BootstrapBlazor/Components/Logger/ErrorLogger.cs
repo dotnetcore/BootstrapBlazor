@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Specialized;
@@ -42,11 +43,21 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private ToastService? ToastService { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
+
         /// <summary>
         /// 获得/设置 是否显示弹窗 默认 true 显示
         /// </summary>
         [Parameter]
         public bool ShowToast { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 Toast 弹窗标题
+        /// </summary>
+        [Parameter]
+        public string? ToastTitle { get; set; }
 
         /// <summary>
         /// 获得/设置 自定义错误处理回调方法
@@ -60,6 +71,13 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        [NotNull]
+        public RenderFragment<Exception>? ErrorContent { get; set; }
 #else
         [Inject]
         [NotNull]
@@ -74,47 +92,19 @@ namespace BootstrapBlazor.Components
         private bool ShowErrorDetails { get; set; }
 
         /// <summary>
-        /// BuildRenderTree 方法
-        /// </summary>
-        /// <param name="builder"></param>
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
-        {
-            builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
-            builder.AddAttribute(1, nameof(CascadingValue<IErrorLogger>.Value), this);
-            builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
-#if NET5_0
-            builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), ChildContent);
-#else
-#if DEBUG
-            if (Exception != null || CurrentException != null)
-            {
-                var ex = Exception ?? CurrentException;
-                builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), ErrorContent?.Invoke(ex!) ?? ChildContent);
-            }
-            else
-            {
-                builder.AddAttribute(4, nameof(CascadingValue<IErrorLogger>.ChildContent), ChildContent);
-            }
-#else
-            builder.AddAttribute(4, nameof(CascadingValue<IErrorLogger>.ChildContent), ChildContent);
-#endif
-#endif
-            builder.CloseComponent();
-        }
-
-        /// <summary>
         /// OnInitialized 方法
         /// </summary>
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
+            ToastTitle ??= Localizer[nameof(ToastTitle)];
+
             ShowErrorDetails = Configuration.GetValue<bool>("DetailedErrors", false);
 
-#if NET6_0_OR_GREATER
-            if (ErrorContent == null && ShowErrorDetails)
+            if (ShowErrorDetails)
             {
-                ErrorContent = ex => builder =>
+                ErrorContent ??= ex => builder =>
                 {
                     var index = 0;
                     builder.OpenElement(index++, "div");
@@ -123,7 +113,6 @@ namespace BootstrapBlazor.Components
                     builder.CloseElement();
                 };
             }
-#endif
         }
 
         /// <summary>
@@ -137,6 +126,32 @@ namespace BootstrapBlazor.Components
 #if NET6_0_OR_GREATER
             Recover();
 #endif
+        }
+
+        /// <summary>
+        /// BuildRenderTree 方法
+        /// </summary>
+        /// <param name="builder"></param>
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
+            builder.AddAttribute(1, nameof(CascadingValue<IErrorLogger>.Value), this);
+            builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
+
+            var content = ChildContent;
+#if DEBUG
+#if NET5_0
+            var ex = Exception;
+#else
+            var ex = Exception ?? CurrentException;
+#endif
+            if (ex != null)
+            {
+                content = ErrorContent.Invoke(ex);
+            }
+#endif
+            builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);
+            builder.CloseComponent();
         }
 
         /// <summary>
@@ -175,7 +190,7 @@ namespace BootstrapBlazor.Components
             {
                 if (ShowToast)
                 {
-                    await ToastService.Error("Application Error", exception.Message);
+                    await ToastService.Error(ToastTitle, exception.Message);
                 }
 
 #if NET6_0_OR_GREATER

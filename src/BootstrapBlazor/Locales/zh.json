@@ -119,6 +119,9 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "你的输入不相同"
   },
+  "BootstrapBlazor.Components.ErrorLogger": {
+    "ToastTitle": "应用程序错误"
+  },
   "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "返回顶端"
   },

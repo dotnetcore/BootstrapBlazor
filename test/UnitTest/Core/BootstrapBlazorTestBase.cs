@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Components;
 using Bunit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics.CodeAnalysis;

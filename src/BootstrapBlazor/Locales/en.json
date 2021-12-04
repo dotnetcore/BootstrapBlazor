@@ -119,6 +119,9 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
   },
+  "BootstrapBlazor.Components.ErrorLogger": {
+    "ToastTitle": "Application Error"
+  },
   "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "Go top"
   },

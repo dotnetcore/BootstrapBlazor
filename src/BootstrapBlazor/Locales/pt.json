@@ -119,6 +119,9 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Entre com o mesmo valor"
   },
+  "BootstrapBlazor.Components.ErrorLogger": {
+    "ToastTitle": "Erro de aplicação"
+  },
   "BootstrapBlazor.Components.GoTop": {
     "TooltipText": "Topo"
   },
