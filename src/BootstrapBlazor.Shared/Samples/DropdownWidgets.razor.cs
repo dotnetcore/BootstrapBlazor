@@ -13,68 +13,68 @@ namespace BootstrapBlazor.Shared.Samples
     public partial class DropdownWidgets
     {
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Icon",
-                Description = "挂件图标",
+                Description = Localizer["Icon"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = "fa fa-bell-o"
             },
             new AttributeItem() {
                 Name = "BadgeColor",
-                Description = "徽章颜色",
+                Description = Localizer["BadgeColor"],
                 Type = "Color",
                 ValueList = " — ",
                 DefaultValue = "Success"
             },
             new AttributeItem() {
                 Name = "HeaderColor",
-                Description = "Header 颜色",
+                Description = Localizer["HeaderColor"],
                 Type = "Color",
                 ValueList = "Primary / Secondary / Info / Warning / Danger ",
                 DefaultValue = "Primary"
             },
             new AttributeItem() {
                 Name = "BadgeNumber",
-                Description = "徽章显示数量",
+                Description = Localizer["BadgeNumber"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ShowArrow",
-                Description = "是否显示小箭头",
+                Description = Localizer["ShowArrow"],
                 Type = "boolean",
                 ValueList = "true/false",
                 DefaultValue = "true"
             },
             new AttributeItem() {
                 Name = "MenuAlignment",
-                Description = "菜单对齐方式",
+                Description = Localizer["MenuAlignment"],
                 Type = "Alignment",
                 ValueList = "None / Left / Center / Right ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "HeaderTemplate",
-                Description = "Header 模板",
+                Description = Localizer["HeaderTemplate"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "BodyTemplate",
-                Description = "Body 模板",
+                Description = Localizer["BodyTemplate"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "FooterTemplate",
-                Description = "Footer 模板",
+                Description = Localizer["FooterTemplate"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

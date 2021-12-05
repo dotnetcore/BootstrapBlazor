@@ -1,15 +1,16 @@
 ﻿@page "/dropdownwidgets"
+@inject IStringLocalizer<DropdownWidgets> Localizer
 
-<h3>DropdownWidget 下拉挂件</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>多用于头部信息汇总展示</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="基础用法" Introduction="直接在页面上通过 <code>ChildContent</code> 编写挂件内容" Name="Normal">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <div class="d-flex align-items-center" style="height: 40px; background-color: #6c757d;">
         <DropdownWidget>
             <DropdownWidgetItem Icon="fa fa-envelope-o" BadgeNumber="4">
                 <HeaderTemplate>
-                    <span>您有 4 个未读消息</span>
+                    <span>@Localizer["BasicUsageMessage"]</span>
                 </HeaderTemplate>
                 <BodyTemplate>
                     @for (var index = 0; index < 4; index++)
@@ -29,12 +30,12 @@
                     }
                 </BodyTemplate>
                 <FooterTemplate>
-                    <a href="#" @onclick:preventDefault>查看所有消息</a>
+                    <a href="#" @onclick:preventDefault>@Localizer["BasicUsageViewMessage"]</a>
                 </FooterTemplate>
             </DropdownWidgetItem>
             <DropdownWidgetItem Icon="fa fa-bell-o" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Warning">
                 <HeaderTemplate>
-                    <span>您有 10 个未读通知</span>
+                    <span></span>
                 </HeaderTemplate>
                 <BodyTemplate>
                     @for (var index = 0; index < 10; index++)
@@ -46,12 +47,12 @@
                     }
                 </BodyTemplate>
                 <FooterTemplate>
-                    <a href="#" @onclick:preventDefault>查看所有通知</a>
+                    <a href="#" @onclick:preventDefault>@Localizer["BasicUsageViewNotify"]</a>
                 </FooterTemplate>
             </DropdownWidgetItem>
             <DropdownWidgetItem Icon="fa fa-flag-o" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
                 <HeaderTemplate>
-                    <span>您有 3 个任务</span>
+                    <span>@Localizer["BasicUsageTasks"]</span>
                 </HeaderTemplate>
                 <BodyTemplate>
                     <a href="#" class="dropdown-item" @onclick:preventDefault>
@@ -77,11 +78,11 @@
                     </a>
                 </BodyTemplate>
                 <FooterTemplate>
-                    <a href="#" @onclick:preventDefault>查看所有任务</a>
+                    <a href="#" @onclick:preventDefault>@Localizer["BasicUsageViewTasks"]</a>
                 </FooterTemplate>
             </DropdownWidgetItem>
         </DropdownWidget>
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" Title="DropdownWidgetItem 组件" />
+<AttributeTable Items="@GetAttributes()" Title="@Localizer["AttrTitle"]" />

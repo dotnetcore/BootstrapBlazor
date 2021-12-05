@@ -2127,6 +2127,28 @@
     "Collection": "Collection",
     "Arr": "Array"
   },
+  "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
+    "Title": "DropdownWidget",
+    "SubTitle": "More for head information summary presentation",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Write pendant content directly on the page through <code>childContent </code>",
+    "BasicUsageMessage": "You have 4 unread messages",
+    "BasicUsageViewMessage": "View all messages",
+    "BasicUsageNotify": "You have 10 unread notifications",
+    "BasicUsageViewNotify": "View all notifications",
+    "BasicUsageTasks": "You have 3 tasks",
+    "BasicUsageViewTasks": "View all tasks",
+    "AttrTitle": "DropdownWidgetItem",
+    "Icon": "Widget icon",
+    "BadgeColor": "Badge color",
+    "HeaderColor": "Header color",
+    "BadgeNumber": "The number of badges displayed",
+    "ShowArrow": "Whether to display a small arrow",
+    "MenuAlignment": "Menu alignment",
+    "HeaderTemplate": "Header template",
+    "BodyTemplate": "Body template",
+    "FooterTemplate": "Footer template"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
