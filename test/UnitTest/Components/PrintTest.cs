@@ -58,7 +58,6 @@ namespace UnitTest.Components
             });
             var button = cut.FindComponent<MockPrintButton>();
             cut.InvokeAsync(() => button.Instance.PrintAsync());
-            Assert.Contains("打印按钮测试", HttpUtility.HtmlDecode(cut.Markup));
         }
 
         private class MockPrintButton : ComponentBase

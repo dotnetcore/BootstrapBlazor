@@ -30,10 +30,10 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得 ModalDialog 集合
         /// </summary>
-        private List<ModalDialog> Dialogs { get; set; } = new(8);
+        private List<ModalDialog> Dialogs { get; } = new(8);
 
         /// <summary>
-        /// 获得/设置 是否后台关闭弹窗
+        /// 获得/设置 是否后台关闭弹窗 默认 false
         /// </summary>
         [Parameter]
         public bool IsBackdrop { get; set; }
@@ -181,11 +181,6 @@ namespace BootstrapBlazor.Components
                 await CloseOrPopDialog();
             }
         }
-
-        /// <summary>
-        /// 更新 UI
-        /// </summary>
-        internal void Render() => StateHasChanged();
 
         /// <summary>
         /// 内部使用如果还有弹窗继续显示，如果没有弹窗关闭所有

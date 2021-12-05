@@ -17,9 +17,17 @@ namespace UnitTest.Utils
         [Fact]
         public async Task Task_Test()
         {
+            var error = false;
             CancellationTokenSource cts = new(10);
-
-            await Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(50, cts.Token));
+            try
+            {
+                await Task.Delay(50, cts.Token);
+            }
+            catch (TaskCanceledException)
+            {
+                error = true;
+            }
+            Assert.True(error);
         }
 
         [Fact]

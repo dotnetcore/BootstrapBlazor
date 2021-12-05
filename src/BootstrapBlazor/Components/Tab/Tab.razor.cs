@@ -663,12 +663,14 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private RenderFragment? RenderTabItemContent(RenderFragment? content) => Layout != null && Layout.IsErrorHandler
+        private bool IsErrorHandle => (Layout != null && Layout.IsErrorHandler) || ErrorLogger != null;
+
+        private RenderFragment? RenderTabItemContent(RenderFragment? content) => IsErrorHandle
             ? builder =>
             {
                 var index = 0;
                 builder.OpenComponent<ErrorLogger>(index++);
-                if (Layout.OnErrorHandleAsync != null)
+                if (Layout?.OnErrorHandleAsync != null)
                 {
                     builder.AddAttribute(index++, nameof(BootstrapBlazor.Components.ErrorLogger.OnErrorHandleAsync), Layout.OnErrorHandleAsync);
                 }
