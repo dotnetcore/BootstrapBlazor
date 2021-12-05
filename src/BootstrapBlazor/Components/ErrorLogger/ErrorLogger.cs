@@ -145,7 +145,7 @@ namespace BootstrapBlazor.Components
 #else
             var ex = Exception ?? CurrentException;
 #endif
-            if (ex != null)
+            if (ex != null && ErrorContent != null)
             {
                 content = ErrorContent.Invoke(ex);
             }

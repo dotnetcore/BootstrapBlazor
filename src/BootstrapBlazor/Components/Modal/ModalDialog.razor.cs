@@ -68,7 +68,7 @@ namespace BootstrapBlazor.Components
         public bool IsScrolling { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否可以拖拽弹窗
+        /// 获得/设置 是否可以拖拽弹窗 默认 false 不可以拖动
         /// </summary>
         [Parameter]
         public bool IsDraggable { get; set; }
@@ -175,11 +175,6 @@ namespace BootstrapBlazor.Components
 
             Modal.AddDialog(this);
         }
-
-        /// <summary>
-        /// 显示弹窗方法
-        /// </summary>
-        public void Show() => Modal.ShowDialog(this);
 
         /// <summary>
         /// OnAfterRenderAsync 方法
