@@ -42,15 +42,14 @@ namespace BootstrapBlazor.Components
         protected override void OnParametersSet()
         {
             // 不需要走 base.OnParametersSet 方法
+            AdditionalAttributes ??= new Dictionary<string, object>();
             if (string.IsNullOrEmpty(PreviewUrl))
             {
-                AdditionalAttributes ??= new Dictionary<string, object>();
                 AdditionalAttributes.Add("onclick", "$.bb_printview(this)");
                 Target = null;
             }
             else
             {
-                AdditionalAttributes ??= new Dictionary<string, object>();
                 AdditionalAttributes.Remove("onclick", out _);
                 Target = "_blank";
             }

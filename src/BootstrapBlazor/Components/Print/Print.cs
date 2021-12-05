@@ -42,11 +42,7 @@ namespace BootstrapBlazor.Components
             PrintService.Register(this, PrintDialogAsync);
         }
 
-        private Task PrintDialogAsync(DialogOption option)
-        {
-            DialogService.Show(option);
-            return Task.CompletedTask;
-        }
+        private Task PrintDialogAsync(DialogOption option) => DialogService.Show(option);
 
         /// <summary>
         /// Dispose 方法
