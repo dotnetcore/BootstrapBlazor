@@ -52,72 +52,72 @@ namespace BootstrapBlazor.Shared.Samples
         /// 
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem(){
                 Name = "Items",
-                Description = "组件数据源",
+                Description = Localizer["Items"],
                 Type = "IEnumerable<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "Pageable",
-                Description = "是否分页",
+                Description = Localizer["Pageable"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
             new AttributeItem(){
                 Name = "PageItemsSource",
-                Description = "每页显示数量数据源",
+                Description =Localizer["PageItemsSource"],
                 Type = "IEnumerable<int>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "HeaderTemplate",
-                Description = "ListView Header 模板",
+                Description = Localizer["HeaderTemplate"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "BodyTemplate",
-                Description = "ListView Body 模板",
+                Description = Localizer["BodyTemplate"],
                 Type = "RenderFragment<TItem>",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem(){
                 Name = "FooterTemplate",
-                Description = "ListView Footer 模板",
+                Description = Localizer["FooterTemplate"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnQueryAsync",
-                Description = "异步查询回调方法",
+                Description = Localizer["OnQueryAsync"],
                 Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
                 ValueList = "—",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "OnListViewItemClick",
-                Description = "ListView元素点击时回调委托",
+                Description = Localizer["OnListViewItemClick"],
                 Type = "Func<TItem, Task>",
                 ValueList = " — ",
                 DefaultValue = " — "
             }
         };
 
-        private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+        private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
         {
             new MethodItem()
             {
                 Name = "QueryAsync",
-                Description = "手工查询数据方法",
+                Description = Localizer["QueryAsync"],
                 Parameters = " — ",
                 ReturnValue = "Task"
             },

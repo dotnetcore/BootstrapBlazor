@@ -2178,6 +2178,27 @@
     "GroupP2": "For more examples, please refer to the <code> EditorForms </code> Form Example < a href'editorforms' target'_blank'> the portal </a>",
     "AttTitle": "Set the component title"
   },
+  "BootstrapBlazor.Shared.Samples.ListViews": {
+    "Title": "ListView",
+    "SubTitle": "Provides rule arrangement controls",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Apply to a large number of duplicate data implementation rule arrangements",
+    "BasicUsageP1": "The <code> OnListViewItemClick </code> event is triggered when you click on the image",
+    "ProductListText": "The list of products",
+    "PaginationTitle": "Paginated display",
+    "PaginationIntro": "Set the <code> Pageable </code> display paginated components",
+    "GroupTitle": "Group display",
+    "GroupIntro": "Set up grouping <code> GroupName </code> data",
+    "Items": "Component data source",
+    "Pageable": "Whether to paginated",
+    "PageItemsSource": "The quantity data source is displayed per page",
+    "HeaderTemplate": "ListView Header template",
+    "BodyTemplate": "ListView Body template",
+    "FooterTemplate": "ListView Footer template",
+    "OnQueryAsync": "Asynchronous query callback method",
+    "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
+    "QueryAsync": "Manually query data methods"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
