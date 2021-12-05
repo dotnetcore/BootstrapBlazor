@@ -58,28 +58,28 @@ namespace BootstrapBlazor.Shared.Samples
             HandwrittenButtonText ??= Localizer[nameof(HandwrittenButtonText)];
         }
 
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem()
             {
                 Name = "SaveButtonText",
-                Description = "保存按钮文本",
+                Description = Localizer["SaveButtonText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "保存"
+                DefaultValue = Localizer["SaveButtonTextDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "ClearButtonText",
-                Description = "清除按钮文本",
+                Description = Localizer["ClearButtonText"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "清除"
+                DefaultValue = Localizer["ClearButtonTextDefaultValue"]
             },
             new AttributeItem()
             {
                 Name = "Result",
-                Description = "手写签名imgBase64字符串",
+                Description = Localizer["Result"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Shared.Samples
             new AttributeItem()
             {
                 Name = "HandwrittenBase64",
-                Description = "手写结果回调方法",
+                Description = Localizer["HandwrittenBase64"],
                 Type = "EventCallback<string>",
                 ValueList = " — ",
                 DefaultValue = " — "

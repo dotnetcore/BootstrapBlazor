@@ -2527,6 +2527,12 @@
     "BaseUsageText": "Basic usage",
     "IntroText1": "Touch device handwritten signature as Base64.",
     "IntroText2": "For desktop browser testing, please use F12 to simulate a touch device.",
-    "HandwrittenButtonText": "Signature"
+    "HandwrittenButtonText": "Signature",
+    "SaveButtonText": "Save button text",
+    "SaveButtonTextDefaultValue": "Save",
+    "ClearButtonText": "Clear the button text",
+    "ClearButtonTextDefaultValue": "Clear",
+    "Result": "Handwritten signature imgBase64 string",
+    "HandwrittenBase64": "Handwritten result callback method"
   }
 }

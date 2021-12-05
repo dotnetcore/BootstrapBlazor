@@ -2530,6 +2530,12 @@
     "BaseUsageText": "基础用法",
     "IntroText1": "触摸设备直接手写签名保存为 Base64",
     "IntroText2": "桌面浏览器测试请用F12模拟为触摸设备",
-    "HandwrittenButtonText": "签名"
+    "HandwrittenButtonText": "签名",
+    "SaveButtonText": "保存按钮文本",
+    "SaveButtonTextDefaultValue": "保存",
+    "ClearButtonText": "清除按钮文本",
+    "ClearButtonTextDefaultValue": "清除",
+    "Result": "手写签名imgBase64字符串",
+    "HandwrittenBase64": "手写结果回调方法"
   }
 }
