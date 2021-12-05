@@ -4,18 +4,18 @@
 <h3>@Title</h3>
 <h4>@SubTitle</h4>
 
-<DemoBlock Title="基本用法" Introduction="添加 <code>Empty</code> 标签即可" Name="Normal">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <Empty />
 </DemoBlock>
 
-<DemoBlock Title="设置空状态图片路径" Introduction="设置 <code>Image</code> 属性即可" Name="Image">
-    <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Width="133" Text="暂无数据" />
+<DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image">
+    <Empty Image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg" Width="133" Text="@Localizer["ImageText"]" />
 </DemoBlock>
 
-<DemoBlock Title="自定义空状态模板" Introduction="内套 <code>Template</code> 标签渲染自定义组件" Name="Template">
+<DemoBlock Title="@Localizer["TemplateTitle"]" Introduction="@Localizer["TemplateIntro"]" Name="Template">
     <Empty Image="_content/BootstrapBlazor.Shared/images/empty.svg">
         <Template>
-            <Button OnClick="@(()=>NavigationManager.NavigateTo("components"))">返回上一页</Button>
+            <Button OnClick="@(()=>NavigationManager.NavigateTo("components"))">@Localizer["TemplateIButtonText"]</Button>
         </Template>
     </Empty>
 </DemoBlock>

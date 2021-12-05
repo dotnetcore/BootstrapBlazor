@@ -50,47 +50,47 @@ namespace BootstrapBlazor.Shared.Samples
         /// 获得属性方法
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<AttributeItem> GetAttributes() => new[]
+        private IEnumerable<AttributeItem> GetAttributes() => new[]
         {
             // TODO: 移动到数据库中
             new AttributeItem() {
                 Name = "Image",
-                Description = "自定义图片路径",
+                Description = Localizer["Image"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "Text",
-                Description = "自定义描述信息",
+                Description =  Localizer["Text"],
                 Type = "string",
                 ValueList = " — ",
-                DefaultValue = "暂无描述"
+                DefaultValue = Localizer["TextDefaultValue"]
             },
             new AttributeItem() {
                 Name = "Width",
-                Description = "自定义图片宽度",
+                Description =  Localizer["Width"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " 100 "
             },
             new AttributeItem() {
                 Name = "Height",
-                Description = "自定义图片高度",
+                Description =  Localizer["Height"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " 100 "
             },
             new AttributeItem() {
                 Name = "Template",
-                Description = "自定义模板",
+                Description =  Localizer["Template"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
             new AttributeItem() {
                 Name = "ChildContent",
-                Description = "子组件",
+                Description =  Localizer["ChildContent"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "

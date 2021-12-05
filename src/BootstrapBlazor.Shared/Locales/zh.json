@@ -433,7 +433,7 @@
     "ExceptionTestIntroduce": "本例代码中写了一个除以零的错误代码，并且未使用 <code>try/catch</code> 对异常进行捕获，系统并不会崩溃导致不可用，<ul class='ul-demo'><li><code>Debug</code> 模式下会显示错误的 <b>描述信息</b> 与 <b>堆栈信息</b></li><li><code>Release</code> 模式下默认使用 <code>Toast</code> 进行弹窗提示</li></ul><div>可通过设置 <code>ErrorContent</code> 对 <b>异常信息</b> 进行自定义布局显示</div>",
     "ButtonText": "测试",
     "Block2Title": "自定义错误处理",
-    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑",
+    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑"
   },
   "BootstrapBlazor.Shared.Samples.Splits": {
     "Title": "Split 面板分割",
@@ -2152,6 +2152,25 @@
     "BodyTemplate": "Body 模板",
     "FooterTemplate": "Footer 模板"
   },
+  "BootstrapBlazor.Shared.Samples.Empties": {
+    "Title": "Empty 空状态",
+    "SubTitle": "空状态时的展示占位图",
+    "BasicUsageTitle": "基本用法",
+    "BasicUsageIntro": "添加 <code>Empty</code> 标签即可",
+    "ImageTitle": "设置空状态图片路径",
+    "ImageIntro": "设置 <code>Image</code> 属性即可",
+    "ImageText": "暂无数据",
+    "TemplateTitle": "自定义空状态模板",
+    "TemplateIntro": "内套 <code>Template</code> 标签渲染自定义组件",
+    "TemplateIButtonText": "返回上一页",
+    "Image": "自定义图片路径",
+    "Text": "自定义描述信息",
+    "TextDefaultValue": "暂无描述",
+    "Width": "自定义图片宽度",
+    "Height": "自定义图片高度",
+    "Template": "自定义模板",
+    "ChildContent": "子组件"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"
@@ -2440,10 +2459,6 @@
     "ChartDoughnut": "圆环图",
     "ChartBubble": "气泡图",
     "Transition": "过渡效果 Transition"
-  },
-  "BootstrapBlazor.Shared.Samples.Empties": {
-    "Title": "Empty 空状态",
-    "SubTitle": "空状态时的展示占位图"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "左对齐",

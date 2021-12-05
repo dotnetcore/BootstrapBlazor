@@ -2149,6 +2149,25 @@
     "BodyTemplate": "Body template",
     "FooterTemplate": "Footer template"
   },
+  "BootstrapBlazor.Shared.Samples.Empties": {
+    "Title": "Empty",
+    "SubTitle": "Sub Title PlaceHolder",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Just add <code> Empty </code> tag",
+    "ImageTitle": "Set the path to the empty state picture",
+    "ImageIntro": "Just set the <code>Image </code> property",
+    "ImageText": "No data at this time",
+    "TemplateTitle": "Customize the empty state template",
+    "TemplateIntro": "The inner set renders custom components <code> Template </code> labels",
+    "TemplateIButtonText": "Go back to the previous page",
+    "Image": "Customize the picture path",
+    "Text": "Custom description information",
+    "TextDefaultValue": "There is no description at this time",
+    "Width": "Customize the width of the picture",
+    "Height": "Customize the height of the picture",
+    "Template": "Custom templates",
+    "ChildContent": "ChildContent"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
@@ -2437,10 +2456,6 @@
     "ChartDoughnut": "Doughnut",
     "ChartBubble": "Bubble",
     "Transition": "Transition"
-  },
-  "BootstrapBlazor.Shared.Samples.Empties": {
-    "Title": "Empty",
-    "SubTitle": "Sub Title PlaceHolder"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "Left": "Left",
