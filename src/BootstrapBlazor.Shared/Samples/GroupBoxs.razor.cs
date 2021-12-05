@@ -12,11 +12,11 @@ namespace BootstrapBlazor.Shared.Samples
     /// </summary>
     public sealed partial class GroupBoxs
     {
-        private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+        private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
         {
             new AttributeItem() {
                 Name = "Title",
-                Description = "设置组件标题",
+                Description = Localizer["AttTitle"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "

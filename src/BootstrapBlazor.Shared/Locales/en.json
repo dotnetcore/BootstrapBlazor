@@ -2168,6 +2168,16 @@
     "Template": "Custom templates",
     "ChildContent": "ChildContent"
   },
+  "BootstrapBlazor.Shared.Samples.GroupBoxs": {
+    "Title": "GroupBox",
+    "SubTitle": "Simulate WinForm's GroupBox components",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Put your own components inside the <code> GroupBox </code>",
+    "GroupTitle": "An example of a form",
+    "GroupP1": "I'm an example of <code> GroupBox </code>",
+    "GroupP2": "For more examples, please refer to the <code> EditorForms </code> Form Example < a href'editorforms' target'_blank'> the portal </a>",
+    "AttTitle": "Set the component title"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"
