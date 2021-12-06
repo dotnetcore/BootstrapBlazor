@@ -2199,6 +2199,27 @@
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods"
   },
+  "BootstrapBlazor.Shared.Samples.Locator": {
+    "Title": "Get the IP geographic location",
+    "SubTitle": "More for system log tracking and analysis",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "The injection service displays client geographic location information",
+    "BasicUsageP1": "Introduction to usage",
+    "BasicUsageP2": "The component uses the injection service <code> IIPLocatorProvider </code> call the <code>Locate </code> method",
+    "BasicUsageP3": "Because the geo-location query interface returns character sets that may be other character sets such as <code> gbk </code>, the program will report an error;",
+    "BasicUsageP4": "Solution:",
+    "BasicUsageP5": "The <code> Startup </code> file add the following phrase to the  <code> ConfigureServices </code> method",
+    "BasicUsageP6": "IP test data",
+    "BasicUsageP7": "Jinan City, Shandong Province Unicom",
+    "BasicUsageP8": "Hefei, Anhui Province, telecommunications",
+    "BasicUsageInputText": "IpAddress",
+    "BasicUsageDisplayText": "Geographical location",
+    "BasicUsageButtonText": "Locating",
+    "BasicUsageP9": "Extend the custom geo-location query interface",
+    "BasicUsageP10": "1. Implement a custom locator",
+    "BasicUsageP11": "2. Configure a custom locator",
+    "BasicUsageP12": "Customize the locator <code> CustomerLocator </code> configuration with the callback delegate parameters the <code> AddBootstrapBlazor </code> method"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"

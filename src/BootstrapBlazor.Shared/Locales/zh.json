@@ -2202,6 +2202,27 @@
     "OnListViewItemClick": "ListView元素点击时回调委托",
     "QueryAsync": "手工查询数据方法"
   },
+  "BootstrapBlazor.Shared.Samples.Locator": {
+    "Title": "获取 IP 地理位置",
+    "SubTitle": "多用于系统日志跟踪与分析",
+    "BasicUsageTitle": "普通用法",
+    "BasicUsageIntro": "注入服务显示客户端地理位置信息",
+    "BasicUsageP1": "用法介绍",
+    "BasicUsageP2": "组件中使用注入服务 <code>IIPLocatorProvider</code> 调用 <code>Locate</code> 方法",
+    "BasicUsageP3": "由于地理位置查询接口返回字符集可能是其他字符集如 <code>gbk</code>，程序会报错；",
+    "BasicUsageP4": "解决办法：",
+    "BasicUsageP5": "<code>Startup</code> 文件中 <code>ConfigureServices</code> 方法内增加下面这句话即可解决",
+    "BasicUsageP6": "IP 测试数据",
+    "BasicUsageP7": "山东省济南市 联通",
+    "BasicUsageP8": "安徽省合肥市 电信",
+    "BasicUsageInputText": "Ip 地址",
+    "BasicUsageDisplayText": "地理位置",
+    "BasicUsageButtonText": "定位",
+    "BasicUsageP9": "扩展自定义地理位置查询接口",
+    "BasicUsageP10": "1. 实现自定义定位器",
+    "BasicUsageP11": "2. 配置自定义定位器",
+    "BasicUsageP12": "通过 <code>AddBootstrapBlazor</code> 方法的回调委托参数进行自定义定位器 <code>CustomerLocator</code> 配置"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"
