@@ -2372,6 +2372,7 @@
     "ServerBlazor": "Server-side Blazor",
     "ClientBlazor": "Client-side Blazor",
     "Labels": "Labels",
+    "ZIndex": "Layout",
     "Theme": "Theme",
     "GlobalException": "Global Exception",
     "LayoutPage": "后台模拟器",

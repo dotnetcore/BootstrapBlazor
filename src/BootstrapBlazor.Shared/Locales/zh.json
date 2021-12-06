@@ -2374,6 +2374,7 @@
     "Localization": "本地化",
     "ServerBlazor": "服务器端模式",
     "ClientBlazor": "客户端模式",
+    "ZIndex": "组件层次",
     "Theme": "组件主题",
     "Labels": "表单标签",
     "GlobalException": "全局异常",

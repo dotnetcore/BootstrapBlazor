@@ -198,6 +198,12 @@ namespace BootstrapBlazor.Shared.Shared
                 new()
                 {
                     IsNew = true,
+                    Text = Localizer["ZIndex"],
+                    Url = "layout"
+                },
+                new()
+                {
+                    IsNew = true,
                     Text = Localizer["Theme"],
                     Url = "themes"
                 },

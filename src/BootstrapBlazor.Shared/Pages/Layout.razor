@@ -1,0 +1,29 @@
+﻿@page "/layout"
+
+<h3>组件分层</h3>
+
+<p>由于弹窗组件比较多，再某些场景下会使用多种弹窗进行组合，本章节讲述如何对组件进行分层管理。下面是 <code>Bootstrap</code> 提供的内置 <code>z-index</code> 值：</p>
+
+<Pre>$zindex-dropdown:                   1000;
+$zindex-sticky:                     1020;
+$zindex-fixed:                      1030;
+$zindex-offcanvas-backdrop:         1040;
+$zindex-offcanvas:                  1045;
+$zindex-modal-backdrop:             1050;
+$zindex-modal:                      1055;
+$zindex-popover:                    1070;
+$zindex-tooltip:                    1080;</Pre>
+
+<p>本套组件额外增加了 <code>Message</code> <code>Dialog</code> <code>Swal</code> <code>Toast</code> 各组件分层如下：</p>
+
+<Pre>Drawer:                    1050;
+Dialog:                    1050;
+Swal:                      1070;
+Message:                   1090;
+Toast:                     1090;</Pre>
+
+<p>测试环节</p>
+
+<Button Text="测试" OnClickWithoutRender="ShowDialog"></Button>
+
+<p class="mt-2">由于 <code>Drawer</code> 组件未提供服务形式，后期改造</p>

@@ -156,9 +156,14 @@ form .form-control.is-display {
 }
 
 /*swal*/
-.swal .modal-header {
-    display: none;
+.swal {
+    position: fixed;
+    z-index: 1070;
 }
+
+    .swal .modal-header {
+        display: none;
+    }
 
 .swal2-icon,
 .swal2-actions {
