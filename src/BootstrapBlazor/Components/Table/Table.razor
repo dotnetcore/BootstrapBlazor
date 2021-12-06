@@ -39,7 +39,7 @@
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" IsDisabled="!SelectedItems.Any()" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" IsDisabled="SelectedItems.Count != 1" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {

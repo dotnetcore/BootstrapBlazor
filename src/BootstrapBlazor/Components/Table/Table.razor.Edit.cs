@@ -23,8 +23,14 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 被选中数据集合
         /// </summary>
-        /// <value></value>
-        protected List<TItem> SelectedItems { get; set; } = new List<TItem>();
+        [Parameter]
+        public List<TItem> SelectedItems { get; set; } = new List<TItem>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Parameter]
+        public EventCallback<List<TItem>> SelectedItemsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 是否正在查询数据
@@ -80,18 +86,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool IsKeyboard { get; set; } = true;
-
-        /// <summary>
-        /// 获得/设置 被选中的数据集合
-        /// </summary>
-        [Parameter]
-        public List<TItem>? SelectedRows { get; set; }
-
-        /// <summary>
-        /// 获得/设置 被选中的数据集合回调委托
-        /// </summary>
-        [Parameter]
-        public EventCallback<List<TItem>> SelectedRowsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 行样式格式回调委托
@@ -223,8 +217,7 @@ namespace BootstrapBlazor.Components
                 {
                     SelectedItems.Add(val);
                 }
-
-                await OnSelectedRowsChanged();
+                await OnSelectedItemsChanged();
 
                 // 更新 设置选中状态
                 StateHasChanged();
@@ -236,12 +229,11 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private async Task OnSelectedRowsChanged()
+        private async Task OnSelectedItemsChanged()
         {
-            SelectedRows = new List<TItem>(SelectedItems);
-            if (SelectedRowsChanged.HasDelegate)
+            if (SelectedItemsChanged.HasDelegate)
             {
-                await SelectedRowsChanged.InvokeAsync(SelectedRows);
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
             }
         }
 
@@ -322,8 +314,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task QueryData()
         {
-            SelectedItems.Clear();
-
             if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
@@ -422,10 +412,6 @@ namespace BootstrapBlazor.Components
                         QueryItems = invoker(QueryItems, SortName, SortOrder);
                     }
                 }
-            }
-            if (SelectedRows != null)
-            {
-                SelectedItems.AddRange(RowItems.Where(i => SelectedRows.Contains(i)));
             }
         }
 

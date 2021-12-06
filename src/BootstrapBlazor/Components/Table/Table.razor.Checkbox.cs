@@ -89,17 +89,13 @@ namespace BootstrapBlazor.Components
                     // select all
                     SelectedItems.Clear();
                     SelectedItems.AddRange(RowItems);
-
-                    // callback
-                    await OnSelectedRowsChanged();
+                    await OnSelectedItemsChanged();
                     StateHasChanged();
                     break;
                 case CheckboxState.UnChecked:
                     // unselect all
                     SelectedItems.Clear();
-
-                    // callback
-                    await OnSelectedRowsChanged();
+                    await OnSelectedItemsChanged();
                     StateHasChanged();
                     break;
                 default:
@@ -114,8 +110,7 @@ namespace BootstrapBlazor.Components
         {
             if (state == CheckboxState.Checked) SelectedItems.Add(val);
             else SelectedItems.Remove(val);
-
-            await OnSelectedRowsChanged();
+            await OnSelectedItemsChanged();
 
             // auto quit edit in cell mode
             AddInCell = false;

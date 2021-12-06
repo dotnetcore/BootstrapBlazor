@@ -77,6 +77,8 @@ namespace BootstrapBlazor.Components
         {
             if (pageIndex != PageIndex)
             {
+                SelectedItems.Clear();
+                await OnSelectedItemsChanged();
                 PageIndex = pageIndex;
                 PageItems = pageItems;
                 await QueryAsync();

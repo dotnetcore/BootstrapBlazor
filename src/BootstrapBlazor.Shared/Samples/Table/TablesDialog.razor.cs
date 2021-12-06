@@ -92,6 +92,7 @@ namespace BootstrapBlazor.Shared.Samples.Table
 
         private Task<QueryData<Foo>> OnQueryEditAsync(QueryPageOptions options)
         {
+            ProductTable.SelectedItems.Clear();
             var items = Products;
             if (_confirm)
             {
