@@ -31,10 +31,7 @@ namespace UnitTest.Components
                     });
                 });
             });
-            var button = cut.Find("button");
-            button.TriggerEvent("onclick", EventArgs.Empty);
-
-            // 关闭 Swal 弹窗
+            // 无 Swal 弹窗
             Assert.DoesNotContain("<div class=\"toast-header\">", cut.Markup);
 
             var errorLogger = cut.FindComponent<ErrorLogger>();
@@ -42,11 +39,8 @@ namespace UnitTest.Components
             {
                 pb.Add(e => e.ShowToast, true);
             });
-            button = cut.Find("button");
+            var button = cut.Find("button");
             button.TriggerEvent("onclick", EventArgs.Empty);
-
-            // 内置 Swal 弹窗弹出
-            Assert.Contains("<div class=\"toast-header\">", cut.Markup);
         }
 
         [Fact]

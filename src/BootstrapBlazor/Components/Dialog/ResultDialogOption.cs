@@ -87,7 +87,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
-        public IEnumerable<KeyValuePair<string, object>>? ComponentParamters { get; set; }
+        public Dictionary<string, object>? ComponentParamters { get; set; }
 
         /// <summary>
         /// 获得/设置 模态弹窗返回值任务实例

@@ -154,10 +154,10 @@ namespace BootstrapBlazor.Shared.Samples
             var result = await DialogService.ShowModal<ResultDialogDemo>(new ResultDialogOption()
             {
                 Title = "带返回值模态弹出框",
-                ComponentParamters = new KeyValuePair<string, object>[]
+                ComponentParamters = new Dictionary<string, object>
                 {
-                    new(nameof(ResultDialogDemo.Value), DemoValue1),
-                    new(nameof(ResultDialogDemo.ValueChanged), EventCallback.Factory.Create<int>(this, v => DemoValue1 = v))
+                    [nameof(ResultDialogDemo.Value)] = DemoValue1,
+                    [nameof(ResultDialogDemo.ValueChanged)] = EventCallback.Factory.Create<int>(this, v => DemoValue1 = v)
                 }
             });
 
@@ -194,11 +194,11 @@ namespace BootstrapBlazor.Shared.Samples
                 BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = InputValue },
                 ButtonYesText = "选择",
                 ButtonYesIcon = "fa fa-search",
-                ComponentParamters = new KeyValuePair<string, object>[]
+                ComponentParamters = new Dictionary<string, object>
                 {
                     // 用于初始化已选择的用户邮件
-                    new(nameof(ResultDialogDemo2.Emails), Emails),
-                    new(nameof(ResultDialogDemo2.EmailsChanged), EventCallback.Factory.Create<IEnumerable<string>>(this, v => Emails = v))
+                    [nameof(ResultDialogDemo2.Emails)] = Emails,
+                    [nameof(ResultDialogDemo2.EmailsChanged)] = EventCallback.Factory.Create<IEnumerable<string>>(this, v => Emails = v)
                 }
             });
 

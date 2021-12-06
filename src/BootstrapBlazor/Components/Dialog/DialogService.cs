@@ -61,14 +61,14 @@ namespace BootstrapBlazor.Components
                 [nameof(SearchDialog<TModel>.ShowLabel)] = option.ShowLabel,
                 [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
                 [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
-                 {
-                     option.OnCloseAsync = null;
-                     option.Dialog.RemoveDialog();
-                     if (option.OnResetSearchClick != null)
-                     {
-                         await option.OnResetSearchClick();
-                     }
-                 }),
+                {
+                    option.OnCloseAsync = null;
+                    option.Dialog.RemoveDialog();
+                    if (option.OnResetSearchClick != null)
+                    {
+                        await option.OnResetSearchClick();
+                    }
+                }),
                 [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
                 {
                     option.OnCloseAsync = null;

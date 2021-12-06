@@ -34,7 +34,7 @@
 @code {
 	RenderFragment RenderFooter =>
 	@<div class="table-modal-footer">
-		<Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="@(new Func<Task>(OnClose))" />
+		<Button Color="Color.Secondary" Icon="fa fa-times" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
 		<Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa fa-save" Text="@SaveButtonText" />
 	</div>;
 }

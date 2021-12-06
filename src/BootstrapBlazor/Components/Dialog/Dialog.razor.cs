@@ -58,7 +58,7 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (ModalContainer != null && IsShowDialog)
+            if (IsShowDialog)
             {
                 IsShowDialog = false;
                 await ModalContainer.Show();
