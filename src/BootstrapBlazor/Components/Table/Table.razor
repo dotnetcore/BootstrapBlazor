@@ -39,12 +39,12 @@
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" IsDisabled="SelectedItems.Count != 1" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" IsDisabled="SelectedRows.Count != 1" Color="Color.Primary" OnClick="EditAsync" Icon="fa fa-pencil" Text="@EditButtonText" />
                         }
                         @if (ShowDeleteButton)
                         {
                             <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
-                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="!SelectedItems.Any()"
+                                                          Icon="fa fa-remove" Text="@DeleteButtonText" IsDisabled="!SelectedRows.Any()"
                                                           OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
@@ -330,7 +330,7 @@
                             </td>
                         </tr>
                     }
-                    if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedItems.FirstOrDefault() == item)
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedRows.FirstOrDefault() == item)
                     {
                         @RenderEditForm((EditModel, ItemChangedType.Update))
                     }
@@ -562,7 +562,7 @@ RenderFragment<TItem> RenderRow => item =>
     @{
         var index = 0;
         var prevColspan = 0;
-        var isInCell = EditInCell && SelectedItems.FirstOrDefault() == item;
+        var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;
     }
     @if (!IsExcel && ShowExtendButtons && IsExtendButtonsInRowHeader)
     {
@@ -743,7 +743,7 @@ RenderFragment<TItem> RenderRowExtendButtons => item =>
     <div class="table-cell">
         <div class="btn-group" @onclick:stopPropagation="true">
             @{
-                var isInCell = EditInCell && SelectedItems.FirstOrDefault() == item;
+                var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;
             }
             @if (!isInCell)
             {

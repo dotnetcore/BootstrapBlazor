@@ -24,13 +24,13 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 被选中数据集合
         /// </summary>
         [Parameter]
-        public List<TItem> SelectedItems { get; set; } = new List<TItem>();
+        public List<TItem> SelectedRows { get; set; } = new List<TItem>();
 
         /// <summary>
         /// 
         /// </summary>
         [Parameter]
-        public EventCallback<List<TItem>> SelectedItemsChanged { get; set; }
+        public EventCallback<List<TItem>> SelectedRowsChanged { get; set; }
 
         /// <summary>
         /// 获得/设置 是否正在查询数据
@@ -206,18 +206,18 @@ namespace BootstrapBlazor.Components
                 // 多选模式清空
                 if (!IsMultipleSelect)
                 {
-                    SelectedItems.Clear();
+                    SelectedRows.Clear();
                 }
 
-                if (SelectedItems.Contains(val))
+                if (SelectedRows.Contains(val))
                 {
-                    SelectedItems.Remove(val);
+                    SelectedRows.Remove(val);
                 }
                 else
                 {
-                    SelectedItems.Add(val);
+                    SelectedRows.Add(val);
                 }
-                await OnSelectedItemsChanged();
+                await OnSelectedRowsChanged();
 
                 // 更新 设置选中状态
                 StateHasChanged();
@@ -229,11 +229,11 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private async Task OnSelectedItemsChanged()
+        private async Task OnSelectedRowsChanged()
         {
-            if (SelectedItemsChanged.HasDelegate)
+            if (SelectedRowsChanged.HasDelegate)
             {
-                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+                await SelectedRowsChanged.InvokeAsync(SelectedRows);
             }
         }
 
@@ -242,7 +242,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        protected virtual bool CheckActive(TItem val) => SelectedItems.Contains(val);
+        protected virtual bool CheckActive(TItem val) => SelectedRows.Contains(val);
 
         /// <summary>
         /// 
@@ -454,8 +454,8 @@ namespace BootstrapBlazor.Components
 
         private async Task ClickEditButton(TItem item)
         {
-            SelectedItems.Clear();
-            SelectedItems.Add(item);
+            SelectedRows.Clear();
+            SelectedRows.Add(item);
 
             // 更新行选中状态
             await EditAsync();
@@ -498,8 +498,8 @@ namespace BootstrapBlazor.Components
         /// <param name="item"></param>
         protected Func<Task<bool>> ClickBeforeDelete(TItem item) => () =>
         {
-            SelectedItems.Clear();
-            SelectedItems.Add(item);
+            SelectedRows.Clear();
+            SelectedRows.Add(item);
 
             StateHasChanged();
             return Task.FromResult(true);

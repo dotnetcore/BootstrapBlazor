@@ -38,8 +38,8 @@ namespace BootstrapBlazor.Components
         protected CheckboxState HeaderCheckState()
         {
             var ret = CheckboxState.UnChecked;
-            if (RowItems.Any() && RowItems.All(i => SelectedItems.Contains(i))) ret = CheckboxState.Checked;
-            else if (RowItems.Any(i => SelectedItems.Contains(i))) ret = CheckboxState.Mixed;
+            if (RowItems.Any() && RowItems.All(i => SelectedRows.Contains(i))) ret = CheckboxState.Checked;
+            else if (RowItems.Any(i => SelectedRows.Contains(i))) ret = CheckboxState.Mixed;
             return ret;
         }
 
@@ -48,7 +48,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        protected CheckboxState RowCheckState(TItem item) => SelectedItems.Contains(item) ? CheckboxState.Checked : CheckboxState.UnChecked;
+        protected CheckboxState RowCheckState(TItem item) => SelectedRows.Contains(item) ? CheckboxState.Checked : CheckboxState.UnChecked;
 
         /// <summary>
         /// 获得/设置 表头上的复选框
@@ -87,15 +87,15 @@ namespace BootstrapBlazor.Components
             {
                 case CheckboxState.Checked:
                     // select all
-                    SelectedItems.Clear();
-                    SelectedItems.AddRange(RowItems);
-                    await OnSelectedItemsChanged();
+                    SelectedRows.Clear();
+                    SelectedRows.AddRange(RowItems);
+                    await OnSelectedRowsChanged();
                     StateHasChanged();
                     break;
                 case CheckboxState.UnChecked:
                     // unselect all
-                    SelectedItems.Clear();
-                    await OnSelectedItemsChanged();
+                    SelectedRows.Clear();
+                    await OnSelectedRowsChanged();
                     StateHasChanged();
                     break;
                 default:
@@ -108,9 +108,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         protected async Task OnCheck(CheckboxState state, TItem val)
         {
-            if (state == CheckboxState.Checked) SelectedItems.Add(val);
-            else SelectedItems.Remove(val);
-            await OnSelectedItemsChanged();
+            if (state == CheckboxState.Checked) SelectedRows.Add(val);
+            else SelectedRows.Remove(val);
+            await OnSelectedRowsChanged();
 
             // auto quit edit in cell mode
             AddInCell = false;

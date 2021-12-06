@@ -28,7 +28,7 @@
     <Modal @ref="Modal">
         <ModalDialog Title="选择项目" IsCentered="true">
             <BodyTemplate>
-                <Table TItem="Foo" IsStriped="true" @bind-SelectedItems="@SelectedRows" ClickToSelect="true"
+                <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
                        ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
                        OnQueryAsync="@OnQueryProductAsync" HeaderStyle="TableHeaderStyle.Light">
                     <TableColumns>

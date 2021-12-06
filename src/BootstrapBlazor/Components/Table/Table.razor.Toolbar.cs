@@ -269,7 +269,7 @@ namespace BootstrapBlazor.Components
                     EditModel = new TItem();
                 }
 
-                SelectedItems.Clear();
+                SelectedRows.Clear();
 
                 EditModalTitleString = AddModalTitle;
                 if (IsTracking)
@@ -291,11 +291,11 @@ namespace BootstrapBlazor.Components
                 {
                     AddInCell = true;
                     EditInCell = true;
-                    SelectedItems.Add(EditModel);
+                    SelectedRows.Add(EditModel);
 
                     await UpdateAsync();
                 }
-                await OnSelectedItemsChanged();
+                await OnSelectedRowsChanged();
                 await ToggleLoading(false);
             }
 
@@ -304,7 +304,7 @@ namespace BootstrapBlazor.Components
                 if (DynamicContext != null)
                 {
                     // 数据源为 DataTable 新建后重建行与列
-                    await DynamicContext.AddAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
+                    await DynamicContext.AddAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
                     ResetDynamicContext();
                     StateHasChanged();
                 }
@@ -313,17 +313,17 @@ namespace BootstrapBlazor.Components
                     if (OnAddAsync != null)
                     {
                         await OnAddAsync();
-                        SelectedItems.Clear();
+                        SelectedRows.Clear();
                         RowItemsCache = null;
-                        await OnSelectedItemsChanged();
+                        await OnSelectedRowsChanged();
                         await QueryAsync();
                     }
                     else if (UseInjectDataService)
                     {
                         var item = new TItem();
                         await GetDataService().AddAsync(item);
-                        SelectedItems.Clear();
-                        await OnSelectedItemsChanged();
+                        SelectedRows.Clear();
+                        await OnSelectedRowsChanged();
                         await QueryAsync();
                     }
                     else
@@ -343,21 +343,21 @@ namespace BootstrapBlazor.Components
         {
             if (UseInjectDataService || IsTracking || OnSaveAsync != null || DynamicContext != null)
             {
-                if (SelectedItems.Count == 1)
+                if (SelectedRows.Count == 1)
                 {
                     await ToggleLoading(true);
                     if (OnEditAsync != null)
                     {
-                        await OnEditAsync(SelectedItems[0]);
+                        await OnEditAsync(SelectedRows[0]);
                     }
                     if (UseInjectDataService && GetDataService() is IEntityFrameworkCoreDataService ef)
                     {
-                        EditModel = SelectedItems[0];
+                        EditModel = SelectedRows[0];
                         await ef.EditAsync(EditModel);
                     }
                     else
                     {
-                        EditModel = IsTracking ? SelectedItems[0] : Utility.Clone(SelectedItems[0]);
+                        EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
                     }
                     EditModalTitleString = EditModalTitle;
 
@@ -388,7 +388,7 @@ namespace BootstrapBlazor.Components
                     {
                         Category = ToastCategory.Information,
                         Title = EditButtonToastTitle,
-                        Content = SelectedItems.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent
+                        Content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent
                     };
                     await Toast.Show(option);
                 }
@@ -418,7 +418,7 @@ namespace BootstrapBlazor.Components
             }
             else if (EditMode == EditMode.InCell)
             {
-                SelectedItems.Clear();
+                SelectedRows.Clear();
                 AddInCell = false;
                 EditInCell = false;
             }
@@ -490,7 +490,7 @@ namespace BootstrapBlazor.Components
                     }
                     else if (EditMode == EditMode.InCell)
                     {
-                        SelectedItems.Clear();
+                        SelectedRows.Clear();
                         EditInCell = false;
                         if (AddInCell)
                         {
@@ -577,7 +577,7 @@ namespace BootstrapBlazor.Components
         protected async Task<bool> ConfirmDelete()
         {
             var ret = false;
-            if (SelectedItems.Count == 0)
+            if (SelectedRows.Count == 0)
             {
                 var option = new ToastOption
                 {
@@ -605,8 +605,8 @@ namespace BootstrapBlazor.Components
             }
             else if (IsTracking)
             {
-                RowItems.RemoveAll(i => SelectedItems.Contains(i));
-                SelectedItems.Clear();
+                RowItems.RemoveAll(i => SelectedRows.Contains(i));
+                SelectedRows.Clear();
                 await UpdateAsync();
             }
             else
@@ -633,11 +633,11 @@ namespace BootstrapBlazor.Components
                 var ret = false;
                 if (OnDeleteAsync != null)
                 {
-                    ret = await OnDeleteAsync(SelectedItems);
+                    ret = await OnDeleteAsync(SelectedRows);
                 }
                 else if (UseInjectDataService)
                 {
-                    ret = await GetDataService().DeleteAsync(SelectedItems);
+                    ret = await GetDataService().DeleteAsync(SelectedRows);
                 }
                 if (ret)
                 {
@@ -645,10 +645,10 @@ namespace BootstrapBlazor.Components
                     // 由于数据删除导致页码会改变，尤其是最后一页
                     // 重新计算页码
                     // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                    PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedItems.Count) * 1d / PageItems).ToString())));
-                    var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedItems.Count));
+                    PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                    var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
                     PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
-                    SelectedItems.Clear();
+                    SelectedRows.Clear();
                     await QueryAsync();
                 }
                 return ret;
@@ -658,7 +658,7 @@ namespace BootstrapBlazor.Components
             {
                 if (DynamicContext != null)
                 {
-                    await DynamicContext.DeleteAsync(SelectedItems.AsEnumerable().OfType<IDynamicObject>());
+                    await DynamicContext.DeleteAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
                     ResetDynamicContext();
                     StateHasChanged();
                 }
@@ -666,7 +666,7 @@ namespace BootstrapBlazor.Components
                 {
                     if (OnDeleteAsync != null)
                     {
-                        await OnDeleteAsync(SelectedItems);
+                        await OnDeleteAsync(SelectedRows);
                         await QueryAsync();
                     }
                 }
@@ -683,7 +683,7 @@ namespace BootstrapBlazor.Components
                 Columns.Clear();
                 Columns.AddRange(cols);
 
-                SelectedItems.Clear();
+                SelectedRows.Clear();
                 QueryItems = DynamicContext.GetItems().Cast<TItem>();
                 RowItemsCache = null;
             }
@@ -758,7 +758,7 @@ namespace BootstrapBlazor.Components
         /// 获取当前 Table 选中的所有行数据
         /// </summary>
         /// <returns></returns>
-        protected IEnumerable<TItem> GetSelectedRows() => SelectedItems;
+        protected IEnumerable<TItem> GetSelectedRows() => SelectedRows;
 
         /// <summary>
         /// 是否显示行内编辑按钮
