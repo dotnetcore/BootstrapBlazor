@@ -35,7 +35,7 @@ namespace BootstrapBlazor.Shared.Samples
         {
             var op = new DialogOption()
             {
-                Title = "数据查询窗口",
+                Title = Localizer["DialogTitle"],
                 ShowPrintButton = true,
                 ShowPrintButtonInHeader = true,
                 ShowFooter = false,
@@ -52,7 +52,7 @@ namespace BootstrapBlazor.Shared.Samples
         private Task OnClickPrintService() => PrintService.PrintAsync<DataDialogComponent>(op =>
         {
             // 弹窗配置
-            op.Title = "数据查询窗口";
+            op.Title = Localizer["DialogTitle"];
             op.ShowPrintButton = true;
             op.ShowPrintButtonInHeader = true;
             op.ShowFooter = false;
