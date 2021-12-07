@@ -2302,6 +2302,8 @@
     "SubTitle": "Generate QR code",
     "BaseUsageText": "Basic usage",
     "IntroText1": "Click the Generate button to generate a <code>QRCode</code>",
+    "DirectTitle": "Direct build",
+    "DirectIntro": "Specify the contents of the QR code with the <code>Content </code> parameter",
     "SuccessText": "QR code generated successfully",
     "CallbackDescription": "Call back after QR code generation"
   },

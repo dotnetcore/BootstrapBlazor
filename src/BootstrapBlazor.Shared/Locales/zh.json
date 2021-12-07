@@ -2305,6 +2305,8 @@
     "SubTitle": "用于二维码生成",
     "BaseUsageText": "基本用法",
     "IntroText1": "点击生成按钮，生成特定的 <code>QRCode</code>",
+    "DirectTitle": "直接生成",
+    "DirectIntro": "通过 <code>Content</code> 参数指定二维码内容",
     "SuccessText": "二维码生成成功",
     "CallbackDescription": "二维码生成后回调委托"
   },
