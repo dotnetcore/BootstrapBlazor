@@ -2223,6 +2223,9 @@
     "BasicUsageP11": "2. 配置自定义定位器",
     "BasicUsageP12": "通过 <code>AddBootstrapBlazor</code> 方法的回调委托参数进行自定义定位器 <code>CustomerLocator</code> 配置"
   },
+  "BootstrapBlazor.Shared.Samples.Ips": {
+    "BasicUsageTitle": "基础用法"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例"

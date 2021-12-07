@@ -2220,6 +2220,9 @@
     "BasicUsageP11": "2. Configure a custom locator",
     "BasicUsageP12": "Customize the locator <code> CustomerLocator </code> configuration with the callback delegate parameters the <code> AddBootstrapBlazor </code> method"
   },
+  "BootstrapBlazor.Shared.Samples.Ips": {
+    "BasicUsageTitle": "Basic usage"
+  },
   "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo"

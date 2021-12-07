@@ -11,6 +11,5 @@ namespace BootstrapBlazor.Shared.Samples
     {
         private string? Value { get; set; }
 
-
     }
 }
