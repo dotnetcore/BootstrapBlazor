@@ -387,26 +387,33 @@ namespace BootstrapBlazor.Components
                         }
                     }
                     TotalCount = queryData.TotalCount;
-                    IsFiltered = queryData.IsFiltered;
-                    IsSorted = queryData.IsSorted;
-                    IsSearch = queryData.IsSearch;
+                    var filtered = queryData.IsFiltered;
+                    var sorted = queryData.IsSorted;
+                    var searched = queryData.IsSearch;
+                    IsAdvanceSearch = queryData.IsAdvanceSearch;
 
-                    // 处理搜索模型
-                    if (!IsSearch && CustomerSearchModel != null && CustomerSearchModel.GetSearchs().Any())
+                    // 外部为处理 SearchText 模糊查询
+                    if (!searched && queryOption.Searchs.Any())
                     {
-                        QueryItems = QueryItems.Where(CustomerSearchModel.GetSearchs().GetFilterFunc<TItem>());
-                        IsSearch = true;
+                        QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                    }
+
+                    // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
+                    if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+                    {
+                        QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                        IsAdvanceSearch = true;
                     }
 
                     // 外部未过滤，内部自行过滤
-                    if (!IsFiltered && Filters.Any())
+                    if (!filtered && queryOption.Filters.Any())
                     {
-                        QueryItems = QueryItems.Where(Filters.Values.GetFilterFunc<TItem>());
+                        QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
                         TotalCount = QueryItems.Count();
                     }
 
                     // 外部未处理排序，内部自行排序
-                    if (!IsSorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
+                    if (!sorted && SortOrder != SortOrder.Unset && !string.IsNullOrEmpty(SortName))
                     {
                         var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, SortName, SortOrder);

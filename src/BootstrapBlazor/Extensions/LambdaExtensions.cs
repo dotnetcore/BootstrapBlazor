@@ -217,7 +217,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// 
+        /// IEnumerable 排序扩展方法
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="items"></param>
@@ -230,7 +230,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// 
+        /// IQueryable 排序扩展方法 
         /// </summary>
         /// <typeparam name="TItem"></typeparam>
         /// <param name="items"></param>

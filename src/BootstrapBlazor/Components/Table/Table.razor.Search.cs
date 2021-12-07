@@ -17,23 +17,13 @@ namespace BootstrapBlazor.Components
         /// 获得 高级搜索样式
         /// </summary>
         protected string? AdvanceSearchClass => CssBuilder.Default("btn btn-secondary")
-            .AddClass("btn-info", IsSearch)
+            .AddClass("btn-info", IsAdvanceSearch)
             .Build();
 
         /// <summary>
-        /// 获得/设置 是否搜索
+        /// 获得/设置 是否已经处理高级搜索 默认 false
         /// </summary>
-        protected bool IsSearch { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否数据过滤
-        /// </summary>
-        protected bool IsFiltered { get; set; }
-
-        /// <summary>
-        /// 获得/设置 是否数据排序
-        /// </summary>
-        protected bool IsSorted { get; set; }
+        protected bool IsAdvanceSearch { get; set; }
 
         /// <summary>
         /// 获得/设置 SearchTemplate 实例

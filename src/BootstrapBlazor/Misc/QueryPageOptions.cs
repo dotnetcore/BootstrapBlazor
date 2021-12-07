@@ -23,12 +23,12 @@ namespace BootstrapBlazor.Components
         public string? SearchText { get; set; }
 
         /// <summary>
-        /// 获得/设置 SearchText 搜索条件集合
+        /// 获得/设置 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
         /// </summary>
         public IEnumerable<IFilterAction> Searchs { get; set; } = Enumerable.Empty<IFilterAction>();
 
         /// <summary>
-        /// 获得/设置 CustomerSearch 搜索条件集合
+        /// 获得/设置 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件无法获得
         /// </summary>
         public IEnumerable<IFilterAction> CustomerSearchs { get; set; } = Enumerable.Empty<IFilterAction>();
 
