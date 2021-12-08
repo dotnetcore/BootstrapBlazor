@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,18 +35,18 @@ namespace BootstrapBlazor.Components
         public string? Url { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否激活
+        /// 获得/设置 是否激活 默认 false 未激活 一般不设置
         /// </summary>
         /// <value></value>
         public bool IsActive { get; set; }
 
         /// <summary>
-        /// 获得/设置 是否收缩 默认收缩
+        /// 获得/设置 是否收缩 默认 true 收缩 
         /// </summary>
         public bool IsCollapsed { get; set; } = true;
 
         /// <summary>
-        /// 获得/设置 A 标签 target 参数
+        /// 获得/设置 A 标签 target 参数 默认 null
         /// </summary>
         public string? Target { get; set; }
 
@@ -67,7 +68,7 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 获得/设置 菜单内子组件
         /// </summary>
-        public BootstrapDynamicComponent? Component { get; set; }
+        public RenderFragment? Template { get; set; }
 
         /// <summary>
         /// 获得 当前菜单所在层次 从 0 开始

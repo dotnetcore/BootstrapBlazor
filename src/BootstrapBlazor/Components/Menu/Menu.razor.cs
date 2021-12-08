@@ -266,7 +266,10 @@ namespace BootstrapBlazor.Components
                     else
                     {
                         // 顶栏模式重新级联设置 active
-                        ActiveMenu?.CascadingSetActive(false);
+                        if (ActiveMenu != null)
+                        {
+                            ActiveMenu.CascadingSetActive(false);
+                        }
                         item.CascadingSetActive();
                     }
                     ActiveMenu = item;

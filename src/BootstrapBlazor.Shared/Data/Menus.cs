@@ -256,14 +256,14 @@ namespace BootstrapBlazor.Shared
                 },
                 new(localizer["Log"].Value, icon: "fa fa-database")
                 {
-                    Component = BuildDynamicComponent(),
+                    Template = BuildDynamicComponent().Render(),
                     Items = new List<MenuItem>
                     {
                         new(localizer["Access"].Value, icon: "fa fa-bars"),
                         new(localizer["Login"].Value, icon: "fa fa-user-circle-o"),
                         new(localizer["Operation"].Value, icon: "fa fa-edit")
                         {
-                            Component = BuildDynamicComponent()
+                            Template = BuildDynamicComponent().Render()
                         }
                     }
                 }

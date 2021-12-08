@@ -15,10 +15,10 @@ else
             <i class="@IconString"></i>
             <span class="text">@Item.Text</span>
         </div>
-        @if (Item.Component != null)
+        @if (Item.Template != null)
         {
             <div class="widget" @onclick:stopPropagation>
-                @Item.Component.Render()
+                @Item.Template
             </div>
         }
         <i class="@MenuArrowClassString" />

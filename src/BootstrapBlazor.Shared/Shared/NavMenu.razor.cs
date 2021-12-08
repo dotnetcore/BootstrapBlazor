@@ -922,12 +922,12 @@ namespace BootstrapBlazor.Shared.Shared
 
         private void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
         {
-            item.Component = CreateBadge(count ?? item.Items.Count(),
+            item.Template = CreateBadge(count ?? item.Items.Count(),
                isNew: item.Items.OfType<DemoMenuItem>().Any(i => i.IsNew),
-               isUpdate: item.Items.OfType<DemoMenuItem>().Any(i => i.IsUpdate));
+               isUpdate: item.Items.OfType<DemoMenuItem>().Any(i => i.IsUpdate)).Render();
             foreach (var menu in item.GetAllSubItems().OfType<DemoMenuItem>().Where(i => ShouldBadge(i)))
             {
-                menu.Component = CreateBadge(0, menu.IsNew, menu.IsUpdate);
+                menu.Template = CreateBadge(0, menu.IsNew, menu.IsUpdate).Render();
             }
             if (append)
             {

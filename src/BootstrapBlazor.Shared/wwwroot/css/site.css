@@ -294,6 +294,7 @@ section {
 .table-container .table tbody tr.highlight,
 .table-container .table-row.highlight {
     background-color: #409eff;
+    color: #fff;
 }
 
 .table-attr {

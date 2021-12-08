@@ -10,7 +10,7 @@
                 <MenuLink Item="@item" />
                 @if (!item.IsDisabled)
                 {
-                    <SideMenu Items="@item.Items" OnClick="@OnClick" class="d-none" />
+                    <SideMenu Items="@item.Items" OnClick="@OnClickItem" class="d-none" />
                 }
             </li>
         }

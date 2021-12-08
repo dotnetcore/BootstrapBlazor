@@ -4,9 +4,11 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
 {
@@ -23,7 +25,7 @@ namespace BootstrapBlazor.Components
             .Build();
 
         private string? MenuArrowClassString => CssBuilder.Default("arrow")
-            .AddClass("fa fa-fw", Parent != null && Parent.IsVertical)
+            .AddClass("fa fa-fw", Parent.IsVertical)
             .AddClass("fa-angle-left", Item.Items.Any())
             .Build();
 
@@ -42,6 +44,10 @@ namespace BootstrapBlazor.Components
         [NotNull]
         private Menu? Parent { get; set; }
 
+        [Inject]
+        [NotNull]
+        private IStringLocalizer<Menu>? Localizer { get; set; }
+
         private NavLinkMatch ItemMatch => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
 
         private string? IconString => string.IsNullOrEmpty(Item.Icon)
@@ -59,5 +65,23 @@ namespace BootstrapBlazor.Components
                 ? null
                 : $"padding-left: {Item.Indent * Parent.IndentSize}px;")
             : null;
+
+        /// <summary>
+        /// SetParametersAsync 方法
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public override Task SetParametersAsync(ParameterView parameters)
+        {
+            parameters.SetParameterProperties(this);
+
+            if (Parent == null)
+            {
+                throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
+            }
+
+            // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
+            return base.SetParametersAsync(ParameterView.Empty);
+        }
     }
 }
