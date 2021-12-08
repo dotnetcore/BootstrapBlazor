@@ -11,11 +11,13 @@
             <li class="@GetClassString(item)">
                 @if (item.Items.Any() && !item.IsDisabled)
                 {
-                    <SubMenu Item="@item" OnClick="@OnClick" />
+                    <SubMenu Item="@item" OnClick="OnClick" />
                 }
                 else
                 {
-                    <MenuLink Item="@item" OnClick="@OnClick" />
+                    <div class="nav-item" @onclick:stopPropagation @onclick="() => OnClickItem(item)">
+                        <MenuLink Item="@item" />
+                    </div>
                 }
             </li>
         }

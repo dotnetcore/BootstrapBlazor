@@ -75,5 +75,13 @@ namespace BootstrapBlazor.Components
             // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
             return base.SetParametersAsync(ParameterView.Empty);
         }
+
+        private async Task OnClickItem(MenuItem item)
+        {
+            if (OnClick != null)
+            {
+                await OnClick(item);
+            }
+        }
     }
 }

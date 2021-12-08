@@ -24,7 +24,9 @@
                             }
                             else
                             {
-                                <MenuLink Item="@item" OnClick="@OnClick" class="dropdown-item" />
+                                <div class="nav-item" @onclick:stopPropagation @onclick="() => OnClickItem(item)">
+                                    <MenuLink Item="@item" class="dropdown-item" />
+                                </div>
                             }
                         }
                     </div>
@@ -33,8 +35,8 @@
         }
         else
         {
-            <li class="@GetDropdownClassString(menu)">
-                <MenuLink Item="@menu" OnClick="@OnClick" />
+            <li class="@GetDropdownClassString(menu)" @onclick:stopPropagation @onclick="() => OnClickItem(menu)">
+                <MenuLink Item="@menu" />
             </li>
         }
     }

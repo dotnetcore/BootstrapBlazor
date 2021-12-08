@@ -55,5 +55,13 @@ namespace BootstrapBlazor.Components
             .AddClass("active", item.IsActive && !item.IsDisabled)
             .AddClass("disabled", item.IsDisabled)
             .Build();
+
+        private async Task OnClickItem(MenuItem item)
+        {
+            if (OnClick != null)
+            {
+                await OnClick(item);
+            }
+        }
     }
 }
