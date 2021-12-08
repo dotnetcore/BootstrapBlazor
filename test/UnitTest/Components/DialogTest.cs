@@ -142,7 +142,11 @@ namespace UnitTest.Components
             };
 
             var model = new Foo() { Name = "Test" };
+#if NET5_0
             var parameters = new Dictionary<string, object>()
+#else
+            var parameters = new Dictionary<string, object?>()
+#endif
             {
                 ["Field"] = "Name",
                 ["FieldExpression"] = model.GenerateValueExpression()

@@ -15,27 +15,5 @@ namespace BootstrapBlazor.Components
         protected string? ClassName => CssBuilder.Default("form-control")
             .AddClass(CssClass).AddClass(ValidCss)
             .Build();
-
-        /// <summary>
-        /// 获得/设置 input 类型 placeholder 属性
-        /// </summary>
-        protected string? PlaceHolder { get; set; }
-
-        /// <summary>
-        /// OnInitialized 方法
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-
-            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("placeholder", out var ph))
-            {
-                PlaceHolder = ph?.ToString();
-            }
-            if (string.IsNullOrEmpty(PlaceHolder) && FieldIdentifier.HasValue)
-            {
-                PlaceHolder = FieldIdentifier.Value.GetPlaceHolder();
-            }
-        }
     }
 }
