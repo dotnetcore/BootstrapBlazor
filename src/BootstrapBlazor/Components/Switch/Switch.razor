@@ -6,10 +6,10 @@
     <label class="form-label" required="@Required">@DisplayText</label>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@SwitchStyleName">
-    <span class="@CoreClassName" data-inner-text="@GetInnerText()" style="@StyleName" @onclick="@OnClick" />
+    <span class="@CoreClassName" data-inner-text="@GetInnerText()" style="@StyleName" @onclick:stopPropagation @onclick="OnClick" />
     @if (!string.IsNullOrEmpty(Text))
     {
-        <span class="switch-label">
+        <span class="switch-label" @onclick:stopPropagation @onclick="OnClick">
             @Text
         </span>
     }
