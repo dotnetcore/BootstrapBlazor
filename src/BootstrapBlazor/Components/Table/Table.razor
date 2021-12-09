@@ -114,7 +114,7 @@
                     @if (ShowSearchText)
                     {
                         <div class="input-group">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false">
                                 <Tooltip Placement="Placement.Top" Title="@SearchTooltip" IsHtml="true" />
                             </BootstrapInput>
                             <Button Color="@Color.Secondary" Icon="fa fa-search" OnClickWithoutRender="@SearchClick">
