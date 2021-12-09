@@ -61,23 +61,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         private string? Backdrop => IsBackdrop ? null : "static";
 
-        private bool IsRendered { get; set; }
-
         private string? KeyboardString => IsKeyboard ? "true" : "false";
-
-        /// <summary>
-        /// OnAfterRender 方法
-        /// </summary>
-        /// <param name="firstRender"></param>
-        protected override void OnAfterRender(bool firstRender)
-        {
-            base.OnAfterRender(firstRender);
-
-            if (firstRender)
-            {
-                IsRendered = true;
-            }
-        }
 
         /// <summary>
         /// 添加对话框方法
@@ -102,7 +86,10 @@ namespace BootstrapBlazor.Components
             if (dialog == null)
             {
                 dialog = Dialogs.LastOrDefault();
-                dialog?.Close();
+                if (dialog != null)
+                {
+                    dialog.Close();
+                }
             }
             else
             {
@@ -116,9 +103,12 @@ namespace BootstrapBlazor.Components
         /// <param name="dialog"></param>
         internal void ShowDialog(ModalDialog? dialog = null)
         {
-            if (Dialogs.Any())
+            if (dialog == null)
             {
-                dialog ??= Dialogs.Last();
+                dialog = Dialogs.LastOrDefault();
+            }
+            if (dialog != null)
+            {
                 Dialogs.ForEach(d => d.IsShown = d == dialog);
             }
         }
@@ -205,11 +195,8 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected virtual async ValueTask DisposeAsyncCore(bool disposing)
         {
-            if (disposing && IsRendered)
+            if (disposing)
             {
-                // 切换线程防止 JS 清理 DOM 后 C# 代码报错
-                await Task.Delay(300);
-
                 // JS 清理 DOM
                 await JSRuntime.InvokeVoidAsync(ModalElement, "bb_modal", "dispose");
             }

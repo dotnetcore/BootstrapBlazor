@@ -19,10 +19,16 @@ namespace UnitTest.Components
             var cut = Context.RenderComponent<Switch>(builder =>
             {
                 builder.Add(a => a.Value, true);
-                builder.Add(a => a.OnColor, Color.Success);
+                builder.Add(a => a.OnColor, Color.None);
             });
 
-            Assert.Contains("bg-success", cut.Markup);
+            Assert.DoesNotContain("bg-", cut.Markup);
+
+            cut.SetParametersAndRender(pb =>
+            {
+                pb.Add(a => a.OnColor, Color.Danger);
+            });
+            Assert.Contains("bg-danger", cut.Markup);
         }
 
         [Fact]

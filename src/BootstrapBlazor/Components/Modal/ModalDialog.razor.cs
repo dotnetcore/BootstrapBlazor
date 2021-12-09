@@ -18,6 +18,7 @@ namespace BootstrapBlazor.Components
     {
         private ElementReference DialogElement { get; set; }
 
+        [NotNull]
         private JSInterop<ModalDialog>? Interop { get; set; }
 
         /// <summary>
@@ -173,6 +174,8 @@ namespace BootstrapBlazor.Components
             CloseButtonText ??= Localizer[nameof(CloseButtonText)];
             PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
+            Interop = new JSInterop<ModalDialog>(JSRuntime);
+
             Modal.AddDialog(this);
         }
 
@@ -187,7 +190,6 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                Interop = new JSInterop<ModalDialog>(JSRuntime);
                 await Interop.InvokeVoidAsync(this, DialogElement, "bb_modal_dialog", nameof(Close));
             }
         }
@@ -214,8 +216,7 @@ namespace BootstrapBlazor.Components
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-
-            if (disposing && Interop != null)
+            if (disposing)
             {
                 Interop.Dispose();
                 Interop = null;
@@ -227,7 +228,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         public void Dispose()
         {
-            Dispose(disposing: true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }

@@ -21,6 +21,7 @@ namespace UnitTest.Components
         [Fact]
         public void Show_Ok()
         {
+            #region Show
             var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
             {
                 pb.AddChildContent<MockDialogTest>();
@@ -69,6 +70,7 @@ namespace UnitTest.Components
                 BodyTemplate = null
             }));
             cut.InvokeAsync(() => modal.Instance.Close());
+            #endregion
 
             #region ShowSearchDialog
             // 无按钮回调赋值
@@ -219,6 +221,43 @@ namespace UnitTest.Components
             cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
             button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
             cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+            #endregion
+
+            #region 弹窗中的弹窗测试
+            cut.InvokeAsync(() => dialog.Show(new DialogOption()
+            {
+                // 弹窗中按钮
+                BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object>()
+                {
+                    [nameof(Button.OnClickWithoutRender)] = () =>
+                    {
+                        // 继续弹窗
+                        dialog.Show(new DialogOption()
+                        {
+                            BodyTemplate = builder =>
+                            {
+                                builder.AddContent(0, "Test");
+                            }
+                        });
+                        return Task.CompletedTask;
+                    }
+                }).Render()
+            }));
+
+            // 弹出第二个弹窗
+            var buttonInDialog = cut.Find(".btn-primary");
+            buttonInDialog.Click();
+            Assert.Equal(2, cut.FindComponents<ModalDialog>().Count);
+
+            // 关闭第二个弹窗
+            var btnClose = cut.FindAll(".btn-close").Last();
+            btnClose.Click();
+            Assert.Equal(1, cut.FindComponents<ModalDialog>().Count);
+
+            // 关闭第一个弹窗
+            btnClose = cut.FindAll(".btn-close").Last();
+            btnClose.Click();
+            Assert.Equal(0, cut.FindComponents<ModalDialog>().Count);
             #endregion
         }
 
