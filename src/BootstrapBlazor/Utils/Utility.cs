@@ -155,21 +155,30 @@ namespace BootstrapBlazor.Components
                         if (instance != null)
                         {
                             ret = (TModel)instance;
-                            var valType = ret?.GetType();
-                            if (valType != null)
+                            if (ret != null)
                             {
+                                var valType = ret.GetType();
+
                                 // 20200608 tian_teng@outlook.com 支持字段和只读属性
                                 foreach (var f in type.GetFields())
                                 {
                                     var v = f.GetValue(item);
-                                    valType.GetField(f.Name)?.SetValue(ret, v);
+                                    var field = valType.GetField(f.Name);
+                                    if (field != null)
+                                    {
+                                        field.SetValue(ret, v);
+                                    }
                                 };
                                 foreach (var p in type.GetProperties())
                                 {
                                     if (p.CanWrite)
                                     {
                                         var v = p.GetValue(item);
-                                        valType.GetProperty(p.Name)?.SetValue(ret, v);
+                                        var property = valType.GetProperty(p.Name);
+                                        if (property != null)
+                                        {
+                                            property.SetValue(ret, v);
+                                        }
                                     }
                                 };
                             }
@@ -189,26 +198,23 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public static void Copy<TModel>(TModel source, TModel destination) where TModel : class
         {
-            if (source != null && destination != null)
+            var type = source.GetType();
+            var valType = destination.GetType();
+            if (valType != null)
             {
-                var type = source.GetType();
-                var valType = destination.GetType();
-                if (valType != null)
+                type.GetFields().ToList().ForEach(f =>
                 {
-                    type.GetFields().ToList().ForEach(f =>
+                    var v = f.GetValue(source);
+                    valType.GetField(f.Name)!.SetValue(destination, v);
+                });
+                type.GetProperties().ToList().ForEach(p =>
+                {
+                    if (p.CanWrite)
                     {
-                        var v = f.GetValue(source);
-                        valType.GetField(f.Name)?.SetValue(destination, v);
-                    });
-                    type.GetProperties().ToList().ForEach(p =>
-                    {
-                        if (p.CanWrite)
-                        {
-                            var v = p.GetValue(source);
-                            valType.GetProperty(p.Name)?.SetValue(destination, v);
-                        }
-                    });
-                }
+                        var v = p.GetValue(source);
+                        valType.GetProperty(p.Name)!.SetValue(destination, v);
+                    }
+                });
             }
         }
 
@@ -218,15 +224,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool>? predicate = null)
-        {
-            if (predicate == null)
-            {
-                predicate = p => true;
-            }
-
-            return InternalTableColumn.GetProperties<TModel>().Where(predicate);
-        }
+        public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => InternalTableColumn.GetProperties<TModel>().Where(predicate);
 
         /// <summary>
         /// 
