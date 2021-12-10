@@ -20,6 +20,18 @@ namespace BootstrapBlazor.Components
         public MenuItem? Parent { get; set; }
 
         /// <summary>
+        /// 获得/设置 当前节点 Id 默认为 null
+        /// </summary>
+        /// <remarks>一般配合数据库使用</remarks>
+        public string? Id { get; set; }
+
+        /// <summary>
+        /// 获得/设置 父级节点 Id 默认为 null
+        /// </summary>
+        /// <remarks>一般配合数据库使用</remarks>
+        public string? ParentId { get; set; }
+
+        /// <summary>
         /// 获得/设置 组件数据源
         /// </summary>
         public IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
@@ -61,12 +73,12 @@ namespace BootstrapBlazor.Components
         public string? Icon { get; set; }
 
         /// <summary>
-        /// 获得/设置 匹配方式 默认 NavLinkMatch.Prefix
+        /// 获得/设置 匹配方式 默认 NavLinkMatch.All
         /// </summary>
-        public NavLinkMatch Match { get; set; }
+        public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
 
         /// <summary>
-        /// 获得/设置 菜单内子组件
+        /// 获得/设置 菜单内子组件 默认为 null
         /// </summary>
         public RenderFragment? Template { get; set; }
 
