@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components
@@ -39,7 +40,8 @@ namespace BootstrapBlazor.Components
         /// 获得/设置 每页显示数据数量的外部数据源
         /// </summary>
         [Parameter]
-        public IEnumerable<int> PageItemsSource { get; set; } = new int[] { 20, 50, 100, 200, 500, 1000 };
+        [NotNull]
+        public IEnumerable<int>? PageItemsSource { get; set; }
 
         /// <summary>
         /// 异步查询回调方法

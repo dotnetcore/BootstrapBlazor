@@ -649,12 +649,6 @@ namespace BootstrapBlazor.Components
 
             Interop = new JSInterop<Table<TItem>>(JSRuntime);
 
-            // 初始化每页显示数量
-            if (IsPagination)
-            {
-                PageItems = PageItemsSource.FirstOrDefault();
-            }
-
             // 设置 OnSort 回调方法
             OnSortAsync = QueryAsync;
 
@@ -716,6 +710,13 @@ namespace BootstrapBlazor.Components
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
+
+            // 初始化每页显示数量
+            PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
+            if (IsPagination)
+            {
+                PageItems = PageItemsSource.FirstOrDefault();
+            }
 
             if (ScrollMode == ScrollMode.Virtual)
             {
