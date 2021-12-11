@@ -25,6 +25,6 @@
     }
 
         .scroll:hover {
-            overflow: auto;
+            overflow-y: auto;
         }
 }

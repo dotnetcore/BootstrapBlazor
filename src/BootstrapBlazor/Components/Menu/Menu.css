@@ -159,7 +159,7 @@
 
     .menu .submenu .nav-link {
         border-radius: var(--bs-border-radius);
-        padding: .5rem 0.25rem;
+        padding: .5rem 0 0.5rem 0.25rem;
     }
 
         .menu .submenu .nav-link .fa-angle-left {
