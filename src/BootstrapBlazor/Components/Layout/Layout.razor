@@ -58,6 +58,12 @@
         {
             @NotAuthorized
         }
+        else if(IsErrorHandler)
+        {
+            <ErrorLogger OnErrorHandleAsync="OnErrorHandleAsync!">
+                @Main
+            </ErrorLogger>
+        }
         else
         {
             @Main
@@ -106,6 +112,12 @@ RenderFragment RenderMain =>
                 </NotFound>
             </Tab>
         </RenderTemplate>
+    }
+    else if(IsErrorHandler)
+    {
+        <ErrorLogger OnErrorHandleAsync="OnErrorHandleAsync!">
+            @Main
+        </ErrorLogger>
     }
     else
     {

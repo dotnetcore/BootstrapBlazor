@@ -669,13 +669,29 @@ namespace BootstrapBlazor.Components
             ? builder =>
             {
                 var index = 0;
-                builder.OpenComponent<ErrorLogger>(index++);
-                if (Layout?.OnErrorHandleAsync != null)
+                if (ErrorLogger != null)
                 {
-                    builder.AddAttribute(index++, nameof(BootstrapBlazor.Components.ErrorLogger.OnErrorHandleAsync), Layout.OnErrorHandleAsync);
+                    // 未使用 Layout 组件
+                    builder.OpenComponent<CascadingValue<ErrorLogger>>(index++);
+                    builder.AddAttribute(index++, nameof(CascadingValue<ErrorLogger>.Value), ErrorLogger);
+                    builder.AddAttribute(index++, nameof(CascadingValue<ErrorLogger>.IsFixed), true);
+                    builder.AddAttribute(index++, nameof(CascadingValue<ErrorLogger>.ChildContent), content);
+                    builder.CloseComponent();
                 }
-                builder.AddAttribute(index++, nameof(BootstrapBlazor.Components.ErrorLogger.ChildContent), content);
-                builder.CloseComponent();
+                else
+                {
+                    // 使用 Layout 组件
+                    if (Layout != null && Layout.IsErrorHandler)
+                    {
+                        builder.OpenComponent<ErrorLogger>(index++);
+                        if (Layout.OnErrorHandleAsync != null)
+                        {
+                            builder.AddAttribute(index++, nameof(Components.ErrorLogger.OnErrorHandleAsync), Layout.OnErrorHandleAsync);
+                        }
+                        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ChildContent), content);
+                        builder.CloseComponent();
+                    }
+                }
             }
             : content;
     }
