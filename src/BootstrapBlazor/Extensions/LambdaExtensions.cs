@@ -153,6 +153,10 @@ namespace System.Linq
                     {
                         eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
                     }
+                    else if (prop.PropertyType.IsEnum)
+                    {
+                        eq = Expression.Call(fieldExpression, prop.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
+                    }
                     eq = filter.GetExpression(eq);
                     ret = Expression.Lambda<Func<TItem, bool>>(eq, p);
                 }
