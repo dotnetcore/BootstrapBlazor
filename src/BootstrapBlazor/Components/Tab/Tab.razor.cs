@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -201,10 +202,22 @@ namespace BootstrapBlazor.Components
         public Dictionary<string, string>? TabItemTextDictionary { get; set; }
 
         /// <summary>
-        /// 获得/设置 父级容器 Layout 实例
+        /// 获得/设置 自定义错误处理回调方法
         /// </summary>
-        [CascadingParameter]
-        private Layout? Layout { get; set; }
+        [Parameter]
+        public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
+
+        /// <summary>
+        /// 获得/设置 是否显示 Error 提示弹窗 默认 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowToast { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 Error Toast 弹窗标题
+        /// </summary>
+        [Parameter]
+        public string? ToastTitle { get; set; }
 
         [Inject]
         [NotNull]
@@ -663,36 +676,17 @@ namespace BootstrapBlazor.Components
             }
         }
 
-        private bool IsErrorHandle => (Layout != null && Layout.IsErrorHandler) || ErrorLogger != null;
-
-        private RenderFragment? RenderTabItemContent(RenderFragment? content) => IsErrorHandle
+        private RenderFragment? RenderTabItemContent(RenderFragment? content) => ErrorLogger != null
             ? builder =>
             {
                 var index = 0;
-                if (ErrorLogger != null)
-                {
-                    // 未使用 Layout 组件
-                    builder.OpenComponent<CascadingValue<ErrorLogger>>(index++);
-                    builder.AddAttribute(index++, nameof(CascadingValue<ErrorLogger>.Value), ErrorLogger);
-                    builder.AddAttribute(index++, nameof(CascadingValue<ErrorLogger>.IsFixed), true);
-                    builder.AddAttribute(index++, nameof(CascadingValue<ErrorLogger>.ChildContent), content);
-                    builder.CloseComponent();
-                }
-                else
-                {
-                    // 使用 Layout 组件
-                    if (Layout != null && Layout.IsErrorHandler)
-                    {
-                        builder.OpenComponent<ErrorLogger>(index++);
-                        if (Layout.OnErrorHandleAsync != null)
-                        {
-                            builder.AddAttribute(index++, nameof(Components.ErrorLogger.OnErrorHandleAsync), Layout.OnErrorHandleAsync);
-                        }
-                        builder.AddAttribute(index++, nameof(Components.ErrorLogger.ChildContent), content);
-                        builder.CloseComponent();
-                    }
-                }
+                builder.OpenComponent<ErrorLogger>(index++);
+                builder.AddAttribute(index++, nameof(Components.ErrorLogger.ShowToast), ErrorLogger.ShowToast);
+                builder.AddAttribute(index++, nameof(Components.ErrorLogger.OnErrorHandleAsync), OnErrorHandleAsync);
+                builder.AddAttribute(index++, nameof(Components.ErrorLogger.ToastTitle), ErrorLogger.ToastTitle);
+                builder.AddAttribute(index++, nameof(Components.ErrorLogger.ChildContent), content);
+                builder.CloseComponent();
             }
-            : content;
+        : content;
     }
 }

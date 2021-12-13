@@ -113,6 +113,18 @@ namespace BootstrapBlazor.Components
         [Parameter]
         public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
+        /// <summary>
+        /// 获得/设置 是否显示 Error 提示弹窗 默认 true 显示
+        /// </summary>
+        [Parameter]
+        public bool ShowToast { get; set; } = true;
+
+        /// <summary>
+        /// 获得/设置 Error Toast 弹窗标题
+        /// </summary>
+        [Parameter]
+        public string? ToastTitle { get; set; }
+
         [Inject]
         [NotNull]
         private IStringLocalizer<Layout>? Localizer { get; set; }
