@@ -316,15 +316,10 @@ namespace BootstrapBlazor.Components
 
             IsShowLabel = showLabel ?? false;
 
-            // 内置到验证组件时才使用绑定属性值获取 DisplayName
+            // 绑定属性值获取 DisplayName
             if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
             {
                 DisplayText = FieldIdentifier.Value.GetDisplayName();
-            }
-
-            if (IsShowLabel && string.IsNullOrEmpty(DisplayText))
-            {
-                DisplayText = "　";
             }
 
             Required = (IsNeedValidate && !string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && IsRequired()) ? "true" : null;

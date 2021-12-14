@@ -18,6 +18,8 @@ namespace BootstrapBlazor.Shared.Components
 
         public string Icon { get; set; } = "fa fa-fa";
 
+        public bool IsActive { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -55,7 +57,7 @@ namespace BootstrapBlazor.Shared.Components
         {
             var subData = foos.Where(i => i.ParentCode == parentCode);
 
-            return subData.Select(i => new TreeItem() { Text = i.Text, Items = GetSubItems(i.Code, foos) }).ToList();
+            return subData.Select(i => new TreeItem() { Text = i.Text, IsActive = i.IsActive, Items = GetSubItems(i.Code, foos) }).ToList();
         }
     }
 }

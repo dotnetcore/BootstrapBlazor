@@ -64,6 +64,11 @@ namespace BootstrapBlazor.Components
         public bool IsExpanded { get; set; }
 
         /// <summary>
+        /// 获得/设置 是否选中当前节点
+        /// </summary>
+        public bool IsActive { get; set; }
+
+        /// <summary>
         /// 获取/设置 是否有子节点 默认 false 
         /// </summary>
         public bool HasChildNode { get; set; }

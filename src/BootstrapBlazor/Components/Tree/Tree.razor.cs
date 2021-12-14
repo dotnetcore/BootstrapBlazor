@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -146,7 +146,17 @@ namespace BootstrapBlazor.Components
             // 通过 Items 构造层次结构
             if (_itemsChanged)
             {
-                Items?.CascadingTree();
+                ActiveItem = Items?.CascadingTree();
+
+                if (ActiveItem != null)
+                {
+                    var item = ActiveItem;
+                    while (item.Parent != null)
+                    {
+                        item.Parent.IsExpanded = true;
+                        item = item.Parent;
+                    }
+                }
             }
         }
 
